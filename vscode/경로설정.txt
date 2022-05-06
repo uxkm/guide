@@ -1,0 +1,29 @@
+휴대용 모드로 마이그레이션 #
+기존 설치를 휴대용 모드로 마이그레이션할 수도 있습니다.
+
+플랫폼에 대한 VS Code ZIP 배포판을 다운로드 하십시오.
+위와 같이 data또는 code-portable-data폴더를 만듭니다 .
+사용자 데이터 디렉토리 Code를 복사 data하고 다음으로 이름을 바꿉니다 user-data.
+창 %APPDATA%\Code
+맥 OS $HOME/Library/Application Support/Code
+리눅스 $HOME/.config/Code
+
+확장 디렉토리를 data다음으로 복사하십시오 .
+창 %USERPROFILE%\.vscode\extensions
+맥 OS ~/.vscode/extensions
+리눅스 ~/.vscode/extensions
+Windows 에서 원하는 결과는 다음과 같습니다 .
+
+|- VSCode-win32-x64-1.25.0-insider
+|   |- Code.exe (or code executable)
+|   |- data
+|   |   |- user-data
+|   |   |   |- ...
+|   |   |- extensions
+|   |   |   |- ...
+|   |- ...
+TMP 디렉토리 #
+기본적으로 기본 TMP디렉토리는 상태가 유지되지 않기 때문에 휴대용 모드에서도 여전히 시스템 디렉토리입니다. 
+이동식 디렉터리 내에 TMP 디렉터리도 포함 tmp하려면 data폴더 안에 빈 디렉터리를 만들 수 있습니다 . 
+오래 같이 tmp디렉토리가 존재, 그것은 TMP 데이터에 사용됩니다.
+

@@ -1,0 +1,88 @@
+{
+    "editor.formatOnType": true, //세미콜론( ; ) 사용 시 해당 라인 포맷 여부. 해당값 true로 설정 시 ; 을 입력하면 해당 라인이 파일에 설정된 포맷에 따라 가게됩니다. 
+    "editor.formatOnPaste": false, //붙여넣기 시 해당 텍스트 포맷 여부.  default 값이 true, 해당 값 true로 설정시 텍스트를 붙여넣기 했을 때 자동으로 텍스트의 포맷이 맞춰집니다.
+    "editor.linkedEditing": true,
+    "editor.minimap.enabled": false,
+    "editor.detectIndentation": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile",
+    // "prettier.printWidth": 800,
+    // "prettier.tabWidth" : 4,
+    "git.autofetch": true,
+    // "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "terminal.integrated.defaultProfile.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    
+    "[markdown]": {},
+    "files.associations": {
+        "*.tpl": "html",
+        "*.njk": "html",
+        "*.tag": "html",
+        "*.jsp": "html",
+        "*.java": "html",
+        "*.php": "html",
+        "*.asp": "html",
+    },
+    "sass.lint.enable": true,
+    "liveSassCompile.settings.excludeList": [
+        "**/node_modules/**",
+        ".vscode/**"
+    ],
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            // "savePath": "~/../css/"
+            // "savePath": "~/../../../dist/assets/css/"
+            "savePath": "~/../css/",
+        },
+        /* { 
+            "format": "expanded", 
+            "extensionName": ".css",
+            "savePath": "~/../../../../../../../../../../../../mes-html/css/"
+        }, */
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            // "savePath": "~/../css/" 
+            // "savePath": "~/../../../dist/assets/css/" 
+            "savePath": "~/../css/",
+        },
+        /* { 
+            "format": "compressed",
+            "extensionName": ".min.css",
+            "savePath": "~/../../../../../../../../../../../../mes-html/css/"
+        } */
+    ],
+    "liveSassCompile.settings.generateMap": false,
+    "liveSassCompile.settings.autoprefix": [
+        "> 1%",
+        "last 2 versions"
+    ],
+    "files.autoSave": "afterDelay",
+    "php.validate.executablePath": "",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "security.workspace.trust.untrustedFiles": "open",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"c:\\Users\\freeu\\.vscode\\extensions\\gabrielbb.vscode-lombok-1.0.1\\server\\lombok.jar\"",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "update.enableWindowsBackgroundUpdates": false,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "liveServer.settings.donotVerifyTags": true,
+    "redhat.telemetry.enabled": true,
+    "editor.formatOnSave": true,
+    // "liveSassCompile.settings.includeItems":[ 
+    //   "~/../scss/*.scss"
+    // ],
+    // "tabnine.experimentalAutoImports": true,
+    // "editor.minimap.enabled": false,
+    // "liveServer.settings.donotShowInfoMsg": true,
+    // "editor.tabSize": 2,
+    // "files.autoSave": "afterDelay",
+    // "editor.suggestSelection": "first",
+    // "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+}
