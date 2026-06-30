@@ -29,6 +29,12 @@ fi
 
 git checkout main
 
+# min 브랜치 잔여 개발 파일 제거
+DEV_ARTIFACTS=(node_modules pnpm-lock.yaml package.json gulpfile.js src scripts)
+for path in "${DEV_ARTIFACTS[@]}"; do
+  rm -rf "$path"
+done
+
 for path in "${DEPLOY_PATHS[@]}"; do
   rm -rf "$path"
   cp -R "$TEMP/$path" .
