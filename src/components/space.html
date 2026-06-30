@@ -1,0 +1,126 @@
+<!-- @meta
+title: Space | HTML Components
+activeNav: space
+pageTitle: Space
+-->
+<div class="page_intro">
+  <h1>Space</h1>
+  <p class="lead">자식 요소 사이 간격을 일관되게 맞추는 flex 기반 레이아웃 유틸리티입니다. gap·방향·정렬·줄바꿈을 클래스로 조합합니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>space는 가로 inline-flex이며 기본 간격은 --space-gap (md)입니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="space">
+      <div class="space_demo-box">항목 1</div>
+      <div class="space_demo-box">항목 2</div>
+      <div class="space_demo-box">항목 3</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="vertical-heading">
+  <div class="demo_section-header">
+    <h2 id="vertical-heading">세로</h2>
+    <p>space_vertical로 세로 방향 배치를 지정합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="space space_vertical">
+      <div class="space_demo-box">항목 1</div>
+      <div class="space_demo-box">항목 2</div>
+      <div class="space_demo-box">항목 3</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="gap-heading">
+  <div class="demo_section-header">
+    <h2 id="gap-heading">간격</h2>
+    <p>space_gap-xs · space_gap-sm · space_gap-lg · space_gap-xl로 gap 크기를 변경합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="space space_gap-xs">
+      <div class="space_demo-box">xs</div>
+      <div class="space_demo-box">xs</div>
+      <div class="space_demo-box">xs</div>
+    </div>
+    <div class="space space_gap-sm">
+      <div class="space_demo-box">sm</div>
+      <div class="space_demo-box">sm</div>
+      <div class="space_demo-box">sm</div>
+    </div>
+    <div class="space">
+      <div class="space_demo-box">md (기본)</div>
+      <div class="space_demo-box">md</div>
+      <div class="space_demo-box">md</div>
+    </div>
+    <div class="space space_gap-lg">
+      <div class="space_demo-box">lg</div>
+      <div class="space_demo-box">lg</div>
+      <div class="space_demo-box">lg</div>
+    </div>
+    <div class="space space_gap-xl">
+      <div class="space_demo-box">xl</div>
+      <div class="space_demo-box">xl</div>
+      <div class="space_demo-box">xl</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="wrap-heading">
+  <div class="demo_section-header">
+    <h2 id="wrap-heading">줄바꿈</h2>
+    <p>space_wrap과 space_block을 함께 사용하면 너비가 부족할 때 자식이 다음 줄로 넘어갑니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="space space_block space_wrap">
+      <div class="space_demo-box" style="min-width: 8rem;">항목 1</div>
+      <div class="space_demo-box" style="min-width: 8rem;">항목 2</div>
+      <div class="space_demo-box" style="min-width: 8rem;">항목 3</div>
+      <div class="space_demo-box" style="min-width: 8rem;">항목 4</div>
+      <div class="space_demo-box" style="min-width: 8rem;">항목 5</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="align-heading">
+  <div class="demo_section-header">
+    <h2 id="align-heading">정렬</h2>
+    <p>space_align-* · space_justify-*로 교차축·주축 정렬을 지정합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="space space_block space_align-center" style="min-height: 5rem; background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: var(--space-md);">
+      <div class="space_demo-box">align center</div>
+      <div class="space_demo-box" style="padding-block: var(--space-xl);">높이 다름</div>
+      <div class="space_demo-box">align center</div>
+    </div>
+    <div class="space space_block space_justify-between" style="background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: var(--space-md);">
+      <div class="space_demo-box">justify between</div>
+      <div class="space_demo-box">양 끝</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="combo-heading">
+  <div class="demo_section-header">
+    <h2 id="combo-heading">조합 예시</h2>
+    <p>버튼·구분선 등 실제 컴포넌트와 함께 사용하는 패턴입니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="space">
+      <button type="button" class="btn btn_outlined">취소</button>
+      <button type="button" class="btn btn_filled color_primary">저장</button>
+      <span class="divider divider_vertical" aria-hidden="true"></span>
+      <button type="button" class="btn btn_text">더보기</button>
+    </div>
+  </div>
+</section>

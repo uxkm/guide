@@ -1,0 +1,305 @@
+@use "variables" as *;
+
+// 문서 콘텐츠 영역 공통 스타일
+
+.page {
+  &_intro {
+    margin-bottom: $space-2xl;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: $space-sm;
+    }
+
+    .lead {
+      font-size: 1.0625rem;
+      color: var(--color-text-muted);
+      max-width: 42rem;
+    }
+  }
+}
+
+.section {
+  margin-bottom: $space-2xl;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: $space-md;
+    padding-bottom: $space-sm;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  > :where(p) {
+    color: var(--color-text-muted);
+    margin-bottom: $space-md;
+  }
+}
+
+.card {
+  &_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: $space-md;
+  }
+}
+
+.category {
+  &_card {
+    display: block;
+    padding: $space-lg;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-lg;
+    text-decoration: none;
+    transition:
+      border-color $transition-base,
+      transform $transition-base,
+      box-shadow $transition-base,
+      background-color $transition-base;
+
+    &:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    h3 {
+      font-size: var(--text-size-lg);
+      margin-bottom: $space-xs;
+      color: var(--color-accent-text-hover);
+    }
+
+    p {
+      font-size: var(--text-size-sm);
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    .count {
+      display: inline-block;
+      margin-top: $space-md;
+      font-size: var(--text-size-xs);
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+.component {
+  &_stub {
+    padding: $space-2xl;
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    border-radius: $radius-lg;
+
+    p {
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+  }
+}
+
+// 가이드 데모 — 레이아웃 유틸 시각화
+.container_demo-fill,
+.grid_demo-cell,
+.space_demo-box {
+  padding: $space-md;
+  background: var(--color-accent-muted);
+  border: 1px dashed var(--color-accent);
+  border-radius: $radius-sm;
+  text-align: center;
+  font-size: var(--text-size-sm);
+  color: var(--color-text-muted);
+}
+
+.container {
+  &_demo-fill {
+    padding: $space-lg;
+  }
+}
+
+// 컴포넌트 데모 페이지 공통 구조
+.demo {
+  &_section-header {
+    margin-bottom: $space-lg;
+
+    h2 {
+      margin-bottom: $space-xs;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    p {
+      margin: 0;
+      font-size: var(--text-size-base);
+      color: var(--color-text-muted);
+    }
+  }
+
+  &_section-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-md;
+    width: 100%;
+    padding: $space-xl;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-lg $radius-lg 0 0;
+    transition:
+      background-color $transition-base,
+      border-color $transition-base;
+
+    &-stack {
+      flex-direction: column;
+      align-items: stretch;
+      gap: $space-xl;
+    }
+
+    &-start {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &-code {
+      padding: 0;
+      align-items: stretch;
+      border-radius: $radius-lg;
+
+      .typo_pre {
+        width: 100%;
+        margin: 0;
+        border: none;
+        border-radius: inherit;
+        background: transparent;
+      }
+
+      pre {
+        width: 100%;
+        margin: 0;
+        overflow-x: auto;
+        white-space: pre;
+        tab-size: 2;
+        font-family: $font-family-mono;
+        font-size: var(--text-size-sm);
+        line-height: 1.7;
+        color: var(--color-text-muted);
+      }
+
+      code {
+        font-family: inherit;
+        white-space: inherit;
+      }
+    }
+  }
+
+  &_preview-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-sm;
+    width: 100%;
+  }
+
+  &_section-code {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-radius: 0 0 $radius-lg $radius-lg;
+    overflow: hidden;
+    transition: border-color $transition-base;
+  }
+
+  &_section-code-panel {
+    pre {
+      margin: 0;
+      padding: $space-lg;
+      background: var(--color-surface-raised);
+      border: none;
+      border-top: 1px solid var(--color-border);
+      border-radius: 0;
+      font-size: var(--text-size-sm);
+      line-height: 1.7;
+      color: var(--color-text-muted);
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2;
+      transition:
+        background-color $transition-base,
+        border-color $transition-base,
+        color $transition-base;
+    }
+
+    code {
+      font-family: $font-family-mono;
+    }
+  }
+
+  &_section.is-code-open {
+    .demo_section-preview {
+      border-radius: $radius-lg $radius-lg 0 0;
+    }
+  }
+
+  &_code-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-sm;
+    width: 100%;
+    padding: $space-sm $space-lg;
+    font-size: var(--text-size-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    background: var(--color-surface-raised);
+    border: none;
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      color $transition-fast;
+
+    &:hover {
+      color: var(--color-text);
+      background: var(--color-accent-muted);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: -2px;
+    }
+
+    &-icon {
+      flex-shrink: 0;
+      transition: transform $transition-fast;
+    }
+
+    &[aria-expanded="true"] .demo_code-toggle-icon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.code {
+  &_block {
+    padding: $space-lg;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-lg;
+    font-size: var(--text-size-sm);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    overflow-x: auto;
+    transition:
+      background-color $transition-base,
+      border-color $transition-base,
+      color $transition-base;
+
+    code {
+      font-family: $font-family-mono;
+    }
+  }
+}

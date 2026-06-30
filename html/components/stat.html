@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stat | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="stat">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Stat</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Stat</h1>
+          <p class="lead">핵심 수치와 지표를 강조하여 표시하는 통계 컴포넌트입니다. 대시보드·요약 카드·KPI 영역에 사용합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>stat_label · stat_value · stat_desc로 지표를 구성합니다. desc에는 공통 color_*로 증감 의미를 표현합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="stat">
+              <span class="stat_label">총 사용자</span>
+              <span class="stat_value">12,345</span>
+              <span class="stat_desc color_success">+12.5% 지난 달 대비</span>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;stat&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;총 사용자&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;12,345&lt;/span&gt;
+  &lt;span class=&quot;stat_desc color_success&quot;&gt;+12.5% 지난 달 대비&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="prefix-heading">
+          <div class="demo_section-header">
+            <h2 id="prefix-heading">접두 · 접미</h2>
+            <p>stat_prefix · stat_suffix · stat_value-row으로 통화·단위를 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="stat">
+              <span class="stat_label">총 매출</span>
+              <div class="stat_value-row">
+                <span class="stat_prefix">₩</span>
+                <span class="stat_value">4,280,000</span>
+              </div>
+              <span class="stat_desc color_success">+8.2%</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat_label">전환율</span>
+              <div class="stat_value-row">
+                <span class="stat_value">3.6</span>
+                <span class="stat_suffix">%</span>
+              </div>
+              <span class="stat_desc color_danger">-0.4%p</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat_label">평균 응답 시간</span>
+              <div class="stat_value-row">
+                <span class="stat_value">128</span>
+                <span class="stat_suffix">ms</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 총 매출 --&gt;
+
+&lt;div class=&quot;stat&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;총 매출&lt;/span&gt;
+  &lt;div class=&quot;stat_value-row&quot;&gt;
+    &lt;span class=&quot;stat_prefix&quot;&gt;₩&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;4,280,000&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;stat_desc color_success&quot;&gt;+8.2%&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 전환율 --&gt;
+
+&lt;div class=&quot;stat&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;전환율&lt;/span&gt;
+  &lt;div class=&quot;stat_value-row&quot;&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;3.6&lt;/span&gt;
+    &lt;span class=&quot;stat_suffix&quot;&gt;%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;stat_desc color_danger&quot;&gt;-0.4%p&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 평균 응답 시간 --&gt;
+
+&lt;div class=&quot;stat&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;평균 응답 시간&lt;/span&gt;
+  &lt;div class=&quot;stat_value-row&quot;&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;128&lt;/span&gt;
+    &lt;span class=&quot;stat_suffix&quot;&gt;ms&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="trend-heading">
+          <div class="demo_section-header">
+            <h2 id="trend-heading">추세</h2>
+            <p>stat_trend · stat_header로 증감 방향을 아이콘과 함께 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="stat stat_card stat_shadow">
+              <div class="stat_header">
+                <span class="stat_label">월간 매출</span>
+                <span class="stat_trend color_success">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="m18 15-6-6-6 6"/>
+                  </svg>
+                  +8.2%
+                </span>
+              </div>
+              <div class="stat_value-row">
+                <span class="stat_prefix">₩</span>
+                <span class="stat_value">4.2M</span>
+              </div>
+              <span class="stat_desc color_muted">전월 대비</span>
+            </div>
+
+            <div class="stat stat_card stat_shadow">
+              <div class="stat_header">
+                <span class="stat_label">이탈률</span>
+                <span class="stat_trend color_danger">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                  +0.3%p
+                </span>
+              </div>
+              <div class="stat_value-row">
+                <span class="stat_value">2.4</span>
+                <span class="stat_suffix">%</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 월간 매출 --&gt;
+
+&lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+  &lt;div class=&quot;stat_header&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;월간 매출&lt;/span&gt;
+    &lt;span class=&quot;stat_trend color_success&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;m18 15-6-6-6 6&quot;/&gt;
+      &lt;/svg&gt;
+      +8.2%
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat_value-row&quot;&gt;
+    &lt;span class=&quot;stat_prefix&quot;&gt;₩&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;4.2M&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;stat_desc color_muted&quot;&gt;전월 대비&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 이탈률 --&gt;
+
+&lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+  &lt;div class=&quot;stat_header&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;이탈률&lt;/span&gt;
+    &lt;span class=&quot;stat_trend color_danger&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;m6 9 6 6 6-6&quot;/&gt;
+      &lt;/svg&gt;
+      +0.3%p
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat_value-row&quot;&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;2.4&lt;/span&gt;
+    &lt;span class=&quot;stat_suffix&quot;&gt;%&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>stat_sm · stat_lg로 수치 스케일을 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="stat stat_sm stat_card">
+              <span class="stat_label">Small</span>
+              <span class="stat_value">1,024</span>
+            </div>
+            <div class="stat stat_card">
+              <span class="stat_label">Medium</span>
+              <span class="stat_value">8,192</span>
+            </div>
+            <div class="stat stat_lg stat_card">
+              <span class="stat_label">Large</span>
+              <span class="stat_value">64K</span>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Small --&gt;
+
+&lt;div class=&quot;stat stat_sm stat_card&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;Small&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;1,024&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Medium --&gt;
+
+&lt;div class=&quot;stat stat_card&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;Medium&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;8,192&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+
+&lt;div class=&quot;stat stat_lg stat_card&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;Large&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;64K&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="layout-heading">
+          <div class="demo_section-header">
+            <h2 id="layout-heading">레이아웃</h2>
+            <p>stat_horizontal · stat_inline · stat_row로 배치를 변경합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="stat stat_horizontal stat_card">
+              <span class="stat_label">활성 세션</span>
+              <span class="stat_value">342</span>
+            </div>
+
+            <div class="stat stat_inline stat_card">
+              <span class="stat_label">CPU 사용률</span>
+              <span class="stat_value">68</span>
+              <span class="stat_suffix">%</span>
+            </div>
+
+            <div class="stat stat_row stat_card stat_shadow">
+              <span class="stat_icon-wrap color_primary" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <div class="stat_body">
+                <span class="stat_label">팀 멤버</span>
+                <span class="stat_value">48</span>
+                <span class="stat_desc color_success">4명 신규 합류</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 활성 세션 --&gt;
+
+&lt;div class=&quot;stat stat_horizontal stat_card&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;활성 세션&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;342&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- CPU 사용률 --&gt;
+
+&lt;div class=&quot;stat stat_inline stat_card&quot;&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;CPU 사용률&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;68&lt;/span&gt;
+  &lt;span class=&quot;stat_suffix&quot;&gt;%&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 팀 멤버 --&gt;
+
+&lt;div class=&quot;stat stat_row stat_card stat_shadow&quot;&gt;
+  &lt;span class=&quot;stat_icon-wrap color_primary&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/&gt;
+      &lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+      &lt;path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  &lt;div class=&quot;stat_body&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;팀 멤버&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;48&lt;/span&gt;
+    &lt;span class=&quot;stat_desc color_success&quot;&gt;4명 신규 합류&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="icon-heading">
+          <div class="demo_section-header">
+            <h2 id="icon-heading">아이콘</h2>
+            <p>stat_icon · stat_icon-wrap으로 지표에 시각적 단서를 추가합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="stat stat_card">
+              <span class="stat_icon color_primary">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </span>
+              <span class="stat_label">다운로드</span>
+              <span class="stat_value">2,847</span>
+              <span class="stat_desc color_success">+24%</span>
+            </div>
+
+            <div class="stat stat_row stat_card">
+              <span class="stat_icon-wrap color_success" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+                </svg>
+              </span>
+              <div class="stat_body">
+                <span class="stat_label">완료율</span>
+                <div class="stat_value-row">
+                  <span class="stat_value">94</span>
+                  <span class="stat_suffix">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 다운로드 --&gt;
+
+&lt;div class=&quot;stat stat_card&quot;&gt;
+  &lt;span class=&quot;stat_icon color_primary&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+      &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  &lt;span class=&quot;stat_label&quot;&gt;다운로드&lt;/span&gt;
+  &lt;span class=&quot;stat_value&quot;&gt;2,847&lt;/span&gt;
+  &lt;span class=&quot;stat_desc color_success&quot;&gt;+24%&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 완료율 --&gt;
+
+&lt;div class=&quot;stat stat_row stat_card&quot;&gt;
+  &lt;span class=&quot;stat_icon-wrap color_success&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;
+      &lt;path d=&quot;M22 4 12 14.01l-3-3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  &lt;div class=&quot;stat_body&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;완료율&lt;/span&gt;
+    &lt;div class=&quot;stat_value-row&quot;&gt;
+      &lt;span class=&quot;stat_value&quot;&gt;94&lt;/span&gt;
+      &lt;span class=&quot;stat_suffix&quot;&gt;%&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="skin-heading">
+          <div class="demo_section-header">
+            <h2 id="skin-heading">스킨</h2>
+            <p>stat_card · stat_shadow · stat_borderless · stat_accent로 외형을 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="stat_group stat_group-2">
+              <div class="stat stat_card">
+                <span class="stat_label">기본 카드</span>
+                <span class="stat_value">1,200</span>
+              </div>
+              <div class="stat stat_card stat_shadow">
+                <span class="stat_label">Shadow</span>
+                <span class="stat_value">980</span>
+              </div>
+              <div class="stat stat_card stat_borderless">
+                <span class="stat_label">Borderless</span>
+                <span class="stat_value">456</span>
+              </div>
+              <div class="stat stat_card stat_accent color_primary">
+                <span class="stat_label">Accent</span>
+                <span class="stat_value">789</span>
+                <span class="stat_desc color_primary">강조 지표</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;stat_group stat_group-2&quot;&gt;
+  &lt;div class=&quot;stat stat_card&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;기본 카드&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;1,200&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;Shadow&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;980&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_borderless&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;Borderless&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;456&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_accent color_primary&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;Accent&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;789&lt;/span&gt;
+    &lt;span class=&quot;stat_desc color_primary&quot;&gt;강조 지표&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="group-heading">
+          <div class="demo_section-header">
+            <h2 id="group-heading">그룹</h2>
+            <p>stat_group으로 여러 지표를 그리드로 배치합니다. stat_group-2 · 3 · 4로 열 수를 지정합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="stat_group">
+              <div class="stat stat_card stat_shadow">
+                <span class="stat_label">총 매출</span>
+                <div class="stat_value-row">
+                  <span class="stat_prefix">₩</span>
+                  <span class="stat_value">4.2M</span>
+                </div>
+                <span class="stat_desc color_success">+8.2%</span>
+              </div>
+              <div class="stat stat_card stat_shadow">
+                <span class="stat_label">신규 가입</span>
+                <span class="stat_value">1,234</span>
+                <span class="stat_desc color_success">+15.3%</span>
+              </div>
+              <div class="stat stat_card stat_shadow">
+                <span class="stat_label">이탈률</span>
+                <div class="stat_value-row">
+                  <span class="stat_value">2.4</span>
+                  <span class="stat_suffix">%</span>
+                </div>
+                <span class="stat_desc color_danger">+0.3%p</span>
+              </div>
+              <div class="stat stat_card stat_shadow">
+                <span class="stat_label">활성 사용자</span>
+                <span class="stat_value">8,901</span>
+                <span class="stat_desc color_muted">변동 없음</span>
+              </div>
+            </div>
+
+            <div class="stat_group stat_group-4 stat_group-divider stat_card stat_shadow" style="padding: var(--space-lg);">
+              <div class="stat">
+                <span class="stat_label">방문</span>
+                <span class="stat_value">24.5K</span>
+              </div>
+              <div class="stat">
+                <span class="stat_label">페이지뷰</span>
+                <span class="stat_value">89.2K</span>
+              </div>
+              <div class="stat">
+                <span class="stat_label">전환</span>
+                <span class="stat_value">1,842</span>
+              </div>
+              <div class="stat">
+                <span class="stat_label">매출</span>
+                <span class="stat_value">₩12M</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 총 매출 --&gt;
+
+&lt;div class=&quot;stat_group&quot;&gt;
+  &lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;총 매출&lt;/span&gt;
+    &lt;div class=&quot;stat_value-row&quot;&gt;
+      &lt;span class=&quot;stat_prefix&quot;&gt;₩&lt;/span&gt;
+      &lt;span class=&quot;stat_value&quot;&gt;4.2M&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;span class=&quot;stat_desc color_success&quot;&gt;+8.2%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;신규 가입&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;1,234&lt;/span&gt;
+    &lt;span class=&quot;stat_desc color_success&quot;&gt;+15.3%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;이탈률&lt;/span&gt;
+    &lt;div class=&quot;stat_value-row&quot;&gt;
+      &lt;span class=&quot;stat_value&quot;&gt;2.4&lt;/span&gt;
+      &lt;span class=&quot;stat_suffix&quot;&gt;%&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;span class=&quot;stat_desc color_danger&quot;&gt;+0.3%p&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat stat_card stat_shadow&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;활성 사용자&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;8,901&lt;/span&gt;
+    &lt;span class=&quot;stat_desc color_muted&quot;&gt;변동 없음&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 방문 --&gt;
+
+&lt;div class=&quot;stat_group stat_group-4 stat_group-divider stat_card stat_shadow&quot; style=&quot;padding: var(--space-lg);&quot;&gt;
+  &lt;div class=&quot;stat&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;방문&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;24.5K&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;페이지뷰&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;89.2K&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;전환&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;1,842&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;stat&quot;&gt;
+    &lt;span class=&quot;stat_label&quot;&gt;매출&lt;/span&gt;
+    &lt;span class=&quot;stat_value&quot;&gt;₩12M&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="context-heading">
+          <div class="demo_section-header">
+            <h2 id="context-heading">카드 혼합</h2>
+            <p>card 본문 안에 stat_group을 배치하는 대시보드 패턴입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <article class="card card_shadow">
+              <div class="card_header">
+                <h3 class="card_title">이번 달 요약</h3>
+                <p class="card_subtitle">2024년 6월</p>
+              </div>
+              <div class="card_body">
+                <div class="stat_group stat_group-3">
+                  <div class="stat">
+                    <span class="stat_label">매출</span>
+                    <div class="stat_value-row">
+                      <span class="stat_prefix">₩</span>
+                      <span class="stat_value">12M</span>
+                    </div>
+                    <span class="stat_trend color_success">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="m18 15-6-6-6 6"/>
+                      </svg>
+                      +18%
+                    </span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat_label">주문</span>
+                    <span class="stat_value">3,456</span>
+                    <span class="stat_desc color_success">+9.1%</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat_label">환불</span>
+                    <span class="stat_value">42</span>
+                    <span class="stat_desc color_danger">+3건</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card_footer card_footer-between">
+                <span class="color_muted size_sm">실시간 갱신</span>
+                <a href="#" class="link color_primary size_sm">상세 보기</a>
+              </div>
+            </article>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;article class=&quot;card card_shadow&quot;&gt;
+  &lt;div class=&quot;card_header&quot;&gt;
+    &lt;h3 class=&quot;card_title&quot;&gt;이번 달 요약&lt;/h3&gt;
+    &lt;p class=&quot;card_subtitle&quot;&gt;2024년 6월&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card_body&quot;&gt;
+    &lt;div class=&quot;stat_group stat_group-3&quot;&gt;
+      &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat_label&quot;&gt;매출&lt;/span&gt;
+        &lt;div class=&quot;stat_value-row&quot;&gt;
+          &lt;span class=&quot;stat_prefix&quot;&gt;₩&lt;/span&gt;
+          &lt;span class=&quot;stat_value&quot;&gt;12M&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;span class=&quot;stat_trend color_success&quot;&gt;
+          &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;m18 15-6-6-6 6&quot;/&gt;
+          &lt;/svg&gt;
+          +18%
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat_label&quot;&gt;주문&lt;/span&gt;
+        &lt;span class=&quot;stat_value&quot;&gt;3,456&lt;/span&gt;
+        &lt;span class=&quot;stat_desc color_success&quot;&gt;+9.1%&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;stat&quot;&gt;
+        &lt;span class=&quot;stat_label&quot;&gt;환불&lt;/span&gt;
+        &lt;span class=&quot;stat_value&quot;&gt;42&lt;/span&gt;
+        &lt;span class=&quot;stat_desc color_danger&quot;&gt;+3건&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+    &lt;span class=&quot;color_muted size_sm&quot;&gt;실시간 갱신&lt;/span&gt;
+    &lt;a href=&quot;#&quot; class=&quot;link color_primary size_sm&quot;&gt;상세 보기&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

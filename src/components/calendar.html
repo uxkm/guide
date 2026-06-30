@@ -1,0 +1,1512 @@
+<!-- @meta
+title: Calendar | HTML Components
+activeNav: calendar
+pageTitle: Calendar
+-->
+<div class="page_intro">
+  <h1>Calendar</h1>
+  <p class="lead">날짜를 월·주 단위 그리드, 세로 일정 목록, iOS 스타일 휠(년·월·일)로 표시하는 캘린더 컴포넌트입니다. 다양한 레이아웃과 단일·범위 선택을 지원합니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>calendar_header · calendar_weekdays · calendar_grid로 월간 뷰를 구성합니다. is-today · is-selected · is-disabled · is-other-month로 날짜 상태를 표현합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar" role="application" aria-label="2024년 6월">
+      <div class="calendar_header">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_title">2024년 6월</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month is-weekend" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day is-weekend">1</button>
+        <button type="button" class="calendar_day is-weekend">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day is-weekend">8</button>
+        <button type="button" class="calendar_day is-weekend">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today" aria-current="date">15</button>
+        <button type="button" class="calendar_day">16</button>
+        <button type="button" class="calendar_day">17</button>
+        <button type="button" class="calendar_day is-selected" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day is-weekend">22</button>
+        <button type="button" class="calendar_day is-weekend">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day is-disabled" disabled>25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day">28</button>
+        <button type="button" class="calendar_day is-weekend">29</button>
+        <button type="button" class="calendar_day is-weekend">30</button>
+        <button type="button" class="calendar_day is-other-month is-weekend" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month is-weekend" disabled>6</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="no-header-heading">
+  <div class="demo_section-header">
+    <h2 id="no-header-heading">헤더 없음</h2>
+    <p>calendar_no-header로 월·요일 제목 없이 요일 행과 날짜 그리드만 표시합니다. 팝오버·사이드 패널 등 상위 UI에서 제목을 제공할 때 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar calendar_no-header" role="application" aria-label="2024년 6월">
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day">1</button>
+        <button type="button" class="calendar_day">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day">8</button>
+        <button type="button" class="calendar_day">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today" aria-current="date">15</button>
+        <button type="button" class="calendar_day">16</button>
+        <button type="button" class="calendar_day">17</button>
+        <button type="button" class="calendar_day is-selected" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day">22</button>
+        <button type="button" class="calendar_day">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day">25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day">28</button>
+        <button type="button" class="calendar_day">29</button>
+        <button type="button" class="calendar_day">30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month" disabled>6</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="minimal-heading">
+  <div class="demo_section-header">
+    <h2 id="minimal-heading">날짜만</h2>
+    <p>calendar_minimal로 헤더·요일 행 없이 날짜 그리드만 표시합니다. 인라인 날짜 선택·좁은 공간에 적합합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar calendar_minimal calendar_compact calendar_borderless" role="application" aria-label="2024년 6월 날짜만">
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day">1</button>
+        <button type="button" class="calendar_day">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day">8</button>
+        <button type="button" class="calendar_day">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today" aria-current="date">15</button>
+        <button type="button" class="calendar_day">16</button>
+        <button type="button" class="calendar_day">17</button>
+        <button type="button" class="calendar_day is-selected" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day">22</button>
+        <button type="button" class="calendar_day">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day">25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day">28</button>
+        <button type="button" class="calendar_day">29</button>
+        <button type="button" class="calendar_day">30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month" disabled>6</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="week-heading">
+  <div class="demo_section-header">
+    <h2 id="week-heading">주간</h2>
+    <p>calendar_week · calendar_nav으로 한 주만 표시하고 이전·다음 주 버튼으로 이동합니다. calendar_grid-week는 7열 단일 행 그리드입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="calendar calendar_week calendar_shadow" role="application" aria-label="2024년 6월 9일 ~ 15일">
+      <div class="calendar_nav">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_nav-label">6월 9일 ~ 15일</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid calendar_grid-week" role="grid">
+        <button type="button" class="calendar_day is-weekend">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day is-selected has-event" aria-selected="true">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today is-weekend" aria-current="date">15</button>
+      </div>
+    </div>
+
+    <div class="calendar calendar_week calendar_compact calendar_borderless" role="application" aria-label="2024년 6월 9일 ~ 15일 (컴팩트)">
+      <div class="calendar_nav">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_nav-label">6월 9일 ~ 15일</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="calendar_grid calendar_grid-week" role="grid">
+        <button type="button" class="calendar_day is-weekend">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day is-selected" aria-selected="true">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today is-weekend" aria-current="date">15</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="wheel-heading">
+  <div class="demo_section-header">
+    <h2 id="wheel-heading">휠 (iOS 스타일)</h2>
+    <p>calendar_wheel · calendar_wheel-step(이전/다음) · calendar_wheel-columns으로 년·월·일 휠 피커를 구성합니다. 필요한 열만 배치하면 열 수에 맞춰 가로 너비가 줄고 가운데 정렬됩니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="calendar calendar_wheel calendar_shadow" role="group" aria-label="날짜 휠 선택">
+      <div class="calendar_wheel-toolbar">
+        <button type="button" class="btn btn_text btn_sm"><span class="btn_label">취소</span></button>
+        <span class="calendar_wheel-title">날짜 선택</span>
+        <button type="button" class="btn btn_text color_primary btn_sm"><span class="btn_label">완료</span></button>
+      </div>
+
+      <div class="calendar_wheel-body">
+        <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+        <div class="calendar_wheel-columns">
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 년">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="년" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">2019년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2020년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2021년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2022년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2023년</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">2024년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2025년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2026년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2027년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2028년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2029년</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 년">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 월">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="월" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">1월</button></li>
+              <li><button type="button" class="calendar_wheel-item">2월</button></li>
+              <li><button type="button" class="calendar_wheel-item">3월</button></li>
+              <li><button type="button" class="calendar_wheel-item">4월</button></li>
+              <li><button type="button" class="calendar_wheel-item">5월</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">6월</button></li>
+              <li><button type="button" class="calendar_wheel-item">7월</button></li>
+              <li><button type="button" class="calendar_wheel-item">8월</button></li>
+              <li><button type="button" class="calendar_wheel-item">9월</button></li>
+              <li><button type="button" class="calendar_wheel-item">10월</button></li>
+              <li><button type="button" class="calendar_wheel-item">11월</button></li>
+              <li><button type="button" class="calendar_wheel-item">12월</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 월">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 일">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="일" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">1일</button></li>
+              <li><button type="button" class="calendar_wheel-item">2일</button></li>
+              <li><button type="button" class="calendar_wheel-item">3일</button></li>
+              <li><button type="button" class="calendar_wheel-item">4일</button></li>
+              <li><button type="button" class="calendar_wheel-item">5일</button></li>
+              <li><button type="button" class="calendar_wheel-item">6일</button></li>
+              <li><button type="button" class="calendar_wheel-item">7일</button></li>
+              <li><button type="button" class="calendar_wheel-item">8일</button></li>
+              <li><button type="button" class="calendar_wheel-item">9일</button></li>
+              <li><button type="button" class="calendar_wheel-item">10일</button></li>
+              <li><button type="button" class="calendar_wheel-item">11일</button></li>
+              <li><button type="button" class="calendar_wheel-item">12일</button></li>
+              <li><button type="button" class="calendar_wheel-item">13일</button></li>
+              <li><button type="button" class="calendar_wheel-item">14일</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">15일</button></li>
+              <li><button type="button" class="calendar_wheel-item">16일</button></li>
+              <li><button type="button" class="calendar_wheel-item">17일</button></li>
+              <li><button type="button" class="calendar_wheel-item">18일</button></li>
+              <li><button type="button" class="calendar_wheel-item">19일</button></li>
+              <li><button type="button" class="calendar_wheel-item">20일</button></li>
+              <li><button type="button" class="calendar_wheel-item">21일</button></li>
+              <li><button type="button" class="calendar_wheel-item">22일</button></li>
+              <li><button type="button" class="calendar_wheel-item">23일</button></li>
+              <li><button type="button" class="calendar_wheel-item">24일</button></li>
+              <li><button type="button" class="calendar_wheel-item">25일</button></li>
+              <li><button type="button" class="calendar_wheel-item">26일</button></li>
+              <li><button type="button" class="calendar_wheel-item">27일</button></li>
+              <li><button type="button" class="calendar_wheel-item">28일</button></li>
+              <li><button type="button" class="calendar_wheel-item">29일</button></li>
+              <li><button type="button" class="calendar_wheel-item">30일</button></li>
+              <li><button type="button" class="calendar_wheel-item">31일</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 일">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="calendar_wheel-fade" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="calendar calendar_wheel calendar_borderless" role="group" aria-label="날짜 휠 선택 (하단 버튼)">
+      <div class="calendar_wheel-body">
+        <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+        <div class="calendar_wheel-columns">
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 년">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="년" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">2019년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2020년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2021년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2022년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2023년</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">2024년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2025년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2026년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2027년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2028년</button></li>
+              <li><button type="button" class="calendar_wheel-item">2029년</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 년">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 월">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="월" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">1월</button></li>
+              <li><button type="button" class="calendar_wheel-item">2월</button></li>
+              <li><button type="button" class="calendar_wheel-item">3월</button></li>
+              <li><button type="button" class="calendar_wheel-item">4월</button></li>
+              <li><button type="button" class="calendar_wheel-item">5월</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">6월</button></li>
+              <li><button type="button" class="calendar_wheel-item">7월</button></li>
+              <li><button type="button" class="calendar_wheel-item">8월</button></li>
+              <li><button type="button" class="calendar_wheel-item">9월</button></li>
+              <li><button type="button" class="calendar_wheel-item">10월</button></li>
+              <li><button type="button" class="calendar_wheel-item">11월</button></li>
+              <li><button type="button" class="calendar_wheel-item">12월</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 월">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+          <div class="calendar_wheel-column">
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 일">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <ul class="calendar_wheel-list" role="listbox" aria-label="일" data-wheel>
+              <li><button type="button" class="calendar_wheel-item">1일</button></li>
+              <li><button type="button" class="calendar_wheel-item">2일</button></li>
+              <li><button type="button" class="calendar_wheel-item">3일</button></li>
+              <li><button type="button" class="calendar_wheel-item">4일</button></li>
+              <li><button type="button" class="calendar_wheel-item">5일</button></li>
+              <li><button type="button" class="calendar_wheel-item">6일</button></li>
+              <li><button type="button" class="calendar_wheel-item">7일</button></li>
+              <li><button type="button" class="calendar_wheel-item">8일</button></li>
+              <li><button type="button" class="calendar_wheel-item">9일</button></li>
+              <li><button type="button" class="calendar_wheel-item">10일</button></li>
+              <li><button type="button" class="calendar_wheel-item">11일</button></li>
+              <li><button type="button" class="calendar_wheel-item">12일</button></li>
+              <li><button type="button" class="calendar_wheel-item">13일</button></li>
+              <li><button type="button" class="calendar_wheel-item">14일</button></li>
+              <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">15일</button></li>
+              <li><button type="button" class="calendar_wheel-item">16일</button></li>
+              <li><button type="button" class="calendar_wheel-item">17일</button></li>
+              <li><button type="button" class="calendar_wheel-item">18일</button></li>
+              <li><button type="button" class="calendar_wheel-item">19일</button></li>
+              <li><button type="button" class="calendar_wheel-item">20일</button></li>
+              <li><button type="button" class="calendar_wheel-item">21일</button></li>
+              <li><button type="button" class="calendar_wheel-item">22일</button></li>
+              <li><button type="button" class="calendar_wheel-item">23일</button></li>
+              <li><button type="button" class="calendar_wheel-item">24일</button></li>
+              <li><button type="button" class="calendar_wheel-item">25일</button></li>
+              <li><button type="button" class="calendar_wheel-item">26일</button></li>
+              <li><button type="button" class="calendar_wheel-item">27일</button></li>
+              <li><button type="button" class="calendar_wheel-item">28일</button></li>
+              <li><button type="button" class="calendar_wheel-item">29일</button></li>
+              <li><button type="button" class="calendar_wheel-item">30일</button></li>
+              <li><button type="button" class="calendar_wheel-item">31일</button></li>
+            </ul>
+            <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 일">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="calendar_wheel-fade" aria-hidden="true"></div>
+      </div>
+
+      <div class="calendar_wheel-footer">
+        <button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">취소</span></button>
+        <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">확인</span></button>
+      </div>
+    </div>
+
+    <div class="calendar_group calendar_group-center">
+      <div class="calendar calendar_wheel calendar_shadow" role="group" aria-label="년도 선택">
+        <div class="calendar_wheel-toolbar">
+          <span class="calendar_wheel-title">년도</span>
+        </div>
+        <div class="calendar_wheel-body">
+          <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+          <div class="calendar_wheel-columns">
+            <div class="calendar_wheel-column">
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 년">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m18 15-6-6-6 6"/>
+                </svg>
+              </button>
+              <ul class="calendar_wheel-list" role="listbox" aria-label="년" data-wheel>
+                <li><button type="button" class="calendar_wheel-item">2019년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2020년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2021년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2022년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2023년</button></li>
+                <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">2024년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2025년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2026년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2027년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2028년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2029년</button></li>
+              </ul>
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 년">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar_wheel-fade" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="calendar calendar_wheel calendar_shadow" role="group" aria-label="년·월 선택">
+        <div class="calendar_wheel-toolbar">
+          <span class="calendar_wheel-title">년·월</span>
+        </div>
+        <div class="calendar_wheel-body">
+          <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+          <div class="calendar_wheel-columns">
+            <div class="calendar_wheel-column">
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 년">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m18 15-6-6-6 6"/>
+                </svg>
+              </button>
+              <ul class="calendar_wheel-list" role="listbox" aria-label="년" data-wheel>
+                <li><button type="button" class="calendar_wheel-item">2019년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2020년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2021년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2022년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2023년</button></li>
+                <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">2024년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2025년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2026년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2027년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2028년</button></li>
+                <li><button type="button" class="calendar_wheel-item">2029년</button></li>
+              </ul>
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 년">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar_wheel-column">
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 월">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m18 15-6-6-6 6"/>
+                </svg>
+              </button>
+              <ul class="calendar_wheel-list" role="listbox" aria-label="월" data-wheel>
+                <li><button type="button" class="calendar_wheel-item">1월</button></li>
+                <li><button type="button" class="calendar_wheel-item">2월</button></li>
+                <li><button type="button" class="calendar_wheel-item">3월</button></li>
+                <li><button type="button" class="calendar_wheel-item">4월</button></li>
+                <li><button type="button" class="calendar_wheel-item">5월</button></li>
+                <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">6월</button></li>
+                <li><button type="button" class="calendar_wheel-item">7월</button></li>
+                <li><button type="button" class="calendar_wheel-item">8월</button></li>
+                <li><button type="button" class="calendar_wheel-item">9월</button></li>
+                <li><button type="button" class="calendar_wheel-item">10월</button></li>
+                <li><button type="button" class="calendar_wheel-item">11월</button></li>
+                <li><button type="button" class="calendar_wheel-item">12월</button></li>
+              </ul>
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 월">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar_wheel-fade" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="calendar calendar_wheel calendar_shadow" role="group" aria-label="월·일 선택">
+        <div class="calendar_wheel-toolbar">
+          <span class="calendar_wheel-title">월·일</span>
+        </div>
+        <div class="calendar_wheel-body">
+          <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+          <div class="calendar_wheel-columns">
+            <div class="calendar_wheel-column">
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 월">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m18 15-6-6-6 6"/>
+                </svg>
+              </button>
+              <ul class="calendar_wheel-list" role="listbox" aria-label="월" data-wheel>
+                <li><button type="button" class="calendar_wheel-item">1월</button></li>
+                <li><button type="button" class="calendar_wheel-item">2월</button></li>
+                <li><button type="button" class="calendar_wheel-item">3월</button></li>
+                <li><button type="button" class="calendar_wheel-item">4월</button></li>
+                <li><button type="button" class="calendar_wheel-item">5월</button></li>
+                <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">6월</button></li>
+                <li><button type="button" class="calendar_wheel-item">7월</button></li>
+                <li><button type="button" class="calendar_wheel-item">8월</button></li>
+                <li><button type="button" class="calendar_wheel-item">9월</button></li>
+                <li><button type="button" class="calendar_wheel-item">10월</button></li>
+                <li><button type="button" class="calendar_wheel-item">11월</button></li>
+                <li><button type="button" class="calendar_wheel-item">12월</button></li>
+              </ul>
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 월">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar_wheel-column">
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-prev" aria-label="이전 일">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m18 15-6-6-6 6"/>
+                </svg>
+              </button>
+              <ul class="calendar_wheel-list" role="listbox" aria-label="일" data-wheel>
+                <li><button type="button" class="calendar_wheel-item">1일</button></li>
+                <li><button type="button" class="calendar_wheel-item">2일</button></li>
+                <li><button type="button" class="calendar_wheel-item">3일</button></li>
+                <li><button type="button" class="calendar_wheel-item">4일</button></li>
+                <li><button type="button" class="calendar_wheel-item">5일</button></li>
+                <li><button type="button" class="calendar_wheel-item">6일</button></li>
+                <li><button type="button" class="calendar_wheel-item">7일</button></li>
+                <li><button type="button" class="calendar_wheel-item">8일</button></li>
+                <li><button type="button" class="calendar_wheel-item">9일</button></li>
+                <li><button type="button" class="calendar_wheel-item">10일</button></li>
+                <li><button type="button" class="calendar_wheel-item">11일</button></li>
+                <li><button type="button" class="calendar_wheel-item">12일</button></li>
+                <li><button type="button" class="calendar_wheel-item">13일</button></li>
+                <li><button type="button" class="calendar_wheel-item">14일</button></li>
+                <li><button type="button" class="calendar_wheel-item is-selected" aria-selected="true">15일</button></li>
+                <li><button type="button" class="calendar_wheel-item">16일</button></li>
+                <li><button type="button" class="calendar_wheel-item">17일</button></li>
+                <li><button type="button" class="calendar_wheel-item">18일</button></li>
+                <li><button type="button" class="calendar_wheel-item">19일</button></li>
+                <li><button type="button" class="calendar_wheel-item">20일</button></li>
+                <li><button type="button" class="calendar_wheel-item">21일</button></li>
+                <li><button type="button" class="calendar_wheel-item">22일</button></li>
+                <li><button type="button" class="calendar_wheel-item">23일</button></li>
+                <li><button type="button" class="calendar_wheel-item">24일</button></li>
+                <li><button type="button" class="calendar_wheel-item">25일</button></li>
+                <li><button type="button" class="calendar_wheel-item">26일</button></li>
+                <li><button type="button" class="calendar_wheel-item">27일</button></li>
+                <li><button type="button" class="calendar_wheel-item">28일</button></li>
+                <li><button type="button" class="calendar_wheel-item">29일</button></li>
+                <li><button type="button" class="calendar_wheel-item">30일</button></li>
+                <li><button type="button" class="calendar_wheel-item">31일</button></li>
+              </ul>
+              <button type="button" class="calendar_wheel-step calendar_wheel-step-next" aria-label="다음 일">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar_wheel-fade" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="range-heading">
+  <div class="demo_section-header">
+    <h2 id="range-heading">범위 선택</h2>
+    <p>is-range-start · is-in-range · is-range-end로 기간 선택을 표현합니다. 시작·종료일은 is-selected와 함께 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar" role="application" aria-label="2024년 6월 범위 선택">
+      <div class="calendar_header">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_title">2024년 6월</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day">1</button>
+        <button type="button" class="calendar_day">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day">8</button>
+        <button type="button" class="calendar_day">9</button>
+        <button type="button" class="calendar_day is-selected is-range-start" aria-selected="true">10</button>
+        <button type="button" class="calendar_day is-in-range">11</button>
+        <button type="button" class="calendar_day is-in-range">12</button>
+        <button type="button" class="calendar_day is-in-range">13</button>
+        <button type="button" class="calendar_day is-in-range">14</button>
+        <button type="button" class="calendar_day is-in-range is-today" aria-current="date">15</button>
+        <button type="button" class="calendar_day is-in-range">16</button>
+        <button type="button" class="calendar_day is-in-range">17</button>
+        <button type="button" class="calendar_day is-selected is-range-end" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day">22</button>
+        <button type="button" class="calendar_day">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day">25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day">28</button>
+        <button type="button" class="calendar_day">29</button>
+        <button type="button" class="calendar_day">30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month" disabled>6</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="event-heading">
+  <div class="demo_section-header">
+    <h2 id="event-heading">이벤트 마커</h2>
+    <p>has-event로 일정이 있는 날짜에 점 표시를 추가합니다. 선택·범위 상태와 함께 사용할 수 있습니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar calendar_weekends" role="application" aria-label="2024년 6월 이벤트">
+      <div class="calendar_header">
+        <span class="calendar_title">2024년 6월</span>
+      </div>
+
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day is-weekend">1</button>
+        <button type="button" class="calendar_day is-weekend">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day has-event">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day is-weekend">8</button>
+        <button type="button" class="calendar_day is-weekend">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day has-event">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today has-event" aria-current="date">15</button>
+        <button type="button" class="calendar_day">16</button>
+        <button type="button" class="calendar_day">17</button>
+        <button type="button" class="calendar_day is-selected has-event" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day has-event">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day is-weekend">22</button>
+        <button type="button" class="calendar_day is-weekend">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day">25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day has-event">28</button>
+        <button type="button" class="calendar_day is-weekend">29</button>
+        <button type="button" class="calendar_day is-weekend">30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month" disabled>6</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="skin-heading">
+  <div class="demo_section-header">
+    <h2 id="skin-heading">스킨</h2>
+    <p>calendar_borderless · calendar_ghost · calendar_shadow로 외형을 조절합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="calendar_group">
+      <div class="calendar calendar_borderless" role="application" aria-label="Borderless">
+        <div class="calendar_header">
+          <span class="calendar_title">Borderless</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day">7</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">8</button>
+          <button type="button" class="calendar_day">9</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+
+      <div class="calendar calendar_ghost" role="application" aria-label="Ghost">
+        <div class="calendar_header">
+          <span class="calendar_title">Ghost</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day">7</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">8</button>
+          <button type="button" class="calendar_day">9</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+
+      <div class="calendar calendar_shadow" role="application" aria-label="Shadow">
+        <div class="calendar_header">
+          <span class="calendar_title">Shadow</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day">7</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">8</button>
+          <button type="button" class="calendar_day">9</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="size-heading">
+  <div class="demo_section-header">
+    <h2 id="size-heading">크기</h2>
+    <p>calendar_sm · calendar_compact · calendar_lg로 셀 크기와 패딩을 조절합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="calendar_group">
+      <div class="calendar calendar_sm" role="application" aria-label="Small">
+        <div class="calendar_header">
+          <span class="calendar_title">Small</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">7</button>
+          <button type="button" class="calendar_day">8</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">9</button>
+          <button type="button" class="calendar_day">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+
+      <div class="calendar calendar_compact" role="application" aria-label="Compact">
+        <div class="calendar_header">
+          <span class="calendar_title">Compact</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">7</button>
+          <button type="button" class="calendar_day">8</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">9</button>
+          <button type="button" class="calendar_day">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+
+      <div class="calendar calendar_lg" role="application" aria-label="Large">
+        <div class="calendar_header">
+          <span class="calendar_title">Large</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day is-today" aria-current="date">7</button>
+          <button type="button" class="calendar_day">8</button>
+          <button type="button" class="calendar_day is-selected" aria-selected="true">9</button>
+          <button type="button" class="calendar_day">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="footer-heading">
+  <div class="demo_section-header">
+    <h2 id="footer-heading">푸터</h2>
+    <p>calendar_footer로 오늘 이동·초기화·확인 등 하단 액션을 배치합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar calendar_shadow" role="application" aria-label="2024년 6월 푸터 포함">
+      <div class="calendar_header">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_title">2024년 6월</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 달">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day is-other-month" disabled>26</button>
+        <button type="button" class="calendar_day is-other-month" disabled>27</button>
+        <button type="button" class="calendar_day is-other-month" disabled>28</button>
+        <button type="button" class="calendar_day is-other-month" disabled>29</button>
+        <button type="button" class="calendar_day is-other-month" disabled>30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>31</button>
+        <button type="button" class="calendar_day">1</button>
+        <button type="button" class="calendar_day">2</button>
+        <button type="button" class="calendar_day">3</button>
+        <button type="button" class="calendar_day">4</button>
+        <button type="button" class="calendar_day">5</button>
+        <button type="button" class="calendar_day">6</button>
+        <button type="button" class="calendar_day">7</button>
+        <button type="button" class="calendar_day">8</button>
+        <button type="button" class="calendar_day">9</button>
+        <button type="button" class="calendar_day">10</button>
+        <button type="button" class="calendar_day">11</button>
+        <button type="button" class="calendar_day">12</button>
+        <button type="button" class="calendar_day">13</button>
+        <button type="button" class="calendar_day">14</button>
+        <button type="button" class="calendar_day is-today" aria-current="date">15</button>
+        <button type="button" class="calendar_day">16</button>
+        <button type="button" class="calendar_day">17</button>
+        <button type="button" class="calendar_day is-selected" aria-selected="true">18</button>
+        <button type="button" class="calendar_day">19</button>
+        <button type="button" class="calendar_day">20</button>
+        <button type="button" class="calendar_day">21</button>
+        <button type="button" class="calendar_day">22</button>
+        <button type="button" class="calendar_day">23</button>
+        <button type="button" class="calendar_day">24</button>
+        <button type="button" class="calendar_day">25</button>
+        <button type="button" class="calendar_day">26</button>
+        <button type="button" class="calendar_day">27</button>
+        <button type="button" class="calendar_day">28</button>
+        <button type="button" class="calendar_day">29</button>
+        <button type="button" class="calendar_day">30</button>
+        <button type="button" class="calendar_day is-other-month" disabled>1</button>
+        <button type="button" class="calendar_day is-other-month" disabled>2</button>
+        <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        <button type="button" class="calendar_day is-other-month" disabled>4</button>
+        <button type="button" class="calendar_day is-other-month" disabled>5</button>
+        <button type="button" class="calendar_day is-other-month" disabled>6</button>
+      </div>
+
+      <div class="calendar_footer">
+        <button type="button" class="btn btn_text color_primary btn_sm"><span class="btn_label">오늘</span></button>
+        <div class="calendar_footer-actions">
+          <button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">초기화</span></button>
+          <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">확인</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="dual-heading">
+  <div class="demo_section-header">
+    <h2 id="dual-heading">이중 패널</h2>
+    <p>calendar_group으로 두 달을 나란히 배치합니다. 기간 선택·예약 UI에 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="calendar_group">
+      <div class="calendar calendar_compact calendar_shadow" role="application" aria-label="2024년 6월">
+        <div class="calendar_header">
+          <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 달">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <span class="calendar_title">2024년 6월</span>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day is-other-month" disabled>26</button>
+          <button type="button" class="calendar_day is-other-month" disabled>27</button>
+          <button type="button" class="calendar_day is-other-month" disabled>28</button>
+          <button type="button" class="calendar_day is-other-month" disabled>29</button>
+          <button type="button" class="calendar_day is-other-month" disabled>30</button>
+          <button type="button" class="calendar_day is-other-month" disabled>31</button>
+          <button type="button" class="calendar_day">1</button>
+          <button type="button" class="calendar_day">2</button>
+          <button type="button" class="calendar_day">3</button>
+          <button type="button" class="calendar_day">4</button>
+          <button type="button" class="calendar_day">5</button>
+          <button type="button" class="calendar_day">6</button>
+          <button type="button" class="calendar_day">7</button>
+          <button type="button" class="calendar_day">8</button>
+          <button type="button" class="calendar_day">9</button>
+          <button type="button" class="calendar_day is-selected is-range-start" aria-selected="true">10</button>
+          <button type="button" class="calendar_day is-in-range">11</button>
+          <button type="button" class="calendar_day is-in-range">12</button>
+          <button type="button" class="calendar_day is-in-range">13</button>
+          <button type="button" class="calendar_day is-in-range">14</button>
+          <button type="button" class="calendar_day is-in-range is-today" aria-current="date">15</button>
+          <button type="button" class="calendar_day is-in-range">16</button>
+          <button type="button" class="calendar_day is-in-range">17</button>
+          <button type="button" class="calendar_day is-in-range">18</button>
+          <button type="button" class="calendar_day is-in-range">19</button>
+          <button type="button" class="calendar_day is-in-range">20</button>
+          <button type="button" class="calendar_day is-in-range">21</button>
+          <button type="button" class="calendar_day is-in-range">22</button>
+          <button type="button" class="calendar_day is-in-range">23</button>
+          <button type="button" class="calendar_day is-in-range">24</button>
+          <button type="button" class="calendar_day is-in-range">25</button>
+          <button type="button" class="calendar_day is-in-range">26</button>
+          <button type="button" class="calendar_day is-in-range">27</button>
+          <button type="button" class="calendar_day is-in-range">28</button>
+          <button type="button" class="calendar_day is-in-range">29</button>
+          <button type="button" class="calendar_day is-in-range">30</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>1</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>2</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>3</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>4</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>5</button>
+          <button type="button" class="calendar_day is-in-range is-other-month" disabled>6</button>
+        </div>
+      </div>
+
+      <div class="calendar calendar_compact calendar_shadow" role="application" aria-label="2024년 7월">
+        <div class="calendar_header">
+          <span class="calendar_title">2024년 7월</span>
+          <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 달">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+        <div class="calendar_weekdays" aria-hidden="true">
+          <span class="calendar_weekday">일</span>
+          <span class="calendar_weekday">월</span>
+          <span class="calendar_weekday">화</span>
+          <span class="calendar_weekday">수</span>
+          <span class="calendar_weekday">목</span>
+          <span class="calendar_weekday">금</span>
+          <span class="calendar_weekday">토</span>
+        </div>
+        <div class="calendar_grid" role="grid">
+          <button type="button" class="calendar_day is-in-range is-other-month">30</button>
+          <button type="button" class="calendar_day is-in-range">1</button>
+          <button type="button" class="calendar_day is-in-range">2</button>
+          <button type="button" class="calendar_day is-in-range">3</button>
+          <button type="button" class="calendar_day is-in-range">4</button>
+          <button type="button" class="calendar_day is-in-range">5</button>
+          <button type="button" class="calendar_day is-selected is-range-end" aria-selected="true">6</button>
+          <button type="button" class="calendar_day">7</button>
+          <button type="button" class="calendar_day">8</button>
+          <button type="button" class="calendar_day">9</button>
+          <button type="button" class="calendar_day">10</button>
+          <button type="button" class="calendar_day">11</button>
+          <button type="button" class="calendar_day">12</button>
+          <button type="button" class="calendar_day">13</button>
+          <button type="button" class="calendar_day">14</button>
+          <button type="button" class="calendar_day">15</button>
+          <button type="button" class="calendar_day">16</button>
+          <button type="button" class="calendar_day">17</button>
+          <button type="button" class="calendar_day">18</button>
+          <button type="button" class="calendar_day">19</button>
+          <button type="button" class="calendar_day">20</button>
+          <button type="button" class="calendar_day">21</button>
+          <button type="button" class="calendar_day">22</button>
+          <button type="button" class="calendar_day">23</button>
+          <button type="button" class="calendar_day">24</button>
+          <button type="button" class="calendar_day">25</button>
+          <button type="button" class="calendar_day">26</button>
+          <button type="button" class="calendar_day">27</button>
+          <button type="button" class="calendar_day">28</button>
+          <button type="button" class="calendar_day">29</button>
+          <button type="button" class="calendar_day">30</button>
+          <button type="button" class="calendar_day">31</button>
+          <button type="button" class="calendar_day is-other-month" disabled>1</button>
+          <button type="button" class="calendar_day is-other-month" disabled>2</button>
+          <button type="button" class="calendar_day is-other-month" disabled>3</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="agenda-heading">
+  <div class="demo_section-header">
+    <h2 id="agenda-heading">세로 일정</h2>
+    <p>calendar_agenda · calendar_agenda-list · calendar_agenda-day로 날짜별 일정을 세로로 표시합니다. calendar_agenda-event에 시간·제목·설명을 담습니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="calendar calendar_agenda calendar_shadow" role="feed" aria-label="2024년 6월 일정">
+      <div class="calendar_header">
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="이전 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <span class="calendar_title">6월 14일 ~ 20일</span>
+        <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="다음 주">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <ol class="calendar_agenda-list">
+        <li class="calendar_agenda-day">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">금</span>
+            <span class="calendar_agenda-daynum">14</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <ul class="calendar_agenda-events">
+              <li class="calendar_agenda-event color_primary">
+                <span class="calendar_agenda-event-time">14:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">디자인 리뷰</span>
+                  <span class="calendar_agenda-event-desc">컴포넌트 가이드 UI 시안 검토</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="calendar_agenda-day is-today" aria-current="date">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">토</span>
+            <span class="calendar_agenda-daynum">15</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <ul class="calendar_agenda-events">
+              <li class="calendar_agenda-event color_success">
+                <span class="calendar_agenda-event-time">09:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">팀 스탠드업</span>
+                  <span class="calendar_agenda-event-desc">주간 진행 상황 공유</span>
+                </div>
+              </li>
+              <li class="calendar_agenda-event color_warning">
+                <span class="calendar_agenda-event-time">15:30</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">QA 일정 점검</span>
+                  <span class="calendar_agenda-event-desc">캘린더 컴포넌트 데모 확인</span>
+                  <div class="calendar_agenda-event-meta">
+                    <span class="tag tag_sm color_warning">진행 중</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="calendar_agenda-day is-weekend is-empty">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">일</span>
+            <span class="calendar_agenda-daynum">16</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <p class="calendar_agenda-empty">일정 없음</p>
+          </div>
+        </li>
+
+        <li class="calendar_agenda-day is-selected" aria-selected="true">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">월</span>
+            <span class="calendar_agenda-daynum">17</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <ul class="calendar_agenda-events">
+              <li class="calendar_agenda-event color_primary">
+                <span class="calendar_agenda-event-time">10:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">기획 회의</span>
+                  <span class="calendar_agenda-event-desc">3분기 로드맵 논의</span>
+                </div>
+              </li>
+              <li class="calendar_agenda-event color_info">
+                <span class="calendar_agenda-event-time">13:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">점심 미팅</span>
+                  <span class="calendar_agenda-event-desc">파트너사 담당자</span>
+                </div>
+              </li>
+              <li class="calendar_agenda-event color_danger">
+                <span class="calendar_agenda-event-time">18:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">배포 마감</span>
+                  <span class="calendar_agenda-event-desc">v2.4.0 릴리스</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="calendar_agenda-day">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">화</span>
+            <span class="calendar_agenda-daynum">18</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <ul class="calendar_agenda-events">
+              <li class="calendar_agenda-event color_success">
+                <span class="calendar_agenda-event-time">종일</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">워크숍</span>
+                  <span class="calendar_agenda-event-desc">디자인 시스템 심화 과정</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="calendar calendar_agenda calendar_agenda_compact calendar_borderless" role="feed" aria-label="2024년 6월 15일 일정 (컴팩트)">
+      <div class="calendar_header">
+        <span class="calendar_title">6월 15일 (토)</span>
+      </div>
+
+      <ol class="calendar_agenda-list">
+        <li class="calendar_agenda-day is-today" aria-current="date">
+          <div class="calendar_agenda-date">
+            <span class="calendar_agenda-weekday">토</span>
+            <span class="calendar_agenda-daynum">15</span>
+          </div>
+          <div class="calendar_agenda-body">
+            <ul class="calendar_agenda-events">
+              <li class="calendar_agenda-event color_primary">
+                <span class="calendar_agenda-event-time">09:00</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">팀 스탠드업</span>
+                  <span class="calendar_agenda-event-desc">15분 · Zoom</span>
+                </div>
+              </li>
+              <li class="calendar_agenda-event color_warning">
+                <span class="calendar_agenda-event-time">15:30</span>
+                <div class="calendar_agenda-event-main">
+                  <span class="calendar_agenda-event-title">QA 점검</span>
+                  <span class="calendar_agenda-event-desc">회의실 B</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="state-heading">
+  <div class="demo_section-header">
+    <h2 id="state-heading">상태</h2>
+    <p>calendar_readonly는 날짜 선택을 막고, is-disabled는 캘린더 전체를 비활성화합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="calendar calendar_readonly" role="application" aria-label="읽기 전용 캘린더">
+      <div class="calendar_header">
+        <span class="calendar_title">읽기 전용</span>
+      </div>
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day" tabindex="-1">1</button>
+        <button type="button" class="calendar_day" tabindex="-1">2</button>
+        <button type="button" class="calendar_day" tabindex="-1">3</button>
+        <button type="button" class="calendar_day" tabindex="-1">4</button>
+        <button type="button" class="calendar_day" tabindex="-1">5</button>
+        <button type="button" class="calendar_day" tabindex="-1">6</button>
+        <button type="button" class="calendar_day is-today" tabindex="-1" aria-current="date">7</button>
+        <button type="button" class="calendar_day" tabindex="-1">8</button>
+        <button type="button" class="calendar_day is-selected" tabindex="-1" aria-selected="true">9</button>
+        <button type="button" class="calendar_day" tabindex="-1">10</button>
+        <button type="button" class="calendar_day" tabindex="-1">11</button>
+        <button type="button" class="calendar_day" tabindex="-1">12</button>
+        <button type="button" class="calendar_day" tabindex="-1">13</button>
+        <button type="button" class="calendar_day" tabindex="-1">14</button>
+      </div>
+    </div>
+
+    <div class="calendar is-disabled" role="application" aria-label="비활성 캘린더" aria-disabled="true">
+      <div class="calendar_header">
+        <span class="calendar_title">비활성</span>
+      </div>
+      <div class="calendar_weekdays" aria-hidden="true">
+        <span class="calendar_weekday">일</span>
+        <span class="calendar_weekday">월</span>
+        <span class="calendar_weekday">화</span>
+        <span class="calendar_weekday">수</span>
+        <span class="calendar_weekday">목</span>
+        <span class="calendar_weekday">금</span>
+        <span class="calendar_weekday">토</span>
+      </div>
+      <div class="calendar_grid" role="grid">
+        <button type="button" class="calendar_day" disabled>1</button>
+        <button type="button" class="calendar_day" disabled>2</button>
+        <button type="button" class="calendar_day" disabled>3</button>
+        <button type="button" class="calendar_day" disabled>4</button>
+        <button type="button" class="calendar_day" disabled>5</button>
+        <button type="button" class="calendar_day" disabled>6</button>
+        <button type="button" class="calendar_day is-today" disabled aria-current="date">7</button>
+        <button type="button" class="calendar_day" disabled>8</button>
+        <button type="button" class="calendar_day is-selected" disabled aria-selected="true">9</button>
+        <button type="button" class="calendar_day" disabled>10</button>
+        <button type="button" class="calendar_day" disabled>11</button>
+        <button type="button" class="calendar_day" disabled>12</button>
+        <button type="button" class="calendar_day" disabled>13</button>
+        <button type="button" class="calendar_day" disabled>14</button>
+      </div>
+    </div>
+  </div>
+</section>

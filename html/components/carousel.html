@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="carousel">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Carousel</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Carousel</h1>
+          <p class="lead"><a href="https://swiperjs.com/demos" class="link color_primary" target="_blank" rel="noopener noreferrer">Swiper</a> 라이브러리 기반 슬라이드 컴포넌트입니다. 표준 <code class="typo_code">swiper</code> · <code class="typo_code">swiper-wrapper</code> · <code class="typo_code">swiper-slide</code> 마크업을 사용하며, 슬라이드 콘텐츠는 <code class="typo_code">card</code> · <code class="typo_code">tag</code> · <code class="typo_code">btn</code> 등 기존 컴포넌트를 조합합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="default-heading">
+          <div class="demo_section-header">
+            <h2 id="default-heading">기본</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#default" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Default</a> 데모와 동일한 내비게이션·페이지네이션 구성입니다. 터치·스와이프·키보드·grab cursor를 기본 지원합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper role="region" aria-roledescription="carousel" aria-label="프로모션 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_borderless card_elevated">
+                      <div class="card_media card_media-placeholder" role="img" aria-label="신규 가입 혜택">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                          <path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/>
+                        </svg>
+                      </div>
+                      <div class="card_header">
+                        <div class="card_header-main">
+                          <div class="card_header-row">
+                            <h3 class="card_title">신규 가입 혜택</h3>
+                            <span class="tag tag_solid color_primary">이벤트</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card_body">지금 가입하면 첫 주문 20% 할인 쿠폰을 드립니다.</div>
+                      <div class="card_footer">
+                        <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">혜택 받기</span></button>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_borderless card_elevated">
+                      <div class="card_media card_media-placeholder" role="img" aria-label="무료 배송">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                          <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                        </svg>
+                      </div>
+                      <div class="card_header">
+                        <div class="card_header-main">
+                          <div class="card_header-row">
+                            <h3 class="card_title">무료 배송</h3>
+                            <span class="tag tag_solid color_success">혜택</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card_body">3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.</div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_borderless card_elevated">
+                      <div class="card_media card_media-placeholder" role="img" aria-label="시즌 세일">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                        </svg>
+                      </div>
+                      <div class="card_header">
+                        <div class="card_header-main">
+                          <div class="card_header-row">
+                            <h3 class="card_title">시즌 세일</h3>
+                            <span class="tag tag_solid color_warning">세일</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card_body">베스트셀러 상품 최대 50% 할인. 이번 주말까지 진행됩니다.</div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;프로모션 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+          &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;신규 가입 혜택&quot;&gt;
+            &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;path d=&quot;M20 12v10H4V12&quot;/&gt;
+              &lt;path d=&quot;M2 7h20v5H2z&quot;/&gt;
+              &lt;path d=&quot;M12 22V7&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;div class=&quot;card_header-main&quot;&gt;
+              &lt;div class=&quot;card_header-row&quot;&gt;
+                &lt;h3 class=&quot;card_title&quot;&gt;신규 가입 혜택&lt;/h3&gt;
+                &lt;span class=&quot;tag tag_solid color_primary&quot;&gt;이벤트&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;지금 가입하면 첫 주문 20% 할인 쿠폰을 드립니다.&lt;/div&gt;
+          &lt;div class=&quot;card_footer&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+              &lt;span class=&quot;btn_label&quot;&gt;혜택 받기&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+          &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;무료 배송&quot;&gt;
+            &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;rect x=&quot;1&quot; y=&quot;3&quot; width=&quot;15&quot; height=&quot;13&quot;/&gt;
+              &lt;polygon points=&quot;16 8 20 8 23 11 23 16 16 16 16 8&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;div class=&quot;card_header-main&quot;&gt;
+              &lt;div class=&quot;card_header-row&quot;&gt;
+                &lt;h3 class=&quot;card_title&quot;&gt;무료 배송&lt;/h3&gt;
+                &lt;span class=&quot;tag tag_solid color_success&quot;&gt;혜택&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.&lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+          &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;시즌 세일&quot;&gt;
+            &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;path d=&quot;M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;div class=&quot;card_header-main&quot;&gt;
+              &lt;div class=&quot;card_header-row&quot;&gt;
+                &lt;h3 class=&quot;card_title&quot;&gt;시즌 세일&lt;/h3&gt;
+                &lt;span class=&quot;tag tag_solid color_warning&quot;&gt;세일&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;베스트셀러 상품 최대 50% 할인. 이번 주말까지 진행됩니다.&lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="fade-heading">
+          <div class="demo_section-header">
+            <h2 id="fade-heading">페이드</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#effect-fade" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Effect fade</a> 데모입니다. <code class="typo_code">data-swiper-effect="fade"</code>로 페이드 전환을 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper data-swiper-effect="fade" role="region" aria-roledescription="carousel" aria-label="페이드 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_primary card_elevated">
+                      <div class="card_body">
+                        <p class="typo_overline">업데이트</p>
+                        <h3 class="card_title">디자인 시스템 v2</h3>
+                        <p class="typo_lead">새로운 토큰과 컴포넌트로 일관된 UI를 구축하세요.</p>
+                      </div>
+                      <div class="card_footer card_footer-between">
+                        <a href="#" class="link color_primary size_sm">자세히 보기</a>
+                        <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></button>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_info card_elevated">
+                      <div class="card_body">
+                        <p class="typo_overline">테마</p>
+                        <h3 class="card_title">다크 모드 지원</h3>
+                        <p class="typo_lead">라이트·다크 테마를 자동으로 전환합니다.</p>
+                      </div>
+                      <div class="card_footer">
+                        <button type="button" class="btn btn_outline color_primary btn_sm"><span class="btn_label">미리보기</span></button>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_success card_elevated">
+                      <div class="card_body">
+                        <p class="typo_overline">접근성</p>
+                        <h3 class="card_title">접근성 우선</h3>
+                        <p class="typo_lead">키보드·스와이프·ARIA 속성을 기본 제공합니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-effect=&quot;fade&quot; role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;페이드 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_primary card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;p class=&quot;typo_overline&quot;&gt;업데이트&lt;/p&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;디자인 시스템 v2&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;새로운 토큰과 컴포넌트로 일관된 UI를 구축하세요.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;link color_primary size_sm&quot;&gt;자세히 보기&lt;/a&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+              &lt;span class=&quot;btn_label&quot;&gt;시작하기&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_info card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;p class=&quot;typo_overline&quot;&gt;테마&lt;/p&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;다크 모드 지원&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;라이트·다크 테마를 자동으로 전환합니다.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_footer&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary btn_sm&quot;&gt;
+              &lt;span class=&quot;btn_label&quot;&gt;미리보기&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_success card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;p class=&quot;typo_overline&quot;&gt;접근성&lt;/p&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;접근성 우선&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;키보드·스와이프·ARIA 속성을 기본 제공합니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="autoplay-heading">
+          <div class="demo_section-header">
+            <h2 id="autoplay-heading">자동 재생</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#autoplay" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Autoplay</a> 데모입니다. 기본 <strong>슬라이드</strong> 전환과 <code class="typo_code">data-swiper-effect="fade"</code> <strong>페이드</strong> 전환을 모두 지원하며, <code class="typo_code">carousel_toggle</code>로 재생·정지를 제어합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-stack">
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">슬라이드</h3>
+              <p class="typo_caption">기본 슬라이드 전환. <code class="typo_code">data-swiper-effect</code>를 생략합니다.</p>
+              <div class="carousel carousel_demo carousel_dots-outside">
+                <div class="swiper" data-swiper data-swiper-autoplay data-swiper-delay="4000" data-swiper-loop role="region" aria-roledescription="carousel" aria-label="슬라이드 자동 재생">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">오늘의 추천</h3>
+                              <span class="badge color_primary badge_dot">HOT</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">인기 상품을 슬라이드 전환으로 자동 재생합니다.</div>
+                        <div class="card_footer">
+                          <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">보러 가기</span></button>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">타임 세일</h3>
+                              <span class="tag tag_sm color_warning">24h</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">한정 수량 특가. 슬라이드로 넘기며 확인하세요.</div>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">신규 입고</h3>
+                              <span class="tag tag_sm color_success">NEW</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">이번 주 새로 들어온 상품을 만나보세요.</div>
+                      </article>
+                    </div>
+                  </div>
+                  <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                  <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                  <div class="swiper-pagination"></div>
+                </div>
+                <button type="button" class="carousel_toggle" aria-label="슬라이드 정지" aria-pressed="true">
+                  <svg class="carousel_toggle-icon carousel_toggle-icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>
+                  </svg>
+                  <svg class="carousel_toggle-icon carousel_toggle-icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">페이드</h3>
+              <p class="typo_caption"><code class="typo_code">data-swiper-effect="fade"</code>로 페이드 전환을 적용합니다.</p>
+              <div class="carousel carousel_demo carousel_dots-outside">
+                <div class="swiper" data-swiper data-swiper-autoplay data-swiper-delay="4000" data-swiper-loop data-swiper-effect="fade" role="region" aria-roledescription="carousel" aria-label="페이드 자동 재생">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">봄맞이 컬렉션</h3>
+                              <span class="badge color_primary badge_dot">NEW</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">새 시즌 의류와 액세서리를 만나보세요.</div>
+                        <div class="card_footer">
+                          <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">컬렉션 보기</span></button>
+                        </div>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">라이브 쇼핑</h3>
+                              <span class="badge color_danger badge_dot">LIVE</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">매주 금요일 저녁 8시, 실시간 할인 혜택을 확인하세요.</div>
+                      </article>
+                    </div>
+                    <div class="swiper-slide">
+                      <article class="card card_borderless card_elevated">
+                        <div class="card_header">
+                          <div class="card_header-main">
+                            <div class="card_header-row">
+                              <h3 class="card_title">멤버십 혜택</h3>
+                              <span class="tag tag_sm color_primary">VIP</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card_body">등급별 적립·할인 혜택으로 더 많이 절약하세요.</div>
+                        <div class="card_footer">
+                          <a href="#" class="link color_primary size_sm">멤버십 안내</a>
+                        </div>
+                      </article>
+                    </div>
+                  </div>
+                  <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                  <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                  <div class="swiper-pagination"></div>
+                </div>
+                <button type="button" class="carousel_toggle" aria-label="슬라이드 정지" aria-pressed="true">
+                  <svg class="carousel_toggle-icon carousel_toggle-icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>
+                  </svg>
+                  <svg class="carousel_toggle-icon carousel_toggle-icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 오늘의 추천 --&gt;
+
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;슬라이드&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;기본 슬라이드 전환. &lt;code class=&quot;typo_code&quot;&gt;data-swiper-effect&lt;/code&gt;를 생략합니다.&lt;/p&gt;
+  &lt;div class=&quot;carousel carousel_demo carousel_dots-outside&quot;&gt;
+    &lt;div class=&quot;swiper&quot; data-swiper data-swiper-autoplay data-swiper-delay=&quot;4000&quot; data-swiper-loop role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;슬라이드 자동 재생&quot;&gt;
+      &lt;div class=&quot;swiper-wrapper&quot;&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;
+          &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+            &lt;div class=&quot;card_header&quot;&gt;
+              &lt;div class=&quot;card_header-main&quot;&gt;
+                &lt;div class=&quot;card_header-row&quot;&gt;
+                  &lt;h3 class=&quot;card_title&quot;&gt;오늘의 추천&lt;/h3&gt;
+                  &lt;span class=&quot;badge color_primary badge_dot&quot;&gt;HOT&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;card_body&quot;&gt;인기 상품을 슬라이드 전환으로 자동 재생합니다.&lt;/div&gt;
+            &lt;div class=&quot;card_footer&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;보러 가기&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;
+          &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+            &lt;div class=&quot;card_header&quot;&gt;
+              &lt;div class=&quot;card_header-main&quot;&gt;
+                &lt;div class=&quot;card_header-row&quot;&gt;
+                  &lt;h3 class=&quot;card_title&quot;&gt;타임 세일&lt;/h3&gt;
+                  &lt;span class=&quot;tag tag_sm color_warning&quot;&gt;24h&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;card_body&quot;&gt;한정 수량 특가. 슬라이드로 넘기며 확인하세요.&lt;/div&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;swiper-slide&quot;&gt;
+          &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+            &lt;div class=&quot;card_header&quot;&gt;
+              &lt;div class=&quot;card_header-main&quot;&gt;
+                &lt;div class=&quot;card_header-row&quot;&gt;
+                  &lt;h3 class=&quot;card_title&quot;&gt;신규 입고&lt;/h3&gt;
+                  &lt;span class=&quot;tag tag_sm color_success&quot;&gt;NEW&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;card_body&quot;&gt;이번 주 새로 들어온 상품을 만나보세요.&lt;/div&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-pagination&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;button&quot; class=&quot;carousel_toggle&quot; aria-label=&quot;슬라이드 정지&quot; aria-pressed=&quot;true&quot;&gt;
+      &lt;svg class=&quot;carousel_toggle-icon carousel_toggle-icon-pause&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;rect x=&quot;6&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
+        &lt;rect x=&quot;14&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
+      &lt;/svg&gt;
+      &lt;svg class=&quot;carousel_toggle-icon carousel_toggle-icon-play&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M8 5v14l11-7z&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 봄맞이 컬렉션 --&gt;
+
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;페이드&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;
+    &lt;code class=&quot;typo_code&quot;&gt;data-swiper-effect=&quot;fade&quot;&lt;/code&gt;로 페이드 전환을 적용합니다.&lt;/p&gt;
+    &lt;div class=&quot;carousel carousel_demo carousel_dots-outside&quot;&gt;
+      &lt;div class=&quot;swiper&quot; data-swiper data-swiper-autoplay data-swiper-delay=&quot;4000&quot; data-swiper-loop data-swiper-effect=&quot;fade&quot; role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;페이드 자동 재생&quot;&gt;
+        &lt;div class=&quot;swiper-wrapper&quot;&gt;
+          &lt;div class=&quot;swiper-slide&quot;&gt;
+            &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+              &lt;div class=&quot;card_header&quot;&gt;
+                &lt;div class=&quot;card_header-main&quot;&gt;
+                  &lt;div class=&quot;card_header-row&quot;&gt;
+                    &lt;h3 class=&quot;card_title&quot;&gt;봄맞이 컬렉션&lt;/h3&gt;
+                    &lt;span class=&quot;badge color_primary badge_dot&quot;&gt;NEW&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;card_body&quot;&gt;새 시즌 의류와 액세서리를 만나보세요.&lt;/div&gt;
+              &lt;div class=&quot;card_footer&quot;&gt;
+                &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+                  &lt;span class=&quot;btn_label&quot;&gt;컬렉션 보기&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/article&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;swiper-slide&quot;&gt;
+            &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+              &lt;div class=&quot;card_header&quot;&gt;
+                &lt;div class=&quot;card_header-main&quot;&gt;
+                  &lt;div class=&quot;card_header-row&quot;&gt;
+                    &lt;h3 class=&quot;card_title&quot;&gt;라이브 쇼핑&lt;/h3&gt;
+                    &lt;span class=&quot;badge color_danger badge_dot&quot;&gt;LIVE&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;card_body&quot;&gt;매주 금요일 저녁 8시, 실시간 할인 혜택을 확인하세요.&lt;/div&gt;
+            &lt;/article&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;swiper-slide&quot;&gt;
+            &lt;article class=&quot;card card_borderless card_elevated&quot;&gt;
+              &lt;div class=&quot;card_header&quot;&gt;
+                &lt;div class=&quot;card_header-main&quot;&gt;
+                  &lt;div class=&quot;card_header-row&quot;&gt;
+                    &lt;h3 class=&quot;card_title&quot;&gt;멤버십 혜택&lt;/h3&gt;
+                    &lt;span class=&quot;tag tag_sm color_primary&quot;&gt;VIP&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;card_body&quot;&gt;등급별 적립·할인 혜택으로 더 많이 절약하세요.&lt;/div&gt;
+              &lt;div class=&quot;card_footer&quot;&gt;
+                &lt;a href=&quot;#&quot; class=&quot;link color_primary size_sm&quot;&gt;멤버십 안내&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/article&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;swiper-pagination&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;button type=&quot;button&quot; class=&quot;carousel_toggle&quot; aria-label=&quot;슬라이드 정지&quot; aria-pressed=&quot;true&quot;&gt;
+        &lt;svg class=&quot;carousel_toggle-icon carousel_toggle-icon-pause&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;rect x=&quot;6&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
+          &lt;rect x=&quot;14&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;carousel_toggle-icon carousel_toggle-icon-play&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M8 5v14l11-7z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="loop-heading">
+          <div class="demo_section-header">
+            <h2 id="loop-heading">무한 루프</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#infinite-loop" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Infinite loop</a> 데모입니다. <code class="typo_code">data-swiper-loop</code>로 순환합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper data-swiper-loop role="region" aria-roledescription="carousel" aria-label="루프 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_header"><h3 class="card_title">무선 이어폰 Pro</h3></div>
+                      <div class="card_body">노이즈 캔슬링과 30시간 배터리.</div>
+                      <div class="card_footer card_footer-between">
+                        <strong>₩189,000</strong>
+                        <span class="tag tag_sm color_primary">신상품</span>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_header"><h3 class="card_title">스마트 워치 S3</h3></div>
+                      <div class="card_body">건강 모니터링과 GPS 추적.</div>
+                      <div class="card_footer card_footer-between">
+                        <strong>₩329,000</strong>
+                        <span class="tag tag_sm color_success">베스트</span>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_header"><h3 class="card_title">휴대용 스피커 Mini</h3></div>
+                      <div class="card_body">방수 IPX7 · 12시간 재생.</div>
+                      <div class="card_footer card_footer-between">
+                        <strong>₩79,000</strong>
+                        <span class="tag tag_sm color_warning">할인</span>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-loop role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;루프 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;무선 이어폰 Pro&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;노이즈 캔슬링과 30시간 배터리.&lt;/div&gt;
+          &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+            &lt;strong&gt;₩189,000&lt;/strong&gt;
+            &lt;span class=&quot;tag tag_sm color_primary&quot;&gt;신상품&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;스마트 워치 S3&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;건강 모니터링과 GPS 추적.&lt;/div&gt;
+          &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+            &lt;strong&gt;₩329,000&lt;/strong&gt;
+            &lt;span class=&quot;tag tag_sm color_success&quot;&gt;베스트&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_header&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;휴대용 스피커 Mini&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;card_body&quot;&gt;방수 IPX7 · 12시간 재생.&lt;/div&gt;
+          &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+            &lt;strong&gt;₩79,000&lt;/strong&gt;
+            &lt;span class=&quot;tag tag_sm color_warning&quot;&gt;할인&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="multi-heading">
+          <div class="demo_section-header">
+            <h2 id="multi-heading">슬라이드 per view</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#slides-per-view-auto" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Slides per view auto</a> 데모입니다. 여러 카드가 동시에 보입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo carousel_multi">
+              <div class="swiper" data-swiper data-swiper-slides-per-view="auto" data-swiper-space-between="16" data-swiper-centered role="region" aria-roledescription="carousel" aria-label="다중 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <span class="tag tag_sm color_primary">React</span>
+                        <h3 class="card_title">프론트엔드</h3>
+                        <p class="card_subtitle">컴포넌트 기반 UI</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <span class="tag tag_sm color_success">API</span>
+                        <h3 class="card_title">백엔드</h3>
+                        <p class="card_subtitle">REST · GraphQL</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <span class="tag tag_sm color_warning">Design</span>
+                        <h3 class="card_title">디자인</h3>
+                        <p class="card_subtitle">토큰 · 시스템</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <span class="tag tag_sm color_info">A11y</span>
+                        <h3 class="card_title">접근성</h3>
+                        <p class="card_subtitle">WCAG 2.2</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo carousel_multi&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-slides-per-view=&quot;auto&quot; data-swiper-space-between=&quot;16&quot; data-swiper-centered role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;다중 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;span class=&quot;tag tag_sm color_primary&quot;&gt;React&lt;/span&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;프론트엔드&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;컴포넌트 기반 UI&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;span class=&quot;tag tag_sm color_success&quot;&gt;API&lt;/span&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;백엔드&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;REST · GraphQL&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;span class=&quot;tag tag_sm color_warning&quot;&gt;Design&lt;/span&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;디자인&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;토큰 · 시스템&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;span class=&quot;tag tag_sm color_info&quot;&gt;A11y&lt;/span&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;접근성&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;WCAG 2.2&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="space-heading">
+          <div class="demo_section-header">
+            <h2 id="space-heading">간격</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#space-between" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Space between</a> 데모입니다. <code class="typo_code">data-swiper-space-between</code>로 슬라이드 간격을 지정합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper data-swiper-space-between="12" data-swiper-loop role="region" aria-roledescription="carousel" aria-label="간격 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body"><h3 class="card_title">슬라이드 A</h3><p class="card_subtitle">12px 간격</p></div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body"><h3 class="card_title">슬라이드 B</h3><p class="card_subtitle">카드 조합</p></div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body"><h3 class="card_title">슬라이드 C</h3><p class="card_subtitle">스와이프 지원</p></div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-space-between=&quot;12&quot; data-swiper-loop role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;간격 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 A&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;12px 간격&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 B&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;카드 조합&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 C&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;스와이프 지원&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="pagination-heading">
+          <div class="demo_section-header">
+            <h2 id="pagination-heading">페이지네이션</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#pagination" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Pagination</a> 데모입니다. 화살표 없이 도트만 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper data-swiper-loop role="region" aria-roledescription="carousel" aria-label="페이지네이션 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <h3 class="card_title">슬라이드 1</h3>
+                        <p class="card_subtitle">터치·스와이프로 전환합니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <h3 class="card_title">슬라이드 2</h3>
+                        <p class="card_subtitle">도트를 클릭해 이동할 수 있습니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_shadow">
+                      <div class="card_body">
+                        <h3 class="card_title">슬라이드 3</h3>
+                        <p class="card_subtitle">grab cursor가 적용됩니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-loop role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;페이지네이션 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 1&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;터치·스와이프로 전환합니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 2&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;도트를 클릭해 이동할 수 있습니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_shadow&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;슬라이드 3&lt;/h3&gt;
+            &lt;p class=&quot;card_subtitle&quot;&gt;grab cursor가 적용됩니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="fraction-heading">
+          <div class="demo_section-header">
+            <h2 id="fraction-heading">분수 페이지네이션</h2>
+            <p>Swiper <a href="https://swiperjs.com/demos#pagination-fraction" class="link color_primary size_sm" target="_blank" rel="noopener noreferrer">Pagination fraction</a> 데모입니다. <code class="typo_code">data-swiper-pagination="fraction"</code>으로 현재/전체 슬라이드 번호를 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="carousel carousel_demo">
+              <div class="swiper" data-swiper data-swiper-pagination="fraction" role="region" aria-roledescription="carousel" aria-label="분수 페이지네이션 슬라이드">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_primary card_elevated">
+                      <div class="card_body">
+                        <h3 class="card_title">1 / 3</h3>
+                        <p class="typo_lead">분수 형식으로 진행 상태를 표시합니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_info card_elevated">
+                      <div class="card_body">
+                        <h3 class="card_title">2 / 3</h3>
+                        <p class="typo_lead">내비게이션 화살표와 함께 사용할 수 있습니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                  <div class="swiper-slide">
+                    <article class="card card_accent color_success card_elevated">
+                      <div class="card_body">
+                        <h3 class="card_title">3 / 3</h3>
+                        <p class="typo_lead">Swiper 공식 API를 그대로 따릅니다.</p>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+                <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+                <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;carousel carousel_demo&quot;&gt;
+  &lt;div class=&quot;swiper&quot; data-swiper data-swiper-pagination=&quot;fraction&quot; role=&quot;region&quot; aria-roledescription=&quot;carousel&quot; aria-label=&quot;분수 페이지네이션 슬라이드&quot;&gt;
+    &lt;div class=&quot;swiper-wrapper&quot;&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_primary card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;1 / 3&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;분수 형식으로 진행 상태를 표시합니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_info card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;2 / 3&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;내비게이션 화살표와 함께 사용할 수 있습니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;swiper-slide&quot;&gt;
+        &lt;article class=&quot;card card_accent color_success card_elevated&quot;&gt;
+          &lt;div class=&quot;card_body&quot;&gt;
+            &lt;h3 class=&quot;card_title&quot;&gt;3 / 3&lt;/h3&gt;
+            &lt;p class=&quot;typo_lead&quot;&gt;Swiper 공식 API를 그대로 따릅니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-prev&quot; aria-label=&quot;이전 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-button-next&quot; aria-label=&quot;다음 슬라이드&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;swiper-pagination&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p><code class="typo_code">data-swiper</code>가 있는 <code class="typo_code">.swiper</code> 요소에 Swiper가 초기화됩니다. <code class="typo_code">.carousel</code>은 레이아웃·스타일 래퍼이며, 슬라이드 안에는 <code class="typo_code">card</code> 등 기존 컴포넌트를 배치합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;!-- 슬라이드 자동 재생 (기본 전환) --&gt;
+&lt;div class="carousel carousel_demo"&gt;
+  &lt;div class="swiper" data-swiper
+    data-swiper-autoplay data-swiper-delay="4000" data-swiper-loop
+    role="region" aria-roledescription="carousel" aria-label="프로모션"&gt;
+    …
+    &lt;button type="button" class="carousel_toggle"
+      aria-label="슬라이드 정지" aria-pressed="true"&gt;…&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 페이드 자동 재생 --&gt;
+&lt;div class="carousel carousel_demo"&gt;
+  &lt;div class="swiper" data-swiper
+    data-swiper-autoplay data-swiper-delay="4000"
+    data-swiper-loop data-swiper-effect="fade"
+    role="region" aria-roledescription="carousel" aria-label="프로모션"&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">carousel</code></td><td>루트 래퍼 (디자인 토큰·레이아웃, 너비 100%)</td></tr>
+                  <tr><td><code class="typo_code">carousel_demo</code></td><td>데모 영역 전체 너비(<code class="typo_code">max-width: 100%</code>)</td></tr>
+                  <tr><td><code class="typo_code">carousel_multi</code></td><td>slides per view auto 레이아웃 (슬라이드 너비 가변)</td></tr>
+                  <tr><td><code class="typo_code">carousel_toggle</code></td><td>자동 재생 재생·정지 버튼</td></tr>
+                  <tr><td><code class="typo_code">carousel_dots-outside</code></td><td>페이지네이션을 뷰포트 밖에 배치</td></tr>
+                  <tr><td><code class="typo_code">swiper</code></td><td>Swiper 컨테이너 (<code class="typo_code">data-swiper</code> 필수)</td></tr>
+                  <tr><td><code class="typo_code">swiper-wrapper</code></td><td>슬라이드 트랙 (Swiper 표준)</td></tr>
+                  <tr><td><code class="typo_code">swiper-slide</code></td><td>개별 슬라이드 (내부에 card 등 배치)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper</code></td><td>Swiper 초기화 대상</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-effect</code></td><td>전환 효과 (<code class="typo_code">fade</code>, 생략 시 슬라이드)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-autoplay</code></td><td>자동 재생 (Autoplay)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-delay</code></td><td>자동 재생 간격(ms, 기본 5000)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-loop</code></td><td>무한 루프 (Infinite loop)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-slides-per-view</code></td><td>동시 표시 슬라이드 수 (<code class="typo_code">auto</code> 또는 숫자)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-space-between</code></td><td>슬라이드 간격(px)</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-centered</code></td><td>활성 슬라이드 중앙 정렬</td></tr>
+                  <tr><td><code class="typo_code">data-swiper-pagination</code></td><td>페이지네이션 유형 (<code class="typo_code">fraction</code>)</td></tr>
+                  <tr><td><code class="typo_code">is-autoplay-paused</code></td><td>사용자가 정지한 자동 재생 상태</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+  <script src="../js/vendor/swiper-bundle.min.js"></script>
+  <script src="../js/carousel.js"></script>
+</body>
+</html>

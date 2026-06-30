@@ -3,108 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Demo | UXKM Guide</title>
-  <style>
-    :root {
-      --bg: #0f1419;
-      --surface: #1a2332;
-      --border: #2d3a4f;
-      --text: #e7ecf3;
-      --muted: #8b9cb3;
-      --accent: #5b8def;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-    }
-
-    .back {
-      display: inline-block;
-      margin-bottom: 2rem;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
-
-    .back:hover { color: var(--accent); }
-
-    h1 {
-      font-size: 1.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .demo-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .demo-box p { margin-bottom: 1.25rem; }
-
-    button {
-      padding: 0.6rem 1.25rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--accent);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover { opacity: 0.9; }
-
-    #counter {
-      display: inline-block;
-      margin-top: 1rem;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-  </style>
+  <title>HTML Components | UXKM Guide</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="./css/main.css">
 </head>
-<body>
-  <div class="container">
-    <a class="back" href="../index.html">← 메인으로</a>
+<body data-active-nav="intro">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
 
-    <h1>HTML Demo</h1>
-    <p class="subtitle">순수 HTML, CSS, JavaScript 데모</p>
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">소개</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>HTML Components</h1>
+          <p class="lead">순수 HTML과 SCSS로 구성된 UI 컴포넌트 가이드입니다. 프레임워크 없이 마크업과 클래스 조합만으로 버튼·폼·피드백·네비게이션 등 50여 개 컴포넌트를 확인할 수 있으며, 컴포넌트 자체는 어떤 프로젝트에도 HTML·CSS만으로 적용할 수 있습니다.</p>
+        </div>
 
-    <div class="demo-box">
-      <p>버튼을 클릭하면 카운터가 증가합니다.</p>
-      <button type="button" id="btn">클릭</button>
-      <div id="counter">0</div>
+        <section class="section" aria-labelledby="overview-heading">
+          <h2 id="overview-heading">개요</h2>
+          <p>이 사이트는 디자인 시스템 문서이자 재사용 가능한 UI 패턴 모음입니다. 각 컴포넌트 페이지에서 라이브 데모, 마크업 예시, 클래스·속성 표, 디자인 토큰을 함께 제공합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start" style="border-radius: var(--radius-lg);">
+            <ul class="list list_bullet" style="width: 100%;">
+              <li class="list_item"><strong>OOCSS 구조</strong> — 블록(<code class="typo_code">.btn</code>) + 파트(<code class="typo_code">.btn_label</code>) + 스킨·크기·상태 클래스를 조합해 사용합니다.</li>
+              <li class="list_item"><strong>디자인 토큰</strong> — 색상·간격·타이포 등은 <code class="typo_code">_tokens.scss</code>의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다.</li>
+              <li class="list_item"><strong>접근성</strong> — <code class="typo_code">role</code> · <code class="typo_code">aria-*</code> 속성과 키보드·포커스 패턴을 컴포넌트별로 안내합니다.</li>
+              <li class="list_item"><strong>이 저장소의 빌드</strong> — 문서 사이트 생성은 <strong>Gulp</strong>로 수행합니다. SCSS 컴파일, HTML 조립, 이미지 압축, JS 복사 후 결과물을 <code class="typo_code">html/</code>에 출력합니다.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="quickstart-heading">
+          <h2 id="quickstart-heading">빠른 시작</h2>
+          <p>이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Gulp 개발 태스크를 실행합니다. <code class="typo_code">pnpm</code> 스크립트는 내부적으로 Gulp를 호출합니다. 자세한 내용은 <a href="getting-started.html">설치 및 사용</a>을 참고하세요.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code># 의존성 설치
+pnpm install
+
+# Gulp 개발 (빌드 + watch + BrowserSync)
+pnpm dev
+
+# Gulp 프로덕션 빌드
+pnpm build</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="categories-heading">
+          <h2 id="categories-heading">컴포넌트 카테고리</h2>
+          <p>왼쪽 사이드바에서 컴포넌트를 선택하거나, 아래 카테고리 카드로 바로 이동할 수 있습니다.</p>
+
+          <div class="card_grid">
+            <a class="category_card" href="components/container.html">
+              <h3>레이아웃</h3>
+              <p>Container, Grid, Divider, Space</p>
+              <span class="count">4개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/button.html">
+              <h3>기본 요소</h3>
+              <p>Button, Typography, Icon, Link</p>
+              <span class="count">4개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/avatar.html">
+              <h3>데이터 표시</h3>
+              <p>Avatar, Card, Table, List, Stat, Calendar 등</p>
+              <span class="count">10개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/form-layout.html">
+              <h3>폼</h3>
+              <p>Input, Select, Checkbox, Switch, Upload 등</p>
+              <span class="count">11개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/alert.html">
+              <h3>피드백</h3>
+              <p>Alert, Modal, Spin, Skeleton, Empty 등</p>
+              <span class="count">9개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/navbar.html">
+              <h3>네비게이션</h3>
+              <p>Navbar, Tabs, Breadcrumb, Pagination, Steps 등</p>
+              <span class="count">7개 컴포넌트</span>
+            </a>
+            <a class="category_card" href="components/accordion.html">
+              <h3>기타</h3>
+              <p>Accordion, Carousel, Offcanvas, Affix, Back Top 등</p>
+              <span class="count">7개 컴포넌트</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="structure-heading">
+          <h2 id="structure-heading">이 저장소 구조</h2>
+          <p>아래는 <strong>이 가이드 저장소</strong>의 디렉터리 구성입니다. 소스는 <code class="typo_code">src/</code>에서 관리하고, <strong>Gulp</strong> 빌드 결과물이 <code class="typo_code">html/</code>에 출력됩니다. 배포 시 <code class="typo_code">html/</code> 폴더 전체를 사용합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>gulpfile.js                   # Gulp 태스크 정의 (빌드·watch·서버)
+scripts/html-assembler.js     # Gulp html 태스크 — 레이아웃 조립
+
+src/                          # 소스
+├── _layouts/                 # 레이아웃 템플릿 (base, header)
+├── components/               # 컴포넌트별 문서 페이지
+├── images/                   # 이미지 소스 (Gulp images 태스크로 압축)
+├── js/
+│   ├── nav.js                # 사이드바 메뉴 렌더링
+│   ├── theme.js              # 라이트/다크 테마 전환
+│   └── demo.js               # 데모 인터랙션 (모달, 아코디언 등)
+├── scss/
+│   ├── _tokens.scss          # 디자인 토큰 (:root CSS 변수)
+│   ├── _themes.scss          # 라이트/다크 테마
+│   ├── _variables.scss       # SCSS 전용 변수
+│   ├── components/           # 컴포넌트별 스타일
+│   └── main.scss             # SCSS 진입점 (Gulp styles 태스크)
+├── index.html                # 소개 (이 페이지)
+└── getting-started.html      # 설치 및 사용
+
+html/                         # Gulp build 결과물 (배포용)
+├── components/               # 조립된 컴포넌트 페이지
+├── css/main.css              # Gulp styles — 컴파일된 CSS
+├── images/                   # Gulp images — 압축된 이미지
+├── js/                       # Gulp scripts — 복사된 스크립트
+├── index.html
+└── getting-started.html</code></pre>
+          </div>
+
+          <p>컴포넌트 마크업·SCSS는 다른 프로젝트에도 가져다 쓸 수 있습니다. 다만 <code class="typo_code">src/</code> → <code class="typo_code">html/</code> 변환과 문서 페이지 조립은 이 저장소의 Gulp 설정에 따릅니다.</p>
+        </section>
+
+        <section class="section" aria-labelledby="conventions-heading">
+          <h2 id="conventions-heading">네이밍 · 클래스 규칙</h2>
+          <p>컴포넌트 스타일은 OOCSS 패턴을 따릅니다. 아래 규칙을 익혀 두면 문서와 소스를 일관되게 읽을 수 있습니다.</p>
+
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">패턴</th>
+                  <th scope="col">예시</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="typo_code">블록</code></td>
+                  <td><code class="typo_code">.btn</code> · <code class="typo_code">.alert</code> · <code class="typo_code">.empty</code></td>
+                  <td>컴포넌트 루트 구조 클래스</td>
+                </tr>
+                <tr>
+                  <td><code class="typo_code">블록_파트</code></td>
+                  <td><code class="typo_code">.btn_label</code> · <code class="typo_code">.empty_desc</code></td>
+                  <td>하위 요소 (언더스코어 1개)</td>
+                </tr>
+                <tr>
+                  <td><code class="typo_code">블록_변형</code></td>
+                  <td><code class="typo_code">.btn_filled</code> · <code class="typo_code">.alert_sm</code></td>
+                  <td>스킨·크기·레이아웃 변형</td>
+                </tr>
+                <tr>
+                  <td><code class="typo_code">color_*</code></td>
+                  <td><code class="typo_code">.color_primary</code> · <code class="typo_code">.color_danger</code></td>
+                  <td>공통 의미 색상 (여러 컴포넌트에서 재사용)</td>
+                </tr>
+                <tr>
+                  <td><code class="typo_code">is-*</code></td>
+                  <td><code class="typo_code">.is-open</code> · <code class="typo_code">.is-loading</code></td>
+                  <td>JS·상태 토글 클래스</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="markup-heading">
+          <h2 id="markup-heading">문서 페이지 마크업</h2>
+          <p>이 가이드 사이트의 문서 페이지는 <code class="typo_code">src/</code>에 HTML 조각을 두고, 상단 <code class="typo_code">@meta</code> 주석으로 제목·네비게이션 활성 상태를 지정합니다. Gulp <code class="typo_code">html</code> 태스크가 <code class="typo_code">_layouts/base.html</code>과 조립해 <code class="typo_code">html/</code>에 완성 페이지를 생성합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;!-- @meta
+title: Button | HTML Components
+activeNav: button
+pageTitle: Button
+--&gt;
+&lt;div class="page_intro"&gt;
+  &lt;h1&gt;Button&lt;/h1&gt;
+  &lt;p class="lead"&gt;…&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;section class="section demo_section" aria-labelledby="basic-heading"&gt;
+  …
+&lt;/section&gt;</code></pre>
+          </div>
+        </section>
+      </main>
     </div>
   </div>
 
-  <script>
-    let count = 0;
-    const btn = document.getElementById('btn');
-    const counter = document.getElementById('counter');
-
-    btn.addEventListener('click', () => {
-      count += 1;
-      counter.textContent = count;
-    });
-  </script>
+  <script src="./js/theme.js"></script>
+  <script src="./js/nav.js"></script>
+  <script src="./js/demo.js"></script>
 </body>
 </html>

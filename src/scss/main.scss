@@ -1,0 +1,28 @@
+@use "tokens";
+@use "themes";
+@use "variables" as *;
+@use "reset";
+@use "layout";
+@use "sidebar";
+@use "content";
+@use "utilities";
+@use "components";
+@use "mixins" as m;
+
+// 공통 색상 클래스 — 반드시 마지막에 출력해 컴포넌트·데모 스타일보다 우선
+.color {
+  @each $name in default, muted, primary, success, warning, danger, info, error {
+    &_#{$name} {
+      color: m.color-token($name);
+    }
+  }
+}
+
+// 공통 텍스트 크기 클래스
+.size {
+  @each $name in xs, sm, lg, xl {
+    &_#{$name} {
+      font-size: m.size-token($name);
+    }
+  }
+}

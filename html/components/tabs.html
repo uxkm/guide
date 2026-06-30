@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabs | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="tabs">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Tabs</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Tabs</h1>
+          <p class="lead">같은 맥락의 콘텐츠를 탭으로 전환하는 컴포넌트입니다. 라인·카드·필 스킨과 아이콘·배지·스크롤을 지원합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본 (라인)</h2>
+            <p>tabs_line이 기본 스킨입니다. role="tablist" · role="tab" · role="tabpanel"과 aria-selected, aria-controls로 접근성을 보장합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="프로젝트 정보">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-basic-1" aria-selected="true" aria-controls="tabs-basic-panel-1">개요</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-basic-2" aria-selected="false" aria-controls="tabs-basic-panel-2" tabindex="-1">팀</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-basic-3" aria-selected="false" aria-controls="tabs-basic-panel-3" tabindex="-1">활동</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-basic-panel-1" aria-labelledby="tabs-basic-1">
+                  <p>프로젝트 개요와 목표를 설명하는 영역입니다. 탭을 클릭하거나 화살표 키로 전환할 수 있습니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-basic-panel-2" aria-labelledby="tabs-basic-2" hidden>
+                  <p>팀 구성원과 역할을 표시합니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-basic-panel-3" aria-labelledby="tabs-basic-3" hidden>
+                  <p>최근 활동 로그와 타임라인을 보여줍니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;프로젝트 정보&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-basic-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-basic-panel-1&quot;&gt;개요&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-basic-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-basic-panel-2&quot; tabindex=&quot;-1&quot;&gt;팀&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-basic-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-basic-panel-3&quot; tabindex=&quot;-1&quot;&gt;활동&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-basic-panel-1&quot; aria-labelledby=&quot;tabs-basic-1&quot;&gt;
+      &lt;p&gt;프로젝트 개요와 목표를 설명하는 영역입니다. 탭을 클릭하거나 화살표 키로 전환할 수 있습니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-basic-panel-2&quot; aria-labelledby=&quot;tabs-basic-2&quot; hidden&gt;
+      &lt;p&gt;팀 구성원과 역할을 표시합니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-basic-panel-3&quot; aria-labelledby=&quot;tabs-basic-3&quot; hidden&gt;
+      &lt;p&gt;최근 활동 로그와 타임라인을 보여줍니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="card-heading">
+          <div class="demo_section-header">
+            <h2 id="card-heading">카드</h2>
+            <p>tabs_card로 카드형 탭과 패널을 연결합니다. 폼·설정 화면에 적합합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_card" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="계정 설정">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-card-1" aria-selected="true" aria-controls="tabs-card-panel-1">프로필</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-card-2" aria-selected="false" aria-controls="tabs-card-panel-2" tabindex="-1">보안</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-card-3" aria-selected="false" aria-controls="tabs-card-panel-3" tabindex="-1">알림</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-card-panel-1" aria-labelledby="tabs-card-1">
+                  <p>이름, 아바타, 소개 문구를 수정합니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-card-panel-2" aria-labelledby="tabs-card-2" hidden>
+                  <p>비밀번호 변경과 2단계 인증을 설정합니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-card-panel-3" aria-labelledby="tabs-card-3" hidden>
+                  <p>이메일·푸시 알림 수신 여부를 관리합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_card&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;계정 설정&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-card-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-card-panel-1&quot;&gt;프로필&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-card-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-card-panel-2&quot; tabindex=&quot;-1&quot;&gt;보안&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-card-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-card-panel-3&quot; tabindex=&quot;-1&quot;&gt;알림&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-card-panel-1&quot; aria-labelledby=&quot;tabs-card-1&quot;&gt;
+      &lt;p&gt;이름, 아바타, 소개 문구를 수정합니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-card-panel-2&quot; aria-labelledby=&quot;tabs-card-2&quot; hidden&gt;
+      &lt;p&gt;비밀번호 변경과 2단계 인증을 설정합니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-card-panel-3&quot; aria-labelledby=&quot;tabs-card-3&quot; hidden&gt;
+      &lt;p&gt;이메일·푸시 알림 수신 여부를 관리합니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="pill-heading">
+          <div class="demo_section-header">
+            <h2 id="pill-heading">필</h2>
+            <p>tabs_pill로 세그먼트 컨트롤 형태의 탭을 만듭니다. 뷰 전환·필터에 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_pill" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="보기 모드">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-pill-1" aria-selected="true" aria-controls="tabs-pill-panel-1">목록</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-pill-2" aria-selected="false" aria-controls="tabs-pill-panel-2" tabindex="-1">그리드</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-pill-3" aria-selected="false" aria-controls="tabs-pill-panel-3" tabindex="-1">보드</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-pill-panel-1" aria-labelledby="tabs-pill-1">
+                  <p class="tabs_panel-placeholder">목록 뷰 콘텐츠</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-pill-panel-2" aria-labelledby="tabs-pill-2" hidden>
+                  <p class="tabs_panel-placeholder">그리드 뷰 콘텐츠</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-pill-panel-3" aria-labelledby="tabs-pill-3" hidden>
+                  <p class="tabs_panel-placeholder">보드 뷰 콘텐츠</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_pill&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;보기 모드&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-pill-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-pill-panel-1&quot;&gt;목록&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-pill-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-pill-panel-2&quot; tabindex=&quot;-1&quot;&gt;그리드&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-pill-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-pill-panel-3&quot; tabindex=&quot;-1&quot;&gt;보드&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-pill-panel-1&quot; aria-labelledby=&quot;tabs-pill-1&quot;&gt;
+      &lt;p class=&quot;tabs_panel-placeholder&quot;&gt;목록 뷰 콘텐츠&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-pill-panel-2&quot; aria-labelledby=&quot;tabs-pill-2&quot; hidden&gt;
+      &lt;p class=&quot;tabs_panel-placeholder&quot;&gt;그리드 뷰 콘텐츠&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-pill-panel-3&quot; aria-labelledby=&quot;tabs-pill-3&quot; hidden&gt;
+      &lt;p class=&quot;tabs_panel-placeholder&quot;&gt;보드 뷰 콘텐츠&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>tabs_sm · tabs_lg로 탭 바 스케일을 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tabs tabs_line tabs_sm" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="Small 탭">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-sm-1" aria-selected="true" aria-controls="tabs-sm-panel-1">Small A</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-sm-2" aria-selected="false" aria-controls="tabs-sm-panel-2" tabindex="-1">Small B</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-sm-panel-1" aria-labelledby="tabs-sm-1">Small 탭 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-sm-panel-2" aria-labelledby="tabs-sm-2" hidden>Small 탭 패널 B</div>
+              </div>
+            </div>
+
+            <div class="tabs tabs_line tabs_lg" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="Large 탭">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-lg-1" aria-selected="true" aria-controls="tabs-lg-panel-1">Large A</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-lg-2" aria-selected="false" aria-controls="tabs-lg-panel-2" tabindex="-1">Large B</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-lg-panel-1" aria-labelledby="tabs-lg-1">Large 탭 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-lg-panel-2" aria-labelledby="tabs-lg-2" hidden>Large 탭 패널 B</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Small 탭 --&gt;
+
+&lt;div class=&quot;tabs tabs_line tabs_sm&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;Small 탭&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-sm-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-sm-panel-1&quot;&gt;Small A&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-sm-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-sm-panel-2&quot; tabindex=&quot;-1&quot;&gt;Small B&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-sm-panel-1&quot; aria-labelledby=&quot;tabs-sm-1&quot;&gt;Small 탭 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-sm-panel-2&quot; aria-labelledby=&quot;tabs-sm-2&quot; hidden&gt;Small 탭 패널 B&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Large 탭 --&gt;
+
+&lt;div class=&quot;tabs tabs_line tabs_lg&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;Large 탭&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-lg-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-lg-panel-1&quot;&gt;Large A&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-lg-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-lg-panel-2&quot; tabindex=&quot;-1&quot;&gt;Large B&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-lg-panel-1&quot; aria-labelledby=&quot;tabs-lg-1&quot;&gt;Large 탭 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-lg-panel-2&quot; aria-labelledby=&quot;tabs-lg-2&quot; hidden&gt;Large 탭 패널 B&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="icon-heading">
+          <div class="demo_section-header">
+            <h2 id="icon-heading">아이콘</h2>
+            <p>tabs_icon으로 탭 앞에 아이콘을 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="대시보드 섹션">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-icon-1" aria-selected="true" aria-controls="tabs-icon-panel-1">
+                    <svg class="tabs_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span class="tabs_label">대시보드</span>
+                  </button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-icon-2" aria-selected="false" aria-controls="tabs-icon-panel-2" tabindex="-1">
+                    <svg class="tabs_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                    </svg>
+                    <span class="tabs_label">사용자</span>
+                  </button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-icon-3" aria-selected="false" aria-controls="tabs-icon-panel-3" tabindex="-1">
+                    <svg class="tabs_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                    </svg>
+                    <span class="tabs_label">문서</span>
+                  </button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-icon-panel-1" aria-labelledby="tabs-icon-1">대시보드 요약 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-icon-panel-2" aria-labelledby="tabs-icon-2" hidden>사용자 목록 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-icon-panel-3" aria-labelledby="tabs-icon-3" hidden>문서 목록 패널</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;대시보드 섹션&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-icon-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-icon-panel-1&quot;&gt;
+        &lt;svg class=&quot;tabs_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot;/&gt;
+          &lt;rect x=&quot;14&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot;/&gt;
+          &lt;rect x=&quot;14&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot;/&gt;
+          &lt;rect x=&quot;3&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;대시보드&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-icon-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-icon-panel-2&quot; tabindex=&quot;-1&quot;&gt;
+        &lt;svg class=&quot;tabs_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/&gt;
+          &lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;사용자&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-icon-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-icon-panel-3&quot; tabindex=&quot;-1&quot;&gt;
+        &lt;svg class=&quot;tabs_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+          &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;문서&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-icon-panel-1&quot; aria-labelledby=&quot;tabs-icon-1&quot;&gt;대시보드 요약 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-icon-panel-2&quot; aria-labelledby=&quot;tabs-icon-2&quot; hidden&gt;사용자 목록 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-icon-panel-3&quot; aria-labelledby=&quot;tabs-icon-3&quot; hidden&gt;문서 목록 패널&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="badge-heading">
+          <div class="demo_section-header">
+            <h2 id="badge-heading">배지</h2>
+            <p>tabs_badge에 badge 컴포넌트를 넣어 알림 수·상태를 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="알림 센터">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-badge-1" aria-selected="true" aria-controls="tabs-badge-panel-1">
+                    <span class="tabs_label">전체</span>
+                  </button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-badge-2" aria-selected="false" aria-controls="tabs-badge-panel-2" tabindex="-1">
+                    <span class="tabs_label">읽지 않음</span>
+                    <span class="badge badge_count badge_sm color_danger tabs_badge" aria-label="읽지 않은 알림 12건">12</span>
+                  </button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-badge-3" aria-selected="false" aria-controls="tabs-badge-panel-3" tabindex="-1">
+                    <span class="tabs_label">멘션</span>
+                    <span class="badge badge_count badge_sm color_primary tabs_badge">3</span>
+                  </button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-badge-panel-1" aria-labelledby="tabs-badge-1">전체 알림 목록</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-badge-panel-2" aria-labelledby="tabs-badge-2" hidden>읽지 않은 알림 12건</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-badge-panel-3" aria-labelledby="tabs-badge-3" hidden>멘션 알림 3건</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;알림 센터&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-badge-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-badge-panel-1&quot;&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;전체&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-badge-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-badge-panel-2&quot; tabindex=&quot;-1&quot;&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;읽지 않음&lt;/span&gt;
+        &lt;span class=&quot;badge badge_count badge_sm color_danger tabs_badge&quot; aria-label=&quot;읽지 않은 알림 12건&quot;&gt;12&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-badge-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-badge-panel-3&quot; tabindex=&quot;-1&quot;&gt;
+        &lt;span class=&quot;tabs_label&quot;&gt;멘션&lt;/span&gt;
+        &lt;span class=&quot;badge badge_count badge_sm color_primary tabs_badge&quot;&gt;3&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-badge-panel-1&quot; aria-labelledby=&quot;tabs-badge-1&quot;&gt;전체 알림 목록&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-badge-panel-2&quot; aria-labelledby=&quot;tabs-badge-2&quot; hidden&gt;읽지 않은 알림 12건&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-badge-panel-3&quot; aria-labelledby=&quot;tabs-badge-3&quot; hidden&gt;멘션 알림 3건&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="extra-heading">
+          <div class="demo_section-header">
+            <h2 id="extra-heading">추가 액션</h2>
+            <p>tabs_extra로 탭 바 오른쪽에 버튼·링크 등 보조 액션을 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="파일 관리">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-extra-1" aria-selected="true" aria-controls="tabs-extra-panel-1">내 파일</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-extra-2" aria-selected="false" aria-controls="tabs-extra-panel-2" tabindex="-1">공유됨</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-extra-3" aria-selected="false" aria-controls="tabs-extra-panel-3" tabindex="-1">최근</button>
+                </div>
+                <div class="tabs_extra">
+                  <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">업로드</span></button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-extra-panel-1" aria-labelledby="tabs-extra-1">내 파일 목록</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-extra-panel-2" aria-labelledby="tabs-extra-2" hidden>공유된 파일 목록</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-extra-panel-3" aria-labelledby="tabs-extra-3" hidden>최근 파일 목록</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;파일 관리&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-extra-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-extra-panel-1&quot;&gt;내 파일&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-extra-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-extra-panel-2&quot; tabindex=&quot;-1&quot;&gt;공유됨&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-extra-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-extra-panel-3&quot; tabindex=&quot;-1&quot;&gt;최근&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_extra&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;업로드&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-extra-panel-1&quot; aria-labelledby=&quot;tabs-extra-1&quot;&gt;내 파일 목록&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-extra-panel-2&quot; aria-labelledby=&quot;tabs-extra-2&quot; hidden&gt;공유된 파일 목록&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-extra-panel-3&quot; aria-labelledby=&quot;tabs-extra-3&quot; hidden&gt;최근 파일 목록&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="scroll-heading">
+          <div class="demo_section-header">
+            <h2 id="scroll-heading">스크롤</h2>
+            <p>tabs_scrollable로 탭이 많을 때 가로 스크롤을 허용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line tabs_scrollable tabs_demo-narrow" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="긴 탭 목록">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-scroll-1" aria-selected="true" aria-controls="tabs-scroll-panel-1">홈</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-2" aria-selected="false" aria-controls="tabs-scroll-panel-2" tabindex="-1">제품</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-3" aria-selected="false" aria-controls="tabs-scroll-panel-3" tabindex="-1">솔루션</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-4" aria-selected="false" aria-controls="tabs-scroll-panel-4" tabindex="-1">가격</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-5" aria-selected="false" aria-controls="tabs-scroll-panel-5" tabindex="-1">고객 사례</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-6" aria-selected="false" aria-controls="tabs-scroll-panel-6" tabindex="-1">리소스</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-7" aria-selected="false" aria-controls="tabs-scroll-panel-7" tabindex="-1">지원</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-scroll-panel-1" aria-labelledby="tabs-scroll-1">홈 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-2" aria-labelledby="tabs-scroll-2" hidden>제품 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-3" aria-labelledby="tabs-scroll-3" hidden>솔루션 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-4" aria-labelledby="tabs-scroll-4" hidden>가격 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-5" aria-labelledby="tabs-scroll-5" hidden>고객 사례 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-6" aria-labelledby="tabs-scroll-6" hidden>리소스 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-scroll-panel-7" aria-labelledby="tabs-scroll-7" hidden>지원 패널</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line tabs_scrollable tabs_demo-narrow&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;긴 탭 목록&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-scroll-panel-1&quot;&gt;홈&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-2&quot; tabindex=&quot;-1&quot;&gt;제품&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-3&quot; tabindex=&quot;-1&quot;&gt;솔루션&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-4&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-4&quot; tabindex=&quot;-1&quot;&gt;가격&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-5&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-5&quot; tabindex=&quot;-1&quot;&gt;고객 사례&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-6&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-6&quot; tabindex=&quot;-1&quot;&gt;리소스&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-scroll-7&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-scroll-panel-7&quot; tabindex=&quot;-1&quot;&gt;지원&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-1&quot; aria-labelledby=&quot;tabs-scroll-1&quot;&gt;홈 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-2&quot; aria-labelledby=&quot;tabs-scroll-2&quot; hidden&gt;제품 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-3&quot; aria-labelledby=&quot;tabs-scroll-3&quot; hidden&gt;솔루션 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-4&quot; aria-labelledby=&quot;tabs-scroll-4&quot; hidden&gt;가격 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-5&quot; aria-labelledby=&quot;tabs-scroll-5&quot; hidden&gt;고객 사례 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-6&quot; aria-labelledby=&quot;tabs-scroll-6&quot; hidden&gt;리소스 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-scroll-panel-7&quot; aria-labelledby=&quot;tabs-scroll-7&quot; hidden&gt;지원 패널&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="disabled-heading">
+          <div class="demo_section-header">
+            <h2 id="disabled-heading">비활성</h2>
+            <p>disabled 속성 또는 is-disabled 클래스로 탭을 비활성화합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="tabs tabs_line" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="권한별 탭">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-disabled-1" aria-selected="true" aria-controls="tabs-disabled-panel-1">공개</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-disabled-2" aria-selected="false" aria-controls="tabs-disabled-panel-2" tabindex="-1">팀</button>
+                  <button type="button" class="tabs_tab is-disabled" role="tab" id="tabs-disabled-3" aria-selected="false" aria-controls="tabs-disabled-panel-3" tabindex="-1" disabled aria-disabled="true">관리자</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-disabled-panel-1" aria-labelledby="tabs-disabled-1">공개 콘텐츠</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-disabled-panel-2" aria-labelledby="tabs-disabled-2" hidden>팀 전용 콘텐츠</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-disabled-panel-3" aria-labelledby="tabs-disabled-3" hidden>관리자 전용 콘텐츠</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;tabs tabs_line&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;권한별 탭&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-disabled-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-disabled-panel-1&quot;&gt;공개&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-disabled-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-disabled-panel-2&quot; tabindex=&quot;-1&quot;&gt;팀&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-disabled&quot; role=&quot;tab&quot; id=&quot;tabs-disabled-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-disabled-panel-3&quot; tabindex=&quot;-1&quot; disabled aria-disabled=&quot;true&quot;&gt;관리자&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-disabled-panel-1&quot; aria-labelledby=&quot;tabs-disabled-1&quot;&gt;공개 콘텐츠&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-disabled-panel-2&quot; aria-labelledby=&quot;tabs-disabled-2&quot; hidden&gt;팀 전용 콘텐츠&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-disabled-panel-3&quot; aria-labelledby=&quot;tabs-disabled-3&quot; hidden&gt;관리자 전용 콘텐츠&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="vertical-heading">
+          <div class="demo_section-header">
+            <h2 id="vertical-heading">수직</h2>
+            <p>tabs_vertical로 사이드바 형태의 탭을 구성합니다. 라인·카드 스킨과 조합할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tabs tabs_line tabs_vertical" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="수직 라인 탭">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-vline-1" aria-selected="true" aria-controls="tabs-vline-panel-1">일반</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-vline-2" aria-selected="false" aria-controls="tabs-vline-panel-2" tabindex="-1">보안</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-vline-3" aria-selected="false" aria-controls="tabs-vline-panel-3" tabindex="-1">결제</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-vline-panel-1" aria-labelledby="tabs-vline-1">
+                  <p>일반 설정 패널입니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-vline-panel-2" aria-labelledby="tabs-vline-2" hidden>
+                  <p>보안 설정 패널입니다.</p>
+                </div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-vline-panel-3" aria-labelledby="tabs-vline-3" hidden>
+                  <p>결제 설정 패널입니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tabs tabs_card tabs_vertical" data-tabs>
+              <div class="tabs_bar">
+                <div class="tabs_list" role="tablist" aria-label="수직 카드 탭">
+                  <button type="button" class="tabs_tab is-active" role="tab" id="tabs-vcard-1" aria-selected="true" aria-controls="tabs-vcard-panel-1">문서</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-vcard-2" aria-selected="false" aria-controls="tabs-vcard-panel-2" tabindex="-1">미디어</button>
+                  <button type="button" class="tabs_tab" role="tab" id="tabs-vcard-3" aria-selected="false" aria-controls="tabs-vcard-panel-3" tabindex="-1">아카이브</button>
+                </div>
+              </div>
+              <div class="tabs_panels">
+                <div class="tabs_panel is-active" role="tabpanel" id="tabs-vcard-panel-1" aria-labelledby="tabs-vcard-1">문서 관리 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-vcard-panel-2" aria-labelledby="tabs-vcard-2" hidden>미디어 관리 패널</div>
+                <div class="tabs_panel" role="tabpanel" id="tabs-vcard-panel-3" aria-labelledby="tabs-vcard-3" hidden>아카이브 패널</div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 일반 설정 패널입니다. --&gt;
+
+&lt;div class=&quot;tabs tabs_line tabs_vertical&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;수직 라인 탭&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-vline-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-vline-panel-1&quot;&gt;일반&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-vline-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-vline-panel-2&quot; tabindex=&quot;-1&quot;&gt;보안&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-vline-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-vline-panel-3&quot; tabindex=&quot;-1&quot;&gt;결제&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vline-panel-1&quot; aria-labelledby=&quot;tabs-vline-1&quot;&gt;
+      &lt;p&gt;일반 설정 패널입니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vline-panel-2&quot; aria-labelledby=&quot;tabs-vline-2&quot; hidden&gt;
+      &lt;p&gt;보안 설정 패널입니다.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vline-panel-3&quot; aria-labelledby=&quot;tabs-vline-3&quot; hidden&gt;
+      &lt;p&gt;결제 설정 패널입니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 수직 카드 탭 --&gt;
+
+&lt;div class=&quot;tabs tabs_card tabs_vertical&quot; data-tabs&gt;
+  &lt;div class=&quot;tabs_bar&quot;&gt;
+    &lt;div class=&quot;tabs_list&quot; role=&quot;tablist&quot; aria-label=&quot;수직 카드 탭&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab is-active&quot; role=&quot;tab&quot; id=&quot;tabs-vcard-1&quot; aria-selected=&quot;true&quot; aria-controls=&quot;tabs-vcard-panel-1&quot;&gt;문서&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-vcard-2&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-vcard-panel-2&quot; tabindex=&quot;-1&quot;&gt;미디어&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;tabs_tab&quot; role=&quot;tab&quot; id=&quot;tabs-vcard-3&quot; aria-selected=&quot;false&quot; aria-controls=&quot;tabs-vcard-panel-3&quot; tabindex=&quot;-1&quot;&gt;아카이브&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tabs_panels&quot;&gt;
+    &lt;div class=&quot;tabs_panel is-active&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vcard-panel-1&quot; aria-labelledby=&quot;tabs-vcard-1&quot;&gt;문서 관리 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vcard-panel-2&quot; aria-labelledby=&quot;tabs-vcard-2&quot; hidden&gt;미디어 관리 패널&lt;/div&gt;
+    &lt;div class=&quot;tabs_panel&quot; role=&quot;tabpanel&quot; id=&quot;tabs-vcard-panel-3&quot; aria-labelledby=&quot;tabs-vcard-3&quot; hidden&gt;아카이브 패널&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

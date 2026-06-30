@@ -1,0 +1,219 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Tag — OOCSS: 구조(.tag) + 크기(.tag_*) + 변형(.tag_outline · .tag_solid · .tag_round · .tag_checkable · .tag_add) + 공통 색상(.color_*)
+//
+//   <span class="tag color_primary">React</span>
+//   <span class="tag color_primary tag_solid">Solid</span>
+//   <span class="tag color_primary tag_outline">Outline</span>
+//   <button type="button" class="tag tag_checkable is-selected">선택됨</button>
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tag-gap);
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--tag-padding-y) var(--tag-padding-x);
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-font-weight);
+  line-height: var(--tag-line-height);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+
+  &.color_default {
+    color: color-token(muted);
+    background: var(--color-surface-raised);
+    border-color: var(--color-border);
+  }
+
+  @include surface-soft-colors();
+
+  &.tag_outline {
+    background: transparent;
+    @include outline-border-colors();
+  }
+
+  &.tag_solid {
+    @each $name in default, primary, success, danger, warning, info {
+      &.color_#{$name} {
+        @include surface-filled($name);
+      }
+    }
+  }
+
+  &.tag_round {
+    border-radius: var(--radius-pill);
+  }
+
+  &.tag_borderless {
+    border-color: transparent;
+  }
+
+  &.is-disabled {
+    @include disabled-state;
+  }
+
+  &_icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    @include square-size(var(--tag-icon-size));
+
+    .icon,
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &_sm {
+    padding: var(--tag-padding-y-sm) var(--tag-padding-x-sm);
+    font-size: var(--tag-font-size-sm);
+
+    .tag_close {
+      @include square-size(var(--tag-close-size-sm));
+    }
+
+    .tag_icon {
+      @include square-size(var(--tag-icon-size-sm));
+    }
+  }
+
+  &_lg {
+    padding: var(--tag-padding-y-lg) var(--tag-padding-x-lg);
+    font-size: var(--tag-font-size-lg);
+
+    .tag_close {
+      @include square-size(var(--tag-close-size-lg));
+    }
+
+    .tag_icon {
+      @include square-size(var(--tag-icon-size-lg));
+    }
+  }
+
+  &_close {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+    @include square-size(var(--tag-close-size));
+    @include focus-ring;
+
+    svg {
+      width: 0.75em;
+      height: 0.75em;
+    }
+
+    &:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .tag_solid & {
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  // 필터·토글용 선택 태그
+  &_checkable {
+    cursor: pointer;
+    transition:
+      color $transition-fast,
+      background-color $transition-fast,
+      border-color $transition-fast;
+
+    &.color_default {
+      color: color-token(muted);
+      background: var(--color-surface);
+      border-color: var(--color-border);
+    }
+
+    &:hover:not(.is-disabled):not(.is-selected) {
+      border-color: var(--color-accent);
+      color: color-token(primary);
+    }
+
+    &.is-selected {
+      &.color_default {
+        color: color-token(primary);
+        background: var(--color-accent-muted);
+        border-color: var(--color-accent);
+      }
+
+      &.color_primary {
+        @include surface-filled(primary);
+      }
+
+      &.color_success {
+        @include surface-filled(success);
+      }
+
+      &.color_danger {
+        @include surface-filled(danger);
+      }
+
+      &.color_warning {
+        @include surface-filled(warning);
+      }
+    }
+  }
+
+  // 새 태그 추가 버튼
+  &_add {
+    color: color-token(muted);
+    background: transparent;
+    border-style: var(--tag-add-border-style);
+    border-color: var(--color-border);
+    cursor: pointer;
+    transition:
+      color $transition-fast,
+      border-color $transition-fast,
+      background-color $transition-fast;
+
+    &:hover:not(.is-disabled) {
+      color: color-token(primary);
+      border-color: var(--color-accent);
+      background: var(--color-accent-muted);
+    }
+  }
+
+  &_group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  &_group-tight {
+    gap: var(--space-xs);
+  }
+}
+
+a.tag,
+button.tag {
+  margin: 0;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  @include focus-ring;
+}
+
+a.tag {
+  &:hover:not(.is-disabled) {
+    opacity: 0.88;
+  }
+}

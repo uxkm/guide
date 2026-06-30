@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Layout | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="form-layout">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Form Layout</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Form Layout</h1>
+          <p class="lead">폼 필드를 배치하는 레이아웃 유형입니다. <strong>form_vertical</strong> · <strong>form_horizontal</strong> · <strong>form_inline</strong>과 Grid를 조합해 다양한 폼 구조를 구성할 수 있습니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="vertical-heading">
+          <div class="demo_section-header">
+            <h2 id="vertical-heading">세로</h2>
+            <p>레이블이 입력 위에 오는 기본 레이아웃입니다. form_vertical을 명시하거나 form_field만 나열해도 동일하게 동작합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <form class="form form_vertical">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-name">이름</label>
+                <input type="text" class="input" id="fl-name" placeholder="이름을 입력하세요">
+                <p class="form_field-hint">2~20자 이내로 입력해 주세요.</p>
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-email">이메일</label>
+                <input type="email" class="input" id="fl-email" placeholder="name@example.com">
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-role">역할</label>
+                <select class="input" id="fl-role">
+                  <option value="">선택하세요</option>
+                  <option>관리자</option>
+                  <option>편집자</option>
+                  <option>뷰어</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_vertical&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-name&quot;&gt;이름&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-name&quot; placeholder=&quot;이름을 입력하세요&quot;&gt;
+    &lt;p class=&quot;form_field-hint&quot;&gt;2~20자 이내로 입력해 주세요.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-email&quot;&gt;이메일&lt;/label&gt;
+    &lt;input type=&quot;email&quot; class=&quot;input&quot; id=&quot;fl-email&quot; placeholder=&quot;name@example.com&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-role&quot;&gt;역할&lt;/label&gt;
+    &lt;select class=&quot;input&quot; id=&quot;fl-role&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;선택하세요&lt;/option&gt;
+      &lt;option&gt;관리자&lt;/option&gt;
+      &lt;option&gt;편집자&lt;/option&gt;
+      &lt;option&gt;뷰어&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="horizontal-heading">
+          <div class="demo_section-header">
+            <h2 id="horizontal-heading">가로</h2>
+            <p>레이블이 왼쪽, 입력이 오른쪽에 배치됩니다. 레이블은 기본적으로 오른쪽 정렬됩니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <form class="form form_horizontal">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-h-name">이름</label>
+                <input type="text" class="input" id="fl-h-name" placeholder="이름">
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-h-email">이메일</label>
+                <input type="email" class="input" id="fl-h-email" placeholder="name@example.com">
+                <p class="form_field-hint">업무용 이메일을 입력해 주세요.</p>
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-h-bio">소개</label>
+                <textarea class="textarea" id="fl-h-bio" rows="3" placeholder="간단한 자기소개"></textarea>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_horizontal&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-h-name&quot;&gt;이름&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-h-name&quot; placeholder=&quot;이름&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-h-email&quot;&gt;이메일&lt;/label&gt;
+    &lt;input type=&quot;email&quot; class=&quot;input&quot; id=&quot;fl-h-email&quot; placeholder=&quot;name@example.com&quot;&gt;
+    &lt;p class=&quot;form_field-hint&quot;&gt;업무용 이메일을 입력해 주세요.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-h-bio&quot;&gt;소개&lt;/label&gt;
+    &lt;textarea class=&quot;textarea&quot; id=&quot;fl-h-bio&quot; rows=&quot;3&quot; placeholder=&quot;간단한 자기소개&quot;&gt;
+    &lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="horizontal-align-heading">
+          <div class="demo_section-header">
+            <h2 id="horizontal-align-heading">가로 — 레이블 정렬·너비</h2>
+            <p>form_label-align-start로 레이블을 왼쪽 정렬하고, form_label-width-sm · form_label-width-lg로 레이블 너비를 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <form class="form form_horizontal form_label-align-start form_label-width-sm">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-hs-city">도시</label>
+                <input type="text" class="input" id="fl-hs-city" placeholder="서울">
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-hs-zip">우편번호</label>
+                <input type="text" class="input" id="fl-hs-zip" placeholder="00000">
+              </div>
+            </form>
+
+            <form class="form form_horizontal form_label-width-lg">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-hl-company">회사명</label>
+                <input type="text" class="input" id="fl-hl-company" placeholder="UXKM">
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-hl-dept">부서</label>
+                <input type="text" class="input" id="fl-hl-dept" placeholder="디자인팀">
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 도시 --&gt;
+
+&lt;form class=&quot;form form_horizontal form_label-align-start form_label-width-sm&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-city&quot;&gt;도시&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-city&quot; placeholder=&quot;서울&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-zip&quot;&gt;우편번호&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-zip&quot; placeholder=&quot;00000&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- 회사명 --&gt;
+
+&lt;form class=&quot;form form_horizontal form_label-width-lg&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-company&quot;&gt;회사명&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-company&quot; placeholder=&quot;UXKM&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-dept&quot;&gt;부서&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-dept&quot; placeholder=&quot;디자인팀&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="inline-heading">
+          <div class="demo_section-header">
+            <h2 id="inline-heading">인라인</h2>
+            <p>검색·필터처럼 필드를 한 줄에 나란히 배치합니다. 공간이 부족하면 자동으로 줄바꿈됩니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <form class="form form_inline">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-i-keyword">키워드</label>
+                <input type="search" class="input" id="fl-i-keyword" placeholder="검색어">
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-i-status">상태</label>
+                <select class="input" id="fl-i-status">
+                  <option>전체</option>
+                  <option>활성</option>
+                  <option>비활성</option>
+                </select>
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="fl-i-date">기간</label>
+                <input type="date" class="input" id="fl-i-date">
+              </div>
+              <div class="form_actions">
+                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">검색</span></button>
+                <button type="reset" class="btn btn_ghost"><span class="btn_label">초기화</span></button>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_inline&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-i-keyword&quot;&gt;키워드&lt;/label&gt;
+    &lt;input type=&quot;search&quot; class=&quot;input&quot; id=&quot;fl-i-keyword&quot; placeholder=&quot;검색어&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-i-status&quot;&gt;상태&lt;/label&gt;
+    &lt;select class=&quot;input&quot; id=&quot;fl-i-status&quot;&gt;
+      &lt;option&gt;전체&lt;/option&gt;
+      &lt;option&gt;활성&lt;/option&gt;
+      &lt;option&gt;비활성&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-i-date&quot;&gt;기간&lt;/label&gt;
+    &lt;input type=&quot;date&quot; class=&quot;input&quot; id=&quot;fl-i-date&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_actions&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;검색&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;reset&quot; class=&quot;btn btn_ghost&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;초기화&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="grid-heading">
+          <div class="demo_section-header">
+            <h2 id="grid-heading">그리드</h2>
+            <p>Grid 유틸리티와 조합해 2열·3열 폼을 구성합니다. grid_item-span-6이면 12열 기준 한 행에 2개씩 배치됩니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <form class="form form_vertical">
+              <div class="grid grid_item-span-6">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-g-first">이름</label>
+                  <input type="text" class="input" id="fl-g-first" placeholder="이름">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-g-last">성</label>
+                  <input type="text" class="input" id="fl-g-last" placeholder="성">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-g-phone">전화번호</label>
+                  <input type="tel" class="input" id="fl-g-phone" placeholder="010-0000-0000">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-g-mobile">휴대폰</label>
+                  <input type="tel" class="input" id="fl-g-mobile" placeholder="010-0000-0000">
+                </div>
+                <div class="form_field grid_col-span-12">
+                  <label class="form_field-label" for="fl-g-address">주소</label>
+                  <input type="text" class="input" id="fl-g-address" placeholder="도로명 주소">
+                </div>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_vertical&quot;&gt;
+  &lt;div class=&quot;grid grid_item-span-6&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-g-first&quot;&gt;이름&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-g-first&quot; placeholder=&quot;이름&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-g-last&quot;&gt;성&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-g-last&quot; placeholder=&quot;성&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-g-phone&quot;&gt;전화번호&lt;/label&gt;
+      &lt;input type=&quot;tel&quot; class=&quot;input&quot; id=&quot;fl-g-phone&quot; placeholder=&quot;010-0000-0000&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-g-mobile&quot;&gt;휴대폰&lt;/label&gt;
+      &lt;input type=&quot;tel&quot; class=&quot;input&quot; id=&quot;fl-g-mobile&quot; placeholder=&quot;010-0000-0000&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field grid_col-span-12&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-g-address&quot;&gt;주소&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-g-address&quot; placeholder=&quot;도로명 주소&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="width-heading">
+          <div class="demo_section-header">
+            <h2 id="width-heading">너비</h2>
+            <p>폼 필드는 기본적으로 부모 너비 100%를 사용합니다. form_fit을 사용하면 --input-max-width(320px)로 제한할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <form class="form form_vertical">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-w-default">기본 너비</label>
+                <input type="text" class="input" id="fl-w-default" placeholder="부모 100%">
+              </div>
+            </form>
+
+            <form class="form form_vertical form_fit">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-w-fit">제한 너비</label>
+                <input type="text" class="input" id="fl-w-fit" placeholder="form_fit — 최대 320px">
+              </div>
+            </form>
+
+            <form class="form form_horizontal">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-w-h-full">가로 레이아웃</label>
+                <input type="text" class="input" id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움">
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 기본 너비 --&gt;
+
+&lt;form class=&quot;form form_vertical&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-default&quot;&gt;기본 너비&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-default&quot; placeholder=&quot;부모 100%&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- 제한 너비 --&gt;
+
+&lt;form class=&quot;form form_vertical form_fit&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-fit&quot;&gt;제한 너비&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-fit&quot; placeholder=&quot;form_fit — 최대 320px&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- 가로 레이아웃 --&gt;
+
+&lt;form class=&quot;form form_horizontal&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-h-full&quot;&gt;가로 레이아웃&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-h-full&quot; placeholder=&quot;입력 열이 남은 공간을 채움&quot;&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="actions-heading">
+          <div class="demo_section-header">
+            <h2 id="actions-heading">액션 영역</h2>
+            <p>form_actions로 제출·취소 버튼을 그룹화합니다. 가로 레이아웃에서는 레이블 열 너비만큼 들여쓰기됩니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <form class="form form_vertical">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-a-title">제목</label>
+                <input type="text" class="input" id="fl-a-title" placeholder="제목">
+              </div>
+              <div class="form_actions">
+                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+                <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+              </div>
+            </form>
+
+            <form class="form form_horizontal">
+              <div class="form_field">
+                <label class="form_field-label" for="fl-a2-title">제목</label>
+                <input type="text" class="input" id="fl-a2-title" placeholder="제목">
+              </div>
+              <div class="form_actions">
+                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+                <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 제목 --&gt;
+
+&lt;form class=&quot;form form_vertical&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a-title&quot;&gt;제목&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a-title&quot; placeholder=&quot;제목&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_actions&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- 제목 --&gt;
+
+&lt;form class=&quot;form form_horizontal&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a2-title&quot;&gt;제목&lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a2-title&quot; placeholder=&quot;제목&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_actions&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="example-heading">
+          <div class="demo_section-header">
+            <h2 id="example-heading">전체 예시</h2>
+            <p>세로 레이아웃 + 그리드 + 액션을 조합한 회원 정보 폼입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <form class="form form_vertical form_compact">
+              <div class="grid grid_item-span-6">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-ex-id">아이디</label>
+                  <input type="text" class="input" id="fl-ex-id" placeholder="아이디">
+                  <p class="form_field-hint">영문·숫자 4~16자</p>
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-ex-pw">비밀번호</label>
+                  <input type="password" class="input" id="fl-ex-pw" placeholder="비밀번호">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-ex-name">이름</label>
+                  <input type="text" class="input" id="fl-ex-name" placeholder="이름">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-ex-email">이메일</label>
+                  <input type="email" class="input" id="fl-ex-email" placeholder="name@example.com">
+                </div>
+                <div class="form_field grid_col-span-12">
+                  <label class="form_field-label" for="fl-ex-memo">메모</label>
+                  <textarea class="textarea" id="fl-ex-memo" rows="3" placeholder="추가 정보"></textarea>
+                </div>
+              </div>
+              <div class="form_actions">
+                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">가입하기</span></button>
+                <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_vertical form_compact&quot;&gt;
+  &lt;div class=&quot;grid grid_item-span-6&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-ex-id&quot;&gt;아이디&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-ex-id&quot; placeholder=&quot;아이디&quot;&gt;
+      &lt;p class=&quot;form_field-hint&quot;&gt;영문·숫자 4~16자&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-ex-pw&quot;&gt;비밀번호&lt;/label&gt;
+      &lt;input type=&quot;password&quot; class=&quot;input&quot; id=&quot;fl-ex-pw&quot; placeholder=&quot;비밀번호&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-ex-name&quot;&gt;이름&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-ex-name&quot; placeholder=&quot;이름&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-ex-email&quot;&gt;이메일&lt;/label&gt;
+      &lt;input type=&quot;email&quot; class=&quot;input&quot; id=&quot;fl-ex-email&quot; placeholder=&quot;name@example.com&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field grid_col-span-12&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-ex-memo&quot;&gt;메모&lt;/label&gt;
+      &lt;textarea class=&quot;textarea&quot; id=&quot;fl-ex-memo&quot; rows=&quot;3&quot; placeholder=&quot;추가 정보&quot;&gt;
+      &lt;/textarea&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_actions&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;가입하기&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// List — OOCSS: 구조(.list) + 스킨(.list_bordered · .list_bullet · .list_ordered) + 파트(.list_item · .list_link)
+//
+//   <ul class="list list_bullet">
+//     <li class="list_item">항목</li>
+//   </ul>
+//
+//   <ol class="list list_ordered">
+//     <li class="list_item">1단계</li>
+//   </ol>
+//
+//   클릭 가능 항목 — li는 구조만 유지하고, a·button.list_link에 인터랙션을 부여합니다.
+//   <li class="list_item">
+//     <a href="#" class="list_link">…</a>
+//   </li>
+
+// 불릿 · 번호 목록
+@mixin list-marker-item {
+  display: list-item;
+  width: 100%;
+  padding-block: var(--list-marker-gap);
+  padding-inline: 0;
+  border-radius: 0;
+
+  &:has(.list_link) {
+    display: list-item;
+    padding: 0;
+  }
+
+  .list_link {
+    padding-block: var(--list-marker-gap);
+    padding-inline: 0;
+    border-radius: $radius-sm;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--list-gap);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &_item {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    width: 100%;
+    padding: var(--list-item-padding-y) var(--list-item-padding-x);
+    border-radius: $radius-md;
+
+    &:has(.list_link) {
+      display: block;
+      padding: 0;
+    }
+
+    &:has(.card) {
+      display: block;
+      padding: 0;
+    }
+  }
+
+  &_link {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    width: 100%;
+    margin: 0;
+    padding: var(--list-item-padding-y) var(--list-item-padding-x);
+    border: none;
+    border-radius: inherit;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+    @include focus-ring;
+
+    &:hover {
+      background: var(--color-surface-raised);
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &_title {
+    font-size: var(--list-title-size);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  &_meta {
+    font-size: var(--list-meta-size);
+    color: var(--color-text-muted);
+  }
+
+  &_desc {
+    font-size: var(--list-desc-size);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  &_action {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &_bordered {
+    .list_item {
+      border: 1px solid var(--color-border-subtle);
+      background: var(--color-surface);
+    }
+
+    .list_item:has(.list_link) {
+      border: none;
+      background: transparent;
+
+      .list_link {
+        border: 1px solid var(--color-border-subtle);
+        background: var(--color-surface);
+        border-radius: $radius-md;
+      }
+    }
+  }
+
+  &_compact {
+    .list_item:not(:has(.list_link)) {
+      padding-block: $space-sm;
+    }
+
+    .list_link {
+      padding-block: $space-sm;
+    }
+  }
+
+  &_divider {
+    .list_item + .list_item {
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .list_item {
+      border-radius: 0;
+      padding-inline: 0;
+    }
+
+    .list_item:has(.list_link) {
+      padding-inline: 0;
+    }
+
+    .list_link {
+      padding-inline: 0;
+      border-radius: 0;
+    }
+  }
+
+  &_bullet {
+    list-style: disc;
+    padding-left: var(--list-marker-padding);
+
+    .list_item {
+      @include list-marker-item;
+    }
+
+    .list {
+      margin-top: var(--list-marker-gap);
+      padding-left: var(--list-marker-padding);
+    }
+  }
+
+  &_bullet-circle {
+    list-style: circle;
+  }
+
+  &_bullet-square {
+    list-style: square;
+  }
+
+  &_ordered {
+    list-style: decimal;
+    padding-left: var(--list-marker-padding);
+
+    .list_item {
+      @include list-marker-item;
+    }
+
+    .list {
+      margin-top: var(--list-marker-gap);
+      padding-left: var(--list-marker-padding);
+    }
+  }
+
+  &_ordered-alpha {
+    list-style: lower-alpha;
+  }
+
+  &_ordered-roman {
+    list-style: lower-roman;
+  }
+
+  // 카드 항목 목록 — li 안에 card 배치
+  &_cards {
+    gap: $space-md;
+
+    .list_item .card {
+      width: 100%;
+    }
+  }
+}

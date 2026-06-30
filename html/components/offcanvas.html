@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offcanvas | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="offcanvas">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Offcanvas</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Offcanvas</h1>
+          <p class="lead">화면 가장자리에서 슬라이드되어 나타나는 패널 컴포넌트입니다. 모바일 내비게이션·필터·설정·장바구니 등 보조 UI에 사용하며, <code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal</code>로 접근성을 보장합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p><code class="typo_code">data-offcanvas-trigger</code>로 패널을 열고, 백드롭·닫기 버튼·<kbd>Esc</kbd>로 닫습니다. 기본 위치는 왼쪽(<code class="typo_code">offcanvas_placement-start</code>)입니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <button type="button" class="btn btn_filled color_primary" data-offcanvas-trigger="#oc-basic" aria-controls="oc-basic" aria-expanded="false">
+              <span class="btn_label">메뉴 열기</span>
+            </button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot; data-offcanvas-trigger=&quot;#oc-basic&quot; aria-controls=&quot;oc-basic&quot; aria-expanded=&quot;false&quot;&gt;
+  &lt;span class=&quot;btn_label&quot;&gt;메뉴 열기&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="placement-heading">
+          <div class="demo_section-header">
+            <h2 id="placement-heading">위치</h2>
+            <p><code class="typo_code">offcanvas_placement-start</code> · <code class="typo_code">-end</code> · <code class="typo_code">-top</code> · <code class="typo_code">-bottom</code>으로 슬라이드 방향을 지정합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="offcanvas_demo-row">
+              <button type="button" class="btn btn_outline" data-offcanvas-trigger="#oc-place-start" aria-controls="oc-place-start" aria-expanded="false">
+                <span class="btn_label">왼쪽</span>
+              </button>
+              <button type="button" class="btn btn_outline" data-offcanvas-trigger="#oc-place-end" aria-controls="oc-place-end" aria-expanded="false">
+                <span class="btn_label">오른쪽</span>
+              </button>
+              <button type="button" class="btn btn_outline" data-offcanvas-trigger="#oc-place-top" aria-controls="oc-place-top" aria-expanded="false">
+                <span class="btn_label">위</span>
+              </button>
+              <button type="button" class="btn btn_outline" data-offcanvas-trigger="#oc-place-bottom" aria-controls="oc-place-bottom" aria-expanded="false">
+                <span class="btn_label">아래</span>
+              </button>
+            </div>
+
+            <p class="form_field-hint">기본 동작은 초기 로드 시 모두 닫힌 상태이며, 버튼 클릭 이벤트로만 열립니다.</p>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 예시 1 --&gt;
+
+&lt;div class=&quot;offcanvas_demo-row&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-offcanvas-trigger=&quot;#oc-place-start&quot; aria-controls=&quot;oc-place-start&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;왼쪽&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-offcanvas-trigger=&quot;#oc-place-end&quot; aria-controls=&quot;oc-place-end&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;오른쪽&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-offcanvas-trigger=&quot;#oc-place-top&quot; aria-controls=&quot;oc-place-top&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;위&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-offcanvas-trigger=&quot;#oc-place-bottom&quot; aria-controls=&quot;oc-place-bottom&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;아래&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 기본 동작은 초기 로드 시 모두 닫힌 상태이며, 버튼 클릭 이벤트로만 열립니다. --&gt;
+
+&lt;p class=&quot;form_field-hint&quot;&gt;기본 동작은 초기 로드 시 모두 닫힌 상태이며, 버튼 클릭 이벤트로만 열립니다.&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p><code class="typo_code">offcanvas_sm</code> · <code class="typo_code">offcanvas_lg</code>으로 패널 너비(또는 상·하 배치 시 높이)를 조정합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="offcanvas_demo-row">
+              <button type="button" class="btn btn_outline btn_sm" data-offcanvas-trigger="#oc-size-sm" aria-controls="oc-size-sm" aria-expanded="false">
+                <span class="btn_label">Small</span>
+              </button>
+              <button type="button" class="btn btn_outline" data-offcanvas-trigger="#oc-size-default" aria-controls="oc-size-default" aria-expanded="false">
+                <span class="btn_label">Default</span>
+              </button>
+              <button type="button" class="btn btn_outline btn_lg" data-offcanvas-trigger="#oc-size-lg" aria-controls="oc-size-lg" aria-expanded="false">
+                <span class="btn_label">Large</span>
+              </button>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;offcanvas_demo-row&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-offcanvas-trigger=&quot;#oc-size-sm&quot; aria-controls=&quot;oc-size-sm&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Small&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-offcanvas-trigger=&quot;#oc-size-default&quot; aria-controls=&quot;oc-size-default&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Default&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_lg&quot; data-offcanvas-trigger=&quot;#oc-size-lg&quot; aria-controls=&quot;oc-size-lg&quot; aria-expanded=&quot;false&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Large&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="no-backdrop-heading">
+          <div class="demo_section-header">
+            <h2 id="no-backdrop-heading">백드롭 없음</h2>
+            <p><code class="typo_code">data-offcanvas-backdrop="false"</code>로 어두운 배경을 숨깁니다. 본문과 동시에 상호작용할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <button type="button" class="btn btn_ghost" data-offcanvas-trigger="#oc-no-backdrop" aria-controls="oc-no-backdrop" aria-expanded="false">
+              <span class="btn_label">백드롭 없이 열기</span>
+            </button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot; data-offcanvas-trigger=&quot;#oc-no-backdrop&quot; aria-controls=&quot;oc-no-backdrop&quot; aria-expanded=&quot;false&quot;&gt;
+  &lt;span class=&quot;btn_label&quot;&gt;백드롭 없이 열기&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="footer-heading">
+          <div class="demo_section-header">
+            <h2 id="footer-heading">헤더·푸터</h2>
+            <p><code class="typo_code">offcanvas_header</code> · <code class="typo_code">offcanvas_body</code> · <code class="typo_code">offcanvas_footer</code>로 영역을 나눕니다. 푸터에 액션 버튼을 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <button type="button" class="btn btn_filled color_primary" data-offcanvas-trigger="#oc-footer" aria-controls="oc-footer" aria-expanded="false">
+              <span class="btn_label">필터 열기</span>
+            </button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot; data-offcanvas-trigger=&quot;#oc-footer&quot; aria-controls=&quot;oc-footer&quot; aria-expanded=&quot;false&quot;&gt;
+  &lt;span class=&quot;btn_label&quot;&gt;필터 열기&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="menu-heading">
+          <div class="demo_section-header">
+            <h2 id="menu-heading">메뉴</h2>
+            <p>Menu 컴포넌트와 조합해 모바일 내비게이션 패널을 구성합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <button type="button" class="btn btn_outline btn_icon-only" data-offcanvas-trigger="#oc-menu" aria-controls="oc-menu" aria-expanded="false" aria-label="메뉴 열기">
+              <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_icon-only&quot; data-offcanvas-trigger=&quot;#oc-menu&quot; aria-controls=&quot;oc-menu&quot; aria-expanded=&quot;false&quot; aria-label=&quot;메뉴 열기&quot;&gt;
+  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;path d=&quot;M4 6h16M4 12h16M4 18h16&quot;/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="open-on-load-heading">
+          <div class="demo_section-header">
+            <h2 id="open-on-load-heading">로드 시 자동 열기 (옵션)</h2>
+            <p><code class="typo_code">data-offcanvas-open-on-load="true"</code>를 지정하면 페이지 로드 후 해당 Offcanvas를 자동으로 열 수 있습니다. 기본값은 비활성입니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <p class="form_field-hint">아래 예시는 옵션 동작 확인용입니다.</p>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;p class=&quot;form_field-hint&quot;&gt;아래 예시는 옵션 동작 확인용입니다.&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <!-- 기본 -->
+        <div class="offcanvas" id="oc-basic" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-basic-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-start">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-basic-title">메뉴</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>Offcanvas 패널 본문입니다. 스크롤이 필요한 긴 콘텐츠도 <code class="typo_code">offcanvas_body</code> 안에서 처리됩니다.</p>
+              <p>백드롭을 클릭하거나 닫기 버튼, <kbd>Esc</kbd> 키로 패널을 닫을 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 위치: 왼쪽 -->
+        <div class="offcanvas" id="oc-place-start" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-place-start-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-start">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-place-start-title">왼쪽 패널</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>화면 왼쪽에서 슬라이드됩니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 위치: 오른쪽 -->
+        <div class="offcanvas" id="oc-place-end" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-place-end-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-place-end-title">오른쪽 패널</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>장바구니·알림 등 보조 패널에 자주 사용합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 위치: 위 -->
+        <div class="offcanvas" id="oc-place-top" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-place-top-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-top">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-place-top-title">상단 패널</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>검색·공지 배너 등 상단에서 내려오는 패널입니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 위치: 아래 -->
+        <div class="offcanvas" id="oc-place-bottom" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-place-bottom-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-bottom">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-place-bottom-title">하단 패널</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>모바일 액션 시트·공유 패널 등에 적합합니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 크기 -->
+        <div class="offcanvas" id="oc-size-sm" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-size-sm-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end offcanvas_sm">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-size-sm-title">Small</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>offcanvas_sm — 좁은 보조 패널</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="offcanvas" id="oc-size-default" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-size-default-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-size-default-title">Default</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>기본 너비 20rem</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="offcanvas" id="oc-size-lg" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-size-lg-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end offcanvas_lg">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-size-lg-title">Large</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>offcanvas_lg — 넓은 설정·상세 패널</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 백드롭 없음 -->
+        <div class="offcanvas" id="oc-no-backdrop" data-offcanvas data-offcanvas-backdrop="false" role="dialog" aria-modal="true" aria-labelledby="oc-no-backdrop-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end offcanvas_sm">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-no-backdrop-title">백드롭 없음</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>본문을 가리지 않고 패널만 표시합니다. 닫기 버튼이나 <kbd>Esc</kbd>로 닫으세요.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 헤더·푸터 -->
+        <div class="offcanvas" id="oc-footer" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-footer-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-footer-title">필터</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <div class="form_field">
+                <label class="form_field-label" for="oc-filter-category">카테고리</label>
+                <select class="input" id="oc-filter-category">
+                  <option>전체</option>
+                  <option>디자인</option>
+                  <option>개발</option>
+                </select>
+              </div>
+              <div class="form_field">
+                <label class="form_field-label" for="oc-filter-sort">정렬</label>
+                <select class="input" id="oc-filter-sort">
+                  <option>최신순</option>
+                  <option>인기순</option>
+                </select>
+              </div>
+            </div>
+            <div class="offcanvas_footer">
+              <button type="button" class="btn btn_ghost" data-offcanvas-close><span class="btn_label">초기화</span></button>
+              <button type="button" class="btn btn_filled color_primary" data-offcanvas-close><span class="btn_label">적용</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 메뉴 -->
+        <div class="offcanvas" id="oc-menu" data-offcanvas role="dialog" aria-modal="true" aria-labelledby="oc-menu-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-start">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-menu-title">앱 메뉴</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body" style="padding-top: 0;">
+              <nav class="menu menu_vertical menu_compact" aria-label="앱 메뉴">
+                <ul class="menu_list">
+                  <li class="menu_item">
+                    <a href="#" class="menu_link is-active" aria-current="page">
+                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                      </svg>
+                      <span class="menu_label">대시보드</span>
+                    </a>
+                  </li>
+                  <li class="menu_item">
+                    <a href="#" class="menu_link">
+                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/>
+                      </svg>
+                      <span class="menu_label">분석</span>
+                    </a>
+                  </li>
+                  <li class="menu_item">
+                    <a href="#" class="menu_link">
+                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                      </svg>
+                      <span class="menu_label">사용자</span>
+                    </a>
+                  </li>
+                  <li class="menu_divider" role="separator"></li>
+                  <li class="menu_item">
+                    <a href="#" class="menu_link">
+                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                      </svg>
+                      <span class="menu_label">설정</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- 옵션: 로드 시 자동 열기 -->
+        <div class="offcanvas" id="oc-open-on-load" data-offcanvas data-offcanvas-open-on-load="true" role="dialog" aria-modal="true" aria-labelledby="oc-open-on-load-title" tabindex="-1" hidden>
+          <div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"></div>
+          <div class="offcanvas_panel offcanvas_placement-end offcanvas_sm">
+            <div class="offcanvas_header">
+              <h2 class="offcanvas_title" id="oc-open-on-load-title">자동 열기 옵션</h2>
+              <button type="button" class="offcanvas_close" data-offcanvas-close aria-label="닫기">
+                <svg class="offcanvas_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div class="offcanvas_body">
+              <p>이 패널은 <code class="typo_code">data-offcanvas-open-on-load="true"</code> 예시입니다.</p>
+              <p>실서비스에서는 온보딩, 공지, 필수 확인 패널 등에 선택적으로 사용할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p>트리거 버튼과 Offcanvas 루트를 <code class="typo_code">id</code> · <code class="typo_code">aria-controls</code>로 연결합니다. 기본은 닫힌 상태(<code class="typo_code">hidden</code>)이며, 클릭 이벤트로 열립니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;!-- 트리거 --&gt;
+&lt;button type="button" data-offcanvas-trigger="#oc-1"
+  aria-controls="oc-1" aria-expanded="false"&gt;
+  메뉴 열기
+&lt;/button&gt;
+
+&lt;!-- Offcanvas --&gt;
+&lt;div class="offcanvas" id="oc-1" data-offcanvas
+  role="dialog" aria-modal="true" aria-labelledby="oc-1-title"
+  tabindex="-1" hidden&gt;
+  &lt;div class="offcanvas_backdrop" data-offcanvas-close aria-hidden="true"&gt;&lt;/div&gt;
+  &lt;div class="offcanvas_panel offcanvas_placement-start"&gt;
+    &lt;div class="offcanvas_header"&gt;
+      &lt;h2 class="offcanvas_title" id="oc-1-title"&gt;제목&lt;/h2&gt;
+      &lt;button type="button" class="offcanvas_close"
+        data-offcanvas-close aria-label="닫기"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="offcanvas_body"&gt;본문&lt;/div&gt;
+    &lt;div class="offcanvas_footer"&gt;
+      &lt;button type="button" class="btn btn_ghost" data-offcanvas-close&gt;취소&lt;/button&gt;
+      &lt;button type="button" class="btn btn_filled color_primary" data-offcanvas-close&gt;확인&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 옵션: 페이지 로드 시 자동 열기 --&gt;
+&lt;div class="offcanvas" id="oc-auto" data-offcanvas
+  data-offcanvas-open-on-load="true" …&gt;…&lt;/div&gt;
+
+&lt;!-- 옵션: 백드롭 없음 --&gt;
+&lt;div class="offcanvas" id="oc-plain" data-offcanvas
+  data-offcanvas-backdrop="false" …&gt;…&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">offcanvas</code></td><td>루트 컨테이너 (백드롭 + 패널)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_backdrop</code></td><td>어두운 배경 오버레이</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_panel</code></td><td>슬라이드 패널 (헤더·본문·푸터 포함)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_header</code></td><td>패널 상단 영역 (제목 + 닫기)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_title</code></td><td>패널 제목 (<code class="typo_code">aria-labelledby</code> 대상)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_close</code></td><td>닫기 버튼</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_body</code></td><td>스크롤 가능한 본문 영역</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_footer</code></td><td>하단 액션 영역 (선택)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_placement-start</code></td><td>왼쪽에서 슬라이드 (기본)</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_placement-end</code></td><td>오른쪽에서 슬라이드</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_placement-top</code></td><td>위에서 슬라이드</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_placement-bottom</code></td><td>아래에서 슬라이드</td></tr>
+                  <tr><td><code class="typo_code">offcanvas_sm</code> · <code class="typo_code">offcanvas_lg</code></td><td>패널 크기 변형 (좌·우: 너비, 상·하: 높이)</td></tr>
+                  <tr><td><code class="typo_code">data-offcanvas</code></td><td>Offcanvas 루트 식별자</td></tr>
+                  <tr><td><code class="typo_code">data-offcanvas-trigger</code></td><td>열기 트리거 (값: <code class="typo_code">#id</code> 선택자)</td></tr>
+                  <tr><td><code class="typo_code">data-offcanvas-close</code></td><td>닫기 대상 (백드롭·닫기·푸터 버튼)</td></tr>
+                  <tr><td><code class="typo_code">data-offcanvas-backdrop="false"</code></td><td>백드롭 숨김 · 본문 스크롤 잠금 비활성</td></tr>
+                  <tr><td><code class="typo_code">data-offcanvas-open-on-load="true"</code></td><td>페이지 로드 시 자동 열기 (옵션, 기본 비활성)</td></tr>
+                  <tr><td><code class="typo_code">is-open</code></td><td>열린 상태 (JS가 토글, <code class="typo_code">hidden</code> 해제와 함께)</td></tr>
+                  <tr><td><code class="typo_code">hidden</code></td><td>닫힌 초기 상태 (접근성·표시 제어)</td></tr>
+                  <tr><td><code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal="true"</code></td><td>모달 대화상자 시맨틱 (권장)</td></tr>
+                  <tr><td><code class="typo_code">aria-controls</code> · <code class="typo_code">aria-expanded</code></td><td>트리거 ↔ 패널 연결 (트리거에 지정)</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="form_field-hint" style="margin-top: var(--space-md);">닫기: 백드롭 클릭 · <code class="typo_code">data-offcanvas-close</code> 요소 클릭 · <kbd>Esc</kbd> 키. 열릴 때 포커스는 닫기 버튼(또는 패널)으로 이동하고, 닫힐 때 트리거로 복원됩니다.</p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--offcanvas-z-index</code></td><td>200</td><td>레이어 순서</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-width</code></td><td>20rem</td><td>좌·우 패널 너비</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-width-sm</code></td><td>16rem</td><td><code class="typo_code">offcanvas_sm</code> 너비</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-width-lg</code></td><td>28rem</td><td><code class="typo_code">offcanvas_lg</code> 너비</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-height</code></td><td>16rem</td><td>상·하 패널 높이</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-height-sm</code></td><td>12rem</td><td><code class="typo_code">offcanvas_sm</code> 높이</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-height-lg</code></td><td>22rem</td><td><code class="typo_code">offcanvas_lg</code> 높이</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-bg</code></td><td><code class="typo_code">var(--color-surface)</code></td><td>패널 배경</td></tr>
+                  <tr><td><code class="typo_code">--offcanvas-shadow</code></td><td><code class="typo_code">var(--shadow-md)</code></td><td>패널 그림자</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

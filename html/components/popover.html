@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popover | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="popover">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Popover</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Popover</h1>
+          <p class="lead">클릭·호버로 트리거 옆에 떠 있는 정보 패널 컴포넌트입니다. 짧은 설명·확인·간단한 폼 등 Dropdown보다 풍부한 콘텐츠를 표시할 때 사용하며, <code class="typo_code">aria-haspopup="dialog"</code> · <code class="typo_code">role="dialog"</code>로 접근성을 보장합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p><code class="typo_code">popover</code> · <code class="typo_code">popover_trigger</code> · <code class="typo_code">popover_panel</code>으로 트리거와 패널을 구성합니다. <code class="typo_code">data-popover</code>로 클릭 시 열고 닫습니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover" data-popover>
+              <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-basic-panel">
+                <span class="btn_label">Popover 열기</span>
+              </button>
+              <div class="popover_panel" id="popover-basic-panel" role="dialog" aria-label="안내" hidden>
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>트리거를 클릭하면 이 패널이 표시됩니다. 바깥을 클릭하거나 <kbd>Esc</kbd>로 닫을 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover&quot; data-popover&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-basic-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Popover 열기&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-basic-panel&quot; role=&quot;dialog&quot; aria-label=&quot;안내&quot; hidden&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;트리거를 클릭하면 이 패널이 표시됩니다. 바깥을 클릭하거나 &lt;kbd&gt;Esc&lt;/kbd&gt;로 닫을 수 있습니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="open-heading">
+          <div class="demo_section-header">
+            <h2 id="open-heading">열린 상태</h2>
+            <p><code class="typo_code">is-open</code> 클래스와 <code class="typo_code">aria-expanded="true"</code>로 패널이 열린 상태를 표현합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover is-open">
+              <button type="button" class="btn btn_filled color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-open-panel">
+                <span class="btn_label">열림</span>
+              </button>
+              <div class="popover_panel" id="popover-open-panel" role="dialog" aria-label="열린 Popover">
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>정적 데모용 열린 상태입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover is-open&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-open-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;열림&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-open-panel&quot; role=&quot;dialog&quot; aria-label=&quot;열린 Popover&quot;&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;정적 데모용 열린 상태입니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p><code class="typo_code">popover_sm</code> · <code class="typo_code">popover</code>(기본) · <code class="typo_code">popover_lg</code>로 패딩·글자 크기·패널 너비를 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview popover_row">
+            <div class="popover popover_sm is-open">
+              <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-size-sm">
+                <span class="btn_label">Small</span>
+              </button>
+              <div class="popover_panel" id="popover-size-sm" role="dialog" aria-label="작은 Popover">
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>작은 패널입니다. 짧은 안내에 적합합니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="popover is-open">
+              <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-size-md">
+                <span class="btn_label">Medium</span>
+              </button>
+              <div class="popover_panel" id="popover-size-md" role="dialog" aria-label="기본 Popover">
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>기본 크기 패널입니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="popover popover_lg is-open">
+              <button type="button" class="btn btn_outline btn_lg popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-size-lg">
+                <span class="btn_label">Large</span>
+              </button>
+              <div class="popover_panel" id="popover-size-lg" role="dialog" aria-label="큰 Popover">
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>큰 패널입니다. 본문이 길거나 폼·목록을 담을 때 사용합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 작은 패널입니다. 짧은 안내에 적합합니다. --&gt;
+
+&lt;div class=&quot;popover popover_sm is-open&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-size-sm&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Small&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-size-sm&quot; role=&quot;dialog&quot; aria-label=&quot;작은 Popover&quot;&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;작은 패널입니다. 짧은 안내에 적합합니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 기본 크기 패널입니다. --&gt;
+
+&lt;div class=&quot;popover is-open&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-size-md&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Medium&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-size-md&quot; role=&quot;dialog&quot; aria-label=&quot;기본 Popover&quot;&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;기본 크기 패널입니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 큰 패널입니다. 본문이 길거나 폼·목록을 담을 때 사용합니다. --&gt;
+
+&lt;div class=&quot;popover popover_lg is-open&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_lg popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-size-lg&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;Large&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-size-lg&quot; role=&quot;dialog&quot; aria-label=&quot;큰 Popover&quot;&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;큰 패널입니다. 본문이 길거나 폼·목록을 담을 때 사용합니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="title-heading">
+          <div class="demo_section-header">
+            <h2 id="title-heading">제목</h2>
+            <p><code class="typo_code">popover_title</code>로 패널 상단에 제목을 표시합니다. <code class="typo_code">aria-labelledby</code>로 패널과 연결합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover" data-popover>
+              <button type="button" class="btn btn_ghost popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-title-panel">
+                <span class="btn_label">도움말</span>
+              </button>
+              <div class="popover_panel" id="popover-title-panel" role="dialog" aria-labelledby="popover-title-label" hidden>
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_title" id="popover-title-label">배송 안내</div>
+                <div class="popover_body">
+                  <p>평일 오후 2시 이전 주문은 당일 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover&quot; data-popover&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-title-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;도움말&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-title-panel&quot; role=&quot;dialog&quot; aria-labelledby=&quot;popover-title-label&quot; hidden&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_title&quot; id=&quot;popover-title-label&quot;&gt;배송 안내&lt;/div&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;평일 오후 2시 이전 주문은 당일 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="footer-heading">
+          <div class="demo_section-header">
+            <h2 id="footer-heading">푸터</h2>
+            <p><code class="typo_code">popover_footer</code>에 확인·취소 등 액션 버튼을 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover" data-popover>
+              <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-footer-panel">
+                <span class="btn_label">삭제 확인</span>
+              </button>
+              <div class="popover_panel" id="popover-footer-panel" role="dialog" aria-labelledby="popover-footer-title" hidden>
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_title" id="popover-footer-title">항목 삭제</div>
+                <div class="popover_body">
+                  <p>이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</p>
+                </div>
+                <div class="popover_footer">
+                  <button type="button" class="btn btn_ghost btn_sm" data-popover-close><span class="btn_label">취소</span></button>
+                  <button type="button" class="btn btn_filled color_error btn_sm" data-popover-close><span class="btn_label">삭제</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover&quot; data-popover&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-footer-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;삭제 확인&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-footer-panel&quot; role=&quot;dialog&quot; aria-labelledby=&quot;popover-footer-title&quot; hidden&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_title&quot; id=&quot;popover-footer-title&quot;&gt;항목 삭제&lt;/div&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;popover_footer&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; data-popover-close&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_error btn_sm&quot; data-popover-close&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;삭제&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="hover-heading">
+          <div class="demo_section-header">
+            <h2 id="hover-heading">호버 트리거</h2>
+            <p><code class="typo_code">data-popover-trigger="hover"</code>로 마우스 오버·포커스 시 패널을 표시합니다. 짧은 설명·용어 정의에 적합합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <p>
+              결제 시
+              <span class="popover" data-popover data-popover-trigger="hover">
+                <button type="button" class="link color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-hover-panel">에스크로</button>
+                <span class="popover_panel" id="popover-hover-panel" role="dialog" aria-label="에스크로 설명" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <span class="popover_body">구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.</span>
+                </span>
+              </span>
+              서비스를 이용할 수 있습니다.
+            </p>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;p&gt;
+  결제 시
+  &lt;span class=&quot;popover&quot; data-popover data-popover-trigger=&quot;hover&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;link color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-hover-panel&quot;&gt;에스크로&lt;/button&gt;
+    &lt;span class=&quot;popover_panel&quot; id=&quot;popover-hover-panel&quot; role=&quot;dialog&quot; aria-label=&quot;에스크로 설명&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;popover_body&quot;&gt;구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  서비스를 이용할 수 있습니다.
+&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="trigger-heading">
+          <div class="demo_section-header">
+            <h2 id="trigger-heading">트리거 유형</h2>
+            <p>Button · Link · 아이콘 버튼을 트리거로 사용할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="popover_row">
+              <div class="popover" data-popover>
+                <button type="button" class="btn btn_filled color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-trigger-btn">
+                  <span class="btn_label">Button</span>
+                </button>
+                <div class="popover_panel" id="popover-trigger-btn" role="dialog" aria-label="Button 트리거" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>버튼 트리거 예시입니다.</p></div>
+                </div>
+              </div>
+
+              <div class="popover" data-popover>
+                <button type="button" class="link color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-trigger-link">Link 트리거</button>
+                <div class="popover_panel" id="popover-trigger-link" role="dialog" aria-label="Link 트리거" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>링크 스타일 트리거입니다.</p></div>
+                </div>
+              </div>
+
+              <div class="popover" data-popover>
+                <button type="button" class="btn btn_ghost btn_icon-only popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-trigger-icon" aria-label="정보">
+                  <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+                  </svg>
+                </button>
+                <div class="popover_panel" id="popover-trigger-icon" role="dialog" aria-label="추가 정보" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>아이콘 전용 트리거입니다.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover_row&quot;&gt;
+  &lt;div class=&quot;popover&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-trigger-btn&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;Button&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-trigger-btn&quot; role=&quot;dialog&quot; aria-label=&quot;Button 트리거&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;버튼 트리거 예시입니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;link color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-trigger-link&quot;&gt;Link 트리거&lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-trigger-link&quot; role=&quot;dialog&quot; aria-label=&quot;Link 트리거&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;링크 스타일 트리거입니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-trigger-icon&quot; aria-label=&quot;정보&quot;&gt;
+      &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+        &lt;path d=&quot;M12 16v-4M12 8h.01&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-trigger-icon&quot; role=&quot;dialog&quot; aria-label=&quot;추가 정보&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;아이콘 전용 트리거입니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="placement-heading">
+          <div class="demo_section-header">
+            <h2 id="placement-heading">배치</h2>
+            <p><code class="typo_code">popover_placement-top</code> · <code class="typo_code">popover_placement-top-center</code> · <code class="typo_code">popover_placement-bottom-center</code> · <code class="typo_code">popover_placement-end</code> · <code class="typo_code">popover_placement-left</code> · <code class="typo_code">popover_placement-right</code>로 패널 위치를 조정합니다. 기본은 트리거 아래·왼쪽 정렬입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="popover_demo-placement">
+              <div class="popover_demo-placement-cell-top">
+                <div class="popover popover_placement-top-center" data-popover>
+                  <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-top-center">
+                    <span class="btn_label">위</span>
+                  </button>
+                  <div class="popover_panel" id="popover-place-top-center" role="dialog" aria-label="위쪽 가운데 배치" hidden>
+                    <span class="popover_arrow" aria-hidden="true"></span>
+                    <div class="popover_body"><p>트리거 위 · 가운데</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="popover_demo-placement-cell-left">
+                <div class="popover popover_placement-left" data-popover>
+                  <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-left">
+                    <span class="btn_label">왼쪽</span>
+                  </button>
+                  <div class="popover_panel" id="popover-place-left" role="dialog" aria-label="왼쪽 배치" hidden>
+                    <span class="popover_arrow" aria-hidden="true"></span>
+                    <div class="popover_body"><p>트리거 왼쪽</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="popover_demo-placement-cell-center">
+                <div class="popover popover_placement-bottom-center" data-popover>
+                  <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-bottom-center">
+                    <span class="btn_label">아래</span>
+                  </button>
+                  <div class="popover_panel" id="popover-place-bottom-center" role="dialog" aria-label="아래쪽 가운데 배치" hidden>
+                    <span class="popover_arrow" aria-hidden="true"></span>
+                    <div class="popover_body"><p>트리거 아래 · 가운데</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="popover_demo-placement-cell-right">
+                <div class="popover popover_placement-right" data-popover>
+                  <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-right">
+                    <span class="btn_label">오른쪽</span>
+                  </button>
+                  <div class="popover_panel" id="popover-place-right" role="dialog" aria-label="오른쪽 배치" hidden>
+                    <span class="popover_arrow" aria-hidden="true"></span>
+                    <div class="popover_body"><p>트리거 오른쪽</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="popover_row" style="width: 100%; justify-content: space-between;">
+              <div class="popover popover_placement-top" data-popover>
+                <button type="button" class="btn btn_ghost popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-top">
+                  <span class="btn_label">위 · 왼쪽 정렬</span>
+                </button>
+                <div class="popover_panel" id="popover-place-top" role="dialog" aria-label="위쪽 왼쪽 정렬" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>패널 왼쪽 정렬</p></div>
+                </div>
+              </div>
+
+              <div class="popover" data-popover>
+                <button type="button" class="btn btn_ghost popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-bottom">
+                  <span class="btn_label">아래 · 왼쪽 정렬</span>
+                </button>
+                <div class="popover_panel" id="popover-place-bottom" role="dialog" aria-label="아래쪽 왼쪽 정렬" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>기본 배치</p></div>
+                </div>
+              </div>
+
+              <div class="popover popover_placement-end" data-popover>
+                <button type="button" class="btn btn_ghost popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-place-end">
+                  <span class="btn_label">아래 · 오른쪽 정렬</span>
+                </button>
+                <div class="popover_panel" id="popover-place-end" role="dialog" aria-label="오른쪽 정렬" hidden>
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_body"><p>패널 오른쪽 정렬</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 트리거 위 · 가운데 --&gt;
+
+&lt;div class=&quot;popover_demo-placement&quot;&gt;
+  &lt;div class=&quot;popover_demo-placement-cell-top&quot;&gt;
+    &lt;div class=&quot;popover popover_placement-top-center&quot; data-popover&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-top-center&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;위&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-top-center&quot; role=&quot;dialog&quot; aria-label=&quot;위쪽 가운데 배치&quot; hidden&gt;
+        &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;div class=&quot;popover_body&quot;&gt;
+          &lt;p&gt;트리거 위 · 가운데&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover_demo-placement-cell-left&quot;&gt;
+    &lt;div class=&quot;popover popover_placement-left&quot; data-popover&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-left&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;왼쪽&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-left&quot; role=&quot;dialog&quot; aria-label=&quot;왼쪽 배치&quot; hidden&gt;
+        &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;div class=&quot;popover_body&quot;&gt;
+          &lt;p&gt;트리거 왼쪽&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover_demo-placement-cell-center&quot;&gt;
+    &lt;div class=&quot;popover popover_placement-bottom-center&quot; data-popover&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-bottom-center&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;아래&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-bottom-center&quot; role=&quot;dialog&quot; aria-label=&quot;아래쪽 가운데 배치&quot; hidden&gt;
+        &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;div class=&quot;popover_body&quot;&gt;
+          &lt;p&gt;트리거 아래 · 가운데&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover_demo-placement-cell-right&quot;&gt;
+    &lt;div class=&quot;popover popover_placement-right&quot; data-popover&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-right&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;오른쪽&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-right&quot; role=&quot;dialog&quot; aria-label=&quot;오른쪽 배치&quot; hidden&gt;
+        &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;div class=&quot;popover_body&quot;&gt;
+          &lt;p&gt;트리거 오른쪽&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 패널 왼쪽 정렬 --&gt;
+
+&lt;div class=&quot;popover_row&quot; style=&quot;width: 100%; justify-content: space-between;&quot;&gt;
+  &lt;div class=&quot;popover popover_placement-top&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-top&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;위 · 왼쪽 정렬&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-top&quot; role=&quot;dialog&quot; aria-label=&quot;위쪽 왼쪽 정렬&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;패널 왼쪽 정렬&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-bottom&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;아래 · 왼쪽 정렬&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-bottom&quot; role=&quot;dialog&quot; aria-label=&quot;아래쪽 왼쪽 정렬&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;기본 배치&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;popover popover_placement-end&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-place-end&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;아래 · 오른쪽 정렬&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-place-end&quot; role=&quot;dialog&quot; aria-label=&quot;오른쪽 정렬&quot; hidden&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;패널 오른쪽 정렬&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="form-heading">
+          <div class="demo_section-header">
+            <h2 id="form-heading">폼</h2>
+            <p>Input · Form Layout 컴포넌트와 조합해 간단한 입력 UI를 패널 안에 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover" data-popover>
+              <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-form-panel">
+                <span class="btn_label">메모 추가</span>
+              </button>
+              <div class="popover_panel" id="popover-form-panel" role="dialog" aria-labelledby="popover-form-title" hidden>
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_title" id="popover-form-title">빠른 메모</div>
+                <div class="popover_body">
+                  <div class="form_field">
+                    <label class="form_label" for="popover-memo-input">내용</label>
+                    <textarea class="textarea" id="popover-memo-input" rows="3" placeholder="메모를 입력하세요"></textarea>
+                  </div>
+                </div>
+                <div class="popover_footer">
+                  <button type="button" class="btn btn_ghost btn_sm" data-popover-close><span class="btn_label">취소</span></button>
+                  <button type="button" class="btn btn_filled color_primary btn_sm" data-popover-close><span class="btn_label">저장</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover&quot; data-popover&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-form-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;메모 추가&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-form-panel&quot; role=&quot;dialog&quot; aria-labelledby=&quot;popover-form-title&quot; hidden&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_title&quot; id=&quot;popover-form-title&quot;&gt;빠른 메모&lt;/div&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;div class=&quot;form_field&quot;&gt;
+        &lt;label class=&quot;form_label&quot; for=&quot;popover-memo-input&quot;&gt;내용&lt;/label&gt;
+        &lt;textarea class=&quot;textarea&quot; id=&quot;popover-memo-input&quot; rows=&quot;3&quot; placeholder=&quot;메모를 입력하세요&quot;&gt;
+        &lt;/textarea&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;popover_footer&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; data-popover-close&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot; data-popover-close&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="no-arrow-heading">
+          <div class="demo_section-header">
+            <h2 id="no-arrow-heading">화살표 없음</h2>
+            <p><code class="typo_code">popover_no-arrow</code>로 화살표를 숨깁니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="popover popover_no-arrow" data-popover>
+              <button type="button" class="btn btn_ghost popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-no-arrow-panel">
+                <span class="btn_label">화살표 없음</span>
+              </button>
+              <div class="popover_panel" id="popover-no-arrow-panel" role="dialog" aria-label="화살표 없는 Popover" hidden>
+                <span class="popover_arrow" aria-hidden="true"></span>
+                <div class="popover_body">
+                  <p>화살표가 표시되지 않는 패널입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;popover popover_no-arrow&quot; data-popover&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-no-arrow-panel&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;화살표 없음&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-no-arrow-panel&quot; role=&quot;dialog&quot; aria-label=&quot;화살표 없는 Popover&quot; hidden&gt;
+    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;div class=&quot;popover_body&quot;&gt;
+      &lt;p&gt;화살표가 표시되지 않는 패널입니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p>트리거와 패널을 <code class="typo_code">aria-controls</code> · <code class="typo_code">aria-labelledby</code>로 연결합니다. 기본은 닫힌 상태(<code class="typo_code">hidden</code>)이며, 클릭 시 열립니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;!-- 기본 (클릭) --&gt;
+&lt;div class="popover" data-popover&gt;
+  &lt;button type="button" class="btn btn_outline popover_trigger"
+    aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-1"&gt;
+    &lt;span class="btn_label"&gt;Popover 열기&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="popover_panel" id="popover-1" role="dialog"
+    aria-labelledby="popover-1-title" hidden&gt;
+    &lt;span class="popover_arrow" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;div class="popover_title" id="popover-1-title"&gt;제목&lt;/div&gt;
+    &lt;div class="popover_body"&gt;본문&lt;/div&gt;
+    &lt;div class="popover_footer"&gt;
+      &lt;button type="button" class="btn btn_ghost btn_sm" data-popover-close&gt;취소&lt;/button&gt;
+      &lt;button type="button" class="btn btn_filled color_primary btn_sm" data-popover-close&gt;확인&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 호버 트리거 --&gt;
+&lt;div class="popover" data-popover data-popover-trigger="hover"&gt;…&lt;/div&gt;
+
+&lt;!-- 배치 --&gt;
+&lt;div class="popover popover_placement-top" data-popover&gt;…&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">popover</code></td><td>루트 래퍼 (트리거 + 패널)</td></tr>
+                  <tr><td><code class="typo_code">popover_trigger</code></td><td>트리거 버튼·링크</td></tr>
+                  <tr><td><code class="typo_code">popover_panel</code></td><td>플로팅 패널 (<code class="typo_code">role="dialog"</code>)</td></tr>
+                  <tr><td><code class="typo_code">popover_arrow</code></td><td>화살표 (장식, <code class="typo_code">aria-hidden="true"</code>)</td></tr>
+                  <tr><td><code class="typo_code">popover_title</code></td><td>패널 제목 (<code class="typo_code">aria-labelledby</code> 대상)</td></tr>
+                  <tr><td><code class="typo_code">popover_body</code></td><td>패널 본문</td></tr>
+                  <tr><td><code class="typo_code">popover_footer</code></td><td>하단 액션 영역 (선택)</td></tr>
+                  <tr><td><code class="typo_code">popover_sm</code> · <code class="typo_code">popover_lg</code></td><td>패널 크기 변형</td></tr>
+                  <tr><td><code class="typo_code">popover_no-arrow</code></td><td>화살표 숨김</td></tr>
+                  <tr><td><code class="typo_code">popover_placement-top</code> · <code class="typo_code">popover_placement-top-center</code></td><td>트리거 위쪽 배치</td></tr>
+                  <tr><td><code class="typo_code">popover_placement-left</code> · <code class="typo_code">popover_placement-right</code></td><td>트리거 왼쪽 · 오른쪽</td></tr>
+                  <tr><td><code class="typo_code">popover_placement-end</code> · <code class="typo_code">popover_placement-bottom-center</code></td><td>아래 · 오른쪽/가운데 정렬 (기본은 아래 왼쪽)</td></tr>
+                  <tr><td><code class="typo_code">data-popover</code></td><td>Popover 루트 식별자 (JS 초기화)</td></tr>
+                  <tr><td><code class="typo_code">data-popover-trigger="hover"</code></td><td>호버 · 포커스 트리거 (기본: 클릭)</td></tr>
+                  <tr><td><code class="typo_code">data-popover-close</code></td><td>닫기 버튼 (푸터 등)</td></tr>
+                  <tr><td><code class="typo_code">is-open</code></td><td>열린 상태 (JS가 토글, <code class="typo_code">hidden</code> 해제와 함께)</td></tr>
+                  <tr><td><code class="typo_code">is-disabled</code></td><td>트리거 비활성 (JS 초기화 생략)</td></tr>
+                  <tr><td><code class="typo_code">hidden</code></td><td>닫힌 초기 상태</td></tr>
+                  <tr><td><code class="typo_code">aria-haspopup="dialog"</code></td><td>트리거에 대화상자 팝업 있음 표시</td></tr>
+                  <tr><td><code class="typo_code">aria-controls</code> · <code class="typo_code">aria-expanded</code></td><td>트리거 ↔ 패널 연결 (트리거에 지정)</td></tr>
+                  <tr><td><code class="typo_code">aria-labelledby</code> · <code class="typo_code">aria-label</code></td><td>패널 제목·이름 연결</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="form_field-hint" style="margin-top: var(--space-md);">닫기: 바깥 클릭 · <code class="typo_code">data-popover-close</code> 버튼 · <kbd>Esc</kbd> 키. 클릭 모드에서는 트리거를 다시 클릭해도 닫힙니다. 열릴 때 다른 Popover는 자동으로 닫힙니다.</p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--popover-min-width</code> · <code class="typo_code">--popover-max-width</code></td><td>10rem · 20rem</td><td>패널 너비 범위</td></tr>
+                  <tr><td><code class="typo_code">--popover-padding-x</code> · <code class="typo_code">--popover-padding-y</code></td><td><code class="typo_code">var(--space-md)</code></td><td>패널 안쪽 여백</td></tr>
+                  <tr><td><code class="typo_code">--popover-title-font-size</code> · <code class="typo_code">--popover-body-font-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>제목·본문 글자 크기</td></tr>
+                  <tr><td><code class="typo_code">--popover-offset</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>트리거와 패널 간격</td></tr>
+                  <tr><td><code class="typo_code">--popover-arrow-size</code></td><td>8px</td><td>화살표 크기</td></tr>
+                  <tr><td><code class="typo_code">--popover-min-width-sm</code> · <code class="typo_code">--popover-max-width-lg</code></td><td>8rem · 28rem</td><td>크기 변형별 너비</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

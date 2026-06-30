@@ -1,0 +1,419 @@
+<!-- @meta
+title: Tooltip | HTML Components
+activeNav: tooltip
+pageTitle: Tooltip
+-->
+<div class="page_intro">
+  <h1>Tooltip</h1>
+  <p class="lead">호버·포커스 시 트리거 근처에 짧은 설명을 띄우는 Tooltip 컴포넌트입니다. 용어 정의·아이콘 버튼 보조 설명·비활성 요소 이유 안내 등에 사용하며, <code class="typo_code">role="tooltip"</code> · <code class="typo_code">aria-describedby</code>로 접근성을 보장합니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p><code class="typo_code">tooltip</code> · <code class="typo_code">tooltip_trigger</code> · <code class="typo_code">tooltip_bubble</code>으로 트리거와 말풍선을 구성합니다. <code class="typo_code">data-tooltip</code>로 호버·포커스 시 표시합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip" data-tooltip>
+      <button type="button" class="btn btn_outline tooltip_trigger" aria-describedby="tooltip-basic">
+        <span class="btn_label">마우스 오버</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-basic" role="tooltip" hidden>
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        짧은 도움말 텍스트입니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="open-heading">
+  <div class="demo_section-header">
+    <h2 id="open-heading">열린 상태</h2>
+    <p><code class="typo_code">is-open</code> 클래스로 말풍선이 표시된 상태를 정적으로 표현합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip is-open">
+      <button type="button" class="btn btn_filled color_primary tooltip_trigger" aria-describedby="tooltip-open">
+        <span class="btn_label">열림</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-open" role="tooltip">
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        정적 데모용 열린 상태입니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="size-heading">
+  <div class="demo_section-header">
+    <h2 id="size-heading">크기</h2>
+    <p><code class="typo_code">tooltip_sm</code> · <code class="typo_code">tooltip</code>(기본) · <code class="typo_code">tooltip_lg</code>로 패딩·글자 크기·최대 너비를 조절합니다.</p>
+  </div>
+
+  <div class="demo_section-preview tooltip_row">
+    <span class="tooltip tooltip_sm is-open">
+      <button type="button" class="btn btn_ghost btn_sm tooltip_trigger" aria-describedby="tooltip-size-sm">
+        <span class="btn_label">Small</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-size-sm" role="tooltip">
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        작은 말풍선
+      </span>
+    </span>
+
+    <span class="tooltip is-open">
+      <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-size-md">
+        <span class="btn_label">Medium</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-size-md" role="tooltip">
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        기본 크기 말풍선
+      </span>
+    </span>
+
+    <span class="tooltip tooltip_lg is-open">
+      <button type="button" class="btn btn_ghost btn_lg tooltip_trigger" aria-describedby="tooltip-size-lg">
+        <span class="btn_label">Large</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-size-lg" role="tooltip">
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="inline-heading">
+  <div class="demo_section-header">
+    <h2 id="inline-heading">인라인</h2>
+    <p>문장 안의 링크·텍스트에 Tooltip을 붙여 용어를 설명할 수 있습니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <p>
+      결제 시
+      <span class="tooltip" data-tooltip>
+        <button type="button" class="link color_primary tooltip_trigger" aria-describedby="tooltip-inline">에스크로</button>
+        <span class="tooltip_bubble" id="tooltip-inline" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.
+        </span>
+      </span>
+      서비스를 이용할 수 있습니다.
+    </p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="trigger-heading">
+  <div class="demo_section-header">
+    <h2 id="trigger-heading">트리거 유형</h2>
+    <p>Button · Link · 아이콘 버튼을 트리거로 사용할 수 있습니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="tooltip_row">
+      <span class="tooltip" data-tooltip>
+        <button type="button" class="btn btn_filled color_primary tooltip_trigger" aria-describedby="tooltip-trigger-btn">
+          <span class="btn_label">Button</span>
+        </button>
+        <span class="tooltip_bubble" id="tooltip-trigger-btn" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          버튼 트리거 예시입니다.
+        </span>
+      </span>
+
+      <span class="tooltip" data-tooltip>
+        <button type="button" class="link color_primary tooltip_trigger" aria-describedby="tooltip-trigger-link">Link 트리거</button>
+        <span class="tooltip_bubble" id="tooltip-trigger-link" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          링크 스타일 트리거입니다.
+        </span>
+      </span>
+
+      <span class="tooltip" data-tooltip>
+        <button type="button" class="btn btn_ghost btn_icon-only tooltip_trigger" aria-describedby="tooltip-trigger-icon" aria-label="정보">
+          <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+          </svg>
+        </button>
+        <span class="tooltip_bubble" id="tooltip-trigger-icon" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          아이콘 전용 트리거입니다.
+        </span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="click-heading">
+  <div class="demo_section-header">
+    <h2 id="click-heading">클릭 트리거</h2>
+    <p><code class="typo_code">data-tooltip-trigger="click"</code>로 클릭 시 말풍선을 토글합니다. 터치 환경에서 호버가 어려울 때 유용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip" data-tooltip data-tooltip-trigger="click">
+      <button type="button" class="btn btn_outline tooltip_trigger" aria-describedby="tooltip-click">
+        <span class="btn_label">클릭하여 보기</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-click" role="tooltip" hidden>
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        클릭으로 열고 닫는 Tooltip입니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="placement-heading">
+  <div class="demo_section-header">
+    <h2 id="placement-heading">배치</h2>
+    <p><code class="typo_code">tooltip_placement-top</code> · <code class="typo_code">tooltip_placement-top-start</code> · <code class="typo_code">tooltip_placement-top-end</code> · <code class="typo_code">tooltip_placement-start</code> · <code class="typo_code">tooltip_placement-end</code> · <code class="typo_code">tooltip_placement-left</code> · <code class="typo_code">tooltip_placement-right</code>로 말풍선 위치를 조정합니다. 기본은 트리거 아래 · 가운데 정렬입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="tooltip_demo-placement">
+      <div class="tooltip_demo-placement-cell-top">
+        <span class="tooltip tooltip_placement-top" data-tooltip>
+          <button type="button" class="btn btn_outline btn_sm tooltip_trigger" aria-describedby="tooltip-place-top">
+            <span class="btn_label">위</span>
+          </button>
+          <span class="tooltip_bubble" id="tooltip-place-top" role="tooltip" hidden>
+            <span class="tooltip_arrow" aria-hidden="true"></span>
+            트리거 위
+          </span>
+        </span>
+      </div>
+
+      <div class="tooltip_demo-placement-cell-left">
+        <span class="tooltip tooltip_placement-left" data-tooltip>
+          <button type="button" class="btn btn_outline btn_sm tooltip_trigger" aria-describedby="tooltip-place-left">
+            <span class="btn_label">왼쪽</span>
+          </button>
+          <span class="tooltip_bubble" id="tooltip-place-left" role="tooltip" hidden>
+            <span class="tooltip_arrow" aria-hidden="true"></span>
+            트리거 왼쪽
+          </span>
+        </span>
+      </div>
+
+      <div class="tooltip_demo-placement-cell-center">
+        <span class="tooltip" data-tooltip>
+          <button type="button" class="btn btn_outline btn_sm tooltip_trigger" aria-describedby="tooltip-place-bottom">
+            <span class="btn_label">아래</span>
+          </button>
+          <span class="tooltip_bubble" id="tooltip-place-bottom" role="tooltip" hidden>
+            <span class="tooltip_arrow" aria-hidden="true"></span>
+            트리거 아래 · 가운데
+          </span>
+        </span>
+      </div>
+
+      <div class="tooltip_demo-placement-cell-right">
+        <span class="tooltip tooltip_placement-right" data-tooltip>
+          <button type="button" class="btn btn_outline btn_sm tooltip_trigger" aria-describedby="tooltip-place-right">
+            <span class="btn_label">오른쪽</span>
+          </button>
+          <span class="tooltip_bubble" id="tooltip-place-right" role="tooltip" hidden>
+            <span class="tooltip_arrow" aria-hidden="true"></span>
+            트리거 오른쪽
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="tooltip_row" style="width: 100%; justify-content: space-between;">
+      <span class="tooltip tooltip_placement-top-start" data-tooltip>
+        <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-place-top-start">
+          <span class="btn_label">위 · 왼쪽</span>
+        </button>
+        <span class="tooltip_bubble" id="tooltip-place-top-start" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          위쪽 왼쪽 정렬
+        </span>
+      </span>
+
+      <span class="tooltip tooltip_placement-start" data-tooltip>
+        <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-place-start">
+          <span class="btn_label">아래 · 왼쪽</span>
+        </button>
+        <span class="tooltip_bubble" id="tooltip-place-start" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          아래쪽 왼쪽 정렬
+        </span>
+      </span>
+
+      <span class="tooltip tooltip_placement-end" data-tooltip>
+        <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-place-end">
+          <span class="btn_label">아래 · 오른쪽</span>
+        </button>
+        <span class="tooltip_bubble" id="tooltip-place-end" role="tooltip" hidden>
+          <span class="tooltip_arrow" aria-hidden="true"></span>
+          아래쪽 오른쪽 정렬
+        </span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="inverse-heading">
+  <div class="demo_section-header">
+    <h2 id="inverse-heading">역색</h2>
+    <p><code class="typo_code">tooltip_inverse</code>로 어두운 배경의 말풍선을 표시합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip tooltip_inverse" data-tooltip>
+      <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-inverse">
+        <span class="btn_label">역색 Tooltip</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-inverse" role="tooltip" hidden>
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        어두운 배경의 말풍선입니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="disabled-heading">
+  <div class="demo_section-header">
+    <h2 id="disabled-heading">비활성 트리거</h2>
+    <p>비활성 버튼에는 Tooltip을 감싸 <code class="typo_code">pointer-events</code>가 막힌 요소에도 설명을 제공합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip" data-tooltip>
+      <span class="tooltip_trigger" tabindex="0" aria-describedby="tooltip-disabled">
+        <button type="button" class="btn btn_filled color_primary" disabled>
+          <span class="btn_label">제출 불가</span>
+        </button>
+      </span>
+      <span class="tooltip_bubble" id="tooltip-disabled" role="tooltip" hidden>
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        필수 항목을 모두 입력해야 제출할 수 있습니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="no-arrow-heading">
+  <div class="demo_section-header">
+    <h2 id="no-arrow-heading">화살표 없음</h2>
+    <p><code class="typo_code">tooltip_no-arrow</code>로 화살표를 숨깁니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="tooltip tooltip_no-arrow" data-tooltip>
+      <button type="button" class="btn btn_ghost tooltip_trigger" aria-describedby="tooltip-no-arrow">
+        <span class="btn_label">화살표 없음</span>
+      </button>
+      <span class="tooltip_bubble" id="tooltip-no-arrow" role="tooltip" hidden>
+        <span class="tooltip_arrow" aria-hidden="true"></span>
+        화살표가 표시되지 않는 말풍선입니다.
+      </span>
+    </span>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="usage-heading">
+  <h2 id="usage-heading">마크업</h2>
+  <p>트리거와 말풍선을 <code class="typo_code">aria-describedby</code>로 연결합니다. 기본은 닫힌 상태(<code class="typo_code">hidden</code>)이며, 호버·포커스 시 열립니다.</p>
+
+  <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+    <pre class="typo_pre"><code>
+&lt;!-- 기본 (호버 · 포커스) --&gt;
+&lt;span class="tooltip" data-tooltip&gt;
+  &lt;button type="button" class="btn btn_outline tooltip_trigger"
+    aria-describedby="tooltip-1"&gt;
+    &lt;span class="btn_label"&gt;마우스 오버&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="tooltip_bubble" id="tooltip-1" role="tooltip" hidden&gt;
+    &lt;span class="tooltip_arrow" aria-hidden="true"&gt;&lt;/span&gt;
+    짧은 도움말 텍스트입니다.
+  &lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- 클릭 트리거 --&gt;
+&lt;span class="tooltip" data-tooltip data-tooltip-trigger="click"&gt;
+  …
+&lt;/span&gt;
+
+&lt;!-- 비활성 버튼 래핑 --&gt;
+&lt;span class="tooltip" data-tooltip&gt;
+  &lt;span class="tooltip_trigger" tabindex="0" aria-describedby="tooltip-disabled"&gt;
+    &lt;button type="button" class="btn btn_filled color_primary" disabled&gt;…&lt;/button&gt;
+  &lt;/span&gt;
+  &lt;span class="tooltip_bubble" id="tooltip-disabled" role="tooltip" hidden&gt;…&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- 배치 · 스킨 --&gt;
+&lt;span class="tooltip tooltip_placement-top tooltip_inverse" data-tooltip&gt;…&lt;/span&gt;</code></pre>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="typo_code">tooltip</code></td><td>루트 래퍼 (트리거 + 말풍선)</td></tr>
+          <tr><td><code class="typo_code">tooltip_trigger</code></td><td>트리거 요소 (버튼·링크·래퍼 span 등)</td></tr>
+          <tr><td><code class="typo_code">tooltip_bubble</code></td><td>말풍선 본문 (<code class="typo_code">role="tooltip"</code>)</td></tr>
+          <tr><td><code class="typo_code">tooltip_arrow</code></td><td>화살표 (장식, <code class="typo_code">aria-hidden="true"</code>)</td></tr>
+          <tr><td><code class="typo_code">tooltip_sm</code> · <code class="typo_code">tooltip_lg</code></td><td>말풍선 크기 변형</td></tr>
+          <tr><td><code class="typo_code">tooltip_inverse</code></td><td>어두운 배경 역색 스킨</td></tr>
+          <tr><td><code class="typo_code">tooltip_no-arrow</code></td><td>화살표 숨김</td></tr>
+          <tr><td><code class="typo_code">tooltip_placement-top</code></td><td>트리거 위쪽 (가운데 정렬)</td></tr>
+          <tr><td><code class="typo_code">tooltip_placement-top-start</code> · <code class="typo_code">tooltip_placement-top-end</code></td><td>위쪽 · 왼쪽/오른쪽 정렬</td></tr>
+          <tr><td><code class="typo_code">tooltip_placement-left</code> · <code class="typo_code">tooltip_placement-right</code></td><td>트리거 왼쪽 · 오른쪽</td></tr>
+          <tr><td><code class="typo_code">tooltip_placement-start</code> · <code class="typo_code">tooltip_placement-end</code></td><td>아래쪽 · 왼쪽/오른쪽 정렬 (기본은 아래 가운데)</td></tr>
+          <tr><td><code class="typo_code">data-tooltip</code></td><td>Tooltip 루트 식별자 (JS 초기화)</td></tr>
+          <tr><td><code class="typo_code">data-tooltip-trigger="click"</code></td><td>클릭 트리거 (기본: 호버 · 포커스)</td></tr>
+          <tr><td><code class="typo_code">is-open</code></td><td>열린 상태 (JS가 토글, <code class="typo_code">hidden</code> 해제와 함께)</td></tr>
+          <tr><td><code class="typo_code">is-disabled</code></td><td>트리거 비활성 (JS 초기화 생략)</td></tr>
+          <tr><td><code class="typo_code">hidden</code></td><td>닫힌 초기 상태 (접근성·표시 제어)</td></tr>
+          <tr><td><code class="typo_code">role="tooltip"</code></td><td>말풍선 시맨틱 (권장)</td></tr>
+          <tr><td><code class="typo_code">aria-describedby</code></td><td>트리거 ↔ 말풍선 연결 (트리거에 지정)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="form_field-hint" style="margin-top: var(--space-md);">닫기: 포인터 이탈 · 포커스 아웃 · 바깥 클릭 · <kbd>Esc</kbd> 키. 클릭 모드에서는 트리거를 다시 클릭해도 닫힙니다.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">토큰</th>
+            <th scope="col">기본값</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="typo_code">--tooltip-max-width</code></td><td>16rem</td><td>말풍선 최대 너비</td></tr>
+          <tr><td><code class="typo_code">--tooltip-padding-x</code> · <code class="typo_code">--tooltip-padding-y</code></td><td><code class="typo_code">var(--space-sm)</code> · 0.35rem</td><td>말풍선 안쪽 여백</td></tr>
+          <tr><td><code class="typo_code">--tooltip-font-size</code></td><td><code class="typo_code">var(--text-size-xs)</code></td><td>글자 크기</td></tr>
+          <tr><td><code class="typo_code">--tooltip-offset</code></td><td><code class="typo_code">var(--space-xs)</code></td><td>트리거와 말풍선 간격</td></tr>
+          <tr><td><code class="typo_code">--tooltip-arrow-size</code></td><td>6px</td><td>화살표 크기</td></tr>
+          <tr><td><code class="typo_code">--tooltip-inverse-bg</code> · <code class="typo_code">--tooltip-inverse-text</code></td><td><code class="typo_code">var(--color-text)</code> · <code class="typo_code">var(--color-surface)</code></td><td><code class="typo_code">tooltip_inverse</code> 색상</td></tr>
+          <tr><td><code class="typo_code">--tooltip-max-width-sm</code> · <code class="typo_code">--tooltip-max-width-lg</code></td><td>12rem · 20rem</td><td>크기 변형별 최대 너비</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

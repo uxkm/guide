@@ -1,0 +1,122 @@
+<!-- @meta
+title: Avatar | HTML Components
+activeNav: avatar
+pageTitle: Avatar
+-->
+<div class="page_intro">
+  <h1>Avatar</h1>
+  <p class="lead">사용자·엔티티를 나타내는 프로필 이미지, 이니셜, 아이콘 표시 컴포넌트입니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>이미지, 이니셜 텍스트, 아이콘 세 가지 형태를 지원합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="avatar">
+      <img class="avatar_image" src="../images/avatar-sample.svg" alt="홍길동">
+    </span>
+    <span class="avatar color_primary" aria-hidden="true">홍</span>
+    <span class="avatar color_default" aria-hidden="true">
+      <svg class="avatar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="size-heading">
+  <div class="demo_section-header">
+    <h2 id="size-heading">크기</h2>
+    <p>avatar_sm · avatar_lg · avatar_xl로 스케일을 조절합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="avatar avatar_sm color_primary" aria-hidden="true">A</span>
+    <span class="avatar color_primary" aria-hidden="true">B</span>
+    <span class="avatar avatar_lg color_primary" aria-hidden="true">C</span>
+    <span class="avatar avatar_xl color_primary" aria-hidden="true">D</span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="shape-heading">
+  <div class="demo_section-header">
+    <h2 id="shape-heading">형태</h2>
+    <p>기본은 원형이며, avatar_square로 사각형(둥근 모서리)을 적용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="avatar color_primary" aria-hidden="true">원</span>
+    <span class="avatar avatar_square color_primary" aria-hidden="true">각</span>
+    <span class="avatar avatar_square">
+      <img class="avatar_image" src="../images/avatar-sample.svg" alt="홍길동">
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="color-heading">
+  <div class="demo_section-header">
+    <h2 id="color-heading">색상</h2>
+    <p>이니셜·아이콘 아바타에 공통 color_* 클래스를 조합합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="avatar color_default" aria-hidden="true">D</span>
+    <span class="avatar color_primary" aria-hidden="true">P</span>
+    <span class="avatar color_success" aria-hidden="true">S</span>
+    <span class="avatar color_warning" aria-hidden="true">W</span>
+    <span class="avatar color_danger" aria-hidden="true">E</span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="badge-heading">
+  <div class="demo_section-header">
+    <h2 id="badge-heading">상태 배지</h2>
+    <p>avatar_badge로 온라인·오프라인 등 상태를 표시합니다. 부모에 position: relative가 적용됩니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="avatar color_primary" aria-hidden="true">
+      온
+      <span class="avatar_badge color_success" aria-label="온라인"></span>
+    </span>
+    <span class="avatar color_default" aria-hidden="true">
+      대
+      <span class="avatar_badge color_warning" aria-label="자리 비움"></span>
+    </span>
+    <span class="avatar color_default" aria-hidden="true">
+      오
+      <span class="avatar_badge color_danger" aria-label="오프라인"></span>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="group-heading">
+  <div class="demo_section-header">
+    <h2 id="group-heading">그룹</h2>
+    <p>avatar_group으로 여러 아바타를 겹쳐 표시합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="avatar_group" aria-label="팀 멤버 4명">
+      <span class="avatar color_primary" aria-hidden="true">김</span>
+      <span class="avatar color_success" aria-hidden="true">이</span>
+      <span class="avatar color_warning" aria-hidden="true">박</span>
+      <span class="avatar color_danger" aria-hidden="true">최</span>
+    </div>
+
+    <div class="avatar_group" aria-label="팀 멤버 3명">
+      <span class="avatar">
+        <img class="avatar_image" src="../images/avatar-sample.svg" alt="홍길동">
+      </span>
+      <span class="avatar color_primary" aria-hidden="true">홍</span>
+      <span class="avatar color_default" aria-hidden="true">
+        <svg class="avatar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </span>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textarea | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="textarea">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Textarea</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Textarea</h1>
+          <p class="lead">여러 줄 텍스트 입력을 위한 Textarea 컴포넌트입니다. class="textarea"를 사용하며, form_field와 조합해 레이블·힌트·유효성 메시지를 구성합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>레이블과 힌트 텍스트가 포함된 폼 필드입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-bio">자기소개</label>
+              <textarea class="textarea" id="textarea-bio" rows="4" placeholder="간단한 자기소개를 입력하세요"></textarea>
+              <p class="form_field-hint">500자 이내로 작성해 주세요.</p>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-bio&quot;&gt;자기소개&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-bio&quot; rows=&quot;4&quot; placeholder=&quot;간단한 자기소개를 입력하세요&quot;&gt;
+  &lt;/textarea&gt;
+  &lt;p class=&quot;form_field-hint&quot;&gt;500자 이내로 작성해 주세요.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="standalone-heading">
+          <div class="demo_section-header">
+            <h2 id="standalone-heading">단독 사용</h2>
+            <p>form_field 없이 textarea만 사용할 수 있습니다. 메모·댓글 입력 등 간단한 다행 입력에 적합합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <textarea class="textarea" rows="3" placeholder="플레이스홀더"></textarea>
+            <textarea class="textarea" rows="3">입력된 내용이 여기에 표시됩니다.</textarea>
+            <textarea class="textarea" rows="3" placeholder="비활성" disabled></textarea>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 플레이스홀더 --&gt;
+
+&lt;textarea class=&quot;textarea&quot; rows=&quot;3&quot; placeholder=&quot;플레이스홀더&quot;&gt;
+&lt;/textarea&gt;
+
+&lt;!-- 입력된 내용이 여기에 표시됩니다. --&gt;
+
+&lt;textarea class=&quot;textarea&quot; rows=&quot;3&quot;&gt;입력된 내용이 여기에 표시됩니다.&lt;/textarea&gt;
+
+&lt;!-- 비활성 --&gt;
+
+&lt;textarea class=&quot;textarea&quot; rows=&quot;3&quot; placeholder=&quot;비활성&quot; disabled&gt;
+&lt;/textarea&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>textarea_sm · textarea(기본) · textarea_lg로 padding·font-size를 조절합니다. 너비와는 별개이며 textarea_fit 등과 자유롭게 조합할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-size-sm">Small</label>
+              <textarea class="textarea textarea_sm" id="textarea-size-sm" rows="3" placeholder="textarea_sm"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-size-md">Medium</label>
+              <textarea class="textarea" id="textarea-size-md" rows="3" placeholder="기본 크기"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-size-lg">Large</label>
+              <textarea class="textarea textarea_lg" id="textarea-size-lg" rows="3" placeholder="textarea_lg"></textarea>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Small --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-size-sm&quot;&gt;Small&lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_sm&quot; id=&quot;textarea-size-sm&quot; rows=&quot;3&quot; placeholder=&quot;textarea_sm&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- Medium --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-size-md&quot;&gt;Medium&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-size-md&quot; rows=&quot;3&quot; placeholder=&quot;기본 크기&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- Large --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-size-lg&quot;&gt;Large&lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_lg&quot; id=&quot;textarea-size-lg&quot; rows=&quot;3&quot; placeholder=&quot;textarea_lg&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="width-heading">
+          <div class="demo_section-header">
+            <h2 id="width-heading">너비</h2>
+            <p>크기와 독립적으로 너비를 제어합니다. 기본은 부모 100%, textarea_fit · form_field_fit으로 --input-max-width(320px)까지 제한합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-width-full">전체 너비</label>
+              <textarea class="textarea" id="textarea-width-full" rows="3" placeholder="width: 100%"></textarea>
+            </div>
+
+            <div class="form_field form_field_fit">
+              <label class="form_field-label" for="textarea-width-fit">제한 너비</label>
+              <textarea class="textarea" id="textarea-width-fit" rows="3" placeholder="form_field_fit — 최대 320px"></textarea>
+            </div>
+
+            <textarea class="textarea textarea_fit" rows="3" placeholder="textarea_fit 단독 — 최대 320px"></textarea>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 전체 너비 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-width-full&quot;&gt;전체 너비&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-width-full&quot; rows=&quot;3&quot; placeholder=&quot;width: 100%&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 제한 너비 --&gt;
+
+&lt;div class=&quot;form_field form_field_fit&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-width-fit&quot;&gt;제한 너비&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-width-fit&quot; rows=&quot;3&quot; placeholder=&quot;form_field_fit — 최대 320px&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- textarea_fit 단독 — 최대 320px --&gt;
+
+&lt;textarea class=&quot;textarea textarea_fit&quot; rows=&quot;3&quot; placeholder=&quot;textarea_fit 단독 — 최대 320px&quot;&gt;
+&lt;/textarea&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="rows-heading">
+          <div class="demo_section-header">
+            <h2 id="rows-heading">행 수</h2>
+            <p>HTML rows 속성으로 초기 높이를 지정합니다. 리사이즈가 허용된 경우 사용자가 높이를 조절할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-rows-2">2행</label>
+              <textarea class="textarea" id="textarea-rows-2" rows="2" placeholder="rows=&quot;2&quot;"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-rows-3">3행</label>
+              <textarea class="textarea" id="textarea-rows-3" rows="3" placeholder="rows=&quot;3&quot; — 기본 권장"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-rows-5">5행</label>
+              <textarea class="textarea" id="textarea-rows-5" rows="5" placeholder="rows=&quot;5&quot;"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-rows-8">8행</label>
+              <textarea class="textarea" id="textarea-rows-8" rows="8" placeholder="rows=&quot;8&quot; — 긴 본문용"></textarea>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 2행 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-rows-2&quot;&gt;2행&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-rows-2&quot; rows=&quot;2&quot; placeholder=&quot;rows=&amp;quot;2&amp;quot;&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 3행 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-rows-3&quot;&gt;3행&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-rows-3&quot; rows=&quot;3&quot; placeholder=&quot;rows=&amp;quot;3&amp;quot; — 기본 권장&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 5행 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-rows-5&quot;&gt;5행&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-rows-5&quot; rows=&quot;5&quot; placeholder=&quot;rows=&amp;quot;5&amp;quot;&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 8행 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-rows-8&quot;&gt;8행&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-rows-8&quot; rows=&quot;8&quot; placeholder=&quot;rows=&amp;quot;8&amp;quot; — 긴 본문용&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="resize-heading">
+          <div class="demo_section-header">
+            <h2 id="resize-heading">리사이즈</h2>
+            <p>textarea_resize_* 클래스로 사용자 리사이즈 동작을 제어합니다. 기본값은 리사이즈 없음(resize: none)입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-resize-none">기본 (리사이즈 없음)</label>
+              <textarea class="textarea" id="textarea-resize-none" rows="3" placeholder="class 없음 — 기본"></textarea>
+              <p class="form_field-hint">고정 높이가 필요한 폼에 사용합니다.</p>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-resize-vertical">세로</label>
+              <textarea class="textarea textarea_resize_vertical" id="textarea-resize-vertical" rows="3" placeholder="textarea_resize_vertical"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-resize-horizontal">가로</label>
+              <textarea class="textarea textarea_resize_horizontal" id="textarea-resize-horizontal" rows="3" placeholder="textarea_resize_horizontal"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-resize-both">양방향</label>
+              <textarea class="textarea textarea_resize_both" id="textarea-resize-both" rows="3" placeholder="textarea_resize_both"></textarea>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 기본 (리사이즈 없음) --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-resize-none&quot;&gt;기본 (리사이즈 없음)&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-resize-none&quot; rows=&quot;3&quot; placeholder=&quot;class 없음 — 기본&quot;&gt;
+  &lt;/textarea&gt;
+  &lt;p class=&quot;form_field-hint&quot;&gt;고정 높이가 필요한 폼에 사용합니다.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 세로 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-resize-vertical&quot;&gt;세로&lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_resize_vertical&quot; id=&quot;textarea-resize-vertical&quot; rows=&quot;3&quot; placeholder=&quot;textarea_resize_vertical&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 가로 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-resize-horizontal&quot;&gt;가로&lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_resize_horizontal&quot; id=&quot;textarea-resize-horizontal&quot; rows=&quot;3&quot; placeholder=&quot;textarea_resize_horizontal&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 양방향 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-resize-both&quot;&gt;양방향&lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_resize_both&quot; id=&quot;textarea-resize-both&quot; rows=&quot;3&quot; placeholder=&quot;textarea_resize_both&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="required-heading">
+          <div class="demo_section-header">
+            <h2 id="required-heading">필수 필드</h2>
+            <p>required 속성과 form_field-required로 필수 입력을 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-required-content">
+                문의 내용<span class="form_field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea class="textarea" id="textarea-required-content" rows="4" placeholder="문의 내용을 입력해 주세요" required aria-required="true"></textarea>
+              <p class="form_field-hint">최소 10자 이상 입력해 주세요.</p>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-required-memo">
+                메모<span class="form_field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea class="textarea textarea_sm" id="textarea-required-memo" rows="2" placeholder="필수 메모" required aria-required="true"></textarea>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 문의 내용* --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-required-content&quot;&gt;
+    문의 내용&lt;span class=&quot;form_field-required&quot; aria-hidden=&quot;true&quot;&gt;*&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-required-content&quot; rows=&quot;4&quot; placeholder=&quot;문의 내용을 입력해 주세요&quot; required aria-required=&quot;true&quot;&gt;
+  &lt;/textarea&gt;
+  &lt;p class=&quot;form_field-hint&quot;&gt;최소 10자 이상 입력해 주세요.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 메모* --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-required-memo&quot;&gt;
+    메모&lt;span class=&quot;form_field-required&quot; aria-hidden=&quot;true&quot;&gt;*&lt;/span&gt;
+  &lt;/label&gt;
+  &lt;textarea class=&quot;textarea textarea_sm&quot; id=&quot;textarea-required-memo&quot; rows=&quot;2&quot; placeholder=&quot;필수 메모&quot; required aria-required=&quot;true&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="count-heading">
+          <div class="demo_section-header">
+            <h2 id="count-heading">글자 수 카운터</h2>
+            <p><code>textarea_wrap textarea_show-count</code>로 textarea 우측 하단에 현재 글자 수를 표시합니다. <code>maxlength</code>와 함께 사용하면 <code>0/200</code> 형식으로 최대 글자 수를 함께 보여 줍니다. 카운터를 사용할 때는 <code>form_field-hint</code>로 글자 수 안내 문구(예: 200자 이내로 작성해 주세요.)를 함께 제공합니다. 입력 시 스크린 리더에는 <code>textarea_count_announcer</code>가 <code>role="status"</code> · <code>aria-live="polite"</code>로 현재·최대 글자 수를 음성 안내합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-count-basic">메모</label>
+              <div class="textarea_wrap textarea_show-count">
+                <textarea
+                  class="textarea"
+                  id="textarea-count-basic"
+                  rows="4"
+                  maxlength="200"
+                  placeholder="내용을 입력하세요"
+                  aria-describedby="textarea-count-basic-hint textarea-count-basic-count"
+                ></textarea>
+                <span class="textarea_count" id="textarea-count-basic-count" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="textarea_count_visual" aria-hidden="true">0/200</span>
+                  <span class="textarea_count_announcer">0자 입력, 최대 200자</span>
+                </span>
+              </div>
+              <p class="form_field-hint" id="textarea-count-basic-hint">200자 이내로 작성해 주세요.</p>
+            </div>
+
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-count-sm">Small + 카운터</label>
+              <div class="textarea_wrap textarea_show-count">
+                <textarea
+                  class="textarea textarea_sm"
+                  id="textarea-count-sm"
+                  rows="3"
+                  maxlength="100"
+                  placeholder="textarea_sm"
+                  aria-describedby="textarea-count-sm-hint textarea-count-sm-count"
+                ></textarea>
+                <span class="textarea_count" id="textarea-count-sm-count" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="textarea_count_visual" aria-hidden="true">0/100</span>
+                  <span class="textarea_count_announcer">0자 입력, 최대 100자</span>
+                </span>
+              </div>
+              <p class="form_field-hint" id="textarea-count-sm-hint">100자 이내로 작성해 주세요.</p>
+            </div>
+
+            <div class="form_field form_field_fit">
+              <label class="form_field-label" for="textarea-count-fit">제한 너비 + 카운터</label>
+              <div class="textarea_wrap textarea_show-count textarea_wrap_fit">
+                <textarea
+                  class="textarea"
+                  id="textarea-count-fit"
+                  rows="3"
+                  maxlength="200"
+                  placeholder="textarea_wrap_fit"
+                  aria-describedby="textarea-count-fit-hint textarea-count-fit-count"
+                >입력된 내용이 있습니다.</textarea>
+                <span class="textarea_count" id="textarea-count-fit-count" role="status" aria-live="polite" aria-atomic="true">
+                  <span class="textarea_count_visual" aria-hidden="true">12/200</span>
+                  <span class="textarea_count_announcer">12자 입력, 최대 200자</span>
+                </span>
+              </div>
+              <p class="form_field-hint" id="textarea-count-fit-hint">200자 이내로 작성해 주세요.</p>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 메모 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-count-basic&quot;&gt;메모&lt;/label&gt;
+  &lt;div class=&quot;textarea_wrap textarea_show-count&quot;&gt;
+    &lt;textarea
+    class=&quot;textarea&quot;
+    id=&quot;textarea-count-basic&quot;
+    rows=&quot;4&quot;
+    maxlength=&quot;200&quot;
+    placeholder=&quot;내용을 입력하세요&quot;
+    aria-describedby=&quot;textarea-count-basic-hint textarea-count-basic-count&quot;
+    &gt;
+  &lt;/textarea&gt;
+  &lt;span class=&quot;textarea_count&quot; id=&quot;textarea-count-basic-count&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;
+    &lt;span class=&quot;textarea_count_visual&quot; aria-hidden=&quot;true&quot;&gt;0/200&lt;/span&gt;
+    &lt;span class=&quot;textarea_count_announcer&quot;&gt;0자 입력, 최대 200자&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-count-basic-hint&quot;&gt;200자 이내로 작성해 주세요.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Small + 카운터 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-count-sm&quot;&gt;Small + 카운터&lt;/label&gt;
+  &lt;div class=&quot;textarea_wrap textarea_show-count&quot;&gt;
+    &lt;textarea
+    class=&quot;textarea textarea_sm&quot;
+    id=&quot;textarea-count-sm&quot;
+    rows=&quot;3&quot;
+    maxlength=&quot;100&quot;
+    placeholder=&quot;textarea_sm&quot;
+    aria-describedby=&quot;textarea-count-sm-hint textarea-count-sm-count&quot;
+    &gt;
+  &lt;/textarea&gt;
+  &lt;span class=&quot;textarea_count&quot; id=&quot;textarea-count-sm-count&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;
+    &lt;span class=&quot;textarea_count_visual&quot; aria-hidden=&quot;true&quot;&gt;0/100&lt;/span&gt;
+    &lt;span class=&quot;textarea_count_announcer&quot;&gt;0자 입력, 최대 100자&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+&lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-count-sm-hint&quot;&gt;100자 이내로 작성해 주세요.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 제한 너비 + 카운터 --&gt;
+
+&lt;div class=&quot;form_field form_field_fit&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-count-fit&quot;&gt;제한 너비 + 카운터&lt;/label&gt;
+  &lt;div class=&quot;textarea_wrap textarea_show-count textarea_wrap_fit&quot;&gt;
+    &lt;textarea
+    class=&quot;textarea&quot;
+    id=&quot;textarea-count-fit&quot;
+    rows=&quot;3&quot;
+    maxlength=&quot;200&quot;
+    placeholder=&quot;textarea_wrap_fit&quot;
+    aria-describedby=&quot;textarea-count-fit-hint textarea-count-fit-count&quot;
+    &gt;입력된 내용이 있습니다.&lt;/textarea&gt;
+    &lt;span class=&quot;textarea_count&quot; id=&quot;textarea-count-fit-count&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;
+      &lt;span class=&quot;textarea_count_visual&quot; aria-hidden=&quot;true&quot;&gt;12/200&lt;/span&gt;
+      &lt;span class=&quot;textarea_count_announcer&quot;&gt;12자 입력, 최대 200자&lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-count-fit-hint&quot;&gt;200자 이내로 작성해 주세요.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="state-heading">
+          <div class="demo_section-header">
+            <h2 id="state-heading">상태</h2>
+            <p>disabled · readonly · is-error · is-success로 입력 상태를 표현합니다. 오류·성공 메시지는 색상만으로 전달하지 않고 텍스트와 aria 속성을 함께 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-state-default">기본</label>
+              <textarea class="textarea" id="textarea-state-default" rows="3" placeholder="입력 가능"></textarea>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-state-disabled">비활성</label>
+              <textarea class="textarea" id="textarea-state-disabled" rows="3" disabled>수정할 수 없는 내용입니다.</textarea>
+              <p class="form_field-hint">disabled 속성으로 편집을 막습니다.</p>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-state-readonly">읽기 전용</label>
+              <textarea class="textarea" id="textarea-state-readonly" rows="3" readonly>복사는 가능, 수정 불가한 내용입니다.</textarea>
+              <p class="form_field-hint">readonly 속성 — 텍스트 선택·복사는 가능합니다.</p>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-state-error">에러</label>
+              <textarea class="textarea is-error" id="textarea-state-error" rows="3" aria-invalid="true" aria-describedby="textarea-state-error-msg">짧음</textarea>
+              <p class="form_field-error" id="textarea-state-error-msg" role="alert">10자 이상 입력해 주세요.</p>
+            </div>
+            <div class="form_field">
+              <label class="form_field-label" for="textarea-state-success">성공</label>
+              <textarea class="textarea is-success" id="textarea-state-success" rows="3" aria-invalid="false" aria-describedby="textarea-state-success-msg">입력 내용이 유효합니다.</textarea>
+              <p class="form_field-success" id="textarea-state-success-msg" role="status">사용 가능한 내용입니다.</p>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 기본 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-state-default&quot;&gt;기본&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-state-default&quot; rows=&quot;3&quot; placeholder=&quot;입력 가능&quot;&gt;
+  &lt;/textarea&gt;
+&lt;/div&gt;
+
+&lt;!-- 비활성 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-state-disabled&quot;&gt;비활성&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-state-disabled&quot; rows=&quot;3&quot; disabled&gt;수정할 수 없는 내용입니다.&lt;/textarea&gt;
+  &lt;p class=&quot;form_field-hint&quot;&gt;disabled 속성으로 편집을 막습니다.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 읽기 전용 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-state-readonly&quot;&gt;읽기 전용&lt;/label&gt;
+  &lt;textarea class=&quot;textarea&quot; id=&quot;textarea-state-readonly&quot; rows=&quot;3&quot; readonly&gt;복사는 가능, 수정 불가한 내용입니다.&lt;/textarea&gt;
+  &lt;p class=&quot;form_field-hint&quot;&gt;readonly 속성 — 텍스트 선택·복사는 가능합니다.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 에러 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-state-error&quot;&gt;에러&lt;/label&gt;
+  &lt;textarea class=&quot;textarea is-error&quot; id=&quot;textarea-state-error&quot; rows=&quot;3&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;textarea-state-error-msg&quot;&gt;짧음&lt;/textarea&gt;
+  &lt;p class=&quot;form_field-error&quot; id=&quot;textarea-state-error-msg&quot; role=&quot;alert&quot;&gt;10자 이상 입력해 주세요.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 성공 --&gt;
+
+&lt;div class=&quot;form_field&quot;&gt;
+  &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-state-success&quot;&gt;성공&lt;/label&gt;
+  &lt;textarea class=&quot;textarea is-success&quot; id=&quot;textarea-state-success&quot; rows=&quot;3&quot; aria-invalid=&quot;false&quot; aria-describedby=&quot;textarea-state-success-msg&quot;&gt;입력 내용이 유효합니다.&lt;/textarea&gt;
+  &lt;p class=&quot;form_field-success&quot; id=&quot;textarea-state-success-msg&quot; role=&quot;status&quot;&gt;사용 가능한 내용입니다.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="example-heading">
+          <div class="demo_section-header">
+            <h2 id="example-heading">조합 예시</h2>
+            <p>문의 폼에서 필수 입력·글자 수 안내·유효성 피드백을 조합한 예시입니다. aria-invalid · aria-describedby · maxlength로 접근성을 보완합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-stack">
+            <form class="form form_vertical form_compact" action="#" method="get" novalidate aria-labelledby="example-heading">
+              <div class="form_field">
+                <label class="form_field-label" for="textarea-ex-subject">
+                  제목<span class="form_field-required" aria-hidden="true">*</span>
+                </label>
+                <input type="text" class="input input_sm" id="textarea-ex-subject" value="서비스 이용 문의" required aria-required="true">
+              </div>
+
+              <div class="form_field">
+                <label class="form_field-label" for="textarea-ex-body">
+                  문의 내용<span class="form_field-required" aria-hidden="true">*</span>
+                </label>
+                <div class="textarea_wrap textarea_show-count">
+                  <textarea
+                    class="textarea textarea_sm is-error"
+                    id="textarea-ex-body"
+                    rows="5"
+                    maxlength="500"
+                    required
+                    aria-required="true"
+                    aria-invalid="true"
+                    aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count"
+                  >너무 짧아요</textarea>
+                  <span class="textarea_count is-limit" id="textarea-ex-body-count" role="status" aria-live="polite" aria-atomic="true">
+                    <span class="textarea_count_visual" aria-hidden="true">6/500</span>
+                    <span class="textarea_count_announcer">6자 입력, 최대 500자</span>
+                  </span>
+                </div>
+                <p class="form_field-hint" id="textarea-ex-body-limit">500자 이내로 작성해 주세요.</p>
+                <p class="form_field-hint" id="textarea-ex-body-hint">구체적인 상황을 알려주시면 빠르게 답변드립니다.</p>
+                <p class="form_field-error" id="textarea-ex-body-error" role="alert">10자 이상 입력해 주세요.</p>
+              </div>
+
+              <div class="form_field">
+                <label class="form_field-label" for="textarea-ex-memo">추가 메모</label>
+                <div class="textarea_wrap textarea_show-count">
+                  <textarea
+                    class="textarea textarea_sm textarea_resize_vertical is-success"
+                    id="textarea-ex-memo"
+                    rows="3"
+                    maxlength="200"
+                    aria-invalid="false"
+                    aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success textarea-ex-memo-count"
+                  >참고할 내용이 있습니다.</textarea>
+                  <span class="textarea_count" id="textarea-ex-memo-count" role="status" aria-live="polite" aria-atomic="true">
+                    <span class="textarea_count_visual" aria-hidden="true">14/200</span>
+                    <span class="textarea_count_announcer">14자 입력, 최대 200자</span>
+                  </span>
+                </div>
+                <p class="form_field-hint" id="textarea-ex-memo-hint">200자 이내로 작성해 주세요.</p>
+                <p class="form_field-success" id="textarea-ex-memo-success" role="status">선택 항목이 정상적으로 저장되었습니다.</p>
+              </div>
+
+              <div class="form_actions">
+                <button type="submit" class="btn btn_filled color_primary btn_sm"><span class="btn_label">문의하기</span></button>
+                <button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">취소</span></button>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_vertical form_compact&quot; action=&quot;#&quot; method=&quot;get&quot; novalidate aria-labelledby=&quot;example-heading&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-ex-subject&quot;&gt;
+      제목&lt;span class=&quot;form_field-required&quot; aria-hidden=&quot;true&quot;&gt;*&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;input type=&quot;text&quot; class=&quot;input input_sm&quot; id=&quot;textarea-ex-subject&quot; value=&quot;서비스 이용 문의&quot; required aria-required=&quot;true&quot;&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-ex-body&quot;&gt;
+      문의 내용&lt;span class=&quot;form_field-required&quot; aria-hidden=&quot;true&quot;&gt;*&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;div class=&quot;textarea_wrap textarea_show-count&quot;&gt;
+      &lt;textarea
+      class=&quot;textarea textarea_sm is-error&quot;
+      id=&quot;textarea-ex-body&quot;
+      rows=&quot;5&quot;
+      maxlength=&quot;500&quot;
+      required
+      aria-required=&quot;true&quot;
+      aria-invalid=&quot;true&quot;
+      aria-describedby=&quot;textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count&quot;
+      &gt;너무 짧아요&lt;/textarea&gt;
+      &lt;span class=&quot;textarea_count is-limit&quot; id=&quot;textarea-ex-body-count&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;
+        &lt;span class=&quot;textarea_count_visual&quot; aria-hidden=&quot;true&quot;&gt;6/500&lt;/span&gt;
+        &lt;span class=&quot;textarea_count_announcer&quot;&gt;6자 입력, 최대 500자&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-ex-body-limit&quot;&gt;500자 이내로 작성해 주세요.&lt;/p&gt;
+    &lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-ex-body-hint&quot;&gt;구체적인 상황을 알려주시면 빠르게 답변드립니다.&lt;/p&gt;
+    &lt;p class=&quot;form_field-error&quot; id=&quot;textarea-ex-body-error&quot; role=&quot;alert&quot;&gt;10자 이상 입력해 주세요.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;textarea-ex-memo&quot;&gt;추가 메모&lt;/label&gt;
+    &lt;div class=&quot;textarea_wrap textarea_show-count&quot;&gt;
+      &lt;textarea
+      class=&quot;textarea textarea_sm textarea_resize_vertical is-success&quot;
+      id=&quot;textarea-ex-memo&quot;
+      rows=&quot;3&quot;
+      maxlength=&quot;200&quot;
+      aria-invalid=&quot;false&quot;
+      aria-describedby=&quot;textarea-ex-memo-hint textarea-ex-memo-success textarea-ex-memo-count&quot;
+      &gt;참고할 내용이 있습니다.&lt;/textarea&gt;
+      &lt;span class=&quot;textarea_count&quot; id=&quot;textarea-ex-memo-count&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot;&gt;
+        &lt;span class=&quot;textarea_count_visual&quot; aria-hidden=&quot;true&quot;&gt;14/200&lt;/span&gt;
+        &lt;span class=&quot;textarea_count_announcer&quot;&gt;14자 입력, 최대 200자&lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;form_field-hint&quot; id=&quot;textarea-ex-memo-hint&quot;&gt;200자 이내로 작성해 주세요.&lt;/p&gt;
+    &lt;p class=&quot;form_field-success&quot; id=&quot;textarea-ex-memo-success&quot; role=&quot;status&quot;&gt;선택 항목이 정상적으로 저장되었습니다.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;form_actions&quot;&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;문의하기&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>
