@@ -5,3 +5,11 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Dev (min 브랜치 전용 — main에 포함되지 않음)
+node_modules/
+pnpm-lock.yaml
+package.json
+
+# Build artifacts
+*.css.map
