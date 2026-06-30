@@ -5,7 +5,8 @@
   "scripts": {
     "build": "gulp build",
     "dev": "gulp",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "deploy:main": "bash scripts/deploy-main.sh"
   },
   "devDependencies": {
     "browser-sync": "^3.0.3",
