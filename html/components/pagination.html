@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagination | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="pagination">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Pagination</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Pagination</h1>
+          <p class="lead">목록·테이블의 페이지를 이동하는 컴포넌트입니다. <code class="typo_code">nav</code> · <code class="typo_code">ul</code> 시맨틱 구조와 <code class="typo_code">aria-current="page"</code>로 접근성을 지원합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>이전·다음 버튼과 페이지 번호로 구성합니다. 현재 페이지는 <code class="typo_code">is-active</code>와 <code class="typo_code">aria-current="page"</code>를 함께 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <nav class="pagination" aria-label="페이지 이동">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지" disabled>
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">3</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">4</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">5</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot; disabled&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;4&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;5&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="minimal-heading">
+          <div class="demo_section-header">
+            <h2 id="minimal-heading">미니멀</h2>
+            <p>pagination_minimal로 테두리 없는 가벼운 스타일을 적용합니다. 카드·모달 하단에 적합합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <nav class="pagination pagination_minimal" aria-label="페이지 이동 — 미니멀">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">3</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">4</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">5</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;nav class=&quot;pagination pagination_minimal&quot; aria-label=&quot;페이지 이동 — 미니멀&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;4&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;5&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>pagination_sm · pagination_lg로 항목 스케일을 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <nav class="pagination pagination_sm" aria-label="페이지 이동 — small">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <nav class="pagination" aria-label="페이지 이동 — medium">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <nav class="pagination pagination_lg" aria-label="페이지 이동 — large">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 페이지 이동 — small --&gt;
+
+&lt;nav class=&quot;pagination pagination_sm&quot; aria-label=&quot;페이지 이동 — small&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — medium --&gt;
+
+&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동 — medium&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — large --&gt;
+
+&lt;nav class=&quot;pagination pagination_lg&quot; aria-label=&quot;페이지 이동 — large&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="round-heading">
+          <div class="demo_section-header">
+            <h2 id="round-heading">둥근</h2>
+            <p>pagination_round로 pill 형태의 페이지 버튼을 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <nav class="pagination pagination_round" aria-label="페이지 이동 — round">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">6</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">7</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">8</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;nav class=&quot;pagination pagination_round&quot; aria-label=&quot;페이지 이동 — round&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;6&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;7&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;8&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="ellipsis-heading">
+          <div class="demo_section-header">
+            <h2 id="ellipsis-heading">페이지 생략</h2>
+            <p>페이지가 많을 때 pagination_ellipsis로 중간 구간을 생략합니다. 생략 표시는 장식용이므로 <code class="typo_code">aria-hidden="true"</code>를 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <nav class="pagination" aria-label="페이지 이동 — 생략">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <span class="pagination_ellipsis" aria-hidden="true">…</span>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">9</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">10</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">11</button>
+                </li>
+                <li class="pagination_item">
+                  <span class="pagination_ellipsis" aria-hidden="true">…</span>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">49</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">50</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동 — 생략&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;9&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;10&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;11&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;49&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;50&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="simple-heading">
+          <div class="demo_section-header">
+            <h2 id="simple-heading">심플</h2>
+            <p>pagination_simple로 이전·다음과 현재/전체 페이지만 표시합니다. 모바일·슬라이더형 목록에 적합합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <nav class="pagination pagination_simple" aria-label="페이지 이동 — 심플">
+              <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+              </button>
+              <span class="pagination_simple-text">
+                <span class="pagination_simple-current">3</span> / <span class="pagination_simple-total">12</span>
+              </span>
+              <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </nav>
+
+            <nav class="pagination pagination_simple pagination_minimal" aria-label="페이지 이동 — 심플 미니멀">
+              <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지" disabled>
+                <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+              </button>
+              <span class="pagination_simple-text">
+                <span class="pagination_simple-current">1</span> / <span class="pagination_simple-total">12</span>
+              </span>
+              <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 페이지 이동 — 심플 --&gt;
+
+&lt;nav class=&quot;pagination pagination_simple&quot; aria-label=&quot;페이지 이동 — 심플&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+    &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;span class=&quot;pagination_simple-text&quot;&gt;
+    &lt;span class=&quot;pagination_simple-current&quot;&gt;3&lt;/span&gt; / &lt;span class=&quot;pagination_simple-total&quot;&gt;12&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+    &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — 심플 미니멀 --&gt;
+
+&lt;nav class=&quot;pagination pagination_simple pagination_minimal&quot; aria-label=&quot;페이지 이동 — 심플 미니멀&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot; disabled&gt;
+    &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;span class=&quot;pagination_simple-text&quot;&gt;
+    &lt;span class=&quot;pagination_simple-current&quot;&gt;1&lt;/span&gt; / &lt;span class=&quot;pagination_simple-total&quot;&gt;12&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+    &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="toolbar-heading">
+          <div class="demo_section-header">
+            <h2 id="toolbar-heading">툴바 조합</h2>
+            <p>pagination_total · pagination_jumper와 함께 테이블 하단 툴바를 구성합니다. pagination_wrap으로 좌우 정렬합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="pagination_wrap">
+              <span class="pagination_total">총 128건</span>
+              <div class="pagination_wrap-end">
+                <nav class="pagination pagination_minimal" aria-label="페이지 이동">
+                  <ul class="pagination_list">
+                    <li class="pagination_item">
+                      <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                        <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                          <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                      </button>
+                    </li>
+                    <li class="pagination_item">
+                      <button type="button" class="pagination_link">4</button>
+                    </li>
+                    <li class="pagination_item">
+                      <button type="button" class="pagination_link is-active" aria-current="page">5</button>
+                    </li>
+                    <li class="pagination_item">
+                      <button type="button" class="pagination_link">6</button>
+                    </li>
+                    <li class="pagination_item">
+                      <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                        <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                          <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+                <label class="pagination_jumper">
+                  이동
+                  <input type="number" class="pagination_jumper-input" value="5" min="1" max="13" aria-label="이동할 페이지">
+                  페이지
+                </label>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;pagination_wrap&quot;&gt;
+  &lt;span class=&quot;pagination_total&quot;&gt;총 128건&lt;/span&gt;
+  &lt;div class=&quot;pagination_wrap-end&quot;&gt;
+    &lt;nav class=&quot;pagination pagination_minimal&quot; aria-label=&quot;페이지 이동&quot;&gt;
+      &lt;ul class=&quot;pagination_list&quot;&gt;
+        &lt;li class=&quot;pagination_item&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+            &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;pagination_item&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;4&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;pagination_item&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;5&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;pagination_item&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;6&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;pagination_item&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+            &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;label class=&quot;pagination_jumper&quot;&gt;
+      이동
+      &lt;input type=&quot;number&quot; class=&quot;pagination_jumper-input&quot; value=&quot;5&quot; min=&quot;1&quot; max=&quot;13&quot; aria-label=&quot;이동할 페이지&quot;&gt;
+      페이지
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="align-heading">
+          <div class="demo_section-header">
+            <h2 id="align-heading">정렬</h2>
+            <p>pagination_align-center · pagination_align-end로 가운데·우측 정렬합니다. 기본값은 좌측 정렬입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <nav class="pagination" aria-label="페이지 이동 — 좌측">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <nav class="pagination pagination_align-center" aria-label="페이지 이동 — 가운데">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <nav class="pagination pagination_align-end" aria-label="페이지 이동 — 우측">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 페이지 이동 — 좌측 --&gt;
+
+&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동 — 좌측&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — 가운데 --&gt;
+
+&lt;nav class=&quot;pagination pagination_align-center&quot; aria-label=&quot;페이지 이동 — 가운데&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — 우측 --&gt;
+
+&lt;nav class=&quot;pagination pagination_align-end&quot; aria-label=&quot;페이지 이동 — 우측&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="state-heading">
+          <div class="demo_section-header">
+            <h2 id="state-heading">상태</h2>
+            <p>첫·마지막 페이지에서는 이전·다음 버튼을 <code class="typo_code">disabled</code>로 비활성화합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <nav class="pagination" aria-label="페이지 이동 — 첫 페이지">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지" disabled>
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">2</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">3</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <nav class="pagination" aria-label="페이지 이동 — 마지막 페이지">
+              <ul class="pagination_list">
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지">
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                  </button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">8</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link">9</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_link is-active" aria-current="page">10</button>
+                </li>
+                <li class="pagination_item">
+                  <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지" disabled>
+                    <svg class="pagination_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 페이지 이동 — 첫 페이지 --&gt;
+
+&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동 — 첫 페이지&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot; disabled&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- 페이지 이동 — 마지막 페이지 --&gt;
+
+&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동 — 마지막 페이지&quot;&gt;
+  &lt;ul class=&quot;pagination_list&quot;&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot;&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;15 18 9 12 15 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;8&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;9&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;10&lt;/button&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;pagination_item&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot; disabled&gt;
+        &lt;svg class=&quot;pagination_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;polyline points=&quot;9 18 15 12 9 6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>
