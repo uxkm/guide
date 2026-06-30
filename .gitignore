@@ -1,4 +1,7 @@
-.sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
