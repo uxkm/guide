@@ -21,4 +21,4 @@ pnpm preview   # 빌드 결과 미리보기
 
 ## 배포
 
-`pnpm deploy:main` — min 브랜치에서 빌드 후 main에 정적 파일 배포
+`pnpm deploy:main` — min 또는 vue 브랜치에서 빌드 후 main/vue/에 정적 파일 배포 (기존 html/ 유지)
