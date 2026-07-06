@@ -6,11 +6,17 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Dev (min 브랜치 전용 — main에 포함되지 않음)
+# Dev (소스 브랜치 전용 — main에 포함되지 않음)
 node_modules/
 pnpm-lock.yaml
 package.json
+vite.config.js
+src/
+scripts/
 
 # Build artifacts
 dist/
+.vite/
+.vite-temp/
+.sass-cache/
 *.css.map
