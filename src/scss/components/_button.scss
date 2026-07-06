@@ -1,5 +1,80 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Button — structure
+  --btn-padding-y: 0.5rem;
+  --btn-padding-x: 1rem;
+  --btn-font-size: var(--text-size-base);
+  --btn-font-weight: 600;
+  --btn-font-weight-normal: 400;
+  --btn-line-height: 1.4;
+  --btn-border-width: 1px;
+  --btn-gap: var(--space-sm);
+
+
+  // ----- Button — size sm
+  --btn-padding-y-sm: 0.3rem;
+  --btn-padding-x-sm: 0.75rem;
+  --btn-font-size-sm: var(--text-size-sm);
+
+
+  // ----- Button — size lg
+  --btn-padding-y-lg: 0.65rem;
+  --btn-padding-x-lg: 1.25rem;
+  --btn-font-size-lg: var(--text-size-lg);
+
+
+  // ----- Button — icon
+  --btn-icon-size: 1em;
+  --btn-icon-size-md: 1.125em;
+  --btn-icon-size-lg: 1.25em;
+  --btn-icon-size-xl: 1.375em;
+  --btn-icon-only-padding: 0.5rem;
+  --btn-icon-only-padding-sm: 0.35rem;
+  --btn-icon-only-padding-lg: 0.65rem;
+
+
+  // ----- Button — vertical
+  --btn-vertical-min-width: 4.5rem;
+  --btn-vertical-min-width-sm: 3.75rem;
+  --btn-vertical-min-width-lg: 5.25rem;
+  --btn-vertical-padding-y: 0.65rem;
+  --btn-vertical-padding-x: 0.75rem;
+  --btn-vertical-padding-y-sm: 0.5rem;
+  --btn-vertical-padding-x-sm: 0.6rem;
+  --btn-vertical-padding-y-lg: 0.85rem;
+  --btn-vertical-padding-x-lg: 0.9rem;
+  --btn-vertical-label-size: var(--text-size-sm);
+  --btn-vertical-label-size-sm: var(--text-size-xs);
+  --btn-vertical-label-size-lg: var(--text-size-base);
+  --btn-vertical-label-weight: 500;
+  --btn-vertical-label-line-height: 1.25;
+
+
+  // ----- Button — select trigger
+  --btn-select-min-width: 10rem;
+  --btn-select-max-width: 320px;
+  --btn-select-padding-right: 0.65rem;
+  --btn-select-padding-right-sm: 0.5rem;
+  --btn-select-padding-right-lg: 0.85rem;
+  --btn-select-text-padding-x: 0.5rem;
+  --btn-select-text-padding-right: 0.35rem;
+  --btn-select-text-padding-x-sm: 0.35rem;
+  --btn-select-text-padding-right-sm: 0.25rem;
+  --btn-select-text-padding-x-lg: 0.65rem;
+  --btn-select-text-padding-right-lg: 0.45rem;
+
+
+  // ----- Button — spinner · stack · group
+  --btn-spinner-size: 1em;
+  --btn-spinner-border: 2px;
+  --btn-spinner-duration: 0.6s;
+  --btn-stack-text-size: var(--text-size-sm);
+  --btn-stack-text-line-height: 1.5;
+  --btn-group-overlap: -1px;
+
+}
 
 // =============================================================================
 // Button
@@ -8,12 +83,12 @@
 // OOCSS 구조: .btn(구조) + 스킨 + 레이아웃/유형 클래스를 조합해 사용합니다.
 //
 // 네이밍 규칙
-//   블록_파트        → btn_filled, btn_icon, btn_group
+//   블록_파트        → btn_filled, btn_label, btn_group
 //   블록_파트-변형   → btn_group-align-start, btn_select-text
 //
 // 기본 조합 예시
 //   <button class="btn btn_filled color_primary btn_sm btn_round">
-//     <svg class="btn_icon">…</svg>
+//     <svg class="icon">…</svg>
 //     <span class="btn_label">저장</span>
 //   </button>
 //
@@ -23,7 +98,7 @@
 //   .is-open      — 셀렉트 트리거 열림 (aria-expanded="true"와 함께)
 //   .is-error     — 폼 오류 (셀렉트 트리거)
 //
-// 토큰: _tokens.scss (:root) · mixin: _mixins.scss · 유틸: _utilities.scss
+// 토큰: 본 파일 :root · mixin: _mixins.scss · 유틸: _utilities.scss
 //
 // -----------------------------------------------------------------------------
 // 1. 구조 — .btn
@@ -46,11 +121,6 @@
 
   @include btn-transition;
   @include focus-ring;
-
-  &:disabled,
-  &.is-disabled {
-    @include disabled-state;
-  }
 
   &.is-loading {
     position: relative;
@@ -101,7 +171,7 @@
     white-space: normal;
     text-align: center;
 
-    .btn_icon {
+    .icon {
       @include btn-icon-size(var(--btn-icon-size-lg));
     }
 
@@ -115,7 +185,7 @@
       min-width: var(--btn-vertical-min-width-sm);
       padding: var(--btn-vertical-padding-y-sm) var(--btn-vertical-padding-x-sm);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-md));
       }
 
@@ -128,7 +198,7 @@
       min-width: var(--btn-vertical-min-width-lg);
       padding: var(--btn-vertical-padding-y-lg) var(--btn-vertical-padding-x-lg);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-xl));
       }
 
@@ -143,14 +213,14 @@
     padding: var(--btn-icon-only-padding);
     aspect-ratio: 1;
 
-    .btn_icon {
+    .icon {
       @include btn-icon-size(var(--btn-icon-size-md));
     }
 
     &.btn_sm {
       padding: var(--btn-icon-only-padding-sm);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size));
       }
     }
@@ -158,7 +228,7 @@
     &.btn_lg {
       padding: var(--btn-icon-only-padding-lg);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-lg));
       }
     }
@@ -400,15 +470,59 @@
     }
   }
 
+  // 비활성 — opacity 대신 테마 토큰으로 라이트/다크 명도대비 유지
+  &:disabled,
+  &.is-disabled {
+    @include disabled-state;
+
+    &.btn_filled {
+      &.color_default {
+        @include disabled-surface;
+      }
+
+      &.color_primary {
+        @include disabled-filled(var(--color-accent-disabled), var(--color-on-accent-disabled));
+      }
+
+      &.color_success {
+        @include disabled-filled(var(--color-success-disabled), var(--color-on-success-disabled));
+      }
+
+      &.color_danger {
+        @include disabled-filled(var(--color-danger-disabled), var(--color-on-danger-disabled));
+      }
+
+      &.color_warning {
+        @include disabled-filled(var(--color-warning-disabled), var(--color-on-warning-disabled));
+      }
+    }
+
+    &.btn_outline,
+    &.btn_select {
+      @include disabled-surface;
+    }
+
+    &.btn_outline {
+      background-color: transparent;
+    }
+
+    &.btn_text,
+    &.btn_ghost,
+    &.btn_select-text {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
   // -----------------------------------------------------------------------------
   // 5. 파트 — 버튼 내부 요소
   // -----------------------------------------------------------------------------
   //
-  //   .btn_icon     — SVG 아이콘
+  //   .icon         — SVG 아이콘 (Icon 컴포넌트 또는 class="icon")
   //   .btn_label    — 텍스트 (반드시 span으로 감쌈)
   //   .btn_spinner  — 로딩 스피너 (.is-loading과 함께)
 
-  &_icon {
+  .icon {
     @include square-size(var(--btn-icon-size));
     flex-shrink: 0;
     pointer-events: none;

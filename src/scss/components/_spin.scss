@@ -1,5 +1,22 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Spin
+  --spin-size: 2rem;
+  --spin-size-sm: 1.25rem;
+  --spin-size-lg: 3rem;
+  --spin-border: 3px;
+  --spin-border-sm: 2px;
+  --spin-border-lg: 4px;
+  --spin-duration: 0.8s;
+  --spin-gap: var(--space-sm);
+  --spin-tip-size: var(--text-size-sm);
+  --spin-overlay-bg: var(--color-overlay);
+  --spin-wrap-min-height: 8rem;
+  --spin-wrap-content-opacity: 0.45;
+
+}
 
 // Spin — OOCSS: 구조(.spin) + 크기(.spin_sm) + 변형(.spin_inline · .spin_overlay) + 공통 색상(.color_*)
 //

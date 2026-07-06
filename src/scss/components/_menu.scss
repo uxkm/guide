@@ -1,5 +1,23 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Menu — structure
+  --menu-width: 16rem;
+  --menu-padding: var(--space-sm);
+  --menu-gap: 2px;
+  --menu-font-size: var(--text-size-sm);
+  --menu-item-padding-y: 0.5rem;
+  --menu-item-padding-x: 0.75rem;
+  --menu-link-font-weight: 500;
+  --menu-icon-size: 1rem;
+  --menu-arrow-size: 0.875rem;
+  --menu-submenu-indent: 1.75rem;
+  --menu-divider-margin-y: var(--space-xs);
+  --menu-group-padding-y: var(--space-sm);
+  --menu-group-font-size: 0.6875rem;
+
+}
 
 // Menu — OOCSS: 구조(.menu) + 스킨(.menu_horizontal · .menu_bordered · .menu_compact) + 파트(.menu_list · .menu_link · .menu_submenu)
 //

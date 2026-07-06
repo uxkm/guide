@@ -141,7 +141,7 @@
     }
 
     &.is-disabled {
-      opacity: 0.45;
+      color: var(--color-text-disabled);
       pointer-events: none;
     }
   }

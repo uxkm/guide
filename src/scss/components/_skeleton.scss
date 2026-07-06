@@ -1,5 +1,36 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Skeleton
+  --skeleton-bg: var(--color-surface-raised);
+  --skeleton-shine: color-mix(in srgb, var(--color-surface) 65%, transparent);
+  --skeleton-radius: var(--radius-sm);
+  --skeleton-radius-round: 50%;
+  --skeleton-text-height: 0.875rem;
+  --skeleton-text-height-sm: 0.75rem;
+  --skeleton-text-height-lg: 1rem;
+  --skeleton-title-height: 1.125rem;
+  --skeleton-title-height-sm: 1rem;
+  --skeleton-title-height-lg: 1.25rem;
+  --skeleton-title-width: 40%;
+  --skeleton-avatar-size: var(--avatar-size);
+  --skeleton-button-height: 2rem;
+  --skeleton-button-height-sm: 1.75rem;
+  --skeleton-button-height-lg: 2.25rem;
+  --skeleton-button-width: 5rem;
+  --skeleton-button-width-sm: 4rem;
+  --skeleton-button-width-lg: 6rem;
+  --skeleton-block-height: 4rem;
+  --skeleton-image-ratio: 16 / 9;
+  --skeleton-width-sm: 35%;
+  --skeleton-width-md: 65%;
+  --skeleton-width-lg: 85%;
+  --skeleton-gap: var(--space-sm);
+  --skeleton-gap-sm: 0.375rem;
+  --skeleton-duration: 1.4s;
+
+}
 
 // Skeleton — OOCSS: 구조(.skeleton) + 형태(.skeleton_*) + 크기(.skeleton_*)
 //

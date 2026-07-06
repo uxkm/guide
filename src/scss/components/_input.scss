@@ -1,5 +1,17 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Input — form_fit · input_fit 시 최대 너비
+  --input-max-width: 320px;
+  --input-clear-size: 1.25rem;
+  --input-clear-icon-size: 0.875rem;
+  --input-clear-offset: 0.5rem;
+  // 마스킹(●) 글리프 — pass 전용 폰트
+  --input-font-masked: "pass";
+  --input-masked-letter-spacing: 0.08em;
+
+}
 
 // Input — OOCSS: 구조(.input) / 크기(.input_sm) / 파트(.form_field-label) 분리
 //   .input_field — form_field 없이 label + input 단독 묶음
@@ -40,8 +52,7 @@
   }
 
   &:disabled {
-    @include disabled-state;
-    background-color: var(--color-surface);
+    @include disabled-surface;
   }
 
   &.is-error {
@@ -58,13 +69,6 @@
     &:focus {
       box-shadow: 0 0 0 3px var(--color-input-success-ring);
     }
-  }
-
-  &[type="password"],
-  &.input_masked {
-    font-family: var(--input-font-masked);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: var(--input-masked-letter-spacing);
   }
 
   &_sm {
@@ -360,6 +364,13 @@
       max-width: 11rem;
     }
   }
+}
+
+// 마스킹 입력 — pass 전용 폰트 (CSS 변수 대신 리터럴 지정 — @font-face 매칭 보장)
+.input.input_masked {
+  font-family: pass, "pass" !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--input-masked-letter-spacing);
 }
 
 .form_field {

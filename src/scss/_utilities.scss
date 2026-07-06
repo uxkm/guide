@@ -1,11 +1,44 @@
 @use "variables" as *;
+@use "mixins" as m;
+
+:root {
+  // ----- Container
+  --container-padding-x: var(--space-xl);
+  --container-max-width: 72rem;
+  --container-max-width-sm: 36rem;
+  --container-max-width-md: 48rem;
+  --container-max-width-lg: 64rem;
+  --container-max-width-xl: 80rem;
+
+
+  // ----- Grid
+  --grid-columns: 12;
+  --grid-gap: var(--space-md);
+  --grid-gap-sm: var(--space-sm);
+  --grid-gap-lg: var(--space-lg);
+  --grid-auto-min: 10rem;
+
+
+  // ----- Divider
+  --divider-color: var(--color-border-subtle);
+  --divider-thickness: 1px;
+  --divider-margin-y: var(--space-md);
+  --divider-margin-x: var(--space-sm);
+  --divider-text-gap: var(--space-md);
+  --divider-orient-inset: 5%;
+
+
+  // ----- Space
+  --space-gap: var(--space-md);
+
+}
 
 // =============================================================================
 // Utilities — 공통 레이아웃·타이포·색상
 // =============================================================================
 //
 // ----- Layout      flex (.flex_*) · container (.container_*) · grid (.grid_*)
-//                   divider (.divider_*) · space (.space_*)
+//                   divider (.divider_*) · space (.space_*) · spacing (.m_* · .p_*)
 // ----- Typography  말줄임 (.text_ellipsis*)
 // ----- Color       시맨틱 텍스트 색상 (.color_*)
 // ----- Size        텍스트 크기 (.size_*)
@@ -93,17 +126,67 @@
 //
 // 모든 컴포넌트에서 동일한 클래스명을 사용합니다.
 // 버튼·배지·알림 등은 각 컴포넌트 SCSS에서 .btn_filled.color_primary 처럼 조합합니다.
-// 클래스 출력은 main.scss 맨 마지막 .color { &_* } 블록 (컴포넌트 속성보다 우선)
 //
 // 예)
 //   <p class="color_success">성공</p>
 //   <button class="btn btn_filled color_primary">저장</button>
 
+.color {
+  @each $name in default, muted, primary, success, warning, danger, info, error {
+    &_#{$name} {
+      color: m.color-token($name);
+    }
+  }
+}
+
 // ----- Size — 텍스트 크기 (.size_*)
 //
 //   base(0.875rem)는 body 기본값 — 클래스 불필요
 //   .size_xs · .size_sm · .size_lg · .size_xl 만 지정
-// 클래스 출력은 main.scss 맨 마지막 .size { &_* } 블록
+
+.size {
+  @each $name in xs, sm, lg, xl {
+    &_#{$name} {
+      font-size: m.size-token($name);
+    }
+  }
+}
+
+// ----- Spacing — margin · padding (.m_* · .p_*)
+//
+//   <span class="ml_sm">…</span>
+//   <div class="p_md">…</div>
+//   <section class="my_lg">…</section>
+//
+// 크기 토큰은 --space-xs ~ --space-xl 과 동일합니다.
+// m = margin · p = padding · t/r/b/l = 방향 · x/y = inline/block 축
+
+$spacing-sizes: xs, sm, md, lg, xl;
+
+@each $prefix, $property in (
+  m: margin,
+  mt: margin-top,
+  mr: margin-right,
+  mb: margin-bottom,
+  ml: margin-left,
+  mx: margin-inline,
+  my: margin-block,
+  p: padding,
+  pt: padding-top,
+  pr: padding-right,
+  pb: padding-bottom,
+  pl: padding-left,
+  px: padding-inline,
+  py: padding-block
+) {
+  .#{$prefix} {
+    @each $size in $spacing-sizes {
+      &_#{$size} {
+        #{$property}: var(--space-#{$size});
+      }
+    }
+  }
+}
 
 // ----- Layout — container (.container_*)
 //

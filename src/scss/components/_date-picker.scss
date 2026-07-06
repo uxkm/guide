@@ -1,5 +1,15 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Date Picker — trigger · panel
+  --date-picker-input-padding-y: 0.5rem;
+  --date-picker-input-padding-x: 0.75rem;
+  --date-picker-input-font-size: var(--text-size-base);
+  --date-picker-btn-size: 2.25rem;
+  --date-picker-icon-size: 1rem;
+
+}
 
 // Date Picker — OOCSS: 구조(.date_picker) + 스킨(.date_picker_*) + 파트(.date_picker_trigger · .date_picker_panel)
 //
@@ -58,10 +68,15 @@
   }
 
   &.is-disabled {
-    @include disabled-state;
+    @include disabled-surface;
+
+    .date_picker_trigger {
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+    }
 
     .date_picker_input {
-      background-color: var(--color-surface);
+      color: var(--color-text-disabled);
     }
   }
 
@@ -177,8 +192,8 @@
     }
 
     &:disabled {
+      color: var(--color-text-disabled);
       cursor: not-allowed;
-      opacity: 0.55;
     }
   }
 

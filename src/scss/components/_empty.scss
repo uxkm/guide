@@ -1,5 +1,22 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Empty
+  --empty-gap: var(--space-sm);
+  --empty-padding-y: var(--space-xl);
+  --empty-padding-x: var(--space-md);
+  --empty-image-size: 4rem;
+  --empty-image-size-sm: 3rem;
+  --empty-image-size-lg: 5rem;
+  --empty-icon-color: var(--color-border);
+  --empty-desc-size: var(--text-size-sm);
+  --empty-desc-color: var(--color-text-muted);
+  --empty-desc-max-width: 20rem;
+  --empty-footer-gap: var(--space-sm);
+  --empty-footer-offset: var(--space-xs);
+
+}
 
 // Empty — OOCSS: 구조(.empty) + 크기(.empty_sm) + 변형(.empty_simple · .empty_block) + 파트(.empty_image · .empty_desc · .empty_footer)
 //

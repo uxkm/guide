@@ -1,5 +1,39 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Drawer — structure
+  --drawer-z-index: 250;
+  --drawer-width: 24rem;
+  --drawer-width-sm: 18rem;
+  --drawer-width-lg: 36rem;
+  --drawer-height: 18rem;
+  --drawer-height-sm: 14rem;
+  --drawer-height-lg: 26rem;
+  --drawer-bg: var(--color-surface);
+  --drawer-shadow: var(--shadow-md);
+  --drawer-header-gap: var(--space-sm);
+  --drawer-header-padding-y: var(--space-md);
+  --drawer-header-padding-x: var(--space-lg);
+  --drawer-title-font-size: var(--text-size-lg);
+  --drawer-title-font-weight: 600;
+  --drawer-close-size: 2rem;
+  --drawer-close-icon-size: 1.125rem;
+  --drawer-body-padding-y: var(--space-lg);
+  --drawer-body-padding-x: var(--space-lg);
+  --drawer-body-font-size: var(--text-size-sm);
+  --drawer-footer-gap: var(--space-sm);
+  --drawer-footer-padding-y: var(--space-md);
+  --drawer-footer-padding-x: var(--space-lg);
+  --drawer-panel-duration-x: 0.32s;
+  --drawer-panel-duration-y: 0.36s;
+  --drawer-panel-easing-x: cubic-bezier(0.32, 0.72, 0, 1);
+  --drawer-panel-easing-y: cubic-bezier(0.33, 1, 0.68, 1);
+  --drawer-backdrop-duration: 0.24s;
+  --drawer-handle-width: 2.5rem;
+  --drawer-handle-height: 0.25rem;
+
+}
 
 // Drawer — OOCSS: 구조(.drawer) + 스킨(.drawer_placement-right · .drawer_sm) + 파트(.drawer_panel · .drawer_header · .drawer_body · .drawer_footer)
 //
@@ -23,9 +57,12 @@
 //   data-drawer-trigger      — 열기 트리거 (값: #id 선택자)
 //   data-drawer-close        — 닫기 (백드롭·닫기 버튼)
 //   data-drawer-backdrop="false" — 백드롭 비표시·백드롭 클릭 닫기 비활성
+//   data-drawer-open-on-load="true" — 페이지 로드 후 자동 열기
 //
 // 상태 클래스
 //   .is-open       — 패널 표시 (aria-expanded="true"와 함께)
+//   .is-opening    — 열림 애니메이션 진행 중 (패널은 아직 닫힌 위치)
+//   .is-closing    — 닫힘 애니메이션 진행 중
 
 .drawer {
   position: fixed;
@@ -43,16 +80,32 @@
     pointer-events: auto;
   }
 
+  &.is-opening,
+  &.is-closing {
+    display: block;
+    pointer-events: none;
+  }
+
+  &.is-opening.is-open {
+    pointer-events: auto;
+  }
+
   &_backdrop {
     position: fixed;
     inset: 0;
     z-index: calc(var(--drawer-z-index) + var(--drawer-stack-level, 0) * 10);
     background: var(--color-overlay);
     opacity: 0;
-    transition: opacity var(--transition-base);
+    transition: opacity var(--drawer-backdrop-duration) ease;
 
     .drawer.is-open & {
       opacity: 1;
+      transition-delay: 0s;
+    }
+
+    .drawer.is-closing & {
+      opacity: 0;
+      transition-delay: 0.08s;
     }
 
     .drawer[data-drawer-backdrop="false"] & {
@@ -71,7 +124,16 @@
     background: var(--drawer-bg);
     color: var(--color-text);
     box-shadow: var(--drawer-shadow);
-    transition: transform var(--transition-base);
+    will-change: transform;
+    transition: transform var(--drawer-panel-duration-x) var(--drawer-panel-easing-x);
+
+    .drawer.is-open & {
+      transition-delay: 0.04s;
+    }
+
+    .drawer.is-closing & {
+      transition-delay: 0s;
+    }
   }
 
   &_header {
@@ -192,6 +254,8 @@
     max-height: 100%;
     transform: translateY(-100%);
     border-bottom: 1px solid var(--color-border-subtle);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    transition: transform var(--drawer-panel-duration-y) var(--drawer-panel-easing-y);
 
     .drawer.is-open & {
       transform: translateY(0);
@@ -208,6 +272,26 @@
     max-height: 100%;
     transform: translateY(100%);
     border-top: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transition: transform var(--drawer-panel-duration-y) var(--drawer-panel-easing-y);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: var(--space-sm);
+      left: 50%;
+      z-index: 1;
+      width: var(--drawer-handle-width);
+      height: var(--drawer-handle-height);
+      border-radius: 999px;
+      background: var(--color-border-subtle);
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .drawer_header {
+      padding-top: calc(var(--drawer-header-padding-y) + var(--space-md));
+    }
 
     .drawer.is-open & {
       transform: translateY(0);
@@ -228,6 +312,45 @@
 
   // ----- 데모 레이아웃
 
+  &_demo-frame {
+    position: relative;
+    height: 20rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: var(--color-bg);
+
+    .drawer {
+      position: absolute;
+
+      &.drawer_demo-static {
+        display: block;
+        pointer-events: none;
+
+        .drawer_panel {
+          pointer-events: auto;
+          transform: none;
+        }
+
+        .drawer_backdrop {
+          opacity: 1;
+          pointer-events: none;
+        }
+
+        &[data-drawer-backdrop="false"] .drawer_backdrop {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &_demo-content {
+    padding: var(--space-lg);
+    font-size: var(--text-size-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
   &_demo-row {
     display: flex;
     flex-wrap: wrap;
@@ -245,5 +368,14 @@ body.is-drawer-open {
   .drawer_panel,
   .drawer_backdrop {
     transition: none;
+  }
+
+  .drawer.is-open .drawer_panel,
+  .drawer.is-opening .drawer_panel {
+    transition-delay: 0s;
+  }
+
+  .drawer.is-closing .drawer_backdrop {
+    transition-delay: 0s;
   }
 }

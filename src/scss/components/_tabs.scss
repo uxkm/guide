@@ -1,5 +1,36 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Tabs — structure
+  --tabs-font-size: var(--text-size-sm);
+  --tabs-font-weight: 500;
+  --tabs-font-weight-active: 600;
+  --tabs-gap: var(--space-xs);
+  --tabs-tab-padding-y: 0.625rem;
+  --tabs-tab-padding-x: 1rem;
+  --tabs-indicator-height: 2px;
+  --tabs-indicator-transition: var(--transition-base);
+  --tabs-bar-gap: var(--space-md);
+  --tabs-panel-padding-y: var(--space-lg);
+  --tabs-icon-size: 1rem;
+  --tabs-badge-gap: var(--space-xs);
+  --tabs-pill-padding: 3px;
+  --tabs-nav-size: 2rem;
+
+
+  // ----- Tabs — size sm · lg
+  --tabs-font-size-sm: var(--text-size-xs);
+  --tabs-tab-padding-y-sm: 0.4rem;
+  --tabs-tab-padding-x-sm: 0.75rem;
+  --tabs-icon-size-sm: 0.875rem;
+
+  --tabs-font-size-lg: var(--text-size-base);
+  --tabs-tab-padding-y-lg: 0.75rem;
+  --tabs-tab-padding-x-lg: 1.25rem;
+  --tabs-icon-size-lg: 1.125rem;
+
+}
 
 // Tabs — OOCSS: 구조(.tabs) + 스킨(.tabs_line · .tabs_card · .tabs_pill) + 파트(.tabs_bar · .tabs_list · .tabs_tab · .tabs_panel)
 //
@@ -25,8 +56,13 @@
 
   &_bar {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: var(--tabs-bar-gap);
+    min-width: 0;
+  }
+
+  &_list-wrap {
+    flex: 1;
     min-width: 0;
   }
 
@@ -38,6 +74,16 @@
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  &_indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform var(--tabs-indicator-transition);
   }
 
   &_tab {
@@ -64,6 +110,40 @@
       box-shadow $transition-fast;
     @include focus-ring;
 
+    &.btn {
+      min-width: 0;
+      height: auto;
+      font-size: inherit;
+
+      &.btn_text {
+        color: var(--color-text-muted);
+        background: transparent;
+        border-color: transparent;
+
+        &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+          color: var(--color-text);
+          background: transparent;
+        }
+
+        &.is-active,
+        &[aria-selected="true"] {
+          color: color-token(primary);
+
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            color: color-token(primary);
+          }
+        }
+      }
+
+      .btn_label {
+        min-width: 0;
+        padding: 0;
+        font: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+    }
+
     &:hover:not(.is-disabled):not(:disabled) {
       color: var(--color-text);
     }
@@ -89,6 +169,8 @@
 
   &_label {
     min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &_badge {
@@ -128,6 +210,70 @@
     text-align: center;
   }
 
+  // ----- 인디케이터: 슬라이드
+
+  &_indicator-slide {
+    .tabs_list {
+      position: relative;
+    }
+
+    .tabs_tab {
+      position: relative;
+      z-index: 1;
+    }
+
+    &.tabs_line {
+      .tabs_tab {
+        border-bottom-color: transparent;
+      }
+
+      .tabs_indicator {
+        background: color-token(primary);
+      }
+    }
+
+    &.tabs_pill {
+      .tabs_tab {
+        background: var(--color-surface-raised);
+
+        &.is-active,
+        &[aria-selected="true"] {
+          background: transparent;
+          box-shadow: none;
+        }
+
+        &.btn.btn_text {
+          &.is-active,
+          &[aria-selected="true"] {
+            background: transparent;
+            box-shadow: none;
+
+            &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+              background: transparent;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+
+      .tabs_indicator {
+        border-radius: $radius-sm;
+        background: var(--color-surface);
+        box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+      }
+    }
+
+    &.tabs_vertical.tabs_line {
+      .tabs_tab {
+        border-right-color: transparent;
+      }
+
+      .tabs_indicator {
+        background: color-token(primary);
+      }
+    }
+  }
+
   // ----- 스킨: 라인 (기본)
 
   &_line {
@@ -143,6 +289,26 @@
       &.is-active,
       &[aria-selected="true"] {
         border-bottom-color: color-token(primary);
+      }
+
+      &.is-active:hover:not(.is-disabled):not(:disabled),
+      &[aria-selected="true"]:hover:not(.is-disabled):not(:disabled) {
+        border-bottom-color: color-token(primary);
+      }
+    }
+
+    .tabs_tab.btn.btn_text {
+      &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+        background: transparent;
+      }
+
+      &.is-active,
+      &[aria-selected="true"] {
+        background: transparent;
+
+        &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+          background: transparent;
+        }
       }
     }
   }
@@ -171,6 +337,31 @@
         border-bottom-color: var(--color-surface);
         background: var(--color-surface);
         color: color-token(primary);
+      }
+
+      &.btn.btn_text {
+        border: 1px solid transparent;
+        border-bottom: none;
+        background: var(--color-surface-raised);
+
+        &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+          background: var(--color-surface-raised);
+        }
+
+        &.is-active,
+        &[aria-selected="true"] {
+          border-color: var(--color-border);
+          border-bottom-color: var(--color-surface);
+          background: var(--color-surface);
+          color: color-token(primary);
+
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            border-color: var(--color-border);
+            border-bottom-color: var(--color-surface);
+            background: var(--color-surface);
+            color: color-token(primary);
+          }
+        }
       }
     }
 
@@ -201,6 +392,23 @@
         background: var(--color-surface);
         box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
       }
+
+      &.btn.btn_text {
+        &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+          background: transparent;
+        }
+
+        &.is-active,
+        &[aria-selected="true"] {
+          background: var(--color-surface);
+          box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            background: var(--color-surface);
+            box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+          }
+        }
+      }
     }
 
     .tabs_panel {
@@ -224,10 +432,89 @@
     --tabs-icon-size: var(--tabs-icon-size-lg);
   }
 
+  // ----- 레이아웃: 균등 분할
+
+  &_equal {
+    .tabs_list-wrap {
+      width: 100%;
+    }
+
+    .tabs_list {
+      width: 100%;
+    }
+
+    .tabs_tab {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    &.tabs_vertical {
+      .tabs_list {
+        width: 100%;
+      }
+
+      .tabs_tab {
+        width: 100%;
+      }
+    }
+  }
+
+  // ----- 레이아웃: 네비 스크롤
+
+  &_scroll-nav {
+    .tabs_bar {
+      align-items: center;
+    }
+
+    .tabs_scroll-viewport {
+      overflow: hidden;
+    }
+
+    .tabs_list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  &_nav {
+    flex-shrink: 0;
+    width: var(--tabs-nav-size);
+    min-width: var(--tabs-nav-size);
+    height: var(--tabs-nav-size);
+    padding: 0;
+
+    &.btn_outline.color_default {
+      color: var(--color-text);
+      background-color: var(--color-surface);
+      border-color: var(--color-border);
+
+      @include btn-hover-active {
+        color: var(--color-accent-text-hover);
+        border-color: var(--color-accent);
+        background-color: var(--color-surface);
+      }
+
+      &:disabled,
+      &.is-disabled {
+        @include disabled-surface;
+      }
+    }
+  }
+
   // ----- 스크롤
 
   &_scrollable {
     .tabs_bar {
+      overflow: hidden;
+    }
+
+    .tabs_list-wrap {
       overflow: hidden;
     }
 
@@ -253,7 +540,7 @@
   &_vertical {
     display: flex;
     gap: var(--space-lg);
-    align-items: flex-start;
+    align-items: stretch;
 
     .tabs_bar {
       flex: 0 0 auto;
@@ -270,8 +557,22 @@
 
     .tabs_tab {
       justify-content: flex-start;
+      width: 100%;
       border-radius: $radius-sm;
       text-align: left;
+
+      &.btn {
+        width: 100%;
+        align-self: stretch;
+
+        &.btn_fit {
+          width: 100%;
+        }
+
+        &.btn_text {
+          justify-content: flex-start;
+        }
+      }
     }
 
     .tabs_panels {
@@ -291,6 +592,7 @@
       }
 
       .tabs_tab {
+        position: relative;
         margin-bottom: 0;
         margin-right: -1px;
         border-bottom: none;
@@ -299,31 +601,123 @@
         &.is-active,
         &[aria-selected="true"] {
           border-right-color: color-token(primary);
-          border-bottom-color: transparent;
+        }
+
+        &.is-active:hover:not(.is-disabled):not(:disabled),
+        &[aria-selected="true"]:hover:not(.is-disabled):not(:disabled) {
+          border-right-color: color-token(primary);
+        }
+      }
+
+      .tabs_tab.btn.btn_text {
+        &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+          background: transparent;
+        }
+
+        &.is-active,
+        &[aria-selected="true"] {
+          background: transparent;
+
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            background: transparent;
+            border-right-color: color-token(primary);
+          }
         }
       }
     }
 
     &.tabs_card {
       .tabs_bar {
+        gap: 0;
         border-bottom: none;
         border-right: 1px solid var(--color-border);
       }
 
+      .tabs_list {
+        gap: 0;
+      }
+
       .tabs_tab {
-        border-radius: $radius-sm 0 0 $radius-sm;
+        margin-right: -1px;
+        border: 1px solid transparent;
         border-right: none;
+        border-radius: $radius-sm 0 0 $radius-sm;
+        background: var(--color-surface-raised);
 
         &.is-active,
         &[aria-selected="true"] {
-          border-right-color: transparent;
-          border-bottom-color: var(--color-border);
+          border-color: var(--color-border);
+          border-right-color: var(--color-surface);
+          background: var(--color-surface);
+          color: color-token(primary);
+        }
+
+        &.btn.btn_text {
+          border: 1px solid transparent;
+          border-right: none;
+          background: var(--color-surface-raised);
+
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            background: var(--color-surface-raised);
+          }
+
+          &.is-active,
+          &[aria-selected="true"] {
+            border-color: var(--color-border);
+            border-right-color: var(--color-surface);
+            background: var(--color-surface);
+            color: color-token(primary);
+
+            &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+              border-color: var(--color-border);
+              border-right-color: var(--color-surface);
+              background: var(--color-surface);
+              color: color-token(primary);
+            }
+          }
         }
       }
 
       .tabs_panel {
-        border-top: 1px solid var(--color-border);
+        padding: var(--tabs-panel-padding-y) var(--space-lg);
+        border: 1px solid var(--color-border);
+        border-left: none;
         border-radius: 0 $radius-md $radius-md 0;
+        background: var(--color-surface);
+      }
+    }
+
+    &.tabs_pill {
+      .tabs_list {
+        padding: var(--tabs-pill-padding);
+        border-radius: $radius-md;
+        background: var(--color-surface-raised);
+      }
+
+      .tabs_tab {
+        &.is-active,
+        &[aria-selected="true"] {
+          color: color-token(primary);
+          background: var(--color-surface);
+          box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+        }
+
+        &.btn.btn_text {
+          &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+            background: transparent;
+          }
+
+          &.is-active,
+          &[aria-selected="true"] {
+            background: var(--color-surface);
+            box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+
+            &:hover:not(.is-disabled):not(:disabled):not([aria-disabled="true"]) {
+              background: var(--color-surface);
+              box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+            }
+          }
+        }
       }
     }
   }

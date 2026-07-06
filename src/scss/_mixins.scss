@@ -20,9 +20,77 @@
 }
 
 @mixin disabled-state {
-  opacity: 0.55;
+  color: var(--color-text-disabled);
   cursor: not-allowed;
   pointer-events: none;
+}
+
+@mixin disabled-surface {
+  @include disabled-state;
+  background-color: var(--color-surface-disabled);
+  border-color: var(--color-border-disabled);
+}
+
+@mixin disabled-filled($bg, $text) {
+  color: $text;
+  background-color: $bg;
+  border-color: $bg;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@mixin disabled-interactive-wrapper {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: var(--color-text-disabled);
+}
+
+@mixin disabled-semantic-checked-box($input, $box, $indeterminate: true) {
+  @each $name in primary, success, danger, warning {
+    &.color_#{$name}:has(#{$input}:disabled) {
+      #{$input}:checked + #{$box} {
+        @if $name == primary {
+          background-color: var(--color-accent-disabled);
+          border-color: var(--color-accent-disabled);
+          color: var(--color-on-accent-disabled);
+        } @else if $name == success {
+          background-color: var(--color-success-disabled);
+          border-color: var(--color-success-disabled);
+          color: var(--color-on-success-disabled);
+        } @else if $name == danger {
+          background-color: var(--color-danger-disabled);
+          border-color: var(--color-danger-disabled);
+          color: var(--color-on-danger-disabled);
+        } @else if $name == warning {
+          background-color: var(--color-warning-disabled);
+          border-color: var(--color-warning-disabled);
+          color: var(--color-on-warning-disabled);
+        }
+      }
+
+      @if $indeterminate {
+        #{$input}:indeterminate + #{$box} {
+          @if $name == primary {
+            background-color: var(--color-accent-disabled);
+            border-color: var(--color-accent-disabled);
+            color: var(--color-on-accent-disabled);
+          } @else if $name == success {
+            background-color: var(--color-success-disabled);
+            border-color: var(--color-success-disabled);
+            color: var(--color-on-success-disabled);
+          } @else if $name == danger {
+            background-color: var(--color-danger-disabled);
+            border-color: var(--color-danger-disabled);
+            color: var(--color-on-danger-disabled);
+          } @else if $name == warning {
+            background-color: var(--color-warning-disabled);
+            border-color: var(--color-warning-disabled);
+            color: var(--color-on-warning-disabled);
+          }
+        }
+      }
+    }
+  }
 }
 
 // ----- Common — semantic skins (반복 color_* 변형)
@@ -428,4 +496,43 @@
 @mixin square-size($width, $height: $width) {
   width: $width;
   height: $height;
+}
+
+// 클릭 파장(ripple) — overflow 클리핑 + JS .ripple_wave 조합
+@mixin ripple-surface {
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@mixin ripple-target {
+  @include ripple-surface;
+  position: relative;
+}
+
+// Popover · Tooltip — 트리거↔패널/말풍선 방향별 간격 클래스
+@mixin overlay-offset-side-classes($name) {
+  @each $side in top, right, bottom, left {
+    &_offset-#{$side}-none {
+      --#{$name}-offset-#{$side}: 0;
+    }
+
+    &_offset-#{$side}-sm {
+      --#{$name}-offset-#{$side}: var(--#{$name}-offset-sm);
+    }
+
+    &_offset-#{$side}-md {
+      --#{$name}-offset-#{$side}: var(--#{$name}-offset-md);
+    }
+
+    &_offset-#{$side}-lg {
+      --#{$name}-offset-#{$side}: var(--#{$name}-offset-lg);
+    }
+  }
+}
+
+// Popover · Tooltip — 화살표가 패널 라운드에 잘리지 않도록 가장자리 여백
+@mixin overlay-arrow-edge-tokens($name, $panel-radius: var(--radius-lg)) {
+  --#{$name}-panel-radius: #{$panel-radius};
+  --#{$name}-arrow-edge-inset: calc(var(--#{$name}-panel-radius) + var(--#{$name}-arrow-size) * 0.35);
 }

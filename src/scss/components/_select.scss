@@ -1,5 +1,19 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Select — native caret
+  --select-padding-right: 2.25rem;
+  --select-padding-right-sm: 2rem;
+  --select-padding-right-lg: 2.5rem;
+  --select-caret-offset: 0.65rem;
+  --select-caret-offset-sm: 0.5rem;
+  --select-caret-offset-lg: 0.85rem;
+  --select-caret-size: 1em;
+  --select-caret-size-sm: 0.875em;
+  --select-caret-size-lg: 1.125em;
+
+}
 
 // Select — OOCSS: 네이티브 select는 .input 공유 · 커스텀 트리거는 .btn_select (Button)
 //
@@ -37,6 +51,8 @@ select.input {
     cursor: not-allowed;
     background-color: var(--color-surface);
     background-image: $select-caret-light;
+    color: var(--color-text-disabled);
+    border-color: var(--color-border-disabled);
   }
 
   &.input_sm {

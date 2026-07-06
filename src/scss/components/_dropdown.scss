@@ -1,5 +1,16 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Dropdown — structure
+  --dropdown-min-width: 10rem;
+  --dropdown-menu-width: auto;
+  --dropdown-padding: var(--space-xs);
+  --dropdown-offset: var(--space-xs);
+  --dropdown-item-line-height: 1.4;
+  --z-dropdown: 100;
+
+}
 
 // Dropdown — OOCSS: 구조(.dropdown) + 스킨(.dropdown_placement-end · .dropdown_block) + 파트(.dropdown_trigger · .dropdown_menu)
 //
@@ -15,6 +26,7 @@
 // 상태 클래스
 //   .is-open       — 패널 표시 (aria-expanded="true"와 함께)
 //   .is-disabled   — 트리거 비활성
+//   .dropdown_menu-scrollable — maxVisibleItems 지정 시 menu_list 스크롤
 
 .dropdown {
   position: relative;
@@ -45,6 +57,7 @@
     left: 0;
     z-index: var(--z-dropdown, 100);
     display: none;
+    width: var(--dropdown-menu-width);
     min-width: var(--dropdown-min-width);
     padding: var(--dropdown-padding);
     border: 1px solid var(--color-border-subtle);
@@ -63,6 +76,32 @@
       &:hover:not(.is-disabled) {
         color: color-token(danger);
         background: var(--color-badge-danger-bg);
+      }
+    }
+
+    &-scrollable {
+      .menu_list {
+        max-height: calc(
+          var(--dropdown-max-visible-items) *
+            (
+              var(--menu-item-padding-y) * 2 +
+                var(--menu-font-size) * var(--dropdown-item-line-height)
+            ) +
+            (var(--dropdown-max-visible-items) - 1) * var(--menu-gap)
+        );
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 3px;
+          background: var(--color-border);
+        }
       }
     }
   }

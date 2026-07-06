@@ -1,5 +1,34 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Card — structure (Bootstrap card-header/body/footer · Tailwind shadow-sm)
+  --card-padding: var(--space-lg);
+  --card-padding-sm: var(--space-md);
+  --card-padding-lg: var(--space-xl);
+  --card-gap: var(--space-md);
+  --card-border-color: var(--color-border-subtle);
+  --card-border-width: 1px;
+  --card-radius: var(--radius-lg);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-md: var(--shadow-md);
+  --card-header-bg: var(--color-surface-raised);
+  --card-footer-bg: var(--color-surface-raised);
+  --card-divider-color: var(--color-border-subtle);
+  --card-divider-width: 1px;
+  --card-title-size: var(--text-size-lg);
+  --card-title-weight: 600;
+  --card-title-gap: var(--space-sm);
+  --card-subtitle-size: var(--text-size-sm);
+  --card-body-color: var(--color-text-muted);
+  --card-body-line-height: 1.6;
+  --card-media-ratio: 16 / 9;
+  --card-accent-width: 3px;
+  --card-icon-size: 2.5rem;
+  --card-horizontal-media-width: 7.5rem;
+  --card-hover-translate: -2px;
+
+}
 
 // Card — OOCSS: 구조(.card) + 스킨(.card_*) + 파트(.card_header · .card_body · .card_footer) + 공통 색상(.color_*)
 // Bootstrap card · Tailwind shadow-sm / rounded-lg 참조

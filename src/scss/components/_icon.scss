@@ -1,5 +1,19 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Icon — size
+  --icon-size-sm: 1rem;
+  --icon-size: 1.25rem;
+  --icon-size-lg: 1.5rem;
+  --icon-size-xl: 2rem;
+  --icon-spin-duration: 0.8s;
+  --icon-circle-size: 2.25rem;
+  --icon-circle-size-sm: 1.75rem;
+  --icon-circle-size-lg: 2.75rem;
+  --icon-pulse-duration: 1.5s;
+
+}
 
 // Icon — OOCSS: 구조(.icon) + 크기(.icon_*) + 공통 색상(.color_*)
 //
@@ -21,7 +35,7 @@
   }
 
   &_inline {
-    vertical-align: middle;
+    vertical-align: -0.2em;
   }
 
   &_spin {
@@ -32,6 +46,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     border-radius: 50%;
     background: var(--color-surface-raised);
     color: color-token(muted);
@@ -52,6 +67,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     border-radius: $radius-md;
     background: var(--color-surface-raised);
     color: color-token(muted);
@@ -64,6 +80,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     margin: 0;
     padding: 0;
     border: none;

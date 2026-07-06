@@ -1,5 +1,35 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Steps
+  --steps-gap: var(--space-md);
+  --steps-head-gap: var(--space-sm);
+  --steps-indicator-size: 2rem;
+  --steps-indicator-font-size: var(--text-size-sm);
+  --steps-indicator-font-weight: 600;
+  --steps-tail-height: 2px;
+  --steps-content-gap: var(--space-xs);
+  --steps-title-size: var(--text-size-sm);
+  --steps-title-weight: 600;
+  --steps-desc-size: var(--text-size-xs);
+  --steps-icon-size: 1rem;
+  --steps-dot-size: 8px;
+  --steps-pulse-duration: 1.5s;
+
+
+  // ----- Steps size
+  --steps-indicator-size-sm: 1.75rem;
+  --steps-indicator-font-size-sm: var(--text-size-xs);
+  --steps-title-size-sm: var(--text-size-xs);
+  --steps-desc-size-sm: var(--text-size-xs);
+
+  --steps-indicator-size-lg: 2.5rem;
+  --steps-indicator-font-size-lg: var(--text-size-base);
+  --steps-title-size-lg: var(--text-size-base);
+  --steps-desc-size-lg: var(--text-size-sm);
+
+}
 
 // Steps — OOCSS: 구조(.steps) + 변형(.steps_*) + 파트(.steps_item · .steps_indicator · .steps_tail · .steps_content)
 //
@@ -18,7 +48,22 @@
 //     <li class="steps_item is-wait">…</li>
 //   </ol>
 
+@mixin steps-indicator-pulse-ring($inset: -2px) {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: $inset;
+    border-radius: inherit;
+    border: 2px solid var(--color-accent);
+    opacity: 0.45;
+    pointer-events: none;
+    animation: steps-indicator-pulse var(--steps-pulse-duration) ease-out infinite;
+  }
+}
+
 @mixin steps-indicator-base {
+  position: relative;
+  z-index: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,6 +103,19 @@
       display: none;
     }
 
+    &:only-child {
+      flex: none;
+      max-width: 100%;
+
+      .steps_head {
+        width: auto;
+      }
+
+      .steps_content {
+        padding-right: 0;
+      }
+    }
+
     &.is-finished {
       .steps_indicator {
         border-color: var(--color-accent);
@@ -80,6 +138,7 @@
         background: var(--color-surface);
         color: color-token(primary);
         box-shadow: 0 0 0 3px var(--color-accent-muted);
+        @include steps-indicator-pulse-ring;
       }
 
       .steps_title {
@@ -129,6 +188,12 @@
     border: 2px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text-muted);
+  }
+
+  &_index,
+  &_icon {
+    position: relative;
+    z-index: 1;
   }
 
   &_index {
@@ -189,6 +254,7 @@
       &.is-active .steps_indicator {
         background: var(--color-accent);
         box-shadow: 0 0 0 3px var(--color-accent-muted);
+        @include steps-indicator-pulse-ring(-4px);
       }
 
       &.is-wait .steps_indicator {
@@ -298,7 +364,25 @@
     }
 
     .steps_head {
+      position: relative;
       justify-content: center;
+    }
+
+    .steps_indicator {
+      position: relative;
+      z-index: 1;
+    }
+
+    .steps_tail {
+      position: absolute;
+      top: 50%;
+      left: calc(50% + var(--steps-indicator-size) / 2 + var(--steps-head-gap));
+      right: calc(-50% + var(--steps-indicator-size) / 2 + var(--steps-head-gap));
+      flex: none;
+      width: auto;
+      min-width: 0;
+      margin: 0;
+      transform: translateY(-50%);
     }
 
     .steps_content {
@@ -334,5 +418,24 @@
 
   &_demo-narrow {
     max-width: 36rem;
+  }
+}
+
+@keyframes steps-indicator-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steps_item.is-active .steps_indicator::after {
+    animation: none;
+    opacity: 0;
   }
 }

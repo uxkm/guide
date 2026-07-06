@@ -1,5 +1,39 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Accordion — structure
+  --accordion-font-size: var(--text-size-sm);
+  --accordion-trigger-font-weight: 600;
+  --accordion-trigger-gap: var(--space-sm);
+  --accordion-trigger-padding-y: 0.875rem;
+  --accordion-trigger-padding-x: var(--space-lg);
+  --accordion-content-font-size: var(--text-size-sm);
+  --accordion-content-padding-top: var(--space-md);
+  --accordion-content-padding-y: var(--space-lg);
+  --accordion-content-padding-x: var(--space-lg);
+  --accordion-icon-size: 1rem;
+  --accordion-card-gap: var(--space-sm);
+
+
+  // ----- Accordion — size sm · lg
+  --accordion-font-size-sm: var(--text-size-xs);
+  --accordion-trigger-padding-y-sm: 0.625rem;
+  --accordion-trigger-padding-x-sm: var(--space-md);
+  --accordion-content-padding-y-sm: var(--space-md);
+  --accordion-content-padding-x-sm: var(--space-md);
+  --accordion-content-padding-top-sm: var(--space-sm);
+  --accordion-icon-size-sm: 0.875rem;
+
+  --accordion-font-size-lg: var(--text-size-base);
+  --accordion-trigger-padding-y-lg: 1rem;
+  --accordion-trigger-padding-x-lg: var(--space-xl);
+  --accordion-content-padding-y-lg: var(--space-xl);
+  --accordion-content-padding-x-lg: var(--space-xl);
+  --accordion-content-padding-top-lg: var(--space-lg);
+  --accordion-icon-size-lg: 1.125rem;
+
+}
 
 // Accordion — OOCSS: 구조(.accordion) + 스킨(.accordion_bordered · .accordion_flush · .accordion_card) + 파트(.accordion_item · .accordion_trigger · .accordion_panel)
 //
@@ -69,6 +103,28 @@
     &[aria-expanded="true"] {
       color: color-token(primary);
     }
+
+    &.btn {
+      min-width: 0;
+      height: auto;
+      border-radius: 0;
+
+      &.btn_text {
+        color: inherit;
+        background: transparent;
+        border-color: transparent;
+
+        &:hover:not(.is-disabled):not(:disabled) {
+          color: inherit;
+          background: var(--color-surface-raised);
+          border-color: transparent;
+        }
+      }
+
+      .btn_label {
+        display: contents;
+      }
+    }
   }
 
   &_label {
@@ -111,7 +167,8 @@
   }
 
   &_content {
-    padding: 0 var(--accordion-content-padding-x) var(--accordion-content-padding-y);
+    padding: var(--accordion-content-padding-top) var(--accordion-content-padding-x)
+      var(--accordion-content-padding-y);
     color: var(--color-text);
     font-size: var(--accordion-content-font-size);
     line-height: 1.6;
@@ -179,6 +236,7 @@
     --accordion-trigger-padding-x: var(--accordion-trigger-padding-x-sm);
     --accordion-content-padding-y: var(--accordion-content-padding-y-sm);
     --accordion-content-padding-x: var(--accordion-content-padding-x-sm);
+    --accordion-content-padding-top: var(--accordion-content-padding-top-sm);
     --accordion-icon-size: var(--accordion-icon-size-sm);
   }
 
@@ -188,6 +246,7 @@
     --accordion-trigger-padding-x: var(--accordion-trigger-padding-x-lg);
     --accordion-content-padding-y: var(--accordion-content-padding-y-lg);
     --accordion-content-padding-x: var(--accordion-content-padding-x-lg);
+    --accordion-content-padding-top: var(--accordion-content-padding-top-lg);
     --accordion-icon-size: var(--accordion-icon-size-lg);
   }
 

@@ -1,5 +1,27 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Radio — structure (checkbox와 동일 스케일)
+  --radio-size: var(--checkbox-size);
+  --radio-size-sm: var(--checkbox-size-sm);
+  --radio-size-lg: var(--checkbox-size-lg);
+  --radio-border-width: var(--checkbox-border-width);
+  --radio-gap: var(--checkbox-gap);
+  --radio-gap-sm: var(--checkbox-gap-sm);
+  --radio-gap-lg: var(--checkbox-gap-lg);
+  --radio-font-size: var(--checkbox-font-size);
+  --radio-font-size-sm: var(--checkbox-font-size-sm);
+  --radio-font-size-lg: var(--checkbox-font-size-lg);
+  --radio-line-height: var(--checkbox-line-height);
+  --radio-label-weight: var(--checkbox-label-weight);
+  --radio-hint-size: var(--checkbox-hint-size);
+  --radio-control-offset: var(--checkbox-control-offset);
+  --radio-group-gap: var(--checkbox-group-gap);
+  --radio-button-padding-y: var(--checkbox-button-padding-y);
+  --radio-button-padding-x: var(--checkbox-button-padding-x);
+
+}
 
 // Radio — OOCSS: 구조(.radio) / 크기(.radio_sm) / 변형(.radio_button · .radio_label-end · .radio_card) + 공통 색상(.color_*)
 //
@@ -145,8 +167,21 @@
   }
 
   &:has(.radio_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+
+    .radio_box {
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+    }
+
+    .radio_input:checked + .radio_box {
+      background-color: var(--color-accent-disabled);
+      border-color: var(--color-accent-disabled);
+      color: var(--color-on-accent-disabled);
+    }
   }
+
+  @include disabled-semantic-checked-box(".radio_input", ".radio_box", false);
 
   &.is-error .radio_box {
     border-color: var(--color-danger);
@@ -358,7 +393,7 @@
     }
 
     &:has(.radio_input:disabled) {
-      @include disabled-state;
+      @include disabled-surface;
     }
 
     .card {

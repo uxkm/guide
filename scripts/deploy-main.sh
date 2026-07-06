@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DEPLOY_PATHS=(index.html html vue react)
 CURRENT_BRANCH=$(git branch --show-current)
 
 if [[ "$CURRENT_BRANCH" != "min" ]]; then
@@ -16,9 +15,7 @@ echo "==> 빌드 결과 임시 저장..."
 TEMP=$(mktemp -d)
 trap 'rm -rf "$TEMP"' EXIT
 
-for path in "${DEPLOY_PATHS[@]}"; do
-  cp -R "$path" "$TEMP/"
-done
+cp -R dist/* "$TEMP/"
 
 echo "==> main 브랜치로 전환..."
 STASHED=0
@@ -29,18 +26,16 @@ fi
 
 git checkout main
 
-# min 브랜치 잔여 개발 파일 제거
-DEV_ARTIFACTS=(node_modules pnpm-lock.yaml package.json gulpfile.js src scripts)
+DEV_ARTIFACTS=(node_modules pnpm-lock.yaml package.json vite.config.js src scripts public dist)
 for path in "${DEV_ARTIFACTS[@]}"; do
   rm -rf "$path"
 done
 
-for path in "${DEPLOY_PATHS[@]}"; do
-  rm -rf "$path"
-  cp -R "$TEMP/$path" .
-done
+find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name 'CNAME' -exec rm -rf {} +
 
-git add "${DEPLOY_PATHS[@]}"
+cp -R "$TEMP"/* .
+
+git add -A
 
 if git diff --cached --quiet; then
   echo "변경 사항 없음. 배포를 건너뜁니다."

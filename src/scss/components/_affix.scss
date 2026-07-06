@@ -1,5 +1,17 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Affix — structure
+  --affix-z-index: 10;
+  --affix-bar-gap: var(--space-sm);
+  --affix-bar-padding-y: var(--space-sm);
+  --affix-bar-padding-x: var(--space-md);
+  --affix-bar-bg: var(--color-surface);
+  --affix-bar-border: var(--color-border-subtle);
+  --affix-bar-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+
+}
 
 // Affix — OOCSS: 구조(.affix · .affix_target · .affix_placeholder) + 스킨(.affix_bar)
 //

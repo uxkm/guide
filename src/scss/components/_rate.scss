@@ -1,5 +1,28 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Rate — structure
+  --rate-star-size: 1.25rem;
+  --rate-star-size-sm: 1rem;
+  --rate-star-size-lg: 1.5rem;
+  --rate-star-gap: 0.125rem;
+  --rate-gap: var(--space-sm);
+  --rate-font-size: var(--checkbox-font-size);
+  --rate-font-size-sm: var(--checkbox-font-size-sm);
+  --rate-font-size-lg: var(--checkbox-font-size-lg);
+  --rate-line-height: var(--checkbox-line-height);
+  --rate-label-weight: var(--checkbox-label-weight);
+  --rate-value-size: var(--text-size-sm);
+  --rate-value-size-sm: var(--text-size-xs);
+  --rate-value-size-lg: var(--text-size-base);
+  --rate-hint-size: var(--checkbox-hint-size);
+  --rate-clear-size: 1.5rem;
+  --rate-clear-size-sm: 1.25rem;
+  --rate-clear-size-lg: 1.75rem;
+  --rate-clear-font-size: 1.125rem;
+
+}
 
 // Rate — OOCSS: 구조(.rate) / 크기(.rate_sm) / 변형(.rate_clearable · .rate_allow-half · .is-readonly) + 공통 색상(.color_*)
 //
@@ -85,7 +108,9 @@
   }
 
   &:has(.rate_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+    --rate-color-empty: var(--color-border-disabled);
+    --rate-color-filled: var(--color-text-disabled);
   }
 
   &.is-error .rate_stars {

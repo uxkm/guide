@@ -1,5 +1,28 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Checkbox — structure
+  --checkbox-size: 1rem;
+  --checkbox-size-sm: 0.875rem;
+  --checkbox-size-lg: 1.125rem;
+  --checkbox-border-width: 1px;
+  --checkbox-radius: 4px;
+  --checkbox-gap: var(--space-sm);
+  --checkbox-gap-sm: 0.375rem;
+  --checkbox-gap-lg: 0.625rem;
+  --checkbox-font-size: var(--text-size-base);
+  --checkbox-font-size-sm: var(--text-size-sm);
+  --checkbox-font-size-lg: var(--text-size-lg);
+  --checkbox-line-height: 1.5;
+  --checkbox-label-weight: 400;
+  --checkbox-hint-size: var(--text-size-sm);
+  --checkbox-control-offset: 0.125rem;
+  --checkbox-group-gap: var(--space-sm);
+  --checkbox-button-padding-y: 0.35rem;
+  --checkbox-button-padding-x: 0.75rem;
+
+}
 
 // Checkbox — OOCSS: 구조(.checkbox) / 크기(.checkbox_sm) / 변형(.checkbox_button · .checkbox_label-end · .checkbox_card) + 공통 색상(.color_*)
 //
@@ -165,8 +188,22 @@
   }
 
   &:has(.checkbox_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+
+    .checkbox_box {
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+    }
+
+    .checkbox_input:checked + .checkbox_box,
+    .checkbox_input:indeterminate + .checkbox_box {
+      background-color: var(--color-accent-disabled);
+      border-color: var(--color-accent-disabled);
+      color: var(--color-on-accent-disabled);
+    }
   }
+
+  @include disabled-semantic-checked-box(".checkbox_input", ".checkbox_box");
 
   &.is-error .checkbox_box {
     border-color: var(--color-danger);
@@ -381,6 +418,10 @@
       outline: var(--focus-outline-width) solid var(--color-accent);
       outline-offset: var(--focus-outline-offset);
     }
+
+    &:has(.checkbox_input:disabled) {
+      @include disabled-surface;
+    }
   }
 
   // ----- 카드형 — card 컴포넌트와 조합 (래퍼는 div, control은 label.checkbox_control)
@@ -397,7 +438,7 @@
     }
 
     &:has(.checkbox_input:disabled) {
-      @include disabled-state;
+      @include disabled-surface;
     }
 
     .card {

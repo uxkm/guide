@@ -1,5 +1,27 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Back Top — structure
+  --back-top-z-index: 20;
+  --back-top-size-sm: 2rem;
+  --back-top-size: 2.5rem;
+  --back-top-size-lg: 3rem;
+  --back-top-icon-size-sm: 1rem;
+  --back-top-icon-size: 1.25rem;
+  --back-top-icon-size-lg: 1.5rem;
+  --back-top-offset-bottom: var(--space-lg);
+  --back-top-offset-right: var(--space-lg);
+  --back-top-bg: var(--color-surface);
+  --back-top-bg-hover: var(--color-surface-raised);
+  --back-top-border: var(--color-border-subtle);
+  --back-top-border-hover: var(--color-accent);
+  --back-top-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+  --back-top-shadow-hover: 0 4px 12px rgb(0 0 0 / 0.16);
+  --back-top-color: var(--color-text);
+  --back-top-color-hover: var(--color-accent-text-hover);
+
+}
 
 // Back Top — OOCSS: 구조(.back_top · .back_top_btn) + 크기·스킨 변형
 //
@@ -55,6 +77,13 @@
 
     @include btn-transition;
     @include focus-ring;
+
+    &.btn {
+      min-width: 0;
+      min-height: 0;
+      font-weight: inherit;
+      line-height: inherit;
+    }
 
     &:hover {
       color: var(--back-top-color-hover);

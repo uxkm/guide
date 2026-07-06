@@ -1,4 +1,15 @@
-@use "../variables" as *;
+@use "variables" as *;
+
+:root {
+  // ----- Form layout
+  --form-label-width: 7.5rem;
+  --form-label-width-sm: 5rem;
+  --form-label-width-lg: 10rem;
+  --form-field-gap: var(--space-lg);
+  --form-inline-field-min-width: 8rem;
+  --form-actions-gap: var(--space-sm);
+
+}
 
 // Form Layout — OOCSS: 구조(.form) / 레이아웃(.form_vertical · .form_horizontal · .form_inline)
 //

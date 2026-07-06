@@ -1,5 +1,33 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Calendar
+  --calendar-gap: 2px;
+  --calendar-cell-size: 2.25rem;
+  --calendar-cell-size-sm: 1.875rem;
+  --calendar-cell-size-compact: 1.75rem;
+  --calendar-cell-size-lg: 2.75rem;
+  --calendar-font-size: var(--text-size-sm);
+  --calendar-header-size: var(--text-size-base);
+  --calendar-weekday-size: var(--text-size-xs);
+  --calendar-wheel-height: 13.75rem;
+  --calendar-wheel-step-height: 2rem;
+  --calendar-wheel-list-height: calc(var(--calendar-wheel-height) - (var(--calendar-wheel-step-height) * 2));
+  --calendar-wheel-max-width: 22rem;
+  --calendar-wheel-slot-count: 3;
+  --calendar-wheel-row-height: 2.75rem;
+  --calendar-wheel-font-size: var(--text-size-base);
+  --calendar-wheel-font-selected: var(--text-size-lg);
+
+
+  // ----- Calendar agenda
+  --calendar-agenda-gap: var(--space-md);
+  --calendar-agenda-date-width: 3rem;
+  --calendar-agenda-event-gap: var(--space-xs);
+  --calendar-agenda-daynum-size: 1.5rem;
+
+}
 
 // Calendar — OOCSS: 구조(.calendar) + 스킨(.calendar_*) + 파트(.calendar_header · .calendar_nav · .calendar_grid · .calendar_day)
 //
@@ -63,9 +91,12 @@
   }
 
   &.calendar_weekends {
-    .calendar_weekday:first-child,
-    .calendar_weekday:last-child {
+    .calendar_weekday:first-child {
       color: color-token(danger);
+    }
+
+    .calendar_weekday:last-child {
+      color: color-token(primary);
     }
   }
 
@@ -128,7 +159,7 @@
   }
 
   &.is-disabled {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
   }
 
   &_group {
@@ -241,6 +272,11 @@
       }
     }
 
+    &.is-other-month.is-in-range:not(.is-selected) {
+      color: var(--color-text-muted);
+      background: var(--color-accent-muted);
+    }
+
     &.is-range-start {
       border-radius: $radius-sm 0 0 $radius-sm;
 
@@ -253,13 +289,16 @@
       border-radius: 0 $radius-sm $radius-sm 0;
     }
 
-    &.is-weekend {
+    &.is-sunday:not(.is-selected):not(.is-in-range):not(.is-today):not(.is-other-month) {
       color: color-token(danger);
     }
 
-    &.is-other-month {
-      color: var(--color-text-muted);
-      opacity: 0.5;
+    &.is-saturday:not(.is-selected):not(.is-in-range):not(.is-today):not(.is-other-month) {
+      color: color-token(primary);
+    }
+
+    &.is-other-month:not(.is-in-range):not(.is-selected) {
+      color: var(--color-text-disabled);
     }
 
     &.has-event::after {
@@ -281,7 +320,36 @@
     &:disabled,
     &.is-disabled {
       @include disabled-state;
-      opacity: 0.35;
+
+      &.is-selected {
+        @include disabled-filled(var(--color-accent-disabled), var(--color-on-accent-disabled));
+
+        &.has-event::after,
+        &.is-range-start.has-event::after,
+        &.is-range-end.has-event::after {
+          background: var(--color-on-accent-disabled);
+        }
+      }
+
+      &.is-today:not(.is-selected) {
+        color: var(--color-text-disabled);
+        border-color: var(--color-border-disabled);
+      }
+
+      &.is-in-range:not(.is-selected) {
+        color: var(--color-text-disabled);
+        background: var(--color-surface-disabled);
+      }
+
+      &.is-sunday,
+      &.is-saturday,
+      &.is-other-month {
+        color: var(--color-text-disabled);
+      }
+
+      &.has-event:not(.is-selected)::after {
+        background: var(--color-text-disabled);
+      }
     }
   }
 
@@ -370,6 +438,12 @@
     min-width: 0;
     height: 100%;
 
+    &:not(:has(.calendar_wheel-step)) {
+      .calendar_wheel-list {
+        padding: calc((var(--calendar-wheel-height) - var(--calendar-wheel-row-height)) / 2) 0;
+      }
+    }
+
     + .calendar_wheel-column {
       border-left: 1px solid var(--color-border-subtle);
     }
@@ -399,7 +473,7 @@
     }
 
     &:disabled {
-      opacity: 0.3;
+      color: var(--color-text-disabled);
       cursor: not-allowed;
     }
   }
@@ -460,12 +534,12 @@
 
     &.is-dim-1 {
       font-size: var(--text-size-sm);
-      opacity: 0.55;
+      color: var(--color-text-muted);
     }
 
     &.is-dim-2 {
       font-size: var(--text-size-xs);
-      opacity: 0.3;
+      color: var(--color-text-disabled);
     }
 
     &.is-selected {
@@ -478,7 +552,6 @@
     &:disabled,
     &.is-disabled {
       @include disabled-state;
-      opacity: 0.35;
     }
   }
 
@@ -550,8 +623,12 @@
     color: var(--color-text-muted);
     text-transform: uppercase;
 
-    .is-weekend & {
+    .is-sunday & {
       color: color-token(danger);
+    }
+
+    .is-saturday & {
+      color: color-token(primary);
     }
   }
 

@@ -1,6 +1,14 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
 @use "input";
+
+:root {
+  // ----- Textarea — 기본 최소 높이 (rows 미지정 시)
+  --textarea-min-height: 5rem;
+  --textarea-count-inset-x: 0.75rem;
+  --textarea-count-inset-y: 0.5rem;
+
+}
 
 // Textarea — OOCSS: 구조(.textarea) / 크기(.textarea_sm) / 리사이즈(.textarea_resize_*) 분리
 //   Input(.input)과 동일한 시각 스타일을 공유하되 textarea 전용 클래스명 사용
@@ -58,7 +66,9 @@
     }
 
     &:has(.textarea:disabled) {
-      background-color: var(--color-surface);
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+      color: var(--color-text-disabled);
     }
 
     &:has(.textarea:read-only) {

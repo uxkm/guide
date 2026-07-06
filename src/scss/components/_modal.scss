@@ -1,5 +1,31 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Modal — structure
+  --modal-z-index: 300;
+  --modal-margin: var(--space-md);
+  --modal-width: 32rem;
+  --modal-width-sm: 24rem;
+  --modal-width-lg: 48rem;
+  --modal-bg: var(--color-surface);
+  --modal-radius: var(--radius-lg);
+  --modal-shadow: var(--shadow-lg);
+  --modal-header-gap: var(--space-sm);
+  --modal-header-padding-y: var(--space-md);
+  --modal-header-padding-x: var(--space-lg);
+  --modal-title-font-size: var(--text-size-lg);
+  --modal-title-font-weight: 600;
+  --modal-close-size: 2rem;
+  --modal-close-icon-size: 1.125rem;
+  --modal-body-padding-y: var(--space-lg);
+  --modal-body-padding-x: var(--space-lg);
+  --modal-body-font-size: var(--text-size-sm);
+  --modal-footer-gap: var(--space-sm);
+  --modal-footer-padding-y: var(--space-md);
+  --modal-footer-padding-x: var(--space-lg);
+
+}
 
 // Modal — OOCSS: 구조(.modal) + 스킨(.modal_sm · .modal_lg · .modal_fullscreen) + 파트(.modal_dialog · .modal_header · .modal_body · .modal_footer)
 //
@@ -21,7 +47,7 @@
 //   data-modal              — Modal 루트
 //   data-modal-trigger      — 열기 트리거 (값: #id 선택자)
 //   data-modal-close        — 닫기 (백드롭·닫기 버튼)
-//   data-modal-backdrop="false" — 백드롭 비표시·백드롭 클릭 닫기 비활성
+//   data-modal-backdrop="false" — 백드롭 비표시·백드롭 클릭 닫기 비활성 (Vue: :backdrop="false")
 //
 // 상태 클래스
 //   .is-open       — 대화상자 표시 (aria-expanded="true"와 함께)

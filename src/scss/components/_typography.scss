@@ -1,5 +1,66 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Typography — title
+  --typo-title-1-size: 2.375rem;
+  --typo-title-1-weight: 700;
+  --typo-title-1-line-height: 1.2;
+  --typo-title-1-letter-spacing: -0.02em;
+
+  --typo-title-2-size: 1.875rem;
+  --typo-title-2-weight: 700;
+  --typo-title-2-line-height: 1.25;
+  --typo-title-2-letter-spacing: -0.015em;
+
+  --typo-title-3-size: 1.5rem;
+  --typo-title-3-weight: 600;
+  --typo-title-3-line-height: 1.3;
+  --typo-title-3-letter-spacing: -0.01em;
+
+  --typo-title-4-size: 1.25rem;
+  --typo-title-4-weight: 600;
+  --typo-title-4-line-height: 1.35;
+
+  --typo-title-5-size: 1rem;
+  --typo-title-5-weight: 600;
+  --typo-title-5-line-height: 1.4;
+
+
+  // ----- Typography — text
+  --typo-text-size: var(--text-size-base);
+  --typo-text-line-height: 1.6;
+  --typo-text-size-xs: var(--text-size-xs);
+  --typo-text-size-sm: var(--text-size-sm);
+  --typo-text-size-lg: var(--text-size-lg);
+  --typo-text-size-xl: var(--text-size-xl);
+
+  --typo-paragraph-gap: var(--space-md);
+  --typo-list-gap: var(--space-xs);
+  --typo-mark-bg: rgba(250, 219, 20, 0.35);
+  --typo-sub-sup-size: 0.75em;
+  --typo-sub-offset: -0.25em;
+  --typo-sup-offset: -0.5em;
+  --typo-small-size: var(--text-size-sm);
+  --typo-code-padding-y: 0.1em;
+  --typo-code-padding-x: 0.35em;
+  --typo-code-radius: 4px;
+  --typo-blockquote-border-width: 3px;
+
+  --typo-lead-size: var(--text-size-lg);
+  --typo-lead-line-height: 1.6;
+  --typo-caption-size: var(--text-size-xs);
+  --typo-label-size: var(--text-size-sm);
+  --typo-label-weight: 600;
+  --typo-overline-size: var(--text-size-xs);
+  --typo-overline-weight: 600;
+  --typo-overline-spacing: 0.06em;
+  --typo-kbd-padding-y: 0.15em;
+  --typo-kbd-padding-x: 0.4em;
+  --typo-pre-padding: var(--space-md);
+  --typo-pre-radius: var(--radius-md);
+
+}
 
 // Typography — OOCSS: 구조(.typo_*) + 공통 색상(.color_*)
 
@@ -52,13 +113,39 @@
     border-radius: var(--typo-code-radius);
   }
 
+  &_sub,
+  &_sup {
+    font-size: var(--typo-sub-sup-size);
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  &_sub {
+    bottom: var(--typo-sub-offset);
+  }
+
+  &_sup {
+    top: var(--typo-sup-offset);
+  }
+
+  &_small {
+    font-size: var(--typo-small-size);
+    line-height: inherit;
+    color: var(--color-text-muted);
+  }
+
   &_code {
+    display: inline;
     font-family: $font-family-mono;
     font-size: 0.875em;
     padding: var(--typo-code-padding-y) var(--typo-code-padding-x);
     background: var(--color-surface-raised);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--typo-code-radius);
+    vertical-align: baseline;
+    white-space: normal;
+    word-break: break-word;
   }
 
   // ----- Ellipsis — 공통 .text_ellipsis* 사용 (utilities)
@@ -155,7 +242,7 @@
     margin: 0;
   }
 
-  // ----- Keyboard · Pre · Definition list
+  // ----- Keyboard · Pre
 
   &_kbd {
     display: inline-block;
@@ -187,25 +274,5 @@
     code {
       white-space: inherit;
     }
-  }
-
-  &_dl {
-    margin: 0;
-    line-height: var(--typo-text-line-height);
-  }
-
-  &_dt {
-    font-weight: 600;
-    color: var(--color-text);
-    margin-top: $space-sm;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  &_dd {
-    margin: $space-xs 0 0;
-    color: var(--color-text-muted);
   }
 }

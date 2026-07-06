@@ -1,5 +1,15 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Tree
+  --tree-indent: 1.25rem;
+  --tree-row-height: 2rem;
+  --tree-font-size: var(--text-size-sm);
+  --tree-toggle-size: 1.25rem;
+  --tree-gap: 2px;
+  --tree-line-color: var(--color-border);
+}
 
 // Tree — OOCSS: 구조(.tree) + 스킨(.tree_bordered · .tree_lines · .tree_compact) + 파트(.tree_item · .tree_row · .tree_toggle · .tree_label)
 //

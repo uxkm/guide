@@ -1,5 +1,21 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Stat
+  --stat-gap: var(--space-xs);
+  --stat-label-size: var(--text-size-sm);
+  --stat-value-size: 1.75rem;
+  --stat-value-weight: 700;
+  --stat-desc-size: var(--text-size-sm);
+  --stat-group-gap: var(--space-lg);
+  --stat-value-size-sm: 1.25rem;
+  --stat-value-size-lg: 2.25rem;
+  --stat-card-padding: var(--space-lg);
+  --stat-icon-wrap-size: 2.5rem;
+  --stat-horizontal-gap: var(--space-md);
+
+}
 
 // Stat — OOCSS: 구조(.stat) + 스킨(.stat_card · .stat_horizontal) + 파트(.stat_label · .stat_value · .stat_trend)
 //

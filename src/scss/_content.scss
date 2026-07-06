@@ -17,6 +17,15 @@
       font-size: 1.0625rem;
       color: var(--color-text-muted);
       max-width: 42rem;
+
+      :where(code.typo_code, span.typo_code) {
+        display: inline;
+        width: auto;
+        max-width: 100%;
+        vertical-align: baseline;
+        white-space: normal;
+        word-break: break-word;
+      }
     }
   }
 }
@@ -32,9 +41,20 @@
     border-bottom: 1px solid var(--color-border);
   }
 
-  > :where(p) {
+  > p {
     color: var(--color-text-muted);
     margin-bottom: $space-md;
+  }
+
+  :where(p, .form_field-hint) {
+    :where(code.typo_code, span.typo_code) {
+      display: inline;
+      width: auto;
+      max-width: 100%;
+      vertical-align: baseline;
+      white-space: normal;
+      word-break: break-word;
+    }
   }
 }
 
@@ -136,6 +156,15 @@
       margin: 0;
       font-size: var(--text-size-base);
       color: var(--color-text-muted);
+
+      :where(code.typo_code, span.typo_code) {
+        display: inline;
+        width: auto;
+        max-width: 100%;
+        vertical-align: baseline;
+        white-space: normal;
+        word-break: break-word;
+      }
     }
   }
 
@@ -153,6 +182,11 @@
     transition:
       background-color $transition-base,
       border-color $transition-base;
+
+    &:has(.navbar_demo) {
+      padding: 0;
+      overflow: hidden;
+    }
 
     &-stack {
       flex-direction: column;
@@ -300,6 +334,98 @@
 
     code {
       font-family: $font-family-mono;
+    }
+  }
+}
+
+// 가이드 API 표 — 열별 최소 너비·줄바꿈 제어
+.table_wrap.table_wrap-api {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border: none;
+  border-radius: 0;
+
+  &:has(.table) {
+    overflow-x: auto;
+  }
+}
+
+.table.table_api {
+  width: max-content;
+  min-width: 100%;
+  table-layout: fixed;
+
+  // 좁은 화면에서는 최소 폭을 유지해 wrapper에서 가로 스크롤이 발생하도록 한다.
+  @media (max-width: $breakpoint-md) {
+    min-width: 44rem;
+  }
+
+  th,
+  td {
+    padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
+    vertical-align: top;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .typo_code {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .api_col-nowrap {
+    white-space: nowrap;
+  }
+
+  .api_col-description,
+  .api_col-usage,
+  .api_col-role,
+  .api_col-note,
+  .api_col-version {
+    min-width: 0;
+    line-height: 1.55;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  // 토큰 3열 — 긴 토큰명·기본값은 줄바꿈 허용
+  &:has(.api_col-default):not(:has(.api_col-type)) {
+    .api_col-name {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+
+      .typo_code {
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
+
+    .api_col-default {
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+  }
+
+  // 클래스 2열 — 긴 클래스명 줄바꿈
+  &:not(:has(.api_col-type)):not(:has(.api_col-default)) {
+    .api_col-name,
+    .api_col-command,
+    .api_col-path,
+    .api_col-pattern {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+
+      .typo_code {
+        white-space: normal;
+        word-break: break-word;
+      }
     }
   }
 }

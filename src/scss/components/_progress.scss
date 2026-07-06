@@ -1,5 +1,29 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Progress
+  --progress-height: 8px;
+  --progress-height-sm: 4px;
+  --progress-height-lg: 12px;
+  --progress-radius: var(--radius-pill);
+  --progress-max-width: var(--input-max-width);
+  --progress-gap: var(--space-sm);
+  --progress-label-size: var(--text-size-sm);
+  --progress-value-size: var(--text-size-sm);
+  --progress-value-weight: 600;
+  --progress-inside-size: var(--text-size-xs);
+  --progress-circle-size: 7.5rem;
+  --progress-circle-size-sm: 5rem;
+  --progress-circle-size-lg: 9rem;
+  --progress-circle-stroke: 6;
+  --progress-circle-stroke-sm: 4;
+  --progress-circle-stroke-lg: 8;
+  --progress-circle-value-size: var(--text-size-lg);
+  --progress-circle-value-size-sm: var(--text-size-sm);
+  --progress-circle-value-size-lg: var(--text-size-xl);
+
+}
 
 // Progress — OOCSS: 구조(.progress) + 크기(.progress_sm) + 변형(.progress_striped · .progress_circle · .is-indeterminate) + 공통 색상(.color_*)
 //

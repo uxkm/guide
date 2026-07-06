@@ -1,5 +1,39 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Collapse — structure
+  --collapse-font-size: var(--text-size-sm);
+  --collapse-trigger-font-weight: 600;
+  --collapse-trigger-gap: var(--space-sm);
+  --collapse-trigger-padding-y: 0.875rem;
+  --collapse-trigger-padding-x: var(--space-lg);
+  --collapse-content-font-size: var(--text-size-sm);
+  --collapse-content-padding-top: var(--space-md);
+  --collapse-content-padding-y: var(--space-lg);
+  --collapse-content-padding-x: var(--space-lg);
+  --collapse-icon-size: 1rem;
+  --collapse-card-gap: var(--space-sm);
+
+
+  // ----- Collapse — size sm · lg
+  --collapse-font-size-sm: var(--text-size-xs);
+  --collapse-trigger-padding-y-sm: 0.625rem;
+  --collapse-trigger-padding-x-sm: var(--space-md);
+  --collapse-content-padding-y-sm: var(--space-md);
+  --collapse-content-padding-x-sm: var(--space-md);
+  --collapse-content-padding-top-sm: var(--space-sm);
+  --collapse-icon-size-sm: 0.875rem;
+
+  --collapse-font-size-lg: var(--text-size-base);
+  --collapse-trigger-padding-y-lg: 1rem;
+  --collapse-trigger-padding-x-lg: var(--space-xl);
+  --collapse-content-padding-y-lg: var(--space-xl);
+  --collapse-content-padding-x-lg: var(--space-xl);
+  --collapse-content-padding-top-lg: var(--space-lg);
+  --collapse-icon-size-lg: 1.125rem;
+
+}
 
 // Collapse — OOCSS: 구조(.collapse · .collapse_group) + 스킨(.collapse_bordered · .collapse_ghost · .collapse_card) + 파트(.collapse_panel · .collapse_trigger · .collapse_body)
 //
@@ -24,6 +58,7 @@
 //   </div>
 
 .collapse {
+  width: 100%;
   min-width: 0;
   font-size: var(--collapse-content-font-size);
   color: var(--color-text);
@@ -42,7 +77,8 @@
   }
 
   &_inner {
-    padding: var(--collapse-content-padding-y) var(--collapse-content-padding-x);
+    padding: var(--collapse-content-padding-top) var(--collapse-content-padding-x)
+      var(--collapse-content-padding-y);
   }
 
   // ----- 패널 그룹
@@ -100,6 +136,28 @@
     &[aria-expanded="true"] {
       color: color-token(primary);
     }
+
+    &.btn {
+      min-width: 0;
+      height: auto;
+      border-radius: 0;
+
+      &.btn_text {
+        color: inherit;
+        background: transparent;
+        border-color: transparent;
+
+        &:hover:not(.is-disabled):not(:disabled) {
+          color: inherit;
+          background: var(--color-surface-raised);
+          border-color: transparent;
+        }
+      }
+
+      .btn_label {
+        display: contents;
+      }
+    }
   }
 
   &_label {
@@ -142,7 +200,8 @@
   }
 
   &_content {
-    padding: 0 var(--collapse-content-padding-x) var(--collapse-content-padding-y);
+    padding: var(--collapse-content-padding-top) var(--collapse-content-padding-x)
+      var(--collapse-content-padding-y);
     color: var(--color-text);
     font-size: var(--collapse-content-font-size);
     line-height: 1.6;
@@ -216,6 +275,7 @@
     --collapse-trigger-padding-x: var(--collapse-trigger-padding-x-sm);
     --collapse-content-padding-y: var(--collapse-content-padding-y-sm);
     --collapse-content-padding-x: var(--collapse-content-padding-x-sm);
+    --collapse-content-padding-top: var(--collapse-content-padding-top-sm);
     --collapse-icon-size: var(--collapse-icon-size-sm);
   }
 
@@ -225,6 +285,7 @@
     --collapse-trigger-padding-x: var(--collapse-trigger-padding-x-lg);
     --collapse-content-padding-y: var(--collapse-content-padding-y-lg);
     --collapse-content-padding-x: var(--collapse-content-padding-x-lg);
+    --collapse-content-padding-top: var(--collapse-content-padding-top-lg);
     --collapse-icon-size: var(--collapse-icon-size-lg);
   }
 

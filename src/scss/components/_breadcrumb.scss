@@ -1,5 +1,23 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Breadcrumb — structure
+  --breadcrumb-font-size: var(--text-size-sm);
+  --breadcrumb-font-size-sm: var(--text-size-xs);
+  --breadcrumb-font-size-lg: var(--text-size-base);
+  --breadcrumb-line-height: 1.5;
+  --breadcrumb-gap: var(--space-xs);
+  --breadcrumb-icon-gap: 0.25rem;
+  --breadcrumb-link-font-weight: 500;
+  --breadcrumb-current-font-weight: 600;
+  --breadcrumb-link-max-width: 12rem;
+  --breadcrumb-separator-color: var(--color-text-muted);
+  --breadcrumb-icon-size: 1rem;
+  --breadcrumb-icon-padding: 0.15rem;
+  --breadcrumb-ellipsis-size: 1.5rem;
+
+}
 
 // Breadcrumb — OOCSS: 구조(.breadcrumb) + 변형(.breadcrumb_*) + 상태(.is-current)
 //

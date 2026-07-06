@@ -1,5 +1,26 @@
-@use "../variables" as *;
-@use "../mixins" as *;
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Avatar — size
+  --avatar-size-sm: 1.5rem;
+  --avatar-size: 2rem;
+  --avatar-size-lg: 2.5rem;
+  --avatar-size-xl: 3.5rem;
+  --avatar-font-size-sm: var(--text-size-xs);
+  --avatar-font-size: var(--text-size-sm);
+  --avatar-font-size-lg: var(--text-size-base);
+  --avatar-font-size-xl: var(--text-size-lg);
+  --avatar-icon-size-sm: 0.75rem;
+  --avatar-icon-size: 1rem;
+  --avatar-icon-size-lg: 1.25rem;
+  --avatar-icon-size-xl: 1.75rem;
+  --avatar-group-overlap: -0.5rem;
+  --avatar-badge-size-sm: 6px;
+  --avatar-badge-size: 8px;
+  --avatar-badge-size-lg: 10px;
+
+}
 
 // Avatar — OOCSS: 구조(.avatar) + 크기(.avatar_*) + 형태(.avatar_square) + 공통 색상(.color_*)
 //
