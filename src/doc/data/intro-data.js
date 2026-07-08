@@ -46,40 +46,49 @@ export const conventionRows = [
 export const quickstartCode = `# 의존성 설치
 pnpm install
 
-# Vue + Vite 개발 서버
+# React + Vite 개발 서버
 pnpm dev
 
-# Vue 프로덕션 빌드
+# React 프로덕션 빌드
 pnpm build`;
 
 export const structureCode = `src/
-├── components/               # 재사용 UI 컴포넌트 (Vue SFC)
+├── components/               # 재사용 UI 컴포넌트 (React JSX)
+├── context/                  # React Context (사이드바·탭 등)
 ├── doc/
-│   ├── components/           # 컴포넌트 문서 페이지
-│   └── pages/                # 소개·설치 페이지
+│   ├── components/           # 컴포넌트 문서 페이지 (.jsx)
+│   └── pages/                # 소개·설치 페이지 (.jsx)
+├── hooks/                    # React hooks (useTheme, useDemoCode 등)
 ├── scss/
 │   ├── _tokens.scss          # 디자인 토큰 (:root CSS 변수)
 │   ├── _themes.scss          # 라이트/다크 테마
 │   ├── components/           # 컴포넌트별 스타일
 │   └── main.scss             # SCSS 진입점
 ├── layouts/                  # 가이드 레이아웃
-├── router/                   # Vue Router
-└── main.js                   # 앱 진입점
+├── router/                   # React Router
+└── main.jsx                  # 앱 진입점
 
 dist/                         # Vite 프로덕션 빌드 결과`;
 
-export const docPageCode = `<script>
-export const docMeta = {
+export const docPageCode = `export const docMeta = {
   title: 'Button | HTML Components',
   activeNav: 'button',
   pageTitle: 'Button',
 };
-<\/script>
 
-<template>
-  <div class="page_intro">
-    <h1>Button</h1>
-    <p class="lead">…</p>
-  </div>
-  …
-</template>`;
+import Button from '@/components/Button.jsx';
+import DemoSection from '@/components/guide/DemoSection.jsx';
+
+export default function ButtonDoc() {
+  return (
+    <>
+      <div className="page_intro">
+        <h1>Button</h1>
+        <p className="lead">…</p>
+      </div>
+      <DemoSection headingId="basic-heading" title="기본">
+        <Button variant="filled" color="primary" label="저장" />
+      </DemoSection>
+    </>
+  );
+}`;

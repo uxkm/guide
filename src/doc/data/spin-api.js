@@ -156,7 +156,7 @@ export const markupCode = `<!-- 인라인 스피너 -->
 <div class="spin color_primary" role="status"
   aria-live="polite" aria-busy="true" aria-label="로딩 중">
   <span class="spin_indicator" aria-hidden="true"></span>
-  <p class="spin_tip">로딩 중…</p>
+  <span class="spin_tip">로딩 중…</span>
 </div>
 
 <!-- 컨테이너 오버레이 -->

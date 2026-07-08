@@ -9,7 +9,7 @@ let globalListenersBound = false;
 function getDropdownItems(menu) {
   return Array.from(
     menu.querySelectorAll(
-      '[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), [role="option"]:not(.is-disabled):not([aria-disabled="true"])',
+      '[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), [role="option"]:not(.is-disabled):not([aria-disabled="true"]), .menu_link:not(.is-disabled):not([aria-disabled="true"]):not([aria-expanded])',
     ),
   );
 }
@@ -74,7 +74,7 @@ function initDropdown(dropdown) {
   });
 
   menu.addEventListener('click', (event) => {
-    const item = event.target.closest('[role="menuitem"], [role="option"]');
+    const item = event.target.closest('[role="menuitem"], [role="option"], .menu_link:not([aria-expanded])');
 
     if (
       !item ||
@@ -234,6 +234,8 @@ function initPopover(popover) {
 
   if (popover.classList.contains('is-open')) {
     updatePopoverLayout(popover);
+  } else {
+    setPopoverOpen(popover, false);
   }
 }
 
@@ -351,6 +353,8 @@ function initTooltip(tooltip) {
 
   if (tooltip.classList.contains('is-open')) {
     updateTooltipLayout(tooltip);
+  } else {
+    setTooltipOpen(tooltip, false);
   }
 }
 

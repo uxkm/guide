@@ -1,4 +1,4 @@
-import { resolveRegistryForNode } from '@/composables/useDemoCode';
+import { resolveRegistryForNode } from '@/hooks/useDemoCode';
 import { formatComponentCode } from '@/utils/format-component-code';
 import { formatDemoHtml } from '@/utils/format-demo-html';
 import { resolveRegisteredCode } from '@/utils/resolve-demo-code';
@@ -137,7 +137,8 @@ export function formatTooltipCode(props, attrs = {}, el, registry) {
 
   const bubble = el.querySelector('.tooltip_bubble');
   const hasContentProp = Boolean(props.content);
-  const bubbleContent = serializeDomChildren(bubble, registry, 2);
+  const bubbleBody = bubble?.querySelector(':scope > .tooltip_bubble_body');
+  const bubbleContent = serializeDomChildren(bubbleBody ?? bubble, registry, 2);
 
   if (bubbleContent && !hasContentProp) {
     lines.push(bubbleContent);

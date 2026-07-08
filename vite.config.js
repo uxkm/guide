@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 import { copyFileSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const cdnUrlScssPath = path.resolve(__dirname, 'src/scss/_cdn-url.scss');
 
 const isProd = process.env.NODE_ENV === 'production';
-const deployBase = '/vue/';
+const deployBase = '/react/';
 const deployOrigin = 'https://guide.uxkm.io';
 
 function resolveCdnUrl() {
@@ -29,7 +29,7 @@ writeCdnUrlScss(resolveCdnUrl());
 
 export default defineConfig({
   plugins: [
-    vue(),
+    react(),
     {
       name: 'scss-cdn-url',
       buildStart() {

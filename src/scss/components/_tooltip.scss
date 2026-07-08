@@ -84,6 +84,22 @@
     .tooltip_bubble {
       pointer-events: auto;
     }
+
+    .tooltip_bubble:has([data-tooltip-close]) {
+      padding-top: calc(var(--tooltip-padding-y) + var(--space-xs));
+      padding-right: calc(var(--tooltip-padding-x) + var(--tooltip-close-size) + var(--space-xs));
+      padding-bottom: calc(var(--tooltip-padding-y) + var(--space-xs));
+      padding-left: var(--tooltip-padding-x);
+    }
+
+    .tooltip_bubble [data-tooltip-close] {
+      position: absolute;
+      top: calc(var(--tooltip-padding-y) + var(--space-2xs, 2px));
+      right: var(--tooltip-padding-x);
+      left: auto;
+      margin: 0;
+      z-index: 2;
+    }
   }
 
   &.is-open {
@@ -128,7 +144,9 @@
     overflow: visible;
 
     &-closable {
-      padding-right: calc(var(--tooltip-padding-x) + var(--tooltip-close-size) * 0.35);
+      .tooltip_bubble_body {
+        display: block;
+      }
     }
 
     &[hidden] {

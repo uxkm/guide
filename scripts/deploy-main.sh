@@ -2,12 +2,16 @@
 set -euo pipefail
 
 CURRENT_BRANCH=$(git branch --show-current)
-DEPLOY_DIR="vue"
 
-if [[ "$CURRENT_BRANCH" != "min" && "$CURRENT_BRANCH" != "vue" ]]; then
-  echo "min 또는 vue 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
-  exit 1
-fi
+case "$CURRENT_BRANCH" in
+  min) DEPLOY_DIR="min" ;;
+  vue) DEPLOY_DIR="vue" ;;
+  react) DEPLOY_DIR="react" ;;
+  *)
+    echo "min, vue 또는 react 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+    exit 1
+    ;;
+esac
 
 echo "==> 빌드 중..."
 pnpm build
@@ -37,7 +41,7 @@ git add "$DEPLOY_DIR"
 if git diff --cached --quiet; then
   echo "변경 사항 없음. 배포를 건너뜁니다."
 else
-  git commit -m "Deploy: Vue guide to $DEPLOY_DIR/ from $CURRENT_BRANCH"
+  git commit -m "Deploy: guide to $DEPLOY_DIR/ from $CURRENT_BRANCH"
   git push origin main
   echo "==> main/$DEPLOY_DIR 배포 완료"
 fi

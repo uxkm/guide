@@ -1,4 +1,4 @@
-import { resolveRegistryForNode } from '@/composables/useDemoCode';
+import { resolveRegistryForNode } from '@/hooks/useDemoCode';
 import {
   appendNamedSlot,
   indentLines,

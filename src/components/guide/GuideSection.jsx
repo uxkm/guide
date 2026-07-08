@@ -1,0 +1,19 @@
+import { useMemo } from 'react';
+import { formatDocDescription } from '@/utils/format-doc-description';
+
+export default function GuideSection({ title, headingId, description, children }) {
+  const formattedDescription = useMemo(
+    () => formatDocDescription(description),
+    [description],
+  );
+
+  return (
+    <section className="section" aria-labelledby={headingId}>
+      <h2 id={headingId}>{title}</h2>
+      {description ? (
+        <p dangerouslySetInnerHTML={{ __html: formattedDescription }} />
+      ) : null}
+      {children}
+    </section>
+  );
+}

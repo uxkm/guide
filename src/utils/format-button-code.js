@@ -33,20 +33,35 @@ function toKebab(key) {
   return KEBAB_PROPS[key] || key.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 
+function resolveSlotContent(source) {
+  if (!source) return [];
+  if (typeof source === 'function') return resolveSlotContent(source());
+  if (Array.isArray(source)) return source;
+  return [source];
+}
+
+function getIconPropsFromNode(node) {
+  const props = node?.props;
+  if (!props) return null;
+
+  return {
+    name: props.name,
+    className: props.class ?? props.className,
+  };
+}
+
 function getSlotIconBlock(slotSource, slotName) {
-  const source = slotSource[slotName];
-  const vnodes = Array.isArray(source) ? source : source?.();
-  if (!vnodes?.length) return '';
+  const vnodes = resolveSlotContent(slotSource[slotName]);
+  if (!vnodes.length) return '';
 
-  const name = vnodes[0]?.props?.name;
-  if (!name) return '';
+  const iconProps = getIconPropsFromNode(vnodes[0]);
+  if (!iconProps?.name) return '';
 
-  const iconClass = vnodes[0]?.props?.class;
-  const classAttr = iconClass ? ` class="${iconClass}"` : '';
+  const classAttr = iconProps.className ? ` class="${iconProps.className}"` : '';
 
   return [
     `  <template #${slotName}>`,
-    `    <Icon name="${name}"${classAttr} />`,
+    `    <Icon name="${iconProps.name}"${classAttr} />`,
     '  </template>',
   ].join('\n');
 }
@@ -127,8 +142,8 @@ function formatCustomAttrs(customAttrs = {}) {
 
 export function formatButtonCode(props, slots = {}, customAttrs = {}, slotVnodes = {}) {
   const slotSource = {
-    'icon-before': slotVnodes['icon-before'] ?? slots['icon-before']?.(),
-    'icon-after': slotVnodes['icon-after'] ?? slots['icon-after']?.(),
+    'icon-before': slotVnodes['icon-before'] ?? slots['icon-before'],
+    'icon-after': slotVnodes['icon-after'] ?? slots['icon-after'],
   };
 
   const attrParts = [

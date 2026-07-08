@@ -105,9 +105,17 @@
     }
 
     &.btn {
+      justify-content: flex-start;
+      width: 100%;
       min-width: 0;
       height: auto;
+      white-space: normal;
       border-radius: 0;
+
+      .icon.accordion_icon {
+        width: var(--accordion-icon-size);
+        height: var(--accordion-icon-size);
+      }
 
       &.btn_text {
         color: inherit;

@@ -456,11 +456,19 @@
     justify-content: center;
     width: 100%;
     height: var(--calendar-wheel-step-height);
+    min-height: var(--calendar-wheel-step-height);
+    max-height: var(--calendar-wheel-step-height);
     border: none;
     background: transparent;
     color: var(--color-text-muted);
     cursor: pointer;
     @include focus-ring;
+
+    &.btn {
+      box-sizing: border-box;
+      aspect-ratio: auto;
+      padding: 0;
+    }
 
     .icon {
       width: 1rem;

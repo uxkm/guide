@@ -82,8 +82,10 @@
     left: 0;
     z-index: 0;
     pointer-events: none;
-    will-change: transform;
-    transition: transform var(--tabs-indicator-transition);
+    will-change: transform, width;
+    transition:
+      transform var(--tabs-indicator-transition),
+      width var(--tabs-indicator-transition);
   }
 
   &_tab {
@@ -113,6 +115,9 @@
     &.btn {
       min-width: 0;
       height: auto;
+      padding: var(--tabs-tab-padding-y) var(--tabs-tab-padding-x);
+      gap: var(--tabs-badge-gap);
+      border: none;
       font-size: inherit;
 
       &.btn_text {

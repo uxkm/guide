@@ -62,6 +62,75 @@ function formatCustomAttrs(customAttrs = {}) {
   return parts;
 }
 
+function normalizeSlotNodes(slotFn) {
+  if (!slotFn) return [];
+
+  const result = typeof slotFn === 'function' ? slotFn() : slotFn;
+  if (result == null || result === false) return [];
+
+  if (Array.isArray(result)) {
+    return result.filter((node) => node != null && node !== false);
+  }
+
+  if (typeof result === 'string' || typeof result === 'number') {
+    return [{ children: String(result) }];
+  }
+
+  return [result];
+}
+
+function getNodeText(node) {
+  if (node == null) return '';
+
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+
+  if (typeof node.children === 'string' || typeof node.children === 'number') {
+    return String(node.children);
+  }
+
+  if (Array.isArray(node.children)) {
+    return node.children.map((child) => getNodeText(child)).join('');
+  }
+
+  if (node.props?.children != null) {
+    return getNodeText(node.props.children);
+  }
+
+  return '';
+}
+
+function isComplexSlotNode(node) {
+  if (node == null || node === false) return false;
+  if (node.type === 'complex') return true;
+
+  if (typeof node === 'string' || typeof node === 'number') return false;
+
+  const nodeType = node.type;
+  if (typeof nodeType === 'object' || typeof nodeType === 'function') return true;
+  if (typeof nodeType === 'string') return true;
+
+  if (Array.isArray(node.children)) {
+    return node.children.some(
+      (child) => typeof child !== 'string' && typeof child !== 'number' && child != null,
+    );
+  }
+
+  if (node.props?.children != null) {
+    const children = node.props.children;
+    if (typeof children === 'string' || typeof children === 'number') return false;
+    if (Array.isArray(children)) {
+      return children.some(
+        (child) => typeof child !== 'string' && typeof child !== 'number' && child != null,
+      );
+    }
+    return true;
+  }
+
+  return false;
+}
+
 function formatSlotBlock(name, content) {
   if (!content) return '';
 
@@ -70,43 +139,17 @@ function formatSlotBlock(name, content) {
 }
 
 export function extractDefaultSlotText(slots) {
-  const nodes = slots.default?.();
-  if (!nodes?.length) return '';
+  const nodes = normalizeSlotNodes(slots.default);
+  if (!nodes.length) return '';
 
-  return nodes
-    .map((node) => {
-      if (typeof node.children === 'string' || typeof node.children === 'number') {
-        return String(node.children);
-      }
-
-      if (Array.isArray(node.children)) {
-        return node.children
-          .map((child) => (typeof child === 'string' || typeof child === 'number' ? String(child) : ''))
-          .join('');
-      }
-
-      return '';
-    })
-    .join('')
-    .trim();
+  return nodes.map((node) => getNodeText(node)).join('').trim();
 }
 
 export function hasComplexDefaultSlot(slots) {
-  const nodes = slots.default?.();
-  if (!nodes?.length) return false;
+  const nodes = normalizeSlotNodes(slots.default);
+  if (!nodes.length) return false;
 
-  return nodes.some((node) => {
-    if (typeof node.type === 'object' || typeof node.type === 'function') return true;
-
-    // div · span 등 네이티브 HTML — 텍스트만 추출하면 마크업이 사라짐
-    if (typeof node.type === 'string') return true;
-
-    if (Array.isArray(node.children)) {
-      return node.children.some((child) => typeof child !== 'string' && typeof child !== 'number');
-    }
-
-    return false;
-  });
+  return nodes.some((node) => isComplexSlotNode(node));
 }
 
 function hasNamedSlotContent(slots, slotName) {
@@ -114,7 +157,7 @@ function hasNamedSlotContent(slots, slotName) {
   if (!slot) return false;
 
   try {
-    return Boolean(slot({})?.length);
+    return normalizeSlotNodes(slot).length > 0;
   } catch {
     return true;
   }
@@ -169,7 +212,7 @@ export function formatComponentCode(name, props, slots = {}, customAttrs = {}, c
   }
 
   const attrStr = attrParts.length ? ` ${attrParts.join(' ')}` : '';
-  const hasDefaultSlot = Boolean(slots.default?.());
+  const hasDefaultSlot = normalizeSlotNodes(slots.default).length > 0;
   const defaultPlaceholder = slotContent.default;
   const slotBlocks = Object.entries(slotContent)
     .filter(([slotName]) => slotName !== 'default' && hasNamedSlotContent(slots, slotName))

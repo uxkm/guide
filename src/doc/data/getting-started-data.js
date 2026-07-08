@@ -18,6 +18,7 @@ export const scriptRows = [
   { command: 'pnpm dev', description: 'Vite 개발 서버 — 소개 페이지로 바로 진입' },
   { command: 'pnpm build', description: '프로덕션 빌드 → dist/ 생성' },
   { command: 'pnpm preview', description: '빌드 결과 로컬 미리보기' },
+  { command: 'pnpm deploy:main', description: 'react 브랜치에서 main/react/로 정적 배포' },
 ];
 
 export const newComponentColumns = [
@@ -26,11 +27,12 @@ export const newComponentColumns = [
 ];
 
 export const newComponentRows = [
-  { path: 'src/doc/components/{name}.vue', role: '컴포넌트 문서 페이지' },
-  { path: 'src/components/{Name}.vue', role: '재사용 UI 컴포넌트 (Vue SFC)' },
+  { path: 'src/doc/components/{name}.jsx', role: '컴포넌트 문서 페이지 (docMeta export)' },
+  { path: 'src/components/{Name}.jsx', role: '재사용 UI 컴포넌트 (React)' },
   { path: 'src/scss/components/_{name}.scss', role: '컴포넌트 스타일' },
   { path: 'src/scss/components/_index.scss', role: '@use "{name}" 등록' },
   { path: 'src/data/navigation.js', role: '사이드바 메뉴 항목 추가' },
+  { path: 'src/router/index.jsx', role: '라우트 등록 (handle.docKey)' },
 ];
 
 export const installCode = `# 저장소 클론
@@ -67,5 +69,14 @@ export const themeCode = `<!-- HTML 루트에 테마 지정 -->
 <html lang="ko" data-theme="light">
 <html lang="ko" data-theme="dark">
 
-<!-- JS로 전환 -->
-document.documentElement.setAttribute("data-theme", "dark");`;
+// React — useTheme hook (src/hooks/useTheme.js)
+import { useTheme } from '@/hooks/useTheme';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button type="button" onClick={toggleTheme}>
+      {theme === 'dark' ? '라이트 모드' : '다크 모드'}
+    </button>
+  );
+}`;

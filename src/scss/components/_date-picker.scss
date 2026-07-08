@@ -117,6 +117,7 @@
   }
 
   &_trigger {
+    position: relative;
     display: flex;
     align-items: stretch;
     width: 100%;
@@ -131,10 +132,6 @@
 
     &:hover:not(:has(:disabled)) {
       border-color: var(--color-accent);
-    }
-
-    &:has(.date_picker_clear) .date_picker_input {
-      padding-right: calc(var(--date-picker-input-padding-x) + 1.25rem);
     }
   }
 
@@ -250,18 +247,17 @@
   }
 
   &_clear {
-    position: absolute;
-    top: 50%;
-    right: calc(var(--date-picker-btn-size) + #{$space-xs});
+    flex-shrink: 0;
+    align-self: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-inline: $space-xs;
     padding: 0;
     border: none;
     background: transparent;
     color: var(--color-text-muted);
     cursor: pointer;
-    transform: translateY(-50%);
     @include focus-ring;
     @include square-size(1.25rem);
 
