@@ -1,0 +1,1 @@
+import{c as o,r as a,o as s,a as t}from"./vue.esm-bundler-BaZlnz8B.js";import{g as l}from"./useDemoCode-B9b0dRAo.js";const m={__name:"NavbarList",setup(n){const e=t(null);return l(e),(r,c)=>(s(),o("ul",{ref_key:"rootRef",ref:e,class:"navbar_list"},[a(r.$slots,"default")],512))}};export{m as _};

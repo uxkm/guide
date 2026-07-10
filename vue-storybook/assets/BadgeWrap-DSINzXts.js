@@ -1,0 +1,1 @@
+import{c as t,r as n,o as p,a as c}from"./vue.esm-bundler-BaZlnz8B.js";import{u as l,c as f}from"./useDemoCode-B9b0dRAo.js";const u={__name:"BadgeWrap",props:{ariaLabel:String},setup(o){const r=o,e=c(null),a=f("BadgeWrap",{selfClosing:!1});return l(a,r,{},e,{}),(s,m)=>(p(),t("span",{ref_key:"rootRef",ref:e,class:"badge_wrap"},[n(s.$slots,"default")],512))}};export{u as _};
