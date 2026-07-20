@@ -1,0 +1,156 @@
+// Storybook Docs — Prism HTML .tag 토큰 ↔ UI .tag 컴포넌트 스킨 충돌 방지
+@mixin reset-ui-tag-skin {
+  :where(.tag, .token.tag, span.tag, span.token.tag, .token.punctuation) {
+    display: inline !important;
+    flex: unset !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+    gap: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    font: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+    white-space: inherit !important;
+    vertical-align: baseline !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    text-transform: none !important;
+  }
+}
+
+:is(
+  pre.prismjs,
+  pre[class*='language-'],
+  .docblock-source pre,
+  .sbdocs pre,
+  .sbdocs .docblock-source pre,
+  .sb-unstyled pre,
+  [class*='source--'] pre
+) {
+  code {
+    display: block;
+    white-space: pre !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+    tab-size: 2;
+  }
+
+  @include reset-ui-tag-skin;
+}
+
+// Storybook — Container Playground fluid 스낵바 안내
+.sb-snackbar-hint {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 9999;
+  width: min(calc(100vw - 2 * var(--space-lg)), 22rem);
+}
+
+.sb-snackbar-enter-active,
+.sb-snackbar-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sb-snackbar-enter-from,
+.sb-snackbar-leave-to {
+  opacity: 0;
+  transform: translateY(var(--space-sm));
+}
+
+// Storybook Docs — Controls / ArgTypes — 타입 배지(string · boolean 등)가 UI Tag 스킨에 가려지지 않도록
+.sbdocs :is(.docblock-argstable, .docblock-argstable-body, .docblock-argstable-head) {
+  @include reset-ui-tag-skin;
+}
+
+// Storybook Docs — 가이드 소개·설치·토큰 페이지
+.sb-guide-page {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+// Storybook Docs — Playground(Primary) 블록
+.sbdocs-content > .sb-anchor:has(.sbdocs-preview) {
+  display: flow-root;
+  margin-block-end: var(--space-xl);
+}
+
+// Storybook 10 — Show code / Copy code ActionBar 위치 기준만 보정 (SB 기본 크기·우하단 배치 유지)
+.sbdocs .sb-anchor:has(.sbdocs-preview) {
+  position: relative;
+}
+
+.sbdocs .docblock-argstable {
+  margin-block-end: var(--space-2xl);
+}
+
+// Storybook Docs — 가이드 예시 목록 (Stories)
+.sbdocs .sb-docs-stories {
+  margin-block-start: var(--space-2xl);
+
+  > .sb-anchor {
+    display: flow-root;
+    margin-block-end: var(--space-2xl);
+
+    &:last-child {
+      margin-block-end: 0;
+    }
+
+    &:not(:first-child) {
+      margin-block-start: var(--space-xl);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    // 스토리 설명
+    > p {
+      margin-block: 0 var(--space-md);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    // 캔버스
+    .sbdocs-preview {
+      margin-block-start: var(--space-md) !important;
+    }
+
+  }
+}
+
+// Storybook Docs — API 섹션 (PureArgsTable 기본 스타일)
+.sbdocs .sb-api-docs {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  [data-theme='dark'] & {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.sbdocs .sb-api-section {
+  margin-bottom: 2.5rem;
+
+  .docblock-argstable {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}

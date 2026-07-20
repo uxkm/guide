@@ -1,0 +1,26 @@
+{
+  "name": "@uxkm/storybook",
+  "private": true,
+  "scripts": {
+    "dev": "storybook dev -p 6006 --initial-path \"/docs/intro--docs\"",
+    "build": "storybook build && node ./scripts/fix-html-lang.mjs",
+    "preview": "npx --yes http-server storybook-static -p 6006 -c-1"
+  },
+  "dependencies": {
+    "@uxkm/ui": "workspace:*",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-links": "^10.4.6",
+    "@storybook/vue3": "^10.4.6",
+    "@storybook/vue3-vite": "^10.4.6",
+    "@types/react": "^19.2.17",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sass": "^1.83.0",
+    "storybook": "^10.4.6",
+    "vite": "^6.0.7"
+  }
+}

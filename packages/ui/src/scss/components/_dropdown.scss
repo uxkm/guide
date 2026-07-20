@@ -1,0 +1,178 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+:root {
+  // ----- Dropdown — structure
+  --dropdown-min-width: 10rem;
+  --dropdown-menu-width: auto;
+  --dropdown-padding: var(--space-xs);
+  --dropdown-offset: var(--space-xs);
+  --dropdown-item-line-height: 1.4;
+  --z-dropdown: 100;
+
+}
+
+// Dropdown — OOCSS: 구조(.dropdown) + 스킨(.dropdown_placement-end · .dropdown_block) + 파트(.dropdown_trigger · .dropdown_menu)
+//
+//   <div class="dropdown" data-dropdown>
+//     <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-menu-1">
+//       <span class="btn_label">메뉴</span>
+//     </button>
+//     <div class="dropdown_menu" id="dd-menu-1" role="menu">
+//       <ul class="menu menu_vertical menu_compact" role="none">…</ul>
+//     </div>
+//   </div>
+//
+// 상태 클래스
+//   .is-open       — 패널 표시 (aria-expanded="true"와 함께)
+//   .is-disabled   — 트리거 비활성
+//   .dropdown_menu-scrollable — maxVisibleItems 지정 시 menu_list 스크롤
+
+.dropdown {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  &.is-open {
+    > .dropdown_trigger[aria-expanded] {
+      z-index: calc(var(--z-dropdown, 100) + 1);
+    }
+
+    > .dropdown_menu {
+      display: block;
+    }
+  }
+
+  &.is-disabled {
+    @include disabled-state;
+  }
+
+  &_trigger {
+    position: relative;
+  }
+
+  &_menu {
+    position: absolute;
+    top: calc(100% + var(--dropdown-offset));
+    left: 0;
+    z-index: var(--z-dropdown, 100);
+    display: none;
+    width: var(--dropdown-menu-width);
+    min-width: var(--dropdown-min-width);
+    padding: var(--dropdown-padding);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-lg;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-md);
+
+    .menu {
+      width: 100%;
+      max-width: none;
+    }
+
+    .menu_link.color_danger {
+      color: color-token(danger);
+
+      &:hover:not(.is-disabled) {
+        color: color-token(danger);
+        background: var(--color-badge-danger-bg);
+      }
+    }
+
+    &-scrollable {
+      .menu_list {
+        max-height: calc(
+          var(--dropdown-max-visible-items) *
+            (
+              var(--menu-item-padding-y) * 2 +
+                var(--menu-font-size) * var(--dropdown-item-line-height)
+            ) +
+            (var(--dropdown-max-visible-items) - 1) * var(--menu-gap)
+        );
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 3px;
+          background: var(--color-border);
+        }
+      }
+    }
+  }
+
+  // ----- 스킨
+
+  &_placement-end {
+    .dropdown_menu {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &_placement-top {
+    .dropdown_menu {
+      top: auto;
+      bottom: calc(100% + var(--dropdown-offset));
+    }
+  }
+
+  &_block {
+    display: flex;
+    width: 100%;
+
+    > .dropdown_trigger {
+      width: 100%;
+    }
+
+    .dropdown_menu {
+      width: 100%;
+    }
+  }
+
+  &_fit {
+    > .dropdown_trigger.btn_select {
+      min-width: var(--dropdown-min-width);
+    }
+  }
+
+  // ----- 데모 레이아웃
+
+  &_demo-stage {
+    position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 14rem;
+    padding: var(--space-2xl) var(--space-xl);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: visible;
+    background: var(--color-bg);
+  }
+
+  &_row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  &_demo-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 28rem;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    background: var(--color-surface-raised);
+  }
+}
