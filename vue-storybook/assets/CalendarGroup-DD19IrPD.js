@@ -1,1 +1,0 @@
-import{c as a,r as t,o as s,a as n}from"./vue.esm-bundler-BaZlnz8B.js";import{u as l,c}from"./useDemoCode-B9b0dRAo.js";const _={__name:"CalendarGroup",setup(f){const e=n(null),o=c("CalendarGroup",{selfClosing:!1});return l(o,{},{},e,{}),(r,m)=>(s(),a("div",{ref_key:"rootRef",ref:e,class:"calendar_group"},[t(r.$slots,"default")],512))}};export{_};

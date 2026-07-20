@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
 
-    <title>@storybook/core - Storybook</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>UXKM Guide - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
@@ -46,28 +46,115 @@
     <link href="./sb-manager/runtime.js" rel="modulepreload" />
 
     
-    <link href="./sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/storybook-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-controls-1/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/links-1/manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-actions-2/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/docs-2/manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-docs-3/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-backgrounds-4/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-viewport-5/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-toolbars-6/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-measure-7/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-outline-8/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/links-9/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/storybook-10/manager-bundle.js" rel="modulepreload" />
-       
+    <link href="./sb-addons/storybook-3/manager-bundle.js" rel="modulepreload" />
+      <script>document.documentElement.setAttribute('lang', 'ko');</script>
+<title>UXKM Guide Storybook</title>
+
+<!-- meta -->
+<meta name="title" content="UXKM Guide Storybook">
+<meta name="author" content="UXKM">
+<meta name="description" content="UXKM UI 컴포넌트 Storybook. Vue·SCSS 기반 컴포넌트를 인터랙티브하게 확인할 수 있습니다.">
+<meta name="keywords" content="uxkm, uxkm guide, storybook, vue, scss, ui, component">
+<meta name="content-language" content="kr">
+<meta name="robots" content="index,follow">
+
+<!-- opengraph / SNS -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="UXKM Guide Storybook">
+<meta property="og:site_name" content="UXKM Guide">
+<meta property="og:url" content="https://guide.uxkm.io/vue-storybook/">
+<meta property="og:description" content="UXKM UI 컴포넌트 Storybook. Vue·SCSS 기반 컴포넌트를 인터랙티브하게 확인할 수 있습니다.">
+<meta property="og:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="750">
+<meta property="og:locale" content="ko_KR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UXKM Guide Storybook">
+<meta name="twitter:description" content="UXKM UI 컴포넌트 Storybook. Vue·SCSS 기반 컴포넌트를 인터랙티브하게 확인할 수 있습니다.">
+<meta name="twitter:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+
+<!-- icon -->
+<link rel="apple-touch-icon" sizes="57x57" href="./_assets/images/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="./_assets/images/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="./_assets/images/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="./_assets/images/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="./_assets/images/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="./_assets/images/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="./_assets/images/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./_assets/images/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./_assets/images/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./_assets/images/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./_assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./_assets/images/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./_assets/images/favicon/favicon-16x16.png">
+<link rel="shortcut icon" type="image/x-icon" href="./_assets/images/favicon/favicon/favicon.ico">
+<link rel="manifest" href="./_assets/images/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="./_assets/images/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var path = params.get('path');
+    var isMalformed =
+      !path ||
+      path === '/docs' ||
+      path === 'docs' ||
+      path.indexOf('/?path=') === 0;
+
+    if (isMalformed) {
+      params.set('path', '/docs/intro--docs');
+      window.location.replace(
+        window.location.pathname + '?' + params.toString() + window.location.hash,
+      );
+    }
+  })();
+</script>
+<style>
+  .sidebar-header a[href] {
+    display: inline-flex;
+    align-items: flex-end;
+    min-height: 22px;
+  }
+
+  .sb-brand {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .sb-brand-logo-wrap {
+    display: inline-flex;
+    align-items: flex-start;
+    height: 22px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .sb-brand-logo-wrap img {
+    display: block;
+    height: 32px;
+    width: auto;
+  }
+
+  .sb-brand-text {
+    color: #e7ecf3;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+</style>
+ 
 
     <style>
       #storybook-root[hidden] {
@@ -85,9 +172,20 @@
       
         
           window['FEATURES'] = {
+  "actions": false,
   "argTypeTargetsV7": true,
+  "backgrounds": true,
+  "changeDetection": true,
+  "componentsManifest": false,
+  "controls": true,
+  "disallowImplicitActionsInRenderV8": true,
+  "highlight": true,
+  "interactions": false,
   "legacyDecoratorFileOrder": false,
-  "disallowImplicitActionsInRenderV8": true
+  "measure": true,
+  "outline": true,
+  "sidebarOnboardingChecklist": false,
+  "viewport": true
 };
         
       
@@ -101,8 +199,7 @@
       
         
           window['DOCS_OPTIONS'] = {
-  "defaultName": "Docs",
-  "autodocs": "tag"
+  "defaultName": "Docs"
 };
         
       
@@ -115,18 +212,15 @@
         
       
         
-          window['TAGS_OPTIONS'] = {
-  "dev-only": {
-    "excludeFromDocsStories": true
-  },
-  "docs-only": {
-    "excludeFromSidebar": true
-  },
-  "test-only": {
-    "excludeFromSidebar": true,
-    "excludeFromDocsStories": true
-  }
-};
+          window['TAGS_OPTIONS'] = {};
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "vue3-vite";
         
       
         
@@ -134,43 +228,23 @@
         
       
         
-          window['STORYBOOK_BUILDER'] = "@storybook/builder-vite";
-        
-      
-        
-          window['STORYBOOK_FRAMEWORK'] = "@storybook/vue3-vite";
-        
       
     </script>
     
 
     <script type="module">
       import './sb-manager/globals-runtime.js';
+
       
+        import './sb-addons/storybook-core-server-presets-0/common-manager-bundle.js';
       
-        import './sb-addons/storybook-core-core-server-presets-0/common-manager-bundle.js';
+        import './sb-addons/links-1/manager-bundle.js';
       
-        import './sb-addons/essentials-controls-1/manager-bundle.js';
+        import './sb-addons/docs-2/manager-bundle.js';
       
-        import './sb-addons/essentials-actions-2/manager-bundle.js';
+        import './sb-addons/storybook-3/manager-bundle.js';
       
-        import './sb-addons/essentials-docs-3/manager-bundle.js';
-      
-        import './sb-addons/essentials-backgrounds-4/manager-bundle.js';
-      
-        import './sb-addons/essentials-viewport-5/manager-bundle.js';
-      
-        import './sb-addons/essentials-toolbars-6/manager-bundle.js';
-      
-        import './sb-addons/essentials-measure-7/manager-bundle.js';
-      
-        import './sb-addons/essentials-outline-8/manager-bundle.js';
-      
-        import './sb-addons/links-9/manager-bundle.js';
-      
-        import './sb-addons/storybook-10/manager-bundle.js';
-      
-      
+
       import './sb-manager/runtime.js';
     </script>
   </body>

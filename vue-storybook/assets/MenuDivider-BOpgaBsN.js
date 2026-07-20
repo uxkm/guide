@@ -1,1 +1,0 @@
-import{c as r,o as t,a as n}from"./vue.esm-bundler-BaZlnz8B.js";import{u as s,c as a}from"./useDemoCode-B9b0dRAo.js";const _={__name:"MenuDivider",setup(c){const e=n(null),o=a("MenuDivider",{selfClosing:!0});return s(o,{},{},e,{}),(m,l)=>(t(),r("li",{ref_key:"rootRef",ref:e,class:"menu_divider",role:"separator"},null,512))}};export{_};

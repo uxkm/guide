@@ -1,1 +1,0 @@
-import{c as o,r as l,n,f as c,o as t}from"./vue.esm-bundler-BaZlnz8B.js";const p={__name:"CalendarGrid",props:{week:Boolean},setup(e){const a=e,r=c(()=>["calendar_grid",{"calendar_grid-week":a.week}]);return(s,d)=>(t(),o("div",{class:n(r.value),role:"grid"},[l(s.$slots,"default")],2))}};export{p as _};
