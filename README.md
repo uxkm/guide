@@ -36,4 +36,4 @@ pnpm preview            # 가이드 빌드 결과 미리보기
 ## 배포
 
 `pnpm deploy:vue` — 가이드만 main/vue/에 배포
-`pnpm deploy:main` — gulp, vue, vue-storybook 브랜치에서 빌드 후 main에 배포 (가이드 → `vue/`, Storybook → `vue-storybook/`, 랜딩 `index.html` 업데이트)
+`pnpm deploy:main` — gulp · vue · vue-storybook · react-storybook · gulp-storybook 브랜치에서 빌드 후 main에 배포
