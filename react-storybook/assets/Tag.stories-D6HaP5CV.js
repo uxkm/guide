@@ -1,0 +1,3 @@
+import{j as s}from"./iframe-DbjMrqYU.js";import{C as t}from"./ComingSoon-DUwtYLzb.js";import"./preload-helper-DUxc-Dqw.js";const c={title:"Components/데이터 표시/Tag",id:"components-tag",component:t,tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"Tag 컴포넌트 — React 마이그레이션 예정입니다."}}}},o={render:()=>s.jsx(t,{name:"Tag"})};var e,r,a;o.parameters={...o.parameters,docs:{...(e=o.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  render: () => <ComingSoon name="Tag" />
+}`,...(a=(r=o.parameters)==null?void 0:r.docs)==null?void 0:a.source}}};const p=["Playground"];export{o as Playground,p as __namedExportsOrder,c as default};

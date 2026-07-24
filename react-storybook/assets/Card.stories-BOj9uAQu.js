@@ -1,0 +1,3 @@
+import{j as t}from"./iframe-DbjMrqYU.js";import{C as s}from"./ComingSoon-DUwtYLzb.js";import"./preload-helper-DUxc-Dqw.js";const c={title:"Components/데이터 표시/Card",id:"components-card",component:s,tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"Card 컴포넌트 — React 마이그레이션 예정입니다."}}}},o={render:()=>t.jsx(s,{name:"Card"})};var r,e,a;o.parameters={...o.parameters,docs:{...(r=o.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  render: () => <ComingSoon name="Card" />
+}`,...(a=(e=o.parameters)==null?void 0:e.docs)==null?void 0:a.source}}};const p=["Playground"];export{o as Playground,p as __namedExportsOrder,c as default};
