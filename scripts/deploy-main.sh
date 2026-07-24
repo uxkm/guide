@@ -4,8 +4,8 @@ set -euo pipefail
 DEPLOY_PATHS=(index.html html vue react)
 CURRENT_BRANCH=$(git branch --show-current)
 
-if [[ "$CURRENT_BRANCH" != "min" ]]; then
-  echo "min 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+if [[ "$CURRENT_BRANCH" != "gulp" ]]; then
+  echo "gulp 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
   exit 1
 fi
 
@@ -23,13 +23,13 @@ done
 echo "==> main 브랜치로 전환..."
 STASHED=0
 if ! git diff --quiet || ! git diff --cached --quiet || [[ -n "$(git ls-files --others --exclude-standard)" ]]; then
-  git stash push -u -m "deploy-main: stash min changes"
+  git stash push -u -m "deploy-main: stash gulp changes"
   STASHED=1
 fi
 
 git checkout main
 
-# min 브랜치 잔여 개발 파일 제거
+# gulp 브랜치 잔여 개발 파일 제거
 DEV_ARTIFACTS=(node_modules pnpm-lock.yaml package.json gulpfile.js src scripts)
 for path in "${DEV_ARTIFACTS[@]}"; do
   rm -rf "$path"
@@ -45,12 +45,12 @@ git add "${DEPLOY_PATHS[@]}"
 if git diff --cached --quiet; then
   echo "변경 사항 없음. 배포를 건너뜁니다."
 else
-  git commit -m "Deploy: built pages from min"
+  git commit -m "Deploy: built pages from gulp"
   git push origin main
   echo "==> main 배포 완료"
 fi
 
-git checkout min
+git checkout gulp
 
 if [[ "$STASHED" -eq 1 ]]; then
   git stash pop
