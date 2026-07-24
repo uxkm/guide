@@ -43,6 +43,9 @@ main/
 gulp ──build──▶  main/html/
 vue  ──build──▶  main/vue/
 react ──build──▶  main/react/
+gulp-storybook ──▶  main/gulp-storybook/
+react-storybook ──▶  main/react-storybook/
+vue-storybook ──▶  main/vue-storybook/
                       │
                       ▼
               guide.uxkm.io (GitHub Pages)
