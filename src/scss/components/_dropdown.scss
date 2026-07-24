@@ -1,0 +1,127 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Dropdown — OOCSS: 구조(.dropdown) + 스킨(.dropdown_placement-end · .dropdown_block) + 파트(.dropdown_trigger · .dropdown_menu)
+//
+//   <div class="dropdown" data-dropdown>
+//     <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-menu-1">
+//       <span class="btn_label">메뉴</span>
+//     </button>
+//     <div class="dropdown_menu" id="dd-menu-1" role="menu">
+//       <ul class="menu menu_vertical menu_compact" role="none">…</ul>
+//     </div>
+//   </div>
+//
+// 상태 클래스
+//   .is-open       — 패널 표시 (aria-expanded="true"와 함께)
+//   .is-disabled   — 트리거 비활성
+
+.dropdown {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  &.is-open {
+    > .dropdown_trigger[aria-expanded] {
+      z-index: calc(var(--z-dropdown, 100) + 1);
+    }
+
+    > .dropdown_menu {
+      display: block;
+    }
+  }
+
+  &.is-disabled {
+    @include disabled-state;
+  }
+
+  &_trigger {
+    position: relative;
+  }
+
+  &_menu {
+    position: absolute;
+    top: calc(100% + var(--dropdown-offset));
+    left: 0;
+    z-index: var(--z-dropdown, 100);
+    display: none;
+    min-width: var(--dropdown-min-width);
+    padding: var(--dropdown-padding);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-lg;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-md);
+
+    .menu {
+      width: 100%;
+      max-width: none;
+    }
+
+    .menu_link.color_danger {
+      color: color-token(danger);
+
+      &:hover:not(.is-disabled) {
+        color: color-token(danger);
+        background: var(--color-badge-danger-bg);
+      }
+    }
+  }
+
+  // ----- 스킨
+
+  &_placement-end {
+    .dropdown_menu {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &_placement-top {
+    .dropdown_menu {
+      top: auto;
+      bottom: calc(100% + var(--dropdown-offset));
+    }
+  }
+
+  &_block {
+    display: flex;
+    width: 100%;
+
+    > .dropdown_trigger {
+      width: 100%;
+    }
+
+    .dropdown_menu {
+      width: 100%;
+    }
+  }
+
+  &_fit {
+    > .dropdown_trigger.btn_select {
+      min-width: var(--dropdown-min-width);
+    }
+  }
+
+  // ----- 데모 레이아웃
+
+  &_row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  &_demo-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 28rem;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    background: var(--color-surface-raised);
+  }
+}

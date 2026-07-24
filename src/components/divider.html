@@ -1,0 +1,77 @@
+<!-- @meta
+title: Divider | HTML Components
+activeNav: divider
+pageTitle: Divider
+-->
+<div class="page_intro">
+  <h1>Divider</h1>
+  <p class="lead">콘텐츠를 시각적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티 클래스로 조합합니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>divider 클래스로 가로 구분선을 그립니다. hr 또는 div에 사용할 수 있습니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <p>위 콘텐츠</p>
+    <hr class="divider" />
+    <p>아래 콘텐츠</p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="dashed-heading">
+  <div class="demo_section-header">
+    <h2 id="dashed-heading">점선</h2>
+    <p>divider_dashed로 점선 스타일을 적용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <p>위 콘텐츠</p>
+    <hr class="divider divider_dashed" />
+    <p>아래 콘텐츠</p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="text-heading">
+  <div class="demo_section-header">
+    <h2 id="text-heading">텍스트 레이블</h2>
+    <p>요소 안에 텍스트가 있으면 양쪽 선과 가운데 레이블로 자동 전환됩니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="divider">섹션 제목</div>
+    <div class="divider divider_plain">보조 설명</div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="orient-heading">
+  <div class="demo_section-header">
+    <h2 id="orient-heading">레이블 정렬</h2>
+    <p>divider_orient-left · divider_orient-right로 레이블 위치를 조정합니다. 기본은 가운데입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="divider divider_orient-left">왼쪽</div>
+    <div class="divider">가운데</div>
+    <div class="divider divider_orient-right">오른쪽</div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="vertical-heading">
+  <div class="demo_section-header">
+    <h2 id="vertical-heading">세로</h2>
+    <p>divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="space">
+      <span>항목 A</span>
+      <span class="divider divider_vertical" aria-hidden="true"></span>
+      <span>항목 B</span>
+      <span class="divider divider_vertical divider_dashed" aria-hidden="true"></span>
+      <span>항목 C</span>
+    </div>
+  </div>
+</section>

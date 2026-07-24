@@ -1,0 +1,336 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Tabs — OOCSS: 구조(.tabs) + 스킨(.tabs_line · .tabs_card · .tabs_pill) + 파트(.tabs_bar · .tabs_list · .tabs_tab · .tabs_panel)
+//
+//   <div class="tabs tabs_line" data-tabs>
+//     <div class="tabs_bar">
+//       <div class="tabs_list" role="tablist" aria-label="섹션">
+//         <button type="button" class="tabs_tab is-active" role="tab" id="tab-1"
+//           aria-selected="true" aria-controls="panel-1">개요</button>
+//         <button type="button" class="tabs_tab" role="tab" id="tab-2"
+//           aria-selected="false" aria-controls="panel-2" tabindex="-1">설정</button>
+//       </div>
+//     </div>
+//     <div class="tabs_panels">
+//       <div class="tabs_panel is-active" role="tabpanel" id="panel-1" aria-labelledby="tab-1">…</div>
+//       <div class="tabs_panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>…</div>
+//     </div>
+//   </div>
+
+.tabs {
+  width: 100%;
+  font-size: var(--tabs-font-size);
+  color: var(--color-text);
+
+  &_bar {
+    display: flex;
+    align-items: center;
+    gap: var(--tabs-bar-gap);
+    min-width: 0;
+  }
+
+  &_list {
+    display: flex;
+    align-items: stretch;
+    gap: var(--tabs-gap);
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &_tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--tabs-badge-gap);
+    flex-shrink: 0;
+    margin: 0;
+    padding: var(--tabs-tab-padding-y) var(--tabs-tab-padding-x);
+    border: none;
+    border-radius: $radius-sm $radius-sm 0 0;
+    background: transparent;
+    color: var(--color-text-muted);
+    font: inherit;
+    font-weight: var(--tabs-font-weight);
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color $transition-fast,
+      background-color $transition-fast,
+      border-color $transition-fast,
+      box-shadow $transition-fast;
+    @include focus-ring;
+
+    &:hover:not(.is-disabled):not(:disabled) {
+      color: var(--color-text);
+    }
+
+    &.is-active,
+    &[aria-selected="true"] {
+      color: color-token(primary);
+      font-weight: var(--tabs-font-weight-active);
+    }
+
+    &.is-disabled,
+    &:disabled {
+      @include disabled-state;
+    }
+  }
+
+  &_icon {
+    flex-shrink: 0;
+    width: var(--tabs-icon-size);
+    height: var(--tabs-icon-size);
+    color: currentColor;
+  }
+
+  &_label {
+    min-width: 0;
+  }
+
+  &_badge {
+    flex-shrink: 0;
+  }
+
+  &_extra {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  &_panels {
+    min-width: 0;
+  }
+
+  &_panel {
+    padding: var(--tabs-panel-padding-y) 0 0;
+    color: var(--color-text);
+    font-size: var(--text-size-sm);
+    line-height: 1.6;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &_panel-placeholder {
+    margin: 0;
+    padding: var(--space-lg);
+    border: 1px dashed var(--color-border);
+    border-radius: $radius-md;
+    background: var(--color-surface-raised);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  // ----- 스킨: 라인 (기본)
+
+  &_line {
+    .tabs_bar {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tabs_tab {
+      position: relative;
+      margin-bottom: -1px;
+      border-bottom: var(--tabs-indicator-height) solid transparent;
+
+      &.is-active,
+      &[aria-selected="true"] {
+        border-bottom-color: color-token(primary);
+      }
+    }
+  }
+
+  // ----- 스킨: 카드
+
+  &_card {
+    .tabs_bar {
+      gap: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tabs_list {
+      gap: 0;
+    }
+
+    .tabs_tab {
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: $radius-sm $radius-sm 0 0;
+      background: var(--color-surface-raised);
+
+      &.is-active,
+      &[aria-selected="true"] {
+        border-color: var(--color-border);
+        border-bottom-color: var(--color-surface);
+        background: var(--color-surface);
+        color: color-token(primary);
+      }
+    }
+
+    .tabs_panel {
+      padding: var(--tabs-panel-padding-y) var(--space-lg);
+      border: 1px solid var(--color-border);
+      border-top: none;
+      border-radius: 0 0 $radius-md $radius-md;
+      background: var(--color-surface);
+    }
+  }
+
+  // ----- 스킨: 필
+
+  &_pill {
+    .tabs_list {
+      padding: var(--tabs-pill-padding);
+      border-radius: $radius-md;
+      background: var(--color-surface-raised);
+    }
+
+    .tabs_tab {
+      border-radius: $radius-sm;
+
+      &.is-active,
+      &[aria-selected="true"] {
+        color: color-token(primary);
+        background: var(--color-surface);
+        box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+      }
+    }
+
+    .tabs_panel {
+      padding-top: var(--tabs-panel-padding-y);
+    }
+  }
+
+  // ----- 크기
+
+  &_sm {
+    --tabs-font-size: var(--tabs-font-size-sm);
+    --tabs-tab-padding-y: var(--tabs-tab-padding-y-sm);
+    --tabs-tab-padding-x: var(--tabs-tab-padding-x-sm);
+    --tabs-icon-size: var(--tabs-icon-size-sm);
+  }
+
+  &_lg {
+    --tabs-font-size: var(--tabs-font-size-lg);
+    --tabs-tab-padding-y: var(--tabs-tab-padding-y-lg);
+    --tabs-tab-padding-x: var(--tabs-tab-padding-x-lg);
+    --tabs-icon-size: var(--tabs-icon-size-lg);
+  }
+
+  // ----- 스크롤
+
+  &_scrollable {
+    .tabs_bar {
+      overflow: hidden;
+    }
+
+    .tabs_list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: $radius-pill;
+        background: var(--color-border);
+      }
+    }
+  }
+
+  // ----- 수직
+
+  &_vertical {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: flex-start;
+
+    .tabs_bar {
+      flex: 0 0 auto;
+      flex-direction: column;
+      align-items: stretch;
+      border-bottom: none;
+    }
+
+    .tabs_list {
+      flex-direction: column;
+      align-items: stretch;
+      min-width: 10rem;
+    }
+
+    .tabs_tab {
+      justify-content: flex-start;
+      border-radius: $radius-sm;
+      text-align: left;
+    }
+
+    .tabs_panels {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tabs_panel {
+      padding-top: 0;
+    }
+
+    &.tabs_line {
+      .tabs_bar {
+        border-bottom: none;
+        border-right: 1px solid var(--color-border);
+        padding-right: var(--space-md);
+      }
+
+      .tabs_tab {
+        margin-bottom: 0;
+        margin-right: -1px;
+        border-bottom: none;
+        border-right: var(--tabs-indicator-height) solid transparent;
+
+        &.is-active,
+        &[aria-selected="true"] {
+          border-right-color: color-token(primary);
+          border-bottom-color: transparent;
+        }
+      }
+    }
+
+    &.tabs_card {
+      .tabs_bar {
+        border-bottom: none;
+        border-right: 1px solid var(--color-border);
+      }
+
+      .tabs_tab {
+        border-radius: $radius-sm 0 0 $radius-sm;
+        border-right: none;
+
+        &.is-active,
+        &[aria-selected="true"] {
+          border-right-color: transparent;
+          border-bottom-color: var(--color-border);
+        }
+      }
+
+      .tabs_panel {
+        border-top: 1px solid var(--color-border);
+        border-radius: 0 $radius-md $radius-md 0;
+      }
+    }
+  }
+
+  // ----- 데모 레이아웃
+
+  &_demo-narrow {
+    max-width: 20rem;
+  }
+}

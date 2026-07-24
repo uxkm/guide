@@ -1,0 +1,211 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Typography — OOCSS: 구조(.typo_*) + 공통 색상(.color_*)
+
+.typo {
+  // ----- Title
+
+  @for $i from 1 through 5 {
+    &_title-#{$i} {
+      margin: 0;
+      @include typo-title($i);
+    }
+  }
+
+  // ----- Paragraph (단락 간격)
+
+  &_paragraph {
+    line-height: var(--typo-text-line-height);
+    margin: 0 0 var(--typo-paragraph-gap);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // ----- Size (공통 .size_* 사용)
+
+  // ----- Inline style
+
+  &_strong {
+    font-weight: 600;
+  }
+
+  &_italic {
+    font-style: italic;
+  }
+
+  &_underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &_delete {
+    text-decoration: line-through;
+    opacity: 0.75;
+  }
+
+  &_mark {
+    padding: var(--typo-code-padding-y) 0.25em;
+    background: var(--typo-mark-bg);
+    border-radius: var(--typo-code-radius);
+  }
+
+  &_code {
+    font-family: $font-family-mono;
+    font-size: 0.875em;
+    padding: var(--typo-code-padding-y) var(--typo-code-padding-x);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--typo-code-radius);
+  }
+
+  // ----- Ellipsis — 공통 .text_ellipsis* 사용 (utilities)
+
+  // ----- Blockquote
+
+  &_blockquote {
+    margin: 0;
+    padding: $space-sm 0 $space-sm $space-lg;
+    line-height: var(--typo-text-line-height);
+    border-left: var(--typo-blockquote-border-width) solid var(--color-border);
+  }
+
+  // ----- List
+
+  &_list,
+  &_list-ordered {
+    line-height: var(--typo-text-line-height);
+    padding-left: $space-lg;
+    margin: 0;
+
+    li + li {
+      margin-top: var(--typo-list-gap);
+    }
+  }
+
+  &_list {
+    list-style: disc;
+  }
+
+  &_list-ordered {
+    list-style: decimal;
+  }
+
+  // ----- Link
+
+  &_link {
+    color: var(--color-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--color-accent-text-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-outline-width) solid var(--color-accent);
+      outline-offset: var(--focus-outline-offset);
+      border-radius: 2px;
+    }
+  }
+
+  // ----- Stack (제목·본문 간격)
+
+  &_stack {
+    @include flex-stack(var(--space-sm));
+  }
+
+  &_stack-lg {
+    @include flex-stack(var(--space-md));
+  }
+
+  // ----- Lead · Caption · Label · Overline
+
+  &_lead {
+    font-size: var(--typo-lead-size);
+    line-height: var(--typo-lead-line-height);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  &_caption {
+    font-size: var(--typo-caption-size);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  &_label {
+    font-size: var(--typo-label-size);
+    font-weight: var(--typo-label-weight);
+    line-height: 1.4;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  &_overline {
+    font-size: var(--typo-overline-size);
+    font-weight: var(--typo-overline-weight);
+    letter-spacing: var(--typo-overline-spacing);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  // ----- Keyboard · Pre · Definition list
+
+  &_kbd {
+    display: inline-block;
+    font-family: $font-family-mono;
+    font-size: 0.8125em;
+    padding: var(--typo-kbd-padding-y) var(--typo-kbd-padding-x);
+    border: 1px solid var(--color-border);
+    border-bottom-width: 2px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  &_pre {
+    margin: 0;
+    padding: var(--typo-pre-padding);
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+    font-family: $font-family-mono;
+    font-size: size-token(sm);
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--typo-pre-radius);
+
+    code {
+      white-space: inherit;
+    }
+  }
+
+  &_dl {
+    margin: 0;
+    line-height: var(--typo-text-line-height);
+  }
+
+  &_dt {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: $space-sm;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &_dd {
+    margin: $space-xs 0 0;
+    color: var(--color-text-muted);
+  }
+}

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="tag">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Tag</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Tag</h1>
+          <p class="lead">카테고리, 필터, 선택 항목을 표시하는 태그 컴포넌트입니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본 (Filled)</h2>
+            <p>연한 배경의 기본 태그입니다. 공통 color_* 클래스로 의미에 따른 색상을 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag color_default">Default</span>
+            <span class="tag color_primary">Primary</span>
+            <span class="tag color_success">Success</span>
+            <span class="tag color_warning">Warning</span>
+            <span class="tag color_danger">Danger</span>
+            <span class="tag color_info">Info</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Default --&gt;
+
+&lt;span class=&quot;tag color_default&quot;&gt;Default&lt;/span&gt;
+
+&lt;!-- Primary --&gt;
+
+&lt;span class=&quot;tag color_primary&quot;&gt;Primary&lt;/span&gt;
+
+&lt;!-- Success --&gt;
+
+&lt;span class=&quot;tag color_success&quot;&gt;Success&lt;/span&gt;
+
+&lt;!-- Warning --&gt;
+
+&lt;span class=&quot;tag color_warning&quot;&gt;Warning&lt;/span&gt;
+
+&lt;!-- Danger --&gt;
+
+&lt;span class=&quot;tag color_danger&quot;&gt;Danger&lt;/span&gt;
+
+&lt;!-- Info --&gt;
+
+&lt;span class=&quot;tag color_info&quot;&gt;Info&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="solid-heading">
+          <div class="demo_section-header">
+            <h2 id="solid-heading">솔리드</h2>
+            <p>tag_solid로 채움 배경·대비 텍스트를 적용합니다. 강조가 필요한 레이블에 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag tag_solid color_default">Default</span>
+            <span class="tag tag_solid color_primary">Primary</span>
+            <span class="tag tag_solid color_success">Success</span>
+            <span class="tag tag_solid color_warning">Warning</span>
+            <span class="tag tag_solid color_danger">Danger</span>
+            <span class="tag tag_solid color_info">Info</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_default&quot;&gt;Default&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_primary&quot;&gt;Primary&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_success&quot;&gt;Success&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_warning&quot;&gt;Warning&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_danger&quot;&gt;Danger&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_info&quot;&gt;Info&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="outline-heading">
+          <div class="demo_section-header">
+            <h2 id="outline-heading">아웃라인</h2>
+            <p>tag_outline으로 배경 없이 테두리만 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag tag_outline color_default">Default</span>
+            <span class="tag tag_outline color_primary">Primary</span>
+            <span class="tag tag_outline color_success">Success</span>
+            <span class="tag tag_outline color_warning">Warning</span>
+            <span class="tag tag_outline color_danger">Danger</span>
+            <span class="tag tag_outline color_info">Info</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_default&quot;&gt;Default&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_primary&quot;&gt;Primary&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_success&quot;&gt;Success&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_warning&quot;&gt;Warning&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_danger&quot;&gt;Danger&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_info&quot;&gt;Info&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>tag_sm · tag_lg로 스케일을 조절합니다. Filled · Outline · Solid 모두 적용 가능합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tag_group tag_group-tight">
+              <span class="tag tag_sm color_primary">Small</span>
+              <span class="tag color_primary">Medium</span>
+              <span class="tag tag_lg color_primary">Large</span>
+            </div>
+            <div class="tag_group tag_group-tight">
+              <span class="tag tag_sm tag_outline color_success">Small</span>
+              <span class="tag tag_outline color_success">Medium</span>
+              <span class="tag tag_lg tag_outline color_success">Large</span>
+            </div>
+            <div class="tag_group tag_group-tight">
+              <span class="tag tag_sm tag_solid color_danger">Small</span>
+              <span class="tag tag_solid color_danger">Medium</span>
+              <span class="tag tag_lg tag_solid color_danger">Large</span>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;span class=&quot;tag tag_sm color_primary&quot;&gt;Small&lt;/span&gt;
+  &lt;span class=&quot;tag color_primary&quot;&gt;Medium&lt;/span&gt;
+  &lt;span class=&quot;tag tag_lg color_primary&quot;&gt;Large&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;span class=&quot;tag tag_sm tag_outline color_success&quot;&gt;Small&lt;/span&gt;
+  &lt;span class=&quot;tag tag_outline color_success&quot;&gt;Medium&lt;/span&gt;
+  &lt;span class=&quot;tag tag_lg tag_outline color_success&quot;&gt;Large&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;span class=&quot;tag tag_sm tag_solid color_danger&quot;&gt;Small&lt;/span&gt;
+  &lt;span class=&quot;tag tag_solid color_danger&quot;&gt;Medium&lt;/span&gt;
+  &lt;span class=&quot;tag tag_lg tag_solid color_danger&quot;&gt;Large&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="round-heading">
+          <div class="demo_section-header">
+            <h2 id="round-heading">둥근</h2>
+            <p>tag_round로 pill 형태의 모서리를 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag tag_round color_primary">Filled</span>
+            <span class="tag tag_round tag_outline color_primary">Outline</span>
+            <span class="tag tag_round tag_solid color_primary">Solid</span>
+            <span class="tag tag_round tag_borderless color_default">Borderless</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_round --&gt;
+
+&lt;span class=&quot;tag tag_round color_primary&quot;&gt;Filled&lt;/span&gt;
+
+&lt;!-- tag_round --&gt;
+
+&lt;span class=&quot;tag tag_round tag_outline color_primary&quot;&gt;Outline&lt;/span&gt;
+
+&lt;!-- tag_round --&gt;
+
+&lt;span class=&quot;tag tag_round tag_solid color_primary&quot;&gt;Solid&lt;/span&gt;
+
+&lt;!-- tag_round --&gt;
+
+&lt;span class=&quot;tag tag_round tag_borderless color_default&quot;&gt;Borderless&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="icon-heading">
+          <div class="demo_section-header">
+            <h2 id="icon-heading">아이콘</h2>
+            <p>tag_icon으로 앞에 아이콘을 배치합니다. 크기는 태그 스케일에 맞춰 조절됩니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag color_primary">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>
+                </svg>
+              </span>
+              Design
+            </span>
+            <span class="tag tag_outline color_success">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
+                </svg>
+              </span>
+              Verified
+            </span>
+            <span class="tag tag_solid color_danger">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+              </span>
+              Error
+            </span>
+            <span class="tag tag_sm tag_round color_default">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              User
+            </span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Primary --&gt;
+
+&lt;span class=&quot;tag color_primary&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z&quot;/&gt;
+      &lt;line x1=&quot;7&quot; y1=&quot;7&quot; x2=&quot;7.01&quot; y2=&quot;7&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  Design
+&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_success&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;
+      &lt;path d=&quot;M22 4L12 14.01l-3-3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  Verified
+&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_danger&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+      &lt;line x1=&quot;15&quot; y1=&quot;9&quot; x2=&quot;9&quot; y2=&quot;15&quot;/&gt;
+      &lt;line x1=&quot;9&quot; y1=&quot;9&quot; x2=&quot;15&quot; y2=&quot;15&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  Error
+&lt;/span&gt;
+
+&lt;!-- tag_sm --&gt;
+
+&lt;span class=&quot;tag tag_sm tag_round color_default&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  User
+&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="close-heading">
+          <div class="demo_section-header">
+            <h2 id="close-heading">닫기 가능</h2>
+            <p>tag_close 버튼으로 제거 가능한 태그를 만듭니다. Filled · Outline · Solid · 아이콘 조합이 가능합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tag_group tag_group-tight">
+              <span class="tag color_primary">
+                React
+                <button type="button" class="tag_close" aria-label="React 태그 제거">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </span>
+              <span class="tag tag_outline color_default">
+                Svelte
+                <button type="button" class="tag_close" aria-label="Svelte 태그 제거">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </span>
+              <span class="tag tag_solid color_danger">
+                Deprecated
+                <button type="button" class="tag_close" aria-label="Deprecated 태그 제거">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+            <div class="tag_group tag_group-tight">
+              <span class="tag tag_round color_success">
+                <span class="tag_icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                  </svg>
+                </span>
+                Frontend
+                <button type="button" class="tag_close" aria-label="Frontend 태그 제거">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </span>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;span class=&quot;tag color_primary&quot;&gt;
+    React
+    &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;React 태그 제거&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/span&gt;
+  &lt;span class=&quot;tag tag_outline color_default&quot;&gt;
+    Svelte
+    &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;Svelte 태그 제거&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/span&gt;
+  &lt;span class=&quot;tag tag_solid color_danger&quot;&gt;
+    Deprecated
+    &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;Deprecated 태그 제거&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;span class=&quot;tag tag_round color_success&quot;&gt;
+    &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;path d=&quot;M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+    Frontend
+    &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;Frontend 태그 제거&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="checkable-heading">
+          <div class="demo_section-header">
+            <h2 id="checkable-heading">선택 가능</h2>
+            <p>tag_checkable로 필터·토글 태그를 만듭니다. is-selected로 선택 상태를 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tag_group" role="group" aria-label="카테고리 필터">
+              <button type="button" class="tag tag_checkable color_default is-selected" aria-pressed="true">전체</button>
+              <button type="button" class="tag tag_checkable color_default" aria-pressed="false">UI</button>
+              <button type="button" class="tag tag_checkable color_default" aria-pressed="false">UX</button>
+              <button type="button" class="tag tag_checkable color_default" aria-pressed="false">개발</button>
+            </div>
+
+            <div class="tag_group" role="group" aria-label="상태 필터">
+              <button type="button" class="tag tag_checkable tag_round color_primary is-selected" aria-pressed="true">진행 중</button>
+              <button type="button" class="tag tag_checkable tag_round color_success is-selected" aria-pressed="true">완료</button>
+              <button type="button" class="tag tag_checkable tag_round color_warning" aria-pressed="false">보류</button>
+              <button type="button" class="tag tag_checkable tag_round color_danger" aria-pressed="false">취소</button>
+            </div>
+
+            <div class="tag_group tag_group-tight">
+              <button type="button" class="tag tag_sm tag_checkable color_default is-selected" aria-pressed="true">S</button>
+              <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">M</button>
+              <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">L</button>
+              <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">XL</button>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 카테고리 필터 --&gt;
+
+&lt;div class=&quot;tag_group&quot; role=&quot;group&quot; aria-label=&quot;카테고리 필터&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default is-selected&quot; aria-pressed=&quot;true&quot;&gt;전체&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;UI&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;UX&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;개발&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 상태 필터 --&gt;
+
+&lt;div class=&quot;tag_group&quot; role=&quot;group&quot; aria-label=&quot;상태 필터&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable tag_round color_primary is-selected&quot; aria-pressed=&quot;true&quot;&gt;진행 중&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable tag_round color_success is-selected&quot; aria-pressed=&quot;true&quot;&gt;완료&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable tag_round color_warning&quot; aria-pressed=&quot;false&quot;&gt;보류&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_checkable tag_round color_danger&quot; aria-pressed=&quot;false&quot;&gt;취소&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default is-selected&quot; aria-pressed=&quot;true&quot;&gt;S&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;M&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;L&lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;XL&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="add-heading">
+          <div class="demo_section-header">
+            <h2 id="add-heading">추가</h2>
+            <p>tag_add로 새 항목을 추가하는 버튼 형태의 태그를 만듭니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <button type="button" class="tag tag_add tag_round">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </span>
+              태그 추가
+            </button>
+            <button type="button" class="tag tag_add tag_sm">+ New Tag</button>
+            <button type="button" class="tag tag_add tag_lg tag_round">+ 카테고리 추가</button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_add --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;tag tag_add tag_round&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  태그 추가
+&lt;/button&gt;
+
+&lt;!-- tag_add --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;tag tag_add tag_sm&quot;&gt;+ New Tag&lt;/button&gt;
+
+&lt;!-- tag_add --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;tag tag_add tag_lg tag_round&quot;&gt;+ 카테고리 추가&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="link-heading">
+          <div class="demo_section-header">
+            <h2 id="link-heading">링크</h2>
+            <p>a 태그에 .tag 클래스를 적용해 클릭 가능한 태그 링크를 만듭니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <a href="#" class="tag color_primary">문서 보기</a>
+            <a href="#" class="tag tag_outline color_primary">가이드</a>
+            <a href="#" class="tag tag_solid color_primary">바로가기</a>
+            <a href="#" class="tag tag_round tag_outline color_success">
+              <span class="tag_icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/>
+                </svg>
+              </span>
+              외부 링크
+            </a>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 문서 보기 --&gt;
+
+&lt;a href=&quot;#&quot; class=&quot;tag color_primary&quot;&gt;문서 보기&lt;/a&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;a href=&quot;#&quot; class=&quot;tag tag_outline color_primary&quot;&gt;가이드&lt;/a&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;a href=&quot;#&quot; class=&quot;tag tag_solid color_primary&quot;&gt;바로가기&lt;/a&gt;
+
+&lt;!-- tag_round --&gt;
+
+&lt;a href=&quot;#&quot; class=&quot;tag tag_round tag_outline color_success&quot;&gt;
+  &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+      &lt;path d=&quot;M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6&quot;/&gt;
+      &lt;path d=&quot;M15 3h6v6&quot;/&gt;
+      &lt;path d=&quot;M10 14L21 3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/span&gt;
+  외부 링크
+&lt;/a&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="disabled-heading">
+          <div class="demo_section-header">
+            <h2 id="disabled-heading">비활성</h2>
+            <p>is-disabled로 비활성 상태를 표시합니다. button 태그에는 disabled 속성을 함께 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="tag color_primary is-disabled">Filled</span>
+            <span class="tag tag_outline color_success is-disabled">Outline</span>
+            <span class="tag tag_solid color_danger is-disabled">Solid</span>
+            <button type="button" class="tag tag_checkable color_default is-selected" disabled>선택됨 (비활성)</button>
+            <button type="button" class="tag tag_add" disabled>태그 추가 (비활성)</button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Filled --&gt;
+
+&lt;span class=&quot;tag color_primary is-disabled&quot;&gt;Filled&lt;/span&gt;
+
+&lt;!-- tag_outline --&gt;
+
+&lt;span class=&quot;tag tag_outline color_success is-disabled&quot;&gt;Outline&lt;/span&gt;
+
+&lt;!-- tag_solid --&gt;
+
+&lt;span class=&quot;tag tag_solid color_danger is-disabled&quot;&gt;Solid&lt;/span&gt;
+
+&lt;!-- tag_checkable --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default is-selected&quot; disabled&gt;선택됨 (비활성)&lt;/button&gt;
+
+&lt;!-- tag_add --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;tag tag_add&quot; disabled&gt;태그 추가 (비활성)&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="group-heading">
+          <div class="demo_section-header">
+            <h2 id="group-heading">그룹</h2>
+            <p>tag_group으로 여러 태그를 묶어 표시합니다. tag_group-tight로 간격을 줄일 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="tag_group">
+              <span class="tag color_primary">HTML</span>
+              <span class="tag color_primary">CSS</span>
+              <span class="tag color_primary">JavaScript</span>
+              <span class="tag color_default">TypeScript</span>
+              <span class="tag color_success">SCSS</span>
+            </div>
+
+            <div>
+              <p class="color_muted size_sm" style="margin-bottom: 0.5rem;">선택된 기술 스택</p>
+              <div class="tag_group tag_group-tight">
+                <span class="tag tag_round color_primary">
+                  React
+                  <button type="button" class="tag_close" aria-label="React 태그 제거">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                  </button>
+                </span>
+                <span class="tag tag_round color_primary">
+                  Next.js
+                  <button type="button" class="tag_close" aria-label="Next.js 태그 제거">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                  </button>
+                </span>
+                <button type="button" class="tag tag_add tag_round tag_sm">+ 추가</button>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- tag_group --&gt;
+
+&lt;div class=&quot;tag_group&quot;&gt;
+  &lt;span class=&quot;tag color_primary&quot;&gt;HTML&lt;/span&gt;
+  &lt;span class=&quot;tag color_primary&quot;&gt;CSS&lt;/span&gt;
+  &lt;span class=&quot;tag color_primary&quot;&gt;JavaScript&lt;/span&gt;
+  &lt;span class=&quot;tag color_default&quot;&gt;TypeScript&lt;/span&gt;
+  &lt;span class=&quot;tag color_success&quot;&gt;SCSS&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Muted --&gt;
+
+&lt;div&gt;
+  &lt;p class=&quot;color_muted size_sm&quot; style=&quot;margin-bottom: 0.5rem;&quot;&gt;선택된 기술 스택&lt;/p&gt;
+  &lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+    &lt;span class=&quot;tag tag_round color_primary&quot;&gt;
+      React
+      &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;React 태그 제거&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;tag tag_round color_primary&quot;&gt;
+      Next.js
+      &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;Next.js 태그 제거&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;tag tag_add tag_round tag_sm&quot;&gt;+ 추가&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

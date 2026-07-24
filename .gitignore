@@ -1,8 +1,4 @@
 node_modules/
-dist/
-apps/guide/dist/
-apps/storybook/storybook-static/
-.tmp-*/
 .sass-cache/
 *.css.map
 *.sass.map

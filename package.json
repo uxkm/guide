@@ -3,16 +3,23 @@
   "private": true,
   "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "dev": "pnpm --filter @uxkm/guide dev",
-    "dev:all": "pnpm --parallel --filter @uxkm/guide --filter @uxkm/storybook dev",
-    "build": "pnpm --filter @uxkm/guide build",
-    "preview": "pnpm --filter @uxkm/guide preview",
-    "storybook": "pnpm --filter @uxkm/storybook dev",
-    "build-storybook": "pnpm --filter @uxkm/storybook build",
-    "preview-storybook": "pnpm --filter @uxkm/storybook preview",
-    "generate-stories": "node scripts/generate-stories.mjs",
-    "generate-react-stories": "node scripts/generate-react-placeholder-stories.mjs",
-    "deploy:main": "bash scripts/deploy-main.sh",
-    "deploy:vue": "bash scripts/deploy-vue.sh"
+    "build": "gulp build",
+    "dev": "gulp",
+    "watch": "gulp watch",
+    "deploy:main": "bash scripts/deploy-main.sh"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "del": "^8.0.0",
+    "gulp": "^5.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.83.0",
+    "sharp": "^0.34.2",
+    "through2": "^4.0.2"
+  },
+  "dependencies": {
+    "swiper": "12"
   }
 }

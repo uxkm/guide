@@ -1,0 +1,412 @@
+<!-- @meta
+title: Dropdown | HTML Components
+activeNav: dropdown
+pageTitle: Dropdown
+-->
+<div class="page_intro">
+  <h1>Dropdown</h1>
+  <p class="lead">버튼·링크 등 트리거를 클릭하면 메뉴 패널이 표시되는 Dropdown 컴포넌트입니다. Menu 컴포넌트와 조합해 액션 목록·사용자 메뉴·필터 등에 사용합니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>dropdown · dropdown_trigger · dropdown_menu으로 트리거와 패널을 구성합니다. 패널 안에는 menu_vertical · menu_compact를 배치합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="dropdown" data-dropdown>
+      <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-basic-menu">
+        <span class="btn_label">작업</span>
+        <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="dropdown_menu" id="dd-basic-menu" role="menu" aria-label="작업 메뉴">
+        <ul class="menu menu_vertical menu_compact" role="none">
+          <li class="menu_item" role="none">
+            <button type="button" class="menu_link" role="menuitem">복사</button>
+          </li>
+          <li class="menu_item" role="none">
+            <button type="button" class="menu_link" role="menuitem">이동</button>
+          </li>
+          <li class="menu_item" role="none">
+            <button type="button" class="menu_link" role="menuitem">공유</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="open-heading">
+  <div class="demo_section-header">
+    <h2 id="open-heading">열린 상태</h2>
+    <p>is-open 클래스와 aria-expanded="true"로 패널이 열린 상태를 표현합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="dropdown is-open">
+      <button type="button" class="btn btn_filled color_primary dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-open-menu">
+        <span class="btn_label">카테고리</span>
+        <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="dropdown_menu" id="dd-open-menu" role="menu" aria-label="카테고리">
+        <ul class="menu menu_vertical menu_compact" role="none">
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link is-active" role="menuitem" aria-current="true">전체</a>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">디자인</a>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">개발</a>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">마케팅</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="trigger-heading">
+  <div class="demo_section-header">
+    <h2 id="trigger-heading">트리거 유형</h2>
+    <p>Button 컴포넌트 스킨을 트리거로 사용합니다. filled · outline · ghost · text · icon-only 조합이 가능합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="dropdown_row">
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_filled color_primary dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-trigger-filled">
+          <span class="btn_label">Filled</span>
+        </button>
+        <div class="dropdown_menu" id="dd-trigger-filled" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-trigger-outline">
+          <span class="btn_label">Outline</span>
+        </button>
+        <div class="dropdown_menu" id="dd-trigger-outline" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_ghost dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-trigger-ghost">
+          <span class="btn_label">Ghost</span>
+        </button>
+        <div class="dropdown_menu" id="dd-trigger-ghost" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_text color_primary dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-trigger-text">
+          <span class="btn_label">Text</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-trigger-text" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_ghost btn_icon-only dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-trigger-icon" aria-label="더보기">
+          <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-trigger-icon" role="menu" aria-label="더보기">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">편집</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">복제</button></li>
+            <li class="menu_divider" role="separator"></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link color_danger" role="menuitem">삭제</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="select-trigger-heading">
+  <div class="demo_section-header">
+    <h2 id="select-trigger-heading">셀렉트 트리거</h2>
+    <p>btn_select · btn_select-text를 트리거로 사용합니다. Select 컴포넌트의 커스텀 트리거와 동일한 스타일입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="dropdown_row">
+      <div class="dropdown dropdown_fit" data-dropdown>
+        <button type="button" class="btn btn_select dropdown_trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="dd-select-box">
+          <span class="btn_label">서울특별시</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-select-box" role="listbox" aria-label="지역 선택">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true">서울특별시</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">부산광역시</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">대구광역시</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">인천광역시</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_select btn_select-text dropdown_trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="dd-select-text">
+          <span class="btn_label">최신순</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-select-text" role="listbox" aria-label="정렬">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true">최신순</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">인기순</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">가격 낮은순</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">가격 높은순</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="form_field-hint">btn_select 상세 변형은 <a href="button.html#type-select-heading">Button — 셀렉트 박스형</a> 섹션을 참고하세요.</p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="placement-heading">
+  <div class="demo_section-header">
+    <h2 id="placement-heading">정렬</h2>
+    <p>dropdown_placement-end · dropdown_placement-top으로 패널 위치를 조정합니다. 기본은 트리거 왼쪽 아래입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="dropdown_row" style="width: 100%; justify-content: space-between;">
+      <div class="dropdown" data-dropdown>
+        <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-place-start">
+          <span class="btn_label">왼쪽 정렬</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-place-start" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 A</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 B</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown dropdown_placement-end" data-dropdown>
+        <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-place-end">
+          <span class="btn_label">오른쪽 정렬</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-place-end" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 A</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 B</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; padding-top: 6rem;">
+      <div class="dropdown dropdown_placement-top" data-dropdown>
+        <button type="button" class="btn btn_ghost dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-place-top">
+          <span class="btn_label">위로 열기</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-place-top" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">위쪽 패널</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="menu-heading">
+  <div class="demo_section-header">
+    <h2 id="menu-heading">메뉴 구성</h2>
+    <p>Menu 컴포넌트의 아이콘 · 구분선 · 그룹 · 배지를 dropdown_menu 안에서 그대로 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="dropdown is-open">
+      <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-menu-rich">
+        <span class="btn_label">계정</span>
+        <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div class="dropdown_menu" id="dd-menu-rich" role="menu" aria-label="계정 메뉴">
+        <ul class="menu menu_vertical menu_compact" role="none">
+          <li class="menu_group" role="presentation">
+            <span class="menu_group-title">계정</span>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span class="menu_label">프로필</span>
+            </a>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span class="menu_label">보안</span>
+            </a>
+          </li>
+          <li class="menu_divider" role="separator"></li>
+          <li class="menu_group" role="presentation">
+            <span class="menu_group-title">앱</span>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/>
+              </svg>
+              <span class="menu_label">알림</span>
+              <span class="badge badge_count color_primary menu_extra">3</span>
+            </a>
+          </li>
+          <li class="menu_item" role="none">
+            <a href="#" class="menu_link" role="menuitem">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+              <span class="menu_label">설정</span>
+            </a>
+          </li>
+          <li class="menu_divider" role="separator"></li>
+          <li class="menu_item" role="none">
+            <button type="button" class="menu_link color_danger" role="menuitem">로그아웃</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="disabled-heading">
+  <div class="demo_section-header">
+    <h2 id="disabled-heading">비활성</h2>
+    <p>dropdown.is-disabled로 전체를 비활성화하거나, menu_item.is-disabled · menu_link.is-disabled로 개별 항목을 막습니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="dropdown_row">
+      <div class="dropdown is-disabled">
+        <button type="button" class="btn btn_outline dropdown_trigger" disabled aria-haspopup="menu" aria-expanded="false" aria-controls="dd-disabled-all">
+          <span class="btn_label">비활성 드롭다운</span>
+        </button>
+        <div class="dropdown_menu" id="dd-disabled-all" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목</button></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dropdown is-open">
+        <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-disabled-item">
+          <span class="btn_label">일부 비활성</span>
+        </button>
+        <div class="dropdown_menu" id="dd-disabled-item" role="menu">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">조회</button></li>
+            <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">편집</button></li>
+            <li class="menu_item is-disabled" role="none"><span class="menu_link is-disabled" role="menuitem" aria-disabled="true">삭제</span></li>
+            <li class="menu_item is-disabled" role="none"><button type="button" class="menu_link is-disabled" role="menuitem" disabled aria-disabled="true">관리자 설정</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="example-heading">
+  <div class="demo_section-header">
+    <h2 id="example-heading">조합 예시</h2>
+    <p>툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. data-dropdown으로 클릭·Esc·외부 클릭 시 닫힙니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <div class="dropdown_demo-toolbar">
+      <button type="button" class="btn btn_ghost btn_sm">
+        <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/>
+        </svg>
+        <span class="btn_label">알림</span>
+        <span class="badge badge_count badge_sm color_danger" aria-label="읽지 않은 알림 2건">2</span>
+      </button>
+
+      <div class="dropdown dropdown_placement-end" data-dropdown data-dropdown-close-on-select>
+        <button type="button" class="btn btn_ghost btn_sm dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-example-user">
+          <span class="avatar avatar_sm color_primary" aria-hidden="true">김</span>
+          <span class="btn_label">김가이드</span>
+          <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="dropdown_menu" id="dd-example-user" role="menu" aria-label="사용자 메뉴">
+          <ul class="menu menu_vertical menu_compact" role="none">
+            <li class="menu_item" role="none">
+              <a href="#" class="menu_link" role="menuitem">
+                <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span class="menu_label">내 프로필</span>
+              </a>
+            </li>
+            <li class="menu_item" role="none">
+              <a href="#" class="menu_link" role="menuitem">
+                <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                </svg>
+                <span class="menu_label">내 문서</span>
+              </a>
+            </li>
+            <li class="menu_divider" role="separator"></li>
+            <li class="menu_item" role="none">
+              <button type="button" class="menu_link color_danger" role="menuitem">로그아웃</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

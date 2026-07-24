@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badge | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="badge">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Badge</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Badge</h1>
+          <p class="lead">상태, 카운트, 레이블을 표시하는 작은 배지 컴포넌트입니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>공통 color_* 클래스로 의미에 따른 색상을 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="badge color_default">Default</span>
+            <span class="badge color_primary">Primary</span>
+            <span class="badge color_success">Success</span>
+            <span class="badge color_warning">Warning</span>
+            <span class="badge color_danger">Danger</span>
+            <span class="badge color_info">Info</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Default --&gt;
+
+&lt;span class=&quot;badge color_default&quot;&gt;Default&lt;/span&gt;
+
+&lt;!-- Primary --&gt;
+
+&lt;span class=&quot;badge color_primary&quot;&gt;Primary&lt;/span&gt;
+
+&lt;!-- Success --&gt;
+
+&lt;span class=&quot;badge color_success&quot;&gt;Success&lt;/span&gt;
+
+&lt;!-- Warning --&gt;
+
+&lt;span class=&quot;badge color_warning&quot;&gt;Warning&lt;/span&gt;
+
+&lt;!-- Danger --&gt;
+
+&lt;span class=&quot;badge color_danger&quot;&gt;Danger&lt;/span&gt;
+
+&lt;!-- Info --&gt;
+
+&lt;span class=&quot;badge color_info&quot;&gt;Info&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>badge_sm · badge_lg로 스케일을 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="badge badge_sm color_primary">Small</span>
+            <span class="badge color_primary">Medium</span>
+            <span class="badge badge_lg color_primary">Large</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Small --&gt;
+
+&lt;span class=&quot;badge badge_sm color_primary&quot;&gt;Small&lt;/span&gt;
+
+&lt;!-- Medium --&gt;
+
+&lt;span class=&quot;badge color_primary&quot;&gt;Medium&lt;/span&gt;
+
+&lt;!-- Large --&gt;
+
+&lt;span class=&quot;badge badge_lg color_primary&quot;&gt;Large&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="dot-heading">
+          <div class="demo_section-header">
+            <h2 id="dot-heading">Dot 배지</h2>
+            <p>badge_dot로 상태 표시용 점(dot)이 포함된 배지를 만듭니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="badge color_primary badge_dot">Online</span>
+            <span class="badge color_success badge_dot">Active</span>
+            <span class="badge color_warning badge_dot">Away</span>
+            <span class="badge color_danger badge_dot">Offline</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Online --&gt;
+
+&lt;span class=&quot;badge color_primary badge_dot&quot;&gt;Online&lt;/span&gt;
+
+&lt;!-- Active --&gt;
+
+&lt;span class=&quot;badge color_success badge_dot&quot;&gt;Active&lt;/span&gt;
+
+&lt;!-- Away --&gt;
+
+&lt;span class=&quot;badge color_warning badge_dot&quot;&gt;Away&lt;/span&gt;
+
+&lt;!-- Offline --&gt;
+
+&lt;span class=&quot;badge color_danger badge_dot&quot;&gt;Offline&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="count-heading">
+          <div class="demo_section-header">
+            <h2 id="count-heading">카운트</h2>
+            <p>badge_count로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="badge badge_count color_danger">3</span>
+            <span class="badge badge_count color_primary">12</span>
+            <span class="badge badge_count color_success">99+</span>
+            <span class="badge badge_count badge_sm color_danger">5</span>
+            <span class="badge badge_count badge_lg color_primary">New</span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 3 --&gt;
+
+&lt;span class=&quot;badge badge_count color_danger&quot;&gt;3&lt;/span&gt;
+
+&lt;!-- 12 --&gt;
+
+&lt;span class=&quot;badge badge_count color_primary&quot;&gt;12&lt;/span&gt;
+
+&lt;!-- 99+ --&gt;
+
+&lt;span class=&quot;badge badge_count color_success&quot;&gt;99+&lt;/span&gt;
+
+&lt;!-- 5 --&gt;
+
+&lt;span class=&quot;badge badge_count badge_sm color_danger&quot;&gt;5&lt;/span&gt;
+
+&lt;!-- New --&gt;
+
+&lt;span class=&quot;badge badge_count badge_lg color_primary&quot;&gt;New&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="wrap-heading">
+          <div class="demo_section-header">
+            <h2 id="wrap-heading">겹침 표시</h2>
+            <p>badge_wrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <span class="badge_wrap">
+              <button type="button" class="btn btn_filled color_primary">
+                <span class="btn_label">알림</span>
+              </button>
+              <span class="badge badge_count color_danger" aria-label="읽지 않은 알림 5건">5</span>
+            </span>
+
+            <span class="badge_wrap">
+              <button type="button" class="btn btn_ghost" aria-label="메시지">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </button>
+              <span class="badge badge_count color_danger" aria-label="새 메시지 12건">12</span>
+            </span>
+
+            <span class="badge_wrap">
+              <span class="avatar color_primary" aria-hidden="true">홍</span>
+              <span class="badge_dot-only color_success" role="status" aria-label="온라인"></span>
+            </span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 읽지 않은 알림 5건 --&gt;
+
+&lt;span class=&quot;badge_wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;알림&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class=&quot;badge badge_count color_danger&quot; aria-label=&quot;읽지 않은 알림 5건&quot;&gt;5&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- 메시지 --&gt;
+
+&lt;span class=&quot;badge_wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot; aria-label=&quot;메시지&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;span class=&quot;badge badge_count color_danger&quot; aria-label=&quot;새 메시지 12건&quot;&gt;12&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- 온라인 --&gt;
+
+&lt;span class=&quot;badge_wrap&quot;&gt;
+  &lt;span class=&quot;avatar color_primary&quot; aria-hidden=&quot;true&quot;&gt;홍&lt;/span&gt;
+  &lt;span class=&quot;badge_dot-only color_success&quot; role=&quot;status&quot; aria-label=&quot;온라인&quot;&gt;
+  &lt;/span&gt;
+&lt;/span&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

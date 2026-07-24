@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="rate">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="M14 9l3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Rate</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Rate</h1>
+          <p class="lead">별점·만족도를 선택하는 Rate 컴포넌트입니다. <code>fieldset</code>과 <code>input type="radio"</code>로 폼 값을 전달하며, <strong>rate_allow-half</strong>로 반별, <strong>rate_clearable</strong>로 선택 해제를 지원합니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="type-heading">
+          <div class="demo_section-header">
+            <h2 id="type-heading">유형</h2>
+            <p>접근 가능한 이름 지정 방식별 예시입니다. <code>legend</code> · <code>aria-labelledby</code> · <code>aria-label</code>을 상황에 맞게 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate">
+              <legend class="rate_legend">legend — 상품 만족도</legend>
+              <div class="rate_control">
+                <div class="rate_stars">
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-legend" value="1">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">1점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-legend" value="2">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">2점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-legend" value="3" checked>
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">3점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-legend" value="4">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">4점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-legend" value="5">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">5점</span>
+                  </label>
+                </div>
+                <output class="rate_value" data-rate-output>3점</output>
+              </div>
+            </fieldset>
+
+            <div class="rate" role="group" aria-labelledby="rate-type-labelledby-label">
+              <span class="rate_legend" id="rate-type-labelledby-label">aria-labelledby — 서비스 평가</span>
+              <div class="rate_control">
+                <div class="rate_stars">
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-labelledby" value="1">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">1점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-labelledby" value="2">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">2점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-labelledby" value="3">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">3점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-labelledby" value="4" checked>
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">4점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-labelledby" value="5">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">5점</span>
+                  </label>
+                </div>
+                <output class="rate_value" data-rate-output>4점</output>
+              </div>
+            </div>
+
+            <fieldset class="rate">
+              <legend class="rate_legend">aria-label — 단독</legend>
+              <div class="rate_control">
+                <div class="rate_stars" aria-label="별점 5점 만점">
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-aria" value="1">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">1점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-aria" value="2">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">2점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-aria" value="3">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">3점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-aria" value="4">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">4점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-type-aria" value="5">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">5점</span>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 예시 1 --&gt;
+
+&lt;fieldset class=&quot;rate&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;legend — 상품 만족도&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-legend&quot; value=&quot;1&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-legend&quot; value=&quot;2&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-legend&quot; value=&quot;3&quot; checked&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-legend&quot; value=&quot;4&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-legend&quot; value=&quot;5&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;3점&lt;/output&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- 예시 2 --&gt;
+
+&lt;div class=&quot;rate&quot; role=&quot;group&quot; aria-labelledby=&quot;rate-type-labelledby-label&quot;&gt;
+  &lt;span class=&quot;rate_legend&quot; id=&quot;rate-type-labelledby-label&quot;&gt;aria-labelledby — 서비스 평가&lt;/span&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-labelledby&quot; value=&quot;1&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-labelledby&quot; value=&quot;2&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-labelledby&quot; value=&quot;3&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-labelledby&quot; value=&quot;4&quot; checked&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-labelledby&quot; value=&quot;5&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;4점&lt;/output&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 별점 5점 만점 --&gt;
+
+&lt;fieldset class=&quot;rate&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;aria-label — 단독&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot; aria-label=&quot;별점 5점 만점&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-aria&quot; value=&quot;1&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-aria&quot; value=&quot;2&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-aria&quot; value=&quot;3&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-aria&quot; value=&quot;4&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-type-aria&quot; value=&quot;5&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>rate_stars 안에 rate_star 레이블을 배치합니다. 같은 name의 radio로 단일 값을 선택합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate">
+              <legend class="rate_legend">배송 속도</legend>
+              <div class="rate_control">
+                <div class="rate_stars">
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-basic" value="1">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">1점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-basic" value="2">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">2점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-basic" value="3" checked>
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">3점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-basic" value="4">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">4점</span>
+                  </label>
+                  <label class="rate_star">
+                    <input type="radio" class="rate_input" name="rate-basic" value="5">
+                    <span class="rate_star-graphic" aria-hidden="true">
+                      <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </span>
+                    <span class="rate_star-label">5점</span>
+                  </label>
+                </div>
+                <output class="rate_value" data-rate-output>3점</output>
+              </div>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;fieldset class=&quot;rate&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;배송 속도&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-basic&quot; value=&quot;1&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-basic&quot; value=&quot;2&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-basic&quot; value=&quot;3&quot; checked&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-basic&quot; value=&quot;4&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-basic&quot; value=&quot;5&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;3점&lt;/output&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>rate_sm · rate(기본) · rate_lg로 별 크기를 조절합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate rate_sm">
+              <legend class="rate_legend">Small — rate_sm</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-sm" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-sm" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-sm" value="3" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-sm" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-sm" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+
+            <fieldset class="rate">
+              <legend class="rate_legend">Medium — 기본</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-md" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-md" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-md" value="3" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-md" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-md" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+
+            <fieldset class="rate rate_lg">
+              <legend class="rate_legend">Large — rate_lg</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-lg" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-lg" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-lg" value="3" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-lg" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-size-lg" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 예시 1 --&gt;
+
+&lt;fieldset class=&quot;rate rate_sm&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Small — rate_sm&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-sm&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-sm&quot; value=&quot;2&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-sm&quot; value=&quot;3&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-sm&quot; value=&quot;4&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-sm&quot; value=&quot;5&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- 예시 2 --&gt;
+
+&lt;fieldset class=&quot;rate&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Medium — 기본&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-md&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-md&quot; value=&quot;2&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-md&quot; value=&quot;3&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-md&quot; value=&quot;4&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-md&quot; value=&quot;5&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- 예시 3 --&gt;
+
+&lt;fieldset class=&quot;rate rate_lg&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Large — rate_lg&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-lg&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-lg&quot; value=&quot;2&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-lg&quot; value=&quot;3&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-lg&quot; value=&quot;4&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-size-lg&quot; value=&quot;5&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="color-heading">
+          <div class="demo_section-header">
+            <h2 id="color-heading">색상</h2>
+            <p>기본은 warning(별색)입니다. color_primary · color_success · color_danger · color_warning으로 채움 색을 지정합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate color_primary">
+              <legend class="rate_legend">Primary</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-primary" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-primary" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-primary" value="3"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-primary" value="4" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-primary" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+
+            <fieldset class="rate color_success">
+              <legend class="rate_legend">Success</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-success" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-success" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-success" value="3"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-success" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-success" value="5" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+
+            <fieldset class="rate color_danger">
+              <legend class="rate_legend">Danger</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-danger" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-danger" value="2" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-danger" value="3"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-danger" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-color-danger" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Primary --&gt;
+
+&lt;fieldset class=&quot;rate color_primary&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Primary&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-primary&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-primary&quot; value=&quot;2&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-primary&quot; value=&quot;3&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-primary&quot; value=&quot;4&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-primary&quot; value=&quot;5&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- Success --&gt;
+
+&lt;fieldset class=&quot;rate color_success&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Success&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-success&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-success&quot; value=&quot;2&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-success&quot; value=&quot;3&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-success&quot; value=&quot;4&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-success&quot; value=&quot;5&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- Danger --&gt;
+
+&lt;fieldset class=&quot;rate color_danger&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;Danger&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-danger&quot; value=&quot;1&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-danger&quot; value=&quot;2&quot; checked&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-danger&quot; value=&quot;3&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-danger&quot; value=&quot;4&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-color-danger&quot; value=&quot;5&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="half-heading">
+          <div class="demo_section-header">
+            <h2 id="half-heading">반별</h2>
+            <p><code>rate_allow-half</code>를 추가하면 별 왼쪽 절반 클릭으로 0.5 단위 선택이 가능합니다. 각 별에 <code>rate_input-half</code>와 <code>rate_star-half</code> 버튼을 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate rate_allow-half">
+              <legend class="rate_legend">정밀 평가 — rate_allow-half</legend>
+              <div class="rate_control">
+                <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-half" value="1"><input type="radio" class="rate_input rate_input-half" name="rate-half" value="0.5"><button type="button" class="rate_star-half rate_star-half-left" tabindex="-1" aria-hidden="true"></button><button type="button" class="rate_star-half rate_star-half-right" tabindex="-1" aria-hidden="true"></button><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-half" value="2"><input type="radio" class="rate_input rate_input-half" name="rate-half" value="1.5"><button type="button" class="rate_star-half rate_star-half-left" tabindex="-1" aria-hidden="true"></button><button type="button" class="rate_star-half rate_star-half-right" tabindex="-1" aria-hidden="true"></button><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-half" value="3"><input type="radio" class="rate_input rate_input-half" name="rate-half" value="2.5"><button type="button" class="rate_star-half rate_star-half-left" tabindex="-1" aria-hidden="true"></button><button type="button" class="rate_star-half rate_star-half-right" tabindex="-1" aria-hidden="true"></button><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-half" value="4"><input type="radio" class="rate_input rate_input-half" name="rate-half" value="3.5" checked><button type="button" class="rate_star-half rate_star-half-left" tabindex="-1" aria-hidden="true"></button><button type="button" class="rate_star-half rate_star-half-right" tabindex="-1" aria-hidden="true"></button><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-half" value="5"><input type="radio" class="rate_input rate_input-half" name="rate-half" value="4.5"><button type="button" class="rate_star-half rate_star-half-left" tabindex="-1" aria-hidden="true"></button><button type="button" class="rate_star-half rate_star-half-right" tabindex="-1" aria-hidden="true"></button><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span><span class="rate_star-label">5점</span></label></div>
+                <output class="rate_value" data-rate-output>3.5점</output>
+              </div>
+              <p class="rate_hint">별 왼쪽을 클릭하면 반별, 오른쪽을 클릭하면 정수 점수가 선택됩니다.</p>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;fieldset class=&quot;rate rate_allow-half&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;정밀 평가 — rate_allow-half&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-half&quot; value=&quot;1&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input rate_input-half&quot; name=&quot;rate-half&quot; value=&quot;0.5&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-left&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-right&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+            &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+              &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-half&quot; value=&quot;2&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input rate_input-half&quot; name=&quot;rate-half&quot; value=&quot;1.5&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-left&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-right&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+            &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+              &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-half&quot; value=&quot;3&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input rate_input-half&quot; name=&quot;rate-half&quot; value=&quot;2.5&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-left&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-right&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+            &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+              &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-half&quot; value=&quot;4&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input rate_input-half&quot; name=&quot;rate-half&quot; value=&quot;3.5&quot; checked&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-left&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-right&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+            &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+              &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-half&quot; value=&quot;5&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input rate_input-half&quot; name=&quot;rate-half&quot; value=&quot;4.5&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-left&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;rate_star-half rate_star-half-right&quot; tabindex=&quot;-1&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/button&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+            &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+              &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+            &lt;/svg&gt;
+          &lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;3.5점&lt;/output&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;rate_hint&quot;&gt;별 왼쪽을 클릭하면 반별, 오른쪽을 클릭하면 정수 점수가 선택됩니다.&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="clear-heading">
+          <div class="demo_section-header">
+            <h2 id="clear-heading">선택 해제</h2>
+            <p><code>rate_clearable</code>을 추가하면 선택된 별을 다시 클릭하거나 초기화 버튼으로 값을 지울 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate rate_clearable">
+              <legend class="rate_legend">만족도 — rate_clearable</legend>
+              <div class="rate_control">
+                <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-clear" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-clear" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-clear" value="3"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-clear" value="4" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-clear" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+                <button type="button" class="rate_clear" aria-label="별점 초기화" title="초기화">
+                  <svg class="rate_clear-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+                <output class="rate_value" data-rate-output>4점</output>
+              </div>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;fieldset class=&quot;rate rate_clearable&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;만족도 — rate_clearable&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-clear&quot; value=&quot;1&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-clear&quot; value=&quot;2&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-clear&quot; value=&quot;3&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-clear&quot; value=&quot;4&quot; checked&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-clear&quot; value=&quot;5&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;button&quot; class=&quot;rate_clear&quot; aria-label=&quot;별점 초기화&quot; title=&quot;초기화&quot;&gt;
+      &lt;svg class=&quot;rate_clear-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;4점&lt;/output&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="readonly-heading">
+          <div class="demo_section-header">
+            <h2 id="readonly-heading">읽기 전용</h2>
+            <p><code>is-readonly</code>로 표시 전용 별점을 렌더합니다. 평균 평점·리뷰 요약에 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="rate is-readonly" role="img" aria-label="5점 만점 중 4.5점">
+              <div class="rate_stars">
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly is-half"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="rate_star-icon-half"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span></span>
+              </div>
+              <span class="rate_value">4.5</span>
+            </div>
+
+            <div class="rate is-readonly rate_sm" role="img" aria-label="5점 만점 중 2점">
+              <div class="rate_stars">
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly is-filled"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+                <span class="rate_star-readonly"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 5점 만점 중 4.5점 --&gt;
+
+&lt;div class=&quot;rate is-readonly&quot; role=&quot;img&quot; aria-label=&quot;5점 만점 중 4.5점&quot;&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly is-half&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;span class=&quot;rate_star-icon-half&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;rate_value&quot;&gt;4.5&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- 5점 만점 중 2점 --&gt;
+
+&lt;div class=&quot;rate is-readonly rate_sm&quot; role=&quot;img&quot; aria-label=&quot;5점 만점 중 2점&quot;&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly is-filled&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;rate_star-readonly&quot;&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="state-heading">
+          <div class="demo_section-header">
+            <h2 id="state-heading">상태</h2>
+            <p>비활성·오류(is-error) 상태를 지원합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <fieldset class="rate" disabled>
+              <legend class="rate_legend">비활성</legend>
+              <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-disabled" value="1" disabled><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-disabled" value="2" disabled><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-disabled" value="3" checked disabled><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-disabled" value="4" disabled><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-disabled" value="5" disabled><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+            </fieldset>
+
+            <fieldset class="rate is-error">
+              <legend class="rate_legend">오류 — is-error</legend>
+              <div class="rate_control">
+                <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-error" value="1" aria-invalid="true"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-error" value="2" aria-invalid="true"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-error" value="3" aria-invalid="true"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-error" value="4" aria-invalid="true"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-state-error" value="5" aria-invalid="true"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+                <output class="rate_value" data-rate-output></output>
+              </div>
+              <p class="form_field-error">별점을 선택해 주세요.</p>
+            </fieldset>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 예시 1 --&gt;
+
+&lt;fieldset class=&quot;rate&quot; disabled&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;비활성&lt;/legend&gt;
+  &lt;div class=&quot;rate_stars&quot;&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-disabled&quot; value=&quot;1&quot; disabled&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-disabled&quot; value=&quot;2&quot; disabled&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-disabled&quot; value=&quot;3&quot; checked disabled&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-disabled&quot; value=&quot;4&quot; disabled&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+    &lt;/label&gt;
+    &lt;label class=&quot;rate_star&quot;&gt;
+      &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-disabled&quot; value=&quot;5&quot; disabled&gt;
+      &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+        &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+          &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/span&gt;
+      &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;!-- 별점을 선택해 주세요. --&gt;
+
+&lt;fieldset class=&quot;rate is-error&quot;&gt;
+  &lt;legend class=&quot;rate_legend&quot;&gt;오류 — is-error&lt;/legend&gt;
+  &lt;div class=&quot;rate_control&quot;&gt;
+    &lt;div class=&quot;rate_stars&quot;&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-error&quot; value=&quot;1&quot; aria-invalid=&quot;true&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-error&quot; value=&quot;2&quot; aria-invalid=&quot;true&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-error&quot; value=&quot;3&quot; aria-invalid=&quot;true&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-error&quot; value=&quot;4&quot; aria-invalid=&quot;true&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;label class=&quot;rate_star&quot;&gt;
+        &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-state-error&quot; value=&quot;5&quot; aria-invalid=&quot;true&quot;&gt;
+        &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;output class=&quot;rate_value&quot; data-rate-output&gt;
+    &lt;/output&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;form_field-error&quot;&gt;별점을 선택해 주세요.&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="form-heading">
+          <div class="demo_section-header">
+            <h2 id="form-heading">폼 레이아웃</h2>
+            <p>form_field · form_vertical과 함께 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <form class="form form_vertical form_fit">
+              <div class="form_field">
+                <span class="form_field-label" id="rate-form-label">상품 만족도</span>
+                <fieldset class="rate" aria-labelledby="rate-form-label">
+                  <div class="rate_control">
+                    <div class="rate_stars"><label class="rate_star"><input type="radio" class="rate_input" name="rate-form" value="1" required><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-form" value="2" required><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-form" value="3" required><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-form" value="4" required><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label><label class="rate_star"><input type="radio" class="rate_input" name="rate-form" value="5" required><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label></div>
+                    <output class="rate_value" data-rate-output></output>
+                  </div>
+                </fieldset>
+                <p class="form_field-hint">1~5점 사이로 평가해 주세요.</p>
+              </div>
+            </form>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;form class=&quot;form form_vertical form_fit&quot;&gt;
+  &lt;div class=&quot;form_field&quot;&gt;
+    &lt;span class=&quot;form_field-label&quot; id=&quot;rate-form-label&quot;&gt;상품 만족도&lt;/span&gt;
+    &lt;fieldset class=&quot;rate&quot; aria-labelledby=&quot;rate-form-label&quot;&gt;
+      &lt;div class=&quot;rate_control&quot;&gt;
+        &lt;div class=&quot;rate_stars&quot;&gt;
+          &lt;label class=&quot;rate_star&quot;&gt;
+            &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-form&quot; value=&quot;1&quot; required&gt;
+            &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+            &lt;/span&gt;
+            &lt;span class=&quot;rate_star-label&quot;&gt;1점&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class=&quot;rate_star&quot;&gt;
+            &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-form&quot; value=&quot;2&quot; required&gt;
+            &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+            &lt;/span&gt;
+            &lt;span class=&quot;rate_star-label&quot;&gt;2점&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class=&quot;rate_star&quot;&gt;
+            &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-form&quot; value=&quot;3&quot; required&gt;
+            &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+            &lt;/span&gt;
+            &lt;span class=&quot;rate_star-label&quot;&gt;3점&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class=&quot;rate_star&quot;&gt;
+            &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-form&quot; value=&quot;4&quot; required&gt;
+            &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+            &lt;/span&gt;
+            &lt;span class=&quot;rate_star-label&quot;&gt;4점&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class=&quot;rate_star&quot;&gt;
+            &lt;input type=&quot;radio&quot; class=&quot;rate_input&quot; name=&quot;rate-form&quot; value=&quot;5&quot; required&gt;
+            &lt;span class=&quot;rate_star-graphic&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;svg class=&quot;rate_star-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;svg class=&quot;rate_star-icon rate_star-icon-filled&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot;&gt;
+                &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot;/&gt;
+              &lt;/svg&gt;
+            &lt;/span&gt;
+            &lt;span class=&quot;rate_star-label&quot;&gt;5점&lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;output class=&quot;rate_value&quot; data-rate-output&gt;
+        &lt;/output&gt;
+      &lt;/div&gt;
+    &lt;/fieldset&gt;
+    &lt;p class=&quot;form_field-hint&quot;&gt;1~5점 사이로 평가해 주세요.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+</body>
+</html>

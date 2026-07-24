@@ -1,0 +1,237 @@
+@use "sass:meta";
+@use "../variables" as *;
+@use "../mixins" as *;
+
+@include meta.load-css("../../../node_modules/swiper/swiper-bundle.min.css");
+
+// Carousel — Swiper 기반
+//
+//   <div class="carousel carousel_demo">
+//     <div class="swiper" data-swiper>
+//       <div class="swiper-wrapper">
+//         <div class="swiper-slide"><article class="card">…</article></div>
+//       </div>
+//       <div class="swiper-button-prev" aria-label="이전 슬라이드"></div>
+//       <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
+//       <div class="swiper-pagination"></div>
+//     </div>
+//   </div>
+
+.carousel {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  font-size: var(--carousel-font-size);
+  color: var(--color-text);
+
+  &_demo {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .swiper {
+    width: 100%;
+    min-height: var(--carousel-height);
+    border-radius: var(--carousel-radius);
+    overflow: hidden;
+    --swiper-navigation-size: var(--carousel-nav-icon-size);
+    --swiper-navigation-color: var(--carousel-nav-color);
+    --swiper-navigation-sides-offset: var(--carousel-nav-offset);
+    --swiper-pagination-color: var(--carousel-dot-bg-active);
+    --swiper-pagination-bullet-size: var(--carousel-dot-size);
+    --swiper-pagination-bullet-horizontal-gap: var(--carousel-dot-gap);
+    --swiper-pagination-bullet-inactive-color: var(--carousel-dot-bg);
+    --swiper-pagination-bullet-inactive-opacity: 1;
+    --swiper-pagination-bottom: var(--carousel-dots-padding-y);
+  }
+
+  &:not(.carousel_multi) .swiper-slide {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .swiper-slide {
+    display: flex;
+    height: auto;
+    box-sizing: border-box;
+
+    > .card {
+      width: 100%;
+      min-height: var(--carousel-height);
+      border-radius: 0;
+    }
+  }
+
+  .swiper[data-swiper-space-between] .swiper-slide > .card,
+  &_multi .swiper-slide > .card {
+    border-radius: $radius-lg;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--carousel-nav-size);
+    height: var(--carousel-nav-size);
+    margin-top: calc(var(--carousel-nav-size) * -0.5);
+    border: 1px solid var(--carousel-nav-border);
+    border-radius: $radius-pill;
+    background: var(--carousel-nav-bg);
+    box-shadow: var(--shadow-sm);
+    transition:
+      background-color $transition-fast,
+      border-color $transition-fast,
+      color $transition-fast,
+      opacity $transition-fast;
+    @include focus-ring;
+
+    &::after {
+      font-size: var(--carousel-nav-icon-size);
+      font-weight: 700;
+    }
+
+    &:hover {
+      background: var(--carousel-nav-bg-hover);
+      border-color: var(--carousel-nav-border-hover);
+      color: var(--carousel-nav-color-hover);
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    opacity: 1;
+    transition:
+      background-color $transition-fast,
+      width $transition-fast,
+      transform $transition-fast;
+
+    &:hover {
+      background: var(--carousel-dot-bg-hover);
+    }
+  }
+
+  .swiper-pagination-bullet-active {
+    width: var(--carousel-dot-size-active);
+    border-radius: $radius-pill;
+  }
+
+  .swiper-pagination-fraction {
+    font-size: var(--text-size-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  &_toggle {
+    position: absolute;
+    top: var(--carousel-nav-offset);
+    right: var(--carousel-nav-offset);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--carousel-toggle-size);
+    height: var(--carousel-toggle-size);
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--carousel-nav-border);
+    border-radius: $radius-pill;
+    background: var(--carousel-nav-bg);
+    color: var(--carousel-nav-color);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      border-color $transition-fast,
+      color $transition-fast;
+    @include focus-ring;
+
+    &:hover {
+      background: var(--carousel-nav-bg-hover);
+      border-color: var(--carousel-nav-border-hover);
+      color: var(--carousel-nav-color-hover);
+    }
+
+    .carousel_toggle-icon-play {
+      display: none;
+    }
+
+    &[aria-pressed="false"] {
+      .carousel_toggle-icon-pause {
+        display: none;
+      }
+
+      .carousel_toggle-icon-play {
+        display: block;
+      }
+    }
+  }
+
+  &_toggle-icon {
+    width: var(--carousel-toggle-icon-size);
+    height: var(--carousel-toggle-icon-size);
+    flex-shrink: 0;
+  }
+
+  // ----- slides per view · auto
+
+  &_multi {
+    max-width: 100%;
+
+    .swiper-slide {
+      width: min(18rem, 78%);
+      height: auto;
+
+      > .card {
+        min-height: var(--carousel-height);
+        border-radius: $radius-lg;
+      }
+    }
+  }
+
+  // ----- dots 외부
+
+  &_dots-outside {
+    .swiper {
+      padding-bottom: 0;
+    }
+
+    .swiper-pagination {
+      position: static;
+      margin-top: var(--space-sm);
+    }
+
+    .carousel_toggle {
+      top: var(--space-sm);
+      right: 0;
+    }
+  }
+
+  // ----- 크기
+
+  &_sm {
+    --carousel-height: var(--carousel-height-sm);
+    --carousel-font-size: var(--carousel-font-size-sm);
+    --carousel-nav-size: var(--carousel-nav-size-sm);
+    --carousel-nav-icon-size: var(--carousel-nav-icon-size-sm);
+    --carousel-dot-size: var(--carousel-dot-size-sm);
+    --carousel-dot-size-active: var(--carousel-dot-size-active-sm);
+    --carousel-toggle-size: var(--carousel-toggle-size-sm);
+    --carousel-toggle-icon-size: var(--carousel-toggle-icon-size-sm);
+  }
+
+  &_lg {
+    --carousel-height: var(--carousel-height-lg);
+    --carousel-font-size: var(--carousel-font-size-lg);
+    --carousel-nav-size: var(--carousel-nav-size-lg);
+    --carousel-nav-icon-size: var(--carousel-nav-icon-size-lg);
+    --carousel-dot-size: var(--carousel-dot-size-lg);
+    --carousel-dot-size-active: var(--carousel-dot-size-active-lg);
+    --carousel-toggle-size: var(--carousel-toggle-size-lg);
+    --carousel-toggle-icon-size: var(--carousel-toggle-icon-size-lg);
+  }
+}

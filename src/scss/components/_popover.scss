@@ -1,0 +1,325 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Popover — OOCSS: 구조(.popover) + 스킨(.popover_placement-*) + 파트(.popover_trigger · .popover_panel · .popover_title · .popover_body · .popover_footer)
+//
+//   <div class="popover" data-popover>
+//     <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-1">
+//       <span class="btn_label">열기</span>
+//     </button>
+//     <div class="popover_panel" id="popover-1" role="dialog" aria-labelledby="popover-1-title" hidden>
+//       <span class="popover_arrow" aria-hidden="true"></span>
+//       <div class="popover_title" id="popover-1-title">제목</div>
+//       <div class="popover_body">본문</div>
+//       <div class="popover_footer">…</div>
+//     </div>
+//   </div>
+//
+//   data-popover                  — 클릭 트리거 (기본)
+//   data-popover-trigger="hover"  — 호버·포커스 트리거
+//
+// 크기
+//   .popover_sm     — 작은 패널
+//   .popover_lg     — 큰 패널
+//
+// 상태 클래스
+//   .is-open       — 패널 표시 (aria-expanded="true"와 함께)
+//   .is-disabled   — 트리거 비활성
+
+.popover {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  &.is-open {
+    > .popover_trigger[aria-expanded] {
+      z-index: calc(var(--z-popover, 110) + 1);
+    }
+
+    > .popover_panel {
+      display: block;
+    }
+  }
+
+  &.is-disabled {
+    @include disabled-state;
+  }
+
+  &_trigger {
+    position: relative;
+  }
+
+  &_panel {
+    position: absolute;
+    top: calc(100% + var(--popover-offset));
+    left: 0;
+    z-index: var(--z-popover, 110);
+    display: none;
+    min-width: var(--popover-min-width);
+    max-width: var(--popover-max-width);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-lg;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text);
+    text-align: left;
+
+    &[hidden] {
+      display: none;
+    }
+
+    .popover.is-open > & {
+      display: block;
+
+      &[hidden] {
+        display: block;
+      }
+    }
+  }
+
+  &_arrow {
+    position: absolute;
+    width: var(--popover-arrow-size);
+    height: var(--popover-arrow-size);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    pointer-events: none;
+  }
+
+  &_title {
+    padding: var(--popover-title-padding-y) var(--popover-padding-x);
+    font-size: var(--popover-title-font-size);
+    font-weight: 600;
+    line-height: 1.4;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  &_body {
+    padding: var(--popover-padding-y) var(--popover-padding-x);
+    font-size: var(--popover-body-font-size);
+    line-height: 1.5;
+    color: var(--color-text);
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &_footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--popover-footer-padding-y) var(--popover-padding-x);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  // ----- 크기
+
+  &_sm {
+    --popover-min-width: var(--popover-min-width-sm);
+    --popover-max-width: var(--popover-max-width-sm);
+    --popover-padding-x: var(--popover-padding-x-sm);
+    --popover-padding-y: var(--popover-padding-y-sm);
+    --popover-title-padding-y: var(--popover-title-padding-y-sm);
+    --popover-footer-padding-y: var(--popover-footer-padding-y-sm);
+    --popover-title-font-size: var(--popover-title-font-size-sm);
+    --popover-body-font-size: var(--popover-body-font-size-sm);
+    --popover-arrow-size: var(--popover-arrow-size-sm);
+
+    .popover_panel {
+      border-radius: $radius-md;
+    }
+  }
+
+  &_lg {
+    --popover-min-width: var(--popover-min-width-lg);
+    --popover-max-width: var(--popover-max-width-lg);
+    --popover-padding-x: var(--popover-padding-x-lg);
+    --popover-padding-y: var(--popover-padding-y-lg);
+    --popover-title-padding-y: var(--popover-title-padding-y-lg);
+    --popover-footer-padding-y: var(--popover-footer-padding-y-lg);
+    --popover-title-font-size: var(--popover-title-font-size-lg);
+    --popover-body-font-size: var(--popover-body-font-size-lg);
+    --popover-arrow-size: var(--popover-arrow-size-lg);
+  }
+
+  // ----- 배치 (기본: 트리거 아래 · 왼쪽 정렬)
+
+  &_placement-end {
+    .popover_panel {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  &_placement-bottom-center {
+    .popover_panel {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &_placement-top {
+    .popover_panel {
+      top: auto;
+      bottom: calc(100% + var(--popover-offset));
+    }
+  }
+
+  &_placement-top-center {
+    .popover_panel {
+      top: auto;
+      bottom: calc(100% + var(--popover-offset));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &_placement-left {
+    .popover_panel {
+      top: 50%;
+      bottom: auto;
+      left: auto;
+      right: calc(100% + var(--popover-offset));
+      transform: translateY(-50%);
+    }
+  }
+
+  &_placement-right {
+    .popover_panel {
+      top: 50%;
+      bottom: auto;
+      left: calc(100% + var(--popover-offset));
+      transform: translateY(-50%);
+    }
+  }
+
+  // ----- 화살표 위치
+
+  &:not(.popover_placement-top, .popover_placement-top-center, .popover_placement-left, .popover_placement-right, .popover_placement-bottom-center) {
+    .popover_arrow {
+      top: 0;
+      left: var(--popover-padding-x);
+      transform: translateY(-50%) rotate(45deg);
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+
+  &_placement-end:not(.popover_placement-top, .popover_placement-top-center, .popover_placement-left, .popover_placement-right, .popover_placement-bottom-center) {
+    .popover_arrow {
+      left: auto;
+      right: var(--popover-padding-x);
+    }
+  }
+
+  &_placement-bottom-center {
+    .popover_arrow {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+
+  &_placement-top:not(.popover_placement-left, .popover_placement-right, .popover_placement-top-center) {
+    .popover_arrow {
+      top: auto;
+      bottom: 0;
+      left: var(--popover-padding-x);
+      transform: translateY(50%) rotate(45deg);
+      border-top: none;
+      border-left: none;
+    }
+
+    &.popover_placement-end .popover_arrow {
+      left: auto;
+      right: var(--popover-padding-x);
+    }
+  }
+
+  &_placement-top-center {
+    .popover_arrow {
+      top: auto;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%) rotate(45deg);
+      border-top: none;
+      border-left: none;
+    }
+  }
+
+  &_placement-left {
+    .popover_arrow {
+      top: 50%;
+      right: 0;
+      left: auto;
+      transform: translate(50%, -50%) rotate(45deg);
+      border-bottom: none;
+      border-left: none;
+    }
+  }
+
+  &_placement-right {
+    .popover_arrow {
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border-top: none;
+      border-right: none;
+    }
+  }
+
+  &_no-arrow {
+    .popover_arrow {
+      display: none;
+    }
+  }
+
+  // ----- 데모 레이아웃
+
+  &_row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  &_demo-placement {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    min-height: 10rem;
+    padding: var(--space-xl);
+  }
+
+  &_demo-placement-cell-top {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  &_demo-placement-cell-left {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  &_demo-placement-cell-center {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  &_demo-placement-cell-right {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}

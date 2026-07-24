@@ -1,0 +1,96 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+// Table — OOCSS: 구조(.table) + 스킨(.table_striped · .table_bordered · .table_compact · .table_hover)
+//
+//   <div class="table_wrap">
+//     <table class="table">…</table>
+//   </div>
+
+.table_wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: $radius-md;
+
+  &:has(.table) {
+    border: none;
+    overflow-x: visible;
+
+    .table {
+      border: 1px solid var(--color-border);
+      border-radius: $radius-md;
+      overflow: hidden;
+    }
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--table-font-size);
+  text-align: left;
+  background: var(--color-surface);
+
+  th,
+  td {
+    padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
+    border-bottom: 1px solid var(--color-border-subtle);
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: var(--table-header-font-weight);
+    color: var(--color-text);
+    background: var(--color-surface-raised);
+    white-space: nowrap;
+  }
+
+  td {
+    color: var(--color-text-muted);
+  }
+
+  tbody tr:last-child {
+    th,
+    td {
+      border-bottom: none;
+    }
+  }
+
+  &_striped {
+    tbody tr:nth-child(even) {
+      background: var(--color-surface-raised);
+    }
+  }
+
+  &_bordered {
+    th,
+    td {
+      border: 1px solid var(--color-border-subtle);
+    }
+
+    tbody tr:last-child {
+      th,
+      td {
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+    }
+  }
+
+  &_compact {
+    th,
+    td {
+      padding: var(--table-cell-padding-y-compact) var(--table-cell-padding-x-compact);
+    }
+  }
+
+  &_hover {
+    tbody tr {
+      transition: background-color $transition-fast;
+
+      &:hover {
+        background: var(--color-accent-muted);
+      }
+    }
+  }
+}
