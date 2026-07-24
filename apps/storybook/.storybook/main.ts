@@ -1,63 +1,63 @@
 import path from 'node:path';
 import { existsSync, writeFileSync } from 'node:fs';
+import {
+  uiRoot,
+  uiScssOptions,
+  writeCdnUrlScss,
+  createInternalAliasPlugin,
+} from '../../../packages/ui/vite-alias.js';
+import {
+  uiReactRoot,
+  createUiReactAliasPlugin,
+  uiReactViteAliases,
+} from '../../../packages/ui-react/vite-alias.js';
 
 const storybookDir = path.resolve(process.cwd());
 const monorepoRoot = path.resolve(storybookDir, '../..');
-const uiRoot = path.resolve(storybookDir, '../../packages/ui/src');
 const guideSrcRoot = path.resolve(storybookDir, '../../apps/guide/src');
 const guideDocDataRoot = path.resolve(guideSrcRoot, 'doc/data');
-const cdnUrlScssPath = path.resolve(uiRoot, 'scss/_cdn-url.scss');
 const storybookBase = process.env.STORYBOOK_BASE ?? '/';
 const storybookCdnUrl = process.env.STORYBOOK_CDN_URL ?? '.';
 
-function writeCdnUrlScss(cdnUrl = '.') {
-  writeFileSync(
-    cdnUrlScssPath,
-    `// CDN/정적 에셋 베이스 URL — url(#{$cdn-url}/…) 에서 사용\n$cdn-url: "${cdnUrl}";\n`,
-  );
-}
+writeCdnUrlScss(storybookCdnUrl);
 
 function resolveAliasTarget(basePath) {
-  const extensions = ['', '.js', '.vue', '.jsx', '.ts', '.json'];
+  const extensions = ['', '.js', '.jsx', '.ts', '.tsx', '.json'];
   for (const ext of extensions) {
     const file = `${basePath}${ext}`;
     if (existsSync(file)) return file;
   }
-  for (const ext of ['.js', '.vue']) {
+  for (const ext of ['.js', '.jsx']) {
     const file = path.join(basePath, `index${ext}`);
     if (existsSync(file)) return file;
   }
   return basePath;
 }
 
-function createInternalAliasPlugin() {
+function createGuideDataAliasPlugin() {
   return {
-    name: 'internal-alias',
+    name: 'guide-data-alias',
     enforce: 'pre',
-    resolveId(source, importer) {
-      if (source.startsWith('@/doc/data/')) {
-        const rel = source.slice('@/doc/data/'.length);
+    resolveId(source) {
+      if (source.startsWith('@/doc/data/') || source.startsWith('@doc-data/')) {
+        const rel = source.startsWith('@/doc/data/')
+          ? source.slice('@/doc/data/'.length)
+          : source.slice('@doc-data/'.length);
         return resolveAliasTarget(path.join(guideDocDataRoot, rel));
       }
-      if (source === '@/doc/data') {
+      if (source === '@/doc/data' || source === '@doc-data') {
         return guideDocDataRoot;
       }
-      if (!source.startsWith('@/')) return null;
-      const target = source.slice(2);
-      if (importer?.includes(`${path.sep}packages${path.sep}ui${path.sep}`)) {
-        return resolveAliasTarget(path.resolve(uiRoot, target));
-      }
-      if (importer?.includes(guideSrcRoot)) {
-        return resolveAliasTarget(path.resolve(guideSrcRoot, target));
+      if (source.startsWith('@doc-data/')) {
+        const rel = source.slice('@doc-data/'.length);
+        return resolveAliasTarget(path.join(guideDocDataRoot, rel));
       }
       return null;
     },
   };
 }
 
-writeCdnUrlScss(storybookCdnUrl);
-
-/** @type { import('@storybook/vue3-vite').StorybookConfig } */
+/** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
   staticDirs: ['../public'],
 
@@ -65,25 +65,27 @@ const config = {
 
   stories: [
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
-    '../../../packages/ui/src/**/*.stories.@(js|jsx|ts|tsx)',
+    '../../../packages/ui-react/src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
 
   addons: ['@storybook/addon-links', '@storybook/addon-docs'],
 
   framework: {
-    name: '@storybook/vue3-vite',
+    name: '@storybook/react-vite',
     options: {},
   },
 
   async viteFinal(viteConfig) {
     const { mergeConfig } = await import('vite');
-    const vue = (await import('@vitejs/plugin-vue')).default;
+    const react = (await import('@vitejs/plugin-react')).default;
 
     return mergeConfig(viteConfig, {
       base: storybookBase,
       plugins: [
-        vue(),
-        createInternalAliasPlugin(),
+        react(),
+        createInternalAliasPlugin(guideSrcRoot),
+        createUiReactAliasPlugin(),
+        createGuideDataAliasPlugin(),
         {
           name: 'scss-cdn-url',
           buildStart() {
@@ -99,35 +101,27 @@ const config = {
       ],
       resolve: {
         alias: {
-          '@uxkm/ui': uiRoot,
-          '@images': path.resolve(uiRoot, 'assets/images'),
+          ...uiReactViteAliases(),
           '@doc-data': guideDocDataRoot,
           '@/doc/data': guideDocDataRoot,
         },
-        dedupe: ['vue'],
+        dedupe: ['react', 'react-dom'],
       },
       server: {
         fs: {
-          // Storybook 기본 allow 목록을 유지하고 모노레포 경로만 추가
-          // (덮어쓰면 node_modules의 mocker-runtime 등이 404가 됨)
           allow: [
             ...(viteConfig.server?.fs?.allow ?? []),
             storybookDir,
             monorepoRoot,
             uiRoot,
+            uiReactRoot,
             guideSrcRoot,
           ],
         },
       },
       css: {
         preprocessorOptions: {
-          scss: {
-            api: 'modern-compiler',
-            loadPaths: [
-              path.resolve(uiRoot, 'scss'),
-              path.resolve(storybookDir, 'node_modules'),
-            ],
-          },
+          scss: uiScssOptions(path.resolve(storybookDir, 'node_modules')),
         },
       },
     });

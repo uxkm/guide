@@ -1,10 +1,11 @@
-import DesignTokensPage from '../../../apps/guide/src/doc/pages/design-tokens.vue';
+import React from 'react';
+import { StorybookDesignTokensPage } from './pages/DesignTokensPage';
 
-/** @type { import('@storybook/vue3-vite').Meta } */
+/** @type { import('@storybook/react-vite').Meta<typeof StorybookDesignTokensPage> } */
 export default {
   title: '디자인 토큰',
   id: 'design-tokens',
-  component: DesignTokensPage,
+  component: StorybookDesignTokensPage,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -20,8 +21,9 @@ export default {
 
 export const Page = {
   tags: ['!dev'],
-  render: () => ({
-    components: { DesignTokensPage },
-    template: '<div class="sb-guide-page"><DesignTokensPage /></div>',
-  }),
+  render: () => (
+    <div className="sb-guide-page">
+      <StorybookDesignTokensPage />
+    </div>
+  ),
 };

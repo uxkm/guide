@@ -11,6 +11,7 @@
     "build-storybook": "pnpm --filter @uxkm/storybook build",
     "preview-storybook": "pnpm --filter @uxkm/storybook preview",
     "generate-stories": "node scripts/generate-stories.mjs",
+    "generate-react-stories": "node scripts/generate-react-placeholder-stories.mjs",
     "deploy:main": "bash scripts/deploy-main.sh",
     "deploy:vue": "bash scripts/deploy-vue.sh"
   }

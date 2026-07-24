@@ -1,6 +1,7 @@
+import React, { useEffect, useRef } from 'react';
+import type { Decorator, Preview } from '@storybook/react-vite';
 import '../../../packages/ui/src/scss/main.scss';
 import './docs-overrides.scss';
-import { onMounted, onUpdated, ref } from 'vue';
 import { initClickableCard } from '../../../packages/ui/src/utils/clickable-card';
 import { initRipple } from '../../../packages/ui/src/utils/ripple';
 import { initInputClearAll } from '../../../packages/ui/src/legacy/input-clear-init';
@@ -25,14 +26,14 @@ initRipple();
 
 const SPACE_TOKENS = new Set(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']);
 
-function toSpaceCSSValue(value) {
+function toSpaceCSSValue(value: string | undefined) {
   if (!value) return undefined;
   if (value.startsWith('var(') || value.includes('(')) return value;
   return SPACE_TOKENS.has(value) ? `var(--space-${value})` : value;
 }
 
-function buildDemoPreviewStyle(demoPreview = {}) {
-  const style = {};
+function buildDemoPreviewStyle(demoPreview: Record<string, string> = {}) {
+  const style: Record<string, string> = {};
   const gap = toSpaceCSSValue(demoPreview.gap);
   const stackGap = toSpaceCSSValue(demoPreview.stackGap);
   const paddingBlock = toSpaceCSSValue(demoPreview.paddingBlock);
@@ -49,71 +50,60 @@ function buildDemoPreviewStyle(demoPreview = {}) {
   return style;
 }
 
-/** 가이드 DemoSection과 동일한 예시 간격 — 템플릿/소스에는 래퍼 없이 런타임만 적용 */
-function demoPreviewDecorator(story, context) {
+function useDomInit(initFn: (root: HTMLElement | null) => void) {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    initFn(rootRef.current);
+  });
+
+  return rootRef;
+}
+
+const demoPreviewDecorator: Decorator = (Story, context) => {
   const demoPreview = context.parameters?.demoPreview;
-  if (!demoPreview) return story();
+  if (!demoPreview) return <Story />;
 
   const stackClass = demoPreview.stack ? ' sb-demo-layout_stack' : '';
   const style = buildDemoPreviewStyle(demoPreview);
-  return {
-    components: { story },
-    setup() {
-      return { style };
-    },
-    template: `<div class="sb-demo-layout${stackClass}" :style="style"><story /></div>`,
-  };
-}
 
-/** input_clearable 래퍼 — Vue 마운트 후 클리어 버튼 표시/동작 초기화 */
-function inputClearDecorator(story) {
-  return {
-    components: { story },
-    setup() {
-      const rootRef = ref(null);
-      const init = () => initInputClearAll(rootRef.value);
-      onMounted(init);
-      onUpdated(init);
-      return { rootRef };
-    },
-    template: '<div ref="rootRef" class="sb-demo-pass-through"><story /></div>',
-  };
-}
+  return (
+    <div className={`sb-demo-layout${stackClass}`} style={style}>
+      <Story />
+    </div>
+  );
+};
 
-/** textarea_show-count 래퍼 — Vue 마운트 후 글자 수 카운터 초기화 */
-function textareaCountDecorator(story) {
-  return {
-    components: { story },
-    setup() {
-      const rootRef = ref(null);
-      const init = () => initTextareaCountAll(rootRef.value);
-      onMounted(init);
-      onUpdated(init);
-      return { rootRef };
-    },
-    template: '<div ref="rootRef" class="sb-demo-pass-through"><story /></div>',
-  };
-}
+const inputClearDecorator: Decorator = (Story) => {
+  const rootRef = useDomInit(initInputClearAll);
+  return (
+    <div ref={rootRef} className="sb-demo-pass-through">
+      <Story />
+    </div>
+  );
+};
 
-/** Popover · Dropdown · Tooltip — Vue 마운트 후 overlay JS 초기화 */
-function overlayDecorator(story) {
-  return {
-    components: { story },
-    setup() {
-      const rootRef = ref(null);
-      const init = () => {
-        if (rootRef.value) initOverlays(rootRef.value);
-      };
-      onMounted(init);
-      onUpdated(init);
-      return { rootRef };
-    },
-    template: '<div ref="rootRef" class="sb-demo-pass-through"><story /></div>',
-  };
-}
+const textareaCountDecorator: Decorator = (Story) => {
+  const rootRef = useDomInit(initTextareaCountAll);
+  return (
+    <div ref={rootRef} className="sb-demo-pass-through">
+      <Story />
+    </div>
+  );
+};
 
-/** @type { import('@storybook/vue3-vite').Preview } */
-const preview = {
+const overlayDecorator: Decorator = (Story) => {
+  const rootRef = useDomInit((root) => {
+    if (root) initOverlays(root);
+  });
+  return (
+    <div ref={rootRef} className="sb-demo-pass-through">
+      <Story />
+    </div>
+  );
+};
+
+const preview: Preview = {
   decorators: [overlayDecorator, textareaCountDecorator, inputClearDecorator, demoPreviewDecorator],
   parameters: {
     actions: { disable: true },

@@ -1,12 +1,7 @@
 import React, { useContext } from 'react';
-import {
-  Description,
-  DocsContext,
-  DocsStory,
-  Subtitle,
-  Title,
-  useOf,
-} from '@storybook/addon-docs/blocks';
+import { DocsContext, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
+import { GuideDescription } from './GuideDescription';
+import { GuideDocsStory } from './GuideDocsStory';
 import * as DesignTokensStories from '../stories/design-tokens.stories';
 import * as GettingStartedStories from '../stories/getting-started.stories';
 import * as IntroStories from '../stories/intro.stories';
@@ -94,21 +89,21 @@ export function GuideDocsPage() {
     <>
       <Title />
       <Subtitle />
-      <Description of="meta" />
-      {!isComponentDocs && currentStory ? <Description of="story" /> : null}
+      <GuideDescription of="meta" />
+      {!isComponentDocs && currentStory ? <GuideDescription of="story" /> : null}
 
       {isGuidePage && guidePageStory ? (
-        <DocsStory of={guidePageStory} expanded={false} withToolbar={false} />
+        <GuideDocsStory of={guidePageStory} expanded={false} withToolbar={false} />
       ) : isComponentDocs ? (
         <>
           {playgroundExport ? (
-            <DocsStory of={playgroundExport} expanded={false} withToolbar />
+            <GuideDocsStory of={playgroundExport} expanded={false} withToolbar />
           ) : null}
           {exampleStories.length > 0 ? (
             <div className="sb-docs-stories">
               {exampleStories.map((story) =>
                 story.moduleExport ? (
-                  <DocsStory
+                  <GuideDocsStory
                     key={story.id}
                     of={story.moduleExport}
                     expanded
@@ -120,7 +115,7 @@ export function GuideDocsPage() {
           ) : null}
         </>
       ) : currentStory?.moduleExport ? (
-        <DocsStory of={currentStory.moduleExport} expanded={false} withToolbar />
+        <GuideDocsStory of={currentStory.moduleExport} expanded={false} withToolbar />
       ) : null}
 
       {apiSections.length > 0 ? <ComponentApiDocs sections={apiSections} /> : null}

@@ -185,12 +185,26 @@
       border-color: transparent;
     }
 
-    &.btn:hover,
-    &.btn:focus-visible,
-    &.btn:active {
+    // filled/outline 등 버튼 스킨 hover(:not 포함)보다 특이도를 맞춤 — input이 button보다 뒤에 로드됨
+    &.btn.btn_filled:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_filled:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_filled:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:active:not(:disabled):not(.is-disabled):not(.is-loading) {
       color: var(--input-clear-hover-color);
       background: transparent;
       border-color: transparent;
+      box-shadow: none;
     }
   }
 

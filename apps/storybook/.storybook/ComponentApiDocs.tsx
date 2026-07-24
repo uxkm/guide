@@ -1,5 +1,6 @@
 import React from 'react';
 import { Markdown, PureArgsTable, Subheading } from '@storybook/addon-docs/blocks';
+import { toStorybookMarkdownDescription } from './toStorybookMarkdownDescription';
 
 type ApiColumn = { key: string; label: string };
 type ApiRow = Record<string, string>;
@@ -40,7 +41,7 @@ function toArgTypeRows(
     const argType: ArgTypeRow = { name };
 
     if (row.description) {
-      argType.description = row.description;
+      argType.description = toStorybookMarkdownDescription(row.description) ?? undefined;
     }
 
     const table: NonNullable<ArgTypeRow['table']> = {};
@@ -61,9 +62,10 @@ function toArgTypeRows(
       if (STANDARD_COLUMNS.has(column.key)) continue;
       const value = row[column.key];
       if (!value) continue;
+      const formatted = toStorybookMarkdownDescription(value);
       argType.description = argType.description
-        ? `${argType.description}\n\n**${column.label}:** ${value}`
-        : `**${column.label}:** ${value}`;
+        ? `${argType.description}\n\n**${column.label}:** ${formatted}`
+        : `**${column.label}:** ${formatted}`;
     }
 
     argTypes[`api-${index}`] = argType;
@@ -79,10 +81,12 @@ function ApiTable({ columns, rows, codeColumn = 'name' }: ApiTableData) {
 }
 
 function ApiSection({ title, description, tables }: ApiSectionData) {
+  const formattedDescription = toStorybookMarkdownDescription(description);
+
   return (
     <section className="sb-api-section">
       <Subheading>{title}</Subheading>
-      {description ? <Markdown>{description}</Markdown> : null}
+      {formattedDescription ? <Markdown>{formattedDescription}</Markdown> : null}
       {tables.map((table, index) => (
         <ApiTable key={index} {...table} />
       ))}

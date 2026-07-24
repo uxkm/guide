@@ -1,0 +1,17 @@
+{
+  "name": "@uxkm/ui-react",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./vite-alias": "./vite-alias.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@uxkm/ui": "workspace:*",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "swiper": "12"
+  }
+}

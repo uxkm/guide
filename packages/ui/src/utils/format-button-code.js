@@ -33,15 +33,31 @@ function toKebab(key) {
   return KEBAB_PROPS[key] || key.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 
-function getSlotIconBlock(slotSource, slotName) {
-  const source = slotSource[slotName];
-  const vnodes = Array.isArray(source) ? source : source?.();
-  if (!vnodes?.length) return '';
+function normalizeSlotContent(source) {
+  if (source == null) return [];
 
-  const name = vnodes[0]?.props?.name;
+  if (Array.isArray(source)) return source;
+
+  if (typeof source === 'function') {
+    const resolved = source();
+    if (resolved == null) return [];
+    return Array.isArray(resolved) ? resolved : [resolved];
+  }
+
+  if (typeof source === 'object') return [source];
+
+  return [];
+}
+
+function getSlotIconBlock(slotSource, slotName) {
+  const vnodes = normalizeSlotContent(slotSource[slotName]);
+  if (!vnodes.length) return '';
+
+  const iconProps = vnodes[0]?.props;
+  const name = iconProps?.name;
   if (!name) return '';
 
-  const iconClass = vnodes[0]?.props?.class;
+  const iconClass = iconProps?.class ?? iconProps?.className;
   const classAttr = iconClass ? ` class="${iconClass}"` : '';
 
   return [

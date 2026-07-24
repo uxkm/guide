@@ -14,7 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const guideSrc = path.resolve(__dirname, 'src');
 
 const isProd = process.env.NODE_ENV === 'production';
-const deployBase = '/vue/';
+const deployBase = process.env.GUIDE_BASE || '/vue/';
 const deployOrigin = 'https://guide.uxkm.io';
 
 function resolveCdnUrl() {

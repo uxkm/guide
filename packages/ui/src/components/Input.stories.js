@@ -103,7 +103,7 @@ export const Basic = {
         story: "레이블과 힌트 텍스트가 포함된 폼 필드입니다.",
       },
       source: {
-        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"form_field\">\n    <label class=\"form_field-label\" for=\"input-name\">이름</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-name\" placeholder=\"이름을 입력하세요\" />\n      <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n    <p class=\"form_field-hint\">2~20자 이내로 입력해 주세요.</p>\n  </div>\n</template>",
+        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"form_field\">\n    <label class=\"form_field-label\" for=\"input-name\">이름</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-name\" placeholder=\"이름을 입력하세요\" />\n      <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n    <p class=\"form_field-hint\">2~20자 이내로 입력해 주세요.</p>\n  </div>\n</template>",
         language: 'vue',
       },
     },
@@ -120,7 +120,7 @@ export const Basic = {
         <label class="form_field-label" for="input-name">이름</label>
         <div class="input_clearable">
         <Input id="input-name" placeholder="이름을 입력하세요" />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only hidden>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only hidden>
         <template #icon-before>
         <Icon name="close" />
         </template>
@@ -142,7 +142,7 @@ export const Standalone = {
         story: "form_field 래퍼 없이 `input_field`로 레이블과 input을 묶을 수 있습니다. 접근 가능한 이름은 반드시 지정합니다. 보이는 레이블이 있으면 `label.form_field-label` + `for`를, 아이콘만 있는 검색창·툴바 등에는 `label.input_group`으로 input을 감싸고 `input_group-label_hidden`으로 이름을 제공합니다.",
       },
       source: {
-        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-placeholder\">검색어</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-standalone-placeholder\" placeholder=\"플레이스홀더\" />\n      <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-value\">닉네임</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-standalone-value\" model-value=\"입력된 값\" />\n      <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-disabled\">코드</label>\n    <Input id=\"input-standalone-disabled\" placeholder=\"비활성\" disabled />\n  </div>\n  <Input type=\"search\" placeholder=\"검색어를 입력하세요\" aria-label=\"검색\">\n    <template #prefix>\n      <Icon name=\"search\" size=\"sm\" />\n    </template>\n  </Input>\n  <p class=\"form_field-hint\">아이콘만 있는 툴바 검색은 <code>label.input_group</code>으로 input을 감싸고, 화면에 보이지 않는 <code>input_group-label_hidden</code>으로 접근 가능한 이름을 지정합니다.</p>\n</template>",
+        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-placeholder\">검색어</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-standalone-placeholder\" placeholder=\"플레이스홀더\" />\n      <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-value\">닉네임</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-standalone-value\" model-value=\"입력된 값\" />\n      <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"input_field\">\n    <label class=\"form_field-label\" for=\"input-standalone-disabled\">코드</label>\n    <Input id=\"input-standalone-disabled\" placeholder=\"비활성\" disabled />\n  </div>\n  <Input type=\"search\" placeholder=\"검색어를 입력하세요\" aria-label=\"검색\">\n    <template #prefix>\n      <Icon name=\"search\" size=\"sm\" />\n    </template>\n  </Input>\n  <p class=\"form_field-hint\">아이콘만 있는 툴바 검색은 <code>label.input_group</code>으로 input을 감싸고, 화면에 보이지 않는 <code>input_group-label_hidden</code>으로 접근 가능한 이름을 지정합니다.</p>\n</template>",
         language: 'vue',
       },
     },
@@ -162,7 +162,7 @@ export const Standalone = {
         <label class="form_field-label" for="input-standalone-placeholder">검색어</label>
         <div class="input_clearable">
         <Input id="input-standalone-placeholder" placeholder="플레이스홀더" />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only hidden>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only hidden>
         <template #icon-before>
         <Icon name="close" />
         </template>
@@ -173,7 +173,7 @@ export const Standalone = {
         <label class="form_field-label" for="input-standalone-value">닉네임</label>
         <div class="input_clearable">
         <Input id="input-standalone-value" model-value="입력된 값" />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only>
         <template #icon-before>
         <Icon name="close" />
         </template>
@@ -654,7 +654,7 @@ export const Clearable = {
         story: "`input_clearable` 래퍼로 값이 있을 때 우측에 지우기 버튼을 표시합니다. `readonly` · `disabled` 상태에서는 버튼이 나타나지 않습니다.",
       },
       source: {
-        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-text\">텍스트</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-clear-text\" placeholder=\"입력 후 우측 X 버튼 확인\" />\n      <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-search\">검색</label>\n    <div class=\"input_group\">\n      <span class=\"input_group-addon\" aria-hidden=\"true\">\n        <Icon name=\"search\" size=\"sm\" />\n      </span>\n      <span class=\"input_clearable\">\n        <Input id=\"input-clear-search\" type=\"search\" placeholder=\"검색어 입력\" />\n        <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only hidden>\n          <template #icon-before>\n            <Icon name=\"close\" />\n          </template>\n        </Button>\n      </span>\n    </div>\n  </div>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-readonly\">읽기 전용 (삭제 버튼 없음)</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-clear-readonly\" model-value=\"수정 불가\" readonly />\n      <Button class=\"input_clear\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n</template>",
+        code: "<script setup>\nimport Button from '@uxkm/ui/components/Button.vue';\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport Input from '@uxkm/ui/components/Input.vue';\n</script>\n\n<template>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-text\">텍스트</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-clear-text\" placeholder=\"입력 후 우측 X 버튼 확인\" />\n      <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-search\">검색</label>\n    <div class=\"input_group\">\n      <span class=\"input_group-addon\" aria-hidden=\"true\">\n        <Icon name=\"search\" size=\"sm\" />\n      </span>\n      <span class=\"input_clearable\">\n        <Input id=\"input-clear-search\" type=\"search\" placeholder=\"검색어 입력\" />\n        <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only hidden>\n          <template #icon-before>\n            <Icon name=\"close\" />\n          </template>\n        </Button>\n      </span>\n    </div>\n  </div>\n  <div class=\"form_field form_field_fit\">\n    <label class=\"form_field-label\" for=\"input-clear-readonly\">읽기 전용 (삭제 버튼 없음)</label>\n    <div class=\"input_clearable\">\n      <Input id=\"input-clear-readonly\" model-value=\"수정 불가\" readonly />\n      <Button class=\"input_clear\" variant=\"text\" color=\"muted\" :ripple=\"false\" aria-label=\"입력 지우기\" icon-only hidden>\n        <template #icon-before>\n          <Icon name=\"close\" />\n        </template>\n      </Button>\n    </div>\n  </div>\n</template>",
         language: 'vue',
       },
     },
@@ -674,7 +674,7 @@ export const Clearable = {
         <label class="form_field-label" for="input-clear-text">텍스트</label>
         <div class="input_clearable">
         <Input id="input-clear-text" placeholder="입력 후 우측 X 버튼 확인" />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only hidden>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only hidden>
         <template #icon-before>
         <Icon name="close" />
         </template>
@@ -689,7 +689,7 @@ export const Clearable = {
         </span>
         <span class="input_clearable">
         <Input id="input-clear-search" type="search" placeholder="검색어 입력" />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only hidden>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only hidden>
         <template #icon-before>
         <Icon name="close" />
         </template>
@@ -701,7 +701,7 @@ export const Clearable = {
         <label class="form_field-label" for="input-clear-readonly">읽기 전용 (삭제 버튼 없음)</label>
         <div class="input_clearable">
         <Input id="input-clear-readonly" model-value="수정 불가" readonly />
-        <Button class="input_clear" aria-label="입력 지우기" icon-only hidden>
+        <Button class="input_clear" variant="text" color="muted" :ripple="false" aria-label="입력 지우기" icon-only hidden>
         <template #icon-before>
         <Icon name="close" />
         </template>
