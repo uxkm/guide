@@ -1,3 +1,0 @@
-import{j as s}from"./iframe-DbjMrqYU.js";import{C as t}from"./ComingSoon-DUwtYLzb.js";import"./preload-helper-DUxc-Dqw.js";const d={title:"Components/데이터 표시/Timeline",id:"components-timeline",component:t,tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"Timeline 컴포넌트 — React 마이그레이션 예정입니다."}}}},e={render:()=>s.jsx(t,{name:"Timeline"})};var o,n,r;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`{
-  render: () => <ComingSoon name="Timeline" />
-}`,...(r=(n=e.parameters)==null?void 0:n.docs)==null?void 0:r.source}}};const c=["Playground"];export{e as Playground,c as __namedExportsOrder,d as default};

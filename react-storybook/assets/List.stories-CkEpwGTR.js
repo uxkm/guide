@@ -1,3 +1,0 @@
-import{j as n}from"./iframe-DbjMrqYU.js";import{C as r}from"./ComingSoon-DUwtYLzb.js";import"./preload-helper-DUxc-Dqw.js";const d={title:"Components/데이터 표시/List",id:"components-list",component:r,tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"List 컴포넌트 — React 마이그레이션 예정입니다."}}}},o={render:()=>n.jsx(r,{name:"List"})};var s,t,e;o.parameters={...o.parameters,docs:{...(s=o.parameters)==null?void 0:s.docs,source:{originalSource:`{
-  render: () => <ComingSoon name="List" />
-}`,...(e=(t=o.parameters)==null?void 0:t.docs)==null?void 0:e.source}}};const c=["Playground"];export{o as Playground,c as __namedExportsOrder,d as default};

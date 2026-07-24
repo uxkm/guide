@@ -1,3 +1,0 @@
-import{j as n}from"./iframe-DbjMrqYU.js";import{C as s}from"./ComingSoon-DUwtYLzb.js";import"./preload-helper-DUxc-Dqw.js";const c={title:"Components/데이터 표시/Tree",id:"components-tree",component:s,tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"Tree 컴포넌트 — React 마이그레이션 예정입니다."}}}},e={render:()=>n.jsx(s,{name:"Tree"})};var o,r,t;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`{
-  render: () => <ComingSoon name="Tree" />
-}`,...(t=(r=e.parameters)==null?void 0:r.docs)==null?void 0:t.source}}};const p=["Playground"];export{e as Playground,p as __namedExportsOrder,c as default};
