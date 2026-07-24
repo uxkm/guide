@@ -4,11 +4,11 @@ set -euo pipefail
 CURRENT_BRANCH=$(git branch --show-current)
 
 case "$CURRENT_BRANCH" in
-  min) DEPLOY_DIR="min" ;;
+  gulp) DEPLOY_DIR="html" ;;
   vue) DEPLOY_DIR="vue" ;;
   react) DEPLOY_DIR="react" ;;
   *)
-    echo "min, vue 또는 react 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+    echo "gulp, vue 또는 react 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
     exit 1
     ;;
 esac
