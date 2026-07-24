@@ -9,7 +9,7 @@ GUIDE_DEPLOY_DIR=""
 STORYBOOK_DEPLOY_DIR=""
 
 case "$CURRENT_BRANCH" in
-  min|vue|vue-storybook)
+  gulp|vue|vue-storybook)
     DEPLOY_GUIDE=1
     DEPLOY_STORYBOOK=1
     GUIDE_DEPLOY_DIR="vue"
@@ -20,7 +20,7 @@ case "$CURRENT_BRANCH" in
     STORYBOOK_DEPLOY_DIR="react-storybook"
     ;;
   *)
-    echo "min, vue, vue-storybook, react-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+    echo "gulp, vue, vue-storybook, react-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
     exit 1
     ;;
 esac
