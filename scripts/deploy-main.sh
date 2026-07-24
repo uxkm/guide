@@ -6,8 +6,8 @@ GUIDE_DEPLOY_DIR="vue"
 STORYBOOK_DEPLOY_DIR="vue-storybook"
 DEPLOY_ORIGIN="https://guide.uxkm.io"
 
-if [[ "$CURRENT_BRANCH" != "min" && "$CURRENT_BRANCH" != "vue" && "$CURRENT_BRANCH" != "vue-storybook" ]]; then
-  echo "min, vue, vue-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+if [[ "$CURRENT_BRANCH" != "gulp" && "$CURRENT_BRANCH" != "vue" && "$CURRENT_BRANCH" != "vue-storybook" ]]; then
+  echo "gulp, vue, vue-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
   exit 1
 fi
 
