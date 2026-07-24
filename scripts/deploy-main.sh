@@ -19,8 +19,12 @@ case "$CURRENT_BRANCH" in
     DEPLOY_STORYBOOK=1
     STORYBOOK_DEPLOY_DIR="react-storybook"
     ;;
+  gulp-storybook)
+    DEPLOY_STORYBOOK=1
+    STORYBOOK_DEPLOY_DIR="gulp-storybook"
+    ;;
   *)
-    echo "gulp, vue, vue-storybook, react-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+    echo "gulp, vue, vue-storybook, react-storybook, gulp-storybook 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
     exit 1
     ;;
 esac
