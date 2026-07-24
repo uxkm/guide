@@ -35,6 +35,9 @@ main/
 | `gulp` | Gulp | `html/` |
 | `vue` | Vite | `vue/` |
 | `react` | (프레임워크 빌드) | `react/` |
+| `gulp-storybook` | Storybook | `gulp-storybook/` |
+| `react-storybook` | Storybook | `react-storybook/` |
+| `vue-storybook` | Storybook | `vue-storybook/` |
 
 ```
 gulp ──build──▶  main/html/
