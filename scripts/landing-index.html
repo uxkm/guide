@@ -182,10 +182,34 @@
     }
 
     .page-header h1 {
+      display: inline-flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.55rem;
+      margin: 0 auto 0.75rem;
       font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .brand-logo-wrap {
+      display: inline-flex;
+      align-items: flex-start;
+      height: 2.35rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    .brand-logo-wrap img {
+      display: block;
+      height: 3.35rem;
+      width: auto;
+    }
+
+    .brand-text {
+      padding-bottom: 0.1rem;
     }
 
     .page-header p {
@@ -257,7 +281,12 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <h1>UXKM Guide</h1>
+      <h1>
+        <span class="brand-logo-wrap">
+          <img src="./uxkm-logo.png" alt="UXKM" width="370" height="160" />
+        </span>
+        <span class="brand-text">Guide</span>
+      </h1>
       <p>프레임워크별 데모 페이지 모음</p>
     </header>
 
@@ -272,6 +301,12 @@
         <h2>React</h2>
         <p>React 기반 컴포넌트 데모 페이지</p>
         <span class="badge">React</span>
+      </a>
+
+      <a class="card" href="./react-storybook/">
+        <h2>React Storybook</h2>
+        <p>React UI 컴포넌트 Storybook</p>
+        <span class="badge">React · Storybook</span>
       </a>
 
       <a class="card" href="./vue/">
