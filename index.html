@@ -251,9 +251,23 @@
       font-size: 0.95rem;
     }
 
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .count {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+    }
+
     .badge {
       display: inline-block;
-      margin-top: 1rem;
       padding: 0.25rem 0.6rem;
       font-size: 0.75rem;
       font-weight: 600;
@@ -294,31 +308,46 @@
       <a class="card" href="./html/index.html">
         <h2>HTML</h2>
         <p>순수 HTML/SCSS UI 컴포넌트 가이드</p>
-        <span class="badge">Vanilla · SCSS</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 51개</span>
+          <span class="badge">Vanilla · SCSS</span>
+        </div>
       </a>
 
       <a class="card" href="./react/">
         <h2>React</h2>
         <p>React 기반 컴포넌트 데모 페이지</p>
-        <span class="badge">React</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">React</span>
+        </div>
       </a>
 
       <a class="card" href="./react-storybook/">
         <h2>React Storybook</h2>
         <p>React UI 컴포넌트 Storybook</p>
-        <span class="badge">React · Storybook</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">React · Storybook</span>
+        </div>
       </a>
 
       <a class="card" href="./vue/">
         <h2>Vue</h2>
         <p>Vue 기반 컴포넌트 데모 페이지</p>
-        <span class="badge">Vue</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">Vue</span>
+        </div>
       </a>
 
       <a class="card" href="./vue-storybook/">
         <h2>Vue Storybook</h2>
         <p>Vue UI 컴포넌트 Storybook</p>
-        <span class="badge">Vue · Storybook</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">Vue · Storybook</span>
+        </div>
       </a>
     </nav>
 
