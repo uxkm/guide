@@ -12,7 +12,7 @@
 main/
 ├── CNAME              # guide.uxkm.io (GitHub Pages 커스텀 도메인)
 ├── index.html         # 루트 허브 — html / react / vue 선택 페이지
-├── html/              # HTML·SCSS 가이드 (min 브랜치 빌드 결과)
+├── html/              # HTML·SCSS 가이드 (gulp 브랜치 빌드 결과)
 ├── react/             # React 데모 (react 브랜치 빌드 결과)
 └── vue/               # Vue 3 가이드 (vue 브랜치 빌드 결과)
 ```
@@ -32,12 +32,12 @@ main/
 
 | 소스 브랜치 | 빌드 도구 | `main` 배포 경로 |
 |------------|----------|-----------------|
-| `min` | Gulp | `html/` |
+| `gulp` | Gulp | `html/` |
 | `vue` | Vite | `vue/` |
 | `react` | (프레임워크 빌드) | `react/` |
 
 ```
-min  ──build──▶  main/html/
+gulp ──build──▶  main/html/
 vue  ──build──▶  main/vue/
 react ──build──▶  main/react/
                       │
@@ -63,6 +63,6 @@ pnpm deploy:main
 
 ## 확인 방법
 
-1. 소스 브랜치(`min` / `vue` / `react`)에서 개발 및 빌드
+1. 소스 브랜치(`gulp` / `vue` / `react`)에서 개발 및 빌드
 2. `main`에 배포 (스크립트 또는 수동 복사)
 3. [guide.uxkm.io](https://guide.uxkm.io)에서 결과 확인
