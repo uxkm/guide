@@ -4,8 +4,8 @@ set -euo pipefail
 CURRENT_BRANCH=$(git branch --show-current)
 DEPLOY_DIR="vue"
 
-if [[ "$CURRENT_BRANCH" != "min" && "$CURRENT_BRANCH" != "vue" ]]; then
-  echo "min 또는 vue 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+if [[ "$CURRENT_BRANCH" != "gulp" && "$CURRENT_BRANCH" != "vue" ]]; then
+  echo "gulp 또는 vue 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
   exit 1
 fi
 
