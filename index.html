@@ -3,7 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index,follow">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
   <title>UXKM Guide</title>
+
+  <!-- meta -->
+  <meta name="title" content="UXKM Guide">
+  <meta name="author" content="UXKM">
+  <meta name="description" content="UXKM UI 컴포넌트 가이드 — HTML, React, Vue, Storybook 데모 페이지 모음">
+  <meta name="keywords" content="uxkm, uxkm guide, vue, react, html, scss, ui, component, storybook, accessibility">
+  <meta name="content-language" content="kr">
+
+  <!-- opengraph / SNS -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="UXKM Guide">
+  <meta property="og:site_name" content="UXKM Guide">
+  <meta property="og:url" content="https://guide.uxkm.io">
+  <meta property="og:description" content="UXKM UI 컴포넌트 가이드 — HTML, React, Vue, Storybook 데모 페이지 모음">
+  <meta property="og:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+  <meta property="og:image:width" content="1000">
+  <meta property="og:image:height" content="750">
+  <meta property="og:locale" content="ko_KR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UXKM Guide">
+  <meta name="twitter:description" content="UXKM UI 컴포넌트 가이드 — HTML, React, Vue, Storybook 데모 페이지 모음">
+  <meta name="twitter:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+
+  <!-- icon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/_assets/images/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/_assets/images/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/_assets/images/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/_assets/images/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/_assets/images/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/_assets/images/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/_assets/images/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/_assets/images/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/_assets/images/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/_assets/images/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/_assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/_assets/images/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/_assets/images/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/_assets/images/favicon/favicon/favicon.ico">
+  <link rel="manifest" href="/_assets/images/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/_assets/images/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
   <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
   <style>
     :root,
@@ -136,10 +182,34 @@
     }
 
     .page-header h1 {
+      display: inline-flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.55rem;
+      margin: 0 auto 0.75rem;
       font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .brand-logo-wrap {
+      display: inline-flex;
+      align-items: flex-start;
+      height: 2.35rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    .brand-logo-wrap img {
+      display: block;
+      height: 3.35rem;
+      width: auto;
+    }
+
+    .brand-text {
+      padding-bottom: 0.1rem;
     }
 
     .page-header p {
@@ -211,7 +281,12 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <h1>UXKM Guide</h1>
+      <h1>
+        <span class="brand-logo-wrap">
+          <img src="./uxkm-logo.png" alt="UXKM" width="370" height="160" />
+        </span>
+        <span class="brand-text">Guide</span>
+      </h1>
       <p>프레임워크별 데모 페이지 모음</p>
     </header>
 
