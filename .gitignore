@@ -8,6 +8,7 @@ Thumbs.db
 
 # Dev (소스 브랜치 전용 — main에 포함되지 않음)
 node_modules/
+.pnpm-store/
 pnpm-lock.yaml
 package.json
 vite.config.js
