@@ -6,10 +6,11 @@
  *
  * 접근성: button 트리거 + role="region" 본문, aria-expanded · aria-controls.
  */
-import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots } from 'vue';
+import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
@@ -36,6 +37,9 @@ const group = inject('collapse', null);
 const triggerId = useId().replace(/:/g, '');
 const bodyId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
+const bodyRef = ref(null);
+
+const isSlide = computed(() => group?.effect?.value === 'slide');
 
 const panelClass = computed(() => [
   'collapse_panel',
@@ -48,6 +52,10 @@ function toggle() {
 }
 
 onMounted(() => {
+  if (isSlide.value) {
+    setSlideRegionOpen(bodyRef.value, isOpen.value, false);
+  }
+
   if (!group) return;
 
   group.registerPanel({
@@ -60,6 +68,11 @@ onMounted(() => {
     extraCode: props.extraCode,
     isOpen,
   });
+});
+
+watch(isOpen, (open) => {
+  if (!isSlide.value) return;
+  setSlideRegionOpen(bodyRef.value, open, true);
 });
 
 onUnmounted(() => {
@@ -91,10 +104,11 @@ onUnmounted(() => {
     </div>
     <div
       :id="bodyId"
+      ref="bodyRef"
       class="collapse_body"
       role="region"
       :aria-labelledby="triggerId"
-      :hidden="!isOpen || undefined"
+      :hidden="isSlide ? undefined : (!isOpen || undefined)"
     >
       <div class="collapse_content">
         <slot>

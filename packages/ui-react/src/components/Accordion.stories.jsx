@@ -89,6 +89,11 @@ export default {
       type: { name: 'enum', summary: "'sm' | 'md' | 'lg'" },
     },
     multiple: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    effect: {
+      control: 'select',
+      options: [undefined, 'slide'],
+      type: { name: 'enum', summary: "'slide'" },
+    },
     narrow: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
   },
   parameters: {
@@ -410,5 +415,55 @@ export function SizeExample() {
         <AccordionItem label="Large" open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
       </Accordion>
     </>,
+  ),
+};
+
+export const Slide = {
+  name: '슬라이드',
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: false },
+    docs: {
+      description: {
+        story:
+          'effect="slide"로 펼침·접힘 시 높이 슬라이드 애니메이션을 적용합니다. 닫힌 패널은 hidden으로 숨기고, 토글 시에만 높이를 애니메이션합니다.',
+      },
+      source: {
+        code: `import Accordion from '@uxkm/ui-react/components/Accordion.jsx';
+import AccordionItem from '@uxkm/ui-react/components/AccordionItem.jsx';
+
+export function SlideExample() {
+  return (
+    <Accordion variant="card" narrow effect="slide">
+      <AccordionItem
+        label="배송 안내"
+        open
+        content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
+      />
+      <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
+      <AccordionItem
+        label="고객센터"
+        content="1588-0000 (평일 09:00–18:00). 채팅 상담도 지원합니다."
+      />
+    </Accordion>
+  );
+}`,
+        language: 'tsx',
+      },
+    },
+  },
+  render: withDocsCanvasRender(
+    <Accordion variant="card" narrow effect="slide">
+      <AccordionItem
+        label="배송 안내"
+        open
+        content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
+      />
+      <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
+      <AccordionItem
+        label="고객센터"
+        content="1588-0000 (평일 09:00–18:00). 채팅 상담도 지원합니다."
+      />
+    </Accordion>,
   ),
 };

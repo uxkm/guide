@@ -26,6 +26,12 @@ export const collapseProps = [
     description: '한 번에 하나의 패널만 열기 (아코디언 모드)',
   },
   {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
+  },
+  {
     name: 'narrow',
     type: 'boolean',
     default: 'false',
@@ -101,6 +107,12 @@ export const collapseExternalProps = [
     description: '접힘 영역에 테두리·배경 스타일 적용',
   },
   {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
+  },
+  {
     name: 'open',
     type: 'boolean',
     default: 'false',
@@ -142,5 +154,6 @@ export const collapseClasses = [
   { name: 'data-collapse', description: 'HTML 패널 그룹 JS 초기화' },
   { name: 'data-collapse-trigger', description: 'HTML 외부 트리거 JS 초기화' },
   { name: 'data-collapse-accordion', description: 'HTML 단일 패널만 열기' },
+  { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
 ];

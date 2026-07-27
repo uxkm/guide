@@ -7,11 +7,12 @@
  *
  * lead 슬롯: 트리거 위 안내 텍스트. default 슬롯: 접히는 본문.
  */
-import { computed, ref, useAttrs, useId } from 'vue';
+import { computed, onMounted, ref, useAttrs, useId, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useCollapseExternalDemoCode } from '@/composables/useDemoCode';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 defineOptions({
   inheritAttrs: false,
@@ -32,6 +33,11 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  /** 펼침·접힘 높이 슬라이드. slide */
+  effect: {
+    type: String,
+    validator: (value) => value === undefined || value === 'slide',
+  },
   /** 초기 열림 상태 */
   open: Boolean,
 });
@@ -40,8 +46,10 @@ const { rippleAttrs } = useRipple(props);
 
 const attrs = useAttrs();
 const rootRef = ref(null);
+const panelRef = ref(null);
 const panelId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
+const isSlide = computed(() => props.effect === 'slide');
 
 const wrapperClass = computed(() => [
   props.narrow ? 'collapse_demo-narrow' : null,
@@ -70,6 +78,17 @@ function toggle() {
   isOpen.value = !isOpen.value;
 }
 
+onMounted(() => {
+  if (isSlide.value) {
+    setSlideRegionOpen(panelRef.value, isOpen.value, false);
+  }
+});
+
+watch(isOpen, (open) => {
+  if (!isSlide.value) return;
+  setSlideRegionOpen(panelRef.value, open, true);
+});
+
 useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
 </script>
 
@@ -93,11 +112,13 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
     </Button>
     <div
       :id="panelId"
+      ref="panelRef"
       class="collapse"
       data-demo-slot="default"
       :class="{ 'is-open': isOpen }"
+      :data-effect="effect === 'slide' ? 'slide' : undefined"
       :style="panelStyle"
-      :hidden="!isOpen || undefined"
+      :hidden="isSlide ? undefined : (!isOpen || undefined)"
     >
       <slot />
     </div>

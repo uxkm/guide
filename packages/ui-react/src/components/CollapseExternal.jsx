@@ -1,10 +1,11 @@
-import { useId, useMemo, useRef, useState } from 'react';
+import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useCollapseExternalDemoCode } from '@/hooks/useDemoCode';
 import { useRipple } from '@/hooks/useRipple';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 export default function CollapseExternal({
   ripple,
@@ -12,6 +13,7 @@ export default function CollapseExternal({
   narrow,
   boxed = true,
   open,
+  effect,
   lead,
   children,
   className,
@@ -19,11 +21,14 @@ export default function CollapseExternal({
 }) {
   const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
+  const panelRef = useRef(null);
+  const isFirstSlideSync = useRef(true);
   const panelId = `collapse-ext-${useId().replace(/:/g, '')}`;
 
   const [isOpen, setIsOpen] = useState(() => Boolean(open));
   const isOpenStateRef = useRef(isOpen);
   isOpenStateRef.current = isOpen;
+  const slide = effect === 'slide';
 
   // formatCollapseExternalCode는 Vue ref처럼 .value를 읽음
   const isOpenDemoRef = useMemo(
@@ -36,11 +41,18 @@ export default function CollapseExternal({
   );
 
   useCollapseExternalDemoCode(
-    { ripple, triggerLabel, narrow, boxed, open },
+    { ripple, triggerLabel, narrow, boxed, open, effect },
     rootRef,
     { className, ...rest },
     isOpenDemoRef,
   );
+
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(panelRef.current, isOpen, animate);
+  }, [slide, isOpen]);
 
   const panelStyle = useMemo(
     () =>
@@ -82,11 +94,13 @@ export default function CollapseExternal({
         <span className="btn_label">{triggerLabel}</span>
       </Button>
       <div
+        ref={slide ? panelRef : undefined}
         id={panelId}
         className={cn('collapse', isOpen && 'is-open')}
+        data-effect={slide ? 'slide' : undefined}
         data-demo-slot="default"
         style={panelStyle}
-        hidden={!isOpen || undefined}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
         {children}
       </div>

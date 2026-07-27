@@ -19,6 +19,7 @@ export default function Collapse({
   size = 'md',
   accordion,
   narrow,
+  effect,
   children,
   className,
   ...rest
@@ -40,6 +41,7 @@ export default function Collapse({
       size: resolvedSize,
       accordion,
       narrow,
+      effect,
     },
     panelsRef,
     rootRef,
@@ -115,12 +117,13 @@ export default function Collapse({
 
   const contextValue = useMemo(
     () => ({
+      effect,
       registerPanel,
       unregisterPanel,
       updatePanelMeta,
       togglePanel,
     }),
-    [registerPanel, unregisterPanel, updatePanelMeta, togglePanel],
+    [effect, registerPanel, unregisterPanel, updatePanelMeta, togglePanel],
   );
 
   const rootClass = useMemo(() => {
@@ -136,7 +139,12 @@ export default function Collapse({
 
   return (
     <CollapseContext.Provider value={contextValue}>
-      <div ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+      <div
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        data-effect={effect === 'slide' ? 'slide' : undefined}
+        {...domRest}
+      >
         {children}
       </div>
     </CollapseContext.Provider>

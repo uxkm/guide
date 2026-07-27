@@ -8,10 +8,11 @@
  * aria-expanded · aria-controls · aria-level.
  * 키보드: ↑↓ 항목 이동, Home/End 첫·마지막 항목.
  */
-import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots } from 'vue';
+import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
@@ -38,6 +39,9 @@ const accordion = inject('accordion', null);
 const triggerId = useId().replace(/:/g, '');
 const panelId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
+const panelRef = ref(null);
+
+const isSlide = computed(() => accordion?.effect?.value === 'slide');
 
 const itemClass = computed(() => [
   'accordion_item',
@@ -76,6 +80,10 @@ function onKeydown(event) {
 }
 
 onMounted(() => {
+  if (isSlide.value) {
+    setSlideRegionOpen(panelRef.value, isOpen.value, false);
+  }
+
   if (!accordion) return;
 
   accordion.registerItem({
@@ -88,6 +96,11 @@ onMounted(() => {
     extraCode: props.extraCode,
     isOpen,
   });
+});
+
+watch(isOpen, (open) => {
+  if (!isSlide.value) return;
+  setSlideRegionOpen(panelRef.value, open, true);
 });
 
 onUnmounted(() => {
@@ -120,10 +133,11 @@ onUnmounted(() => {
     </div>
     <div
       :id="panelId"
+      ref="panelRef"
       class="accordion_panel"
       role="region"
       :aria-labelledby="triggerId"
-      :hidden="!isOpen || undefined"
+      :hidden="isSlide ? undefined : (!isOpen || undefined)"
     >
       <div class="accordion_content">
         <slot>

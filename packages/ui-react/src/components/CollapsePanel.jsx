@@ -1,9 +1,10 @@
-import { useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { CollapseContext } from '@/components/Collapse.jsx';
 import { useRipple } from '@/hooks/useRipple';
 import { cn } from '@/utils/cn';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 export default function CollapsePanel({
   ripple,
@@ -29,6 +30,9 @@ export default function CollapsePanel({
   const [isOpen, setIsOpen] = useState(() => Boolean(open));
   const isOpenRef = useRef(isOpen);
   isOpenRef.current = isOpen;
+  const bodyRef = useRef(null);
+  const isFirstSlideSync = useRef(true);
+  const slide = group?.effect === 'slide';
 
   const hasExtra = extra != null;
 
@@ -65,6 +69,13 @@ export default function CollapsePanel({
     });
   }, [triggerId, label, content, disabled, hasExtra, extraCode]);
 
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(bodyRef.current, isOpen, animate);
+  }, [slide, isOpen]);
+
   const panelClass = useMemo(
     () => ['collapse_panel', isOpen && 'is-open', disabled && 'is-disabled'],
     [isOpen, disabled],
@@ -96,11 +107,12 @@ export default function CollapsePanel({
         </Button>
       </div>
       <div
+        ref={slide ? bodyRef : undefined}
         id={bodyId}
         className="collapse_body"
         role="region"
         aria-labelledby={triggerId}
-        hidden={!isOpen || undefined}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
         <div className="collapse_content">
           {children ?? (content ? <p>{content}</p> : null)}

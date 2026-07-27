@@ -66,6 +66,7 @@ export default {
     variant: { control: 'select', options: ["bordered","ghost","card"], type: { name: 'enum', summary: "'bordered' | 'ghost' | 'card'" }},
     size: { control: 'select', options: ["sm","md","lg"], type: { name: 'enum', summary: "'sm' | 'md' | 'lg'" }},
     accordion: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
+    effect: { control: 'select', options: [undefined, "slide"], type: { name: 'enum', summary: "'slide'" }},
     narrow: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
   },
   parameters: {
@@ -358,3 +359,33 @@ export const Size = {
   })),
 };
 
+export const Slide = {
+  name: "슬라이드",
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: true },
+    docs: {
+      description: {
+        story: 'effect="slide"로 펼침·접힘 시 높이 슬라이드 애니메이션을 적용합니다. 패널 그룹·외부 트리거 모두 동일합니다.',
+      },
+      source: {
+        code: "<script setup>\nimport Collapse from '@uxkm/ui/components/Collapse.vue';\nimport CollapseExternal from '@uxkm/ui/components/CollapseExternal.vue';\nimport CollapsePanel from '@uxkm/ui/components/CollapsePanel.vue';\n</script>\n\n<template>\n  <Collapse narrow effect=\"slide\">\n    <CollapsePanel\n      label=\"배송 정보\"\n      open\n      content=\"평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다.\"\n    />\n    <CollapsePanel label=\"결제 수단\" content=\"신용카드, 계좌이체, 간편결제를 지원합니다.\" />\n  </Collapse>\n  <CollapseExternal trigger-label=\"상세 보기\" narrow effect=\"slide\">\n    <p style=\"margin: 0\">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>\n  </CollapseExternal>\n</template>",
+        language: 'vue',
+      },
+    },
+  },
+  render: withDocsCanvasRender(() => ({
+    components: { Collapse, CollapsePanel, CollapseExternal },
+    template: `<Collapse narrow effect="slide">
+        <CollapsePanel
+        label="배송 정보"
+        open
+        content="평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다."
+        />
+        <CollapsePanel label="결제 수단" content="신용카드, 계좌이체, 간편결제를 지원합니다." />
+      </Collapse>
+      <CollapseExternal trigger-label="상세 보기" narrow effect="slide">
+        <p style="margin: 0">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>
+      </CollapseExternal>`,
+  })),
+};

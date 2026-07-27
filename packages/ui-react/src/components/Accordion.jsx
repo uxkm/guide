@@ -19,6 +19,7 @@ export default function Accordion({
   size = 'md',
   multiple,
   narrow,
+  effect,
   children,
   className,
   ...rest
@@ -40,6 +41,7 @@ export default function Accordion({
       size: resolvedSize,
       multiple,
       narrow,
+      effect,
     },
     itemsRef,
     rootRef,
@@ -122,6 +124,7 @@ export default function Accordion({
 
   const contextValue = useMemo(
     () => ({
+      effect,
       registerItem,
       unregisterItem,
       updateItemMeta,
@@ -130,6 +133,7 @@ export default function Accordion({
       focusTrigger,
     }),
     [
+      effect,
       registerItem,
       unregisterItem,
       updateItemMeta,
@@ -152,7 +156,12 @@ export default function Accordion({
 
   return (
     <AccordionContext.Provider value={contextValue}>
-      <div ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+      <div
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        data-effect={effect === 'slide' ? 'slide' : undefined}
+        {...domRest}
+      >
         {children}
       </div>
     </AccordionContext.Provider>

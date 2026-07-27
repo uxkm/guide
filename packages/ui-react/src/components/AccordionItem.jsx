@@ -1,9 +1,10 @@
-import { useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { AccordionContext } from '@/components/Accordion.jsx';
 import { useRipple } from '@/hooks/useRipple';
 import { cn } from '@/utils/cn';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 export default function AccordionItem({
   ripple,
@@ -29,6 +30,9 @@ export default function AccordionItem({
   const [isOpen, setIsOpen] = useState(() => Boolean(open));
   const isOpenRef = useRef(isOpen);
   isOpenRef.current = isOpen;
+  const panelRef = useRef(null);
+  const isFirstSlideSync = useRef(true);
+  const slide = accordion?.effect === 'slide';
 
   const hasExtra = extra != null;
 
@@ -64,6 +68,13 @@ export default function AccordionItem({
       extraCode,
     });
   }, [triggerId, label, content, disabled, hasExtra, extraCode]);
+
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(panelRef.current, isOpen, animate);
+  }, [slide, isOpen]);
 
   const itemClass = useMemo(
     () => ['accordion_item', isOpen && 'is-open', disabled && 'is-disabled'],
@@ -123,11 +134,12 @@ export default function AccordionItem({
         </Button>
       </div>
       <div
+        ref={slide ? panelRef : undefined}
         id={panelId}
         className="accordion_panel"
         role="region"
         aria-labelledby={triggerId}
-        hidden={!isOpen || undefined}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
         <div className="accordion_content">
           {children ?? (content ? <p>{content}</p> : null)}
