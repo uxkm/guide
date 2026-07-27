@@ -1,0 +1,457 @@
+import{g as c,r as a}from"./gulp-demos-UvXZ8LcT.js";const r=`<!-- @meta
+title: 디자인 토큰 | HTML Components
+activeNav: design-tokens
+pageTitle: 디자인 토큰
+-->
+<div class="page_intro">
+  <h1>디자인 토큰</h1>
+  <p class="lead">색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. <a href="https://uxkm.io/publishing/scss/10-scss-examples/01-design-tokens-base-styles" target="_blank" rel="noopener noreferrer">UXKM 디자인 토큰과 기본 스타일</a>을 참고해, 이 가이드에서는 <code class="typo_code">:root</code> CSS 변수와 라이트/다크 테마 구조로 제공합니다.</p>
+</div>
+
+<section class="section" aria-labelledby="concept-heading">
+  <h2 id="concept-heading">디자인 토큰이란?</h2>
+  <p>디자인 시스템에서 반복되는 값을 의미 있는 이름으로 정의한 것입니다. 컴포넌트·페이지 스타일은 하드코딩 대신 토큰을 참조해 일관성을 유지하고, 변경 시 한 곳만 수정하면 전체에 반영됩니다.</p>
+
+  <div class="demo_section-preview demo_section-preview-start" style="border-radius: var(--radius-lg);">
+    <ul class="list list_bullet" style="width: 100%;">
+      <li class="list_item"><strong>일관성</strong> — 같은 의미의 값은 항상 같은 토큰을 사용합니다.</li>
+      <li class="list_item"><strong>유지보수</strong> — 간격·색상 변경 시 <code class="typo_code">_tokens.scss</code> · <code class="typo_code">_themes.scss</code>만 수정합니다.</li>
+      <li class="list_item"><strong>테마</strong> — 색상 토큰을 테마별로 교체해 라이트/다크를 지원합니다.</li>
+      <li class="list_item"><strong>협업</strong> — 디자이너·개발자가 <code class="typo_code">--space-md</code> 같은 공통 언어로 소통합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="structure-heading">
+  <h2 id="structure-heading">토큰 파일 구조</h2>
+  <p>UXKM SCSS 실무 예제와 같이 tokens → themes → base/components 순으로 의존성을 쌓습니다. 이 가이드는 SCSS 변수와 CSS 변수를 함께 씁니다.</p>
+
+  <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+    <pre class="typo_pre"><code>
+src/scss/
+├── _tokens.scss      # :root CSS 변수 — 간격·타이포·컴포넌트 수치
+├── _themes.scss      # 라이트/다크 색상 (data-theme)
+├── _variables.scss   # SCSS 전용 — 브레이크포인트·폰트 스택
+├── _mixins.scss      # color-token() 등 토큰 헬퍼
+├── components/       # 컴포넌트별 스타일 (토큰 참조)
+└── main.scss         # tokens → themes → … 순서로 @use</code></pre>
+  </div>
+
+  <p>전역 수치 토큰은 <code class="typo_code">_tokens.scss</code>의 <code class="typo_code">:root</code>에 정의하고, 색상은 <code class="typo_code">_themes.scss</code>에서 <code class="typo_code">data-theme</code>별로 덮어씁니다. 미디어쿼리용 브레이크포인트 등 컴파일 타임 값만 <code class="typo_code">_variables.scss</code>에 둡니다.</p>
+</section>
+
+<section class="section" aria-labelledby="spacing-heading">
+  <h2 id="spacing-heading">Spacing 토큰</h2>
+  <p>마진·패딩·gap 등 모든 간격의 기준입니다. rem 단위로 정의해 사용자 글꼴 크기 설정을 존중합니다.</p>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--space-xs</code></td>
+          <td>0.25rem</td>
+          <td>아이콘·배지 간 최소 간격, .space_gap-xs</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--space-sm</code></td>
+          <td>0.5rem</td>
+          <td>버튼 내부 gap, .ml_sm · .p_sm · .space_gap-sm</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--space-md</code></td>
+          <td>1rem</td>
+          <td>폼·카드 패딩, 그리드 gap, 기본 간격</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--space-lg</code></td>
+          <td>1.5rem</td>
+          <td>섹션·모달 패딩, 폼 필드 간격</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--space-xl</code></td>
+          <td>2rem</td>
+          <td>컨테이너 좌우 패딩, 빈 상태 여백</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--space-2xl</code></td>
+          <td>3rem</td>
+          <td>페이지 섹션 상하 여백</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="radius-heading">
+  <h2 id="radius-heading">Radius 토큰</h2>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--radius-sm</code></td>
+          <td>6px</td>
+          <td>입력 필드, 페이지네이션, 스켈레톤</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--radius-md</code></td>
+          <td>10px</td>
+          <td>코드 블록, 프리 영역</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--radius-lg</code></td>
+          <td>12px</td>
+          <td>카드, 모달, 캐러셀</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--radius-pill</code></td>
+          <td>9999px</td>
+          <td>배지, 태그, 스위치, 프로그레스</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="typography-heading">
+  <h2 id="typography-heading">Typography 토큰</h2>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--text-size-xs</code></td>
+          <td>0.75rem</td>
+          <td>캡션, 배지, 툴팁, .size_xs</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--text-size-sm</code></td>
+          <td>0.8125rem</td>
+          <td>보조 텍스트, 메뉴, 탭, .size_sm</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--text-size-base</code></td>
+          <td>0.875rem</td>
+          <td>본문·버튼 기본, .size_base</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--text-size-lg</code></td>
+          <td>1rem</td>
+          <td>강조 본문, 모달 제목, .size_lg</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--text-size-xl</code></td>
+          <td>1.125rem</td>
+          <td>리드 문단, 큰 라벨, .size_xl</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="form_field-hint" style="margin-top: var(--space-md);">제목·본문 변형(<code class="typo_code">--typo-title-*</code>, <code class="typo_code">--typo-text-*</code>)은 <a href="components/typography.html">Typography</a> 컴포넌트 문서를 참고하세요.</p>
+</section>
+
+<section class="section" aria-labelledby="motion-heading">
+  <h2 id="motion-heading">Motion · Layout 토큰</h2>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--transition-fast</code></td>
+          <td>0.15s ease</td>
+          <td>호버·포커스 색상 전환</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--transition-base</code></td>
+          <td>0.2s ease</td>
+          <td>패널·드로어 열림, 레이아웃 변화</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--sidebar-width</code></td>
+          <td>280px</td>
+          <td>가이드 사이드바 너비</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--header-height</code></td>
+          <td>56px</td>
+          <td>헤더·네비바 높이</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--focus-outline-width</code></td>
+          <td>2px</td>
+          <td>키보드 포커스 링 두께</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--focus-outline-offset</code></td>
+          <td>2px</td>
+          <td>포커스 링과 요소 사이 간격</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="color-heading">
+  <h2 id="color-heading">Color 토큰</h2>
+  <p>UXKM Color Tokens처럼 Surface(배경·테두리·텍스트)와 Semantic(Primary·Success·Danger·Warning)으로 구분합니다. 실제 hex 값은 테마에 따라 달라집니다.</p>
+
+  <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">Surface</h3>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">역할</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--color-bg</code></td>
+          <td>페이지 배경</td>
+          <td>body, 가이드 레이아웃 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-surface</code></td>
+          <td>카드·패널 배경</td>
+          <td>카드, 모달, 입력 필드 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-surface-raised</code></td>
+          <td>들어 올린 표면</td>
+          <td>헤더 영역, 호버 배경, 스켈레톤</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-border</code></td>
+          <td>기본 테두리</td>
+          <td>입력·버튼 outline, 구분선</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-border-subtle</code></td>
+          <td>보조 테두리</td>
+          <td>카드·디바이더, 약한 구분</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-text</code></td>
+          <td>본문 텍스트</td>
+          <td>제목·본문 기본 색</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-text-muted</code></td>
+          <td>보조 텍스트</td>
+          <td>설명, 메타, placeholder 톤</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-text-disabled</code></td>
+          <td>비활성 텍스트</td>
+          <td>disabled · is-disabled 레이블·본문 (4.5:1)</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-border-disabled</code></td>
+          <td>비활성 테두리</td>
+          <td>비활성 입력·버튼·컨트롤 테두리 (3:1)</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-surface-disabled</code></td>
+          <td>비활성 배경</td>
+          <td>비활성 입력·카드·드롭존 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-control-disabled</code></td>
+          <td>비활성 컨트롤</td>
+          <td>스위치·슬라이더 트랙 등</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">Semantic</h3>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">역할</th>
+          <th scope="col">사용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code class="typo_code">--color-accent</code></td>
+          <td>Primary · 채움</td>
+          <td>.color_primary 채움 버튼, 활성 탭</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-accent-text</code></td>
+          <td>Primary · 텍스트</td>
+          <td>링크, 고스트 버튼, 강조 텍스트</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-on-accent</code></td>
+          <td>Primary · 채움 위 텍스트</td>
+          <td>filled primary 버튼 레이블</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-success</code></td>
+          <td>Success · 채움</td>
+          <td>.color_success 채움, 성공 상태</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-success-text</code></td>
+          <td>Success · 텍스트</td>
+          <td>성공 메시지, 체크 아이콘</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-danger</code></td>
+          <td>Danger · 채움</td>
+          <td>.color_danger 삭제·오류 강조</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-danger-text</code></td>
+          <td>Danger · 텍스트</td>
+          <td>오류 메시지, 위험 링크</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-warning</code></td>
+          <td>Warning · 채움</td>
+          <td>.color_warning 경고 배지·버튼</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-warning-text</code></td>
+          <td>Warning · 텍스트</td>
+          <td>경고 설명, 주의 문구</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-accent-disabled</code></td>
+          <td>Primary · 비활성 채움</td>
+          <td>filled primary · 체크박스 비활성 선택 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-on-accent-disabled</code></td>
+          <td>Primary · 비활성 채움 위 텍스트</td>
+          <td>비활성 filled primary 레이블·체크</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-success-disabled</code></td>
+          <td>Success · 비활성 채움</td>
+          <td>filled success 비활성 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-on-success-disabled</code></td>
+          <td>Success · 비활성 채움 위 텍스트</td>
+          <td>비활성 success 레이블</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-danger-disabled</code></td>
+          <td>Danger · 비활성 채움</td>
+          <td>filled danger 비활성 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-on-danger-disabled</code></td>
+          <td>Danger · 비활성 채움 위 텍스트</td>
+          <td>비활성 danger 레이블</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-warning-disabled</code></td>
+          <td>Warning · 비활성 채움</td>
+          <td>filled warning 비활성 배경</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--color-on-warning-disabled</code></td>
+          <td>Warning · 비활성 채움 위 텍스트</td>
+          <td>비활성 warning 레이블</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top: var(--space-md);">테마 적용 방법은 <a href="getting-started.html#theme-heading">설치 및 사용 · 테마</a>를 참고하세요.</p>
+</section>
+
+<section class="section" aria-labelledby="usage-heading">
+  <h2 id="usage-heading">토큰 사용 방법</h2>
+  <p>SCSS·CSS·HTML 어디서든 <code class="typo_code">var()</code>로 참조합니다. 컴포넌트 범위에서 CSS 변수를 재정의하면 해당 블록만 스케일을 바꿀 수 있습니다.</p>
+
+  <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">SCSS</h3>
+  <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+    <pre class="typo_pre"><code>
+// 컴포넌트 SCSS에서 토큰 참조
+@use "../variables" as *;
+
+.card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  font-size: var(--text-size-sm);
+  transition: box-shadow var(--transition-fast);
+}</code></pre>
+  </div>
+
+  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">CSS · 범위 재정의</h3>
+  <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+    <pre class="typo_pre"><code>
+/* HTML·인라인 스타일 */
+&lt;section style="padding: var(--space-xl); gap: var(--space-md);"&gt;
+  …
+&lt;/section&gt;
+
+/* 컴포넌트 범위에서 토큰 재정의 */
+.my-panel {
+  --icon-size: 1.5rem;
+  --btn-padding-y: 0.75rem;
+}</code></pre>
+  </div>
+
+  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">테마</h3>
+  <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+    <pre class="typo_pre"><code>
+&lt;!-- 테마 전환 — 색상 토큰이 함께 바뀝니다 --&gt;
+&lt;html lang="ko" data-theme="light"&gt;
+&lt;html lang="ko" data-theme="dark"&gt;
+
+/* _themes.scss — 의미별 색상만 테마별로 정의 */
+[data-theme="light"] { --color-accent: #3d66c4; }
+[data-theme="dark"]  { --color-accent: #386bc0; }</code></pre>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="component-tokens-heading">
+  <h2 id="component-tokens-heading">컴포넌트 토큰</h2>
+  <p>버튼·아이콘·입력 등 컴포넌트 전용 토큰(<code class="typo_code">--btn-*</code>, <code class="typo_code">--icon-*</code>, <code class="typo_code">--input-*</code> 등)은 각 컴포넌트 문서 하단의 「디자인 토큰」 표에서 기본값과 사용처를 확인할 수 있습니다.</p>
+  <p>예: Icon 문서의 <code class="typo_code">--icon-size</code>, Button의 <code class="typo_code">--btn-padding-y</code> — 각 표에는 <strong>기본값</strong>과 <strong>설명(사용)</strong> 열이 함께 제공됩니다.</p>
+</section>
+`;function l(s){return s.replace(/<!--\s*@meta[\s\S]*?-->/,"").trim()}const d=l(r),p={title:"디자인 토큰",id:"design-tokens",tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. 내용은 gulp 가이드(`src/design-tokens.html`)와 동일합니다."},...c(d).docs}}},t={tags:["!dev"],render:()=>a(d),parameters:c(d)};var e,n,o;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  tags: ['!dev'],
+  render: () => renderHtml(body),
+  parameters: gulpSource(body)
+}`,...(o=(n=t.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const _=["Page"];export{t as Page,_ as __namedExportsOrder,p as default};
