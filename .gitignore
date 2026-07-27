@@ -2,6 +2,7 @@ node_modules/
 dist/
 apps/guide/dist/
 apps/storybook/storybook-static/
+apps/storybook/*.log
 .tmp-*/
 .sass-cache/
 *.css.map

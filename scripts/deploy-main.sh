@@ -16,7 +16,9 @@ case "$CURRENT_BRANCH" in
     STORYBOOK_DEPLOY_DIR="vue-storybook"
     ;;
   react-storybook)
+    DEPLOY_GUIDE=1
     DEPLOY_STORYBOOK=1
+    GUIDE_DEPLOY_DIR="react"
     STORYBOOK_DEPLOY_DIR="react-storybook"
     ;;
   gulp-storybook)

@@ -56,17 +56,21 @@ const wrapperClass = computed(() => [
   attrs.class,
 ]);
 
-/** boxed일 때 인라인 스타일로 테두리·배경·패딩 적용 */
+/** boxed 여백 — 슬라이드 대상(.collapse)에는 margin만 둔다 */
 const panelStyle = computed(() =>
+  props.boxed ? { marginTop: 'var(--space-sm)' } : undefined,
+);
+
+/** 패딩·보더는 안쪽 래퍼 — height:0 애니메이션 시 패딩 박스가 먼저 보이지 않게 */
+const panelInnerStyle = computed(() =>
   props.boxed
     ? {
-        marginTop: 'var(--space-sm)',
         padding: 'var(--space-lg)',
         border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-md)',
         background: 'var(--color-surface-raised)',
       }
-    : undefined
+    : undefined,
 );
 
 const fallthroughAttrs = computed(() => {
@@ -120,7 +124,9 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
       :style="panelStyle"
       :hidden="isSlide ? undefined : (!isOpen || undefined)"
     >
-      <slot />
+      <div :style="panelInnerStyle">
+        <slot />
+      </div>
     </div>
   </div>
 </template>

@@ -54,11 +54,15 @@ export default function CollapseExternal({
     setSlideRegionOpen(panelRef.current, isOpen, animate);
   }, [slide, isOpen]);
 
+  // boxed 패딩·보더는 안쪽 래퍼에 — 슬라이드 height:0 시 패딩 박스가 먼저 보이지 않게
   const panelStyle = useMemo(
+    () => (boxed ? { marginTop: 'var(--space-sm)' } : undefined),
+    [boxed],
+  );
+  const panelInnerStyle = useMemo(
     () =>
       boxed
         ? {
-            marginTop: 'var(--space-sm)',
             padding: 'var(--space-lg)',
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-md)',
@@ -102,7 +106,7 @@ export default function CollapseExternal({
         style={panelStyle}
         hidden={slide ? undefined : (!isOpen || undefined)}
       >
-        {children}
+        <div style={panelInnerStyle}>{children}</div>
       </div>
     </div>
   );
