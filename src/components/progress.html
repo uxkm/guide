@@ -15,25 +15,25 @@ pageTitle: Progress
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_primary">
       <div class="progress_track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 0%"></span>
       </div>
     </div>
 
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_primary">
       <div class="progress_track" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 30%"></span>
       </div>
     </div>
 
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_primary">
       <div class="progress_track" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 60%"></span>
       </div>
     </div>
 
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_success">
       <div class="progress_track" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 100%"></span>
       </div>
@@ -48,7 +48,7 @@ pageTitle: Progress
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_primary">
       <div class="progress_header">
         <span class="progress_label">파일 업로드</span>
         <span class="progress_value">42%</span>
@@ -58,12 +58,12 @@ pageTitle: Progress
       </div>
     </div>
 
-    <div class="progress progress_fit">
+    <div class="progress progress_fit color_primary">
       <div class="progress_header">
         <span class="progress_label">데이터 동기화</span>
-        <span class="progress_value">8 / 12</span>
+        <span class="progress_value">67%</span>
       </div>
-      <div class="progress_track" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" aria-label="데이터 동기화 진행률" aria-valuetext="8개 중 12개 완료">
+      <div class="progress_track" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" aria-label="데이터 동기화 진행률">
         <span class="progress_bar" style="width: 67%"></span>
       </div>
     </div>
@@ -110,20 +110,20 @@ pageTitle: Progress
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="progress progress_fit progress_sm">
-      <div class="progress_track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Small 진행률">
+    <div class="progress progress_fit progress_sm color_primary">
+      <div class="progress_track" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 40%"></span>
       </div>
     </div>
 
-    <div class="progress progress_fit">
-      <div class="progress_track" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Medium 진행률">
+    <div class="progress progress_fit color_primary">
+      <div class="progress_track" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 55%"></span>
       </div>
     </div>
 
-    <div class="progress progress_fit progress_lg">
-      <div class="progress_track" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Large 진행률">
+    <div class="progress progress_fit progress_lg color_primary">
+      <div class="progress_track" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 70%"></span>
       </div>
     </div>
@@ -188,7 +188,7 @@ pageTitle: Progress
       </div>
     </div>
 
-    <div class="progress progress_fit progress_inside progress_lg color_success">
+    <div class="progress progress_fit progress_lg progress_inside color_success">
       <div class="progress_track" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="진행률">
         <span class="progress_bar" style="width: 80%">80%</span>
       </div>
@@ -319,25 +319,15 @@ pageTitle: Progress
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">progress</code></td><td>루트 래퍼</td></tr>
-          <tr><td><code class="typo_code">progress_header</code></td><td>레이블·값 행 (선택)</td></tr>
-          <tr><td><code class="typo_code">progress_label</code> · <code class="typo_code">progress_value</code></td><td>레이블 텍스트 · 퍼센트/수치 표시</td></tr>
-          <tr><td><code class="typo_code">progress_track</code></td><td>선형 트랙 (<code class="typo_code">role="progressbar"</code>)</td></tr>
-          <tr><td><code class="typo_code">progress_bar</code></td><td>채움 막대 (<code class="typo_code">width</code>로 진행률 제어)</td></tr>
-          <tr><td><code class="typo_code">progress_circle</code></td><td>원형 진행률 변형</td></tr>
-          <tr><td><code class="typo_code">progress_circle-svg</code> · <code class="typo_code">progress_circle-track</code> · <code class="typo_code">progress_circle-bar</code></td><td>원형 SVG 파트</td></tr>
-          <tr><td><code class="typo_code">progress_circle-value</code></td><td>원형 중앙 퍼센트 텍스트</td></tr>
-          <tr><td><code class="typo_code">color_primary</code> · <code class="typo_code">color_success</code> · <code class="typo_code">color_warning</code> · <code class="typo_code">color_danger</code></td><td>공통 색상 변형</td></tr>
-          <tr><td><code class="typo_code">progress_sm</code> · <code class="typo_code">progress_lg</code></td><td>높이·글자 크기 변형</td></tr>
-          <tr><td><code class="typo_code">progress_fit</code> · <code class="typo_code">progress_block</code></td><td>최대 너비 제한 · 전체 너비</td></tr>
-          <tr><td><code class="typo_code">progress_striped</code> · <code class="typo_code">progress_animated</code></td><td>줄무늬 · 흐르는 애니메이션</td></tr>
-          <tr><td><code class="typo_code">progress_inside</code></td><td>막대 안에 퍼센트 텍스트 표시</td></tr>
-          <tr><td><code class="typo_code">is-indeterminate</code></td><td>불확정 진행 상태 (애니메이션)</td></tr>
-          <tr><td><code class="typo_code">--progress-percent</code></td><td>원형 채움 비율 CSS 변수 (0–100)</td></tr>
-          <tr><td><code class="typo_code">role="progressbar"</code></td><td>진행률 시맨틱 (권장)</td></tr>
-          <tr><td><code class="typo_code">aria-valuenow</code> · <code class="typo_code">aria-valuemin</code> · <code class="typo_code">aria-valuemax</code></td><td>현재값 · 최소 · 최대 (불확정 시 <code class="typo_code">aria-valuenow</code> 생략)</td></tr>
-          <tr><td><code class="typo_code">aria-valuetext</code> · <code class="typo_code">aria-label</code></td><td>읽기 쉬운 값 · 접근 가능한 이름</td></tr>
-          <tr><td><code class="typo_code">aria-busy="true"</code></td><td>불확정 상태 표시 (선택)</td></tr>
+          <tr><td><code class="typo_code">progress · progress_track · progress_bar</code></td><td>선형 진행률</td></tr>
+          <tr><td><code class="typo_code">progress_circle · progress_circle-svg · progress_circle-value</code></td><td>원형 진행률</td></tr>
+          <tr><td><code class="typo_code">progress_header · progress_label · progress_value</code></td><td>헤더</td></tr>
+          <tr><td><code class="typo_code">progress_sm · progress_lg · progress_fit · progress_block</code></td><td>크기·너비</td></tr>
+          <tr><td><code class="typo_code">progress_striped · progress_animated · progress_inside</code></td><td>스타일</td></tr>
+          <tr><td><code class="typo_code">is-indeterminate</code></td><td>불확정 상태</td></tr>
+          <tr><td><code class="typo_code">color_primary · color_success · color_warning · color_danger</code></td><td>색상</td></tr>
+          <tr><td><code class="typo_code">--progress-percent</code></td><td>원형 채움 비율 (0–100)</td></tr>
+          <tr><td><code class="typo_code">role="progressbar"</code> · <code class="typo_code">aria-valuenow</code> · <code class="typo_code">aria-busy</code></td><td>접근성</td></tr>
         </tbody>
       </table>
     </div>
@@ -360,15 +350,9 @@ pageTitle: Progress
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">--progress-height</code></td><td>8px</td><td>선형 트랙 높이</td></tr>
-          <tr><td><code class="typo_code">--progress-height-sm</code> · <code class="typo_code">--progress-height-lg</code></td><td>4px · 12px</td><td>크기 변형별 높이</td></tr>
-          <tr><td><code class="typo_code">--progress-radius</code></td><td><code class="typo_code">var(--radius-pill)</code></td><td>트랙·막대 모서리</td></tr>
+          <tr><td><code class="typo_code">--progress-height</code> · <code class="typo_code">--progress-height-sm</code> · <code class="typo_code">--progress-height-lg</code></td><td>8px · 4px · 12px</td><td>선형 트랙 높이</td></tr>
           <tr><td><code class="typo_code">--progress-max-width</code></td><td><code class="typo_code">var(--input-max-width)</code></td><td><code class="typo_code">progress_fit</code> 최대 너비</td></tr>
-          <tr><td><code class="typo_code">--progress-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>헤더 내 간격</td></tr>
-          <tr><td><code class="typo_code">--progress-label-size</code> · <code class="typo_code">--progress-value-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>레이블·값 글자 크기</td></tr>
-          <tr><td><code class="typo_code">--progress-circle-size</code></td><td>7.5rem</td><td>원형 기본 크기</td></tr>
-          <tr><td><code class="typo_code">--progress-circle-stroke</code></td><td>6</td><td>원형 stroke 두께</td></tr>
-          <tr><td><code class="typo_code">--progress-circle-value-size</code></td><td><code class="typo_code">var(--text-size-lg)</code></td><td>원형 중앙 텍스트 크기</td></tr>
+          <tr><td><code class="typo_code">--progress-circle-size</code> · <code class="typo_code">--progress-circle-stroke</code></td><td>7.5rem · 6</td><td>원형 크기·stroke</td></tr>
         </tbody>
       </table>
     </div>

@@ -113,10 +113,7 @@ pageTitle: Switch
         <input type="checkbox" class="switch_input" role="switch" id="switch-basic-dark" checked>
         <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
       </span>
-      <span class="switch_content">
-        <span class="switch_label">다크 모드</span>
-        <span class="switch_hint">시스템 설정과 무관하게 어두운 테마를 사용합니다.</span>
-      </span>
+      <span class="switch_label">다크 모드</span>
     </label>
 
     <label class="switch">
@@ -142,15 +139,15 @@ pageTitle: Switch
         <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
       </span>
     </label>
-    <label class="switch">
+    <label class="switch" aria-label="기능 끄기">
       <span class="switch_control">
-        <input type="checkbox" class="switch_input" role="switch" checked aria-label="기능 끄기">
+        <input type="checkbox" class="switch_input" role="switch" checked>
         <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
       </span>
     </label>
-    <label class="switch">
+    <label class="switch" aria-label="비활성">
       <span class="switch_control">
-        <input type="checkbox" class="switch_input" role="switch" disabled aria-label="비활성">
+        <input type="checkbox" class="switch_input" role="switch" disabled>
         <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
       </span>
     </label>
@@ -301,16 +298,6 @@ pageTitle: Switch
       <span class="switch_label">켜짐 (비활성)</span>
       <span class="switch_control">
         <input type="checkbox" class="switch_input" role="switch" checked disabled>
-        <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
-      </span>
-    </label>
-    <label class="switch switch_label-end is-error">
-      <span class="switch_content">
-        <span class="switch_label">필수 동의</span>
-        <span class="switch_hint">약관에 동의해야 계속할 수 있습니다.</span>
-      </span>
-      <span class="switch_control">
-        <input type="checkbox" class="switch_input" role="switch" aria-invalid="true">
         <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
       </span>
     </label>

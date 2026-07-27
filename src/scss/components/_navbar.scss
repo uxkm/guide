@@ -231,14 +231,18 @@
   // -----------------------------------------------------------------------------
 
   &_demo {
-    margin: calc(-1 * var(--space-xl));
-    width: calc(100% + 2 * var(--space-xl));
+    width: 100%;
+    min-width: 0;
     overflow: hidden;
   }
 
   &_demo-scroll {
+    width: auto;
     max-height: 12rem;
+    overflow-x: hidden;
     overflow-y: auto;
+    margin-inline: var(--space-xl);
+    margin-block-end: var(--space-xl);
     border: 1px solid var(--color-border-subtle);
     border-radius: $radius-md;
   }

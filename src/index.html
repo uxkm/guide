@@ -15,7 +15,7 @@ pageTitle: 소개
   <div class="demo_section-preview demo_section-preview-start" style="border-radius: var(--radius-lg);">
     <ul class="list list_bullet" style="width: 100%;">
       <li class="list_item"><strong>OOCSS 구조</strong> — 블록(<code class="typo_code">.btn</code>) + 파트(<code class="typo_code">.btn_label</code>) + 스킨·크기·상태 클래스를 조합해 사용합니다.</li>
-      <li class="list_item"><strong>디자인 토큰</strong> — 색상·간격·타이포 등은 <code class="typo_code">_tokens.scss</code>의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다.</li>
+      <li class="list_item"><strong>디자인 토큰</strong> — 색상·간격·타이포 등은 <code class="typo_code">_tokens.scss</code>의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다. 자세한 목록은 <a href="design-tokens.html">디자인 토큰</a>을 참고하세요.</li>
       <li class="list_item"><strong>접근성</strong> — <code class="typo_code">role</code> · <code class="typo_code">aria-*</code> 속성과 키보드·포커스 패턴을 컴포넌트별로 안내합니다.</li>
       <li class="list_item"><strong>이 저장소의 빌드</strong> — 문서 사이트 생성은 <strong>Gulp</strong>로 수행합니다. SCSS 컴파일, HTML 조립, 이미지 압축, JS 복사 후 결과물을 <code class="typo_code">html/</code>에 출력합니다.</li>
     </ul>
@@ -76,8 +76,8 @@ pnpm build</code></pre>
     </a>
     <a class="category_card" href="components/accordion.html">
       <h3>기타</h3>
-      <p>Accordion, Carousel, Offcanvas, Affix, Back Top 등</p>
-      <span class="count">7개 컴포넌트</span>
+      <p>Accordion, Collapse, Carousel, Affix, Back Top</p>
+      <span class="count">5개 컴포넌트</span>
     </a>
   </div>
 </section>
@@ -106,7 +106,8 @@ src/                          # 소스
 │   ├── components/           # 컴포넌트별 스타일
 │   └── main.scss             # SCSS 진입점 (Gulp styles 태스크)
 ├── index.html                # 소개 (이 페이지)
-└── getting-started.html      # 설치 및 사용
+├── getting-started.html      # 설치 및 사용
+└── design-tokens.html        # 디자인 토큰
 
 html/                         # Gulp build 결과물 (배포용)
 ├── components/               # 조립된 컴포넌트 페이지
@@ -114,7 +115,8 @@ html/                         # Gulp build 결과물 (배포용)
 ├── images/                   # Gulp images — 압축된 이미지
 ├── js/                       # Gulp scripts — 복사된 스크립트
 ├── index.html
-└── getting-started.html</code></pre>
+├── getting-started.html
+└── design-tokens.html</code></pre>
   </div>
 
   <p>컴포넌트 마크업·SCSS는 다른 프로젝트에도 가져다 쓸 수 있습니다. 다만 <code class="typo_code">src/</code> → <code class="typo_code">html/</code> 변환과 문서 페이지 조립은 이 저장소의 Gulp 설정에 따릅니다.</p>

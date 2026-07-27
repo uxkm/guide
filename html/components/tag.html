@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Tag</span>
@@ -194,17 +195,17 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <span class="tag tag_sm color_primary">Small</span>
               <span class="tag color_primary">Medium</span>
               <span class="tag tag_lg color_primary">Large</span>
             </div>
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <span class="tag tag_sm tag_outline color_success">Small</span>
               <span class="tag tag_outline color_success">Medium</span>
               <span class="tag tag_lg tag_outline color_success">Large</span>
             </div>
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <span class="tag tag_sm tag_solid color_danger">Small</span>
               <span class="tag tag_solid color_danger">Medium</span>
               <span class="tag tag_lg tag_solid color_danger">Large</span>
@@ -221,7 +222,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag tag_sm color_primary&quot;&gt;Small&lt;/span&gt;
   &lt;span class=&quot;tag color_primary&quot;&gt;Medium&lt;/span&gt;
   &lt;span class=&quot;tag tag_lg color_primary&quot;&gt;Large&lt;/span&gt;
@@ -229,7 +230,7 @@
 
 &lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag tag_sm tag_outline color_success&quot;&gt;Small&lt;/span&gt;
   &lt;span class=&quot;tag tag_outline color_success&quot;&gt;Medium&lt;/span&gt;
   &lt;span class=&quot;tag tag_lg tag_outline color_success&quot;&gt;Large&lt;/span&gt;
@@ -237,7 +238,7 @@
 
 &lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag tag_sm tag_solid color_danger&quot;&gt;Small&lt;/span&gt;
   &lt;span class=&quot;tag tag_solid color_danger&quot;&gt;Medium&lt;/span&gt;
   &lt;span class=&quot;tag tag_lg tag_solid color_danger&quot;&gt;Large&lt;/span&gt;
@@ -296,7 +297,8 @@
             <span class="tag color_primary">
               <span class="tag_icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                  <circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/>
                 </svg>
               </span>
               Design
@@ -341,7 +343,7 @@
   &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
       &lt;path d=&quot;M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z&quot;/&gt;
-      &lt;line x1=&quot;7&quot; y1=&quot;7&quot; x2=&quot;7.01&quot; y2=&quot;7&quot;/&gt;
+      &lt;circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;1&quot; fill=&quot;currentColor&quot; stroke=&quot;none&quot;/&gt;
     &lt;/svg&gt;
   &lt;/span&gt;
   Design
@@ -394,7 +396,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <span class="tag color_primary">
                 React
                 <button type="button" class="tag_close" aria-label="React 태그 제거">
@@ -420,7 +422,7 @@
                 </button>
               </span>
             </div>
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <span class="tag tag_round color_success">
                 <span class="tag_icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -447,7 +449,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag color_primary&quot;&gt;
     React
     &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;React 태그 제거&quot;&gt;
@@ -476,7 +478,7 @@
 
 &lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag tag_round color_success&quot;&gt;
     &lt;span class=&quot;tag_icon&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
@@ -516,7 +518,7 @@
               <button type="button" class="tag tag_checkable tag_round color_danger" aria-pressed="false">취소</button>
             </div>
 
-            <div class="tag_group tag_group-tight">
+            <div class="tag_group tag_group-tight" role="group">
               <button type="button" class="tag tag_sm tag_checkable color_default is-selected" aria-pressed="true">S</button>
               <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">M</button>
               <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">L</button>
@@ -552,7 +554,7 @@
 
 &lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+&lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
   &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default is-selected&quot; aria-pressed=&quot;true&quot;&gt;S&lt;/button&gt;
   &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;M&lt;/button&gt;
   &lt;button type=&quot;button&quot; class=&quot;tag tag_sm tag_checkable color_default&quot; aria-pressed=&quot;false&quot;&gt;L&lt;/button&gt;
@@ -677,8 +679,8 @@
             <span class="tag color_primary is-disabled">Filled</span>
             <span class="tag tag_outline color_success is-disabled">Outline</span>
             <span class="tag tag_solid color_danger is-disabled">Solid</span>
-            <button type="button" class="tag tag_checkable color_default is-selected" disabled>선택됨 (비활성)</button>
-            <button type="button" class="tag tag_add" disabled>태그 추가 (비활성)</button>
+            <button type="button" class="tag tag_checkable color_default is-selected is-disabled" disabled>선택됨 (비활성)</button>
+            <button type="button" class="tag tag_add is-disabled" disabled>태그 추가 (비활성)</button>
           </div>
 
         <div class="demo_section-code">
@@ -703,11 +705,11 @@
 
 &lt;!-- tag_checkable --&gt;
 
-&lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default is-selected&quot; disabled&gt;선택됨 (비활성)&lt;/button&gt;
+&lt;button type=&quot;button&quot; class=&quot;tag tag_checkable color_default is-selected is-disabled&quot; disabled&gt;선택됨 (비활성)&lt;/button&gt;
 
 &lt;!-- tag_add --&gt;
 
-&lt;button type=&quot;button&quot; class=&quot;tag tag_add&quot; disabled&gt;태그 추가 (비활성)&lt;/button&gt;</code></pre>
+&lt;button type=&quot;button&quot; class=&quot;tag tag_add is-disabled&quot; disabled&gt;태그 추가 (비활성)&lt;/button&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -719,7 +721,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <div class="tag_group">
+            <div class="tag_group" role="group">
               <span class="tag color_primary">HTML</span>
               <span class="tag color_primary">CSS</span>
               <span class="tag color_primary">JavaScript</span>
@@ -729,7 +731,7 @@
 
             <div>
               <p class="color_muted size_sm" style="margin-bottom: 0.5rem;">선택된 기술 스택</p>
-              <div class="tag_group tag_group-tight">
+              <div class="tag_group tag_group-tight" role="group">
                 <span class="tag tag_round color_primary">
                   React
                   <button type="button" class="tag_close" aria-label="React 태그 제거">
@@ -761,7 +763,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- tag_group --&gt;
 
-&lt;div class=&quot;tag_group&quot;&gt;
+&lt;div class=&quot;tag_group&quot; role=&quot;group&quot;&gt;
   &lt;span class=&quot;tag color_primary&quot;&gt;HTML&lt;/span&gt;
   &lt;span class=&quot;tag color_primary&quot;&gt;CSS&lt;/span&gt;
   &lt;span class=&quot;tag color_primary&quot;&gt;JavaScript&lt;/span&gt;
@@ -773,7 +775,7 @@
 
 &lt;div&gt;
   &lt;p class=&quot;color_muted size_sm&quot; style=&quot;margin-bottom: 0.5rem;&quot;&gt;선택된 기술 스택&lt;/p&gt;
-  &lt;div class=&quot;tag_group tag_group-tight&quot;&gt;
+  &lt;div class=&quot;tag_group tag_group-tight&quot; role=&quot;group&quot;&gt;
     &lt;span class=&quot;tag tag_round color_primary&quot;&gt;
       React
       &lt;button type=&quot;button&quot; class=&quot;tag_close&quot; aria-label=&quot;React 태그 제거&quot;&gt;
@@ -803,5 +805,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

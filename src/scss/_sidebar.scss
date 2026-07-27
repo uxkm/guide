@@ -68,10 +68,6 @@
       .guide_nav-list {
         display: none;
       }
-
-      .guide_nav-chevron {
-        transform: rotate(-90deg);
-      }
     }
   }
 
@@ -99,6 +95,10 @@
     &:hover {
       color: var(--color-text);
       background: var(--color-accent-muted);
+    }
+
+    &[aria-expanded="true"] .guide_nav-chevron {
+      transform: rotate(180deg);
     }
   }
 

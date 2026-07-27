@@ -63,17 +63,17 @@ pageTitle: Tag
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <span class="tag tag_sm color_primary">Small</span>
       <span class="tag color_primary">Medium</span>
       <span class="tag tag_lg color_primary">Large</span>
     </div>
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <span class="tag tag_sm tag_outline color_success">Small</span>
       <span class="tag tag_outline color_success">Medium</span>
       <span class="tag tag_lg tag_outline color_success">Large</span>
     </div>
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <span class="tag tag_sm tag_solid color_danger">Small</span>
       <span class="tag tag_solid color_danger">Medium</span>
       <span class="tag tag_lg tag_solid color_danger">Large</span>
@@ -105,7 +105,8 @@ pageTitle: Tag
     <span class="tag color_primary">
       <span class="tag_icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+          <circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/>
         </svg>
       </span>
       Design
@@ -144,7 +145,7 @@ pageTitle: Tag
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <span class="tag color_primary">
         React
         <button type="button" class="tag_close" aria-label="React 태그 제거">
@@ -170,7 +171,7 @@ pageTitle: Tag
         </button>
       </span>
     </div>
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <span class="tag tag_round color_success">
         <span class="tag_icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -209,7 +210,7 @@ pageTitle: Tag
       <button type="button" class="tag tag_checkable tag_round color_danger" aria-pressed="false">취소</button>
     </div>
 
-    <div class="tag_group tag_group-tight">
+    <div class="tag_group tag_group-tight" role="group">
       <button type="button" class="tag tag_sm tag_checkable color_default is-selected" aria-pressed="true">S</button>
       <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">M</button>
       <button type="button" class="tag tag_sm tag_checkable color_default" aria-pressed="false">L</button>
@@ -269,8 +270,8 @@ pageTitle: Tag
     <span class="tag color_primary is-disabled">Filled</span>
     <span class="tag tag_outline color_success is-disabled">Outline</span>
     <span class="tag tag_solid color_danger is-disabled">Solid</span>
-    <button type="button" class="tag tag_checkable color_default is-selected" disabled>선택됨 (비활성)</button>
-    <button type="button" class="tag tag_add" disabled>태그 추가 (비활성)</button>
+    <button type="button" class="tag tag_checkable color_default is-selected is-disabled" disabled>선택됨 (비활성)</button>
+    <button type="button" class="tag tag_add is-disabled" disabled>태그 추가 (비활성)</button>
   </div>
 </section>
 
@@ -281,7 +282,7 @@ pageTitle: Tag
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="tag_group">
+    <div class="tag_group" role="group">
       <span class="tag color_primary">HTML</span>
       <span class="tag color_primary">CSS</span>
       <span class="tag color_primary">JavaScript</span>
@@ -291,7 +292,7 @@ pageTitle: Tag
 
     <div>
       <p class="color_muted size_sm" style="margin-bottom: 0.5rem;">선택된 기술 스택</p>
-      <div class="tag_group tag_group-tight">
+      <div class="tag_group tag_group-tight" role="group">
         <span class="tag tag_round color_primary">
           React
           <button type="button" class="tag_close" aria-label="React 태그 제거">

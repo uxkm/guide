@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Affix</span>
@@ -45,7 +46,7 @@
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <div class="affix_demo-scroll" id="affix-scroll-basic">
+              <div id="affix-scroll-basic" class="affix_demo-scroll">
                 <div class="affix_demo-content">
                   <p>주문 상세 페이지입니다. 아래로 스크롤하면 액션 바가 상단에 고정됩니다.</p>
                   <p>배송지: 서울특별시 강남구 테헤란로 123, 4층</p>
@@ -67,6 +68,8 @@
                   <p>요청 사항: 부재 시 경비실에 맡겨 주세요.</p>
                   <p>교환·반품은 수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.</p>
                   <p>문의: 고객센터 1588-0000 (평일 09:00–18:00)</p>
+                  <p>주문 메모 · 선물 포장 · 세금계산서 요청</p>
+                  <p>관련 상품 · 최근 본 상품 · 위시리스트</p>
                 </div>
               </div>
             </div>
@@ -81,7 +84,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;div class=&quot;affix_demo-scroll&quot; id=&quot;affix-scroll-basic&quot;&gt;
+  &lt;div id=&quot;affix-scroll-basic&quot; class=&quot;affix_demo-scroll&quot;&gt;
     &lt;div class=&quot;affix_demo-content&quot;&gt;
       &lt;p&gt;주문 상세 페이지입니다. 아래로 스크롤하면 액션 바가 상단에 고정됩니다.&lt;/p&gt;
       &lt;p&gt;배송지: 서울특별시 강남구 테헤란로 123, 4층&lt;/p&gt;
@@ -106,6 +109,8 @@
       &lt;p&gt;요청 사항: 부재 시 경비실에 맡겨 주세요.&lt;/p&gt;
       &lt;p&gt;교환·반품은 수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.&lt;/p&gt;
       &lt;p&gt;문의: 고객센터 1588-0000 (평일 09:00–18:00)&lt;/p&gt;
+      &lt;p&gt;주문 메모 · 선물 포장 · 세금계산서 요청&lt;/p&gt;
+      &lt;p&gt;관련 상품 · 최근 본 상품 · 위시리스트&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -121,7 +126,7 @@
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <div class="affix_demo-scroll" id="affix-scroll-offset">
+              <div id="affix-scroll-offset" class="affix_demo-scroll">
                 <div class="affix_demo-content">
                   <p>문서 편집 화면입니다. 스크롤 시 포맷 툴바가 상단에서 12px 떨어진 위치에 고정됩니다.</p>
                   <p>제목: 2024년 3분기 실적 보고서</p>
@@ -130,24 +135,24 @@
                   <div class="affix" data-affix data-target="#affix-scroll-offset" data-offset-top="12">
                     <div class="affix_placeholder" aria-hidden="true" hidden></div>
                     <div class="affix_target affix_bar">
-                      <button type="button" class="btn btn_ghost btn_sm" aria-label="굵게">
+                      <button type="button" class="btn btn_ghost btn_sm btn_icon-only" aria-label="굵게">
                         <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                           <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>
                           <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>
                         </svg>
                       </button>
-                      <button type="button" class="btn btn_ghost btn_sm" aria-label="기울임">
+                      <button type="button" class="btn btn_ghost btn_sm btn_icon-only" aria-label="기울임">
                         <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                           <path d="M19 4h-9M14 20H5M15 4 9 20"/>
                         </svg>
                       </button>
-                      <button type="button" class="btn btn_ghost btn_sm" aria-label="밑줄">
+                      <button type="button" class="btn btn_ghost btn_sm btn_icon-only" aria-label="밑줄">
                         <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                           <path d="M6 3v7a6 6 0 0 0 12 0V3"/>
                           <path d="M4 21h16"/>
                         </svg>
                       </button>
-                      <span class="affix_bar-label" style="font-weight: 400; color: var(--color-text-muted);">서식</span>
+                      <span class="affix_bar-label" style="font-weight: 400; color: var(--color-text-muted)">서식</span>
                     </div>
                   </div>
 
@@ -156,6 +161,8 @@
                   <p>3. 비용 — 마케팅 비용이 전분기 대비 8% 상승했습니다.</p>
                   <p>4. 전망 — 4분기 시즌 효과로 완만한 성장이 예상됩니다.</p>
                   <p>5. 부록 — 상세 표·차트는 별첨 자료를 참고하세요.</p>
+                  <p>6. 참고 — 내부 지표 정의와 집계 기준은 별도 문서를 따릅니다.</p>
+                  <p>7. 문의 — 지표 해석은 기획팀으로 연락해 주세요.</p>
                 </div>
               </div>
             </div>
@@ -170,7 +177,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;div class=&quot;affix_demo-scroll&quot; id=&quot;affix-scroll-offset&quot;&gt;
+  &lt;div id=&quot;affix-scroll-offset&quot; class=&quot;affix_demo-scroll&quot;&gt;
     &lt;div class=&quot;affix_demo-content&quot;&gt;
       &lt;p&gt;문서 편집 화면입니다. 스크롤 시 포맷 툴바가 상단에서 12px 떨어진 위치에 고정됩니다.&lt;/p&gt;
       &lt;p&gt;제목: 2024년 3분기 실적 보고서&lt;/p&gt;
@@ -179,24 +186,24 @@
         &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
         &lt;/div&gt;
         &lt;div class=&quot;affix_target affix_bar&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; aria-label=&quot;굵게&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm btn_icon-only&quot; aria-label=&quot;굵게&quot;&gt;
             &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;path d=&quot;M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z&quot;/&gt;
               &lt;path d=&quot;M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z&quot;/&gt;
             &lt;/svg&gt;
           &lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; aria-label=&quot;기울임&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm btn_icon-only&quot; aria-label=&quot;기울임&quot;&gt;
             &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;path d=&quot;M19 4h-9M14 20H5M15 4 9 20&quot;/&gt;
             &lt;/svg&gt;
           &lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; aria-label=&quot;밑줄&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm btn_icon-only&quot; aria-label=&quot;밑줄&quot;&gt;
             &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;path d=&quot;M6 3v7a6 6 0 0 0 12 0V3&quot;/&gt;
               &lt;path d=&quot;M4 21h16&quot;/&gt;
             &lt;/svg&gt;
           &lt;/button&gt;
-          &lt;span class=&quot;affix_bar-label&quot; style=&quot;font-weight: 400; color: var(--color-text-muted);&quot;&gt;서식&lt;/span&gt;
+          &lt;span class=&quot;affix_bar-label&quot; style=&quot;font-weight: 400; color: var(--color-text-muted)&quot;&gt;서식&lt;/span&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;p&gt;1. 개요 — 본 보고서는 2024년 3분기 매출·비용·이익 현황을 요약합니다.&lt;/p&gt;
@@ -204,6 +211,8 @@
       &lt;p&gt;3. 비용 — 마케팅 비용이 전분기 대비 8% 상승했습니다.&lt;/p&gt;
       &lt;p&gt;4. 전망 — 4분기 시즌 효과로 완만한 성장이 예상됩니다.&lt;/p&gt;
       &lt;p&gt;5. 부록 — 상세 표·차트는 별첨 자료를 참고하세요.&lt;/p&gt;
+      &lt;p&gt;6. 참고 — 내부 지표 정의와 집계 기준은 별도 문서를 따릅니다.&lt;/p&gt;
+      &lt;p&gt;7. 문의 — 지표 해석은 기획팀으로 연락해 주세요.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -219,7 +228,7 @@
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <div class="affix_demo-scroll" id="affix-scroll-anchor">
+              <div id="affix-scroll-anchor" class="affix_demo-scroll">
                 <div class="affix_demo-content">
                   <p>설정 페이지입니다. 아래 목차가 스크롤 시 상단에 고정됩니다.</p>
 
@@ -238,6 +247,8 @@
                   <p id="affix-sec-notify"><strong>알림</strong> — 이메일·푸시·SMS 수신 여부를 관리합니다.</p>
                   <p id="affix-sec-billing"><strong>결제</strong> — 등록된 카드와 청구 내역을 확인합니다.</p>
                   <p>모든 변경 사항은 저장 버튼을 눌러야 반영됩니다.</p>
+                  <p>연동 계정 · 로그인 기록 · 세션 관리</p>
+                  <p>데이터 내보내기 · 계정 삭제 요청</p>
                 </div>
               </div>
             </div>
@@ -252,7 +263,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;div class=&quot;affix_demo-scroll&quot; id=&quot;affix-scroll-anchor&quot;&gt;
+  &lt;div id=&quot;affix-scroll-anchor&quot; class=&quot;affix_demo-scroll&quot;&gt;
     &lt;div class=&quot;affix_demo-content&quot;&gt;
       &lt;p&gt;설정 페이지입니다. 아래 목차가 스크롤 시 상단에 고정됩니다.&lt;/p&gt;
       &lt;div class=&quot;affix&quot; data-affix data-target=&quot;#affix-scroll-anchor&quot;&gt;
@@ -274,6 +285,8 @@
             &lt;p id=&quot;affix-sec-billing&quot;&gt;
               &lt;strong&gt;결제&lt;/strong&gt; — 등록된 카드와 청구 내역을 확인합니다.&lt;/p&gt;
               &lt;p&gt;모든 변경 사항은 저장 버튼을 눌러야 반영됩니다.&lt;/p&gt;
+              &lt;p&gt;연동 계정 · 로그인 기록 · 세션 관리&lt;/p&gt;
+              &lt;p&gt;데이터 내보내기 · 계정 삭제 요청&lt;/p&gt;
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;</code></pre>
@@ -289,7 +302,7 @@
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <div class="affix_demo-scroll" id="affix-scroll-bottom">
+              <div id="affix-scroll-bottom" class="affix_demo-scroll">
                 <div class="affix_demo-content">
                   <p>장바구니입니다. 스크롤해도 결제 버튼이 하단에 고정됩니다.</p>
                   <p>무선 이어폰 Pro × 1 — ₩39,000</p>
@@ -297,19 +310,22 @@
                   <p>보조배터리 10,000mAh × 1 — ₩29,000</p>
                   <p>배송비 — ₩3,000</p>
                   <p>쿠폰 할인 — −₩5,000</p>
+                  <p>결제 수단은 다음 단계에서 선택합니다.</p>
+                  <p>적립 예정 포인트: 780P</p>
+                  <p>무료 배송 기준 · 오늘 도착 가능 여부</p>
+                  <p>장바구니에 담은 상품은 30일간 보관됩니다.</p>
 
                   <div class="affix" data-affix data-target="#affix-scroll-bottom" data-offset-bottom="0">
                     <div class="affix_placeholder" aria-hidden="true" hidden></div>
                     <div class="affix_target affix_bar">
                       <span class="affix_bar-label">합계 ₩78,000</span>
                       <div class="affix_bar-actions">
-                        <button type="button" class="btn btn_filled color_primary btn_block" style="min-width: 7rem;"><span class="btn_label">결제하기</span></button>
+                        <button type="button" class="btn btn_filled color_primary btn_block" style="min-width: 7rem">
+                          <span class="btn_label">결제하기</span>
+                        </button>
                       </div>
                     </div>
                   </div>
-
-                  <p>결제 수단은 다음 단계에서 선택합니다.</p>
-                  <p>적립 예정 포인트: 780P</p>
                 </div>
               </div>
             </div>
@@ -324,7 +340,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;div class=&quot;affix_demo-scroll&quot; id=&quot;affix-scroll-bottom&quot;&gt;
+  &lt;div id=&quot;affix-scroll-bottom&quot; class=&quot;affix_demo-scroll&quot;&gt;
     &lt;div class=&quot;affix_demo-content&quot;&gt;
       &lt;p&gt;장바구니입니다. 스크롤해도 결제 버튼이 하단에 고정됩니다.&lt;/p&gt;
       &lt;p&gt;무선 이어폰 Pro × 1 — ₩39,000&lt;/p&gt;
@@ -332,20 +348,22 @@
       &lt;p&gt;보조배터리 10,000mAh × 1 — ₩29,000&lt;/p&gt;
       &lt;p&gt;배송비 — ₩3,000&lt;/p&gt;
       &lt;p&gt;쿠폰 할인 — −₩5,000&lt;/p&gt;
+      &lt;p&gt;결제 수단은 다음 단계에서 선택합니다.&lt;/p&gt;
+      &lt;p&gt;적립 예정 포인트: 780P&lt;/p&gt;
+      &lt;p&gt;무료 배송 기준 · 오늘 도착 가능 여부&lt;/p&gt;
+      &lt;p&gt;장바구니에 담은 상품은 30일간 보관됩니다.&lt;/p&gt;
       &lt;div class=&quot;affix&quot; data-affix data-target=&quot;#affix-scroll-bottom&quot; data-offset-bottom=&quot;0&quot;&gt;
         &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
         &lt;/div&gt;
         &lt;div class=&quot;affix_target affix_bar&quot;&gt;
           &lt;span class=&quot;affix_bar-label&quot;&gt;합계 ₩78,000&lt;/span&gt;
           &lt;div class=&quot;affix_bar-actions&quot;&gt;
-            &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_block&quot; style=&quot;min-width: 7rem;&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_block&quot; style=&quot;min-width: 7rem&quot;&gt;
               &lt;span class=&quot;btn_label&quot;&gt;결제하기&lt;/span&gt;
             &lt;/button&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
-      &lt;p&gt;결제 수단은 다음 단계에서 선택합니다.&lt;/p&gt;
-      &lt;p&gt;적립 예정 포인트: 780P&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -361,19 +379,28 @@
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <p style="margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted);">아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.</p>
+              <p style="margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted)">
+                아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.
+              </p>
 
-              <div class="affix" data-affix data-offset-top="64">
+              <div
+                class="affix"
+                data-affix
+                data-offset-top="64"
+                style="--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))"
+              >
                 <div class="affix_placeholder" aria-hidden="true" hidden></div>
-                <div class="affix_target affix_bar" style="background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);">
-                  <span class="affix_bar-label" style="color: var(--color-accent-text);">🎉 신규 컴포넌트 가이드가 업데이트되었습니다</span>
+                <div class="affix_target affix_bar">
+                  <span class="affix_bar-label" style="color: var(--color-accent-text)">신규 컴포넌트 가이드가 업데이트되었습니다</span>
                   <div class="affix_bar-actions">
                     <a href="getting-started.html" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></a>
                   </div>
                 </div>
               </div>
 
-              <p style="margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted);">페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.</p>
+              <p style="margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted)">
+                페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.
+              </p>
             </div>
           </div>
 
@@ -386,23 +413,119 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;p style=&quot;margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted);&quot;&gt;아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.&lt;/p&gt;
-  &lt;div class=&quot;affix&quot; data-affix data-offset-top=&quot;64&quot;&gt;
-    &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;affix_target affix_bar&quot; style=&quot;background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface)); border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);&quot;&gt;
-      &lt;span class=&quot;affix_bar-label&quot; style=&quot;color: var(--color-accent-text);&quot;&gt;🎉 신규 컴포넌트 가이드가 업데이트되었습니다&lt;/span&gt;
-      &lt;div class=&quot;affix_bar-actions&quot;&gt;
-        &lt;a href=&quot;getting-started.html&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
-          &lt;span class=&quot;btn_label&quot;&gt;시작하기&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/div&gt;
+  &lt;p style=&quot;margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted)&quot;&gt;
+    아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.
+  &lt;/p&gt;
+  &lt;div
+  class=&quot;affix&quot;
+  data-affix
+  data-offset-top=&quot;64&quot;
+  style=&quot;--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))&quot;
+  &gt;
+  &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;affix_target affix_bar&quot;&gt;
+    &lt;span class=&quot;affix_bar-label&quot; style=&quot;color: var(--color-accent-text)&quot;&gt;신규 컴포넌트 가이드가 업데이트되었습니다&lt;/span&gt;
+    &lt;div class=&quot;affix_bar-actions&quot;&gt;
+      &lt;a href=&quot;getting-started.html&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;시작하기&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;p style=&quot;margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted);&quot;&gt;페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p style=&quot;margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted)&quot;&gt;
+  페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.
+&lt;/p&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p>루트에 <code class="typo_code">data-affix</code>를 두고, 고정 대상은 <code class="typo_code">affix_target</code>에 둡니다. 플레이스홀더는 JS가 레이아웃 점프를 막는 데 사용합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;div class="affix" data-affix data-target="#scroll-area" data-offset-top="0"&gt;
+  &lt;div class="affix_placeholder" aria-hidden="true" hidden&gt;&lt;/div&gt;
+  &lt;div class="affix_target affix_bar"&gt;
+    &lt;span class="affix_bar-label"&gt;라벨&lt;/span&gt;
+    &lt;div class="affix_bar-actions"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-attrs-heading">
+          <h2 id="api-attrs-heading">데이터 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">data-affix</code></td><td>Affix 활성화. 루트 .affix 요소에 지정</td></tr>
+                  <tr><td><code class="typo_code">data-target</code></td><td>스크롤 컨테이너 CSS 선택자. 생략 시 window</td></tr>
+                  <tr><td><code class="typo_code">data-offset-top</code></td><td>상단 고정 시 상단 간격(px)</td></tr>
+                  <tr><td><code class="typo_code">data-offset-bottom</code></td><td>하단 고정 시 하단 간격(px). 지정 시 하단 고정 모드</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 스킨</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">affix · affix_placeholder · affix_target</code></td><td>루트·플레이스홀더·고정 대상</td></tr>
+                  <tr><td><code class="typo_code">affix_bar · affix_bar-label · affix_bar-actions</code></td><td>액션 바 스킨</td></tr>
+                  <tr><td><code class="typo_code">affix_anchor</code></td><td>섹션 앵커 링크 내비게이션 스킨</td></tr>
+                  <tr><td><code class="typo_code">is-affixed · is-fixed</code></td><td>고정 상태 (JS가 자동 추가)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--affix-z-index</code></td><td>10</td><td>고정 바 z-index</td></tr>
+                  <tr><td><code class="typo_code">--affix-bar-gap</code></td><td>var(--space-sm)</td><td>바 내부 간격</td></tr>
+                  <tr><td><code class="typo_code">--affix-bar-padding-y</code> · <code class="typo_code">--affix-bar-padding-x</code></td><td>var(--space-sm) · var(--space-md)</td><td>바 패딩</td></tr>
+                  <tr><td><code class="typo_code">--affix-bar-bg</code></td><td>var(--color-surface)</td><td>바 배경</td></tr>
+                  <tr><td><code class="typo_code">--affix-bar-border</code></td><td>var(--color-border-subtle)</td><td>바 테두리</td></tr>
+                  <tr><td><code class="typo_code">--affix-bar-shadow</code></td><td>0 1px 4px rgb(0 0 0 / 0.08)</td><td>바 그림자</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>
@@ -411,5 +534,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

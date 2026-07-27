@@ -17,7 +17,7 @@ pageTitle: Radio
   <div class="demo_section-preview demo_section-preview-stack">
     <div class="radio">
       <span class="radio_control">
-        <input id="radio-auto-0" type="radio" class="radio_input" name="radio-type-demo" checked>
+        <input id="radio-auto-0" type="radio" class="radio_input" name="radio-type-basic" checked>
         <span class="radio_box" aria-hidden="true"></span>
       </span>
       <label class="radio_label" for="radio-auto-0">기본 — radio</label>
@@ -26,41 +26,25 @@ pageTitle: Radio
     <div class="radio radio_label-end">
       <label class="radio_label" for="radio-auto-1">레이블 뒤 — radio_label-end</label>
       <span class="radio_control">
-        <input id="radio-auto-1" type="radio" class="radio_input" name="radio-type-end-demo" checked>
+        <input id="radio-auto-1" type="radio" class="radio_input" name="radio-type-label-end">
         <span class="radio_box" aria-hidden="true"></span>
       </span>
     </div>
 
-    <div class="radio_group radio_group_horizontal">
+    <fieldset class="radio_group radio_group_horizontal">
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-type-button-demo" checked>
+        <input type="radio" class="radio_input" name="radio-type-btn" value="a" checked>
         <span class="radio_label">버튼형</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-type-button-demo">
+        <input type="radio" class="radio_input" name="radio-type-btn" value="b">
         <span class="radio_label">UI</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-type-button-demo">
+        <input type="radio" class="radio_input" name="radio-type-btn" value="c">
         <span class="radio_label">UX</span>
       </label>
-    </div>
-
-    <div class="radio_card" style="max-width: 360px;">
-      <article class="card card_compact">
-        <div class="card_header">
-          <div class="card_header-main">
-            <h3 class="card_title" id="radio-type-card-title">카드형 — radio_card</h3>
-          </div>
-          <div class="card_extra">
-            <label class="radio_control"><input type="radio" class="radio_input" id="radio-type-card" name="radio-type-card-demo" checked aria-labelledby="radio-type-card-title radio-type-card-desc">
-                <span class="radio_box" aria-hidden="true"></span>
-              </label>
-          </div>
-        </div>
-        <div class="card_body" id="radio-type-card-desc">card 컴포넌트와 조합해 제목·설명을 표시합니다.</div>
-      </article>
-    </div>
+    </fieldset>
   </div>
 </section>
 
@@ -70,11 +54,11 @@ pageTitle: Radio
     <p><code>radio_label-end</code>는 <code>radio_label</code> → <code>radio_control</code> 순으로 마크업합니다. 전체 너비가 필요하면 <code>radio_block</code> 또는 <code>radio_group_block</code>을 추가합니다.</p>
   </div>
 
-  <div class="demo_section-preview demo_section-preview-start">
+  <div class="demo_section-preview demo_section-preview-stack">
     <div class="radio radio_label-end">
-      <label class="radio_label" for="radio-label-end-basic">기본 배송</label>
+      <label class="radio_label" for="radio-label-end-basic">신용카드</label>
       <span class="radio_control">
-        <input type="radio" class="radio_input" id="radio-label-end-basic" name="radio-ship" checked>
+        <input type="radio" class="radio_input" id="radio-label-end-basic" name="radio-label-end-pay" checked>
         <span class="radio_box" aria-hidden="true"></span>
       </span>
     </div>
@@ -82,39 +66,32 @@ pageTitle: Radio
     <div class="radio radio_label-end">
       <label class="radio_label" for="radio-label-end-dawn">
         <span class="radio_content">
-          <span class="radio_label">새벽 배송</span>
-          <span class="radio_hint">오전 7시 이전 도착 · 추가 요금</span>
+          <span class="radio_label">계좌이체</span>
+          <span class="radio_hint">등록된 계좌로 결제합니다.</span>
         </span>
       </label>
       <span class="radio_control">
-        <input type="radio" class="radio_input" id="radio-label-end-dawn" name="radio-ship">
+        <input type="radio" class="radio_input" id="radio-label-end-dawn" name="radio-label-end-pay2">
         <span class="radio_box" aria-hidden="true"></span>
       </span>
     </div>
 
     <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
-      <legend class="radio_group-legend">배송 옵션 — radio_group_block</legend>
+      <legend class="radio_group-legend">배송 방법 — radio_group_block</legend>
       <div class="radio radio_label-end">
-      <label class="radio_label" for="radio-auto-2">일반 배송</label>
-      <span class="radio_control">
-        <input id="radio-auto-2" type="radio" class="radio_input" name="radio-ship-block" checked>
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-    </div>
+        <label class="radio_label" for="radio-auto-2">일반 배송</label>
+        <span class="radio_control">
+          <input id="radio-auto-2" type="radio" class="radio_input" name="radio-label-end-ship" value="standard" checked>
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+      </div>
       <div class="radio radio_label-end">
-      <label class="radio_label" for="radio-auto-3">당일 배송</label>
-      <span class="radio_control">
-        <input id="radio-auto-3" type="radio" class="radio_input" name="radio-ship-block">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-    </div>
-      <div class="radio radio_label-end">
-      <label class="radio_label" for="radio-auto-4">픽업</label>
-      <span class="radio_control">
-        <input id="radio-auto-4" type="radio" class="radio_input" name="radio-ship-block">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-    </div>
+        <label class="radio_label" for="radio-auto-3">빠른 배송</label>
+        <span class="radio_control">
+          <input id="radio-auto-3" type="radio" class="radio_input" name="radio-label-end-ship" value="express">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+      </div>
     </fieldset>
 
     <div class="radio radio_label-end radio_sm">
@@ -127,7 +104,7 @@ pageTitle: Radio
     <div class="radio radio_label-end radio_lg">
       <label class="radio_label" for="radio-auto-6">Large — radio_lg</label>
       <span class="radio_control">
-        <input id="radio-auto-6" type="radio" class="radio_input" name="radio-label-end-size">
+        <input id="radio-auto-6" type="radio" class="radio_input" name="radio-label-end-size2" checked>
         <span class="radio_box" aria-hidden="true"></span>
       </span>
     </div>
@@ -137,7 +114,7 @@ pageTitle: Radio
 <section class="section demo_section" aria-labelledby="basic-heading">
   <div class="demo_section-header">
     <h2 id="basic-heading">기본</h2>
-    <p>레이블과 보조 설명(radio_hint)을 함께 사용할 수 있습니다. 같은 name으로 그룹을 묶습니다.</p>
+    <p>레이블과 보조 설명(radio_hint)을 함께 사용할 수 있습니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -145,28 +122,28 @@ pageTitle: Radio
       <span class="form_field-label" id="radio-pay-label">결제 수단</span>
       <fieldset class="radio_group" aria-labelledby="radio-pay-label">
         <div class="radio">
+          <span class="radio_control">
+            <input type="radio" class="radio_input" id="radio-pay-card" name="radio-pay" value="card" checked>
+            <span class="radio_box" aria-hidden="true"></span>
+          </span>
           <label class="radio_label" for="radio-pay-card">
             <span class="radio_content">
               <span class="radio_label">신용카드</span>
-              <span class="radio_hint">Visa · Mastercard · 국내 전 카드</span>
+              <span class="radio_hint">Visa · Mastercard · 국내 카드</span>
             </span>
           </label>
-          <span class="radio_control">
-            <input type="radio" class="radio_input" id="radio-pay-card" name="radio-pay" checked>
-            <span class="radio_box" aria-hidden="true"></span>
-          </span>
         </div>
         <div class="radio">
+          <span class="radio_control">
+            <input type="radio" class="radio_input" id="radio-pay-bank" name="radio-pay" value="bank">
+            <span class="radio_box" aria-hidden="true"></span>
+          </span>
           <label class="radio_label" for="radio-pay-bank">
             <span class="radio_content">
               <span class="radio_label">계좌이체</span>
-              <span class="radio_hint">실시간 이체</span>
+              <span class="radio_hint">등록된 계좌로 결제합니다.</span>
             </span>
           </label>
-          <span class="radio_control">
-            <input type="radio" class="radio_input" id="radio-pay-bank" name="radio-pay">
-            <span class="radio_box" aria-hidden="true"></span>
-          </span>
         </div>
       </fieldset>
     </div>
@@ -180,15 +157,17 @@ pageTitle: Radio
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <label class="radio_control"><input aria-label="항목 선택" type="radio" class="radio_input" name="radio-standalone">
-                <span class="radio_box" aria-hidden="true"></span>
-              </label>
-    <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone" checked aria-label="선택됨">
-                <span class="radio_box" aria-hidden="true"></span>
-              </label>
-    <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone-disabled" disabled aria-label="비활성">
-                <span class="radio_box" aria-hidden="true"></span>
-              </label>
+    <div class="radio_group radio_group_horizontal">
+      <label class="radio_control"><input aria-label="항목 선택" type="radio" class="radio_input" name="radio-standalone">
+        <span class="radio_box" aria-hidden="true"></span>
+      </label>
+      <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone" checked aria-label="선택됨">
+        <span class="radio_box" aria-hidden="true"></span>
+      </label>
+      <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone-disabled" disabled aria-label="비활성">
+        <span class="radio_box" aria-hidden="true"></span>
+      </label>
+    </div>
   </div>
 </section>
 
@@ -199,26 +178,28 @@ pageTitle: Radio
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="radio radio_sm">
-      <span class="radio_control">
-        <input id="radio-auto-7" type="radio" class="radio_input" name="radio-size" checked>
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-7">Small — radio_sm</label>
-    </div>
-    <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-8" type="radio" class="radio_input" name="radio-size">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-8">Medium — 기본</label>
-    </div>
-    <div class="radio radio_lg">
-      <span class="radio_control">
-        <input id="radio-auto-9" type="radio" class="radio_input" name="radio-size">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-9">Large — radio_lg</label>
+    <div class="radio_group radio_group_horizontal">
+      <div class="radio radio_sm">
+        <span class="radio_control">
+          <input id="radio-auto-7" type="radio" class="radio_input" name="radio-size" checked>
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-7">Small — radio_sm</label>
+      </div>
+      <div class="radio">
+        <span class="radio_control">
+          <input id="radio-auto-8" type="radio" class="radio_input" name="radio-size">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-8">Medium — 기본</label>
+      </div>
+      <div class="radio radio_lg">
+        <span class="radio_control">
+          <input id="radio-auto-9" type="radio" class="radio_input" name="radio-size">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-9">Large — radio_lg</label>
+      </div>
     </div>
   </div>
 </section>
@@ -232,7 +213,7 @@ pageTitle: Radio
   <div class="demo_section-preview demo_section-preview-start">
     <div class="radio">
       <span class="radio_control">
-        <input id="radio-auto-10" type="radio" class="radio_input" name="radio-width" checked>
+        <input id="radio-auto-10" type="radio" class="radio_input" name="radio-width-inline" checked>
         <span class="radio_box" aria-hidden="true"></span>
       </span>
       <label class="radio_label" for="radio-auto-10">기본 — 인라인 너비</label>
@@ -249,19 +230,19 @@ pageTitle: Radio
     <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
       <legend class="radio_group-legend">radio_group_block</legend>
       <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-12" type="radio" class="radio_input" name="radio-width-group" checked>
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-12">항목 1</label>
-    </div>
+        <span class="radio_control">
+          <input id="radio-auto-12" type="radio" class="radio_input" name="radio-width-g1" checked>
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-12">항목 1</label>
+      </div>
       <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-13" type="radio" class="radio_input" name="radio-width-group">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-13">항목 2</label>
-    </div>
+        <span class="radio_control">
+          <input id="radio-auto-13" type="radio" class="radio_input" name="radio-width-g1">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-13">항목 2</label>
+      </div>
     </fieldset>
   </div>
 </section>
@@ -339,66 +320,54 @@ pageTitle: Radio
       </span>
       <label class="radio_label" for="radio-auto-21">선택됨 (비활성)</label>
     </div>
-    <div class="radio is-error">
-      <label class="radio_label" for="radio-auto-22">
-        <span class="radio_content">
-          <span class="radio_label">필수 선택</span>
-          <span class="radio_hint">옵션을 선택해야 합니다.</span>
-        </span>
-      </label>
-      <span class="radio_control">
-        <input id="radio-auto-22" type="radio" class="radio_input" name="radio-state-error" aria-invalid="true">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-    </div>
   </div>
 </section>
 
 <section class="section demo_section" aria-labelledby="group-heading">
   <div class="demo_section-header">
     <h2 id="group-heading">그룹</h2>
-    <p>radio_group으로 같은 name 항목을 묶습니다. radio_group_horizontal로 가로 배치, radio_group_compact로 간격을 줄입니다.</p>
+    <p>radio_group으로 여러 항목을 묶습니다. radio_group_horizontal로 가로 배치, radio_group_compact로 간격을 줄입니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
     <fieldset class="radio_group">
-      <legend class="radio_group-legend">관심 분야 (세로)</legend>
+      <legend class="radio_group-legend">배송 방법 (세로)</legend>
       <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-23" type="radio" class="radio_input" name="radio-field" value="design" checked>
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-23">디자인</label>
-    </div>
+        <span class="radio_control">
+          <input id="radio-auto-23" type="radio" class="radio_input" name="radio-group-ship" value="standard" checked>
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-23">일반 배송</label>
+      </div>
       <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-24" type="radio" class="radio_input" name="radio-field" value="dev">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-24">개발</label>
-    </div>
+        <span class="radio_control">
+          <input id="radio-auto-24" type="radio" class="radio_input" name="radio-group-ship" value="express">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-24">빠른 배송</label>
+      </div>
       <div class="radio">
-      <span class="radio_control">
-        <input id="radio-auto-25" type="radio" class="radio_input" name="radio-field" value="plan">
-        <span class="radio_box" aria-hidden="true"></span>
-      </span>
-      <label class="radio_label" for="radio-auto-25">기획</label>
-    </div>
+        <span class="radio_control">
+          <input id="radio-auto-25" type="radio" class="radio_input" name="radio-group-ship" value="pickup">
+          <span class="radio_box" aria-hidden="true"></span>
+        </span>
+        <label class="radio_label" for="radio-auto-25">매장 픽업</label>
+      </div>
     </fieldset>
 
     <fieldset class="radio_group radio_group_horizontal">
-      <legend class="radio_group-legend">언어 (가로)</legend>
+      <legend class="radio_group-legend">크기 (가로)</legend>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-lang" value="ko" checked>
-        <span class="radio_label">한국어</span>
+        <input type="radio" class="radio_input" name="radio-group-size" value="s" checked>
+        <span class="radio_label">S</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-lang" value="en">
-        <span class="radio_label">English</span>
+        <input type="radio" class="radio_input" name="radio-group-size" value="m">
+        <span class="radio_label">M</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-lang" value="ja">
-        <span class="radio_label">日本語</span>
+        <input type="radio" class="radio_input" name="radio-group-size" value="l">
+        <span class="radio_label">L</span>
       </label>
     </fieldset>
   </div>
@@ -413,19 +382,19 @@ pageTitle: Radio
   <div class="demo_section-preview demo_section-preview-stack">
     <fieldset class="radio_group radio_group_horizontal">
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-filter" value="all" checked>
+        <input type="radio" class="radio_input" name="radio-btn-filter" value="all" checked>
         <span class="radio_label">전체</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-filter" value="progress">
+        <input type="radio" class="radio_input" name="radio-btn-filter" value="active">
         <span class="radio_label">진행 중</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-filter" value="done">
+        <input type="radio" class="radio_input" name="radio-btn-filter" value="done">
         <span class="radio_label">완료</span>
       </label>
       <label class="radio radio_button">
-        <input type="radio" class="radio_input" name="radio-filter-disabled" value="hold" disabled>
+        <input type="radio" class="radio_input" name="radio-btn-filter" value="hold" disabled>
         <span class="radio_label">보류 (비활성)</span>
       </label>
     </fieldset>
@@ -436,11 +405,11 @@ pageTitle: Radio
         <span class="radio_label">Small</span>
       </label>
       <label class="radio radio_button color_success">
-        <input type="radio" class="radio_input" name="radio-btn-size" value="md">
+        <input type="radio" class="radio_input" name="radio-btn-size" value="md" checked>
         <span class="radio_label">Medium</span>
       </label>
       <label class="radio radio_button radio_lg color_success">
-        <input type="radio" class="radio_input" name="radio-btn-size" value="lg">
+        <input type="radio" class="radio_input" name="radio-btn-size" value="lg" checked>
         <span class="radio_label">Large</span>
       </label>
     </fieldset>

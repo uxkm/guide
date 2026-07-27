@@ -70,7 +70,29 @@
   }
 
   &:has(.switch_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+
+    .switch_track {
+      background-color: var(--color-control-disabled);
+    }
+
+    .switch_input:checked + .switch_track {
+      background-color: var(--color-accent-disabled);
+    }
+  }
+
+  @each $name in primary, success, danger, warning {
+    &.color_#{$name}:has(.switch_input:disabled) .switch_input:checked + .switch_track {
+      @if $name == primary {
+        background-color: var(--color-accent-disabled);
+      } @else if $name == success {
+        background-color: var(--color-success-disabled);
+      } @else if $name == danger {
+        background-color: var(--color-danger-disabled);
+      } @else if $name == warning {
+        background-color: var(--color-warning-disabled);
+      }
+    }
   }
 
   &.is-error .switch_track {

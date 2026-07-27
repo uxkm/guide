@@ -13,7 +13,7 @@
   border: 1px solid var(--color-border);
   border-radius: $radius-md;
 
-  &:has(.table) {
+  &:has(.table):not(.table_wrap-api) {
     border: none;
     overflow-x: visible;
 
@@ -78,9 +78,23 @@
   }
 
   &_compact {
-    th,
-    td {
-      padding: var(--table-cell-padding-y-compact) var(--table-cell-padding-x-compact);
+    &:not(.table_columns) {
+      th,
+      td {
+        padding: var(--table-cell-padding-y-compact) var(--table-cell-padding-x-compact);
+      }
+    }
+
+    &.table_columns {
+      @for $i from 1 through 12 {
+        th:nth-child(#{$i}),
+        td:nth-child(#{$i}) {
+          padding: var(
+            --table-col-#{$i}-padding,
+            var(--table-cell-padding-y-compact) var(--table-cell-padding-x-compact)
+          );
+        }
+      }
     }
   }
 
@@ -92,5 +106,25 @@
         background: var(--color-accent-muted);
       }
     }
+  }
+
+  // columns prop — 열별 너비·패딩 (columnRootVars + colgroup)
+  &_columns {
+    table-layout: fixed;
+
+    @for $i from 1 through 12 {
+      th:nth-child(#{$i}),
+      td:nth-child(#{$i}) {
+        padding: var(
+          --table-col-#{$i}-padding,
+          var(--table-cell-padding-y) var(--table-cell-padding-x)
+        );
+        white-space: var(--table-col-#{$i}-white-space, inherit);
+      }
+    }
+  }
+
+  &_col-nowrap {
+    white-space: nowrap;
   }
 }

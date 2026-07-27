@@ -56,6 +56,13 @@
     @include btn-transition;
     @include focus-ring;
 
+    &.btn {
+      min-width: 0;
+      min-height: 0;
+      font-weight: inherit;
+      line-height: inherit;
+    }
+
     &:hover {
       color: var(--back-top-color-hover);
       background: var(--back-top-bg-hover);
@@ -163,6 +170,8 @@
   }
 
   &_demo-content {
+    // 뷰포트(16rem)보다 충분히 길게 — visibility-height 200px까지 스크롤 가능
+    min-height: calc(16rem + 18rem);
     padding: var(--space-lg);
 
     > p {

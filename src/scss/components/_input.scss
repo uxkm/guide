@@ -40,8 +40,7 @@
   }
 
   &:disabled {
-    @include disabled-state;
-    background-color: var(--color-surface);
+    @include disabled-surface;
   }
 
   &.is-error {
@@ -58,13 +57,6 @@
     &:focus {
       box-shadow: 0 0 0 3px var(--color-input-success-ring);
     }
-  }
-
-  &[type="password"],
-  &.input_masked {
-    font-family: var(--input-font-masked);
-    font-variant-numeric: tabular-nums;
-    letter-spacing: var(--input-masked-letter-spacing);
   }
 
   &_sm {
@@ -114,14 +106,16 @@
   &_clear {
     position: absolute;
     top: 50%;
-    right: var(--input-clear-offset);
+    right: var(--input-clear-offset, 0.5rem);
+    bottom: auto;
+    left: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     border: none;
     background: transparent;
-    color: var(--color-text-muted);
+    color: var(--input-clear-color);
     cursor: pointer;
     transform: translateY(-50%);
     @include focus-ring;
@@ -136,8 +130,53 @@
       height: var(--input-clear-icon-size);
     }
 
+    // Button 컴포넌트 조합 시 .btn 기본 스킨(패딩/보더) 리셋
+    &.btn {
+      position: absolute;
+      top: 50%;
+      right: var(--input-clear-offset, 0.5rem);
+      bottom: auto;
+      left: auto;
+      gap: 0;
+      min-width: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      line-height: 1;
+      color: var(--input-clear-color);
+      box-shadow: none;
+      transform: translateY(-50%);
+      @include square-size(var(--input-clear-size));
+    }
+
+    &.btn.btn_icon-only {
+      aspect-ratio: auto;
+    }
+
+    .btn_label,
+    .btn_spinner {
+      display: none;
+    }
+
     &:hover {
-      color: var(--color-text);
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &:focus-visible {
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &.btn:hover,
+    &.btn:focus-visible,
+    &.btn:active {
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
     }
   }
 
@@ -360,6 +399,13 @@
       max-width: 11rem;
     }
   }
+}
+
+// 마스킹 입력 — 값이 있는 password에 .input_masked 부여
+.input.input_masked {
+  font-family: var(--input-font-masked);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--input-masked-letter-spacing);
 }
 
 .form_field {

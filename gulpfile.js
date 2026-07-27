@@ -21,8 +21,10 @@ const paths = {
     dest: 'html/js',
   },
   vendor: {
-    swiper: 'node_modules/swiper/swiper-bundle.min.js',
-    dest: 'html/js/vendor',
+    swiperJs: 'node_modules/swiper/swiper-bundle.min.js',
+    swiperCss: 'node_modules/swiper/swiper-bundle.min.css',
+    jsDest: 'html/js/vendor',
+    cssDest: 'html/css/vendor',
   },
   html: {
     src: ['src/**/*.html', '!src/_layouts/**'],
@@ -87,9 +89,15 @@ function scripts() {
 }
 
 function vendorScripts() {
-  return src(paths.vendor.swiper, { allowEmpty: true })
+  return src(paths.vendor.swiperJs, { allowEmpty: true })
     .pipe(plumber({ errorHandler: onError() }))
-    .pipe(dest(paths.vendor.dest));
+    .pipe(dest(paths.vendor.jsDest));
+}
+
+function vendorStyles() {
+  return src(paths.vendor.swiperCss, { allowEmpty: true })
+    .pipe(plumber({ errorHandler: onError() }))
+    .pipe(dest(paths.vendor.cssDest));
 }
 
 function injectThemeAssets() {
@@ -103,6 +111,13 @@ function injectThemeAssets() {
 
     if (!content.includes('guide-theme-init')) {
       content = content.replace(/(<link rel="stylesheet")/, THEME_INIT + '$1');
+    }
+
+    if (content.includes('data-swiper') && !content.includes('swiper-bundle.min.css')) {
+      content = content.replace(
+        /(<link rel="stylesheet" href="((?:\.\.\/)?)css\/main\.css">)/,
+        '$1\n  <link rel="stylesheet" href="$2css/vendor/swiper-bundle.min.css">'
+      );
     }
 
     if (!content.includes('js/theme.js')) {
@@ -227,7 +242,7 @@ function staticFiles() {
 function serve(done) {
   browserSync.init({
     server: {
-      baseDir: '.',
+      baseDir: 'html',
       index: 'index.html',
     },
     open: false,
@@ -250,15 +265,19 @@ function watchFiles() {
   watch(['src/_layouts/**', 'scripts/html-assembler.js'], watchOptions, series(html, reload));
   watch(paths.images.watch, watchOptions, series(images, reload));
   watch(paths.static.watch, watchOptions, series(staticFiles, reload));
-  watch('index.html', watchOptions, reload);
 }
 
-const build = series(clean, parallel(styles, scripts, vendorScripts, html, images, staticFiles));
+const build = series(
+  clean,
+  parallel(styles, scripts, vendorScripts, vendorStyles, html, images, staticFiles)
+);
 const watchTask = series(build, serve, watchFiles);
 
 exports.clean = clean;
 exports.styles = styles;
 exports.scripts = scripts;
+exports.vendorScripts = vendorScripts;
+exports.vendorStyles = vendorStyles;
 exports.html = html;
 exports.images = images;
 exports.static = staticFiles;

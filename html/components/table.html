@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Table</span>
@@ -40,12 +41,17 @@
         <section class="section demo_section" aria-labelledby="basic-heading">
           <div class="demo_section-header">
             <h2 id="basic-heading">기본</h2>
-            <p>table_wrap으로 가로 스크롤을 지원합니다.</p>
+            <p>table_wrap으로 가로 스크롤을 지원합니다. columns로 열별 너비·패딩을 지정할 수 있습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
-              <table class="table">
+              <table class="table table_columns" style="--table-col-1-white-space: nowrap; --table-col-3-white-space: nowrap;">
+                <colgroup>
+                  <col style="width: 7rem; min-width: 5.5rem;">
+                  <col style="min-width: 9rem;">
+                  <col style="width: 6.5rem; min-width: 5rem;">
+                </colgroup>
                 <thead>
                   <tr>
                     <th scope="col">이름</th>
@@ -83,7 +89,12 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
-  &lt;table class=&quot;table&quot;&gt;
+  &lt;table class=&quot;table table_columns&quot; style=&quot;--table-col-1-white-space: nowrap; --table-col-3-white-space: nowrap;&quot;&gt;
+    &lt;colgroup&gt;
+      &lt;col style=&quot;width: 7rem; min-width: 5.5rem;&quot;&gt;
+      &lt;col style=&quot;min-width: 9rem;&quot;&gt;
+      &lt;col style=&quot;width: 6.5rem; min-width: 5rem;&quot;&gt;
+    &lt;/colgroup&gt;
     &lt;thead&gt;
       &lt;tr&gt;
         &lt;th scope=&quot;col&quot;&gt;이름&lt;/th&gt;
@@ -123,12 +134,17 @@
         <section class="section demo_section" aria-labelledby="striped-heading">
           <div class="demo_section-header">
             <h2 id="striped-heading">줄무늬</h2>
-            <p>table_striped로 짝수 행에 배경색을 적용합니다.</p>
+            <p>striped로 짝수 행에 배경색을 적용합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
-              <table class="table table_striped">
+              <table class="table table_striped table_columns" style="--table-col-1-white-space: nowrap; --table-col-2-white-space: nowrap; --table-col-3-white-space: nowrap;">
+                <colgroup>
+                  <col style="width: 8rem; min-width: 6rem;">
+                  <col style="width: 8rem; min-width: 6.5rem;">
+                  <col style="width: 5rem; min-width: 4rem;">
+                </colgroup>
                 <thead>
                   <tr>
                     <th scope="col">제품</th>
@@ -171,7 +187,12 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
-  &lt;table class=&quot;table table_striped&quot;&gt;
+  &lt;table class=&quot;table table_striped table_columns&quot; style=&quot;--table-col-1-white-space: nowrap; --table-col-2-white-space: nowrap; --table-col-3-white-space: nowrap;&quot;&gt;
+    &lt;colgroup&gt;
+      &lt;col style=&quot;width: 8rem; min-width: 6rem;&quot;&gt;
+      &lt;col style=&quot;width: 8rem; min-width: 6.5rem;&quot;&gt;
+      &lt;col style=&quot;width: 5rem; min-width: 4rem;&quot;&gt;
+    &lt;/colgroup&gt;
     &lt;thead&gt;
       &lt;tr&gt;
         &lt;th scope=&quot;col&quot;&gt;제품&lt;/th&gt;
@@ -210,7 +231,7 @@
         <section class="section demo_section" aria-labelledby="variant-heading">
           <div class="demo_section-header">
             <h2 id="variant-heading">변형</h2>
-            <p>table_bordered · table_compact · table_hover를 조합할 수 있습니다.</p>
+            <p>bordered · compact · hover를 조합할 수 있습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
@@ -290,5 +311,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

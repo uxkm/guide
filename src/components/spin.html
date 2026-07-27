@@ -107,44 +107,6 @@ pageTitle: Spin
   </div>
 </section>
 
-<section class="section demo_section" aria-labelledby="overlay-heading">
-  <div class="demo_section-header">
-    <h2 id="overlay-heading">컨테이너 오버레이</h2>
-    <p><code class="typo_code">spin_wrap</code>에 <code class="typo_code">is-loading</code>을 지정하면 콘텐츠 위에 <code class="typo_code">spin_overlay</code>가 표시됩니다. JS로 클래스를 토글해 로딩 상태를 제어합니다.</p>
-  </div>
-
-  <div class="demo_section-preview demo_section-preview-start">
-    <div class="spin_wrap spin_wrap-block is-loading card card_shadow" style="max-width: var(--input-max-width);">
-      <div class="spin_wrap-body">
-        <div class="card_header">
-          <h3 class="card_title">대시보드</h3>
-        </div>
-        <div class="card_body">
-          <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
-        </div>
-      </div>
-      <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="데이터 로딩 중">
-        <span class="spin_indicator" aria-hidden="true"></span>
-        <p class="spin_tip">데이터 로딩 중…</p>
-      </div>
-    </div>
-
-    <div class="spin_wrap spin_wrap-block spin_wrap-blur is-loading card card_shadow" style="max-width: var(--input-max-width); margin-top: var(--space-md);">
-      <div class="spin_wrap-body">
-        <div class="card_header">
-          <h3 class="card_title">블러 효과</h3>
-        </div>
-        <div class="card_body">
-          <p><code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
-        </div>
-      </div>
-      <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="처리 중">
-        <span class="spin_indicator" aria-hidden="true"></span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="section demo_section" aria-labelledby="block-heading">
   <div class="demo_section-header">
     <h2 id="block-heading">블록 정렬</h2>
@@ -152,10 +114,54 @@ pageTitle: Spin
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <div class="spin_block">
-      <div class="spin color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="로딩 중">
+    <div class="spin spin_block color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="로딩 중">
+      <span class="spin_indicator" aria-hidden="true"></span>
+      <p class="spin_tip">잠시만 기다려 주세요…</p>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="overlay-heading">
+  <div class="demo_section-header">
+    <h2 id="overlay-heading">컨테이너 오버레이</h2>
+    <p><code class="typo_code">spin_wrap</code>에 <code class="typo_code">is-loading</code>을 지정하면 콘텐츠 위에 <code class="typo_code">spin_overlay</code>가 표시됩니다. JS로 클래스를 토글해 로딩 상태를 제어합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="spin_wrap spin_wrap-block is-loading" style="max-width: var(--input-max-width);">
+      <div class="spin_wrap-body">
+        <article class="card card_shadow">
+          <div class="card_header">
+            <div class="card_header-main">
+              <h3 class="card_title">대시보드</h3>
+            </div>
+          </div>
+          <div class="card_body">
+            <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
+          </div>
+        </article>
+      </div>
+      <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="데이터 로딩 중">
         <span class="spin_indicator" aria-hidden="true"></span>
-        <p class="spin_tip">잠시만 기다려 주세요…</p>
+        <p class="spin_tip">데이터 로딩 중…</p>
+      </div>
+    </div>
+
+    <div class="spin_wrap spin_wrap-block spin_wrap-blur is-loading" style="max-width: var(--input-max-width);">
+      <div class="spin_wrap-body">
+        <article class="card card_shadow">
+          <div class="card_header">
+            <div class="card_header-main">
+              <h3 class="card_title">블러 효과</h3>
+            </div>
+          </div>
+          <div class="card_body">
+            <p><code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
+          </div>
+        </article>
+      </div>
+      <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="처리 중">
+        <span class="spin_indicator" aria-hidden="true"></span>
       </div>
     </div>
   </div>
@@ -246,7 +252,8 @@ pageTitle: Spin
           <tr><td><code class="typo_code">--spin-duration</code></td><td>0.8s</td><td>회전 애니메이션 주기</td></tr>
           <tr><td><code class="typo_code">--spin-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>스피너·텍스트 간격</td></tr>
           <tr><td><code class="typo_code">--spin-tip-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>설명 텍스트 크기</td></tr>
-          <tr><td><code class="typo_code">--spin-overlay-bg</code></td><td><code class="typo_code">var(--color-overlay)</code></td><td>오버레이 배경</td></tr>
+          <tr><td><code class="typo_code">--spin-overlay-bg</code></td><td>rgba(15, 20, 25, 0.72)</td><td>오버레이 배경 (tip 명도 대비용 불투명도)</td></tr>
+          <tr><td><code class="typo_code">--spin-overlay-tip-color</code></td><td>#ffffff</td><td>오버레이 위 tip 텍스트 색</td></tr>
           <tr><td><code class="typo_code">--spin-wrap-min-height</code></td><td>8rem</td><td><code class="typo_code">spin_wrap-block</code> 최소 높이</td></tr>
           <tr><td><code class="typo_code">--spin-wrap-content-opacity</code></td><td>0.45</td><td>로딩 시 콘텐츠 불투명도</td></tr>
         </tbody>

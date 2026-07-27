@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DEPLOY_PATHS=(index.html html vue react)
+DEPLOY_PATHS=(index.html html)
 CURRENT_BRANCH=$(git branch --show-current)
 
 if [[ "$CURRENT_BRANCH" != "gulp" ]]; then

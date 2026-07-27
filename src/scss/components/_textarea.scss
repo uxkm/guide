@@ -58,7 +58,9 @@
     }
 
     &:has(.textarea:disabled) {
-      background-color: var(--color-surface);
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+      color: var(--color-text-disabled);
     }
 
     &:has(.textarea:read-only) {

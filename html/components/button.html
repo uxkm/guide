@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Button</span>
@@ -722,6 +723,8 @@
           </div>
 
           <div class="demo_section-preview">
+            <div class="btn_row btn_row-wrap">
+
             <button type="button" class="btn btn_filled color_primary">
               <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M12 5v14M5 12h14"/>
@@ -742,6 +745,7 @@
               </svg>
               <span class="btn_label">새 항목</span>
             </button>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -752,34 +756,28 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 추가 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;추가&lt;/span&gt;
-&lt;/button&gt;
-
-&lt;!-- 다운로드 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
-    &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
-    &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
-  &lt;/svg&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;다운로드&lt;/span&gt;
-&lt;/button&gt;
-
-&lt;!-- 새 항목 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;새 항목&lt;/span&gt;
-&lt;/button&gt;</code></pre>
+            <pre><code>&lt;div class=&quot;btn_row btn_row-wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;추가&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+      &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;다운로드&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;새 항목&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -1076,6 +1074,8 @@
           </div>
 
           <div class="demo_section-preview">
+            <div class="btn_row btn_row-wrap">
+
             <button type="button" class="btn btn_filled color_primary">
               <span class="btn_label">다음</span>
               <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1096,6 +1096,7 @@
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
             </button>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -1106,34 +1107,28 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 다음 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;다음&lt;/span&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 자세히 보기 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default&quot;&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;자세히 보기&lt;/span&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6&quot;/&gt;
-    &lt;polyline points=&quot;15 3 21 3 21 9&quot;/&gt;
-    &lt;line x1=&quot;10&quot; y1=&quot;14&quot; x2=&quot;21&quot; y2=&quot;3&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 링크 이동 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_text color_primary&quot;&gt;
-  &lt;span class=&quot;btn_label&quot;&gt;링크 이동&lt;/span&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+            <pre><code>&lt;div class=&quot;btn_row btn_row-wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;다음&lt;/span&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;자세히 보기&lt;/span&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6&quot;/&gt;
+      &lt;polyline points=&quot;15 3 21 3 21 9&quot;/&gt;
+      &lt;line x1=&quot;10&quot; y1=&quot;14&quot; x2=&quot;21&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_text color_primary&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;링크 이동&lt;/span&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M5 12h14M12 5l7 7-7 7&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -1145,6 +1140,8 @@
           </div>
 
           <div class="demo_section-preview">
+            <div class="btn_row btn_row-wrap">
+
             <button type="button" class="btn btn_filled color_primary btn_icon-only" aria-label="추가">
               <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M12 5v14M5 12h14"/>
@@ -1180,6 +1177,7 @@
                 <path d="M12 5v14M5 12h14"/>
               </svg>
             </button>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -1190,58 +1188,43 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 추가 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; aria-label=&quot;추가&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 설정 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only&quot; aria-label=&quot;설정&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
-    &lt;path d=&quot;M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 검색 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only&quot; aria-label=&quot;검색&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;
-    &lt;path d=&quot;m21 21-4.3-4.3&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 편집 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary btn_icon-only&quot; aria-label=&quot;편집&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 20h9&quot;/&gt;
-    &lt;path d=&quot;M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 삭제 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_danger btn_icon-only&quot; aria-label=&quot;삭제&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M3 6h18&quot;/&gt;
-    &lt;path d=&quot;M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6&quot;/&gt;
-    &lt;path d=&quot;M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 추가 --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; disabled aria-label=&quot;추가&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+            <pre><code>&lt;div class=&quot;btn_row btn_row-wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; aria-label=&quot;추가&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only&quot; aria-label=&quot;설정&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
+      &lt;path d=&quot;M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only&quot; aria-label=&quot;검색&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;11&quot; cy=&quot;11&quot; r=&quot;8&quot;/&gt;
+      &lt;path d=&quot;m21 21-4.3-4.3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary btn_icon-only&quot; aria-label=&quot;편집&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 20h9&quot;/&gt;
+      &lt;path d=&quot;M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_danger btn_icon-only&quot; aria-label=&quot;삭제&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M3 6h18&quot;/&gt;
+      &lt;path d=&quot;M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6&quot;/&gt;
+      &lt;path d=&quot;M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; disabled aria-label=&quot;추가&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -1253,6 +1236,8 @@
           </div>
 
           <div class="demo_section-preview">
+            <div class="btn_row btn_row-wrap">
+
             <button type="button" class="btn btn_filled color_primary btn_icon-only btn_sm" aria-label="추가 (small)">
               <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M12 5v14M5 12h14"/>
@@ -1289,6 +1274,7 @@
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
             </button>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -1299,59 +1285,44 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 추가 (small) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only btn_sm&quot; aria-label=&quot;추가 (small)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 추가 (medium) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; aria-label=&quot;추가 (medium)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 추가 (large) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only btn_lg&quot; aria-label=&quot;추가 (large)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 다운로드 (small) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only btn_sm&quot; aria-label=&quot;다운로드 (small)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
-    &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
-    &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 다운로드 (medium) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only&quot; aria-label=&quot;다운로드 (medium)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
-    &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
-    &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;
-
-&lt;!-- 다운로드 (large) --&gt;
-
-&lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only btn_lg&quot; aria-label=&quot;다운로드 (large)&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
-    &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
-    &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+            <pre><code>&lt;div class=&quot;btn_row btn_row-wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only btn_sm&quot; aria-label=&quot;추가 (small)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only&quot; aria-label=&quot;추가 (medium)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_icon-only btn_lg&quot; aria-label=&quot;추가 (large)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only btn_sm&quot; aria-label=&quot;다운로드 (small)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+      &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only&quot; aria-label=&quot;다운로드 (medium)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+      &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_default btn_icon-only btn_lg&quot; aria-label=&quot;다운로드 (large)&quot;&gt;
+    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4&quot;/&gt;
+      &lt;polyline points=&quot;7 10 12 15 17 10&quot;/&gt;
+      &lt;line x1=&quot;12&quot; y1=&quot;15&quot; x2=&quot;12&quot; y2=&quot;3&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -2226,6 +2197,47 @@
           </div>
         </div>
         </section>
+
+        <section class="section demo_section" aria-labelledby="tag-heading">
+          <div class="demo_section-header">
+            <h2 id="tag-heading">루트 태그</h2>
+            <p>tag prop으로 button · a · div를 선택합니다. div와 href 없는 a는 role만으로 Tab 초점이 이동하지 않으므로 tabindex=0을 자동 부여합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="btn_row btn_row-wrap">
+              <button type="button" class="btn btn_filled color_primary"><span class="btn_label">button</span></button>
+              <a href="getting-started.html" class="btn btn_outline color_primary"><span class="btn_label">a + href</span></a>
+              <div class="btn btn_ghost" role="button" tabindex="0"><span class="btn_label">div → role=button</span></div>
+              <a class="btn btn_text color_primary" role="link" tabindex="0"><span class="btn_label">a, role=link</span></a>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;btn_row btn_row-wrap&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;button&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;a href=&quot;getting-started.html&quot; class=&quot;btn btn_outline color_primary&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;a + href&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;div class=&quot;btn btn_ghost&quot; role=&quot;button&quot; tabindex=&quot;0&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;div → role=button&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;a class=&quot;btn btn_text color_primary&quot; role=&quot;link&quot; tabindex=&quot;0&quot;&gt;
+    &lt;span class=&quot;btn_label&quot;&gt;a, role=link&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
       </main>
     </div>
   </div>
@@ -2233,5 +2245,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

@@ -85,7 +85,9 @@
   }
 
   &:has(.rate_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+    --rate-color-empty: var(--color-border-disabled);
+    --rate-color-filled: var(--color-text-disabled);
   }
 
   &.is-error .rate_stars {

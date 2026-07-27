@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Checkbox</span>
@@ -60,7 +61,7 @@
               </span>
             </div>
 
-            <div class="checkbox_group checkbox_group_horizontal">
+            <fieldset class="checkbox_group checkbox_group_horizontal">
               <label class="checkbox checkbox_button">
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">버튼형</span>
@@ -73,7 +74,7 @@
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">UX</span>
               </label>
-            </div>
+            </fieldset>
 
             <div class="checkbox_card" style="max-width: 360px;">
               <article class="card card_compact">
@@ -124,7 +125,7 @@
 
 &lt;!-- 예시 3 --&gt;
 
-&lt;div class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
+&lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
   &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;버튼형&lt;/span&gt;
@@ -137,7 +138,7 @@
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;UX&lt;/span&gt;
   &lt;/label&gt;
-&lt;/div&gt;
+&lt;/fieldset&gt;
 
 &lt;!-- 카드형 — checkbox_card --&gt;
 
@@ -332,28 +333,28 @@
               <span class="form_field-label" id="checkbox-notify-label">알림 설정</span>
               <fieldset class="checkbox_group" aria-labelledby="checkbox-notify-label">
                 <div class="checkbox">
+                  <span class="checkbox_control">
+                    <input type="checkbox" class="checkbox_input" id="checkbox-notify-email" checked>
+                    <span class="checkbox_box" aria-hidden="true"></span>
+                  </span>
                   <label class="checkbox_label" for="checkbox-notify-email">
                     <span class="checkbox_content">
                       <span class="checkbox_label">이메일 알림</span>
                       <span class="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
                     </span>
                   </label>
-                  <span class="checkbox_control">
-                    <input type="checkbox" class="checkbox_input" id="checkbox-notify-email" checked>
-                    <span class="checkbox_box" aria-hidden="true"></span>
-                  </span>
                 </div>
                 <div class="checkbox">
+                  <span class="checkbox_control">
+                    <input type="checkbox" class="checkbox_input" id="checkbox-notify-push">
+                    <span class="checkbox_box" aria-hidden="true"></span>
+                  </span>
                   <label class="checkbox_label" for="checkbox-notify-push">
                     <span class="checkbox_content">
                       <span class="checkbox_label">푸시 알림</span>
                       <span class="checkbox_hint">모바일·브라우저 푸시를 허용합니다.</span>
                     </span>
                   </label>
-                  <span class="checkbox_control">
-                    <input type="checkbox" class="checkbox_input" id="checkbox-notify-push">
-                    <span class="checkbox_box" aria-hidden="true"></span>
-                  </span>
                 </div>
               </fieldset>
             </div>
@@ -371,30 +372,30 @@
   &lt;span class=&quot;form_field-label&quot; id=&quot;checkbox-notify-label&quot;&gt;알림 설정&lt;/span&gt;
   &lt;fieldset class=&quot;checkbox_group&quot; aria-labelledby=&quot;checkbox-notify-label&quot;&gt;
     &lt;div class=&quot;checkbox&quot;&gt;
+      &lt;span class=&quot;checkbox_control&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-notify-email&quot; checked&gt;
+        &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
       &lt;label class=&quot;checkbox_label&quot; for=&quot;checkbox-notify-email&quot;&gt;
         &lt;span class=&quot;checkbox_content&quot;&gt;
           &lt;span class=&quot;checkbox_label&quot;&gt;이메일 알림&lt;/span&gt;
           &lt;span class=&quot;checkbox_hint&quot;&gt;중요 공지와 계정 관련 메일을 받습니다.&lt;/span&gt;
         &lt;/span&gt;
       &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;checkbox&quot;&gt;
       &lt;span class=&quot;checkbox_control&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-notify-email&quot; checked&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-notify-push&quot;&gt;
         &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;/span&gt;
       &lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;checkbox&quot;&gt;
       &lt;label class=&quot;checkbox_label&quot; for=&quot;checkbox-notify-push&quot;&gt;
         &lt;span class=&quot;checkbox_content&quot;&gt;
           &lt;span class=&quot;checkbox_label&quot;&gt;푸시 알림&lt;/span&gt;
           &lt;span class=&quot;checkbox_hint&quot;&gt;모바일·브라우저 푸시를 허용합니다.&lt;/span&gt;
         &lt;/span&gt;
       &lt;/label&gt;
-      &lt;span class=&quot;checkbox_control&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-notify-push&quot;&gt;
-        &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
-        &lt;/span&gt;
-      &lt;/span&gt;
     &lt;/div&gt;
   &lt;/fieldset&gt;
 &lt;/div&gt;</code></pre>
@@ -760,18 +761,6 @@
               </span>
               <label class="checkbox_label" for="checkbox-auto-22">선택됨 (비활성)</label>
             </div>
-            <div class="checkbox is-error">
-              <label class="checkbox_label" for="checkbox-auto-23">
-                <span class="checkbox_content">
-                  <span class="checkbox_label">필수 동의</span>
-                  <span class="checkbox_hint">약관에 동의해야 합니다.</span>
-                </span>
-              </label>
-              <span class="checkbox_control">
-                <input id="checkbox-auto-23" type="checkbox" class="checkbox_input" aria-invalid="true">
-                <span class="checkbox_box" aria-hidden="true"></span>
-              </span>
-            </div>
           </div>
 
         <div class="demo_section-code">
@@ -835,22 +824,6 @@
     &lt;/span&gt;
   &lt;/span&gt;
   &lt;label class=&quot;checkbox_label&quot; for=&quot;checkbox-auto-22&quot;&gt;선택됨 (비활성)&lt;/label&gt;
-&lt;/div&gt;
-
-&lt;!-- 예시 6 --&gt;
-
-&lt;div class=&quot;checkbox is-error&quot;&gt;
-  &lt;label class=&quot;checkbox_label&quot; for=&quot;checkbox-auto-23&quot;&gt;
-    &lt;span class=&quot;checkbox_content&quot;&gt;
-      &lt;span class=&quot;checkbox_label&quot;&gt;필수 동의&lt;/span&gt;
-      &lt;span class=&quot;checkbox_hint&quot;&gt;약관에 동의해야 합니다.&lt;/span&gt;
-    &lt;/span&gt;
-  &lt;/label&gt;
-  &lt;span class=&quot;checkbox_control&quot;&gt;
-    &lt;input id=&quot;checkbox-auto-23&quot; type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; aria-invalid=&quot;true&quot;&gt;
-    &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -1537,5 +1510,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

@@ -81,7 +81,7 @@
   // ----- 데모 레이아웃
 
   &_demo-scroll {
-    max-height: 16rem;
+    max-height: 14rem;
     overflow-y: auto;
     border: 1px solid var(--color-border-subtle);
     border-radius: $radius-md;
@@ -101,6 +101,15 @@
         margin-bottom: 0;
       }
     }
+  }
+
+  // Docs — window 스크롤 대신 페이지형 스크롤 영역에서 고정 확인
+  &_demo-page {
+    max-height: 18rem;
+    overflow-y: auto;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    background: var(--color-surface);
   }
 
   &_demo-narrow {

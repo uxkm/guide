@@ -165,8 +165,22 @@
   }
 
   &:has(.checkbox_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+
+    .checkbox_box {
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+    }
+
+    .checkbox_input:checked + .checkbox_box,
+    .checkbox_input:indeterminate + .checkbox_box {
+      background-color: var(--color-accent-disabled);
+      border-color: var(--color-accent-disabled);
+      color: var(--color-on-accent-disabled);
+    }
   }
+
+  @include disabled-semantic-checked-box(".checkbox_input", ".checkbox_box");
 
   &.is-error .checkbox_box {
     border-color: var(--color-danger);
@@ -381,6 +395,10 @@
       outline: var(--focus-outline-width) solid var(--color-accent);
       outline-offset: var(--focus-outline-offset);
     }
+
+    &:has(.checkbox_input:disabled) {
+      @include disabled-surface;
+    }
   }
 
   // ----- 카드형 — card 컴포넌트와 조합 (래퍼는 div, control은 label.checkbox_control)
@@ -397,7 +415,7 @@
     }
 
     &:has(.checkbox_input:disabled) {
-      @include disabled-state;
+      @include disabled-surface;
     }
 
     .card {

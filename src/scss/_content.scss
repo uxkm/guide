@@ -154,6 +154,11 @@
       background-color $transition-base,
       border-color $transition-base;
 
+    &:has(.navbar_demo) {
+      padding: 0;
+      overflow: hidden;
+    }
+
     &-stack {
       flex-direction: column;
       align-items: stretch;
