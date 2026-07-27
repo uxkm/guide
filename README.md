@@ -63,7 +63,8 @@ pnpm deploy:main
 
 배포 전용 브랜치이므로 아래 파일·폴더는 **포함하지 않습니다** (`.gitignore`로 제외).
 
-- `node_modules/`, `pnpm-lock.yaml`, `package.json`
+- `node_modules/`, `.pnpm-store/`, `pnpm-lock.yaml`, `package.json`
+- `apps/`, `packages/` (소스 monorepo — Storybook 등은 `*-storybook/`에 배포)
 - `src/`, `scripts/`, `vite.config.js` 등 소스·설정
 - `dist/` (빌드 임시 산출물 — 배포 시 `html/`·`vue/`·`react/`로 복사)
 

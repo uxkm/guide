@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
   <meta name="robots" content="index,follow">
   <meta name="format-detection" content="telephone=no, email=no, address=no">
   <title>UXKM Guide</title>
@@ -365,15 +366,19 @@
     </footer>
   </div>
 
+  <!-- 루트 허브 라이트/다크 테마 토글 -->
   <script>
     (function () {
+      // localStorage 키 — 하위 가이드(html/react/vue)와 동일 키로 테마를 공유할 수 있음
       var STORAGE_KEY = 'guide-theme';
       var btn = document.getElementById('root-theme-btn');
 
+      // OS/브라우저 prefers-color-scheme 값
       function getSystemTheme() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
 
+      // 사용자가 직접 선택한 테마 (없으면 null). private 모드 등 접근 실패 시 null
       function getStoredTheme() {
         try {
           var stored = localStorage.getItem(STORAGE_KEY);
@@ -383,10 +388,12 @@
         }
       }
 
+      // 현재 적용 중인 테마: html[data-theme] → 없으면 시스템 설정
       function getActiveTheme() {
         return document.documentElement.getAttribute('data-theme') || getSystemTheme();
       }
 
+      // data-theme 적용. persist=true이면 localStorage에도 저장 (버튼 클릭 시)
       function applyTheme(theme, persist) {
         document.documentElement.setAttribute('data-theme', theme);
         if (persist) {
@@ -395,15 +402,18 @@
         updateLabel();
       }
 
+      // 버튼 aria-label을 다음 전환 대상으로 갱신
       function updateLabel() {
         var isDark = getActiveTheme() === 'dark';
         btn.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
       }
 
+      // 클릭 시 light ↔ dark 토글 후 선택값 저장
       btn.addEventListener('click', function () {
         applyTheme(getActiveTheme() === 'dark' ? 'light' : 'dark', true);
       });
 
+      // 시스템 테마 변경 시: 사용자가 저장한 값이 없을 때만 따라감
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
         if (!getStoredTheme()) {
           applyTheme(getSystemTheme(), false);
