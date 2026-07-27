@@ -70,27 +70,35 @@ pageTitle: Form Layout
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <form class="form form_horizontal form_label-align-start form_label-width-sm">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-hs-city">도시</label>
-        <input type="text" class="input" id="fl-hs-city" placeholder="서울">
-      </div>
-      <div class="form_field">
-        <label class="form_field-label" for="fl-hs-zip">우편번호</label>
-        <input type="text" class="input" id="fl-hs-zip" placeholder="00000">
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">레이블 왼쪽 정렬 · sm</h3>
+      <p class="typo_caption">form_label-align-start · form_label-width-sm</p>
+      <form class="form form_horizontal form_label-align-start form_label-width-sm">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-hs-city">도시</label>
+          <input type="text" class="input" id="fl-hs-city" placeholder="서울">
+        </div>
+        <div class="form_field">
+          <label class="form_field-label" for="fl-hs-zip">우편번호</label>
+          <input type="text" class="input" id="fl-hs-zip" placeholder="00000">
+        </div>
+      </form>
+    </div>
 
-    <form class="form form_horizontal form_label-width-lg">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-hl-company">회사명</label>
-        <input type="text" class="input" id="fl-hl-company" placeholder="UXKM">
-      </div>
-      <div class="form_field">
-        <label class="form_field-label" for="fl-hl-dept">부서</label>
-        <input type="text" class="input" id="fl-hl-dept" placeholder="디자인팀">
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">레이블 너비 lg</h3>
+      <p class="typo_caption">form_label-width-lg — 라벨 열이 넓어져 입력 시작 위치가 달라집니다.</p>
+      <form class="form form_horizontal form_label-width-lg">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-hl-company">회사명</label>
+          <input type="text" class="input" id="fl-hl-company" placeholder="UXKM">
+        </div>
+        <div class="form_field">
+          <label class="form_field-label" for="fl-hl-dept">부서</label>
+          <input type="text" class="input" id="fl-hl-dept" placeholder="디자인팀">
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -167,26 +175,38 @@ pageTitle: Form Layout
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <form class="form form_vertical">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-w-default">기본 너비</label>
-        <input type="text" class="input" id="fl-w-default" placeholder="부모 100%">
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">기본 너비</h3>
+      <p class="typo_caption">부모 컨테이너 100%</p>
+      <form class="form form_vertical">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-w-default">기본 너비</label>
+          <input type="text" class="input" id="fl-w-default" placeholder="부모 100%">
+        </div>
+      </form>
+    </div>
 
-    <form class="form form_vertical form_fit">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-w-fit">제한 너비</label>
-        <input type="text" class="input" id="fl-w-fit" placeholder="form_fit — 최대 320px">
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">form_fit</h3>
+      <p class="typo_caption">최대 320px로 제한</p>
+      <form class="form form_vertical form_fit">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-w-fit">제한 너비</label>
+          <input type="text" class="input" id="fl-w-fit" placeholder="form_fit — 최대 320px">
+        </div>
+      </form>
+    </div>
 
-    <form class="form form_horizontal">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-w-h-full">가로 레이아웃</label>
-        <input type="text" class="input" id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움">
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">가로 레이아웃</h3>
+      <p class="typo_caption">입력 열이 남은 공간을 채움</p>
+      <form class="form form_horizontal">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-w-h-full">가로 레이아웃</label>
+          <input type="text" class="input" id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움">
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -197,27 +217,33 @@ pageTitle: Form Layout
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
-    <form class="form form_vertical">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-a-title">제목</label>
-        <input type="text" class="input" id="fl-a-title" placeholder="제목">
-      </div>
-      <div class="form_actions">
-        <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
-        <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">세로</h3>
+      <form class="form form_vertical">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-a-title">제목</label>
+          <input type="text" class="input" id="fl-a-title" placeholder="제목">
+        </div>
+        <div class="form_actions">
+          <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+          <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+        </div>
+      </form>
+    </div>
 
-    <form class="form form_horizontal">
-      <div class="form_field">
-        <label class="form_field-label" for="fl-a2-title">제목</label>
-        <input type="text" class="input" id="fl-a2-title" placeholder="제목">
-      </div>
-      <div class="form_actions">
-        <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
-        <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
-      </div>
-    </form>
+    <div class="demo_preview-block">
+      <h3 class="typo_overline">가로</h3>
+      <form class="form form_horizontal">
+        <div class="form_field">
+          <label class="form_field-label" for="fl-a2-title">제목</label>
+          <input type="text" class="input" id="fl-a2-title" placeholder="제목">
+        </div>
+        <div class="form_actions">
+          <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+          <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 

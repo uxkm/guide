@@ -52,6 +52,28 @@
     border-radius: var(--typo-code-radius);
   }
 
+  &_sub,
+  &_sup {
+    font-size: var(--typo-sub-sup-size);
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  &_sub {
+    bottom: var(--typo-sub-offset);
+  }
+
+  &_sup {
+    top: var(--typo-sup-offset);
+  }
+
+  &_small {
+    font-size: var(--typo-small-size);
+    line-height: inherit;
+    color: var(--color-text-muted);
+  }
+
   &_code {
     font-family: $font-family-mono;
     font-size: 0.875em;

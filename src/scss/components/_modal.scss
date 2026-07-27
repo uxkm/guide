@@ -204,6 +204,78 @@
 
   // ----- 데모 레이아웃
 
+  &_demo-frame {
+    position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    height: 32rem;
+    min-height: 28rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: var(--color-bg);
+
+    // Playground·문서 미리보기 — fixed 오버레이를 프레임 안으로 가둠
+    .modal {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      padding: var(--space-md);
+
+      &[hidden]:not(.is-open):not(.modal_demo-static) {
+        display: none;
+      }
+
+      &.is-open,
+      &.modal_demo-static {
+        display: flex;
+      }
+
+      .modal_backdrop {
+        position: absolute;
+      }
+
+      &.modal_demo-static {
+        pointer-events: none;
+
+        .modal_dialog {
+          pointer-events: auto;
+          opacity: 1;
+          transform: none;
+        }
+
+        .modal_backdrop {
+          opacity: 1;
+          pointer-events: none;
+        }
+
+        &[data-modal-backdrop="false"] .modal_backdrop {
+          display: none;
+        }
+      }
+
+      &.modal_scrollable .modal_dialog {
+        max-height: calc(100% - var(--space-md) * 2);
+      }
+
+      &.modal_fullscreen {
+        padding: 0;
+
+        .modal_dialog {
+          height: 100%;
+          max-height: none;
+        }
+      }
+    }
+  }
+
+  &_demo-content {
+    padding: var(--space-lg);
+    font-size: var(--text-size-sm);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
   &_demo-row {
     display: flex;
     flex-wrap: wrap;

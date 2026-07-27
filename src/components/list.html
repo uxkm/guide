@@ -44,7 +44,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="bullet-heading">
   <div class="demo_section-header">
     <h2 id="bullet-heading">불릿</h2>
-    <p>ul에 list_bullet을 적용합니다. list_bullet-circle · list_bullet-square로 마커 형태를 바꿀 수 있습니다.</p>
+    <p>class에 list_bullet을 적용합니다. list_bullet-circle · list_bullet-square로 마커 형태를 바꿀 수 있습니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -59,7 +59,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="bullet-rich-heading">
   <div class="demo_section-header">
     <h2 id="bullet-rich-heading">불릿 · 본문</h2>
-    <p>list_content로 제목·설명을 함께 표시합니다.</p>
+    <p>title · description prop으로 제목·설명을 함께 표시합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -123,7 +123,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="ordered-heading">
   <div class="demo_section-header">
     <h2 id="ordered-heading">번호</h2>
-    <p>ol에 list_ordered를 적용합니다. 순서가 의미 있는 단계·절차에 사용합니다.</p>
+    <p>tag="ol"과 list_ordered 클래스로 순서 목록을 만듭니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -139,7 +139,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="ordered-variant-heading">
   <div class="demo_section-header">
     <h2 id="ordered-variant-heading">번호 변형</h2>
-    <p>list_ordered-alpha · list_ordered-roman으로 번호 형식을 변경합니다.</p>
+    <p>list_ordered-alpha · list_ordered-roman · list_ordered-upper-alpha · list_ordered-upper-roman으로 번호 형식을 변경합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
@@ -153,6 +153,16 @@ pageTitle: List
       <li class="list_item">서론</li>
       <li class="list_item">본론</li>
       <li class="list_item">결론</li>
+    </ol>
+
+    <ol class="list list_ordered list_ordered-upper-alpha">
+      <li class="list_item">항목 A</li>
+      <li class="list_item">항목 B</li>
+    </ol>
+
+    <ol class="list list_ordered list_ordered-upper-roman">
+      <li class="list_item">Chapter I</li>
+      <li class="list_item">Chapter II</li>
     </ol>
 
     <ol class="list list_ordered">
@@ -179,6 +189,63 @@ pageTitle: List
           <span class="list_desc">pnpm build로 html/ 출력</span>
         </div>
       </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="ordered-hierarchical-heading">
+  <div class="demo_section-header">
+    <h2 id="ordered-hierarchical-heading">번호 · 계층</h2>
+    <p>list_ordered-outline(1.1) · list_ordered-dash(1-1)은 뎁스마다 번호가 이어집니다. list_ordered-depth는 뎁스별로 1 → a → i 형식이 자동 전환됩니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <ol class="list list_ordered list_ordered-outline">
+      <li class="list_item">1단계 — 요구사항 정의</li>
+      <li class="list_item">설계
+        <ol class="list list_ordered list_ordered-outline">
+          <li class="list_item">정보 구조</li>
+          <li class="list_item">UI 설계
+            <ol class="list list_ordered list_ordered-outline">
+              <li class="list_item">와이어프레임</li>
+              <li class="list_item">프로토타입</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li class="list_item">개발 및 배포</li>
+    </ol>
+
+    <ol class="list list_ordered list_ordered-dash">
+      <li class="list_item">1단계 — 환경 구성</li>
+      <li class="list_item">개발
+        <ol class="list list_ordered list_ordered-dash">
+          <li class="list_item">컴포넌트 구현</li>
+          <li class="list_item">문서화
+            <ol class="list list_ordered list_ordered-dash">
+              <li class="list_item">API 표</li>
+              <li class="list_item">데모 예제</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li class="list_item">QA 및 릴리스</li>
+    </ol>
+
+    <ol class="list list_ordered list_ordered-depth">
+      <li class="list_item">레이아웃</li>
+      <li class="list_item">기본 요소
+        <ol class="list list_ordered list_ordered-depth">
+          <li class="list_item">Button</li>
+          <li class="list_item">Form
+            <ol class="list list_ordered list_ordered-depth">
+              <li class="list_item">Input</li>
+              <li class="list_item">Select</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li class="list_item">피드백</li>
     </ol>
   </div>
 </section>
@@ -213,7 +280,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="bordered-heading">
   <div class="demo_section-header">
     <h2 id="bordered-heading">테두리</h2>
-    <p>list_bordered로 각 항목에 테두리를 적용합니다.</p>
+    <p>bordered prop으로 각 항목에 테두리를 적용합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -243,7 +310,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="link-heading">
   <div class="demo_section-header">
     <h2 id="link-heading">링크</h2>
-    <p>페이지 이동이 필요한 항목은 li 안에 a.list_link를 배치합니다. li는 목록 구조만 담당합니다.</p>
+    <p>페이지 이동이 필요한 항목은 a.list_link를 배치합니다. split prop으로 항목 구분선을 적용합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -279,7 +346,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="button-heading">
   <div class="demo_section-header">
     <h2 id="button-heading">버튼</h2>
-    <p>같은 페이지 내 액션은 button.list_link를 사용합니다. role·tabindex는 li가 아닌 버튼에 기본 제공됩니다.</p>
+    <p>같은 페이지 내 액션은 button.list_link를 사용합니다. button 안에는 phrasing content만 넣고, 본문 영역은 span.list_content로 감쌉니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -287,20 +354,20 @@ pageTitle: List
       <li class="list_item">
         <button type="button" class="list_link">
           <span class="avatar color_primary" aria-hidden="true">홍</span>
-          <div class="list_content">
+          <span class="list_content">
             <span class="list_title">홍길동</span>
             <span class="list_meta">메시지 보내기</span>
-          </div>
+          </span>
           <span class="list_action color_muted" aria-hidden="true">›</span>
         </button>
       </li>
       <li class="list_item">
         <button type="button" class="list_link">
           <span class="avatar color_success" aria-hidden="true">김</span>
-          <div class="list_content">
+          <span class="list_content">
             <span class="list_title">김철수</span>
             <span class="list_meta">메시지 보내기</span>
-          </div>
+          </span>
           <span class="list_action color_muted" aria-hidden="true">›</span>
         </button>
       </li>
@@ -311,7 +378,7 @@ pageTitle: List
 <section class="section demo_section" aria-labelledby="card-heading">
   <div class="demo_section-header">
     <h2 id="card-heading">카드 혼합</h2>
-    <p>list_cards로 li 안에 card를 배치합니다. 카드 전체를 링크로 만들 때는 a.card를 사용합니다.</p>
+    <p>list_cards 클래스로 li 안에 card를 배치합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -367,5 +434,59 @@ pageTitle: List
         </a>
       </li>
     </ul>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="definition-heading">
+  <div class="demo_section-header">
+    <h2 id="definition-heading">정의 목록</h2>
+    <p>variant="definition"으로 dl · list_definition을 적용합니다. title · description prop이 있으면 ListItem이 dt · dd로 직접 렌더됩니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <dl class="list list_definition" style="max-width: 28rem; width: 100%;">
+      <dt class="list_title">OOCSS</dt>
+      <dd class="list_desc">구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다.</dd>
+      <dt class="list_title">Design Token</dt>
+      <dd class="list_desc">색상·간격·타이포 등 디자인 값을 변수로 정의한 것입니다.</dd>
+      <dt class="list_title">WCAG</dt>
+      <dd class="list_desc">웹 콘텐츠 접근성 지침으로, 대비·키보드 사용성 등을 다룹니다.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="definition-inline-heading">
+  <div class="demo_section-header">
+    <h2 id="definition-inline-heading">정의 목록 · 인라인</h2>
+    <p>layout="inline"으로 제목·내용을 가로 배치합니다. 너비는 콘텐츠에 맞게 줄어듭니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <dl class="list list_definition list_inline" style="--list-inline-label-width: auto; --list-inline-gap: var(--space-md);">
+      <dt class="list_title">OOCSS</dt>
+      <dd class="list_desc">구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다.</dd>
+      <dt class="list_title">Design Token</dt>
+      <dd class="list_desc">색상·간격·타이포 등 디자인 값을 변수로 정의한 것입니다.</dd>
+      <dt class="list_title">WCAG</dt>
+      <dd class="list_desc">웹 콘텐츠 접근성 지침으로, 대비·키보드 사용성 등을 다룹니다.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="definition-desc-align-heading">
+  <div class="demo_section-header">
+    <h2 id="definition-desc-align-heading">정의 목록 · 값 우측 정렬</h2>
+    <p>descAlign="right"로 dd(설명) 텍스트를 우측 정렬합니다. 주문 요약·금액 표시 등에 적합합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <dl class="list list_definition list_inline list_block list_compact list_desc-right" style="--list-inline-label-width: auto; --list-inline-gap: 1rem;">
+      <dt class="list_title">주문번호</dt>
+      <dd class="list_desc">ORD-2024-0815</dd>
+      <dt class="list_title">결제금액</dt>
+      <dd class="list_desc">₩42,000</dd>
+      <dt class="list_title">배송지</dt>
+      <dd class="list_desc">서울특별시 강남구 테헤란로 123</dd>
+    </dl>
   </div>
 </section>

@@ -5,7 +5,7 @@ pageTitle: Drawer
 -->
 <div class="page_intro">
   <h1>Drawer</h1>
-  <p class="lead">화면 가장자리에서 슬라이드되어 나타나는 패널 컴포넌트입니다. 상세 보기·폼·설정 등 보조 작업 영역에 사용하며, 기본 위치는 오른쪽(<code class="typo_code">drawer_placement-right</code>)입니다. <code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal</code>로 접근성을 보장합니다.</p>
+  <p class="lead">화면 가장자리에서 슬라이드되어 나타나는 패널 컴포넌트입니다. 상세 보기·폼·모바일 메뉴·필터·설정 등 보조 UI에 사용하며, 기본 위치는 오른쪽(<code class="typo_code">drawer_placement-right</code>)입니다. 방향별 슬라이드·백드롭 페이드 애니메이션과 <code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal</code> 접근성을 제공합니다.</p>
 </div>
 
 <section class="section demo_section" aria-labelledby="basic-heading">
@@ -24,7 +24,7 @@ pageTitle: Drawer
 <section class="section demo_section" aria-labelledby="placement-heading">
   <div class="demo_section-header">
     <h2 id="placement-heading">위치</h2>
-    <p><code class="typo_code">drawer_placement-left</code> · <code class="typo_code">-right</code> · <code class="typo_code">-top</code> · <code class="typo_code">-bottom</code>으로 슬라이드 방향을 지정합니다.</p>
+    <p><code class="typo_code">drawer_placement-left</code> · <code class="typo_code">-right</code> · <code class="typo_code">-top</code> · <code class="typo_code">-bottom</code>으로 슬라이드 방향을 지정합니다. 상·하는 둥근 모서리·하단은 드래그 핸들이 표시됩니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
@@ -92,6 +92,32 @@ pageTitle: Drawer
   </div>
 </section>
 
+<section class="section demo_section" aria-labelledby="menu-heading">
+  <div class="demo_section-header">
+    <h2 id="menu-heading">메뉴</h2>
+    <p>Menu 컴포넌트와 조합해 모바일 내비게이션 패널을 구성합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <button type="button" class="btn btn_outline btn_icon-only" aria-label="메뉴 열기" data-drawer-trigger="#drawer-menu" aria-controls="drawer-menu" aria-expanded="false">
+      <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="open-on-load-heading">
+  <div class="demo_section-header">
+    <h2 id="open-on-load-heading">로드 시 자동 열기 (옵션)</h2>
+    <p><code class="typo_code">data-drawer-open-on-load="true"</code>를 지정하면 페이지 로드 후 해당 Drawer를 자동으로 열 수 있습니다. 기본값은 비활성입니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <p class="form_field-hint">아래 예시는 옵션 동작 확인용입니다.</p>
+  </div>
+</section>
+
 <section class="section demo_section" aria-labelledby="nested-heading">
   <div class="demo_section-header">
     <h2 id="nested-heading">중첩 Drawer</h2>
@@ -101,6 +127,19 @@ pageTitle: Drawer
   <div class="demo_section-preview">
     <button type="button" class="btn btn_ghost" data-drawer-trigger="#drawer-nested-1" aria-controls="drawer-nested-1" aria-expanded="false">
       <span class="btn_label">중첩 예시 열기</span>
+    </button>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="drag-sheet-heading">
+  <div class="demo_section-header">
+    <h2 id="drag-sheet-heading">하단 드래그 시트</h2>
+    <p><code class="typo_code">drawer_placement-bottom</code> + <code class="typo_code">drawer_draggable</code>로 핸들·헤더를 드래그합니다. 위로 끌면 펼치고, 아래로 끌면 접거나 닫습니다. 터치 슬라이드도 동일합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <button type="button" class="btn btn_filled color_primary" data-drawer-trigger="#drawer-drag" aria-controls="drawer-drag" aria-expanded="false">
+      <span class="btn_label">드래그 시트 열기</span>
     </button>
   </div>
 </section>
@@ -278,7 +317,7 @@ pageTitle: Drawer
       </button>
     </div>
     <div class="drawer_body">
-      <div class="form_layout form_layout-vertical">
+      <div class="form form_vertical">
         <div class="form_field">
           <label class="form_field-label" for="drawer-item-name">이름</label>
           <input class="input" type="text" id="drawer-item-name" placeholder="항목 이름">
@@ -311,7 +350,7 @@ pageTitle: Drawer
     <div class="drawer_header">
       <h2 class="drawer_title" id="drawer-extra-title">주문 #1042</h2>
       <div class="drawer_extra">
-        <span class="tag tag_filled color_success">완료</span>
+        <span class="tag tag_solid color_success">완료</span>
       </div>
       <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
         <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -335,6 +374,79 @@ pageTitle: Drawer
         </div>
       </dl>
       <p>상세 정보·상태 뱃지 등을 헤더 <code class="typo_code">drawer_extra</code>에 배치할 수 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 메뉴 -->
+<div class="drawer" id="drawer-menu" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-menu-title" tabindex="-1" hidden>
+  <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  <div class="drawer_panel drawer_placement-left">
+    <div class="drawer_header">
+      <h2 class="drawer_title" id="drawer-menu-title">앱 메뉴</h2>
+      <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
+        <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer_body" style="padding-top: 0;">
+      <nav class="menu menu_vertical menu_compact" aria-label="앱 메뉴">
+        <ul class="menu_list">
+          <li class="menu_item">
+            <a href="#" class="menu_link is-active" aria-current="page">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              <span class="menu_label">대시보드</span>
+            </a>
+          </li>
+          <li class="menu_item">
+            <a href="#" class="menu_link">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 6-10"/>
+              </svg>
+              <span class="menu_label">분석</span>
+            </a>
+          </li>
+          <li class="menu_item">
+            <a href="#" class="menu_link">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              </svg>
+              <span class="menu_label">사용자</span>
+            </a>
+          </li>
+          <li class="menu_divider" role="separator"></li>
+          <li class="menu_item">
+            <a href="#" class="menu_link">
+              <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              <span class="menu_label">설정</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- 옵션: 로드 시 자동 열기 -->
+<div class="drawer" id="drawer-open-on-load" data-drawer data-drawer-open-on-load="true" role="dialog" aria-modal="true" aria-labelledby="drawer-open-on-load-title" tabindex="-1" hidden>
+  <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  <div class="drawer_panel drawer_placement-right drawer_sm">
+    <div class="drawer_header">
+      <h2 class="drawer_title" id="drawer-open-on-load-title">자동 열기 옵션</h2>
+      <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
+        <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer_body">
+      <p>이 패널은 <code class="typo_code">data-drawer-open-on-load="true"</code> 예시입니다.</p>
+      <p>실서비스에서는 온보딩, 공지, 필수 확인 패널 등에 선택적으로 사용할 수 있습니다.</p>
     </div>
   </div>
 </div>
@@ -376,6 +488,37 @@ pageTitle: Drawer
     </div>
     <div class="drawer_footer">
       <button type="button" class="btn btn_filled color_primary" data-drawer-close><span class="btn_label">완료</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- 하단 드래그 시트 -->
+<div class="drawer" id="drawer-drag" data-drawer data-drawer-draggable="true" role="dialog" aria-modal="true" aria-labelledby="drawer-drag-title" tabindex="-1" hidden>
+  <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  <div class="drawer_panel drawer_placement-bottom drawer_draggable">
+    <div class="drawer_handle" data-drawer-drag-handle role="presentation" aria-hidden="true">
+      <span class="drawer_handle-bar"></span>
+    </div>
+    <div class="drawer_header">
+      <h2 class="drawer_title" id="drawer-drag-title">공유 · 액션</h2>
+      <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
+        <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="drawer_body">
+      <p>상단 핸들이나 헤더를 <strong>위로</strong> 드래그하면 시트가 펼쳐집니다.</p>
+      <p><strong>아래로</strong> 드래그하면 기본 높이로 접히고, 더 내리면 닫힙니다.</p>
+      <ul>
+        <li>링크 복사</li>
+        <li>메시지 보내기</li>
+        <li>다른 앱으로 공유</li>
+      </ul>
+    </div>
+    <div class="drawer_footer">
+      <button type="button" class="btn btn_ghost" data-drawer-close><span class="btn_label">닫기</span></button>
+      <button type="button" class="btn btn_filled color_primary" data-drawer-close><span class="btn_label">공유</span></button>
     </div>
   </div>
 </div>
@@ -432,7 +575,22 @@ pageTitle: Drawer
 
 &lt;!-- 옵션: 백드롭 없음 --&gt;
 &lt;div class="drawer" id="drawer-plain" data-drawer
-  data-drawer-backdrop="false" …&gt;…&lt;/div&gt;</code></pre>
+  data-drawer-backdrop="false" …&gt;…&lt;/div&gt;
+
+&lt;!-- 옵션: 로드 시 자동 열기 --&gt;
+&lt;div class="drawer" id="drawer-onboard" data-drawer
+  data-drawer-open-on-load="true" …&gt;…&lt;/div&gt;
+
+&lt;!-- 옵션: 하단 드래그 시트 --&gt;
+&lt;div class="drawer" id="drawer-sheet" data-drawer
+  data-drawer-draggable="true" …&gt;
+  &lt;div class="drawer_panel drawer_placement-bottom drawer_draggable"&gt;
+    &lt;div class="drawer_handle" data-drawer-drag-handle aria-hidden="true"&gt;
+      &lt;span class="drawer_handle-bar"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    …
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
   </div>
 </section>
 
@@ -463,11 +621,15 @@ pageTitle: Drawer
           <tr><td><code class="typo_code">drawer_placement-top</code></td><td>위에서 슬라이드</td></tr>
           <tr><td><code class="typo_code">drawer_placement-bottom</code></td><td>아래에서 슬라이드</td></tr>
           <tr><td><code class="typo_code">drawer_sm</code> · <code class="typo_code">drawer_lg</code></td><td>패널 크기 변형 (좌·우: 너비, 상·하: 높이)</td></tr>
+          <tr><td><code class="typo_code">drawer_handle</code> · <code class="typo_code">drawer_handle-bar</code> · <code class="typo_code">drawer_draggable</code></td><td>하단 드래그 핸들</td></tr>
           <tr><td><code class="typo_code">data-drawer</code></td><td>Drawer 루트 식별자</td></tr>
           <tr><td><code class="typo_code">data-drawer-trigger</code></td><td>열기 트리거 (값: <code class="typo_code">#id</code> 선택자)</td></tr>
           <tr><td><code class="typo_code">data-drawer-close</code></td><td>닫기 대상 (백드롭·닫기·푸터 버튼)</td></tr>
           <tr><td><code class="typo_code">data-drawer-backdrop="false"</code></td><td>백드롭 숨김 · 본문 스크롤 잠금 비활성</td></tr>
-          <tr><td><code class="typo_code">is-open</code></td><td>열린 상태 (JS가 토글, <code class="typo_code">hidden</code> 해제와 함께)</td></tr>
+          <tr><td><code class="typo_code">data-drawer-open-on-load="true"</code></td><td>페이지 로드 후 자동 열기</td></tr>
+          <tr><td><code class="typo_code">data-drawer-draggable</code> · <code class="typo_code">data-drawer-drag-handle</code></td><td>하단 드래그 펼침/접힘</td></tr>
+          <tr><td><code class="typo_code">is-open</code> · <code class="typo_code">is-opening</code> · <code class="typo_code">is-closing</code></td><td>열림·애니메이션 상태</td></tr>
+          <tr><td><code class="typo_code">is-expanded</code> · <code class="typo_code">is-dragging</code></td><td>하단 시트 펼침·드래그 중</td></tr>
           <tr><td><code class="typo_code">hidden</code></td><td>닫힌 초기 상태 (접근성·표시 제어)</td></tr>
           <tr><td><code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal="true"</code></td><td>모달 대화상자 시맨틱 (권장)</td></tr>
           <tr><td><code class="typo_code">aria-controls</code> · <code class="typo_code">aria-expanded</code></td><td>트리거 ↔ 패널 연결 (트리거에 지정)</td></tr>
@@ -493,13 +655,16 @@ pageTitle: Drawer
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">--drawer-z-index</code></td><td>250</td><td>레이어 순서 (Offcanvas 200 · Modal 300 사이)</td></tr>
+          <tr><td><code class="typo_code">--drawer-z-index</code></td><td>250</td><td>레이어 순서 (Modal 300 미만)</td></tr>
           <tr><td><code class="typo_code">--drawer-width</code></td><td>24rem</td><td>좌·우 패널 너비</td></tr>
           <tr><td><code class="typo_code">--drawer-width-sm</code></td><td>18rem</td><td><code class="typo_code">drawer_sm</code> 너비</td></tr>
           <tr><td><code class="typo_code">--drawer-width-lg</code></td><td>36rem</td><td><code class="typo_code">drawer_lg</code> 너비</td></tr>
           <tr><td><code class="typo_code">--drawer-height</code></td><td>18rem</td><td>상·하 패널 높이</td></tr>
           <tr><td><code class="typo_code">--drawer-height-sm</code></td><td>14rem</td><td><code class="typo_code">drawer_sm</code> 높이</td></tr>
           <tr><td><code class="typo_code">--drawer-height-lg</code></td><td>26rem</td><td><code class="typo_code">drawer_lg</code> 높이</td></tr>
+          <tr><td><code class="typo_code">--drawer-height-expanded</code></td><td>90%</td><td>하단 드래그 펼침 높이</td></tr>
+          <tr><td><code class="typo_code">--drawer-panel-duration-x</code> · <code class="typo_code">--drawer-panel-duration-y</code></td><td>0.32s · 0.36s</td><td>좌·우 / 상·하 슬라이드 시간</td></tr>
+          <tr><td><code class="typo_code">--drawer-panel-easing-x</code> · <code class="typo_code">--drawer-panel-easing-y</code></td><td>cubic-bezier…</td><td>방향별 이징</td></tr>
           <tr><td><code class="typo_code">--drawer-bg</code></td><td><code class="typo_code">var(--color-surface)</code></td><td>패널 배경</td></tr>
           <tr><td><code class="typo_code">--drawer-shadow</code></td><td><code class="typo_code">var(--shadow-md)</code></td><td>패널 그림자</td></tr>
         </tbody>

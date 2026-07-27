@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Upload</span>
@@ -34,49 +35,43 @@
       <main class="guide_content">
         <div class="page_intro">
           <h1>Upload</h1>
-          <p class="lead">파일 선택·드래그 앤 드롭·업로드 목록·이미지 카드·아바타 업로드 UI를 제공합니다. <code>upload_input</code>은 시각적으로 숨기고 <code>label.upload_trigger</code> 또는 <code>label.upload_dropzone</code>으로 트리거합니다.</p>
+          <p class="lead">파일 선택·드래그 앤 드롭·업로드 목록·이미지 카드·아바타 업로드 UI를 제공합니다. <code>upload_input</code>은 시각적으로 숨기고 <code>label.upload_trigger</code> · <code>label.upload_dropzone</code>으로 트리거합니다. 버튼형 트리거는 <code>button</code> 대신 <code>span.btn</code>으로 스킨을 적용합니다.</p>
         </div>
 
         <section class="section demo_section" aria-labelledby="button-heading">
           <div class="demo_section-header">
             <h2 id="button-heading">버튼 업로드</h2>
-            <p><code>upload_trigger</code>에 <code>btn</code> 클래스를 조합합니다. 아이콘·스킨·크기는 Button 컴포넌트와 동일하게 사용합니다.</p>
+            <p><code>label.upload_trigger</code> 안에 <code>span.btn</code>으로 버튼 스킨을 적용합니다. <code>button</code> 요소는 label 안에 넣지 않습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="upload">
-              <label class="upload_trigger btn btn_filled color_primary">
+              <label class="upload_trigger">
                 <input type="file" class="upload_input" id="upload-btn-basic">
-                <span class="btn_label">파일 선택</span>
+                <span class="btn btn_filled color_primary"><span class="btn_label">파일 선택</span></span>
               </label>
             </div>
 
             <div class="upload">
-              <label class="upload_trigger btn btn_outline color_primary">
+              <label class="upload_trigger">
                 <input type="file" class="upload_input" id="upload-btn-outline">
-                <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-                </svg>
-                <span class="btn_label">업로드</span>
+                <span class="btn btn_outline color_primary"><span class="btn_label">업로드</span></span>
               </label>
               <p class="upload_hint">PNG, JPG · 최대 5MB</p>
             </div>
 
             <div class="upload">
-              <label class="upload_trigger btn btn_filled color_primary btn_sm">
-                <input type="file" class="upload_input" id="upload-btn-sm">
-                <span class="btn_label">Small</span>
-              </label>
-              <label class="upload_trigger btn btn_filled color_primary btn_lg">
-                <input type="file" class="upload_input" id="upload-btn-lg">
-                <span class="btn_label">Large</span>
+              <label class="upload_trigger">
+                <input type="file" class="upload_input" id="upload-btn-sizes">
+                <span class="btn btn_filled color_primary btn_sm"><span class="btn_label">Small</span></span>
+                <span class="btn btn_filled color_primary btn_lg"><span class="btn_label">Large</span></span>
               </label>
             </div>
 
             <div class="upload is-disabled">
-              <label class="upload_trigger btn btn_filled color_primary">
+              <label class="upload_trigger">
                 <input type="file" class="upload_input" disabled>
-                <span class="btn_label">비활성</span>
+                <span class="btn btn_filled color_primary is-disabled"><span class="btn_label">비활성</span></span>
               </label>
             </div>
           </div>
@@ -92,23 +87,22 @@
             <pre><code>&lt;!-- 예시 1 --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger btn btn_filled color_primary&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot;&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-basic&quot;&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;파일 선택&lt;/span&gt;
+    &lt;span class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;파일 선택&lt;/span&gt;
+    &lt;/span&gt;
   &lt;/label&gt;
 &lt;/div&gt;
 
 &lt;!-- PNG, JPG · 최대 5MB --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger btn btn_outline color_primary&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot;&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-outline&quot;&gt;
-    &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;path d=&quot;M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8&quot;/&gt;
-      &lt;polyline points=&quot;16 6 12 2 8 6&quot;/&gt;
-      &lt;line x1=&quot;12&quot; y1=&quot;2&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;
-    &lt;/svg&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;업로드&lt;/span&gt;
+    &lt;span class=&quot;btn btn_outline color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;업로드&lt;/span&gt;
+    &lt;/span&gt;
   &lt;/label&gt;
   &lt;p class=&quot;upload_hint&quot;&gt;PNG, JPG · 최대 5MB&lt;/p&gt;
 &lt;/div&gt;
@@ -116,22 +110,25 @@
 &lt;!-- 예시 2 --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger btn btn_filled color_primary btn_sm&quot;&gt;
-    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-sm&quot;&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;Small&lt;/span&gt;
-  &lt;/label&gt;
-  &lt;label class=&quot;upload_trigger btn btn_filled color_primary btn_lg&quot;&gt;
-    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-lg&quot;&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;Large&lt;/span&gt;
+  &lt;label class=&quot;upload_trigger&quot;&gt;
+    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-sizes&quot;&gt;
+    &lt;span class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;Small&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;btn btn_filled color_primary btn_lg&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;Large&lt;/span&gt;
+    &lt;/span&gt;
   &lt;/label&gt;
 &lt;/div&gt;
 
 &lt;!-- 예시 3 --&gt;
 
 &lt;div class=&quot;upload is-disabled&quot;&gt;
-  &lt;label class=&quot;upload_trigger btn btn_filled color_primary&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot;&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; disabled&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;비활성&lt;/span&gt;
+    &lt;span class=&quot;btn btn_filled color_primary is-disabled&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;비활성&lt;/span&gt;
+    &lt;/span&gt;
   &lt;/label&gt;
 &lt;/div&gt;</code></pre>
           </div>
@@ -168,32 +165,6 @@
                 </span>
                 <span class="upload_dropzone-title">파일을 놓으세요</span>
                 <span class="upload_dropzone-desc">is-dragover 상태</span>
-              </label>
-            </div>
-
-            <div class="upload upload_fit upload_sm">
-              <label class="upload_dropzone">
-                <input type="file" class="upload_input" accept="image/*">
-                <span class="upload_dropzone-icon" aria-hidden="true">
-                  <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
-                  </svg>
-                </span>
-                <span class="upload_dropzone-title">이미지 업로드</span>
-                <span class="upload_dropzone-desc">upload_sm · accept="image/*"</span>
-              </label>
-            </div>
-
-            <div class="upload upload_fit upload_lg">
-              <label class="upload_dropzone">
-                <input type="file" class="upload_input" multiple>
-                <span class="upload_dropzone-icon" aria-hidden="true">
-                  <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-                  </svg>
-                </span>
-                <span class="upload_dropzone-title">대용량 파일 업로드</span>
-                <span class="upload_dropzone-desc">upload_lg</span>
               </label>
             </div>
           </div>
@@ -238,40 +209,6 @@
     &lt;span class=&quot;upload_dropzone-title&quot;&gt;파일을 놓으세요&lt;/span&gt;
     &lt;span class=&quot;upload_dropzone-desc&quot;&gt;is-dragover 상태&lt;/span&gt;
   &lt;/label&gt;
-&lt;/div&gt;
-
-&lt;!-- 예시 3 --&gt;
-
-&lt;div class=&quot;upload upload_fit upload_sm&quot;&gt;
-  &lt;label class=&quot;upload_dropzone&quot;&gt;
-    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; accept=&quot;image/*&quot;&gt;
-    &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;svg class=&quot;icon icon_lg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
-        &lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot;/&gt;
-        &lt;circle cx=&quot;8.5&quot; cy=&quot;8.5&quot; r=&quot;1.5&quot;/&gt;
-        &lt;path d=&quot;m21 15-5-5L5 21&quot;/&gt;
-      &lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class=&quot;upload_dropzone-title&quot;&gt;이미지 업로드&lt;/span&gt;
-    &lt;span class=&quot;upload_dropzone-desc&quot;&gt;upload_sm · accept=&quot;image/*&quot;&lt;/span&gt;
-  &lt;/label&gt;
-&lt;/div&gt;
-
-&lt;!-- 예시 4 --&gt;
-
-&lt;div class=&quot;upload upload_fit upload_lg&quot;&gt;
-  &lt;label class=&quot;upload_dropzone&quot;&gt;
-    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; multiple&gt;
-    &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;svg class=&quot;icon icon_xl&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
-        &lt;path d=&quot;M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8&quot;/&gt;
-        &lt;polyline points=&quot;16 6 12 2 8 6&quot;/&gt;
-        &lt;line x1=&quot;12&quot; y1=&quot;2&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;
-      &lt;/svg&gt;
-    &lt;/span&gt;
-    &lt;span class=&quot;upload_dropzone-title&quot;&gt;대용량 파일 업로드&lt;/span&gt;
-    &lt;span class=&quot;upload_dropzone-desc&quot;&gt;upload_lg&lt;/span&gt;
-  &lt;/label&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -285,9 +222,9 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="upload upload_fit">
-              <label class="upload_trigger btn btn_filled color_primary">
+              <label class="upload_trigger">
                 <input type="file" class="upload_input" multiple>
-                <span class="btn_label">파일 추가</span>
+                <span class="btn btn_filled color_primary"><span class="btn_label">파일 추가</span></span>
               </label>
 
               <ul class="upload_list" role="list">
@@ -360,9 +297,11 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;upload upload_fit&quot;&gt;
-  &lt;label class=&quot;upload_trigger btn btn_filled color_primary&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot;&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; multiple&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;파일 추가&lt;/span&gt;
+    &lt;span class=&quot;btn btn_filled color_primary&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;파일 추가&lt;/span&gt;
+    &lt;/span&gt;
   &lt;/label&gt;
   &lt;ul class=&quot;upload_list&quot; role=&quot;list&quot;&gt;
     &lt;li class=&quot;upload_item is-uploading&quot;&gt;
@@ -548,17 +487,19 @@
           </div>
 
           <div class="demo_section-preview">
-            <label class="upload_avatar">
-              <input type="file" class="upload_input" accept="image/*" id="upload-avatar">
-              <span class="avatar avatar_xl">
-                <img class="avatar_image" src="../images/avatar-sample.svg" alt="프로필 사진">
-              </span>
-              <span class="upload_avatar-overlay" aria-hidden="true">
-                <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
-                </svg>
-              </span>
-            </label>
+            <div class="upload">
+              <label class="upload_avatar">
+                <input type="file" class="upload_input" accept="image/*" id="upload-avatar">
+                <span class="avatar avatar_xl">
+                  <img class="avatar_image" src="../images/avatar-sample.svg" alt="프로필 사진">
+                </span>
+                <span class="upload_avatar-overlay" aria-hidden="true">
+                  <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+                  </svg>
+                </span>
+              </label>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -569,19 +510,21 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;label class=&quot;upload_avatar&quot;&gt;
-  &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; accept=&quot;image/*&quot; id=&quot;upload-avatar&quot;&gt;
-  &lt;span class=&quot;avatar avatar_xl&quot;&gt;
-    &lt;img class=&quot;avatar_image&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;프로필 사진&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;upload_avatar-overlay&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;svg class=&quot;icon icon_lg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
-      &lt;path d=&quot;M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8&quot;/&gt;
-      &lt;polyline points=&quot;16 6 12 2 8 6&quot;/&gt;
-      &lt;line x1=&quot;12&quot; y1=&quot;2&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;
-    &lt;/svg&gt;
-  &lt;/span&gt;
-&lt;/label&gt;</code></pre>
+            <pre><code>&lt;div class=&quot;upload&quot;&gt;
+  &lt;label class=&quot;upload_avatar&quot;&gt;
+    &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; accept=&quot;image/*&quot; id=&quot;upload-avatar&quot;&gt;
+    &lt;span class=&quot;avatar avatar_xl&quot;&gt;
+      &lt;img class=&quot;avatar_image&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;프로필 사진&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;upload_avatar-overlay&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;svg class=&quot;icon icon_lg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;path d=&quot;M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8&quot;/&gt;
+        &lt;polyline points=&quot;16 6 12 2 8 6&quot;/&gt;
+        &lt;line x1=&quot;12&quot; y1=&quot;2&quot; x2=&quot;12&quot; y2=&quot;15&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -592,7 +535,7 @@
             <p><code>form_field</code>와 조합해 레이블·힌트·오류 메시지를 표시합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="form_field form_field_fit">
               <label class="form_field-label" for="upload-form-attach">첨부파일</label>
               <div class="upload upload_fit">
@@ -687,5 +630,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Alert</span>
@@ -458,7 +459,7 @@
                 <div class="alert_title">이용 약관 변경</div>
                 <p class="alert_desc">2026년 3월 1일부터 새 약관이 적용됩니다.</p>
                 <div class="alert_actions">
-                  <a href="#" class="btn btn_text btn_sm color_primary"><span class="btn_label">약관 보기</span></a>
+                  <a href="#" class="link color_primary size_sm">약관 보기</a>
                   <button type="button" class="btn btn_text btn_sm color_primary"><span class="btn_label">동의하기</span></button>
                 </div>
               </div>
@@ -505,9 +506,7 @@
     &lt;div class=&quot;alert_title&quot;&gt;이용 약관 변경&lt;/div&gt;
     &lt;p class=&quot;alert_desc&quot;&gt;2026년 3월 1일부터 새 약관이 적용됩니다.&lt;/p&gt;
     &lt;div class=&quot;alert_actions&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;btn btn_text btn_sm color_primary&quot;&gt;
-        &lt;span class=&quot;btn_label&quot;&gt;약관 보기&lt;/span&gt;
-      &lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;link color_primary size_sm&quot;&gt;약관 보기&lt;/a&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn_text btn_sm color_primary&quot;&gt;
         &lt;span class=&quot;btn_label&quot;&gt;동의하기&lt;/span&gt;
       &lt;/button&gt;
@@ -598,7 +597,7 @@
               </div>
 
               <div class="form_field">
-                <label class="form_label" for="alert-ex-email">이메일</label>
+                <label class="form_field-label" for="alert-ex-email">이메일</label>
                 <input type="email" class="input is-error" id="alert-ex-email" value="invalid-email" aria-invalid="true">
               </div>
             </form>
@@ -628,7 +627,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- 입력 내용을 확인해 주세요 --&gt;
+&lt;!-- 이메일 --&gt;
 
 &lt;form class=&quot;form_layout&quot; novalidate&gt;
   &lt;div class=&quot;alert color_error&quot; role=&quot;alert&quot;&gt;
@@ -642,7 +641,7 @@
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_label&quot; for=&quot;alert-ex-email&quot;&gt;이메일&lt;/label&gt;
+    &lt;label class=&quot;form_field-label&quot; for=&quot;alert-ex-email&quot;&gt;이메일&lt;/label&gt;
     &lt;input type=&quot;email&quot; class=&quot;input is-error&quot; id=&quot;alert-ex-email&quot; value=&quot;invalid-email&quot; aria-invalid=&quot;true&quot;&gt;
   &lt;/div&gt;
 &lt;/form&gt;</code></pre>
@@ -656,5 +655,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

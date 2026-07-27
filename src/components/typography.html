@@ -100,6 +100,30 @@ pageTitle: Typography
   </div>
 </section>
 
+<section class="section demo_section" aria-labelledby="sub-sup-small-heading">
+  <div class="demo_section-header">
+    <h2 id="sub-sup-small-heading">아래첨자 · 위첨자 · 소문자</h2>
+    <p>sub · sup · small 시맨틱 태그에 typo_sub · typo_sup · typo_small 클래스를 적용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <p>
+      화학식 H<sub class="typo_sub">2</sub>O,
+      수식 x<sup class="typo_sup">2</sup> + y<sup class="typo_sup">2</sup> = z<sup class="typo_sup">2</sup>처럼
+      아래·위첨자를 표현합니다.
+    </p>
+
+    <p>
+      각주<sup class="typo_sup">1</sup>나
+      제곱미터 m<sup class="typo_sup">2</sup> 단위에도 활용합니다.
+    </p>
+
+    <p>
+      <small class="typo_small">※ 본 안내는 참고용이며, 법적 효력은 약관을 따릅니다.</small>
+    </p>
+  </div>
+</section>
+
 <section class="section demo_section" aria-labelledby="ellipsis-heading">
   <div class="demo_section-header">
     <h2 id="ellipsis-heading">말줄임</h2>
@@ -131,7 +155,7 @@ pageTitle: Typography
 <section class="section demo_section" aria-labelledby="list-heading">
   <div class="demo_section-header">
     <h2 id="list-heading">목록</h2>
-    <p>typo_list(비순서), typo_list-ordered(순서)로 스타일된 목록을 만듭니다.</p>
+    <p>본문 prose 목록은 ul · ol에 typo_list · typo_list-ordered 클래스를 적용합니다. UI 리스트(아바타, 인터랙티브 항목 등)는 List 컴포넌트를 사용하세요.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
@@ -146,6 +170,10 @@ pageTitle: Typography
       <li>와이어프레임 작성</li>
       <li>프로토타입 검증</li>
     </ol>
+  
+    <p class="form_field-hint">
+      용어 설명·구조화된 목록은 <a href="list.html#definition-heading">List — 정의 목록</a>을 참고하세요.
+    </p>
   </div>
 </section>
 
@@ -186,7 +214,19 @@ pageTitle: Typography
     </div>
   </div>
 </section>
+<section class="section demo_section" aria-labelledby="title-color-heading">
+  <div class="demo_section-header">
+    <h2 id="title-color-heading">제목 색상</h2>
+    <p>제목에도 공통 color_* 클래스를 조합할 수 있습니다.</p>
+  </div>
 
+  <div class="demo_section-preview demo_section-preview-stack">
+    <h3 class="typo_title-3 color_primary">Primary 제목</h3>
+    <h3 class="typo_title-3 color_success">Success 제목</h3>
+    <h3 class="typo_title-3 color_danger">Danger 제목</h3>
+    <h3 class="typo_title-3 color_muted">Muted 제목</h3>
+  </div>
+</section>
 <section class="section demo_section" aria-labelledby="kbd-heading">
   <div class="demo_section-header">
     <h2 id="kbd-heading">키보드 · 코드 블록</h2>
@@ -204,43 +244,10 @@ pageTitle: Typography
 &lt;/button&gt;</code></pre>
   </div>
 </section>
-
-<section class="section demo_section" aria-labelledby="dl-heading">
-  <div class="demo_section-header">
-    <h2 id="dl-heading">정의 목록</h2>
-    <p>typo_dl · typo_dt · typo_dd로 용어 설명을 구성합니다.</p>
-  </div>
-
-  <div class="demo_section-preview demo_section-preview-stack">
-    <dl class="typo_dl" style="max-width: 28rem; width: 100%;">
-      <dt class="typo_dt">OOCSS</dt>
-      <dd class="typo_dd">구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다.</dd>
-      <dt class="typo_dt">Design Token</dt>
-      <dd class="typo_dd">색상·간격·타이포 등 디자인 값을 변수로 정의한 것입니다.</dd>
-      <dt class="typo_dt">WCAG</dt>
-      <dd class="typo_dd">웹 콘텐츠 접근성 지침으로, 대비·키보드 사용성 등을 다룹니다.</dd>
-    </dl>
-  </div>
-</section>
-
-<section class="section demo_section" aria-labelledby="title-color-heading">
-  <div class="demo_section-header">
-    <h2 id="title-color-heading">제목 색상</h2>
-    <p>제목에도 공통 color_* 클래스를 조합할 수 있습니다.</p>
-  </div>
-
-  <div class="demo_section-preview demo_section-preview-stack">
-    <h3 class="typo_title-3 color_primary">Primary 제목</h3>
-    <h3 class="typo_title-3 color_success">Success 제목</h3>
-    <h3 class="typo_title-3 color_danger">Danger 제목</h3>
-    <h3 class="typo_title-3 color_muted">Muted 제목</h3>
-  </div>
-</section>
-
 <section class="section demo_section" aria-labelledby="nested-list-heading">
   <div class="demo_section-header">
     <h2 id="nested-list-heading">중첩 목록</h2>
-    <p>typo_list · typo_list-ordered에 하위 목록을 중첩할 수 있습니다.</p>
+    <p>typo_list · typo_list-ordered에 하위 ul · ol을 중첩할 수 있습니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-stack">
@@ -260,7 +267,6 @@ pageTitle: Typography
     </ul>
   </div>
 </section>
-
 <section class="section demo_section" aria-labelledby="stack-heading">
   <div class="demo_section-header">
     <h2 id="stack-heading">제목 + 본문 조합</h2>
@@ -280,3 +286,4 @@ pageTitle: Typography
     </div>
   </div>
 </section>
+

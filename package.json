@@ -3,12 +3,22 @@
   "private": true,
   "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "build": "gulp build",
     "dev": "gulp",
+    "build": "gulp build",
     "watch": "gulp watch",
+    "storybook": "storybook dev -p 6006 --initial-path \"/docs/intro--docs\"",
+    "build-storybook": "storybook build && node ./scripts/fix-html-lang.mjs",
+    "preview-storybook": "npx --yes http-server storybook-static -p 6006 -c-1",
     "deploy:main": "bash scripts/deploy-main.sh"
   },
+  "dependencies": {
+    "swiper": "12"
+  },
   "devDependencies": {
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-links": "^10.4.6",
+    "@storybook/html": "^10.4.6",
+    "@storybook/html-vite": "^10.4.6",
     "browser-sync": "^3.0.3",
     "del": "^8.0.0",
     "gulp": "^5.0.0",
@@ -17,9 +27,8 @@
     "gulp-sourcemaps": "^3.0.0",
     "sass": "^1.83.0",
     "sharp": "^0.34.2",
-    "through2": "^4.0.2"
-  },
-  "dependencies": {
-    "swiper": "12"
+    "storybook": "^10.4.6",
+    "through2": "^4.0.2",
+    "vite": "^6.0.7"
   }
 }

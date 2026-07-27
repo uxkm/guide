@@ -316,6 +316,8 @@ pageTitle: Button
   </div>
 
   <div class="demo_section-preview">
+    <div class="btn_row btn_row-wrap">
+
     <button type="button" class="btn btn_filled color_primary">
       <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M12 5v14M5 12h14"/>
@@ -336,6 +338,7 @@ pageTitle: Button
       </svg>
       <span class="btn_label">새 항목</span>
     </button>
+    </div>
   </div>
 </section>
 
@@ -484,6 +487,8 @@ pageTitle: Button
   </div>
 
   <div class="demo_section-preview">
+    <div class="btn_row btn_row-wrap">
+
     <button type="button" class="btn btn_filled color_primary">
       <span class="btn_label">다음</span>
       <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -504,6 +509,7 @@ pageTitle: Button
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </button>
+    </div>
   </div>
 </section>
 
@@ -514,6 +520,8 @@ pageTitle: Button
   </div>
 
   <div class="demo_section-preview">
+    <div class="btn_row btn_row-wrap">
+
     <button type="button" class="btn btn_filled color_primary btn_icon-only" aria-label="추가">
       <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M12 5v14M5 12h14"/>
@@ -549,6 +557,7 @@ pageTitle: Button
         <path d="M12 5v14M5 12h14"/>
       </svg>
     </button>
+    </div>
   </div>
 </section>
 
@@ -559,6 +568,8 @@ pageTitle: Button
   </div>
 
   <div class="demo_section-preview">
+    <div class="btn_row btn_row-wrap">
+
     <button type="button" class="btn btn_filled color_primary btn_icon-only btn_sm" aria-label="추가 (small)">
       <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M12 5v14M5 12h14"/>
@@ -595,6 +606,7 @@ pageTitle: Button
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
     </button>
+    </div>
   </div>
 </section>
 
@@ -897,6 +909,22 @@ pageTitle: Button
         <span class="btn_label">다운로드</span>
       </button>
       <p class="btn_stack-text">최신 버전 v2.0 · <a href="#">릴리스 노트</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="tag-heading">
+  <div class="demo_section-header">
+    <h2 id="tag-heading">루트 태그</h2>
+    <p>tag prop으로 button · a · div를 선택합니다. div와 href 없는 a는 role만으로 Tab 초점이 이동하지 않으므로 tabindex=0을 자동 부여합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="btn_row btn_row-wrap">
+      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">button</span></button>
+      <a href="getting-started.html" class="btn btn_outline color_primary"><span class="btn_label">a + href</span></a>
+      <div class="btn btn_ghost" role="button" tabindex="0"><span class="btn_label">div → role=button</span></div>
+      <a class="btn btn_text color_primary" role="link" tabindex="0"><span class="btn_label">a, role=link</span></a>
     </div>
   </div>
 </section>

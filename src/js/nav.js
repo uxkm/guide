@@ -8,6 +8,7 @@
       items: [
         { label: '소개', href: 'index.html', slug: 'intro' },
         { label: '설치 및 사용', href: 'getting-started.html', slug: 'getting-started' },
+        { label: '디자인 토큰', href: 'design-tokens.html', slug: 'design-tokens' },
       ],
     },
     {
@@ -91,7 +92,6 @@
         { label: 'Accordion', href: 'components/accordion.html', slug: 'accordion' },
         { label: 'Collapse', href: 'components/collapse.html', slug: 'collapse' },
         { label: 'Carousel', href: 'components/carousel.html', slug: 'carousel' },
-        { label: 'Offcanvas', href: 'components/offcanvas.html', slug: 'offcanvas' },
         { label: 'Affix', href: 'components/affix.html', slug: 'affix' },
         { label: 'Back Top', href: 'components/back-top.html', slug: 'back-top' },
       ],
@@ -152,7 +152,8 @@
       const hasActive = group.items.some(function (item) {
         return item.slug === currentSlug;
       });
-      const isExpanded = savedGroups[groupId] !== undefined ? savedGroups[groupId] : true;
+      const isExpanded =
+        savedGroups[groupId] !== undefined ? savedGroups[groupId] : index === 0;
       const expanded = hasActive || isExpanded;
 
       const itemsHtml = group.items.map(function (item) {

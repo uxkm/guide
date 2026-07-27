@@ -11,12 +11,17 @@ pageTitle: Table
 <section class="section demo_section" aria-labelledby="basic-heading">
   <div class="demo_section-header">
     <h2 id="basic-heading">기본</h2>
-    <p>table_wrap으로 가로 스크롤을 지원합니다.</p>
+    <p>table_wrap으로 가로 스크롤을 지원합니다. columns로 열별 너비·패딩을 지정할 수 있습니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
     <div class="table_wrap">
-      <table class="table">
+      <table class="table table_columns" style="--table-col-1-white-space: nowrap; --table-col-3-white-space: nowrap;">
+        <colgroup>
+          <col style="width: 7rem; min-width: 5.5rem;">
+          <col style="min-width: 9rem;">
+          <col style="width: 6.5rem; min-width: 5rem;">
+        </colgroup>
         <thead>
           <tr>
             <th scope="col">이름</th>
@@ -49,12 +54,17 @@ pageTitle: Table
 <section class="section demo_section" aria-labelledby="striped-heading">
   <div class="demo_section-header">
     <h2 id="striped-heading">줄무늬</h2>
-    <p>table_striped로 짝수 행에 배경색을 적용합니다.</p>
+    <p>striped로 짝수 행에 배경색을 적용합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
     <div class="table_wrap">
-      <table class="table table_striped">
+      <table class="table table_striped table_columns" style="--table-col-1-white-space: nowrap; --table-col-2-white-space: nowrap; --table-col-3-white-space: nowrap;">
+        <colgroup>
+          <col style="width: 8rem; min-width: 6rem;">
+          <col style="width: 8rem; min-width: 6.5rem;">
+          <col style="width: 5rem; min-width: 4rem;">
+        </colgroup>
         <thead>
           <tr>
             <th scope="col">제품</th>
@@ -92,7 +102,7 @@ pageTitle: Table
 <section class="section demo_section" aria-labelledby="variant-heading">
   <div class="demo_section-header">
     <h2 id="variant-heading">변형</h2>
-    <p>table_bordered · table_compact · table_hover를 조합할 수 있습니다.</p>
+    <p>bordered · compact · hover를 조합할 수 있습니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">

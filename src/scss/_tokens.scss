@@ -27,6 +27,12 @@
   --transition-fast: 0.15s ease;
   --transition-base: 0.2s ease;
 
+  // ----- Global — ripple (클릭 파장)
+  --ripple-color: currentColor;
+  --ripple-opacity: 0.18;
+  --ripple-duration: 550ms;
+  --ripple-easing: cubic-bezier(0, 0, 0.2, 1);
+
   // ----- Global — focus
   --focus-outline-width: 2px;
   --focus-outline-offset: 2px;
@@ -157,7 +163,9 @@
   --input-max-width: 320px;
   --input-clear-size: 1.25rem;
   --input-clear-icon-size: 0.875rem;
-  --input-clear-offset: 0.5rem;
+  --input-clear-offset: 0.75rem;
+  --input-clear-color: var(--color-text-muted);
+  --input-clear-hover-color: var(--color-text);
   // 마스킹(●) 글리프 — 본문 폰트보다 크게 보이는 스택
   --input-font-masked: Verdana, "Segoe UI", Arial, sans-serif;
   --input-masked-letter-spacing: 0.08em;
@@ -335,6 +343,10 @@
   --typo-paragraph-gap: var(--space-md);
   --typo-list-gap: var(--space-xs);
   --typo-mark-bg: rgba(250, 219, 20, 0.35);
+  --typo-sub-sup-size: 0.75em;
+  --typo-sub-offset: -0.25em;
+  --typo-sup-offset: -0.5em;
+  --typo-small-size: var(--text-size-sm);
   --typo-code-padding-y: 0.1em;
   --typo-code-padding-x: 0.35em;
   --typo-code-radius: 4px;
@@ -394,8 +406,10 @@
 
   // ----- Dropdown — structure
   --dropdown-min-width: 10rem;
+  --dropdown-menu-width: auto;
   --dropdown-padding: var(--space-xs);
   --dropdown-offset: var(--space-xs);
+  --dropdown-item-line-height: 1.4;
   --z-dropdown: 100;
 
   // ----- Popover — structure
@@ -408,7 +422,12 @@
   --popover-title-font-size: var(--text-size-sm);
   --popover-body-font-size: var(--text-size-sm);
   --popover-offset: var(--space-sm);
+  --popover-offset-md: var(--space-sm);
+  --popover-offset-sm: var(--space-xs);
+  --popover-offset-lg: var(--space-md);
   --popover-arrow-size: 8px;
+  --popover-close-size: 1.5rem;
+  --popover-close-icon-size: 0.875rem;
   --z-popover: 110;
 
   // ----- Popover — size sm · lg
@@ -438,9 +457,14 @@
   --tooltip-padding-y: 0.35rem;
   --tooltip-font-size: var(--text-size-xs);
   --tooltip-offset: var(--space-xs);
+  --tooltip-offset-md: var(--space-xs);
+  --tooltip-offset-sm: 0.125rem;
+  --tooltip-offset-lg: var(--space-sm);
   --tooltip-arrow-size: 6px;
   --tooltip-inverse-bg: var(--color-text);
   --tooltip-inverse-text: var(--color-surface);
+  --tooltip-close-size: 1.25rem;
+  --tooltip-close-icon-size: 0.75rem;
   --z-tooltip: 120;
 
   // ----- Tooltip — size sm · lg
@@ -464,11 +488,13 @@
   --tabs-tab-padding-y: 0.625rem;
   --tabs-tab-padding-x: 1rem;
   --tabs-indicator-height: 2px;
+  --tabs-indicator-transition: var(--transition-base);
   --tabs-bar-gap: var(--space-md);
   --tabs-panel-padding-y: var(--space-lg);
   --tabs-icon-size: 1rem;
   --tabs-badge-gap: var(--space-xs);
   --tabs-pill-padding: 3px;
+  --tabs-nav-size: 2rem;
 
   // ----- Tabs — size sm · lg
   --tabs-font-size-sm: var(--text-size-xs);
@@ -491,7 +517,10 @@
   --accordion-content-padding-y: var(--space-lg);
   --accordion-content-padding-x: var(--space-lg);
   --accordion-icon-size: 1rem;
-  --accordion-card-gap: var(--space-sm);
+  --accordion-card-gap: 0;
+  --accordion-card-trigger-bg: var(--color-surface-raised);
+  --accordion-slide-duration: 0.28s;
+  --accordion-slide-easing: ease;
 
   // ----- Accordion — size sm · lg
   --accordion-font-size-sm: var(--text-size-xs);
@@ -515,10 +544,13 @@
   --collapse-trigger-padding-y: 0.875rem;
   --collapse-trigger-padding-x: var(--space-lg);
   --collapse-content-font-size: var(--text-size-sm);
+  --collapse-content-padding-top: var(--space-md);
   --collapse-content-padding-y: var(--space-lg);
   --collapse-content-padding-x: var(--space-lg);
   --collapse-icon-size: 1rem;
   --collapse-card-gap: var(--space-sm);
+  --collapse-slide-duration: 0.28s;
+  --collapse-slide-easing: ease;
 
   // ----- Collapse — size sm · lg
   --collapse-font-size-sm: var(--text-size-xs);
@@ -526,6 +558,7 @@
   --collapse-trigger-padding-x-sm: var(--space-md);
   --collapse-content-padding-y-sm: var(--space-md);
   --collapse-content-padding-x-sm: var(--space-md);
+  --collapse-content-padding-top-sm: var(--space-sm);
   --collapse-icon-size-sm: 0.875rem;
 
   --collapse-font-size-lg: var(--text-size-base);
@@ -533,31 +566,8 @@
   --collapse-trigger-padding-x-lg: var(--space-xl);
   --collapse-content-padding-y-lg: var(--space-xl);
   --collapse-content-padding-x-lg: var(--space-xl);
+  --collapse-content-padding-top-lg: var(--space-lg);
   --collapse-icon-size-lg: 1.125rem;
-
-  // ----- Offcanvas — structure
-  --offcanvas-z-index: 200;
-  --offcanvas-width: 20rem;
-  --offcanvas-width-sm: 16rem;
-  --offcanvas-width-lg: 28rem;
-  --offcanvas-height: 16rem;
-  --offcanvas-height-sm: 12rem;
-  --offcanvas-height-lg: 22rem;
-  --offcanvas-bg: var(--color-surface);
-  --offcanvas-shadow: var(--shadow-md);
-  --offcanvas-header-gap: var(--space-sm);
-  --offcanvas-header-padding-y: var(--space-md);
-  --offcanvas-header-padding-x: var(--space-lg);
-  --offcanvas-title-font-size: var(--text-size-lg);
-  --offcanvas-title-font-weight: 600;
-  --offcanvas-close-size: 2rem;
-  --offcanvas-close-icon-size: 1.125rem;
-  --offcanvas-body-padding-y: var(--space-lg);
-  --offcanvas-body-padding-x: var(--space-lg);
-  --offcanvas-body-font-size: var(--text-size-sm);
-  --offcanvas-footer-gap: var(--space-sm);
-  --offcanvas-footer-padding-y: var(--space-md);
-  --offcanvas-footer-padding-x: var(--space-lg);
 
   // ----- Modal — structure
   --modal-z-index: 300;
@@ -605,6 +615,15 @@
   --drawer-footer-gap: var(--space-sm);
   --drawer-footer-padding-y: var(--space-md);
   --drawer-footer-padding-x: var(--space-lg);
+  --drawer-panel-duration-x: 0.32s;
+  --drawer-panel-duration-y: 0.36s;
+  --drawer-panel-easing-x: cubic-bezier(0.32, 0.72, 0, 1);
+  --drawer-panel-easing-y: cubic-bezier(0.33, 1, 0.68, 1);
+  --drawer-backdrop-duration: 0.24s;
+  --drawer-handle-width: 2.5rem;
+  --drawer-handle-height: 0.25rem;
+  --drawer-handle-hit: 2.75rem;
+  --drawer-height-expanded: 90%;
 
   // ----- Affix — structure
   --affix-z-index: 10;
@@ -752,7 +771,7 @@
   --carousel-bg: var(--color-surface-raised);
   --carousel-transition: 0.35s ease;
   --carousel-nav-size: 2.25rem;
-  --carousel-nav-icon-size: 1.125rem;
+  --carousel-nav-icon-size: 0.875rem;
   --carousel-nav-offset: var(--space-md);
   --carousel-nav-bg: var(--color-surface);
   --carousel-nav-bg-hover: var(--color-surface-raised);
@@ -775,7 +794,7 @@
   --carousel-font-size-sm: var(--text-size-xs);
   --carousel-height-sm: 11rem;
   --carousel-nav-size-sm: 1.875rem;
-  --carousel-nav-icon-size-sm: 1rem;
+  --carousel-nav-icon-size-sm: 0.75rem;
   --carousel-dot-size-sm: 0.375rem;
   --carousel-dot-size-active-sm: 1rem;
   --carousel-toggle-size-sm: 1.75rem;
@@ -784,11 +803,12 @@
   --carousel-font-size-lg: var(--text-size-base);
   --carousel-height-lg: 20rem;
   --carousel-nav-size-lg: 2.75rem;
-  --carousel-nav-icon-size-lg: 1.25rem;
+  --carousel-nav-icon-size-lg: 1rem;
   --carousel-dot-size-lg: 0.625rem;
   --carousel-dot-size-active-lg: 1.5rem;
   --carousel-toggle-size-lg: 2.5rem;
   --carousel-toggle-icon-size-lg: 1.125rem;
+  --carousel-media-nav-top: calc(50cqi * 9 / 16);
 
   // ----- Pagination
   --pagination-gap: 0.25rem;
@@ -860,6 +880,8 @@
   --list-desc-size: var(--text-size-sm);
   --list-marker-padding: var(--space-lg);
   --list-marker-gap: var(--space-xs);
+  --list-inline-label-width: 8rem;
+  --list-inline-gap: var(--space-md);
 
   // ----- Stat
   --stat-gap: var(--space-xs);
@@ -938,6 +960,7 @@
   --steps-desc-size: var(--text-size-xs);
   --steps-icon-size: 1rem;
   --steps-dot-size: 8px;
+  --steps-pulse-duration: 1.5s;
 
   // ----- Steps size
   --steps-indicator-size-sm: 1.75rem;
@@ -981,7 +1004,8 @@
   --spin-duration: 0.8s;
   --spin-gap: var(--space-sm);
   --spin-tip-size: var(--text-size-sm);
-  --spin-overlay-bg: var(--color-overlay);
+  --spin-overlay-bg: rgba(15, 20, 25, 0.72);
+  --spin-overlay-tip-color: #ffffff;
   --spin-wrap-min-height: 8rem;
   --spin-wrap-content-opacity: 0.45;
 

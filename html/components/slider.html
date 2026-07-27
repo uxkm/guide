@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Slider</span>
@@ -369,26 +370,6 @@
                 <output class="slider_value" for="slider-step-10">50</output>
               </div>
               <input type="range" class="slider_input" id="slider-step-10" min="0" max="100" step="10" value="50">
-              <div class="slider_ticks" aria-hidden="true">
-                <span class="slider_tick">0</span>
-                <span class="slider_tick">25</span>
-                <span class="slider_tick">50</span>
-                <span class="slider_tick">75</span>
-                <span class="slider_tick">100</span>
-              </div>
-            </div>
-
-            <div class="slider slider_fit">
-              <div class="slider_header">
-                <label class="slider_label" for="slider-step-price">가격 범위</label>
-                <output class="slider_value" for="slider-step-price">₩50,000</output>
-              </div>
-              <input type="range" class="slider_input" id="slider-step-price" min="10000" max="100000" step="5000" value="50000" data-slider-prefix="₩" data-slider-format="number">
-              <div class="slider_ticks" aria-hidden="true">
-                <span class="slider_tick">1만</span>
-                <span class="slider_tick">5만</span>
-                <span class="slider_tick">10만</span>
-              </div>
             </div>
           </div>
 
@@ -400,36 +381,12 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 예시 1 --&gt;
-
-&lt;div class=&quot;slider slider_fit&quot;&gt;
+            <pre><code>&lt;div class=&quot;slider slider_fit&quot;&gt;
   &lt;div class=&quot;slider_header&quot;&gt;
     &lt;label class=&quot;slider_label&quot; for=&quot;slider-step-10&quot;&gt;step=10&lt;/label&gt;
     &lt;output class=&quot;slider_value&quot; for=&quot;slider-step-10&quot;&gt;50&lt;/output&gt;
   &lt;/div&gt;
   &lt;input type=&quot;range&quot; class=&quot;slider_input&quot; id=&quot;slider-step-10&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;10&quot; value=&quot;50&quot;&gt;
-  &lt;div class=&quot;slider_ticks&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;0&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;25&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;50&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;75&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;100&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- 예시 2 --&gt;
-
-&lt;div class=&quot;slider slider_fit&quot;&gt;
-  &lt;div class=&quot;slider_header&quot;&gt;
-    &lt;label class=&quot;slider_label&quot; for=&quot;slider-step-price&quot;&gt;가격 범위&lt;/label&gt;
-    &lt;output class=&quot;slider_value&quot; for=&quot;slider-step-price&quot;&gt;₩50,000&lt;/output&gt;
-  &lt;/div&gt;
-  &lt;input type=&quot;range&quot; class=&quot;slider_input&quot; id=&quot;slider-step-price&quot; min=&quot;10000&quot; max=&quot;100000&quot; step=&quot;5000&quot; value=&quot;50000&quot; data-slider-prefix=&quot;₩&quot; data-slider-format=&quot;number&quot;&gt;
-  &lt;div class=&quot;slider_ticks&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;1만&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;5만&lt;/span&gt;
-    &lt;span class=&quot;slider_tick&quot;&gt;10만&lt;/span&gt;
-  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -441,7 +398,7 @@
             <p>모바일(768px 이하)에서 range 드래그가 어려운 경우 <code>slider_stepper</code>를 추가합니다. <code>slider_control</code> 안에 <code>slider_step-decrease</code> · <code>slider_input</code> · <code>slider_step-increase</code> 순으로 배치하며, 버튼 클릭 시 <code>step</code>만큼 값이 증감됩니다. 데스크톱에서도 항상 표시하려면 <code>slider_stepper_always</code>를 함께 사용합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="slider slider_stepper slider_fit">
               <div class="slider_header">
                 <label class="slider_label" for="slider-stepper-volume">볼륨 — slider_stepper</label>
@@ -490,13 +447,13 @@
                 <output class="slider_value" for="slider-stepper-disabled">30</output>
               </div>
               <div class="slider_control">
-                <button type="button" class="slider_step slider_step-decrease" aria-label="값 줄이기">
+                <button type="button" class="slider_step slider_step-decrease" aria-label="값 줄이기" disabled>
                   <svg class="slider_step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M5 12h14"/>
                   </svg>
                 </button>
                 <input type="range" class="slider_input" id="slider-stepper-disabled" min="0" max="100" value="30" disabled>
-                <button type="button" class="slider_step slider_step-increase" aria-label="값 늘리기">
+                <button type="button" class="slider_step slider_step-increase" aria-label="값 늘리기" disabled>
                   <svg class="slider_step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M12 5v14M5 12h14"/>
                   </svg>
@@ -567,13 +524,13 @@
     &lt;output class=&quot;slider_value&quot; for=&quot;slider-stepper-disabled&quot;&gt;30&lt;/output&gt;
   &lt;/div&gt;
   &lt;div class=&quot;slider_control&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;slider_step slider_step-decrease&quot; aria-label=&quot;값 줄이기&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;slider_step slider_step-decrease&quot; aria-label=&quot;값 줄이기&quot; disabled&gt;
       &lt;svg class=&quot;slider_step-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;path d=&quot;M5 12h14&quot;/&gt;
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;input type=&quot;range&quot; class=&quot;slider_input&quot; id=&quot;slider-stepper-disabled&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;30&quot; disabled&gt;
-    &lt;button type=&quot;button&quot; class=&quot;slider_step slider_step-increase&quot; aria-label=&quot;값 늘리기&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;slider_step slider_step-increase&quot; aria-label=&quot;값 늘리기&quot; disabled&gt;
       &lt;svg class=&quot;slider_step-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;
       &lt;/svg&gt;
@@ -697,15 +654,6 @@
               </div>
               <input type="range" class="slider_input" id="slider-state-disabled" min="0" max="100" value="30" disabled>
             </div>
-
-            <div class="slider slider_fit is-error">
-              <div class="slider_header">
-                <label class="slider_label" for="slider-state-error">오류 — is-error</label>
-                <output class="slider_value" for="slider-state-error">10</output>
-              </div>
-              <input type="range" class="slider_input" id="slider-state-error" min="0" max="100" value="10" aria-invalid="true">
-              <p class="form_field-error">최소 20 이상으로 설정해 주세요.</p>
-            </div>
           </div>
 
         <div class="demo_section-code">
@@ -734,17 +682,6 @@
     &lt;output class=&quot;slider_value&quot; for=&quot;slider-state-disabled&quot;&gt;30&lt;/output&gt;
   &lt;/div&gt;
   &lt;input type=&quot;range&quot; class=&quot;slider_input&quot; id=&quot;slider-state-disabled&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;30&quot; disabled&gt;
-&lt;/div&gt;
-
-&lt;!-- 최소 20 이상으로 설정해 주세요. --&gt;
-
-&lt;div class=&quot;slider slider_fit is-error&quot;&gt;
-  &lt;div class=&quot;slider_header&quot;&gt;
-    &lt;label class=&quot;slider_label&quot; for=&quot;slider-state-error&quot;&gt;오류 — is-error&lt;/label&gt;
-    &lt;output class=&quot;slider_value&quot; for=&quot;slider-state-error&quot;&gt;10&lt;/output&gt;
-  &lt;/div&gt;
-  &lt;input type=&quot;range&quot; class=&quot;slider_input&quot; id=&quot;slider-state-error&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;10&quot; aria-invalid=&quot;true&quot;&gt;
-  &lt;p class=&quot;form_field-error&quot;&gt;최소 20 이상으로 설정해 주세요.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -840,5 +777,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

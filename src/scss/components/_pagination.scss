@@ -1,6 +1,7 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
+
 // Pagination — OOCSS: 구조(.pagination) + 변형(.pagination_*) + 파트(.pagination_link · .pagination_btn · .pagination_ellipsis)
 //
 //   <nav class="pagination" aria-label="페이지 이동">
@@ -158,6 +159,24 @@
   &_link {
     @include pagination-control;
 
+    &.btn.btn_text {
+      min-width: var(--pagination-item-min-size);
+      height: var(--pagination-item-min-size);
+      padding: 0 var(--pagination-item-padding-x);
+      color: inherit;
+      background: var(--pagination-bg);
+      border: 1px solid var(--pagination-border-color);
+      border-radius: var(--pagination-border-radius);
+      font: inherit;
+      font-weight: var(--pagination-font-weight);
+
+      .btn_label {
+        padding: 0;
+        font: inherit;
+        font-weight: inherit;
+      }
+    }
+
     &.is-active,
     &[aria-current="page"] {
       color: var(--pagination-color-active);
@@ -171,6 +190,16 @@
   &_btn {
     @include pagination-control;
     padding: 0;
+
+    &.btn.btn_ghost {
+      min-width: var(--pagination-item-min-size);
+      height: var(--pagination-item-min-size);
+      padding: 0;
+      color: inherit;
+      background: var(--pagination-bg);
+      border: 1px solid var(--pagination-border-color);
+      border-radius: var(--pagination-border-radius);
+    }
   }
 
   &_icon {

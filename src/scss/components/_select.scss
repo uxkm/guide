@@ -37,6 +37,8 @@ select.input {
     cursor: not-allowed;
     background-color: var(--color-surface);
     background-image: $select-caret-light;
+    color: var(--color-text-disabled);
+    border-color: var(--color-border-disabled);
   }
 
   &.input_sm {

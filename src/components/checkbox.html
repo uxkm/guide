@@ -31,7 +31,7 @@ pageTitle: Checkbox
       </span>
     </div>
 
-    <div class="checkbox_group checkbox_group_horizontal">
+    <fieldset class="checkbox_group checkbox_group_horizontal">
       <label class="checkbox checkbox_button">
         <input type="checkbox" class="checkbox_input" checked>
         <span class="checkbox_label">버튼형</span>
@@ -44,7 +44,7 @@ pageTitle: Checkbox
         <input type="checkbox" class="checkbox_input">
         <span class="checkbox_label">UX</span>
       </label>
-    </div>
+    </fieldset>
 
     <div class="checkbox_card" style="max-width: 360px;">
       <article class="card card_compact">
@@ -145,28 +145,28 @@ pageTitle: Checkbox
       <span class="form_field-label" id="checkbox-notify-label">알림 설정</span>
       <fieldset class="checkbox_group" aria-labelledby="checkbox-notify-label">
         <div class="checkbox">
+          <span class="checkbox_control">
+            <input type="checkbox" class="checkbox_input" id="checkbox-notify-email" checked>
+            <span class="checkbox_box" aria-hidden="true"></span>
+          </span>
           <label class="checkbox_label" for="checkbox-notify-email">
             <span class="checkbox_content">
               <span class="checkbox_label">이메일 알림</span>
               <span class="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
             </span>
           </label>
-          <span class="checkbox_control">
-            <input type="checkbox" class="checkbox_input" id="checkbox-notify-email" checked>
-            <span class="checkbox_box" aria-hidden="true"></span>
-          </span>
         </div>
         <div class="checkbox">
+          <span class="checkbox_control">
+            <input type="checkbox" class="checkbox_input" id="checkbox-notify-push">
+            <span class="checkbox_box" aria-hidden="true"></span>
+          </span>
           <label class="checkbox_label" for="checkbox-notify-push">
             <span class="checkbox_content">
               <span class="checkbox_label">푸시 알림</span>
               <span class="checkbox_hint">모바일·브라우저 푸시를 허용합니다.</span>
             </span>
           </label>
-          <span class="checkbox_control">
-            <input type="checkbox" class="checkbox_input" id="checkbox-notify-push">
-            <span class="checkbox_box" aria-hidden="true"></span>
-          </span>
         </div>
       </fieldset>
     </div>
@@ -345,18 +345,6 @@ pageTitle: Checkbox
         <span class="checkbox_box" aria-hidden="true"></span>
       </span>
       <label class="checkbox_label" for="checkbox-auto-22">선택됨 (비활성)</label>
-    </div>
-    <div class="checkbox is-error">
-      <label class="checkbox_label" for="checkbox-auto-23">
-        <span class="checkbox_content">
-          <span class="checkbox_label">필수 동의</span>
-          <span class="checkbox_hint">약관에 동의해야 합니다.</span>
-        </span>
-      </label>
-      <span class="checkbox_control">
-        <input id="checkbox-auto-23" type="checkbox" class="checkbox_input" aria-invalid="true">
-        <span class="checkbox_box" aria-hidden="true"></span>
-      </span>
     </div>
   </div>
 </section>

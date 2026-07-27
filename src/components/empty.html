@@ -45,7 +45,7 @@ pageTitle: Empty
           <path d="M24 22v-4.5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </div>
-      <p class="empty_desc">등록된 프로젝트가 없습니다.<br>새 프로젝트를 만들어 시작해 보세요.</p>
+      <p class="empty_desc">등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.</p>
       <div class="empty_footer">
         <button type="button" class="btn btn_filled color_primary btn_sm">
           <span class="btn_label">프로젝트 만들기</span>
@@ -70,7 +70,7 @@ pageTitle: Empty
           <path d="M8 11h6"/>
         </svg>
       </div>
-      <p class="empty_desc">검색 결과가 없습니다.<br>다른 키워드로 다시 검색해 보세요.</p>
+      <p class="empty_desc">검색 결과가 없습니다. 다른 키워드로 다시 검색해 보세요.</p>
     </div>
   </div>
 </section>
@@ -81,7 +81,7 @@ pageTitle: Empty
     <p><code class="typo_code">empty_sm</code> · <code class="typo_code">empty</code>(기본) · <code class="typo_code">empty_lg</code> 세 가지 스케일을 지원합니다.</p>
   </div>
 
-  <div class="demo_section-preview demo_section-preview-start">
+  <div class="demo_section-preview">
     <div class="empty empty_sm" role="status">
       <div class="empty_image" aria-hidden="true">
         <svg viewBox="0 0 64 41" fill="none" aria-hidden="true">
@@ -139,7 +139,7 @@ pageTitle: Empty
     <p><code class="typo_code">empty_block</code>은 카드·테이블 등 부모 너비 안에서 가운데 정렬합니다.</p>
   </div>
 
-  <div class="demo_section-preview demo_section-preview-start">
+  <div class="demo_section-preview">
     <div class="card card_shadow" style="max-width: var(--input-max-width); width: 100%;">
       <div class="card_header">
         <h3 class="card_title">알림 목록</h3>
@@ -171,7 +171,7 @@ pageTitle: Empty
         <tbody>
           <tr>
             <td colspan="3" style="padding: 0; border: none;">
-              <div class="empty empty_block empty_sm" role="status">
+              <div class="empty empty_block empty_simple empty_sm" role="status">
                 <p class="empty_desc">표시할 항목이 없습니다</p>
               </div>
             </td>
@@ -187,8 +187,7 @@ pageTitle: Empty
   <p>빈 상태 영역에 <code class="typo_code">role="status"</code>를 지정하고, 장식용 아이콘에는 <code class="typo_code">aria-hidden="true"</code>를 사용합니다.</p>
 
   <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
-    <pre class="typo_pre"><code>
-&lt;!-- 기본 --&gt;
+    <pre class="typo_pre"><code>&lt;!-- 기본 --&gt;
 &lt;div class="empty" role="status"&gt;
   &lt;div class="empty_image" aria-hidden="true"&gt;
     &lt;!-- SVG 또는 img --&gt;
@@ -228,15 +227,9 @@ pageTitle: Empty
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">empty</code></td><td>루트 래퍼 (인라인 flex, 세로 정렬)</td></tr>
-          <tr><td><code class="typo_code">empty_image</code></td><td>아이콘·일러스트 영역 (선택)</td></tr>
-          <tr><td><code class="typo_code">empty_desc</code></td><td>설명 텍스트</td></tr>
-          <tr><td><code class="typo_code">empty_footer</code></td><td>버튼·링크 등 액션 영역 (선택)</td></tr>
-          <tr><td><code class="typo_code">empty_sm</code> · <code class="typo_code">empty_lg</code></td><td>크기 변형</td></tr>
-          <tr><td><code class="typo_code">empty_simple</code></td><td>아이콘 숨김 — 설명만 표시</td></tr>
-          <tr><td><code class="typo_code">empty_block</code></td><td>부모 너비 안 가운데 정렬</td></tr>
-          <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 시맨틱 (권장)</td></tr>
-          <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 아이콘 — 스크린 리더에서 제외</td></tr>
+          <tr><td><code class="typo_code">empty · empty_image · empty_desc · empty_footer</code></td><td>루트·이미지·설명·푸터</td></tr>
+          <tr><td><code class="typo_code">empty_sm · empty_lg · empty_simple · empty_block</code></td><td>크기·변형</td></tr>
+          <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 시맨틱</td></tr>
         </tbody>
       </table>
     </div>
@@ -257,16 +250,9 @@ pageTitle: Empty
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">--empty-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>아이콘·설명·푸터 간격</td></tr>
-          <tr><td><code class="typo_code">--empty-padding-y</code> · <code class="typo_code">--empty-padding-x</code></td><td><code class="typo_code">var(--space-xl)</code> · <code class="typo_code">var(--space-md)</code></td><td>내부 여백</td></tr>
-          <tr><td><code class="typo_code">--empty-image-size</code></td><td>4rem</td><td>아이콘 영역 크기</td></tr>
-          <tr><td><code class="typo_code">--empty-image-size-sm</code> · <code class="typo_code">--empty-image-size-lg</code></td><td>3rem · 5rem</td><td>크기 변형별 아이콘</td></tr>
-          <tr><td><code class="typo_code">--empty-icon-color</code></td><td><code class="typo_code">var(--color-border)</code></td><td>기본 아이콘 색</td></tr>
-          <tr><td><code class="typo_code">--empty-desc-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>설명 텍스트 크기</td></tr>
-          <tr><td><code class="typo_code">--empty-desc-color</code></td><td><code class="typo_code">var(--color-text-muted)</code></td><td>설명 텍스트 색</td></tr>
-          <tr><td><code class="typo_code">--empty-desc-max-width</code></td><td>20rem</td><td>설명 최대 너비</td></tr>
-          <tr><td><code class="typo_code">--empty-footer-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>푸터 내 버튼 간격</td></tr>
-          <tr><td><code class="typo_code">--empty-footer-offset</code></td><td><code class="typo_code">var(--space-xs)</code></td><td>설명과 푸터 사이 추가 간격</td></tr>
+          <tr><td><code class="typo_code">--empty-gap</code> · <code class="typo_code">--empty-padding-y</code> · <code class="typo_code">--empty-padding-x</code></td><td>—</td><td>간격·패딩</td></tr>
+          <tr><td><code class="typo_code">--empty-image-size</code> · <code class="typo_code">--empty-image-size-sm</code> · <code class="typo_code">--empty-image-size-lg</code></td><td>4rem · 3rem · 5rem</td><td>아이콘 크기</td></tr>
+          <tr><td><code class="typo_code">--empty-desc-size</code> · <code class="typo_code">--empty-desc-max-width</code></td><td><code class="typo_code">var(--text-size-sm)</code> · 20rem</td><td>설명 타이포</td></tr>
         </tbody>
       </table>
     </div>

@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Form Layout</span>
@@ -157,27 +158,35 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <form class="form form_horizontal form_label-align-start form_label-width-sm">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-hs-city">도시</label>
-                <input type="text" class="input" id="fl-hs-city" placeholder="서울">
-              </div>
-              <div class="form_field">
-                <label class="form_field-label" for="fl-hs-zip">우편번호</label>
-                <input type="text" class="input" id="fl-hs-zip" placeholder="00000">
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">레이블 왼쪽 정렬 · sm</h3>
+              <p class="typo_caption">form_label-align-start · form_label-width-sm</p>
+              <form class="form form_horizontal form_label-align-start form_label-width-sm">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-hs-city">도시</label>
+                  <input type="text" class="input" id="fl-hs-city" placeholder="서울">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-hs-zip">우편번호</label>
+                  <input type="text" class="input" id="fl-hs-zip" placeholder="00000">
+                </div>
+              </form>
+            </div>
 
-            <form class="form form_horizontal form_label-width-lg">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-hl-company">회사명</label>
-                <input type="text" class="input" id="fl-hl-company" placeholder="UXKM">
-              </div>
-              <div class="form_field">
-                <label class="form_field-label" for="fl-hl-dept">부서</label>
-                <input type="text" class="input" id="fl-hl-dept" placeholder="디자인팀">
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">레이블 너비 lg</h3>
+              <p class="typo_caption">form_label-width-lg — 라벨 열이 넓어져 입력 시작 위치가 달라집니다.</p>
+              <form class="form form_horizontal form_label-width-lg">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-hl-company">회사명</label>
+                  <input type="text" class="input" id="fl-hl-company" placeholder="UXKM">
+                </div>
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-hl-dept">부서</label>
+                  <input type="text" class="input" id="fl-hl-dept" placeholder="디자인팀">
+                </div>
+              </form>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -190,29 +199,37 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 도시 --&gt;
 
-&lt;form class=&quot;form form_horizontal form_label-align-start form_label-width-sm&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-city&quot;&gt;도시&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-city&quot; placeholder=&quot;서울&quot;&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-zip&quot;&gt;우편번호&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-zip&quot; placeholder=&quot;00000&quot;&gt;
-  &lt;/div&gt;
-&lt;/form&gt;
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;레이블 왼쪽 정렬 · sm&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;form_label-align-start · form_label-width-sm&lt;/p&gt;
+  &lt;form class=&quot;form form_horizontal form_label-align-start form_label-width-sm&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-city&quot;&gt;도시&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-city&quot; placeholder=&quot;서울&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hs-zip&quot;&gt;우편번호&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hs-zip&quot; placeholder=&quot;00000&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
 
 &lt;!-- 회사명 --&gt;
 
-&lt;form class=&quot;form form_horizontal form_label-width-lg&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-company&quot;&gt;회사명&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-company&quot; placeholder=&quot;UXKM&quot;&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-dept&quot;&gt;부서&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-dept&quot; placeholder=&quot;디자인팀&quot;&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;레이블 너비 lg&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;form_label-width-lg — 라벨 열이 넓어져 입력 시작 위치가 달라집니다.&lt;/p&gt;
+  &lt;form class=&quot;form form_horizontal form_label-width-lg&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-company&quot;&gt;회사명&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-company&quot; placeholder=&quot;UXKM&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-hl-dept&quot;&gt;부서&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-hl-dept&quot; placeholder=&quot;디자인팀&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -362,26 +379,38 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <form class="form form_vertical">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-w-default">기본 너비</label>
-                <input type="text" class="input" id="fl-w-default" placeholder="부모 100%">
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">기본 너비</h3>
+              <p class="typo_caption">부모 컨테이너 100%</p>
+              <form class="form form_vertical">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-w-default">기본 너비</label>
+                  <input type="text" class="input" id="fl-w-default" placeholder="부모 100%">
+                </div>
+              </form>
+            </div>
 
-            <form class="form form_vertical form_fit">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-w-fit">제한 너비</label>
-                <input type="text" class="input" id="fl-w-fit" placeholder="form_fit — 최대 320px">
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">form_fit</h3>
+              <p class="typo_caption">최대 320px로 제한</p>
+              <form class="form form_vertical form_fit">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-w-fit">제한 너비</label>
+                  <input type="text" class="input" id="fl-w-fit" placeholder="form_fit — 최대 320px">
+                </div>
+              </form>
+            </div>
 
-            <form class="form form_horizontal">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-w-h-full">가로 레이아웃</label>
-                <input type="text" class="input" id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움">
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">가로 레이아웃</h3>
+              <p class="typo_caption">입력 열이 남은 공간을 채움</p>
+              <form class="form form_horizontal">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-w-h-full">가로 레이아웃</label>
+                  <input type="text" class="input" id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움">
+                </div>
+              </form>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -394,30 +423,42 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 기본 너비 --&gt;
 
-&lt;form class=&quot;form form_vertical&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-default&quot;&gt;기본 너비&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-default&quot; placeholder=&quot;부모 100%&quot;&gt;
-  &lt;/div&gt;
-&lt;/form&gt;
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;기본 너비&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;부모 컨테이너 100%&lt;/p&gt;
+  &lt;form class=&quot;form form_vertical&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-default&quot;&gt;기본 너비&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-default&quot; placeholder=&quot;부모 100%&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
 
 &lt;!-- 제한 너비 --&gt;
 
-&lt;form class=&quot;form form_vertical form_fit&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-fit&quot;&gt;제한 너비&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-fit&quot; placeholder=&quot;form_fit — 최대 320px&quot;&gt;
-  &lt;/div&gt;
-&lt;/form&gt;
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;form_fit&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;최대 320px로 제한&lt;/p&gt;
+  &lt;form class=&quot;form form_vertical form_fit&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-fit&quot;&gt;제한 너비&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-fit&quot; placeholder=&quot;form_fit — 최대 320px&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
 
 &lt;!-- 가로 레이아웃 --&gt;
 
-&lt;form class=&quot;form form_horizontal&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-h-full&quot;&gt;가로 레이아웃&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-h-full&quot; placeholder=&quot;입력 열이 남은 공간을 채움&quot;&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;가로 레이아웃&lt;/h3&gt;
+  &lt;p class=&quot;typo_caption&quot;&gt;입력 열이 남은 공간을 채움&lt;/p&gt;
+  &lt;form class=&quot;form form_horizontal&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-w-h-full&quot;&gt;가로 레이아웃&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-w-h-full&quot; placeholder=&quot;입력 열이 남은 공간을 채움&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -429,27 +470,33 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <form class="form form_vertical">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-a-title">제목</label>
-                <input type="text" class="input" id="fl-a-title" placeholder="제목">
-              </div>
-              <div class="form_actions">
-                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
-                <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">세로</h3>
+              <form class="form form_vertical">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-a-title">제목</label>
+                  <input type="text" class="input" id="fl-a-title" placeholder="제목">
+                </div>
+                <div class="form_actions">
+                  <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+                  <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                </div>
+              </form>
+            </div>
 
-            <form class="form form_horizontal">
-              <div class="form_field">
-                <label class="form_field-label" for="fl-a2-title">제목</label>
-                <input type="text" class="input" id="fl-a2-title" placeholder="제목">
-              </div>
-              <div class="form_actions">
-                <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
-                <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
-              </div>
-            </form>
+            <div class="demo_preview-block">
+              <h3 class="typo_overline">가로</h3>
+              <form class="form form_horizontal">
+                <div class="form_field">
+                  <label class="form_field-label" for="fl-a2-title">제목</label>
+                  <input type="text" class="input" id="fl-a2-title" placeholder="제목">
+                </div>
+                <div class="form_actions">
+                  <button type="submit" class="btn btn_filled color_primary"><span class="btn_label">저장</span></button>
+                  <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                </div>
+              </form>
+            </div>
           </div>
 
         <div class="demo_section-code">
@@ -462,37 +509,43 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 제목 --&gt;
 
-&lt;form class=&quot;form form_vertical&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a-title&quot;&gt;제목&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a-title&quot; placeholder=&quot;제목&quot;&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form_actions&quot;&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
-      &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
-      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
-&lt;/form&gt;
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;세로&lt;/h3&gt;
+  &lt;form class=&quot;form form_vertical&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a-title&quot;&gt;제목&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a-title&quot; placeholder=&quot;제목&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_actions&quot;&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
 
 &lt;!-- 제목 --&gt;
 
-&lt;form class=&quot;form form_horizontal&quot;&gt;
-  &lt;div class=&quot;form_field&quot;&gt;
-    &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a2-title&quot;&gt;제목&lt;/label&gt;
-    &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a2-title&quot; placeholder=&quot;제목&quot;&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;form_actions&quot;&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
-      &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
-    &lt;/button&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
-      &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
-&lt;/form&gt;</code></pre>
+&lt;div class=&quot;demo_preview-block&quot;&gt;
+  &lt;h3 class=&quot;typo_overline&quot;&gt;가로&lt;/h3&gt;
+  &lt;form class=&quot;form form_horizontal&quot;&gt;
+    &lt;div class=&quot;form_field&quot;&gt;
+      &lt;label class=&quot;form_field-label&quot; for=&quot;fl-a2-title&quot;&gt;제목&lt;/label&gt;
+      &lt;input type=&quot;text&quot; class=&quot;input&quot; id=&quot;fl-a2-title&quot; placeholder=&quot;제목&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form_actions&quot;&gt;
+      &lt;button type=&quot;submit&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;저장&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -587,5 +640,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

@@ -166,26 +166,6 @@ pageTitle: Slider
         <output class="slider_value" for="slider-step-10">50</output>
       </div>
       <input type="range" class="slider_input" id="slider-step-10" min="0" max="100" step="10" value="50">
-      <div class="slider_ticks" aria-hidden="true">
-        <span class="slider_tick">0</span>
-        <span class="slider_tick">25</span>
-        <span class="slider_tick">50</span>
-        <span class="slider_tick">75</span>
-        <span class="slider_tick">100</span>
-      </div>
-    </div>
-
-    <div class="slider slider_fit">
-      <div class="slider_header">
-        <label class="slider_label" for="slider-step-price">가격 범위</label>
-        <output class="slider_value" for="slider-step-price">₩50,000</output>
-      </div>
-      <input type="range" class="slider_input" id="slider-step-price" min="10000" max="100000" step="5000" value="50000" data-slider-prefix="₩" data-slider-format="number">
-      <div class="slider_ticks" aria-hidden="true">
-        <span class="slider_tick">1만</span>
-        <span class="slider_tick">5만</span>
-        <span class="slider_tick">10만</span>
-      </div>
     </div>
   </div>
 </section>
@@ -196,7 +176,7 @@ pageTitle: Slider
     <p>모바일(768px 이하)에서 range 드래그가 어려운 경우 <code>slider_stepper</code>를 추가합니다. <code>slider_control</code> 안에 <code>slider_step-decrease</code> · <code>slider_input</code> · <code>slider_step-increase</code> 순으로 배치하며, 버튼 클릭 시 <code>step</code>만큼 값이 증감됩니다. 데스크톱에서도 항상 표시하려면 <code>slider_stepper_always</code>를 함께 사용합니다.</p>
   </div>
 
-  <div class="demo_section-preview demo_section-preview-start">
+  <div class="demo_section-preview demo_section-preview-stack">
     <div class="slider slider_stepper slider_fit">
       <div class="slider_header">
         <label class="slider_label" for="slider-stepper-volume">볼륨 — slider_stepper</label>
@@ -245,13 +225,13 @@ pageTitle: Slider
         <output class="slider_value" for="slider-stepper-disabled">30</output>
       </div>
       <div class="slider_control">
-        <button type="button" class="slider_step slider_step-decrease" aria-label="값 줄이기">
+        <button type="button" class="slider_step slider_step-decrease" aria-label="값 줄이기" disabled>
           <svg class="slider_step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M5 12h14"/>
           </svg>
         </button>
         <input type="range" class="slider_input" id="slider-stepper-disabled" min="0" max="100" value="30" disabled>
-        <button type="button" class="slider_step slider_step-increase" aria-label="값 늘리기">
+        <button type="button" class="slider_step slider_step-increase" aria-label="값 늘리기" disabled>
           <svg class="slider_step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M12 5v14M5 12h14"/>
           </svg>
@@ -323,15 +303,6 @@ pageTitle: Slider
         <output class="slider_value" for="slider-state-disabled">30</output>
       </div>
       <input type="range" class="slider_input" id="slider-state-disabled" min="0" max="100" value="30" disabled>
-    </div>
-
-    <div class="slider slider_fit is-error">
-      <div class="slider_header">
-        <label class="slider_label" for="slider-state-error">오류 — is-error</label>
-        <output class="slider_value" for="slider-state-error">10</output>
-      </div>
-      <input type="range" class="slider_input" id="slider-state-error" min="0" max="100" value="10" aria-invalid="true">
-      <p class="form_field-error">최소 20 이상으로 설정해 주세요.</p>
     </div>
   </div>
 </section>

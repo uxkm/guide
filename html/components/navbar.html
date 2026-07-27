@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Navbar</span>
@@ -40,7 +41,7 @@
         <section class="section demo_section" aria-labelledby="basic-heading">
           <div class="demo_section-header">
             <h2 id="basic-heading">기본</h2>
-            <p>navbar 브랜드와 navbar_link 메뉴로 구성합니다. is-active와 aria-current="page"로 현재 페이지를 표시합니다.</p>
+            <p><code class="typo_code">navbar_item</code> · <code class="typo_code">navbar_link</code>으로 메뉴를 구성합니다. <code class="typo_code">is-active</code>와 <code class="typo_code">aria-current="page"</code>로 현재 페이지를 표시합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
@@ -111,7 +112,7 @@
         <section class="section demo_section" aria-labelledby="brand-heading">
           <div class="demo_section-header">
             <h2 id="brand-heading">브랜드</h2>
-            <p>navbar_brand에 아이콘을 함께 배치할 수 있습니다.</p>
+            <p><code class="typo_code">navbar_brand</code>에 <code class="typo_code">navbar_brand-icon</code>을 함께 배치할 수 있습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
@@ -755,17 +756,15 @@
         </div>
         </section>
 
-        <section class="section demo_section" aria-labelledby="api-heading">
-          <div class="demo_section-header">
-            <h2 id="api-heading">구조 · 클래스</h2>
-            <p>주요 블록·파트·변형 클래스 요약입니다.</p>
-          </div>
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p>토글에는 <code class="typo_code">aria-expanded</code> · <code class="typo_code">aria-controls</code> · <code class="typo_code">aria-label</code>을 지정하고, 현재 페이지 링크에는 <code class="typo_code">is-active</code>와 <code class="typo_code">aria-current="page"</code>를 함께 사용합니다.</p>
 
-          <div class="code_block">
-            <pre><code>&lt;header class="navbar navbar_sticky"&gt;
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;header class="navbar navbar_sticky" data-navbar&gt;
   &lt;div class="navbar_container"&gt;
     &lt;a href="#" class="navbar_brand"&gt;Brand&lt;/a&gt;
-    &lt;button type="button" class="navbar_toggle"
+    &lt;button type="button" class="navbar_toggle" data-navbar-toggle
       aria-expanded="false" aria-controls="main-nav" aria-label="메뉴 열기"&gt;…&lt;/button&gt;
     &lt;div class="navbar_collapse" id="main-nav"&gt;
       &lt;nav class="navbar_nav" aria-label="주요 메뉴"&gt;
@@ -781,136 +780,54 @@
   &lt;/div&gt;
 &lt;/header&gt;</code></pre>
           </div>
+        </section>
 
-          <div class="demo_section-preview demo_section-preview-start" style="margin-top: var(--space-lg); border-radius: var(--radius-lg);">
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
               <table class="table table_bordered table_compact">
-              <thead>
-                <tr>
-                  <th scope="col">클래스</th>
-                  <th scope="col">설명</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td><code class="typo_code">navbar</code></td><td>루트 블록</td></tr>
-                <tr><td><code class="typo_code">navbar_container</code></td><td>내부 정렬·최대 너비</td></tr>
-                <tr><td><code class="typo_code">navbar_brand</code></td><td>브랜드·로고 링크</td></tr>
-                <tr><td><code class="typo_code">navbar_toggle</code></td><td>모바일 메뉴 토글 버튼</td></tr>
-                <tr><td><code class="typo_code">navbar_collapse</code></td><td>접히는 메뉴 영역</td></tr>
-                <tr><td><code class="typo_code">navbar_nav</code> · <code class="typo_code">navbar_list</code></td><td>내비게이션 목록</td></tr>
-                <tr><td><code class="typo_code">navbar_link</code></td><td>메뉴 링크 · <code class="typo_code">is-active</code></td></tr>
-                <tr><td><code class="typo_code">navbar_search</code></td><td>검색 필드 래퍼</td></tr>
-                <tr><td><code class="typo_code">navbar_actions</code></td><td>우측 액션 영역</td></tr>
-                <tr><td><code class="typo_code">navbar_sm</code> · <code class="typo_code">navbar_lg</code></td><td>높이 변형</td></tr>
-                <tr><td><code class="typo_code">navbar_sticky</code></td><td>상단 고정</td></tr>
-                <tr><td><code class="typo_code">navbar_borderless</code></td><td>하단 테두리 제거</td></tr>
-                <tr><td><code class="typo_code">navbar_dark</code></td><td>surface 배경</td></tr>
-              </tbody>
-            </table>
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">navbar · navbar_container · navbar_brand</code></td><td>루트·컨테이너·브랜드</td></tr>
+                  <tr><td><code class="typo_code">navbar_toggle · navbar_collapse · navbar_nav · navbar_list</code></td><td>토글·접힘 영역·내비</td></tr>
+                  <tr><td><code class="typo_code">navbar_item · navbar_link</code></td><td>항목·링크 (<code class="typo_code">is-active</code>)</td></tr>
+                  <tr><td><code class="typo_code">navbar_search · navbar_actions</code></td><td>검색·액션 영역</td></tr>
+                  <tr><td><code class="typo_code">navbar_sm · navbar_lg · navbar_sticky · navbar_borderless · navbar_dark</code></td><td>크기·변형</td></tr>
+                  <tr><td><code class="typo_code">data-navbar · data-navbar-toggle</code></td><td>반응형 JS 연동</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
+        </section>
 
-        <div class="demo_section-code">
-          <button type="button" class="demo_code-toggle" aria-expanded="false">
-            <span class="demo_code-toggle-label">코드 보기</span>
-            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
-          </button>
-          <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
-  &lt;table class=&quot;table table_bordered table_compact&quot;&gt;
-    &lt;thead&gt;
-      &lt;tr&gt;
-        &lt;th scope=&quot;col&quot;&gt;클래스&lt;/th&gt;
-        &lt;th scope=&quot;col&quot;&gt;설명&lt;/th&gt;
-      &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;루트 블록&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_container&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;내부 정렬·최대 너비&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_brand&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;브랜드·로고 링크&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_toggle&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;모바일 메뉴 토글 버튼&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_collapse&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;접히는 메뉴 영역&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_nav&lt;/code&gt; · &lt;code class=&quot;typo_code&quot;&gt;navbar_list&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;내비게이션 목록&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_link&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;메뉴 링크 · &lt;code class=&quot;typo_code&quot;&gt;is-active&lt;/code&gt;
-        &lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_search&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;검색 필드 래퍼&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_actions&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;우측 액션 영역&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_sm&lt;/code&gt; · &lt;code class=&quot;typo_code&quot;&gt;navbar_lg&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;높이 변형&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_sticky&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;상단 고정&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_borderless&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;하단 테두리 제거&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-        &lt;td&gt;
-          &lt;code class=&quot;typo_code&quot;&gt;navbar_dark&lt;/code&gt;
-        &lt;/td&gt;
-        &lt;td&gt;surface 배경&lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
-  &lt;/table&gt;
-&lt;/div&gt;</code></pre>
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--navbar-height</code> · <code class="typo_code">--navbar-height-sm</code> · <code class="typo_code">--navbar-height-lg</code></td><td>—</td><td>높이 변형</td></tr>
+                  <tr><td><code class="typo_code">--navbar-padding-x</code> · <code class="typo_code">--navbar-gap</code></td><td>—</td><td>패딩·간격</td></tr>
+                  <tr><td><code class="typo_code">--navbar-z-index</code></td><td>—</td><td>sticky 레이어</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
         </section>
       </main>
     </div>
@@ -919,5 +836,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

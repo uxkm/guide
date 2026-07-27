@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Switch</span>
@@ -279,10 +280,7 @@
                 <input type="checkbox" class="switch_input" role="switch" id="switch-basic-dark" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
-              <span class="switch_content">
-                <span class="switch_label">다크 모드</span>
-                <span class="switch_hint">시스템 설정과 무관하게 어두운 테마를 사용합니다.</span>
-              </span>
+              <span class="switch_label">다크 모드</span>
             </label>
 
             <label class="switch">
@@ -312,10 +310,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/span&gt;
-  &lt;span class=&quot;switch_content&quot;&gt;
-    &lt;span class=&quot;switch_label&quot;&gt;다크 모드&lt;/span&gt;
-    &lt;span class=&quot;switch_hint&quot;&gt;시스템 설정과 무관하게 어두운 테마를 사용합니다.&lt;/span&gt;
-  &lt;/span&gt;
+  &lt;span class=&quot;switch_label&quot;&gt;다크 모드&lt;/span&gt;
 &lt;/label&gt;
 
 &lt;!-- 예시 2 --&gt;
@@ -347,15 +342,15 @@
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch">
+            <label class="switch" aria-label="기능 끄기">
               <span class="switch_control">
-                <input type="checkbox" class="switch_input" role="switch" checked aria-label="기능 끄기">
+                <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch">
+            <label class="switch" aria-label="비활성">
               <span class="switch_control">
-                <input type="checkbox" class="switch_input" role="switch" disabled aria-label="비활성">
+                <input type="checkbox" class="switch_input" role="switch" disabled>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
@@ -383,9 +378,9 @@
 
 &lt;!-- 기능 끄기 --&gt;
 
-&lt;label class=&quot;switch&quot;&gt;
+&lt;label class=&quot;switch&quot; aria-label=&quot;기능 끄기&quot;&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
-    &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked aria-label=&quot;기능 끄기&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;span class=&quot;switch_thumb&quot;&gt;
       &lt;/span&gt;
@@ -395,9 +390,9 @@
 
 &lt;!-- 비활성 --&gt;
 
-&lt;label class=&quot;switch&quot;&gt;
+&lt;label class=&quot;switch&quot; aria-label=&quot;비활성&quot;&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
-    &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; disabled aria-label=&quot;비활성&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; disabled&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;span class=&quot;switch_thumb&quot;&gt;
       &lt;/span&gt;
@@ -728,16 +723,6 @@
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end is-error">
-              <span class="switch_content">
-                <span class="switch_label">필수 동의</span>
-                <span class="switch_hint">약관에 동의해야 계속할 수 있습니다.</span>
-              </span>
-              <span class="switch_control">
-                <input type="checkbox" class="switch_input" role="switch" aria-invalid="true">
-                <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
-              </span>
-            </label>
           </div>
 
         <div class="demo_section-code">
@@ -793,22 +778,6 @@
   &lt;span class=&quot;switch_label&quot;&gt;켜짐 (비활성)&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked disabled&gt;
-    &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;span class=&quot;switch_thumb&quot;&gt;
-      &lt;/span&gt;
-    &lt;/span&gt;
-  &lt;/span&gt;
-&lt;/label&gt;
-
-&lt;!-- 예시 5 --&gt;
-
-&lt;label class=&quot;switch switch_label-end is-error&quot;&gt;
-  &lt;span class=&quot;switch_content&quot;&gt;
-    &lt;span class=&quot;switch_label&quot;&gt;필수 동의&lt;/span&gt;
-    &lt;span class=&quot;switch_hint&quot;&gt;약관에 동의해야 계속할 수 있습니다.&lt;/span&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;switch_control&quot;&gt;
-    &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; aria-invalid=&quot;true&quot;&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;span class=&quot;switch_thumb&quot;&gt;
       &lt;/span&gt;
@@ -1068,5 +1037,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

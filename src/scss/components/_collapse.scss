@@ -3,27 +3,19 @@
 
 // Collapse — OOCSS: 구조(.collapse · .collapse_group) + 스킨(.collapse_bordered · .collapse_ghost · .collapse_card) + 파트(.collapse_panel · .collapse_trigger · .collapse_body)
 //
-//   <!-- 외부 트리거 -->
+//   <!-- 외부 트리거 + 슬라이드 -->
 //   <button type="button" data-collapse-trigger aria-expanded="false" aria-controls="col-1">펼치기</button>
-//   <div class="collapse" id="col-1" hidden>…</div>
+//   <div class="collapse" id="col-1" data-effect="slide" hidden><div>…</div></div>
 //
-//   <!-- 패널 그룹 -->
-//   <div class="collapse_group collapse_bordered" data-collapse>
-//     <div class="collapse_panel is-open">
-//       <div class="collapse_header">
-//         <button type="button" class="collapse_trigger" id="col-h-1"
-//           aria-expanded="true" aria-controls="col-body-1">
-//           <span class="collapse_label">제목</span>
-//           <svg class="collapse_icon" …></svg>
-//         </button>
-//       </div>
-//       <div class="collapse_body" id="col-body-1" role="region" aria-labelledby="col-h-1">
-//         <div class="collapse_content">…</div>
-//       </div>
-//     </div>
+//   <!-- 패널 그룹 + 슬라이드 -->
+//   <div class="collapse_group collapse_bordered" data-collapse data-effect="slide">
+//     …
 //   </div>
+//
+//   data-effect="slide" — 펼침·접힘 높이 슬라이드 (JS height transition)
 
 .collapse {
+  width: 100%;
   min-width: 0;
   font-size: var(--collapse-content-font-size);
   color: var(--color-text);
@@ -31,6 +23,15 @@
 
   &[hidden] {
     display: none;
+  }
+
+  // ----- effect: slide (독립 .collapse) — 높이 애니메이션은 JS
+  &[data-effect="slide"] {
+    overflow: hidden;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
   }
 
   > :first-child {
@@ -42,7 +43,8 @@
   }
 
   &_inner {
-    padding: var(--collapse-content-padding-y) var(--collapse-content-padding-x);
+    padding: var(--collapse-content-padding-top) var(--collapse-content-padding-x)
+      var(--collapse-content-padding-y);
   }
 
   // ----- 패널 그룹
@@ -100,6 +102,28 @@
     &[aria-expanded="true"] {
       color: color-token(primary);
     }
+
+    &.btn {
+      min-width: 0;
+      height: auto;
+      border-radius: 0;
+
+      &.btn_text {
+        color: inherit;
+        background: transparent;
+        border-color: transparent;
+
+        &:hover:not(.is-disabled):not(:disabled) {
+          color: inherit;
+          background: var(--color-surface-raised);
+          border-color: transparent;
+        }
+      }
+
+      .btn_label {
+        display: contents;
+      }
+    }
   }
 
   &_label {
@@ -141,8 +165,22 @@
     }
   }
 
+  // ----- effect: slide (패널 그룹) — 높이 애니메이션은 JS
+  &_group[data-effect="slide"] {
+    .collapse_body {
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .collapse_body {
+        transition: none !important;
+      }
+    }
+  }
+
   &_content {
-    padding: 0 var(--collapse-content-padding-x) var(--collapse-content-padding-y);
+    padding: var(--collapse-content-padding-top) var(--collapse-content-padding-x)
+      var(--collapse-content-padding-y);
     color: var(--color-text);
     font-size: var(--collapse-content-font-size);
     line-height: 1.6;
@@ -216,6 +254,7 @@
     --collapse-trigger-padding-x: var(--collapse-trigger-padding-x-sm);
     --collapse-content-padding-y: var(--collapse-content-padding-y-sm);
     --collapse-content-padding-x: var(--collapse-content-padding-x-sm);
+    --collapse-content-padding-top: var(--collapse-content-padding-top-sm);
     --collapse-icon-size: var(--collapse-icon-size-sm);
   }
 
@@ -225,6 +264,7 @@
     --collapse-trigger-padding-x: var(--collapse-trigger-padding-x-lg);
     --collapse-content-padding-y: var(--collapse-content-padding-y-lg);
     --collapse-content-padding-x: var(--collapse-content-padding-x-lg);
+    --collapse-content-padding-top: var(--collapse-content-padding-top-lg);
     --collapse-icon-size: var(--collapse-icon-size-lg);
   }
 

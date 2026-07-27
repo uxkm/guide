@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Spin</span>
@@ -274,21 +275,55 @@
         </div>
         </section>
 
+        <section class="section demo_section" aria-labelledby="block-heading">
+          <div class="demo_section-header">
+            <h2 id="block-heading">블록 정렬</h2>
+            <p><code class="typo_code">spin_block</code>은 부모 너비 안에서 스피너를 가운데 정렬합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="spin spin_block color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="로딩 중">
+              <span class="spin_indicator" aria-hidden="true"></span>
+              <p class="spin_tip">잠시만 기다려 주세요…</p>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;spin spin_block color_primary&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;로딩 중&quot;&gt;
+  &lt;span class=&quot;spin_indicator&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;/span&gt;
+  &lt;p class=&quot;spin_tip&quot;&gt;잠시만 기다려 주세요…&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
         <section class="section demo_section" aria-labelledby="overlay-heading">
           <div class="demo_section-header">
             <h2 id="overlay-heading">컨테이너 오버레이</h2>
             <p><code class="typo_code">spin_wrap</code>에 <code class="typo_code">is-loading</code>을 지정하면 콘텐츠 위에 <code class="typo_code">spin_overlay</code>가 표시됩니다. JS로 클래스를 토글해 로딩 상태를 제어합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="spin_wrap spin_wrap-block is-loading card card_shadow" style="max-width: var(--input-max-width);">
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="spin_wrap spin_wrap-block is-loading" style="max-width: var(--input-max-width);">
               <div class="spin_wrap-body">
-                <div class="card_header">
-                  <h3 class="card_title">대시보드</h3>
-                </div>
-                <div class="card_body">
-                  <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
-                </div>
+                <article class="card card_shadow">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">대시보드</h3>
+                    </div>
+                  </div>
+                  <div class="card_body">
+                    <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
+                  </div>
+                </article>
               </div>
               <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="데이터 로딩 중">
                 <span class="spin_indicator" aria-hidden="true"></span>
@@ -296,14 +331,18 @@
               </div>
             </div>
 
-            <div class="spin_wrap spin_wrap-block spin_wrap-blur is-loading card card_shadow" style="max-width: var(--input-max-width); margin-top: var(--space-md);">
+            <div class="spin_wrap spin_wrap-block spin_wrap-blur is-loading" style="max-width: var(--input-max-width);">
               <div class="spin_wrap-body">
-                <div class="card_header">
-                  <h3 class="card_title">블러 효과</h3>
-                </div>
-                <div class="card_body">
-                  <p><code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
-                </div>
+                <article class="card card_shadow">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">블러 효과</h3>
+                    </div>
+                  </div>
+                  <div class="card_body">
+                    <p><code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
+                  </div>
+                </article>
               </div>
               <div class="spin spin_overlay color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="처리 중">
                 <span class="spin_indicator" aria-hidden="true"></span>
@@ -321,14 +360,18 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 대시보드 --&gt;
 
-&lt;div class=&quot;spin_wrap spin_wrap-block is-loading card card_shadow&quot; style=&quot;max-width: var(--input-max-width);&quot;&gt;
+&lt;div class=&quot;spin_wrap spin_wrap-block is-loading&quot; style=&quot;max-width: var(--input-max-width);&quot;&gt;
   &lt;div class=&quot;spin_wrap-body&quot;&gt;
-    &lt;div class=&quot;card_header&quot;&gt;
-      &lt;h3 class=&quot;card_title&quot;&gt;대시보드&lt;/h3&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;card_body&quot;&gt;
-      &lt;p&gt;차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.&lt;/p&gt;
-    &lt;/div&gt;
+    &lt;article class=&quot;card card_shadow&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;대시보드&lt;/h3&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;
+        &lt;p&gt;차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
   &lt;/div&gt;
   &lt;div class=&quot;spin spin_overlay color_primary&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;데이터 로딩 중&quot;&gt;
     &lt;span class=&quot;spin_indicator&quot; aria-hidden=&quot;true&quot;&gt;
@@ -339,55 +382,25 @@
 
 &lt;!-- 블러 효과 --&gt;
 
-&lt;div class=&quot;spin_wrap spin_wrap-block spin_wrap-blur is-loading card card_shadow&quot; style=&quot;max-width: var(--input-max-width); margin-top: var(--space-md);&quot;&gt;
+&lt;div class=&quot;spin_wrap spin_wrap-block spin_wrap-blur is-loading&quot; style=&quot;max-width: var(--input-max-width);&quot;&gt;
   &lt;div class=&quot;spin_wrap-body&quot;&gt;
-    &lt;div class=&quot;card_header&quot;&gt;
-      &lt;h3 class=&quot;card_title&quot;&gt;블러 효과&lt;/h3&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;card_body&quot;&gt;
-      &lt;p&gt;
-        &lt;code class=&quot;typo_code&quot;&gt;spin_wrap-blur&lt;/code&gt;를 함께 사용하면 콘텐츠에 블러가 적용됩니다.&lt;/p&gt;
+    &lt;article class=&quot;card card_shadow&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;블러 효과&lt;/h3&gt;
+        &lt;/div&gt;
       &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;
+        &lt;p&gt;
+          &lt;code class=&quot;typo_code&quot;&gt;spin_wrap-blur&lt;/code&gt;를 함께 사용하면 콘텐츠에 블러가 적용됩니다.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
     &lt;/div&gt;
     &lt;div class=&quot;spin spin_overlay color_primary&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;처리 중&quot;&gt;
       &lt;span class=&quot;spin_indicator&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;</code></pre>
-          </div>
-        </div>
-        </section>
-
-        <section class="section demo_section" aria-labelledby="block-heading">
-          <div class="demo_section-header">
-            <h2 id="block-heading">블록 정렬</h2>
-            <p><code class="typo_code">spin_block</code>은 부모 너비 안에서 스피너를 가운데 정렬합니다.</p>
-          </div>
-
-          <div class="demo_section-preview demo_section-preview-stack">
-            <div class="spin_block">
-              <div class="spin color_primary" role="status" aria-live="polite" aria-busy="true" aria-label="로딩 중">
-                <span class="spin_indicator" aria-hidden="true"></span>
-                <p class="spin_tip">잠시만 기다려 주세요…</p>
-              </div>
-            </div>
-          </div>
-
-        <div class="demo_section-code">
-          <button type="button" class="demo_code-toggle" aria-expanded="false">
-            <span class="demo_code-toggle-label">코드 보기</span>
-            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
-          </button>
-          <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;spin_block&quot;&gt;
-  &lt;div class=&quot;spin color_primary&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;로딩 중&quot;&gt;
-    &lt;span class=&quot;spin_indicator&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-    &lt;p class=&quot;spin_tip&quot;&gt;잠시만 기다려 주세요…&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -476,7 +489,8 @@
                   <tr><td><code class="typo_code">--spin-duration</code></td><td>0.8s</td><td>회전 애니메이션 주기</td></tr>
                   <tr><td><code class="typo_code">--spin-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>스피너·텍스트 간격</td></tr>
                   <tr><td><code class="typo_code">--spin-tip-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>설명 텍스트 크기</td></tr>
-                  <tr><td><code class="typo_code">--spin-overlay-bg</code></td><td><code class="typo_code">var(--color-overlay)</code></td><td>오버레이 배경</td></tr>
+                  <tr><td><code class="typo_code">--spin-overlay-bg</code></td><td>rgba(15, 20, 25, 0.72)</td><td>오버레이 배경 (tip 명도 대비용 불투명도)</td></tr>
+                  <tr><td><code class="typo_code">--spin-overlay-tip-color</code></td><td>#ffffff</td><td>오버레이 위 tip 텍스트 색</td></tr>
                   <tr><td><code class="typo_code">--spin-wrap-min-height</code></td><td>8rem</td><td><code class="typo_code">spin_wrap-block</code> 최소 높이</td></tr>
                   <tr><td><code class="typo_code">--spin-wrap-content-opacity</code></td><td>0.45</td><td>로딩 시 콘텐츠 불투명도</td></tr>
                 </tbody>
@@ -491,5 +505,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

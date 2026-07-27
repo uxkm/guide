@@ -5,6 +5,7 @@
 // (색상 대비 SC는 2.1 AA와 동일 수치)
 // 채움 버튼 → --color-accent / --color-success / --color-danger / --color-warning
 // 배경 위 텍스트·링크 → --color-*-text · 채움 레이블 → --color-on-accent / --color-on-warning
+// 비활성 → --color-text-disabled (4.5:1) · --color-border-disabled (3:1) · --color-*-disabled 채움 쌍
 // =============================================================================
 
 @mixin theme-light {
@@ -17,6 +18,19 @@
   --color-border-subtle: #a8b3c4;
   --color-text: #1a2332;
   --color-text-muted: #4a5568;
+  --color-text-disabled: #697586;
+  --color-border-disabled: #7d8fa6;
+  --color-surface-disabled: #eef1f6;
+  --color-control-disabled: #7d8fa6;
+
+  --color-accent-disabled: #c8d5eb;
+  --color-on-accent-disabled: #3d5080;
+  --color-success-disabled: #c5ddd2;
+  --color-on-success-disabled: #2d5340;
+  --color-danger-disabled: #eccaca;
+  --color-on-danger-disabled: #7a3030;
+  --color-warning-disabled: #ecd4bc;
+  --color-on-warning-disabled: #6b4220;
 
   --color-accent: #3d66c4;
   --color-accent-hover: #3458ad;
@@ -76,6 +90,19 @@
   --color-border-subtle: #4f627d;
   --color-text: #e7ecf3;
   --color-text-muted: #a8b8cf;
+  --color-text-disabled: #9aa8bc;
+  --color-border-disabled: #637a96;
+  --color-surface-disabled: #212d3f;
+  --color-control-disabled: #637a96;
+
+  --color-accent-disabled: #2d4a75;
+  --color-on-accent-disabled: #9ec5ff;
+  --color-success-disabled: #2d4f3d;
+  --color-on-success-disabled: #86d9a3;
+  --color-danger-disabled: #5c3030;
+  --color-on-danger-disabled: #fca5a5;
+  --color-warning-disabled: #6b4220;
+  --color-on-warning-disabled: #f6ad55;
 
   --color-accent: #386bc0;
   --color-accent-hover: #4a7fd6;

@@ -145,8 +145,21 @@
   }
 
   &:has(.radio_input:disabled) {
-    @include disabled-state;
+    @include disabled-interactive-wrapper;
+
+    .radio_box {
+      background-color: var(--color-surface-disabled);
+      border-color: var(--color-border-disabled);
+    }
+
+    .radio_input:checked + .radio_box {
+      background-color: var(--color-accent-disabled);
+      border-color: var(--color-accent-disabled);
+      color: var(--color-on-accent-disabled);
+    }
   }
+
+  @include disabled-semantic-checked-box(".radio_input", ".radio_box", false);
 
   &.is-error .radio_box {
     border-color: var(--color-danger);
@@ -358,7 +371,7 @@
     }
 
     &:has(.radio_input:disabled) {
-      @include disabled-state;
+      @include disabled-surface;
     }
 
     .card {
