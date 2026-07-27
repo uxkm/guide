@@ -13,9 +13,11 @@ function isGuidePageStory(storyId: string) {
 
 addons.setConfig({
   theme: managerDarkTheme,
-  panelPosition: 'bottom',
   selectedPanel: 'controls',
-  bottomPanelHeight: DEFAULT_BOTTOM_PANEL_HEIGHT,
+  layout: {
+    panelPosition: 'bottom',
+    bottomPanelHeight: DEFAULT_BOTTOM_PANEL_HEIGHT,
+  },
   sidebar: {
     filters: {
       patterns: (item) => !GUIDE_PAGE_STORY_IDS.test(item.id ?? ''),
