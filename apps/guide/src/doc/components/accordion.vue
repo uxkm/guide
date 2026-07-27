@@ -150,6 +150,25 @@ import {
     </Accordion>
   </DemoSection>
 
+  <DemoSection
+    heading-id="slide-heading"
+    title="슬라이드"
+    description='effect="slide"로 펼침·접힘 시 높이 슬라이드 애니메이션을 적용합니다. 닫힌 패널은 hidden으로 숨기고, 토글 시에만 높이를 애니메이션합니다.'
+  >
+    <Accordion variant="card" narrow effect="slide">
+      <AccordionItem
+        label="배송 안내"
+        open
+        content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
+      />
+      <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
+      <AccordionItem
+        label="고객센터"
+        content="1588-0000 (평일 09:00–18:00). 채팅 상담도 지원합니다."
+      />
+    </Accordion>
+  </DemoSection>
+
   <ApiSection heading-id="api-props-heading" title="API · Accordion Props">
     <ApiTable :columns="accordionPropColumns" :rows="accordionProps" code-column="name" />
   </ApiSection>

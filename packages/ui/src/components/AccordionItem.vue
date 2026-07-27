@@ -8,10 +8,11 @@
  * aria-expanded · aria-controls · aria-level.
  * 키보드: ↑↓ 항목 이동, Home/End 첫·마지막 항목.
  */
-import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots } from 'vue';
+import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
@@ -38,11 +39,19 @@ const accordion = inject('accordion', null);
 const triggerId = useId().replace(/:/g, '');
 const panelId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
+const panelRef = ref(null);
+
+const slideEffect = computed(() => accordion?.effect?.value === 'slide');
 
 const itemClass = computed(() => [
   'accordion_item',
   { 'is-open': isOpen.value, 'is-disabled': props.disabled },
 ]);
+
+/** slide일 때는 hidden을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
+const panelBind = computed(() =>
+  slideEffect.value ? {} : { hidden: !isOpen.value || undefined },
+);
 
 function toggle() {
   if (props.disabled || !accordion) return;
@@ -75,6 +84,11 @@ function onKeydown(event) {
   }
 }
 
+watch(isOpen, (open) => {
+  if (!slideEffect.value) return;
+  setSlideRegionOpen(panelRef.value, open, true);
+});
+
 onMounted(() => {
   if (!accordion) return;
 
@@ -88,6 +102,10 @@ onMounted(() => {
     extraCode: props.extraCode,
     isOpen,
   });
+
+  if (slideEffect.value) {
+    setSlideRegionOpen(panelRef.value, isOpen.value, false);
+  }
 });
 
 onUnmounted(() => {
@@ -120,10 +138,11 @@ onUnmounted(() => {
     </div>
     <div
       :id="panelId"
+      ref="panelRef"
       class="accordion_panel"
       role="region"
       :aria-labelledby="triggerId"
-      :hidden="!isOpen || undefined"
+      v-bind="panelBind"
     >
       <div class="accordion_content">
         <slot>

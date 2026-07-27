@@ -7,7 +7,7 @@
  *
  * provide('collapse')로 자식과 상태를 공유합니다.
  */
-import { computed, provide, ref, shallowRef, useAttrs } from 'vue';
+import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
 import { useCollapseDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
@@ -31,12 +31,19 @@ const props = defineProps({
   accordion: Boolean,
   /** 데모용 최대 너비 제한 (collapse_demo-narrow) */
   narrow: Boolean,
+  /** 펼침·접힘 효과. slide — 높이 슬라이드 */
+  effect: {
+    type: String,
+    default: undefined,
+    validator: (value) => value === undefined || value === null || value === '' || value === 'slide',
+  },
 });
 
 const attrs = useAttrs();
 const rootRef = ref(null);
 const panels = new Map();
 const registeredPanels = shallowRef([]);
+const effect = toRef(props, 'effect');
 
 const rootClass = computed(() => [
   'collapse_group',
@@ -84,13 +91,19 @@ provide('collapse', {
   registerPanel,
   unregisterPanel,
   togglePanel,
+  effect,
 });
 
 useCollapseDemoCode(props, registeredPanels, rootRef, attrs);
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" v-bind="fallthroughAttrs">
+  <div
+    ref="rootRef"
+    :class="rootClass"
+    :data-effect="effect || undefined"
+    v-bind="fallthroughAttrs"
+  >
     <slot />
   </div>
 </template>

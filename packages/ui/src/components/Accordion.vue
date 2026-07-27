@@ -8,7 +8,7 @@
  * 키보드(↑↓ Home End)는 AccordionItem 트리거에서 처리합니다.
  * provide('accordion')로 자식과 상태를 공유합니다.
  */
-import { computed, provide, ref, shallowRef, useAttrs } from 'vue';
+import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
 import { useAccordionDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
@@ -32,12 +32,19 @@ const props = defineProps({
   multiple: Boolean,
   /** 데모용 최대 너비 제한 (accordion_demo-narrow) */
   narrow: Boolean,
+  /** 펼침·접힘 효과. slide — 높이 슬라이드 */
+  effect: {
+    type: String,
+    default: undefined,
+    validator: (value) => value === undefined || value === null || value === '' || value === 'slide',
+  },
 });
 
 const attrs = useAttrs();
 const rootRef = ref(null);
 const items = new Map();
 const registeredItems = shallowRef([]);
+const effect = toRef(props, 'effect');
 
 const rootClass = computed(() => [
   'accordion',
@@ -95,13 +102,19 @@ provide('accordion', {
   toggleItem,
   getTriggers,
   focusTrigger,
+  effect,
 });
 
 useAccordionDemoCode(props, registeredItems, rootRef, attrs);
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" v-bind="fallthroughAttrs">
+  <div
+    ref="rootRef"
+    :class="rootClass"
+    :data-effect="effect || undefined"
+    v-bind="fallthroughAttrs"
+  >
     <slot />
   </div>
 </template>

@@ -31,6 +31,12 @@ export const collapseProps = [
     default: 'false',
     description: '데모용 최대 너비 제한 (collapse_demo-narrow)',
   },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
+  },
 ];
 
 export const collapsePanelPropColumns = [
@@ -106,6 +112,12 @@ export const collapseExternalProps = [
     default: 'false',
     description: '초기 열림 상태',
   },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
+  },
   ripplePropSurface,
 ];
 
@@ -142,5 +154,6 @@ export const collapseClasses = [
   { name: 'data-collapse', description: 'HTML 패널 그룹 JS 초기화' },
   { name: 'data-collapse-trigger', description: 'HTML 외부 트리거 JS 초기화' },
   { name: 'data-collapse-accordion', description: 'HTML 단일 패널만 열기' },
+  { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
 ];

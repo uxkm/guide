@@ -31,6 +31,12 @@ export const accordionProps = [
     default: 'false',
     description: '데모용 최대 너비 제한 (accordion_demo-narrow)',
   },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
+  },
 ];
 
 export const accordionItemPropColumns = [
@@ -101,6 +107,7 @@ export const accordionClasses = [
   { name: 'accordion_content', description: '패널 본문 래퍼' },
   { name: 'data-accordion', description: 'HTML 마크업 JS 초기화 대상' },
   { name: 'data-accordion-multiple', description: 'HTML 마크업 다중 열기 허용' },
+  { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
 ];
 
@@ -118,6 +125,7 @@ export const accordionTokens = [
   { name: '--accordion-content-font-size', default: 'var(--text-size-sm)', description: '콘텐츠 글자 크기' },
   { name: '--accordion-content-padding-y · --accordion-content-padding-x', default: 'var(--space-lg) · var(--space-lg)', description: '콘텐츠 상하·좌우 패딩(동일)' },
   { name: '--accordion-icon-size', default: '1rem', description: '펼침 아이콘(md)' },
+  { name: '--accordion-slide-duration · --accordion-slide-easing', default: '0.28s · ease', description: '슬라이드 전환' },
   { name: '--accordion-card-gap', default: '0', description: '카드형 아코디언 항목 간격' },
   { name: '--accordion-card-trigger-bg', default: 'var(--color-surface-raised)', description: '카드형 트리거 배경' },
   { name: '--accordion-font-size-sm · --accordion-trigger-padding-y-sm · --accordion-trigger-padding-x-sm', default: 'var(--text-size-xs) · 0.625rem · var(--space-md)', description: 'sm 크기' },

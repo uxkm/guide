@@ -97,6 +97,7 @@ export function formatCollapseExternalCode(props, customAttrs = {}, isOpenRef = 
   if (props.narrow) parts.push('narrow');
   if (isOpenRef?.value ?? props.open) parts.push('open');
   if (props.boxed === false) parts.push(':boxed="false"');
+  if (props.effect) parts.push(`effect="${props.effect}"`);
 
   Object.entries(customAttrs).forEach(([key, value]) => {
     if (key === 'class' || key === 'style') return;
