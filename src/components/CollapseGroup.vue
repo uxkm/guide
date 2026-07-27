@@ -7,7 +7,7 @@
  *
  * provide('collapseGroup')로 자식과 상태를 공유합니다.
  */
-import { computed, provide, ref, shallowRef, useAttrs } from 'vue';
+import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
 import { useCollapseGroupDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
@@ -29,6 +29,11 @@ const props = defineProps({
   },
   /** 한 번에 하나의 패널만 열기 (아코디언 모드) */
   accordion: Boolean,
+  /** 펼침·접힘 높이 슬라이드. slide */
+  effect: {
+    type: String,
+    validator: (value) => value === undefined || value === 'slide',
+  },
   /** 데모용 최대 너비 제한 (collapse_demo-narrow) */
   narrow: Boolean,
 });
@@ -84,13 +89,19 @@ provide('collapseGroup', {
   registerPanel,
   unregisterPanel,
   togglePanel,
+  effect: toRef(props, 'effect'),
 });
 
 useCollapseGroupDemoCode(props, registeredPanels, rootRef, attrs);
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" v-bind="fallthroughAttrs">
+  <div
+    ref="rootRef"
+    :class="rootClass"
+    :data-effect="effect === 'slide' ? 'slide' : undefined"
+    v-bind="fallthroughAttrs"
+  >
     <slot />
   </div>
 </template>

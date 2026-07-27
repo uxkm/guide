@@ -33,16 +33,20 @@
   --collapse-content-padding-top-lg: var(--space-lg);
   --collapse-icon-size-lg: 1.125rem;
 
+  // ----- Collapse — slide
+  --collapse-slide-duration: 0.28s;
+  --collapse-slide-easing: ease;
+
 }
 
 // Collapse — OOCSS: 구조(.collapse · .collapse_group) + 스킨(.collapse_bordered · .collapse_ghost · .collapse_card) + 파트(.collapse_panel · .collapse_trigger · .collapse_body)
 //
-//   <!-- 외부 트리거 -->
+//   <!-- 외부 트리거 + 슬라이드 -->
 //   <button type="button" data-collapse-trigger aria-expanded="false" aria-controls="col-1">펼치기</button>
-//   <div class="collapse" id="col-1" hidden>…</div>
+//   <div class="collapse" id="col-1" data-effect="slide" hidden><div>…</div></div>
 //
-//   <!-- 패널 그룹 -->
-//   <div class="collapse_group collapse_bordered" data-collapse>
+//   <!-- 패널 그룹 + 슬라이드 -->
+//   <div class="collapse_group collapse_bordered" data-collapse data-effect="slide">
 //     <div class="collapse_panel is-open">
 //       <div class="collapse_header">
 //         <button type="button" class="collapse_trigger" id="col-h-1"
@@ -56,6 +60,8 @@
 //       </div>
 //     </div>
 //   </div>
+//
+//   data-effect="slide" — 펼침·접힘 높이 슬라이드 (JS height transition)
 
 .collapse {
   width: 100%;
@@ -66,6 +72,15 @@
 
   &[hidden] {
     display: none;
+  }
+
+  // ----- effect: slide (독립 .collapse) — 높이 애니메이션은 JS
+  &[data-effect="slide"] {
+    overflow: hidden;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
   }
 
   > :first-child {
@@ -196,6 +211,19 @@
 
     &[hidden] {
       display: none;
+    }
+  }
+
+  // ----- effect: slide (패널 그룹) — 높이 애니메이션은 JS
+  &_group[data-effect="slide"] {
+    .collapse_body {
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .collapse_body {
+        transition: none !important;
+      }
     }
   }
 

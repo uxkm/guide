@@ -33,11 +33,15 @@
   --accordion-content-padding-top-lg: var(--space-lg);
   --accordion-icon-size-lg: 1.125rem;
 
+  // ----- Accordion — slide
+  --accordion-slide-duration: 0.28s;
+  --accordion-slide-easing: ease;
+
 }
 
 // Accordion — OOCSS: 구조(.accordion) + 스킨(.accordion_bordered · .accordion_flush · .accordion_card) + 파트(.accordion_item · .accordion_trigger · .accordion_panel)
 //
-//   <div class="accordion accordion_bordered" data-accordion>
+//   <div class="accordion accordion_bordered" data-accordion data-effect="slide">
 //     <div class="accordion_item is-open">
 //       <h3 class="accordion_heading">
 //         <button type="button" class="accordion_trigger" id="acc-1"
@@ -51,6 +55,8 @@
 //       </div>
 //     </div>
 //   </div>
+//
+//   data-effect="slide" — 펼침·접힘 높이 슬라이드 (JS height transition)
 
 .accordion {
   display: flex;
@@ -163,6 +169,21 @@
 
     &[hidden] {
       display: none;
+    }
+  }
+
+  // ----- effect: slide (높이 애니메이션은 JS, overflow만 CSS)
+  // data-effect="slide"
+
+  &[data-effect="slide"] {
+    .accordion_panel {
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .accordion_panel {
+        transition: none !important;
+      }
     }
   }
 

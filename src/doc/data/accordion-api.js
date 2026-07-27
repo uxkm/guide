@@ -26,6 +26,12 @@ export const accordionProps = [
     description: '여러 패널 동시 열기 허용',
   },
   {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
+  },
+  {
     name: 'narrow',
     type: 'boolean',
     default: 'false',
@@ -100,5 +106,6 @@ export const accordionClasses = [
   { name: 'accordion_content', description: '패널 본문 래퍼' },
   { name: 'data-accordion', description: 'HTML 마크업 JS 초기화 대상' },
   { name: 'data-accordion-multiple', description: 'HTML 마크업 다중 열기 허용' },
+  { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
 ];
