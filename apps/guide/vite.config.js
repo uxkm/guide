@@ -58,4 +58,12 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
   },
+  server: {
+    port: 5174,
+    strictPort: true,
+  },
+  preview: {
+    port: 5174,
+    strictPort: true,
+  },
 });

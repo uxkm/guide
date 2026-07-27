@@ -23,9 +23,9 @@ guide.uxkm.io — Vue 3 + Vite UI 컴포넌트 가이드 (pnpm monorepo)
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:5173 — 가이드 앱
-pnpm dev:all        # 가이드 + Storybook 동시 실행 (5173, 6006)
-pnpm storybook          # http://localhost:6006 — Storybook 개발 서버
+pnpm dev            # http://localhost:5174 — 가이드 앱 (react-storybook은 5173)
+pnpm dev:all        # 가이드 + Storybook 동시 실행 (5174, 6007)
+pnpm storybook          # http://localhost:6007 — Storybook (react-storybook은 6006)
 pnpm build              # apps/guide/dist/ 생성
 pnpm build-storybook    # apps/storybook/storybook-static/ 생성
 pnpm preview-storybook  # Storybook 빌드 결과 미리보기 (먼저 build-storybook 필요)

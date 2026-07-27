@@ -2,9 +2,9 @@
   "name": "@uxkm/storybook",
   "private": true,
   "scripts": {
-    "dev": "storybook dev -p 6006 --initial-path \"/docs/intro--docs\"",
+    "dev": "storybook dev -p 6007 --ci --initial-path \"/docs/intro--docs\"",
     "build": "storybook build && node ./scripts/fix-html-lang.mjs",
-    "preview": "npx --yes http-server storybook-static -p 6006 -c-1"
+    "preview": "npx --yes http-server storybook-static -p 6007 -c-1"
   },
   "dependencies": {
     "@uxkm/ui": "workspace:*",
