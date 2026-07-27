@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Menu</span>
@@ -40,23 +41,23 @@
         <section class="section demo_section" aria-labelledby="basic-heading">
           <div class="demo_section-header">
             <h2 id="basic-heading">기본</h2>
-            <p>menu_vertical · menu_bordered로 세로 메뉴를 구성합니다. is-active와 aria-current="page"로 선택 항목을 표시합니다.</p>
+            <p><code class="typo_code">menu_vertical</code> · <code class="typo_code">menu_bordered</code>로 세로 메뉴를 구성합니다. <code class="typo_code">is-active</code>와 <code class="typo_code">aria-current="page"</code>로 선택 항목을 표시합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <nav class="menu menu_vertical menu_bordered" aria-label="주요 메뉴" data-menu-selectable>
               <ul class="menu_list">
                 <li class="menu_item">
-                  <a href="#" class="menu_link is-active" aria-current="page">대시보드</a>
+                  <a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">대시보드</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">분석</a>
+                  <a href="#" class="menu_link"><span class="menu_label">분석</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">사용자</a>
+                  <a href="#" class="menu_link"><span class="menu_label">사용자</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">설정</a>
+                  <a href="#" class="menu_link"><span class="menu_label">설정</span></a>
                 </li>
               </ul>
             </nav>
@@ -73,16 +74,24 @@
             <pre><code>&lt;nav class=&quot;menu menu_vertical menu_bordered&quot; aria-label=&quot;주요 메뉴&quot; data-menu-selectable&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;대시보드&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;대시보드&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;분석&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;분석&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;사용자&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;사용자&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;설정&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;설정&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
@@ -93,23 +102,23 @@
         <section class="section demo_section" aria-labelledby="horizontal-heading">
           <div class="demo_section-header">
             <h2 id="horizontal-heading">수평</h2>
-            <p>menu_horizontal로 상단 탭·툴바 형태의 메뉴를 만듭니다.</p>
+            <p><code class="typo_code">menu_horizontal</code>로 상단 탭·툴바 형태의 메뉴를 만듭니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <nav class="menu menu_horizontal menu_bordered" aria-label="섹션 메뉴" data-menu-selectable>
               <ul class="menu_list">
                 <li class="menu_item">
-                  <a href="#" class="menu_link is-active" aria-current="page">개요</a>
+                  <a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">개요</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">컴포넌트</a>
+                  <a href="#" class="menu_link"><span class="menu_label">컴포넌트</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">토큰</a>
+                  <a href="#" class="menu_link"><span class="menu_label">토큰</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">접근성</a>
+                  <a href="#" class="menu_link"><span class="menu_label">접근성</span></a>
                 </li>
               </ul>
             </nav>
@@ -126,16 +135,24 @@
             <pre><code>&lt;nav class=&quot;menu menu_horizontal menu_bordered&quot; aria-label=&quot;섹션 메뉴&quot; data-menu-selectable&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;개요&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;개요&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;컴포넌트&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;컴포넌트&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;토큰&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;토큰&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;접근성&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;접근성&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
@@ -146,7 +163,7 @@
         <section class="section demo_section" aria-labelledby="icon-heading">
           <div class="demo_section-header">
             <h2 id="icon-heading">아이콘</h2>
-            <p>menu_icon으로 항목 앞에 아이콘을 배치합니다.</p>
+            <p><code class="typo_code">menu_icon</code>으로 항목 앞에 아이콘을 배치합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
@@ -163,7 +180,7 @@
                 <li class="menu_item">
                   <a href="#" class="menu_link">
                     <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                     </svg>
                     <span class="menu_label">사용자</span>
                   </a>
@@ -171,7 +188,7 @@
                 <li class="menu_item">
                   <a href="#" class="menu_link">
                     <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
                     </svg>
                     <span class="menu_label">문서</span>
                   </a>
@@ -212,10 +229,8 @@
     &lt;li class=&quot;menu_item&quot;&gt;
       &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
         &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;path d=&quot;M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2&quot;/&gt;
-          &lt;circle cx=&quot;9&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
-          &lt;path d=&quot;M23 21v-2a4 4 0 0 0-3-3.87&quot;/&gt;
-          &lt;path d=&quot;M16 3.13a4 4 0 0 1 0 7.75&quot;/&gt;
+          &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
+          &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
         &lt;/svg&gt;
         &lt;span class=&quot;menu_label&quot;&gt;사용자&lt;/span&gt;
       &lt;/a&gt;
@@ -223,8 +238,7 @@
     &lt;li class=&quot;menu_item&quot;&gt;
       &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
         &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
-          &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+          &lt;path d=&quot;M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20&quot;/&gt;
         &lt;/svg&gt;
         &lt;span class=&quot;menu_label&quot;&gt;문서&lt;/span&gt;
       &lt;/a&gt;
@@ -247,7 +261,7 @@
         <section class="section demo_section" aria-labelledby="submenu-heading">
           <div class="demo_section-header">
             <h2 id="submenu-heading">서브메뉴</h2>
-            <p>menu_item-submenu · menu_submenu로 중첩 메뉴를 구성합니다. 버튼.menu_link의 aria-expanded로 펼침·접힘을 제어합니다.</p>
+            <p><code class="typo_code">menu_item-submenu</code> · <code class="typo_code">menu_submenu</code>로 중첩 메뉴를 구성합니다. 버튼.<code class="typo_code">menu_link</code>의 <code class="typo_code">aria-expanded</code>로 펼침·접힘을 제어합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
@@ -273,13 +287,13 @@
                   </button>
                   <ul class="menu_submenu" id="menu-sub-components">
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Button</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Button</span></a>
                     </li>
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Input</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Input</span></a>
                     </li>
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Card</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Card</span></a>
                     </li>
                   </ul>
                 </li>
@@ -295,10 +309,10 @@
                   </button>
                   <ul class="menu_submenu" id="menu-sub-patterns">
                     <li class="menu_item">
-                      <a href="#" class="menu_link">폼 레이아웃</a>
+                      <a href="#" class="menu_link"><span class="menu_label">폼 레이아웃</span></a>
                     </li>
                     <li class="menu_item">
-                      <a href="#" class="menu_link">데이터 테이블</a>
+                      <a href="#" class="menu_link"><span class="menu_label">데이터 테이블</span></a>
                     </li>
                   </ul>
                 </li>
@@ -339,13 +353,19 @@
       &lt;/button&gt;
       &lt;ul class=&quot;menu_submenu&quot; id=&quot;menu-sub-components&quot;&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Button&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Button&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Input&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Input&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Card&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Card&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
       &lt;/ul&gt;
     &lt;/li&gt;
@@ -363,10 +383,14 @@
       &lt;/button&gt;
       &lt;ul class=&quot;menu_submenu&quot; id=&quot;menu-sub-patterns&quot;&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;폼 레이아웃&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;폼 레이아웃&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;데이터 테이블&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;데이터 테이블&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
       &lt;/ul&gt;
     &lt;/li&gt;
@@ -379,7 +403,7 @@
         <section class="section demo_section" aria-labelledby="group-heading">
           <div class="demo_section-header">
             <h2 id="group-heading">구분선 · 그룹</h2>
-            <p>menu_divider로 항목을 구분하고, menu_group-title로 섹션 제목을 표시합니다.</p>
+            <p><code class="typo_code">menu_divider</code>로 항목을 구분하고, <code class="typo_code">menu_group-title</code>로 섹션 제목을 표시합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
@@ -389,24 +413,24 @@
                   <span class="menu_group-title">계정</span>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link is-active" aria-current="page">프로필</a>
+                  <a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">프로필</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">보안</a>
+                  <a href="#" class="menu_link"><span class="menu_label">보안</span></a>
                 </li>
                 <li class="menu_divider" role="separator"></li>
                 <li class="menu_group" role="presentation">
                   <span class="menu_group-title">앱</span>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">알림</a>
+                  <a href="#" class="menu_link"><span class="menu_label">알림</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">언어</a>
+                  <a href="#" class="menu_link"><span class="menu_label">언어</span></a>
                 </li>
                 <li class="menu_divider" role="separator"></li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">로그아웃</a>
+                  <a href="#" class="menu_link"><span class="menu_label">로그아웃</span></a>
                 </li>
               </ul>
             </nav>
@@ -426,10 +450,14 @@
       &lt;span class=&quot;menu_group-title&quot;&gt;계정&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;프로필&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;프로필&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;보안&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;보안&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
     &lt;/li&gt;
@@ -437,15 +465,21 @@
       &lt;span class=&quot;menu_group-title&quot;&gt;앱&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;알림&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;알림&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;언어&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;언어&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;로그아웃&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;로그아웃&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
@@ -456,23 +490,23 @@
         <section class="section demo_section" aria-labelledby="disabled-heading">
           <div class="demo_section-header">
             <h2 id="disabled-heading">비활성</h2>
-            <p>menu_item.is-disabled 또는 menu_link.is-disabled로 선택·클릭을 막습니다.</p>
+            <p><code class="typo_code">menu_item.is-disabled</code> 또는 <code class="typo_code">menu_link.is-disabled</code>로 선택·클릭을 막습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <nav class="menu menu_vertical menu_bordered" aria-label="권한 메뉴">
               <ul class="menu_list">
                 <li class="menu_item">
-                  <a href="#" class="menu_link is-active" aria-current="page">조회</a>
+                  <a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">조회</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">편집</a>
+                  <a href="#" class="menu_link"><span class="menu_label">편집</span></a>
                 </li>
                 <li class="menu_item is-disabled">
-                  <span class="menu_link is-disabled" aria-disabled="true">삭제</span>
+                  <span class="menu_link is-disabled" aria-disabled="true"><span class="menu_label">삭제</span></span>
                 </li>
                 <li class="menu_item is-disabled">
-                  <a href="#" class="menu_link is-disabled" tabindex="-1" aria-disabled="true">관리자 설정</a>
+                  <span class="menu_link is-disabled" aria-disabled="true"><span class="menu_label">관리자 설정</span></span>
                 </li>
               </ul>
             </nav>
@@ -489,16 +523,24 @@
             <pre><code>&lt;nav class=&quot;menu menu_vertical menu_bordered&quot; aria-label=&quot;권한 메뉴&quot;&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;조회&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;조회&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;편집&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;편집&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item is-disabled&quot;&gt;
-      &lt;span class=&quot;menu_link is-disabled&quot; aria-disabled=&quot;true&quot;&gt;삭제&lt;/span&gt;
+      &lt;span class=&quot;menu_link is-disabled&quot; aria-disabled=&quot;true&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;삭제&lt;/span&gt;
+      &lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item is-disabled&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-disabled&quot; tabindex=&quot;-1&quot; aria-disabled=&quot;true&quot;&gt;관리자 설정&lt;/a&gt;
+      &lt;span class=&quot;menu_link is-disabled&quot; aria-disabled=&quot;true&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;관리자 설정&lt;/span&gt;
+      &lt;/span&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
@@ -509,7 +551,7 @@
         <section class="section demo_section" aria-labelledby="badge-heading">
           <div class="demo_section-header">
             <h2 id="badge-heading">배지</h2>
-            <p>menu_extra에 badge 컴포넌트를 배치해 알림 수·상태를 표시합니다.</p>
+            <p><code class="typo_code">menu_extra</code>에 badge 컴포넌트를 배치해 알림 수·상태를 표시합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
@@ -594,14 +636,14 @@
         <section class="section demo_section" aria-labelledby="horizontal-submenu-heading">
           <div class="demo_section-header">
             <h2 id="horizontal-submenu-heading">수평 · 서브메뉴</h2>
-            <p>menu_horizontal에서 서브메뉴는 드롭다운 형태로 표시됩니다.</p>
+            <p><code class="typo_code">menu_horizontal</code>에서 서브메뉴는 드롭다운 형태로 표시됩니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <nav class="menu menu_horizontal menu_bordered" aria-label="상단 메뉴" data-menu-selectable>
               <ul class="menu_list">
                 <li class="menu_item">
-                  <a href="#" class="menu_link is-active" aria-current="page">홈</a>
+                  <a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">홈</span></a>
                 </li>
                 <li class="menu_item menu_item-submenu" aria-expanded="false">
                   <button type="button" class="menu_link" aria-expanded="false" aria-controls="menu-sub-h-components">
@@ -612,21 +654,21 @@
                   </button>
                   <ul class="menu_submenu" id="menu-sub-h-components">
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Button</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Button</span></a>
                     </li>
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Input</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Input</span></a>
                     </li>
                     <li class="menu_item">
-                      <a href="#" class="menu_link">Select</a>
+                      <a href="#" class="menu_link"><span class="menu_label">Select</span></a>
                     </li>
                   </ul>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">토큰</a>
+                  <a href="#" class="menu_link"><span class="menu_label">토큰</span></a>
                 </li>
                 <li class="menu_item">
-                  <a href="#" class="menu_link">접근성</a>
+                  <a href="#" class="menu_link"><span class="menu_label">접근성</span></a>
                 </li>
               </ul>
             </nav>
@@ -643,7 +685,9 @@
             <pre><code>&lt;nav class=&quot;menu menu_horizontal menu_bordered&quot; aria-label=&quot;상단 메뉴&quot; data-menu-selectable&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;홈&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;홈&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item menu_item-submenu&quot; aria-expanded=&quot;false&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;menu-sub-h-components&quot;&gt;
@@ -654,21 +698,31 @@
       &lt;/button&gt;
       &lt;ul class=&quot;menu_submenu&quot; id=&quot;menu-sub-h-components&quot;&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Button&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Button&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Input&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Input&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
         &lt;li class=&quot;menu_item&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;Select&lt;/a&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;Select&lt;/span&gt;
+          &lt;/a&gt;
         &lt;/li&gt;
       &lt;/ul&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;토큰&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;토큰&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;접근성&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;접근성&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
@@ -707,10 +761,10 @@
                       </button>
                       <ul class="menu_submenu" id="menu-sub-sidebar">
                         <li class="menu_item">
-                          <a href="#" class="menu_link">시작하기</a>
+                          <a href="#" class="menu_link"><span class="menu_label">시작하기</span></a>
                         </li>
                         <li class="menu_item">
-                          <a href="#" class="menu_link">컴포넌트</a>
+                          <a href="#" class="menu_link"><span class="menu_label">컴포넌트</span></a>
                         </li>
                       </ul>
                     </li>
@@ -767,10 +821,14 @@
           &lt;/button&gt;
           &lt;ul class=&quot;menu_submenu&quot; id=&quot;menu-sub-sidebar&quot;&gt;
             &lt;li class=&quot;menu_item&quot;&gt;
-              &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;시작하기&lt;/a&gt;
+              &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+                &lt;span class=&quot;menu_label&quot;&gt;시작하기&lt;/span&gt;
+              &lt;/a&gt;
             &lt;/li&gt;
             &lt;li class=&quot;menu_item&quot;&gt;
-              &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;컴포넌트&lt;/a&gt;
+              &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+                &lt;span class=&quot;menu_label&quot;&gt;컴포넌트&lt;/span&gt;
+              &lt;/a&gt;
             &lt;/li&gt;
           &lt;/ul&gt;
         &lt;/li&gt;
@@ -797,23 +855,23 @@
         <section class="section demo_section" aria-labelledby="variant-heading">
           <div class="demo_section-header">
             <h2 id="variant-heading">변형</h2>
-            <p>menu_compact · menu_dark로 밀도와 배경을 조절합니다.</p>
+            <p><code class="typo_code">menu_compact</code> · <code class="typo_code">menu_dark</code>로 밀도와 배경을 조절합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
             <nav class="menu menu_vertical menu_bordered menu_compact" aria-label="컴팩트 메뉴" data-menu-selectable>
               <ul class="menu_list">
-                <li class="menu_item"><a href="#" class="menu_link is-active" aria-current="page">항목 A</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">항목 B</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">항목 C</a></li>
+                <li class="menu_item"><a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">항목 A</span></a></li>
+                <li class="menu_item"><a href="#" class="menu_link"><span class="menu_label">항목 B</span></a></li>
+                <li class="menu_item"><a href="#" class="menu_link"><span class="menu_label">항목 C</span></a></li>
               </ul>
             </nav>
 
             <nav class="menu menu_vertical menu_bordered menu_dark" aria-label="다크 서피스 메뉴" data-menu-selectable>
               <ul class="menu_list">
-                <li class="menu_item"><a href="#" class="menu_link is-active" aria-current="page">항목 A</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">항목 B</a></li>
-                <li class="menu_item"><a href="#" class="menu_link">항목 C</a></li>
+                <li class="menu_item"><a href="#" class="menu_link is-active" aria-current="page"><span class="menu_label">항목 A</span></a></li>
+                <li class="menu_item"><a href="#" class="menu_link"><span class="menu_label">항목 B</span></a></li>
+                <li class="menu_item"><a href="#" class="menu_link"><span class="menu_label">항목 C</span></a></li>
               </ul>
             </nav>
           </div>
@@ -831,13 +889,19 @@
 &lt;nav class=&quot;menu menu_vertical menu_bordered menu_compact&quot; aria-label=&quot;컴팩트 메뉴&quot; data-menu-selectable&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;항목 A&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 A&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;항목 B&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 B&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;항목 C&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 C&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;
@@ -847,18 +911,99 @@
 &lt;nav class=&quot;menu menu_vertical menu_bordered menu_dark&quot; aria-label=&quot;다크 서피스 메뉴&quot; data-menu-selectable&gt;
   &lt;ul class=&quot;menu_list&quot;&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;항목 A&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; aria-current=&quot;page&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 A&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;항목 B&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 B&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;menu_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;항목 C&lt;/a&gt;
+      &lt;a href=&quot;#&quot; class=&quot;menu_link&quot;&gt;
+        &lt;span class=&quot;menu_label&quot;&gt;항목 C&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p>선택 항목에는 <code class="typo_code">is-active</code>와 <code class="typo_code">aria-current="page"</code>를 함께 쓰고, 서브메뉴 토글에는 <code class="typo_code">aria-expanded</code> · <code class="typo_code">aria-controls</code>를 지정합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;nav class="menu menu_vertical menu_bordered" aria-label="주요 메뉴" data-menu-selectable&gt;
+  &lt;ul class="menu_list"&gt;
+    &lt;li class="menu_item"&gt;
+      &lt;a href="#" class="menu_link is-active" aria-current="page"&gt;
+        &lt;span class="menu_label"&gt;대시보드&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="menu_item menu_item-submenu" aria-expanded="false"&gt;
+      &lt;button type="button" class="menu_link"
+        aria-expanded="false" aria-controls="sub-1"&gt;
+        &lt;span class="menu_label"&gt;컴포넌트&lt;/span&gt;
+        &lt;svg class="menu_arrow" …&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;ul class="menu_submenu" id="sub-1"&gt;…&lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">menu · menu_list · menu_item · menu_link</code></td><td>루트·목록·항목·링크</td></tr>
+                  <tr><td><code class="typo_code">menu_vertical · menu_horizontal · menu_inline</code></td><td>배치 모드</td></tr>
+                  <tr><td><code class="typo_code">menu_icon · menu_label · menu_extra · menu_arrow</code></td><td>항목 파트</td></tr>
+                  <tr><td><code class="typo_code">menu_item-submenu · menu_submenu</code></td><td>서브메뉴</td></tr>
+                  <tr><td><code class="typo_code">menu_group · menu_group-title · menu_divider</code></td><td>그룹·구분선</td></tr>
+                  <tr><td><code class="typo_code">menu_bordered · menu_compact · menu_dark</code></td><td>스타일 변형</td></tr>
+                  <tr><td><code class="typo_code">is-active · is-disabled</code></td><td>상태</td></tr>
+                  <tr><td><code class="typo_code">data-menu-selectable</code></td><td>선택 가능 메뉴 JS</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--menu-item-height</code> · <code class="typo_code">--menu-item-padding-x</code></td><td>—</td><td>항목 크기·패딩</td></tr>
+                  <tr><td><code class="typo_code">--menu-gap</code> · <code class="typo_code">--menu-radius</code></td><td>—</td><td>간격·모서리</td></tr>
+                  <tr><td><code class="typo_code">--menu-sub-indent</code></td><td>—</td><td>서브메뉴 들여쓰기</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>
@@ -867,5 +1012,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Dropdown</span>
@@ -40,29 +41,22 @@
         <section class="section demo_section" aria-labelledby="basic-heading">
           <div class="demo_section-header">
             <h2 id="basic-heading">기본</h2>
-            <p>dropdown · dropdown_trigger · dropdown_menu으로 트리거와 패널을 구성합니다. 패널 안에는 menu_vertical · menu_compact를 배치합니다.</p>
+            <p><code class="typo_code">dropdown</code> · <code class="typo_code">dropdown_trigger</code> · <code class="typo_code">dropdown_menu</code>으로 트리거와 패널을 구성합니다. 패널 안에는 <code class="typo_code">menu_vertical</code> · <code class="typo_code">menu_compact</code>를 배치합니다.</p>
           </div>
 
           <div class="demo_section-preview">
             <div class="dropdown" data-dropdown>
               <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-basic-menu">
                 <span class="btn_label">작업</span>
-                <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6"/>
-                </svg>
               </button>
               <div class="dropdown_menu" id="dd-basic-menu" role="menu" aria-label="작업 메뉴">
-                <ul class="menu menu_vertical menu_compact" role="none">
-                  <li class="menu_item" role="none">
-                    <button type="button" class="menu_link" role="menuitem">복사</button>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <button type="button" class="menu_link" role="menuitem">이동</button>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <button type="button" class="menu_link" role="menuitem">공유</button>
-                  </li>
-                </ul>
+                <nav class="menu menu_vertical menu_compact" aria-label="작업 메뉴">
+                  <ul class="menu_list" role="none">
+                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">복사</span></button></li>
+                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">이동</span></button></li>
+                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">공유</span></button></li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -78,22 +72,27 @@
             <pre><code>&lt;div class=&quot;dropdown&quot; data-dropdown&gt;
   &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;dd-basic-menu&quot;&gt;
     &lt;span class=&quot;btn_label&quot;&gt;작업&lt;/span&gt;
-    &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
-    &lt;/svg&gt;
   &lt;/button&gt;
   &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-basic-menu&quot; role=&quot;menu&quot; aria-label=&quot;작업 메뉴&quot;&gt;
-    &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;복사&lt;/button&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;이동&lt;/button&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;공유&lt;/button&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;작업 메뉴&quot;&gt;
+      &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;복사&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;이동&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;공유&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
@@ -103,33 +102,26 @@
         <section class="section demo_section" aria-labelledby="open-heading">
           <div class="demo_section-header">
             <h2 id="open-heading">열린 상태</h2>
-            <p>is-open 클래스와 aria-expanded="true"로 패널이 열린 상태를 표현합니다.</p>
+            <p><code class="typo_code">is-open</code> 클래스와 <code class="typo_code">aria-expanded="true"</code>로 패널이 열린 상태를 표현합니다. 이 섹션만 정적 펼침(<code class="typo_code">data-dropdown-static</code>)을 쓰고, 아래 예시는 클릭으로 엽니다.</p>
           </div>
 
           <div class="demo_section-preview">
-            <div class="dropdown is-open">
+            <div class="dropdown_demo-stage">
+            <div class="dropdown is-open" data-dropdown-static>
               <button type="button" class="btn btn_filled color_primary dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-open-menu">
                 <span class="btn_label">카테고리</span>
-                <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M6 9l6 6 6-6"/>
-                </svg>
               </button>
               <div class="dropdown_menu" id="dd-open-menu" role="menu" aria-label="카테고리">
-                <ul class="menu menu_vertical menu_compact" role="none">
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link is-active" role="menuitem" aria-current="true">전체</a>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">디자인</a>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">개발</a>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">마케팅</a>
-                  </li>
-                </ul>
+                <nav class="menu menu_vertical menu_compact" aria-label="카테고리">
+                  <ul class="menu_list" role="none">
+                    <li class="menu_item" role="none"><a href="#" class="menu_link is-active" role="menuitem" aria-current="true"><span class="menu_label">전체</span></a></li>
+                    <li class="menu_item" role="none"><a href="#" class="menu_link" role="menuitem"><span class="menu_label">디자인</span></a></li>
+                    <li class="menu_item" role="none"><a href="#" class="menu_link" role="menuitem"><span class="menu_label">개발</span></a></li>
+                    <li class="menu_item" role="none"><a href="#" class="menu_link" role="menuitem"><span class="menu_label">마케팅</span></a></li>
+                  </ul>
+                </nav>
               </div>
+            </div>
             </div>
           </div>
 
@@ -141,28 +133,37 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;dropdown is-open&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;dd-open-menu&quot;&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;카테고리&lt;/span&gt;
-    &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
-    &lt;/svg&gt;
-  &lt;/button&gt;
-  &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-open-menu&quot; role=&quot;menu&quot; aria-label=&quot;카테고리&quot;&gt;
-    &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; role=&quot;menuitem&quot; aria-current=&quot;true&quot;&gt;전체&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;디자인&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;개발&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;마케팅&lt;/a&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+            <pre><code>&lt;div class=&quot;dropdown_demo-stage&quot;&gt;
+  &lt;div class=&quot;dropdown is-open&quot; data-dropdown-static&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;dd-open-menu&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;카테고리&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-open-menu&quot; role=&quot;menu&quot; aria-label=&quot;카테고리&quot;&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;카테고리&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link is-active&quot; role=&quot;menuitem&quot; aria-current=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;전체&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;디자인&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;개발&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;마케팅&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
@@ -182,10 +183,12 @@
                   <span class="btn_label">Filled</span>
                 </button>
                 <div class="dropdown_menu" id="dd-trigger-filled" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 1</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 2</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -194,10 +197,12 @@
                   <span class="btn_label">Outline</span>
                 </button>
                 <div class="dropdown_menu" id="dd-trigger-outline" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 1</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 2</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -206,10 +211,12 @@
                   <span class="btn_label">Ghost</span>
                 </button>
                 <div class="dropdown_menu" id="dd-trigger-ghost" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 1</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 2</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -221,10 +228,12 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-trigger-text" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 1</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 1</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 2</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -235,12 +244,13 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-trigger-icon" role="menu" aria-label="더보기">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">편집</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">복제</button></li>
-                    <li class="menu_divider" role="separator"></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link color_danger" role="menuitem">삭제</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact" aria-label="더보기">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">편집</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">복제</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link color_danger" role="menuitem"><span class="menu_label">삭제</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -260,14 +270,20 @@
       &lt;span class=&quot;btn_label&quot;&gt;Filled&lt;/span&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-trigger-filled&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 1&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 2&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 1&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 2&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
@@ -275,14 +291,20 @@
       &lt;span class=&quot;btn_label&quot;&gt;Outline&lt;/span&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-trigger-outline&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 1&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 2&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 1&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 2&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
@@ -290,14 +312,20 @@
       &lt;span class=&quot;btn_label&quot;&gt;Ghost&lt;/span&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-trigger-ghost&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 1&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 2&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 1&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 2&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
@@ -308,14 +336,20 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-trigger-text&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 1&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 2&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 1&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 2&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
@@ -327,19 +361,25 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-trigger-icon&quot; role=&quot;menu&quot; aria-label=&quot;더보기&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;편집&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;복제&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;삭제&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;더보기&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;편집&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;복제&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;삭제&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -350,7 +390,7 @@
         <section class="section demo_section" aria-labelledby="select-trigger-heading">
           <div class="demo_section-header">
             <h2 id="select-trigger-heading">셀렉트 트리거</h2>
-            <p>btn_select · btn_select-text를 트리거로 사용합니다. Select 컴포넌트의 커스텀 트리거와 동일한 스타일입니다.</p>
+            <p><code class="typo_code">btn_select</code> · <code class="typo_code">btn_select-text</code>를 트리거로 사용합니다. Select 컴포넌트의 커스텀 트리거와 동일한 스타일입니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
@@ -363,12 +403,14 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-select-box" role="listbox" aria-label="지역 선택">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true">서울특별시</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">부산광역시</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">대구광역시</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">인천광역시</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact" aria-label="지역 선택">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true"><span class="menu_label">서울특별시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">부산광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">대구광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">인천광역시</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -380,17 +422,19 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-select-text" role="listbox" aria-label="정렬">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true">최신순</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">인기순</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">가격 낮은순</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false">가격 높은순</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact" aria-label="정렬">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true"><span class="menu_label">최신순</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">인기순</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">가격 낮은순</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">가격 높은순</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
 
-            <p class="form_field-hint">btn_select 상세 변형은 <a href="button.html#type-select-heading">Button — 셀렉트 박스형</a> 섹션을 참고하세요.</p>
+            <p class="form_field-hint"><code class="typo_code">btn_select</code> 상세 변형은 <a href="button.html#type-select-heading">Button — 셀렉트 박스형</a> 섹션을 참고하세요.</p>
           </div>
 
         <div class="demo_section-code">
@@ -412,20 +456,30 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-select-box&quot; role=&quot;listbox&quot; aria-label=&quot;지역 선택&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link is-active&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;서울특별시&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;부산광역시&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;대구광역시&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;인천광역시&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;지역 선택&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link is-active&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;서울특별시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;부산광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;대구광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;인천광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
@@ -436,27 +490,38 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-select-text&quot; role=&quot;listbox&quot; aria-label=&quot;정렬&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link is-active&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;최신순&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;인기순&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;가격 낮은순&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;가격 높은순&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;정렬&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link is-active&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;최신순&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;인기순&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;가격 낮은순&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;가격 높은순&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;!-- 예시 1 --&gt;
 
-&lt;p class=&quot;form_field-hint&quot;&gt;btn_select 상세 변형은 &lt;a href=&quot;button.html#type-select-heading&quot;&gt;Button — 셀렉트 박스형&lt;/a&gt; 섹션을 참고하세요.&lt;/p&gt;</code></pre>
+&lt;p class=&quot;form_field-hint&quot;&gt;
+  &lt;code class=&quot;typo_code&quot;&gt;btn_select&lt;/code&gt; 상세 변형은 &lt;a href=&quot;button.html#type-select-heading&quot;&gt;Button — 셀렉트 박스형&lt;/a&gt; 섹션을 참고하세요.&lt;/p&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -464,7 +529,7 @@
         <section class="section demo_section" aria-labelledby="placement-heading">
           <div class="demo_section-header">
             <h2 id="placement-heading">정렬</h2>
-            <p>dropdown_placement-end · dropdown_placement-top으로 패널 위치를 조정합니다. 기본은 트리거 왼쪽 아래입니다.</p>
+            <p><code class="typo_code">dropdown_placement-end</code> · <code class="typo_code">dropdown_placement-top</code>으로 패널 위치를 조정합니다. 기본은 트리거 왼쪽 아래입니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
@@ -477,10 +542,12 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-place-start" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 A</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 B</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 A</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 B</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
@@ -492,10 +559,12 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-place-end" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 A</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 B</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 A</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 B</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -509,10 +578,12 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-place-top" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">위쪽 패널</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목 2</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">위쪽 패널</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목 2</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -537,14 +608,20 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-place-start&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 A&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 B&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 A&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 B&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class=&quot;dropdown dropdown_placement-end&quot; data-dropdown&gt;
@@ -555,14 +632,20 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-place-end&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 A&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 B&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 A&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 B&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
@@ -578,14 +661,20 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-place-top&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;위쪽 패널&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목 2&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;위쪽 패널&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목 2&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -596,64 +685,66 @@
         <section class="section demo_section" aria-labelledby="menu-heading">
           <div class="demo_section-header">
             <h2 id="menu-heading">메뉴 구성</h2>
-            <p>Menu 컴포넌트의 아이콘 · 구분선 · 그룹 · 배지를 dropdown_menu 안에서 그대로 사용합니다.</p>
+            <p>Menu 컴포넌트의 아이콘 · 구분선 · 그룹 · 배지를 <code class="typo_code">dropdown_menu</code> 안에서 그대로 사용합니다.</p>
           </div>
 
           <div class="demo_section-preview">
-            <div class="dropdown is-open">
-              <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-menu-rich">
+            <div class="dropdown" data-dropdown>
+              <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-menu-rich">
                 <span class="btn_label">계정</span>
                 <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M6 9l6 6 6-6"/>
                 </svg>
               </button>
               <div class="dropdown_menu" id="dd-menu-rich" role="menu" aria-label="계정 메뉴">
-                <ul class="menu menu_vertical menu_compact" role="none">
-                  <li class="menu_group" role="presentation">
-                    <span class="menu_group-title">계정</span>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">
-                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <nav class="menu menu_vertical menu_compact" aria-label="계정 메뉴">
+                  <ul class="menu_list" role="none">
+                    <li class="menu_group" role="presentation">
+                      <span class="menu_group-title">계정</span>
+                    </li>
+                    <li class="menu_item" role="none">
+                      <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                       </svg>
-                      <span class="menu_label">프로필</span>
-                    </a>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">
-                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <span class="menu_label">프로필</span>
+                      </a>
+                    </li>
+                    <li class="menu_item" role="none">
+                      <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                       </svg>
-                      <span class="menu_label">보안</span>
-                    </a>
-                  </li>
-                  <li class="menu_divider" role="separator"></li>
-                  <li class="menu_group" role="presentation">
-                    <span class="menu_group-title">앱</span>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">
-                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <span class="menu_label">보안</span>
+                      </a>
+                    </li>
+                    <li class="menu_divider" role="separator"></li>
+                    <li class="menu_group" role="presentation">
+                      <span class="menu_group-title">앱</span>
+                    </li>
+                    <li class="menu_item" role="none">
+                      <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/>
                       </svg>
-                      <span class="menu_label">알림</span>
-                      <span class="badge badge_count color_primary menu_extra">3</span>
-                    </a>
-                  </li>
-                  <li class="menu_item" role="none">
-                    <a href="#" class="menu_link" role="menuitem">
-                      <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <span class="menu_label">알림</span>
+                        <span class="badge badge_count color_primary menu_extra">3</span>
+                      </a>
+                    </li>
+                    <li class="menu_item" role="none">
+                      <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                       </svg>
-                      <span class="menu_label">설정</span>
-                    </a>
-                  </li>
-                  <li class="menu_divider" role="separator"></li>
-                  <li class="menu_item" role="none">
-                    <button type="button" class="menu_link color_danger" role="menuitem">로그아웃</button>
-                  </li>
-                </ul>
+                        <span class="menu_label">설정</span>
+                      </a>
+                    </li>
+                    <li class="menu_divider" role="separator"></li>
+                    <li class="menu_item" role="none">
+                      <button type="button" class="menu_link color_danger" role="menuitem"><span class="menu_label">로그아웃</span></button>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -666,67 +757,245 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;dropdown is-open&quot;&gt;
-  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;dd-menu-rich&quot;&gt;
+            <pre><code>&lt;div class=&quot;dropdown&quot; data-dropdown&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;dd-menu-rich&quot;&gt;
     &lt;span class=&quot;btn_label&quot;&gt;계정&lt;/span&gt;
     &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
     &lt;/svg&gt;
   &lt;/button&gt;
   &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-menu-rich&quot; role=&quot;menu&quot; aria-label=&quot;계정 메뉴&quot;&gt;
-    &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-      &lt;li class=&quot;menu_group&quot; role=&quot;presentation&quot;&gt;
-        &lt;span class=&quot;menu_group-title&quot;&gt;계정&lt;/span&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-          &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
-            &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
-          &lt;/svg&gt;
-          &lt;span class=&quot;menu_label&quot;&gt;프로필&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-          &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;11&quot; rx=&quot;2&quot; ry=&quot;2&quot;/&gt;
-            &lt;path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/&gt;
-          &lt;/svg&gt;
-          &lt;span class=&quot;menu_label&quot;&gt;보안&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_group&quot; role=&quot;presentation&quot;&gt;
-        &lt;span class=&quot;menu_group-title&quot;&gt;앱&lt;/span&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-          &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z&quot;/&gt;
-          &lt;/svg&gt;
-          &lt;span class=&quot;menu_label&quot;&gt;알림&lt;/span&gt;
-          &lt;span class=&quot;badge badge_count color_primary menu_extra&quot;&gt;3&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-          &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
-            &lt;path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;/&gt;
-          &lt;/svg&gt;
-          &lt;span class=&quot;menu_label&quot;&gt;설정&lt;/span&gt;
-        &lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;로그아웃&lt;/button&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;계정 메뉴&quot;&gt;
+      &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+        &lt;li class=&quot;menu_group&quot; role=&quot;presentation&quot;&gt;
+          &lt;span class=&quot;menu_group-title&quot;&gt;계정&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
+              &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;프로필&lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;rect x=&quot;3&quot; y=&quot;11&quot; width=&quot;18&quot; height=&quot;11&quot; rx=&quot;2&quot; ry=&quot;2&quot;/&gt;
+              &lt;path d=&quot;M7 11V7a5 5 0 0 1 10 0v4&quot;/&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;보안&lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_group&quot; role=&quot;presentation&quot;&gt;
+          &lt;span class=&quot;menu_group-title&quot;&gt;앱&lt;/span&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;path d=&quot;M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z&quot;/&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;알림&lt;/span&gt;
+            &lt;span class=&quot;badge badge_count color_primary menu_extra&quot;&gt;3&lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+              &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
+              &lt;path d=&quot;M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z&quot;/&gt;
+            &lt;/svg&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;설정&lt;/span&gt;
+          &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
+        &lt;/li&gt;
+        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;
+            &lt;span class=&quot;menu_label&quot;&gt;로그아웃&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="scroll-heading">
+          <div class="demo_section-header">
+            <h2 id="scroll-heading">스크롤 · 너비</h2>
+            <p><code class="typo_code">dropdown_menu-scrollable</code>과 <code class="typo_code">--dropdown-max-visible-items</code>로 보이는 항목 수를 제한합니다. 초과 시 패널 안에서 스크롤됩니다. 인라인 <code class="typo_code">width</code> · <code class="typo_code">min-width</code>로 가로 너비를 조절할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="dropdown_row">
+              <div class="dropdown" data-dropdown>
+                <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="dd-scroll-city">
+                  <span class="btn_label">도시 선택</span>
+                  <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="dropdown_menu dropdown_menu-scrollable" id="dd-scroll-city" role="listbox" aria-label="도시 목록" style="--dropdown-max-visible-items: 4">
+                  <nav class="menu menu_vertical menu_compact" aria-label="도시 목록">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link is-active" role="option" aria-selected="true"><span class="menu_label">서울특별시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">부산광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">대구광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">인천광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">광주광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">대전광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">울산광역시</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="option" aria-selected="false"><span class="menu_label">세종특별자치시</span></button></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="dropdown" data-dropdown>
+                <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-scroll-wide">
+                  <span class="btn_label">넓은 패널</span>
+                  <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </button>
+                <div class="dropdown_menu dropdown_menu-scrollable" id="dd-scroll-wide" role="menu" aria-label="긴 라벨 메뉴" style="--dropdown-max-visible-items: 4; width: 18rem">
+                  <nav class="menu menu_vertical menu_compact" aria-label="긴 라벨 메뉴">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">프로젝트 대시보드</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">팀 협업 워크스페이스</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">문서 보관함 및 템플릿</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">알림 및 활동 기록</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">계정 및 보안 설정</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">결제 및 구독 관리</span></button></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+
+            <p class="form_field-hint">HTML 마크업에서는 <code class="typo_code">dropdown_menu-scrollable</code> 클래스와 <code class="typo_code">style="--dropdown-max-visible-items: 4"</code>로 동일하게 적용합니다.</p>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- 도시 목록 --&gt;
+
+&lt;div class=&quot;dropdown_row&quot;&gt;
+  &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;listbox&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;dd-scroll-city&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;도시 선택&lt;/span&gt;
+      &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;dropdown_menu dropdown_menu-scrollable&quot; id=&quot;dd-scroll-city&quot; role=&quot;listbox&quot; aria-label=&quot;도시 목록&quot; style=&quot;--dropdown-max-visible-items: 4&quot;&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;도시 목록&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link is-active&quot; role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;서울특별시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;부산광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;대구광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;인천광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;광주광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;대전광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;울산광역시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;option&quot; aria-selected=&quot;false&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;세종특별자치시&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;dd-scroll-wide&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;넓은 패널&lt;/span&gt;
+      &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;dropdown_menu dropdown_menu-scrollable&quot; id=&quot;dd-scroll-wide&quot; role=&quot;menu&quot; aria-label=&quot;긴 라벨 메뉴&quot; style=&quot;--dropdown-max-visible-items: 4; width: 18rem&quot;&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;긴 라벨 메뉴&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;프로젝트 대시보드&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;팀 협업 워크스페이스&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;문서 보관함 및 템플릿&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;알림 및 활동 기록&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;계정 및 보안 설정&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;결제 및 구독 관리&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 예시 1 --&gt;
+
+&lt;p class=&quot;form_field-hint&quot;&gt;HTML 마크업에서는 &lt;code class=&quot;typo_code&quot;&gt;dropdown_menu-scrollable&lt;/code&gt; 클래스와 &lt;code class=&quot;typo_code&quot;&gt;style=&quot;--dropdown-max-visible-items: 4&quot;&lt;/code&gt;로 동일하게 적용합니다.&lt;/p&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -734,7 +1003,7 @@
         <section class="section demo_section" aria-labelledby="disabled-heading">
           <div class="demo_section-header">
             <h2 id="disabled-heading">비활성</h2>
-            <p>dropdown.is-disabled로 전체를 비활성화하거나, menu_item.is-disabled · menu_link.is-disabled로 개별 항목을 막습니다.</p>
+            <p><code class="typo_code">dropdown.is-disabled</code>로 전체를 비활성화하거나, <code class="typo_code">menu_item.is-disabled</code> · <code class="typo_code">menu_link.is-disabled</code>로 개별 항목을 막습니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
@@ -744,23 +1013,27 @@
                   <span class="btn_label">비활성 드롭다운</span>
                 </button>
                 <div class="dropdown_menu" id="dd-disabled-all" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">항목</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">항목</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
 
-              <div class="dropdown is-open">
-                <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="true" aria-controls="dd-disabled-item">
+              <div class="dropdown" data-dropdown>
+                <button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-disabled-item">
                   <span class="btn_label">일부 비활성</span>
                 </button>
                 <div class="dropdown_menu" id="dd-disabled-item" role="menu">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">조회</button></li>
-                    <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem">편집</button></li>
-                    <li class="menu_item is-disabled" role="none"><span class="menu_link is-disabled" role="menuitem" aria-disabled="true">삭제</span></li>
-                    <li class="menu_item is-disabled" role="none"><button type="button" class="menu_link is-disabled" role="menuitem" disabled aria-disabled="true">관리자 설정</button></li>
-                  </ul>
+                  <nav class="menu menu_vertical menu_compact">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">조회</span></button></li>
+                      <li class="menu_item" role="none"><button type="button" class="menu_link" role="menuitem"><span class="menu_label">편집</span></button></li>
+                      <li class="menu_item is-disabled" role="none"><span class="menu_link is-disabled" role="menuitem" aria-disabled="true"><span class="menu_label">삭제</span></span></li>
+                      <li class="menu_item is-disabled" role="none"><button type="button" class="menu_link is-disabled" role="menuitem" disabled aria-disabled="true"><span class="menu_label">관리자 설정</span></button></li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -780,32 +1053,46 @@
       &lt;span class=&quot;btn_label&quot;&gt;비활성 드롭다운&lt;/span&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-disabled-all&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;항목&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;항목&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;dropdown is-open&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;dd-disabled-item&quot;&gt;
+  &lt;div class=&quot;dropdown&quot; data-dropdown&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline dropdown_trigger&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;dd-disabled-item&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;일부 비활성&lt;/span&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-disabled-item&quot; role=&quot;menu&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;조회&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;편집&lt;/button&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item is-disabled&quot; role=&quot;none&quot;&gt;
-          &lt;span class=&quot;menu_link is-disabled&quot; role=&quot;menuitem&quot; aria-disabled=&quot;true&quot;&gt;삭제&lt;/span&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item is-disabled&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link is-disabled&quot; role=&quot;menuitem&quot; disabled aria-disabled=&quot;true&quot;&gt;관리자 설정&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;조회&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;편집&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item is-disabled&quot; role=&quot;none&quot;&gt;
+            &lt;span class=&quot;menu_link is-disabled&quot; role=&quot;menuitem&quot; aria-disabled=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;삭제&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item is-disabled&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link is-disabled&quot; role=&quot;menuitem&quot; disabled aria-disabled=&quot;true&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;관리자 설정&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -816,7 +1103,7 @@
         <section class="section demo_section" aria-labelledby="example-heading">
           <div class="demo_section-header">
             <h2 id="example-heading">조합 예시</h2>
-            <p>툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. data-dropdown으로 클릭·Esc·외부 클릭 시 닫힙니다.</p>
+            <p>툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. <code class="typo_code">data-dropdown</code>으로 클릭·Esc·외부 클릭 시 닫힙니다.</p>
           </div>
 
           <div class="demo_section-preview">
@@ -838,28 +1125,30 @@
                   </svg>
                 </button>
                 <div class="dropdown_menu" id="dd-example-user" role="menu" aria-label="사용자 메뉴">
-                  <ul class="menu menu_vertical menu_compact" role="none">
-                    <li class="menu_item" role="none">
-                      <a href="#" class="menu_link" role="menuitem">
-                        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                        </svg>
-                        <span class="menu_label">내 프로필</span>
-                      </a>
-                    </li>
-                    <li class="menu_item" role="none">
-                      <a href="#" class="menu_link" role="menuitem">
-                        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <nav class="menu menu_vertical menu_compact" aria-label="사용자 메뉴">
+                    <ul class="menu_list" role="none">
+                      <li class="menu_item" role="none">
+                        <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                      </svg>
+                          <span class="menu_label">내 프로필</span>
+                        </a>
+                      </li>
+                      <li class="menu_item" role="none">
+                        <a href="#" class="menu_link" role="menuitem">
+        <svg class="menu_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
                         </svg>
-                        <span class="menu_label">내 문서</span>
-                      </a>
-                    </li>
-                    <li class="menu_divider" role="separator"></li>
-                    <li class="menu_item" role="none">
-                      <button type="button" class="menu_link color_danger" role="menuitem">로그아웃</button>
-                    </li>
-                  </ul>
+                          <span class="menu_label">내 문서</span>
+                        </a>
+                      </li>
+                      <li class="menu_divider" role="separator"></li>
+                      <li class="menu_item" role="none">
+                        <button type="button" class="menu_link color_danger" role="menuitem"><span class="menu_label">로그아웃</span></button>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -890,36 +1179,113 @@
       &lt;/svg&gt;
     &lt;/button&gt;
     &lt;div class=&quot;dropdown_menu&quot; id=&quot;dd-example-user&quot; role=&quot;menu&quot; aria-label=&quot;사용자 메뉴&quot;&gt;
-      &lt;ul class=&quot;menu menu_vertical menu_compact&quot; role=&quot;none&quot;&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-              &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
-              &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
-            &lt;/svg&gt;
-            &lt;span class=&quot;menu_label&quot;&gt;내 프로필&lt;/span&gt;
-          &lt;/a&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
-            &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-              &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
-              &lt;path d=&quot;M14 2v6h6&quot;/&gt;
-            &lt;/svg&gt;
-            &lt;span class=&quot;menu_label&quot;&gt;내 문서&lt;/span&gt;
-          &lt;/a&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
-        &lt;/li&gt;
-        &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;로그아웃&lt;/button&gt;
-        &lt;/li&gt;
-      &lt;/ul&gt;
+      &lt;nav class=&quot;menu menu_vertical menu_compact&quot; aria-label=&quot;사용자 메뉴&quot;&gt;
+        &lt;ul class=&quot;menu_list&quot; role=&quot;none&quot;&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+                &lt;path d=&quot;M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2&quot;/&gt;
+                &lt;circle cx=&quot;12&quot; cy=&quot;7&quot; r=&quot;4&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;내 프로필&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;a href=&quot;#&quot; class=&quot;menu_link&quot; role=&quot;menuitem&quot;&gt;
+              &lt;svg class=&quot;menu_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+                &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+                &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;내 문서&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_divider&quot; role=&quot;separator&quot;&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;menu_item&quot; role=&quot;none&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;menu_link color_danger&quot; role=&quot;menuitem&quot;&gt;
+              &lt;span class=&quot;menu_label&quot;&gt;로그아웃&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="usage-heading">
+          <h2 id="usage-heading">마크업</h2>
+          <p><code class="typo_code">data-dropdown</code>으로 열고 닫기를 연동합니다. 패널 안 Menu는 <code class="typo_code">nav.menu</code> · <code class="typo_code">ul.menu_list</code> 구조를 사용합니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
+            <pre class="typo_pre"><code>&lt;div class="dropdown" data-dropdown&gt;
+  &lt;button type="button" class="btn btn_outline dropdown_trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="dd-1"&gt;
+    &lt;span class="btn_label"&gt;작업&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="dropdown_menu" id="dd-1" role="menu"&gt;
+    &lt;nav class="menu menu_vertical menu_compact"&gt;
+      &lt;ul class="menu_list" role="none"&gt;
+        &lt;li class="menu_item" role="none"&gt;
+          &lt;button type="button" class="menu_link" role="menuitem"&gt;복사&lt;/button&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">dropdown · dropdown_menu</code></td><td>루트·메뉴 패널</td></tr>
+                  <tr><td><code class="typo_code">dropdown_placement-end · dropdown_placement-top · dropdown_fit</code></td><td>배치·너비</td></tr>
+                  <tr><td><code class="typo_code">dropdown_menu-scrollable</code></td><td>maxVisibleItems 지정 시 — menu_list 스크롤</td></tr>
+                  <tr><td><code class="typo_code">data-dropdown · data-dropdown-close-on-select</code></td><td>JS 연동</td></tr>
+                  <tr><td><code class="typo_code">data-dropdown-static</code></td><td>가이드 정적 펼침 — 외부 클릭·Esc로 닫지 않음</td></tr>
+                  <tr><td><code class="typo_code">is-open · is-disabled</code></td><td>상태</td></tr>
+                  <tr><td><code class="typo_code">role="menu"</code></td><td>메뉴 시맨틱</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--dropdown-min-width</code> · <code class="typo_code">--dropdown-menu-width</code></td><td>10rem · auto</td><td>패널 최소·기본 너비</td></tr>
+                  <tr><td><code class="typo_code">--dropdown-offset</code></td><td>—</td><td>트리거와 패널 간격</td></tr>
+                  <tr><td><code class="typo_code">--dropdown-max-visible-items</code></td><td>—</td><td>스크롤 높이 계산</td></tr>
+                  <tr><td><code class="typo_code">--dropdown-item-line-height</code></td><td>1.4</td><td>항목 높이 계산용 줄 높이</td></tr>
+                  <tr><td><code class="typo_code">--z-dropdown</code></td><td>100</td><td>레이어 순서</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>
@@ -928,5 +1294,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

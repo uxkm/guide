@@ -737,12 +737,144 @@
     return Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
   }
 
-  function activateTab(tabs, panels, tab) {
+  function updateTabsIndicator(tabsRoot) {
+    if (!tabsRoot.classList.contains('tabs_indicator-slide')) {
+      return;
+    }
+
+    var list = tabsRoot.querySelector('.tabs_list');
+    var indicator = list && list.querySelector('.tabs_indicator');
+
+    if (!list || !indicator) {
+      return;
+    }
+
+    var activeTab = list.querySelector('.tabs_tab[aria-selected="true"]');
+
+    if (!activeTab) {
+      indicator.style.display = 'none';
+      return;
+    }
+
+    var listRect = list.getBoundingClientRect();
+    var tabRect = activeTab.getBoundingClientRect();
+    var left = tabRect.left - listRect.left + list.scrollLeft;
+    var top = tabRect.top - listRect.top + list.scrollTop;
+    var width = tabRect.width;
+    var height = tabRect.height;
+    var thickness = 2;
+    var isVertical = tabsRoot.classList.contains('tabs_vertical');
+    var isPill = tabsRoot.classList.contains('tabs_pill');
+
+    indicator.style.display = '';
+
+    if (isVertical) {
+      indicator.style.width = thickness + 'px';
+      indicator.style.height = height + 'px';
+      indicator.style.transform = 'translate3d(' + (left + width - thickness) + 'px, ' + top + 'px, 0)';
+      return;
+    }
+
+    if (isPill) {
+      indicator.style.width = width + 'px';
+      indicator.style.height = height + 'px';
+      indicator.style.transform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+      return;
+    }
+
+    indicator.style.width = width + 'px';
+    indicator.style.height = thickness + 'px';
+    indicator.style.transform = 'translate3d(' + left + 'px, ' + (top + height - thickness) + 'px, 0)';
+  }
+
+  function updateTabsScrollNav(tabsRoot) {
+    if (!tabsRoot.classList.contains('tabs_scroll-nav')) {
+      return;
+    }
+
+    var list = tabsRoot.querySelector('.tabs_list');
+    var prevBtn = tabsRoot.querySelector('.tabs_nav_prev');
+    var nextBtn = tabsRoot.querySelector('.tabs_nav_next');
+
+    if (!list) {
+      return;
+    }
+
+    var maxScroll = list.scrollWidth - list.clientWidth;
+    var hasOverflow = maxScroll > 1;
+    var canPrev = list.scrollLeft > 1;
+    var canNext = list.scrollLeft < maxScroll - 1;
+
+    if (prevBtn) {
+      prevBtn.hidden = !hasOverflow;
+      prevBtn.disabled = !canPrev;
+    }
+
+    if (nextBtn) {
+      nextBtn.hidden = !hasOverflow;
+      nextBtn.disabled = !canNext;
+    }
+  }
+
+  function scrollTabsBy(tabsRoot, direction) {
+    var list = tabsRoot.querySelector('.tabs_list');
+
+    if (!list) {
+      return;
+    }
+
+    var amount = Math.max(list.clientWidth * 0.75, 120);
+    list.scrollBy({ left: direction * amount, behavior: 'smooth' });
+  }
+
+  function scrollTabIntoView(tabsRoot, tab) {
+    var list = tabsRoot.querySelector('.tabs_list');
+
+    if (!list || !tab || !tabsRoot.classList.contains('tabs_scroll-nav')) {
+      return;
+    }
+
+    var listRect = list.getBoundingClientRect();
+    var tabRect = tab.getBoundingClientRect();
+    var tabLeft = tabRect.left - listRect.left + list.scrollLeft;
+    var target = tabLeft + tabRect.width / 2 - list.clientWidth / 2;
+    var maxScroll = list.scrollWidth - list.clientWidth;
+
+    list.scrollTo({
+      left: Math.max(0, Math.min(target, maxScroll)),
+      behavior: 'smooth',
+    });
+  }
+
+  function activateDynamicPanel(tabsRoot, tab) {
+    var key = tab.getAttribute('data-tabs-key');
+    var panelId = tab.getAttribute('aria-controls');
+    var panel = panelId ? document.getElementById(panelId) : null;
+
+    if (!panel || !key) {
+      return;
+    }
+
+    panel.querySelectorAll('[data-tabs-panel-key]').forEach(function (chunk) {
+      var isActive = chunk.getAttribute('data-tabs-panel-key') === key;
+
+      if (isActive) {
+        chunk.removeAttribute('hidden');
+      } else {
+        chunk.setAttribute('hidden', '');
+      }
+    });
+
+    panel.setAttribute('aria-labelledby', tab.id);
+  }
+
+  function activateTab(tabsRoot, tabs, panels, tab) {
     if (isTabDisabled(tab)) {
       return;
     }
 
     var panelId = tab.getAttribute('aria-controls');
+    var isDynamic = tabsRoot.classList.contains('tabs_dynamic');
 
     tabs.forEach(function (item) {
       var isActive = item === tab;
@@ -752,17 +884,25 @@
       item.setAttribute('tabindex', isActive ? '0' : '-1');
     });
 
-    panels.forEach(function (panel) {
-      var isActive = panel.id === panelId;
+    if (isDynamic) {
+      activateDynamicPanel(tabsRoot, tab);
+    } else {
+      panels.forEach(function (panel) {
+        var isActive = panel.id === panelId;
 
-      panel.classList.toggle('is-active', isActive);
+        panel.classList.toggle('is-active', isActive);
 
-      if (isActive) {
-        panel.removeAttribute('hidden');
-      } else {
-        panel.setAttribute('hidden', '');
-      }
-    });
+        if (isActive) {
+          panel.removeAttribute('hidden');
+        } else {
+          panel.setAttribute('hidden', '');
+        }
+      });
+    }
+
+    updateTabsIndicator(tabsRoot);
+    updateTabsScrollNav(tabsRoot);
+    scrollTabIntoView(tabsRoot, tab);
   }
 
   function findNextEnabledTab(tabs, startIndex, direction) {
@@ -792,10 +932,13 @@
     var tabs = getTabsFromList(tablist);
     var panels = Array.prototype.slice.call(tabsRoot.querySelectorAll('[role="tabpanel"]'));
     var isVertical = tabsRoot.classList.contains('tabs_vertical');
+    var prevBtn = tabsRoot.querySelector('.tabs_nav_prev');
+    var nextBtn = tabsRoot.querySelector('.tabs_nav_next');
+    var list = tabsRoot.querySelector('.tabs_list');
 
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
-        activateTab(tabs, panels, tab);
+        activateTab(tabsRoot, tabs, panels, tab);
       });
 
       tab.addEventListener('keydown', function (event) {
@@ -830,10 +973,51 @@
         if (nextTab) {
           event.preventDefault();
           nextTab.focus();
-          activateTab(tabs, panels, nextTab);
+          activateTab(tabsRoot, tabs, panels, nextTab);
         }
       });
     });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        scrollTabsBy(tabsRoot, -1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        scrollTabsBy(tabsRoot, 1);
+      });
+    }
+
+    if (list) {
+      list.addEventListener('scroll', function () {
+        updateTabsScrollNav(tabsRoot);
+        updateTabsIndicator(tabsRoot);
+      }, { passive: true });
+    }
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var resizeObserver = new ResizeObserver(function () {
+        updateTabsIndicator(tabsRoot);
+        updateTabsScrollNav(tabsRoot);
+      });
+
+      if (list) {
+        resizeObserver.observe(list);
+        tabs.forEach(function (tab) {
+          resizeObserver.observe(tab);
+        });
+      }
+    }
+
+    window.addEventListener('resize', function () {
+      updateTabsIndicator(tabsRoot);
+      updateTabsScrollNav(tabsRoot);
+    });
+
+    updateTabsIndicator(tabsRoot);
+    updateTabsScrollNav(tabsRoot);
   }
 
   document.querySelectorAll('[data-tabs]').forEach(initTabs);
@@ -852,7 +1036,175 @@
     });
   }
 
-  function setAccordionItemOpen(item, open) {
+  function usesSlideEffect(el) {
+    return Boolean(el && el.getAttribute('data-effect') === 'slide');
+  }
+
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function getSlideDurationMs(region) {
+    var styles = getComputedStyle(region);
+    var raw =
+      styles.getPropertyValue('--accordion-slide-duration').trim() ||
+      styles.getPropertyValue('--collapse-slide-duration').trim() ||
+      '0.28s';
+    var value = parseFloat(raw);
+
+    if (!Number.isFinite(value)) {
+      return 280;
+    }
+
+    return /ms$/i.test(raw) ? value : value * 1000;
+  }
+
+  function getSlideTransition(region) {
+    var styles = getComputedStyle(region);
+    var duration =
+      styles.getPropertyValue('--accordion-slide-duration').trim() ||
+      styles.getPropertyValue('--collapse-slide-duration').trim() ||
+      '0.28s';
+    var easing =
+      styles.getPropertyValue('--accordion-slide-easing').trim() ||
+      styles.getPropertyValue('--collapse-slide-easing').trim() ||
+      'ease';
+
+    return 'height ' + duration + ' ' + easing;
+  }
+
+  function clearSlideStyles(region) {
+    region.classList.remove('is-sliding');
+    region.style.height = '';
+    region.style.overflow = '';
+    region.style.transition = '';
+  }
+
+  function isSlideRegionOpen(region) {
+    return !region.hasAttribute('hidden') && region.getAttribute('aria-hidden') !== 'true';
+  }
+
+  function runAfterSlide(region, onDone) {
+    var finished = false;
+
+    function finish() {
+      if (finished) {
+        return;
+      }
+
+      finished = true;
+
+      if (region._slideCleanup) {
+        region._slideCleanup();
+        region._slideCleanup = null;
+      }
+
+      onDone();
+    }
+
+    function onEnd(event) {
+      if (event.target !== region || event.propertyName !== 'height') {
+        return;
+      }
+
+      finish();
+    }
+
+    region.addEventListener('transitionend', onEnd);
+
+    var timer = window.setTimeout(finish, getSlideDurationMs(region) + 80);
+
+    region._slideCleanup = function () {
+      region.removeEventListener('transitionend', onEnd);
+      window.clearTimeout(timer);
+    };
+  }
+
+  function setSlideRegionOpen(region, open, animate) {
+    // 이미 목표 상태면 스킵 — 닫힌 패널에 닫기 애니를 걸면 잠깐 펼침
+    if (open === isSlideRegionOpen(region) && !region.classList.contains('is-sliding')) {
+      region.classList.toggle('is-open', open);
+      return;
+    }
+
+    region.classList.toggle('is-open', open);
+
+    if (region._slideCleanup) {
+      region._slideCleanup();
+      region._slideCleanup = null;
+      // 이전 애니 중단 시 닫히는 중이면 즉시 숨김
+      if (region.getAttribute('aria-hidden') === 'true' && !open) {
+        region.setAttribute('hidden', '');
+        clearSlideStyles(region);
+      } else if (region.getAttribute('aria-hidden') === 'true' && open) {
+        clearSlideStyles(region);
+      } else {
+        clearSlideStyles(region);
+      }
+    }
+
+    var shouldAnimate = animate !== false && !prefersReducedMotion();
+
+    if (!shouldAnimate) {
+      clearSlideStyles(region);
+
+      if (open) {
+        region.removeAttribute('hidden');
+        region.removeAttribute('inert');
+        region.setAttribute('aria-hidden', 'false');
+      } else {
+        region.setAttribute('hidden', '');
+        region.setAttribute('inert', '');
+        region.setAttribute('aria-hidden', 'true');
+      }
+
+      return;
+    }
+
+    if (open) {
+      region.removeAttribute('hidden');
+      region.removeAttribute('inert');
+      region.setAttribute('aria-hidden', 'false');
+      region.style.overflow = 'hidden';
+      region.style.transition = 'none';
+      region.style.height = '0px';
+      region.classList.add('is-sliding');
+      void region.offsetHeight;
+      region.style.transition = getSlideTransition(region);
+      region.style.height = region.scrollHeight + 'px';
+
+      runAfterSlide(region, function () {
+        clearSlideStyles(region);
+      });
+    } else {
+      var fromHeight = region.scrollHeight;
+
+      region.setAttribute('aria-hidden', 'true');
+      region.setAttribute('inert', '');
+      region.style.overflow = 'hidden';
+      region.style.transition = 'none';
+      region.style.height = fromHeight + 'px';
+      region.classList.add('is-sliding');
+      void region.offsetHeight;
+
+      // 이미 높이가 0이면 transitionend가 안 올 수 있음
+      if (fromHeight === 0) {
+        region.setAttribute('hidden', '');
+        clearSlideStyles(region);
+        return;
+      }
+
+      region.style.transition = getSlideTransition(region);
+      region.style.height = '0px';
+
+      runAfterSlide(region, function () {
+        region.setAttribute('hidden', '');
+        clearSlideStyles(region);
+      });
+    }
+  }
+
+  function setAccordionItemOpen(item, open, slide, animate) {
     var trigger = item.querySelector('.accordion_trigger');
     var panelId = trigger ? trigger.getAttribute('aria-controls') : null;
     var panel = panelId ? document.getElementById(panelId) : item.querySelector('.accordion_panel');
@@ -863,17 +1215,27 @@
       trigger.setAttribute('aria-expanded', String(open));
     }
 
-    if (panel) {
-      if (open) {
-        panel.removeAttribute('hidden');
-      } else {
-        panel.setAttribute('hidden', '');
-      }
+    if (!panel) {
+      return;
+    }
+
+    if (slide) {
+      setSlideRegionOpen(panel, open, animate);
+      return;
+    }
+
+    if (open) {
+      panel.removeAttribute('hidden');
+      panel.removeAttribute('aria-hidden');
+      panel.removeAttribute('inert');
+    } else {
+      panel.setAttribute('hidden', '');
     }
   }
 
   function initAccordion(root) {
     var multiple = root.hasAttribute('data-accordion-multiple');
+    var slide = usesSlideEffect(root);
     var items = Array.prototype.slice.call(root.querySelectorAll('.accordion_item'));
 
     items.forEach(function (item) {
@@ -890,7 +1252,8 @@
         return;
       }
 
-      setAccordionItemOpen(item, trigger.getAttribute('aria-expanded') === 'true');
+      // 초기 상태는 애니메이션 없이 맞춤 (닫힌 패널은 hidden 유지)
+      setAccordionItemOpen(item, trigger.getAttribute('aria-expanded') === 'true', slide, false);
 
       trigger.addEventListener('click', function () {
         if (isAccordionItemDisabled(item)) {
@@ -901,13 +1264,21 @@
 
         if (!multiple && !isOpen) {
           items.forEach(function (other) {
-            if (other !== item && !isAccordionItemDisabled(other)) {
-              setAccordionItemOpen(other, false);
+            if (other === item || isAccordionItemDisabled(other)) {
+              return;
+            }
+
+            var otherTrigger = other.querySelector('.accordion_trigger');
+            var otherOpen = otherTrigger && otherTrigger.getAttribute('aria-expanded') === 'true';
+
+            // 이미 닫힌 항목은 건너뜀 (닫기 애니가 hidden을 깨고 잠깐 펼침)
+            if (otherOpen) {
+              setAccordionItemOpen(other, false, slide, true);
             }
           });
         }
 
-        setAccordionItemOpen(item, !isOpen);
+        setAccordionItemOpen(item, !isOpen, slide, true);
       });
 
       trigger.addEventListener('keydown', function (event) {
@@ -941,17 +1312,24 @@
     return panel.classList.contains('is-disabled') || (trigger && trigger.disabled);
   }
 
-  function setCollapseRegionOpen(region, open) {
+  function setCollapseRegionOpen(region, open, slide, animate) {
+    if (slide) {
+      setSlideRegionOpen(region, open, animate);
+      return;
+    }
+
     region.classList.toggle('is-open', open);
 
     if (open) {
       region.removeAttribute('hidden');
+      region.removeAttribute('aria-hidden');
+      region.removeAttribute('inert');
     } else {
       region.setAttribute('hidden', '');
     }
   }
 
-  function setCollapsePanelOpen(panel, open) {
+  function setCollapsePanelOpen(panel, open, slide, animate) {
     var trigger = panel.querySelector('.collapse_trigger');
     var bodyId = trigger ? trigger.getAttribute('aria-controls') : null;
     var body = bodyId ? document.getElementById(bodyId) : panel.querySelector('.collapse_body');
@@ -963,12 +1341,13 @@
     }
 
     if (body) {
-      setCollapseRegionOpen(body, open);
+      setCollapseRegionOpen(body, open, slide, animate);
     }
   }
 
   function initCollapseGroup(root) {
     var accordion = root.hasAttribute('data-collapse-accordion');
+    var slide = usesSlideEffect(root);
     var panels = Array.prototype.slice.call(root.querySelectorAll('.collapse_panel'));
 
     panels.forEach(function (panel) {
@@ -987,7 +1366,7 @@
 
       var isOpen = panel.classList.contains('is-open') || trigger.getAttribute('aria-expanded') === 'true';
 
-      setCollapsePanelOpen(panel, isOpen);
+      setCollapsePanelOpen(panel, isOpen, slide, false);
 
       trigger.addEventListener('click', function () {
         if (isCollapsePanelDisabled(panel)) {
@@ -998,13 +1377,20 @@
 
         if (accordion && !currentlyOpen) {
           panels.forEach(function (other) {
-            if (other !== panel && !isCollapsePanelDisabled(other)) {
-              setCollapsePanelOpen(other, false);
+            if (other === panel || isCollapsePanelDisabled(other)) {
+              return;
+            }
+
+            var otherTrigger = other.querySelector('.collapse_trigger');
+            var otherOpen = otherTrigger && otherTrigger.getAttribute('aria-expanded') === 'true';
+
+            if (otherOpen) {
+              setCollapsePanelOpen(other, false, slide, true);
             }
           });
         }
 
-        setCollapsePanelOpen(panel, !currentlyOpen);
+        setCollapsePanelOpen(panel, !currentlyOpen, slide, true);
       });
     });
   }
@@ -1017,14 +1403,16 @@
       return;
     }
 
-    setCollapseRegionOpen(target, btn.getAttribute('aria-expanded') === 'true');
+    var slide = usesSlideEffect(target) || usesSlideEffect(btn);
+
+    setCollapseRegionOpen(target, btn.getAttribute('aria-expanded') === 'true', slide, false);
 
     btn.addEventListener('click', function () {
       var open = btn.getAttribute('aria-expanded') === 'true';
       var nextOpen = !open;
 
       btn.setAttribute('aria-expanded', String(nextOpen));
-      setCollapseRegionOpen(target, nextOpen);
+      setCollapseRegionOpen(target, nextOpen, slide, true);
     });
   }
 
@@ -1037,9 +1425,18 @@
     );
   }
 
+  function isDropdownStatic(dropdown) {
+    return dropdown.hasAttribute('data-dropdown-static');
+  }
+
   function setDropdownOpen(dropdown, open) {
     var trigger = dropdown.querySelector('.dropdown_trigger');
     var menu = dropdown.querySelector('.dropdown_menu');
+
+    // 가이드 정적 펼침 데모는 로드 시 is-open을 유지한다
+    if (isDropdownStatic(dropdown) && !open) {
+      return;
+    }
 
     dropdown.classList.toggle('is-open', open);
 
@@ -1063,7 +1460,7 @@
   }
 
   function closeAllDropdowns(except) {
-    document.querySelectorAll('[data-dropdown].is-open').forEach(function (dropdown) {
+    document.querySelectorAll('[data-dropdown].is-open:not([data-dropdown-static])').forEach(function (dropdown) {
       if (dropdown !== except) {
         setDropdownOpen(dropdown, false);
       }
@@ -1074,7 +1471,8 @@
     var trigger = dropdown.querySelector('.dropdown_trigger');
     var menu = dropdown.querySelector('.dropdown_menu');
 
-    if (!trigger || !menu || dropdown.classList.contains('is-disabled') || trigger.disabled) {
+    // 정적 펼침(is-open) 데모는 토글·외부 클릭 닫기를 붙이지 않는다
+    if (!trigger || !menu || dropdown.classList.contains('is-disabled') || trigger.disabled || isDropdownStatic(dropdown)) {
       return;
     }
 
@@ -1162,6 +1560,206 @@
     }
   });
 
+  function getPopoverPlacementSide(root) {
+    if (root.classList.contains('popover_placement-left')) return 'left';
+    if (root.classList.contains('popover_placement-right')) return 'right';
+    if (
+      root.classList.contains('popover_placement-top') ||
+      root.classList.contains('popover_placement-top-center')
+    ) {
+      return 'top';
+    }
+    return 'bottom';
+  }
+
+  function getPopoverTriggerElement(root, panel) {
+    var matched = root.querySelector('.popover_trigger');
+    if (!matched || panel.contains(matched)) {
+      return Array.prototype.find.call(root.children, function (child) {
+        return child !== panel && child.nodeType === 1;
+      });
+    }
+
+    var focusable = matched.querySelector(
+      'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled)',
+    );
+
+    return focusable || matched;
+  }
+
+  function clampPopoverValue(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function normalizePopoverArrowAlign(align, side) {
+    if (align === 'start') {
+      return side === 'left' || side === 'right' ? 'top' : 'left';
+    }
+    if (align === 'end') {
+      return side === 'left' || side === 'right' ? 'bottom' : 'right';
+    }
+    return align;
+  }
+
+  function getPopoverTriggerAxisPoint(triggerRect, side, align) {
+    var point = normalizePopoverArrowAlign(align, side);
+
+    if (side === 'left' || side === 'right') {
+      if (point === 'top') return triggerRect.top;
+      if (point === 'bottom') return triggerRect.bottom;
+      return triggerRect.top + triggerRect.height / 2;
+    }
+
+    if (point === 'left') return triggerRect.left;
+    if (point === 'right') return triggerRect.right;
+    return triggerRect.left + triggerRect.width / 2;
+  }
+
+  function usesPopoverArrowJs(root) {
+    return (
+      root.classList.contains('popover_arrow-anchor-target') ||
+      root.classList.contains('popover_arrow-anchor-mixed')
+    );
+  }
+
+  function usesPopoverPanelJs(root) {
+    return root.classList.contains('popover_arrow-anchor-mixed');
+  }
+
+  function resetPopoverPanelInlineStyles(panel) {
+    panel.style.left = '';
+    panel.style.right = '';
+    panel.style.top = '';
+    panel.style.bottom = '';
+    panel.style.transform = '';
+  }
+
+  function updatePopoverPanelPosition(root) {
+    var panel = root.querySelector('.popover_panel');
+    if (!panel) return;
+
+    if (!usesPopoverPanelJs(root)) {
+      resetPopoverPanelInlineStyles(panel);
+      return;
+    }
+
+    var trigger = getPopoverTriggerElement(root, panel);
+    if (!trigger) return;
+
+    var panelAlign = root.getAttribute('data-panel-align') || 'start';
+    var side = getPopoverPlacementSide(root);
+    var triggerW = trigger.offsetWidth;
+    var triggerH = trigger.offsetHeight;
+    var panelW = panel.offsetWidth;
+    var panelH = panel.offsetHeight;
+    var left;
+    var top;
+
+    resetPopoverPanelInlineStyles(panel);
+
+    if (side === 'bottom') {
+      panel.style.top = 'calc(100% + var(--popover-offset-bottom))';
+      left = 0;
+      if (panelAlign === 'center') left = (triggerW - panelW) / 2;
+      if (panelAlign === 'end') left = triggerW - panelW;
+      panel.style.left = left + 'px';
+      return;
+    }
+
+    if (side === 'top') {
+      panel.style.top = 'auto';
+      panel.style.bottom = 'calc(100% + var(--popover-offset-top))';
+      left = 0;
+      if (panelAlign === 'center') left = (triggerW - panelW) / 2;
+      if (panelAlign === 'end') left = triggerW - panelW;
+      panel.style.left = left + 'px';
+      return;
+    }
+
+    if (side === 'left') {
+      panel.style.top = 'auto';
+      panel.style.bottom = 'auto';
+      panel.style.left = 'auto';
+      panel.style.right = 'calc(100% + var(--popover-offset-left))';
+      top = 0;
+      if (panelAlign === 'center') top = (triggerH - panelH) / 2;
+      if (panelAlign === 'end') top = triggerH - panelH;
+      panel.style.top = top + 'px';
+      return;
+    }
+
+    if (side === 'right') {
+      panel.style.top = 'auto';
+      panel.style.bottom = 'auto';
+      panel.style.left = 'calc(100% + var(--popover-offset-right))';
+      top = 0;
+      if (panelAlign === 'center') top = (triggerH - panelH) / 2;
+      if (panelAlign === 'end') top = triggerH - panelH;
+      panel.style.top = top + 'px';
+    }
+  }
+
+  function getPopoverArrowEdgeInset(panel, arrowSize) {
+    var inset = parseFloat(getComputedStyle(panel).getPropertyValue('--popover-arrow-edge-inset'));
+    if (Number.isFinite(inset) && inset > 0) return inset;
+    return arrowSize / 2 + 4;
+  }
+
+  function updatePopoverArrowPosition(root) {
+    var panel = root.querySelector('.popover_panel');
+    if (!panel) return;
+
+    if (!usesPopoverArrowJs(root)) {
+      panel.style.removeProperty('--popover-arrow-position');
+      return;
+    }
+
+    var arrow = panel.querySelector('.popover_arrow');
+    var trigger = getPopoverTriggerElement(root, panel);
+    var visible = root.classList.contains('is-open') || !panel.hasAttribute('hidden');
+
+    if (!arrow || !trigger || !visible) return;
+
+    var triggerRect = trigger.getBoundingClientRect();
+    var panelRect = panel.getBoundingClientRect();
+    var side = getPopoverPlacementSide(root);
+    var align = root.getAttribute('data-arrow-target-align') || 'center';
+    var arrowSize = parseFloat(getComputedStyle(arrow).width) || 8;
+    var inset = getPopoverArrowEdgeInset(panel, arrowSize);
+    var position;
+
+    if (side === 'left' || side === 'right') {
+      position = getPopoverTriggerAxisPoint(triggerRect, side, align) - panelRect.top;
+      position = clampPopoverValue(position, inset, panelRect.height - inset);
+    } else {
+      position = getPopoverTriggerAxisPoint(triggerRect, side, align) - panelRect.left;
+      position = clampPopoverValue(position, inset, panelRect.width - inset);
+    }
+
+    panel.style.setProperty('--popover-arrow-position', position + 'px');
+  }
+
+  function updatePopoverLayout(popover) {
+    updatePopoverPanelPosition(popover);
+    updatePopoverArrowPosition(popover);
+  }
+
+  var popoverLayoutUpdateFrame = null;
+
+  function schedulePopoverLayoutUpdates() {
+    if (popoverLayoutUpdateFrame) return;
+
+    popoverLayoutUpdateFrame = requestAnimationFrame(function () {
+      popoverLayoutUpdateFrame = null;
+
+      document
+        .querySelectorAll(
+          '.popover.popover_arrow-anchor-target.is-open, .popover.popover_arrow-anchor-mixed.is-open',
+        )
+        .forEach(updatePopoverLayout);
+    });
+  }
+
   function setPopoverOpen(popover, open) {
     var trigger = popover.querySelector('.popover_trigger');
     var panel = popover.querySelector('.popover_panel');
@@ -1175,6 +1773,15 @@
     if (panel) {
       if (open) {
         panel.removeAttribute('hidden');
+        updatePopoverLayout(popover);
+        if (popover.getAttribute('data-popover-trigger') !== 'hover') {
+          var closeBtn = panel.querySelector('.popover_close');
+          if (closeBtn) {
+            requestAnimationFrame(function () {
+              closeBtn.focus();
+            });
+          }
+        }
       } else {
         panel.setAttribute('hidden', '');
       }
@@ -1247,11 +1854,24 @@
     }
 
     popover.querySelectorAll('[data-popover-close]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
         setPopoverOpen(popover, false);
         trigger.focus();
       });
     });
+
+    if (popover.classList.contains('is-open')) {
+      var openPanel = popover.querySelector('.popover_panel');
+      if (openPanel) {
+        openPanel.removeAttribute('hidden');
+      }
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      updatePopoverLayout(popover);
+    }
   }
 
   document.querySelectorAll('[data-popover]').forEach(initPopover);
@@ -1268,14 +1888,217 @@
     }
   });
 
+  window.addEventListener('resize', schedulePopoverLayoutUpdates);
+
+  function getTooltipPlacementSide(root) {
+    if (root.classList.contains('tooltip_placement-left')) return 'left';
+    if (root.classList.contains('tooltip_placement-right')) return 'right';
+    if (
+      root.classList.contains('tooltip_placement-top') ||
+      root.classList.contains('tooltip_placement-top-start') ||
+      root.classList.contains('tooltip_placement-top-end')
+    ) {
+      return 'top';
+    }
+    return 'bottom';
+  }
+
+  function getTooltipTriggerElement(root, bubble) {
+    var matched = root.querySelector('.tooltip_trigger');
+    if (!matched || bubble.contains(matched)) {
+      return Array.prototype.find.call(root.children, function (child) {
+        return child !== bubble && child.nodeType === 1;
+      });
+    }
+
+    var focusable = matched.querySelector(
+      'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled)',
+    );
+
+    return focusable || matched;
+  }
+
+  function usesTooltipArrowJs(root) {
+    return (
+      root.classList.contains('tooltip_arrow-anchor-target') ||
+      root.classList.contains('tooltip_arrow-anchor-mixed')
+    );
+  }
+
+  function usesTooltipPanelJs(root) {
+    return root.classList.contains('tooltip_arrow-anchor-mixed');
+  }
+
+  function resetTooltipBubbleInlineStyles(bubble) {
+    bubble.style.left = '';
+    bubble.style.right = '';
+    bubble.style.top = '';
+    bubble.style.bottom = '';
+    bubble.style.transform = '';
+  }
+
+  function updateTooltipPanelPosition(root) {
+    var bubble = root.querySelector('.tooltip_bubble');
+    if (!bubble) return;
+
+    if (!usesTooltipPanelJs(root)) {
+      resetTooltipBubbleInlineStyles(bubble);
+      return;
+    }
+
+    var trigger = getTooltipTriggerElement(root, bubble);
+    if (!trigger) return;
+
+    var panelAlign = root.getAttribute('data-panel-align') || 'center';
+    var side = getTooltipPlacementSide(root);
+    var triggerW = trigger.offsetWidth;
+    var triggerH = trigger.offsetHeight;
+    var panelW = bubble.offsetWidth;
+    var panelH = bubble.offsetHeight;
+    var left;
+    var top;
+
+    resetTooltipBubbleInlineStyles(bubble);
+
+    if (side === 'bottom') {
+      bubble.style.top = 'calc(100% + var(--tooltip-offset-bottom))';
+      left = (triggerW - panelW) / 2;
+      if (panelAlign === 'start') left = 0;
+      if (panelAlign === 'end') left = triggerW - panelW;
+      bubble.style.left = left + 'px';
+      return;
+    }
+
+    if (side === 'top') {
+      bubble.style.top = 'auto';
+      bubble.style.bottom = 'calc(100% + var(--tooltip-offset-top))';
+      left = (triggerW - panelW) / 2;
+      if (panelAlign === 'start') left = 0;
+      if (panelAlign === 'end') left = triggerW - panelW;
+      bubble.style.left = left + 'px';
+      return;
+    }
+
+    if (side === 'left') {
+      bubble.style.top = 'auto';
+      bubble.style.bottom = 'auto';
+      bubble.style.left = 'auto';
+      bubble.style.right = 'calc(100% + var(--tooltip-offset-left))';
+      top = (triggerH - panelH) / 2;
+      if (panelAlign === 'start') top = 0;
+      if (panelAlign === 'end') top = triggerH - panelH;
+      bubble.style.top = top + 'px';
+      return;
+    }
+
+    if (side === 'right') {
+      bubble.style.top = 'auto';
+      bubble.style.bottom = 'auto';
+      bubble.style.left = 'calc(100% + var(--tooltip-offset-right))';
+      top = (triggerH - panelH) / 2;
+      if (panelAlign === 'start') top = 0;
+      if (panelAlign === 'end') top = triggerH - panelH;
+      bubble.style.top = top + 'px';
+    }
+  }
+
+  function getTooltipArrowEdgeInset(bubble, arrowSize) {
+    var inset = parseFloat(getComputedStyle(bubble).getPropertyValue('--tooltip-arrow-edge-inset'));
+    if (Number.isFinite(inset) && inset > 0) return inset;
+    return arrowSize / 2 + 4;
+  }
+
+  function updateTooltipArrowPosition(root) {
+    var bubble = root.querySelector('.tooltip_bubble');
+    if (!bubble) return;
+
+    if (!usesTooltipArrowJs(root)) {
+      bubble.style.removeProperty('--tooltip-arrow-position');
+      return;
+    }
+
+    var arrow = bubble.querySelector('.tooltip_arrow');
+    var trigger = getTooltipTriggerElement(root, bubble);
+    var visible = root.classList.contains('is-open') || !bubble.hasAttribute('hidden');
+
+    if (!arrow || !trigger || !visible) return;
+
+    var triggerRect = trigger.getBoundingClientRect();
+    var panelRect = bubble.getBoundingClientRect();
+    var side = getTooltipPlacementSide(root);
+    var align = root.getAttribute('data-arrow-target-align') || 'center';
+    var arrowSize = parseFloat(getComputedStyle(arrow).width) || 6;
+    var inset = getTooltipArrowEdgeInset(bubble, arrowSize);
+    var position;
+
+    if (side === 'left' || side === 'right') {
+      position = getPopoverTriggerAxisPoint(triggerRect, side, align) - panelRect.top;
+      position = clampPopoverValue(position, inset, panelRect.height - inset);
+    } else {
+      position = getPopoverTriggerAxisPoint(triggerRect, side, align) - panelRect.left;
+      position = clampPopoverValue(position, inset, panelRect.width - inset);
+    }
+
+    bubble.style.setProperty('--tooltip-arrow-position', position + 'px');
+  }
+
+  function updateTooltipLayout(tooltip) {
+    updateTooltipPanelPosition(tooltip);
+    updateTooltipArrowPosition(tooltip);
+  }
+
+  var tooltipLayoutUpdateFrame = null;
+
+  function scheduleTooltipLayoutUpdates() {
+    if (tooltipLayoutUpdateFrame) return;
+
+    tooltipLayoutUpdateFrame = requestAnimationFrame(function () {
+      tooltipLayoutUpdateFrame = null;
+
+      document
+        .querySelectorAll(
+          '.tooltip.tooltip_arrow-anchor-target.is-open, .tooltip.tooltip_arrow-anchor-mixed.is-open',
+        )
+        .forEach(updateTooltipLayout);
+    });
+  }
+
+  function focusTooltipTrigger(tooltip) {
+    var triggerWrap = tooltip.querySelector('.tooltip_trigger');
+    if (!triggerWrap) return;
+
+    var focusable =
+      triggerWrap.querySelector(
+        'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
+      ) || (triggerWrap.tabIndex >= 0 ? triggerWrap : null);
+
+    if (focusable) {
+      focusable.focus();
+    }
+  }
+
   function setTooltipOpen(tooltip, open) {
+    var trigger = tooltip.querySelector('.tooltip_trigger');
     var bubble = tooltip.querySelector('.tooltip_bubble');
 
     tooltip.classList.toggle('is-open', open);
 
+    if (trigger && tooltip.getAttribute('data-tooltip-trigger') === 'click') {
+      trigger.setAttribute('aria-expanded', String(open));
+    }
+
     if (bubble) {
       if (open) {
         bubble.removeAttribute('hidden');
+        updateTooltipLayout(tooltip);
+        if (tooltip.getAttribute('data-tooltip-trigger') === 'click') {
+          var closeBtn = bubble.querySelector('.tooltip_close');
+          if (closeBtn) {
+            requestAnimationFrame(function () {
+              closeBtn.focus();
+            });
+          }
+        }
       } else {
         bubble.setAttribute('hidden', '');
       }
@@ -1329,6 +2152,15 @@
           setTooltipOpen(tooltip, true);
         }
       });
+
+      tooltip.querySelectorAll('[data-tooltip-close]').forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          setTooltipOpen(tooltip, false);
+          focusTooltipTrigger(tooltip);
+        });
+      });
     } else {
       tooltip.addEventListener('mouseenter', function () {
         clearHoverTimer();
@@ -1343,6 +2175,11 @@
       });
 
       trigger.addEventListener('blur', scheduleClose);
+    }
+
+    if (tooltip.classList.contains('is-open')) {
+      bubble.removeAttribute('hidden');
+      updateTooltipLayout(tooltip);
     }
   }
 
@@ -1360,15 +2197,70 @@
     }
   });
 
+  window.addEventListener('resize', scheduleTooltipLayoutUpdates);
   function parseAffixOffset(value, fallback) {
     var parsed = parseInt(value, 10);
 
     return Number.isFinite(parsed) ? parsed : fallback;
   }
 
+  /** position:fixed의 containing block (transform/filter 등) 보정 */
+  function getFixedContainingBlockRect(el) {
+    var parent = el.parentElement;
+
+    while (parent) {
+      var style = getComputedStyle(parent);
+      var transform = style.transform;
+      var filter = style.filter;
+      var backdropFilter = style.backdropFilter || style.webkitBackdropFilter;
+      var perspective = style.perspective;
+      var contain = style.contain;
+      var willChange = style.willChange;
+      var hasTransform = Boolean(transform && transform !== 'none');
+      var hasFilter = Boolean(
+        (filter && filter !== 'none') || (backdropFilter && backdropFilter !== 'none')
+      );
+      var hasPerspective = Boolean(perspective && perspective !== 'none');
+      var hasContain = Boolean(contain && /paint|layout|strict|content/.test(contain));
+      var hasWillChange = Boolean(willChange && /transform|filter|perspective/.test(willChange));
+
+      if (hasTransform || hasFilter || hasPerspective || hasContain || hasWillChange) {
+        return parent.getBoundingClientRect();
+      }
+
+      if (parent === document.documentElement) {
+        break;
+      }
+
+      parent = parent.parentElement;
+    }
+
+    return {
+      left: 0,
+      top: 0,
+      right: window.innerWidth,
+      bottom: window.innerHeight,
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  }
+
   function initAffix(root) {
+    if (root.dataset.affixInit) {
+      return;
+    }
+
     var targetSelector = root.getAttribute('data-target');
-    var scrollContainer = targetSelector ? document.querySelector(targetSelector) : null;
+    var scrollContainer = null;
+
+    if (targetSelector) {
+      try {
+        scrollContainer = document.querySelector(targetSelector);
+      } catch (error) {
+        scrollContainer = null;
+      }
+    }
+
     var offsetTop = parseAffixOffset(root.getAttribute('data-offset-top'), 0);
     var useBottom = root.hasAttribute('data-offset-bottom');
     var offsetBottom = useBottom ? parseAffixOffset(root.getAttribute('data-offset-bottom'), 0) : 0;
@@ -1377,6 +2269,8 @@
     if (!affixEl) {
       return;
     }
+
+    root.dataset.affixInit = '1';
 
     var placeholder = root.querySelector('.affix_placeholder');
 
@@ -1413,18 +2307,17 @@
     }
 
     function applyAffixStyles(targetRect, width, left) {
+      var cb = getFixedContainingBlockRect(affixEl);
+      var viewportTop = useBottom
+        ? targetRect.bottom - affixEl.offsetHeight - offsetBottom
+        : targetRect.top + offsetTop;
+
       affixEl.style.position = 'fixed';
       affixEl.style.width = width + 'px';
-      affixEl.style.left = left + 'px';
+      affixEl.style.left = left - cb.left + 'px';
+      affixEl.style.top = viewportTop - cb.top + 'px';
+      affixEl.style.bottom = '';
       affixEl.style.zIndex = getComputedStyle(root).getPropertyValue('--affix-z-index').trim() || '10';
-
-      if (useBottom) {
-        affixEl.style.bottom = '';
-        affixEl.style.top = targetRect.bottom - affixEl.offsetHeight - offsetBottom + 'px';
-      } else {
-        affixEl.style.bottom = '';
-        affixEl.style.top = targetRect.top + offsetTop + 'px';
-      }
     }
 
     function setAffixed(next, metrics) {
@@ -1441,12 +2334,15 @@
       affixEl.classList.toggle('is-fixed', affixed);
 
       if (affixed) {
-        placeholder.style.height = affixEl.offsetHeight + 'px';
+        var height = affixEl.offsetHeight;
+        placeholder.style.height = height + 'px';
+        placeholder.style.width = metrics.width + 'px';
         placeholder.hidden = false;
         applyAffixStyles(metrics.targetRect, metrics.width, metrics.left);
       } else {
         placeholder.hidden = true;
         placeholder.style.height = '';
+        placeholder.style.width = '';
         clearAffixStyles();
       }
     }
@@ -1463,25 +2359,26 @@
 
         var targetRect = getTargetRect();
         var rootRect = root.getBoundingClientRect();
-        var width = rootRect.width;
-        var left = rootRect.left;
-        var metrics = { targetRect: targetRect, width: width, left: left };
         var referenceRect = affixed ? placeholder.getBoundingClientRect() : rootRect;
+        var width = referenceRect.width || rootRect.width;
+        var left = referenceRect.left;
+        var metrics = { targetRect: targetRect, width: width, left: left };
         var nextAffixed = affixed;
 
         if (useBottom) {
-          var bottomGap = targetRect.bottom - rootRect.bottom;
-
+          var bottomGap = targetRect.bottom - referenceRect.bottom;
           nextAffixed = bottomGap <= offsetBottom;
 
-          if (affixed) {
-            var placeholderBottomGap = targetRect.bottom - referenceRect.bottom;
+          if (nextAffixed && scrollContainer) {
+            var affixHeightBottom = affixEl.offsetHeight;
+            var containerTopGap = referenceRect.bottom - targetRect.top;
 
-            nextAffixed = placeholderBottomGap <= offsetBottom;
+            if (containerTopGap < affixHeightBottom + offsetBottom) {
+              nextAffixed = false;
+            }
           }
         } else {
           var topGap = referenceRect.top - targetRect.top;
-
           nextAffixed = topGap <= offsetTop;
 
           if (nextAffixed && scrollContainer) {
@@ -1501,6 +2398,11 @@
     var scrollTarget = scrollContainer || window;
 
     scrollTarget.addEventListener('scroll', measure, { passive: true });
+
+    if (scrollContainer) {
+      window.addEventListener('scroll', measure, { passive: true, capture: true });
+    }
+
     window.addEventListener('resize', measure, { passive: true });
     measure();
   }
@@ -1514,14 +2416,29 @@
   }
 
   function initBackTop(root) {
+    if (root.dataset.backTopInit) {
+      return;
+    }
+
     var targetSelector = root.getAttribute('data-target');
-    var scrollContainer = targetSelector ? document.querySelector(targetSelector) : null;
+    var scrollContainer = null;
+
+    if (targetSelector) {
+      try {
+        scrollContainer = document.querySelector(targetSelector);
+      } catch (error) {
+        scrollContainer = null;
+      }
+    }
+
     var visibilityHeight = parseBackTopOffset(root.getAttribute('data-visibility-height'), 400);
     var btn = root.querySelector('.back_top_btn');
 
     if (!btn) {
       return;
     }
+
+    root.dataset.backTopInit = '1';
 
     function getScrollTop() {
       if (scrollContainer) {
@@ -1553,130 +2470,8 @@
 
   document.querySelectorAll('[data-back-top]').forEach(initBackTop);
 
-  var openOffcanvasStack = [];
-
-  function getOffcanvasTriggers(offcanvas) {
-    if (!offcanvas.id) {
-      return [];
-    }
-
-    return Array.prototype.slice.call(
-      document.querySelectorAll('[data-offcanvas-trigger][aria-controls="' + offcanvas.id + '"]')
-    );
-  }
-
-  function setOffcanvasTriggersExpanded(offcanvas, expanded) {
-    getOffcanvasTriggers(offcanvas).forEach(function (trigger) {
-      trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    });
-  }
-
-  function updateBodyOffcanvasLock() {
-    var hasOpen = document.querySelector('[data-offcanvas].is-open:not([data-offcanvas-backdrop="false"])');
-
-    document.body.classList.toggle('is-offcanvas-open', Boolean(hasOpen));
-  }
-
-  function openOffcanvas(offcanvas, trigger) {
-    if (!offcanvas || offcanvas.classList.contains('is-open')) {
-      return;
-    }
-
-    offcanvas.hidden = false;
-    offcanvas.classList.add('is-open');
-    setOffcanvasTriggersExpanded(offcanvas, true);
-
-    if (trigger) {
-      offcanvas._offcanvasReturnFocus = trigger;
-    }
-
-    openOffcanvasStack.push(offcanvas);
-    updateBodyOffcanvasLock();
-
-    requestAnimationFrame(function () {
-      var closeBtn = offcanvas.querySelector('.offcanvas_close');
-
-      if (closeBtn) {
-        closeBtn.focus();
-      } else {
-        offcanvas.focus();
-      }
-    });
-  }
-
-  function closeOffcanvas(offcanvas) {
-    if (!offcanvas || !offcanvas.classList.contains('is-open')) {
-      return;
-    }
-
-    offcanvas.classList.remove('is-open');
-    offcanvas.hidden = true;
-    setOffcanvasTriggersExpanded(offcanvas, false);
-
-    openOffcanvasStack = openOffcanvasStack.filter(function (item) {
-      return item !== offcanvas;
-    });
-
-    updateBodyOffcanvasLock();
-
-    if (offcanvas._offcanvasReturnFocus) {
-      offcanvas._offcanvasReturnFocus.focus();
-      offcanvas._offcanvasReturnFocus = null;
-    }
-  }
-
-  function closeAllOffcanvases() {
-    openOffcanvasStack.slice().forEach(closeOffcanvas);
-  }
-
-  function resolveOffcanvasSelector(trigger) {
-    return trigger.getAttribute('data-offcanvas-trigger') || ('#' + trigger.getAttribute('aria-controls'));
-  }
-
-  function initOffcanvasOpenOnLoad() {
-    document.querySelectorAll('[data-offcanvas][data-offcanvas-open-on-load="true"]').forEach(function (offcanvas) {
-      openOffcanvas(offcanvas, null);
-    });
-  }
-
-  document.addEventListener('click', function (event) {
-    var trigger = event.target.closest('[data-offcanvas-trigger]');
-
-    if (trigger) {
-      var selector = resolveOffcanvasSelector(trigger);
-      var offcanvas = selector ? document.querySelector(selector) : null;
-
-      if (offcanvas) {
-        if (offcanvas.classList.contains('is-open')) {
-          closeOffcanvas(offcanvas);
-        } else {
-          openOffcanvas(offcanvas, trigger);
-        }
-      }
-
-      return;
-    }
-
-    var closeEl = event.target.closest('[data-offcanvas-close]');
-
-    if (closeEl) {
-      var root = closeEl.closest('[data-offcanvas]');
-
-      if (root) {
-        closeOffcanvas(root);
-      }
-    }
-  });
-
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && openOffcanvasStack.length) {
-      closeOffcanvas(openOffcanvasStack[openOffcanvasStack.length - 1]);
-    }
-  });
-
-  initOffcanvasOpenOnLoad();
-
   var openDrawerStack = [];
+  var DRAWER_CLOSE_MS = 380;
 
   function getDrawerTriggers(drawer) {
     if (!drawer.id) {
@@ -1701,19 +2496,34 @@
   }
 
   function updateBodyDrawerLock() {
-    var hasOpen = document.querySelector('[data-drawer].is-open:not([data-drawer-backdrop="false"])');
+    var openDrawers = document.querySelectorAll(
+      '[data-drawer].is-open:not([data-drawer-backdrop="false"])'
+    );
+    var hasPageOverlay = false;
 
-    document.body.classList.toggle('is-drawer-open', Boolean(hasOpen));
+    openDrawers.forEach(function (drawer) {
+      // 문서·Playground 데모 프레임 안 Drawer는 페이지 스크롤을 잠그지 않음
+      if (!drawer.closest('.drawer_demo-frame')) {
+        hasPageOverlay = true;
+      }
+    });
+
+    document.body.classList.toggle('is-drawer-open', hasPageOverlay);
   }
 
   function openDrawer(drawer, trigger) {
-    if (!drawer || drawer.classList.contains('is-open')) {
+    if (
+      !drawer
+      || drawer.classList.contains('is-open')
+      || drawer.classList.contains('is-closing')
+      || drawer.classList.contains('is-opening')
+    ) {
       return;
     }
 
+    drawer.classList.remove('is-closing');
     drawer.hidden = false;
-    drawer.classList.add('is-open');
-    setDrawerTriggersExpanded(drawer, true);
+    drawer.classList.add('is-opening');
 
     if (trigger) {
       drawer._drawerReturnFocus = trigger;
@@ -1721,28 +2531,89 @@
 
     openDrawerStack.push(drawer);
     updateDrawerStackLevels();
-    updateBodyDrawerLock();
 
-    requestAnimationFrame(function () {
-      var closeBtn = drawer.querySelector('.drawer_close');
+    var panel = drawer.querySelector('.drawer_panel');
+    var opened = false;
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (closeBtn) {
-        closeBtn.focus();
-      } else {
-        drawer.focus();
+    function finishOpen() {
+      if (opened) {
+        return;
       }
-    });
-  }
 
-  function closeDrawer(drawer) {
-    if (!drawer || !drawer.classList.contains('is-open')) {
+      opened = true;
+
+      if (panel) {
+        panel.removeEventListener('transitionend', onOpenTransitionEnd);
+      }
+
+      drawer.classList.remove('is-opening');
+      updateBodyDrawerLock();
+
+      if (panel && drawer.getAttribute('data-drawer-draggable') === 'true') {
+        panel.classList.remove('is-expanded');
+        panel.style.height = '';
+        drawer._drawerCollapsedHeight = panel.getBoundingClientRect().height;
+      }
+
+      requestAnimationFrame(function () {
+        var closeBtn = drawer.querySelector('.drawer_close');
+
+        if (closeBtn) {
+          closeBtn.focus();
+        } else {
+          drawer.focus();
+        }
+      });
+    }
+
+    function onOpenTransitionEnd(event) {
+      if (event.target !== panel || event.propertyName !== 'transform') {
+        return;
+      }
+
+      finishOpen();
+    }
+
+    function startOpenTransition() {
+      drawer.classList.add('is-open');
+      setDrawerTriggersExpanded(drawer, true);
+      updateBodyDrawerLock();
+
+      if (panel && !reduceMotion) {
+        panel.addEventListener('transitionend', onOpenTransitionEnd);
+        window.setTimeout(finishOpen, DRAWER_CLOSE_MS);
+      } else {
+        finishOpen();
+      }
+    }
+
+    // display:block(is-opening) 후 닫힌 위치를 한 프레임 그린 뒤 is-open으로 전환
+    void drawer.offsetWidth;
+
+    if (reduceMotion) {
+      startOpenTransition();
       return;
     }
 
-    drawer.classList.remove('is-open');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(startOpenTransition);
+    });
+  }
+
+  function finishCloseDrawer(drawer) {
+    drawer.classList.remove('is-closing');
     drawer.hidden = true;
     drawer.style.removeProperty('--drawer-stack-level');
     setDrawerTriggersExpanded(drawer, false);
+
+    var panel = drawer.querySelector('.drawer_panel');
+
+    if (panel) {
+      panel.classList.remove('is-expanded', 'is-dragging');
+      panel.style.height = '';
+      panel.style.transform = '';
+    }
 
     openDrawerStack = openDrawerStack.filter(function (item) {
       return item !== drawer;
@@ -1757,8 +2628,233 @@
     }
   }
 
+  function closeDrawer(drawer) {
+    if (!drawer || !drawer.classList.contains('is-open') || drawer.classList.contains('is-closing')) {
+      return;
+    }
+
+    drawer.classList.remove('is-open');
+    drawer.classList.add('is-closing');
+
+    var panel = drawer.querySelector('.drawer_panel');
+    var closed = false;
+
+    function completeClose() {
+      if (closed) {
+        return;
+      }
+
+      closed = true;
+
+      if (panel) {
+        panel.removeEventListener('transitionend', onTransitionEnd);
+      }
+
+      finishCloseDrawer(drawer);
+    }
+
+    function onTransitionEnd(event) {
+      if (event.target !== panel || event.propertyName !== 'transform') {
+        return;
+      }
+
+      completeClose();
+    }
+
+    if (panel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      panel.addEventListener('transitionend', onTransitionEnd);
+      window.setTimeout(completeClose, DRAWER_CLOSE_MS);
+    } else {
+      completeClose();
+    }
+  }
+
   function resolveDrawerSelector(trigger) {
     return trigger.getAttribute('data-drawer-trigger') || ('#' + trigger.getAttribute('aria-controls'));
+  }
+
+  function getDrawerDragContainerHeight(drawer) {
+    var frame = drawer.closest('.drawer_demo-frame');
+
+    if (frame) {
+      return frame.clientHeight;
+    }
+
+    return window.innerHeight;
+  }
+
+  function getDrawerSnapHeights(drawer, panel) {
+    var collapsed = drawer._drawerCollapsedHeight;
+
+    if (!collapsed || collapsed < 1) {
+      var wasExpanded = panel.classList.contains('is-expanded');
+      var prevHeight = panel.style.height;
+
+      panel.classList.remove('is-expanded');
+      panel.style.height = '';
+      collapsed = panel.getBoundingClientRect().height;
+      drawer._drawerCollapsedHeight = collapsed;
+
+      if (wasExpanded) {
+        panel.classList.add('is-expanded');
+      }
+
+      panel.style.height = prevHeight;
+    }
+
+    var expanded = Math.max(collapsed + 48, getDrawerDragContainerHeight(drawer) * 0.9);
+
+    return { collapsed: collapsed, expanded: expanded };
+  }
+
+  function isDrawerDragStartTarget(event, drawer) {
+    if (event.target.closest('[data-drawer-close], a, input, textarea, select, .drawer_extra')) {
+      return false;
+    }
+
+    if (event.target.closest('[data-drawer-drag-handle]')) {
+      return true;
+    }
+
+    var header = event.target.closest('.drawer_header');
+
+    return Boolean(header && drawer.contains(header));
+  }
+
+  var drawerDragState = null;
+
+  function endDrawerDrag(event) {
+    if (!drawerDragState) {
+      return;
+    }
+
+    var state = drawerDragState;
+    var drawer = state.drawer;
+    var panel = state.panel;
+
+    drawerDragState = null;
+    panel.classList.remove('is-dragging');
+
+    if (state.pointerId != null && state.handle && state.handle.releasePointerCapture) {
+      try {
+        state.handle.releasePointerCapture(state.pointerId);
+      } catch (_err) {
+        // ignore
+      }
+    }
+
+    var currentHeight = panel.getBoundingClientRect().height;
+    var snaps = getDrawerSnapHeights(drawer, panel);
+    var closeThreshold = snaps.collapsed * 0.55;
+    var expandThreshold = (snaps.collapsed + snaps.expanded) / 2;
+    var startedExpanded = state.startHeight >= expandThreshold;
+
+    panel.style.height = '';
+    panel.style.transform = '';
+
+    // 기본 높이보다 충분히 낮게 내리면 닫기 (펼친 상태에서 접는 드래그와 구분)
+    if (currentHeight < closeThreshold) {
+      panel.classList.remove('is-expanded');
+      closeDrawer(drawer);
+      return;
+    }
+
+    // 접힌 상태에서 빠르게 아래로 쓸면 닫기
+    if (!startedExpanded && state.deltaY < -snaps.collapsed * 0.4) {
+      panel.classList.remove('is-expanded');
+      closeDrawer(drawer);
+      return;
+    }
+
+    if (currentHeight >= expandThreshold || (!startedExpanded && state.deltaY > 48)) {
+      panel.classList.add('is-expanded');
+    } else {
+      panel.classList.remove('is-expanded');
+    }
+
+    if (event) {
+      event.preventDefault();
+    }
+  }
+
+  document.addEventListener('pointerdown', function (event) {
+    if (event.button != null && event.button !== 0) {
+      return;
+    }
+
+    var drawer = event.target.closest('[data-drawer][data-drawer-draggable="true"]');
+
+    if (!drawer || !drawer.classList.contains('is-open') || drawer.classList.contains('is-closing')) {
+      return;
+    }
+
+    if (!isDrawerDragStartTarget(event, drawer)) {
+      return;
+    }
+
+    var panel = drawer.querySelector('.drawer_panel.drawer_placement-bottom');
+
+    if (!panel) {
+      return;
+    }
+
+    var handle = event.target.closest('[data-drawer-drag-handle]') || panel.querySelector('[data-drawer-drag-handle]');
+    var snaps = getDrawerSnapHeights(drawer, panel);
+
+    drawerDragState = {
+      drawer: drawer,
+      panel: panel,
+      handle: handle,
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startHeight: panel.getBoundingClientRect().height,
+      deltaY: 0,
+      snaps: snaps,
+    };
+
+    panel.classList.add('is-dragging');
+
+    if (handle && handle.setPointerCapture && event.pointerId != null) {
+      try {
+        handle.setPointerCapture(event.pointerId);
+      } catch (_err) {
+        // ignore
+      }
+    }
+
+    event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('pointermove', function (event) {
+    if (!drawerDragState) {
+      return;
+    }
+
+    var state = drawerDragState;
+    var deltaY = state.startY - event.clientY;
+    var nextHeight = Math.min(
+      state.snaps.expanded,
+      Math.max(0, state.startHeight + deltaY)
+    );
+
+    state.deltaY = deltaY;
+    state.panel.style.height = nextHeight + 'px';
+    state.panel.style.transform = 'translateY(0)';
+    event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('pointerup', endDrawerDrag);
+  document.addEventListener('pointercancel', endDrawerDrag);
+
+  function initDrawerOpenOnLoad() {
+    document.querySelectorAll('[data-drawer][data-drawer-open-on-load="true"]').forEach(function (drawer) {
+      if (drawer.dataset.drawerOpenOnLoadDone === 'true') {
+        return;
+      }
+
+      drawer.dataset.drawerOpenOnLoadDone = 'true';
+      openDrawer(drawer, null);
+    });
   }
 
   document.addEventListener('click', function (event) {
@@ -1795,6 +2891,20 @@
       closeDrawer(openDrawerStack[openDrawerStack.length - 1]);
     }
   });
+
+  // Vue mount·라우트 전환 후에도 open-on-load 대상이 잡히도록 관찰
+  initDrawerOpenOnLoad();
+
+  if (typeof MutationObserver !== 'undefined') {
+    var drawerOpenOnLoadObserver = new MutationObserver(function () {
+      initDrawerOpenOnLoad();
+    });
+
+    drawerOpenOnLoadObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+  }
 
   var openModalStack = [];
 

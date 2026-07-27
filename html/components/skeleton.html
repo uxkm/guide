@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Skeleton</span>
@@ -43,12 +44,14 @@
             <p><code class="typo_code">skeleton</code>에 <code class="typo_code">skeleton_text</code> · <code class="typo_code">skeleton_title</code> 형태 클래스를 조합합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start" style="max-width: var(--input-max-width); width: 100%;">
-            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="콘텐츠 로딩 중">
-              <span class="skeleton skeleton_title" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text skeleton_w-sm" aria-hidden="true"></span>
+          <div class="demo_section-preview demo_section-preview-start">
+            <div style="max-width: var(--input-max-width); width: 100%;">
+              <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="콘텐츠 로딩 중">
+                <span class="skeleton skeleton_title" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text skeleton_w-sm" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
 
@@ -60,15 +63,17 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;콘텐츠 로딩 중&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text skeleton_w-sm&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
+            <pre><code>&lt;div style=&quot;max-width: var(--input-max-width); width: 100%;&quot;&gt;
+  &lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;콘텐츠 로딩 중&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text skeleton_w-sm&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -81,17 +86,14 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
-            <div class="skeleton_row" role="status" aria-live="polite" aria-busy="true" aria-label="프로필 로딩 중">
+            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="콘텐츠 로딩 중">
+              <div class="skeleton_row">
+                <span class="skeleton skeleton_circle" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="콘텐츠 로딩 중" style="margin-top: var(--space-md);">
               <span class="skeleton skeleton_circle" aria-hidden="true"></span>
-              <span class="skeleton skeleton_button" aria-hidden="true"></span>
-            </div>
-
-            <div style="max-width: 280px; width: 100%; margin-top: var(--space-md);" role="status" aria-live="polite" aria-busy="true" aria-label="이미지 로딩 중">
-              <span class="skeleton skeleton_image" aria-hidden="true"></span>
-            </div>
-
-            <div style="max-width: 280px; width: 100%; margin-top: var(--space-md);" role="status" aria-live="polite" aria-busy="true" aria-label="블록 로딩 중">
-              <span class="skeleton skeleton_block" aria-hidden="true"></span>
             </div>
           </div>
 
@@ -103,26 +105,19 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- 프로필 로딩 중 --&gt;
+            <pre><code>&lt;!-- 콘텐츠 로딩 중 --&gt;
 
-&lt;div class=&quot;skeleton_row&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;프로필 로딩 중&quot;&gt;
+&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;콘텐츠 로딩 중&quot;&gt;
+  &lt;div class=&quot;skeleton_row&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 콘텐츠 로딩 중 --&gt;
+
+&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;콘텐츠 로딩 중&quot; style=&quot;margin-top: var(--space-md);&quot;&gt;
   &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_button&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- 이미지 로딩 중 --&gt;
-
-&lt;div style=&quot;max-width: 280px; width: 100%; margin-top: var(--space-md);&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;이미지 로딩 중&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_image&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- 블록 로딩 중 --&gt;
-
-&lt;div style=&quot;max-width: 280px; width: 100%; margin-top: var(--space-md);&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;블록 로딩 중&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_block&quot; aria-hidden=&quot;true&quot;&gt;
   &lt;/span&gt;
 &lt;/div&gt;</code></pre>
           </div>
@@ -135,20 +130,22 @@
             <p><code class="typo_code">skeleton_sm</code> · <code class="typo_code">skeleton</code>(기본) · <code class="typo_code">skeleton_lg</code> 세 가지 스케일을 지원합니다. 그룹 루트에 지정하면 하위 형태에 일괄 적용됩니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start" style="max-width: var(--input-max-width); width: 100%;">
-            <div class="skeleton_group skeleton_sm" role="status" aria-live="polite" aria-busy="true" aria-label="Small 로딩">
-              <span class="skeleton skeleton_title" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text" aria-hidden="true"></span>
-            </div>
+          <div class="demo_section-preview demo_section-preview-start">
+            <div style="max-width: var(--input-max-width); width: 100%;">
+              <div class="skeleton_group skeleton_sm" role="status" aria-live="polite" aria-busy="true" aria-label="Small 로딩">
+                <span class="skeleton skeleton_title" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text" aria-hidden="true"></span>
+              </div>
 
-            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="기본 로딩" style="margin-top: var(--space-md);">
-              <span class="skeleton skeleton_title" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text" aria-hidden="true"></span>
-            </div>
+              <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="기본 로딩" style="margin-top: var(--space-md);">
+                <span class="skeleton skeleton_title" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text" aria-hidden="true"></span>
+              </div>
 
-            <div class="skeleton_group skeleton_lg" role="status" aria-live="polite" aria-busy="true" aria-label="Large 로딩" style="margin-top: var(--space-md);">
-              <span class="skeleton skeleton_title" aria-hidden="true"></span>
-              <span class="skeleton skeleton_text" aria-hidden="true"></span>
+              <div class="skeleton_group skeleton_lg" role="status" aria-live="polite" aria-busy="true" aria-label="Large 로딩" style="margin-top: var(--space-md);">
+                <span class="skeleton skeleton_title" aria-hidden="true"></span>
+                <span class="skeleton skeleton_text" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
 
@@ -160,31 +157,25 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;!-- Small 로딩 --&gt;
-
-&lt;div class=&quot;skeleton_group skeleton_sm&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;Small 로딩&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- 기본 로딩 --&gt;
-
-&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;기본 로딩&quot; style=&quot;margin-top: var(--space-md);&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-&lt;/div&gt;
-
-&lt;!-- Large 로딩 --&gt;
-
-&lt;div class=&quot;skeleton_group skeleton_lg&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;Large 로딩&quot; style=&quot;margin-top: var(--space-md);&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
+            <pre><code>&lt;div style=&quot;max-width: var(--input-max-width); width: 100%;&quot;&gt;
+  &lt;div class=&quot;skeleton_group skeleton_sm&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;Small 로딩&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;기본 로딩&quot; style=&quot;margin-top: var(--space-md);&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;skeleton_group skeleton_lg&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;Large 로딩&quot; style=&quot;margin-top: var(--space-md);&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -196,27 +187,29 @@
             <p><code class="typo_code">skeleton_row</code> · <code class="typo_code">skeleton_row-body</code>로 목록·피드 항목 레이아웃을 구성합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start" style="max-width: var(--input-max-width); width: 100%;">
-            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="목록 로딩 중">
-              <div class="skeleton_row">
-                <span class="skeleton skeleton_circle" aria-hidden="true"></span>
-                <div class="skeleton_row-body">
-                  <span class="skeleton skeleton_text skeleton_w-lg" aria-hidden="true"></span>
-                  <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+          <div class="demo_section-preview demo_section-preview-start">
+            <div style="max-width: var(--input-max-width); width: 100%;">
+              <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="목록 로딩 중">
+                <div class="skeleton_row">
+                  <span class="skeleton skeleton_circle" aria-hidden="true"></span>
+                  <div class="skeleton_row-body">
+                    <span class="skeleton skeleton_text skeleton_w-lg" aria-hidden="true"></span>
+                    <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                  </div>
                 </div>
-              </div>
-              <div class="skeleton_row">
-                <span class="skeleton skeleton_circle" aria-hidden="true"></span>
-                <div class="skeleton_row-body">
-                  <span class="skeleton skeleton_text skeleton_w-lg" aria-hidden="true"></span>
-                  <span class="skeleton skeleton_text skeleton_w-sm" aria-hidden="true"></span>
+                <div class="skeleton_row">
+                  <span class="skeleton skeleton_circle" aria-hidden="true"></span>
+                  <div class="skeleton_row-body">
+                    <span class="skeleton skeleton_text skeleton_w-lg" aria-hidden="true"></span>
+                    <span class="skeleton skeleton_text skeleton_w-sm" aria-hidden="true"></span>
+                  </div>
                 </div>
-              </div>
-              <div class="skeleton_row">
-                <span class="skeleton skeleton_circle" aria-hidden="true"></span>
-                <div class="skeleton_row-body">
-                  <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
-                  <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                <div class="skeleton_row">
+                  <span class="skeleton skeleton_circle" aria-hidden="true"></span>
+                  <div class="skeleton_row-body">
+                    <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                    <span class="skeleton skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -230,35 +223,37 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;목록 로딩 중&quot;&gt;
-  &lt;div class=&quot;skeleton_row&quot;&gt;
-    &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-    &lt;div class=&quot;skeleton_row-body&quot;&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-lg&quot; aria-hidden=&quot;true&quot;&gt;
+            <pre><code>&lt;div style=&quot;max-width: var(--input-max-width); width: 100%;&quot;&gt;
+  &lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;목록 로딩 중&quot;&gt;
+    &lt;div class=&quot;skeleton_row&quot;&gt;
+      &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;/span&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;/span&gt;
+      &lt;div class=&quot;skeleton_row-body&quot;&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-lg&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;skeleton_row&quot;&gt;
-    &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-    &lt;div class=&quot;skeleton_row-body&quot;&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-lg&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;div class=&quot;skeleton_row&quot;&gt;
+      &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;/span&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-sm&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;/span&gt;
+      &lt;div class=&quot;skeleton_row-body&quot;&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-lg&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-sm&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;skeleton_row&quot;&gt;
-    &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-    &lt;div class=&quot;skeleton_row-body&quot;&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;div class=&quot;skeleton_row&quot;&gt;
+      &lt;span class=&quot;skeleton skeleton_circle&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;/span&gt;
-      &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
-      &lt;/span&gt;
+      &lt;div class=&quot;skeleton_row-body&quot;&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;skeleton skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -327,11 +322,14 @@
             <p><code class="typo_code">skeleton_static</code>을 지정하면 쉬머 애니메이션 없이 고정 플레이스홀더만 표시합니다. <code class="typo_code">prefers-reduced-motion</code> 환경에서도 애니메이션이 비활성화됩니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start" style="max-width: var(--input-max-width); width: 100%;">
-            <div class="skeleton_group" role="status" aria-live="polite" aria-busy="true" aria-label="정적 플레이스홀더">
-              <span class="skeleton skeleton_static skeleton_title" aria-hidden="true"></span>
-              <span class="skeleton skeleton_static skeleton_text" aria-hidden="true"></span>
-              <span class="skeleton skeleton_static skeleton_text skeleton_w-md" aria-hidden="true"></span>
+          <div class="demo_section-preview demo_section-preview-start">
+            <div style="max-width: var(--input-max-width); width: 100%;">
+              <div class="skeleton_group skeleton_static" role="status" aria-live="polite" aria-busy="true" aria-label="콘텐츠 로딩 중">
+                <span class="skeleton skeleton_static skeleton_title" aria-hidden="true"></span>
+                <span class="skeleton skeleton_static skeleton_text" aria-hidden="true"></span>
+                <span class="skeleton skeleton_static skeleton_text skeleton_w-md" aria-hidden="true"></span>
+                <span class="skeleton skeleton_static skeleton_text skeleton_w-sm" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
 
@@ -343,13 +341,17 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;skeleton_group&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;정적 플레이스홀더&quot;&gt;
-  &lt;span class=&quot;skeleton skeleton_static skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_static skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
-  &lt;span class=&quot;skeleton skeleton_static skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
-  &lt;/span&gt;
+            <pre><code>&lt;div style=&quot;max-width: var(--input-max-width); width: 100%;&quot;&gt;
+  &lt;div class=&quot;skeleton_group skeleton_static&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-busy=&quot;true&quot; aria-label=&quot;콘텐츠 로딩 중&quot;&gt;
+    &lt;span class=&quot;skeleton skeleton_static skeleton_title&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_static skeleton_text&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_static skeleton_text skeleton_w-md&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+    &lt;span class=&quot;skeleton skeleton_static skeleton_text skeleton_w-sm&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -392,24 +394,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">skeleton</code></td><td>기본 플레이스홀더 막대 (쉬머 애니메이션)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_text</code></td><td>본문 텍스트 한 줄</td></tr>
-                  <tr><td><code class="typo_code">skeleton_title</code></td><td>제목·헤드라인 한 줄 (기본 너비 40%)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_circle</code></td><td>원형 — 아바타 플레이스홀더</td></tr>
-                  <tr><td><code class="typo_code">skeleton_button</code></td><td>버튼 형태</td></tr>
-                  <tr><td><code class="typo_code">skeleton_image</code></td><td>이미지 영역 (16:9 비율)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_block</code></td><td>고정 높이 블록</td></tr>
-                  <tr><td><code class="typo_code">skeleton_w-sm</code> · <code class="typo_code">skeleton_w-md</code> · <code class="typo_code">skeleton_w-lg</code></td><td>줄 너비 변형 (35% · 65% · 85%)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_sm</code> · <code class="typo_code">skeleton_lg</code></td><td>그룹 크기 스케일 (하위 형태에 전파)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_group</code></td><td>세로 스택 레이아웃</td></tr>
-                  <tr><td><code class="typo_code">skeleton_row</code></td><td>가로 행 (아바타 + 본문 등)</td></tr>
-                  <tr><td><code class="typo_code">skeleton_row-body</code></td><td>행 안 텍스트 열</td></tr>
-                  <tr><td><code class="typo_code">skeleton_static</code></td><td>쉬머 애니메이션 비활성</td></tr>
-                  <tr><td><code class="typo_code">role="status"</code></td><td>로딩 상태 시맨틱 (권장)</td></tr>
-                  <tr><td><code class="typo_code">aria-busy="true"</code></td><td>콘텐츠 로딩 중 표시</td></tr>
-                  <tr><td><code class="typo_code">aria-live="polite"</code></td><td>스크린 리더에 상태 변경 알림</td></tr>
-                  <tr><td><code class="typo_code">aria-label</code></td><td>접근 가능한 로딩 설명</td></tr>
-                  <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 막대 — 스크린 리더에서 숨김</td></tr>
+                  <tr><td><code class="typo_code">skeleton · skeleton_text · skeleton_title · skeleton_circle</code></td><td>막대·제목·원형</td></tr>
+                  <tr><td><code class="typo_code">skeleton_button · skeleton_image · skeleton_block</code></td><td>버튼·이미지·블록 형태</td></tr>
+                  <tr><td><code class="typo_code">skeleton_w-sm · skeleton_w-md · skeleton_w-lg</code></td><td>줄 너비</td></tr>
+                  <tr><td><code class="typo_code">skeleton_group · skeleton_row · skeleton_row-body</code></td><td>레이아웃</td></tr>
+                  <tr><td><code class="typo_code">skeleton_static · skeleton_sm · skeleton_lg</code></td><td>애니메이션·크기</td></tr>
+                  <tr><td><code class="typo_code">role="status"</code> · <code class="typo_code">aria-busy</code> · <code class="typo_code">aria-label</code></td><td>접근성</td></tr>
                 </tbody>
               </table>
             </div>
@@ -432,18 +422,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">--skeleton-bg</code></td><td><code class="typo_code">var(--color-surface-raised)</code></td><td>플레이스홀더 배경</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-shine</code></td><td>surface 혼합</td><td>쉬머 하이라이트</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-radius</code></td><td><code class="typo_code">var(--radius-sm)</code></td><td>모서리 반경</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-text-height</code></td><td>0.875rem</td><td>본문 줄 높이</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-title-height</code></td><td>1.125rem</td><td>제목 줄 높이</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-title-width</code></td><td>40%</td><td>제목 기본 너비</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-avatar-size</code></td><td><code class="typo_code">var(--avatar-size)</code></td><td>원형 크기</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-button-height</code> · <code class="typo_code">--skeleton-button-width</code></td><td>2rem · 5rem</td><td>버튼 형태 크기</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-image-ratio</code></td><td>16 / 9</td><td>이미지 종횡비</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-width-sm</code> · <code class="typo_code">--skeleton-width-md</code> · <code class="typo_code">--skeleton-width-lg</code></td><td>35% · 65% · 85%</td><td>줄 너비 변형</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>그룹·행 간격</td></tr>
-                  <tr><td><code class="typo_code">--skeleton-duration</code></td><td>1.4s</td><td>쉬머 애니메이션 주기</td></tr>
+                  <tr><td><code class="typo_code">--skeleton-bg</code> · <code class="typo_code">--skeleton-shine</code></td><td>—</td><td>배경·쉬머</td></tr>
+                  <tr><td><code class="typo_code">--skeleton-text-height</code> · <code class="typo_code">--skeleton-title-height</code></td><td>0.875rem · 1.125rem</td><td>줄 높이</td></tr>
+                  <tr><td><code class="typo_code">--skeleton-avatar-size</code> · <code class="typo_code">--skeleton-gap</code> · <code class="typo_code">--skeleton-duration</code></td><td>—</td><td>아바타·간격·주기</td></tr>
                 </tbody>
               </table>
             </div>
@@ -456,5 +437,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>

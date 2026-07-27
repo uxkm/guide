@@ -22,11 +22,12 @@
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
           </svg>
           <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 3v18"/>
-            <path d="M14 9l3 3-3 3"/>
+            <path d="m14 9 3 3-3 3"/>
           </svg>
         </button>
         <span class="guide_header-title">Empty</span>
@@ -96,7 +97,7 @@
                   <path d="M24 22v-4.5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
               </div>
-              <p class="empty_desc">등록된 프로젝트가 없습니다.<br>새 프로젝트를 만들어 시작해 보세요.</p>
+              <p class="empty_desc">등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.</p>
               <div class="empty_footer">
                 <button type="button" class="btn btn_filled color_primary btn_sm">
                   <span class="btn_label">프로젝트 만들기</span>
@@ -122,13 +123,13 @@
       &lt;path d=&quot;M24 22v-4.5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2V22&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/&gt;
     &lt;/svg&gt;
   &lt;/div&gt;
-  &lt;p class=&quot;empty_desc&quot;&gt;등록된 프로젝트가 없습니다.&lt;br&gt;새 프로젝트를 만들어 시작해 보세요.&lt;/p&gt;
-    &lt;div class=&quot;empty_footer&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
-        &lt;span class=&quot;btn_label&quot;&gt;프로젝트 만들기&lt;/span&gt;
-      &lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;</code></pre>
+  &lt;p class=&quot;empty_desc&quot;&gt;등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.&lt;/p&gt;
+  &lt;div class=&quot;empty_footer&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;프로젝트 만들기&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -148,7 +149,7 @@
                   <path d="M8 11h6"/>
                 </svg>
               </div>
-              <p class="empty_desc">검색 결과가 없습니다.<br>다른 키워드로 다시 검색해 보세요.</p>
+              <p class="empty_desc">검색 결과가 없습니다. 다른 키워드로 다시 검색해 보세요.</p>
             </div>
           </div>
 
@@ -168,8 +169,8 @@
       &lt;path d=&quot;M8 11h6&quot;/&gt;
     &lt;/svg&gt;
   &lt;/div&gt;
-  &lt;p class=&quot;empty_desc&quot;&gt;검색 결과가 없습니다.&lt;br&gt;다른 키워드로 다시 검색해 보세요.&lt;/p&gt;
-  &lt;/div&gt;</code></pre>
+  &lt;p class=&quot;empty_desc&quot;&gt;검색 결과가 없습니다. 다른 키워드로 다시 검색해 보세요.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -180,7 +181,7 @@
             <p><code class="typo_code">empty_sm</code> · <code class="typo_code">empty</code>(기본) · <code class="typo_code">empty_lg</code> 세 가지 스케일을 지원합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="empty empty_sm" role="status">
               <div class="empty_image" aria-hidden="true">
                 <svg viewBox="0 0 64 41" fill="none" aria-hidden="true">
@@ -304,7 +305,7 @@
             <p><code class="typo_code">empty_block</code>은 카드·테이블 등 부모 너비 안에서 가운데 정렬합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="card card_shadow" style="max-width: var(--input-max-width); width: 100%;">
               <div class="card_header">
                 <h3 class="card_title">알림 목록</h3>
@@ -336,7 +337,7 @@
                 <tbody>
                   <tr>
                     <td colspan="3" style="padding: 0; border: none;">
-                      <div class="empty empty_block empty_sm" role="status">
+                      <div class="empty empty_block empty_simple empty_sm" role="status">
                         <p class="empty_desc">표시할 항목이 없습니다</p>
                       </div>
                     </td>
@@ -389,7 +390,7 @@
     &lt;tbody&gt;
       &lt;tr&gt;
         &lt;td colspan=&quot;3&quot; style=&quot;padding: 0; border: none;&quot;&gt;
-          &lt;div class=&quot;empty empty_block empty_sm&quot; role=&quot;status&quot;&gt;
+          &lt;div class=&quot;empty empty_block empty_simple empty_sm&quot; role=&quot;status&quot;&gt;
             &lt;p class=&quot;empty_desc&quot;&gt;표시할 항목이 없습니다&lt;/p&gt;
           &lt;/div&gt;
         &lt;/td&gt;
@@ -446,15 +447,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">empty</code></td><td>루트 래퍼 (인라인 flex, 세로 정렬)</td></tr>
-                  <tr><td><code class="typo_code">empty_image</code></td><td>아이콘·일러스트 영역 (선택)</td></tr>
-                  <tr><td><code class="typo_code">empty_desc</code></td><td>설명 텍스트</td></tr>
-                  <tr><td><code class="typo_code">empty_footer</code></td><td>버튼·링크 등 액션 영역 (선택)</td></tr>
-                  <tr><td><code class="typo_code">empty_sm</code> · <code class="typo_code">empty_lg</code></td><td>크기 변형</td></tr>
-                  <tr><td><code class="typo_code">empty_simple</code></td><td>아이콘 숨김 — 설명만 표시</td></tr>
-                  <tr><td><code class="typo_code">empty_block</code></td><td>부모 너비 안 가운데 정렬</td></tr>
-                  <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 시맨틱 (권장)</td></tr>
-                  <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 아이콘 — 스크린 리더에서 제외</td></tr>
+                  <tr><td><code class="typo_code">empty · empty_image · empty_desc · empty_footer</code></td><td>루트·이미지·설명·푸터</td></tr>
+                  <tr><td><code class="typo_code">empty_sm · empty_lg · empty_simple · empty_block</code></td><td>크기·변형</td></tr>
+                  <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 시맨틱</td></tr>
                 </tbody>
               </table>
             </div>
@@ -475,16 +470,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">--empty-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>아이콘·설명·푸터 간격</td></tr>
-                  <tr><td><code class="typo_code">--empty-padding-y</code> · <code class="typo_code">--empty-padding-x</code></td><td><code class="typo_code">var(--space-xl)</code> · <code class="typo_code">var(--space-md)</code></td><td>내부 여백</td></tr>
-                  <tr><td><code class="typo_code">--empty-image-size</code></td><td>4rem</td><td>아이콘 영역 크기</td></tr>
-                  <tr><td><code class="typo_code">--empty-image-size-sm</code> · <code class="typo_code">--empty-image-size-lg</code></td><td>3rem · 5rem</td><td>크기 변형별 아이콘</td></tr>
-                  <tr><td><code class="typo_code">--empty-icon-color</code></td><td><code class="typo_code">var(--color-border)</code></td><td>기본 아이콘 색</td></tr>
-                  <tr><td><code class="typo_code">--empty-desc-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>설명 텍스트 크기</td></tr>
-                  <tr><td><code class="typo_code">--empty-desc-color</code></td><td><code class="typo_code">var(--color-text-muted)</code></td><td>설명 텍스트 색</td></tr>
-                  <tr><td><code class="typo_code">--empty-desc-max-width</code></td><td>20rem</td><td>설명 최대 너비</td></tr>
-                  <tr><td><code class="typo_code">--empty-footer-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>푸터 내 버튼 간격</td></tr>
-                  <tr><td><code class="typo_code">--empty-footer-offset</code></td><td><code class="typo_code">var(--space-xs)</code></td><td>설명과 푸터 사이 추가 간격</td></tr>
+                  <tr><td><code class="typo_code">--empty-gap</code> · <code class="typo_code">--empty-padding-y</code> · <code class="typo_code">--empty-padding-x</code></td><td>—</td><td>간격·패딩</td></tr>
+                  <tr><td><code class="typo_code">--empty-image-size</code> · <code class="typo_code">--empty-image-size-sm</code> · <code class="typo_code">--empty-image-size-lg</code></td><td>4rem · 3rem · 5rem</td><td>아이콘 크기</td></tr>
+                  <tr><td><code class="typo_code">--empty-desc-size</code> · <code class="typo_code">--empty-desc-max-width</code></td><td><code class="typo_code">var(--text-size-sm)</code> · 20rem</td><td>설명 타이포</td></tr>
                 </tbody>
               </table>
             </div>
@@ -497,5 +485,6 @@
   <script src="../js/theme.js"></script>
   <script src="../js/nav.js"></script>
   <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
 </body>
 </html>
