@@ -8,6 +8,7 @@ export default function Accordion({
   size = 'md',
   multiple,
   narrow,
+  effect,
   children,
   className,
   ...rest
@@ -15,7 +16,7 @@ export default function Accordion({
   const rootRef = useRef(null);
   const itemsRef = useRef(new Map());
   const [registeredItems, setRegisteredItems] = useState([]);
-  const props = { variant, size, multiple, narrow };
+  const props = { variant, size, multiple, narrow, effect };
 
   const rootClass = cn(
     'accordion',
@@ -80,20 +81,26 @@ export default function Accordion({
 
   const contextValue = useMemo(
     () => ({
+      effect,
       registerItem,
       unregisterItem,
       toggleItem,
       getTriggers,
       focusTrigger,
     }),
-    [registerItem, unregisterItem, toggleItem, getTriggers, focusTrigger],
+    [effect, registerItem, unregisterItem, toggleItem, getTriggers, focusTrigger],
   );
 
   useAccordionDemoCode(props, registeredItems, rootRef, { class: className, ...rest });
 
   return (
     <AccordionContext.Provider value={contextValue}>
-      <div ref={rootRef} className={rootClass} {...rest}>
+      <div
+        ref={rootRef}
+        className={rootClass}
+        data-effect={effect === 'slide' ? 'slide' : undefined}
+        {...rest}
+      >
         {children}
       </div>
     </AccordionContext.Provider>

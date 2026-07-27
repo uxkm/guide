@@ -31,6 +31,12 @@ export const accordionProps = [
     default: 'false',
     description: '데모용 최대 너비 제한 (accordion_demo-narrow)',
   },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 (data-effect="slide")',
+  },
 ];
 
 export const accordionItemPropColumns = [
@@ -100,5 +106,6 @@ export const accordionClasses = [
   { name: 'accordion_content', description: '패널 본문 래퍼' },
   { name: 'data-accordion', description: 'HTML 마크업 JS 초기화 대상' },
   { name: 'data-accordion-multiple', description: 'HTML 마크업 다중 열기 허용' },
+  { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
 ];

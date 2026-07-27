@@ -8,6 +8,7 @@ export default function CollapseGroup({
   size = 'md',
   accordion,
   narrow,
+  effect,
   children,
   className,
   ...rest
@@ -15,7 +16,7 @@ export default function CollapseGroup({
   const rootRef = useRef(null);
   const panelsRef = useRef(new Map());
   const [registeredPanels, setRegisteredPanels] = useState([]);
-  const props = { variant, size, accordion, narrow };
+  const props = { variant, size, accordion, narrow, effect };
 
   const rootClass = cn(
     'collapse_group',
@@ -71,18 +72,24 @@ export default function CollapseGroup({
 
   const contextValue = useMemo(
     () => ({
+      effect,
       registerPanel,
       unregisterPanel,
       togglePanel,
     }),
-    [registerPanel, unregisterPanel, togglePanel],
+    [effect, registerPanel, unregisterPanel, togglePanel],
   );
 
   useCollapseGroupDemoCode(props, registeredPanels, rootRef, { class: className, ...rest });
 
   return (
     <CollapseGroupContext.Provider value={contextValue}>
-      <div ref={rootRef} className={rootClass} {...rest}>
+      <div
+        ref={rootRef}
+        className={rootClass}
+        data-effect={effect === 'slide' ? 'slide' : undefined}
+        {...rest}
+      >
         {children}
       </div>
     </CollapseGroupContext.Provider>

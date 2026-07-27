@@ -3,6 +3,7 @@ import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useCollapseGroup } from '@/components/context/CollapseGroupContext';
 import { cn } from '@/utils/cn';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 import { useRipple } from '@/hooks/useRipple';
 
 function useMutableRef(initial) {
@@ -38,12 +39,16 @@ export default function CollapsePanel({
   const triggerId = useId().replace(/:/g, '');
   const bodyId = useId().replace(/:/g, '');
   const isOpen = useMutableRef(open);
+  const bodyRef = useRef(null);
+  const isFirstSlideSync = useRef(true);
   const registerPanelRef = useRef(group?.registerPanel);
   const unregisterPanelRef = useRef(group?.unregisterPanel);
   const isOpenRef = useRef(isOpen);
   registerPanelRef.current = group?.registerPanel;
   unregisterPanelRef.current = group?.unregisterPanel;
   isOpenRef.current = isOpen;
+
+  const slide = group?.effect === 'slide';
 
   const panelClass = cn(
     'collapse_panel',
@@ -80,6 +85,13 @@ export default function CollapsePanel({
     return () => unregisterPanelRef.current?.(triggerId);
   }, [triggerId, label, content, open, disabled, extraCode, Boolean(extra)]);
 
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(bodyRef.current, isOpen.value, animate);
+  }, [slide, isOpen.value]);
+
   return (
     <div className={panelClass}>
       <div className="collapse_header">
@@ -99,11 +111,12 @@ export default function CollapsePanel({
         </Button>
       </div>
       <div
+        ref={slide ? bodyRef : undefined}
         id={bodyId}
         className={cn('collapse_body', isOpen.value && 'is-open')}
         role="region"
         aria-labelledby={triggerId}
-        hidden={!isOpen.value || undefined}
+        hidden={slide ? undefined : (!isOpen.value || undefined)}
       >
         <div className="collapse_content">
           {children ?? (content ? <p>{content}</p> : null)}

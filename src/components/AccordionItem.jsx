@@ -1,8 +1,9 @@
-import { useEffect, useId, useMemo, useReducer, useRef } from 'react';
+import { useEffect, useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useAccordion } from '@/components/context/AccordionContext';
 import { cn } from '@/utils/cn';
+import { setSlideRegionOpen } from '@/utils/slide-region';
 import { useRipple } from '@/hooks/useRipple';
 
 function useMutableRef(initial) {
@@ -38,12 +39,16 @@ export default function AccordionItem({
   const triggerId = useId().replace(/:/g, '');
   const panelId = useId().replace(/:/g, '');
   const isOpen = useMutableRef(open);
+  const panelRef = useRef(null);
+  const isFirstSlideSync = useRef(true);
   const registerItemRef = useRef(accordion?.registerItem);
   const unregisterItemRef = useRef(accordion?.unregisterItem);
   const isOpenRef = useRef(isOpen);
   registerItemRef.current = accordion?.registerItem;
   unregisterItemRef.current = accordion?.unregisterItem;
   isOpenRef.current = isOpen;
+
+  const slide = accordion?.effect === 'slide';
 
   const itemClass = cn(
     'accordion_item',
@@ -99,6 +104,13 @@ export default function AccordionItem({
     return () => unregisterItemRef.current?.(triggerId);
   }, [triggerId, label, content, open, disabled, extra, extraCode]);
 
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(panelRef.current, isOpen.value, animate);
+  }, [slide, isOpen.value]);
+
   return (
     <div className={itemClass}>
       <h3 className="accordion_heading">
@@ -119,11 +131,12 @@ export default function AccordionItem({
         </Button>
       </h3>
       <div
+        ref={slide ? panelRef : undefined}
         id={panelId}
         className="accordion_panel"
         role="region"
         aria-labelledby={triggerId}
-        hidden={!isOpen.value || undefined}
+        hidden={slide ? undefined : (!isOpen.value || undefined)}
       >
         <div className="accordion_content">
           {children ?? (content ? <p>{content}</p> : null)}

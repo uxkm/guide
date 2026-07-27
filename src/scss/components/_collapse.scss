@@ -14,6 +14,8 @@
   --collapse-content-padding-x: var(--space-lg);
   --collapse-icon-size: 1rem;
   --collapse-card-gap: var(--space-sm);
+  --collapse-slide-duration: 0.28s;
+  --collapse-slide-easing: ease;
 
 
   // ----- Collapse — size sm · lg
@@ -39,10 +41,10 @@
 //
 //   <!-- 외부 트리거 -->
 //   <button type="button" data-collapse-trigger aria-expanded="false" aria-controls="col-1">펼치기</button>
-//   <div class="collapse" id="col-1" hidden>…</div>
+//   <div class="collapse" id="col-1" data-effect="slide" hidden><div>…</div></div>
 //
 //   <!-- 패널 그룹 -->
-//   <div class="collapse_group collapse_bordered" data-collapse>
+//   <div class="collapse_group collapse_bordered" data-collapse data-effect="slide">
 //     <div class="collapse_panel is-open">
 //       <div class="collapse_header">
 //         <button type="button" class="collapse_trigger" id="col-h-1"
@@ -56,6 +58,8 @@
 //       </div>
 //     </div>
 //   </div>
+//
+//   data-effect="slide" — 펼침·접힘 높이 슬라이드 (JS height transition)
 
 .collapse {
   width: 100%;
@@ -66,6 +70,15 @@
 
   &[hidden] {
     display: none;
+  }
+
+  // ----- effect: slide (독립 .collapse) — 높이 애니메이션은 JS
+  &[data-effect="slide"] {
+    overflow: hidden;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none !important;
+    }
   }
 
   > :first-child {
@@ -196,6 +209,19 @@
 
     &[hidden] {
       display: none;
+    }
+  }
+
+  // ----- effect: slide (패널 그룹) — 높이 애니메이션은 JS
+  &_group[data-effect="slide"] {
+    .collapse_body {
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .collapse_body {
+        transition: none !important;
+      }
     }
   }
 
