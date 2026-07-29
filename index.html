@@ -231,6 +231,7 @@
 
     .card {
       --card-angle: 0deg;
+      --outline-duration: 2s;
       position: relative;
       isolation: isolate;
       display: block;
@@ -240,7 +241,22 @@
       padding: 1.75rem;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+
+    .card:nth-child(1),
+    .card:nth-child(2) {
+      --outline-duration: 2s;
+    }
+
+    .card:nth-child(3),
+    .card:nth-child(4) {
+      --outline-duration: 2.5s;
+    }
+
+    .card:nth-child(5),
+    .card:nth-child(6) {
+      --outline-duration: 3s;
     }
 
     .card::before {
@@ -268,7 +284,9 @@
       mask-composite: exclude;
       pointer-events: none;
       z-index: 1;
-      animation: card-outline-spin 2s linear infinite;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+      animation: card-outline-spin var(--outline-duration) linear infinite;
     }
 
     @keyframes card-outline-spin {
@@ -278,8 +296,15 @@
 
     .card:hover,
     .card:focus-visible {
+      border-color: var(--accent);
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before {
+      opacity: 0;
+      animation-play-state: paused;
     }
 
     @media (prefers-reduced-motion: reduce) {
