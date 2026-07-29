@@ -266,25 +266,10 @@
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       mask-composite: exclude;
-      opacity: 0;
       pointer-events: none;
       z-index: 1;
-      transition: opacity 0.25s ease;
-    }
-
-    .card.card--intro::before,
-    .card:hover::before,
-    .card:focus-visible::before {
-      opacity: 1;
-    }
-
-    .card.card--intro::before {
-      animation: card-outline-spin 1.4s linear var(--intro-delay, 0ms) 1 both;
-    }
-
-    .card:hover::before,
-    .card:focus-visible::before {
       animation: card-outline-spin 1.4s linear infinite;
+      animation-delay: var(--intro-delay, 0ms);
     }
 
     @keyframes card-outline-spin {
@@ -484,17 +469,9 @@
       updateLabel();
 
       var cards = document.querySelectorAll('.grid .card');
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduceMotion) {
-        cards.forEach(function (card, index) {
-          var delayMs = index * 120;
-          card.style.setProperty('--intro-delay', delayMs + 'ms');
-          card.classList.add('card--intro');
-          window.setTimeout(function () {
-            card.classList.remove('card--intro');
-          }, delayMs + 1400);
-        });
-      }
+      cards.forEach(function (card, index) {
+        card.style.setProperty('--intro-delay', (index * 120) + 'ms');
+      });
     })();
   </script>
 </body>
