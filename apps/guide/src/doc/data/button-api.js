@@ -1,4 +1,5 @@
 import { ripplePropSurface, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const buttonPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -29,7 +30,7 @@ export const buttonProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '버튼 텍스트. default 슬롯으로 대체 가능',
+    description: '버튼 텍스트. children으로 대체 가능',
   },
   {
     name: 'round',
@@ -44,10 +45,10 @@ export const buttonProps = [
     description: '아이콘 위 · 텍스트 아래 세로 배치',
   },
   {
-    name: 'icon-only',
+    name: 'iconOnly',
     type: 'boolean',
     default: 'false',
-    description: '아이콘만 표시. aria-label 필수',
+    description: '아이콘만 표시. ariaLabel 필수',
   },
   {
     name: 'block',
@@ -74,7 +75,7 @@ export const buttonProps = [
     description: 'HTML disabled 속성',
   },
   {
-    name: 'aria-disabled',
+    name: 'ariaDisabled',
     type: 'boolean',
     default: 'false',
     description: 'is-disabled 클래스와 함께 비활성 표현',
@@ -104,7 +105,7 @@ export const buttonProps = [
     description: '셀렉트 미선택 placeholder 스타일',
   },
   {
-    name: 'select-text',
+    name: 'selectText',
     type: 'boolean',
     default: 'false',
     description: '배경·테두리 없는 셀렉트 텍스트 형태',
@@ -140,10 +141,10 @@ export const buttonProps = [
     description: 'Tab 순서 수동 지정. div·href 없는 a는 기본 0, 비활성 -1',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '—',
-    description: '접근성 라벨 (icon-only 시 필수)',
+    description: '접근성 라벨 (iconOnly 시 필수)',
   },
   {
     name: 'haspopup',
@@ -167,14 +168,14 @@ export const buttonProps = [
 ];
 
 export const buttonSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const buttonSlots = [
-  { name: 'default', description: '버튼 텍스트 (label prop 대체)' },
-  { name: 'icon-before', description: '텍스트 앞 아이콘' },
-  { name: 'icon-after', description: '텍스트 뒤 아이콘' },
+  { name: 'children', description: '버튼 텍스트 (label prop 대체). iconOnly일 때 iconBefore가 없으면 아이콘 콘텐츠로 사용' },
+  { name: 'iconBefore', description: '텍스트 앞 아이콘 (Vue #icon-before 슬롯 대응)' },
+  { name: 'iconAfter', description: '텍스트 뒤 아이콘 (Vue #icon-after 슬롯 대응)' },
 ];
 
 export const buttonClassColumns = [
@@ -201,7 +202,6 @@ export const buttonClasses = [
   { name: 'color_primary · color_danger …', description: '색상 유틸 (스킨과 조합)' },
   ...rippleClassRows,
 ];
-
 
 export const buttonTokenColumns = [
   { key: 'name', label: '토큰' },

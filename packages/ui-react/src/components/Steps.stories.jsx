@@ -3,30 +3,19 @@ import Steps from './Steps.jsx';
 import StepsItem from './StepsItem.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  stepsChildColumns,
+  stepsChildren,
   stepsClassColumns,
   stepsClasses,
+  stepsItemChildColumns,
+  stepsItemChildren,
   stepsItemPropColumns,
   stepsItemProps,
   stepsPropColumns,
   stepsProps,
-  stepsSlotColumns,
-  stepsSlots,
   stepsTokenColumns,
   stepsTokens,
 } from '@doc-data/steps-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const stepsChildren = [
-  { name: 'children', description: 'StepsItem 나열 (Vue default 슬롯)' },
-];
-
-const stepsItemChildren = [
-  { name: 'children', description: '커스텀 항목 마크업 (navigable이 아닐 때)' },
-];
 
 const apiSections = [
   {
@@ -42,14 +31,11 @@ const apiSections = [
   {
     title: 'API · Steps Children',
     description: 'Vue default 슬롯은 React children으로 다룹니다.',
-    tables: [
-      { columns: stepsSlotColumns, rows: stepsSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: stepsChildren, codeColumn: 'name' },
-    ],
+    tables: [{ columns: stepsChildColumns, rows: stepsChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · StepsItem Children',
-    tables: [{ columns: childColumns, rows: stepsItemChildren, codeColumn: 'name' }],
+    tables: [{ columns: stepsItemChildColumns, rows: stepsItemChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

@@ -15,18 +15,21 @@ export function useTabsScroll({ listRef, enabled, tabCount }) {
     const list = listRef.current;
 
     if (!enabled || !list) {
-      setCanScrollPrev(false);
-      setCanScrollNext(false);
-      setHasOverflow(false);
+      setCanScrollPrev((prev) => (prev ? false : prev));
+      setCanScrollNext((prev) => (prev ? false : prev));
+      setHasOverflow((prev) => (prev ? false : prev));
       return;
     }
 
     const { scrollLeft, scrollWidth, clientWidth } = list;
     const maxScroll = scrollWidth - clientWidth;
+    const nextHasOverflow = maxScroll > SCROLL_EDGE;
+    const nextCanScrollPrev = scrollLeft > SCROLL_EDGE;
+    const nextCanScrollNext = scrollLeft < maxScroll - SCROLL_EDGE;
 
-    setHasOverflow(maxScroll > SCROLL_EDGE);
-    setCanScrollPrev(scrollLeft > SCROLL_EDGE);
-    setCanScrollNext(scrollLeft < maxScroll - SCROLL_EDGE);
+    setHasOverflow((prev) => (prev === nextHasOverflow ? prev : nextHasOverflow));
+    setCanScrollPrev((prev) => (prev === nextCanScrollPrev ? prev : nextCanScrollPrev));
+    setCanScrollNext((prev) => (prev === nextCanScrollNext ? prev : nextCanScrollNext));
   }, [enabled, listRef]);
 
   const scheduleUpdate = useCallback(() => {

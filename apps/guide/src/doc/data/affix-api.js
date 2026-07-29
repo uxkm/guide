@@ -13,13 +13,13 @@ export const affixProps = [
     description: '스크롤 컨테이너 선택자 (data-target). 생략 시 window',
   },
   {
-    name: 'offset-top',
+    name: 'offsetTop',
     type: 'number | string',
     default: '0',
     description: '상단 고정 시 상단 여백(px, data-offset-top)',
   },
   {
-    name: 'offset-bottom',
+    name: 'offsetBottom',
     type: 'number | string',
     default: '—',
     description: '하단 고정 시 하단 여백(px, data-offset-bottom). 지정 시 하단 고정 모드',
@@ -36,15 +36,27 @@ export const affixProps = [
     default: 'true',
     description: 'false면 data-affix 미부여(초기화 비활성)',
   },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
+  },
 ];
 
-export const affixSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const affixChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const affixSlots = [
-  { name: 'default', description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)' },
+export const affixChildren = [
+  { name: 'children', description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)' },
 ];
 
 export const affixAttrColumns = [

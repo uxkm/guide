@@ -3,6 +3,8 @@ import FormLayout from './FormLayout.jsx';
 import Switch from './Switch.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  switchChildColumns,
+  switchChildren,
   switchClassColumns,
   switchClasses,
   switchPropColumns,
@@ -10,20 +12,6 @@ import {
   switchTokenColumns,
   switchTokens,
 } from '@doc-data/switch-api';
-
-const switchChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const switchChildren = [
-  { name: 'label', description: '라벨 텍스트. children으로 대체 가능' },
-  {
-    name: 'children',
-    description:
-      '라벨 텍스트 (label prop 대체, Vue default 슬롯 대응). switch_content · switch_hint 조합 가능',
-  },
-];
 
 const apiSections = [
   {

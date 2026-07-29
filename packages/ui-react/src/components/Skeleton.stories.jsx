@@ -2,6 +2,8 @@ import React from 'react';
 import Skeleton from './Skeleton.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  skeletonChildColumns,
+  skeletonChildren,
   skeletonClassColumns,
   skeletonClasses,
   skeletonPropColumns,
@@ -9,15 +11,6 @@ import {
   skeletonTokenColumns,
   skeletonTokens,
 } from '@doc-data/skeleton-api';
-
-const skeletonChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const skeletonChildren = [
-  { name: 'children', description: '커스텀 스켈레톤 조각 (Vue default 슬롯)' },
-];
 
 const apiSections = [
   {
@@ -27,7 +20,7 @@ const apiSections = [
     tables: [{ columns: skeletonPropColumns, rows: skeletonProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: skeletonChildColumns, rows: skeletonChildren, codeColumn: 'name' }],
   },

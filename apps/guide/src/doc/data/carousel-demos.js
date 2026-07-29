@@ -355,21 +355,19 @@ const demoImport = `import {
   carouselThumbsSlides,
 } from '@/doc/data/carousel-demos';`;
 
-const componentImports = `import Badge from '@uxkm/ui/components/Badge.vue';
-import Button from '@uxkm/ui/components/Button.vue';
-import Card from '@uxkm/ui/components/Card.vue';
-import CardBody from '@uxkm/ui/components/CardBody.vue';
-import CardFooter from '@uxkm/ui/components/CardFooter.vue';
-import CardHeader from '@uxkm/ui/components/CardHeader.vue';
-import Link from '@uxkm/ui/components/Link.vue';
-import Tag from '@uxkm/ui/components/Tag.vue';`;
+const componentImports = `import Badge from '@uxkm/ui-react/components/Badge.jsx';
+import Button from '@uxkm/ui-react/components/Button.jsx';
+import Card from '@uxkm/ui-react/components/Card.jsx';
+import CardBody from '@uxkm/ui-react/components/CardBody.jsx';
+import CardFooter from '@uxkm/ui-react/components/CardFooter.jsx';
+import CardHeader from '@uxkm/ui-react/components/CardHeader.jsx';
+import Link from '@uxkm/ui-react/components/Link.jsx';
+import Tag from '@uxkm/ui-react/components/Tag.jsx';`;
 
-const scriptSetupPrefix = `<script setup>
-import Carousel from '@uxkm/ui/components/Carousel.vue';
-import CarouselSlide from '@uxkm/ui/components/CarouselSlide.vue';
+const scriptSetupPrefix = `import Carousel from '@uxkm/ui-react/components/Carousel.jsx';
+import CarouselSlide from '@uxkm/ui-react/components/CarouselSlide.jsx';
 ${componentImports}
 ${demoImport}
-</script>
 
 `;
 
@@ -680,15 +678,13 @@ export const carouselCoverflowRiseSourceCode = `${scriptSetupPrefix}<template>
   </div>
 </template>`;
 
-const thumbsScriptSetup = `<script setup>
-import { ref } from 'vue';
-import Carousel from '@uxkm/ui/components/Carousel.vue';
-import CarouselSlide from '@uxkm/ui/components/CarouselSlide.vue';
+const thumbsScriptSetup = `import { useRef } from 'react';
+import Carousel from '@uxkm/ui-react/components/Carousel.jsx';
+import CarouselSlide from '@uxkm/ui-react/components/CarouselSlide.jsx';
 ${componentImports}
 import { carouselThumbsSlides } from '@/doc/data/carousel-demos';
 
-const thumbsSwiper = ref(null);
-</script>
+const thumbsSwiper = useRef(null);
 
 `;
 

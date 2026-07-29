@@ -9,11 +9,12 @@ export const timelineProps = [
   { name: 'card', type: 'boolean', default: 'false', description: '카드형 콘텐츠 (timeline_card)' },
   { name: 'alternate', type: 'boolean', default: 'false', description: '좌우 교차 배치 (timeline_alternate)' },
   { name: 'horizontal', type: 'boolean', default: 'false', description: '가로 타임라인 (timeline_horizontal)' },
-  { name: 'label-col', type: 'boolean', default: 'false', description: '좌측 라벨 열 (timeline_label-col)' },
+  { name: 'labelCol', type: 'boolean', default: 'false', description: '좌측 라벨 열 (timeline_label-col)' },
   { name: 'icon', type: 'boolean', default: 'false', description: '아이콘 점 모드 (timeline_icon)' },
-  { name: 'icon-size', type: `'sm' | 'md'`, default: 'md', description: 'icon 모드 점 크기 (timeline_icon-sm)' },
+  { name: 'iconSize', type: `'sm' | 'md'`, default: 'md', description: 'icon 모드 점 크기 (timeline_icon-sm)' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'timeline_sm · timeline_lg' },
-  { name: 'tag', type: 'string', default: 'ol', description: '루트 태그 (ol · ul)' },
+  { name: 'tag', type: `'ol' | 'ul'`, default: 'ol', description: '루트 태그' },
+  { name: 'className', type: 'string', default: '—', description: 'timeline 루트에 추가 클래스' },
 ];
 
 export const timelineItemPropColumns = timelinePropColumns;
@@ -24,23 +25,34 @@ export const timelineItemProps = [
   { name: 'time', type: 'string', default: '—', description: '시간 텍스트 (timeline_time)' },
   { name: 'datetime', type: 'string', default: '—', description: 'time 요소 datetime 속성' },
   { name: 'label', type: 'string', default: '—', description: '좌측 라벨 (timeline_label)' },
-  { name: 'label-datetime', type: 'string', default: '—', description: '라벨 datetime 속성' },
+  { name: 'labelDatetime', type: 'string', default: '—', description: '라벨 datetime 속성' },
   { name: 'active', type: 'boolean', default: 'false', description: '진행 중 (is-active)' },
   { name: 'pending', type: 'boolean', default: 'false', description: '대기·미완료 (is-pending)' },
   { name: 'outline', type: 'boolean', default: 'false', description: '테두리 점 (timeline_dot-outline)' },
+  { name: 'className', type: 'string', default: '—', description: 'timeline_item에 추가 클래스' },
 ];
 
 export const timelineSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const timelineSlots = [{ name: 'default', description: 'TimelineItem 자식' }];
+export const timelineSlots = [
+  { name: 'children', description: 'TimelineItem 자식 (Vue default 슬롯 대응)' },
+];
+
+export const timelineItemSlotColumns = [
+  { key: 'name', label: 'Children / Prop' },
+  { key: 'description', label: '설명' },
+];
 
 export const timelineItemSlots = [
-  { name: 'default', description: '콘텐츠 (title·description 대체)' },
-  { name: 'dot', description: '커스텀 점·아이콘' },
-  { name: 'meta', description: '하단 메타 (timeline_meta)' },
+  { name: 'title', description: '이벤트 제목 (timeline_title)' },
+  { name: 'description', description: '설명 (timeline_desc)' },
+  { name: 'time', description: '시간 텍스트 (timeline_time)' },
+  { name: 'children', description: '콘텐츠 (title·description 대체, Vue default 슬롯 대응)' },
+  { name: 'dot', description: '커스텀 점·아이콘 (Vue #dot 슬롯 대응)' },
+  { name: 'meta', description: '하단 메타 (Vue #meta 슬롯 대응, timeline_meta)' },
 ];
 
 export const timelineClassColumns = [

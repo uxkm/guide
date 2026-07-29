@@ -6,6 +6,8 @@ import Popover from './Popover.jsx';
 import Textarea from './Textarea.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  popoverChildColumns,
+  popoverChildren,
   popoverClassColumns,
   popoverClasses,
   popoverPropColumns,
@@ -13,18 +15,6 @@ import {
   popoverTokenColumns,
   popoverTokens,
 } from '@doc-data/popover-api';
-
-const popoverChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const popoverChildren = [
-  { name: 'triggerContent', description: '트리거 (Vue #trigger 슬롯)' },
-  { name: 'title', description: '제목 (문자열·노드, Vue title 슬롯)' },
-  { name: 'children', description: '본문 (popover_body, Vue default 슬롯)' },
-  { name: 'footer', description: '하단 액션 (popover_footer)' },
-];
 
 const apiSections = [
   {
@@ -34,7 +24,7 @@ const apiSections = [
     tables: [{ columns: popoverPropColumns, rows: popoverProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: popoverChildColumns, rows: popoverChildren, codeColumn: 'name' }],
   },

@@ -7,35 +7,23 @@ import {
   linkClasses,
   linkPropColumns,
   linkProps,
+  linkSlotColumns,
+  linkSlots,
   linkTokenColumns,
   linkTokens,
 } from '@doc-data/link-api';
-
-const linkChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const linkChildren = [
-  { name: 'label', description: '링크 텍스트. children으로 대체 가능' },
-  {
-    name: 'children',
-    description: '링크 텍스트 (label prop 대체). 아이콘·보조 텍스트를 함께 넣을 수 있음',
-  },
-  { name: 'icon', description: '텍스트 앞 아이콘 (Vue #icon 슬롯 대응, link_icon 클래스)' },
-];
 
 const apiSections = [
   {
     title: 'API · Props',
     description:
-      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: no-underline, aria-label)와 동일한 의미입니다.',
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: no-underline → noUnderline, aria-label → ariaLabel)와 동일한 의미입니다.',
     tables: [{ columns: linkPropColumns, rows: linkProps, codeColumn: 'name' }],
   },
   {
     title: 'API · Children',
     description: 'Vue 슬롯(default · icon)에 대응하는 React prop·children입니다.',
-    tables: [{ columns: linkChildColumns, rows: linkChildren, codeColumn: 'name' }],
+    tables: [{ columns: linkSlotColumns, rows: linkSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

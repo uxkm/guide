@@ -3,6 +3,8 @@ import Button from './Button.jsx';
 import Empty from './Empty.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  emptyChildColumns,
+  emptyChildren,
   emptyClassColumns,
   emptyClasses,
   emptyPropColumns,
@@ -11,17 +13,6 @@ import {
   emptyTokens,
 } from '@doc-data/empty-api';
 
-const emptyChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const emptyChildren = [
-  { name: 'image', description: '일러스트·아이콘 (empty_image)' },
-  { name: 'children', description: '설명 (description prop 대체, Vue description 슬롯)' },
-  { name: 'footer', description: '액션 버튼·링크 (empty_footer)' },
-];
-
 const apiSections = [
   {
     title: 'API · Props',
@@ -29,7 +20,7 @@ const apiSections = [
     tables: [{ columns: emptyPropColumns, rows: emptyProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: emptyChildColumns, rows: emptyChildren, codeColumn: 'name' }],
   },

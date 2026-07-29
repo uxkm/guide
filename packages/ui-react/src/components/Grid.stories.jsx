@@ -1,23 +1,17 @@
 import React from 'react';
 import Grid from './Grid.jsx';
+import GridCol from './GridCol.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
   gridClassColumns,
   gridClasses,
   gridPropColumns,
   gridProps,
+  gridSlotColumns,
+  gridSlots,
   gridTokenColumns,
   gridTokens,
 } from '@doc-data/grid-api';
-
-const gridChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const gridChildren = [
-  { name: 'children', description: '그리드 자식 콘텐츠 (Vue default 슬롯 대응)' },
-];
 
 const apiSections = [
   {
@@ -29,7 +23,7 @@ const apiSections = [
   {
     title: 'API · Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
-    tables: [{ columns: gridChildColumns, rows: gridChildren, codeColumn: 'name' }],
+    tables: [{ columns: gridSlotColumns, rows: gridSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -322,25 +316,26 @@ export const Child = {
       },
       source: {
         code: `import Grid from '@uxkm/ui-react/components/Grid.jsx';
+import GridCol from '@uxkm/ui-react/components/GridCol.jsx';
 
 export function ChildExample() {
   return (
     <Grid>
-      <div className="grid_col-span-8">
+      <GridCol span={8}>
         <div className="grid_demo-cell">span 8</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
+      </GridCol>
     </Grid>
   );
 }`,
@@ -350,21 +345,21 @@ export function ChildExample() {
   },
   render: withDocsCanvasRender(
     <Grid>
-      <div className="grid_col-span-8">
+      <GridCol span={8}>
         <div className="grid_demo-cell">span 8</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
-      <div className="grid_col-span-4">
+      </GridCol>
+      <GridCol span={4}>
         <div className="grid_demo-cell">span 4</div>
-      </div>
+      </GridCol>
     </Grid>,
   ),
 };

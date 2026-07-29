@@ -3,6 +3,8 @@ import FormLayout from './FormLayout.jsx';
 import Slider from './Slider.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  sliderChildColumns,
+  sliderChildren,
   sliderClassColumns,
   sliderClasses,
   sliderEventColumns,
@@ -12,18 +14,6 @@ import {
   sliderTokenColumns,
   sliderTokens,
 } from '@doc-data/slider-api';
-
-const sliderChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const sliderChildren = [
-  {
-    name: 'children',
-    description: '추가 콘텐츠 (눈금 등). Vue default 슬롯 대응',
-  },
-];
 
 const apiSections = [
   {

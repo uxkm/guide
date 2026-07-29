@@ -5,6 +5,8 @@ import Link from './Link.jsx';
 import Tooltip from './Tooltip.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  tooltipChildColumns,
+  tooltipChildren,
   tooltipClassColumns,
   tooltipClasses,
   tooltipPropColumns,
@@ -12,16 +14,6 @@ import {
   tooltipTokenColumns,
   tooltipTokens,
 } from '@doc-data/tooltip-api';
-
-const tooltipChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const tooltipChildren = [
-  { name: 'triggerContent', description: '트리거 (Vue #trigger 슬롯)' },
-  { name: 'children', description: '말풍선 내용 (content prop 대체, Vue default 슬롯)' },
-];
 
 const apiSections = [
   {
@@ -31,7 +23,7 @@ const apiSections = [
     tables: [{ columns: tooltipPropColumns, rows: tooltipProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: tooltipChildColumns, rows: tooltipChildren, codeColumn: 'name' }],
   },

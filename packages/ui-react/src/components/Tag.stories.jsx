@@ -70,20 +70,23 @@ const apiSections = [
   {
     title: 'API · Tag Props',
     description:
-      'React에서는 camelCase prop을 사용합니다. Vue close 이벤트는 onClose, close-label은 closeLabel로 다룹니다.',
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: close-label → closeLabel)와 동일한 의미입니다. Vue @close는 onClose prop으로 다룹니다.',
     tables: [{ columns: tagPropColumns, rows: tagProps, codeColumn: 'name' }],
   },
   {
     title: 'API · TagGroup Props',
+    description:
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: aria-label → ariaLabel)와 동일한 의미입니다.',
     tables: [{ columns: tagGroupPropColumns, rows: tagGroupProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Tag Children / Slots',
-    description: 'Vue icon · default 슬롯은 React icon prop · children에 대응합니다.',
+    title: 'API · Tag Children',
+    description: 'Vue 슬롯(default · icon)에 대응하는 React label·children·icon prop입니다.',
     tables: [{ columns: tagSlotColumns, rows: tagSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · TagGroup Children / Slots',
+    title: 'API · TagGroup Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: tagGroupSlotColumns, rows: tagGroupSlots, codeColumn: 'name' }],
   },
   {

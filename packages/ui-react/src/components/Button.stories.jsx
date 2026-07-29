@@ -7,38 +7,24 @@ import {
   buttonClasses,
   buttonPropColumns,
   buttonProps,
+  buttonSlotColumns,
+  buttonSlots,
   buttonTokenColumns,
   buttonTokens,
 } from '@doc-data/button-api';
-
-const buttonChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const buttonChildren = [
-  { name: 'label', description: '버튼 텍스트. children으로 대체 가능' },
-  {
-    name: 'children',
-    description:
-      '버튼 텍스트 (label prop 대체). iconOnly일 때 iconBefore가 없으면 아이콘 콘텐츠로 사용',
-  },
-  { name: 'iconBefore', description: '텍스트 앞 아이콘 (Vue #icon-before 슬롯 대응)' },
-  { name: 'iconAfter', description: '텍스트 뒤 아이콘 (Vue #icon-after 슬롯 대응)' },
-];
 
 const apiSections = [
   {
     title: 'API · Props',
     description:
-      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: icon-only, aria-disabled)와 동일한 의미입니다.',
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: icon-only → iconOnly, aria-disabled → ariaDisabled)와 동일한 의미입니다.',
     tables: [{ columns: buttonPropColumns, rows: buttonProps, codeColumn: 'name' }],
   },
   {
     title: 'API · Children',
     description:
-      'Vue 슬롯(default · icon-before · icon-after)에 대응하는 React prop·children입니다.',
-    tables: [{ columns: buttonChildColumns, rows: buttonChildren, codeColumn: 'name' }],
+      'Vue 슬롯(default · icon-before · icon-after)에 대응하는 React children·iconBefore·iconAfter입니다.',
+    tables: [{ columns: buttonSlotColumns, rows: buttonSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

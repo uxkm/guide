@@ -7,18 +7,11 @@ import {
   containerClasses,
   containerPropColumns,
   containerProps,
+  containerSlotColumns,
+  containerSlots,
   containerTokenColumns,
   containerTokens,
 } from '@doc-data/container-api';
-
-const containerChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const containerChildren = [
-  { name: 'children', description: '컨테이너 내부 콘텐츠 (Vue default 슬롯 대응)' },
-];
 
 const apiSections = [
   {
@@ -29,7 +22,7 @@ const apiSections = [
   {
     title: 'API · Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
-    tables: [{ columns: containerChildColumns, rows: containerChildren, codeColumn: 'name' }],
+    tables: [{ columns: containerSlotColumns, rows: containerSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -173,7 +166,7 @@ export const Size = {
 
 export function SizeExample() {
   return (
-    <>
+    <div className="container_demo-sizes">
       <Container size="sm">
         <div className="container_demo-fill">container_sm (36rem)</div>
       </Container>
@@ -186,7 +179,7 @@ export function SizeExample() {
       <Container size="xl">
         <div className="container_demo-fill">container_xl (80rem)</div>
       </Container>
-    </>
+    </div>
   );
 }`,
         language: 'tsx',
@@ -194,7 +187,7 @@ export function SizeExample() {
     },
   },
   render: withDocsCanvasRender(
-    <>
+    <div className="container_demo-sizes">
       <Container size="sm">
         <div className="container_demo-fill">container_sm (36rem)</div>
       </Container>
@@ -207,7 +200,7 @@ export function SizeExample() {
       <Container size="xl">
         <div className="container_demo-fill">container_xl (80rem)</div>
       </Container>
-    </>,
+    </div>,
   ),
 };
 

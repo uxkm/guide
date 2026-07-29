@@ -110,14 +110,29 @@ export default function Tabs({
 
   const registerTab = useCallback((tab) => {
     setRegisteredTabs((prev) => {
-      const next = prev.filter((item) => item.id !== tab.id);
-      next.push(tab);
-      return next;
+      const existing = prev.find((item) => item.id === tab.id);
+      if (
+        existing &&
+        existing.panelId === tab.panelId &&
+        existing.label === tab.label &&
+        existing.active === tab.active &&
+        existing.disabled === tab.disabled &&
+        existing.value === tab.value &&
+        existing.menuOnly === tab.menuOnly &&
+        existing.icon === tab.icon &&
+        existing.badge === tab.badge
+      ) {
+        return prev;
+      }
+      return [...prev.filter((item) => item.id !== tab.id), tab];
     });
   }, []);
 
   const unregisterTab = useCallback((id) => {
-    setRegisteredTabs((prev) => prev.filter((item) => item.id !== id));
+    setRegisteredTabs((prev) => {
+      if (!prev.some((item) => item.id === id)) return prev;
+      return prev.filter((item) => item.id !== id);
+    });
   }, []);
 
   const tabListSize = usesItems ? items.length : registeredTabs.length;
@@ -238,6 +253,7 @@ export default function Tabs({
     const tab = preset || first;
     if (tab) setActiveDynamicKey(tab.value ?? tab.id);
   }, [isDynamicMode, usesItems, value, activeDynamicKey, registeredTabs]);
+
 
   const contextValue = useMemo(
     () => ({

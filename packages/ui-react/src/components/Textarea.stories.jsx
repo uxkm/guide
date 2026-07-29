@@ -5,6 +5,8 @@ import Input from './Input.jsx';
 import Textarea from './Textarea.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  textareaChildColumns,
+  textareaChildren,
   textareaClassColumns,
   textareaClasses,
   textareaEventColumns,
@@ -21,6 +23,11 @@ const apiSections = [
     description:
       'React에서는 camelCase prop을 사용합니다. Vue의 model-value는 value · onChange로 다룹니다.',
     tables: [{ columns: textareaPropColumns, rows: textareaProps, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
+    tables: [{ columns: textareaChildColumns, rows: textareaChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · Events',
@@ -133,7 +140,7 @@ export const Standalone = {
     docs: {
       description: {
         story:
-          'form_field 없이 textarea만 사용할 수 있습니다. 메모·댓글 입력 등 간단한 다행 입력에 적합합니다.',
+          'form_field 없이 textarea만 사용할 수 있습니다. 메모·댓글 입력 등 간단한 다중 입력에 적합합니다.',
       },
       source: {
         code: `import Textarea from '@uxkm/ui-react/components/Textarea.jsx';

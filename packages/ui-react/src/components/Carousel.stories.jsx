@@ -5,12 +5,12 @@ import Button from './Button.jsx';
 import Link from './Link.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  carouselChildColumns,
+  carouselChildren,
   carouselClassColumns,
   carouselClasses,
   carouselPropColumns,
   carouselProps,
-  carouselSlotColumns,
-  carouselSlots,
   carouselTokenColumns,
   carouselTokens,
 } from '@doc-data/carousel-api';
@@ -298,13 +298,14 @@ const carouselDefaultArgs = {
 const apiSections = [
   {
     title: 'API · Props',
-    description: 'React에서는 camelCase prop을 사용합니다.',
+    description:
+      'React에서는 camelCase prop을 사용합니다. Vue의 aria-label · dots-outside · slides-per-view 등은 ariaLabel · dotsOutside · slidesPerView입니다.',
     tables: [{ columns: carouselPropColumns, rows: carouselProps, codeColumn: 'name' }],
   },
   {
     title: 'API · Children',
-    description: 'Vue 슬롯은 React children으로 대응합니다.',
-    tables: [{ columns: carouselSlotColumns, rows: carouselSlots, codeColumn: 'name' }],
+    description: 'Vue default 슬롯은 React children으로 다룹니다. 슬라이드는 CarouselSlide로 감쌉니다.',
+    tables: [{ columns: carouselChildColumns, rows: carouselChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -912,6 +913,18 @@ export const CoverflowRise = {
       },
       source: {
         code: `<Carousel
+  ariaLabel="커버플로우 축소 좌우 1"
+  effect="coverflow"
+  coverflowStyle="rise"
+  coverflowSides={1}
+  spaceBetween={16}
+  loop
+  pagination={false}
+>
+  {/* … */}
+</Carousel>
+
+<Carousel
   ariaLabel="커버플로우 축소 좌우 1.5"
   effect="coverflow"
   coverflowStyle="rise"
@@ -920,11 +933,19 @@ export const CoverflowRise = {
   loop
   pagination={false}
 >
-  {carouselCoverflowSlides.map((slide) => (
-    <CarouselSlide key={slide.title}>
-      <CoverflowSlideCard slide={slide} />
-    </CarouselSlide>
-  ))}
+  {/* … */}
+</Carousel>
+
+<Carousel
+  ariaLabel="커버플로우 축소 좌우 2"
+  effect="coverflow"
+  coverflowStyle="rise"
+  coverflowSides={2}
+  spaceBetween={16}
+  loop
+  pagination={false}
+>
+  {/* … */}
 </Carousel>`,
         language: 'tsx',
       },

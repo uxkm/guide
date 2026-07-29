@@ -65,7 +65,8 @@ const MoreIcon = (
 const apiSections = [
   {
     title: 'API · Card Props',
-    description: 'React에서는 camelCase prop을 사용합니다. Vue media · header · extra 슬롯은 media · header · extra prop에 대응합니다.',
+    description:
+      'React에서는 camelCase prop을 사용합니다. Vue media · header · extra 슬롯은 media · header · extra prop에 대응합니다.',
     tables: [{ columns: cardPropColumns, rows: cardProps, codeColumn: 'name' }],
   },
   {
@@ -77,19 +78,23 @@ const apiSections = [
     tables: [{ columns: cardFooterPropColumns, rows: cardFooterProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Card Children / Slots',
+    title: 'API · Card Children',
+    description: 'Vue 슬롯(media · header · extra · default)에 대응하는 React prop·children입니다.',
     tables: [{ columns: cardSlotColumns, rows: cardSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · CardHeader Children / Slots',
+    title: 'API · CardHeader Children',
+    description: 'Vue default · extra 슬롯에 대응하는 React children·extra prop입니다.',
     tables: [{ columns: cardSlotColumns, rows: cardHeaderSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · CardBody Children / Slots',
+    title: 'API · CardBody Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: cardSlotColumns, rows: cardBodySlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · CardFooter Children / Slots',
+    title: 'API · CardFooter Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: cardSlotColumns, rows: cardFooterSlots, codeColumn: 'name' }],
   },
   {
@@ -388,6 +393,24 @@ export function AccentExample() {
           시스템 업데이트가 예정되어 있습니다.
         </CardBody>
       </Card>
+      <Card className="card_accent color_success">
+        <CardBody>
+          <p className="card_title">성공</p>
+          작업이 정상적으로 완료되었습니다.
+        </CardBody>
+      </Card>
+      <Card className="card_accent color_warning">
+        <CardBody>
+          <p className="card_title">주의</p>
+          저장 공간이 부족합니다.
+        </CardBody>
+      </Card>
+      <Card className="card_accent color_danger">
+        <CardBody>
+          <p className="card_title">오류</p>
+          연결에 실패했습니다. 다시 시도해 주세요.
+        </CardBody>
+      </Card>
     </div>
   );
 }`,
@@ -436,10 +459,20 @@ export const Media = {
         story: 'card_media로 상단 이미지·썸네일 영역을 추가합니다.',
       },
       source: {
-        code: `import Card from '@uxkm/ui-react/components/Card.jsx';
+        code: `import Button from '@uxkm/ui-react/components/Button.jsx';
+import Card from '@uxkm/ui-react/components/Card.jsx';
 import CardBody from '@uxkm/ui-react/components/CardBody.jsx';
 import CardFooter from '@uxkm/ui-react/components/CardFooter.jsx';
 import CardHeader from '@uxkm/ui-react/components/CardHeader.jsx';
+import Tag from '@uxkm/ui-react/components/Tag.jsx';
+
+const MediaIcon = (
+  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <path d="M21 15l-5-5L5 21" />
+  </svg>
+);
 
 export function MediaExample() {
   return (
@@ -453,7 +486,18 @@ export function MediaExample() {
         </div>
       }
     >
-      ...
+      <CardHeader>
+        <div className="card_header-row">
+          <h3 className="card_title">프로젝트 Alpha</h3>
+          <Tag size="sm" color="primary" label="진행 중" />
+        </div>
+        <p className="card_subtitle">업데이트 · 2일 전</p>
+      </CardHeader>
+      <CardBody>디자인 시스템 구축 및 컴포넌트 라이브러리 개발 프로젝트입니다.</CardBody>
+      <CardFooter between>
+        <span className="color_muted size_sm">3명 참여</span>
+        <Button variant="text" color="primary" size="sm" label="자세히" />
+      </CardFooter>
     </Card>
   );
 }`,
@@ -503,6 +547,13 @@ export const Horizontal = {
 import CardBody from '@uxkm/ui-react/components/CardBody.jsx';
 import CardFooter from '@uxkm/ui-react/components/CardFooter.jsx';
 import CardHeader from '@uxkm/ui-react/components/CardHeader.jsx';
+
+const DocIcon = (
+  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <path d="M14 2v6h6" />
+  </svg>
+);
 
 export function HorizontalExample() {
   return (
@@ -571,6 +622,18 @@ export const Icon = {
 import CardBody from '@uxkm/ui-react/components/CardBody.jsx';
 import Stat from '@uxkm/ui-react/components/Stat.jsx';
 
+const BoltIcon = (
+  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+  </svg>
+);
+
+const ShieldIcon = (
+  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
 export function IconExample() {
   return (
     <div className="card_deck">
@@ -581,6 +644,20 @@ export function IconExample() {
           </span>
           <h3 className="card_title">빠른 성능</h3>
           <p className="card_subtitle">가벼운 번들, 빠른 로딩</p>
+        </CardBody>
+      </Card>
+      <Card variant="shadow" hoverable>
+        <CardBody>
+          <span className="card_icon color_success" aria-hidden="true">
+            {ShieldIcon}
+          </span>
+          <h3 className="card_title">접근성</h3>
+          <p className="card_subtitle">WCAG 2.2 AA 기준</p>
+        </CardBody>
+      </Card>
+      <Card variant="shadow">
+        <CardBody>
+          <Stat title="월간 활성 사용자" value="24.5K" description="+18.2%" trendColor="success" />
         </CardBody>
       </Card>
     </div>
@@ -637,6 +714,15 @@ import CardBody from '@uxkm/ui-react/components/CardBody.jsx';
 import CardFooter from '@uxkm/ui-react/components/CardFooter.jsx';
 import CardHeader from '@uxkm/ui-react/components/CardHeader.jsx';
 import Tag from '@uxkm/ui-react/components/Tag.jsx';
+import TagGroup from '@uxkm/ui-react/components/TagGroup.jsx';
+
+const MoreIcon = (
+  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <circle cx="12" cy="12" r="1" />
+    <circle cx="19" cy="12" r="1" />
+    <circle cx="5" cy="12" r="1" />
+  </svg>
+);
 
 export function ProfileExample() {
   return (
@@ -654,7 +740,17 @@ export function ProfileExample() {
           </div>
         </div>
       </CardHeader>
-      ...
+      <CardBody>
+        <TagGroup tight>
+          <Tag size="sm" color="primary" label="React" />
+          <Tag size="sm" color="primary" label="TypeScript" />
+          <Tag size="sm" color="default" label="SCSS" />
+        </TagGroup>
+      </CardBody>
+      <CardFooter between>
+        <span className="color_muted size_sm">서울 · 온라인</span>
+        <Button variant="outline" color="primary" size="sm" label="팔로우" />
+      </CardFooter>
     </Card>
   );
 }`,
@@ -719,6 +815,12 @@ export function ClickableExample() {
         <CardBody>
           <h3 className="card_title">링크 카드</h3>
           <p className="card_subtitle">클릭하면 상세 페이지로 이동합니다.</p>
+        </CardBody>
+      </Card>
+      <Card hoverable variant="shadow" className="card_clickable" tabIndex={0} role="link">
+        <CardBody>
+          <h3 className="card_title">인터랙티브 카드</h3>
+          <p className="card_subtitle">tabindex와 role로 키보드 접근을 지원합니다.</p>
         </CardBody>
       </Card>
     </div>

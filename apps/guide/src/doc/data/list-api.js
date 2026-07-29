@@ -47,6 +47,7 @@ export const listProps = [
     default: 'left',
     description: '정의 목록 dd 텍스트 정렬 (variant="definition"일 때, right는 list_desc-right)',
   },
+  { name: 'className', type: 'string', default: '—', description: 'list 루트에 추가 클래스 (list_bullet 등 스킨 조합)' },
 ];
 
 export const listItemPropColumns = listPropColumns;
@@ -60,20 +61,31 @@ export const listItemProps = [
     default: 'auto',
     description: '항목 태그 — auto는 ul/ol→li, div→div+role=listitem, dl+title·description→dt·dd',
   },
+  { name: 'className', type: 'string', default: '—', description: '항목(li · dt · dd)에 추가 클래스' },
 ];
 
 export const listSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const listSlots = [{ name: 'default', description: 'ListItem 자식' }];
+export const listSlots = [
+  { name: 'children', description: 'ListItem 자식 (Vue default 슬롯 대응)' },
+];
+
+export const listItemSlotColumns = [
+  { key: 'name', label: 'Children / Prop' },
+  { key: 'description', label: '설명' },
+];
 
 export const listItemSlots = [
-  { name: 'prefix', description: '앞쪽 아바타·아이콘 등' },
-  { name: 'default', description: '본문 (title·description 대체)' },
-  { name: 'extra', description: '우측 보조 텍스트 (list_extra)' },
-  { name: 'actions', description: '우측 액션 (list_action)' },
+  { name: 'prefix', description: '앞쪽 아바타·아이콘 등 (Vue #prefix 슬롯 대응)' },
+  { name: 'title', description: '항목 제목 (list_title)' },
+  { name: 'description', description: '설명 (list_desc)' },
+  { name: 'meta', description: '보조 메타 (list_meta)' },
+  { name: 'extra', description: '우측 보조 텍스트 (Vue #extra 슬롯 대응, list_extra)' },
+  { name: 'actions', description: '우측 액션 (Vue #actions 슬롯 대응, list_action)' },
+  { name: 'children', description: '본문 (title·description 대체, Vue default 슬롯 대응)' },
 ];
 
 export const listClassColumns = [

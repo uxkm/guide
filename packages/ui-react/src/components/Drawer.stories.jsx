@@ -4,6 +4,8 @@ import Drawer from './Drawer.jsx';
 import Icon from './Icon.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  drawerChildColumns,
+  drawerChildren,
   drawerClassColumns,
   drawerClasses,
   drawerPropColumns,
@@ -11,18 +13,6 @@ import {
   drawerTokenColumns,
   drawerTokens,
 } from '@doc-data/drawer-api';
-
-const drawerChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const drawerChildren = [
-  { name: 'header', description: '헤더 (title 대체)' },
-  { name: 'extra', description: '헤더 보조 영역 (drawer_extra)' },
-  { name: 'children', description: '본문 (drawer_body, Vue default 슬롯)' },
-  { name: 'footer', description: '하단 액션 (drawer_footer)' },
-];
 
 const apiSections = [
   {
@@ -32,7 +22,7 @@ const apiSections = [
     tables: [{ columns: drawerPropColumns, rows: drawerProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: drawerChildColumns, rows: drawerChildren, codeColumn: 'name' }],
   },

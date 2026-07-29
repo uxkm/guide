@@ -1,4 +1,5 @@
 import { ripplePropSurface, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const linkPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -26,7 +27,7 @@ export const linkProps = [
     description: '항상 밑줄 (link_underline)',
   },
   {
-    name: 'no-underline',
+    name: 'noUnderline',
     type: 'boolean',
     default: 'false',
     description: '밑줄 없음 (link_no-underline)',
@@ -56,7 +57,7 @@ export const linkProps = [
     description: '뒤로가기 링크 (link_back)',
   },
   {
-    name: 'icon-only',
+    name: 'iconOnly',
     type: 'boolean',
     default: 'false',
     description: '아이콘만 표시 (link_icon-only)',
@@ -77,7 +78,7 @@ export const linkProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '링크 텍스트. default 슬롯으로 대체 가능',
+    description: '링크 텍스트. children으로 대체 가능',
   },
   {
     name: 'href',
@@ -98,22 +99,26 @@ export const linkProps = [
     description: 'a rel 속성 (예: noopener noreferrer)',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '—',
-    description: 'icon-only 등 텍스트 없을 때 접근성 라벨',
+    description: 'iconOnly 등 텍스트 없을 때 접근성 라벨',
   },
   ripplePropSurface,
 ];
 
 export const linkSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const linkSlots = [
-  { name: 'default', description: '링크 텍스트 (label prop 대체)' },
-  { name: 'icon', description: '텍스트 앞 아이콘 (link_icon)' },
+  { name: 'label', description: '링크 텍스트. children으로 대체 가능' },
+  {
+    name: 'children',
+    description: '링크 텍스트 (label prop 대체). 아이콘·보조 텍스트를 함께 넣을 수 있음',
+  },
+  { name: 'icon', description: '텍스트 앞 아이콘 (Vue #icon 슬롯 대응, link_icon 클래스)' },
 ];
 
 export const linkClassColumns = [
@@ -131,7 +136,6 @@ export const linkClasses = [
   { name: 'color_* · size_*', description: '공통 색상·크기 유틸' },
   ...rippleClassRows,
 ];
-
 
 export const linkTokenColumns = [
   { key: 'name', label: '토큰' },

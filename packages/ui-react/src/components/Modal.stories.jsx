@@ -3,6 +3,8 @@ import Button from './Button.jsx';
 import Modal from './Modal.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  modalChildColumns,
+  modalChildren,
   modalClassColumns,
   modalClasses,
   modalPropColumns,
@@ -11,17 +13,6 @@ import {
   modalTokens,
 } from '@doc-data/modal-api';
 
-const modalChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const modalChildren = [
-  { name: 'header', description: '헤더 (title 대체)' },
-  { name: 'children', description: '본문 (modal_body, Vue default 슬롯)' },
-  { name: 'footer', description: '하단 액션 (modal_footer)' },
-];
-
 const apiSections = [
   {
     title: 'API · Props',
@@ -29,7 +20,7 @@ const apiSections = [
     tables: [{ columns: modalPropColumns, rows: modalProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: modalChildColumns, rows: modalChildren, codeColumn: 'name' }],
   },

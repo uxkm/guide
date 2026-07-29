@@ -5,6 +5,8 @@ import Dropdown from './Dropdown.jsx';
 import Icon from './Icon.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  dropdownChildColumns,
+  dropdownChildren,
   dropdownClassColumns,
   dropdownClasses,
   dropdownPropColumns,
@@ -12,16 +14,6 @@ import {
   dropdownTokenColumns,
   dropdownTokens,
 } from '@doc-data/dropdown-api';
-
-const dropdownChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const dropdownChildren = [
-  { name: 'triggerContent', description: '트리거 버튼·링크 (Vue #trigger 슬롯)' },
-  { name: 'children', description: '메뉴 패널 (dropdown_menu, 보통 Menu OOCSS)' },
-];
 
 const apiSections = [
   {
@@ -31,9 +23,8 @@ const apiSections = [
     tables: [{ columns: dropdownPropColumns, rows: dropdownProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
-    description:
-      'Vue 슬롯에 대응하는 React prop·children입니다. Menu·MenuItem은 아직 React 미포팅이므로 스토리에서는 OOCSS 마크업을 사용합니다.',
+    title: 'API · Children',
+    description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: dropdownChildColumns, rows: dropdownChildren, codeColumn: 'name' }],
   },
   {

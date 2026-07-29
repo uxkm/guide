@@ -21,7 +21,7 @@ const apiSections = [
     tables: [{ columns: tablePropColumns, rows: tableProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue default 슬롯은 React children에 대응합니다. thead · tbody 등 네이티브 테이블 마크업을 넣습니다.',
     tables: [{ columns: tableSlotColumns, rows: tableSlots, codeColumn: 'name' }],
   },

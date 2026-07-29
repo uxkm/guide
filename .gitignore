@@ -10,3 +10,7 @@ apps/storybook/*.log
 *.scss.map
 .DS_Store
 pnpm-lock.yaml
+
+# 다른 브랜치(gulp / gulp-storybook / main) 잔여물 — 이 브랜치에서는 미사용
+/html/
+/storybook-static/

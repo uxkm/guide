@@ -77,6 +77,7 @@ export default function Progress({
   }, [statusColor, block, resolvedSize, striped, animated, indeterminate, inside]);
 
   const displayValue = `${percent}%`;
+  const trackStyle = inside ? { background: 'var(--color-border-subtle)' } : undefined;
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
 
@@ -90,6 +91,7 @@ export default function Progress({
       ) : null}
       <div
         className="progress_track"
+        style={trackStyle}
         role="progressbar"
         aria-valuenow={indeterminate ? undefined : percent}
         aria-valuemin={0}

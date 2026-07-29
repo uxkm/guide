@@ -14,5 +14,10 @@
     "generate-react-stories": "node scripts/generate-react-placeholder-stories.mjs",
     "deploy:main": "bash scripts/deploy-main.sh",
     "deploy:vue": "bash scripts/deploy-vue.sh"
+  },
+  "pnpm": {
+    "overrides": {
+      "resolve": "1.22.10"
+    }
   }
 }

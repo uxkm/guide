@@ -3,6 +3,8 @@ import Progress from './Progress.jsx';
 import ProgressCircle from './ProgressCircle.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  progressChildColumns,
+  progressChildren,
   progressCirclePropColumns,
   progressCircleProps,
   progressClassColumns,
@@ -23,6 +25,11 @@ const apiSections = [
   {
     title: 'API · ProgressCircle Props',
     tables: [{ columns: progressCirclePropColumns, rows: progressCircleProps, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · Children',
+    description: 'React children 관련 항목입니다. (현재 Progress는 children 렌더링을 사용하지 않습니다.)',
+    tables: [{ columns: progressChildColumns, rows: progressChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

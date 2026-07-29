@@ -37,14 +37,21 @@ export const accordionProps = [
     default: 'false',
     description: '데모용 최대 너비 제한 (accordion_demo-narrow)',
   },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: 'AccordionItem 나열',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
+  },
 ];
 
-export const accordionItemPropColumns = [
-  { key: 'name', label: 'Prop' },
-  { key: 'type', label: '타입' },
-  { key: 'default', label: '기본값' },
-  { key: 'description', label: '설명' },
-];
+export const accordionItemPropColumns = accordionPropColumns;
 
 export const accordionItemProps = [
   {
@@ -57,7 +64,7 @@ export const accordionItemProps = [
     name: 'content',
     type: 'string',
     default: '—',
-    description: '패널 본문 (p 태그로 렌더). default 슬롯으로 대체 가능',
+    description: '패널 본문 (p 태그로 렌더). children으로 대체 가능',
   },
   {
     name: 'open',
@@ -72,21 +79,44 @@ export const accordionItemProps = [
     description: '비활성 항목 (is-disabled + trigger disabled)',
   },
   {
-    name: 'extra-code',
+    name: 'extra',
+    type: 'ReactNode',
+    default: '—',
+    description: '트리거 오른쪽 보조 정보 (배지·메타 텍스트)',
+  },
+  {
+    name: 'extraCode',
     type: 'string',
     default: '—',
     description: '코드 예시용 extra 슬롯 마크업 (데모 코드 생성)',
   },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: '패널 본문 (content prop 대체)',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
+  },
   ripplePropSurface,
 ];
 
-export const accordionSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const accordionChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const accordionItemSlots = [
-  { name: 'default', description: '패널 본문 (content prop 대체)' },
+export const accordionChildren = [
+  { name: 'children', description: 'AccordionItem 나열' },
+];
+
+export const accordionItemChildColumns = accordionChildColumns;
+export const accordionItemChildren = [
+  { name: 'children', description: '패널 본문 (content prop 대체)' },
   { name: 'extra', description: '트리거 오른쪽 보조 정보 (배지·메타 텍스트)' },
 ];
 
@@ -109,8 +139,8 @@ export const accordionClasses = [
   { name: 'data-accordion-multiple', description: 'HTML 마크업 다중 열기 허용' },
   { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
+  ...rippleClassRows,
 ];
-
 
 export const accordionTokenColumns = [
   { key: 'name', label: '토큰' },

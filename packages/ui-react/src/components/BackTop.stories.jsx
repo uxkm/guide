@@ -2,24 +2,15 @@ import React from 'react';
 import BackTop from './BackTop.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  backTopChildColumns,
+  backTopChildren,
   backTopClassColumns,
   backTopClasses,
   backTopPropColumns,
   backTopProps,
-  backTopSlotColumns,
-  backTopSlots,
   backTopTokenColumns,
   backTopTokens,
 } from '@doc-data/back-top-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const backTopChildren = [
-  { name: 'children', description: '버튼 콘텐츠 (아이콘·텍스트, 기본 슬롯 대체)' },
-];
 
 const apiSections = [
   {
@@ -29,12 +20,9 @@ const apiSections = [
     tables: [{ columns: backTopPropColumns, rows: backTopProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue default 슬롯은 React children으로 다룹니다.',
-    tables: [
-      { columns: backTopSlotColumns, rows: backTopSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: backTopChildren, codeColumn: 'name' },
-    ],
+    tables: [{ columns: backTopChildColumns, rows: backTopChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

@@ -4,6 +4,8 @@ import FormLayout from './FormLayout.jsx';
 import Select from './Select.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  selectChildColumns,
+  selectChildren,
   selectClassColumns,
   selectClasses,
   selectEventColumns,
@@ -13,18 +15,6 @@ import {
   selectTokenColumns,
   selectTokens,
 } from '@doc-data/select-api';
-
-const selectChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const selectChildren = [
-  {
-    name: 'children',
-    description: 'option 요소 또는 custom 트리거 라벨 (Vue default 슬롯 대응)',
-  },
-];
 
 const apiSections = [
   {

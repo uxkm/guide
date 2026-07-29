@@ -8,7 +8,7 @@ export const carouselPropColumns = [
 
 export const carouselProps = [
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '—',
     description: '캐러셀 접근성 라벨 (필수)',
@@ -26,13 +26,13 @@ export const carouselProps = [
     description: 'carousel_multi — slides per view auto 레이아웃',
   },
   {
-    name: 'dots-outside',
+    name: 'dotsOutside',
     type: 'boolean',
     default: 'false',
     description: 'carousel_dots-outside — 페이지네이션을 뷰포트 밖에 배치',
   },
   {
-    name: 'autoplay-toggle',
+    name: 'autoplayToggle',
     type: 'boolean',
     default: 'false',
     description: '재생·정지 버튼 표시. autoplay가 활성이면 기본으로 함께 표시됩니다.',
@@ -62,26 +62,26 @@ export const carouselProps = [
     description: '무한 루프',
   },
   {
-    name: 'initial-slide',
+    name: 'initialSlide',
     type: 'number',
     default: '0',
-    description: '시작 슬라이드 인덱스 (0부터). 커버플로우·축소 기본은 첫 슬라이드(0), 예: :initial-slide="2"',
+    description: '시작 슬라이드 인덱스 (0부터). 커버플로우·축소 기본은 첫 슬라이드(0)',
   },
   {
-    name: 'slides-per-view',
+    name: 'slidesPerView',
     type: `number | 'auto'`,
     default: '1',
     description: '동시 표시 슬라이드 수',
   },
   {
-    name: 'slides-per-group',
+    name: 'slidesPerGroup',
     type: 'number',
     default: '1',
     description:
-      '한 번에 이동하는 슬라이드 수. 그리드에서는 slides-per-view × grid-rows(예: 3×2=6)로 페이지 단위 이동',
+      '한 번에 이동하는 슬라이드 수. 그리드에서는 slidesPerView × gridRows(예: 3×2=6)로 페이지 단위 이동',
   },
   {
-    name: 'space-between',
+    name: 'spaceBetween',
     type: 'number',
     default: '0',
     description: '슬라이드 간격(px). Swiper spaceBetween에 전달. multi·grid·coverflow와 함께 사용',
@@ -105,32 +105,32 @@ export const carouselProps = [
     description: '이전·다음 화살표 표시',
   },
   {
-    name: 'grid-rows',
+    name: 'gridRows',
     type: 'number',
     default: '1',
     description: 'Grid 행 수. 2 이상이면 Grid 레이아웃',
   },
   {
-    name: 'grid-fill',
+    name: 'gridFill',
     type: `'row' | 'column'`,
     default: `'row'`,
     description: 'Grid 채움 방향',
   },
   {
-    name: 'coverflow-style',
+    name: 'coverflowStyle',
     type: `'tilt' | 'rise'`,
     default: `'tilt'`,
     description: 'coverflow 스타일. tilt는 좌우 기울임, rise는 기울임 없이 측면 슬라이드만 축소',
   },
   {
-    name: 'coverflow-sides',
+    name: 'coverflowSides',
     type: `1 | 1.5 | 2 | 'auto'`,
     default: '1.5',
     description:
       '활성 기준 좌·우 노출 수. 슬라이드 크기는 항상 1 기준(동일). 1.5·2는 간격을 좁혀 peek만 늘림',
   },
   {
-    name: 'coverflow-effect',
+    name: 'coverflowEffect',
     type: 'object',
     default: '—',
     description: 'coverflow/rise 효과 세부 옵션. 지정 시 스타일 프리셋에 병합',
@@ -142,28 +142,56 @@ export const carouselProps = [
     description: 'Thumbs로 연결할 썸네일 Swiper 인스턴스',
   },
   {
-    name: 'thumbs-control',
+    name: 'thumbsControl',
     type: 'boolean',
     default: 'false',
     description: '썸네일 컨트롤 캐러셀. 탭 네비처럼 시작 좌측 정렬, 중간은 활성 가운데, 끝은 우측(잘림 없이 클램프)',
   },
   {
-    name: 'watch-slides-progress',
+    name: 'watchSlidesProgress',
     type: 'boolean',
     default: 'false',
     description: '슬라이드 진행 상태 감시 (Thumbs 연동용)',
   },
   {
-    name: 'free-mode',
+    name: 'freeMode',
     type: 'boolean',
     default: 'false',
-    description: 'Free mode. thumbs-control과 함께 쓰면 가운데 스냅이 약해질 수 있음',
+    description: 'Free mode. thumbsControl과 함께 쓰면 가운데 스냅이 약해질 수 있음',
+  },
+  {
+    name: 'onSwiper',
+    type: '(swiper: Swiper) => void',
+    default: '—',
+    description: 'Swiper 인스턴스 콜백 (썸네일 연결 등)',
+  },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: 'CarouselSlide 자식 슬라이드',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
   },
   ripplePropContainer,
 ];
 
+export const carouselChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
+  { key: 'description', label: '설명' },
+];
+
+export const carouselChildren = [
+  { name: 'children', description: 'CarouselSlide 자식 슬라이드' },
+];
+
+/** @deprecated Vue Storybook 호환 — React는 carouselChild* 사용 */
 export const carouselSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Slot' },
   { key: 'description', label: '설명' },
 ];
 
@@ -207,7 +235,6 @@ export const carouselClasses = [
   { name: 'is-autoplay-paused', description: '사용자가 정지한 자동 재생 상태' },
   ...rippleClassRows,
 ];
-
 
 export const carouselTokenColumns = [
   { key: 'name', label: '토큰' },

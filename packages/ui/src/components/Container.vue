@@ -26,8 +26,9 @@ useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
 const rootClass = computed(() => {
   const classes = ['container'];
-  if (props.fluid) classes.push('container_fluid');
+  // size 다음 fluid — SCSS에서 &_fluid가 size보다 뒤에 있어 조합 시 max-width 해제
   if (props.size) classes.push(`container_${props.size}`);
+  if (props.fluid) classes.push('container_fluid');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });

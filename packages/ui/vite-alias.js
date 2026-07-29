@@ -14,12 +14,12 @@ export function writeCdnUrlScss(cdnUrl = '.') {
 }
 
 export function resolveAliasTarget(basePath) {
-  const extensions = ['', '.js', '.vue', '.jsx', '.ts', '.json'];
+  const extensions = ['.js', '.jsx', '.vue', '.ts', '.tsx', '.json'];
   for (const ext of extensions) {
     const file = `${basePath}${ext}`;
     if (existsSync(file)) return file;
   }
-  for (const ext of ['.js', '.vue']) {
+  for (const ext of ['.js', '.jsx', '.vue', '.ts', '.tsx']) {
     const file = path.join(basePath, `index${ext}`);
     if (existsSync(file)) return file;
   }

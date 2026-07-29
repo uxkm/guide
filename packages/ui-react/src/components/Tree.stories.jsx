@@ -8,6 +8,7 @@ import {
   treeClasses,
   treeNodePropColumns,
   treeNodeProps,
+  treeNodeSlotColumns,
   treeNodeSlots,
   treePropColumns,
   treeProps,
@@ -16,12 +17,6 @@ import {
   treeTokenColumns,
   treeTokens,
 } from '@doc-data/tree-api';
-
-const FolderIcon = (
-  <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-  </svg>
-);
 
 const ImageIcon = (
   <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -59,15 +54,15 @@ const apiSections = [
     tables: [{ columns: treeNodePropColumns, rows: treeNodeProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Tree Children / Slots',
+    title: 'API · Tree Children',
     description: 'Vue default 슬롯은 React children에 대응합니다.',
     tables: [{ columns: treeSlotColumns, rows: treeSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · TreeNode Children / Slots',
+    title: 'API · TreeNode Children',
     description:
-      'Vue prefix · icon · label · meta 슬롯은 React prefix · icon · labelSlot · metaSlot prop에 대응합니다.',
-    tables: [{ columns: treeSlotColumns, rows: treeNodeSlots, codeColumn: 'name' }],
+      'Vue prefix · icon · label · meta · default 슬롯은 React prefix · icon · label · labelSlot · meta · metaSlot · children prop에 대응합니다.',
+    tables: [{ columns: treeNodeSlotColumns, rows: treeNodeSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -455,7 +450,17 @@ import TreeNode from '@uxkm/ui-react/components/TreeNode.jsx';
 export function MetaExample() {
   return (
     <Tree bordered ariaLabel="프로젝트 파일">
-      <TreeNode label="assets" meta="3개" expanded toggleLabel="assets 접기" icon={FolderIcon}>
+      <TreeNode
+        label="assets"
+        meta="3개"
+        expanded
+        toggleLabel="assets 접기"
+        icon={
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+        }
+      >
         <TreeNode label="logo.png" meta="24 KB" icon={ImageIcon} />
         <TreeNode label="hero.jpg" meta="1.2 MB" icon={ImageIcon} />
         <TreeNode label="styles.css" meta="8 KB" icon={FileIcon} />
@@ -475,7 +480,17 @@ export function MetaExample() {
   args: { ...playgroundArgs },
   render: withDocsCanvasRender(
     <Tree bordered ariaLabel="프로젝트 파일">
-      <TreeNode label="assets" meta="3개" expanded toggleLabel="assets 접기" icon={FolderIcon}>
+      <TreeNode
+        label="assets"
+        meta="3개"
+        expanded
+        toggleLabel="assets 접기"
+        icon={
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+        }
+      >
         <TreeNode label="logo.png" meta="24 KB" icon={ImageIcon} />
         <TreeNode label="hero.jpg" meta="1.2 MB" icon={ImageIcon} />
         <TreeNode label="styles.css" meta="8 KB" icon={FileIcon} />

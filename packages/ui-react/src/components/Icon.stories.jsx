@@ -7,33 +7,23 @@ import {
   iconClasses,
   iconPropColumns,
   iconProps,
+  iconSlotColumns,
+  iconSlots,
   iconTokenColumns,
   iconTokens,
 } from '@doc-data/icon-api';
-
-const iconChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const iconChildren = [
-  {
-    name: 'children',
-    description: 'SVG path·circle 등 자식 요소. name prop이 있으면 children 대신 갤러리 경로를 사용',
-  },
-];
 
 const apiSections = [
   {
     title: 'API · Props',
     description:
-      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: aria-label)와 동일한 의미입니다.',
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: aria-label → ariaLabel)와 동일한 의미입니다.',
     tables: [{ columns: iconPropColumns, rows: iconProps, codeColumn: 'name' }],
   },
   {
     title: 'API · Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
-    tables: [{ columns: iconChildColumns, rows: iconChildren, codeColumn: 'name' }],
+    tables: [{ columns: iconSlotColumns, rows: iconSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

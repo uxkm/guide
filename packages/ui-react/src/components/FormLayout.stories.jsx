@@ -4,7 +4,11 @@ import FormLayout from './FormLayout.jsx';
 import Grid from './Grid.jsx';
 import Input from './Input.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
+import Select from './Select.jsx';
+import Textarea from './Textarea.jsx';
 import {
+  formLayoutChildColumns,
+  formLayoutChildren,
   formLayoutClassColumns,
   formLayoutClasses,
   formLayoutPropColumns,
@@ -12,18 +16,6 @@ import {
   formLayoutTokenColumns,
   formLayoutTokens,
 } from '@doc-data/form-layout-api';
-
-const formLayoutChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const formLayoutChildren = [
-  {
-    name: 'children',
-    description: 'form_field · form_actions 등 폼 콘텐츠 (Vue default 슬롯 대응)',
-  },
-];
 
 const apiSections = [
   {
@@ -132,6 +124,7 @@ export const Vertical = {
       source: {
         code: `import FormLayout from '@uxkm/ui-react/components/FormLayout.jsx';
 import Input from '@uxkm/ui-react/components/Input.jsx';
+import Select from '@uxkm/ui-react/components/Select.jsx';
 
 export function VerticalExample() {
   return (
@@ -153,12 +146,12 @@ export function VerticalExample() {
         <label className="form_field-label" htmlFor="fl-role">
           역할
         </label>
-        <select id="fl-role" className="input" defaultValue="">
+        <Select id="fl-role" placeholder="선택하세요">
           <option value="">선택하세요</option>
           <option>관리자</option>
           <option>편집자</option>
           <option>뷰어</option>
-        </select>
+        </Select>
       </div>
     </FormLayout>
   );
@@ -186,12 +179,12 @@ export function VerticalExample() {
         <label className="form_field-label" htmlFor="fl-role">
           역할
         </label>
-        <select id="fl-role" className="input" defaultValue="">
+        <Select id="fl-role" placeholder="선택하세요">
           <option value="">선택하세요</option>
           <option>관리자</option>
           <option>편집자</option>
           <option>뷰어</option>
-        </select>
+        </Select>
       </div>
     </FormLayout>,
   ),
@@ -209,6 +202,7 @@ export const Horizontal = {
       source: {
         code: `import FormLayout from '@uxkm/ui-react/components/FormLayout.jsx';
 import Input from '@uxkm/ui-react/components/Input.jsx';
+import Textarea from '@uxkm/ui-react/components/Textarea.jsx';
 
 export function HorizontalExample() {
   return (
@@ -230,7 +224,7 @@ export function HorizontalExample() {
         <label className="form_field-label" htmlFor="fl-h-bio">
           소개
         </label>
-        <textarea id="fl-h-bio" className="textarea" placeholder="간단한 자기소개" />
+        <Textarea id="fl-h-bio" placeholder="간단한 자기소개" />
       </div>
     </FormLayout>
   );
@@ -258,7 +252,7 @@ export function HorizontalExample() {
         <label className="form_field-label" htmlFor="fl-h-bio">
           소개
         </label>
-        <textarea id="fl-h-bio" className="textarea" placeholder="간단한 자기소개" />
+        <Textarea id="fl-h-bio" placeholder="간단한 자기소개" />
       </div>
     </FormLayout>,
   ),
@@ -288,6 +282,12 @@ export function HorizontalAlignExample() {
           </label>
           <Input id="fl-hs-city" placeholder="서울" />
         </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-hs-zip">
+            우편번호
+          </label>
+          <Input id="fl-hs-zip" placeholder="00000" />
+        </div>
       </FormLayout>
       <FormLayout layout="horizontal" labelWidth="lg">
         <div className="form_field">
@@ -295,6 +295,12 @@ export function HorizontalAlignExample() {
             회사명
           </label>
           <Input id="fl-hl-company" placeholder="UXKM" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-hl-dept">
+            부서
+          </label>
+          <Input id="fl-hl-dept" placeholder="디자인팀" />
         </div>
       </FormLayout>
     </>
@@ -352,6 +358,7 @@ export const Inline = {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
 import FormLayout from '@uxkm/ui-react/components/FormLayout.jsx';
 import Input from '@uxkm/ui-react/components/Input.jsx';
+import Select from '@uxkm/ui-react/components/Select.jsx';
 
 export function InlineExample() {
   return (
@@ -361,6 +368,22 @@ export function InlineExample() {
           키워드
         </label>
         <Input id="fl-i-keyword" type="search" placeholder="검색어" />
+      </div>
+      <div className="form_field">
+        <label className="form_field-label" htmlFor="fl-i-status">
+          상태
+        </label>
+        <Select id="fl-i-status">
+          <option>전체</option>
+          <option>활성</option>
+          <option>비활성</option>
+        </Select>
+      </div>
+      <div className="form_field">
+        <label className="form_field-label" htmlFor="fl-i-date">
+          기간
+        </label>
+        <Input id="fl-i-date" type="date" />
       </div>
       <div className="form_actions">
         <Button variant="filled" color="primary" type="submit" label="검색" />
@@ -385,11 +408,11 @@ export function InlineExample() {
         <label className="form_field-label" htmlFor="fl-i-status">
           상태
         </label>
-        <select id="fl-i-status" className="input">
+        <Select id="fl-i-status">
           <option>전체</option>
           <option>활성</option>
           <option>비활성</option>
-        </select>
+        </Select>
       </div>
       <div className="form_field">
         <label className="form_field-label" htmlFor="fl-i-date">
@@ -435,6 +458,18 @@ export function GridExample() {
             성
           </label>
           <Input id="fl-g-last" placeholder="성" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-g-phone">
+            전화번호
+          </label>
+          <Input id="fl-g-phone" type="tel" placeholder="010-0000-0000" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-g-mobile">
+            휴대폰
+          </label>
+          <Input id="fl-g-mobile" type="tel" placeholder="010-0000-0000" />
         </div>
         <div className="form_field grid_col-span-12">
           <label className="form_field-label" htmlFor="fl-g-address">
@@ -521,6 +556,14 @@ export function WidthExample() {
           <Input id="fl-w-fit" placeholder="form_fit — 최대 320px" />
         </div>
       </FormLayout>
+      <FormLayout layout="horizontal">
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-w-h-full">
+            가로 레이아웃
+          </label>
+          <Input id="fl-w-h-full" placeholder="입력 열이 남은 공간을 채움" />
+        </div>
+      </FormLayout>
     </>
   );
 }`,
@@ -575,18 +618,32 @@ import Input from '@uxkm/ui-react/components/Input.jsx';
 
 export function ActionsExample() {
   return (
-    <FormLayout layout="vertical">
-      <div className="form_field">
-        <label className="form_field-label" htmlFor="fl-a-title">
-          제목
-        </label>
-        <Input id="fl-a-title" placeholder="제목" />
-      </div>
-      <div className="form_actions">
-        <Button variant="filled" color="primary" type="submit" label="저장" />
-        <Button variant="ghost" type="button" label="취소" />
-      </div>
-    </FormLayout>
+    <>
+      <FormLayout layout="vertical">
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-a-title">
+            제목
+          </label>
+          <Input id="fl-a-title" placeholder="제목" />
+        </div>
+        <div className="form_actions">
+          <Button variant="filled" color="primary" type="submit" label="저장" />
+          <Button variant="ghost" type="button" label="취소" />
+        </div>
+      </FormLayout>
+      <FormLayout layout="horizontal">
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-a2-title">
+            제목
+          </label>
+          <Input id="fl-a2-title" placeholder="제목" />
+        </div>
+        <div className="form_actions">
+          <Button variant="filled" color="primary" type="submit" label="저장" />
+          <Button variant="ghost" type="button" label="취소" />
+        </div>
+      </FormLayout>
+    </>
   );
 }`,
         language: 'tsx',
@@ -637,6 +694,7 @@ export const Example = {
 import FormLayout from '@uxkm/ui-react/components/FormLayout.jsx';
 import Grid from '@uxkm/ui-react/components/Grid.jsx';
 import Input from '@uxkm/ui-react/components/Input.jsx';
+import Textarea from '@uxkm/ui-react/components/Textarea.jsx';
 
 export function ExampleForm() {
   return (
@@ -647,8 +705,32 @@ export function ExampleForm() {
             아이디
           </label>
           <Input id="fl-ex-id" placeholder="아이디" />
+          <p className="form_field-hint">영문·숫자 4~16자</p>
         </div>
-        {/* … */}
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-ex-pw">
+            비밀번호
+          </label>
+          <Input id="fl-ex-pw" type="password" placeholder="비밀번호" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-ex-name">
+            이름
+          </label>
+          <Input id="fl-ex-name" placeholder="이름" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="fl-ex-email">
+            이메일
+          </label>
+          <Input id="fl-ex-email" type="email" placeholder="name@example.com" />
+        </div>
+        <div className="form_field grid_col-span-12">
+          <label className="form_field-label" htmlFor="fl-ex-memo">
+            메모
+          </label>
+          <Textarea id="fl-ex-memo" rows={3} placeholder="추가 정보" />
+        </div>
       </Grid>
       <div className="form_actions">
         <Button variant="filled" color="primary" type="submit" label="가입하기" />
@@ -693,12 +775,7 @@ export function ExampleForm() {
           <label className="form_field-label" htmlFor="fl-ex-memo">
             메모
           </label>
-          <textarea
-            id="fl-ex-memo"
-            className="textarea"
-            rows={3}
-            placeholder="추가 정보"
-          />
+          <Textarea id="fl-ex-memo" rows={3} placeholder="추가 정보" />
         </div>
       </Grid>
       <div className="form_actions">

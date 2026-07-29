@@ -4,6 +4,8 @@ import Spin from './Spin.jsx';
 import SpinWrap from './SpinWrap.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  spinChildColumns,
+  spinChildren,
   spinClassColumns,
   spinClasses,
   spinPropColumns,
@@ -12,20 +14,9 @@ import {
   spinTokens,
   spinWrapPropColumns,
   spinWrapProps,
+  spinWrapChildColumns,
+  spinWrapChildren,
 } from '@doc-data/spin-api';
-
-const spinChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const spinChildren = [
-  { name: 'children', description: '추가 콘텐츠 (Vue default 슬롯)' },
-];
-
-const spinWrapChildren = [
-  { name: 'children', description: '감싸는 콘텐츠 (Vue default 슬롯)' },
-];
 
 const apiSections = [
   {
@@ -44,7 +35,7 @@ const apiSections = [
   },
   {
     title: 'API · SpinWrap Children',
-    tables: [{ columns: spinChildColumns, rows: spinWrapChildren, codeColumn: 'name' }],
+    tables: [{ columns: spinWrapChildColumns, rows: spinWrapChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

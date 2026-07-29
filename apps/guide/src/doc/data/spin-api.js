@@ -43,10 +43,16 @@ export const spinProps = [
     description: '컨테이너 전체를 덮는 오버레이 레이어 (spin_overlay)',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '로딩 중',
     description: '스크린 리더용 로딩 설명',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: 'spin 루트에 추가 클래스',
   },
 ];
 
@@ -83,30 +89,48 @@ export const spinWrapProps = [
     description: '오버레이 Spin에 전달할 설명 텍스트',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '로딩 중',
     description: '오버레이 Spin에 전달할 접근성 라벨',
   },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: 'spin_wrap 루트에 추가 클래스',
+  },
 ];
 
-export const spinSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const spinChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const spinSlots = [
-  { name: 'default', description: 'tip 외 추가 콘텐츠 (선택)' },
+export const spinChildren = [
+  { name: 'children', description: 'tip 외 추가 콘텐츠 (선택)' },
 ];
 
-export const spinWrapSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const spinWrapChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const spinWrapSlots = [
-  { name: 'default', description: '오버레이 아래 실제 콘텐츠 (spin_wrap-body)' },
+export const spinWrapChildren = [
+  { name: 'children', description: '오버레이 아래 실제 콘텐츠 (spin_wrap-body)' },
 ];
+
+/** @deprecated 가이드·Storybook은 spinChildColumns · spinChildren 사용 */
+export const spinSlotColumns = spinChildColumns;
+
+/** @deprecated */
+export const spinSlots = spinChildren;
+
+/** @deprecated 가이드·Storybook은 spinWrapChildColumns · spinWrapChildren 사용 */
+export const spinWrapSlotColumns = spinWrapChildColumns;
+
+/** @deprecated */
+export const spinWrapSlots = spinWrapChildren;
 
 export const spinClassColumns = [
   { key: 'name', label: '클래스' },

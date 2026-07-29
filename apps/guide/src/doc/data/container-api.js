@@ -10,7 +10,8 @@ export const containerProps = [
     name: 'fluid',
     type: 'boolean',
     default: 'false',
-    description: '최대 너비 제한 없이 부모 너비 전체 사용 (container_fluid). size(sm · md · lg · xl)가 선택된 경우에만 적용됩니다.',
+    description:
+      '최대 너비 제한 없이 부모 너비 전체 사용 (container_fluid). size와 함께 쓰면 해당 size의 max-width도 해제됩니다.',
   },
   {
     name: 'size',
@@ -21,12 +22,12 @@ export const containerProps = [
 ];
 
 export const containerSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
 export const containerSlots = [
-  { name: 'default', description: '컨테이너 내부 콘텐츠' },
+  { name: 'children', description: '컨테이너 내부 콘텐츠 (Vue default 슬롯 대응)' },
 ];
 
 export const containerClassColumns = [

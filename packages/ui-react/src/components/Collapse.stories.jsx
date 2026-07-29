@@ -4,35 +4,21 @@ import CollapseExternal from './CollapseExternal.jsx';
 import CollapsePanel from './CollapsePanel.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  collapseChildColumns,
+  collapseChildren,
   collapseClassColumns,
   collapseClasses,
+  collapseExternalChildColumns,
+  collapseExternalChildren,
   collapseExternalPropColumns,
   collapseExternalProps,
-  collapseExternalSlots,
-  collapsePropColumns,
-  collapseProps,
+  collapsePanelChildColumns,
+  collapsePanelChildren,
   collapsePanelPropColumns,
   collapsePanelProps,
-  collapsePanelSlots,
-  collapseSlotColumns,
+  collapsePropColumns,
+  collapseProps,
 } from '@doc-data/collapse-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const collapseChildren = [{ name: 'children', description: 'CollapsePanel 나열' }];
-
-const collapsePanelChildren = [
-  { name: 'children', description: '패널 본문 (content prop 대체)' },
-  { name: 'extra', description: '트리거 오른쪽 보조 정보' },
-];
-
-const collapseExternalChildren = [
-  { name: 'lead', description: '트리거 위 안내 텍스트' },
-  { name: 'children', description: '접히는 본문 영역' },
-];
 
 const apiSections = [
   {
@@ -50,8 +36,7 @@ const apiSections = [
     title: 'API · CollapseExternal Children',
     description: 'Vue 슬롯은 React lead · children prop으로 다룹니다.',
     tables: [
-      { columns: collapseSlotColumns, rows: collapseExternalSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: collapseExternalChildren, codeColumn: 'name' },
+      { columns: collapseExternalChildColumns, rows: collapseExternalChildren, codeColumn: 'name' },
     ],
   },
   {
@@ -69,13 +54,12 @@ const apiSections = [
     title: 'API · CollapsePanel Children',
     description: 'Vue 슬롯은 React children · extra prop으로 다룹니다.',
     tables: [
-      { columns: collapseSlotColumns, rows: collapsePanelSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: collapsePanelChildren, codeColumn: 'name' },
+      { columns: collapsePanelChildColumns, rows: collapsePanelChildren, codeColumn: 'name' },
     ],
   },
   {
     title: 'API · Collapse Children',
-    tables: [{ columns: childColumns, rows: collapseChildren, codeColumn: 'name' }],
+    tables: [{ columns: collapseChildColumns, rows: collapseChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

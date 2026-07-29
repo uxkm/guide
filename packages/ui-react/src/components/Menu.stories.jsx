@@ -7,35 +7,26 @@ import MenuItem from './MenuItem.jsx';
 import MenuSubmenu from './MenuSubmenu.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  menuChildColumns,
+  menuChildren,
   menuClassColumns,
   menuClasses,
   menuGroupPropColumns,
   menuGroupProps,
+  menuItemChildColumns,
+  menuItemChildren,
   menuItemPropColumns,
   menuItemProps,
   menuPropColumns,
   menuProps,
+  menuSubmenuChildColumns,
+  menuSubmenuChildren,
   menuSubmenuPropColumns,
   menuSubmenuProps,
   menuTokenColumns,
   menuTokens,
 } from '@doc-data/menu-api';
 
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const menuChildren = [{ name: 'children', description: 'MenuItem · MenuSubmenu 등' }];
-const menuItemChildren = [
-  { name: 'icon', description: 'menu_icon (prop)' },
-  { name: 'children', description: '항목 텍스트 (label 대체)' },
-  { name: 'extra', description: 'menu_extra (배지 등)' },
-];
-const menuSubmenuChildren = [
-  { name: 'icon', description: 'menu_icon (prop)' },
-  { name: 'children', description: '하위 MenuItem' },
-];
 
 const apiSections = [
   {
@@ -57,12 +48,16 @@ const apiSections = [
     tables: [{ columns: menuGroupPropColumns, rows: menuGroupProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
-    tables: [
-      { columns: childColumns, rows: menuChildren, codeColumn: 'name' },
-      { columns: childColumns, rows: menuItemChildren, codeColumn: 'name' },
-      { columns: childColumns, rows: menuSubmenuChildren, codeColumn: 'name' },
-    ],
+    title: 'API · Menu Children',
+    tables: [{ columns: menuChildColumns, rows: menuChildren, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · MenuItem Children',
+    tables: [{ columns: menuItemChildColumns, rows: menuItemChildren, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · MenuSubmenu Children',
+    tables: [{ columns: menuSubmenuChildColumns, rows: menuSubmenuChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

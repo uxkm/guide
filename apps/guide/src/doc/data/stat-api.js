@@ -12,21 +12,23 @@ export const statProps = [
   { name: 'suffix', type: 'string', default: '—', description: '값 뒤 접미 (stat_suffix)' },
   { name: 'description', type: 'string', default: '—', description: '보조 설명 (stat_desc)' },
   { name: 'trend', type: 'string', default: '—', description: '증감 텍스트 (stat_trend)' },
-  { name: 'trend-color', type: 'string', default: '—', description: 'trend·description 색상 color_*' },
+  { name: 'trendColor', type: 'string', default: '—', description: 'trend·description 색상 color_*' },
+  { name: 'trendIcon', type: 'ReactNode', default: '—', description: '증감 아이콘 (기본 chevron-up 대체)' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'stat_sm · stat_lg' },
   { name: 'card', type: 'boolean', default: 'false', description: '카드형 배경 (stat_card)' },
   { name: 'shadow', type: 'boolean', default: 'false', description: '그림자 (stat_shadow)' },
+  { name: 'className', type: 'string', default: '—', description: 'stat 루트에 추가 클래스 (stat_horizontal 등)' },
 ];
 
 export const statSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const statSlots = [
-  { name: 'value', description: '수치 커스텀 (value prop 대체)' },
-  { name: 'trend-icon', description: '증감 아이콘' },
-  { name: 'default', description: '추가 콘텐츠' },
+  { name: 'value', description: '수치 커스텀 (value prop 대체, Vue #value 슬롯 대응)' },
+  { name: 'trendIcon', description: '증감 아이콘 (Vue #trend-icon 슬롯 대응)' },
+  { name: 'children', description: '아이콘·커스텀 레이아웃 등 (Vue default 슬롯 대응)' },
 ];
 
 export const statClassColumns = [

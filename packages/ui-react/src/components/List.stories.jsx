@@ -8,6 +8,7 @@ import {
   listClasses,
   listItemPropColumns,
   listItemProps,
+  listItemSlotColumns,
   listItemSlots,
   listPropColumns,
   listProps,
@@ -37,15 +38,15 @@ const apiSections = [
     tables: [{ columns: listItemPropColumns, rows: listItemProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · List Children / Slots',
+    title: 'API · List Children',
     description: 'Vue default 슬롯은 React children에 대응합니다.',
     tables: [{ columns: listSlotColumns, rows: listSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · ListItem Children / Slots',
+    title: 'API · ListItem Children',
     description:
-      'Vue prefix · extra · actions · default 슬롯은 React prefix · extra · actions · children에 대응합니다.',
-    tables: [{ columns: listSlotColumns, rows: listItemSlots, codeColumn: 'name' }],
+      'Vue prefix · extra · actions · default 슬롯은 React prefix · extra · actions · children prop에 대응합니다.',
+    tables: [{ columns: listItemSlotColumns, rows: listItemSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

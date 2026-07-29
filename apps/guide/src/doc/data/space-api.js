@@ -45,12 +45,12 @@ export const spaceProps = [
 ];
 
 export const spaceSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
 export const spaceSlots = [
-  { name: 'default', description: '간격을 둘 자식 요소' },
+  { name: 'children', description: '간격을 둘 자식 요소 (Vue default 슬롯 대응)' },
 ];
 
 export const spaceClassColumns = [

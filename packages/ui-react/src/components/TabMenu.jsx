@@ -24,9 +24,13 @@ export default function TabMenu({ label, value, active, disabled, icon, badge })
     {},
   );
 
+  const registerTabRef = useRef(null);
+  const unregisterTabRef = useRef(null);
+  registerTabRef.current = tabs?.registerTab;
+  unregisterTabRef.current = tabs?.unregisterTab;
+
   useEffect(() => {
-    if (!tabs) return;
-    tabs.registerTab({
+    registerTabRef.current?.({
       id: tabId,
       value: value ?? tabId,
       label,
@@ -36,12 +40,11 @@ export default function TabMenu({ label, value, active, disabled, icon, badge })
       icon: icon ?? null,
       badge: badge ?? null,
     });
-  }, [tabs, tabId, value, label, active, disabled, icon, badge]);
+  }, [tabId, value, label, active, disabled, icon, badge]);
 
   useEffect(() => {
-    if (!tabs) return undefined;
-    return () => tabs.unregisterTab(tabId);
-  }, [tabs, tabId]);
+    return () => unregisterTabRef.current?.(tabId);
+  }, [tabId]);
 
   return <span ref={rootRef} hidden aria-hidden="true" />;
 }

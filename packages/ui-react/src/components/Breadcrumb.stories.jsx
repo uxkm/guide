@@ -3,8 +3,12 @@ import Breadcrumb from './Breadcrumb.jsx';
 import BreadcrumbItem from './BreadcrumbItem.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  breadcrumbChildColumns,
+  breadcrumbChildren,
   breadcrumbClassColumns,
   breadcrumbClasses,
+  breadcrumbItemChildColumns,
+  breadcrumbItemChildren,
   breadcrumbItemPropColumns,
   breadcrumbItemProps,
   breadcrumbPropColumns,
@@ -12,19 +16,6 @@ import {
   breadcrumbTokenColumns,
   breadcrumbTokens,
 } from '@doc-data/breadcrumb-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const breadcrumbChildren = [
-  { name: 'children', description: 'BreadcrumbItem 나열 (items prop 대체)' },
-];
-
-const breadcrumbItemChildren = [
-  { name: 'children', description: '링크 텍스트·아이콘 (label 대체)' },
-];
 
 const apiSections = [
   {
@@ -39,11 +30,11 @@ const apiSections = [
   },
   {
     title: 'API · Breadcrumb Children',
-    tables: [{ columns: childColumns, rows: breadcrumbChildren, codeColumn: 'name' }],
+    tables: [{ columns: breadcrumbChildColumns, rows: breadcrumbChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · BreadcrumbItem Children',
-    tables: [{ columns: childColumns, rows: breadcrumbItemChildren, codeColumn: 'name' }],
+    tables: [{ columns: breadcrumbItemChildColumns, rows: breadcrumbItemChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

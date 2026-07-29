@@ -6,37 +6,17 @@ import {
   buttonMarkupExample,
   typoTextPropColumns,
   typoTextProps,
+  typoTextSlotColumns,
+  typoTextSlots,
   typoTitlePropColumns,
   typoTitleProps,
+  typoTitleSlotColumns,
+  typoTitleSlots,
   typographyClassColumns,
   typographyClasses,
   typographyTokenColumns,
   typographyTokens,
 } from '@doc-data/typography-api';
-
-const typoTitleChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const typoTitleChildren = [
-  { name: 'label', description: '제목 텍스트. children으로 대체 가능' },
-  { name: 'children', description: '제목 텍스트 (label prop 대체)' },
-];
-
-const typoTextChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const typoTextChildren = [
-  { name: 'label', description: '텍스트 내용. children으로 대체 가능' },
-  {
-    name: 'children',
-    description:
-      '텍스트 내용 (label prop 대체). 중첩 TypoText 등 복합 마크업·인라인 조합에 사용',
-  },
-];
 
 const apiSections = [
   {
@@ -54,12 +34,12 @@ const apiSections = [
   {
     title: 'API · TypoTitle Children',
     description: 'Vue default 슬롯에 대응하는 React label·children prop입니다.',
-    tables: [{ columns: typoTitleChildColumns, rows: typoTitleChildren, codeColumn: 'name' }],
+    tables: [{ columns: typoTitleSlotColumns, rows: typoTitleSlots, codeColumn: 'name' }],
   },
   {
     title: 'API · TypoText Children',
     description: 'Vue default 슬롯에 대응하는 React label·children prop입니다.',
-    tables: [{ columns: typoTextChildColumns, rows: typoTextChildren, codeColumn: 'name' }],
+    tables: [{ columns: typoTextSlotColumns, rows: typoTextSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -75,8 +55,7 @@ const apiSections = [
 
 const playgroundArgs = {
   level: 1,
-  color: '값',
-  label: '라벨',
+  label: '제목',
 };
 
 export default {
@@ -519,7 +498,7 @@ export const List = {
       </ol>
       <p className="form_field-hint">
         용어 설명·구조화된 목록은{' '}
-        <a href="list.html#definition-heading">List — 정의 목록</a>을 참고하세요.
+        <a href="/components/list#definition-heading">List — 정의 목록</a>을 참고하세요.
       </p>
     </>
   );
@@ -541,7 +520,8 @@ export const List = {
         <li>프로토타입 검증</li>
       </ol>
       <p className="form_field-hint">
-        용어 설명·구조화된 목록은 <a href="list.html#definition-heading">List — 정의 목록</a>을 참고하세요.
+        용어 설명·구조화된 목록은{' '}
+        <a href="/components/list#definition-heading">List — 정의 목록</a>을 참고하세요.
       </p>
     </>,
   ),
@@ -599,10 +579,10 @@ export function LeadExample() {
     <div style={{ maxWidth: '32rem', width: '100%' }}>
       <div className="typo_stack-lg">
         <TypoText variant="overline" label="가이드 소개" />
-        <TypoTitle level={3} label="HTML Components" />
+        <TypoTitle level={3} label="React Components" />
         <TypoText
           variant="lead"
-          label="순수 HTML과 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다."
+          label="React와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다."
         />
         <TypoText variant="caption" label="마지막 업데이트: 2026-06-24" />
       </div>
@@ -625,10 +605,10 @@ export function LeadExample() {
     <div style={{ maxWidth: '32rem', width: '100%' }}>
       <div className="typo_stack-lg">
         <TypoText variant="overline" label="가이드 소개" />
-        <TypoTitle level={3} label="HTML Components" />
+        <TypoTitle level={3} label="React Components" />
         <TypoText
           variant="lead"
-          label="순수 HTML과 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다."
+          label="React와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다."
         />
         <TypoText variant="caption" label="마지막 업데이트: 2026-06-24" />
       </div>

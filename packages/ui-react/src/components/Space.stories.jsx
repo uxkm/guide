@@ -8,18 +8,11 @@ import {
   spaceClasses,
   spacePropColumns,
   spaceProps,
+  spaceSlotColumns,
+  spaceSlots,
   spaceTokenColumns,
   spaceTokens,
 } from '@doc-data/space-api';
-
-const spaceChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const spaceChildren = [
-  { name: 'children', description: '간격을 둘 자식 요소 (Vue default 슬롯 대응)' },
-];
 
 const apiSections = [
   {
@@ -30,7 +23,7 @@ const apiSections = [
   {
     title: 'API · Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
-    tables: [{ columns: spaceChildColumns, rows: spaceChildren, codeColumn: 'name' }],
+    tables: [{ columns: spaceSlotColumns, rows: spaceSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -61,8 +54,8 @@ const playgroundArgs = {
   wrap: false,
   block: false,
   gap: 'md',
-  align: '값',
-  justify: '값',
+  align: undefined,
+  justify: undefined,
 };
 
 export default {
@@ -81,12 +74,14 @@ export default {
     },
     align: {
       control: 'select',
-      options: ['start', 'center', 'end', 'baseline', 'stretch'],
+      options: ['', 'start', 'center', 'end', 'baseline', 'stretch'],
+      labels: { '': '기본' },
       type: { name: 'enum', summary: "'start' | 'center' | 'end' | 'baseline' | 'stretch'" },
     },
     justify: {
       control: 'select',
-      options: ['start', 'center', 'end', 'between'],
+      options: ['', 'start', 'center', 'end', 'between'],
+      labels: { '': '기본' },
       type: { name: 'enum', summary: "'start' | 'center' | 'end' | 'between'" },
     },
   },

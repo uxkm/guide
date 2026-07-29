@@ -8,8 +8,24 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount
   const resizeObserverRef = useRef(null);
 
   const updateIndicator = useCallback(() => {
+    const applyStyle = (next) => {
+      setIndicatorStyle((prev) => {
+        if (!next && !prev) return prev;
+        if (
+          prev &&
+          next &&
+          prev.width === next.width &&
+          prev.height === next.height &&
+          prev.transform === next.transform
+        ) {
+          return prev;
+        }
+        return next;
+      });
+    };
+
     if (!enabled || !listRef.current) {
-      setIndicatorStyle(null);
+      applyStyle(null);
       return;
     }
 
@@ -17,7 +33,7 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount
     const activeTab = list.querySelector('.tabs_tab[aria-selected="true"]');
 
     if (!activeTab) {
-      setIndicatorStyle(null);
+      applyStyle(null);
       return;
     }
 
@@ -30,7 +46,7 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount
     const indicatorThickness = 2;
 
     if (vertical) {
-      setIndicatorStyle({
+      applyStyle({
         width: `${indicatorThickness}px`,
         height: `${height}px`,
         transform: `translate3d(${left + width - indicatorThickness}px, ${top}px, 0)`,
@@ -39,7 +55,7 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount
     }
 
     if (variant === 'pill') {
-      setIndicatorStyle({
+      applyStyle({
         width: `${width}px`,
         height: `${height}px`,
         transform: `translate3d(${left}px, ${top}px, 0)`,
@@ -47,7 +63,7 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount
       return;
     }
 
-    setIndicatorStyle({
+    applyStyle({
       width: `${width}px`,
       height: `${indicatorThickness}px`,
       transform: `translate3d(${left}px, ${top + height - indicatorThickness}px, 0)`,

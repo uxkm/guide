@@ -30,8 +30,9 @@ export default function Container({
 
   const rootClass = useMemo(() => {
     const classes = ['container'];
-    if (fluid) classes.push('container_fluid');
+    // size 다음 fluid — SCSS에서 &_fluid가 size보다 뒤에 있어 조합 시 max-width 해제
     if (resolvedSize) classes.push(`container_${resolvedSize}`);
+    if (fluid) classes.push('container_fluid');
     return classes;
   }, [fluid, resolvedSize]);
 

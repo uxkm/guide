@@ -1,24 +1,17 @@
 import React from 'react';
 import Divider from './Divider.jsx';
+import Space from './Space.jsx';
 import { bindComponent, withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
   dividerClassColumns,
   dividerClasses,
   dividerPropColumns,
   dividerProps,
+  dividerSlotColumns,
+  dividerSlots,
   dividerTokenColumns,
   dividerTokens,
 } from '@doc-data/divider-api';
-
-const dividerChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const dividerChildren = [
-  { name: 'label', description: '레이블 텍스트. children으로 대체 가능' },
-  { name: 'children', description: '레이블 텍스트 (label prop 대체, Vue default 슬롯 대응)' },
-];
 
 const apiSections = [
   {
@@ -28,8 +21,8 @@ const apiSections = [
   },
   {
     title: 'API · Children',
-    description: 'Vue default 슬롯에 대응하는 React label·children prop입니다.',
-    tables: [{ columns: dividerChildColumns, rows: dividerChildren, codeColumn: 'name' }],
+    description: 'Vue default 슬롯에 대응하는 React children입니다. label prop으로도 동일 콘텐츠를 넣을 수 있습니다.',
+    tables: [{ columns: dividerSlotColumns, rows: dividerSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -244,16 +237,17 @@ export const Vertical = {
       },
       source: {
         code: `import Divider from '@uxkm/ui-react/components/Divider.jsx';
+import Space from '@uxkm/ui-react/components/Space.jsx';
 
 export function VerticalExample() {
   return (
-    <div className="space">
+    <Space>
       <span>항목 A</span>
       <Divider vertical />
       <span>항목 B</span>
       <Divider vertical dashed />
       <span>항목 C</span>
-    </div>
+    </Space>
   );
 }`,
         language: 'tsx',
@@ -261,12 +255,12 @@ export function VerticalExample() {
     },
   },
   render: withDocsCanvasRender(
-    <div className="space">
+    <Space>
       <span>항목 A</span>
       <Divider vertical />
       <span>항목 B</span>
       <Divider vertical dashed />
       <span>항목 C</span>
-    </div>,
+    </Space>,
   ),
 };

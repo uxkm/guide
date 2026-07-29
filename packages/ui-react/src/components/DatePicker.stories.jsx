@@ -9,6 +9,8 @@ import {
   juneRangePanel,
 } from '../storybook/date-picker-demo-panel.jsx';
 import {
+  datePickerChildColumns,
+  datePickerChildren,
   datePickerClassColumns,
   datePickerClasses,
   datePickerPropColumns,
@@ -16,22 +18,6 @@ import {
   datePickerTokenColumns,
   datePickerTokens,
 } from '@doc-data/date-picker-api';
-
-const datePickerChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const datePickerChildren = [
-  {
-    name: 'panel',
-    description: '캘린더 패널 콘텐츠 (Vue #panel 슬롯 대응)',
-  },
-  {
-    name: 'children',
-    description: 'panel prop 대체. Calendar 등 패널 콘텐츠',
-  },
-];
 
 const apiSections = [
   {

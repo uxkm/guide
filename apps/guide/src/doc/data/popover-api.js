@@ -9,32 +9,41 @@ export const popoverProps = [
   { name: 'placement', type: `'top' | 'top-center' | 'bottom-center' | 'left' | 'right' | 'end'`, default: '—', description: 'popover_placement-*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'popover_sm · popover_lg' },
   { name: 'offset', type: `'none' | 'sm' | 'md' | 'lg'`, default: 'md', description: '전 방향 동일 간격. popover_offset-* · --popover-offset' },
-  { name: 'offset-top · offset-right · offset-bottom · offset-left', type: `'none' | 'sm' | 'md' | 'lg'`, default: '—', description: '방향별 간격. popover_offset-top-* 등 · --popover-offset-*' },
+  { name: 'offsetTop · offsetRight · offsetBottom · offsetLeft', type: `'none' | 'sm' | 'md' | 'lg'`, default: '—', description: '방향별 간격. popover_offset-top-* 등 · --popover-offset-*' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 (is-open)' },
-  { name: 'no-arrow', type: 'boolean', default: 'false', description: '화살표 숨김' },
-  { name: 'arrow-anchor', type: `'content' | 'target' | 'mixed'`, default: 'content', description: '화살표 기준. target=화살표만, mixed=패널·화살표 독립' },
-  { name: 'panel-align', type: `'start' | 'center' | 'end'`, default: 'start', description: '패널 교차축 정렬. popover_panel-align-* · data-panel-align' },
-  { name: 'arrow-target-align', type: `'center' | 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end'`, default: 'center', description: 'target·mixed 시 트리거 내 화살표 위치' },
+  { name: 'noArrow', type: 'boolean', default: 'false', description: '화살표 숨김' },
+  { name: 'arrowAnchor', type: `'content' | 'target' | 'mixed'`, default: 'content', description: '화살표 기준. target=화살표만, mixed=패널·화살표 독립' },
+  { name: 'panelAlign', type: `'start' | 'center' | 'end'`, default: 'start', description: '패널 교차축 정렬. popover_panel-align-* · data-panel-align' },
+  { name: 'arrowTargetAlign', type: `'center' | 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end'`, default: 'center', description: 'target·mixed 시 트리거 내 화살표 위치' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '트리거 비활성 (is-disabled)' },
   { name: 'trigger', type: `'click' | 'hover'`, default: 'click', description: 'hover 시 data-popover-trigger="hover"' },
   { name: 'closable', type: 'boolean', default: 'click 시 true', description: '패널 닫기 버튼. hover 트리거는 기본 false' },
-  { name: 'close-label', type: 'string', default: '닫기', description: '닫기 버튼 aria-label' },
+  { name: 'closeLabel', type: 'string', default: '닫기', description: '닫기 버튼 aria-label' },
   { name: 'title', type: 'string', default: '—', description: '패널 제목' },
-  { name: 'panel-label', type: 'string', default: '—', description: '패널 aria-label. 클릭 트리거 시 헤더에 제목으로 표시' },
+  { name: 'panelLabel', type: 'string', default: '—', description: '패널 aria-label. 클릭 트리거 시 헤더에 제목으로 표시' },
   { name: 'interactive', type: 'boolean', default: 'true', description: 'false면 data-popover 미부여 (정적 데모)' },
+  { name: 'triggerContent', type: 'ReactNode', default: '—', description: '트리거 UI (Vue #trigger 슬롯 대응)' },
+  { name: 'footer', type: 'ReactNode', default: '—', description: '하단 액션 영역 (popover_footer)' },
+  { name: 'className', type: 'string', default: '—', description: 'popover 루트에 추가 클래스' },
 ];
 
-export const popoverSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const popoverChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const popoverSlots = [
-  { name: 'trigger', description: '트리거 버튼·링크' },
+export const popoverChildren = [
+  { name: 'triggerContent', description: '트리거 버튼·링크 (Vue #trigger 슬롯 대응)' },
   { name: 'title', description: '제목 (title prop 대체)' },
-  { name: 'default', description: '패널 본문' },
+  { name: 'children', description: '패널 본문 (Vue default 슬롯 대응)' },
   { name: 'footer', description: '하단 액션' },
 ];
+
+/** @deprecated 가이드·Storybook은 popoverChildColumns · popoverChildren 사용 */
+export const popoverSlotColumns = popoverChildColumns;
+
+/** @deprecated */
+export const popoverSlots = popoverChildren;
 
 export const popoverClassColumns = [
   { key: 'name', label: '클래스' },
@@ -70,62 +79,85 @@ export const popoverTokens = [
   { name: '--popover-arrow-position', default: '—', description: 'target 기준 시 트리거 중앙 위치(px)' },
 ];
 
-export const markupCode = `<!-- 기본 — panel-label 있음 -->
-<Popover panel-label="안내">
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" label="Popover 열기" aria-haspopup="dialog" />
-  </template>
+export const markupCode = `// 기본 — panelLabel 있음
+<Popover
+  panelLabel="안내"
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" label="Popover 열기" aria-haspopup="dialog" />
+  }
+>
   <p>트리거를 클릭하면 이 패널이 표시됩니다.</p>
 </Popover>
 
-<!-- panel-label 없음 -->
-<Popover>
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" label="라벨 없음" aria-haspopup="dialog" />
-  </template>
+// panelLabel 없음
+<Popover
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" label="라벨 없음" aria-haspopup="dialog" />
+  }
+>
   <p>짧은 안내 문구만 필요할 때 사용합니다.</p>
 </Popover>
 
-<!-- 제목 · 푸터 -->
-<Popover title="항목 삭제">
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" label="삭제 확인" aria-haspopup="dialog" />
-  </template>
+// 제목 · 푸터
+<Popover
+  title="항목 삭제"
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" label="삭제 확인" aria-haspopup="dialog" />
+  }
+  footer={
+    <>
+      <Button variant="ghost" size="sm" label="취소" data-popover-close="" />
+      <Button variant="filled" color="danger" size="sm" label="삭제" data-popover-close="" />
+    </>
+  }
+>
   <p>이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</p>
-  <template #footer>
-    <Button variant="ghost" size="sm" label="취소" data-popover-close />
-    <Button variant="filled" color="danger" size="sm" label="삭제" data-popover-close />
-  </template>
 </Popover>
 
-<!-- 호버 트리거 -->
-<Popover trigger="hover" panel-label="에스크로 설명">
-  <template #trigger>
-    <Link class="popover_trigger" label="에스크로" aria-haspopup="dialog" />
-  </template>
+// 호버 트리거
+<Popover
+  trigger="hover"
+  panelLabel="에스크로 설명"
+  triggerContent={<Link className="popover_trigger" label="에스크로" aria-haspopup="dialog" />}
+>
   구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.
 </Popover>
 
-<!-- 배치 · 크기 · 간격 -->
-<Popover placement="top-center" size="lg" offset="lg" panel-label="큰 Popover">
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" label="위 · 가운데" aria-haspopup="dialog" />
-  </template>
+// 배치 · 크기 · 간격
+<Popover
+  placement="top-center"
+  size="lg"
+  offset="lg"
+  panelLabel="큰 Popover"
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" label="위 · 가운데" aria-haspopup="dialog" />
+  }
+>
   <p>큰 패널입니다.</p>
 </Popover>
 
-<!-- 간격 — 방향별 -->
-<Popover placement="left" offset-left="lg" panel-label="왼쪽 간격 lg">
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" label="offset-left" aria-haspopup="dialog" />
-  </template>
-  <p>트리거 왼쪽 배치 시 offset-left가 적용됩니다.</p>
+// 간격 — 방향별
+<Popover
+  placement="left"
+  offsetLeft="lg"
+  panelLabel="왼쪽 간격 lg"
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" label="offset-left" aria-haspopup="dialog" />
+  }
+>
+  <p>트리거 왼쪽 배치 시 offsetLeft가 적용됩니다.</p>
 </Popover>
 
-<!-- 혼합 — 패널 가운데 · 화살표 왼쪽 -->
-<Popover arrow-anchor="mixed" panel-align="center" arrow-target-align="left" open panel-label="혼합">
-  <template #trigger>
-    <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" aria-expanded="true" />
-  </template>
+// 혼합 — 패널 가운데 · 화살표 왼쪽
+<Popover
+  arrowAnchor="mixed"
+  panelAlign="center"
+  arrowTargetAlign="left"
+  open
+  panelLabel="혼합"
+  triggerContent={
+    <Button className="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" aria-expanded="true" />
+  }
+>
   <p>패널은 가운데, 화살표는 트리거 왼쪽을 가리킵니다.</p>
 </Popover>`;

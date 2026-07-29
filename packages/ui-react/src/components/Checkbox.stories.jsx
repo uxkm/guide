@@ -2,6 +2,8 @@ import React from 'react';
 import Checkbox from './Checkbox.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  checkboxChildColumns,
+  checkboxChildren,
   checkboxClassColumns,
   checkboxClasses,
   checkboxPropColumns,
@@ -9,19 +11,6 @@ import {
   checkboxTokenColumns,
   checkboxTokens,
 } from '@doc-data/checkbox-api';
-
-const checkboxChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const checkboxChildren = [
-  { name: 'label', description: '라벨 텍스트. children으로 대체 가능' },
-  {
-    name: 'children',
-    description: '라벨 텍스트 (label prop 대체, Vue default 슬롯 대응). checkbox_content · checkbox_hint 조합 가능',
-  },
-];
 
 const apiSections = [
   {

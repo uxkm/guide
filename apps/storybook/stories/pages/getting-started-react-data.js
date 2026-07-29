@@ -22,7 +22,7 @@ export const reactScriptRows = [
   },
   {
     command: 'pnpm dev:all',
-    description: 'Vue 가이드 앱 + Storybook 동시 실행',
+    description: '가이드 앱 + Storybook 동시 실행',
   },
 ];
 

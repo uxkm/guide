@@ -12,9 +12,9 @@ export const avatarProps = [
   { name: 'color', type: 'string', default: '—', description: '이니셜·아이콘 배경 color_*' },
   { name: 'size', type: `'sm' | 'md' | 'lg' | 'xl'`, default: 'md', description: 'avatar_sm · avatar_lg · avatar_xl' },
   { name: 'square', type: 'boolean', default: 'false', description: '사각형 모서리 (avatar_square)' },
-  { name: 'badge-color', type: 'string', default: '—', description: '상태 점 색상 (avatar_badge)' },
-  { name: 'badge-label', type: 'string', default: '—', description: '상태 점 aria-label' },
-  { name: 'aria-hidden', type: 'boolean', default: 'false', description: '그룹 내 장식용 아바타' },
+  { name: 'badgeColor', type: 'string', default: '—', description: '상태 점 색상 (avatar_badge)' },
+  { name: 'badgeLabel', type: 'string', default: '—', description: '상태 점 aria-label' },
+  { name: 'ariaHidden', type: 'boolean', default: 'false', description: '그룹 내 장식용 아바타' },
 ];
 
 export const avatarGroupPropColumns = [
@@ -25,25 +25,26 @@ export const avatarGroupPropColumns = [
 ];
 
 export const avatarGroupProps = [
-  { name: 'aria-label', type: 'string', default: '—', description: '그룹 접근성 라벨 (권장)' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: '그룹 접근성 라벨 (권장)' },
 ];
 
 export const avatarSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const avatarSlots = [
-  { name: 'icon', description: '아이콘 슬롯 (avatar_icon)' },
+  { name: 'initials', description: '이니셜 텍스트 (이미지·아이콘 없을 때)' },
+  { name: 'icon', description: '아이콘 콘텐츠 (Vue #icon 슬롯 대응, avatar_icon 클래스)' },
 ];
 
 export const avatarGroupSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const avatarGroupSlots = [
-  { name: 'default', description: 'Avatar 자식 목록' },
+  { name: 'children', description: 'Avatar 자식 목록 (Vue default 슬롯 대응)' },
 ];
 
 export const avatarClassColumns = [

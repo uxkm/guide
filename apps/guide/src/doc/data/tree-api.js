@@ -1,4 +1,5 @@
 import { ripplePropContainer, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const treePropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -10,8 +11,9 @@ export const treeProps = [
   { name: 'bordered', type: 'boolean', default: 'false', description: '테두리 (tree_bordered)' },
   { name: 'lines', type: 'boolean', default: 'false', description: '연결선 (tree_lines)' },
   { name: 'compact', type: 'boolean', default: 'false', description: '좁은 행 높이 (tree_compact)' },
-  { name: 'aria-label', type: 'string', default: '—', description: '트리 접근성 라벨 (권장)' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: '트리 접근성 라벨 (권장)' },
   { name: 'multiselectable', type: 'boolean', default: 'false', description: '다중 선택 aria-multiselectable' },
+  { name: 'className', type: 'string', default: '—', description: 'tree 루트에 추가 클래스' },
 ];
 
 export const treeNodePropColumns = treePropColumns;
@@ -21,26 +23,37 @@ export const treeNodeProps = [
   { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected)' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },
   { name: 'expandable', type: 'boolean', default: 'false', description: '토글 버튼 강제 표시' },
-  { name: 'plus-toggle', type: 'boolean', default: 'false', description: '+ / − 토글 (tree_toggle-plus)' },
-  { name: 'toggle-label', type: 'string', default: '—', description: '토글 버튼 aria-label' },
+  { name: 'plusToggle', type: 'boolean', default: 'false', description: '+ / − 토글 (tree_toggle-plus)' },
+  { name: 'toggleLabel', type: 'string', default: '—', description: '토글 버튼 aria-label' },
   { name: 'link', type: 'boolean', default: 'false', description: '클릭 가능 행 (tree_link)' },
-  { name: 'meta', type: 'string', default: '—', description: '우측 메타 (tree_meta)' },
+  { name: 'meta', type: 'string', default: '—', description: '우측 메타 텍스트 (tree_meta)' },
+  { name: 'onExpandedChange', type: 'function', default: '—', description: '펼침 상태 변경 콜백 (Vue update:expanded 대응)' },
+  { name: 'className', type: 'string', default: '—', description: 'tree_item에 추가 클래스' },
   ripplePropContainer,
 ];
 
 export const treeSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const treeSlots = [{ name: 'default', description: 'TreeNode 자식' }];
+export const treeSlots = [
+  { name: 'children', description: 'TreeNode 자식 (Vue default 슬롯 대응)' },
+];
+
+export const treeNodeSlotColumns = [
+  { key: 'name', label: 'Children / Prop' },
+  { key: 'description', label: '설명' },
+];
 
 export const treeNodeSlots = [
-  { name: 'prefix', description: '토글 앞 체크박스 등' },
-  { name: 'icon', description: '라벨 앞 아이콘 (tree_icon)' },
+  { name: 'prefix', description: '토글 앞 체크박스 등 (Vue #prefix 슬롯 대응)' },
+  { name: 'icon', description: '라벨 앞 아이콘 (Vue #icon 슬롯 대응, tree_icon)' },
   { name: 'label', description: '라벨 텍스트 (label prop 대체)' },
-  { name: 'meta', description: '우측 메타' },
-  { name: 'default', description: '하위 TreeNode (중첩 tree)' },
+  { name: 'labelSlot', description: '라벨 커스텀 (Vue #label 슬롯 대응)' },
+  { name: 'meta', description: '우측 메타 텍스트 prop' },
+  { name: 'metaSlot', description: '우측 메타 ReactNode (Vue #meta 슬롯 대응)' },
+  { name: 'children', description: '하위 TreeNode (Vue default 슬롯 대응, 중첩 tree)' },
 ];
 
 export const treeClassColumns = [

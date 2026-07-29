@@ -105,9 +105,9 @@ export default function Drawer({
         {showHeader ? (
           <div className="drawer_header" data-demo-slot="header">
             {header ?? (
-              <h2 className="drawer_title" id={titleId}>
+              <div className="drawer_title" id={titleId} role="heading" aria-level={2}>
                 {title}
-              </h2>
+              </div>
             )}
             {extra ? (
               <div className="drawer_extra" data-demo-slot="extra">

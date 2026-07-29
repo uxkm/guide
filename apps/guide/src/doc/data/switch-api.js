@@ -7,23 +7,35 @@ export const switchPropColumns = [
 ];
 
 export const switchProps = [
-  { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. default 슬롯으로 대체' },
+  { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. children으로 대체' },
   { name: 'checked', type: 'boolean', default: 'false', description: '켜짐 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
-  { name: 'label-end', type: 'boolean', default: 'false', description: '라벨을 스위치 뒤에 배치' },
+  { name: 'labelEnd', type: 'boolean', default: 'false', description: '라벨을 스위치 뒤에 배치' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'switch_sm · switch_lg' },
-  { name: 'aria-label', type: 'string', default: '—', description: '라벨 없을 때 접근성 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: '라벨 없을 때 접근성 라벨' },
+  { name: 'className', type: 'string', default: '—', description: 'switch 루트에 추가 클래스' },
+  { name: 'onChange', type: '(event) => void', default: '—', description: '상태 변경 콜백' },
   ripplePropSurface,
 ];
 
-export const switchSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const switchChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const switchSlots = [
-  { name: 'default', description: '라벨 텍스트 (label prop 대체)' },
+export const switchChildren = [
+  { name: 'label', description: '라벨 텍스트. children으로 대체 가능' },
+  {
+    name: 'children',
+    description: '라벨 텍스트 (label prop 대체, Vue default 슬롯 대응). switch_content · switch_hint 조합 가능',
+  },
 ];
+
+/** @deprecated 가이드·Storybook은 switchChildColumns · switchChildren 사용 */
+export const switchSlotColumns = switchChildColumns;
+
+/** @deprecated */
+export const switchSlots = switchChildren;
 
 export const switchClassColumns = [
   { key: 'name', label: '클래스' },

@@ -8,6 +8,7 @@ import {
   timelineClasses,
   timelineItemPropColumns,
   timelineItemProps,
+  timelineItemSlotColumns,
   timelineItemSlots,
   timelinePropColumns,
   timelineProps,
@@ -31,14 +32,14 @@ const apiSections = [
     tables: [{ columns: timelineItemPropColumns, rows: timelineItemProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Timeline Children / Slots',
+    title: 'API · Timeline Children',
     description: 'Vue default 슬롯은 React children에 대응합니다.',
     tables: [{ columns: timelineSlotColumns, rows: timelineSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · TimelineItem Children / Slots',
-    description: 'Vue dot · meta 슬롯은 React dot · meta prop에 대응합니다.',
-    tables: [{ columns: timelineSlotColumns, rows: timelineItemSlots, codeColumn: 'name' }],
+    title: 'API · TimelineItem Children',
+    description: 'Vue dot · meta · default 슬롯은 React dot · meta · children prop에 대응합니다.',
+    tables: [{ columns: timelineItemSlotColumns, rows: timelineItemSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',
@@ -411,6 +412,27 @@ export function CardExample() {
             <Tag color="default" label="Design" />
           </>
         }
+      />
+      <TimelineItem
+        color="success"
+        time="2024-06-22 14:00"
+        datetime="2024-06-22"
+        title="접근성 감사 완료"
+        description="WCAG 2.2 AA 기준 47개 항목 검토를 마쳤습니다."
+        meta={
+          <>
+            <Tag color="success" label="Passed" />
+            <Tag color="default" label="A11y" />
+          </>
+        }
+      />
+      <TimelineItem
+        color="info"
+        time="2024-06-25 11:30"
+        datetime="2024-06-25"
+        title="문서 업데이트 예정"
+        description="Button · Timeline 컴포넌트 가이드가 추가됩니다."
+        meta={<Tag color="info" label="Docs" />}
       />
     </Timeline>
   );

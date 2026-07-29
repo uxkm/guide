@@ -11,24 +11,34 @@ export const drawerProps = [
   { name: 'title', type: 'string', default: '—', description: '패널 제목 (drawer_title)' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'drawer_sm · drawer_lg' },
   { name: 'placement', type: `'left' | 'right' | 'top' | 'bottom'`, default: 'right', description: 'drawer_placement-*' },
-  { name: 'no-backdrop', type: 'boolean', default: 'false', description: 'data-drawer-backdrop="false"' },
-  { name: 'open-on-load', type: 'boolean', default: 'false', description: 'data-drawer-open-on-load="true"' },
+  { name: 'noBackdrop', type: 'boolean', default: 'false', description: 'data-drawer-backdrop="false"' },
+  { name: 'openOnLoad', type: 'boolean', default: 'false', description: 'data-drawer-open-on-load="true"' },
   { name: 'draggable', type: 'boolean', default: 'false', description: '하단 패널 핸들·헤더 드래그 펼침/접힘 (placement="bottom", data-drawer-draggable)' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 상태 (is-open)' },
+  { name: 'header', type: 'ReactNode', default: '—', description: '커스텀 헤더 (title 대체)' },
+  { name: 'extra', type: 'ReactNode', default: '—', description: '헤더 보조 영역 (drawer_extra)' },
+  { name: 'footer', type: 'ReactNode', default: '—', description: '하단 액션 영역 (drawer_footer)' },
+  { name: 'className', type: 'string', default: '—', description: 'drawer 루트에 추가 클래스' },
   ripplePropTrigger,
 ];
 
-export const drawerSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const drawerChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const drawerSlots = [
+export const drawerChildren = [
   { name: 'header', description: '헤더 (title 대체)' },
   { name: 'extra', description: '헤더 보조 영역 (drawer_extra)' },
-  { name: 'default', description: '본문 (drawer_body)' },
+  { name: 'children', description: '본문 (drawer_body, Vue default 슬롯 대응)' },
   { name: 'footer', description: '하단 액션 (drawer_footer)' },
 ];
+
+/** @deprecated 가이드·Storybook은 drawerChildColumns · drawerChildren 사용 */
+export const drawerSlotColumns = drawerChildColumns;
+
+/** @deprecated */
+export const drawerSlots = drawerChildren;
 
 export const drawerClassColumns = [
   { key: 'name', label: '클래스' },

@@ -13,19 +13,28 @@ export const modalProps = [
   { name: 'scrollable', type: 'boolean', default: 'false', description: '본문 스크롤 (modal_scrollable)' },
   { name: 'backdrop', type: 'boolean', default: 'true', description: '백드롭 표시 (false → data-modal-backdrop="false")' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 상태 (is-open, hidden 해제)' },
+  { name: 'header', type: 'ReactNode', default: '—', description: '커스텀 헤더 (title 대체)' },
+  { name: 'footer', type: 'ReactNode', default: '—', description: '하단 액션 영역 (modal_footer)' },
+  { name: 'className', type: 'string', default: '—', description: 'modal 루트에 추가 클래스' },
   ripplePropTrigger,
 ];
 
-export const modalSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const modalChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const modalSlots = [
+export const modalChildren = [
   { name: 'header', description: '헤더 (title 대체)' },
-  { name: 'default', description: '본문 (modal_body)' },
+  { name: 'children', description: '본문 (modal_body, Vue default 슬롯 대응)' },
   { name: 'footer', description: '하단 액션 (modal_footer)' },
 ];
+
+/** @deprecated 가이드·Storybook은 modalChildColumns · modalChildren 사용 */
+export const modalSlotColumns = modalChildColumns;
+
+/** @deprecated */
+export const modalSlots = modalChildren;
 
 export const modalClassColumns = [
   { key: 'name', label: '클래스' },
@@ -79,8 +88,8 @@ export const markupCode = `<!-- 트리거 -->
   </div>
 </div>
 
-<!-- 옵션: 백드롭 없음 (Vue) -->
-<Modal id="modal-plain" :backdrop="false" …>…</Modal>
+<!-- 옵션: 백드롭 없음 (React) -->
+<Modal id="modal-plain" backdrop={false} …>…</Modal>
 
 <!-- 옵션: 백드롭 없음 (HTML) -->
 <div class="modal" id="modal-plain" data-modal

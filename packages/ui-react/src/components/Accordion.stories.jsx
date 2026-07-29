@@ -3,31 +3,19 @@ import Accordion from './Accordion.jsx';
 import AccordionItem from './AccordionItem.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  accordionChildColumns,
+  accordionChildren,
   accordionClassColumns,
   accordionClasses,
+  accordionItemChildColumns,
+  accordionItemChildren,
   accordionItemPropColumns,
   accordionItemProps,
-  accordionItemSlots,
   accordionPropColumns,
   accordionProps,
-  accordionSlotColumns,
   accordionTokenColumns,
   accordionTokens,
 } from '@doc-data/accordion-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const accordionChildren = [
-  { name: 'children', description: 'AccordionItem 나열' },
-];
-
-const accordionItemChildren = [
-  { name: 'children', description: '패널 본문 (content prop 대체)' },
-  { name: 'extra', description: '트리거 오른쪽 보조 정보 (배지·메타 텍스트)' },
-];
 
 const apiSections = [
   {
@@ -37,20 +25,16 @@ const apiSections = [
   },
   {
     title: 'API · AccordionItem Props',
-    description: 'Vue의 extra-code는 React extraCode입니다.',
+    description: 'Vue의 extra-code는 React extraCode입니다. Vue 슬롯은 children · extra prop으로 다룹니다.',
     tables: [{ columns: accordionItemPropColumns, rows: accordionItemProps, codeColumn: 'name' }],
   },
   {
     title: 'API · Accordion Children',
-    tables: [{ columns: childColumns, rows: accordionChildren, codeColumn: 'name' }],
+    tables: [{ columns: accordionChildColumns, rows: accordionChildren, codeColumn: 'name' }],
   },
   {
-    title: 'API · AccordionItem Children / Slots',
-    description: 'Vue 슬롯은 React children · extra prop으로 다룹니다.',
-    tables: [
-      { columns: accordionSlotColumns, rows: accordionItemSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: accordionItemChildren, codeColumn: 'name' },
-    ],
+    title: 'API · AccordionItem Children',
+    tables: [{ columns: accordionItemChildColumns, rows: accordionItemChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

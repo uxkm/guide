@@ -16,11 +16,6 @@ import {
   statTokens,
 } from '@doc-data/stat-api';
 
-const TrendDownIcon = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-);
 
 const TeamIcon = (
   <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -53,7 +48,7 @@ const apiSections = [
     tables: [{ columns: statPropColumns, rows: statProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description:
       'Vue value · trend-icon · default 슬롯은 React value · trendIcon · children에 대응합니다.',
     tables: [{ columns: statSlotColumns, rows: statSlots, codeColumn: 'name' }],
@@ -229,7 +224,11 @@ export function TrendExample() {
         suffix="%"
         trend="+0.3%p"
         trendColor="danger"
-        trendIcon={TrendDownIcon}
+        trendIcon={
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        }
         card
         shadow
       />
@@ -259,7 +258,11 @@ export function TrendExample() {
         suffix="%"
         trend="+0.3%p"
         trendColor="danger"
-        trendIcon={TrendDownIcon}
+        trendIcon={
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        }
         card
         shadow
       />
@@ -321,7 +324,11 @@ export function LayoutExample() {
       <Stat className="stat_inline" card title="CPU 사용률" value="68" suffix="%" />
       <Stat className="stat_row" card shadow>
         <span className="stat_icon-wrap color_primary" aria-hidden="true">
-          {TeamIcon}
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
         </span>
         <div className="stat_body">
           <span className="stat_label">팀 멤버</span>
@@ -371,14 +378,23 @@ export function IconExample() {
   return (
     <>
       <Stat card>
-        <span className="stat_icon color_primary">{DownloadIcon}</span>
+        <span className="stat_icon color_primary">
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </span>
         <span className="stat_label">다운로드</span>
         <span className="stat_value">2,847</span>
         <span className="stat_desc color_success">+24%</span>
       </Stat>
       <Stat className="stat_row" card>
         <span className="stat_icon-wrap color_success" aria-hidden="true">
-          {CheckIcon}
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <path d="M22 4 12 14.01l-3-3" />
+          </svg>
         </span>
         <div className="stat_body">
           <span className="stat_label">완료율</span>
@@ -399,14 +415,23 @@ export function IconExample() {
   render: withDocsCanvasRender(
     <>
       <Stat card>
-        <span className="stat_icon color_primary">{DownloadIcon}</span>
+        <span className="stat_icon color_primary">
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+        </span>
         <span className="stat_label">다운로드</span>
         <span className="stat_value">2,847</span>
         <span className="stat_desc color_success">+24%</span>
       </Stat>
       <Stat className="stat_row" card>
         <span className="stat_icon-wrap color_success" aria-hidden="true">
-          {CheckIcon}
+          <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <path d="M22 4 12 14.01l-3-3" />
+          </svg>
         </span>
         <div className="stat_body">
           <span className="stat_label">완료율</span>

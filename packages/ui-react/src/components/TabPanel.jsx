@@ -36,9 +36,13 @@ export default function TabPanel({
     { className, ...rest },
   );
 
+  const registerTabRef = useRef(null);
+  const unregisterTabRef = useRef(null);
+  registerTabRef.current = tabs?.registerTab;
+  unregisterTabRef.current = tabs?.unregisterTab;
+
   useEffect(() => {
-    if (!tabs) return;
-    tabs.registerTab({
+    registerTabRef.current?.({
       id: tabId,
       panelId,
       label,
@@ -47,12 +51,11 @@ export default function TabPanel({
       icon: icon ?? null,
       badge: badge ?? null,
     });
-  }, [tabs, tabId, panelId, label, active, disabled, icon, badge]);
+  }, [tabId, panelId, label, active, disabled, icon, badge]);
 
   useEffect(() => {
-    if (!tabs) return undefined;
-    return () => tabs.unregisterTab(tabId);
-  }, [tabs, tabId]);
+    return () => unregisterTabRef.current?.(tabId);
+  }, [tabId]);
 
   const isActive = tabs?.isTabActive?.(tabId) ?? Boolean(active);
 

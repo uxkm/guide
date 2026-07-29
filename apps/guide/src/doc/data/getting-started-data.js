@@ -15,9 +15,12 @@ export const scriptColumns = [
 ];
 
 export const scriptRows = [
-  { command: 'pnpm dev', description: 'Vite 개발 서버 — 소개 페이지로 바로 진입' },
-  { command: 'pnpm build', description: '프로덕션 빌드 → dist/ 생성' },
-  { command: 'pnpm preview', description: '빌드 결과 로컬 미리보기' },
+  { command: 'pnpm dev', description: '가이드 앱 (React + Vite) — 소개 페이지로 바로 진입' },
+  { command: 'pnpm build', description: '가이드 프로덕션 빌드 → apps/guide/dist/' },
+  { command: 'pnpm preview', description: '가이드 빌드 결과 로컬 미리보기' },
+  { command: 'pnpm storybook', description: 'Storybook 개발 서버 (React)' },
+  { command: 'pnpm build-storybook', description: 'Storybook 정적 빌드 → apps/storybook/storybook-static/' },
+  { command: 'pnpm deploy:main', description: 'react-storybook 브랜치에서 main/react/ · main/react-storybook/로 배포' },
 ];
 
 export const newComponentColumns = [
@@ -26,11 +29,11 @@ export const newComponentColumns = [
 ];
 
 export const newComponentRows = [
-  { path: 'src/doc/components/{name}.vue', role: '컴포넌트 문서 페이지' },
-  { path: 'src/components/{Name}.vue', role: '재사용 UI 컴포넌트 (Vue SFC)' },
-  { path: 'src/scss/components/_{name}.scss', role: '컴포넌트 스타일' },
-  { path: 'src/scss/components/_index.scss', role: '@use "{name}" 등록' },
-  { path: 'src/data/navigation.js', role: '사이드바 메뉴 항목 추가' },
+  { path: 'packages/ui-react/src/components/{Name}.jsx', role: 'React 컴포넌트' },
+  { path: 'packages/ui-react/src/components/{Name}.stories.jsx', role: 'Storybook CSF 스토리' },
+  { path: 'apps/guide/src/doc/components/{name}.jsx', role: '가이드 문서 페이지 (docMeta export)' },
+  { path: 'packages/ui/src/scss/components/_{name}.scss', role: '컴포넌트 스타일' },
+  { path: 'packages/ui/src/data/navigation.js', role: '사이드바 메뉴 항목 추가' },
 ];
 
 export const installCode = `# 저장소 클론
@@ -40,7 +43,10 @@ cd guide
 # 의존성 설치
 pnpm install`;
 
-export const stylesCode = `// 전체 스타일
+export const stylesCode = `// 가이드 · Storybook
+import '@uxkm/ui/scss/main.scss';
+
+// SCSS @use (빌드 파이프라인에 packages/ui 경로 alias 필요)
 @use "main";
 
 // 또는 필요한 컴포넌트만 선택
@@ -51,21 +57,30 @@ export const stylesCode = `// 전체 스타일
 @use "components/input";
 @use "components/alert";`;
 
-export const markupCode = `<!-- Button 예시 -->
-<button type="button" class="btn btn_filled color_primary">
-  <span class="btn_label">저장</span>
-</button>
+export const markupCode = `import Button from '@uxkm/ui-react/components/Button.jsx';
+import Alert from '@uxkm/ui-react/components/Alert.jsx';
 
-<!-- Alert 예시 -->
-<div class="alert color_info" role="alert">
-  <div class="alert_body">
-    <p class="alert_desc">변경 사항이 저장되었습니다.</p>
-  </div>
-</div>`;
+export function Example() {
+  return (
+    <>
+      <Button variant="filled" color="primary" label="저장" />
+      <Alert color="info" description="변경 사항이 저장되었습니다." />
+    </>
+  );
+}`;
 
 export const themeCode = `<!-- HTML 루트에 테마 지정 -->
 <html lang="ko" data-theme="light">
 <html lang="ko" data-theme="dark">
 
-<!-- JS로 전환 -->
-document.documentElement.setAttribute("data-theme", "dark");`;
+// React — useTheme hook (apps/guide/src/hooks/useTheme.js)
+import { useTheme } from '@/hooks/useTheme';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button type="button" onClick={toggleTheme}>
+      {theme === 'dark' ? '라이트 모드' : '다크 모드'}
+    </button>
+  );
+}`;

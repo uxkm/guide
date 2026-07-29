@@ -34,6 +34,7 @@ import {
   calendarHeaderPropColumns,
   calendarHeaderProps,
   calendarHeaderSlots,
+  calendarSubSlotColumns,
   calendarMonthPropColumns,
   calendarMonthProps,
   calendarNavPropColumns,
@@ -103,23 +104,23 @@ const apiSections = [
     ],
   },
   {
-    title: 'API · Calendar Children / Slots',
+    title: 'API · Calendar Children',
     description:
-      'Vue header · weekdays · footer 슬롯은 React header · weekdays · footer prop에 대응합니다.',
+      'Vue header · weekdays · footer · default 슬롯은 React header · weekdays · footer · children prop에 대응합니다.',
     tables: [{ columns: calendarSlotColumns, rows: calendarSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · CalendarHeader · Footer · Group Slots',
+    title: 'API · CalendarHeader · Footer · Group Children',
     tables: [
-      { columns: calendarSlotColumns, rows: calendarHeaderSlots, codeColumn: 'name' },
-      { columns: calendarSlotColumns, rows: calendarFooterSlots, codeColumn: 'name' },
-      { columns: calendarSlotColumns, rows: calendarGroupSlots, codeColumn: 'name' },
+      { columns: calendarSubSlotColumns, rows: calendarHeaderSlots, codeColumn: 'name' },
+      { columns: calendarSubSlotColumns, rows: calendarFooterSlots, codeColumn: 'name' },
+      { columns: calendarSubSlotColumns, rows: calendarGroupSlots, codeColumn: 'name' },
     ],
   },
   {
-    title: 'API · CalendarGrid · CalendarWheel Slots',
+    title: 'API · CalendarGrid · CalendarWheel Children',
     tables: [
-      { columns: calendarSlotColumns, rows: calendarGridSlots, codeColumn: 'name' },
+      { columns: calendarSubSlotColumns, rows: calendarGridSlots, codeColumn: 'name' },
       { columns: calendarSlotColumns, rows: calendarWheelSlots, codeColumn: 'name' },
     ],
   },

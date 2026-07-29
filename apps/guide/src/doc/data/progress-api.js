@@ -11,13 +11,14 @@ export const progressProps = [
   { name: 'color', type: `'primary' | 'success' | 'warning' | 'danger'`, default: 'primary', description: '막대 색상 color_*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'progress_sm · progress_lg' },
   { name: 'label', type: 'string', default: '—', description: '헤더 라벨' },
-  { name: 'show-info', type: 'boolean', default: 'false', description: '퍼센트 값 표시' },
+  { name: 'showInfo', type: 'boolean', default: 'false', description: '퍼센트 값 표시' },
   { name: 'striped', type: 'boolean', default: 'false', description: '줄무늬 (progress_striped)' },
   { name: 'animated', type: 'boolean', default: 'false', description: '흐르는 애니메이션' },
   { name: 'indeterminate', type: 'boolean', default: 'false', description: '불확정 (is-indeterminate)' },
   { name: 'inside', type: 'boolean', default: 'false', description: '막대 안 퍼센트 텍스트' },
   { name: 'block', type: 'boolean', default: 'false', description: '전체 너비 (progress_block)' },
-  { name: 'aria-label', type: 'string', default: '진행률', description: 'progressbar 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '진행률', description: 'progressbar 라벨' },
+  { name: 'className', type: 'string', default: '—', description: 'progress 루트에 추가 클래스' },
 ];
 
 export const progressCirclePropColumns = progressPropColumns;
@@ -25,17 +26,24 @@ export const progressCircleProps = [
   { name: 'percent', type: 'number', default: '0', description: '0–100 (--progress-percent)' },
   { name: 'color', type: `'primary' | 'success' | 'warning' | 'danger'`, default: 'primary', description: 'color_*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'progress_sm · progress_lg' },
-  { name: 'aria-label', type: 'string', default: '진행률', description: 'progressbar 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '진행률', description: 'progressbar 라벨' },
+  { name: 'className', type: 'string', default: '—', description: 'progress_circle 루트에 추가 클래스' },
 ];
 
-export const progressSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const progressChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const progressSlots = [
-  { name: 'default', description: '추가 콘텐츠 (선택)' },
+export const progressChildren = [
+  { name: 'children', description: '추가 콘텐츠 (현재 미사용)' },
 ];
+
+/** @deprecated 가이드·Storybook은 progressChildColumns · progressChildren 사용 */
+export const progressSlotColumns = progressChildColumns;
+
+/** @deprecated */
+export const progressSlots = progressChildren;
 
 export const progressClassColumns = [
   { key: 'name', label: '클래스' },

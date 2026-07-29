@@ -74,9 +74,9 @@ export default function Modal({
         {showHeader ? (
           <div className="modal_header" data-demo-slot="header">
             {header ?? (
-              <h2 className="modal_title" id={titleId}>
+              <div className="modal_title" id={titleId} role="heading" aria-level={2}>
                 {title}
-              </h2>
+              </div>
             )}
             <Button
               variant="ghost"

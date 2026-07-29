@@ -23,20 +23,24 @@ import {
 const apiSections = [
   {
     title: 'API · Badge Props',
-    description: 'React에서는 camelCase prop을 사용합니다. Vue의 aria-label은 ariaLabel로 다룹니다.',
+    description:
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: dot-only → dotOnly, aria-label → ariaLabel)와 동일한 의미입니다.',
     tables: [{ columns: badgePropColumns, rows: badgeProps, codeColumn: 'name' }],
   },
   {
     title: 'API · BadgeWrap Props',
+    description:
+      'React에서는 camelCase prop을 사용합니다. HTML·Vue 문서의 kebab-case(예: aria-label → ariaLabel)와 동일한 의미입니다.',
     tables: [{ columns: badgeWrapPropColumns, rows: badgeWrapProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Badge Children / Slots',
-    description: 'Vue default 슬롯은 React children에 대응합니다.',
+    title: 'API · Badge Children',
+    description: 'Vue default 슬롯에 대응하는 React label·children입니다.',
     tables: [{ columns: badgeSlotColumns, rows: badgeSlots, codeColumn: 'name' }],
   },
   {
-    title: 'API · BadgeWrap Children / Slots',
+    title: 'API · BadgeWrap Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: badgeWrapSlotColumns, rows: badgeWrapSlots, codeColumn: 'name' }],
   },
   {
@@ -153,7 +157,7 @@ export const Size = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'badge_sm · badge_lg로 스케일을 조절합니다.',
+        story: 'size prop으로 badge_sm · badge_lg 스케일을 조절합니다.',
       },
       source: {
         code: `import Badge from '@uxkm/ui-react/components/Badge.jsx';
@@ -188,7 +192,7 @@ export const Dot = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'badge_dot로 상태 표시용 점(dot)이 포함된 배지를 만듭니다.',
+        story: 'dot prop으로 상태 표시용 점이 포함된 배지를 만듭니다.',
       },
       source: {
         code: `import Badge from '@uxkm/ui-react/components/Badge.jsx';
@@ -225,7 +229,7 @@ export const Count = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'badge_count로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다.',
+        story: 'count prop으로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다.',
       },
       source: {
         code: `import Badge from '@uxkm/ui-react/components/Badge.jsx';
@@ -264,7 +268,7 @@ export const Wrap = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'badge_wrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다.',
+        story: 'BadgeWrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다.',
       },
       source: {
         code: `import Avatar from '@uxkm/ui-react/components/Avatar.jsx';
@@ -285,11 +289,7 @@ export function WrapExample() {
           variant="ghost"
           iconOnly
           ariaLabel="메시지"
-          iconBefore={
-            <Icon>
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </Icon>
-          }
+          iconBefore={<Icon name="message" />}
         />
         <Badge count color="danger" ariaLabel="새 메시지 12건" label="12" />
       </BadgeWrap>
@@ -316,11 +316,7 @@ export function WrapExample() {
           variant="ghost"
           iconOnly
           ariaLabel="메시지"
-          iconBefore={
-            <Icon>
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </Icon>
-          }
+          iconBefore={<Icon name="message" />}
         />
         <Badge count color="danger" ariaLabel="새 메시지 12건" label="12" />
       </BadgeWrap>

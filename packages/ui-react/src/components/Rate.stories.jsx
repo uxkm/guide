@@ -3,6 +3,8 @@ import FormLayout from './FormLayout.jsx';
 import Rate from './Rate.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  rateChildColumns,
+  rateChildren,
   rateClassColumns,
   rateClasses,
   rateEventColumns,
@@ -19,6 +21,11 @@ const apiSections = [
     description:
       'React에서는 camelCase prop을 사용합니다. Vue의 model-value는 value · onChange로 다룹니다.',
     tables: [{ columns: ratePropColumns, rows: rateProps, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · Children',
+    description: 'Vue default 슬롯에 대응하는 React children입니다.',
+    tables: [{ columns: rateChildColumns, rows: rateChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · Events',

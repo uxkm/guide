@@ -1,20 +1,23 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 import { copyFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import {
   createInternalAliasPlugin,
   uiScssOptions,
-  uiViteAliases,
   writeCdnUrlScss,
 } from '@uxkm/ui/vite-alias';
+import {
+  createUiReactAliasPlugin,
+  uiReactViteAliases,
+} from '@uxkm/ui-react/vite-alias';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const guideSrc = path.resolve(__dirname, 'src');
 
 const isProd = process.env.NODE_ENV === 'production';
-const deployBase = process.env.GUIDE_BASE || '/vue/';
+const deployBase = process.env.GUIDE_BASE || '/react/';
 const deployOrigin = 'https://guide.uxkm.io';
 
 function resolveCdnUrl() {
@@ -29,7 +32,8 @@ writeCdnUrlScss(resolveCdnUrl());
 export default defineConfig({
   plugins: [
     createInternalAliasPlugin(guideSrc),
-    vue(),
+    createUiReactAliasPlugin(),
+    react(),
     {
       name: 'scss-cdn-url',
       buildStart() {
@@ -47,7 +51,8 @@ export default defineConfig({
   ],
   base: isProd ? deployBase : '/',
   resolve: {
-    alias: uiViteAliases(),
+    alias: uiReactViteAliases(),
+    dedupe: ['react', 'react-dom'],
   },
   css: {
     preprocessorOptions: {

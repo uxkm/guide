@@ -5,26 +5,17 @@ import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
   affixAttrColumns,
   affixAttrs,
+  affixChildColumns,
+  affixChildren,
   affixClassColumns,
   affixClasses,
   affixMarkup,
   affixMarkupColumns,
   affixPropColumns,
   affixProps,
-  affixSlotColumns,
-  affixSlots,
   affixTokenColumns,
   affixTokens,
 } from '@doc-data/affix-api';
-
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const affixChildren = [
-  { name: 'children', description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)' },
-];
 
 const apiSections = [
   {
@@ -34,12 +25,9 @@ const apiSections = [
     tables: [{ columns: affixPropColumns, rows: affixProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue default 슬롯은 React children으로 다룹니다.',
-    tables: [
-      { columns: affixSlotColumns, rows: affixSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: affixChildren, codeColumn: 'name' },
-    ],
+    tables: [{ columns: affixChildColumns, rows: affixChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · Data Attributes',

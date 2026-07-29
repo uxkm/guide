@@ -80,7 +80,7 @@ export const semanticColorTokens = [
   { name: '--color-on-warning-disabled', role: 'Warning · 비활성 채움 위 텍스트', usage: '비활성 warning 레이블' },
 ];
 
-export const fileStructureCode = `src/scss/
+export const fileStructureCode = `packages/ui/src/scss/
 ├── _tokens.scss      # :root CSS 변수 — 간격·타이포·컴포넌트 수치
 ├── _themes.scss      # 라이트/다크 색상 (data-theme)
 ├── _variables.scss   # SCSS 전용 — 브레이크포인트·폰트 스택

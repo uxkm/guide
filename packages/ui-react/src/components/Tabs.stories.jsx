@@ -7,41 +7,24 @@ import Tabs from './Tabs.jsx';
 import TabsTab from './TabsTab.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  tabMenuChildColumns,
+  tabMenuChildren,
   tabMenuPropColumns,
   tabMenuProps,
-  tabMenuSlotColumns,
-  tabMenuSlots,
+  tabPanelChildColumns,
+  tabPanelChildren,
   tabPanelPropColumns,
   tabPanelProps,
-  tabPanelSlotColumns,
-  tabPanelSlots,
+  tabsChildColumns,
+  tabsChildren,
   tabsClassColumns,
   tabsClasses,
   tabsPropColumns,
   tabsProps,
-  tabsSlotColumns,
-  tabsSlots,
   tabsTokenColumns,
   tabsTokens,
 } from '@doc-data/tabs-api';
 
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const tabsChildren = [
-  { name: 'children', description: 'TabPanel · TabMenu 나열' },
-  { name: 'extra', description: '탭 바 우측 (tabs_extra)' },
-  { name: 'tabs', description: '탭 바 추가 콘텐츠' },
-  { name: 'panel', description: 'mode=dynamic 패널 렌더 함수/노드' },
-];
-
-const tabPanelChildren = [
-  { name: 'children', description: '패널 본문' },
-  { name: 'icon', description: '탭 버튼 아이콘' },
-  { name: 'badge', description: '탭 버튼 배지' },
-];
 
 const apiSections = [
   {
@@ -59,23 +42,17 @@ const apiSections = [
     tables: [{ columns: tabMenuPropColumns, rows: tabMenuProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Tabs Children / Slots',
-    description: 'Vue 슬롯은 React children · extra · tabs · panel prop으로 다룹니다.',
-    tables: [
-      { columns: tabsSlotColumns, rows: tabsSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: tabsChildren, codeColumn: 'name' },
-    ],
+    title: 'API · Tabs Children',
+    description: 'Vue 슬롯은 React children · extra · panel prop으로 다룹니다.',
+    tables: [{ columns: tabsChildColumns, rows: tabsChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · TabPanel Children',
-    tables: [
-      { columns: tabPanelSlotColumns, rows: tabPanelSlots, codeColumn: 'name' },
-      { columns: childColumns, rows: tabPanelChildren, codeColumn: 'name' },
-    ],
+    tables: [{ columns: tabPanelChildColumns, rows: tabPanelChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · TabMenu Children',
-    tables: [{ columns: tabMenuSlotColumns, rows: tabMenuSlots, codeColumn: 'name' }],
+    tables: [{ columns: tabMenuChildColumns, rows: tabMenuChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

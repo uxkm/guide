@@ -186,14 +186,15 @@ export const Size = {
         story: "container_sm · container_md · container_lg · container_xl로 고정 최대 너비를 지정합니다.",
       },
       source: {
-        code: "<script setup>\nimport Container from '@uxkm/ui/components/Container.vue';\n</script>\n\n<template>\n  <Container size=\"sm\">\n    <div class=\"container_demo-fill\">container_sm (36rem)</div>\n  </Container>\n  <Container size=\"md\">\n    <div class=\"container_demo-fill\">container_md (48rem)</div>\n  </Container>\n  <Container size=\"lg\">\n    <div class=\"container_demo-fill\">container_lg (64rem)</div>\n  </Container>\n  <Container size=\"xl\">\n    <div class=\"container_demo-fill\">container_xl (80rem)</div>\n  </Container>\n</template>",
+        code: "<script setup>\nimport Container from '@uxkm/ui/components/Container.vue';\n</script>\n\n<template>\n  <div class=\"container_demo-sizes\">\n    <Container size=\"sm\">\n      <div class=\"container_demo-fill\">container_sm (36rem)</div>\n    </Container>\n    <Container size=\"md\">\n      <div class=\"container_demo-fill\">container_md (48rem)</div>\n    </Container>\n    <Container size=\"lg\">\n      <div class=\"container_demo-fill\">container_lg (64rem)</div>\n    </Container>\n    <Container size=\"xl\">\n      <div class=\"container_demo-fill\">container_xl (80rem)</div>\n    </Container>\n  </div>\n</template>",
         language: 'vue',
       },
     },
   },
   render: withDocsCanvasRender(() => ({
     components: { Container },
-    template: `<Container size="sm">
+    template: `<div class="container_demo-sizes">
+      <Container size="sm">
         <div class="container_demo-fill">container_sm (36rem)</div>
       </Container>
       <Container size="md">
@@ -204,7 +205,8 @@ export const Size = {
       </Container>
       <Container size="xl">
         <div class="container_demo-fill">container_xl (80rem)</div>
-      </Container>`,
+      </Container>
+    </div>`,
   })),
 };
 

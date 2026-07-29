@@ -179,7 +179,14 @@ export function formatComponentCode(name, props, slots = {}, customAttrs = {}, c
   const hasNamedSlots = slotBlocks.length > 0;
   const hasDefaultPlaceholder = defaultPlaceholder !== undefined && hasDefaultSlot;
 
-  if (!hasDefaultContent && !hasNamedSlots && !hasDefaultPlaceholder && (selfClosing || props[labelProp])) {
+  // 복잡한 default 슬롯(자식 마크업)은 빈 본문으로 열어 두고, demo code serializer가 자식을 채움
+  if (
+    !hasDefaultContent &&
+    !hasNamedSlots &&
+    !hasDefaultPlaceholder &&
+    !hasComplexDefault &&
+    (selfClosing || props[labelProp])
+  ) {
     return `<${name}${attrStr} />`;
   }
 

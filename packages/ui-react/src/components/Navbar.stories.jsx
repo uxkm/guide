@@ -7,8 +7,12 @@ import NavbarItem from './NavbarItem.jsx';
 import NavbarList from './NavbarList.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  navbarChildColumns,
+  navbarChildren,
   navbarClassColumns,
   navbarClasses,
+  navbarItemChildColumns,
+  navbarItemChildren,
   navbarItemPropColumns,
   navbarItemProps,
   navbarPropColumns,
@@ -17,24 +21,6 @@ import {
   navbarTokens,
 } from '@doc-data/navbar-api';
 
-const childColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const navbarChildren = [
-  { name: 'brandContent', description: '브랜드 영역 (brand · brandIcon 대체)' },
-  { name: 'brandIcon', description: '브랜드 아이콘' },
-  { name: 'items', description: '메뉴 목록 (NavbarList)' },
-  { name: 'children', description: 'items 대체 — NavbarItem 나열' },
-  { name: 'search', description: '검색 필드 (navbar_search)' },
-  { name: 'actions', description: '우측 액션 (navbar_actions)' },
-];
-
-const navbarItemChildren = [
-  { name: 'children', description: '링크 텍스트 (label 대체)' },
-  { name: 'badge', description: '링크 옆 배지' },
-];
 
 const apiSections = [
   {
@@ -49,11 +35,11 @@ const apiSections = [
   },
   {
     title: 'API · Navbar Children',
-    tables: [{ columns: childColumns, rows: navbarChildren, codeColumn: 'name' }],
+    tables: [{ columns: navbarChildColumns, rows: navbarChildren, codeColumn: 'name' }],
   },
   {
     title: 'API · NavbarItem Children',
-    tables: [{ columns: childColumns, rows: navbarItemChildren, codeColumn: 'name' }],
+    tables: [{ columns: navbarItemChildColumns, rows: navbarItemChildren, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

@@ -6,6 +6,8 @@ import Icon from './Icon.jsx';
 import Upload from './Upload.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  uploadChildColumns,
+  uploadChildren,
   uploadClassColumns,
   uploadClasses,
   uploadPropColumns,
@@ -13,18 +15,6 @@ import {
   uploadTokenColumns,
   uploadTokens,
 } from '@doc-data/upload-api';
-
-const uploadChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const uploadChildren = [
-  { name: 'trigger', description: '업로드 트리거 UI (button·drag·picture-card·avatar)' },
-  { name: 'hint', description: '힌트 텍스트 또는 커스텀 노드 (button·drag)' },
-  { name: 'children', description: '파일 목록 등 (Vue default 슬롯 대응)' },
-  { name: 'cards', description: '이미지 카드 그리드 (picture-card)' },
-];
 
 const apiSections = [
   {
@@ -34,7 +24,7 @@ const apiSections = [
     tables: [{ columns: uploadPropColumns, rows: uploadProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: uploadChildColumns, rows: uploadChildren, codeColumn: 'name' }],
   },
@@ -148,6 +138,28 @@ export function ButtonExample() {
         trigger={
           <span className="btn btn_outline color_primary">
             <span className="btn_label">업로드</span>
+          </span>
+        }
+      />
+      <Upload
+        variant="button"
+        trigger={
+          <>
+            <span className="btn btn_filled color_primary btn_sm">
+              <span className="btn_label">Small</span>
+            </span>
+            <span className="btn btn_filled color_primary btn_lg">
+              <span className="btn_label">Large</span>
+            </span>
+          </>
+        }
+      />
+      <Upload
+        variant="button"
+        disabled
+        trigger={
+          <span className="btn btn_filled color_primary is-disabled">
+            <span className="btn_label">비활성</span>
           </span>
         }
       />

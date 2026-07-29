@@ -6,7 +6,7 @@ export const introCategories = NAV_GROUPS.filter((group) => group.title !== '시
     description: group.items.map((item) => item.label).join(', '),
     count: `${group.items.length}개 컴포넌트`,
     href: group.items[0].to,
-  })
+  }),
 );
 
 export const conventionColumns = [
@@ -46,40 +46,55 @@ export const conventionRows = [
 export const quickstartCode = `# 의존성 설치
 pnpm install
 
-# Vue + Vite 개발 서버
+# 가이드 앱 (React + Vite)
 pnpm dev
 
-# Vue 프로덕션 빌드
+# Storybook (React)
+pnpm storybook
+
+# 가이드 프로덕션 빌드
 pnpm build`;
 
-export const structureCode = `src/
-├── components/               # 재사용 UI 컴포넌트 (Vue SFC)
-├── doc/
-│   ├── components/           # 컴포넌트 문서 페이지
-│   └── pages/                # 소개·설치 페이지
-├── scss/
-│   ├── _tokens.scss          # 디자인 토큰 (:root CSS 변수)
-│   ├── _themes.scss          # 라이트/다크 테마
-│   ├── components/           # 컴포넌트별 스타일
-│   └── main.scss             # SCSS 진입점
-├── layouts/                  # 가이드 레이아웃
-├── router/                   # Vue Router
-└── main.js                   # 앱 진입점
+export const structureCode = `packages/
+├── ui/                       # SCSS · 디자인 토큰 · 공유 유틸
+│   └── src/scss/
+│       ├── _tokens.scss      # 디자인 토큰 (:root CSS 변수)
+│       ├── _themes.scss      # 라이트/다크 테마
+│       ├── components/       # 컴포넌트별 스타일
+│       └── main.scss         # SCSS 진입점
+└── ui-react/                 # React 컴포넌트
+    └── src/
+        ├── components/       # Button 등 React 컴포넌트
+        └── hooks/            # useRipple · useDemoCode
 
-dist/                         # Vite 프로덕션 빌드 결과`;
+apps/
+├── guide/                    # React + Vite 문서 가이드
+│   └── src/
+│       ├── doc/              # 소개 · 설치 · 컴포넌트 문서 (.jsx)
+│       ├── components/guide/ # 가이드 셸 UI
+│       └── main.jsx
+└── storybook/                # @storybook/react-vite
+    ├── .storybook/
+    └── stories/`;
 
-export const docPageCode = `<script>
-export const docMeta = {
-  title: 'Button | HTML Components',
+export const docPageCode = `export const docMeta = {
+  title: 'Button | UXKM Guide',
   activeNav: 'button',
   pageTitle: 'Button',
 };
-<\/script>
 
-<template>
-  <div class="page_intro">
-    <h1>Button</h1>
-    <p class="lead">…</p>
-  </div>
-  …
-</template>`;
+import Button from '@uxkm/ui-react/components/Button.jsx';
+import DemoSection from '@/components/guide/DemoSection.jsx';
+
+export default function ButtonDoc() {
+  return (
+    <DemoSection
+      headingId="basic-heading"
+      title="기본 유형"
+      description="btn_filled · btn_outline · btn_ghost · btn_text"
+      stack
+    >
+      <Button variant="filled" color="primary" label="Filled Primary" />
+    </DemoSection>
+  );
+}`;

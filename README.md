@@ -1,22 +1,24 @@
 # guide
 
-guide.uxkm.io — Vue 3 + Vite UI 컴포넌트 가이드 (pnpm monorepo)
+guide.uxkm.io — React + Vite UI 컴포넌트 가이드 (pnpm monorepo)
 
 ## 구조
 
 ```
 ├── apps/
-│   ├── guide/          # 문서·가이드 앱 (Vite)
-│   └── storybook/      # 컴포넌트 Storybook
+│   ├── guide/          # 문서·가이드 앱 (React + Vite)
+│   └── storybook/      # 컴포넌트 Storybook (@storybook/react-vite)
 ├── packages/
-│   └── ui/             # Vue UI 컴포넌트 + SCSS 디자인 시스템
+│   ├── ui/             # SCSS 디자인 시스템 · 공유 유틸 · 문서 데이터
+│   └── ui-react/       # React UI 컴포넌트 (+ Storybook 스토리)
 ├── pnpm-workspace.yaml
 └── package.json        # 워크스페이스 루트
 ```
 
-- `apps/guide/` — Vue 앱, 라우터, 문서 페이지 (`src/doc/`)
-- `apps/storybook/` — `@uxkm/ui` 컴포넌트 Storybook
-- `packages/ui/` — 재사용 컴포넌트, SCSS, composables (`*.stories.js`와 함께 관리)
+- `apps/guide/` — React 앱, 라우터, 문서 페이지 (`src/doc/`)
+- `apps/storybook/` — `@uxkm/ui-react` 컴포넌트 Storybook
+- `packages/ui/` — SCSS, 토큰, 공유 utils/data
+- `packages/ui-react/` — 재사용 React 컴포넌트 (`*.stories.jsx`와 함께 관리)
 - `apps/guide/dist/` — 가이드 프로덕션 빌드 결과
 
 ## 개발
@@ -35,5 +37,4 @@ pnpm preview            # 가이드 빌드 결과 미리보기
 
 ## 배포
 
-`pnpm deploy:vue` — 가이드만 main/vue/에 배포
-`pnpm deploy:main` — gulp · vue · vue-storybook · react-storybook · gulp-storybook 브랜치에서 빌드 후 main에 배포
+`pnpm deploy:main` — react-storybook 브랜치에서 빌드 후 main의 `react/` · `react-storybook/`에 배포

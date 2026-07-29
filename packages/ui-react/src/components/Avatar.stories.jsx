@@ -9,30 +9,15 @@ import {
   avatarClasses,
   avatarGroupPropColumns,
   avatarGroupProps,
+  avatarGroupSlotColumns,
+  avatarGroupSlots,
   avatarPropColumns,
   avatarProps,
+  avatarSlotColumns,
+  avatarSlots,
   avatarTokenColumns,
   avatarTokens,
 } from '@doc-data/avatar-api';
-
-const avatarChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const avatarChildren = [
-  { name: 'initials', description: '이니셜 텍스트 (이미지·아이콘 없을 때)' },
-  { name: 'icon', description: '아이콘 콘텐츠 (Vue #icon 슬롯 대응, avatar_icon 클래스)' },
-];
-
-const avatarGroupChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const avatarGroupChildren = [
-  { name: 'children', description: 'Avatar 자식 목록 (Vue default 슬롯 대응)' },
-];
 
 const apiSections = [
   {
@@ -50,12 +35,12 @@ const apiSections = [
   {
     title: 'API · Avatar Children',
     description: 'Vue 슬롯(icon)에 대응하는 React prop입니다.',
-    tables: [{ columns: avatarChildColumns, rows: avatarChildren, codeColumn: 'name' }],
+    tables: [{ columns: avatarSlotColumns, rows: avatarSlots, codeColumn: 'name' }],
   },
   {
     title: 'API · AvatarGroup Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
-    tables: [{ columns: avatarGroupChildColumns, rows: avatarGroupChildren, codeColumn: 'name' }],
+    tables: [{ columns: avatarGroupSlotColumns, rows: avatarGroupSlots, codeColumn: 'name' }],
   },
   {
     title: '클래스 · 속성',

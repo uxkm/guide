@@ -4,6 +4,8 @@ import Button from './Button.jsx';
 import Link from './Link.jsx';
 import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
+  alertChildColumns,
+  alertChildren,
   alertClassColumns,
   alertClasses,
   alertEventColumns,
@@ -14,17 +16,6 @@ import {
   alertTokens,
 } from '@doc-data/alert-api';
 
-const alertChildColumns = [
-  { key: 'name', label: 'Prop / Children' },
-  { key: 'description', label: '설명' },
-];
-
-const alertChildren = [
-  { name: 'children', description: '본문 (description prop 대체, Vue default 슬롯)' },
-  { name: 'icon', description: '커스텀 아이콘 (alert_icon)' },
-  { name: 'actions', description: '본문 아래 액션 버튼·링크' },
-];
-
 const apiSections = [
   {
     title: 'API · Props',
@@ -33,7 +24,7 @@ const apiSections = [
     tables: [{ columns: alertPropColumns, rows: alertProps, codeColumn: 'name' }],
   },
   {
-    title: 'API · Children / Slots',
+    title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
     tables: [{ columns: alertChildColumns, rows: alertChildren, codeColumn: 'name' }],
   },
