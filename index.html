@@ -269,7 +269,6 @@
       pointer-events: none;
       z-index: 1;
       animation: card-outline-spin 2s linear infinite;
-      animation-delay: var(--intro-delay, 0ms);
     }
 
     @keyframes card-outline-spin {
@@ -467,11 +466,6 @@
       });
 
       updateLabel();
-
-      var cards = document.querySelectorAll('.grid .card');
-      cards.forEach(function (card, index) {
-        card.style.setProperty('--intro-delay', (index * 120) + 'ms');
-      });
     })();
   </script>
 </body>
