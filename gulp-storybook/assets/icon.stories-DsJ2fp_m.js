@@ -1,0 +1,793 @@
+import{b as e,g as o,e as en,c as on}from"./gulp-demos-C1efgjoy.js";const h=`<!-- @meta
+title: Icon | HTML Components
+activeNav: icon
+pageTitle: Icon
+-->
+<div class="page_intro">
+  <h1>Icon</h1>
+  <p class="lead">SVG 인라인 아이콘의 크기, 색상, 정렬을 일관되게 적용하는 기본 요소입니다.</p>
+</div>
+
+<section class="section demo_section" aria-labelledby="basic-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-heading">기본</h2>
+    <p>svg 태그에 icon 클래스를 적용합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+    </svg>
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+    </svg>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="size-heading">
+  <div class="demo_section-header">
+    <h2 id="size-heading">크기</h2>
+    <p>기본 크기는 icon 클래스만 사용합니다. icon_sm · icon_lg · icon_xl로 스케일을 조절합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+    <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="color-heading">
+  <div class="demo_section-header">
+    <h2 id="color-heading">색상</h2>
+    <p>공통 color_* 클래스를 조합합니다. 버튼·배지·알림 등 다른 컴포넌트와 동일한 클래스명을 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <svg class="icon color_default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+    <svg class="icon color_primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
+    <svg class="icon color_success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+    </svg>
+    <svg class="icon color_warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+    </svg>
+    <svg class="icon color_danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>
+    </svg>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="inline-heading">
+  <div class="demo_section-header">
+    <h2 id="inline-heading">텍스트와 함께</h2>
+    <p>icon_inline으로 텍스트와 수직 정렬을 맞춥니다. 텍스트에는 ml_sm으로 간격을 둡니다. 의미 있는 아이콘은 aria-label을 지정합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <p>
+      <svg class="icon icon_inline color_info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="ml_sm">변경 사항이 자동 저장됩니다.</span>
+    </p>
+    <p>
+      <svg class="icon icon_inline color_success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+      </svg>
+      <span class="ml_sm">업로드가 완료되었습니다.</span>
+    </p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="circle-heading">
+  <div class="demo_section-header">
+    <h2 id="circle-heading">원형 · 사각 배경</h2>
+    <p>icon_circle · icon_square로 아이콘에 배경을 적용합니다. color_*로 색상을 지정합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="icon_circle color_primary" aria-hidden="true">
+      <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </span>
+    <span class="icon_circle color_success" aria-hidden="true">
+      <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+      </svg>
+    </span>
+    <span class="icon_circle color_danger icon_circle-lg" aria-hidden="true">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+      </svg>
+    </span>
+    <span class="icon_square color_primary" aria-hidden="true">
+      <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="button-heading">
+  <div class="demo_section-header">
+    <h2 id="button-heading">아이콘 버튼</h2>
+    <p>icon_button으로 클릭 가능한 아이콘 버튼을 만듭니다. aria-label을 반드시 지정합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <button type="button" class="icon_button color_primary" aria-label="검색">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+    </button>
+    <button type="button" class="icon_button color_muted" aria-label="설정">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+    </button>
+    <button type="button" class="icon_button color_danger" aria-label="삭제">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="pulse-heading">
+  <div class="demo_section-header">
+    <h2 id="pulse-heading">펄스</h2>
+    <p>icon_pulse로 알림·상태 강조 애니메이션을 적용합니다. icon_circle과 함께 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <span class="icon_circle color_primary icon_pulse" aria-hidden="true">
+      <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </span>
+    <span class="icon_circle color_danger icon_pulse" aria-hidden="true">
+      <svg class="icon icon_sm" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <circle cx="12" cy="12" r="4"/>
+      </svg>
+    </span>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="group-heading">
+  <div class="demo_section-header">
+    <h2 id="group-heading">그룹</h2>
+    <p>icon_group으로 여러 아이콘을 나란히 배치합니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="icon_group">
+      <svg class="icon color_muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+        <polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+      </svg>
+      <svg class="icon color_muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <svg class="icon color_muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+      </svg>
+    </div>
+
+    <p>
+      <span class="icon_circle color_primary icon_circle-sm" aria-hidden="true">
+        <svg class="icon icon_sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="color_muted size_sm ml_sm">홍길동님이 댓글을 남겼습니다.</span>
+    </p>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="spin-heading">
+  <div class="demo_section-header">
+    <h2 id="spin-heading">로딩</h2>
+    <p>icon_spin으로 회전 애니메이션을 적용합니다. 로딩 상태 표시에 사용합니다.</p>
+  </div>
+
+  <div class="demo_section-preview">
+    <svg class="icon icon_spin color_primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+    </svg>
+    <svg class="icon icon_lg icon_spin color_muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+    </svg>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="gallery-heading">
+  <div class="demo_section-header">
+    <h2 id="gallery-heading">자주 쓰는 아이콘</h2>
+    <p>프로젝트 전반에서 재사용하는 stroke SVG 예시입니다. viewBox 0 0 24 24 · stroke-width 2 기준으로, <a href="https://fonts.google.com/icons" target="_blank" rel="noopener noreferrer">Material Symbols</a>에서 자주 쓰는 유형을 참고했습니다.</p>
+  </div>
+
+  <div class="icon_grid">
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="size_sm color_muted">search</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      <span class="size_sm color_muted">plus</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>
+      <span class="size_sm color_muted">minus</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      <span class="size_sm color_muted">close</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      <span class="size_sm color_muted">check</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      <span class="size_sm color_muted">edit</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      <span class="size_sm color_muted">trash</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      <span class="size_sm color_muted">delete</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span class="size_sm color_muted">copy</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      <span class="size_sm color_muted">save</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="size_sm color_muted">download</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      <span class="size_sm color_muted">upload</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span class="size_sm color_muted">share</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <span class="size_sm color_muted">link</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <span class="size_sm color_muted">external-link</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <span class="size_sm color_muted">filter</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      <span class="size_sm color_muted">refresh</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+      <span class="size_sm color_muted">undo</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+      <span class="size_sm color_muted">redo</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span class="size_sm color_muted">printer</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+      <span class="size_sm color_muted">paperclip</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span class="size_sm color_muted">arrow-left</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <span class="size_sm color_muted">arrow-right</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      <span class="size_sm color_muted">arrow-up</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      <span class="size_sm color_muted">arrow-down</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      <span class="size_sm color_muted">chevron-left</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      <span class="size_sm color_muted">chevron-right</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      <span class="size_sm color_muted">chevron-up</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      <span class="size_sm color_muted">chevron-down</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <span class="size_sm color_muted">menu</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+      <span class="size_sm color_muted">more-vertical</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      <span class="size_sm color_muted">more-horizontal</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span class="size_sm color_muted">grid</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">list</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="size_sm color_muted">home</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span class="size_sm color_muted">settings</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="size_sm color_muted">user</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="size_sm color_muted">users</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="size_sm color_muted">mail</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="size_sm color_muted">phone</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="size_sm color_muted">bell</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="size_sm color_muted">message</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      <span class="size_sm color_muted">send</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">info</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">help-circle</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">alert-circle</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">alert-triangle</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+      <span class="size_sm color_muted">check-circle</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+      <span class="size_sm color_muted">x-circle</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span class="size_sm color_muted">star</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span class="size_sm color_muted">heart</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      <span class="size_sm color_muted">bookmark</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+      <span class="size_sm color_muted">thumb-up</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      <span class="size_sm color_muted">eye</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
+      <span class="size_sm color_muted">eye-off</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span class="size_sm color_muted">lock</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+      <span class="size_sm color_muted">unlock</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      <span class="size_sm color_muted">log-in</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <span class="size_sm color_muted">log-out</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="size_sm color_muted">calendar</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="size_sm color_muted">clock</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span class="size_sm color_muted">folder</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="size_sm color_muted">file</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="size_sm color_muted">image</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <span class="size_sm color_muted">camera</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="size_sm color_muted">map-pin</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="size_sm color_muted">globe</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="size_sm color_muted">cart</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <span class="size_sm color_muted">credit-card</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="size_sm color_muted">tag</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span class="size_sm color_muted">sun</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="size_sm color_muted">moon</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      <span class="size_sm color_muted">cloud</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      <span class="size_sm color_muted">book</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      <span class="size_sm color_muted">zoom-in</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      <span class="size_sm color_muted">zoom-out</span>
+    </div>
+    <div class="icon_grid-item">
+      <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+      <span class="size_sm color_muted">maximize</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">클래스</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="typo_code">icon</code></td>
+            <td>SVG 루트 기본 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_sm</code> · <code class="typo_code">icon_lg</code> · <code class="typo_code">icon_xl</code></td>
+            <td>크기 변형</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_inline</code></td>
+            <td>텍스트 인라인 정렬</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_spin</code></td>
+            <td>회전 애니메이션</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_button</code></td>
+            <td>아이콘 버튼 래퍼</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_circle</code> · <code class="typo_code">icon_square</code></td>
+            <td>배경 형태</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_circle-sm</code> · <code class="typo_code">icon_circle-lg</code></td>
+            <td>원형 배경 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_pulse</code></td>
+            <td>펄스 강조</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">icon_group</code></td>
+            <td>여러 아이콘 가로 배치 컨테이너</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">color_*</code></td>
+            <td>공통 색상 유틸</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">data-ripple</code></td>
+            <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">data-ripple="false"</code></td>
+            <td>해당 요소 ripple 비활성</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">data-no-ripple</code></td>
+            <td>하위 전체 ripple 비활성</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">토큰</th>
+            <th scope="col">기본값</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="typo_code">--icon-size-sm</code> · <code class="typo_code">--icon-size</code> · <code class="typo_code">--icon-size-lg</code> · <code class="typo_code">--icon-size-xl</code></td>
+            <td>1rem · 1.25rem · 1.5rem · 2rem</td>
+            <td>아이콘 지름</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--icon-spin-duration</code></td>
+            <td>0.8s</td>
+            <td>회전 주기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--icon-circle-size</code> · <code class="typo_code">--icon-circle-size-sm</code> · <code class="typo_code">--icon-circle-size-lg</code></td>
+            <td>2.25rem · 1.75rem · 2.75rem</td>
+            <td>원형 배경 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--icon-pulse-duration</code></td>
+            <td>1.5s</td>
+            <td>펄스 애니메이션 주기</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+`,n=en(h),nn=on(h),g=h.match(/<section[^>]*gallery-heading[\s\S]*?(<div class="icon_grid">[\s\S]*?<\/div>)\s*<\/section>/i),sn=g?g[1].trim():"",_=h.match(/id="gallery-heading">[\s\S]*?<p>([\s\S]*?)<\/p>/i),rn=_?_[1].replace(/<[^>]+>/g,"").replace(/\s+/g," ").trim():"",tn={title:"Components/기본 요소/Icon",id:"components-icon",tags:["autodocs"],parameters:{layout:"padded",docs:{description:{component:"SVG 인라인 아이콘의 크기, 색상, 정렬을 일관되게 적용하는 기본 요소입니다."}}}},s={name:"기본",render:()=>e(n[0]),parameters:{docs:{...o(n[0].previewHtml).docs,description:{story:n[0].description}}}},i={name:"크기",render:()=>e(n[1]),parameters:{docs:{...o(n[1].previewHtml).docs,description:{story:n[1].description}}}},r={name:"색상",render:()=>e(n[2]),parameters:{docs:{...o(n[2].previewHtml).docs,description:{story:n[2].description}}}},c={name:"텍스트와 함께",render:()=>e(n[3]),parameters:{docs:{...o(n[3].previewHtml).docs,description:{story:n[3].description}}}},t={name:"원형 · 사각 배경",render:()=>e(n[4]),parameters:{docs:{...o(n[4].previewHtml).docs,description:{story:n[4].description}}}},a={name:"아이콘 버튼",render:()=>e(n[5]),parameters:{docs:{...o(n[5].previewHtml).docs,description:{story:n[5].description}}}},d={name:"펄스",render:()=>e(n[6]),parameters:{docs:{...o(n[6].previewHtml).docs,description:{story:n[6].description}}}},l={name:"그룹",render:()=>e(n[7]),parameters:{docs:{...o(n[7].previewHtml).docs,description:{story:n[7].description}}}},p={name:"로딩",render:()=>e(n[8]),parameters:{docs:{...o(n[8].previewHtml).docs,description:{story:n[8].description}}}},u={name:"자주 쓰는 아이콘",tags:["!dev"],render:()=>e({previewHtml:`<section class="section">${sn}</section>`,stack:!0}),parameters:{docs:{source:{code:null},description:{story:rn}}}},v={name:"클래스 · 속성",tags:["!dev"],render:()=>e(nn[0]),parameters:{docs:{source:{code:null},description:{story:"HTML 마크업으로 직접 작성할 때 사용하는 OOCSS 클래스·속성입니다."}}}},m={name:"디자인 토큰",tags:["!dev"],render:()=>e(nn[1]),parameters:{docs:{source:{code:null},description:{story:"Icon 크기·애니메이션에 사용하는 CSS 변수입니다."}}}};var k,w,x;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`{
+  name: '기본',
+  render: () => renderDemo(demos[0]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[0].previewHtml).docs,
+      description: {
+        story: demos[0].description
+      }
+    }
+  }
+}`,...(x=(w=s.parameters)==null?void 0:w.docs)==null?void 0:x.source}}};var y,C,B;i.parameters={...i.parameters,docs:{...(y=i.parameters)==null?void 0:y.docs,source:{originalSource:`{
+  name: '크기',
+  render: () => renderDemo(demos[1]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[1].previewHtml).docs,
+      description: {
+        story: demos[1].description
+      }
+    }
+  }
+}`,...(B=(C=i.parameters)==null?void 0:C.docs)==null?void 0:B.source}}};var M,f,z;r.parameters={...r.parameters,docs:{...(M=r.parameters)==null?void 0:M.docs,source:{originalSource:`{
+  name: '색상',
+  render: () => renderDemo(demos[2]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[2].previewHtml).docs,
+      description: {
+        story: demos[2].description
+      }
+    }
+  }
+}`,...(z=(f=r.parameters)==null?void 0:f.docs)==null?void 0:z.source}}};var j,b,D;c.parameters={...c.parameters,docs:{...(j=c.parameters)==null?void 0:j.docs,source:{originalSource:`{
+  name: '텍스트와 함께',
+  render: () => renderDemo(demos[3]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[3].previewHtml).docs,
+      description: {
+        story: demos[3].description
+      }
+    }
+  }
+}`,...(D=(b=c.parameters)==null?void 0:b.docs)==null?void 0:D.source}}};var H,S,A;t.parameters={...t.parameters,docs:{...(H=t.parameters)==null?void 0:H.docs,source:{originalSource:`{
+  name: '원형 · 사각 배경',
+  render: () => renderDemo(demos[4]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[4].previewHtml).docs,
+      description: {
+        story: demos[4].description
+      }
+    }
+  }
+}`,...(A=(S=t.parameters)==null?void 0:S.docs)==null?void 0:A.source}}};var V,L,E;a.parameters={...a.parameters,docs:{...(V=a.parameters)==null?void 0:V.docs,source:{originalSource:`{
+  name: '아이콘 버튼',
+  render: () => renderDemo(demos[5]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[5].previewHtml).docs,
+      description: {
+        story: demos[5].description
+      }
+    }
+  }
+}`,...(E=(L=a.parameters)==null?void 0:L.docs)==null?void 0:E.source}}};var F,G,I;d.parameters={...d.parameters,docs:{...(F=d.parameters)==null?void 0:F.docs,source:{originalSource:`{
+  name: '펄스',
+  render: () => renderDemo(demos[6]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[6].previewHtml).docs,
+      description: {
+        story: demos[6].description
+      }
+    }
+  }
+}`,...(I=(G=d.parameters)==null?void 0:G.docs)==null?void 0:I.source}}};var T,O,q;l.parameters={...l.parameters,docs:{...(T=l.parameters)==null?void 0:T.docs,source:{originalSource:`{
+  name: '그룹',
+  render: () => renderDemo(demos[7]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[7].previewHtml).docs,
+      description: {
+        story: demos[7].description
+      }
+    }
+  }
+}`,...(q=(O=l.parameters)==null?void 0:O.docs)==null?void 0:q.source}}};var $,N,J;p.parameters={...p.parameters,docs:{...($=p.parameters)==null?void 0:$.docs,source:{originalSource:`{
+  name: '로딩',
+  render: () => renderDemo(demos[8]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[8].previewHtml).docs,
+      description: {
+        story: demos[8].description
+      }
+    }
+  }
+}`,...(J=(N=p.parameters)==null?void 0:N.docs)==null?void 0:J.source}}};var K,P,Q;u.parameters={...u.parameters,docs:{...(K=u.parameters)==null?void 0:K.docs,source:{originalSource:`{
+  name: '자주 쓰는 아이콘',
+  tags: ['!dev'],
+  render: () => renderDemo({
+    previewHtml: \`<section class="section">\${galleryHtml}</section>\`,
+    stack: true
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: null
+      },
+      description: {
+        story: galleryDescription
+      }
+    }
+  }
+}`,...(Q=(P=u.parameters)==null?void 0:P.docs)==null?void 0:Q.source}}};var R,U,W;v.parameters={...v.parameters,docs:{...(R=v.parameters)==null?void 0:R.docs,source:{originalSource:`{
+  name: '클래스 · 속성',
+  tags: ['!dev'],
+  render: () => renderDemo(apis[0]),
+  parameters: {
+    docs: {
+      source: {
+        code: null
+      },
+      description: {
+        story: 'HTML 마크업으로 직접 작성할 때 사용하는 OOCSS 클래스·속성입니다.'
+      }
+    }
+  }
+}`,...(W=(U=v.parameters)==null?void 0:U.docs)==null?void 0:W.source}}};var X,Y,Z;m.parameters={...m.parameters,docs:{...(X=m.parameters)==null?void 0:X.docs,source:{originalSource:`{
+  name: '디자인 토큰',
+  tags: ['!dev'],
+  render: () => renderDemo(apis[1]),
+  parameters: {
+    docs: {
+      source: {
+        code: null
+      },
+      description: {
+        story: 'Icon 크기·애니메이션에 사용하는 CSS 변수입니다.'
+      }
+    }
+  }
+}`,...(Z=(Y=m.parameters)==null?void 0:Y.docs)==null?void 0:Z.source}}};const an=["Demo0","Demo1","Demo2","Demo3","Demo4","Demo5","Demo6","Demo7","Demo8","Gallery","ApiClasses","ApiTokens"];export{v as ApiClasses,m as ApiTokens,s as Demo0,i as Demo1,r as Demo2,c as Demo3,t as Demo4,a as Demo5,d as Demo6,l as Demo7,p as Demo8,u as Gallery,an as __namedExportsOrder,tn as default};

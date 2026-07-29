@@ -1,11 +1,11 @@
-import{g as c,r as a}from"./gulp-demos-UvXZ8LcT.js";const r=`<!-- @meta
+import{g as c,r as a,a as r}from"./gulp-demos-C1efgjoy.js";const l=`<!-- @meta
 title: 디자인 토큰 | HTML Components
 activeNav: design-tokens
 pageTitle: 디자인 토큰
 -->
 <div class="page_intro">
   <h1>디자인 토큰</h1>
-  <p class="lead">색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. <a href="https://uxkm.io/publishing/scss/10-scss-examples/01-design-tokens-base-styles" target="_blank" rel="noopener noreferrer">UXKM 디자인 토큰과 기본 스타일</a>을 참고해, 이 가이드에서는 <code class="typo_code">:root</code> CSS 변수와 라이트/다크 테마 구조로 제공합니다.</p>
+  <p class="lead">색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. <a href="https://uxkm.io/publishing/scss/10-scss-examples/01-design-tokens-base-styles" target="_blank" rel="noopener noreferrer">UXKM 디자인 토큰과 기본 스타일</a>을 참고해, 이 가이드에서는 <code class="typo_code">:root</code> CSS 변수와 라이트/다크 테마 구조로 제공합니다. HTML 가이드(Gulp)와 Storybook은 같은 <code class="typo_code">src/scss/</code> 토큰을 사용합니다.</p>
 </div>
 
 <section class="section" aria-labelledby="concept-heading">
@@ -37,7 +37,7 @@ src/scss/
 └── main.scss         # tokens → themes → … 순서로 @use</code></pre>
   </div>
 
-  <p>전역 수치 토큰은 <code class="typo_code">_tokens.scss</code>의 <code class="typo_code">:root</code>에 정의하고, 색상은 <code class="typo_code">_themes.scss</code>에서 <code class="typo_code">data-theme</code>별로 덮어씁니다. 미디어쿼리용 브레이크포인트 등 컴파일 타임 값만 <code class="typo_code">_variables.scss</code>에 둡니다.</p>
+  <p>전역 수치 토큰은 <code class="typo_code">_tokens.scss</code>의 <code class="typo_code">:root</code>에 정의하고, 색상은 <code class="typo_code">_themes.scss</code>에서 <code class="typo_code">data-theme</code>별로 덮어씁니다. 미디어쿼리용 브레이크포인트 등 컴파일 타임 값만 <code class="typo_code">_variables.scss</code>에 둡니다. Storybook은 <code class="typo_code">.storybook/preview</code>에서 <code class="typo_code">src/scss/main.scss</code>를 import해 동일한 토큰·테마를 로드합니다.</p>
 </section>
 
 <section class="section" aria-labelledby="spacing-heading">
@@ -198,7 +198,7 @@ src/scss/
         <tr>
           <td><code class="typo_code">--sidebar-width</code></td>
           <td>280px</td>
-          <td>가이드 사이드바 너비</td>
+          <td>HTML 가이드 사이드바 너비</td>
         </tr>
         <tr>
           <td><code class="typo_code">--header-height</code></td>
@@ -214,6 +214,16 @@ src/scss/
           <td><code class="typo_code">--focus-outline-offset</code></td>
           <td>2px</td>
           <td>포커스 링과 요소 사이 간격</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--focus-shadow-width</code></td>
+          <td>3px</td>
+          <td>포커스 그림자(링) 두께</td>
+        </tr>
+        <tr>
+          <td><code class="typo_code">--ripple-duration</code></td>
+          <td>550ms</td>
+          <td>클릭 리플 애니메이션 시간</td>
         </tr>
       </tbody>
     </table>
@@ -394,7 +404,7 @@ src/scss/
     </table>
   </div>
 
-  <p style="margin-top: var(--space-md);">테마 적용 방법은 <a href="getting-started.html#theme-heading">설치 및 사용 · 테마</a>를 참고하세요.</p>
+  <p style="margin-top: var(--space-md);">테마 적용 방법은 <a href="getting-started.html#theme-heading">설치 및 사용 · 테마</a>를 참고하세요. HTML 가이드는 <code class="typo_code">localStorage</code> 키 <code class="typo_code">guide-theme</code>을, Storybook 미리보기는 <code class="typo_code">storybook-theme</code>을 사용하며, 둘 다 <code class="typo_code">data-theme</code>으로 색상 토큰을 전환합니다.</p>
 </section>
 
 <section class="section" aria-labelledby="usage-heading">
@@ -447,11 +457,10 @@ src/scss/
 
 <section class="section" aria-labelledby="component-tokens-heading">
   <h2 id="component-tokens-heading">컴포넌트 토큰</h2>
-  <p>버튼·아이콘·입력 등 컴포넌트 전용 토큰(<code class="typo_code">--btn-*</code>, <code class="typo_code">--icon-*</code>, <code class="typo_code">--input-*</code> 등)은 각 컴포넌트 문서 하단의 「디자인 토큰」 표에서 기본값과 사용처를 확인할 수 있습니다.</p>
-  <p>예: Icon 문서의 <code class="typo_code">--icon-size</code>, Button의 <code class="typo_code">--btn-padding-y</code> — 각 표에는 <strong>기본값</strong>과 <strong>설명(사용)</strong> 열이 함께 제공됩니다.</p>
+  <p>버튼·아이콘·입력 등 컴포넌트 전용 토큰(<code class="typo_code">--btn-*</code>, <code class="typo_code">--icon-*</code>, <code class="typo_code">--input-*</code> 등)은 <code class="typo_code">_tokens.scss</code>에 정의되어 있으며, HTML 가이드·Storybook 각 컴포넌트 문서에서 데모와 함께 확인할 수 있습니다.</p>
+  <p>예: Icon의 <code class="typo_code">--icon-size</code>, Button의 <code class="typo_code">--btn-padding-y</code> — Storybook 좌측 <strong>Components</strong> 메뉴에서 해당 컴포넌트 Docs로 이동하세요.</p>
 </section>
-`;function l(s){return s.replace(/<!--\s*@meta[\s\S]*?-->/,"").trim()}const d=l(r),p={title:"디자인 토큰",id:"design-tokens",tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. 내용은 gulp 가이드(`src/design-tokens.html`)와 동일합니다."},...c(d).docs}}},t={tags:["!dev"],render:()=>a(d),parameters:c(d)};var e,n,o;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
-  tags: ['!dev'],
+`;function i(s){return s.replace(/<!--\s*@meta[\s\S]*?-->/,"").trim()}const d=r(i(l)),y={title:"디자인 토큰",id:"design-tokens",tags:["autodocs"],parameters:{layout:"padded",controls:{disable:!0},docs:{description:{component:"색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다. HTML 가이드와 Storybook이 같은 `src/scss` 토큰을 사용합니다. 내용은 gulp 가이드(`src/design-tokens.html`)와 동일합니다."},...c(d).docs}}},t={render:()=>a(d),parameters:c(d)};var e,o,n;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
   render: () => renderHtml(body),
   parameters: gulpSource(body)
-}`,...(o=(n=t.parameters)==null?void 0:n.docs)==null?void 0:o.source}}};const _=["Page"];export{t as Page,_ as __namedExportsOrder,p as default};
+}`,...(n=(o=t.parameters)==null?void 0:o.docs)==null?void 0:n.source}}};const _=["Page"];export{t as Page,_ as __namedExportsOrder,y as default};
