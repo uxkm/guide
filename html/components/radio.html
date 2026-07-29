@@ -41,10 +41,9 @@
         <section class="section demo_section" aria-labelledby="type-heading">
           <div class="demo_section-header">
             <h2 id="type-heading">유형</h2>
-            <p>기본은 <code>span.radio_control</code> + <code>label.radio_label for</code>(명시 연결) 순서입니다. 보이는 레이블이 없으면 <code>label.radio_control</code>로 input을 암묵 연결합니다. <code>radio_label-end</code>는 레이블 → 라디오 순서이며, 기본 너비는 콘텐츠 기준입니다.</p>
-          </div>
+              </div>
 
-          <div class="demo_section-preview demo_section-preview-stack">
+          <div class="demo_section-preview">
             <div class="radio">
               <span class="radio_control">
                 <input id="radio-auto-0" type="radio" class="radio_input" name="radio-type-basic" checked>
@@ -130,10 +129,9 @@
         <section class="section demo_section" aria-labelledby="label-end-heading">
           <div class="demo_section-header">
             <h2 id="label-end-heading">레이블 뒤</h2>
-            <p><code>radio_label-end</code>는 <code>radio_label</code> → <code>radio_control</code> 순으로 마크업합니다. 전체 너비가 필요하면 <code>radio_block</code> 또는 <code>radio_group_block</code>을 추가합니다.</p>
-          </div>
+              </div>
 
-          <div class="demo_section-preview demo_section-preview-stack">
+          <div class="demo_section-preview">
             <div class="radio radio_label-end">
               <label class="radio_label" for="radio-label-end-basic">신용카드</label>
               <span class="radio_control">
@@ -277,7 +275,7 @@
             <p>레이블과 보조 설명(radio_hint)을 함께 사용할 수 있습니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="form_field">
               <span class="form_field-label" id="radio-pay-label">결제 수단</span>
               <fieldset class="radio_group" aria-labelledby="radio-pay-label">
@@ -358,7 +356,7 @@
             <p>레이블 없이 라디오만 사용할 수 있습니다. aria-label로 접근 가능한 이름을 지정합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-stack">
+          <div class="demo_section-preview">
             <div class="radio_group radio_group_horizontal">
               <label class="radio_control"><input aria-label="항목 선택" type="radio" class="radio_input" name="radio-standalone">
                 <span class="radio_box" aria-hidden="true"></span>
@@ -477,7 +475,7 @@
             <p>기본은 인라인(콘텐츠) 너비입니다. radio_block · radio_group_block으로 전체 너비를 사용합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="radio">
               <span class="radio_control">
                 <input id="radio-auto-10" type="radio" class="radio_input" name="radio-width-inline" checked>
@@ -954,10 +952,9 @@
         <section class="section demo_section" aria-labelledby="card-type-heading">
           <div class="demo_section-header">
             <h2 id="card-type-heading">카드형</h2>
-            <p><code>div.radio_card</code> + <code>article.card</code> 조합입니다. <code>card_extra</code>에는 <code>label.radio_control</code>로 input을 암묵 연결합니다. 카드 전체를 눌러 선택하려면 <code>div.radio_card.radio_card-clickable</code>을 쓰고 클릭은 JS로 위임합니다. 접근 가능한 이름은 <code>aria-labelledby</code>로 card_title · card_body에 연결합니다.</p>
-          </div>
+              </div>
 
-          <div class="demo_section-preview demo_section-preview-stack">
+          <div class="demo_section-preview">
             <fieldset class="radio_group">
               <legend class="radio_group-legend">요금제 선택</legend>
               <div class="card_deck card_deck-2">
@@ -1425,6 +1422,61 @@
 &lt;/form&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">클래스</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">radio</code></td>
+                    <td>라디오 래퍼</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">radio_control</code> · <code class="typo_code">radio_input</code> · <code class="typo_code">radio_box</code></td>
+                    <td>입력·커스텀 원</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">radio_label</code></td>
+                    <td>라벨</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">radio_label-end</code> · <code class="typo_code">radio_button</code></td>
+                    <td>레이아웃 변형</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">radio_group</code></td>
+                    <td>fieldset 그룹</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">radio_card</code> · <code class="typo_code">radio_card-clickable</code></td>
+                    <td>카드형 — clickable은 data-ripple + JS 위임</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple</code></td>
+                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple="false"</code></td>
+                    <td>해당 요소 ripple 비활성</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-no-ripple</code></td>
+                    <td>하위 전체 ripple 비활성</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>

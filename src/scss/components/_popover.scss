@@ -504,7 +504,10 @@
 
   &_demo-stage {
     position: relative;
+    display: flex;
     flex: 1 1 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
     width: 100%;
     min-height: 18rem;
     padding: var(--space-2xl) var(--space-xl);
@@ -528,8 +531,9 @@
     align-items: center;
     justify-items: center;
     width: 100%;
-    min-height: 14rem;
+    min-height: 18rem;
     padding: var(--space-2xl) var(--space-xl);
+    overflow: visible;
   }
 
   &_demo-placement-cell-top {

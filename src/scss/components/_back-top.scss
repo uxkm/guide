@@ -169,10 +169,23 @@
     background: var(--color-surface);
   }
 
+  // Docs — window 스크롤 대신 페이지형 스크롤 영역에서 확인
+  &_demo-page {
+    max-height: 18rem;
+    overflow-y: auto;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    background: var(--color-surface);
+  }
+
   &_demo-content {
-    // 뷰포트(16rem)보다 충분히 길게 — visibility-height 200px까지 스크롤 가능
+    // 뷰포트보다 충분히 길게 — visibility-height까지 스크롤 가능
     min-height: calc(16rem + 18rem);
     padding: var(--space-lg);
+
+    .back_top_demo-page & {
+      min-height: calc(18rem + 20rem);
+    }
 
     > p {
       margin: 0 0 var(--space-md);

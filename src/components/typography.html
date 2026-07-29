@@ -287,3 +287,135 @@ pageTitle: Typography
   </div>
 </section>
 
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">클래스</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="typo_code">typo_title-1</code> ~ <code class="typo_code">typo_title-5</code></td>
+            <td>제목 스케일</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_paragraph</code> · <code class="typo_code">typo_lead</code> · <code class="typo_code">typo_caption</code> · <code class="typo_code">typo_label</code> · <code class="typo_code">typo_overline</code></td>
+            <td>본문·보조 텍스트</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_strong</code> · <code class="typo_code">typo_italic</code> · <code class="typo_code">typo_underline</code> · <code class="typo_code">typo_delete</code> · <code class="typo_code">typo_mark</code></td>
+            <td>인라인 강조</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_sub</code> · <code class="typo_code">typo_sup</code> · <code class="typo_code">typo_small</code></td>
+            <td>아래첨자 · 위첨자 · 보조 소문자 (sub · sup · small 태그)</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_link</code></td>
+            <td>본문 안 인라인 링크</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_code</code> · <code class="typo_code">typo_kbd</code> · <code class="typo_code">typo_pre</code></td>
+            <td>코드·키보드·코드 블록</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_blockquote</code></td>
+            <td>인용 블록</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_list</code> · <code class="typo_code">typo_list-ordered</code></td>
+            <td>본문 prose 목록 (ul · ol + li). UI 목록은 List 컴포넌트</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">typo_stack</code> · <code class="typo_code">typo_stack-lg</code></td>
+            <td>제목+본문 수직 간격</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">text_ellipsis</code> · <code class="typo_code">text_ellipsis-2</code> · <code class="typo_code">text_ellipsis-3</code></td>
+            <td>말줄임</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">size_xs</code> · <code class="typo_code">size_sm</code> · <code class="typo_code">size_lg</code> · <code class="typo_code">size_xl</code></td>
+            <td>텍스트 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">color_*</code></td>
+            <td>공통 색상 유틸</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">토큰</th>
+            <th scope="col">기본값</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="typo_code">--typo-title-*-size</code> · <code class="typo_code">weight</code> · <code class="typo_code">line-height</code></td>
+            <td>—</td>
+            <td>제목 레벨별 타이포</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-text-size</code> · <code class="typo_code">--typo-text-line-height</code></td>
+            <td>var(--text-size-base) · 1.6</td>
+            <td>기본 본문</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-paragraph-gap</code></td>
+            <td>var(--space-md)</td>
+            <td>단락 간격</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-list-gap</code></td>
+            <td>var(--space-xs)</td>
+            <td>목록 항목 간격</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-lead-size</code> · <code class="typo_code">--typo-caption-size</code> · <code class="typo_code">--typo-label-size</code></td>
+            <td>—</td>
+            <td>리드·캡션·라벨 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-mark-bg</code></td>
+            <td>rgba(250, 219, 20, 0.35)</td>
+            <td>형광펜 배경</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-sub-sup-size</code> · <code class="typo_code">--typo-sub-offset</code> · <code class="typo_code">--typo-sup-offset</code></td>
+            <td>0.75em · -0.25em · -0.5em</td>
+            <td>아래·위첨자 크기·오프셋</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-small-size</code></td>
+            <td>var(--text-size-sm)</td>
+            <td>small 태그 보조 텍스트 크기</td>
+          </tr>
+          <tr>
+            <td><code class="typo_code">--typo-pre-padding</code> · <code class="typo_code">--typo-pre-radius</code></td>
+            <td>var(--space-md) · var(--radius-md)</td>
+            <td>코드 블록</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+

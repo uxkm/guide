@@ -163,21 +163,36 @@ pageTitle: Back Top
 <section class="section demo_section" aria-labelledby="window-heading">
   <div class="demo_section-header">
     <h2 id="window-heading">페이지 스크롤</h2>
-    <p><code class="typo_code">data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 페이지를 아래로 스크롤하면 우측 하단에 버튼이 나타납니다.</p>
+    <p><code class="typo_code">data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. Docs·프리뷰에서는 페이지형 스크롤 영역으로 같은 동작을 확인합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
-    <p style="margin: 0; font-size: var(--text-size-sm); color: var(--color-text-muted);">페이지를 충분히 스크롤한 뒤 우측 하단 플로팅 버튼을 확인하세요. 클릭하면 페이지 최상단으로 부드럽게 이동합니다.</p>
+    <div class="back_top_demo-wrap">
+      <div class="back_top_demo-page" id="back-top-scroll-page">
+        <div class="back_top_demo-content">
+          <p>이 영역은 실제 페이지처럼 길게 스크롤됩니다. 아래로 스크롤하면 우측 하단에 Back Top 버튼이 나타납니다.</p>
+          <p>실제 서비스에서는 <code class="typo_code">data-target</code>을 생략해 window 스크롤에 연결합니다.</p>
+          <p>스크롤을 계속하면 버튼이 유지되고, 클릭 시 이 영역의 맨 위로 부드럽게 이동합니다.</p>
+          <p>긴 문서·설정·피드 화면에서 자주 쓰는 패턴입니다.</p>
+          <p>임계값(<code class="typo_code">data-visibility-height</code>)은 이 예시에서 100px입니다.</p>
+          <p>충분히 내려간 뒤 버튼을 눌러 맨 위로 돌아가는지 확인하세요.</p>
+        </div>
+      </div>
+      <div
+        class="back_top back_top_primary"
+        data-back-top
+        data-target="#back-top-scroll-page"
+        data-visibility-height="100"
+      >
+        <button type="button" class="back_top_btn" aria-label="맨 위로">
+          <svg class="back_top_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
-
-<div class="back_top back_top_primary" data-back-top>
-  <button type="button" class="back_top_btn" aria-label="맨 위로">
-    <svg class="back_top_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M12 19V5M5 12l7-7 7 7"/>
-    </svg>
-  </button>
-</div>
 
 <section class="section" aria-labelledby="usage-heading">
   <h2 id="usage-heading">마크업</h2>

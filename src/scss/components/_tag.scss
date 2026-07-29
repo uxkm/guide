@@ -54,6 +54,48 @@
 
   &.is-disabled {
     @include disabled-state;
+    background: var(--color-surface-disabled);
+    border-color: var(--color-border-disabled);
+
+    &.tag_solid {
+      &.color_primary {
+        @include disabled-filled(var(--color-accent-disabled), var(--color-on-accent-disabled));
+      }
+
+      &.color_success {
+        @include disabled-filled(var(--color-success-disabled), var(--color-on-success-disabled));
+      }
+
+      &.color_danger {
+        @include disabled-filled(var(--color-danger-disabled), var(--color-on-danger-disabled));
+      }
+
+      &.color_warning {
+        @include disabled-filled(var(--color-warning-disabled), var(--color-on-warning-disabled));
+      }
+
+      &.color_default {
+        @include disabled-surface;
+      }
+    }
+
+    &.tag_checkable.is-selected {
+      &.color_primary {
+        @include disabled-filled(var(--color-accent-disabled), var(--color-on-accent-disabled));
+      }
+
+      &.color_success {
+        @include disabled-filled(var(--color-success-disabled), var(--color-on-success-disabled));
+      }
+
+      &.color_danger {
+        @include disabled-filled(var(--color-danger-disabled), var(--color-on-danger-disabled));
+      }
+
+      &.color_warning {
+        @include disabled-filled(var(--color-warning-disabled), var(--color-on-warning-disabled));
+      }
+    }
   }
 
   &_icon {

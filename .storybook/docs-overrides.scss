@@ -1,0 +1,317 @@
+// Storybook Docs — 소개 · 설치 · 디자인 토큰: preview 박스·중복 제목/설명 제거
+.sbdocs:has(.sb-guide-page) {
+  .sbdocs-title,
+  .sbdocs-subtitle,
+  .sbdocs-description,
+  // autodocs가 meta JSDoc 등을 Description으로 넣는 경우
+  .sbdocs-content > p,
+  .docblock-argstable,
+  .docblock-argstable-head,
+  .docblock-argstable-body,
+  .sbdocs-preview-actions,
+  .docblock-code-toggle,
+  .docblock-source {
+    display: none !important;
+  }
+}
+
+.sbdocs-preview:has(.sb-guide-page) {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.sbdocs-preview:has(.sb-guide-page) > *,
+.sbdocs-preview:has(.sb-guide-page) .innerZoomElementWrapper,
+.sbdocs-preview:has(.sb-guide-page) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.sb-guide-page) .docs-story,
+.sbdocs-preview:has(.sb-guide-page) [id^='story--'] {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+.sb-guide-page {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: auto;
+  color: var(--color-text);
+}
+
+// Storybook Docs — Prism HTML .tag 토큰 ↔ UI .tag 컴포넌트 스킨 충돌 방지
+// Show code에서 <div class="…"> 가 태그처럼 벌어져 보이는 현상 수정
+@mixin reset-ui-tag-skin {
+  :where(.tag, .token.tag, span.tag, span.token.tag, .token.punctuation) {
+    display: inline !important;
+    flex: unset !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+    gap: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    font: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+    white-space: inherit !important;
+    vertical-align: baseline !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    text-transform: none !important;
+  }
+}
+
+:is(
+  pre.prismjs,
+  pre[class*='language-'],
+  .docblock-source pre,
+  .sbdocs pre,
+  .sbdocs .docblock-source pre,
+  .sb-unstyled pre,
+  [class*='source--'] pre
+) {
+  code {
+    display: block;
+    white-space: pre !important;
+    word-spacing: normal !important;
+    letter-spacing: normal !important;
+    tab-size: 2;
+  }
+
+  @include reset-ui-tag-skin;
+}
+
+// Storybook Docs — Controls / ArgTypes 타입 배지가 UI Tag 스킨에 가려지지 않도록
+.sbdocs :is(.docblock-argstable, .docblock-argstable-body, .docblock-argstable-head) {
+  @include reset-ui-tag-skin;
+}
+
+// Storybook Docs — API 표 스토리 (클래스 · 속성 / 디자인 토큰)
+.sbdocs .sb-demo-layout .table_wrap,
+.sbdocs .sb-guide-page .table_wrap {
+  width: 100%;
+}
+
+.sbdocs .sb-demo-layout .table,
+.sbdocs .sb-guide-page .table {
+  width: 100%;
+  margin: 0;
+}
+
+// Storybook Docs — 폼 요소 인터랙션 허용 (체크박스 등)
+// Docs 페이지에서 스토리 미리보기 위에 놓이는 클릭 오버레이를 폼 요소에 대해 해제
+.sbdocs .sb-story-overlay,
+.sbdocs
+  [class*='Story__StoryBlockContainer']
+  > *:not(.sb-demo-layout):not(:has(.sb-demo-layout)):not(.sb-guide-page):not(
+    :has(.sb-guide-page)
+  ) {
+  pointer-events: none;
+}
+
+.sbdocs .sb-demo-layout,
+.sbdocs .sb-guide-page {
+  pointer-events: auto;
+}
+
+.sbdocs .sb-demo-layout {
+
+  input,
+  button,
+  label,
+  select,
+  textarea,
+  [role="checkbox"],
+  [role="radio"],
+  [role="switch"],
+  .checkbox_control,
+  .checkbox_button,
+  .checkbox_card-clickable {
+    pointer-events: auto;
+  }
+}
+
+// Storybook Docs — DatePicker 패널 열림 데모 — 절대 위치 패널이 잘리지 않도록
+.sbdocs .sb-demo-layout:has(.date_picker.is-open) {
+  overflow: visible;
+  min-height: 24rem;
+}
+
+// Storybook — Popover 예시 박스 높이 고정 + Preview overflow 클리핑 해제
+// addon-docs PreviewContainer(.sbdocs-preview)가 overflow:hidden 이라 절대 위치 패널이 잘림
+.sbdocs-preview:has(.popover) {
+  overflow: visible !important;
+  // 액션바(Show/Copy, margin-top:-40)와 패널이 겹치지 않도록 하단 여유
+  padding-bottom: 3rem !important;
+  // --z-popover(110)가 Preview 밖 액션바보다 위로 새지 않도록 가둠
+  isolation: isolate;
+  z-index: 0;
+}
+
+.sbdocs-preview:has(.popover) > *,
+.sbdocs-preview:has(.popover) .innerZoomElementWrapper,
+.sbdocs-preview:has(.popover) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.popover) .docs-story,
+.sbdocs-preview:has(.popover) [id^='story--'] {
+  overflow: visible !important;
+}
+
+.sb-demo-layout:has(.popover) {
+  overflow: visible;
+  min-height: 18rem;
+  align-items: flex-start;
+  padding-block: var(--space-xl);
+  padding-bottom: 5rem;
+  box-sizing: border-box;
+}
+
+// 화살표 기준 — 왼쪽 배치·마지막 행 패널이 액션바와 겹치지 않도록
+.sb-demo-layout:has(.popover_arrow-anchor-target),
+.sb-demo-layout:has(.popover_arrow-anchor-mixed) {
+  min-height: 32rem;
+  padding: var(--space-2xl) 4rem 6rem;
+  overflow: visible;
+}
+
+// Docs 안에서 Popover 패널 z-index를 낮춰 Show/Copy(액션바)가 위에 오도록
+.sbdocs-preview .popover_panel {
+  z-index: 2 !important;
+}
+
+.sbdocs-preview .popover.is-open > .popover_trigger[aria-expanded] {
+  z-index: 3 !important;
+}
+
+// Show code / Copy code — 패널보다 항상 위 (Fragment 형제, Preview 밖)
+.sbdocs-preview-actions {
+  position: relative !important;
+  z-index: 20 !important;
+  isolation: isolate;
+}
+
+.sbdocs-preview-actions button {
+  position: relative;
+  z-index: 21;
+  background: var(--color-surface, #fff) !important;
+}
+
+// Storybook — Tooltip (Popover와 동일: overflow·높이·액션바 겹침)
+.sbdocs-preview:has(.tooltip) {
+  overflow: visible !important;
+  padding-bottom: 3rem !important;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.sbdocs-preview:has(.tooltip) > *,
+.sbdocs-preview:has(.tooltip) .innerZoomElementWrapper,
+.sbdocs-preview:has(.tooltip) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.tooltip) .docs-story,
+.sbdocs-preview:has(.tooltip) [id^='story--'] {
+  overflow: visible !important;
+}
+
+.sb-demo-layout:has(.tooltip) {
+  overflow: visible;
+  min-height: 14rem;
+  align-items: flex-start;
+  padding-block: var(--space-xl);
+  padding-bottom: 4rem;
+  box-sizing: border-box;
+}
+
+.sb-demo-layout:has(.tooltip_arrow-anchor-target),
+.sb-demo-layout:has(.tooltip_arrow-anchor-mixed),
+.sb-demo-layout:has(.tooltip_demo-placement) {
+  min-height: 18rem;
+  padding: var(--space-2xl) 4rem 5rem;
+  overflow: visible;
+}
+
+.sbdocs-preview .tooltip_bubble {
+  z-index: 2 !important;
+}
+
+// Storybook — Dropdown (메뉴 패널 overflow·높이·액션바 겹침)
+.sbdocs-preview:has(.dropdown) {
+  overflow: visible !important;
+  padding-bottom: 3rem !important;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.sbdocs-preview:has(.dropdown) > *,
+.sbdocs-preview:has(.dropdown) .innerZoomElementWrapper,
+.sbdocs-preview:has(.dropdown) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.dropdown) .docs-story,
+.sbdocs-preview:has(.dropdown) [id^='story--'] {
+  overflow: visible !important;
+}
+
+.sb-demo-layout:has(.dropdown) {
+  overflow: visible;
+  min-height: 16rem;
+  align-items: flex-start;
+  padding-block: var(--space-xl);
+  padding-bottom: 5rem;
+  box-sizing: border-box;
+}
+
+.sbdocs-preview .dropdown_menu {
+  z-index: 2 !important;
+}
+
+// Storybook — Menu 수평 서브메뉴 패널이 잘리지 않도록
+.sbdocs-preview:has(.menu_horizontal) {
+  overflow: visible !important;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.sb-demo-layout:has(.menu_horizontal .menu_item-submenu) {
+  overflow: visible;
+  min-height: 14rem;
+  padding-bottom: 4rem;
+}
+
+// Storybook — Navbar 데모는 가이드와 같이 패딩 없이 전폭
+.sb-demo-layout:has(.navbar_demo) {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.sb-demo-layout:has(.navbar_demo) > .navbar_demo {
+  flex: 1 1 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+.sb-demo-layout:has(.navbar.is-open),
+.sb-demo-layout:has(.navbar_collapse.is-open) {
+  overflow: visible;
+  min-height: 12rem;
+}
+
+// Storybook Docs — Icon 갤러리 (자주 쓰는 아이콘)
+.sbdocs .sb-demo-layout .section:has(> .icon_grid),
+.sbdocs .sb-demo-layout .icon_grid {
+  width: 100%;
+}

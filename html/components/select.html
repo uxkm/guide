@@ -124,7 +124,7 @@
             <p>레이블과 힌트 텍스트가 포함된 폼 필드입니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="form_field">
               <label class="form_field-label" for="select-role">역할</label>
               <select class="input" id="select-role">
@@ -335,7 +335,7 @@
             <p>기본은 부모 100%, input_fit · form_field_fit으로 --input-max-width(320px)까지 제한합니다. btn_select는 btn_block으로 전체 너비를 사용합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start demo_section-preview-stack">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="form_field">
               <label class="form_field-label" for="select-width-full">전체 너비</label>
               <select class="input" id="select-width-full">
@@ -493,7 +493,7 @@
             <p>optgroup으로 관련 옵션을 묶어 표시합니다. label 속성으로 그룹 제목을 지정합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="form_field">
               <label class="form_field-label" for="select-optgroup">지역</label>
               <select class="input" id="select-optgroup">
@@ -556,7 +556,7 @@
             <p>multiple 속성으로 여러 옵션을 동시에 선택합니다. Ctrl(Windows) · Cmd(Mac) 키로 복수 선택이 가능합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="form_field">
               <label class="form_field-label" for="select-multiple">관심 분야</label>
               <select class="input" id="select-multiple" multiple size="5" aria-describedby="select-multiple-hint">
@@ -896,6 +896,112 @@
 &lt;/form&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">클래스</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">input</code> (native)</td>
+                    <td>네이티브 select 스타일</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">btn_select</code> · <code class="typo_code">btn_select-text</code> · <code class="typo_code">btn_select-caret</code></td>
+                    <td>custom 트리거</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">btn_select-placeholder</code> · <code class="typo_code">is-open</code></td>
+                    <td>트리거 상태</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">select_dropdown</code> · <code class="typo_code">select_option</code></td>
+                    <td>드롭다운 패널 (HTML 마크업)</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">is-error</code> · <code class="typo_code">is-disabled</code></td>
+                    <td>상태</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple</code></td>
+                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple="false"</code></td>
+                    <td>해당 요소 ripple 비활성</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-no-ripple</code></td>
+                    <td>하위 전체 ripple 비활성</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">--input-max-width</code></td>
+                    <td>320px</td>
+                    <td>네이티브 select · form_fit 데모 최대 너비 (Input과 공유)</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--select-padding-right</code> · <code class="typo_code">-sm</code> · <code class="typo_code">-lg</code></td>
+                    <td>2.25rem · 2rem · 2.5rem</td>
+                    <td>네이티브 select 오른쪽 패딩 (캐럿 공간)</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--select-caret-offset</code> · <code class="typo_code">-sm</code> · <code class="typo_code">-lg</code></td>
+                    <td>0.65rem · 0.5rem · 0.85rem</td>
+                    <td>네이티브 캐럿 아이콘 위치</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--select-caret-size</code> · <code class="typo_code">-sm</code> · <code class="typo_code">-lg</code></td>
+                    <td>1em · 0.875em · 1.125em</td>
+                    <td>네이티브 캐럿 아이콘 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--btn-select-min-width</code> · <code class="typo_code">--btn-select-max-width</code></td>
+                    <td>10rem · 320px</td>
+                    <td>커스텀 트리거 (<code class="typo_code">btn_select</code>) 너비</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--btn-select-padding-right</code> · <code class="typo_code">-sm</code> · <code class="typo_code">-lg</code></td>
+                    <td>0.65rem · 0.5rem · 0.85rem</td>
+                    <td>커스텀 트리거 캐럿 여백</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--btn-select-text-padding-x</code> · <code class="typo_code">--btn-select-text-padding-right</code></td>
+                    <td>0.5rem · 0.35rem</td>
+                    <td>텍스트형 트리거 (<code class="typo_code">btn_select-text</code>) 패딩</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>

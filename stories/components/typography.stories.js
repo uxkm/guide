@@ -1,0 +1,233 @@
+import html from '../../src/components/typography.html?raw';
+import {
+  extractDemoSections,
+  extractApiSections,
+  renderDemo,
+  gulpSource,
+} from '../lib/gulp-demos.js';
+
+const demos = extractDemoSections(html);
+const apis = extractApiSections(html);
+
+/** @type { import('@storybook/html-vite').Meta } */
+export default {
+  title: 'Components/기본 요소/Typography',
+  id: 'components-typography',
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: '제목, 본문, 강조, 말줄임 등 텍스트 표현을 위한 타이포그래피 컴포넌트입니다.',
+      },
+    },
+  },
+};
+
+export const Demo0 = {
+  name: '제목',
+  render: () => renderDemo(demos[0]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[0].previewHtml).docs,
+      description: {
+        story: demos[0].description,
+      },
+    },
+  },
+};
+export const Demo1 = {
+  name: '본문',
+  render: () => renderDemo(demos[1]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[1].previewHtml).docs,
+      description: {
+        story: demos[1].description,
+      },
+    },
+  },
+};
+export const Demo2 = {
+  name: '색상 타입',
+  render: () => renderDemo(demos[2]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[2].previewHtml).docs,
+      description: {
+        story: demos[2].description,
+      },
+    },
+  },
+};
+export const Demo3 = {
+  name: '크기',
+  render: () => renderDemo(demos[3]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[3].previewHtml).docs,
+      description: {
+        story: demos[3].description,
+      },
+    },
+  },
+};
+export const Demo4 = {
+  name: '텍스트 스타일',
+  render: () => renderDemo(demos[4]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[4].previewHtml).docs,
+      description: {
+        story: demos[4].description,
+      },
+    },
+  },
+};
+export const Demo5 = {
+  name: '아래첨자 · 위첨자 · 소문자',
+  render: () => renderDemo(demos[5]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[5].previewHtml).docs,
+      description: {
+        story: demos[5].description,
+      },
+    },
+  },
+};
+export const Demo6 = {
+  name: '말줄임',
+  render: () => renderDemo(demos[6]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[6].previewHtml).docs,
+      description: {
+        story: demos[6].description,
+      },
+    },
+  },
+};
+export const Demo7 = {
+  name: '인용',
+  render: () => renderDemo(demos[7]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[7].previewHtml).docs,
+      description: {
+        story: demos[7].description,
+      },
+    },
+  },
+};
+export const Demo8 = {
+  name: '목록',
+  render: () => renderDemo(demos[8]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[8].previewHtml).docs,
+      description: {
+        story: demos[8].description,
+      },
+    },
+  },
+};
+export const Demo9 = {
+  name: '링크',
+  render: () => renderDemo(demos[9]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[9].previewHtml).docs,
+      description: {
+        story: demos[9].description,
+      },
+    },
+  },
+};
+export const Demo10 = {
+  name: '리드 · 캡션 · 레이블',
+  render: () => renderDemo(demos[10]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[10].previewHtml).docs,
+      description: {
+        story: demos[10].description,
+      },
+    },
+  },
+};
+export const Demo11 = {
+  name: '제목 색상',
+  render: () => renderDemo(demos[11]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[11].previewHtml).docs,
+      description: {
+        story: demos[11].description,
+      },
+    },
+  },
+};
+export const Demo12 = {
+  name: '키보드 · 코드 블록',
+  render: () => renderDemo(demos[12]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[12].previewHtml).docs,
+      description: {
+        story: demos[12].description,
+      },
+    },
+  },
+};
+export const Demo13 = {
+  name: '중첩 목록',
+  render: () => renderDemo(demos[13]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[13].previewHtml).docs,
+      description: {
+        story: demos[13].description,
+      },
+    },
+  },
+};
+export const Demo14 = {
+  name: '제목 + 본문 조합',
+  render: () => renderDemo(demos[14]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[14].previewHtml).docs,
+      description: {
+        story: demos[14].description,
+      },
+    },
+  },
+};
+
+export const ApiClasses = {
+  name: '클래스 · 속성',
+  tags: ['!dev'],
+  render: () => renderDemo(apis[0]),
+  parameters: {
+    docs: {
+      source: { code: null },
+      description: {
+        story: 'HTML 마크업으로 직접 작성할 때 사용하는 OOCSS 클래스·속성입니다.',
+      },
+    },
+  },
+};
+export const ApiTokens = {
+  name: '디자인 토큰',
+  tags: ['!dev'],
+  render: () => renderDemo(apis[1]),
+  parameters: {
+    docs: {
+      source: { code: null },
+      description: {
+        story: 'Typography 제목·본문·보조 텍스트에 사용하는 CSS 변수입니다.',
+      },
+    },
+  },
+};

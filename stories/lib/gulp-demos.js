@@ -3,6 +3,56 @@
  * (브라우저·Vite 번들 가능 — Node fs 없음)
  */
 
+import { rewriteGuideHrefsForStorybook } from './storybook-links.js';
+
+/**
+ * 속성 플래그가 있는 루트 요소 전체를 추출 (예: data-drawer, data-modal).
+ * data-drawer-trigger 처럼 접두사가 긴 속성은 제외한다.
+ * @param {string} html
+ * @param {string} attrName e.g. 'data-drawer'
+ * @returns {string[]}
+ */
+export function extractAttrElements(html, attrName) {
+  const results = [];
+  const openRe = new RegExp(
+    '<div\\b[^>]*\\s' + attrName + '(?=[\\s>/])[^>]*>',
+    'gi',
+  );
+  let match;
+
+  while ((match = openRe.exec(html)) !== null) {
+    const openStart = match.index;
+    const openEnd = openStart + match[0].length;
+    let depth = 1;
+    let i = openEnd;
+
+    while (i < html.length && depth > 0) {
+      const nextOpen = html.indexOf('<div', i);
+      const nextClose = html.indexOf('</div>', i);
+
+      if (nextClose === -1) break;
+
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth += 1;
+        i = nextOpen + 4;
+        continue;
+      }
+
+      depth -= 1;
+
+      if (depth === 0) {
+        results.push(html.slice(openStart, nextClose + 6).trim());
+        openRe.lastIndex = nextClose + 6;
+        break;
+      }
+
+      i = nextClose + 6;
+    }
+  }
+
+  return results;
+}
+
 /**
  * @param {string} html
  * @param {string} classToken e.g. 'demo_section-preview'
@@ -37,6 +87,7 @@ function findElementBounds(html, classToken) {
     if (depth === 0) {
       return {
         start,
+        className: match[1],
         inner: html.slice(start, nextClose),
         end: nextClose + 6,
       };
@@ -50,7 +101,7 @@ function findElementBounds(html, classToken) {
 
 /**
  * @param {string} html
- * @returns {{ heading: string, description: string, previewHtml: string }[]}
+ * @returns {{ heading: string, description: string, previewHtml: string, stack: boolean, start: boolean }[]}
  */
 export function extractDemoSections(html) {
   const sections = [];
@@ -68,10 +119,55 @@ export function extractDemoSections(html) {
 
     if (!preview) continue;
 
+    const className = preview.className || '';
+
     sections.push({
       heading: headingMatch ? headingMatch[1].replace(/<[^>]+>/g, '').trim() : '',
       description: leadMatch ? leadMatch[1].replace(/<[^>]+>/g, '').trim() : '',
       previewHtml: preview.inner.trim(),
+      stack: /\bdemo_section-preview-stack\b/.test(className),
+      start: /\bdemo_section-preview-start\b/.test(className),
+    });
+  }
+
+  return sections;
+}
+
+/**
+ * 하단 API 표 섹션 (클래스 · 속성 / 디자인 토큰 등 — demo_section 아님)
+ * @param {string} html
+ * @returns {{ heading: string, description: string, previewHtml: string, stack: boolean, start: boolean }[]}
+ */
+export function extractApiSections(html) {
+  const sections = [];
+  const sectionRe = /<section\s+([^>]*)>([\s\S]*?)<\/section>/gi;
+  let match;
+
+  while ((match = sectionRe.exec(html)) !== null) {
+    const attrs = match[1];
+    const inner = match[2];
+
+    if (/\bdemo_section\b/.test(attrs)) continue;
+
+    const headingMatch = inner.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+    const heading = headingMatch
+      ? headingMatch[1].replace(/<[^>]+>/g, '').trim()
+      : '';
+
+    if (!/클래스|속성|토큰|API|마크업|자주 쓰는/i.test(heading)) continue;
+
+    const preview = findElementBounds(inner, 'demo_section-preview');
+    if (!preview) continue;
+
+    const leadMatch = inner.match(/<h2[^>]*>[\s\S]*?<\/h2>\s*<p>([\s\S]*?)<\/p>/i);
+    const className = preview.className || '';
+
+    sections.push({
+      heading,
+      description: leadMatch ? leadMatch[1].replace(/<[^>]+>/g, '').trim() : '',
+      previewHtml: preview.inner.trim(),
+      stack: /\bdemo_section-preview-stack\b/.test(className),
+      start: /\bdemo_section-preview-start\b/.test(className),
     });
   }
 
@@ -92,13 +188,75 @@ export function getDemo(html, index = 0) {
 }
 
 /**
+ * docs 전용 — 가이드 페이지 본문만 표시 (meta 제외)
+ * @param {string} html
+ * @returns {string}
+ */
+export function pageBody(html) {
+  return html.replace(/<!--\s*@meta[\s\S]*?-->/, '').trim();
+}
+
+/**
+ * 가이드 .demo_section-preview와 동일한 간격으로 렌더 (소스 코드에는 래퍼 미포함)
+ * @param {string} html
+ * @param {{ stack?: boolean, start?: boolean }} [options]
+ */
+export function renderHtml(html, options = {}) {
+  const el = document.createElement('div');
+  const classes = ['sb-demo-layout'];
+
+  if (options.stack) classes.push('sb-demo-layout_stack');
+  if (options.start) classes.push('sb-demo-layout_start');
+
+  el.className = classes.join(' ');
+  el.innerHTML = rewriteGuideHrefsForStorybook(
+    html.replace(/\.\.\/images\//g, '/images/'),
+  );
+  return el;
+}
+
+/**
+ * 소개 · 설치 · 디자인 토큰 등 문서 페이지 — 데모 박스 없이 본문만 렌더
  * @param {string} html
  */
-export function renderHtml(html) {
+export function renderGuidePage(html) {
   const el = document.createElement('div');
-  el.className = 'sb-demo-layout';
-  el.innerHTML = html;
+  el.className = 'sb-guide-page';
+  el.innerHTML = rewriteGuideHrefsForStorybook(
+    html.replace(/\.\.\/images\//g, '/images/'),
+  );
   return el;
+}
+
+/**
+ * 가이드 문서 페이지용 Docs 파라미터 — preview 박스·Show code·설명 중복 없음
+ * @returns {object}
+ */
+export function guidePageDocsParameters() {
+  return {
+    layout: 'padded',
+    controls: { disable: true },
+    docs: {
+      description: {
+        component: null,
+        story: null,
+      },
+      canvas: {
+        sourceState: 'none',
+        withToolbar: false,
+      },
+    },
+  };
+}
+
+/**
+ * @param {{ previewHtml: string, stack?: boolean, start?: boolean }} demo
+ */
+export function renderDemo(demo) {
+  return renderHtml(demo.previewHtml, {
+    stack: demo.stack,
+    start: demo.start,
+  });
 }
 
 /**

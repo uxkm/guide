@@ -556,8 +556,8 @@
 
         <section class="section" aria-labelledby="gallery-heading">
           <div class="demo_section-header">
-            <h2 id="gallery-heading">아이콘 유형</h2>
-            <p>프로젝트에서 제공하는 stroke SVG 아이콘 전체입니다. viewBox 0 0 24 24 · stroke-width 2 기준입니다.</p>
+            <h2 id="gallery-heading">자주 쓰는 아이콘</h2>
+            <p>프로젝트 전반에서 재사용하는 stroke SVG 예시입니다. viewBox 0 0 24 24 · stroke-width 2 기준으로, <a href="https://fonts.google.com/icons" target="_blank" rel="noopener noreferrer">Material Symbols</a>에서 자주 쓰는 유형을 참고했습니다.</p>
           </div>
 
           <div class="icon_grid">
@@ -868,6 +868,117 @@
             <div class="icon_grid-item">
               <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
               <span class="size_sm color_muted">maximize</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">클래스</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">icon</code></td>
+                    <td>SVG 루트 기본 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_sm</code> · <code class="typo_code">icon_lg</code> · <code class="typo_code">icon_xl</code></td>
+                    <td>크기 변형</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_inline</code></td>
+                    <td>텍스트 인라인 정렬</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_spin</code></td>
+                    <td>회전 애니메이션</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_button</code></td>
+                    <td>아이콘 버튼 래퍼</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_circle</code> · <code class="typo_code">icon_square</code></td>
+                    <td>배경 형태</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_circle-sm</code> · <code class="typo_code">icon_circle-lg</code></td>
+                    <td>원형 배경 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_pulse</code></td>
+                    <td>펄스 강조</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">icon_group</code></td>
+                    <td>여러 아이콘 가로 배치 컨테이너</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">color_*</code></td>
+                    <td>공통 색상 유틸</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple</code></td>
+                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-ripple="false"</code></td>
+                    <td>해당 요소 ripple 비활성</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">data-no-ripple</code></td>
+                    <td>하위 전체 ripple 비활성</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">--icon-size-sm</code> · <code class="typo_code">--icon-size</code> · <code class="typo_code">--icon-size-lg</code> · <code class="typo_code">--icon-size-xl</code></td>
+                    <td>1rem · 1.25rem · 1.5rem · 2rem</td>
+                    <td>아이콘 지름</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--icon-spin-duration</code></td>
+                    <td>0.8s</td>
+                    <td>회전 주기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--icon-circle-size</code> · <code class="typo_code">--icon-circle-size-sm</code> · <code class="typo_code">--icon-circle-size-lg</code></td>
+                    <td>2.25rem · 1.75rem · 2.75rem</td>
+                    <td>원형 배경 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--icon-pulse-duration</code></td>
+                    <td>1.5s</td>
+                    <td>펄스 애니메이션 주기</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>

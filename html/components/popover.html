@@ -159,22 +159,24 @@
           </div>
 
           <div class="demo_section-preview">
-            <div class="popover is-open" data-popover>
-              <button type="button" class="btn btn_filled color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-open-panel">
-                <span class="btn_label">열림</span>
-              </button>
-              <div class="popover_panel" id="popover-open-panel" role="dialog" aria-labelledby="popover-open-title">
-                <span class="popover_arrow" aria-hidden="true"></span>
-                <div class="popover_header">
-                  <div class="popover_title" id="popover-open-title">열린 Popover</div>
-                  <button type="button" class="btn btn_ghost btn_icon-only popover_close" data-popover-close aria-label="닫기">
-                  <svg class="popover_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M18 6 6 18M6 6l12 12"/>
-                  </svg>
+            <div class="popover_demo-stage">
+              <div class="popover is-open" data-popover>
+                <button type="button" class="btn btn_filled color_primary popover_trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="popover-open-panel">
+                  <span class="btn_label">열림</span>
                 </button>
-                </div>
-                <div class="popover_body">
-                  <p>정적 데모용 열린 상태입니다. 닫기 버튼으로 닫을 수 있습니다.</p>
+                <div class="popover_panel" id="popover-open-panel" role="dialog" aria-labelledby="popover-open-title">
+                  <span class="popover_arrow" aria-hidden="true"></span>
+                  <div class="popover_header">
+                    <div class="popover_title" id="popover-open-title">열린 Popover</div>
+                    <button type="button" class="btn btn_ghost btn_icon-only popover_close" data-popover-close aria-label="닫기">
+                    <svg class="popover_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M18 6 6 18M6 6l12 12"/>
+                    </svg>
+                  </button>
+                  </div>
+                  <div class="popover_body">
+                    <p>정적 데모용 열린 상태입니다. 닫기 버튼으로 닫을 수 있습니다.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -188,23 +190,25 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;div class=&quot;popover is-open&quot; data-popover&gt;
-  &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-open-panel&quot;&gt;
-    &lt;span class=&quot;btn_label&quot;&gt;열림&lt;/span&gt;
-  &lt;/button&gt;
-  &lt;div class=&quot;popover_panel&quot; id=&quot;popover-open-panel&quot; role=&quot;dialog&quot; aria-labelledby=&quot;popover-open-title&quot;&gt;
-    &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
-    &lt;/span&gt;
-    &lt;div class=&quot;popover_header&quot;&gt;
-      &lt;div class=&quot;popover_title&quot; id=&quot;popover-open-title&quot;&gt;열린 Popover&lt;/div&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only popover_close&quot; data-popover-close aria-label=&quot;닫기&quot;&gt;
-        &lt;svg class=&quot;popover_close-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;
-        &lt;/svg&gt;
-      &lt;/button&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;popover_body&quot;&gt;
-      &lt;p&gt;정적 데모용 열린 상태입니다. 닫기 버튼으로 닫을 수 있습니다.&lt;/p&gt;
+            <pre><code>&lt;div class=&quot;popover_demo-stage&quot;&gt;
+  &lt;div class=&quot;popover is-open&quot; data-popover&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;popover-open-panel&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;열림&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class=&quot;popover_panel&quot; id=&quot;popover-open-panel&quot; role=&quot;dialog&quot; aria-labelledby=&quot;popover-open-title&quot;&gt;
+      &lt;span class=&quot;popover_arrow&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/span&gt;
+      &lt;div class=&quot;popover_header&quot;&gt;
+        &lt;div class=&quot;popover_title&quot; id=&quot;popover-open-title&quot;&gt;열린 Popover&lt;/div&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only popover_close&quot; data-popover-close aria-label=&quot;닫기&quot;&gt;
+          &lt;svg class=&quot;popover_close-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;popover_body&quot;&gt;
+        &lt;p&gt;정적 데모용 열린 상태입니다. 닫기 버튼으로 닫을 수 있습니다.&lt;/p&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -446,7 +450,7 @@
             </div>
 
             <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">방향별 (offset-* · placement)</p>
-            <div class="popover_demo-placement" style="min-height: 12rem;">
+            <div class="popover_demo-placement">
               <div class="popover_demo-placement-cell-top">
             <div class="popover popover_placement-top-center popover_offset-top-lg" data-popover>
               <button type="button" class="btn btn_outline btn_sm popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-offset-top">
@@ -640,7 +644,7 @@
 
 &lt;!-- 위쪽 간격 --&gt;
 
-&lt;div class=&quot;popover_demo-placement&quot; style=&quot;min-height: 12rem;&quot;&gt;
+&lt;div class=&quot;popover_demo-placement&quot;&gt;
   &lt;div class=&quot;popover_demo-placement-cell-top&quot;&gt;
     &lt;div class=&quot;popover popover_placement-top-center popover_offset-top-lg&quot; data-popover&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm popover_trigger&quot; aria-haspopup=&quot;dialog&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;popover-offset-top&quot;&gt;

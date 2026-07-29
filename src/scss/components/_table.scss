@@ -2,6 +2,7 @@
 @use "../mixins" as *;
 
 // Table — OOCSS: 구조(.table) + 스킨(.table_striped · .table_bordered · .table_compact · .table_hover)
+//          sticky: .table_wrap-scroll + .table_sticky-top · .table_sticky-left · .table_sticky-cols-{n}
 //
 //   <div class="table_wrap">
 //     <table class="table">…</table>
@@ -13,7 +14,7 @@
   border: 1px solid var(--color-border);
   border-radius: $radius-md;
 
-  &:has(.table):not(.table_wrap-api) {
+  &:has(.table):not(.table_wrap-api):not(.table_wrap-scroll) {
     border: none;
     overflow-x: visible;
 
@@ -21,6 +22,21 @@
       border: 1px solid var(--color-border);
       border-radius: $radius-md;
       overflow: hidden;
+    }
+  }
+
+  // sticky 스크롤 컨테이너 — overflow + max-height 유지
+  &.table_wrap-scroll {
+    overflow: auto;
+    max-height: var(--table-scroll-max-height);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-md;
+    -webkit-overflow-scrolling: touch;
+
+    .table {
+      border: none;
+      border-radius: 0;
+      overflow: visible;
     }
   }
 }
@@ -126,5 +142,87 @@
 
   &_col-nowrap {
     white-space: nowrap;
+  }
+
+  // 상단 고정 (thead)
+  &_sticky-top {
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--color-surface-raised);
+    }
+  }
+
+  // 좌측 고정 — table_sticky-cols-{n}으로 열 개수 지정
+  // 2열 이상이면 --table-sticky-left-{n}에 이전 열 너비 합을 지정
+  &_sticky-left {
+    th,
+    td {
+      background-clip: padding-box;
+    }
+  }
+}
+
+@mixin table-sticky-col($index) {
+  th:nth-child(#{$index}),
+  td:nth-child(#{$index}) {
+    position: sticky;
+    left: var(--table-sticky-left-#{$index}, 0);
+    z-index: 1;
+    background: var(--color-surface);
+  }
+
+  thead th:nth-child(#{$index}) {
+    z-index: 3;
+    background: var(--color-surface-raised);
+  }
+}
+
+@mixin table-sticky-col-edge($index) {
+  th:nth-child(#{$index}),
+  td:nth-child(#{$index}) {
+    box-shadow: var(--table-sticky-shadow);
+  }
+}
+
+@for $n from 1 through 4 {
+  .table_sticky-cols-#{$n} {
+    @for $i from 1 through $n {
+      @include table-sticky-col($i);
+    }
+
+    @include table-sticky-col-edge($n);
+  }
+}
+
+// striped · hover 배경이 sticky 셀에도 유지되도록
+.table_striped.table_sticky-left {
+  @for $n from 1 through 4 {
+    &.table_sticky-cols-#{$n} {
+      tbody tr:nth-child(even) {
+        @for $i from 1 through $n {
+          th:nth-child(#{$i}),
+          td:nth-child(#{$i}) {
+            background: var(--color-surface-raised);
+          }
+        }
+      }
+    }
+  }
+}
+
+.table_hover.table_sticky-left {
+  @for $n from 1 through 4 {
+    &.table_sticky-cols-#{$n} {
+      tbody tr:hover {
+        @for $i from 1 through $n {
+          th:nth-child(#{$i}),
+          td:nth-child(#{$i}) {
+            background: var(--color-accent-muted);
+          }
+        }
+      }
+    }
   }
 }

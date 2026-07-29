@@ -88,8 +88,21 @@
     background: var(--color-surface);
   }
 
+  // Docs — window 스크롤 대신 페이지형 스크롤 영역에서 고정 확인
+  &_demo-page {
+    max-height: 18rem;
+    overflow-y: auto;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    background: var(--color-surface);
+  }
+
   &_demo-content {
     padding: var(--space-lg);
+
+    .affix_demo-page & {
+      min-height: calc(18rem + 20rem);
+    }
 
     > p {
       margin: 0 0 var(--space-md);
@@ -101,15 +114,6 @@
         margin-bottom: 0;
       }
     }
-  }
-
-  // Docs — window 스크롤 대신 페이지형 스크롤 영역에서 고정 확인
-  &_demo-page {
-    max-height: 18rem;
-    overflow-y: auto;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: $radius-md;
-    background: var(--color-surface);
   }
 
   &_demo-narrow {

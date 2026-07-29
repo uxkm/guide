@@ -21,7 +21,7 @@ guide.uxkm.io — HTML 가이드(gulp) + Storybook
 pnpm install
 pnpm dev                # gulp 가이드 (browser-sync)
 pnpm build              # html/ 생성
-pnpm storybook          # http://localhost:6006
+pnpm storybook          # http://localhost:6008
 pnpm build-storybook    # storybook-static/ 생성
 ```
 

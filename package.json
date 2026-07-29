@@ -6,9 +6,9 @@
     "dev": "gulp",
     "build": "gulp build",
     "watch": "gulp watch",
-    "storybook": "storybook dev -p 6006 --initial-path \"/docs/intro--docs\"",
+    "storybook": "storybook dev -p 6008 --initial-path \"/docs/intro--docs\"",
     "build-storybook": "storybook build && node ./scripts/fix-html-lang.mjs",
-    "preview-storybook": "npx --yes http-server storybook-static -p 6006 -c-1",
+    "preview-storybook": "npx --yes http-server storybook-static -p 6008 -c-1",
     "deploy:main": "bash scripts/deploy-main.sh"
   },
   "dependencies": {

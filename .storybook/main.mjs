@@ -6,7 +6,7 @@ const storybookBase = process.env.STORYBOOK_BASE ?? '/';
 
 /** @type { import('@storybook/html-vite').StorybookConfig } */
 const config = {
-  staticDirs: [{ from: '../src/images', to: '/images' }],
+  staticDirs: ['../public', { from: '../src/images', to: '/images' }],
 
   title: 'UXKM Guide',
 

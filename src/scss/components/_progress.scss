@@ -169,31 +169,50 @@
   &_inside {
     .progress_track {
       height: auto;
-      min-height: var(--progress-height);
-      background: transparent;
+      min-height: var(--progress-inside-height);
+      // 트랙 배경 유지 — 미채움 구간도 보이도록
+      overflow: hidden;
     }
 
     .progress_bar {
       display: flex;
       align-items: center;
       justify-content: center;
+      // height:100%가 트랙 min-height(얇은 기본값)에 묶여 텍스트가 잘리지 않도록
+      height: auto;
       min-width: 2.5rem;
-      min-height: var(--progress-height);
-      padding: 0 var(--space-sm);
+      min-height: var(--progress-inside-height);
+      padding: 0.15rem var(--space-sm);
       font-size: var(--progress-inside-size);
+      line-height: 1.2;
       font-weight: var(--progress-value-weight);
       color: var(--color-on-accent);
       white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    &.color_warning .progress_bar {
+      color: var(--color-on-warning);
     }
 
     &.progress_sm .progress_bar {
-      min-height: var(--progress-height-sm);
+      min-height: var(--progress-inside-height-sm);
       font-size: var(--text-size-xs);
+      padding-block: 0.1rem;
+    }
+
+    &.progress_sm .progress_track {
+      min-height: var(--progress-inside-height-sm);
     }
 
     &.progress_lg .progress_bar {
-      min-height: var(--progress-height-lg);
+      min-height: var(--progress-inside-height-lg);
       font-size: var(--text-size-sm);
+      padding-block: 0.25rem;
+    }
+
+    &.progress_lg .progress_track {
+      min-height: var(--progress-inside-height-lg);
     }
   }
 
