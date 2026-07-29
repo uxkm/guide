@@ -44,7 +44,7 @@
             <p>title · value · description으로 지표를 구성합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="stat">
               <span class="stat_label">총 사용자</span>
               <span class="stat_value">12,345</span>
@@ -152,7 +152,7 @@
             <p>trend로 증감 방향을 아이콘과 함께 표시합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="stat stat_card stat_shadow">
               <div class="stat_header">
                 <span class="stat_label">월간 매출</span>
@@ -447,7 +447,7 @@
             <p>card · shadow · stat_borderless · stat_accent로 외형을 조절합니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <div class="stat_group stat_group-2">
               <div class="stat stat_card">
                 <span class="stat_label">기본 카드</span>
@@ -625,7 +625,7 @@
             <p>card 본문 안에 stat_group을 배치하는 대시보드 패턴입니다.</p>
           </div>
 
-          <div class="demo_section-preview demo_section-preview-start">
+          <div class="demo_section-preview">
             <article class="card card_shadow">
               <div class="card_header">
                 <div class="card_header-main">
@@ -716,6 +716,88 @@
 &lt;/article&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">클래스</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">stat</code></td>
+                    <td>지표 루트</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_sm</code> · <code class="typo_code">stat_lg</code></td>
+                    <td>크기 변형</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_card</code> · <code class="typo_code">stat_shadow</code> · <code class="typo_code">stat_borderless</code> · <code class="typo_code">stat_accent</code></td>
+                    <td>카드·그림자·스킨</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_header</code> · <code class="typo_code">stat_label</code> · <code class="typo_code">stat_value-row</code></td>
+                    <td>레이아웃 파트</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_value</code> · <code class="typo_code">stat_prefix</code> · <code class="typo_code">stat_suffix</code> · <code class="typo_code">stat_desc</code> · <code class="typo_code">stat_trend</code></td>
+                    <td>값·설명 파트</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_group</code> · <code class="typo_code">stat_group-2</code> · <code class="typo_code">stat_group-3</code> · <code class="typo_code">stat_group-4</code></td>
+                    <td>지표 그리드</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">stat_horizontal</code></td>
+                    <td>아이콘+값 가로 배치</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="typo_code">--stat-value-size</code> · <code class="typo_code">--stat-value-size-sm</code> · <code class="typo_code">--stat-value-size-lg</code></td>
+                    <td>1.75rem · 1.25rem · 2.25rem</td>
+                    <td>수치 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--stat-label-size</code> · <code class="typo_code">--stat-desc-size</code></td>
+                    <td>var(--text-size-sm)</td>
+                    <td>라벨·설명 크기</td>
+                  </tr>
+                  <tr>
+                    <td><code class="typo_code">--stat-group-gap</code> · <code class="typo_code">--stat-card-padding</code></td>
+                    <td>var(--space-lg) · var(--space-lg)</td>
+                    <td>그룹 간격·카드 패딩</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </main>
     </div>
