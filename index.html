@@ -223,7 +223,16 @@
       gap: 1.25rem;
     }
 
+    @property --card-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
     .card {
+      --card-angle: 0deg;
+      position: relative;
+      isolation: isolate;
       display: block;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -231,13 +240,75 @@
       padding: 1.75rem;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
 
-    .card:hover {
-      border-color: var(--accent);
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from calc(var(--card-angle) - 45deg) at 50% 50%,
+        transparent 0deg,
+        transparent 300deg,
+        var(--accent) 330deg,
+        #8eb4ff 345deg,
+        var(--accent) 355deg,
+        transparent 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.25s ease;
+    }
+
+    .card.card--intro::before,
+    .card:hover::before,
+    .card:focus-visible::before {
+      opacity: 1;
+    }
+
+    .card.card--intro::before {
+      animation: card-outline-spin 1.4s linear var(--intro-delay, 0ms) 1 both;
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before {
+      animation: card-outline-spin 1.4s linear infinite;
+    }
+
+    @keyframes card-outline-spin {
+      from { --card-angle: 0deg; }
+      to { --card-angle: 360deg; }
+    }
+
+    .card:hover,
+    .card:focus-visible {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card::before {
+        display: none;
+      }
+
+      .card:hover,
+      .card:focus-visible {
+        border-color: var(--accent);
+        transform: none;
+        box-shadow: none;
+      }
     }
 
     .card h2 {
@@ -309,7 +380,7 @@
         <h2>HTML</h2>
         <p>순수 HTML/SCSS UI 컴포넌트 가이드</p>
         <div class="card-meta">
-          <span class="count">컴포넌트 51개</span>
+          <span class="count">컴포넌트 50개</span>
           <span class="badge">Vanilla · SCSS</span>
         </div>
       </a>
@@ -318,7 +389,7 @@
         <h2>HTML Storybook</h2>
         <p>HTML/SCSS UI 컴포넌트 Storybook</p>
         <div class="card-meta">
-          <span class="count">컴포넌트 —</span>
+          <span class="count">컴포넌트 50개</span>
           <span class="badge">HTML · Storybook</span>
         </div>
       </a>
@@ -411,6 +482,19 @@
       });
 
       updateLabel();
+
+      var cards = document.querySelectorAll('.grid .card');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceMotion) {
+        cards.forEach(function (card, index) {
+          var delayMs = index * 120;
+          card.style.setProperty('--intro-delay', delayMs + 'ms');
+          card.classList.add('card--intro');
+          window.setTimeout(function () {
+            card.classList.remove('card--intro');
+          }, delayMs + 1400);
+        });
+      }
     })();
   </script>
 </body>

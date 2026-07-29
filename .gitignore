@@ -16,6 +16,7 @@ package.json
 vite.config.js
 src/
 scripts/
+storybook-static/
 
 # Build artifacts
 dist/
