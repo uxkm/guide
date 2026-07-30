@@ -25,6 +25,248 @@ import {
   drawerTokens,
   markupCode,
 } from '@/doc/data/drawer-api';
+
+const basicCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Button variant="filled" color="primary" label="Drawer 열기" data-drawer-trigger="#drawer-basic" aria-controls="drawer-basic" />
+  <Drawer id="drawer-basic" title="기본 Drawer">
+    <p>Drawer 패널 본문입니다.</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+</template>`;
+
+const placementCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <div class="drawer_demo-row">
+    <Button variant="outline" label="왼쪽" data-drawer-trigger="#drawer-place-left" aria-controls="drawer-place-left" />
+    <Button variant="outline" label="오른쪽" data-drawer-trigger="#drawer-place-right" aria-controls="drawer-place-right" />
+    <Button variant="outline" label="위" data-drawer-trigger="#drawer-place-top" aria-controls="drawer-place-top" />
+    <Button variant="outline" label="아래" data-drawer-trigger="#drawer-place-bottom" aria-controls="drawer-place-bottom" />
+  </div>
+  <Drawer id="drawer-place-left" placement="left" title="왼쪽 패널">
+    <p>화면 왼쪽에서 슬라이드됩니다.</p>
+  </Drawer>
+  <Drawer id="drawer-place-right" placement="right" title="오른쪽 패널">
+    <p>기본 위치입니다.</p>
+  </Drawer>
+  <Drawer id="drawer-place-top" placement="top" title="상단 패널">
+    <p>검색·필터 바 등 상단에서 내려오는 패널입니다.</p>
+  </Drawer>
+  <Drawer id="drawer-place-bottom" placement="bottom" title="하단 패널">
+    <p>모바일 액션 시트·공유 패널 등에 적합합니다.</p>
+  </Drawer>
+</template>`;
+
+const sizeCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <div class="drawer_demo-row">
+    <Button variant="outline" size="sm" label="Small" data-drawer-trigger="#drawer-size-sm" aria-controls="drawer-size-sm" />
+    <Button variant="outline" label="Default" data-drawer-trigger="#drawer-size-default" aria-controls="drawer-size-default" />
+    <Button variant="outline" size="lg" label="Large" data-drawer-trigger="#drawer-size-lg" aria-controls="drawer-size-lg" />
+  </div>
+</template>`;
+
+const footerCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Button variant="filled" color="primary" label="항목 편집" data-drawer-trigger="#drawer-footer" aria-controls="drawer-footer" />
+  <Drawer id="drawer-footer" title="항목 편집">
+    <p>폼 본문</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="저장" data-drawer-close />
+    </template>
+  </Drawer>
+</template>`;
+
+const footerAlignCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <!-- 좌측 -->
+  <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start" open>
+    <p>footer-align="start"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 가운데 -->
+  <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center" open>
+    <p>footer-align="center"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 우측 (기본) -->
+  <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom" open>
+    <p>footer-align="end" (기본)</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 병합: 좌 1 / 우 2 -->
+  <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between" open>
+    <p>footer-align="between" + drawer_footer-group</p>
+    <template #footer>
+      <div class="drawer_footer-group">
+        <Button variant="ghost" color="danger" label="삭제" data-drawer-close />
+      </div>
+      <div class="drawer_footer-group">
+        <Button variant="ghost" label="취소" data-drawer-close />
+        <Button variant="filled" color="primary" label="확인" data-drawer-close />
+      </div>
+    </template>
+  </Drawer>
+
+  <!-- 균등 1:1 -->
+  <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even" open>
+    <p>footer-align="even" · footer-ratio="1-1"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 균등 1:2 -->
+  <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2" open>
+    <p>footer-ratio="1-2" — 좌 1 / 우 2</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 균등 2:1 -->
+  <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1" open>
+    <p>footer-ratio="2-1" — 좌 2 / 우 1</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+
+  <!-- 하단 패딩 없음 + 균등 -->
+  <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom open>
+    <p>footer-no-pad-bottom + even</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-drawer-close />
+      <Button variant="filled" color="primary" label="확인" data-drawer-close />
+    </template>
+  </Drawer>
+</template>`;
+
+const extraCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+import Tag from '@uxkm/ui/components/Tag.vue';
+<\/script>
+
+<template>
+  <Button variant="outline" label="상세 보기" data-drawer-trigger="#drawer-extra" aria-controls="drawer-extra" />
+  <Drawer id="drawer-extra" title="주문 #1042">
+    <template #extra>
+      <Tag variant="filled" color="success" label="완료" />
+    </template>
+    <p>상세 정보</p>
+  </Drawer>
+</template>`;
+
+const menuCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+import Icon from '@uxkm/ui/components/Icon.vue';
+<\/script>
+
+<template>
+  <Button variant="outline" icon-only aria-label="메뉴 열기" data-drawer-trigger="#drawer-menu" aria-controls="drawer-menu">
+    <template #icon-before>
+      <Icon name="menu" />
+    </template>
+  </Button>
+  <Drawer id="drawer-menu" placement="left" title="앱 메뉴">
+    <p>메뉴 본문</p>
+  </Drawer>
+</template>`;
+
+const openOnLoadCode = `<script setup>
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Drawer id="drawer-open-on-load" size="sm" title="자동 열기 옵션" open-on-load>
+    <p>페이지 로드 후 자동으로 열립니다.</p>
+  </Drawer>
+</template>`;
+
+const nestedCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Button variant="ghost" label="중첩 예시 열기" data-drawer-trigger="#drawer-nested-1" aria-controls="drawer-nested-1" />
+  <Drawer id="drawer-nested-1" title="1단계 Drawer">
+    <Button variant="outline" label="2단계 열기" data-drawer-trigger="#drawer-nested-2" aria-controls="drawer-nested-2" />
+  </Drawer>
+  <Drawer id="drawer-nested-2" size="sm" title="2단계 Drawer">
+    <p>중첩된 Drawer입니다.</p>
+  </Drawer>
+</template>`;
+
+const dragSheetCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Button variant="filled" color="primary" label="드래그 시트 열기" data-drawer-trigger="#drawer-drag" aria-controls="drawer-drag" />
+  <Drawer id="drawer-drag" placement="bottom" draggable title="공유 · 액션">
+    <p>상단 핸들이나 헤더를 위로 드래그하면 펼쳐지고, 아래로 드래그하면 접히거나 닫힙니다.</p>
+    <template #footer>
+      <Button variant="ghost" label="닫기" data-drawer-close />
+      <Button variant="filled" color="primary" label="공유" data-drawer-close />
+    </template>
+  </Drawer>
+</template>`;
+
+const noBackdropCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Drawer from '@uxkm/ui/components/Drawer.vue';
+<\/script>
+
+<template>
+  <Button variant="ghost" label="백드롭 없이 열기" data-drawer-trigger="#drawer-no-backdrop" aria-controls="drawer-no-backdrop" />
+  <Drawer id="drawer-no-backdrop" size="sm" title="백드롭 없음" no-backdrop>
+    <p>본문을 가리지 않고 패널만 표시합니다.</p>
+  </Drawer>
+</template>`;
+
 </script>
 
 <template>
@@ -37,6 +279,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="data-drawer-trigger로 패널을 열고, 백드롭·닫기 버튼·Esc로 닫습니다."
+    :code="basicCode"
   >
     <Button variant="filled" color="primary" label="Drawer 열기" data-drawer-trigger="#drawer-basic" aria-controls="drawer-basic" />
   </DemoSection>
@@ -46,6 +289,7 @@ import {
     title="위치"
     description="drawer_placement-left · -right · -top · -bottom으로 슬라이드 방향을 지정합니다. 상·하는 둥근 모서리·하단은 드래그 핸들이 표시됩니다."
     stack
+    :code="placementCode"
   >
     <div class="drawer_demo-row">
       <Button variant="outline" label="왼쪽" data-drawer-trigger="#drawer-place-left" aria-controls="drawer-place-left" />
@@ -59,6 +303,7 @@ import {
     heading-id="size-heading"
     title="크기"
     description="drawer_sm · drawer_lg으로 패널 너비(또는 상·하 배치 시 높이)를 조정합니다."
+    :code="sizeCode"
   >
     <div class="drawer_demo-row">
       <Button variant="outline" size="sm" label="Small" data-drawer-trigger="#drawer-size-sm" aria-controls="drawer-size-sm" />
@@ -71,14 +316,118 @@ import {
     heading-id="footer-heading"
     title="헤더·푸터"
     description="drawer_header · drawer_body · drawer_footer로 영역을 나눕니다. 푸터에 저장·취소 등 액션 버튼을 배치합니다."
+    :code="footerCode"
   >
     <Button variant="filled" color="primary" label="항목 편집" data-drawer-trigger="#drawer-footer" aria-controls="drawer-footer" />
+  </DemoSection>
+
+  <DemoSection
+    heading-id="footer-align-heading"
+    title="푸터 정렬"
+    description="footer-align으로 푸터 버튼을 정렬합니다. start · center · end(기본) · between(좌·우 병합) · even(균등). even은 footer-ratio로 좌·우 비율(1-1 · 1-2 · 2-1)을 지정하고, footer-no-pad-bottom으로 하단 패딩을 제거할 수 있습니다. between은 drawer_footer-group으로 좌·우에 1~2개씩 묶습니다."
+    :code="footerAlignCode"
+    stack
+  >
+    <div class="drawer_demo-stack">
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start" open class="drawer_demo-static">
+          <p><code class="typo_code">footer-align="start"</code></p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center" open class="drawer_demo-static">
+          <p><code class="typo_code">footer-align="center"</code></p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom" open class="drawer_demo-static">
+          <p><code class="typo_code">footer-align="end"</code> (기본)</p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between" open class="drawer_demo-static">
+          <p><code class="typo_code">between</code> — 좌 1 / 우 2</p>
+          <template #footer>
+            <div class="drawer_footer-group">
+              <Button variant="ghost" color="danger" label="삭제" data-drawer-close />
+            </div>
+            <div class="drawer_footer-group">
+              <Button variant="ghost" label="취소" data-drawer-close />
+              <Button variant="filled" color="primary" label="확인" data-drawer-close />
+            </div>
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-between-2" title="병합 정렬" placement="bottom" footer-align="between" open class="drawer_demo-static">
+          <p><code class="typo_code">between</code> — 좌 2 / 우 1</p>
+          <template #footer>
+            <div class="drawer_footer-group">
+              <Button variant="ghost" label="도움말" data-drawer-close />
+              <Button variant="ghost" color="danger" label="삭제" data-drawer-close />
+            </div>
+            <div class="drawer_footer-group">
+              <Button variant="filled" color="primary" label="확인" data-drawer-close />
+            </div>
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even" open class="drawer_demo-static">
+          <p><code class="typo_code">even</code> · <code class="typo_code">footer-ratio="1-1"</code></p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2" open class="drawer_demo-static">
+          <p><code class="typo_code">footer-ratio="1-2"</code> — 좌 1 / 우 2</p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1" open class="drawer_demo-static">
+          <p><code class="typo_code">footer-ratio="2-1"</code> — 좌 2 / 우 1</p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+      <div class="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom open class="drawer_demo-static">
+          <p><code class="typo_code">footer-no-pad-bottom</code> + even</p>
+          <template #footer>
+            <Button variant="ghost" label="취소" data-drawer-close />
+            <Button variant="filled" color="primary" label="확인" data-drawer-close />
+          </template>
+        </Drawer>
+      </div>
+    </div>
   </DemoSection>
 
   <DemoSection
     heading-id="extra-heading"
     title="헤더 추가 영역"
     description="drawer_extra에 보조 액션·메타 정보를 배치합니다. 제목과 닫기 버튼 사이에 위치합니다."
+    :code="extraCode"
   >
     <Button variant="outline" label="상세 보기" data-drawer-trigger="#drawer-extra" aria-controls="drawer-extra" />
   </DemoSection>
@@ -87,6 +436,7 @@ import {
     heading-id="menu-heading"
     title="메뉴"
     description="Menu 컴포넌트와 조합해 모바일 내비게이션 패널을 구성합니다."
+    :code="menuCode"
   >
     <Button variant="outline" icon-only aria-label="메뉴 열기" data-drawer-trigger="#drawer-menu" aria-controls="drawer-menu">
       <template #icon-before><Icon name="menu" /></template>
@@ -97,6 +447,7 @@ import {
     heading-id="open-on-load-heading"
     title="로드 시 자동 열기 (옵션)"
     description="data-drawer-open-on-load=&quot;true&quot;를 지정하면 페이지 로드 후 해당 Drawer를 자동으로 열 수 있습니다. 기본값은 비활성입니다."
+    :code="openOnLoadCode"
   >
     <p class="form_field-hint">아래 예시는 옵션 동작 확인용입니다.</p>
   </DemoSection>
@@ -104,7 +455,8 @@ import {
   <DemoSection
     heading-id="nested-heading"
     title="중첩 Drawer"
-    description="열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. Esc는 가장 위에 열린 패널부터 닫습니다."
+    description="열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. Esc는 가장 위에 열린 패널부터 닫습니다."
+    :code="nestedCode"
   >
     <Button variant="ghost" label="중첩 예시 열기" data-drawer-trigger="#drawer-nested-1" aria-controls="drawer-nested-1" />
   </DemoSection>
@@ -113,6 +465,7 @@ import {
     heading-id="drag-sheet-heading"
     title="하단 드래그 시트"
     description="placement=&quot;bottom&quot; + draggable로 핸들·헤더를 드래그합니다. 위로 끌면 펼치고, 아래로 끌면 접거나 닫습니다. 터치 슬라이드도 동일합니다."
+    :code="dragSheetCode"
   >
     <Button variant="filled" color="primary" label="드래그 시트 열기" data-drawer-trigger="#drawer-drag" aria-controls="drawer-drag" />
   </DemoSection>
@@ -121,6 +474,7 @@ import {
     heading-id="no-backdrop-heading"
     title="백드롭 없음"
     description="data-drawer-backdrop=&quot;false&quot;로 어두운 배경을 숨깁니다. 본문과 동시에 상호작용할 수 있습니다."
+    :code="noBackdropCode"
   >
     <Button variant="ghost" label="백드롭 없이 열기" data-drawer-trigger="#drawer-no-backdrop" aria-controls="drawer-no-backdrop" />
   </DemoSection>

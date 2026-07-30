@@ -263,7 +263,7 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
 </script>
 
 <template>
-  <Tooltip size="sm" open content="작은 말풍선">
+  <Tooltip size="sm" content="작은 말풍선">
     <template #trigger>
       <Button variant="ghost" size="sm" label="Small" />
     </template>
@@ -274,24 +274,24 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
     },
   },
   args: {
-    open: true,
+    open: false,
     size: "md",
   },
   render: tooltipDemo(() => ({
     components: { Button, Tooltip },
     template: stageDemo(`
       <div class="tooltip_row" style="align-items: flex-start;">
-        <Tooltip size="sm" open content="작은 말풍선">
+        <Tooltip size="sm" content="작은 말풍선">
           <template #trigger>
             <Button variant="ghost" size="sm" label="Small" />
           </template>
         </Tooltip>
-        <Tooltip open content="기본 크기 말풍선">
+        <Tooltip content="기본 크기 말풍선">
           <template #trigger>
             <Button variant="ghost" label="Medium" />
           </template>
         </Tooltip>
-        <Tooltip size="lg" open content="큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다.">
+        <Tooltip size="lg" content="큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다.">
           <template #trigger>
             <Button variant="ghost" size="lg" label="Large" />
           </template>
@@ -317,7 +317,7 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
 </script>
 
 <template>
-  <Tooltip offset="lg" open content="넓은 간격">
+  <Tooltip offset="lg" content="넓은 간격">
     <template #trigger>
       <Button variant="ghost" size="sm" label="lg" />
     </template>
@@ -328,7 +328,7 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
     },
   },
   args: {
-    open: true,
+    open: false,
     offset: "md",
   },
   render: tooltipDemo(() => ({
@@ -337,22 +337,22 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
       <div class="tooltip_demo-stage">
         <p class="form_field-hint" style="margin-bottom: var(--space-md);">전 방향 동일</p>
         <div class="tooltip_row" style="align-items: flex-start;">
-          <Tooltip offset="none" open content="간격 없음">
+          <Tooltip offset="none" content="간격 없음">
             <template #trigger>
               <Button variant="ghost" size="sm" label="none" />
             </template>
           </Tooltip>
-          <Tooltip offset="sm" open content="좁은 간격">
+          <Tooltip offset="sm" content="좁은 간격">
             <template #trigger>
               <Button variant="ghost" size="sm" label="sm" />
             </template>
           </Tooltip>
-          <Tooltip open content="기본 간격">
+          <Tooltip content="기본 간격">
             <template #trigger>
               <Button variant="ghost" size="sm" label="md" />
             </template>
           </Tooltip>
-          <Tooltip offset="lg" open content="넓은 간격">
+          <Tooltip offset="lg" content="넓은 간격">
             <template #trigger>
               <Button variant="ghost" size="sm" label="lg" />
             </template>
@@ -361,28 +361,28 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
         <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">방향별 (offset-* · placement)</p>
         <div class="tooltip_demo-placement" style="min-height: 12rem; padding: 0; border: none; background: transparent;">
           <div class="tooltip_demo-placement-cell-top">
-            <Tooltip placement="top" offset-top="lg" open content="위쪽 간격">
+            <Tooltip placement="top" offset-top="lg" content="위쪽 간격">
               <template #trigger>
                 <Button variant="ghost" size="sm" label="위" />
               </template>
             </Tooltip>
           </div>
           <div class="tooltip_demo-placement-cell-left">
-            <Tooltip placement="left" offset-left="lg" open content="왼쪽 간격">
+            <Tooltip placement="left" offset-left="lg" content="왼쪽 간격">
               <template #trigger>
                 <Button variant="ghost" size="sm" label="왼쪽" />
               </template>
             </Tooltip>
           </div>
           <div class="tooltip_demo-placement-cell-center">
-            <Tooltip offset-bottom="lg" open content="아래쪽 간격">
+            <Tooltip offset-bottom="lg" content="아래쪽 간격">
               <template #trigger>
                 <Button variant="ghost" size="sm" label="아래" />
               </template>
             </Tooltip>
           </div>
           <div class="tooltip_demo-placement-cell-right">
-            <Tooltip placement="right" offset-right="lg" open content="오른쪽 간격">
+            <Tooltip placement="right" offset-right="lg" content="오른쪽 간격">
               <template #trigger>
                 <Button variant="ghost" size="sm" label="오른쪽" />
               </template>
@@ -734,7 +734,7 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
 </script>
 
 <template>
-  <Tooltip open arrow-anchor="target" content="화살표가 트리거 중앙을 가리킵니다.">
+  <Tooltip arrow-anchor="target" content="화살표가 트리거 중앙을 가리킵니다.">
     <template #trigger>
       <Button variant="ghost" size="sm" label="S" />
     </template>
@@ -745,7 +745,7 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
     },
   },
   args: {
-    open: true,
+    open: false,
     arrowAnchor: "target",
   },
   render: tooltipDemo(() => ({
@@ -754,12 +754,12 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
       <div class="tooltip_demo-stage">
         <p class="form_field-hint" style="margin-bottom: var(--space-md);">기준 비교</p>
         <div class="tooltip_row" style="align-items: flex-start;">
-          <Tooltip open content="패널이 트리거보다 넓을 때 화살표는 말풍선 패딩 기준입니다.">
+          <Tooltip content="패널이 트리거보다 넓을 때 화살표는 말풍선 패딩 기준입니다.">
             <template #trigger>
               <Button variant="ghost" size="sm" label="S" />
             </template>
           </Tooltip>
-          <Tooltip open arrow-anchor="target" content="패널이 트리거보다 넓을 때 화살표가 트리거 중앙을 가리킵니다.">
+          <Tooltip arrow-anchor="target" content="패널이 트리거보다 넓을 때 화살표가 트리거 중앙을 가리킵니다.">
             <template #trigger>
               <Button variant="ghost" size="sm" label="S" />
             </template>
@@ -767,39 +767,93 @@ import Tooltip from '@uxkm/ui/components/Tooltip.vue';
         </div>
         <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">target — 좌 · 가운데 · 우</p>
         <div class="tooltip_row" style="align-items: flex-start;">
-          <Tooltip open arrow-anchor="target" arrow-target-align="left" content="트리거 왼쪽을 가리킵니다.">
+          <Tooltip arrow-anchor="target" arrow-target-align="left" content="트리거 왼쪽을 가리킵니다.">
             <template #trigger>
               <Button variant="ghost" size="sm" label="S" />
             </template>
           </Tooltip>
-          <Tooltip open arrow-anchor="target" content="트리거 가운데를 가리킵니다.">
+          <Tooltip arrow-anchor="target" content="트리거 가운데를 가리킵니다.">
             <template #trigger>
               <Button variant="ghost" size="sm" label="S" />
             </template>
           </Tooltip>
-          <Tooltip open arrow-anchor="target" arrow-target-align="right" content="트리거 오른쪽을 가리킵니다.">
+          <Tooltip arrow-anchor="target" arrow-target-align="right" content="트리거 오른쪽을 가리킵니다.">
             <template #trigger>
               <Button variant="ghost" size="sm" label="S" />
             </template>
           </Tooltip>
         </div>
         <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">mixed — 말풍선 가운데 · 화살표 조합</p>
-        <div class="tooltip_row" style="align-items: flex-start;">
-          <Tooltip open arrow-anchor="mixed" panel-align="center" arrow-target-align="left" content="말풍선 가운데, 화살표 왼쪽.">
-            <template #trigger>
-              <Button variant="ghost" size="sm" label="S" />
-            </template>
-          </Tooltip>
-          <Tooltip open arrow-anchor="mixed" panel-align="center" content="말풍선·화살표 모두 가운데.">
-            <template #trigger>
-              <Button variant="ghost" size="sm" label="S" />
-            </template>
-          </Tooltip>
-          <Tooltip open arrow-anchor="mixed" panel-align="center" arrow-target-align="right" content="말풍선 가운데, 화살표 오른쪽.">
-            <template #trigger>
-              <Button variant="ghost" size="sm" label="S" />
-            </template>
-          </Tooltip>
+        <div class="tooltip_row" style="align-items: flex-start; display: grid; grid-template-columns: repeat(3, minmax(10rem, 1fr)); gap: var(--space-xl);">
+          <div style="display: flex; justify-content: center;">
+            <Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="left" content="말풍선 가운데, 화살표 왼쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div style="display: flex; justify-content: center;">
+            <Tooltip arrow-anchor="mixed" panel-align="center" content="말풍선·화살표 모두 가운데.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div style="display: flex; justify-content: center;">
+            <Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="right" content="말풍선 가운데, 화살표 오른쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+        </div>
+        <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">mixed — 말풍선 왼쪽 · 화살표 조합</p>
+        <div class="tooltip_row" style="align-items: flex-start; display: grid; grid-template-columns: repeat(3, minmax(10rem, 1fr)); gap: var(--space-xl);">
+          <div>
+            <Tooltip arrow-anchor="mixed" panel-align="start" arrow-target-align="left" content="말풍선 왼쪽, 화살표 왼쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div>
+            <Tooltip arrow-anchor="mixed" panel-align="start" content="말풍선 왼쪽, 화살표 가운데.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div>
+            <Tooltip arrow-anchor="mixed" panel-align="start" arrow-target-align="right" content="말풍선 왼쪽, 화살표 오른쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+        </div>
+        <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">mixed — 말풍선 오른쪽 · 화살표 조합</p>
+        <div class="tooltip_row" style="align-items: flex-start; display: grid; grid-template-columns: repeat(3, minmax(10rem, 1fr)); gap: var(--space-xl);">
+          <div style="display: flex; justify-content: flex-end;">
+            <Tooltip arrow-anchor="mixed" panel-align="end" arrow-target-align="left" content="말풍선 오른쪽, 화살표 왼쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <Tooltip arrow-anchor="mixed" panel-align="end" content="말풍선 오른쪽, 화살표 가운데.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <Tooltip arrow-anchor="mixed" panel-align="end" arrow-target-align="right" content="말풍선 오른쪽, 화살표 오른쪽.">
+              <template #trigger>
+                <Button variant="ghost" size="sm" label="S" />
+              </template>
+            </Tooltip>
+          </div>
         </div>
       </div>
     `,

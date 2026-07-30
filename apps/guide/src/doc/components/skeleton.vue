@@ -25,6 +25,66 @@ import {
   skeletonTokens,
   markupCode,
 } from '@/doc/data/skeleton-api';
+
+const basicCode = `<script setup>
+import Skeleton from '@uxkm/ui/components/Skeleton.vue';
+<\/script>
+
+<template>
+  <div style="max-width: var(--input-max-width); width: 100%;">
+    <Skeleton :paragraph="3" />
+  </div>
+</template>`;
+
+const shapeCode = `<script setup>
+import Skeleton from '@uxkm/ui/components/Skeleton.vue';
+<\/script>
+
+<template>
+  <Skeleton avatar :paragraph="0" />
+  <Skeleton round style="margin-top: var(--space-md);" />
+</template>`;
+
+const cardCode = `<script setup>
+import Card from '@uxkm/ui/components/Card.vue';
+import CardBody from '@uxkm/ui/components/CardBody.vue';
+import Skeleton from '@uxkm/ui/components/Skeleton.vue';
+<\/script>
+
+<template>
+  <Card
+  variant="shadow"
+  style="max-width: 360px; width: 100%;"
+  role="status"
+  aria-live="polite"
+  aria-busy="true"
+  aria-label="카드 콘텐츠 로딩 중"
+  >
+  <CardBody>
+    <Skeleton :paragraph="0" aria-label="카드 콘텐츠 로딩 중">
+      <span class="skeleton skeleton_image" aria-hidden="true" />
+      <span class="skeleton skeleton_title skeleton_w-md" aria-hidden="true" />
+      <span class="skeleton skeleton_text" aria-hidden="true" />
+      <span class="skeleton skeleton_text skeleton_w-lg" aria-hidden="true" />
+      <div class="skeleton_row" style="margin-top: var(--space-xs);">
+        <span class="skeleton skeleton_button" aria-hidden="true" />
+        <span class="skeleton skeleton_button" aria-hidden="true" style="width: 4rem;" />
+      </div>
+    </Skeleton>
+  </CardBody>
+  </Card>
+</template>`;
+
+const staticCode = `<script setup>
+import Skeleton from '@uxkm/ui/components/Skeleton.vue';
+<\/script>
+
+<template>
+  <div style="max-width: var(--input-max-width); width: 100%;">
+    <Skeleton :active="false" :paragraph="3" />
+  </div>
+</template>`;
+
 </script>
 
 <template>
@@ -37,6 +97,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="<code class=&quot;typo_code&quot;>skeleton</code>에 <code class=&quot;typo_code&quot;>skeleton_text</code> · <code class=&quot;typo_code&quot;>skeleton_title</code> 형태 클래스를 조합합니다."
+    :code="basicCode"
   >
     <div style="max-width: var(--input-max-width); width: 100%;">
       <Skeleton :paragraph="3" />
@@ -47,6 +108,7 @@ import {
     heading-id="shape-heading"
     title="형태"
     description="아바타·이미지·버튼·블록 등 콘텐츠 유형에 맞는 형태 클래스를 사용합니다."
+    :code="shapeCode"
   >
     <Skeleton avatar :paragraph="0" />
     <Skeleton round style="margin-top: var(--space-md);" />
@@ -113,6 +175,7 @@ import {
     heading-id="card-heading"
     title="카드"
     description="카드·대시보드 위젯 로딩 시 실제 콘텐츠 구조와 유사하게 배치합니다."
+    :code="cardCode"
   >
     <Card
       variant="shadow"
@@ -141,6 +204,7 @@ import {
     heading-id="static-heading"
     title="정적"
     description="<code class=&quot;typo_code&quot;>skeleton_static</code>을 지정하면 쉬머 애니메이션 없이 고정 플레이스홀더만 표시합니다. <code class=&quot;typo_code&quot;>prefers-reduced-motion</code> 환경에서도 애니메이션이 비활성화됩니다."
+    :code="staticCode"
   >
     <div style="max-width: var(--input-max-width); width: 100%;">
       <Skeleton :active="false" :paragraph="3" />

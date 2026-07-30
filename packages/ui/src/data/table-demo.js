@@ -11,3 +11,25 @@ export const productTableColumns = [
   { width: '8rem', minWidth: '6.5rem', nowrap: true },
   { width: '5rem', minWidth: '4rem', nowrap: true },
 ];
+
+/** 좌측 고정 — 이름 + 월별 6열 */
+export const stickyMonthColumns = [
+  { width: '7rem', minWidth: '7rem', nowrap: true },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+];
+
+/** 좌측 2열 고정 — 이름·부서 + 월별 */
+export const stickyDeptMonthColumns = [
+  { width: '7rem', minWidth: '7rem', nowrap: true },
+  { width: '6rem', minWidth: '6rem', nowrap: true },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+  { width: '8rem', minWidth: '8rem' },
+];

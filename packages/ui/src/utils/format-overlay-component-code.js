@@ -1,8 +1,8 @@
 import { createSlotComponentFormatter } from '@/utils/format-slot-component-code';
 
 export const formatModalCode = createSlotComponentFormatter('Modal', {
-  defaults: { size: 'md', backdrop: true },
-  booleanProps: new Set(['scrollable', 'open']),
+  defaults: { size: 'md', backdrop: true, footerAlign: 'end', footerRatio: '1-1' },
+  booleanProps: new Set(['scrollable', 'open', 'footerNoPadBottom']),
   falseExplicitProps: new Set(['backdrop']),
   skipProps: ['title'],
   slots: [
@@ -13,8 +13,8 @@ export const formatModalCode = createSlotComponentFormatter('Modal', {
 });
 
 export const formatDrawerCode = createSlotComponentFormatter('Drawer', {
-  defaults: { size: 'md', placement: 'right' },
-  booleanProps: new Set(['noBackdrop', 'openOnLoad', 'draggable', 'open']),
+  defaults: { size: 'md', placement: 'right', footerAlign: 'end', footerRatio: '1-1' },
+  booleanProps: new Set(['noBackdrop', 'openOnLoad', 'draggable', 'open', 'footerNoPadBottom']),
   skipProps: ['title'],
   slots: [
     { name: 'header', wrap: 'template' },

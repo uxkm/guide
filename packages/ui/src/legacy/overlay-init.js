@@ -233,6 +233,9 @@ function initPopover(popover) {
   });
 
   if (popover.classList.contains('is-open')) {
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'true');
+    }
     updatePopoverLayout(popover);
   }
 }

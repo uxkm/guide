@@ -68,6 +68,9 @@ export default {
     backdrop: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
     title: { control: 'text', type: { name: 'string', summary: "string" }},
     open: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
+    footerAlign: { control: 'select', options: ["start","center","end","between","even"], type: { name: 'enum', summary: "'start' | 'center' | 'end' | 'between' | 'even'" }},
+    footerRatio: { control: 'select', options: ["1-1","1-2","2-1"], type: { name: 'enum', summary: "'1-1' | '1-2' | '2-1'" }},
+    footerNoPadBottom: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
   },
   parameters: {
     controls: { disable: false },
@@ -85,6 +88,9 @@ export const Playground = {
     backdrop: true,
     title: "제목",
     open: true,
+    footerAlign: "end",
+    footerRatio: "1-1",
+    footerNoPadBottom: false,
   },
   render: (_args, context) => ({
     components: { Modal },
@@ -94,7 +100,7 @@ export const Playground = {
     template: `
       <div class="modal_demo-frame">
         <div class="modal_demo-content">
-          <p>Controls로 open · size · scrollable · backdrop을 조절하세요.</p>
+          <p>Controls로 open · size · scrollable · backdrop · footerAlign · footerRatio · footerNoPadBottom을 조절하세요.</p>
         </div>
         <Modal
           v-bind="args"
@@ -102,12 +108,29 @@ export const Playground = {
         >
           <p>모달 본문입니다.</p>
           <template #footer>
-            <button type="button" class="btn btn_ghost" data-modal-close>
-              <span class="btn_label">취소</span>
-            </button>
-            <button type="button" class="btn btn_filled color_primary" data-modal-close>
-              <span class="btn_label">확인</span>
-            </button>
+            <template v-if="args.footerAlign === 'between'">
+              <div class="modal_footer-group">
+                <button type="button" class="btn btn_ghost color_danger" data-modal-close>
+                  <span class="btn_label">삭제</span>
+                </button>
+              </div>
+              <div class="modal_footer-group">
+                <button type="button" class="btn btn_ghost" data-modal-close>
+                  <span class="btn_label">취소</span>
+                </button>
+                <button type="button" class="btn btn_filled color_primary" data-modal-close>
+                  <span class="btn_label">확인</span>
+                </button>
+              </div>
+            </template>
+            <template v-else>
+              <button type="button" class="btn btn_ghost" data-modal-close>
+                <span class="btn_label">취소</span>
+              </button>
+              <button type="button" class="btn btn_filled color_primary" data-modal-close>
+                <span class="btn_label">확인</span>
+              </button>
+            </template>
           </template>
         </Modal>
       </div>
@@ -155,6 +178,57 @@ import Modal from '@uxkm/ui/components/Modal.vue';
       <Button variant="filled" color="primary" label="모달 열기" data-modal-trigger="#modal-basic" aria-controls="modal-basic" />
       <Modal id="modal-basic" title="알림">
         <p>Modal 대화상자 본문입니다. 백드롭을 클릭하거나 닫기 버튼, <kbd>Esc</kbd> 키로 닫을 수 있습니다.</p>
+        <template #footer>
+          <Button variant="ghost" label="취소" data-modal-close />
+          <Button variant="filled" color="primary" label="확인" data-modal-close />
+        </template>
+      </Modal>
+    `),
+  })),
+};
+
+export const Open = {
+  name: "열린 상태",
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: false },
+    docs: {
+      description: {
+        story: "open prop으로 is-open 클래스를 추가하고 hidden을 해제합니다. 문서·스토리 미리보기에서는 modal_demo-frame 안에서 열린 모습을 확인합니다.",
+      },
+      source: {
+        code: `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Modal from '@uxkm/ui/components/Modal.vue';
+</script>
+
+<template>
+  <Modal id="modal-open" title="알림" open>
+    <p>열린 상태의 Modal입니다.</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+</template>`,
+        language: 'vue',
+      },
+    },
+  },
+  args: {
+    id: "story-modal",
+    size: "md",
+    title: "제목",
+    open: true,
+  },
+  render: modalDemo(() => ({
+    components: { Button, Modal },
+    template: frameDemo(`
+      <div class="modal_demo-content">
+        <p>open prop으로 대화상자가 열린 상태를 미리 보여 줍니다.</p>
+      </div>
+      <Modal id="modal-open" title="알림" open class="modal_demo-static">
+        <p>열린 상태의 Modal입니다. 백드롭·헤더·푸터 구성을 한눈에 확인할 수 있습니다.</p>
         <template #footer>
           <Button variant="ghost" label="취소" data-modal-close />
           <Button variant="filled" color="primary" label="확인" data-modal-close />
@@ -289,6 +363,211 @@ import Modal from '@uxkm/ui/components/Modal.vue';
         </template>
       </Modal>
     `),
+  })),
+};
+
+export const FooterAlign = {
+  name: "푸터 정렬",
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: true },
+    docs: {
+      description: {
+        story: "footer-align으로 푸터 버튼을 정렬합니다. start · center · end(기본) · between(좌·우 병합) · even(균등). even은 footer-ratio로 좌·우 비율(1-1 · 1-2 · 2-1)을 지정하고, footer-no-pad-bottom으로 하단 패딩을 제거할 수 있습니다. between은 modal_footer-group으로 좌·우에 1~2개씩 묶습니다.",
+      },
+      source: {
+        code: `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Modal from '@uxkm/ui/components/Modal.vue';
+</script>
+
+<template>
+  <!-- 좌측 -->
+  <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start" open>
+    <p>footer-align="start"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 가운데 -->
+  <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center" open>
+    <p>footer-align="center"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 우측 (기본) -->
+  <Modal id="modal-footer-end" title="우측 정렬" open>
+    <p>footer-align="end" (기본)</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 병합: 좌 1 / 우 2 -->
+  <Modal id="modal-footer-between" title="병합 정렬" footer-align="between" open>
+    <p>footer-align="between" + modal_footer-group</p>
+    <template #footer>
+      <div class="modal_footer-group">
+        <Button variant="ghost" color="danger" label="삭제" data-modal-close />
+      </div>
+      <div class="modal_footer-group">
+        <Button variant="ghost" label="취소" data-modal-close />
+        <Button variant="filled" color="primary" label="확인" data-modal-close />
+      </div>
+    </template>
+  </Modal>
+
+  <!-- 균등 1:1 -->
+  <Modal id="modal-footer-even" title="균등 1:1" footer-align="even" open>
+    <p>footer-align="even" · footer-ratio="1-1"</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 균등 1:2 -->
+  <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2" open>
+    <p>footer-ratio="1-2" — 좌 1 / 우 2</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 균등 2:1 -->
+  <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1" open>
+    <p>footer-ratio="2-1" — 좌 2 / 우 1</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+
+  <!-- 하단 패딩 없음 + 균등 -->
+  <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom open>
+    <p>footer-no-pad-bottom + even</p>
+    <template #footer>
+      <Button variant="ghost" label="취소" data-modal-close />
+      <Button variant="filled" color="primary" label="확인" data-modal-close />
+    </template>
+  </Modal>
+</template>`,
+        language: 'vue',
+      },
+    },
+  },
+  args: {
+    id: "story-modal",
+    size: "md",
+    title: "제목",
+    footerAlign: "end",
+    footerRatio: "1-1",
+    footerNoPadBottom: false,
+  },
+  render: modalDemo(() => ({
+    components: { Button, Modal },
+    template: `
+      <div class="modal_demo-stack">
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start" open class="modal_demo-static">
+            <p><code class="typo_code">footer-align="start"</code></p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center" open class="modal_demo-static">
+            <p><code class="typo_code">footer-align="center"</code></p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-end" title="우측 정렬" open class="modal_demo-static">
+            <p><code class="typo_code">footer-align="end"</code> (기본)</p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-between" title="병합 정렬" footer-align="between" open class="modal_demo-static">
+            <p><code class="typo_code">between</code> — 좌 1 / 우 2</p>
+            <template #footer>
+              <div class="modal_footer-group">
+                <Button variant="ghost" color="danger" label="삭제" data-modal-close />
+              </div>
+              <div class="modal_footer-group">
+                <Button variant="ghost" label="취소" data-modal-close />
+                <Button variant="filled" color="primary" label="확인" data-modal-close />
+              </div>
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-between-2" title="병합 정렬" footer-align="between" open class="modal_demo-static">
+            <p><code class="typo_code">between</code> — 좌 2 / 우 1</p>
+            <template #footer>
+              <div class="modal_footer-group">
+                <Button variant="ghost" label="도움말" data-modal-close />
+                <Button variant="ghost" color="danger" label="삭제" data-modal-close />
+              </div>
+              <div class="modal_footer-group">
+                <Button variant="filled" color="primary" label="확인" data-modal-close />
+              </div>
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-even" title="균등 1:1" footer-align="even" open class="modal_demo-static">
+            <p><code class="typo_code">even</code> · <code class="typo_code">footer-ratio="1-1"</code></p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2" open class="modal_demo-static">
+            <p><code class="typo_code">footer-ratio="1-2"</code> — 좌 1 / 우 2</p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1" open class="modal_demo-static">
+            <p><code class="typo_code">footer-ratio="2-1"</code> — 좌 2 / 우 1</p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+        <div class="modal_demo-frame modal_demo-frame-compact">
+          <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom open class="modal_demo-static">
+            <p><code class="typo_code">footer-no-pad-bottom</code> + even</p>
+            <template #footer>
+              <Button variant="ghost" label="취소" data-modal-close />
+              <Button variant="filled" color="primary" label="확인" data-modal-close />
+            </template>
+          </Modal>
+        </div>
+      </div>
+    `,
   })),
 };
 
@@ -456,6 +735,67 @@ import Modal from '@uxkm/ui/components/Modal.vue';
         <template #footer>
           <Button variant="ghost" label="거부" data-modal-close />
           <Button variant="filled" color="primary" label="동의" data-modal-close />
+        </template>
+      </Modal>
+    `),
+  })),
+};
+
+export const Nested = {
+  name: "중첩 Modal",
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: false },
+    docs: {
+      description: {
+        story: "열린 Modal 안에서 다른 Modal을 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. Esc는 가장 위에 열린 대화상자부터 닫습니다.",
+      },
+      source: {
+        code: `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Modal from '@uxkm/ui/components/Modal.vue';
+</script>
+
+<template>
+  <Button variant="ghost" label="중첩 예시 열기" data-modal-trigger="#modal-nested-1" aria-controls="modal-nested-1" />
+  <Modal id="modal-nested-1" title="1단계 Modal">
+    <p>다음 단계 Modal을 열어 중첩 동작을 확인하세요.</p>
+    <template #footer>
+      <Button variant="ghost" label="닫기" data-modal-close />
+      <Button variant="outline" label="2단계 열기" data-modal-trigger="#modal-nested-2" aria-controls="modal-nested-2" />
+    </template>
+  </Modal>
+  <Modal id="modal-nested-2" size="sm" title="2단계 Modal">
+    <p>중첩된 Modal입니다.</p>
+    <template #footer>
+      <Button variant="filled" color="primary" label="완료" data-modal-close />
+    </template>
+  </Modal>
+</template>`,
+        language: 'vue',
+      },
+    },
+  },
+  args: {
+    id: "story-modal",
+    size: "md",
+    title: "제목",
+  },
+  render: modalDemo(() => ({
+    components: { Button, Modal },
+    template: frameDemo(`
+      <Button variant="ghost" label="중첩 예시 열기" data-modal-trigger="#modal-nested-1" aria-controls="modal-nested-1" />
+      <Modal id="modal-nested-1" title="1단계 Modal">
+        <p>다음 단계 Modal을 열어 중첩 동작을 확인하세요. 2단계가 열리면 이 백드롭은 잠시 숨겨집니다.</p>
+        <template #footer>
+          <Button variant="ghost" label="닫기" data-modal-close />
+          <Button variant="outline" label="2단계 열기" data-modal-trigger="#modal-nested-2" aria-controls="modal-nested-2" />
+        </template>
+      </Modal>
+      <Modal id="modal-nested-2" size="sm" title="2단계 Modal">
+        <p>중첩된 Modal입니다. 닫으면 1단계 백드롭이 다시 표시됩니다. <kbd>Esc</kbd>를 누르면 이 대화상자부터 닫힙니다.</p>
+        <template #footer>
+          <Button variant="filled" color="primary" label="완료" data-modal-close />
         </template>
       </Modal>
     `),

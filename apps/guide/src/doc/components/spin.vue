@@ -32,6 +32,92 @@ import {
   spinWrapSlots,
   markupCode,
 } from '@/doc/data/spin-api';
+
+const basicCode = `<script setup>
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <Spin />
+</template>`;
+
+const sizeCode = `<script setup>
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <Spin size="sm" />
+  <Spin />
+  <Spin size="lg" />
+</template>`;
+
+const colorCode = `<script setup>
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <Spin color="primary" aria-label="Primary 로딩" />
+  <Spin color="success" aria-label="Success 로딩" />
+  <Spin color="warning" aria-label="Warning 로딩" />
+  <Spin color="danger" aria-label="Danger 로딩" />
+</template>`;
+
+const tipCode = `<script setup>
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <Spin tip="데이터를 불러오는 중…" aria-label="데이터를 불러오는 중" />
+  <Spin size="lg" tip="파일 업로드 중…" aria-label="파일 업로드 중" />
+</template>`;
+
+const inlineCode = `<script setup>
+import Button from '@uxkm/ui/components/Button.vue';
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <p>
+    <Spin size="sm" inline color="primary" tip="저장 중…" aria-label="저장 중" />
+  </p>
+  <Button variant="filled" color="primary" loading disabled aria-busy="true" label="제출 중…" />
+</template>`;
+
+const blockCode = `<script setup>
+import Spin from '@uxkm/ui/components/Spin.vue';
+<\/script>
+
+<template>
+  <Spin block color="primary" tip="잠시만 기다려 주세요…" aria-label="로딩 중" />
+</template>`;
+
+const overlayCode = `<script setup>
+import Card from '@uxkm/ui/components/Card.vue';
+import CardBody from '@uxkm/ui/components/CardBody.vue';
+import CardHeader from '@uxkm/ui/components/CardHeader.vue';
+import SpinWrap from '@uxkm/ui/components/SpinWrap.vue';
+<\/script>
+
+<template>
+  <SpinWrap block loading tip="데이터 로딩 중…" aria-label="데이터 로딩 중" style="max-width: var(--input-max-width);">
+    <Card variant="shadow">
+      <CardHeader title="대시보드" />
+      <CardBody>
+        <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
+      </CardBody>
+    </Card>
+  </SpinWrap>
+  <SpinWrap block blur loading aria-label="처리 중" style="max-width: var(--input-max-width); margin-top: var(--space-md);">
+    <Card variant="shadow">
+      <CardHeader title="블러 효과" />
+      <CardBody>
+        <p>
+          <code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
+        </CardBody>
+      </Card>
+    </SpinWrap>
+</template>`;
+
 </script>
 
 <template>
@@ -44,6 +130,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="<code class=&quot;typo_code&quot;>spin</code> · <code class=&quot;typo_code&quot;>spin_indicator</code>로 회전 스피너를 표시합니다."
+    :code="basicCode"
   >
     <Spin />
   </DemoSection>
@@ -52,6 +139,7 @@ import {
     heading-id="size-heading"
     title="크기"
     description="<code class=&quot;typo_code&quot;>spin_sm</code> · <code class=&quot;typo_code&quot;>spin</code>(기본) · <code class=&quot;typo_code&quot;>spin_lg</code> 세 가지 크기를 지원합니다."
+    :code="sizeCode"
   >
     <Spin size="sm" />
     <Spin />
@@ -62,6 +150,7 @@ import {
     heading-id="color-heading"
     title="색상"
     description="공통 <code class=&quot;typo_code&quot;>color_*</code> 클래스로 의미를 표현합니다."
+    :code="colorCode"
   >
     <Spin color="primary" aria-label="Primary 로딩" />
     <Spin color="success" aria-label="Success 로딩" />
@@ -73,6 +162,7 @@ import {
     heading-id="tip-heading"
     title="설명 텍스트"
     description="<code class=&quot;typo_code&quot;>spin_tip</code>으로 스피너 아래에 로딩 메시지를 표시합니다."
+    :code="tipCode"
   >
     <Spin tip="데이터를 불러오는 중…" aria-label="데이터를 불러오는 중" />
     <Spin size="lg" tip="파일 업로드 중…" aria-label="파일 업로드 중" />
@@ -83,6 +173,7 @@ import {
     title="인라인"
     description="<code class=&quot;typo_code&quot;>spin_inline</code>으로 스피너와 텍스트를 가로로 배치합니다. 버튼·문단 안에 삽입할 때 유용합니다."
     stack
+    :code="inlineCode"
   >
     <p>
       <Spin size="sm" inline color="primary" tip="저장 중…" aria-label="저장 중" />
@@ -96,6 +187,7 @@ import {
     title="블록 정렬"
     description="<code class=&quot;typo_code&quot;>spin_block</code>은 부모 너비 안에서 스피너를 가운데 정렬합니다."
     stack
+    :code="blockCode"
   >
     <Spin block color="primary" tip="잠시만 기다려 주세요…" aria-label="로딩 중" />
   </DemoSection>
@@ -105,6 +197,7 @@ import {
     title="컨테이너 오버레이"
     description="<code class=&quot;typo_code&quot;>spin_wrap</code>에 <code class=&quot;typo_code&quot;>is-loading</code>을 지정하면 콘텐츠 위에 <code class=&quot;typo_code&quot;>spin_overlay</code>가 표시됩니다. JS로 클래스를 토글해 로딩 상태를 제어합니다."
     stack
+    :code="overlayCode"
   >
     <SpinWrap block loading tip="데이터 로딩 중…" aria-label="데이터 로딩 중" style="max-width: var(--input-max-width);">
       <Card variant="shadow">

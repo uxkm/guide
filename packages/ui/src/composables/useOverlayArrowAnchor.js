@@ -37,8 +37,12 @@ export function useOverlayArrowAnchor(rootRef, props, type) {
     update();
     resizeObserver = new ResizeObserver(() => update());
 
-    if (rootRef.value) {
-      resizeObserver.observe(rootRef.value);
+    const root = rootRef.value;
+    if (root) {
+      resizeObserver.observe(root);
+      const panel =
+        root.querySelector('.popover_panel') || root.querySelector('.tooltip_bubble');
+      if (panel) resizeObserver.observe(panel);
     }
   });
 

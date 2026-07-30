@@ -26,6 +26,96 @@ import {
   progressTokens,
   markupCode,
 } from '@/doc/data/progress-api';
+
+const basicCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="0" />
+  <Progress :percent="30" />
+  <Progress :percent="60" />
+  <Progress :percent="100" status="success" />
+</template>`;
+
+const labelCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="42" show-info label="파일 업로드" aria-label="파일 업로드 진행률" />
+  <Progress :percent="67" show-info label="데이터 동기화" aria-label="데이터 동기화 진행률" />
+</template>`;
+
+const colorCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="50" color="primary" aria-label="Primary 진행률" />
+  <Progress :percent="100" color="success" aria-label="Success 진행률" />
+  <Progress :percent="75" color="warning" aria-label="Warning 진행률" />
+  <Progress :percent="35" color="danger" aria-label="Danger 진행률" />
+</template>`;
+
+const sizeCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress size="sm" :percent="40" />
+  <Progress :percent="55" />
+  <Progress size="lg" :percent="70" />
+</template>`;
+
+const stripedCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="45" striped color="primary" aria-label="줄무늬 진행률" />
+  <Progress :percent="65" striped animated color="primary" aria-label="애니메이션 진행률" />
+</template>`;
+
+const indeterminateCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress indeterminate color="primary" aria-label="처리 중" />
+  <Progress indeterminate label="동기화 중…" color="success" aria-label="동기화 중" />
+</template>`;
+
+const insideCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="25" inside />
+  <Progress :percent="80" inside size="lg" color="success" />
+  <Progress :percent="100" inside />
+</template>`;
+
+const circleCode = `<script setup>
+import ProgressCircle from '@uxkm/ui/components/ProgressCircle.vue';
+<\/script>
+
+<template>
+  <ProgressCircle :percent="25" />
+  <ProgressCircle :percent="68" color="success" />
+  <ProgressCircle :percent="50" size="sm" color="warning" />
+  <ProgressCircle :percent="90" size="lg" color="danger" />
+</template>`;
+
+const widthCode = `<script setup>
+import Progress from '@uxkm/ui/components/Progress.vue';
+<\/script>
+
+<template>
+  <Progress :percent="50" show-info label="progress_fit" />
+  <Progress :percent="72" block show-info label="progress_block — 전체 너비" />
+</template>`;
+
 </script>
 
 <template>
@@ -39,6 +129,7 @@ import {
     title="기본"
     description="<code class=&quot;typo_code&quot;>progress</code> · <code class=&quot;typo_code&quot;>progress_track</code> · <code class=&quot;typo_code&quot;>progress_bar</code>로 트랙과 채움 막대를 구성합니다. <code class=&quot;typo_code&quot;>progress_bar</code>의 <code class=&quot;typo_code&quot;>style=&quot;width: …&quot;</code> 또는 CSS 변수로 진행률을 제어합니다."
     stack
+    :code="basicCode"
   >
     <Progress :percent="0" />
     <Progress :percent="30" />
@@ -51,6 +142,7 @@ import {
     title="레이블 · 값"
     description="<code class=&quot;typo_code&quot;>progress_header</code>에 <code class=&quot;typo_code&quot;>progress_label</code> · <code class=&quot;typo_code&quot;>progress_value</code>를 함께 배치합니다."
     stack
+    :code="labelCode"
   >
     <Progress :percent="42" show-info label="파일 업로드" aria-label="파일 업로드 진행률" />
     <Progress :percent="67" show-info label="데이터 동기화" aria-label="데이터 동기화 진행률" />
@@ -61,6 +153,7 @@ import {
     title="색상"
     description="공통 <code class=&quot;typo_code&quot;>color_*</code> 클래스로 의미를 표현합니다."
     stack
+    :code="colorCode"
   >
     <Progress :percent="50" color="primary" aria-label="Primary 진행률" />
     <Progress :percent="100" color="success" aria-label="Success 진행률" />
@@ -73,6 +166,7 @@ import {
     title="크기"
     description="<code class=&quot;typo_code&quot;>progress_sm</code> · <code class=&quot;typo_code&quot;>progress</code>(기본) · <code class=&quot;typo_code&quot;>progress_lg</code> 세 가지 높이를 지원합니다."
     stack
+    :code="sizeCode"
   >
     <Progress size="sm" :percent="40" />
     <Progress :percent="55" />
@@ -84,6 +178,7 @@ import {
     title="줄무늬 · 애니메이션"
     description="<code class=&quot;typo_code&quot;>progress_striped</code>로 줄무늬 패턴을, <code class=&quot;typo_code&quot;>progress_animated</code>와 함께 사용하면 흐르는 애니메이션을 적용합니다."
     stack
+    :code="stripedCode"
   >
     <Progress :percent="45" striped color="primary" aria-label="줄무늬 진행률" />
     <Progress :percent="65" striped animated color="primary" aria-label="애니메이션 진행률" />
@@ -94,6 +189,7 @@ import {
     title="불확정"
     description="진행률을 알 수 없을 때 <code class=&quot;typo_code&quot;>is-indeterminate</code>를 사용합니다. <code class=&quot;typo_code&quot;>aria-valuenow</code>를 생략하거나 <code class=&quot;typo_code&quot;>aria-busy=&quot;true&quot;</code>를 함께 지정합니다."
     stack
+    :code="indeterminateCode"
   >
     <Progress indeterminate color="primary" aria-label="처리 중" />
     <Progress indeterminate label="동기화 중…" color="success" aria-label="동기화 중" />
@@ -104,15 +200,18 @@ import {
     title="바 안 텍스트"
     description="<code class=&quot;typo_code&quot;>progress_inside</code>로 막대 안에 퍼센트를 표시합니다. 막대가 좁을 때는 텍스트가 잘릴 수 있으니 충분한 너비를 확보합니다."
     stack
+    :code="insideCode"
   >
     <Progress :percent="25" inside />
     <Progress :percent="80" inside size="lg" color="success" />
+    <Progress :percent="100" inside />
   </DemoSection>
 
   <DemoSection
     heading-id="circle-heading"
     title="원형"
     description="<code class=&quot;typo_code&quot;>progress_circle</code>로 원형 진행률을 표시합니다. <code class=&quot;typo_code&quot;>style=&quot;--progress-percent: …&quot;</code>로 채움 비율을 지정합니다."
+    :code="circleCode"
   >
     <ProgressCircle :percent="25" />
     <ProgressCircle :percent="68" color="success" />
@@ -125,6 +224,7 @@ import {
     title="너비"
     description="<code class=&quot;typo_code&quot;>progress_fit</code>은 최대 너비를 제한하고, <code class=&quot;typo_code&quot;>progress_block</code>은 부모 너비 전체를 사용합니다."
     stack
+    :code="widthCode"
   >
     <Progress :percent="50" show-info label="progress_fit" />
     <Progress :percent="72" block show-info label="progress_block — 전체 너비" />

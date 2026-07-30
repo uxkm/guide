@@ -13,6 +13,15 @@ function formatScriptSetup(body) {
     .join('\n');
 }
 
+function indentBlock(text, level = 1) {
+  if (!text) return '';
+  const pad = '  '.repeat(level);
+  return text
+    .split('\n')
+    .map((line) => (line.trim() ? pad + line : line))
+    .join('\n');
+}
+
 function formatTemplateBlock(body) {
   const dedented = dedentBlock(body.replace(/\r\n/g, '\n'));
   if (!dedented) return '';
@@ -42,7 +51,7 @@ export function formatVueSourceCode(source) {
 
   if (templateMatch) {
     parts.push('<template>');
-    parts.push(formatTemplateBlock(templateMatch[1]));
+    parts.push(indentBlock(formatTemplateBlock(templateMatch[1])));
     parts.push('</template>');
   } else if (remainder) {
     parts.push(formatTemplateBlock(remainder));

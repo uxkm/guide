@@ -2,6 +2,7 @@ import Icon from './Icon.vue';
 import { bindComponent, withDocsCanvasRender, storyArgsRef } from '@/storybook/story-renders.js';
 import TypoText from './TypoText.vue';
 import { commonIconGallery } from '../data/common-icons.js';
+import { avatarSample } from '@images';
 import {
   iconClassColumns,
   iconClasses,
@@ -46,7 +47,7 @@ export default {
   component: Icon,
   tags: ['autodocs'],
   argTypes: {
-    name: { control: 'select', options: ["search","plus","minus","close","check","edit","trash","delete","copy","save","download","upload","share","link","external-link","filter","refresh","undo","redo","printer","paperclip","arrow-left","arrow-right","arrow-up","arrow-down","chevron-left","chevron-right","chevron-up","chevron-down","menu","more-vertical","more-horizontal","grid","list","home","settings","user","users","mail","phone","bell","message","send","info","help-circle","alert-circle","alert-triangle","check-circle","x-circle","star","heart","bookmark","thumb-up","eye","eye-off","lock","unlock","log-in","log-out","calendar","clock","folder","file","image","camera","map-pin","globe","cart","credit-card","tag","sun","moon","cloud","book","zoom-in","zoom-out","maximize"], type: { name: 'enum', summary: "common-icons 갤러리 키" }},
+    name: { control: 'select', options: ["search","plus","minus","close","check","edit","trash","delete","copy","save","download","upload","share","link","external-link","filter","refresh","undo","redo","printer","paperclip","arrow-left","arrow-right","arrow-up","arrow-down","chevron-left","chevron-right","chevron-up","chevron-down","menu","more-vertical","more-horizontal","grid","list","home","settings","user","users","mail","phone","bell","message","send","info","help-circle","alert-circle","alert-triangle","check-circle","x-circle","star","heart","bookmark","thumb-up","eye","eye-off","lock","unlock","log-in","log-out","calendar","clock","folder","file","image","camera","map-pin","globe","cart","credit-card","tag","sun","moon","cloud","book","zoom-in","zoom-out","maximize","loader"], type: { name: 'enum', summary: "common-icons 갤러리 키" }},
     color: { control: 'select', options: ["default","primary","success","warning","danger","info"], type: { name: 'enum', summary: "'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'" } },
     size: { control: 'select', options: ["sm","md","lg","xl"], type: { name: 'enum', summary: "'sm' | 'md' | 'lg' | 'xl'" }},
     inline: { control: 'boolean', type: { name: 'boolean', summary: "boolean" }},
@@ -95,10 +96,10 @@ export const Basic = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: "svg 태그에 icon 클래스를 적용합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다.",
+        story: "name prop으로 common-icons 갤러리 키를 지정합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon>\n    <circle cx=\"11\" cy=\"11\" r=\"8\" />\n    <path d=\"m21 21-4.35-4.35\" />\n  </Icon>\n  <Icon>\n    <path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" />\n    <path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\" />\n  </Icon>\n  <Icon>\n    <path d=\"M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"search\" />\n  <Icon name=\"edit\" />\n  <Icon name=\"trash\" />\n</template>",
         language: 'vue',
       },
     },
@@ -111,16 +112,49 @@ export const Basic = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon>
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.35-4.35" />
-      </Icon>
+    template: `<Icon name="search" />
+      <Icon name="edit" />
+      <Icon name="trash" />`,
+  })),
+};
+
+
+export const Custom = {
+  name: "커스텀 · 슬롯",
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: false },
+    docs: {
+      description: {
+        story: "우선순위는 #image > #path(또는 기본 슬롯) > name입니다. 갤러리에 없는 도형은 #path로, 이미지는 #image로 넣습니다.",
+      },
+      source: {
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport { avatarSample } from '@images';\n</script>\n\n<template>\n  <Icon name=\"search\" />\n  <Icon>\n    <template #path>\n      <circle cx=\"12\" cy=\"12\" r=\"4\" fill=\"currentColor\" stroke=\"none\" />\n    </template>\n  </Icon>\n  <Icon size=\"lg\">\n    <template #image>\n      <img :src=\"avatarSample\" alt=\"\" />\n    </template>\n  </Icon>\n</template>",
+        language: 'vue',
+      },
+    },
+  },
+  args: {
+  name: "search",
+  color: "값",
+  size: "md",
+  ariaLabel: "접근성 라벨"
+},
+  render: withDocsCanvasRender(() => ({
+    components: { Icon },
+    setup() {
+      return { avatarSample };
+    },
+    template: `<Icon name="search" />
       <Icon>
-        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+        <template #path>
+          <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+        </template>
       </Icon>
-      <Icon>
-        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <Icon size="lg">
+        <template #image>
+          <img :src="avatarSample" alt="" />
+        </template>
       </Icon>`,
   })),
 };
@@ -136,7 +170,7 @@ export const Size = {
         story: "기본 크기는 icon 클래스만 사용합니다. icon_sm · icon_lg · icon_xl로 스케일을 조절합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon size=\"sm\">\n    <path d=\"M12 5v14M5 12h14\" />\n  </Icon>\n  <Icon>\n    <path d=\"M12 5v14M5 12h14\" />\n  </Icon>\n  <Icon size=\"lg\">\n    <path d=\"M12 5v14M5 12h14\" />\n  </Icon>\n  <Icon size=\"xl\">\n    <path d=\"M12 5v14M5 12h14\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"plus\" size=\"sm\" />\n  <Icon name=\"plus\" />\n  <Icon name=\"plus\" size=\"lg\" />\n  <Icon name=\"plus\" size=\"xl\" />\n</template>",
         language: 'vue',
       },
     },
@@ -155,18 +189,10 @@ export const Size = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon size="sm">
-        <path d="M12 5v14M5 12h14" />
-      </Icon>
-      <Icon>
-        <path d="M12 5v14M5 12h14" />
-      </Icon>
-      <Icon size="lg">
-        <path d="M12 5v14M5 12h14" />
-      </Icon>
-      <Icon size="xl">
-        <path d="M12 5v14M5 12h14" />
-      </Icon>`,
+    template: `<Icon name="plus" size="sm" />
+      <Icon name="plus" />
+      <Icon name="plus" size="lg" />
+      <Icon name="plus" size="xl" />`,
   })),
 };
 
@@ -181,7 +207,7 @@ export const Color = {
         story: "공통 color_* 클래스를 조합합니다. 버튼·배지·알림 등 다른 컴포넌트와 동일한 클래스명을 사용합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon color=\"default\">\n    <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\" />\n  </Icon>\n  <Icon color=\"primary\">\n    <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\" />\n  </Icon>\n  <Icon color=\"success\">\n    <path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\" />\n    <path d=\"M22 4 12 14.01l-3-3\" />\n  </Icon>\n  <Icon color=\"warning\">\n    <path d=\"M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z\" />\n  </Icon>\n  <Icon color=\"danger\">\n    <circle cx=\"12\" cy=\"12\" r=\"10\" />\n    <path d=\"m15 9-6 6M9 9l6 6\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"star\" color=\"default\" />\n  <Icon name=\"star\" color=\"primary\" />\n  <Icon name=\"check-circle\" color=\"success\" />\n  <Icon name=\"alert-triangle\" color=\"warning\" />\n  <Icon name=\"x-circle\" color=\"danger\" />\n</template>",
         language: 'vue',
       },
     },
@@ -200,23 +226,11 @@ export const Color = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon color="default">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </Icon>
-      <Icon color="primary">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </Icon>
-      <Icon color="success">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <path d="M22 4 12 14.01l-3-3" />
-      </Icon>
-      <Icon color="warning">
-        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-      </Icon>
-      <Icon color="danger">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m15 9-6 6M9 9l6 6" />
-      </Icon>`,
+    template: `<Icon name="star" color="default" />
+      <Icon name="star" color="primary" />
+      <Icon name="check-circle" color="success" />
+      <Icon name="alert-triangle" color="warning" />
+      <Icon name="x-circle" color="danger" />`,
   })),
 };
 
@@ -231,7 +245,7 @@ export const Inline = {
         story: "icon_inline으로 텍스트와 수직 정렬을 맞춥니다. 텍스트에는 ml_sm으로 간격을 둡니다. 의미 있는 아이콘은 aria-label을 지정합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport TypoText from '@uxkm/ui/components/TypoText.vue';\n</script>\n\n<template>\n  <p>\n    <Icon inline color=\"info\">\n      <circle cx=\"12\" cy=\"12\" r=\"10\" />\n      <path d=\"M12 16v-4\" />\n      <circle cx=\"12\" cy=\"8\" r=\"1\" fill=\"currentColor\" stroke=\"none\" />\n    </Icon>\n    <TypoText tag=\"span\" class=\"ml_sm\">변경 사항이 자동 저장됩니다.</TypoText>\n  </p>\n  <p>\n    <Icon inline color=\"success\">\n      <path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\" />\n      <path d=\"M22 4 12 14.01l-3-3\" />\n    </Icon>\n    <TypoText tag=\"span\" class=\"ml_sm\">업로드가 완료되었습니다.</TypoText>\n  </p>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport TypoText from '@uxkm/ui/components/TypoText.vue';\n</script>\n\n<template>\n  <p>\n    <Icon name=\"info\" inline color=\"info\" />\n    <TypoText tag=\"span\" class=\"ml_sm\">변경 사항이 자동 저장됩니다.</TypoText>\n  </p>\n  <p>\n    <Icon name=\"check-circle\" inline color=\"success\" />\n    <TypoText tag=\"span\" class=\"ml_sm\">업로드가 완료되었습니다.</TypoText>\n  </p>\n</template>",
         language: 'vue',
       },
     },
@@ -251,18 +265,11 @@ export const Inline = {
   render: withDocsCanvasRender(() => ({
     components: { Icon, TypoText },
     template: `<p>
-        <Icon inline color="info">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 16v-4" />
-          <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" />
-        </Icon>
+        <Icon name="info" inline color="info" />
         <TypoText tag="span" class="ml_sm">변경 사항이 자동 저장됩니다.</TypoText>
       </p>
       <p>
-        <Icon inline color="success">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-          <path d="M22 4 12 14.01l-3-3" />
-        </Icon>
+        <Icon name="check-circle" inline color="success" />
         <TypoText tag="span" class="ml_sm">업로드가 완료되었습니다.</TypoText>
       </p>`,
   })),
@@ -279,7 +286,7 @@ export const Circle = {
         story: "icon_circle · icon_square로 아이콘에 배경을 적용합니다. color_*로 색상을 지정합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon circle color=\"primary\" size=\"sm\">\n    <path d=\"M12 5v14M5 12h14\" />\n  </Icon>\n  <Icon circle color=\"success\" size=\"sm\">\n    <path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\" />\n    <path d=\"M22 4 12 14.01l-3-3\" />\n  </Icon>\n  <Icon circle color=\"danger\" size=\"lg\">\n    <path d=\"M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\" />\n  </Icon>\n  <Icon square color=\"primary\" size=\"sm\">\n    <path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" />\n    <path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"plus\" circle color=\"primary\" size=\"sm\" />\n  <Icon name=\"check-circle\" circle color=\"success\" size=\"sm\" />\n  <Icon name=\"trash\" circle color=\"danger\" size=\"lg\" />\n  <Icon name=\"edit\" square color=\"primary\" size=\"sm\" />\n</template>",
         language: 'vue',
       },
     },
@@ -298,20 +305,10 @@ export const Circle = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon circle color="primary" size="sm">
-        <path d="M12 5v14M5 12h14" />
-      </Icon>
-      <Icon circle color="success" size="sm">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <path d="M22 4 12 14.01l-3-3" />
-      </Icon>
-      <Icon circle color="danger" size="lg">
-        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-      </Icon>
-      <Icon square color="primary" size="sm">
-        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-      </Icon>`,
+    template: `<Icon name="plus" circle color="primary" size="sm" />
+      <Icon name="check-circle" circle color="success" size="sm" />
+      <Icon name="trash" circle color="danger" size="lg" />
+      <Icon name="edit" square color="primary" size="sm" />`,
   })),
 };
 
@@ -326,7 +323,7 @@ export const Button = {
         story: "icon_button으로 클릭 가능한 아이콘 버튼을 만듭니다. aria-label을 반드시 지정합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon button color=\"primary\" aria-label=\"검색\">\n    <circle cx=\"11\" cy=\"11\" r=\"8\" />\n    <path d=\"m21 21-4.35-4.35\" />\n  </Icon>\n  <Icon button color=\"muted\" aria-label=\"설정\">\n    <circle cx=\"12\" cy=\"12\" r=\"3\" />\n    <path d=\"M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42\" />\n  </Icon>\n  <Icon button color=\"danger\" aria-label=\"삭제\">\n    <path d=\"M18 6 6 18M6 6l12 12\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"search\" button color=\"primary\" aria-label=\"검색\" />\n  <Icon name=\"settings\" button color=\"muted\" aria-label=\"설정\" />\n  <Icon name=\"close\" button color=\"danger\" aria-label=\"삭제\" />\n</template>",
         language: 'vue',
       },
     },
@@ -345,17 +342,9 @@ export const Button = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon button color="primary" aria-label="검색">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.35-4.35" />
-      </Icon>
-      <Icon button color="muted" aria-label="설정">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-      </Icon>
-      <Icon button color="danger" aria-label="삭제">
-        <path d="M18 6 6 18M6 6l12 12" />
-      </Icon>`,
+    template: `<Icon name="search" button color="primary" aria-label="검색" />
+      <Icon name="settings" button color="muted" aria-label="설정" />
+      <Icon name="close" button color="danger" aria-label="삭제" />`,
   })),
 };
 
@@ -370,7 +359,7 @@ export const Pulse = {
         story: "icon_pulse로 알림·상태 강조 애니메이션을 적용합니다. icon_circle과 함께 사용합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon circle pulse color=\"primary\" size=\"sm\">\n    <path d=\"M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9\" />\n    <path d=\"M13.73 21a2 2 0 0 1-3.46 0\" />\n  </Icon>\n  <Icon circle pulse color=\"danger\" size=\"sm\">\n    <circle cx=\"12\" cy=\"12\" r=\"4\" fill=\"currentColor\" stroke=\"none\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"bell\" circle pulse color=\"primary\" size=\"sm\" />\n  <Icon circle pulse color=\"danger\" size=\"sm\">\n    <template #path>\n      <circle cx=\"12\" cy=\"12\" r=\"4\" fill=\"currentColor\" stroke=\"none\" />\n    </template>\n  </Icon>\n</template>",
         language: 'vue',
       },
     },
@@ -389,12 +378,11 @@ export const Pulse = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon circle pulse color="primary" size="sm">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-      </Icon>
+    template: `<Icon name="bell" circle pulse color="primary" size="sm" />
       <Icon circle pulse color="danger" size="sm">
-        <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+        <template #path>
+          <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+        </template>
       </Icon>`,
   })),
 };
@@ -410,7 +398,7 @@ export const Group = {
         story: "icon_group으로 여러 아이콘을 나란히 배치합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport TypoText from '@uxkm/ui/components/TypoText.vue';\n</script>\n\n<template>\n  <div class=\"icon_group\">\n    <Icon color=\"muted\">\n      <path d=\"M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8\" />\n      <polyline points=\"16 6 12 2 8 6\" />\n      <line x1=\"12\" y1=\"2\" x2=\"12\" y2=\"15\" />\n    </Icon>\n    <Icon color=\"muted\">\n      <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n      <polyline points=\"7 10 12 15 17 10\" />\n      <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n    </Icon>\n    <Icon color=\"muted\">\n      <path d=\"M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\" />\n    </Icon>\n  </div>\n  <p>\n    <Icon circle color=\"primary\" size=\"sm\">\n      <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\" />\n      <circle cx=\"12\" cy=\"7\" r=\"4\" />\n    </Icon>\n    <TypoText tag=\"span\" color=\"muted\" size=\"sm\" class=\"ml_sm\">홍길동님이 댓글을 남겼습니다.</TypoText>\n  </p>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\nimport TypoText from '@uxkm/ui/components/TypoText.vue';\n</script>\n\n<template>\n  <div class=\"icon_group\">\n    <Icon name=\"upload\" color=\"muted\" />\n    <Icon name=\"download\" color=\"muted\" />\n    <Icon name=\"trash\" color=\"muted\" />\n  </div>\n  <p>\n    <Icon name=\"user\" circle color=\"primary\" size=\"sm\" />\n    <TypoText tag=\"span\" color=\"muted\" size=\"sm\" class=\"ml_sm\">홍길동님이 댓글을 남겼습니다.</TypoText>\n  </p>\n</template>",
         language: 'vue',
       },
     },
@@ -430,25 +418,12 @@ export const Group = {
   render: withDocsCanvasRender(() => ({
     components: { Icon, TypoText },
     template: `<div class="icon_group">
-        <Icon color="muted">
-          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-          <polyline points="16 6 12 2 8 6" />
-          <line x1="12" y1="2" x2="12" y2="15" />
-        </Icon>
-        <Icon color="muted">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
-        </Icon>
-        <Icon color="muted">
-          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-        </Icon>
+        <Icon name="upload" color="muted" />
+        <Icon name="download" color="muted" />
+        <Icon name="trash" color="muted" />
       </div>
       <p>
-        <Icon circle color="primary" size="sm">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </Icon>
+        <Icon name="user" circle color="primary" size="sm" />
         <TypoText tag="span" color="muted" size="sm" class="ml_sm">홍길동님이 댓글을 남겼습니다.</TypoText>
       </p>`,
   })),
@@ -465,7 +440,7 @@ export const Spin = {
         story: "icon_spin으로 회전 애니메이션을 적용합니다. 로딩 상태 표시에 사용합니다.",
       },
       source: {
-        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon spin color=\"primary\">\n    <path d=\"M21 12a9 9 0 1 1-6.219-8.56\" />\n  </Icon>\n  <Icon spin size=\"lg\" color=\"muted\">\n    <path d=\"M21 12a9 9 0 1 1-6.219-8.56\" />\n  </Icon>\n</template>",
+        code: "<script setup>\nimport Icon from '@uxkm/ui/components/Icon.vue';\n</script>\n\n<template>\n  <Icon name=\"loader\" spin color=\"primary\" />\n  <Icon name=\"loader\" spin size=\"lg\" color=\"muted\" />\n</template>",
         language: 'vue',
       },
     },
@@ -484,12 +459,8 @@ export const Spin = {
 },
   render: withDocsCanvasRender(() => ({
     components: { Icon },
-    template: `<Icon spin color="primary">
-        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-      </Icon>
-      <Icon spin size="lg" color="muted">
-        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-      </Icon>`,
+    template: `<Icon name="loader" spin color="primary" />
+      <Icon name="loader" spin size="lg" color="muted" />`,
   })),
 };
 
@@ -538,4 +509,3 @@ export const Gallery = {
       </div>`,
   })),
 };
-

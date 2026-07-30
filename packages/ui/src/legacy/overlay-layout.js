@@ -49,6 +49,11 @@ function resetPanelInlineStyles(panel) {
   panel.style.transform = '';
 }
 
+/** display:none · hidden 패널은 크기가 0이라 정렬·화살표 측정에서 제외 */
+function isPanelMeasurable(panel) {
+  return panel.getClientRects().length > 0;
+}
+
 function updatePanelPosition(root, config) {
   const { panelSelector, triggerSelector, prefix, anchorMixedClass, defaultPanelAlign = 'start' } = config;
   const panel = root.querySelector(panelSelector);
@@ -58,6 +63,8 @@ function updatePanelPosition(root, config) {
     resetPanelInlineStyles(panel);
     return;
   }
+
+  if (!isPanelMeasurable(panel)) return;
 
   const trigger = getTriggerElement(root, panel, triggerSelector);
   if (!trigger) return;
@@ -133,9 +140,8 @@ function updateArrowPosition(root, config) {
 
   const arrow = panel.querySelector(arrowSelector);
   const trigger = getTriggerElement(root, panel, triggerSelector);
-  const visible = root.classList.contains('is-open') || !panel.hasAttribute('hidden');
 
-  if (!arrow || !trigger || !visible) return;
+  if (!arrow || !trigger || !isPanelMeasurable(panel)) return;
 
   const triggerRect = trigger.getBoundingClientRect();
   const panelRect = panel.getBoundingClientRect();

@@ -59,6 +59,28 @@ function formatIconSlotContent(rootEl) {
     .join('\n');
 }
 
+function formatImgElement(el) {
+  const attrs = [...el.attributes]
+    .filter((attr) => !attr.name.startsWith('data-'))
+    .map((attr) => `${attr.name}="${attr.value}"`)
+    .join(' ');
+  return `<img${attrs ? ` ${attrs}` : ''} />`;
+}
+
+function formatImageSlotContent(rootEl) {
+  if (!rootEl) return '';
+
+  const host =
+    rootEl.classList?.contains('icon_img')
+      ? rootEl
+      : rootEl.querySelector?.('.icon_img') ?? rootEl;
+
+  const img = host.tagName?.toLowerCase() === 'img' ? host : host.querySelector?.('img');
+  if (!img) return '    …';
+
+  return `    ${formatImgElement(img)}`;
+}
+
 function readColorProp(el) {
   const colorClass = [...el.classList].find((name) => name.startsWith('color_'));
   return colorClass ? colorClass.slice('color_'.length) : undefined;
@@ -73,14 +95,15 @@ export function isIconDomNode(node) {
   if (tag === 'button' && node.classList.contains('icon_button')) return true;
   if (tag === 'span' && node.classList.contains('icon_circle')) return true;
   if (tag === 'span' && node.classList.contains('icon_square')) return true;
+  if (tag === 'span' && node.classList.contains('icon') && node.classList.contains('icon_img')) {
+    return true;
+  }
 
   return false;
 }
 
 export function getIconPropsFromDom(rootEl) {
   const svg = resolveSvgRoot(rootEl);
-  if (!svg) return {};
-
   const props = {};
   const tag = rootEl.tagName.toLowerCase();
 
@@ -107,7 +130,7 @@ export function getIconPropsFromDom(rootEl) {
 
     const color = readColorProp(rootEl);
     if (color) props.color = color;
-  } else {
+  } else if (svg) {
     if (svg.classList.contains('icon_sm')) props.size = 'sm';
     else if (svg.classList.contains('icon_lg')) props.size = 'lg';
     else if (svg.classList.contains('icon_xl')) props.size = 'xl';
@@ -116,9 +139,22 @@ export function getIconPropsFromDom(rootEl) {
     if (color) props.color = color;
 
     if (svg.classList.contains('icon_spin')) props.spin = true;
+    if (svg.classList.contains('icon_inline')) props.inline = true;
+  } else if (rootEl.classList.contains('icon_img')) {
+    if (rootEl.classList.contains('icon_sm')) props.size = 'sm';
+    else if (rootEl.classList.contains('icon_lg')) props.size = 'lg';
+    else if (rootEl.classList.contains('icon_xl')) props.size = 'xl';
+
+    const color = readColorProp(rootEl);
+    if (color) props.color = color;
+
+    if (rootEl.classList.contains('icon_spin')) props.spin = true;
+    if (rootEl.classList.contains('icon_inline')) props.inline = true;
   }
 
-  if (svg.classList.contains('icon_inline')) props.inline = true;
+  if (svg?.classList.contains('icon_inline') || rootEl.classList.contains('icon_inline')) {
+    props.inline = true;
+  }
 
   return props;
 }
@@ -131,12 +167,54 @@ export function getIconAttrsFromDom(rootEl) {
   return demoClasses.length ? { class: demoClasses.join(' ') } : {};
 }
 
-export function formatIconCode(props, customAttrs = {}, rootEl) {
+function hasSlot(slots, name) {
+  if (!slots) return false;
+  try {
+    return Boolean(slots[name]?.()?.length);
+  } catch {
+    return Boolean(slots[name]);
+  }
+}
+
+export function formatIconCode(props, customAttrs = {}, rootEl, slots = null) {
   const attrStr = formatIconProps(props, customAttrs);
+  const useImage = hasSlot(slots, 'image') || rootEl?.classList?.contains('icon_img')
+    || Boolean(rootEl?.querySelector?.('.icon_img'));
+
+  if (useImage) {
+    const propsWithoutName = { ...props };
+    delete propsWithoutName.name;
+    const imageAttrStr = formatIconProps(propsWithoutName, customAttrs);
+    const inner = formatImageSlotContent(rootEl);
+    return [
+      `<Icon${imageAttrStr}>`,
+      '  <template #image>',
+      inner,
+      '  </template>',
+      '</Icon>',
+    ].join('\n');
+  }
+
+  // name이 있고 path 슬롯이 없으면 갤러리만 출력
+  if (props?.name && !hasSlot(slots, 'path') && !hasSlot(slots, 'default')) {
+    return `<Icon${attrStr} />`;
+  }
+
   const slotContent = formatIconSlotContent(rootEl);
 
   if (!slotContent) {
     return `<Icon${attrStr} />`;
+  }
+
+  // 명시적 #path 슬롯이 있으면 그 형태로 출력
+  if (hasSlot(slots, 'path')) {
+    return [
+      `<Icon${attrStr}>`,
+      '  <template #path>',
+      ...slotContent.split('\n').map((line) => (line ? `  ${line}` : line)),
+      '  </template>',
+      '</Icon>',
+    ].join('\n');
   }
 
   return [`<Icon${attrStr}>`, slotContent, `</Icon>`].join('\n');

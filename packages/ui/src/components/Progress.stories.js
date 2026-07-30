@@ -331,13 +331,13 @@ export const Inside = {
         story: "`progress_inside`로 막대 안에 퍼센트를 표시합니다. 막대가 좁을 때는 텍스트가 잘릴 수 있으니 충분한 너비를 확보합니다.",
       },
       source: {
-        code: "<script setup>\nimport Progress from '@uxkm/ui/components/Progress.vue';\n</script>\n\n<template>\n  <Progress :percent=\"25\" inside />\n  <Progress :percent=\"80\" inside size=\"lg\" color=\"success\" />\n</template>",
+        code: "<script setup>\nimport Progress from '@uxkm/ui/components/Progress.vue';\n</script>\n\n<template>\n  <Progress :percent=\"25\" inside />\n  <Progress :percent=\"80\" inside size=\"lg\" color=\"success\" />\n  <Progress :percent=\"100\" inside />\n</template>",
         language: 'vue',
       },
     },
   },
   args: {
-  percent: 0,
+  percent: 100,
   status: "success",
   size: "md",
   showInfo: false,
@@ -346,14 +346,15 @@ export const Inside = {
   striped: false,
   animated: false,
   indeterminate: false,
-  inside: false,
+  inside: true,
   block: false,
   ariaLabel: "진행률"
 },
   render: withDocsCanvasRender(() => ({
     components: { Progress },
     template: `<Progress :percent="25" inside />
-      <Progress :percent="80" inside size="lg" color="success" />`,
+      <Progress :percent="80" inside size="lg" color="success" />
+      <Progress :percent="100" inside />`,
   })),
 };
 

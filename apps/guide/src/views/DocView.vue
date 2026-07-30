@@ -2,7 +2,6 @@
 import { ref, computed, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { docRevision, getDocByKey } from '@/utils/doc-loader';
-import { initPageRoot } from '@/utils/init-page';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { initAffixAll } from '@uxkm/ui/legacy/affix-init';
@@ -33,8 +32,6 @@ async function initContent() {
   await nextTick();
   const root = contentRef.value;
   if (!root?.querySelectorAll) return;
-
-  initPageRoot(root);
 
   if (root.querySelector('[data-affix]')) {
     initAffixAll(root);

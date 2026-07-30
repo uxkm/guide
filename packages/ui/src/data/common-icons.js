@@ -290,6 +290,7 @@ export const commonIconPaths = {
   maximize: [
     { tag: 'path', attrs: { d: 'M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3' } },
   ],
+  loader: [{ tag: 'path', attrs: { d: 'M21 12a9 9 0 1 1-6.219-8.56' } }],
 };
 
 // 별칭 (기존 데모 호환)
@@ -319,5 +320,5 @@ export const commonIconGallery = [
   // 위치 · 쇼핑
   'map-pin', 'globe', 'cart', 'credit-card', 'tag',
   // 테마 · 기타
-  'sun', 'moon', 'cloud', 'book', 'zoom-in', 'zoom-out', 'maximize',
+  'sun', 'moon', 'cloud', 'book', 'zoom-in', 'zoom-out', 'maximize', 'loader',
 ];

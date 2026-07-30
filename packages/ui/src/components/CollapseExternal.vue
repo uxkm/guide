@@ -76,9 +76,14 @@ const fallthroughAttrs = computed(() => {
   return rest;
 });
 
-/** slide일 때는 hidden을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
+/** slide일 때는 hidden · is-open을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
 const panelBind = computed(() =>
   slideEffect.value ? {} : { hidden: !isOpen.value || undefined },
+);
+
+const panelClass = computed(() =>
+  // slide일 때 is-open · is-sliding은 setSlideRegionOpen이 classList로 관리
+  slideEffect.value ? undefined : { 'is-open': isOpen.value },
 );
 
 function toggle() {
@@ -122,7 +127,7 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
       ref="panelRef"
       class="collapse"
       data-demo-slot="default"
-      :class="{ 'is-open': isOpen }"
+      :class="panelClass"
       :data-effect="effect || undefined"
       :style="panelStyle"
       v-bind="panelBind"

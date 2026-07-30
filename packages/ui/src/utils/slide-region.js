@@ -82,8 +82,6 @@ export function setSlideRegionOpen(region, open, animate = true) {
     return;
   }
 
-  region.classList.toggle('is-open', open);
-
   if (region._slideCleanup) {
     region._slideCleanup();
     region._slideCleanup = null;
@@ -99,6 +97,7 @@ export function setSlideRegionOpen(region, open, animate = true) {
 
   if (!shouldAnimate) {
     clearSlideStyles(region);
+    region.classList.toggle('is-open', open);
     if (open) {
       region.removeAttribute('hidden');
       region.removeAttribute('inert');
@@ -112,6 +111,7 @@ export function setSlideRegionOpen(region, open, animate = true) {
   }
 
   if (open) {
+    region.classList.add('is-open');
     region.removeAttribute('hidden');
     region.removeAttribute('inert');
     region.setAttribute('aria-hidden', 'false');
@@ -126,6 +126,8 @@ export function setSlideRegionOpen(region, open, animate = true) {
       clearSlideStyles(region);
     });
   } else {
+    // is-open 유지한 채 높이 측정 → is-sliding 추가 후 is-open 제거
+    // (is-open/is-sliding이 같은 노드일 때 display:none 선적용 방지)
     const fromHeight = region.scrollHeight;
     region.setAttribute('aria-hidden', 'true');
     region.setAttribute('inert', '');
@@ -133,6 +135,7 @@ export function setSlideRegionOpen(region, open, animate = true) {
     region.style.transition = 'none';
     region.style.height = `${fromHeight}px`;
     region.classList.add('is-sliding');
+    region.classList.remove('is-open');
     void region.offsetHeight;
 
     if (fromHeight === 0) {

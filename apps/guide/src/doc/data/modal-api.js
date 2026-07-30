@@ -13,6 +13,24 @@ export const modalProps = [
   { name: 'scrollable', type: 'boolean', default: 'false', description: '본문 스크롤 (modal_scrollable)' },
   { name: 'backdrop', type: 'boolean', default: 'true', description: '백드롭 표시 (false → data-modal-backdrop="false")' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 상태 (is-open, hidden 해제)' },
+  {
+    name: 'footer-align',
+    type: `'start' | 'center' | 'end' | 'between' | 'even'`,
+    default: 'end',
+    description: '푸터 정렬 (modal_footer-start · center · between · even). between은 modal_footer-group으로 좌·우 묶음',
+  },
+  {
+    name: 'footer-ratio',
+    type: `'1-1' | '1-2' | '2-1'`,
+    default: '1-1',
+    description: '균등 정렬(even) 좌·우 비율 (modal_footer-even-1-2 · even-2-1)',
+  },
+  {
+    name: 'footer-no-pad-bottom',
+    type: 'boolean',
+    default: 'false',
+    description: '푸터 하단 패딩 제거 (modal_footer-no-pad-b). even과 함께 쓰면 좌우 패딩·간격도 제거',
+  },
   ripplePropTrigger,
 ];
 
@@ -35,9 +53,22 @@ export const modalClassColumns = [
 export const modalClasses = [
   { name: 'modal · modal_backdrop · modal_dialog', description: '루트·백드롭·대화상자' },
   { name: 'modal_header · modal_title · modal_close · modal_body · modal_footer', description: '구조 파트' },
+  {
+    name: 'modal_footer-start · modal_footer-center · modal_footer-end · modal_footer-between · modal_footer-even',
+    description: '푸터 정렬 (기본 end)',
+  },
+  {
+    name: 'modal_footer-even-1-2 · modal_footer-even-2-1',
+    description: '균등 정렬 좌·우 비율 (기본 1:1)',
+  },
+  {
+    name: 'modal_footer-no-pad-b',
+    description: '푸터 하단 패딩 없음 (even 조합 시 좌우 패딩·간격 제거)',
+  },
+  { name: 'modal_footer-group', description: '병합 정렬용 좌·우 버튼 묶음' },
   { name: 'modal_sm · modal_lg · modal_fullscreen · modal_scrollable', description: '크기·스크롤' },
   { name: 'data-modal · data-modal-trigger · data-modal-close', description: 'JS 연동 속성' },
-  { name: 'is-open · hidden', description: '열림·닫힘 상태' },
+  { name: 'is-open · is-stack-covered · hidden', description: '열림·중첩 하위(백드롭 숨김)·닫힘 상태' },
   { name: 'role="dialog" · aria-modal="true"', description: '접근성 시맨틱' },
   ...rippleClassRows,
 ];
@@ -77,6 +108,14 @@ export const markupCode = `<!-- 트리거 -->
       <button type="button" class="btn btn_filled color_primary" data-modal-close>확인</button>
     </div>
   </div>
+</div>
+
+<!-- 푸터 정렬: start · center · end · between · even -->
+<!-- 균등 비율: modal_footer-even · modal_footer-even-1-2 · modal_footer-even-2-1 -->
+<!-- 하단 패딩 없음: modal_footer-no-pad-b (+ even 권장) -->
+<div class="modal_footer modal_footer-even modal_footer-no-pad-b">
+  <button type="button" class="btn btn_ghost" data-modal-close>취소</button>
+  <button type="button" class="btn btn_filled color_primary" data-modal-close>확인</button>
 </div>
 
 <!-- 옵션: 백드롭 없음 (Vue) -->

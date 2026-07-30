@@ -42,6 +42,18 @@
     animation: icon-spin var(--icon-spin-duration) linear infinite;
   }
 
+  // #image 슬롯 호스트 — img가 아이콘 박스에 맞춤
+  &_img {
+    overflow: hidden;
+
+    > img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
   &_circle {
     display: inline-flex;
     align-items: center;

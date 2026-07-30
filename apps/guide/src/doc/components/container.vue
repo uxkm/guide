@@ -21,6 +21,58 @@ import {
   containerTokenColumns,
   containerTokens,
 } from '@/doc/data/container-api';
+
+const basicCode = `<script setup>
+import Container from '@uxkm/ui/components/Container.vue';
+<\/script>
+
+<template>
+  <Container>
+    <div class="container_demo-fill">container — 기본 최대 너비</div>
+  </Container>
+</template>`;
+
+const fluidCode = `<script setup>
+import Container from '@uxkm/ui/components/Container.vue';
+<\/script>
+
+<template>
+  <Container fluid>
+    <div class="container_demo-fill">container container_fluid — 전체 너비</div>
+  </Container>
+</template>`;
+
+const sizeCode = `<script setup>
+import Container from '@uxkm/ui/components/Container.vue';
+<\/script>
+
+<template>
+  <Container size="sm">
+    <div class="container_demo-fill">container_sm (36rem)</div>
+  </Container>
+  <Container size="md">
+    <div class="container_demo-fill">container_md (48rem)</div>
+  </Container>
+  <Container size="lg">
+    <div class="container_demo-fill">container_lg (64rem)</div>
+  </Container>
+  <Container size="xl">
+    <div class="container_demo-fill">container_xl (80rem)</div>
+  </Container>
+</template>`;
+
+const nestedCode = `<script setup>
+import Container from '@uxkm/ui/components/Container.vue';
+<\/script>
+
+<template>
+  <Container fluid>
+    <div class="container_demo-fill" style="margin-bottom: var(--space-md);">바깥 — fluid</div>
+    <Container size="md">
+      <div class="container_demo-fill">안쪽 — md</div>
+    </Container>
+  </Container>
+</template>`;
 </script>
 
 <template>
@@ -34,6 +86,7 @@ import {
     title="기본"
     description="container 클래스로 중앙 정렬·최대 너비·좌우 패딩을 적용합니다. 뷰포트가 넓어지면 max-width에서 멈춥니다."
     stack
+    :code="basicCode"
   >
     <Container>
       <div class="container_demo-fill">container — 기본 최대 너비</div>
@@ -45,6 +98,7 @@ import {
     title="Fluid"
     description="container_fluid는 최대 너비 제한 없이 부모 너비 전체를 사용합니다. 좌우 패딩만 유지됩니다."
     stack
+    :code="fluidCode"
   >
     <Container fluid>
       <div class="container_demo-fill">container container_fluid — 전체 너비</div>
@@ -56,6 +110,7 @@ import {
     title="크기"
     description="container_sm · container_md · container_lg · container_xl로 고정 최대 너비를 지정합니다."
     stack
+    :code="sizeCode"
   >
     <div class="container_demo-sizes">
       <Container size="sm">
@@ -78,6 +133,7 @@ import {
     title="중첩 사용"
     description="페이지 루트에 container를 두고, 섹션별로 다른 크기를 조합할 수 있습니다."
     stack
+    :code="nestedCode"
   >
     <Container fluid>
       <div class="container_demo-fill" style="margin-bottom: var(--space-md);">바깥 — fluid</div>

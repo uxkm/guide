@@ -88,8 +88,11 @@ const props = defineProps({
   },
   /** aria-haspopup (셀렉트·드롭다운 트리거) */
   haspopup: String,
-  /** aria-expanded (셀렉트·팝오버 트리거) */
-  expanded: Boolean,
+  /** aria-expanded (셀렉트·팝오버 트리거). 미지정 시 속성 생략 */
+  expanded: {
+    type: Boolean,
+    default: undefined,
+  },
   /** aria-invalid (폼 오류) */
   invalid: Boolean,
   /** 루트 HTML 태그. button(기본) · a · div */
