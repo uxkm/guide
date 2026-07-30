@@ -25,6 +25,27 @@ import {
   quickstartCode,
   structureCode,
 } from '@/doc/data/intro-data';
+
+const props = defineProps({
+  categories: {
+    type: Array,
+    default: () => introCategories,
+  },
+  categoryLinkTarget: {
+    type: String,
+    default: undefined,
+  },
+  /** 가이드 내부 링크를 환경별 경로로 변환 (스토리북 등) */
+  resolveHref: {
+    type: Function,
+    default: (href) => href,
+  },
+  /** resolveHref로 변환된 Link 컴포넌트의 target */
+  linkTarget: {
+    type: String,
+    default: undefined,
+  },
+});
 </script>
 
 <template>
@@ -51,7 +72,11 @@ import {
         — 색상·간격·타이포 등은
         <TypoText variant="code" tag="span" label="_tokens.scss" />
         의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다.
-        <Link href="/design-tokens" label="디자인 토큰" />
+        <Link
+          :href="props.resolveHref('/design-tokens')"
+          :target="props.linkTarget"
+          label="디자인 토큰"
+        />
         문서에서 기본값과 사용 방법을 확인할 수 있습니다.
       </ListItem>
       <ListItem>
@@ -75,7 +100,11 @@ import {
     description="이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Vite 개발 서버를 실행합니다. 자세한 내용은 설치 및 사용을 참고하세요."
   >
     <p>
-      <Link href="/getting-started" label="설치 및 사용" />
+      <Link
+        :href="props.resolveHref('/getting-started')"
+        :target="props.linkTarget"
+        label="설치 및 사용"
+      />
     </p>
     <GuideCodeBlock>{{ quickstartCode }}</GuideCodeBlock>
   </GuideSection>
@@ -87,12 +116,13 @@ import {
   >
     <div class="card_grid">
       <CategoryCard
-        v-for="category in introCategories"
+        v-for="category in props.categories"
         :key="category.title"
         :title="category.title"
         :description="category.description"
         :count="category.count"
         :href="category.href"
+        :target="category.target ?? props.categoryLinkTarget"
       />
     </div>
   </GuideSection>

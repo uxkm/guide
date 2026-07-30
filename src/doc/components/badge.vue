@@ -29,6 +29,82 @@ import {
   badgeWrapSlotColumns,
   badgeWrapSlots,
 } from '@/doc/data/badge-api';
+
+const basicCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+<\/script>
+
+<template>
+  <Badge color="default" label="Default" />
+  <Badge color="primary" label="Primary" />
+  <Badge color="success" label="Success" />
+  <Badge color="warning" label="Warning" />
+  <Badge color="danger" label="Danger" />
+  <Badge color="info" label="Info" />
+</template>`;
+
+const sizeCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+<\/script>
+
+<template>
+  <Badge size="sm" color="primary" label="Small" />
+  <Badge color="primary" label="Medium" />
+  <Badge size="lg" color="primary" label="Large" />
+</template>`;
+
+const dotCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+<\/script>
+
+<template>
+  <Badge dot color="primary" label="Online" />
+  <Badge dot color="success" label="Active" />
+  <Badge dot color="warning" label="Away" />
+  <Badge dot color="danger" label="Offline" />
+</template>`;
+
+const countCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+<\/script>
+
+<template>
+  <Badge count color="danger" label="3" />
+  <Badge count color="primary" label="12" />
+  <Badge count color="success" label="99+" />
+  <Badge count size="sm" color="danger" label="5" />
+  <Badge count size="lg" color="primary" label="New" />
+</template>`;
+
+const wrapCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+import Badge from '@/components/Badge.vue';
+import BadgeWrap from '@/components/BadgeWrap.vue';
+import Button from '@/components/Button.vue';
+import Icon from '@/components/Icon.vue';
+<\/script>
+
+<template>
+  <BadgeWrap>
+    <Button variant="filled" color="primary" label="알림" />
+    <Badge count color="danger" aria-label="읽지 않은 알림 5건" label="5" />
+  </BadgeWrap>
+  <BadgeWrap>
+    <Button variant="ghost" icon-only aria-label="메시지">
+      <template #icon-before>
+        <Icon>
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </Icon>
+      </template>
+    </Button>
+    <Badge count color="danger" aria-label="새 메시지 12건" label="12" />
+  </BadgeWrap>
+  <BadgeWrap>
+    <Avatar color="primary" initials="홍" aria-hidden />
+    <Badge dot-only color="success" aria-label="온라인" />
+  </BadgeWrap>
+</template>`;
+
 </script>
 
 <template>
@@ -41,6 +117,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="공통 color_* 클래스로 의미에 따른 색상을 적용합니다."
+    :code="basicCode"
   >
     <Badge color="default" label="Default" />
     <Badge color="primary" label="Primary" />
@@ -54,6 +131,7 @@ import {
     heading-id="size-heading"
     title="크기"
     description="badge_sm · badge_lg로 스케일을 조절합니다."
+    :code="sizeCode"
   >
     <Badge size="sm" color="primary" label="Small" />
     <Badge color="primary" label="Medium" />
@@ -64,6 +142,7 @@ import {
     heading-id="dot-heading"
     title="Dot 배지"
     description="badge_dot로 상태 표시용 점(dot)이 포함된 배지를 만듭니다."
+    :code="dotCode"
   >
     <Badge dot color="primary" label="Online" />
     <Badge dot color="success" label="Active" />
@@ -75,6 +154,7 @@ import {
     heading-id="count-heading"
     title="카운트"
     description="badge_count로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다."
+    :code="countCode"
   >
     <Badge count color="danger" label="3" />
     <Badge count color="primary" label="12" />
@@ -87,6 +167,7 @@ import {
     heading-id="wrap-heading"
     title="겹침 표시"
     description="badge_wrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다."
+    :code="wrapCode"
   >
     <BadgeWrap>
       <Button variant="filled" color="primary" label="알림" />

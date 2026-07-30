@@ -24,10 +24,6 @@ function formatSlotContent(slotFn) {
   const vnode = vnodes[0];
   const componentName = vnode.type?.name || vnode.type?.__name;
 
-  if (componentName === 'DocIcon' && vnode.props?.name) {
-    return `<DocIcon name="${vnode.props.name}" />`;
-  }
-
   if (componentName === 'Icon' && vnode.props?.name) {
     return `<Icon name="${vnode.props.name}" />`;
   }

@@ -1,6 +1,7 @@
 export const NAV_GROUPS = [
   {
     title: '시작하기',
+    flat: true,
     items: [
       { label: '소개', to: '/', slug: 'intro' },
       { label: '설치 및 사용', to: '/getting-started', slug: 'getting-started' },

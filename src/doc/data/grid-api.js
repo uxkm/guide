@@ -68,22 +68,6 @@ export const gridProps = [
   },
 ];
 
-export const gridColPropColumns = [
-  { key: 'name', label: 'Prop' },
-  { key: 'type', label: '타입' },
-  { key: 'default', label: '기본값' },
-  { key: 'description', label: '설명' },
-];
-
-export const gridColProps = [
-  {
-    name: 'span',
-    type: 'number | string',
-    default: '—',
-    description: '12열 기준 개별 열 span (grid_col-span-*, 필수)',
-  },
-];
-
 export const gridSlotColumns = [
   { key: 'name', label: '슬롯' },
   { key: 'description', label: '설명' },
@@ -91,15 +75,6 @@ export const gridSlotColumns = [
 
 export const gridSlots = [
   { name: 'default', description: '그리드 자식 콘텐츠' },
-];
-
-export const gridColSlotColumns = [
-  { key: 'name', label: '슬롯' },
-  { key: 'description', label: '설명' },
-];
-
-export const gridColSlots = [
-  { name: 'default', description: '열 셀 내부 콘텐츠' },
 ];
 
 export const gridClassColumns = [
@@ -112,7 +87,7 @@ export const gridClasses = [
   { name: 'grid_cols-* · grid_cols-md-* · grid_cols-lg-*', description: '균등 열 수' },
   { name: 'grid_ratio-*', description: '비율 열 (2-1, 1-2-1 등)' },
   { name: 'grid_item-span-* · grid_item-span-md-* · grid_item-span-lg-*', description: '자식 일괄 span' },
-  { name: 'grid_col-span-*', description: '자식별 개별 span (GridCol)' },
+  { name: 'grid_col-span-* · grid_col-span-md-* · grid_col-span-lg-*', description: '자식별 개별 span (혼합 레이아웃)' },
   { name: 'grid_gap-sm · grid_gap-lg · grid_gap-none', description: '간격 변형' },
   { name: 'grid_auto-fit · grid_auto-fill', description: '자동 반복 열' },
   { name: 'grid_equal-columns', description: '균등 열 자동 흐름' },

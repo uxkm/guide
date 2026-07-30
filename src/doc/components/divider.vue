@@ -22,6 +22,60 @@ import {
   dividerTokenColumns,
   dividerTokens,
 } from '@/doc/data/divider-api';
+
+const basicCode = `<script setup>
+import Divider from '@/components/Divider.vue';
+<\/script>
+
+<template>
+  <p>위 콘텐츠</p>
+  <Divider />
+  <p>아래 콘텐츠</p>
+</template>`;
+
+const dashedCode = `<script setup>
+import Divider from '@/components/Divider.vue';
+<\/script>
+
+<template>
+  <p>위 콘텐츠</p>
+  <Divider dashed />
+  <p>아래 콘텐츠</p>
+</template>`;
+
+const textCode = `<script setup>
+import Divider from '@/components/Divider.vue';
+<\/script>
+
+<template>
+  <Divider label="섹션 제목" />
+  <Divider plain label="보조 설명" />
+</template>`;
+
+const orientCode = `<script setup>
+import Divider from '@/components/Divider.vue';
+<\/script>
+
+<template>
+  <Divider orient="left" label="왼쪽" />
+  <Divider label="가운데" />
+  <Divider orient="right" label="오른쪽" />
+</template>`;
+
+const verticalCode = `<script setup>
+import Divider from '@/components/Divider.vue';
+import Space from '@/components/Space.vue';
+<\/script>
+
+<template>
+  <Space>
+    <span>항목 A</span>
+    <Divider vertical />
+    <span>항목 B</span>
+    <Divider vertical dashed />
+    <span>항목 C</span>
+  </Space>
+</template>`;
 </script>
 
 <template>
@@ -35,6 +89,7 @@ import {
     title="기본"
     description="divider 클래스로 가로 구분선을 그립니다. hr 또는 div에 사용할 수 있습니다."
     stack
+    :code="basicCode"
   >
     <p>위 콘텐츠</p>
     <Divider />
@@ -46,6 +101,7 @@ import {
     title="점선"
     description="divider_dashed로 점선 스타일을 적용합니다."
     stack
+    :code="dashedCode"
   >
     <p>위 콘텐츠</p>
     <Divider dashed />
@@ -57,6 +113,7 @@ import {
     title="텍스트 레이블"
     description="요소 안에 텍스트가 있으면 양쪽 선과 가운데 레이블로 자동 전환됩니다."
     stack
+    :code="textCode"
   >
     <Divider label="섹션 제목" />
     <Divider plain label="보조 설명" />
@@ -67,6 +124,7 @@ import {
     title="레이블 정렬"
     description="divider_orient-left · divider_orient-right로 레이블 위치를 조정합니다. 기본은 가운데입니다."
     stack
+    :code="orientCode"
   >
     <Divider orient="left" label="왼쪽" />
     <Divider label="가운데" />
@@ -77,6 +135,7 @@ import {
     heading-id="vertical-heading"
     title="세로"
     description="divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다."
+    :code="verticalCode"
   >
     <Space>
       <span>항목 A</span>

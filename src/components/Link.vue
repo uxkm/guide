@@ -12,6 +12,7 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
+    validator: (v) => ['primary', 'muted', 'success', 'warning', 'danger'].includes(v),
   },
   size: {
     type: String,
@@ -74,6 +75,19 @@ const rootClass = computed(() => {
 });
 
 const showLabel = computed(() => !props.iconOnly && (props.label || slots.default));
+
+function onClick(event) {
+  if (props.disabled) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+
+  const resolvedHref = props.href || attrs.href;
+  if (!resolvedHref || resolvedHref === '#') {
+    event.preventDefault();
+  }
+}
 </script>
 
 <template>
@@ -88,7 +102,7 @@ const showLabel = computed(() => !props.iconOnly && (props.label || slots.defaul
     :aria-current="active ? 'page' : undefined"
     :aria-disabled="disabled ? 'true' : undefined"
     :tabindex="disabled ? -1 : undefined"
-    @click="!href ? $event.preventDefault() : undefined"
+    @click="onClick"
   >
     <slot name="icon" />
     <template v-if="showLabel">

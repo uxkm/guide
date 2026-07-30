@@ -2,7 +2,7 @@
 import { computed, ref, useAttrs, useSlots } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
-import { rippleProp, rippleSurfaceAttrs, useRipple } from '@/composables/useRipple';
+import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useDatePickerDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({ inheritAttrs: false });
@@ -84,18 +84,15 @@ const hasValue = computed(() => Boolean(props.value));
         :aria-label="ariaLabel"
         :aria-invalid="ariaInvalid === true || ariaInvalid === 'true' ? 'true' : ariaInvalid === false || ariaInvalid === 'false' ? 'false' : undefined"
       />
-      <Button
+      <button
         v-if="clearable && hasValue"
-        v-bind="rippleSurfaceAttrs"
-        variant="ghost"
-        icon-only
+        type="button"
         class="date_picker_clear"
+        data-ripple="surface"
         aria-label="날짜 지우기"
       >
-        <template #icon-before>
-          <Icon name="close" size="sm" />
-        </template>
-      </Button>
+        <Icon name="close" size="sm" />
+      </button>
       <Button
         v-bind="childRippleAttrs"
         variant="ghost"

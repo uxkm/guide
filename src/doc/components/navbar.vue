@@ -33,6 +33,246 @@ import {
   navbarTokenColumns,
   navbarTokens,
 } from '@/doc/data/navbar-api';
+
+const basicCode = `<script setup>
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="UXKM">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="홈" active />
+          <NavbarItem label="컴포넌트" />
+          <NavbarItem label="토큰" />
+          <NavbarItem label="접근성" />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const brandCode = `<script setup>
+import Icon from '@/components/Icon.vue';
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="HTML Components">
+      <template #brand-icon>
+        <Icon class="navbar_brand-icon">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M9 3v18"/>
+        </Icon>
+      </template>
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="가이드" active />
+          <NavbarItem label="리소스" />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const actionsCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Dashboard">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="개요" active />
+          <NavbarItem label="분석" />
+          <NavbarItem label="설정" />
+        </NavbarList>
+      </template>
+      <template #actions>
+        <Button variant="ghost" size="sm" aria-label="알림">
+          <template #icon-before>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </template>
+        </Button>
+        <Button variant="outline" size="sm" label="로그인" />
+        <Button variant="filled" color="primary" size="sm" label="가입" />
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const searchCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Input from '@/components/Input.vue';
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Docs">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="시작하기" />
+          <NavbarItem label="컴포넌트" active />
+          <NavbarItem label="패턴" />
+        </NavbarList>
+      </template>
+      <template #search>
+        <Input type="search" id="navbar-search-demo" size="sm" placeholder="문서 검색…" autocomplete="off" aria-label="문서 검색" />
+      </template>
+      <template #actions>
+        <Button variant="filled" color="primary" size="sm" label="GitHub" />
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const sizeCode = `<script setup>
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Small" size="sm">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="메뉴" active />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+  <div class="navbar_demo">
+    <Navbar brand="Default">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="메뉴" active />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+  <div class="navbar_demo">
+    <Navbar brand="Large" size="lg">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="메뉴" active />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const variantCode = `<script setup>
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Borderless" borderless>
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="홈" active />
+          <NavbarItem label="소개" />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+  <div class="navbar_demo">
+    <Navbar brand="Dark Surface" dark>
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="홈" active />
+          <NavbarItem label="소개" />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+  <div class="navbar_demo navbar_demo-scroll">
+    <Navbar brand="Sticky" sticky>
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="고정" active />
+        </NavbarList>
+      </template>
+    </Navbar>
+    <div style="padding: var(--space-xl); color: var(--color-text-muted); font-size: var(--text-size-sm);">
+      <p style="margin: 0 0 var(--space-md);">스크롤해 보세요. navbar_sticky는 상단에 고정됩니다.</p>
+      <p style="margin: 0;">콘텐츠 영역 예시입니다.</p>
+      <p style="margin: var(--space-md) 0 0;">추가 콘텐츠…</p>
+      <p style="margin: var(--space-md) 0 0;">추가 콘텐츠…</p>
+    </div>
+  </div>
+</template>`;
+
+const badgeCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Inbox">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="받은편지함" active />
+          <NavbarItem label="알림">
+            <template #badge>
+              <Badge color="danger">3</Badge>
+            </template>
+          </NavbarItem>
+          <NavbarItem label="보관함" />
+        </NavbarList>
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
+const responsiveCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Navbar from '@/components/Navbar.vue';
+import NavbarItem from '@/components/NavbarItem.vue';
+import NavbarList from '@/components/NavbarList.vue';
+<\/script>
+
+<template>
+  <div class="navbar_demo">
+    <Navbar brand="Mobile" responsive collapse-id="navbar-responsive-demo">
+      <template #items>
+        <NavbarList>
+          <NavbarItem label="홈" active />
+          <NavbarItem label="제품" />
+          <NavbarItem label="가격" />
+          <NavbarItem label="문의" />
+        </NavbarList>
+      </template>
+      <template #actions>
+        <Button variant="outline" size="sm" label="로그인" />
+        <Button variant="filled" color="primary" size="sm" label="시작하기" />
+      </template>
+    </Navbar>
+  </div>
+</template>`;
+
 </script>
 
 <template>
@@ -46,6 +286,7 @@ import {
     title="기본"
     description="NavbarItem으로 메뉴를 구성합니다. active prop으로 현재 페이지를 표시합니다."
     stack
+    :code="basicCode"
   >
     <div class="navbar_demo">
       <Navbar brand="UXKM">
@@ -66,6 +307,7 @@ import {
     title="브랜드"
     description="brand-icon 슬롯에 Icon 컴포넌트를 함께 배치할 수 있습니다."
     stack
+    :code="brandCode"
   >
     <div class="navbar_demo">
       <Navbar brand="HTML Components">
@@ -90,6 +332,7 @@ import {
     title="액션 영역"
     description="navbar_actions에 버튼·아바타 등을 배치합니다. 버튼 컴포넌트와 조합해 사용합니다."
     stack
+    :code="actionsCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Dashboard">
@@ -121,6 +364,7 @@ import {
     title="검색"
     description="navbar_search에 input 컴포넌트를 넣어 검색 필드를 제공합니다."
     stack
+    :code="searchCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Docs">
@@ -146,6 +390,7 @@ import {
     title="크기"
     description="navbar_sm · navbar_lg로 높이를 조절합니다."
     stack
+    :code="sizeCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Small" size="sm">
@@ -183,6 +428,7 @@ import {
     title="스타일 변형"
     description="navbar_borderless · navbar_dark · navbar_sticky로 외형을 바꿉니다."
     stack
+    :code="variantCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Borderless" borderless>
@@ -228,6 +474,7 @@ import {
     title="배지"
     description="메뉴 항목에 badge 컴포넌트를 함께 사용할 수 있습니다."
     stack
+    :code="badgeCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Inbox">
@@ -251,6 +498,7 @@ import {
     title="반응형"
     description="768px 미만에서 navbar_toggle이 표시되고 메뉴가 접힙니다. aria-expanded · aria-controls · aria-label을 지정합니다."
     stack
+    :code="responsiveCode"
   >
     <div class="navbar_demo">
       <Navbar brand="Mobile" responsive collapse-id="navbar-responsive-demo">

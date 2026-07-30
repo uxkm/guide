@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -33,8 +33,25 @@ const formatCode = createComponentFormatter('TreeNode', {
 
 useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
+const emit = defineEmits(['update:expanded']);
+
 const hasChildren = computed(() => Boolean(slots.default));
 const showToggle = computed(() => props.expandable || hasChildren.value);
+
+const isExpanded = ref(props.expanded !== false);
+
+watch(
+  () => props.expanded,
+  (value) => {
+    if (value !== undefined) isExpanded.value = value !== false;
+  },
+);
+
+function toggleExpand() {
+  if (props.disabled) return;
+  isExpanded.value = !isExpanded.value;
+  emit('update:expanded', isExpanded.value);
+}
 
 const itemClass = computed(() => attrs.class);
 
@@ -59,7 +76,7 @@ const toggleClass = computed(() => {
     class="tree_item"
     :class="itemClass"
     role="treeitem"
-    :aria-expanded="showToggle ? (expanded ? 'true' : 'false') : undefined"
+    :aria-expanded="showToggle ? (isExpanded ? 'true' : 'false') : undefined"
   >
     <div :class="rowClass">
       <button
@@ -67,9 +84,10 @@ const toggleClass = computed(() => {
         v-bind="childRippleAttrs"
         type="button"
         :class="toggleClass"
-        :aria-expanded="expanded ? 'true' : 'false'"
+        :aria-expanded="isExpanded ? 'true' : 'false'"
         :aria-label="toggleLabel"
         :disabled="disabled || undefined"
+        @click="toggleExpand"
       />
       <span v-else class="tree_toggle tree_toggle_placeholder" aria-hidden="true" />
 
@@ -93,7 +111,7 @@ const toggleClass = computed(() => {
       </span>
     </div>
 
-    <ul v-if="hasChildren && expanded !== false" class="tree" role="group">
+    <ul v-if="hasChildren && isExpanded" class="tree" role="group">
       <slot />
     </ul>
   </li>

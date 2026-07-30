@@ -23,6 +23,11 @@ function onControlClick(event) {
   const control = event.target.closest('span.checkbox_control, span.radio_control');
   if (!control) return;
 
+  // label 내부 암묵 연결(control/input이 label 안에 있을 때)은 네이티브 클릭에 맡긴다.
+  if (control.closest('label.checkbox, label.radio, label.checkbox_control, label.radio_control')) {
+    return;
+  }
+
   const input = control.querySelector('.checkbox_input, .radio_input');
   if (!input || input.disabled || event.target === input) return;
 

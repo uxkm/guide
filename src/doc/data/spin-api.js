@@ -147,7 +147,8 @@ export const spinTokens = [
   { name: '--spin-duration', default: '0.8s', description: '회전 애니메이션 주기' },
   { name: '--spin-gap', default: 'var(--space-sm)', description: '스피너·텍스트 간격' },
   { name: '--spin-tip-size', default: 'var(--text-size-sm)', description: '설명 텍스트 크기' },
-  { name: '--spin-overlay-bg', default: 'var(--color-overlay)', description: '오버레이 배경' },
+  { name: '--spin-overlay-bg', default: 'rgba(15, 20, 25, 0.72)', description: '오버레이 배경 (tip 명도 대비용 불투명도)' },
+  { name: '--spin-overlay-tip-color', default: '#ffffff', description: '오버레이 위 tip 텍스트 색' },
   { name: '--spin-wrap-min-height', default: '8rem', description: 'spin_wrap-block 최소 높이' },
   { name: '--spin-wrap-content-opacity', default: '0.45', description: '로딩 시 콘텐츠 불투명도' },
 ];

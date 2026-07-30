@@ -1,9 +1,9 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
-defineOptions({ inheritAttrs: false });
+defineOptions({ inheritAttrs: false, name: 'Avatar' });
 
 const props = defineProps({
   src: String,
@@ -24,6 +24,7 @@ const props = defineProps({
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const imageError = ref(false);
 
 const formatCode = createComponentFormatter('Avatar', {
   defaults: { size: 'md' },
@@ -44,8 +45,17 @@ const rootClass = computed(() => {
   return classes;
 });
 
+const showImage = computed(() => Boolean(props.src) && !imageError.value);
+
+watch(
+  () => props.src,
+  () => {
+    imageError.value = false;
+  }
+);
+
 const showInitials = computed(
-  () => !props.src && !slots.icon && props.initials
+  () => !showImage.value && !slots.icon && props.initials
 );
 </script>
 
@@ -55,7 +65,13 @@ const showInitials = computed(
     :class="rootClass"
     :aria-hidden="ariaHidden ? 'true' : undefined"
   >
-    <img v-if="src" class="avatar_image" :src="src" :alt="alt || ''" />
+    <img
+      v-if="showImage"
+      class="avatar_image"
+      :src="src"
+      :alt="alt || ''"
+      @error="imageError = true"
+    />
     <slot v-else-if="$slots.icon" name="icon" />
     <template v-else-if="showInitials">{{ initials }}</template>
     <span

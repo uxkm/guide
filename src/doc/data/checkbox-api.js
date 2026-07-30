@@ -41,3 +41,22 @@ export const checkboxClasses = [
   { name: 'is-checked · is-disabled', description: '상태 (CSS·JS 토글)' },
   ...rippleClassRows,
 ];
+
+
+export const checkboxTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const checkboxTokens = [
+  { name: '--checkbox-size · --checkbox-size-sm · --checkbox-size-lg', default: '1rem · 0.875rem · 1.125rem', description: '체크박스 박스 크기' },
+  { name: '--checkbox-border-width · --checkbox-radius', default: '1px · 4px', description: '테두리·모서리' },
+  { name: '--checkbox-gap · --checkbox-gap-sm · --checkbox-gap-lg', default: 'var(--space-sm) · 0.375rem · 0.625rem', description: '라벨 간격' },
+  { name: '--checkbox-font-size · --checkbox-line-height', default: 'var(--text-size-base) · 1.5', description: '라벨 타이포(md)' },
+  { name: '--checkbox-label-weight', default: '400', description: '라벨 두께' },
+  { name: '--checkbox-hint-size', default: 'var(--text-size-sm)', description: '힌트 텍스트' },
+  { name: '--checkbox-control-offset', default: '0.125rem', description: '박스 수직 정렬' },
+  { name: '--checkbox-group-gap', default: 'var(--space-sm)', description: '그룹 간격' },
+  { name: '--checkbox-button-padding-y · --checkbox-button-padding-x', default: '0.35rem · 0.75rem', description: '버튼형 패딩' },
+];

@@ -46,6 +46,11 @@ const rootClass = computed(() => {
   return classes;
 });
 
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+
 const triggerClass = computed(() => {
   if (props.variant === 'drag') return ['upload_dropzone', props.dragover ? 'is-dragover' : '', props.error ? 'is-error' : ''].filter(Boolean);
   if (props.variant === 'picture-card') return ['upload_card', 'upload_card-trigger'];
@@ -72,6 +77,7 @@ const triggerClass = computed(() => {
         :multiple="multiple || undefined"
         :accept="accept"
         :aria-invalid="error ? 'true' : undefined"
+        v-bind="fallthroughAttrs"
       />
       <slot name="trigger" />
     </label>

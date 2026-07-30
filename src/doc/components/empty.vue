@@ -25,6 +25,96 @@ import {
   emptyTokens,
   markupCode,
 } from '@/doc/data/empty-api';
+
+const basicCode = `<script setup>
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Empty description="데이터가 없습니다" />
+</template>`;
+
+const footerCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Empty description="등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.">
+    <template #footer>
+      <Button variant="filled" color="primary" size="sm" label="프로젝트 만들기" />
+    </template>
+  </Empty>
+</template>`;
+
+const customCode = `<script setup>
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Empty description="검색 결과가 없습니다. 다른 키워드로 다시 검색해 보세요.">
+    <template #image>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+        <path d="M8 11h6" />
+      </svg>
+    </template>
+  </Empty>
+</template>`;
+
+const sizeCode = `<script setup>
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Empty size="sm" description="Small" />
+  <Empty description="Medium (기본)" style="margin-top: var(--space-md);" />
+  <Empty size="lg" description="Large" style="margin-top: var(--space-md);" />
+</template>`;
+
+const simpleCode = `<script setup>
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Empty simple size="sm" description="일정 없음" />
+</template>`;
+
+const blockCode = `<script setup>
+import Card from '@/components/Card.vue';
+import Empty from '@/components/Empty.vue';
+<\/script>
+
+<template>
+  <Card variant="shadow" style="max-width: var(--input-max-width); width: 100%;">
+    <div class="card_header">
+      <h3 class="card_title">알림 목록</h3>
+    </div>
+    <div class="card_body">
+      <Empty block description="새 알림이 없습니다" />
+    </div>
+  </Card>
+  <div class="table_wrap" style="max-width: var(--input-max-width); width: 100%; margin-top: var(--space-md);">
+    <table class="table table_bordered">
+      <thead>
+        <tr>
+          <th scope="col">이름</th>
+          <th scope="col">상태</th>
+          <th scope="col">날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3" style="padding: 0; border: none;">
+            <Empty block simple size="sm" description="표시할 항목이 없습니다" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>`;
+
 </script>
 
 <template>
@@ -37,6 +127,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="<code class=&quot;typo_code&quot;>empty_image</code> · <code class=&quot;typo_code&quot;>empty_desc</code>로 아이콘과 설명을 표시합니다."
+    :code="basicCode"
   >
     <Empty description="데이터가 없습니다" />
   </DemoSection>
@@ -45,6 +136,7 @@ import {
     heading-id="footer-heading"
     title="액션"
     description="<code class=&quot;typo_code&quot;>empty_footer</code>에 버튼·링크를 배치해 다음 행동을 유도합니다."
+    :code="footerCode"
   >
     <Empty description="등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.">
       <template #footer>
@@ -57,6 +149,7 @@ import {
     heading-id="custom-heading"
     title="커스텀 이미지"
     description="<code class=&quot;typo_code&quot;>empty_image</code>에 SVG·img를 자유롭게 넣을 수 있습니다."
+    :code="customCode"
   >
     <Empty description="검색 결과가 없습니다. 다른 키워드로 다시 검색해 보세요.">
       <template #image>
@@ -73,6 +166,7 @@ import {
     heading-id="size-heading"
     title="크기"
     description="<code class=&quot;typo_code&quot;>empty_sm</code> · <code class=&quot;typo_code&quot;>empty</code>(기본) · <code class=&quot;typo_code&quot;>empty_lg</code> 세 가지 스케일을 지원합니다."
+    :code="sizeCode"
   >
     <Empty size="sm" description="Small" />
     <Empty description="Medium (기본)" style="margin-top: var(--space-md);" />
@@ -83,6 +177,7 @@ import {
     heading-id="simple-heading"
     title="설명만"
     description="<code class=&quot;typo_code&quot;>empty_simple</code>은 아이콘 없이 짧은 안내만 표시합니다. 테이블·목록 셀 등 좁은 영역에 적합합니다."
+    :code="simpleCode"
   >
     <Empty simple size="sm" description="일정 없음" />
   </DemoSection>
@@ -91,6 +186,7 @@ import {
     heading-id="block-heading"
     title="블록 · 컨테이너"
     description="<code class=&quot;typo_code&quot;>empty_block</code>은 카드·테이블 등 부모 너비 안에서 가운데 정렬합니다."
+    :code="blockCode"
   >
     <Card variant="shadow" style="max-width: var(--input-max-width); width: 100%;">
       <div class="card_header">

@@ -9,7 +9,10 @@ defineOptions({ inheritAttrs: false });
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
-  /** common-icons 갤러리 키. 지정 시 기본 슬롯 대신 해당 경로를 렌더합니다 */
+  /**
+   * common-icons 갤러리 키.
+   * path·image 슬롯이 없을 때만 미리 정의된 stroke 경로를 렌더합니다.
+   */
   name: String,
   color: String,
   size: {
@@ -28,8 +31,19 @@ const props = defineProps({
 useRipple(props, { defaultEnabled: false });
 
 const slots = useSlots();
+const attrs = useAttrs();
+const rootRef = ref(null);
+
+useIconDemoCode(props, rootRef, attrs, slots);
+
+const hasImageSlot = computed(() => Boolean(slots.image));
+/** 기본 슬롯 또는 #path — SVG path·circle 등 커스텀 도형 */
+const hasPathSlot = computed(() => Boolean(slots.path) || Boolean(slots.default));
 const namedElements = computed(() => (props.name ? commonIconPaths[props.name] ?? [] : []));
-const useNamedPaths = computed(() => Boolean(props.name) && !slots.default);
+/** name은 커스텀 슬롯이 없을 때만 사용 */
+const useNamedPaths = computed(
+  () => Boolean(props.name) && namedElements.value.length > 0 && !hasImageSlot.value && !hasPathSlot.value,
+);
 
 const buttonRippleAttrs = computed(() => {
   if (!props.button) return {};
@@ -37,19 +51,24 @@ const buttonRippleAttrs = computed(() => {
   return { 'data-ripple': 'true' };
 });
 
+/** button · circle · square · image 슬롯은 래퍼(또는 span)가 루트 */
+const rootTag = computed(() => {
+  if (props.button) return 'button';
+  if (props.circle || props.square) return 'span';
+  if (hasImageSlot.value) return 'span';
+  return null;
+});
 
-const attrs = useAttrs();
-const rootRef = ref(null);
-
-useIconDemoCode(props, rootRef, attrs);
-
-const rootTag = computed(() => (props.button ? 'button' : props.circle || props.square ? 'span' : null));
+const sizeClasses = computed(() => {
+  const classes = [];
+  if (props.size === 'sm') classes.push('icon_sm');
+  if (props.size === 'lg') classes.push('icon_lg');
+  if (props.size === 'xl') classes.push('icon_xl');
+  return classes;
+});
 
 const innerSvgClass = computed(() => {
-  const classes = ['icon'];
-  if (!props.circle && props.size === 'sm') classes.push('icon_sm');
-  if (!props.circle && props.size === 'lg') classes.push('icon_lg');
-  if (!props.circle && props.size === 'xl') classes.push('icon_xl');
+  const classes = ['icon', ...sizeClasses.value];
   if (props.spin) classes.push('icon_spin');
   return classes;
 });
@@ -58,6 +77,16 @@ const svgClass = computed(() => {
   const classes = [...innerSvgClass.value];
   if (props.color) classes.push(`color_${props.color}`);
   if (props.inline) classes.push('icon_inline');
+  if (attrs.class) classes.push(attrs.class);
+  return classes;
+});
+
+/** image 전용 루트(래퍼 없음)용 클래스 */
+const imageRootClass = computed(() => {
+  const classes = ['icon', 'icon_img', ...sizeClasses.value];
+  if (props.color) classes.push(`color_${props.color}`);
+  if (props.inline) classes.push('icon_inline');
+  if (props.spin) classes.push('icon_spin');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });
@@ -84,11 +113,21 @@ const wrapperClass = computed(() => {
   }
   return null;
 });
+
+const svgStrokeAttrs = {
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  'stroke-width': 2,
+  'stroke-linecap': 'round',
+  'stroke-linejoin': 'round',
+};
 </script>
 
 <template>
+  <!-- button · circle · square 래퍼 -->
   <component
-    v-if="rootTag"
+    v-if="rootTag && (button || circle || square)"
     :is="rootTag"
     ref="rootRef"
     v-bind="buttonRippleAttrs"
@@ -97,14 +136,15 @@ const wrapperClass = computed(() => {
     :aria-label="button ? ariaLabel : undefined"
     :aria-hidden="!button && !ariaLabel ? 'true' : undefined"
   >
+    <template v-if="hasImageSlot">
+      <span :class="[...innerSvgClass, 'icon_img']" aria-hidden="true">
+        <slot name="image" />
+      </span>
+    </template>
     <svg
+      v-else
       :class="innerSvgClass"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      v-bind="svgStrokeAttrs"
       aria-hidden="true"
     >
       <template v-if="useNamedPaths">
@@ -115,19 +155,29 @@ const wrapperClass = computed(() => {
           v-bind="el.attrs"
         />
       </template>
-      <slot v-else />
+      <slot v-else name="path">
+        <slot />
+      </slot>
     </svg>
   </component>
+
+  <!-- image 슬롯만 (래퍼 없음) -->
+  <span
+    v-else-if="hasImageSlot"
+    ref="rootRef"
+    :class="imageRootClass"
+    :aria-hidden="!ariaLabel ? 'true' : undefined"
+    :aria-label="ariaLabel"
+  >
+    <slot name="image" />
+  </span>
+
+  <!-- name · path 슬롯 (SVG 루트) -->
   <svg
     v-else
     ref="rootRef"
     :class="svgClass"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    v-bind="svgStrokeAttrs"
     :aria-hidden="!ariaLabel ? 'true' : undefined"
     :aria-label="ariaLabel"
   >
@@ -139,6 +189,8 @@ const wrapperClass = computed(() => {
         v-bind="el.attrs"
       />
     </template>
-    <slot v-else />
+    <slot v-else name="path">
+      <slot />
+    </slot>
   </svg>
 </template>

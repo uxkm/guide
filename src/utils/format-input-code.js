@@ -11,21 +11,17 @@ export function formatInputGroupCode(props, attrs = {}, el, registry) {
   const hasPrefix = Boolean(prefixHost?.textContent?.trim());
   const hasSuffix = Boolean(suffixHost?.textContent?.trim());
 
+  const config = {
+    defaults: { size: 'md', type: 'text' },
+    booleanProps: new Set(['disabled', 'error', 'block', 'clearable']),
+    skipProps: ['modelValue'],
+  };
+
   if (!hasPrefix && !hasSuffix) {
-    return openComponentTag('Input', props, attrs, {
-      defaults: { size: 'md', type: 'text' },
-      booleanProps: new Set(['disabled', 'error', 'block']),
-      skipProps: ['modelValue'],
-    });
+    return openComponentTag('Input', props, attrs, config);
   }
 
-  const lines = [
-    `${openComponentTag('Input', props, attrs, {
-      defaults: { size: 'md', type: 'text' },
-      booleanProps: new Set(['disabled', 'error', 'block']),
-      skipProps: ['modelValue'],
-    })}>`,
-  ];
+  const lines = [`${openComponentTag('Input', props, attrs, config)}>`];
 
   if (hasPrefix) {
     appendNamedSlot(lines, 'prefix', serializeDomChildren(prefixHost, registry, 2));
@@ -37,4 +33,12 @@ export function formatInputGroupCode(props, attrs = {}, el, registry) {
 
   lines.push('</Input>');
   return lines.join('\n');
+}
+
+export function formatInputCode(props, attrs = {}) {
+  return openComponentTag('Input', props, attrs, {
+    defaults: { size: 'md', type: 'text' },
+    booleanProps: new Set(['disabled', 'error', 'block', 'clearable']),
+    skipProps: ['modelValue'],
+  });
 }

@@ -131,3 +131,19 @@ export const linkClasses = [
   { name: 'color_* · size_*', description: '공통 색상·크기 유틸' },
   ...rippleClassRows,
 ];
+
+
+export const linkTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const linkTokens = [
+  { name: '--link-gap', default: 'var(--space-xs)', description: '아이콘·텍스트 간격' },
+  { name: '--link-font-weight', default: '500', description: '링크 두께' },
+  { name: '--link-underline-offset', default: '2px', description: '밑줄 오프셋' },
+  { name: '--link-nav-padding-y · --link-nav-padding-x', default: '0.35rem · 0.5rem', description: '네비 링크 패딩' },
+  { name: '--link-standalone-padding-y · --link-standalone-padding-x', default: '0.25rem · 0.15rem', description: '독립 링크 터치 영역' },
+  { name: '--link-icon-only-size', default: '2rem', description: '아이콘만 링크 크기' },
+];

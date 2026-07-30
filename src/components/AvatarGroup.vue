@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
+defineOptions({ name: 'AvatarGroup' });
+
 const props = defineProps({
   ariaLabel: String,
 });

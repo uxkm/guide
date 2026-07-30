@@ -309,3 +309,24 @@ a.tag {
     opacity: 0.88;
   }
 }
+
+// 코드 하이라이터(Prism 등) HTML tag 토큰 — 컴포넌트 .tag 스킨과 클래스명 충돌 방지
+pre code :where(.tag),
+.typo_pre code :where(.tag) {
+  display: inline;
+  align-items: unset;
+  gap: 0;
+  width: auto;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  white-space: inherit;
+  vertical-align: baseline;
+}

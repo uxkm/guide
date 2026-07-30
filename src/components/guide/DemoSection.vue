@@ -3,6 +3,15 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { provideDemoCode } from '@/composables/useDemoCode';
 import { formatDemoHtml } from '@/utils/format-demo-html';
 import { formatDocDescription } from '@/utils/format-doc-description';
+import { formatVueSourceCode } from '@/utils/format-vue-source-code';
+
+const SPACE_TOKENS = new Set(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl']);
+
+function toSpaceCSSValue(value) {
+  if (!value) return undefined;
+  if (value.startsWith('var(') || value.includes('(')) return value;
+  return SPACE_TOKENS.has(value) ? `var(--space-${value})` : value;
+}
 
 const props = defineProps({
   title: {
@@ -15,6 +24,14 @@ const props = defineProps({
     required: true,
   },
   stack: Boolean,
+  /** 예시 항목 사이 가로·세로 간격 (space 토큰 또는 CSS 값) */
+  gap: String,
+  /** stack 모드에서 예시 항목 사이 세로 간격 */
+  stackGap: String,
+  /** 예시 영역 상하 패딩 */
+  paddingBlock: String,
+  /** 예시 영역 좌우 패딩 */
+  paddingInline: String,
   code: String,
   codeLang: {
     type: String,
@@ -37,12 +54,32 @@ const previewClass = computed(() => [
   { 'demo_section-preview-stack': props.stack },
 ]);
 
+const previewStyle = computed(() => {
+  const style = {};
+  const gap = toSpaceCSSValue(props.gap);
+  const stackGap = toSpaceCSSValue(props.stackGap);
+  const paddingBlock = toSpaceCSSValue(props.paddingBlock);
+  const paddingInline = toSpaceCSSValue(props.paddingInline);
+
+  if (gap) {
+    style['--demo-gap-x'] = gap;
+    style['--demo-gap-y'] = gap;
+  }
+  if (stackGap) style['--demo-gap-stack'] = stackGap;
+  if (paddingBlock) style['--demo-padding-block'] = paddingBlock;
+  if (paddingInline) style['--demo-padding-inline'] = paddingInline;
+
+  return style;
+});
+
 const displayCode = computed(() => capturedCode.value);
 const formattedDescription = computed(() => formatDocDescription(props.description));
 
 async function captureCode() {
   if (props.code) {
-    capturedCode.value = props.code;
+    capturedCode.value = props.codeLang === 'vue'
+      ? formatVueSourceCode(props.code)
+      : props.code;
     return;
   }
 
@@ -53,7 +90,7 @@ async function captureCode() {
   if (props.codeLang === 'vue') {
     const vueCode = demoCode.buildCode(previewRef.value);
     if (vueCode) {
-      capturedCode.value = vueCode;
+      capturedCode.value = formatVueSourceCode(vueCode);
       return;
     }
   }
@@ -98,6 +135,7 @@ watch(
     <div
       ref="previewRef"
       :class="previewClass"
+      :style="previewStyle"
       :data-demo-section="demoCode.sectionId"
     >
       <slot />

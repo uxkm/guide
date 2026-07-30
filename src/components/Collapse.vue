@@ -1,14 +1,14 @@
 <script setup>
 /**
- * CollapseGroup — 접이식 패널 그룹 컨테이너
+ * Collapse — 접이식 패널 그룹 컨테이너
  *
  * CollapsePanel 자식을 등록·조율합니다.
  * accordion이 true이면 한 번에 하나의 패널만 열립니다.
  *
- * provide('collapseGroup')로 자식과 상태를 공유합니다.
+ * provide('collapse')로 자식과 상태를 공유합니다.
  */
 import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
-import { useCollapseGroupDemoCode } from '@/composables/useDemoCode';
+import { useCollapseDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
   inheritAttrs: false,
@@ -29,19 +29,21 @@ const props = defineProps({
   },
   /** 한 번에 하나의 패널만 열기 (아코디언 모드) */
   accordion: Boolean,
-  /** 펼침·접힘 높이 슬라이드. slide */
-  effect: {
-    type: String,
-    validator: (value) => value === undefined || value === 'slide',
-  },
   /** 데모용 최대 너비 제한 (collapse_demo-narrow) */
   narrow: Boolean,
+  /** 펼침·접힘 효과. slide — 높이 슬라이드 */
+  effect: {
+    type: String,
+    default: undefined,
+    validator: (value) => value === undefined || value === null || value === '' || value === 'slide',
+  },
 });
 
 const attrs = useAttrs();
 const rootRef = ref(null);
 const panels = new Map();
 const registeredPanels = shallowRef([]);
+const effect = toRef(props, 'effect');
 
 const rootClass = computed(() => [
   'collapse_group',
@@ -85,21 +87,21 @@ function togglePanel(id, isOpenRef) {
   isOpenRef.value = willOpen;
 }
 
-provide('collapseGroup', {
+provide('collapse', {
   registerPanel,
   unregisterPanel,
   togglePanel,
-  effect: toRef(props, 'effect'),
+  effect,
 });
 
-useCollapseGroupDemoCode(props, registeredPanels, rootRef, attrs);
+useCollapseDemoCode(props, registeredPanels, rootRef, attrs);
 </script>
 
 <template>
   <div
     ref="rootRef"
     :class="rootClass"
-    :data-effect="effect === 'slide' ? 'slide' : undefined"
+    :data-effect="effect || undefined"
     v-bind="fallthroughAttrs"
   >
     <slot />

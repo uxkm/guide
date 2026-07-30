@@ -3,7 +3,6 @@ import { computed, ref, useAttrs, useSlots } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
-import DocIcon from '@/components/icons/DocIcon.vue';
 import { useAlertDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({ inheritAttrs: false });
@@ -87,7 +86,7 @@ function onClose() {
   >
     <div v-if="showIcon" data-demo-slot="icon">
       <slot name="icon">
-        <DocIcon :name="alertIconName" class="alert_icon" />
+        <Icon :name="alertIconName" class="alert_icon" />
       </slot>
     </div>
     <div class="alert_body">

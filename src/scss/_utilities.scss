@@ -200,14 +200,15 @@ $spacing-sizes: xs, sm, md, lg, xl;
   margin-inline: auto;
   padding-inline: var(--container-padding-x);
 
-  &_fluid {
-    max-width: none;
-  }
-
   @each $size in sm, md, lg, xl {
     &_#{$size} {
       max-width: var(--container-max-width-#{$size});
     }
+  }
+
+  // size 변형보다 뒤에 두어 fluid + size 조합 시 max-width 제한 해제
+  &_fluid {
+    max-width: none;
   }
 }
 

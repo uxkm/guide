@@ -2,7 +2,7 @@
 /**
  * CollapsePanel — 접이식 패널 그룹 내 단일 패널
  *
- * CollapseGroup 내부에서만 사용합니다. inject('collapseGroup')으로 부모와 연동됩니다.
+ * Collapse 내부에서만 사용합니다. inject('collapse')으로 부모와 연동됩니다.
  *
  * 접근성: button 트리거 + role="region" 본문, aria-expanded · aria-controls.
  */
@@ -33,29 +33,35 @@ const { rippleAttrs } = useRipple(props);
 
 
 const slots = useSlots();
-const group = inject('collapseGroup', null);
+const group = inject('collapse', null);
 const triggerId = useId().replace(/:/g, '');
 const bodyId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
 const bodyRef = ref(null);
 
-const isSlide = computed(() => group?.effect?.value === 'slide');
+const slideEffect = computed(() => group?.effect?.value === 'slide');
 
 const panelClass = computed(() => [
   'collapse_panel',
   { 'is-open': isOpen.value, 'is-disabled': props.disabled },
 ]);
 
+/** slide일 때는 hidden을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
+const bodyBind = computed(() =>
+  slideEffect.value ? {} : { hidden: !isOpen.value || undefined },
+);
+
 function toggle() {
   if (props.disabled || !group) return;
   group.togglePanel(triggerId, isOpen);
 }
 
-onMounted(() => {
-  if (isSlide.value) {
-    setSlideRegionOpen(bodyRef.value, isOpen.value, false);
-  }
+watch(isOpen, (open) => {
+  if (!slideEffect.value) return;
+  setSlideRegionOpen(bodyRef.value, open, true);
+});
 
+onMounted(() => {
   if (!group) return;
 
   group.registerPanel({
@@ -68,11 +74,10 @@ onMounted(() => {
     extraCode: props.extraCode,
     isOpen,
   });
-});
 
-watch(isOpen, (open) => {
-  if (!isSlide.value) return;
-  setSlideRegionOpen(bodyRef.value, open, true);
+  if (slideEffect.value) {
+    setSlideRegionOpen(bodyRef.value, isOpen.value, false);
+  }
 });
 
 onUnmounted(() => {
@@ -108,7 +113,7 @@ onUnmounted(() => {
       class="collapse_body"
       role="region"
       :aria-labelledby="triggerId"
-      :hidden="isSlide ? undefined : (!isOpen || undefined)"
+      v-bind="bodyBind"
     >
       <div class="collapse_content">
         <slot>

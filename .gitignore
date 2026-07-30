@@ -6,3 +6,4 @@ dist/
 *.scss.map
 .DS_Store
 pnpm-lock.yaml
+.tmp-*/

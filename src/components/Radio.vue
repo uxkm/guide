@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, useAttrs, useId, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -32,7 +32,6 @@ const interactiveRippleAttrs = computed(() => {
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
-const inputId = useId();
 
 const formatCode = createComponentFormatter('Radio', {
   booleanProps: new Set(['checked', 'disabled', 'labelEnd', 'button', 'ripple']),
@@ -51,6 +50,11 @@ const rootClass = computed(() => {
 
 const hasLabel = computed(() => Boolean(props.label || slots.default));
 const isStandalone = computed(() => !hasLabel.value);
+
+const inputAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
@@ -63,44 +67,42 @@ const isStandalone = computed(() => !hasLabel.value);
       :value="value"
       :checked="checked"
       :disabled="disabled"
-      v-bind="attrs"
+      v-bind="inputAttrs"
     />
     <span class="radio_box" aria-hidden="true" />
   </label>
   <label v-else-if="button" ref="rootRef" v-bind="interactiveRippleAttrs" :class="rootClass">
     <input
-      :id="inputId"
       type="radio"
       class="radio_input"
       :name="name"
       :value="value"
       :checked="checked"
       :disabled="disabled"
-      v-bind="attrs"
+      v-bind="inputAttrs"
     />
     <span class="radio_label">
       <slot>{{ label }}</slot>
     </span>
   </label>
-  <div v-else ref="rootRef" v-bind="rippleAttrs" :class="rootClass">
-    <label v-if="labelEnd" class="radio_label" :for="inputId">
+  <label v-else ref="rootRef" v-bind="rippleAttrs" :class="rootClass">
+    <span v-if="labelEnd" class="radio_label">
       <slot>{{ label }}</slot>
-    </label>
+    </span>
     <span class="radio_control">
       <input
-        :id="inputId"
         type="radio"
         class="radio_input"
         :name="name"
         :value="value"
         :checked="checked"
         :disabled="disabled"
-        v-bind="attrs"
+        v-bind="inputAttrs"
       />
       <span class="radio_box" aria-hidden="true" />
     </span>
-    <label v-if="!labelEnd" class="radio_label" :for="inputId">
+    <span v-if="!labelEnd" class="radio_label">
       <slot>{{ label }}</slot>
-    </label>
-  </div>
+    </span>
+  </label>
 </template>

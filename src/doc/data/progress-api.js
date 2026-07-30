@@ -60,6 +60,7 @@ export const progressTokenColumns = [
 
 export const progressTokens = [
   { name: '--progress-height · --progress-height-sm · --progress-height-lg', default: '8px · 4px · 12px', description: '선형 트랙 높이' },
+  { name: '--progress-inside-height · --progress-inside-height-sm · --progress-inside-height-lg', default: '1.25rem · 1rem · 1.5rem', description: '바 안 텍스트 트랙·막대 최소 높이' },
   { name: '--progress-max-width', default: 'var(--input-max-width)', description: 'progress_fit 최대 너비' },
   { name: '--progress-circle-size · --progress-circle-stroke', default: '7.5rem · 6', description: '원형 크기·stroke' },
 ];

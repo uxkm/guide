@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import { useInputDemoCode } from '@/composables/useDemoCode';
+import Icon from '@/components/Icon.vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -18,6 +19,8 @@ const props = defineProps({
     default: 'text',
   },
   block: Boolean,
+  /** 값이 있을 때 우측 지우기 버튼 (input_clearable) */
+  clearable: Boolean,
   modelValue: String,
 });
 
@@ -26,6 +29,7 @@ const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const inputEl = ref(null);
 
 useInputDemoCode(props, rootRef, attrs);
 
@@ -38,6 +42,22 @@ watch(
   (value) => {
     inputValue.value = value ?? '';
   },
+);
+
+const isReadonly = computed(() => {
+  if ('readonly' in attrs || 'readOnly' in attrs) {
+    const value = attrs.readonly ?? attrs.readOnly;
+    return value !== false && value !== null;
+  }
+  return false;
+});
+
+const showClear = computed(
+  () =>
+    props.clearable
+    && !props.disabled
+    && !isReadonly.value
+    && String(inputValue.value ?? '').length > 0,
 );
 
 const inputClass = computed(() => {
@@ -106,14 +126,78 @@ function onPaste(event) {
 
   applyValue(event, sanitizeValue(merged));
 }
+
+function onClear() {
+  if (props.disabled || isReadonly.value) return;
+
+  inputValue.value = '';
+  emit('update:modelValue', '');
+  inputEl.value?.focus();
+}
 </script>
 
 <template>
+  <!-- 애드온 + clearable -->
   <div v-if="hasAddon" ref="rootRef" class="input_group" :class="attrs.class">
     <span v-if="slots.prefix" class="input_group-addon" aria-hidden="true" data-demo-slot="prefix">
       <slot name="prefix" />
     </span>
+    <span
+      v-if="clearable"
+      class="input_clearable"
+      :class="{ 'is-filled': showClear }"
+    >
+      <input
+        ref="inputEl"
+        :type="type"
+        :class="inputClass"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :value="inputValue"
+        :aria-invalid="error ? 'true' : undefined"
+        v-bind="fallthroughAttrs"
+        @input="onInput"
+        @paste="onPaste"
+      />
+      <button
+        type="button"
+        class="input_clear"
+        data-ripple="surface"
+        aria-label="입력 지우기"
+        :hidden="!showClear"
+        @click="onClear"
+      >
+        <Icon name="close" />
+      </button>
+    </span>
+    <template v-else>
+      <input
+        ref="inputEl"
+        :type="type"
+        :class="inputClass"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :value="inputValue"
+        :aria-invalid="error ? 'true' : undefined"
+        v-bind="fallthroughAttrs"
+        @input="onInput"
+        @paste="onPaste"
+      />
+    </template>
+    <span v-if="slots.suffix" class="input_group-addon" data-demo-slot="suffix">
+      <slot name="suffix" />
+    </span>
+  </div>
+
+  <!-- clearable만 -->
+  <div
+    v-else-if="clearable"
+    ref="rootRef"
+    class="input_clearable"
+    :class="[attrs.class, { 'is-filled': showClear }]"
+  >
     <input
+      ref="inputEl"
       :type="type"
       :class="inputClass"
       :placeholder="placeholder"
@@ -124,10 +208,19 @@ function onPaste(event) {
       @input="onInput"
       @paste="onPaste"
     />
-    <span v-if="slots.suffix" class="input_group-addon" data-demo-slot="suffix">
-      <slot name="suffix" />
-    </span>
+    <button
+      type="button"
+      class="input_clear"
+      data-ripple="surface"
+      aria-label="입력 지우기"
+      :hidden="!showClear"
+      @click="onClear"
+    >
+      <Icon name="close" />
+    </button>
   </div>
+
+  <!-- 기본 input -->
   <input
     v-else
     ref="rootRef"

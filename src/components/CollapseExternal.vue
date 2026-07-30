@@ -2,7 +2,7 @@
 /**
  * CollapseExternal — 외부 트리거가 있는 독립 접힘 영역
  *
- * CollapseGroup 없이 단독으로 사용합니다.
+ * Collapse 없이 단독으로 사용합니다.
  * btn_ghost 트리거가 패널을 토글하며, aria-expanded · aria-controls로 연결됩니다.
  *
  * lead 슬롯: 트리거 위 안내 텍스트. default 슬롯: 접히는 본문.
@@ -33,13 +33,14 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /** 펼침·접힘 높이 슬라이드. slide */
-  effect: {
-    type: String,
-    validator: (value) => value === undefined || value === 'slide',
-  },
   /** 초기 열림 상태 */
   open: Boolean,
+  /** 펼침·접힘 효과. slide — 높이 슬라이드 */
+  effect: {
+    type: String,
+    default: undefined,
+    validator: (value) => value === undefined || value === null || value === '' || value === 'slide',
+  },
 });
 const { rippleAttrs } = useRipple(props);
 
@@ -49,7 +50,8 @@ const rootRef = ref(null);
 const panelRef = ref(null);
 const panelId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
-const isSlide = computed(() => props.effect === 'slide');
+
+const slideEffect = computed(() => props.effect === 'slide');
 
 const wrapperClass = computed(() => [
   props.narrow ? 'collapse_demo-narrow' : null,
@@ -74,19 +76,29 @@ const fallthroughAttrs = computed(() => {
   return rest;
 });
 
+/** slide일 때는 hidden · is-open을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
+const panelBind = computed(() =>
+  slideEffect.value ? {} : { hidden: !isOpen.value || undefined },
+);
+
+const panelClass = computed(() =>
+  // slide일 때 is-open · is-sliding은 setSlideRegionOpen이 classList로 관리
+  slideEffect.value ? undefined : { 'is-open': isOpen.value },
+);
+
 function toggle() {
   isOpen.value = !isOpen.value;
 }
 
-onMounted(() => {
-  if (isSlide.value) {
-    setSlideRegionOpen(panelRef.value, isOpen.value, false);
-  }
+watch(isOpen, (open) => {
+  if (!slideEffect.value) return;
+  setSlideRegionOpen(panelRef.value, open, true);
 });
 
-watch(isOpen, (open) => {
-  if (!isSlide.value) return;
-  setSlideRegionOpen(panelRef.value, open, true);
+onMounted(() => {
+  if (slideEffect.value) {
+    setSlideRegionOpen(panelRef.value, isOpen.value, false);
+  }
 });
 
 useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
@@ -115,10 +127,10 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
       ref="panelRef"
       class="collapse"
       data-demo-slot="default"
-      :class="{ 'is-open': isOpen }"
-      :data-effect="effect === 'slide' ? 'slide' : undefined"
+      :class="panelClass"
+      :data-effect="effect || undefined"
       :style="panelStyle"
-      :hidden="isSlide ? undefined : (!isOpen || undefined)"
+      v-bind="panelBind"
     >
       <slot />
     </div>

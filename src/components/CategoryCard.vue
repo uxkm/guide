@@ -14,13 +14,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  target: String,
 });
 
 const { rippleAttrs } = useRipple(props);
 </script>
 
 <template>
-  <a class="category_card" :href="href" v-bind="rippleAttrs">
+  <a class="category_card" :href="href" :target="target" v-bind="rippleAttrs">
     <h3>{{ title }}</h3>
     <p v-if="description">{{ description }}</p>
     <span v-if="count" class="count">{{ count }}</span>

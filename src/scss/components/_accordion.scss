@@ -9,11 +9,13 @@
   --accordion-trigger-padding-y: 0.875rem;
   --accordion-trigger-padding-x: var(--space-lg);
   --accordion-content-font-size: var(--text-size-sm);
-  --accordion-content-padding-top: var(--space-md);
   --accordion-content-padding-y: var(--space-lg);
   --accordion-content-padding-x: var(--space-lg);
   --accordion-icon-size: 1rem;
-  --accordion-card-gap: var(--space-sm);
+  --accordion-card-gap: 0;
+  --accordion-card-trigger-bg: var(--color-surface-raised);
+  --accordion-slide-duration: 0.28s;
+  --accordion-slide-easing: ease;
 
 
   // ----- Accordion — size sm · lg
@@ -22,7 +24,6 @@
   --accordion-trigger-padding-x-sm: var(--space-md);
   --accordion-content-padding-y-sm: var(--space-md);
   --accordion-content-padding-x-sm: var(--space-md);
-  --accordion-content-padding-top-sm: var(--space-sm);
   --accordion-icon-size-sm: 0.875rem;
 
   --accordion-font-size-lg: var(--text-size-base);
@@ -30,12 +31,7 @@
   --accordion-trigger-padding-x-lg: var(--space-xl);
   --accordion-content-padding-y-lg: var(--space-xl);
   --accordion-content-padding-x-lg: var(--space-xl);
-  --accordion-content-padding-top-lg: var(--space-lg);
   --accordion-icon-size-lg: 1.125rem;
-
-  // ----- Accordion — slide
-  --accordion-slide-duration: 0.28s;
-  --accordion-slide-easing: ease;
 
 }
 
@@ -43,13 +39,13 @@
 //
 //   <div class="accordion accordion_bordered" data-accordion data-effect="slide">
 //     <div class="accordion_item is-open">
-//       <h3 class="accordion_heading">
+//       <div class="accordion_heading" role="heading" aria-level="3">
 //         <button type="button" class="accordion_trigger" id="acc-1"
 //           aria-expanded="true" aria-controls="acc-panel-1">
 //           <span class="accordion_label">제목</span>
 //           <svg class="accordion_icon" …></svg>
 //         </button>
-//       </h3>
+//       </div>
 //       <div class="accordion_panel" id="acc-panel-1" role="region" aria-labelledby="acc-1">
 //         <div class="accordion_content">…</div>
 //       </div>
@@ -180,6 +176,11 @@
       overflow: hidden;
     }
 
+    // mount 전·JS 동기화 전 닫힌 패널 노출 방지 (is-sliding 중에는 표시)
+    .accordion_item:not(.is-open) .accordion_panel:not(.is-sliding) {
+      display: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .accordion_panel {
         transition: none !important;
@@ -188,8 +189,7 @@
   }
 
   &_content {
-    padding: var(--accordion-content-padding-top) var(--accordion-content-padding-x)
-      var(--accordion-content-padding-y);
+    padding: var(--accordion-content-padding-y) var(--accordion-content-padding-x);
     color: var(--color-text);
     font-size: var(--accordion-content-font-size);
     line-height: 1.6;
@@ -203,7 +203,7 @@
     }
   }
 
-  // ----- 스킨: 테두리 (기본)
+  // ----- 스킨: 테두리 (기본) — 항목이 한 덩어리로 붙음
 
   &_bordered {
     gap: 0;
@@ -231,21 +231,54 @@
     }
   }
 
-  // ----- 스킨: 카드
+  // ----- 스킨: 카드 — 항목 사이 간격 + 독립 카드 (FAQ 등)
 
   &_card {
     gap: var(--accordion-card-gap);
 
     .accordion_item {
       border: 1px solid var(--color-border);
-      border-radius: $radius-md;
+      border-radius: 0;
       background: var(--color-surface);
       overflow: hidden;
+
+      &:first-child {
+        border-radius: $radius-md $radius-md 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 0 $radius-md $radius-md;
+      }
+
+      &:only-child {
+        border-radius: $radius-md;
+      }
+
+      & + .accordion_item {
+        border-top: none;
+      }
     }
 
-    .accordion_trigger[aria-expanded="true"] {
-      border-bottom: 1px solid var(--color-border);
-      background: var(--color-surface-raised);
+    // btn_text(transparent)보다 우선 — 헤더는 항상 raised 배경
+    .accordion_trigger.btn.btn_text {
+      background: var(--accordion-card-trigger-bg);
+
+      &:hover:not(.is-disabled):not(:disabled) {
+        background: var(--accordion-card-trigger-bg);
+      }
+
+      &[aria-expanded="true"] {
+        background: var(--accordion-card-trigger-bg);
+
+        &:hover:not(.is-disabled):not(:disabled) {
+          background: var(--accordion-card-trigger-bg);
+        }
+      }
+    }
+
+    // 제목·본문 구분선 없이 패널만 표시
+    .accordion_panel {
+      background: var(--color-surface);
     }
   }
 
@@ -257,7 +290,6 @@
     --accordion-trigger-padding-x: var(--accordion-trigger-padding-x-sm);
     --accordion-content-padding-y: var(--accordion-content-padding-y-sm);
     --accordion-content-padding-x: var(--accordion-content-padding-x-sm);
-    --accordion-content-padding-top: var(--accordion-content-padding-top-sm);
     --accordion-icon-size: var(--accordion-icon-size-sm);
   }
 
@@ -267,7 +299,6 @@
     --accordion-trigger-padding-x: var(--accordion-trigger-padding-x-lg);
     --accordion-content-padding-y: var(--accordion-content-padding-y-lg);
     --accordion-content-padding-x: var(--accordion-content-padding-x-lg);
-    --accordion-content-padding-top: var(--accordion-content-padding-top-lg);
     --accordion-icon-size: var(--accordion-icon-size-lg);
   }
 

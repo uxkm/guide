@@ -26,6 +26,143 @@ import {
   breadcrumbTokenColumns,
   breadcrumbTokens,
 } from '@/doc/data/breadcrumb-api';
+
+const basicCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+<\/script>
+
+<template>
+  <Breadcrumb
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '컴포넌트', href: '#' },
+  { label: 'Breadcrumb', current: true },
+  ]"
+  />
+</template>`;
+
+const separatorCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+<\/script>
+
+<template>
+  <Breadcrumb
+  aria-label="경로 — chevron"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '가이드', href: '#' },
+  { label: 'Chevron', current: true },
+  ]"
+  />
+  <Breadcrumb
+  separator="slash"
+  aria-label="경로 — slash"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '가이드', href: '#' },
+  { label: 'Slash', current: true },
+  ]"
+  />
+  <Breadcrumb
+  separator="dot"
+  aria-label="경로 — dot"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '가이드', href: '#' },
+  { label: 'Dot', current: true },
+  ]"
+  />
+</template>`;
+
+const iconCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
+<\/script>
+
+<template>
+  <Breadcrumb>
+    <BreadcrumbItem href="#" icon aria-label="홈">
+      <svg class="breadcrumb_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z" />
+      </svg>
+    </BreadcrumbItem>
+    <BreadcrumbItem label="설정" href="#" />
+    <BreadcrumbItem label="계정" href="#" />
+    <BreadcrumbItem label="프로필" current />
+  </Breadcrumb>
+</template>`;
+
+const sizeCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+<\/script>
+
+<template>
+  <Breadcrumb
+  size="sm"
+  aria-label="경로 — small"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '문서', href: '#' },
+  { label: 'Small', current: true },
+  ]"
+  />
+  <Breadcrumb
+  aria-label="경로 — medium"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '문서', href: '#' },
+  { label: 'Medium', current: true },
+  ]"
+  />
+  <Breadcrumb
+  size="lg"
+  aria-label="경로 — large"
+  :items="[
+  { label: '홈', href: '#' },
+  { label: '문서', href: '#' },
+  { label: 'Large', current: true },
+  ]"
+  />
+</template>`;
+
+const ellipsisCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
+<\/script>
+
+<template>
+  <Breadcrumb>
+    <BreadcrumbItem href="#" icon aria-label="홈">
+      <svg class="breadcrumb_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z" />
+      </svg>
+    </BreadcrumbItem>
+    <li class="breadcrumb_item">
+      <button type="button" class="breadcrumb_ellipsis" data-ripple aria-label="숨겨진 경로 보기" aria-haspopup="menu" aria-expanded="false">…</button>
+    </li>
+    <BreadcrumbItem label="컴포넌트" href="#" />
+    <BreadcrumbItem label="Breadcrumb" current />
+  </Breadcrumb>
+</template>`;
+
+const stateCode = `<script setup>
+import Breadcrumb from '@/components/Breadcrumb.vue';
+import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
+<\/script>
+
+<template>
+  <Breadcrumb aria-label="경로 — 비활성">
+    <BreadcrumbItem label="홈" href="#" />
+    <BreadcrumbItem label="삭제된 페이지" disabled />
+    <BreadcrumbItem label="현재 페이지" current />
+  </Breadcrumb>
+  <Breadcrumb separator="slash" aria-label="경로 — 긴 레이블">
+    <BreadcrumbItem label="홈" href="#" />
+    <BreadcrumbItem label="프로젝트 관리 및 협업 도구 설정" href="#" />
+    <BreadcrumbItem label="사용자 권한 및 역할 기반 접근 제어" current />
+  </Breadcrumb>
+</template>`;
+
 </script>
 
 <template>
@@ -38,6 +175,7 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="이전 단계는 링크, 마지막 항목은 현재 페이지로 표시합니다."
+    :code="basicCode"
   >
     <Breadcrumb
       :items="[
@@ -53,6 +191,7 @@ import {
     title="구분자"
     description="separator로 구분자 스타일을 변경합니다."
     stack
+    :code="separatorCode"
   >
     <Breadcrumb
       aria-label="경로 — chevron"
@@ -88,6 +227,7 @@ import {
     heading-id="icon-heading"
     title="홈 아이콘"
     description="icon으로 아이콘만 있는 첫 항목을 표시합니다."
+    :code="iconCode"
   >
     <Breadcrumb>
       <BreadcrumbItem href="#" icon aria-label="홈">
@@ -106,6 +246,7 @@ import {
     title="크기"
     description="size로 텍스트 크기를 조절합니다."
     stack
+    :code="sizeCode"
   >
     <Breadcrumb
       size="sm"
@@ -141,6 +282,7 @@ import {
     heading-id="ellipsis-heading"
     title="경로 생략"
     description="긴 경로는 첫 항목·생략 버튼·직전 단계·현재 페이지만 표시합니다."
+    :code="ellipsisCode"
   >
     <Breadcrumb>
       <BreadcrumbItem href="#" icon aria-label="홈">
@@ -161,6 +303,7 @@ import {
     title="상태"
     description="비활성 링크는 disabled를 사용합니다."
     stack
+    :code="stateCode"
   >
     <Breadcrumb aria-label="경로 — 비활성">
       <BreadcrumbItem label="홈" href="#" />

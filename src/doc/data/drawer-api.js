@@ -13,7 +13,26 @@ export const drawerProps = [
   { name: 'placement', type: `'left' | 'right' | 'top' | 'bottom'`, default: 'right', description: 'drawer_placement-*' },
   { name: 'no-backdrop', type: 'boolean', default: 'false', description: 'data-drawer-backdrop="false"' },
   { name: 'open-on-load', type: 'boolean', default: 'false', description: 'data-drawer-open-on-load="true"' },
+  { name: 'draggable', type: 'boolean', default: 'false', description: '하단 패널 핸들·헤더 드래그 펼침/접힘 (placement="bottom", data-drawer-draggable)' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 상태 (is-open)' },
+  {
+    name: 'footer-align',
+    type: `'start' | 'center' | 'end' | 'between' | 'even'`,
+    default: 'end',
+    description: '푸터 정렬 (drawer_footer-start · center · between · even). between은 drawer_footer-group으로 좌·우 묶음',
+  },
+  {
+    name: 'footer-ratio',
+    type: `'1-1' | '1-2' | '2-1'`,
+    default: '1-1',
+    description: '균등 정렬(even) 좌·우 비율 (drawer_footer-even-1-2 · even-2-1)',
+  },
+  {
+    name: 'footer-no-pad-bottom',
+    type: 'boolean',
+    default: 'false',
+    description: '푸터 하단 패딩 제거 (drawer_footer-no-pad-b). even과 함께 쓰면 좌우 패딩·간격도 제거',
+  },
   ripplePropTrigger,
 ];
 
@@ -38,11 +57,26 @@ export const drawerClasses = [
   { name: 'drawer · drawer_backdrop · drawer_panel', description: '루트·백드롭·패널' },
   { name: 'drawer_header · drawer_title · drawer_extra · drawer_close', description: '헤더 파트' },
   { name: 'drawer_body · drawer_footer', description: '본문·푸터' },
+  {
+    name: 'drawer_footer-start · drawer_footer-center · drawer_footer-end · drawer_footer-between · drawer_footer-even',
+    description: '푸터 정렬 (기본 end)',
+  },
+  {
+    name: 'drawer_footer-even-1-2 · drawer_footer-even-2-1',
+    description: '균등 정렬 좌·우 비율 (기본 1:1)',
+  },
+  {
+    name: 'drawer_footer-no-pad-b',
+    description: '푸터 하단 패딩 없음 (even 조합 시 좌우 패딩·간격 제거)',
+  },
+  { name: 'drawer_footer-group', description: '병합 정렬용 좌·우 버튼 묶음' },
   { name: 'drawer_placement-left · drawer_placement-right · drawer_placement-top · drawer_placement-bottom', description: '슬라이드 방향' },
   { name: 'drawer_sm · drawer_lg', description: '패널 크기' },
+  { name: 'drawer_handle · drawer_handle-bar · drawer_draggable', description: '하단 드래그 핸들' },
   { name: 'data-drawer · data-drawer-trigger · data-drawer-close', description: 'JS 연동 속성' },
   { name: 'data-drawer-open-on-load', description: '페이지 로드 후 자동 열기' },
-  { name: 'is-open · is-opening · is-closing · hidden', description: '열림·닫힘·애니메이션 상태' },
+  { name: 'data-drawer-draggable · data-drawer-drag-handle', description: '하단 드래그 펼침/접힘' },
+  { name: 'is-open · is-opening · is-closing · is-stack-covered · is-expanded · is-dragging · hidden', description: '열림·닫힘·중첩 하위(백드롭 숨김)·드래그·애니메이션 상태' },
   ...rippleClassRows,
 ];
 
@@ -56,6 +90,7 @@ export const drawerTokens = [
   { name: '--drawer-z-index', default: '250', description: '레이어 순서' },
   { name: '--drawer-width · --drawer-width-sm · --drawer-width-lg', default: '24rem · 18rem · 36rem', description: '좌·우 패널 너비' },
   { name: '--drawer-height · --drawer-height-sm · --drawer-height-lg', default: '18rem · 14rem · 26rem', description: '상·하 패널 높이' },
+  { name: '--drawer-height-expanded', default: '90%', description: '하단 드래그 펼침 높이' },
   { name: '--drawer-panel-duration-x · --drawer-panel-duration-y', default: '0.32s · 0.36s', description: '좌·우 / 상·하 슬라이드 시간' },
   { name: '--drawer-panel-easing-x · --drawer-panel-easing-y', default: 'cubic-bezier(0.32, 0.72, 0, 1) · cubic-bezier(0.33, 1, 0.68, 1)', description: '방향별 이징' },
 ];
@@ -86,10 +121,29 @@ export const markupCode = `<!-- 트리거 -->
   </div>
 </div>
 
+<!-- 푸터 정렬: start · center · end · between · even -->
+<!-- 균등 비율: drawer_footer-even · drawer_footer-even-1-2 · drawer_footer-even-2-1 -->
+<!-- 하단 패딩 없음: drawer_footer-no-pad-b (+ even 권장) -->
+<div class="drawer_footer drawer_footer-even drawer_footer-no-pad-b">
+  <button type="button" class="btn btn_ghost" data-drawer-close>취소</button>
+  <button type="button" class="btn btn_filled color_primary" data-drawer-close>확인</button>
+</div>
+
 <!-- 옵션: 백드롭 없음 -->
 <div class="drawer" id="drawer-plain" data-drawer
   data-drawer-backdrop="false" …>…</div>
 
 <!-- 옵션: 로드 시 자동 열기 -->
 <div class="drawer" id="drawer-onboard" data-drawer
-  data-drawer-open-on-load="true" …>…</div>`;
+  data-drawer-open-on-load="true" …>…</div>
+
+<!-- 옵션: 하단 드래그 시트 -->
+<div class="drawer" id="drawer-sheet" data-drawer
+  data-drawer-draggable="true" …>
+  <div class="drawer_panel drawer_placement-bottom drawer_draggable">
+    <div class="drawer_handle" data-drawer-drag-handle aria-hidden="true">
+      <span class="drawer_handle-bar"></span>
+    </div>
+    …
+  </div>
+</div>`;

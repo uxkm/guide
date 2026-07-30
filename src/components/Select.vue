@@ -22,6 +22,8 @@ const props = defineProps({
   block: Boolean,
   custom: Boolean,
   selectText: Boolean,
+  /** 네이티브 select size(표시 행 수). 시각 크기 prop `size`와 구분 */
+  listSize: Number,
   modelValue: [String, Number],
 });
 useRipple(props, { defaultEnabled: false });
@@ -103,6 +105,7 @@ function onChange(event) {
     ref="rootRef"
     :class="[inputClass, attrs.class]"
     :disabled="disabled"
+    :size="listSize"
     :value="modelValue"
     :aria-invalid="error ? 'true' : undefined"
     v-bind="fallthroughAttrs"

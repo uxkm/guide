@@ -4,7 +4,8 @@
  *
  * Accordion 내부에서만 사용합니다. inject('accordion')으로 부모와 연동됩니다.
  *
- * 접근성: button 트리거 + role="region" 패널, aria-expanded · aria-controls.
+ * 접근성: role="heading" 래퍼 + button 트리거 + role="region" 패널,
+ * aria-expanded · aria-controls · aria-level.
  * 키보드: ↑↓ 항목 이동, Home/End 첫·마지막 항목.
  */
 import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots, watch } from 'vue';
@@ -40,12 +41,17 @@ const panelId = useId().replace(/:/g, '');
 const isOpen = ref(props.open);
 const panelRef = ref(null);
 
-const isSlide = computed(() => accordion?.effect?.value === 'slide');
+const slideEffect = computed(() => accordion?.effect?.value === 'slide');
 
 const itemClass = computed(() => [
   'accordion_item',
   { 'is-open': isOpen.value, 'is-disabled': props.disabled },
 ]);
+
+/** slide일 때는 hidden을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
+const panelBind = computed(() =>
+  slideEffect.value ? {} : { hidden: !isOpen.value || undefined },
+);
 
 function toggle() {
   if (props.disabled || !accordion) return;
@@ -78,11 +84,12 @@ function onKeydown(event) {
   }
 }
 
-onMounted(() => {
-  if (isSlide.value) {
-    setSlideRegionOpen(panelRef.value, isOpen.value, false);
-  }
+watch(isOpen, (open) => {
+  if (!slideEffect.value) return;
+  setSlideRegionOpen(panelRef.value, open, true);
+});
 
+onMounted(() => {
   if (!accordion) return;
 
   accordion.registerItem({
@@ -95,11 +102,10 @@ onMounted(() => {
     extraCode: props.extraCode,
     isOpen,
   });
-});
 
-watch(isOpen, (open) => {
-  if (!isSlide.value) return;
-  setSlideRegionOpen(panelRef.value, open, true);
+  if (slideEffect.value) {
+    setSlideRegionOpen(panelRef.value, isOpen.value, false);
+  }
 });
 
 onUnmounted(() => {
@@ -109,7 +115,7 @@ onUnmounted(() => {
 
 <template>
   <div :class="itemClass">
-    <h3 class="accordion_heading">
+    <div class="accordion_heading" role="heading" aria-level="3">
       <Button
         :id="triggerId"
         variant="text"
@@ -129,14 +135,14 @@ onUnmounted(() => {
           <Icon name="chevron-down" class="accordion_icon" />
         </template>
       </Button>
-    </h3>
+    </div>
     <div
       :id="panelId"
       ref="panelRef"
       class="accordion_panel"
       role="region"
       :aria-labelledby="triggerId"
-      :hidden="isSlide ? undefined : (!isOpen || undefined)"
+      v-bind="panelBind"
     >
       <div class="accordion_content">
         <slot>

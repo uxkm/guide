@@ -13,7 +13,7 @@ import { formatNavbarItemCode } from '@/utils/format-navbar-item-code';
 import { formatNavbarListCode } from '@/utils/format-navbar-list-code';
 import {
   formatCollapseExternalCode,
-  formatCollapseGroupCode,
+  formatCollapseCode,
 } from '@/utils/format-collapse-code';
 import { formatPopoverCode, formatTooltipCode } from '@/utils/format-overlay-code';
 import { formatDropdownCode } from '@/utils/format-dropdown-code';
@@ -25,7 +25,7 @@ import {
   formatModalCode,
   formatUploadCode,
 } from '@/utils/format-overlay-component-code';
-import { formatInputGroupCode } from '@/utils/format-input-code';
+import { formatInputCode, formatInputGroupCode } from '@/utils/format-input-code';
 import { openComponentTag } from '@/utils/format-slot-component-code';
 import { formatTabsCode } from '@/utils/format-tabs-code';
 import { formatTableCode } from '@/utils/format-table-code';
@@ -553,7 +553,7 @@ export function useAccordionDemoCode(props, itemsRef, rootRef, attrs = {}) {
   });
 }
 
-export function useCollapseGroupDemoCode(props, panelsRef, rootRef, attrs = {}) {
+export function useCollapseDemoCode(props, panelsRef, rootRef, attrs = {}) {
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
     if (!el) return null;
@@ -565,7 +565,7 @@ export function useCollapseGroupDemoCode(props, panelsRef, rootRef, attrs = {}) 
 
     return {
       el,
-      code: formatCollapseGroupCode(props, panels, attrs),
+      code: formatCollapseCode(props, panels, attrs),
     };
   });
 }
@@ -584,7 +584,7 @@ export function useCollapseExternalDemoCode(props, rootRef, attrs = {}, isOpenRe
   });
 }
 
-export function useIconDemoCode(props, rootRef, attrs = {}) {
+export function useIconDemoCode(props, rootRef, attrs = {}, slots = null) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
 
   return useDemoCodeRegistration(() => {
@@ -592,6 +592,10 @@ export function useIconDemoCode(props, rootRef, attrs = {}) {
     if (!el) return null;
 
     void el.closest('[data-demo-section]')?.getAttribute('data-demo-section');
+    // 슬롯 변경 시 코드 재생성
+    void slots?.image?.();
+    void slots?.path?.();
+    void slots?.default?.();
 
     const context = resolveDemoContext(el, injectedContext);
     context?.revision.value;
@@ -599,7 +603,7 @@ export function useIconDemoCode(props, rootRef, attrs = {}) {
     return {
       el,
       context,
-      code: () => formatIconCode(props, attrs, el),
+      code: () => formatIconCode(props, attrs, el, slots),
     };
   });
 }
@@ -791,11 +795,7 @@ export function useInputDemoCode(props, rootRef, attrs = {}) {
           return formatInputGroupCode(props, attrs, el, registry);
         }
 
-        return openComponentTag('Input', props, attrs, {
-          defaults: { size: 'md', type: 'text' },
-          booleanProps: new Set(['disabled', 'error', 'block']),
-          skipProps: ['modelValue'],
-        });
+        return formatInputCode(props, attrs);
       },
     };
   });

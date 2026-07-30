@@ -7,7 +7,15 @@ export function initBackTop(root) {
   if (root.dataset.backTopInit) return () => {};
 
   const targetSelector = root.getAttribute('data-target');
-  const scrollContainer = targetSelector ? document.querySelector(targetSelector) : null;
+  let scrollContainer = null;
+  if (targetSelector) {
+    try {
+      scrollContainer = document.querySelector(targetSelector);
+    } catch {
+      // 잘못된 선택자(예: Controls 기본값)는 window 스크롤로 폴백
+      scrollContainer = null;
+    }
+  }
   const visibilityHeight = parseBackTopOffset(root.getAttribute('data-visibility-height'), 400);
   const btn = root.querySelector('.back_top_btn');
 

@@ -86,12 +86,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" v-bind="rootAttrs">
-    <Button variant="ghost" class="back_top_btn" :aria-label="ariaLabel" v-bind="rippleAttrs">
-      <slot>
-        <Icon name="arrow-up" class="back_top_icon" />
-        <span v-if="label" class="back_top_label">{{ label }}</span>
-      </slot>
-    </Button>
-  </div>
+  <Teleport to="body" :disabled="Boolean(target)">
+    <div ref="rootRef" :class="rootClass" v-bind="rootAttrs">
+      <Button variant="ghost" class="back_top_btn" :aria-label="ariaLabel" v-bind="rippleAttrs">
+        <slot>
+          <Icon name="arrow-up" class="back_top_icon" />
+          <span v-if="label" class="back_top_label">{{ label }}</span>
+        </slot>
+      </Button>
+    </div>
+  </Teleport>
 </template>

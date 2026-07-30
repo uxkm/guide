@@ -2,13 +2,14 @@
 import { ref, computed, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { docRevision, getDocByKey } from '@/utils/doc-loader';
-import { initPageRoot } from '@/utils/init-page';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { initAffixAll } from '@/legacy/affix-init';
 import { initBackTopAll } from '@/legacy/back-top-init';
 import { initCarousel } from '@/legacy/carousel-init';
 import { initOverlays } from '@/legacy/overlay-init';
+import { initInputClearAll } from '@/legacy/input-clear-init';
+import { initTextareaCountAll } from '@/legacy/textarea-count-init';
 
 const props = defineProps({
   docKey: {
@@ -32,8 +33,6 @@ async function initContent() {
   const root = contentRef.value;
   if (!root?.querySelectorAll) return;
 
-  initPageRoot(root);
-
   if (root.querySelector('[data-affix]')) {
     initAffixAll(root);
   }
@@ -48,6 +47,14 @@ async function initContent() {
 
   if (root.querySelector('[data-dropdown], [data-popover], [data-tooltip]')) {
     initOverlays(root);
+  }
+
+  if (root.querySelector('.input_clearable')) {
+    initInputClearAll(root);
+  }
+
+  if (root.querySelector('.textarea_show-count')) {
+    initTextareaCountAll(root);
   }
 }
 

@@ -2,7 +2,7 @@
  * 컴포넌트 데모 코드 블록 펼침/접힘 · 휠 피커
  */
 import { initBackTopAll } from './back-top-init';
-import { initOverlays } from './overlay-init';
+import { initOverlays, observeOverlays } from './overlay-init';
 
 (function () {
   document.querySelectorAll('.demo_code-toggle').forEach(function (btn) {
@@ -786,6 +786,7 @@ import { initOverlays } from './overlay-init';
   document.querySelectorAll('[data-collapse-trigger]').forEach(initCollapseTrigger);
 
   initOverlays(document);
+  observeOverlays(document);
 
   initBackTopAll(document);
 
@@ -811,13 +812,24 @@ import { initOverlays } from './overlay-init';
   function updateDrawerStackLevels() {
     openDrawerStack.forEach(function (drawer, index) {
       drawer.style.setProperty('--drawer-stack-level', String(index));
+      drawer.classList.toggle('is-stack-covered', index !== openDrawerStack.length - 1);
     });
   }
 
   function updateBodyDrawerLock() {
-    var hasOpen = document.querySelector('[data-drawer].is-open:not([data-drawer-backdrop="false"])');
+    var openDrawers = document.querySelectorAll(
+      '[data-drawer].is-open:not([data-drawer-backdrop="false"])'
+    );
+    var hasPageOverlay = false;
 
-    document.body.classList.toggle('is-drawer-open', Boolean(hasOpen));
+    openDrawers.forEach(function (drawer) {
+      // 문서·Playground 데모 프레임 안 Drawer는 페이지 스크롤을 잠그지 않음
+      if (!drawer.closest('.drawer_demo-frame')) {
+        hasPageOverlay = true;
+      }
+    });
+
+    document.body.classList.toggle('is-drawer-open', hasPageOverlay);
   }
 
   function openDrawer(drawer, trigger) {
@@ -840,7 +852,6 @@ import { initOverlays } from './overlay-init';
 
     openDrawerStack.push(drawer);
     updateDrawerStackLevels();
-    updateBodyDrawerLock();
 
     var panel = drawer.querySelector('.drawer_panel');
     var opened = false;
@@ -858,6 +869,13 @@ import { initOverlays } from './overlay-init';
       }
 
       drawer.classList.remove('is-opening');
+      updateBodyDrawerLock();
+
+      if (panel && drawer.getAttribute('data-drawer-draggable') === 'true') {
+        panel.classList.remove('is-expanded');
+        panel.style.height = '';
+        drawer._drawerCollapsedHeight = panel.getBoundingClientRect().height;
+      }
 
       requestAnimationFrame(function () {
         var closeBtn = drawer.querySelector('.drawer_close');
@@ -881,6 +899,7 @@ import { initOverlays } from './overlay-init';
     function startOpenTransition() {
       drawer.classList.add('is-open');
       setDrawerTriggersExpanded(drawer, true);
+      updateBodyDrawerLock();
 
       if (panel && !reduceMotion) {
         panel.addEventListener('transitionend', onOpenTransitionEnd);
@@ -904,10 +923,18 @@ import { initOverlays } from './overlay-init';
   }
 
   function finishCloseDrawer(drawer) {
-    drawer.classList.remove('is-closing');
+    drawer.classList.remove('is-closing', 'is-stack-covered');
     drawer.hidden = true;
     drawer.style.removeProperty('--drawer-stack-level');
     setDrawerTriggersExpanded(drawer, false);
+
+    var panel = drawer.querySelector('.drawer_panel');
+
+    if (panel) {
+      panel.classList.remove('is-expanded', 'is-dragging');
+      panel.style.height = '';
+      panel.style.transform = '';
+    }
 
     openDrawerStack = openDrawerStack.filter(function (item) {
       return item !== drawer;
@@ -927,8 +954,15 @@ import { initOverlays } from './overlay-init';
       return;
     }
 
-    drawer.classList.remove('is-open');
+    drawer.classList.remove('is-open', 'is-stack-covered');
     drawer.classList.add('is-closing');
+
+    // 닫힘 시작 시 스택에서 제거해 하위 Drawer 백드롭을 바로 복원
+    openDrawerStack = openDrawerStack.filter(function (item) {
+      return item !== drawer;
+    });
+    updateDrawerStackLevels();
+    updateBodyDrawerLock();
 
     var panel = drawer.querySelector('.drawer_panel');
     var closed = false;
@@ -967,8 +1001,186 @@ import { initOverlays } from './overlay-init';
     return trigger.getAttribute('data-drawer-trigger') || ('#' + trigger.getAttribute('aria-controls'));
   }
 
+  function getDrawerDragContainerHeight(drawer) {
+    var frame = drawer.closest('.drawer_demo-frame');
+
+    if (frame) {
+      return frame.clientHeight;
+    }
+
+    return window.innerHeight;
+  }
+
+  function getDrawerSnapHeights(drawer, panel) {
+    var collapsed = drawer._drawerCollapsedHeight;
+
+    if (!collapsed || collapsed < 1) {
+      var wasExpanded = panel.classList.contains('is-expanded');
+      var prevHeight = panel.style.height;
+
+      panel.classList.remove('is-expanded');
+      panel.style.height = '';
+      collapsed = panel.getBoundingClientRect().height;
+      drawer._drawerCollapsedHeight = collapsed;
+
+      if (wasExpanded) {
+        panel.classList.add('is-expanded');
+      }
+
+      panel.style.height = prevHeight;
+    }
+
+    var expanded = Math.max(collapsed + 48, getDrawerDragContainerHeight(drawer) * 0.9);
+
+    return { collapsed: collapsed, expanded: expanded };
+  }
+
+  function isDrawerDragStartTarget(event, drawer) {
+    if (event.target.closest('[data-drawer-close], a, input, textarea, select, .drawer_extra')) {
+      return false;
+    }
+
+    if (event.target.closest('[data-drawer-drag-handle]')) {
+      return true;
+    }
+
+    var header = event.target.closest('.drawer_header');
+
+    return Boolean(header && drawer.contains(header));
+  }
+
+  var drawerDragState = null;
+
+  function endDrawerDrag(event) {
+    if (!drawerDragState) {
+      return;
+    }
+
+    var state = drawerDragState;
+    var drawer = state.drawer;
+    var panel = state.panel;
+
+    drawerDragState = null;
+    panel.classList.remove('is-dragging');
+
+    if (state.pointerId != null && state.handle && state.handle.releasePointerCapture) {
+      try {
+        state.handle.releasePointerCapture(state.pointerId);
+      } catch (_err) {
+        // ignore
+      }
+    }
+
+    var currentHeight = panel.getBoundingClientRect().height;
+    var snaps = getDrawerSnapHeights(drawer, panel);
+    var closeThreshold = snaps.collapsed * 0.55;
+    var expandThreshold = (snaps.collapsed + snaps.expanded) / 2;
+    var startedExpanded = state.startHeight >= expandThreshold;
+
+    panel.style.height = '';
+    panel.style.transform = '';
+
+    // 기본 높이보다 충분히 낮게 내리면 닫기 (펼친 상태에서 접는 드래그와 구분)
+    if (currentHeight < closeThreshold) {
+      panel.classList.remove('is-expanded');
+      closeDrawer(drawer);
+      return;
+    }
+
+    // 접힌 상태에서 빠르게 아래로 쓸면 닫기
+    if (!startedExpanded && state.deltaY < -snaps.collapsed * 0.4) {
+      panel.classList.remove('is-expanded');
+      closeDrawer(drawer);
+      return;
+    }
+
+    if (currentHeight >= expandThreshold || (!startedExpanded && state.deltaY > 48)) {
+      panel.classList.add('is-expanded');
+    } else {
+      panel.classList.remove('is-expanded');
+    }
+
+    if (event) {
+      event.preventDefault();
+    }
+  }
+
+  document.addEventListener('pointerdown', function (event) {
+    if (event.button != null && event.button !== 0) {
+      return;
+    }
+
+    var drawer = event.target.closest('[data-drawer][data-drawer-draggable="true"]');
+
+    if (!drawer || !drawer.classList.contains('is-open') || drawer.classList.contains('is-closing')) {
+      return;
+    }
+
+    if (!isDrawerDragStartTarget(event, drawer)) {
+      return;
+    }
+
+    var panel = drawer.querySelector('.drawer_panel.drawer_placement-bottom');
+
+    if (!panel) {
+      return;
+    }
+
+    var handle = event.target.closest('[data-drawer-drag-handle]') || panel.querySelector('[data-drawer-drag-handle]');
+    var snaps = getDrawerSnapHeights(drawer, panel);
+
+    drawerDragState = {
+      drawer: drawer,
+      panel: panel,
+      handle: handle,
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startHeight: panel.getBoundingClientRect().height,
+      deltaY: 0,
+      snaps: snaps,
+    };
+
+    panel.classList.add('is-dragging');
+
+    if (handle && handle.setPointerCapture && event.pointerId != null) {
+      try {
+        handle.setPointerCapture(event.pointerId);
+      } catch (_err) {
+        // ignore
+      }
+    }
+
+    event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('pointermove', function (event) {
+    if (!drawerDragState) {
+      return;
+    }
+
+    var state = drawerDragState;
+    var deltaY = state.startY - event.clientY;
+    var nextHeight = Math.min(
+      state.snaps.expanded,
+      Math.max(0, state.startHeight + deltaY)
+    );
+
+    state.deltaY = deltaY;
+    state.panel.style.height = nextHeight + 'px';
+    state.panel.style.transform = 'translateY(0)';
+    event.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('pointerup', endDrawerDrag);
+  document.addEventListener('pointercancel', endDrawerDrag);
+
   function initDrawerOpenOnLoad() {
     document.querySelectorAll('[data-drawer][data-drawer-open-on-load="true"]').forEach(function (drawer) {
+      if (drawer.dataset.drawerOpenOnLoadDone === 'true') {
+        return;
+      }
+
+      drawer.dataset.drawerOpenOnLoadDone = 'true';
       openDrawer(drawer, null);
     });
   }
@@ -1008,7 +1220,19 @@ import { initOverlays } from './overlay-init';
     }
   });
 
+  // Vue mount·라우트 전환 후에도 open-on-load 대상이 잡히도록 관찰
   initDrawerOpenOnLoad();
+
+  if (typeof MutationObserver !== 'undefined') {
+    var drawerOpenOnLoadObserver = new MutationObserver(function () {
+      initDrawerOpenOnLoad();
+    });
+
+    drawerOpenOnLoadObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+  }
 
   var openModalStack = [];
 
@@ -1028,10 +1252,27 @@ import { initOverlays } from './overlay-init';
     });
   }
 
-  function updateBodyModalLock() {
-    var hasOpen = document.querySelector('[data-modal].is-open:not([data-modal-backdrop="false"])');
+  function updateModalStackLevels() {
+    openModalStack.forEach(function (modal, index) {
+      modal.style.setProperty('--modal-stack-level', String(index));
+      modal.classList.toggle('is-stack-covered', index !== openModalStack.length - 1);
+    });
+  }
 
-    document.body.classList.toggle('is-modal-open', Boolean(hasOpen));
+  function updateBodyModalLock() {
+    var openModals = document.querySelectorAll(
+      '[data-modal].is-open:not([data-modal-backdrop="false"])'
+    );
+    var hasPageOverlay = false;
+
+    openModals.forEach(function (modal) {
+      // 문서·Playground 데모 프레임 안 Modal은 페이지 스크롤을 잠그지 않음
+      if (!modal.closest('.modal_demo-frame')) {
+        hasPageOverlay = true;
+      }
+    });
+
+    document.body.classList.toggle('is-modal-open', hasPageOverlay);
   }
 
   function openModal(modal, trigger) {
@@ -1048,6 +1289,7 @@ import { initOverlays } from './overlay-init';
     }
 
     openModalStack.push(modal);
+    updateModalStackLevels();
     updateBodyModalLock();
 
     requestAnimationFrame(function () {
@@ -1066,14 +1308,16 @@ import { initOverlays } from './overlay-init';
       return;
     }
 
-    modal.classList.remove('is-open');
+    modal.classList.remove('is-open', 'is-stack-covered');
     modal.hidden = true;
+    modal.style.removeProperty('--modal-stack-level');
     setModalTriggersExpanded(modal, false);
 
     openModalStack = openModalStack.filter(function (item) {
       return item !== modal;
     });
 
+    updateModalStackLevels();
     updateBodyModalLock();
 
     if (modal._modalReturnFocus) {
@@ -1351,55 +1595,7 @@ import { initOverlays } from './overlay-init';
   document.querySelectorAll('.textarea_show-count').forEach(initTextareaCount);
 })();
 
-/**
- * Input 입력 삭제 — input_clearable 래퍼 (데모용)
- */
-(function () {
-  function canShowClear(input) {
-    return !input.disabled && !input.readOnly;
-  }
+import { initInputClearAll } from './input-clear-init';
 
-  function updateInputClear(wrap) {
-    var input = wrap.querySelector('.input');
-    var clearBtn = wrap.querySelector('.input_clear');
-
-    if (!input || !clearBtn) {
-      return;
-    }
-
-    var show = canShowClear(input) && input.value.length > 0;
-
-    clearBtn.hidden = !show;
-    wrap.classList.toggle('is-filled', show);
-  }
-
-  function initInputClear(wrap) {
-    var input = wrap.querySelector('.input');
-    var clearBtn = wrap.querySelector('.input_clear');
-
-    if (!input || !clearBtn) {
-      return;
-    }
-
-    updateInputClear(wrap);
-
-    input.addEventListener('input', function () {
-      updateInputClear(wrap);
-    });
-
-    clearBtn.addEventListener('click', function () {
-      if (!canShowClear(input)) {
-        return;
-      }
-
-      input.value = '';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-      updateInputClear(wrap);
-      input.focus();
-    });
-  }
-
-  document.querySelectorAll('.input_clearable').forEach(initInputClear);
-})();
+initInputClearAll();
 

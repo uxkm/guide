@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
@@ -50,6 +50,7 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 const inputId = `slider-${Math.random().toString(36).slice(2, 9)}`;
+const internalValue = ref(props.modelValue ?? props.value);
 
 const formatCode = createComponentFormatter('Slider', {
   defaults: { min: 0, max: 100, value: 50, size: 'md' },
@@ -60,7 +61,28 @@ const formatCode = createComponentFormatter('Slider', {
 
 useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
-const currentValue = computed(() => props.modelValue ?? props.value);
+const currentValue = computed(() => props.modelValue ?? internalValue.value);
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (value == null) return;
+    internalValue.value = value;
+  },
+);
+
+watch(
+  () => props.value,
+  (value) => {
+    if (props.modelValue != null) return;
+    internalValue.value = value;
+  },
+);
+
+function updateValue(nextValue) {
+  internalValue.value = nextValue;
+  emit('update:modelValue', nextValue);
+}
 
 const rootClass = computed(() => {
   const classes = ['slider'];
@@ -81,7 +103,7 @@ const displayValue = computed(() => {
 function adjustValue(delta) {
   const step = props.step ?? 1;
   const next = Math.min(props.max, Math.max(props.min, currentValue.value + delta * step));
-  emit('update:modelValue', next);
+  updateValue(next);
 }
 
 const fallthroughAttrs = computed(() => {
@@ -90,7 +112,7 @@ const fallthroughAttrs = computed(() => {
 });
 
 function onInput(event) {
-  emit('update:modelValue', Number(event.target.value));
+  updateValue(Number(event.target.value));
 }
 </script>
 

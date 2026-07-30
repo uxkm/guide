@@ -9,6 +9,7 @@ export const docMeta = {
 <script setup>
 import Avatar from '@/components/Avatar.vue';
 import AvatarGroup from '@/components/AvatarGroup.vue';
+import Icon from '@/components/Icon.vue';
 import { avatarSample } from '@images';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
@@ -27,6 +28,92 @@ import {
   avatarTokenColumns,
   avatarTokens,
 } from '@/doc/data/avatar-api';
+
+const basicCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+import Icon from '@/components/Icon.vue';
+import { avatarSample } from '@images';
+<\/script>
+
+<template>
+  <Avatar :src="avatarSample" alt="홍길동" />
+  <Avatar color="primary" initials="홍" aria-hidden />
+  <Avatar color="default" aria-hidden>
+    <template #icon>
+      <Icon name="user" class="avatar_icon" />
+    </template>
+  </Avatar>
+</template>`;
+
+const sizeCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+<\/script>
+
+<template>
+  <Avatar size="sm" color="primary" initials="A" aria-hidden />
+  <Avatar color="primary" initials="B" aria-hidden />
+  <Avatar size="lg" color="primary" initials="C" aria-hidden />
+  <Avatar size="xl" color="primary" initials="D" aria-hidden />
+</template>`;
+
+const shapeCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+import { avatarSample } from '@images';
+<\/script>
+
+<template>
+  <Avatar color="primary" initials="원" aria-hidden />
+  <Avatar square color="primary" initials="각" aria-hidden />
+  <Avatar square :src="avatarSample" alt="홍길동" />
+</template>`;
+
+const colorCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+<\/script>
+
+<template>
+  <Avatar color="default" initials="D" aria-hidden />
+  <Avatar color="primary" initials="P" aria-hidden />
+  <Avatar color="success" initials="S" aria-hidden />
+  <Avatar color="warning" initials="W" aria-hidden />
+  <Avatar color="danger" initials="E" aria-hidden />
+</template>`;
+
+const badgeCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+<\/script>
+
+<template>
+  <Avatar color="primary" initials="온" badge-color="success" badge-label="온라인" aria-hidden />
+  <Avatar color="default" initials="대" badge-color="warning" badge-label="자리 비움" aria-hidden />
+  <Avatar color="default" initials="오" badge-color="danger" badge-label="오프라인" aria-hidden />
+</template>`;
+
+const groupCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+import AvatarGroup from '@/components/AvatarGroup.vue';
+import Icon from '@/components/Icon.vue';
+import { avatarSample } from '@images';
+<\/script>
+
+<template>
+  <AvatarGroup aria-label="팀 멤버 4명">
+    <Avatar color="primary" initials="김" aria-hidden />
+    <Avatar color="success" initials="이" aria-hidden />
+    <Avatar color="warning" initials="박" aria-hidden />
+    <Avatar color="danger" initials="최" aria-hidden />
+  </AvatarGroup>
+  <AvatarGroup aria-label="팀 멤버 3명">
+    <Avatar :src="avatarSample" alt="홍길동" />
+    <Avatar color="primary" initials="홍" aria-hidden />
+    <Avatar color="default" aria-hidden>
+      <template #icon>
+        <Icon name="plus" class="avatar_icon" />
+      </template>
+    </Avatar>
+  </AvatarGroup>
+</template>`;
+
 </script>
 
 <template>
@@ -39,15 +126,13 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="이미지, 이니셜 텍스트, 아이콘 세 가지 형태를 지원합니다."
+    :code="basicCode"
   >
     <Avatar :src="avatarSample" alt="홍길동" />
     <Avatar color="primary" initials="홍" aria-hidden />
     <Avatar color="default" aria-hidden>
       <template #icon>
-        <svg class="avatar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
+        <Icon name="user" class="avatar_icon" />
       </template>
     </Avatar>
   </DemoSection>
@@ -56,6 +141,7 @@ import {
     heading-id="size-heading"
     title="크기"
     description="avatar_sm · avatar_lg · avatar_xl로 스케일을 조절합니다."
+    :code="sizeCode"
   >
     <Avatar size="sm" color="primary" initials="A" aria-hidden />
     <Avatar color="primary" initials="B" aria-hidden />
@@ -67,6 +153,7 @@ import {
     heading-id="shape-heading"
     title="형태"
     description="기본은 원형이며, avatar_square로 사각형(둥근 모서리)을 적용합니다."
+    :code="shapeCode"
   >
     <Avatar color="primary" initials="원" aria-hidden />
     <Avatar square color="primary" initials="각" aria-hidden />
@@ -77,6 +164,7 @@ import {
     heading-id="color-heading"
     title="색상"
     description="이니셜·아이콘 아바타에 공통 color_* 클래스를 조합합니다."
+    :code="colorCode"
   >
     <Avatar color="default" initials="D" aria-hidden />
     <Avatar color="primary" initials="P" aria-hidden />
@@ -89,6 +177,7 @@ import {
     heading-id="badge-heading"
     title="상태 배지"
     description="avatar_badge로 온라인·오프라인 등 상태를 표시합니다. 부모에 position: relative가 적용됩니다."
+    :code="badgeCode"
   >
     <Avatar color="primary" initials="온" badge-color="success" badge-label="온라인" aria-hidden />
     <Avatar color="default" initials="대" badge-color="warning" badge-label="자리 비움" aria-hidden />
@@ -100,6 +189,7 @@ import {
     title="그룹"
     description="avatar_group으로 여러 아바타를 겹쳐 표시합니다."
     stack
+    :code="groupCode"
   >
     <AvatarGroup aria-label="팀 멤버 4명">
       <Avatar color="primary" initials="김" aria-hidden />
@@ -113,9 +203,7 @@ import {
       <Avatar color="primary" initials="홍" aria-hidden />
       <Avatar color="default" aria-hidden>
         <template #icon>
-          <svg class="avatar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+          <Icon name="plus" class="avatar_icon" />
         </template>
       </Avatar>
     </AvatarGroup>

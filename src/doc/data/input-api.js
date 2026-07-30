@@ -14,6 +14,12 @@ export const inputProps = [
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'error', type: 'boolean', default: 'false', description: '오류 상태 (is-error, aria-invalid)' },
   { name: 'block', type: 'boolean', default: 'false', description: '부모 너비 100% (input_block)' },
+  {
+    name: 'clearable',
+    type: 'boolean',
+    default: 'false',
+    description: '값이 있을 때 우측 지우기 버튼 (input_clearable). readonly · disabled면 미표시',
+  },
 ];
 
 export const inputSlotColumns = [
@@ -36,7 +42,7 @@ export const inputClasses = [
   { name: 'input_sm · input_lg · input_block', description: '크기·너비' },
   { name: 'input_masked', description: '마스킹 입력값 표시 시 자동 적용 (type="password" + 값 있음)' },
   { name: 'input_group · input_group-addon', description: '애드온 묶음' },
-  { name: 'input_clearable · input_clear', description: '지우기 버튼 — input_clear에 data-ripple="surface"' },
+  { name: 'input_clearable · input_clear', description: '지우기 버튼 래퍼·버튼 (clearable prop)' },
   { name: 'is-error · is-disabled', description: '상태' },
   ...rippleClassRows,
 ];

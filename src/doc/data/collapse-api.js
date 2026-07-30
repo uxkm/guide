@@ -1,12 +1,12 @@
 import { ripplePropSurface, rippleClassRows } from '@/doc/data/ripple-api';
-export const collapseGroupPropColumns = [
+export const collapsePropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
   { key: 'default', label: '기본값' },
   { key: 'description', label: '설명' },
 ];
 
-export const collapseGroupProps = [
+export const collapseProps = [
   {
     name: 'variant',
     type: `'bordered' | 'ghost' | 'card'`,
@@ -26,16 +26,16 @@ export const collapseGroupProps = [
     description: '한 번에 하나의 패널만 열기 (아코디언 모드)',
   },
   {
-    name: 'effect',
-    type: `'slide'`,
-    default: '—',
-    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
-  },
-  {
     name: 'narrow',
     type: 'boolean',
     default: 'false',
     description: '데모용 최대 너비 제한 (collapse_demo-narrow)',
+  },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
   },
 ];
 
@@ -107,16 +107,16 @@ export const collapseExternalProps = [
     description: '접힘 영역에 테두리·배경 스타일 적용',
   },
   {
-    name: 'effect',
-    type: `'slide'`,
-    default: '—',
-    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
-  },
-  {
     name: 'open',
     type: 'boolean',
     default: 'false',
     description: '초기 열림 상태',
+  },
+  {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
   },
   ripplePropSurface,
 ];

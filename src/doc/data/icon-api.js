@@ -11,7 +11,8 @@ export const iconProps = [
     name: 'name',
     type: 'string',
     default: '—',
-    description: 'common-icons 갤러리 키. 지정 시 기본 슬롯 대신 미리 정의된 stroke 경로를 렌더합니다',
+    description:
+      'common-icons 갤러리 키. path·image 슬롯이 없을 때 미리 정의된 stroke 경로를 렌더합니다',
   },
   {
     name: 'size',
@@ -76,7 +77,18 @@ export const iconSlotColumns = [
 ];
 
 export const iconSlots = [
-  { name: 'default', description: 'SVG path·circle 등 자식 요소' },
+  {
+    name: 'default',
+    description: 'SVG path·circle 등 커스텀 도형 (#path와 동일, 하위 호환)',
+  },
+  {
+    name: 'path',
+    description: '커스텀 SVG 도형 슬롯. name보다 우선합니다',
+  },
+  {
+    name: 'image',
+    description: 'img 등 이미지 슬롯. path·name보다 우선합니다',
+  },
 ];
 
 export const iconClassColumns = [
@@ -85,7 +97,8 @@ export const iconClassColumns = [
 ];
 
 export const iconClasses = [
-  { name: 'icon', description: 'SVG 루트 기본 크기' },
+  { name: 'icon', description: 'SVG·이미지 루트 기본 크기' },
+  { name: 'icon_img', description: 'image 슬롯 호스트 (내부 img object-fit)' },
   { name: 'icon_sm · icon_lg · icon_xl', description: '크기 변형' },
   { name: 'icon_inline', description: '텍스트 인라인 정렬' },
   { name: 'icon_spin', description: '회전 애니메이션' },

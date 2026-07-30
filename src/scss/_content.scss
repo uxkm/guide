@@ -139,6 +139,99 @@
   &_demo-fill {
     padding: $space-lg;
   }
+
+  // 크기 비교 데모 — 좁은 화면에서는 xl(80) 대비 비율(36·48·64·80)로 축소, 넓으면 토큰 rem 적용
+  &_demo-sizes {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: var(--container-max-width-xl);
+    margin-inline: auto;
+    box-sizing: border-box;
+
+    > .container {
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    > .container_sm {
+      max-width: min(var(--container-max-width-sm), calc(100% * 36 / 80));
+    }
+
+    > .container_md {
+      max-width: min(var(--container-max-width-md), calc(100% * 48 / 80));
+    }
+
+    > .container_lg {
+      max-width: min(var(--container-max-width-lg), calc(100% * 64 / 80));
+    }
+
+    > .container_xl {
+      max-width: min(var(--container-max-width-xl), 100%);
+    }
+
+    gap: var(--demo-gap-stack, $space-2xl);
+  }
+}
+
+// 데모 예시 래퍼 — 컴포넌트 사이·외곽 간격 (가이드 · Storybook 공통)
+@mixin demo-preview-vars {
+  --demo-gap-x: #{$space-lg};
+  --demo-gap-y: #{$space-lg};
+  --demo-gap-stack: #{$space-2xl};
+  --demo-padding-block: #{$space-xl};
+  --demo-padding-inline: #{$space-xl};
+}
+
+@mixin demo-preview-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--demo-gap-y) var(--demo-gap-x);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  > * {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@mixin demo-preview-stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--demo-gap-stack);
+
+  > * {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  // 크기 비교 등 단일 래퍼 안에 여러 항목이 있을 때
+  > .container_demo-sizes:only-child {
+    display: flex;
+    flex-direction: column;
+    gap: var(--demo-gap-stack);
+  }
+}
+
+// Storybook · 가이드 공통 — 데모 예시 레이아웃
+.sb-demo-layout {
+  @include demo-preview-vars;
+  @include demo-preview-flex;
+
+  &_stack {
+    @include demo-preview-stack;
+  }
+}
+
+// Storybook — 초기화용 래퍼는 레이아웃에 영향 없도록
+.sb-demo-pass-through {
+  display: contents;
 }
 
 // 컴포넌트 데모 페이지 공통 구조
@@ -169,12 +262,10 @@
   }
 
   &_section-preview {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: $space-md;
-    width: 100%;
-    padding: $space-xl;
+    @include demo-preview-vars;
+    @include demo-preview-flex;
+    padding-block: var(--demo-padding-block);
+    padding-inline: var(--demo-padding-inline);
     color: var(--color-text);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -184,14 +275,44 @@
       border-color $transition-base;
 
     &:has(.navbar_demo) {
-      padding: 0;
+      --demo-padding-block: 0;
+      --demo-padding-inline: 0;
       overflow: hidden;
     }
 
+    // Modal 열린 상태 — 단일 프레임이 미리보기를 채울 때 테두리 중첩 방지
+    &:has(> .modal_demo-frame:only-child) {
+      --demo-padding-block: 0;
+      --demo-padding-inline: 0;
+      overflow: hidden;
+
+      > .modal_demo-frame {
+        border: none;
+        border-radius: 0;
+      }
+    }
+
+    // Drawer 열린 상태 — 단일 프레임
+    &:has(> .drawer_demo-frame:only-child) {
+      --demo-padding-block: 0;
+      --demo-padding-inline: 0;
+      overflow: hidden;
+
+      > .drawer_demo-frame {
+        border: none;
+        border-radius: 0;
+      }
+    }
+
+    // 푸터 정렬 등 — 프레임 스택은 패딩만 제거하고 프레임 테두리는 유지
+    &:has(> .modal_demo-stack),
+    &:has(> .drawer_demo-stack) {
+      --demo-padding-block: 0;
+      --demo-padding-inline: 0;
+    }
+
     &-stack {
-      flex-direction: column;
-      align-items: stretch;
-      gap: $space-xl;
+      @include demo-preview-stack;
     }
 
     &-start {
@@ -234,9 +355,11 @@
   &_preview-block {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: $space-sm;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   &_section-code {

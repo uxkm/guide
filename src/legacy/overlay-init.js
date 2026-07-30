@@ -233,6 +233,9 @@ function initPopover(popover) {
   });
 
   if (popover.classList.contains('is-open')) {
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', 'true');
+    }
     updatePopoverLayout(popover);
   }
 }
@@ -401,4 +404,31 @@ export function initOverlays(root = document) {
   initPopovers(root);
   initTooltips(root);
   scheduleOverlayLayoutUpdates();
+}
+
+let overlayObserver = null;
+let overlayObserverTimer = null;
+
+/** Vue·Storybook 등 동적 마운트 후 Popover/Dropdown/Tooltip 재초기화 */
+export function observeOverlays(root = document) {
+  if (typeof MutationObserver === 'undefined' || overlayObserver) {
+    return;
+  }
+
+  const target = root.documentElement || root;
+
+  overlayObserver = new MutationObserver(() => {
+    if (overlayObserverTimer) {
+      clearTimeout(overlayObserverTimer);
+    }
+
+    overlayObserverTimer = setTimeout(() => {
+      initOverlays(document);
+    }, 50);
+  });
+
+  overlayObserver.observe(target, {
+    childList: true,
+    subtree: true,
+  });
 }

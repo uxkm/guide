@@ -43,3 +43,15 @@ export const textareaEventColumns = [
 export const textareaEvents = [
   { name: 'update:modelValue', description: '입력 값 변경 시 (v-model)' },
 ];
+
+
+export const textareaTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const textareaTokens = [
+  { name: '--textarea-min-height', default: '5rem', description: '최소 높이' },
+  { name: '--textarea-count-inset-x · --textarea-count-inset-y', default: '0.75rem · 0.5rem', description: '글자 수 카운터 위치' },
+];

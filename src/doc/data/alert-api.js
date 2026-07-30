@@ -50,3 +50,24 @@ export const alertEventColumns = [
 export const alertEvents = [
   { name: 'close', description: '닫기 버튼 클릭 시' },
 ];
+
+
+export const alertTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const alertTokens = [
+  { name: '--alert-padding-y · --alert-padding-x · --alert-gap', default: 'var(--space-md) · var(--space-lg) · var(--space-md)', description: '기본(md) 패딩·간격' },
+  { name: '--alert-font-size · --alert-line-height', default: 'var(--text-size-base) · 1.5', description: '본문 타이포' },
+  { name: '--alert-title-weight · --alert-title-gap', default: '600 · var(--space-xs)', description: '제목 두께·간격' },
+  { name: '--alert-desc-opacity', default: '0.85', description: '설명 텍스트 불투명도' },
+  { name: '--alert-icon-size · --alert-icon-offset', default: '1.25rem · 0.1rem', description: '아이콘 크기·정렬' },
+  { name: '--alert-close-size', default: '1.25rem', description: '닫기 버튼 크기' },
+  { name: '--alert-actions-gap · --alert-actions-margin-top', default: 'var(--space-sm) · var(--space-sm)', description: '액션 영역' },
+  { name: '--alert-padding-y-sm · --alert-padding-x-sm · --alert-font-size-sm', default: 'var(--space-sm) · var(--space-md) · var(--text-size-sm)', description: 'sm 크기' },
+  { name: '--alert-icon-size-sm · --alert-close-size-sm', default: '1rem · 1rem', description: 'sm 아이콘·닫기' },
+  { name: '--alert-padding-y-lg · --alert-padding-x-lg', default: 'var(--space-lg) · var(--space-xl)', description: 'lg 패딩' },
+  { name: '--alert-icon-size-lg · --alert-close-size-lg', default: '1.5rem · 1.5rem', description: 'lg 아이콘·닫기' },
+];
