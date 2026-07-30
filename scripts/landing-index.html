@@ -44,7 +44,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/_assets/images/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/_assets/images/favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/_assets/images/favicon/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="/_assets/images/favicon/favicon/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/_assets/images/favicon/manifest.json">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/_assets/images/favicon/ms-icon-144x144.png">
@@ -182,10 +182,34 @@
     }
 
     .page-header h1 {
+      display: inline-flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.55rem;
+      margin: 0 auto 0.75rem;
       font-size: 2.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .brand-logo-wrap {
+      display: inline-flex;
+      align-items: flex-start;
+      height: 2.35rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+
+    .brand-logo-wrap img {
+      display: block;
+      height: 3.35rem;
+      width: auto;
+    }
+
+    .brand-text {
+      padding-bottom: 0.1rem;
     }
 
     .page-header p {
@@ -199,7 +223,17 @@
       gap: 1.25rem;
     }
 
+    @property --card-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
     .card {
+      --card-angle: 0deg;
+      --outline-duration: 2s;
+      position: relative;
+      isolation: isolate;
       display: block;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -210,10 +244,80 @@
       transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
 
-    .card:hover {
+    .card:nth-child(1),
+    .card:nth-child(2) {
+      --outline-duration: 2s;
+    }
+
+    .card:nth-child(3),
+    .card:nth-child(4) {
+      --outline-duration: 2.5s;
+    }
+
+    .card:nth-child(5),
+    .card:nth-child(6) {
+      --outline-duration: 3s;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(
+        from calc(var(--card-angle) - 45deg) at 50% 50%,
+        transparent 0deg,
+        transparent 300deg,
+        var(--accent) 330deg,
+        #8eb4ff 345deg,
+        var(--accent) 355deg,
+        transparent 360deg
+      );
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+      animation: card-outline-spin var(--outline-duration) linear infinite;
+    }
+
+    @keyframes card-outline-spin {
+      from { --card-angle: 0deg; }
+      to { --card-angle: 360deg; }
+    }
+
+    .card:hover,
+    .card:focus-visible {
       border-color: var(--accent);
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before {
+      opacity: 0;
+      animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card::before {
+        display: none;
+      }
+
+      .card:hover,
+      .card:focus-visible {
+        border-color: var(--accent);
+        transform: none;
+        box-shadow: none;
+      }
     }
 
     .card h2 {
@@ -227,9 +331,23 @@
       font-size: 0.95rem;
     }
 
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .count {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+    }
+
     .badge {
       display: inline-block;
-      margin-top: 1rem;
       padding: 0.25rem 0.6rem;
       font-size: 0.75rem;
       font-weight: 600;
@@ -257,7 +375,12 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <h1>UXKM Guide</h1>
+      <h1>
+        <span class="brand-logo-wrap">
+          <img src="./uxkm-logo.png" alt="UXKM" width="370" height="160" />
+        </span>
+        <span class="brand-text">Guide</span>
+      </h1>
       <p>프레임워크별 데모 페이지 모음</p>
     </header>
 
@@ -265,25 +388,55 @@
       <a class="card" href="./html/index.html">
         <h2>HTML</h2>
         <p>순수 HTML/SCSS UI 컴포넌트 가이드</p>
-        <span class="badge">Vanilla · SCSS</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">Vanilla · SCSS</span>
+        </div>
+      </a>
+
+      <a class="card" href="./gulp-storybook/">
+        <h2>HTML Storybook</h2>
+        <p>HTML/SCSS UI 컴포넌트 Storybook</p>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">HTML · Storybook</span>
+        </div>
       </a>
 
       <a class="card" href="./react/">
         <h2>React</h2>
         <p>React 기반 컴포넌트 데모 페이지</p>
-        <span class="badge">React</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">React</span>
+        </div>
+      </a>
+
+      <a class="card" href="./react-storybook/">
+        <h2>React Storybook</h2>
+        <p>React UI 컴포넌트 Storybook</p>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">React · Storybook</span>
+        </div>
       </a>
 
       <a class="card" href="./vue/">
         <h2>Vue</h2>
         <p>Vue 기반 컴포넌트 데모 페이지</p>
-        <span class="badge">Vue</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">Vue</span>
+        </div>
       </a>
 
       <a class="card" href="./vue-storybook/">
         <h2>Vue Storybook</h2>
         <p>Vue UI 컴포넌트 Storybook</p>
-        <span class="badge">Vue · Storybook</span>
+        <div class="card-meta">
+          <span class="count">컴포넌트 50개</span>
+          <span class="badge">Vue · Storybook</span>
+        </div>
       </a>
     </nav>
 
