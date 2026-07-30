@@ -20,6 +20,7 @@ storybook-static/
 
 # Build artifacts
 dist/
+.next/
 .vite/
 .vite-temp/
 .sass-cache/
