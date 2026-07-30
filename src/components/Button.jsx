@@ -6,6 +6,7 @@ import Icon from '@/components/Icon.jsx';
 import { cn } from '@/utils/cn';
 
 export default function Button({
+  ref,
   ripple,
   variant = 'filled',
   color = 'primary',
@@ -23,13 +24,8 @@ export default function Button({
   error,
   placeholder,
   selectText,
-  selectCaret,
   label,
   ariaLabel,
-  ariaHaspopup,
-  ariaExpanded: ariaExpandedProp,
-  ariaControls,
-  ariaBusy,
   type = 'button',
   haspopup,
   expanded,
@@ -49,11 +45,14 @@ export default function Button({
   const { rippleAttrs } = useRipple({ ripple });
   const buttonRef = useRef(null);
 
-  const resolvedIconBefore =
-    iconBefore ?? (iconOnly ? children : label && children ? children : null);
-  const labelContent = iconOnly
-    ? null
-    : (label ?? (iconBefore || (iconOnly && children) ? undefined : children));
+  function setButtonRef(node) {
+    buttonRef.current = node;
+    if (typeof ref === 'function') ref(node);
+    else if (ref && typeof ref === 'object') ref.current = node;
+  }
+
+  const resolvedIconBefore = iconBefore ?? (iconOnly ? children : null);
+  const labelContent = iconOnly ? null : (children ?? label);
   const showLabel = !iconOnly && labelContent != null && labelContent !== '';
 
   useButtonDemoCode(
@@ -75,13 +74,8 @@ export default function Button({
       error,
       placeholder,
       selectText,
-      selectCaret,
       label,
       ariaLabel,
-      ariaHaspopup,
-      ariaExpanded: ariaExpandedProp,
-      ariaControls,
-      ariaBusy,
       type,
       haspopup,
       expanded,
@@ -99,6 +93,15 @@ export default function Button({
     buttonRef,
     { className, onClick, ...rest },
   );
+
+  const {
+    href: fallthroughHref,
+    role: fallthroughRole,
+    tabIndex: fallthroughTabIndex,
+    tabindex: fallthroughTabindexKebab,
+    onClick: _ignoredClick,
+    ...restForDom
+  } = rest;
 
   const btnClass = useMemo(() => {
     const classes = ['btn'];
@@ -151,17 +154,24 @@ export default function Button({
     selectText,
   ]);
 
-  const resolvedHref = href != null && href !== '' ? String(href) : undefined;
+  const resolvedHref = useMemo(() => {
+    const hrefValue = href ?? fallthroughHref;
+    return hrefValue != null && hrefValue !== '' ? String(hrefValue) : undefined;
+  }, [href, fallthroughHref]);
 
   const resolvedRole = useMemo(() => {
     if (role) return role;
+    if (typeof fallthroughRole === 'string' && fallthroughRole) return fallthroughRole;
+
     if (tag === 'div') return 'button';
+
     if (tag === 'a') {
       if (resolvedHref) return undefined;
       return 'button';
     }
+
     return undefined;
-  }, [role, tag, resolvedHref]);
+  }, [role, fallthroughRole, tag, resolvedHref]);
 
   const isNativeButton = tag === 'button';
   const isNativeLink = tag === 'a' && Boolean(resolvedHref);
@@ -169,25 +179,28 @@ export default function Button({
   const needsTabIndex = tag === 'div' || (tag === 'a' && !isNativeLink);
 
   const rootTabIndex = useMemo(() => {
-    if (tabindex != null && tabindex !== '') return Number(tabindex);
+    const explicit = tabindex ?? fallthroughTabIndex ?? fallthroughTabindexKebab;
+    if (explicit != null && explicit !== '') return Number(explicit);
     if (isNativeButton || isNativeLink) return isDisabled ? -1 : undefined;
     if (needsTabIndex) return isDisabled ? -1 : 0;
     return undefined;
-  }, [tabindex, isNativeButton, isNativeLink, isDisabled, needsTabIndex]);
+  }, [
+    tabindex,
+    fallthroughTabIndex,
+    fallthroughTabindexKebab,
+    isNativeButton,
+    isNativeLink,
+    isDisabled,
+    needsTabIndex,
+  ]);
 
   const ariaDisabledAttr = useMemo(() => {
     if (isNativeButton && disabled && !ariaDisabled) return undefined;
     return isDisabled ? 'true' : undefined;
   }, [isNativeButton, disabled, ariaDisabled, isDisabled]);
 
-  const showSelectCaret = selectCaret || variant === 'select';
-
-  const resolvedHaspopup = haspopup ?? ariaHaspopup;
-  const resolvedExpanded =
-    expanded ?? (ariaExpandedProp != null && ariaExpandedProp !== '' ? ariaExpandedProp : undefined);
   const ariaExpandedAttr =
-    resolvedExpanded !== undefined ? String(resolvedExpanded) : open ? 'true' : undefined;
-  const ariaBusyAttr = ariaBusy != null ? String(ariaBusy) : loading ? 'true' : undefined;
+    expanded !== undefined ? String(expanded) : open ? 'true' : undefined;
   const activatesWithSpace = resolvedRole !== 'link';
 
   function handleKeyDown(event) {
@@ -213,11 +226,11 @@ export default function Button({
   }
 
   const Tag = tag;
-  const domRest = normalizeDomProps(rest);
+  const domRest = normalizeDomProps(restForDom);
 
   return (
     <Tag
-      ref={buttonRef}
+      ref={setButtonRef}
       className={cn(btnClass, className)}
       type={isNativeButton ? type : undefined}
       href={tag === 'a' ? resolvedHref : undefined}
@@ -227,10 +240,9 @@ export default function Button({
       {...domRest}
       aria-label={ariaLabel}
       aria-disabled={ariaDisabledAttr}
-      aria-busy={ariaBusyAttr}
-      aria-haspopup={resolvedHaspopup}
+      aria-busy={loading ? 'true' : undefined}
+      aria-haspopup={haspopup}
       aria-expanded={ariaExpandedAttr}
-      aria-controls={ariaControls}
       aria-invalid={invalid || error ? 'true' : undefined}
       onKeyDown={handleKeyDown}
       onClick={handleClick}
@@ -240,7 +252,7 @@ export default function Button({
       {resolvedIconBefore}
       {showLabel ? <span className="btn_label">{labelContent}</span> : null}
       {iconAfter}
-      {showSelectCaret ? (
+      {variant === 'select' ? (
         <Icon name="chevron-down" className="btn_select-caret" aria-hidden="true" />
       ) : null}
     </Tag>

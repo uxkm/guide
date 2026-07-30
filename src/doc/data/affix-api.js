@@ -1,3 +1,64 @@
+export const affixPropColumns = [
+  { key: 'name', label: 'Prop' },
+  { key: 'type', label: '타입' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const affixProps = [
+  {
+    name: 'target',
+    type: 'string',
+    default: '—',
+    description: '스크롤 컨테이너 선택자 (data-target). 생략 시 window',
+  },
+  {
+    name: 'offsetTop',
+    type: 'number | string',
+    default: '0',
+    description: '상단 고정 시 상단 여백(px, data-offset-top)',
+  },
+  {
+    name: 'offsetBottom',
+    type: 'number | string',
+    default: '—',
+    description: '하단 고정 시 하단 여백(px, data-offset-bottom). 지정 시 하단 고정 모드',
+  },
+  {
+    name: 'skin',
+    type: `'' | 'bar' | 'anchor'`,
+    default: '—',
+    description: 'affix_bar · affix_anchor 스킨',
+  },
+  {
+    name: 'interactive',
+    type: 'boolean',
+    default: 'true',
+    description: 'false면 data-affix 미부여(초기화 비활성)',
+  },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
+  },
+];
+
+export const affixChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
+  { key: 'description', label: '설명' },
+];
+
+export const affixChildren = [
+  { name: 'children', description: '고정 대상 콘텐츠 (라벨·버튼·앵커 링크 등)' },
+];
+
 export const affixAttrColumns = [
   { key: 'name', label: '속성' },
   { key: 'type', label: '타입' },
@@ -64,4 +125,19 @@ export const affixClasses = [
   { name: 'affix_anchor', description: '섹션 앵커 링크 내비게이션 스킨' },
   { name: 'is-affixed', description: '고정 상태 (루트 .affix에 JS가 자동 추가)' },
   { name: 'is-fixed', description: '고정 상태 (.affix_target에 JS가 자동 추가)' },
+];
+
+export const affixTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const affixTokens = [
+  { name: '--affix-z-index', default: '10', description: '고정 바 z-index' },
+  { name: '--affix-bar-gap', default: 'var(--space-sm)', description: '바 내부 간격' },
+  { name: '--affix-bar-padding-y · --affix-bar-padding-x', default: 'var(--space-sm) · var(--space-md)', description: '바 패딩' },
+  { name: '--affix-bar-bg', default: 'var(--color-surface)', description: '바 배경' },
+  { name: '--affix-bar-border', default: 'var(--color-border-subtle)', description: '바 테두리' },
+  { name: '--affix-bar-shadow', default: '0 1px 4px rgb(0 0 0 / 0.08)', description: '바 그림자' },
 ];

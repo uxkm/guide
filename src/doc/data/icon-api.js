@@ -1,4 +1,5 @@
 import { ripplePropIcon, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const iconPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -11,7 +12,7 @@ export const iconProps = [
     name: 'name',
     type: 'string',
     default: '—',
-    description: 'common-icons 갤러리 키. 지정 시 기본 슬롯 대신 미리 정의된 stroke 경로를 렌더합니다',
+    description: 'common-icons 갤러리 키. 지정 시 children 대신 미리 정의된 stroke 경로를 렌더합니다',
   },
   {
     name: 'size',
@@ -62,7 +63,7 @@ export const iconProps = [
     description: '펄스 애니메이션 (icon_pulse, circle과 함께)',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '—',
     description: 'button·의미 있는 아이콘 시 접근성 라벨',
@@ -71,12 +72,15 @@ export const iconProps = [
 ];
 
 export const iconSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const iconSlots = [
-  { name: 'default', description: 'SVG path·circle 등 자식 요소' },
+  {
+    name: 'children',
+    description: 'SVG path·circle 등 자식 요소. name prop이 있으면 children 대신 갤러리 경로를 사용',
+  },
 ];
 
 export const iconClassColumns = [

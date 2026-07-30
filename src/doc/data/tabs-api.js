@@ -8,15 +8,21 @@ export const tabsPropColumns = [
 
 export const tabsProps = [
   { name: 'mode', type: `'panels' | 'dynamic'`, default: 'panels', description: 'panels: 탭별 패널 · dynamic: 단일 패널 콘텐츠 전환' },
-  { name: 'v-model / model-value', type: 'string | number', default: '—', description: 'mode=dynamic 선택 탭 key' },
+  { name: 'value', type: 'string | number', default: '—', description: 'mode=dynamic 선택 탭 key (제어)' },
+  { name: 'defaultValue', type: 'string | number', default: '—', description: 'mode=dynamic 초기 선택 탭 key (비제어)' },
+  { name: 'onChange', type: '(key: string) => void', default: '—', description: '탭 전환 콜백' },
   { name: 'variant', type: `'line' | 'card' | 'pill'`, default: 'line', description: 'tabs_line · tabs_card · tabs_pill' },
   { name: 'indicator', type: `'static' | 'slide'`, default: 'static', description: 'line·pill 인디케이터. slide는 선택 탭으로 이동 애니메이션' },
   { name: 'layout', type: `'auto' | 'equal' | 'scroll'`, default: 'auto', description: 'auto: 콘텐츠 너비 · equal: 100% 균등 분할 · scroll: 좌우 네비 스크롤' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'tabs_sm · tabs_lg' },
   { name: 'vertical', type: 'boolean', default: 'false', description: 'tabs_vertical' },
   { name: 'scrollable', type: 'boolean', default: 'false', description: 'layout=auto일 때 가로 스크롤바 표시 (tabs_scrollable)' },
-  { name: 'aria-label', type: 'string', default: '—', description: 'tablist aria-label' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: 'tablist aria-label' },
   { name: 'items', type: 'Array<{ key?, label, content?, active?, disabled? }>', default: '—', description: '선언적 탭. panels: content로 패널 생성 · dynamic: label만 사용' },
+  { name: 'extra', type: 'ReactNode', default: '—', description: '탭 바 우측 영역 (tabs_extra)' },
+  { name: 'panel', type: 'ReactNode | Function', default: '—', description: 'mode=dynamic 단일 패널 본문' },
+  { name: 'children', type: 'ReactNode', default: '—', description: 'TabPanel · TabMenu 나열 (items prop 대체)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropContainer,
 ];
 
@@ -25,37 +31,39 @@ export const tabPanelProps = [
   { name: 'label', type: 'string', default: '—', description: '탭 버튼 텍스트 (필수)' },
   { name: 'active', type: 'boolean', default: 'false', description: '초기 선택 탭' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
+  { name: 'icon', type: 'ReactNode', default: '—', description: '탭 버튼 아이콘' },
+  { name: 'badge', type: 'ReactNode', default: '—', description: '탭 버튼 배지' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '패널 본문 (tabs_panel)' },
 ];
 
 export const tabMenuPropColumns = tabsPropColumns;
 export const tabMenuProps = [
   { name: 'label', type: 'string', default: '—', description: '탭 버튼 텍스트 (필수)' },
-  { name: 'value', type: 'string', default: '—', description: 'mode=dynamic v-model key' },
+  { name: 'value', type: 'string', default: '—', description: 'mode=dynamic value / onChange key' },
   { name: 'active', type: 'boolean', default: 'false', description: '초기 선택 탭' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
 ];
 
-export const tabsSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const tabsChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const tabsSlots = [
-  { name: 'tabs', description: '탭 바 추가 콘텐츠' },
-  { name: 'extra', description: '탭 바 우측 영역 (tabs_extra)' },
-  { name: 'panel', description: 'mode=dynamic 단일 패널 본문 ({ item, value, active })' },
-  { name: 'default', description: 'TabPanel·TabMenu 나열 (items prop 대체)' },
+export const tabsChildren = [
+  { name: 'children', description: 'TabPanel · TabMenu 나열' },
+  { name: 'extra', description: '탭 바 우측 (tabs_extra)' },
+  { name: 'panel', description: 'mode=dynamic 패널 렌더 함수/노드' },
 ];
 
-export const tabPanelSlotColumns = tabsSlotColumns;
-export const tabPanelSlots = [
-  { name: 'default', description: '패널 본문 (tabs_panel)' },
+export const tabPanelChildColumns = tabsChildColumns;
+export const tabPanelChildren = [
+  { name: 'children', description: '패널 본문' },
   { name: 'icon', description: '탭 버튼 아이콘' },
   { name: 'badge', description: '탭 버튼 배지' },
 ];
 
-export const tabMenuSlotColumns = tabsSlotColumns;
-export const tabMenuSlots = [
+export const tabMenuChildColumns = tabsChildColumns;
+export const tabMenuChildren = [
   { name: 'icon', description: '탭 버튼 아이콘' },
   { name: 'badge', description: '탭 버튼 배지' },
 ];

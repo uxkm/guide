@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
-import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Slider', {
   defaults: { min: 0, max: 100, value: 50, size: 'md' },
@@ -20,144 +22,169 @@ export default function Slider({
   max = 100,
   value = 50,
   step,
-  disabled = false,
-  vertical = false,
+  disabled,
+  vertical,
   label,
-  showValue = false,
-  stepper = false,
-  stepperAlways = false,
+  showValue,
+  stepper,
+  stepperAlways,
   valueSuffix,
   hint,
   decreaseLabel,
   increaseLabel,
   size = 'md',
-  modelValue,
-  onUpdateModelValue,
+  id,
   children,
   className,
+  style,
+  onChange,
   ...rest
 }) {
-  const props = {
-    ripple,
-    min,
-    max,
-    value,
-    step,
-    disabled,
-    vertical,
-    label,
-    showValue,
-    stepper,
-    stepperAlways,
-    valueSuffix,
-    hint,
-    decreaseLabel,
-    increaseLabel,
-    size,
-    modelValue,
-  };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
-  const inputId = useMemo(() => `slider-${Math.random().toString(36).slice(2, 9)}`, []);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
+  const generatedId = useId();
+  const inputId = id || generatedId;
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedMin = Number(min);
+  const resolvedMax = Number(max);
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const currentValue = modelValue ?? value;
-  const [rangeValue, setRangeValue] = useState(currentValue);
+  const [internalValue, setInternalValue] = useState(() => Number(value));
 
   useEffect(() => {
-    setRangeValue(currentValue);
-  }, [currentValue]);
+    if (value !== undefined) {
+      setInternalValue(Number(value));
+    }
+  }, [value]);
 
-  const displayValue = `${rangeValue}${valueSuffix ?? ''}`;
+  const currentValue = internalValue;
+  const displayValue = `${currentValue}${valueSuffix ?? ''}`;
 
-  const rootClass = cn(
-    'slider',
-    size === 'sm' && 'slider_sm',
-    size === 'lg' && 'slider_lg',
-    vertical && 'slider_vertical',
-    stepper && 'slider_stepper',
-    stepperAlways && 'slider_stepper_always',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      min: resolvedMin,
+      max: resolvedMax,
+      value: currentValue,
+      step,
+      disabled,
+      vertical,
+      label,
+      showValue,
+      stepper,
+      stepperAlways,
+      valueSuffix,
+      hint,
+      decreaseLabel,
+      increaseLabel,
+      size: resolvedSize,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, style, id, onChange, ...rest },
   );
 
-  const adjustValue = (delta) => {
-    const stepVal = step ?? 1;
-    const next = Math.min(max, Math.max(min, rangeValue + delta * stepVal));
-    setRangeValue(next);
-    onUpdateModelValue?.(next);
-  };
+  const rootClass = useMemo(() => {
+    const classes = ['slider'];
+    if (resolvedSize === 'sm') classes.push('slider_sm');
+    if (resolvedSize === 'lg') classes.push('slider_lg');
+    if (vertical) classes.push('slider_vertical');
+    if (stepper) classes.push('slider_stepper');
+    if (stepperAlways) classes.push('slider_stepper_always');
+    return classes;
+  }, [resolvedSize, vertical, stepper, stepperAlways]);
 
-  const handleRangeChange = (event) => {
-    const next = Number(event.target.value);
-    setRangeValue(next);
-    onUpdateModelValue?.(next);
-  };
+  const {
+    class: _ignoredClass,
+    id: _ignoredId,
+    value: _ignoredValue,
+    style: _ignoredStyle,
+    onChange: _ignoredOnChange,
+    onInput: _ignoredOnInput,
+    ...restForDom
+  } = rest;
 
-  const domRest = normalizeDomProps(rest);
+  const domRest = normalizeDomProps(restForDom);
+
+  function updateValue(next) {
+    setInternalValue(next);
+    onChange?.(next);
+  }
+
+  function handleInput(event) {
+    updateValue(Number(event.target.value));
+  }
+
+  function adjustValue(delta) {
+    const stepSize = step ?? 1;
+    const next = Math.min(
+      resolvedMax,
+      Math.max(resolvedMin, currentValue + delta * stepSize),
+    );
+    updateValue(next);
+  }
 
   const rangeInput = (
     <input
       id={inputId}
       type="range"
       className="slider_input"
-      min={min}
-      max={max}
+      min={resolvedMin}
+      max={resolvedMax}
       step={step}
-      value={rangeValue}
+      value={currentValue}
       disabled={disabled}
-      onChange={handleRangeChange}
       {...domRest}
+      onChange={handleInput}
     />
   );
 
   return (
-    <div ref={rootRef} className={rootClass} {...rippleAttrs}>
-      {(label || showValue) && (
+    <div ref={rootRef} className={cn(rootClass, className)} style={style} {...rippleAttrs}>
+      {label || showValue ? (
         <div className="slider_header">
-          {label && (
+          {label ? (
             <label className="slider_label" htmlFor={inputId}>
               {label}
             </label>
-          )}
-          {showValue && (
+          ) : null}
+          {showValue ? (
             <output className="slider_value" htmlFor={inputId}>
               {displayValue}
             </output>
-          )}
+          ) : null}
         </div>
-      )}
+      ) : null}
       {stepper ? (
         <div className="slider_control">
           <Button
-            {...childRippleAttrs}
             variant="ghost"
             size="sm"
             iconOnly
             className="slider_step slider_step-decrease"
-            aria-label={decreaseLabel || '값 줄이기'}
+            ariaLabel={decreaseLabel || '값 줄이기'}
             disabled={disabled}
-            onClick={() => adjustValue(-1)}
             iconBefore={<Icon name="minus" size="sm" className="slider_step-icon" />}
+            onClick={() => adjustValue(-1)}
+            {...childRippleAttrs}
           />
           {rangeInput}
           <Button
-            {...childRippleAttrs}
             variant="ghost"
             size="sm"
             iconOnly
             className="slider_step slider_step-increase"
-            aria-label={increaseLabel || '값 늘리기'}
+            ariaLabel={increaseLabel || '값 늘리기'}
             disabled={disabled}
-            onClick={() => adjustValue(1)}
             iconBefore={<Icon name="plus" size="sm" className="slider_step-icon" />}
+            onClick={() => adjustValue(1)}
+            {...childRippleAttrs}
           />
         </div>
       ) : (
         rangeInput
       )}
-      {hint && <p className="slider_hint">{hint}</p>}
+      {hint ? <p className="slider_hint">{hint}</p> : null}
       {children}
     </div>
   );

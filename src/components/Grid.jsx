@@ -1,7 +1,10 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_GAPS = new Set(['', 'sm', 'lg', 'none']);
 
 const formatCode = createComponentFormatter('Grid', {
   booleanProps: new Set(['autoFit', 'autoFill']),
@@ -16,37 +19,55 @@ export default function Grid({
   itemSpanMd,
   itemSpanLg,
   gap = '',
-  autoFit,
-  autoFill,
+  autoFit = false,
+  autoFill = false,
   children,
   className,
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { cols, colsMd, colsLg, ratio, itemSpan, itemSpanMd, itemSpanLg, gap, autoFit, autoFill };
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedGap = VALID_GAPS.has(gap) ? gap : '';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'grid',
-    cols && `grid_cols-${cols}`,
-    colsMd && `grid_cols-md-${colsMd}`,
-    colsLg && `grid_cols-lg-${colsLg}`,
-    ratio && `grid_ratio-${ratio}`,
-    itemSpan && `grid_item-span-${itemSpan}`,
-    itemSpanMd && `grid_item-span-md-${itemSpanMd}`,
-    itemSpanLg && `grid_item-span-lg-${itemSpanLg}`,
-    gap === 'sm' && 'grid_gap-sm',
-    gap === 'lg' && 'grid_gap-lg',
-    gap === 'none' && 'grid_gap-none',
-    autoFit && 'grid_auto-fit',
-    autoFill && 'grid_auto-fill',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      cols,
+      colsMd,
+      colsLg,
+      ratio,
+      itemSpan,
+      itemSpanMd,
+      itemSpanLg,
+      gap: resolvedGap,
+      autoFit,
+      autoFill,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
+  const rootClass = useMemo(() => {
+    const classes = ['grid'];
+    if (cols) classes.push(`grid_cols-${cols}`);
+    if (colsMd) classes.push(`grid_cols-md-${colsMd}`);
+    if (colsLg) classes.push(`grid_cols-lg-${colsLg}`);
+    if (ratio) classes.push(`grid_ratio-${ratio}`);
+    if (itemSpan) classes.push(`grid_item-span-${itemSpan}`);
+    if (itemSpanMd) classes.push(`grid_item-span-md-${itemSpanMd}`);
+    if (itemSpanLg) classes.push(`grid_item-span-lg-${itemSpanLg}`);
+    if (resolvedGap === 'sm') classes.push('grid_gap-sm');
+    if (resolvedGap === 'lg') classes.push('grid_gap-lg');
+    if (resolvedGap === 'none') classes.push('grid_gap-none');
+    if (autoFit) classes.push('grid_auto-fit');
+    if (autoFill) classes.push('grid_auto-fill');
+    return classes;
+  }, [cols, colsMd, colsLg, ratio, itemSpan, itemSpanMd, itemSpanLg, resolvedGap, autoFit, autoFill]);
+
+  const domRest = normalizeDomProps(rest);
+
   return (
-    <div ref={rootRef} className={rootClass} {...rest}>
+    <div ref={rootRef} className={cn(rootClass, className)} {...domRest}>
       {children}
     </div>
   );

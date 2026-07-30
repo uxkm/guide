@@ -80,15 +80,15 @@ function indentPanelLines(line) {
     .join('\n');
 }
 
-export function formatCollapseGroupCode(props, panels = [], customAttrs = {}) {
+export function formatCollapseCode(props, panels = [], customAttrs = {}) {
   const rootAttrs = formatGroupProps(props, customAttrs);
   const panelLines = panels.map((panel) => indentPanelLines(formatCollapsePanel(panel)));
 
   if (!panelLines.length) {
-    return `<CollapseGroup${rootAttrs} />`;
+    return `<Collapse${rootAttrs} />`;
   }
 
-  return [`<CollapseGroup${rootAttrs}>`, ...panelLines, '</CollapseGroup>'].join('\n');
+  return [`<Collapse${rootAttrs}>`, ...panelLines, '</Collapse>'].join('\n');
 }
 
 export function formatCollapseExternalCode(props, customAttrs = {}, isOpenRef = null) {
@@ -114,3 +114,6 @@ export function formatCollapseExternalCode(props, customAttrs = {}, isOpenRef = 
     '</CollapseExternal>',
   ].join('\n');
 }
+
+/** @deprecated use formatCollapseCode */
+export const formatCollapseGroupCode = formatCollapseCode;

@@ -206,12 +206,14 @@
       background: var(--color-surface-raised);
     }
 
-    &-floating {
-      position: absolute;
-      top: var(--space-xs);
-      right: var(--space-xs);
-      z-index: 1;
-    }
+  }
+
+  // Button ripple([data-ripple] position:relative)보다 우선 — 패널 우측 상단 고정
+  &_panel > .btn.popover_close.popover_close-floating {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-xs);
+    z-index: 1;
   }
 
   &_close-icon {
@@ -543,6 +545,18 @@
 
   // ----- 데모 레이아웃
 
+  &_demo-stage {
+    position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 18rem;
+    padding: var(--space-2xl) var(--space-xl);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: visible;
+    background: var(--color-bg);
+  }
+
   &_row {
     display: flex;
     flex-wrap: wrap;
@@ -557,8 +571,8 @@
     align-items: center;
     justify-items: center;
     width: 100%;
-    min-height: 10rem;
-    padding: var(--space-xl);
+    min-height: 14rem;
+    padding: var(--space-2xl) var(--space-xl);
   }
 
   &_demo-placement-cell-top {

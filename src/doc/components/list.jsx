@@ -1,5 +1,5 @@
 export const docMeta = {
-  title: 'List | HTML Components',
+  title: 'List | UXKM Guide',
   activeNav: 'list',
   pageTitle: 'List',
 };
@@ -16,6 +16,7 @@ import {
   listItemPropColumns,
   listItemProps,
   listItemSlots,
+  listItemSlotColumns,
   listPropColumns,
   listProps,
   listSlotColumns,
@@ -23,6 +24,248 @@ import {
   listTokenColumns,
   listTokens,
 } from '@/doc/data/list-api';
+
+const basicCode = `import Avatar from '@/components/Avatar.jsx';
+import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BasicExample() {
+  return (
+    <List>
+      <ListItem title="홍길동" meta="프론트엔드 개발자" prefix={<Avatar color="primary" initials="홍" ariaHidden />} />
+      <ListItem title="김철수" meta="백엔드 개발자" prefix={<Avatar color="success" initials="김" ariaHidden />} />
+      <ListItem title="이영희" meta="UI/UX 디자이너" prefix={<Avatar color="warning" initials="이" ariaHidden />} />
+    </List>
+  );
+}`;
+
+const bulletCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BulletExample() {
+  return (
+    <List className="list_bullet">
+      <ListItem>디자인 토큰 정의</ListItem>
+      <ListItem>컴포넌트 문서화</ListItem>
+      <ListItem>접근성 검토</ListItem>
+    </List>
+  );
+}`;
+
+const bulletRichCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BulletRichExample() {
+  return (
+    <List className="list_bullet">
+      <ListItem title="HTML 마크업" description="시맨틱 태그와 ARIA 속성을 사용합니다." />
+      <ListItem title="SCSS 스타일" description="OOCSS 패턴으로 구조와 스킨을 분리합니다." />
+      <ListItem title="접근성" description="WCAG 2.2 AA 기준을 준수합니다." />
+    </List>
+  );
+}`;
+
+const bulletVariantCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BulletVariantExample() {
+  return (
+    <>
+      <List className="list_bullet list_bullet-circle">
+        <ListItem>원형 마커 항목 A</ListItem>
+        <ListItem>원형 마커 항목 B</ListItem>
+      </List>
+      <List className="list_bullet list_bullet-square">
+        <ListItem>사각 마커 항목 A</ListItem>
+        <ListItem>사각 마커 항목 B</ListItem>
+      </List>
+    </>
+  );
+}`;
+
+const orderedCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function OrderedExample() {
+  return (
+    <List tag="ol" className="list_ordered">
+      <ListItem>요구사항 분석</ListItem>
+      <ListItem>와이어프레임 작성</ListItem>
+      <ListItem>프로토타입 검증</ListItem>
+      <ListItem>개발 및 배포</ListItem>
+    </List>
+  );
+}`;
+
+const orderedVariantCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function OrderedVariantExample() {
+  return (
+    <List tag="ol" className="list_ordered list_ordered-alpha">
+      <ListItem>첫 번째 옵션</ListItem>
+      <ListItem>두 번째 옵션</ListItem>
+      <ListItem>세 번째 옵션</ListItem>
+    </List>
+  );
+}`;
+
+const orderedHierarchicalCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function OrderedHierarchicalExample() {
+  return (
+    <List tag="ol" className="list_ordered list_ordered-outline">
+      <ListItem>1단계 — 요구사항 정의</ListItem>
+      <ListItem>
+        설계
+        <List tag="ol" className="list_ordered list_ordered-outline">
+          <ListItem>정보 구조</ListItem>
+          <ListItem>UI 설계</ListItem>
+        </List>
+      </ListItem>
+      <ListItem>개발 및 배포</ListItem>
+    </List>
+  );
+}`;
+
+const bulletLinkCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BulletLinkExample() {
+  return (
+    <List className="list_bullet">
+      <ListItem>
+        <a href="components/button.html" className="list_link" data-ripple="">
+          <span className="list_title">Button</span>
+        </a>
+      </ListItem>
+    </List>
+  );
+}`;
+
+const borderedCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function BorderedExample() {
+  return (
+    <List bordered>
+      <ListItem title="알림 설정" description="이메일 및 푸시 알림을 관리합니다." />
+      <ListItem title="프로필 편집" description="이름, 사진, 소개를 변경합니다." />
+      <ListItem title="보안" description="비밀번호 및 2단계 인증을 설정합니다." />
+    </List>
+  );
+}`;
+
+const linkCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function LinkExample() {
+  return (
+    <List split>
+      <ListItem>
+        <a href="components/button.html" className="list_link" data-ripple="">
+          <div className="list_content">
+            <span className="list_title">대시보드</span>
+          </div>
+          <span className="list_action color_muted" aria-hidden="true">
+            ›
+          </span>
+        </a>
+      </ListItem>
+    </List>
+  );
+}`;
+
+const buttonCode = `import Avatar from '@/components/Avatar.jsx';
+import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function ButtonExample() {
+  return (
+    <List bordered>
+      <ListItem>
+        <button type="button" className="list_link" data-ripple="">
+          <Avatar color="primary" initials="홍" ariaHidden />
+          <span className="list_content">
+            <span className="list_title">홍길동</span>
+            <span className="list_meta">메시지 보내기</span>
+          </span>
+          <span className="list_action color_muted" aria-hidden="true">
+            ›
+          </span>
+        </button>
+      </ListItem>
+    </List>
+  );
+}`;
+
+const cardCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function CardExample() {
+  return (
+    <List className="list_cards">
+      <ListItem>
+        <a href="components/card.html" className="card card_shadow card_clickable card_horizontal">
+          ...
+        </a>
+      </ListItem>
+    </List>
+  );
+}`;
+
+const definitionCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function DefinitionExample() {
+  return (
+    <List variant="definition" style={{ maxWidth: '28rem', width: '100%' }}>
+      <ListItem title="OOCSS" description="구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다." />
+      <ListItem title="Design Token" description="색상·간격·타이포 등 디자인 값을 변수로 정의한 것입니다." />
+      <ListItem title="WCAG" description="웹 콘텐츠 접근성 지침으로, 대비·키보드 사용성 등을 다룹니다." />
+    </List>
+  );
+}`;
+
+const definitionInlineCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function DefinitionInlineExample() {
+  return (
+    <List
+      variant="definition"
+      layout="inline"
+      inlineLabelWidth="auto"
+      inlineGap="var(--space-md)"
+    >
+      <ListItem title="OOCSS" description="구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다." />
+      <ListItem title="Design Token" description="색상·간격·타이포 등 디자인 값을 변수로 정의한 것입니다." />
+      <ListItem title="WCAG" description="웹 콘텐츠 접근성 지침으로, 대비·키보드 사용성 등을 다룹니다." />
+    </List>
+  );
+}`;
+
+const definitionDescAlignCode = `import List from '@/components/List.jsx';
+import ListItem from '@/components/ListItem.jsx';
+
+export function DefinitionDescAlignExample() {
+  return (
+    <List
+      variant="definition"
+      layout="inline"
+      block
+      size="compact"
+      descAlign="right"
+      inlineLabelWidth="auto"
+      inlineGap="1rem"
+    >
+      <ListItem title="주문번호" description="ORD-2024-0815" />
+      <ListItem title="결제금액" description="₩42,000" />
+      <ListItem title="배송지" description="서울특별시 강남구 테헤란로 123" />
+    </List>
+  );
+}`;
 
 export default function ListDoc() {
   return (
@@ -36,23 +279,12 @@ export default function ListDoc() {
           headingId="basic-heading"
           title="기본"
           description="list_title · list_meta · list_desc로 항목 내용을 구성합니다."
+          code={basicCode}
         >
           <List>
-            <ListItem title="홍길동" meta="프론트엔드 개발자" prefix={(
-              <>
-              <Avatar color="primary" initials="홍" ariaHidden />
-              </>
-            )} />
-            <ListItem title="김철수" meta="백엔드 개발자" prefix={(
-              <>
-              <Avatar color="success" initials="김" ariaHidden />
-              </>
-            )} />
-            <ListItem title="이영희" meta="UI/UX 디자이너" prefix={(
-              <>
-              <Avatar color="warning" initials="이" ariaHidden />
-              </>
-            )} />
+            <ListItem title="홍길동" meta="프론트엔드 개발자" prefix={<Avatar color="primary" initials="홍" ariaHidden />} />
+            <ListItem title="김철수" meta="백엔드 개발자" prefix={<Avatar color="success" initials="김" ariaHidden />} />
+            <ListItem title="이영희" meta="UI/UX 디자이너" prefix={<Avatar color="warning" initials="이" ariaHidden />} />
           </List>
         </DemoSection>
 
@@ -60,6 +292,7 @@ export default function ListDoc() {
           headingId="bullet-heading"
           title="불릿"
           description="class에 list_bullet을 적용합니다. list_bullet-circle · list_bullet-square로 마커 형태를 바꿀 수 있습니다."
+          code={bulletCode}
         >
           <List className="list_bullet">
             <ListItem>디자인 토큰 정의</ListItem>
@@ -72,6 +305,7 @@ export default function ListDoc() {
           headingId="bullet-rich-heading"
           title="불릿 · 본문"
           description="title · description prop으로 제목·설명을 함께 표시합니다."
+          code={bulletRichCode}
         >
           <List className="list_bullet">
             <ListItem title="HTML 마크업" description="시맨틱 태그와 ARIA 속성을 사용합니다." />
@@ -84,6 +318,7 @@ export default function ListDoc() {
           headingId="bullet-variant-heading"
           title="불릿 변형"
           description="circle · square 마커와 중첩 목록을 지원합니다."
+          code={bulletVariantCode}
           stack
         >
           <List className="list_bullet list_bullet-circle">
@@ -118,6 +353,7 @@ export default function ListDoc() {
           headingId="ordered-heading"
           title="번호"
           description="tag=&quot;ol&quot;과 list_ordered 클래스로 순서 목록을 만듭니다."
+          code={orderedCode}
         >
           <List tag="ol" className="list_ordered">
             <ListItem>요구사항 분석</ListItem>
@@ -131,6 +367,7 @@ export default function ListDoc() {
           headingId="ordered-variant-heading"
           title="번호 변형"
           description="list_ordered-alpha · list_ordered-roman · list_ordered-upper-alpha · list_ordered-upper-roman으로 번호 형식을 변경합니다."
+          code={orderedVariantCode}
           stack
         >
           <List tag="ol" className="list_ordered list_ordered-alpha">
@@ -172,6 +409,7 @@ export default function ListDoc() {
           headingId="ordered-hierarchical-heading"
           title="번호 · 계층"
           description="list_ordered-outline(1.1) · list_ordered-dash(1-1)은 뎁스마다 번호가 이어집니다. list_ordered-depth는 뎁스별로 1 → a → i 형식이 자동 전환됩니다."
+          code={orderedHierarchicalCode}
           stack
         >
           <List tag="ol" className="list_ordered list_ordered-outline">
@@ -233,6 +471,7 @@ export default function ListDoc() {
           headingId="bullet-link-heading"
           title="불릿 · 링크"
           description="불릿 목록에서도 li 안에 a.list_link를 사용합니다."
+          code={bulletLinkCode}
         >
           <List className="list_bullet">
             <ListItem>
@@ -257,6 +496,7 @@ export default function ListDoc() {
           headingId="bordered-heading"
           title="테두리"
           description="bordered prop으로 각 항목에 테두리를 적용합니다."
+          code={borderedCode}
         >
           <List bordered>
             <ListItem title="알림 설정" description="이메일 및 푸시 알림을 관리합니다." />
@@ -269,6 +509,7 @@ export default function ListDoc() {
           headingId="link-heading"
           title="링크"
           description="페이지 이동이 필요한 항목은 a.list_link를 배치합니다. split prop으로 항목 구분선을 적용합니다."
+          code={linkCode}
         >
           <List split>
             <ListItem>
@@ -302,6 +543,7 @@ export default function ListDoc() {
           headingId="button-heading"
           title="버튼"
           description="같은 페이지 내 액션은 button.list_link를 사용합니다. button 안에는 phrasing content만 넣고, 본문 영역은 span.list_content로 감쌉니다."
+          code={buttonCode}
         >
           <List bordered>
             <ListItem>
@@ -331,6 +573,7 @@ export default function ListDoc() {
           headingId="card-heading"
           title="카드 혼합"
           description="list_cards 클래스로 li 안에 card를 배치합니다."
+          code={cardCode}
         >
           <List className="list_cards">
             <ListItem>
@@ -390,6 +633,7 @@ export default function ListDoc() {
           headingId="definition-heading"
           title="정의 목록"
           description="variant=&quot;definition&quot;으로 dl · list_definition을 적용합니다. title · description prop이 있으면 ListItem이 dt · dd로 직접 렌더됩니다."
+          code={definitionCode}
         >
           <List variant="definition" style={{ maxWidth: '28rem', width: '100%' }}>
             <ListItem title="OOCSS" description="구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다." />
@@ -402,6 +646,7 @@ export default function ListDoc() {
           headingId="definition-inline-heading"
           title="정의 목록 · 인라인"
           description="layout=&quot;inline&quot;으로 제목·내용을 가로 배치합니다. 너비는 콘텐츠에 맞게 줄어듭니다."
+          code={definitionInlineCode}
         >
           <List variant="definition" layout="inline" inlineLabelWidth="auto" inlineGap="var(--space-md)">
             <ListItem title="OOCSS" description="구조와 스킨을 분리해 클래스를 조합하는 CSS 방법론입니다." />
@@ -414,6 +659,7 @@ export default function ListDoc() {
           headingId="definition-desc-align-heading"
           title="정의 목록 · 값 우측 정렬"
           description="descAlign=&quot;right&quot;로 dd(설명) 텍스트를 우측 정렬합니다. 주문 요약·금액 표시 등에 적합합니다."
+          code={definitionDescAlignCode}
         >
           <List
             variant="definition"
@@ -438,18 +684,18 @@ export default function ListDoc() {
           <ApiTable columns={listItemPropColumns} rows={listItemProps} codeColumn="name" />
         </ApiSection>
 
-        <ApiSection headingId="api-slots-heading" title="API · List Slots">
+        <ApiSection headingId="api-slots-heading" title="API · List Children">
           <ApiTable columns={listSlotColumns} rows={listSlots} codeColumn="name" />
         </ApiSection>
 
-        <ApiSection headingId="api-item-slots-heading" title="API · ListItem Slots">
-          <ApiTable columns={listSlotColumns} rows={listItemSlots} codeColumn="name" />
+        <ApiSection headingId="api-item-slots-heading" title="API · ListItem Children">
+          <ApiTable columns={listItemSlotColumns} rows={listItemSlots} codeColumn="name" />
         </ApiSection>
 
         <ApiSection
           headingId="api-classes-heading"
           title="클래스 · 속성"
-          description="List · ListItem이 렌더하는 OOCSS 클래스입니다. class prop으로 스킨 클래스를 조합합니다."
+          description="List · ListItem이 렌더하는 OOCSS 클래스입니다. className으로 스킨 클래스를 조합합니다."
         >
           <ApiTable columns={listClassColumns} rows={listClasses} codeColumn="name" />
         </ApiSection>

@@ -1,28 +1,11 @@
-import { useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
+import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
+import { useCollapseExternalDemoCode } from '@/hooks/useDemoCode';
+import { useRipple } from '@/hooks/useRipple';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 import { setSlideRegionOpen } from '@/utils/slide-region';
-import { useRipple } from '@/hooks/useRipple';
-import { useCollapseExternalDemoCode } from '@/hooks/useDemoCode';
-
-function useMutableRef(initial) {
-  const stateRef = useRef(initial);
-  const [, bump] = useReducer((count) => count + 1, 0);
-
-  return useMemo(
-    () => ({
-      get value() {
-        return stateRef.current;
-      },
-      set value(next) {
-        stateRef.current = next;
-        bump();
-      },
-    }),
-    [],
-  );
-}
 
 export default function CollapseExternal({
   ripple,
@@ -36,64 +19,94 @@ export default function CollapseExternal({
   className,
   ...rest
 }) {
+  const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
   const panelRef = useRef(null);
   const isFirstSlideSync = useRef(true);
-  const props = { ripple, triggerLabel, narrow, boxed, open, effect };
-  const { rippleAttrs } = useRipple({ ripple });
-  const panelId = useId().replace(/:/g, '');
-  const isOpen = useMutableRef(open);
+  const panelId = `collapse-ext-${useId().replace(/:/g, '')}`;
+
+  const [isOpen, setIsOpen] = useState(() => Boolean(open));
+  const isOpenStateRef = useRef(isOpen);
+  isOpenStateRef.current = isOpen;
   const slide = effect === 'slide';
 
-  useCollapseExternalDemoCode(props, rootRef, { class: className, ...rest }, isOpen);
+  // formatCollapseExternalCode는 Vue ref처럼 .value를 읽음
+  const isOpenDemoRef = useMemo(
+    () => ({
+      get value() {
+        return isOpenStateRef.current;
+      },
+    }),
+    [],
+  );
+
+  useCollapseExternalDemoCode(
+    { ripple, triggerLabel, narrow, boxed, open, effect },
+    rootRef,
+    { className, ...rest },
+    isOpenDemoRef,
+  );
 
   useLayoutEffect(() => {
     if (!slide) return;
     const animate = !isFirstSlideSync.current;
     isFirstSlideSync.current = false;
-    setSlideRegionOpen(panelRef.current, isOpen.value, animate);
-  }, [slide, isOpen.value]);
+    setSlideRegionOpen(panelRef.current, isOpen, animate);
+  }, [slide, isOpen]);
 
-  const wrapperClass = cn(narrow && 'collapse_demo-narrow', className);
-
-  const panelStyle = boxed
-    ? {
-        marginTop: 'var(--space-sm)',
-        padding: 'var(--space-lg)',
-        border: '1px solid var(--color-border)',
-        borderRadius: 'var(--radius-md)',
-        background: 'var(--color-surface-raised)',
-      }
-    : undefined;
+  // boxed 패딩·보더는 안쪽 래퍼에 — 슬라이드 height:0 시 패딩 박스가 먼저 보이지 않게
+  const panelStyle = useMemo(
+    () => (boxed ? { marginTop: 'var(--space-sm)' } : undefined),
+    [boxed],
+  );
+  const panelInnerStyle = useMemo(
+    () =>
+      boxed
+        ? {
+            padding: 'var(--space-lg)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-md)',
+            background: 'var(--color-surface-raised)',
+          }
+        : undefined,
+    [boxed],
+  );
 
   function toggle() {
-    isOpen.value = !isOpen.value;
+    setIsOpen((prev) => !prev);
   }
 
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   return (
-    <div ref={rootRef} className={wrapperClass} {...rest}>
-      {lead ? <div data-demo-slot="lead">{lead}</div> : null}
+    <div
+      ref={rootRef}
+      className={cn(narrow && 'collapse_demo-narrow', className)}
+      {...domRest}
+    >
+      {lead != null ? <div data-demo-slot="lead">{lead}</div> : null}
       <Button
         variant="ghost"
         size="sm"
-        expanded={isOpen.value}
+        expanded={isOpen}
         aria-controls={panelId}
         onClick={toggle}
-        {...rippleAttrs}
         iconAfter={<Icon name="chevron-down" size="sm" />}
+        {...rippleAttrs}
       >
         <span className="btn_label">{triggerLabel}</span>
       </Button>
       <div
         ref={slide ? panelRef : undefined}
         id={panelId}
-        className={cn('collapse', isOpen.value && 'is-open')}
+        className={cn('collapse', isOpen && 'is-open')}
         data-effect={slide ? 'slide' : undefined}
         data-demo-slot="default"
         style={panelStyle}
-        hidden={slide ? undefined : (!isOpen.value || undefined)}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
-        {children}
+        <div style={panelInnerStyle}>{children}</div>
       </div>
     </div>
   );

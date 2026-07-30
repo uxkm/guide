@@ -6,7 +6,9 @@
   --input-max-width: 320px;
   --input-clear-size: 1.25rem;
   --input-clear-icon-size: 0.875rem;
-  --input-clear-offset: 0.5rem;
+  --input-clear-offset: 0.75rem;
+  --input-clear-color: var(--color-text-muted);
+  --input-clear-hover-color: var(--color-text);
   // 마스킹(●) 글리프 — pass 전용 폰트
   --input-font-masked: "pass";
   --input-masked-letter-spacing: 0.08em;
@@ -118,14 +120,16 @@
   &_clear {
     position: absolute;
     top: 50%;
-    right: var(--input-clear-offset);
+    right: var(--input-clear-offset, 0.5rem);
+    bottom: auto;
+    left: auto;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0;
     border: none;
     background: transparent;
-    color: var(--color-text-muted);
+    color: var(--input-clear-color);
     cursor: pointer;
     transform: translateY(-50%);
     @include focus-ring;
@@ -140,8 +144,67 @@
       height: var(--input-clear-icon-size);
     }
 
+    // Button 컴포넌트 조합 시 .btn 기본 스킨(패딩/보더) 리셋
+    &.btn {
+      position: absolute;
+      top: 50%;
+      right: var(--input-clear-offset, 0.5rem);
+      bottom: auto;
+      left: auto;
+      gap: 0;
+      min-width: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      line-height: 1;
+      color: var(--input-clear-color);
+      box-shadow: none;
+      transform: translateY(-50%);
+      @include square-size(var(--input-clear-size));
+    }
+
+    &.btn.btn_icon-only {
+      aspect-ratio: auto;
+    }
+
+    .btn_label,
+    .btn_spinner {
+      display: none;
+    }
+
     &:hover {
-      color: var(--color-text);
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    &:focus-visible {
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
+    }
+
+    // filled/outline 등 버튼 스킨 hover(:not 포함)보다 특이도를 맞춤 — input이 button보다 뒤에 로드됨
+    &.btn.btn_filled:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_filled:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_filled:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_outline:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_text:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn.btn_ghost:active:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:hover:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:focus-visible:not(:disabled):not(.is-disabled):not(.is-loading),
+    &.btn:active:not(:disabled):not(.is-disabled):not(.is-loading) {
+      color: var(--input-clear-hover-color);
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
     }
   }
 

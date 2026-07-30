@@ -1,18 +1,31 @@
-import { useEffect, useId, useMemo, useRef } from 'react';
+import { useContext, useMemo, useRef } from 'react';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
-import { useStepsContext } from '@/context/StepsContext.jsx';
+import { StepsContext } from '@/components/Steps.jsx';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_STATUSES = new Set(['finished', 'active', 'wait', 'error']);
 
 const formatCode = createComponentFormatter('StepsItem', {
   defaults: { status: 'wait' },
   booleanProps: new Set(['ripple']),
-  skipProps: ['index'],
+  skipProps: ['index', 'isLast'],
   labelProp: 'title',
   selfClosing: true,
 });
+
+function Indicator({ status, stepIndex }) {
+  if (status === 'finished') {
+    return <Icon name="check" className="steps_icon" />;
+  }
+  if (status === 'error') {
+    return <Icon name="close" className="steps_icon" />;
+  }
+  return <span className="steps_index">{stepIndex}</span>;
+}
 
 export default function StepsItem({
   ripple,
@@ -20,81 +33,85 @@ export default function StepsItem({
   description,
   status = 'wait',
   index,
+  isLast,
   children,
   className,
+  onClick,
   ...rest
 }) {
-  const props = { ripple, title, description, status, index };
-  const { rippleAttrs } = useRipple(props);
+  const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
-  const itemId = useId().replace(/:/g, '');
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const steps = useContext(StepsContext);
+  const isNavigable = steps?.navigable ?? false;
+  const resolvedStatus = VALID_STATUSES.has(status) ? status : 'wait';
+  const stepIndex = index ?? 0;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  useComponentDemoCode(
+    formatCode,
+    { ripple, title, description, status: resolvedStatus, index },
+    createDemoSlots({}),
+    rootRef,
+    { className, onClick, ...rest },
+  );
 
-  const { registerItem, unregisterItem, navigable: isNavigableCtx, isLastItem, getItemIndex } =
-    useStepsContext() ?? {};
+  const itemClass = useMemo(
+    () => ['steps_item', `is-${resolvedStatus}`],
+    [resolvedStatus],
+  );
 
-  useEffect(() => {
-    if (!registerItem) return undefined;
-    registerItem(itemId, { title, description, status, index });
-    return () => unregisterItem?.(itemId);
-  }, [registerItem, unregisterItem, itemId, title, description, status, index]);
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
-  const isNavigable = isNavigableCtx ?? false;
-  const isLast = isLastItem?.(itemId) ?? false;
-  const stepIndex = index ?? getItemIndex?.(itemId) ?? 0;
-
-  const indicator = (
-    <span className="steps_indicator" aria-hidden="true">
-      {status === 'finished' && <Icon name="check" className="steps_icon" />}
-      {status === 'error' && <Icon name="close" className="steps_icon" />}
-      {status !== 'finished' && status !== 'error' && (
-        <span className="steps_index">{stepIndex}</span>
-      )}
+  const head = (
+    <span className="steps_head">
+      <span className="steps_indicator" aria-hidden="true">
+        <Indicator status={resolvedStatus} stepIndex={stepIndex} />
+      </span>
+      {!isLast ? <span className="steps_tail" aria-hidden="true" /> : null}
     </span>
   );
 
   const content = (
     <span className="steps_content">
       <span className="steps_title">{title}</span>
-      {description && <span className="steps_desc">{description}</span>}
+      {description ? <span className="steps_desc">{description}</span> : null}
     </span>
   );
 
   return (
     <li
       ref={rootRef}
-      className={cn('steps_item', `is-${status}`)}
-      aria-current={!isNavigable && status === 'active' ? 'step' : undefined}
+      className={cn(itemClass, className)}
+      aria-current={!isNavigable && resolvedStatus === 'active' ? 'step' : undefined}
+      {...domRest}
     >
       {isNavigable ? (
         <button
           type="button"
           className="steps_trigger"
-          disabled={status === 'wait'}
-          aria-current={status === 'active' ? 'step' : undefined}
+          disabled={resolvedStatus === 'wait'}
+          aria-current={resolvedStatus === 'active' ? 'step' : undefined}
+          onClick={onClick}
           {...rippleAttrs}
         >
-          <span className="steps_head">
-            {indicator}
-            {!isLast && <span className="steps_tail" aria-hidden="true" />}
-          </span>
+          {head}
           {content}
         </button>
+      ) : children != null ? (
+        children
       ) : (
-        children ?? (
-          <>
-            <div className="steps_head">
-              {indicator}
-              {!isLast && <span className="steps_tail" aria-hidden="true" />}
-            </div>
-            <div className="steps_content">
-              <p className="steps_title">{title}</p>
-              {description && <p className="steps_desc">{description}</p>}
-            </div>
-          </>
-        )
+        <>
+          <div className="steps_head">
+            <span className="steps_indicator" aria-hidden="true">
+              <Indicator status={resolvedStatus} stepIndex={stepIndex} />
+            </span>
+            {!isLast ? <span className="steps_tail" aria-hidden="true" /> : null}
+          </div>
+          <div className="steps_content">
+            <p className="steps_title">{title}</p>
+            {description ? <p className="steps_desc">{description}</p> : null}
+          </div>
+        </>
       )}
     </li>
   );

@@ -1,9 +1,11 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { getCheckedInputProps } from '@/utils/checked-input-props';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Switch', {
   defaults: { size: 'md' },
@@ -14,59 +16,91 @@ const formatCode = createComponentFormatter('Switch', {
 export default function Switch({
   ripple,
   label,
-  checked = false,
-  disabled = false,
-  labelEnd = false,
+  checked,
+  defaultChecked,
+  disabled,
+  labelEnd,
   size = 'md',
   ariaLabel,
   children,
   className,
+  onChange,
+  id,
+  name,
+  value,
   ...rest
 }) {
-  const props = { ripple, label, checked, disabled, labelEnd, size, ariaLabel };
-  const { rippleAttrs } = useRipple(props);
+  const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? label }),
-    [children, label],
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+
+  const labelContent = children ?? label;
+  const hasLabel = Boolean(label) || (children != null && children !== '');
+
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      label,
+      checked,
+      disabled,
+      labelEnd,
+      size: resolvedSize,
+      ariaLabel,
+    },
+    createDemoSlots({ default: labelContent }),
+    rootRef,
+    { className, id, name, value, onChange, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = ['switch'];
+    if (labelEnd) classes.push('switch_label-end');
+    if (resolvedSize === 'sm') classes.push('switch_sm');
+    if (resolvedSize === 'lg') classes.push('switch_lg');
+    return classes;
+  }, [labelEnd, resolvedSize]);
 
-  const hasLabel = Boolean(label || children);
+  const { class: _ignoredClassAttr, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
-  const rootClass = cn(
-    'switch',
-    labelEnd && 'switch_label-end',
-    size === 'sm' && 'switch_sm',
-    size === 'lg' && 'switch_lg',
-    className,
-  );
+  const inputCheckedProps =
+    onChange != null
+      ? { checked: Boolean(checked), onChange }
+      : checked != null
+        ? { defaultChecked: Boolean(checked) }
+        : defaultChecked != null
+          ? { defaultChecked: Boolean(defaultChecked) }
+          : {};
 
-  const inputProps = getCheckedInputProps(checked, rest);
+  const resolvedAriaLabel = !hasLabel ? ariaLabel : undefined;
 
   return (
     <label
       ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-label={resolvedAriaLabel}
       {...rippleAttrs}
-      className={rootClass}
-      aria-label={!hasLabel ? ariaLabel : undefined}
     >
-      {hasLabel && labelEnd && <span className="switch_label">{children ?? label}</span>}
+      {hasLabel && labelEnd ? <span className="switch_label">{labelContent}</span> : null}
       <span className="switch_control">
         <input
+          id={id}
           type="checkbox"
           className="switch_input"
           role="switch"
+          name={name}
+          value={value}
           disabled={disabled}
-          aria-label={!hasLabel ? ariaLabel : undefined}
-          {...inputProps}
+          aria-label={resolvedAriaLabel}
+          {...inputCheckedProps}
+          {...domRest}
         />
         <span className="switch_track" aria-hidden="true">
           <span className="switch_thumb" />
         </span>
       </span>
-      {hasLabel && !labelEnd && <span className="switch_label">{children ?? label}</span>}
+      {hasLabel && !labelEnd ? <span className="switch_label">{labelContent}</span> : null}
     </label>
   );
 }

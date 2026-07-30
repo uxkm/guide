@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { copyFileSync, writeFileSync } from 'fs';
+import { copyFileSync, existsSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -39,7 +39,9 @@ export default defineConfig({
     {
       name: 'spa-404-fallback',
       closeBundle() {
-        copyFileSync(path.resolve(__dirname, 'dist/index.html'), path.resolve(__dirname, 'dist/404.html'));
+        const indexPath = path.resolve(__dirname, 'dist/index.html');
+        if (!existsSync(indexPath)) return;
+        copyFileSync(indexPath, path.resolve(__dirname, 'dist/404.html'));
       },
     },
   ],

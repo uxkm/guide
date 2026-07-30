@@ -1,9 +1,14 @@
-import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
+const STAR_PATH =
+  'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z';
 
 const formatCode = createComponentFormatter('Rate', {
   defaults: { count: 5, size: 'md' },
@@ -12,10 +17,7 @@ const formatCode = createComponentFormatter('Rate', {
   selfClosing: true,
 });
 
-const STAR_PATH =
-  'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z';
-
-function StarGraphic({ half = false }) {
+function StarGraphic({ half }) {
   return (
     <span className="rate_star-graphic" aria-hidden="true">
       <svg className="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -24,108 +26,143 @@ function StarGraphic({ half = false }) {
       <svg className="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor">
         <path d={STAR_PATH} />
       </svg>
-      {half && (
+      {half ? (
         <span className="rate_star-icon-half">
           <svg className="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d={STAR_PATH} />
           </svg>
         </span>
-      )}
+      ) : null}
     </span>
   );
+}
+
+function readonlyStarClass(star, value, allowHalf) {
+  const val = value ?? 0;
+  if (val >= star) return 'is-filled';
+  if (allowHalf && val >= star - 0.5) return 'is-half';
+  return '';
 }
 
 export default function Rate({
   ripple,
   value,
   count = 5,
-  allowHalf = false,
-  clearable = false,
-  readonly = false,
-  disabled = false,
+  allowHalf,
+  clearable,
+  readonly,
+  disabled,
   size = 'md',
   legend,
   name,
-  modelValue,
-  onUpdateModelValue,
   className,
+  onChange,
   ...rest
 }) {
-  const props = {
-    ripple,
-    value,
-    count,
-    allowHalf,
-    clearable,
-    readonly,
-    disabled,
-    size,
-    legend,
-    name,
-    modelValue,
-  };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
-  const groupName = name || `rate-${Math.random().toString(36).slice(2, 9)}`;
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
+  const generatedName = useId();
+  const groupName = name || generatedName;
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedCount = Number(count) > 0 ? Number(count) : 5;
 
-  useComponentDemoCode(formatCode, props, {}, rootRef, { class: className, ...rest });
+  const [internalValue, setInternalValue] = useState(value);
 
-  const currentValue = modelValue ?? value;
-  const stars = Array.from({ length: count }, (_, i) => i + 1);
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(value);
+    }
+  }, [value]);
 
-  const rootClass = cn(
-    'rate',
-    size === 'sm' && 'rate_sm',
-    size === 'lg' && 'rate_lg',
-    allowHalf && 'rate_allow-half',
-    clearable && 'rate_clearable',
-    readonly && 'is-readonly',
-    className,
+  const currentValue = internalValue;
+
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      value: currentValue,
+      count: resolvedCount,
+      allowHalf,
+      clearable,
+      readonly,
+      disabled,
+      size: resolvedSize,
+      legend,
+      name,
+    },
+    createDemoSlots(),
+    rootRef,
+    { className, onChange, ...rest },
   );
 
-  const domRest = normalizeDomProps(rest);
-  const onChange = (val) => onUpdateModelValue?.(val);
-  const onClear = () => onUpdateModelValue?.(undefined);
+  const rootClass = useMemo(() => {
+    const classes = ['rate'];
+    if (resolvedSize === 'sm') classes.push('rate_sm');
+    if (resolvedSize === 'lg') classes.push('rate_lg');
+    if (allowHalf) classes.push('rate_allow-half');
+    if (clearable) classes.push('rate_clearable');
+    if (readonly) classes.push('is-readonly');
+    return classes;
+  }, [resolvedSize, allowHalf, clearable, readonly]);
 
-  const readonlyStarClass = (star) => {
-    const val = currentValue ?? 0;
-    if (val >= star) return 'is-filled';
-    if (allowHalf && val >= star - 0.5) return 'is-half';
-    return '';
-  };
+  const stars = useMemo(
+    () => Array.from({ length: resolvedCount }, (_, i) => i + 1),
+    [resolvedCount],
+  );
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  function handleChange(next) {
+    setInternalValue(next);
+    onChange?.(next);
+  }
+
+  function handleClear(event) {
+    event.preventDefault();
+    setInternalValue(undefined);
+    onChange?.(undefined);
+  }
 
   if (readonly) {
-    const val = currentValue ?? 0;
+    const ariaLabel = `${resolvedCount}점 만점 중 ${currentValue ?? 0}점`;
     return (
       <div
         ref={rootRef}
-        className={rootClass}
+        className={cn(rootClass, className)}
         role="img"
-        aria-label={`${count}점 만점 중 ${val}점`}
+        aria-label={ariaLabel}
+        {...domRest}
       >
         <div className="rate_stars">
-          {stars.map((star) => (
-            <span
-              key={star}
-              className={cn('rate_star-readonly', readonlyStarClass(star))}
-            >
-              <StarGraphic half={readonlyStarClass(star) === 'is-half'} />
-            </span>
-          ))}
+          {stars.map((star) => {
+            const starClass = readonlyStarClass(star, currentValue, allowHalf);
+            return (
+              <span key={star} className={cn('rate_star-readonly', starClass)}>
+                <StarGraphic half={starClass === 'is-half'} />
+              </span>
+            );
+          })}
         </div>
-        {currentValue && <span className="rate_value">{currentValue}</span>}
+        {currentValue ? <span className="rate_value">{currentValue}</span> : null}
       </div>
     );
   }
 
   return (
-    <fieldset ref={rootRef} {...rippleAttrs} className={rootClass} disabled={disabled} {...domRest}>
-      {legend && <legend className="rate_legend">{legend}</legend>}
+    <fieldset
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      disabled={disabled}
+      {...rippleAttrs}
+      {...domRest}
+    >
+      {legend ? <legend className="rate_legend">{legend}</legend> : null}
       <div className="rate_control">
         <div className="rate_stars">
           {stars.map((star) => (
-            <label key={star} {...childRippleAttrs} className="rate_star">
-              {allowHalf && (
+            <label key={star} className="rate_star" {...childRippleAttrs}>
+              {allowHalf ? (
                 <input
                   type="radio"
                   className="rate_input rate_input-half"
@@ -133,9 +170,9 @@ export default function Rate({
                   value={star - 0.5}
                   checked={currentValue === star - 0.5}
                   disabled={disabled}
-                  onChange={() => onChange(star - 0.5)}
+                  onChange={() => handleChange(star - 0.5)}
                 />
-              )}
+              ) : null}
               <input
                 type="radio"
                 className="rate_input"
@@ -143,21 +180,21 @@ export default function Rate({
                 value={star}
                 checked={currentValue === star}
                 disabled={disabled}
-                onChange={() => onChange(star)}
+                onChange={() => handleChange(star)}
               />
-              <StarGraphic half={allowHalf} />
+              <StarGraphic half={Boolean(allowHalf)} />
               <span className="rate_star-label">{star}점</span>
             </label>
           ))}
         </div>
-        {clearable && (
+        {clearable ? (
           <button
-            {...childRippleAttrs}
             type="button"
             className="rate_clear"
             aria-label="별점 초기화"
             title="초기화"
-            onClick={onClear}
+            onClick={handleClear}
+            {...childRippleAttrs}
           >
             <svg
               className="rate_clear-icon"
@@ -170,8 +207,8 @@ export default function Rate({
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
-        )}
-        {currentValue && <output className="rate_value">{currentValue}점</output>}
+        ) : null}
+        {currentValue ? <output className="rate_value">{currentValue}점</output> : null}
       </div>
     </fieldset>
   );

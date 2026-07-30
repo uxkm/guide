@@ -137,8 +137,7 @@ export function formatTooltipCode(props, attrs = {}, el, registry) {
 
   const bubble = el.querySelector('.tooltip_bubble');
   const hasContentProp = Boolean(props.content);
-  const bubbleBody = bubble?.querySelector(':scope > .tooltip_bubble_body');
-  const bubbleContent = serializeDomChildren(bubbleBody ?? bubble, registry, 2);
+  const bubbleContent = serializeDomChildren(bubble, registry, 2);
 
   if (bubbleContent && !hasContentProp) {
     lines.push(bubbleContent);

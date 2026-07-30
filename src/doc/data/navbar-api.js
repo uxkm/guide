@@ -13,35 +13,44 @@ export const navbarProps = [
   { name: 'dark', type: 'boolean', default: 'false', description: '어두운 배경 (navbar_dark)' },
   { name: 'sticky', type: 'boolean', default: 'false', description: '상단 고정 (navbar_sticky)' },
   { name: 'responsive', type: 'boolean', default: 'false', description: '모바일 토글·data-navbar' },
-  { name: 'collapse-id', type: 'string', default: '—', description: 'navbar_collapse id (토글 aria-controls)' },
+  { name: 'collapseId', type: 'string', default: '—', description: 'navbar_collapse id (토글 aria-controls)' },
+  { name: 'brandContent', type: 'ReactNode', default: '—', description: '브랜드 영역 (brand prop 대체)' },
+  { name: 'brandIcon', type: 'ReactNode', default: '—', description: '브랜드 아이콘' },
+  { name: 'items', type: 'ReactNode', default: '—', description: '메뉴 목록 (NavbarList)' },
+  { name: 'search', type: 'ReactNode', default: '—', description: '검색 필드 (navbar_search)' },
+  { name: 'actions', type: 'ReactNode', default: '—', description: '우측 액션 (navbar_actions)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropContainer,
 ];
 
 export const navbarItemPropColumns = navbarPropColumns;
 export const navbarItemProps = [
-  { name: 'label', type: 'string', default: '—', description: '링크 텍스트. default 슬롯으로 대체' },
+  { name: 'label', type: 'string', default: '—', description: '링크 텍스트. children으로 대체' },
   { name: 'href', type: 'string', default: '#', description: '링크 URL' },
   { name: 'active', type: 'boolean', default: 'false', description: 'is-active · aria-current="page"' },
+  { name: 'badge', type: 'ReactNode', default: '—', description: '링크 옆 배지' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '링크 텍스트 (label 대체)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropSurface,
 ];
 
-export const navbarSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const navbarChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const navbarSlots = [
-  { name: 'brand', description: '브랜드 영역 (brand prop 대체)' },
-  { name: 'brand-icon', description: '브랜드 아이콘 (Icon)' },
+export const navbarChildren = [
+  { name: 'brandContent', description: '브랜드 영역 (brand · brandIcon 대체)' },
+  { name: 'brandIcon', description: '브랜드 아이콘' },
   { name: 'items', description: '메뉴 목록 (NavbarList)' },
-  { name: 'default', description: 'items 대체 — NavbarItem 나열' },
+  { name: 'children', description: 'items 대체 — NavbarItem 나열' },
   { name: 'search', description: '검색 필드 (navbar_search)' },
   { name: 'actions', description: '우측 액션 (navbar_actions)' },
 ];
 
-export const navbarItemSlotColumns = navbarSlotColumns;
-export const navbarItemSlots = [
-  { name: 'default', description: '링크 텍스트 (label 대체)' },
+export const navbarItemChildColumns = navbarChildColumns;
+export const navbarItemChildren = [
+  { name: 'children', description: '링크 텍스트 (label 대체)' },
   { name: 'badge', description: '링크 옆 배지' },
 ];
 

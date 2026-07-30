@@ -192,6 +192,8 @@
   }
 
   &_demo-content {
+    // 뷰포트(16rem)보다 충분히 길게 — visibility-height 200px까지 스크롤 가능
+    min-height: calc(16rem + 18rem);
     padding: var(--space-lg);
 
     > p {

@@ -84,22 +84,6 @@
     .tooltip_bubble {
       pointer-events: auto;
     }
-
-    .tooltip_bubble:has([data-tooltip-close]) {
-      padding-top: calc(var(--tooltip-padding-y) + var(--space-xs));
-      padding-right: calc(var(--tooltip-padding-x) + var(--tooltip-close-size) + var(--space-xs));
-      padding-bottom: calc(var(--tooltip-padding-y) + var(--space-xs));
-      padding-left: var(--tooltip-padding-x);
-    }
-
-    .tooltip_bubble [data-tooltip-close] {
-      position: absolute;
-      top: calc(var(--tooltip-padding-y) + var(--space-2xs, 2px));
-      right: var(--tooltip-padding-x);
-      left: auto;
-      margin: 0;
-      z-index: 2;
-    }
   }
 
   &.is-open {
@@ -144,9 +128,7 @@
     overflow: visible;
 
     &-closable {
-      .tooltip_bubble_body {
-        display: block;
-      }
+      padding-right: calc(var(--tooltip-padding-x) + var(--tooltip-close-size) * 0.35);
     }
 
     &[hidden] {
@@ -194,13 +176,14 @@
       color: var(--color-text);
       background: var(--color-surface-raised);
     }
+  }
 
-    &-floating {
-      position: absolute;
-      top: var(--space-xs);
-      right: var(--space-xs);
-      z-index: 1;
-    }
+  // Button ripple([data-ripple] position:relative)보다 우선 — 말풍선 우측 상단 고정
+  &_bubble > .btn.tooltip_close.tooltip_close-floating {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-xs);
+    z-index: 1;
   }
 
   &_close-icon {
@@ -541,6 +524,18 @@
 
   // ----- 데모 레이아웃
 
+  &_demo-stage {
+    position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 12rem;
+    padding: var(--space-2xl) var(--space-xl);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: visible;
+    background: var(--color-bg);
+  }
+
   &_row {
     display: flex;
     flex-wrap: wrap;
@@ -555,8 +550,8 @@
     align-items: center;
     justify-items: center;
     width: 100%;
-    min-height: 10rem;
-    padding: var(--space-xl);
+    min-height: 14rem;
+    padding: var(--space-2xl) var(--space-xl);
   }
 
   &_demo-placement-cell-top {

@@ -1,16 +1,20 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_ORIENTS = new Set(['', 'left', 'right']);
+const VALID_TAGS = new Set(['auto', 'hr', 'div', 'span']);
 
 const formatCode = createComponentFormatter('Divider', {
   booleanProps: new Set(['dashed', 'plain', 'vertical']),
 });
 
 export default function Divider({
-  dashed,
-  plain,
-  vertical,
+  dashed = false,
+  plain = false,
+  vertical = false,
   orient = '',
   label,
   tag = 'auto',
@@ -19,29 +23,46 @@ export default function Divider({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { dashed, plain, vertical, orient, label, tag };
-  const demoSlots = useMemo(() => createDemoSlots({ default: children ?? label }), [children, label]);
+  const resolvedOrient = VALID_ORIENTS.has(orient) ? orient : '';
+  const resolvedTagProp = VALID_TAGS.has(tag) ? tag : 'auto';
+  const content = children ?? label;
+  const hasLabel = Boolean(content);
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const resolvedTag = useMemo(() => {
+    if (resolvedTagProp !== 'auto') return resolvedTagProp;
+    if (vertical) return 'span';
+    return hasLabel ? 'div' : 'hr';
+  }, [resolvedTagProp, vertical, hasLabel]);
 
-  const hasLabel = Boolean(label || children);
-  const resolvedTag = tag !== 'auto' ? tag : vertical ? 'span' : hasLabel ? 'div' : 'hr';
-
-  const rootClass = cn(
-    'divider',
-    dashed && 'divider_dashed',
-    plain && 'divider_plain',
-    vertical && 'divider_vertical',
-    orient === 'left' && 'divider_orient-left',
-    orient === 'right' && 'divider_orient-right',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    { dashed, plain, vertical, orient: resolvedOrient, label, tag: resolvedTagProp },
+    createDemoSlots({ default: content }),
+    rootRef,
+    { className, ...rest },
   );
 
+  const rootClass = useMemo(() => {
+    const classes = ['divider'];
+    if (dashed) classes.push('divider_dashed');
+    if (plain) classes.push('divider_plain');
+    if (vertical) classes.push('divider_vertical');
+    if (resolvedOrient === 'left') classes.push('divider_orient-left');
+    if (resolvedOrient === 'right') classes.push('divider_orient-right');
+    return classes;
+  }, [dashed, plain, vertical, resolvedOrient]);
+
+  const domRest = normalizeDomProps(rest);
   const Tag = resolvedTag;
 
   return (
-    <Tag ref={rootRef} className={rootClass} aria-hidden={vertical ? 'true' : undefined} {...rest}>
-      {children ?? label}
+    <Tag
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-hidden={vertical ? 'true' : undefined}
+      {...domRest}
+    >
+      {content}
     </Tag>
   );
 }

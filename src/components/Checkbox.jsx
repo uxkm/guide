@@ -1,9 +1,9 @@
 import { useEffect, useId, useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { getCheckedInputProps } from '@/utils/checked-input-props';
 import { useRipple } from '@/hooks/useRipple';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Checkbox', {
   booleanProps: new Set(['checked', 'disabled', 'indeterminate', 'labelEnd', 'button', 'ripple']),
@@ -14,6 +14,7 @@ export default function Checkbox({
   ripple,
   label,
   checked,
+  defaultChecked,
   disabled,
   indeterminate,
   labelEnd,
@@ -21,18 +22,18 @@ export default function Checkbox({
   ariaLabel,
   children,
   className,
+  onChange,
+  id,
   ...rest
 }) {
+  const { rippleAttrs } = useRipple({ ripple }, { defaultEnabled: false });
   const rootRef = useRef(null);
   const inputRef = useRef(null);
-  const inputId = useId();
-  const props = { ripple, label, checked, disabled, indeterminate, labelEnd, button, ariaLabel };
-  const { rippleAttrs } = useRipple(props, { defaultEnabled: false });
-  const demoSlots = useMemo(() => createDemoSlots({ default: children ?? label }), [children, label]);
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const hasLabel = Boolean(label || children);
+  const labelContent = children ?? label;
+  const hasLabel = Boolean(label) || (children != null && children !== '');
   const isStandalone = !hasLabel;
 
   const interactiveRippleAttrs = useMemo(() => {
@@ -43,11 +44,21 @@ export default function Checkbox({
     return {};
   }, [ripple, isStandalone, button]);
 
-  const rootClass = cn(
-    'checkbox',
-    labelEnd && 'checkbox_label-end',
-    button && 'checkbox_button',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      label,
+      checked,
+      disabled,
+      indeterminate,
+      labelEnd,
+      button,
+      ariaLabel,
+    },
+    createDemoSlots({ default: labelContent }),
+    rootRef,
+    { className, id, onChange, ...rest },
   );
 
   useEffect(() => {
@@ -56,23 +67,44 @@ export default function Checkbox({
     }
   }, [indeterminate]);
 
-  const inputProps = getCheckedInputProps(checked, rest);
+  const rootClass = useMemo(() => {
+    const classes = ['checkbox'];
+    if (labelEnd) classes.push('checkbox_label-end');
+    if (button) classes.push('checkbox_button');
+    return classes;
+  }, [labelEnd, button]);
+
+  const { class: _ignoredClassAttr, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const inputCheckedProps =
+    onChange != null
+      ? { checked: Boolean(checked), onChange }
+      : checked != null
+        ? { defaultChecked: Boolean(checked) }
+        : defaultChecked != null
+          ? { defaultChecked: Boolean(defaultChecked) }
+          : {};
+
+  const inputProps = {
+    ref: inputRef,
+    type: 'checkbox',
+    className: 'checkbox_input',
+    disabled,
+    id: isStandalone ? id : inputId,
+    ...inputCheckedProps,
+    ...domRest,
+  };
 
   if (isStandalone) {
     return (
       <label
         ref={rootRef}
-        {...interactiveRippleAttrs}
-        className="checkbox_control"
+        className={cn('checkbox_control', className)}
         aria-label={ariaLabel}
+        {...interactiveRippleAttrs}
       >
-        <input
-          ref={inputRef}
-          type="checkbox"
-          className="checkbox_input"
-          disabled={disabled}
-          {...inputProps}
-        />
+        <input {...inputProps} />
         <span className="checkbox_box" aria-hidden="true" />
       </label>
     );
@@ -80,41 +112,31 @@ export default function Checkbox({
 
   if (button) {
     return (
-      <label ref={rootRef} {...interactiveRippleAttrs} className={rootClass}>
-        <input
-          id={inputId}
-          ref={inputRef}
-          type="checkbox"
-          className="checkbox_input"
-          disabled={disabled}
-          {...inputProps}
-        />
-        <span className="checkbox_label">{children ?? label}</span>
+      <label
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        {...interactiveRippleAttrs}
+      >
+        <input {...inputProps} />
+        <span className="checkbox_label">{labelContent}</span>
       </label>
     );
   }
 
   return (
-    <div ref={rootRef} {...rippleAttrs} className={rootClass}>
+    <div ref={rootRef} className={cn(rootClass, className)} {...rippleAttrs}>
       {labelEnd ? (
         <label className="checkbox_label" htmlFor={inputId}>
-          {children ?? label}
+          {labelContent}
         </label>
       ) : null}
       <span className="checkbox_control">
-        <input
-          id={inputId}
-          ref={inputRef}
-          type="checkbox"
-          className="checkbox_input"
-          disabled={disabled}
-          {...inputProps}
-        />
+        <input {...inputProps} />
         <span className="checkbox_box" aria-hidden="true" />
       </span>
       {!labelEnd ? (
         <label className="checkbox_label" htmlFor={inputId}>
-          {children ?? label}
+          {labelContent}
         </label>
       ) : null}
     </div>

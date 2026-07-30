@@ -1,29 +1,32 @@
-import { createElement, useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useMemo, useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const VARIANT_MAP = {
-  paragraph: { tag: 'p', class: 'typo_paragraph' },
-  lead: { tag: 'p', class: 'typo_lead' },
-  caption: { tag: 'p', class: 'typo_caption' },
-  label: { tag: 'label', class: 'typo_label' },
-  overline: { tag: 'p', class: 'typo_overline' },
-  code: { tag: 'code', class: 'typo_code' },
-  kbd: { tag: 'kbd', class: 'typo_kbd' },
-  pre: { tag: 'pre', class: 'typo_pre' },
-  strong: { tag: 'span', class: 'typo_strong' },
-  italic: { tag: 'span', class: 'typo_italic' },
-  underline: { tag: 'span', class: 'typo_underline' },
-  delete: { tag: 'span', class: 'typo_delete' },
-  mark: { tag: 'span', class: 'typo_mark' },
-  sub: { tag: 'sub', class: 'typo_sub' },
-  sup: { tag: 'sup', class: 'typo_sup' },
-  small: { tag: 'small', class: 'typo_small' },
-  link: { tag: 'a', class: 'typo_link' },
-  blockquote: { tag: 'blockquote', class: 'typo_blockquote' },
-  text: { tag: 'p', class: '' },
+  paragraph: { tag: 'p', className: 'typo_paragraph' },
+  lead: { tag: 'p', className: 'typo_lead' },
+  caption: { tag: 'p', className: 'typo_caption' },
+  label: { tag: 'label', className: 'typo_label' },
+  overline: { tag: 'p', className: 'typo_overline' },
+  code: { tag: 'code', className: 'typo_code' },
+  kbd: { tag: 'kbd', className: 'typo_kbd' },
+  pre: { tag: 'pre', className: 'typo_pre' },
+  strong: { tag: 'span', className: 'typo_strong' },
+  italic: { tag: 'span', className: 'typo_italic' },
+  underline: { tag: 'span', className: 'typo_underline' },
+  delete: { tag: 'span', className: 'typo_delete' },
+  mark: { tag: 'span', className: 'typo_mark' },
+  sub: { tag: 'sub', className: 'typo_sub' },
+  sup: { tag: 'sup', className: 'typo_sup' },
+  small: { tag: 'small', className: 'typo_small' },
+  link: { tag: 'a', className: 'typo_link' },
+  blockquote: { tag: 'blockquote', className: 'typo_blockquote' },
+  text: { tag: 'p', className: '' },
 };
+
+const VALID_SIZES = new Set(['', 'xs', 'sm', 'lg', 'xl']);
 
 const formatCode = createComponentFormatter('TypoText', {
   defaults: { variant: 'text', ellipsis: 0 },
@@ -43,47 +46,72 @@ export default function TypoText({
   tag,
   children,
   className,
+  onClick,
   ...rest
 }) {
-  const props = { variant, color, size, ellipsis, href, htmlFor, cite, label, tag };
   const rootRef = useRef(null);
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? label }),
-    [children, label],
-  );
-
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
   const variantConfig = VARIANT_MAP[variant] || VARIANT_MAP.text;
-  const rootTag = tag || variantConfig.tag;
+  const resolvedSize = VALID_SIZES.has(size) ? size : '';
+  const content = children ?? label;
 
-  const lines =
-    ellipsis == null || ellipsis === '' ? 0 : Number(ellipsis) >= 1 && Number(ellipsis) <= 3 ? Number(ellipsis) : 0;
-
-  const rootClass = cn(
-    variantConfig.class,
-    color && `color_${color}`,
-    size === 'xs' && 'size_xs',
-    size === 'sm' && 'size_sm',
-    size === 'lg' && 'size_lg',
-    size === 'xl' && 'size_xl',
-    lines === 1 && 'text_ellipsis',
-    lines === 2 && 'text_ellipsis-2',
-    lines === 3 && 'text_ellipsis-3',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      variant,
+      color,
+      size: resolvedSize,
+      ellipsis,
+      href,
+      htmlFor,
+      cite,
+      label,
+    },
+    createDemoSlots({ default: content }),
+    rootRef,
+    { className, onClick, ...rest },
   );
 
-  return createElement(
-    rootTag,
-    {
-      ref: rootRef,
-      className: rootClass,
-      href: variant === 'link' ? href || '#' : undefined,
-      htmlFor: variant === 'label' ? htmlFor : undefined,
-      cite: variant === 'blockquote' ? cite : undefined,
-      onClick: variant === 'link' && !href ? (e) => e.preventDefault() : undefined,
-      ...rest,
-    },
-    children ?? label,
+  const ellipsisLines = useMemo(() => {
+    if (ellipsis == null || ellipsis === '') return 0;
+    const lines = Number(ellipsis);
+    return lines >= 1 && lines <= 3 ? lines : 0;
+  }, [ellipsis]);
+
+  const rootClass = useMemo(() => {
+    const classes = [];
+    if (variantConfig.className) classes.push(variantConfig.className);
+    if (color) classes.push(`color_${color}`);
+    if (resolvedSize === 'xs') classes.push('size_xs');
+    if (resolvedSize === 'sm') classes.push('size_sm');
+    if (resolvedSize === 'lg') classes.push('size_lg');
+    if (resolvedSize === 'xl') classes.push('size_xl');
+    if (ellipsisLines === 1) classes.push('text_ellipsis');
+    if (ellipsisLines === 2) classes.push('text_ellipsis-2');
+    if (ellipsisLines === 3) classes.push('text_ellipsis-3');
+    return classes;
+  }, [variantConfig.className, color, resolvedSize, ellipsisLines]);
+
+  const Tag = tag || variantConfig.tag;
+  const domRest = normalizeDomProps(rest);
+
+  function handleClick(event) {
+    if (variant === 'link' && !href) {
+      event.preventDefault();
+    }
+    onClick?.(event);
+  }
+
+  return (
+    <Tag
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      href={variant === 'link' ? href || '#' : undefined}
+      htmlFor={variant === 'label' ? htmlFor : undefined}
+      cite={variant === 'blockquote' ? cite : undefined}
+      onClick={variant === 'link' ? handleClick : onClick}
+      {...domRest}
+    >
+      {content}
+    </Tag>
   );
 }

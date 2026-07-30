@@ -1,8 +1,11 @@
-import { useMemo, useRef } from 'react';
-import { useListContext } from '@/components/context/ListContext';
-import { cn } from '@/utils/cn';
+import { Fragment, useContext, useMemo, useRef } from 'react';
+import { ListContext } from '@/components/List.jsx';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { formatComponentCode, hasComplexDefaultSlot } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_TAGS = new Set(['auto', 'li', 'dt', 'dd']);
 
 export default function ListItem({
   title,
@@ -18,29 +21,28 @@ export default function ListItem({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const listContext = useListContext();
-  const props = { title, description, meta, tag };
+  const listContext = useContext(ListContext) ?? { tag: 'ul', variant: 'default' };
+  const resolvedTagProp = VALID_TAGS.has(tag) ? tag : 'auto';
 
   const isDefinitionPair =
-    tag === 'auto' && listContext.tag === 'dl' && Boolean(title && description);
+    resolvedTagProp === 'auto' &&
+    listContext.tag === 'dl' &&
+    Boolean(title && description);
 
   const resolvedTag = useMemo(() => {
     if (isDefinitionPair) return null;
-    if (tag !== 'auto') return tag;
+    if (resolvedTagProp !== 'auto') return resolvedTagProp;
     if (listContext.tag === 'dl') {
       if (title && !description) return 'dt';
       if (description && !title) return 'dd';
     }
     if (listContext.tag === 'div') return 'div';
     return 'li';
-  }, [isDefinitionPair, tag, listContext.tag, title, description]);
+  }, [isDefinitionPair, resolvedTagProp, listContext.tag, title, description]);
 
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children, prefix, extra, actions }),
-    [children, prefix, extra, actions],
-  );
+  const itemRole = role !== undefined ? role : listContext.tag === 'div' ? 'listitem' : undefined;
 
-  const formatCode = (itemProps, itemSlots, itemAttrs) => {
+  function formatCode(itemProps, itemSlots, itemAttrs) {
     const hasComplexDefault = hasComplexDefaultSlot(itemSlots);
     const hasPrefix = Boolean(itemSlots.prefix?.());
     const isDefPair =
@@ -54,35 +56,42 @@ export default function ListItem({
       defaults: { tag: 'auto' },
       selfClosing: isDefPair || (!hasPrefix && !hasComplexDefault),
     });
-  };
+  }
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, role, ...rest });
-
-  const itemRole = role !== undefined ? role : listContext.tag === 'div' ? 'listitem' : undefined;
+  useComponentDemoCode(
+    formatCode,
+    { title, description, meta, tag: resolvedTagProp },
+    createDemoSlots({ default: children, prefix, extra, actions }),
+    rootRef,
+    { className, role, ...rest },
+  );
 
   const hasContent = Boolean(title || description || meta || children);
 
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   if (isDefinitionPair) {
     return (
-      <>
-        <dt ref={rootRef} className={cn('list_title', className)} {...rest}>
+      <Fragment>
+        <dt ref={rootRef} className={cn('list_title', className)} {...domRest}>
           {title}
         </dt>
         <dd className="list_desc" data-demo-fragment-part>
           {description}
         </dd>
-      </>
+      </Fragment>
     );
   }
 
-  const Tag = resolvedTag;
+  const Tag = resolvedTag || 'li';
 
   return (
     <Tag
       ref={rootRef}
       className={cn('list_item', className)}
       role={itemRole}
-      {...rest}
+      {...domRest}
     >
       {prefix}
       {hasContent ? (

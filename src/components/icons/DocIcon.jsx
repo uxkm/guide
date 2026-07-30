@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { cn } from '@/utils/cn';
-import { commonIconPaths } from '@/data/common-icons';
+import { cn } from '@/utils/cn.js';
+import { commonIconPaths } from '@/data/common-icons.js';
 
 export default function DocIcon({ name, className, ...rest }) {
   const elements = useMemo(() => commonIconPaths[name] ?? [], [name]);

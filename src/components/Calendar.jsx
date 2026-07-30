@@ -1,7 +1,10 @@
 import { useMemo, useRef } from 'react';
-import { useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['', 'sm', 'lg']);
 
 const formatCode = createComponentFormatter('Calendar', {
   defaults: { role: 'application' },
@@ -23,6 +26,7 @@ const formatCode = createComponentFormatter('Calendar', {
 });
 
 export default function Calendar({
+  ref,
   title,
   ariaLabel,
   noHeader,
@@ -47,6 +51,13 @@ export default function Calendar({
   ...rest
 }) {
   const rootRef = useRef(null);
+  const resolvedSize = VALID_SIZES.has(size) ? size : '';
+
+  function setRootRef(node) {
+    rootRef.current = node;
+    if (typeof ref === 'function') ref(node);
+    else if (ref && typeof ref === 'object') ref.current = node;
+  }
 
   useComponentDemoCode(
     formatCode,
@@ -65,34 +76,39 @@ export default function Calendar({
       weekends,
       agenda,
       wheel,
-      size,
+      size: resolvedSize,
       role,
     },
-    { default: () => children, header: header ? () => header : undefined, weekdays: weekdays ? () => weekdays : undefined, footer: footer ? () => footer : undefined },
+    createDemoSlots({
+      default: children,
+      header,
+      weekdays,
+      footer,
+    }),
     rootRef,
     { className, ...rest },
-    { when: (p) => !p.wheel },
+    {
+      when: (calendarProps) => !calendarProps.wheel,
+    },
   );
 
   const rootClass = useMemo(() => {
-    return cn(
-      'calendar',
-      noHeader && 'calendar_no-header',
-      minimal && 'calendar_minimal',
-      compact && 'calendar_compact',
-      borderless && 'calendar_borderless',
-      shadow && 'calendar_shadow',
-      ghost && 'calendar_ghost',
-      week && 'calendar_week',
-      readonly && 'calendar_readonly',
-      disabled && 'is-disabled',
-      weekends && 'calendar_weekends',
-      agenda && 'calendar_agenda',
-      wheel && 'calendar_wheel',
-      size === 'sm' && 'calendar_sm',
-      size === 'lg' && 'calendar_lg',
-      className,
-    );
+    const classes = ['calendar'];
+    if (noHeader) classes.push('calendar_no-header');
+    if (minimal) classes.push('calendar_minimal');
+    if (compact) classes.push('calendar_compact');
+    if (borderless) classes.push('calendar_borderless');
+    if (shadow) classes.push('calendar_shadow');
+    if (ghost) classes.push('calendar_ghost');
+    if (week) classes.push('calendar_week');
+    if (readonly) classes.push('calendar_readonly');
+    if (disabled) classes.push('is-disabled');
+    if (weekends) classes.push('calendar_weekends');
+    if (agenda) classes.push('calendar_agenda');
+    if (wheel) classes.push('calendar_wheel');
+    if (resolvedSize === 'sm') classes.push('calendar_sm');
+    if (resolvedSize === 'lg') classes.push('calendar_lg');
+    return classes;
   }, [
     noHeader,
     minimal,
@@ -106,9 +122,11 @@ export default function Calendar({
     weekends,
     agenda,
     wheel,
-    size,
-    className,
+    resolvedSize,
   ]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   const defaultHeader =
     title && !noHeader && !minimal ? (
@@ -119,14 +137,14 @@ export default function Calendar({
 
   return (
     <div
-      ref={rootRef}
-      className={rootClass}
+      ref={setRootRef}
+      className={cn(rootClass, className)}
       role={role}
       aria-label={ariaLabel}
       aria-disabled={disabled ? 'true' : undefined}
-      {...rest}
+      {...domRest}
     >
-      {header ?? defaultHeader}
+      {header !== undefined ? header : defaultHeader}
       {weekdays}
       {children}
       {footer}

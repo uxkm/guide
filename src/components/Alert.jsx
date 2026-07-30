@@ -1,10 +1,20 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import DocIcon from '@/components/icons/DocIcon.jsx';
-import { cn } from '@/utils/cn';
 import { useRipple } from '@/hooks/useRipple';
 import { useAlertDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_COLORS = new Set(['info', 'success', 'warning', 'danger']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
+const ALERT_ICONS = {
+  info: 'info',
+  success: 'check-circle',
+  warning: 'alert-triangle',
+  danger: 'x-circle',
+};
 
 export default function Alert({
   ripple,
@@ -23,51 +33,64 @@ export default function Alert({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { ripple, color, title, description, closable, showIcon, size, role };
-  const { rippleAttrs } = useRipple(props);
+  const { rippleAttrs } = useRipple({ ripple });
   const [visible, setVisible] = useState(true);
+  const resolvedColor = VALID_COLORS.has(color) ? color : 'info';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
 
-  useAlertDemoCode(props, rootRef, { class: className, ...rest });
+  useAlertDemoCode(
+    {
+      ripple,
+      color: resolvedColor,
+      title,
+      description,
+      closable,
+      showIcon,
+      size: resolvedSize,
+      role,
+    },
+    rootRef,
+    { className, onClose, ...rest },
+  );
+
+  const colorClass = resolvedColor === 'danger' ? 'color_error' : `color_${resolvedColor}`;
+
+  const rootClass = useMemo(() => {
+    const classes = ['alert', colorClass];
+    if (resolvedSize === 'sm') classes.push('alert_sm');
+    if (resolvedSize === 'lg') classes.push('alert_lg');
+    return classes;
+  }, [colorClass, resolvedSize]);
+
+  const hasTitle = Boolean(title);
+  const descContent = children ?? description;
+  const hasDescription = Boolean(descContent);
+
+  const { class: _ignoredClass, role: _ignoredRole, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  function handleClose(event) {
+    setVisible(false);
+    onClose?.(event);
+  }
 
   if (!visible) return null;
 
-  const colorClass = color === 'danger' ? 'color_error' : `color_${color}`;
-  const rootClass = cn(
-    'alert',
-    colorClass,
-    size === 'sm' && 'alert_sm',
-    size === 'lg' && 'alert_lg',
-    className,
-  );
-
-  const alertIconNames = {
-    info: 'info',
-    success: 'check-circle',
-    warning: 'alert-triangle',
-    danger: 'x-circle',
-  };
-  const alertIconName = alertIconNames[color] ?? 'info';
-
-  const hasTitle = Boolean(title);
-  const hasDescription = Boolean(description || children);
-
-  function handleClose() {
-    setVisible(false);
-    onClose?.();
-  }
-
   return (
-    <div ref={rootRef} className={rootClass} role={role} {...rest}>
+    <div
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      role={role}
+      {...domRest}
+    >
       {showIcon ? (
         <div data-demo-slot="icon">
-          {icon ?? <DocIcon name={alertIconName} className="alert_icon" />}
+          {icon ?? <Icon name={ALERT_ICONS[resolvedColor] ?? 'info'} className="alert_icon" />}
         </div>
       ) : null}
       <div className="alert_body">
         {hasTitle ? <div className="alert_title">{title}</div> : null}
-        {hasDescription ? (
-          <p className="alert_desc">{children ?? description}</p>
-        ) : null}
+        {hasDescription ? <p className="alert_desc">{descContent}</p> : null}
         {actions}
       </div>
       {closable ? (
@@ -75,10 +98,10 @@ export default function Alert({
           variant="ghost"
           iconOnly
           className="alert_close"
-          aria-label="알림 닫기"
+          ariaLabel="알림 닫기"
+          iconBefore={<Icon name="close" size="sm" />}
           onClick={handleClose}
           {...rippleAttrs}
-          iconBefore={<Icon name="close" size="sm" />}
         />
       ) : null}
     </div>

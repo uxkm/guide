@@ -18,21 +18,32 @@ export const datePickerProps = [
   { name: 'block', type: 'boolean', default: 'false', description: '부모 너비 100%' },
   { name: 'inline', type: 'boolean', default: 'false', description: '트리거 없이 패널만 (date_picker_inline)' },
   { name: 'clearable', type: 'boolean', default: 'false', description: '지우기 버튼' },
-  { name: 'panel-wide', type: 'boolean', default: 'false', description: '넓은 패널 (date_picker_panel-wide)' },
-  { name: 'input-id', type: 'string', default: '—', description: '입력 필드 id (label for 연결)' },
-  { name: 'aria-label', type: 'string', default: '—', description: '입력 접근성 라벨' },
-  { name: 'aria-invalid', type: 'boolean | string', default: '—', description: '입력 aria-invalid' },
+  { name: 'panelWide', type: 'boolean', default: 'false', description: '넓은 패널 (date_picker_panel-wide)' },
+  { name: 'inputId', type: 'string', default: '—', description: '입력 필드 id (label for 연결)' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: '입력 접근성 라벨' },
+  { name: 'ariaInvalid', type: 'boolean | string', default: '—', description: '입력 aria-invalid' },
+  { name: 'className', type: 'string', default: '—', description: 'date_picker 루트에 추가 클래스' },
+  { name: 'panel', type: 'ReactNode', default: '—', description: '패널 콘텐츠 (children 대체)' },
+  { name: 'onClear', type: '(event) => void', default: '—', description: '지우기 버튼 클릭 콜백' },
+  { name: 'onCalendarClick', type: '(event) => void', default: '—', description: '캘린더 버튼 클릭 콜백' },
   ripplePropContainer,
 ];
 
-export const datePickerSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const datePickerChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const datePickerSlots = [
-  { name: 'panel', description: '캘린더 패널 (Calendar 등)' },
+export const datePickerChildren = [
+  { name: 'panel', description: '캘린더 패널 콘텐츠 (Vue #panel 슬롯 대응)' },
+  { name: 'children', description: 'panel prop 대체. Calendar 등 패널 콘텐츠' },
 ];
+
+/** @deprecated 가이드·Storybook은 datePickerChildColumns · datePickerChildren 사용 */
+export const datePickerSlotColumns = datePickerChildColumns;
+
+/** @deprecated */
+export const datePickerSlots = datePickerChildren;
 
 export const datePickerClassColumns = [
   { key: 'name', label: '클래스' },

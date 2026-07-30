@@ -51,10 +51,6 @@
     position: relative;
   }
 
-  &_trigger-host {
-    display: contents;
-  }
-
   &_menu {
     position: absolute;
     top: calc(100% + var(--dropdown-offset));
@@ -146,6 +142,18 @@
   }
 
   // ----- 데모 레이아웃
+
+  &_demo-stage {
+    position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 14rem;
+    padding: var(--space-2xl) var(--space-xl);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: $radius-md;
+    overflow: visible;
+    background: var(--color-bg);
+  }
 
   &_row {
     display: flex;

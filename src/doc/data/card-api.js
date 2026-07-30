@@ -1,4 +1,5 @@
 import { ripplePropOptIn, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const cardPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -28,24 +29,27 @@ export const cardFooterProps = [
 ];
 
 export const cardSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const cardSlots = [
-  { name: 'media', description: '상단 미디어 영역 (card_media)' },
-  { name: 'header', description: '헤더 콘텐츠 (title·subtitle 대체)' },
-  { name: 'extra', description: '헤더 우측 액션 (card_extra)' },
-  { name: 'default', description: '본문·푸터 등 자식 (CardBody · CardFooter)' },
+  { name: 'media', description: '상단 미디어 영역 (Vue #media 슬롯 대응, card_media)' },
+  { name: 'header', description: '헤더 콘텐츠 (Vue #header 슬롯 대응, title·subtitle prop 대체)' },
+  { name: 'extra', description: '헤더 우측 액션 (Vue #extra 슬롯 대응, card_extra)' },
+  {
+    name: 'children',
+    description: 'CardBody · CardFooter 등 (Vue default 슬롯 대응)',
+  },
 ];
 
 export const cardHeaderSlots = [
-  { name: 'default', description: '헤더 메인 콘텐츠' },
-  { name: 'extra', description: '헤더 우측 액션' },
+  { name: 'children', description: '헤더 메인 콘텐츠 (title·subtitle prop 대체)' },
+  { name: 'extra', description: '헤더 우측 액션 (Vue #extra 슬롯 대응)' },
 ];
 
-export const cardBodySlots = [{ name: 'default', description: '카드 본문' }];
-export const cardFooterSlots = [{ name: 'default', description: '카드 푸터' }];
+export const cardBodySlots = [{ name: 'children', description: '카드 본문 (Vue default 슬롯 대응)' }];
+export const cardFooterSlots = [{ name: 'children', description: '카드 푸터 (Vue default 슬롯 대응)' }];
 
 export const cardClassColumns = [
   { key: 'name', label: '클래스' },

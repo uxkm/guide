@@ -68,11 +68,15 @@
       .guide_nav-list {
         display: none;
       }
-
-      .guide_nav-chevron {
-        transform: rotate(-90deg);
-      }
     }
+
+    &:not(.is-collapsed) .guide_nav-chevron {
+      transform: rotate(180deg);
+    }
+  }
+
+  &-list-top {
+    margin-bottom: $space-md;
   }
 
   &-heading {

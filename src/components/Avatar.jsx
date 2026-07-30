@@ -1,7 +1,10 @@
-import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg', 'xl']);
 
 const formatCode = createComponentFormatter('Avatar', {
   defaults: { size: 'md' },
@@ -24,27 +27,65 @@ export default function Avatar({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { src, alt, initials, color, size, square, badgeColor, badgeLabel, ariaHidden };
-  const demoSlots = useMemo(() => createDemoSlots({ icon }), [icon]);
+  const [imageError, setImageError] = useState(false);
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const showImage = Boolean(src) && !imageError;
+  const showInitials = !showImage && !icon && initials;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  useEffect(() => {
+    setImageError(false);
+  }, [src]);
 
-  const rootClass = cn(
-    'avatar',
-    color && `color_${color}`,
-    size === 'sm' && 'avatar_sm',
-    size === 'lg' && 'avatar_lg',
-    size === 'xl' && 'avatar_xl',
-    square && 'avatar_square',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      src,
+      alt,
+      initials,
+      color,
+      size: resolvedSize,
+      square,
+      ariaHidden,
+    },
+    createDemoSlots({
+      default: showInitials ? initials : undefined,
+      icon,
+    }),
+    rootRef,
+    { className, ...rest },
   );
 
-  const showInitials = !src && !icon && initials;
+  const rootClass = useMemo(() => {
+    const classes = ['avatar'];
+    if (color) classes.push(`color_${color}`);
+    if (resolvedSize === 'sm') classes.push('avatar_sm');
+    if (resolvedSize === 'lg') classes.push('avatar_lg');
+    if (resolvedSize === 'xl') classes.push('avatar_xl');
+    if (square) classes.push('avatar_square');
+    return classes;
+  }, [color, resolvedSize, square]);
+
+  const domRest = normalizeDomProps(rest);
+
+  function handleImageError() {
+    setImageError(true);
+  }
 
   return (
-    <span ref={rootRef} className={rootClass} aria-hidden={ariaHidden ? 'true' : undefined} {...rest}>
-      {src ? (
-        <img className="avatar_image" src={src} alt={alt || ''} />
+    <span
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-hidden={ariaHidden ? 'true' : undefined}
+      {...domRest}
+    >
+      {showImage ? (
+        <img
+          key={src}
+          className="avatar_image"
+          src={src}
+          alt={alt || ''}
+          onError={handleImageError}
+        />
       ) : icon ? (
         icon
       ) : showInitials ? (

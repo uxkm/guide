@@ -82,6 +82,9 @@ function resolveDemoElement(refValue) {
 }
 
 function resolveDemoContext(fromEl, injectedContext = null) {
+  // Provider context가 있으면 우선 사용 (Strict Mode · Map 타이밍 이슈 회피)
+  if (injectedContext) return injectedContext;
+
   if (fromEl instanceof HTMLElement) {
     const sectionRoot = fromEl.closest('[data-demo-section]');
     const sectionId = sectionRoot?.getAttribute('data-demo-section');
@@ -91,7 +94,7 @@ function resolveDemoContext(fromEl, injectedContext = null) {
     }
   }
 
-  return injectedContext;
+  return null;
 }
 
 function createDemoCodeStore(sectionId) {
@@ -161,16 +164,25 @@ function useDemoCodeRegistration(registerFn, options = {}) {
   const demoId = useId();
   const { when } = options;
   const activeContextRef = useRef(null);
-  const revision = useDemoRevision(injectedContext);
 
+  // 언마운트(또는 demoId 변경) 시에만 unregister — 매 렌더 cleanup이면 notify 루프 발생
   useLayoutEffect(() => {
-    const payload = registerFn();
-    void revision;
-
-    if (!payload) {
+    return () => {
       activeContextRef.current?.unregister(demoId);
       activeContextRef.current = null;
-      return undefined;
+    };
+  }, [demoId]);
+
+  // 매 커밋 후 등록만 동기화 (register는 코드 동일 시 notify 생략)
+  useLayoutEffect(() => {
+    const payload = registerFn();
+
+    if (!payload) {
+      if (activeContextRef.current) {
+        activeContextRef.current.unregister(demoId);
+        activeContextRef.current = null;
+      }
+      return;
     }
 
     const { el, context: explicitContext, code } = payload;
@@ -180,22 +192,17 @@ function useDemoCodeRegistration(registerFn, options = {}) {
       activeContextRef.current.unregister(demoId);
     }
 
-    activeContextRef.current = context;
+    activeContextRef.current = context ?? null;
 
-    if (!context) return undefined;
+    if (!context) return;
 
     if (!el || (when && !when())) {
       context.unregister(demoId);
-      return undefined;
+      return;
     }
 
     el.dataset.demoId = demoId;
     context.register(demoId, code);
-
-    return () => {
-      activeContextRef.current?.unregister(demoId);
-      activeContextRef.current = null;
-    };
   });
 }
 
@@ -210,16 +217,38 @@ function useDemoRevision(context) {
   return context?.getRevision?.() ?? 0;
 }
 
+const HTML_TO_REACT_ATTR = {
+  class: 'className',
+  for: 'htmlFor',
+  tabindex: 'tabIndex',
+  readonly: 'readOnly',
+  maxlength: 'maxLength',
+  minlength: 'minLength',
+  colspan: 'colSpan',
+  rowspan: 'rowSpan',
+  cellpadding: 'cellPadding',
+  cellspacing: 'cellSpacing',
+  usemap: 'useMap',
+  frameborder: 'frameBorder',
+  allowfullscreen: 'allowFullScreen',
+};
+
 function serializeAttrs(el) {
   const parts = [];
 
-  if (el.className) {
-    parts.push(`class="${el.className}"`);
+  if (el.className && typeof el.className === 'string') {
+    parts.push(`className="${el.className}"`);
   }
 
   [...el.attributes].forEach((attr) => {
     if (attr.name === 'class' || attr.name.startsWith('data-')) return;
-    parts.push(`${attr.name}="${attr.value}"`);
+
+    const name = HTML_TO_REACT_ATTR[attr.name] || attr.name;
+    if (attr.value === '' || attr.value === attr.name) {
+      parts.push(name);
+      return;
+    }
+    parts.push(`${name}="${attr.value}"`);
   });
 
   return parts.length ? ` ${parts.join(' ')}` : '';
@@ -478,9 +507,9 @@ function serializeNode(node, registry, level = 0) {
       childLines.length &&
       isMergeableComponentBody(resolved) &&
       !isSelfClosingComponentCode(resolved) &&
-      !hasSlotTemplates(resolved) &&
-      !hasDeclarativeProps(resolved)
+      !hasSlotTemplates(resolved)
     ) {
+      // props가 있어도 본문이 비어 있으면 DOM children을 채움 (<Container size="sm">…</Container>)
       resolved = mergeComponentCodeWithChildren(resolved, childLines);
     } else if (
       isSelfClosingComponentCode(resolved) &&
@@ -553,12 +582,18 @@ function buildDemoCode(root, registry) {
 export function DemoCodeProvider({ children, sectionId: sectionIdProp }) {
   const generatedId = useId();
   const sectionId = sectionIdProp ?? generatedId;
+  const storeRef = useRef(null);
 
-  const store = useMemo(() => {
-    const created = createDemoCodeStore(sectionId);
-    demoSectionStores.set(sectionId, created);
-    return created;
-  }, [sectionId]);
+  if (!storeRef.current || storeRef.current.sectionId !== sectionId) {
+    storeRef.current = createDemoCodeStore(sectionId);
+  }
+
+  const store = storeRef.current;
+
+  // Strict Mode 대응 — 렌더·effect에서 Map 재등록
+  if (demoSectionStores.get(sectionId) !== store) {
+    demoSectionStores.set(sectionId, store);
+  }
 
   useEffect(() => {
     demoSectionStores.set(sectionId, store);
@@ -570,16 +605,31 @@ export function DemoCodeProvider({ children, sectionId: sectionIdProp }) {
   return createElement(DemoCodeContext.Provider, { value: store }, children);
 }
 
+/** DemoCodeProvider 하위에서 스토어 구독 */
+export function useDemoCodeContext() {
+  const context = useContext(DemoCodeContext);
+  if (!context) {
+    throw new Error('useDemoCodeContext must be used within DemoCodeProvider');
+  }
+  return context;
+}
+
 export function useProvideDemoCode() {
   const generatedId = useId();
   const storeRef = useRef(null);
 
   if (!storeRef.current) {
     storeRef.current = createDemoCodeStore(generatedId);
+  }
+
+  // Strict Mode 언마운트 후 Map이 비워지므로, 렌더·effect에서 모두 재등록
+  // (자식 useLayoutEffect가 resolveDemoContext로 Map을 조회함)
+  if (demoSectionStores.get(generatedId) !== storeRef.current) {
     demoSectionStores.set(generatedId, storeRef.current);
   }
 
   useEffect(() => {
+    demoSectionStores.set(generatedId, storeRef.current);
     return () => {
       demoSectionStores.delete(generatedId);
     };

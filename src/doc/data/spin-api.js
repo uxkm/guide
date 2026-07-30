@@ -43,10 +43,16 @@ export const spinProps = [
     description: '컨테이너 전체를 덮는 오버레이 레이어 (spin_overlay)',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '로딩 중',
     description: '스크린 리더용 로딩 설명',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: 'spin 루트에 추가 클래스',
   },
 ];
 
@@ -83,30 +89,48 @@ export const spinWrapProps = [
     description: '오버레이 Spin에 전달할 설명 텍스트',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '로딩 중',
     description: '오버레이 Spin에 전달할 접근성 라벨',
   },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: 'spin_wrap 루트에 추가 클래스',
+  },
 ];
 
-export const spinSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const spinChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const spinSlots = [
-  { name: 'default', description: 'tip 외 추가 콘텐츠 (선택)' },
+export const spinChildren = [
+  { name: 'children', description: 'tip 외 추가 콘텐츠 (선택)' },
 ];
 
-export const spinWrapSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const spinWrapChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const spinWrapSlots = [
-  { name: 'default', description: '오버레이 아래 실제 콘텐츠 (spin_wrap-body)' },
+export const spinWrapChildren = [
+  { name: 'children', description: '오버레이 아래 실제 콘텐츠 (spin_wrap-body)' },
 ];
+
+/** @deprecated 가이드·Storybook은 spinChildColumns · spinChildren 사용 */
+export const spinSlotColumns = spinChildColumns;
+
+/** @deprecated */
+export const spinSlots = spinChildren;
+
+/** @deprecated 가이드·Storybook은 spinWrapChildColumns · spinWrapChildren 사용 */
+export const spinWrapSlotColumns = spinWrapChildColumns;
+
+/** @deprecated */
+export const spinWrapSlots = spinWrapChildren;
 
 export const spinClassColumns = [
   { key: 'name', label: '클래스' },
@@ -147,7 +171,8 @@ export const spinTokens = [
   { name: '--spin-duration', default: '0.8s', description: '회전 애니메이션 주기' },
   { name: '--spin-gap', default: 'var(--space-sm)', description: '스피너·텍스트 간격' },
   { name: '--spin-tip-size', default: 'var(--text-size-sm)', description: '설명 텍스트 크기' },
-  { name: '--spin-overlay-bg', default: 'var(--color-overlay)', description: '오버레이 배경' },
+  { name: '--spin-overlay-bg', default: 'rgba(15, 20, 25, 0.72)', description: '오버레이 배경 (tip 명도 대비용 불투명도)' },
+  { name: '--spin-overlay-tip-color', default: '#ffffff', description: '오버레이 위 tip 텍스트 색' },
   { name: '--spin-wrap-min-height', default: '8rem', description: 'spin_wrap-block 최소 높이' },
   { name: '--spin-wrap-content-opacity', default: '0.45', description: '로딩 시 콘텐츠 불투명도' },
 ];
@@ -156,7 +181,7 @@ export const markupCode = `<!-- 인라인 스피너 -->
 <div class="spin color_primary" role="status"
   aria-live="polite" aria-busy="true" aria-label="로딩 중">
   <span class="spin_indicator" aria-hidden="true"></span>
-  <span class="spin_tip">로딩 중…</span>
+  <p class="spin_tip">로딩 중…</p>
 </div>
 
 <!-- 컨테이너 오버레이 -->

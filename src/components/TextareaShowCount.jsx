@@ -1,5 +1,5 @@
 import { Children, cloneElement, useEffect, useState } from 'react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/cn.js';
 
 function formatCountVisual(current, max) {
   if (max > 0) {
@@ -23,8 +23,8 @@ function formatCountAnnounce(current, max) {
   return `${current}자 입력`;
 }
 
-function getInitialValue({ modelValue, defaultValue }) {
-  return modelValue ?? defaultValue ?? '';
+function getInitialValue({ value, defaultValue }) {
+  return value ?? defaultValue ?? '';
 }
 
 function getMaxLength({ maxLength, maxlength }) {
@@ -34,28 +34,28 @@ function getMaxLength({ maxLength, maxlength }) {
 export default function TextareaShowCount({ as: Tag = 'div', className, countId, children, ...rest }) {
   const child = Children.only(children);
   const childProps = child.props ?? {};
-  const { modelValue, defaultValue, onUpdateModelValue } = childProps;
+  const { value: valueProp, defaultValue, onChange } = childProps;
 
   const max = getMaxLength(childProps);
-  const isExternallyControlled = modelValue !== undefined;
-  const [value, setValue] = useState(() => getInitialValue(childProps));
+  const isExternallyControlled = valueProp !== undefined;
+  const [textValue, setTextValue] = useState(() => getInitialValue(childProps));
 
   useEffect(() => {
     if (isExternallyControlled) {
-      setValue(modelValue ?? '');
+      setTextValue(valueProp ?? '');
     }
-  }, [isExternallyControlled, modelValue]);
+  }, [isExternallyControlled, valueProp]);
 
-  const current = value.length;
+  const current = textValue.length;
   const isLimit = max > 0 && current >= max;
 
-  function handleUpdate(next) {
-    setValue(next);
-    onUpdateModelValue?.(next);
+  function handleChange(event) {
+    setTextValue(event.target.value);
+    onChange?.(event);
   }
 
   const textareaElement = cloneElement(child, {
-    onUpdateModelValue: handleUpdate,
+    onChange: handleChange,
   });
 
   return (

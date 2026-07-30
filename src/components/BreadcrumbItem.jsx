@@ -1,10 +1,9 @@
 import { useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { cn } from '@/utils/cn';
-import { navigateInternal } from '@/utils/navigate-internal';
 import { useRipple } from '@/hooks/useRipple';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('BreadcrumbItem', {
   booleanProps: new Set(['current', 'disabled', 'icon', 'ripple']),
@@ -25,61 +24,72 @@ export default function BreadcrumbItem({
   onClick,
   ...rest
 }) {
-  const navigate = useNavigate();
+  const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
-  const props = { ripple, label, href, current, disabled, icon, ariaLabel };
-  const { rippleAttrs } = useRipple(props);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children ?? label }), [children, label]);
+  const content = children ?? label;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const linkClass = cn(
-    'breadcrumb_link',
-    icon && 'breadcrumb_link-icon',
-    disabled && 'is-disabled',
+  useComponentDemoCode(
+    formatCode,
+    { ripple, label, href, current, disabled, icon, ariaLabel },
+    createDemoSlots({ default: content }),
+    rootRef,
+    { className, onClick, ...rest },
   );
 
-  function handleLinkClick(event) {
+  const rootClass = useMemo(() => {
+    const classes = ['breadcrumb_item'];
+    if (current) classes.push('is-current');
+    return classes;
+  }, [current]);
+
+  const linkClass = useMemo(() => {
+    const classes = ['breadcrumb_link'];
+    if (icon) classes.push('breadcrumb_link-icon');
+    if (disabled) classes.push('is-disabled');
+    return classes;
+  }, [icon, disabled]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const handleLinkClick = (event) => {
+    event.preventDefault();
     onClick?.(event);
-    if (event.defaultPrevented || !href) return;
+  };
 
-    if (href === '#') {
-      event.preventDefault();
-      return;
-    }
-
-    if (href.startsWith('/') && !href.startsWith('//')) {
-      event.preventDefault();
-      navigateInternal(navigate, href);
-    }
+  let inner = null;
+  if (href && !current && !disabled) {
+    inner = (
+      <a
+        {...rippleAttrs}
+        className={cn(linkClass)}
+        href={href}
+        aria-label={ariaLabel || undefined}
+        onClick={handleLinkClick}
+      >
+        {content}
+      </a>
+    );
+  } else if (disabled) {
+    inner = (
+      <span className={cn(linkClass)} aria-disabled="true">
+        {content}
+      </span>
+    );
+  } else if (current) {
+    inner = <span className="breadcrumb_current">{content}</span>;
+  } else {
+    inner = content;
   }
 
   return (
     <li
       ref={rootRef}
-      className={cn('breadcrumb_item', current && 'is-current', className)}
+      className={cn(rootClass, className)}
       aria-current={current ? 'page' : undefined}
-      {...rest}
+      {...domRest}
     >
-      {href && !current && !disabled ? (
-        <a
-          {...rippleAttrs}
-          className={linkClass}
-          href={href}
-          aria-label={ariaLabel || undefined}
-          onClick={handleLinkClick}
-        >
-          {children ?? label}
-        </a>
-      ) : disabled ? (
-        <span className={linkClass} aria-disabled="true">
-          {children ?? label}
-        </span>
-      ) : current ? (
-        <span className="breadcrumb_current">{children ?? label}</span>
-      ) : (
-        children
-      )}
+      {inner}
     </li>
   );
 }

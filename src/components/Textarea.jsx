@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { cn } from '@/utils/cn';
-import { normalizeDomProps } from '@/utils/normalize-dom-props';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Textarea', {
   defaults: { size: 'md', rows: 3 },
@@ -13,63 +15,79 @@ const formatCode = createComponentFormatter('Textarea', {
 
 export default function Textarea({
   size = 'md',
-  disabled = false,
-  error = false,
+  disabled,
+  error,
   placeholder,
-  block = false,
+  block,
   rows = 3,
-  modelValue,
-  onUpdateModelValue,
-  children,
+  value,
+  defaultValue = '',
   className,
+  onChange,
   ...rest
 }) {
-  const props = { size, disabled, error, placeholder, block, rows, modelValue };
   const rootRef = useRef(null);
-  const [textValue, setTextValue] = useState(modelValue ?? '');
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? modelValue }),
-    [children, modelValue],
-  );
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const [textValue, setTextValue] = useState(() => value ?? defaultValue ?? '');
 
   useEffect(() => {
-    if (modelValue !== undefined) {
-      setTextValue(modelValue ?? '');
+    if (value !== undefined) {
+      setTextValue(value ?? '');
     }
-  }, [modelValue]);
+  }, [value]);
 
-  const rootClass = cn(
-    'textarea',
-    size === 'sm' && 'textarea_sm',
-    size === 'lg' && 'textarea_lg',
-    block && 'textarea_block',
-    error && 'is-error',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      size: resolvedSize,
+      disabled,
+      error,
+      placeholder,
+      block,
+      rows,
+      value: textValue,
+    },
+    createDemoSlots(),
+    rootRef,
+    { className, onChange, ...rest },
   );
 
-  function handleChange(event) {
-    const next = event.target.value;
-    setTextValue(next);
-    onUpdateModelValue?.(next);
-  }
+  const rootClass = useMemo(() => {
+    const classes = ['textarea'];
+    if (resolvedSize === 'sm') classes.push('textarea_sm');
+    if (resolvedSize === 'lg') classes.push('textarea_lg');
+    if (block) classes.push('textarea_block');
+    if (error) classes.push('is-error');
+    return classes;
+  }, [resolvedSize, block, error]);
 
-  const domRest = normalizeDomProps(rest);
+  const {
+    class: _ignoredClass,
+    value: _ignoredValue,
+    defaultValue: _ignoredDefaultValue,
+    onChange: _ignoredOnChange,
+    ...restForDom
+  } = rest;
+
+  const domRest = normalizeDomProps(restForDom);
+
+  function handleChange(event) {
+    setTextValue(event.target.value);
+    onChange?.(event);
+  }
 
   return (
     <textarea
       ref={rootRef}
-      className={rootClass}
+      className={cn(rootClass, className)}
       rows={rows}
       placeholder={placeholder}
       disabled={disabled}
       value={textValue}
+      aria-invalid={error ? 'true' : undefined}
       onChange={handleChange}
       {...domRest}
-      aria-invalid={error ? 'true' : domRest['aria-invalid']}
-    >
-      {children}
-    </textarea>
+    />
   );
 }

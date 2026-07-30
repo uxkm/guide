@@ -1,28 +1,10 @@
-import { useEffect, useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
+import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { useAccordion } from '@/components/context/AccordionContext';
+import { AccordionContext } from '@/components/Accordion.jsx';
+import { useRipple } from '@/hooks/useRipple';
 import { cn } from '@/utils/cn';
 import { setSlideRegionOpen } from '@/utils/slide-region';
-import { useRipple } from '@/hooks/useRipple';
-
-function useMutableRef(initial) {
-  const stateRef = useRef(initial);
-  const [, bump] = useReducer((count) => count + 1, 0);
-
-  return useMemo(
-    () => ({
-      get value() {
-        return stateRef.current;
-      },
-      set value(next) {
-        stateRef.current = next;
-        bump();
-      },
-    }),
-    [],
-  );
-}
 
 export default function AccordionItem({
   ripple,
@@ -33,38 +15,82 @@ export default function AccordionItem({
   extraCode,
   extra,
   children,
+  className,
+  ...rest
 }) {
-  const accordion = useAccordion();
   const { rippleAttrs } = useRipple({ ripple });
-  const triggerId = useId().replace(/:/g, '');
-  const panelId = useId().replace(/:/g, '');
-  const isOpen = useMutableRef(open);
+  const accordion = useContext(AccordionContext);
+  const accordionRef = useRef(accordion);
+  accordionRef.current = accordion;
+
+  const reactId = useId().replace(/:/g, '');
+  const triggerId = `accordion-trigger-${reactId}`;
+  const panelId = `accordion-panel-${reactId}`;
+
+  const [isOpen, setIsOpen] = useState(() => Boolean(open));
+  const isOpenRef = useRef(isOpen);
+  isOpenRef.current = isOpen;
   const panelRef = useRef(null);
   const isFirstSlideSync = useRef(true);
-  const registerItemRef = useRef(accordion?.registerItem);
-  const unregisterItemRef = useRef(accordion?.unregisterItem);
-  const isOpenRef = useRef(isOpen);
-  registerItemRef.current = accordion?.registerItem;
-  unregisterItemRef.current = accordion?.unregisterItem;
-  isOpenRef.current = isOpen;
-
   const slide = accordion?.effect === 'slide';
 
-  const itemClass = cn(
-    'accordion_item',
-    isOpen.value && 'is-open',
-    disabled && 'is-disabled',
+  const hasExtra = extra != null;
+
+  // 마운트 시 1회 등록 — Context 갱신으로 재등록·열림 상태 리셋되지 않도록
+  useEffect(() => {
+    const api = accordionRef.current;
+    if (!api) return undefined;
+
+    api.registerItem({
+      id: triggerId,
+      label,
+      content,
+      open: Boolean(open),
+      disabled: Boolean(disabled),
+      hasExtra,
+      extraCode,
+      getIsOpen: () => isOpenRef.current,
+      setIsOpen,
+    });
+
+    return () => api.unregisterItem(triggerId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount/unmount only
+  }, [triggerId]);
+
+  useEffect(() => {
+    const api = accordionRef.current;
+    if (!api) return;
+    api.updateItemMeta(triggerId, {
+      label,
+      content,
+      disabled: Boolean(disabled),
+      hasExtra,
+      extraCode,
+    });
+  }, [triggerId, label, content, disabled, hasExtra, extraCode]);
+
+  useLayoutEffect(() => {
+    if (!slide) return;
+    const animate = !isFirstSlideSync.current;
+    isFirstSlideSync.current = false;
+    setSlideRegionOpen(panelRef.current, isOpen, animate);
+  }, [slide, isOpen]);
+
+  const itemClass = useMemo(
+    () => ['accordion_item', isOpen && 'is-open', disabled && 'is-disabled'],
+    [isOpen, disabled],
   );
 
   function toggle() {
-    if (disabled || !accordion) return;
-    accordion.toggleItem(triggerId, isOpen);
+    if (disabled || !accordionRef.current) return;
+    accordionRef.current.toggleItem(triggerId);
   }
 
-  function onKeyDown(event) {
-    if (!accordion) return;
+  function onKeydown(event) {
+    const api = accordionRef.current;
+    if (!api) return;
 
-    const triggers = accordion.getTriggers();
+    const triggers = api.getTriggers();
     const index = triggers.indexOf(triggerId);
     if (index === -1) return;
 
@@ -82,61 +108,38 @@ export default function AccordionItem({
 
     if (nextIndex !== null) {
       event.preventDefault();
-      accordion.focusTrigger(triggers[nextIndex]);
+      api.focusTrigger(triggers[nextIndex]);
     }
   }
 
-  useEffect(() => {
-    const registerItem = registerItemRef.current;
-    if (!registerItem) return undefined;
-
-    registerItem({
-      id: triggerId,
-      label,
-      content,
-      open,
-      disabled,
-      hasExtra: Boolean(extra),
-      extraCode,
-      isOpen: isOpenRef.current,
-    });
-
-    return () => unregisterItemRef.current?.(triggerId);
-  }, [triggerId, label, content, open, disabled, extra, extraCode]);
-
-  useLayoutEffect(() => {
-    if (!slide) return;
-    const animate = !isFirstSlideSync.current;
-    isFirstSlideSync.current = false;
-    setSlideRegionOpen(panelRef.current, isOpen.value, animate);
-  }, [slide, isOpen.value]);
+  const { class: _ignoredClass, ...domRest } = rest;
 
   return (
-    <div className={itemClass}>
-      <h3 className="accordion_heading">
+    <div className={cn(itemClass, className)} {...domRest}>
+      <div className="accordion_heading" role="heading" aria-level={3}>
         <Button
           id={triggerId}
           variant="text"
           className="accordion_trigger"
-          expanded={isOpen.value}
-          ariaControls={panelId}
+          expanded={isOpen}
+          aria-controls={panelId}
           disabled={disabled}
           onClick={toggle}
-          onKeyDown={onKeyDown}
-          {...rippleAttrs}
+          onKeyDown={onKeydown}
           iconAfter={<Icon name="chevron-down" className="accordion_icon" />}
+          {...rippleAttrs}
         >
           <span className="accordion_label">{label}</span>
-          {extra ? <span className="accordion_extra">{extra}</span> : null}
+          {hasExtra ? <span className="accordion_extra">{extra}</span> : null}
         </Button>
-      </h3>
+      </div>
       <div
         ref={slide ? panelRef : undefined}
         id={panelId}
         className="accordion_panel"
         role="region"
         aria-labelledby={triggerId}
-        hidden={slide ? undefined : (!isOpen.value || undefined)}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
         <div className="accordion_content">
           {children ?? (content ? <p>{content}</p> : null)}

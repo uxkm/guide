@@ -7,14 +7,17 @@ export const paginationPropColumns = [
 ];
 
 export const paginationProps = [
-  { name: 'current', type: 'number', default: '1', description: '현재 페이지 (v-model:current)' },
+  { name: 'current', type: 'number', default: '1', description: '현재 페이지 (제어)' },
+  { name: 'defaultCurrent', type: 'number', default: '1', description: '초기 페이지 (비제어)' },
   { name: 'total', type: 'number', default: '1', description: '전체 항목 수' },
-  { name: 'page-size', type: 'number', default: '10', description: '페이지당 항목 수' },
+  { name: 'pageSize', type: 'number', default: '10', description: '페이지당 항목 수' },
   { name: 'simple', type: 'boolean', default: 'false', description: 'pagination_simple — 이전·다음+현재/전체' },
   { name: 'minimal', type: 'boolean', default: 'false', description: 'pagination_minimal — 테두리 없음' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'pagination_sm · pagination_lg' },
   { name: 'round', type: 'boolean', default: 'false', description: 'pagination_round — pill 버튼' },
-  { name: 'aria-label', type: 'string', default: '페이지 이동', description: 'nav aria-label' },
+  { name: 'ariaLabel', type: 'string', default: '페이지 이동', description: 'nav aria-label' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
+  { name: 'onChange', type: '(page: number) => void', default: '—', description: '페이지 변경 콜백' },
   ripplePropContainer,
 ];
 
@@ -25,8 +28,7 @@ export const paginationEventColumns = [
 ];
 
 export const paginationEvents = [
-  { name: 'update:current', payload: 'number', description: 'v-model:current — 페이지 변경' },
-  { name: 'change', payload: 'number', description: '페이지 변경 시' },
+  { name: 'onChange', payload: '(page: number) => void', description: '페이지 변경 시' },
 ];
 
 export const paginationClassColumns = [

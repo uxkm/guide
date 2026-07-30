@@ -1,7 +1,18 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { AccordionContext } from '@/components/context/AccordionContext';
-import { cn } from '@/utils/cn';
+import {
+  createContext,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useAccordionDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+export const AccordionContext = createContext(null);
+
+const VALID_VARIANTS = new Set(['bordered', 'flush', 'card']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 export default function Accordion({
   variant = 'bordered',
@@ -14,92 +25,142 @@ export default function Accordion({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const itemsRef = useRef(new Map());
+  const itemsMapRef = useRef(new Map());
   const [registeredItems, setRegisteredItems] = useState([]);
-  const props = { variant, size, multiple, narrow, effect };
+  const itemsRef = useRef(registeredItems);
+  itemsRef.current = registeredItems;
 
-  const rootClass = cn(
-    'accordion',
-    `accordion_${variant}`,
-    size === 'sm' && 'accordion_sm',
-    size === 'lg' && 'accordion_lg',
-    narrow && 'accordion_demo-narrow',
-    className,
+  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'bordered';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const multipleRef = useRef(multiple);
+  multipleRef.current = multiple;
+
+  useAccordionDemoCode(
+    {
+      variant: resolvedVariant,
+      size: resolvedSize,
+      multiple,
+      narrow,
+      effect,
+    },
+    itemsRef,
+    rootRef,
+    { className, ...rest },
   );
 
   const syncRegisteredItems = useCallback(() => {
-    setRegisteredItems((prev) => {
-      const next = [...itemsRef.current.values()];
-      if (
-        prev.length === next.length &&
-        prev.every((item, index) => item.id === next[index]?.id)
-      ) {
-        return prev;
-      }
-      return next;
-    });
+    setRegisteredItems(
+      [...itemsMapRef.current.values()].map((item) => ({
+        id: item.id,
+        label: item.label,
+        content: item.content,
+        open: item.open,
+        disabled: item.disabled,
+        hasExtra: item.hasExtra,
+        extraCode: item.extraCode,
+        // formatAccordionCode는 Vue ref처럼 isOpen.value를 읽음
+        isOpen: {
+          get value() {
+            return item.getIsOpen();
+          },
+        },
+      })),
+    );
   }, []);
 
-  const registerItem = useCallback((item) => {
-    itemsRef.current.set(item.id, item);
-    syncRegisteredItems();
-  }, [syncRegisteredItems]);
-
-  const unregisterItem = useCallback((id) => {
-    itemsRef.current.delete(id);
-    syncRegisteredItems();
-  }, [syncRegisteredItems]);
-
-  const getTriggers = useCallback(
-    () => registeredItems.filter((item) => !item.disabled).map((item) => item.id),
-    [registeredItems],
+  const registerItem = useCallback(
+    (item) => {
+      itemsMapRef.current.set(item.id, item);
+      syncRegisteredItems();
+    },
+    [syncRegisteredItems],
   );
+
+  const unregisterItem = useCallback(
+    (id) => {
+      itemsMapRef.current.delete(id);
+      syncRegisteredItems();
+    },
+    [syncRegisteredItems],
+  );
+
+  const updateItemMeta = useCallback(
+    (id, patch) => {
+      const current = itemsMapRef.current.get(id);
+      if (!current) return;
+      itemsMapRef.current.set(id, { ...current, ...patch });
+      syncRegisteredItems();
+    },
+    [syncRegisteredItems],
+  );
+
+  const toggleItem = useCallback((id) => {
+    const item = itemsMapRef.current.get(id);
+    if (!item || item.disabled) return;
+
+    const willOpen = !item.getIsOpen();
+
+    if (!multipleRef.current && willOpen) {
+      for (const [otherId, other] of itemsMapRef.current) {
+        if (otherId !== id && !other.disabled) {
+          other.setIsOpen(false);
+        }
+      }
+    }
+
+    item.setIsOpen(willOpen);
+    syncRegisteredItems();
+  }, [syncRegisteredItems]);
+
+  const getTriggers = useCallback(() => {
+    return [...itemsMapRef.current.values()]
+      .filter((item) => !item.disabled)
+      .map((item) => item.id);
+  }, []);
 
   const focusTrigger = useCallback((id) => {
     rootRef.current?.querySelector(`#${CSS.escape(id)}`)?.focus();
   }, []);
-
-  const toggleItem = useCallback(
-    (id, isOpenRef) => {
-      const item = itemsRef.current.get(id);
-      if (!item || item.disabled) return;
-
-      const willOpen = !isOpenRef.value;
-
-      if (!multiple && willOpen) {
-        for (const [otherId, other] of itemsRef.current) {
-          if (otherId !== id && !other.disabled) {
-            other.isOpen.value = false;
-          }
-        }
-      }
-
-      isOpenRef.value = willOpen;
-    },
-    [multiple],
-  );
 
   const contextValue = useMemo(
     () => ({
       effect,
       registerItem,
       unregisterItem,
+      updateItemMeta,
       toggleItem,
       getTriggers,
       focusTrigger,
     }),
-    [effect, registerItem, unregisterItem, toggleItem, getTriggers, focusTrigger],
+    [
+      effect,
+      registerItem,
+      unregisterItem,
+      updateItemMeta,
+      toggleItem,
+      getTriggers,
+      focusTrigger,
+    ],
   );
 
-  useAccordionDemoCode(props, registeredItems, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = ['accordion', `accordion_${resolvedVariant}`];
+    if (resolvedSize === 'sm') classes.push('accordion_sm');
+    if (resolvedSize === 'lg') classes.push('accordion_lg');
+    if (narrow) classes.push('accordion_demo-narrow');
+    return classes;
+  }, [resolvedVariant, resolvedSize, narrow]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
     <AccordionContext.Provider value={contextValue}>
       <div
         ref={rootRef}
-        className={rootClass}
+        className={cn(rootClass, className)}
         data-effect={effect === 'slide' ? 'slide' : undefined}
-        {...rest}
+        {...domRest}
       >
         {children}
       </div>

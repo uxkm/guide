@@ -6,22 +6,44 @@ export const formLayoutPropColumns = [
 ];
 
 export const formLayoutProps = [
-  { name: 'layout', type: `'vertical' | 'horizontal' | 'inline'`, default: 'vertical', description: 'form_vertical · form_horizontal · form_inline' },
+  {
+    name: 'layout',
+    type: `'vertical' | 'horizontal' | 'inline'`,
+    default: 'vertical',
+    description: 'form_vertical · form_horizontal · form_inline',
+  },
   { name: 'fit', type: 'boolean', default: 'false', description: '콘텐츠 너비에 맞춤 (form_fit)' },
   { name: 'compact', type: 'boolean', default: 'false', description: '좁은 필드 간격 (form_compact)' },
-  { name: 'label-align-start', type: 'boolean', default: 'false', description: '라벨 상단 정렬 (form_label-align-start)' },
-  { name: 'label-width', type: `'sm' | 'lg'`, default: '—', description: '가로 레이아웃 라벨 너비' },
-  { name: 'tag', type: 'string', default: 'form', description: '루트 HTML 태그' },
+  {
+    name: 'labelAlignStart',
+    type: 'boolean',
+    default: 'false',
+    description: '라벨 상단·왼쪽 정렬 (form_label-align-start)',
+  },
+  {
+    name: 'labelWidth',
+    type: `'sm' | 'lg'`,
+    default: '—',
+    description: '가로 레이아웃 라벨 너비 (form_label-width-sm · form_label-width-lg)',
+  },
+  { name: 'tag', type: 'string', default: 'form', description: '루트 HTML 태그 (form · div 등)' },
+  { name: 'className', type: 'string', default: '—', description: 'form 루트에 추가 클래스' },
 ];
 
-export const formLayoutSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const formLayoutChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const formLayoutSlots = [
-  { name: 'default', description: 'form_field · form_actions 등 폼 콘텐츠' },
+export const formLayoutChildren = [
+  { name: 'children', description: 'form_field · form_actions 등 폼 콘텐츠 (Vue default 슬롯 대응)' },
 ];
+
+/** @deprecated 가이드·Storybook은 formLayoutChildColumns · formLayoutChildren 사용 */
+export const formLayoutSlotColumns = formLayoutChildColumns;
+
+/** @deprecated */
+export const formLayoutSlots = formLayoutChildren;
 
 export const formLayoutClassColumns = [
   { key: 'name', label: '클래스' },
@@ -45,7 +67,11 @@ export const formLayoutTokenColumns = [
 ];
 
 export const formLayoutTokens = [
-  { name: '--form-label-width · --form-label-width-sm · --form-label-width-lg', default: '7.5rem · 5rem · 10rem', description: '가로 레이아웃 라벨 너비' },
+  {
+    name: '--form-label-width · --form-label-width-sm · --form-label-width-lg',
+    default: '7.5rem · 5rem · 10rem',
+    description: '가로 레이아웃 라벨 너비',
+  },
   { name: '--form-field-gap', default: 'var(--space-lg)', description: '필드 간격' },
   { name: '--form-inline-field-min-width', default: '8rem', description: '인라인 필드 최소 너비' },
   { name: '--form-actions-gap', default: 'var(--space-sm)', description: '액션 버튼 간격' },

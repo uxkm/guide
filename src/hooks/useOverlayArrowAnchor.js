@@ -1,18 +1,51 @@
-import { useEffect, useRef } from 'react';
-import { updatePopoverLayout, updateTooltipLayout } from '@/legacy/overlay-layout';
+import { useEffect, useLayoutEffect } from 'react';
+import { updatePopoverLayout, updateTooltipLayout } from '@/legacy/overlay-layout.js';
 
+/**
+ * arrowAnchor가 target/mixed일 때 패널·화살표 위치를 JS로 갱신합니다.
+ * @param {React.RefObject<HTMLElement | null>} rootRef
+ * @param {{ noArrow?: boolean, arrowAnchor?: string, panelAlign?: string, arrowTargetAlign?: string, open?: boolean, placement?: string }} props
+ * @param {'popover' | 'tooltip'} type
+ */
 export function useOverlayArrowAnchor(rootRef, props, type) {
-  const resizeObserverRef = useRef(null);
+  const {
+    noArrow,
+    arrowAnchor,
+    panelAlign,
+    arrowTargetAlign,
+    open,
+    placement,
+  } = props;
+
+  useLayoutEffect(() => {
+    if (noArrow || arrowAnchor === 'content') return;
+
+    const root = rootRef.current;
+    if (!root) return;
+
+    if (type === 'popover') {
+      updatePopoverLayout(root);
+    } else {
+      updateTooltipLayout(root);
+    }
+  }, [
+    rootRef,
+    noArrow,
+    arrowAnchor,
+    panelAlign,
+    arrowTargetAlign,
+    open,
+    placement,
+    type,
+  ]);
 
   useEffect(() => {
+    if (noArrow || arrowAnchor === 'content') return;
+
+    const root = rootRef.current;
+    if (!root) return;
+
     const update = () => {
-      if (props.noArrow) return;
-
-      const root = rootRef.current;
-      if (!root) return;
-
-      if (props.arrowAnchor === 'content') return;
-
       if (type === 'popover') {
         updatePopoverLayout(root);
       } else {
@@ -20,24 +53,8 @@ export function useOverlayArrowAnchor(rootRef, props, type) {
       }
     };
 
-    update();
-    resizeObserverRef.current = new ResizeObserver(() => update());
-
-    if (rootRef.current) {
-      resizeObserverRef.current.observe(rootRef.current);
-    }
-
-    return () => {
-      resizeObserverRef.current?.disconnect();
-    };
-  }, [
-    props.arrowAnchor,
-    props.panelAlign,
-    props.arrowTargetAlign,
-    props.open,
-    props.placement,
-    props.noArrow,
-    rootRef,
-    type,
-  ]);
+    const resizeObserver = new ResizeObserver(update);
+    resizeObserver.observe(root);
+    return () => resizeObserver.disconnect();
+  }, [rootRef, noArrow, arrowAnchor, type]);
 }

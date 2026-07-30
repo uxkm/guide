@@ -22,7 +22,7 @@ export const typoTitleProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '제목 텍스트. default 슬롯으로 대체 가능',
+    description: '제목 텍스트. children으로 대체 가능',
   },
 ];
 
@@ -71,7 +71,7 @@ export const typoTextProps = [
     description: 'variant="link"일 때 href',
   },
   {
-    name: 'html-for',
+    name: 'htmlFor',
     type: 'string',
     default: '—',
     description: 'variant="label"일 때 for 속성',
@@ -86,26 +86,32 @@ export const typoTextProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '텍스트 내용. default 슬롯으로 대체 가능',
+    description: '텍스트 내용. children으로 대체 가능',
   },
 ];
 
 export const typoTitleSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const typoTitleSlots = [
-  { name: 'default', description: '제목 텍스트 (label prop 대체)' },
+  { name: 'label', description: '제목 텍스트. children으로 대체 가능' },
+  { name: 'children', description: '제목 텍스트 (label prop 대체)' },
 ];
 
 export const typoTextSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const typoTextSlots = [
-  { name: 'default', description: '텍스트 내용 (label prop 대체)' },
+  { name: 'label', description: '텍스트 내용. children으로 대체 가능' },
+  {
+    name: 'children',
+    description:
+      '텍스트 내용 (label prop 대체). 중첩 TypoText 등 복합 마크업·인라인 조합에 사용',
+  },
 ];
 
 export const typographyClassColumns = [

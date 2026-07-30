@@ -1,6 +1,6 @@
 import { Children, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
-import { cn } from '@/utils/cn';
-import { rippleSurfaceAttrs } from '@/hooks/useRipple';
+import { cn } from '@/utils/cn.js';
+import { rippleSurfaceAttrs } from '@/hooks/useRipple.js';
 
 function ClearIcon() {
   return (

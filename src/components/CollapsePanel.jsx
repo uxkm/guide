@@ -1,28 +1,10 @@
-import { useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
+import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { useCollapseGroup } from '@/components/context/CollapseGroupContext';
+import { CollapseContext } from '@/components/Collapse.jsx';
+import { useRipple } from '@/hooks/useRipple';
 import { cn } from '@/utils/cn';
 import { setSlideRegionOpen } from '@/utils/slide-region';
-import { useRipple } from '@/hooks/useRipple';
-
-function useMutableRef(initial) {
-  const stateRef = useRef(initial);
-  const [, bump] = useReducer((count) => count + 1, 0);
-
-  return useMemo(
-    () => ({
-      get value() {
-        return stateRef.current;
-      },
-      set value(next) {
-        stateRef.current = next;
-        bump();
-      },
-    }),
-    [],
-  );
-}
 
 export default function CollapsePanel({
   ripple,
@@ -33,90 +15,104 @@ export default function CollapsePanel({
   extraCode,
   extra,
   children,
+  className,
+  ...rest
 }) {
-  const group = useCollapseGroup();
   const { rippleAttrs } = useRipple({ ripple });
-  const triggerId = useId().replace(/:/g, '');
-  const bodyId = useId().replace(/:/g, '');
-  const isOpen = useMutableRef(open);
+  const group = useContext(CollapseContext);
+  const groupRef = useRef(group);
+  groupRef.current = group;
+
+  const reactId = useId().replace(/:/g, '');
+  const triggerId = `collapse-trigger-${reactId}`;
+  const bodyId = `collapse-body-${reactId}`;
+
+  const [isOpen, setIsOpen] = useState(() => Boolean(open));
+  const isOpenRef = useRef(isOpen);
+  isOpenRef.current = isOpen;
   const bodyRef = useRef(null);
   const isFirstSlideSync = useRef(true);
-  const registerPanelRef = useRef(group?.registerPanel);
-  const unregisterPanelRef = useRef(group?.unregisterPanel);
-  const isOpenRef = useRef(isOpen);
-  registerPanelRef.current = group?.registerPanel;
-  unregisterPanelRef.current = group?.unregisterPanel;
-  isOpenRef.current = isOpen;
-
   const slide = group?.effect === 'slide';
 
-  const panelClass = cn(
-    'collapse_panel',
-    isOpen.value && 'is-open',
-    disabled && 'is-disabled',
-  );
+  const hasExtra = extra != null;
 
-  function toggle() {
-    if (disabled) return;
+  // 마운트 시 1회 등록 — Context 갱신으로 재등록·열림 상태 리셋되지 않도록
+  useEffect(() => {
+    const api = groupRef.current;
+    if (!api) return undefined;
 
-    if (!group) {
-      isOpen.value = !isOpen.value;
-      return;
-    }
-
-    group.togglePanel(triggerId, isOpen);
-  }
-
-  useLayoutEffect(() => {
-    const registerPanel = registerPanelRef.current;
-    if (!registerPanel) return undefined;
-
-    registerPanel({
+    api.registerPanel({
       id: triggerId,
       label,
       content,
-      open,
-      disabled,
-      hasExtra: Boolean(extra),
+      open: Boolean(open),
+      disabled: Boolean(disabled),
+      hasExtra,
       extraCode,
-      isOpen: isOpenRef.current,
+      getIsOpen: () => isOpenRef.current,
+      setIsOpen,
     });
 
-    return () => unregisterPanelRef.current?.(triggerId);
-  }, [triggerId, label, content, open, disabled, extraCode, Boolean(extra)]);
+    return () => api.unregisterPanel(triggerId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount/unmount only
+  }, [triggerId]);
+
+  useEffect(() => {
+    const api = groupRef.current;
+    if (!api) return;
+    api.updatePanelMeta(triggerId, {
+      label,
+      content,
+      disabled: Boolean(disabled),
+      hasExtra,
+      extraCode,
+    });
+  }, [triggerId, label, content, disabled, hasExtra, extraCode]);
 
   useLayoutEffect(() => {
     if (!slide) return;
     const animate = !isFirstSlideSync.current;
     isFirstSlideSync.current = false;
-    setSlideRegionOpen(bodyRef.current, isOpen.value, animate);
-  }, [slide, isOpen.value]);
+    setSlideRegionOpen(bodyRef.current, isOpen, animate);
+  }, [slide, isOpen]);
+
+  const panelClass = useMemo(
+    () => ['collapse_panel', isOpen && 'is-open', disabled && 'is-disabled'],
+    [isOpen, disabled],
+  );
+
+  function toggle() {
+    if (disabled || !groupRef.current) return;
+    groupRef.current.togglePanel(triggerId);
+  }
+
+  const { class: _ignoredClass, ...domRest } = rest;
 
   return (
-    <div className={panelClass}>
+    <div className={cn(panelClass, className)} {...domRest}>
       <div className="collapse_header">
         <Button
           id={triggerId}
           variant="text"
           className="collapse_trigger"
-          expanded={isOpen.value}
+          expanded={isOpen}
           aria-controls={bodyId}
           disabled={disabled}
           onClick={toggle}
-          {...rippleAttrs}
           iconAfter={<Icon name="chevron-down" className="collapse_icon" />}
+          {...rippleAttrs}
         >
           <span className="collapse_label">{label}</span>
-          {extra ? <span className="collapse_extra">{extra}</span> : null}
+          {hasExtra ? <span className="collapse_extra">{extra}</span> : null}
         </Button>
       </div>
       <div
         ref={slide ? bodyRef : undefined}
         id={bodyId}
-        className={cn('collapse_body', isOpen.value && 'is-open')}
+        className="collapse_body"
         role="region"
         aria-labelledby={triggerId}
-        hidden={slide ? undefined : (!isOpen.value || undefined)}
+        hidden={slide ? undefined : (!isOpen || undefined)}
       >
         <div className="collapse_content">
           {children ?? (content ? <p>{content}</p> : null)}

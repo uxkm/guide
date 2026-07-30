@@ -2,47 +2,38 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 const SCROLL_EDGE = 1;
 
-function resolveRef(value) {
-  if (value != null && typeof value === 'object' && 'current' in value) {
-    return value.current;
-  }
-  return value;
-}
-
-export function useTabsScroll({ listRef, enabled, onTabsChange }) {
+/**
+ * layout="scroll" — 탭 목록 좌우 스크롤 네비
+ */
+export function useTabsScroll({ listRef, enabled, tabCount }) {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [hasOverflow, setHasOverflow] = useState(false);
-
   const resizeObserverRef = useRef(null);
-  const enabledValue = resolveRef(enabled);
-  const tabsChangeValue =
-    onTabsChange != null && typeof onTabsChange === 'object' && 'current' in onTabsChange
-      ? onTabsChange.current
-      : onTabsChange;
 
   const updateScrollState = useCallback(() => {
     const list = listRef.current;
 
-    if (!enabledValue || !list) {
-      setCanScrollPrev(false);
-      setCanScrollNext(false);
-      setHasOverflow(false);
+    if (!enabled || !list) {
+      setCanScrollPrev((prev) => (prev ? false : prev));
+      setCanScrollNext((prev) => (prev ? false : prev));
+      setHasOverflow((prev) => (prev ? false : prev));
       return;
     }
 
     const { scrollLeft, scrollWidth, clientWidth } = list;
     const maxScroll = scrollWidth - clientWidth;
+    const nextHasOverflow = maxScroll > SCROLL_EDGE;
+    const nextCanScrollPrev = scrollLeft > SCROLL_EDGE;
+    const nextCanScrollNext = scrollLeft < maxScroll - SCROLL_EDGE;
 
-    setHasOverflow(maxScroll > SCROLL_EDGE);
-    setCanScrollPrev(scrollLeft > SCROLL_EDGE);
-    setCanScrollNext(scrollLeft < maxScroll - SCROLL_EDGE);
-  }, [enabledValue, listRef]);
+    setHasOverflow((prev) => (prev === nextHasOverflow ? prev : nextHasOverflow));
+    setCanScrollPrev((prev) => (prev === nextCanScrollPrev ? prev : nextCanScrollPrev));
+    setCanScrollNext((prev) => (prev === nextCanScrollNext ? prev : nextCanScrollNext));
+  }, [enabled, listRef]);
 
   const scheduleUpdate = useCallback(() => {
-    queueMicrotask(() => {
-      requestAnimationFrame(updateScrollState);
-    });
+    requestAnimationFrame(updateScrollState);
   }, [updateScrollState]);
 
   const scrollByDirection = useCallback(
@@ -56,18 +47,13 @@ export function useTabsScroll({ listRef, enabled, onTabsChange }) {
     [listRef],
   );
 
-  const scrollPrev = useCallback(() => {
-    scrollByDirection(-1);
-  }, [scrollByDirection]);
-
-  const scrollNext = useCallback(() => {
-    scrollByDirection(1);
-  }, [scrollByDirection]);
+  const scrollPrev = useCallback(() => scrollByDirection(-1), [scrollByDirection]);
+  const scrollNext = useCallback(() => scrollByDirection(1), [scrollByDirection]);
 
   const scrollTabToCenter = useCallback(
     (tab) => {
       const list = listRef.current;
-      if (!enabledValue || !list || !tab) return;
+      if (!enabled || !list || !tab) return;
 
       const listRect = list.getBoundingClientRect();
       const tabRect = tab.getBoundingClientRect();
@@ -82,45 +68,26 @@ export function useTabsScroll({ listRef, enabled, onTabsChange }) {
         behavior: 'smooth',
       });
     },
-    [enabledValue, listRef],
+    [enabled, listRef],
   );
 
   const scrollActiveTabIntoView = useCallback(() => {
     const list = listRef.current;
-    if (!enabledValue || !list) return;
+    if (!enabled || !list) return;
 
     const activeTab = list.querySelector('.tabs_tab[aria-selected="true"]');
     scrollTabToCenter(activeTab);
-  }, [enabledValue, listRef, scrollTabToCenter]);
-
-  const onListClick = useCallback(
-    (event) => {
-      const tab = event.target.closest('[role="tab"]');
-      if (!tab || !listRef.current?.contains(tab)) return;
-
-      scheduleUpdate();
-      queueMicrotask(() => {
-        requestAnimationFrame(() => scrollTabToCenter(tab));
-      });
-    },
-    [listRef, scheduleUpdate, scrollTabToCenter],
-  );
-
-  const onListKeydown = useCallback(() => {
-    scheduleUpdate();
-    queueMicrotask(() => {
-      requestAnimationFrame(scrollActiveTabIntoView);
-    });
-  }, [scheduleUpdate, scrollActiveTabIntoView]);
+  }, [enabled, listRef, scrollTabToCenter]);
 
   const observeTabs = useCallback(() => {
     resizeObserverRef.current?.disconnect();
     const list = listRef.current;
     if (!list) return;
 
-    resizeObserverRef.current = new ResizeObserver(scheduleUpdate);
-    resizeObserverRef.current.observe(list);
-    list.querySelectorAll('.tabs_tab').forEach((tab) => resizeObserverRef.current.observe(tab));
+    const observer = new ResizeObserver(scheduleUpdate);
+    resizeObserverRef.current = observer;
+    observer.observe(list);
+    list.querySelectorAll('.tabs_tab').forEach((tab) => observer.observe(tab));
   }, [listRef, scheduleUpdate]);
 
   useEffect(() => {
@@ -129,6 +96,19 @@ export function useTabsScroll({ listRef, enabled, onTabsChange }) {
 
     const list = listRef.current;
     if (!list) return undefined;
+
+    const onListClick = (event) => {
+      const tab = event.target.closest('[role="tab"]');
+      if (!tab || !list.contains(tab)) return;
+
+      scheduleUpdate();
+      requestAnimationFrame(() => scrollTabToCenter(tab));
+    };
+
+    const onListKeydown = () => {
+      scheduleUpdate();
+      requestAnimationFrame(scrollActiveTabIntoView);
+    };
 
     list.addEventListener('scroll', updateScrollState, { passive: true });
     list.addEventListener('click', onListClick);
@@ -141,24 +121,15 @@ export function useTabsScroll({ listRef, enabled, onTabsChange }) {
       resizeObserverRef.current?.disconnect();
     };
   }, [
-    enabledValue,
     listRef,
-    observeTabs,
-    onListClick,
-    onListKeydown,
+    enabled,
+    tabCount,
     scheduleUpdate,
+    observeTabs,
     updateScrollState,
+    scrollTabToCenter,
+    scrollActiveTabIntoView,
   ]);
-
-  useEffect(() => {
-    scheduleUpdate();
-  }, [enabledValue, scheduleUpdate]);
-
-  useEffect(() => {
-    if (onTabsChange === undefined) return;
-    scheduleUpdate();
-    observeTabs();
-  }, [tabsChangeValue, onTabsChange, observeTabs, scheduleUpdate]);
 
   return {
     canScrollPrev,

@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useRef } from 'react';
-import { TreeContext } from '@/components/context/TreeContext';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useMemo, useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Tree', {
   booleanProps: new Set(['bordered', 'lines', 'compact', 'multiselectable']),
@@ -10,63 +10,46 @@ const formatCode = createComponentFormatter('Tree', {
 });
 
 export default function Tree({
-  bordered = false,
-  lines = false,
-  compact = false,
+  bordered,
+  lines,
+  compact,
   ariaLabel,
-  multiselectable = false,
+  multiselectable,
   children,
   className,
   ...rest
 }) {
-  const props = { bordered, lines, compact, ariaLabel, multiselectable };
   const rootRef = useRef(null);
-  const selectableNodesRef = useRef(new Set());
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
 
-  const selectNode = useCallback((nodeRef) => {
-    for (const ref of selectableNodesRef.current) {
-      if (ref !== nodeRef) {
-        ref.value = false;
-      }
-    }
-    nodeRef.value = true;
-  }, []);
-
-  const registerSelectable = useCallback((nodeRef) => {
-    selectableNodesRef.current.add(nodeRef);
-    return () => {
-      selectableNodesRef.current.delete(nodeRef);
-    };
-  }, []);
-
-  const treeContext = useMemo(
-    () => ({ selectNode, registerSelectable }),
-    [selectNode, registerSelectable],
+  useComponentDemoCode(
+    formatCode,
+    { bordered, lines, compact, ariaLabel, multiselectable },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = ['tree'];
+    if (bordered) classes.push('tree_bordered');
+    if (lines) classes.push('tree_lines');
+    if (compact) classes.push('tree_compact');
+    return classes;
+  }, [bordered, lines, compact]);
 
-  const rootClass = cn(
-    'tree',
-    bordered && 'tree_bordered',
-    lines && 'tree_lines',
-    compact && 'tree_compact',
-    className,
-  );
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <TreeContext.Provider value={treeContext}>
-      <ul
-        ref={rootRef}
-        className={rootClass}
-        role="tree"
-        aria-label={ariaLabel}
-        aria-multiselectable={multiselectable ? 'true' : undefined}
-        {...rest}
-      >
-        {children}
-      </ul>
-    </TreeContext.Provider>
+    <ul
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      role="tree"
+      aria-label={ariaLabel}
+      aria-multiselectable={multiselectable ? 'true' : undefined}
+      {...domRest}
+    >
+      {children}
+    </ul>
   );
 }

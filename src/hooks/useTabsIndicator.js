@@ -1,27 +1,31 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-function resolveRef(value) {
-  if (value != null && typeof value === 'object' && 'current' in value) {
-    return value.current;
-  }
-  return value;
-}
-
-export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsChange, activeTabId }) {
+/**
+ * tabs_indicator-slide — 활성 탭 위치에 인디케이터 동기화
+ */
+export function useTabsIndicator({ listRef, enabled, vertical, variant, tabCount }) {
   const [indicatorStyle, setIndicatorStyle] = useState(null);
-
   const resizeObserverRef = useRef(null);
-  const enabledValue = resolveRef(enabled);
-  const verticalValue = resolveRef(vertical);
-  const variantValue = resolveRef(variant);
-  const tabsChangeValue =
-    onTabsChange != null && typeof onTabsChange === 'object' && 'current' in onTabsChange
-      ? onTabsChange.current
-      : onTabsChange;
 
   const updateIndicator = useCallback(() => {
-    if (!enabledValue || !listRef.current) {
-      setIndicatorStyle(null);
+    const applyStyle = (next) => {
+      setIndicatorStyle((prev) => {
+        if (!next && !prev) return prev;
+        if (
+          prev &&
+          next &&
+          prev.width === next.width &&
+          prev.height === next.height &&
+          prev.transform === next.transform
+        ) {
+          return prev;
+        }
+        return next;
+      });
+    };
+
+    if (!enabled || !listRef.current) {
+      applyStyle(null);
       return;
     }
 
@@ -29,7 +33,7 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsCh
     const activeTab = list.querySelector('.tabs_tab[aria-selected="true"]');
 
     if (!activeTab) {
-      setIndicatorStyle(null);
+      applyStyle(null);
       return;
     }
 
@@ -41,8 +45,8 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsCh
     const height = tabRect.height;
     const indicatorThickness = 2;
 
-    if (verticalValue) {
-      setIndicatorStyle({
+    if (vertical) {
+      applyStyle({
         width: `${indicatorThickness}px`,
         height: `${height}px`,
         transform: `translate3d(${left + width - indicatorThickness}px, ${top}px, 0)`,
@@ -50,8 +54,8 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsCh
       return;
     }
 
-    if (variantValue === 'pill') {
-      setIndicatorStyle({
+    if (variant === 'pill') {
+      applyStyle({
         width: `${width}px`,
         height: `${height}px`,
         transform: `translate3d(${left}px, ${top}px, 0)`,
@@ -59,31 +63,27 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsCh
       return;
     }
 
-    setIndicatorStyle({
+    applyStyle({
       width: `${width}px`,
       height: `${indicatorThickness}px`,
       transform: `translate3d(${left}px, ${top + height - indicatorThickness}px, 0)`,
     });
-  }, [enabledValue, listRef, variantValue, verticalValue]);
+  }, [enabled, listRef, vertical, variant]);
 
   const scheduleUpdate = useCallback(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(updateIndicator);
-    });
+    requestAnimationFrame(updateIndicator);
   }, [updateIndicator]);
 
   const observeTabs = useCallback(() => {
     resizeObserverRef.current?.disconnect();
     if (!listRef.current) return;
 
-    resizeObserverRef.current = new ResizeObserver(scheduleUpdate);
-    resizeObserverRef.current.observe(listRef.current);
-    listRef.current.querySelectorAll('.tabs_tab').forEach((tab) => resizeObserverRef.current.observe(tab));
+    const list = listRef.current;
+    const observer = new ResizeObserver(scheduleUpdate);
+    resizeObserverRef.current = observer;
+    observer.observe(list);
+    list.querySelectorAll('.tabs_tab').forEach((tab) => observer.observe(tab));
   }, [listRef, scheduleUpdate]);
-
-  const onListInteraction = useCallback(() => {
-    scheduleUpdate();
-  }, [scheduleUpdate]);
 
   useEffect(() => {
     scheduleUpdate();
@@ -92,30 +92,18 @@ export function useTabsIndicator({ listRef, enabled, vertical, variant, onTabsCh
     const list = listRef.current;
     if (!list) return undefined;
 
+    const onListInteraction = () => scheduleUpdate();
+    list.addEventListener('click', onListInteraction);
     list.addEventListener('keydown', onListInteraction);
     list.addEventListener('scroll', onListInteraction, { passive: true });
 
     return () => {
+      list.removeEventListener('click', onListInteraction);
       list.removeEventListener('keydown', onListInteraction);
       list.removeEventListener('scroll', onListInteraction);
       resizeObserverRef.current?.disconnect();
     };
-  }, [listRef, observeTabs, onListInteraction, scheduleUpdate]);
-
-  useEffect(() => {
-    scheduleUpdate();
-  }, [enabledValue, verticalValue, variantValue, scheduleUpdate]);
-
-  useEffect(() => {
-    if (onTabsChange === undefined) return;
-    scheduleUpdate();
-    observeTabs();
-  }, [tabsChangeValue, onTabsChange, observeTabs, scheduleUpdate]);
-
-  useLayoutEffect(() => {
-    if (activeTabId == null) return;
-    updateIndicator();
-  }, [activeTabId, updateIndicator]);
+  }, [listRef, scheduleUpdate, observeTabs, tabCount, enabled, vertical, variant]);
 
   return {
     indicatorStyle,

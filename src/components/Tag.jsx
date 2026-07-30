@@ -1,10 +1,14 @@
+import { useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { useMemo, useRef } from 'react';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_VARIANTS = new Set(['filled', 'solid', 'outline', 'borderless']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Tag', {
   defaults: { color: 'primary', variant: 'filled', size: 'md' },
@@ -16,12 +20,12 @@ export default function Tag({
   color = 'primary',
   variant = 'filled',
   size = 'md',
-  round = false,
-  checkable = false,
-  add = false,
-  closable = false,
-  selected = false,
-  disabled = false,
+  round,
+  checkable,
+  add,
+  closable,
+  selected,
+  disabled,
   label,
   href,
   closeLabel,
@@ -29,99 +33,109 @@ export default function Tag({
   children,
   className,
   onClose,
+  onClick,
   ...rest
 }) {
-  const props = {
-    ripple,
-    color,
-    variant,
-    size,
-    round,
-    checkable,
-    add,
-    closable,
-    selected,
-    disabled,
-    label,
-    href,
-    closeLabel,
-  };
-  const { childRippleAttrs } = useRipple(props, { defaultEnabled: false });
   const rootRef = useRef(null);
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? label, icon }),
-    [children, label, icon],
+  const { childRippleAttrs } = useRipple({ ripple }, { defaultEnabled: false });
+  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'filled';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+
+  const rootRippleAttrs = useMemo(() => {
+    if (ripple === false) return { 'data-ripple': 'false' };
+    if (ripple === true || checkable || add || href) {
+      return { 'data-ripple': 'true' };
+    }
+    return {};
+  }, [ripple, checkable, add, href]);
+
+  const needsClosableSplit = Boolean(closable && (checkable || add || href));
+
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      color,
+      variant: resolvedVariant,
+      size: resolvedSize,
+      round,
+      checkable,
+      add,
+      closable,
+      selected,
+      disabled,
+      label,
+      href,
+      closeLabel,
+    },
+    createDemoSlots({ default: children, icon }),
+    rootRef,
+    { className, onClose, onClick, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = ['tag', `color_${color}`];
+    if (resolvedVariant === 'solid') classes.push('tag_solid');
+    if (resolvedVariant === 'outline') classes.push('tag_outline');
+    if (resolvedVariant === 'borderless') classes.push('tag_borderless');
+    if (resolvedSize === 'sm') classes.push('tag_sm');
+    if (resolvedSize === 'lg') classes.push('tag_lg');
+    if (round) classes.push('tag_round');
+    if (checkable) classes.push('tag_checkable');
+    if (add) classes.push('tag_add');
+    if (selected) classes.push('is-selected');
+    if (disabled) classes.push('is-disabled');
+    return classes;
+  }, [color, resolvedVariant, resolvedSize, round, checkable, add, selected, disabled]);
 
-  const needsClosableSplit = closable && (checkable || add || Boolean(href));
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
-  const rootRippleAttrs =
-    ripple === false
-      ? { 'data-ripple': 'false' }
-      : ripple === true || checkable || add || href
-        ? { 'data-ripple': 'true' }
-        : {};
-
-  const rootClass = cn(
-    'tag',
-    `color_${color}`,
-    variant === 'solid' && 'tag_solid',
-    variant === 'outline' && 'tag_outline',
-    variant === 'borderless' && 'tag_borderless',
-    size === 'sm' && 'tag_sm',
-    size === 'lg' && 'tag_lg',
-    round && 'tag_round',
-    checkable && 'tag_checkable',
-    add && 'tag_add',
-    selected && 'is-selected',
-    disabled && 'is-disabled',
-    className,
+  const content = (
+    <>
+      {icon ? (
+        <span className="tag_icon" aria-hidden="true">
+          {icon}
+        </span>
+      ) : null}
+      {children ?? label}
+    </>
   );
 
-  const closeButton = closable && (
+  const closeButton = closable ? (
     <Button
       {...childRippleAttrs}
       variant="ghost"
       iconOnly
       className="tag_close"
-      aria-label={closeLabel || `${label} 태그 제거`}
+      ariaLabel={closeLabel || `${label ?? ''} 태그 제거`}
+      iconBefore={<Icon name="close" size="sm" />}
       onClick={(event) => {
         event.stopPropagation();
         onClose?.(event);
       }}
-      iconBefore={<Icon name="close" size="sm" />}
     />
-  );
-
-  const innerContent = (
-    <>
-      {icon && (
-        <span className="tag_icon" aria-hidden="true">
-          {icon}
-        </span>
-      )}
-      {children ?? label}
-    </>
-  );
+  ) : null;
 
   if (needsClosableSplit) {
     const ControlTag = checkable || add ? 'button' : 'a';
     return (
-      <span ref={rootRef} className={rootClass}>
+      <span ref={rootRef} className={cn(rootClass, className)} {...domRest}>
         <ControlTag
           className="tag_control"
           {...rootRippleAttrs}
           type={ControlTag === 'button' ? 'button' : undefined}
           href={ControlTag === 'a' ? href : undefined}
           disabled={ControlTag === 'button' ? disabled : undefined}
-          aria-pressed={checkable ? String(selected) : undefined}
+          aria-pressed={checkable ? String(Boolean(selected)) : undefined}
           aria-disabled={ControlTag === 'a' && disabled ? 'true' : undefined}
           tabIndex={ControlTag === 'a' && disabled ? -1 : undefined}
-          onClick={ControlTag === 'a' ? (e) => e.preventDefault() : undefined}
+          onClick={(event) => {
+            if (ControlTag === 'a') event.preventDefault();
+            onClick?.(event);
+          }}
         >
-          {innerContent}
+          {content}
         </ControlTag>
         {closeButton}
       </span>
@@ -133,16 +147,19 @@ export default function Tag({
   return (
     <RootTag
       ref={rootRef}
+      className={cn(rootClass, className)}
       {...rootRippleAttrs}
-      className={rootClass}
-      type={checkable || add ? 'button' : undefined}
+      type={RootTag === 'button' ? 'button' : undefined}
       href={href || undefined}
       disabled={disabled || undefined}
-      aria-pressed={checkable ? String(selected) : undefined}
-      onClick={href ? undefined : (e) => !href && e.preventDefault()}
-      {...rest}
+      aria-pressed={checkable ? String(Boolean(selected)) : undefined}
+      onClick={(event) => {
+        if (!href && RootTag !== 'button') event.preventDefault();
+        onClick?.(event);
+      }}
+      {...domRest}
     >
-      {innerContent}
+      {content}
       {closeButton}
     </RootTag>
   );

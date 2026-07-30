@@ -1,22 +1,36 @@
-import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
-const formatCode = createComponentFormatter('CardHeader', { selfClosing: false });
+const formatCode = createComponentFormatter('CardHeader', {
+  selfClosing: false,
+});
 
-export default function CardHeader({ title, subtitle, children, extra, className, ...rest }) {
+export default function CardHeader({
+  title,
+  subtitle,
+  extra,
+  children,
+  className,
+  ...rest
+}) {
   const rootRef = useRef(null);
-  const props = { title, subtitle };
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children, extra }),
-    [children, extra],
+
+  useComponentDemoCode(
+    formatCode,
+    { title, subtitle },
+    createDemoSlots({ default: children, extra }),
+    rootRef,
+    { className, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <div ref={rootRef} className={cn('card_header', className)} {...rest}>
+    <div ref={rootRef} className={cn('card_header', className)} {...domRest}>
       <div className="card_header-main">
         {children ?? (
           <>

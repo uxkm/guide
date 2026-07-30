@@ -1,9 +1,9 @@
-import { useId, useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { getCheckedInputProps } from '@/utils/checked-input-props';
+import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Radio', {
   booleanProps: new Set(['checked', 'disabled', 'labelEnd', 'button', 'ripple']),
@@ -14,64 +14,93 @@ export default function Radio({
   ripple,
   label,
   name,
-  checked = false,
-  disabled = false,
+  checked,
+  defaultChecked,
+  disabled,
   value,
-  labelEnd = false,
-  button = false,
+  labelEnd,
+  button,
   ariaLabel,
   children,
   className,
+  onChange,
+  id,
   ...rest
 }) {
-  const props = { ripple, label, name, checked, disabled, value, labelEnd, button, ariaLabel };
-  useRipple(props, { defaultEnabled: false });
+  const { rippleAttrs } = useRipple({ ripple }, { defaultEnabled: false });
   const rootRef = useRef(null);
-  const inputId = useId();
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? label }),
-    [children, label],
-  );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const hasLabel = Boolean(label || children);
+  const labelContent = children ?? label;
+  const hasLabel = Boolean(label) || (children != null && children !== '');
   const isStandalone = !hasLabel;
 
-  const interactiveRippleAttrs =
-    ripple === false
-      ? { 'data-ripple': 'false' }
-      : ripple === true || isStandalone || button
-        ? { 'data-ripple': 'true' }
-        : {};
+  const interactiveRippleAttrs = useMemo(() => {
+    if (ripple === false) return { 'data-ripple': 'false' };
+    if (ripple === true || isStandalone || button) {
+      return { 'data-ripple': 'true' };
+    }
+    return {};
+  }, [ripple, isStandalone, button]);
 
-  const { rippleAttrs } = useRipple(props);
-
-  const rootClass = cn(
-    'radio',
-    labelEnd && 'radio_label-end',
-    button && 'radio_button',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      label,
+      name,
+      checked,
+      disabled,
+      value,
+      labelEnd,
+      button,
+      ariaLabel,
+    },
+    createDemoSlots({ default: labelContent }),
+    rootRef,
+    { className, id, onChange, ...rest },
   );
 
-  const inputProps = getCheckedInputProps(checked, rest);
+  const rootClass = useMemo(() => {
+    const classes = ['radio'];
+    if (labelEnd) classes.push('radio_label-end');
+    if (button) classes.push('radio_button');
+    return classes;
+  }, [labelEnd, button]);
+
+  const { class: _ignoredClassAttr, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const inputCheckedProps =
+    onChange != null
+      ? { checked: Boolean(checked), onChange }
+      : checked != null
+        ? { defaultChecked: Boolean(checked) }
+        : defaultChecked != null
+          ? { defaultChecked: Boolean(defaultChecked) }
+          : {};
+
+  const inputEl = (
+    <input
+      id={id}
+      type="radio"
+      className="radio_input"
+      name={name}
+      value={value}
+      disabled={disabled}
+      {...inputCheckedProps}
+      {...domRest}
+    />
+  );
 
   if (isStandalone) {
     return (
       <label
         ref={rootRef}
-        {...interactiveRippleAttrs}
-        className="radio_control"
+        className={cn('radio_control', className)}
         aria-label={ariaLabel}
+        {...interactiveRippleAttrs}
       >
-        <input
-          type="radio"
-          className="radio_input"
-          name={name}
-          value={value}
-          disabled={disabled}
-          {...inputProps}
-        />
+        {inputEl}
         <span className="radio_box" aria-hidden="true" />
       </label>
     );
@@ -79,45 +108,25 @@ export default function Radio({
 
   if (button) {
     return (
-      <label ref={rootRef} {...interactiveRippleAttrs} className={rootClass}>
-        <input
-          id={inputId}
-          type="radio"
-          className="radio_input"
-          name={name}
-          value={value}
-          disabled={disabled}
-          {...inputProps}
-        />
-        <span className="radio_label">{children ?? label}</span>
+      <label
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        {...interactiveRippleAttrs}
+      >
+        {inputEl}
+        <span className="radio_label">{labelContent}</span>
       </label>
     );
   }
 
   return (
-    <div ref={rootRef} {...rippleAttrs} className={rootClass}>
-      {labelEnd && (
-        <label className="radio_label" htmlFor={inputId}>
-          {children ?? label}
-        </label>
-      )}
+    <label ref={rootRef} className={cn(rootClass, className)} {...rippleAttrs}>
+      {labelEnd ? <span className="radio_label">{labelContent}</span> : null}
       <span className="radio_control">
-        <input
-          id={inputId}
-          type="radio"
-          className="radio_input"
-          name={name}
-          value={value}
-          disabled={disabled}
-          {...inputProps}
-        />
+        {inputEl}
         <span className="radio_box" aria-hidden="true" />
       </span>
-      {!labelEnd && (
-        <label className="radio_label" htmlFor={inputId}>
-          {children ?? label}
-        </label>
-      )}
-    </div>
+      {!labelEnd ? <span className="radio_label">{labelContent}</span> : null}
+    </label>
   );
 }

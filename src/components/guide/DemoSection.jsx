@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDemoCode } from '@/hooks/useDemoCode';
+import {
+  DemoCodeProvider,
+  useDemoCodeContext,
+} from '@/hooks/useDemoCode';
 import { formatDemoHtml } from '@/utils/format-demo-html';
 import { formatDocDescription } from '@/utils/format-doc-description';
 import { cn } from '@/utils/cn';
 
-export default function DemoSection({
+function DemoSectionInner({
   title,
   description,
   headingId,
@@ -18,7 +21,7 @@ export default function DemoSection({
   const [expanded, setExpanded] = useState(false);
   const [capturedCode, setCapturedCode] = useState('');
   const [revision, setRevision] = useState(0);
-  const demoCode = useDemoCode();
+  const demoCode = useDemoCodeContext();
 
   const previewClass = cn('demo_section-preview', {
     'demo_section-preview-stack': stack,
@@ -115,5 +118,14 @@ export default function DemoSection({
         </div>
       ) : null}
     </section>
+  );
+}
+
+/** Provider로 감싸 하위 컴포넌트가 DemoCodeContext로 등록되도록 함 */
+export default function DemoSection(props) {
+  return (
+    <DemoCodeProvider>
+      <DemoSectionInner {...props} />
+    </DemoCodeProvider>
   );
 }

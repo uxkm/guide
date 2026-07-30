@@ -5,25 +5,14 @@ export default function TabsTab({
   id,
   panelId,
   label,
-  active = false,
-  disabled = false,
-  tabindex = -1,
-  iconSlot,
-  badgeSlot,
+  active,
+  disabled,
+  tabIndex = -1,
+  icon,
+  badge,
   onClick,
   ...rest
 }) {
-  const iconContent = iconSlot
-    ? typeof iconSlot === 'function'
-      ? iconSlot()
-      : iconSlot
-    : null;
-  const badgeContent = badgeSlot
-    ? typeof badgeSlot === 'function'
-      ? badgeSlot()
-      : badgeSlot
-    : null;
-
   return (
     <Button
       tag="button"
@@ -35,12 +24,12 @@ export default function TabsTab({
       id={id}
       aria-selected={active ? 'true' : 'false'}
       aria-controls={panelId}
-      tabIndex={tabindex}
+      tabIndex={tabIndex}
       disabled={disabled}
       aria-disabled={disabled || undefined}
       onClick={onClick}
-      iconBefore={iconContent ? <span className="tabs_icon">{iconContent}</span> : undefined}
-      iconAfter={badgeContent || undefined}
+      iconBefore={icon ? <span className="tabs_icon">{icon}</span> : undefined}
+      iconAfter={badge}
       {...rest}
     >
       <span className="tabs_label">{label}</span>

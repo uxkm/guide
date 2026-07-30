@@ -1,9 +1,10 @@
-import { useId, useMemo, useRef } from 'react';
+import { useId, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('MenuSubmenu', {
   booleanProps: new Set(['expanded']),
@@ -13,36 +14,43 @@ const formatCode = createComponentFormatter('MenuSubmenu', {
 export default function MenuSubmenu({
   ripple,
   label,
-  expanded = false,
+  expanded,
   submenuId: submenuIdProp,
   icon,
   children,
+  className,
+  ...rest
 }) {
-  const props = { ripple, label, expanded, submenuId: submenuIdProp };
-  const { rippleAttrs } = useRipple(props);
+  const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
-  const generatedId = useId().replace(/:/g, '');
-  const submenuId = submenuIdProp || `menu-sub-${generatedId}`;
-  const demoSlots = useMemo(() => createDemoSlots({ default: children, icon }), [children, icon]);
+  const reactId = useId().replace(/:/g, '');
+  const submenuId = submenuIdProp || `menu-sub-${reactId}`;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, {});
+  useComponentDemoCode(
+    formatCode,
+    { ripple, label, expanded, submenuId: submenuIdProp },
+    createDemoSlots({ default: children, icon }),
+    rootRef,
+    { className, ...rest },
+  );
 
   return (
     <li
       ref={rootRef}
-      className="menu_item menu_item-submenu"
+      className={cn('menu_item', 'menu_item-submenu', className)}
       aria-expanded={expanded ? 'true' : 'false'}
+      {...rest}
     >
       <Button
         variant="text"
         className="menu_link"
-        aria-expanded={expanded ? 'true' : 'false'}
+        expanded={Boolean(expanded)}
         aria-controls={submenuId}
-        {...rippleAttrs}
         iconBefore={icon}
         iconAfter={<Icon name="chevron-down" className="menu_arrow" />}
+        {...rippleAttrs}
       >
-        {label && <span className="menu_label">{label}</span>}
+        {label ? <span className="menu_label">{label}</span> : null}
       </Button>
       <ul id={submenuId} className="menu_submenu">
         {children}

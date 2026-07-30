@@ -1,4 +1,5 @@
 import {
+  createContext,
   useCallback,
   useEffect,
   useId,
@@ -9,12 +10,20 @@ import {
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import TabsTab from '@/components/TabsTab.jsx';
-import { cn } from '@/utils/cn';
-import { TabsProvider } from '@/context/TabsContext.jsx';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useTabsDemoCode } from '@/hooks/useDemoCode';
+import { useTabsDemoCode } from '@/hooks/useDemoCode';
 import { useTabsIndicator } from '@/hooks/useTabsIndicator';
 import { useTabsScroll } from '@/hooks/useTabsScroll';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+export const TabsContext = createContext(null);
+
+const VALID_MODES = new Set(['panels', 'dynamic']);
+const VALID_VARIANTS = new Set(['line', 'card', 'pill']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_LAYOUTS = new Set(['auto', 'equal', 'scroll']);
+const VALID_INDICATORS = new Set(['static', 'slide']);
 
 function resolveItemKey(item, index) {
   return item.key ?? item.value ?? index;
@@ -23,123 +32,239 @@ function resolveItemKey(item, index) {
 export default function Tabs({
   ripple,
   mode = 'panels',
-  modelValue,
-  onUpdateModelValue,
+  value,
+  defaultValue,
   variant = 'line',
   size = 'md',
   layout = 'auto',
-  vertical = false,
-  scrollable = false,
+  vertical,
+  scrollable,
   ariaLabel,
   items,
   indicator = 'static',
   tabs: tabsSlot,
   extra,
-  panel: panelSlot,
+  panel,
   children,
   className,
+  onChange,
   ...rest
 }) {
-  const props = {
-    ripple,
-    mode,
-    modelValue,
-    variant,
-    size,
-    layout,
-    vertical,
-    scrollable,
-    ariaLabel,
-    items,
-    indicator,
-  };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
   const listRef = useRef(null);
-  const tabsMapRef = useRef(new Map());
-  const [registeredTabs, setRegisteredTabs] = useState([]);
-  const dynamicPanelId = useId().replace(/:/g, '');
-  const [activeKey, setActiveKey] = useState(null);
-  const [activePanelTabId, setActivePanelTabId] = useState(null);
-  const tabListSizeRef = useRef(0);
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
+  const reactId = useId().replace(/:/g, '');
+  const dynamicPanelId = `tabs-panel-${reactId}`;
 
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children, tabs: tabsSlot, extra, panel: panelSlot }),
-    [children, tabsSlot, extra, panelSlot],
-  );
+  const resolvedMode = VALID_MODES.has(mode) ? mode : 'panels';
+  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'line';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedLayout = VALID_LAYOUTS.has(layout) ? layout : 'auto';
+  const resolvedIndicator = VALID_INDICATORS.has(indicator) ? indicator : 'static';
 
-  useTabsDemoCode(props, rootRef, { class: className, ...rest });
-
-  const isDynamicMode = mode === 'dynamic';
-  const isScrollNavLayout = layout === 'scroll' && !vertical;
-  const isEqualLayout = layout === 'equal';
-  const isLegacyScrollable = scrollable && layout === 'auto';
+  const isDynamicMode = resolvedMode === 'dynamic';
+  const isScrollNavLayout = resolvedLayout === 'scroll' && !vertical;
+  const isEqualLayout = resolvedLayout === 'equal';
+  const isLegacyScrollable = scrollable && resolvedLayout === 'auto';
   const usesItems = Boolean(items?.length);
   const usesPanelItems = usesItems && !isDynamicMode;
 
-  tabListSizeRef.current = usesItems ? items.length : registeredTabs.length;
+  const [registeredTabs, setRegisteredTabs] = useState([]);
+  const [activePanelId, setActivePanelId] = useState(null);
+  const [activeDynamicKey, setActiveDynamicKey] = useState(() => {
+    if (value != null && value !== '') return value;
+    if (defaultValue != null && defaultValue !== '') return defaultValue;
+    return null;
+  });
+  const [itemsActiveKey, setItemsActiveKey] = useState(() => {
+    if (!items?.length) return null;
+    const activeItem = items.find((item) => item.active);
+    if (activeItem) return resolveItemKey(activeItem, items.indexOf(activeItem));
+    const first = items.find((item) => !item.disabled) ?? items[0];
+    return first ? resolveItemKey(first, items.indexOf(first)) : null;
+  });
 
-  const slideIndicatorEnabled = indicator === 'slide';
+  useTabsDemoCode(
+    {
+      ripple,
+      mode: resolvedMode,
+      value,
+      variant: resolvedVariant,
+      size: resolvedSize,
+      layout: resolvedLayout,
+      vertical,
+      scrollable,
+      ariaLabel,
+      items,
+      indicator: resolvedIndicator,
+    },
+    rootRef,
+    { className, onChange, ...rest },
+  );
 
-  const { canScrollPrev, canScrollNext, hasOverflow, scrollPrev, scrollNext, updateScrollState } =
-    useTabsScroll({
-      listRef,
-      enabled: isScrollNavLayout,
-      onTabsChange: tabListSizeRef,
-    });
+  useEffect(() => {
+    if (isDynamicMode && value != null && value !== '') {
+      setActiveDynamicKey(value);
+    }
+  }, [isDynamicMode, value]);
 
-  const syncRegisteredTabs = useCallback(() => {
+  const registerTab = useCallback((tab) => {
     setRegisteredTabs((prev) => {
-      const next = [...tabsMapRef.current.values()];
+      const existing = prev.find((item) => item.id === tab.id);
       if (
-        prev.length === next.length &&
-        prev.every((tab, index) => tab.id === next[index]?.id)
+        existing &&
+        existing.panelId === tab.panelId &&
+        existing.label === tab.label &&
+        existing.active === tab.active &&
+        existing.disabled === tab.disabled &&
+        existing.value === tab.value &&
+        existing.menuOnly === tab.menuOnly &&
+        existing.icon === tab.icon &&
+        existing.badge === tab.badge
       ) {
         return prev;
       }
-      return next;
+      return [...prev.filter((item) => item.id !== tab.id), tab];
     });
   }, []);
 
-  const registerTab = useCallback(
-    (tab) => {
-      if (isDynamicMode || tab.menuOnly) {
-        tab.panelId = dynamicPanelId;
-      }
-      tabsMapRef.current.set(tab.id, tab);
-      syncRegisteredTabs();
-    },
-    [isDynamicMode, dynamicPanelId, syncRegisteredTabs],
-  );
-
   const unregisterTab = useCallback((id) => {
-    tabsMapRef.current.delete(id);
-    syncRegisteredTabs();
-    setActivePanelTabId((current) => {
-      if (current !== id) return current;
-      const nextTabs = [...tabsMapRef.current.values()];
-      const first = nextTabs.find((tab) => !tab.disabled);
-      return first?.id ?? null;
+    setRegisteredTabs((prev) => {
+      if (!prev.some((item) => item.id === id)) return prev;
+      return prev.filter((item) => item.id !== id);
     });
-  }, [syncRegisteredTabs]);
+  }, []);
 
-  const getTabActive = useCallback(
-    (tab) => {
-      if (isDynamicMode) {
-        return (tab.value ?? tab.id) === activeKey;
-      }
-      return tab.id === activePanelTabId;
-    },
-    [isDynamicMode, activeKey, activePanelTabId],
-  );
+  const tabListSize = usesItems ? items.length : registeredTabs.length;
+
+  const { indicatorStyle, updateIndicator } = useTabsIndicator({
+    listRef,
+    enabled: resolvedIndicator === 'slide',
+    vertical: Boolean(vertical),
+    variant: resolvedVariant,
+    tabCount: tabListSize,
+  });
+
+  const {
+    canScrollPrev,
+    canScrollNext,
+    hasOverflow,
+    scrollPrev,
+    scrollNext,
+    updateScrollState,
+  } = useTabsScroll({
+    listRef,
+    enabled: isScrollNavLayout,
+    tabCount: tabListSize,
+  });
 
   const selectDynamicKey = useCallback(
     (key) => {
-      setActiveKey(key);
-      onUpdateModelValue?.(key);
+      setActiveDynamicKey(key);
+      onChange?.(key);
+      updateIndicator();
       updateScrollState();
     },
-    [onUpdateModelValue, updateScrollState],
+    [onChange, updateIndicator, updateScrollState],
+  );
+
+  const selectTab = useCallback(
+    (id) => {
+      if (isDynamicMode) {
+        if (usesItems) {
+          const index = items.findIndex((_, i) => `item-tab-${i}` === id);
+          const item = items[index];
+          if (item && !item.disabled) {
+            selectDynamicKey(resolveItemKey(item, index));
+          }
+          return;
+        }
+
+        const tab = registeredTabs.find((item) => item.id === id);
+        if (tab && !tab.disabled) {
+          selectDynamicKey(tab.value ?? tab.id);
+        }
+        return;
+      }
+
+      if (usesPanelItems) {
+        const index = items.findIndex((_, i) => `item-tab-${i}` === id);
+        const item = items[index];
+        if (item && !item.disabled) {
+          setItemsActiveKey(resolveItemKey(item, index));
+          updateIndicator();
+          updateScrollState();
+        }
+        return;
+      }
+
+      const tab = registeredTabs.find((item) => item.id === id);
+      if (!tab || tab.disabled) return;
+
+      setActivePanelId(id);
+      updateIndicator();
+      updateScrollState();
+    },
+    [
+      isDynamicMode,
+      usesItems,
+      usesPanelItems,
+      items,
+      registeredTabs,
+      selectDynamicKey,
+      updateIndicator,
+      updateScrollState,
+    ],
+  );
+
+  const isTabActive = useCallback(
+    (id) => {
+      if (isDynamicMode) return false;
+      if (usesPanelItems) return false;
+      return activePanelId === id;
+    },
+    [isDynamicMode, usesPanelItems, activePanelId],
+  );
+
+  // Initialize / sync active panel from registered TabPanels
+  useEffect(() => {
+    if (isDynamicMode || usesPanelItems) return;
+    if (!registeredTabs.length) return;
+
+    setActivePanelId((current) => {
+      if (current && registeredTabs.some((tab) => tab.id === current && !tab.disabled)) {
+        return current;
+      }
+      const preset = registeredTabs.find((tab) => tab.active && !tab.disabled);
+      const first = registeredTabs.find((tab) => !tab.disabled);
+      return (preset || first)?.id ?? null;
+    });
+  }, [isDynamicMode, usesPanelItems, registeredTabs]);
+
+  // Dynamic mode: initialize active key from registered TabMenus
+  useEffect(() => {
+    if (!isDynamicMode || usesItems) return;
+    if (value != null && value !== '') return;
+    if (activeDynamicKey != null) return;
+    if (!registeredTabs.length) return;
+
+    const preset = registeredTabs.find((tab) => tab.active && !tab.disabled);
+    const first = registeredTabs.find((tab) => !tab.disabled);
+    const tab = preset || first;
+    if (tab) setActiveDynamicKey(tab.value ?? tab.id);
+  }, [isDynamicMode, usesItems, value, activeDynamicKey, registeredTabs]);
+
+
+  const contextValue = useMemo(
+    () => ({
+      registerTab,
+      unregisterTab,
+      selectTab,
+      isTabActive,
+      isDynamicMode,
+      dynamicPanelId,
+    }),
+    [registerTab, unregisterTab, selectTab, isTabActive, isDynamicMode, dynamicPanelId],
   );
 
   const dynamicItemTabs = useMemo(() => {
@@ -152,118 +277,54 @@ export default function Tabs({
         panelId: dynamicPanelId,
         label: item.label,
         disabled: item.disabled,
-        isActive: activeKey === key,
+        isActive: activeDynamicKey === key,
         raw: item,
       };
     });
-  }, [isDynamicMode, usesItems, items, activeKey, dynamicPanelId]);
-
-  const selectTab = useCallback(
-    (id) => {
-      const tabs = [...tabsMapRef.current.values()];
-
-      if (isDynamicMode) {
-        if (usesItems) {
-          const tab = dynamicItemTabs.find((item) => item.id === id);
-          if (tab && !tab.disabled) selectDynamicKey(tab.key);
-          return;
-        }
-        const tab = tabs.find((item) => item.id === id);
-        if (tab && !tab.disabled) selectDynamicKey(tab.value ?? tab.id);
-        return;
-      }
-
-      const tab = tabs.find((item) => item.id === id);
-      if (tab && !tab.disabled) {
-        setActivePanelTabId(id);
-      }
-      updateScrollState();
-    },
-    [isDynamicMode, usesItems, dynamicItemTabs, selectDynamicKey, updateScrollState],
-  );
-
-  const tabsApi = useMemo(
-    () => ({ registerTab, unregisterTab, selectTab }),
-    [registerTab, unregisterTab, selectTab],
-  );
-
-  const tabsActive = useMemo(() => ({ activePanelTabId }), [activePanelTabId]);
-
-  useEffect(() => {
-    if (isDynamicMode) {
-      if (modelValue != null && modelValue !== '') {
-        setActiveKey(modelValue);
-        return;
-      }
-      if (usesItems) {
-        const activeItem = items.find((item) => item.active);
-        if (activeItem) {
-          setActiveKey(resolveItemKey(activeItem, items.indexOf(activeItem)));
-          return;
-        }
-        const first = items.find((item) => !item.disabled);
-        if (first) setActiveKey(resolveItemKey(first, items.indexOf(first)));
-        return;
-      }
-      if (!tabsMapRef.current.size) return;
-      const dynamicTabs = [...tabsMapRef.current.values()];
-      const preset = dynamicTabs.find((tab) => tab.active);
-      const first = dynamicTabs.find((tab) => !tab.disabled);
-      const tab = preset || first;
-      if (tab) {
-        const nextKey = tab.value ?? tab.id;
-        setActiveKey((current) => (current === nextKey ? current : nextKey));
-      }
-      return;
-    }
-
-    if (usesPanelItems) return;
-    const panelTabs = [...tabsMapRef.current.values()];
-    if (!panelTabs.length) return;
-    setActivePanelTabId((current) => {
-      if (current && panelTabs.some((tab) => tab.id === current)) return current;
-      const preset = panelTabs.find((tab) => tab.active);
-      const first = panelTabs.find((tab) => !tab.disabled);
-      return (preset || first)?.id ?? null;
-    });
-  }, [isDynamicMode, modelValue, usesItems, usesPanelItems, items, registeredTabs.length]);
-
-  useEffect(() => {
-    if (isDynamicMode && modelValue != null && modelValue !== '') {
-      setActiveKey(modelValue);
-    }
-  }, [isDynamicMode, modelValue]);
+  }, [isDynamicMode, usesItems, items, dynamicPanelId, activeDynamicKey]);
 
   const activeDynamicItem = useMemo(() => {
     if (!isDynamicMode) return null;
+
     if (usesItems) {
       return dynamicItemTabs.find((tab) => tab.isActive)?.raw ?? null;
     }
-    const tab = registeredTabs.find((item) => (item.value ?? item.id) === activeKey);
+
+    const tab = registeredTabs.find((item) => (item.value ?? item.id) === activeDynamicKey);
     if (!tab) return null;
-    return { key: tab.value ?? tab.id, label: tab.label };
-  }, [isDynamicMode, usesItems, dynamicItemTabs, registeredTabs, activeKey]);
+
+    return {
+      key: tab.value ?? tab.id,
+      label: tab.label,
+    };
+  }, [isDynamicMode, usesItems, dynamicItemTabs, registeredTabs, activeDynamicKey]);
 
   const activeTabId = useMemo(() => {
     if (!isDynamicMode) return '';
+
     if (usesItems) {
       return dynamicItemTabs.find((tab) => tab.isActive)?.id ?? '';
     }
-    return registeredTabs.find((tab) => (tab.value ?? tab.id) === activeKey)?.id ?? '';
-  }, [isDynamicMode, usesItems, dynamicItemTabs, registeredTabs, activeKey]);
+
+    return (
+      registeredTabs.find((tab) => (tab.value ?? tab.id) === activeDynamicKey)?.id ?? ''
+    );
+  }, [isDynamicMode, usesItems, dynamicItemTabs, registeredTabs, activeDynamicKey]);
 
   const itemTabs = useMemo(() => {
     if (!usesPanelItems) return [];
-    const hasActive = items.some((item) => item.active);
-    return items.map((item, index) => ({
-      id: `item-tab-${index}`,
-      panelId: `item-panel-${index}`,
-      label: item.label,
-      content: item.content,
-      disabled: item.disabled,
-      isActive: item.active || (!hasActive && index === 0),
-    }));
-  }, [usesPanelItems, items]);
+    return items.map((item, index) => {
+      const key = resolveItemKey(item, index);
+      return {
+        id: `item-tab-${index}`,
+        panelId: `item-panel-${index}`,
+        label: item.label,
+        content: item.content,
+        disabled: item.disabled,
+        isActive: itemsActiveKey === key,
+      };
+    });
+  }, [usesPanelItems, items, itemsActiveKey]);
 
   const barTabs = useMemo(() => {
     if (isDynamicMode && usesItems) {
@@ -273,10 +334,11 @@ export default function Tabs({
         label: tab.label,
         disabled: Boolean(tab.disabled),
         active: tab.isActive,
-        iconSlot: null,
-        badgeSlot: null,
+        icon: null,
+        badge: null,
       }));
     }
+
     if (usesPanelItems) {
       return itemTabs.map((tab) => ({
         id: tab.id,
@@ -284,18 +346,21 @@ export default function Tabs({
         label: tab.label,
         disabled: Boolean(tab.disabled),
         active: tab.isActive,
-        iconSlot: null,
-        badgeSlot: null,
+        icon: null,
+        badge: null,
       }));
     }
+
     return registeredTabs.map((tab) => ({
       id: tab.id,
-      panelId: tab.panelId,
+      panelId: isDynamicMode ? dynamicPanelId : tab.panelId,
       label: tab.label,
       disabled: Boolean(tab.disabled),
-      active: getTabActive(tab),
-      iconSlot: tab.iconSlot ?? null,
-      badgeSlot: tab.badgeSlot ?? null,
+      active: isDynamicMode
+        ? (tab.value ?? tab.id) === activeDynamicKey
+        : activePanelId === tab.id,
+      icon: tab.icon ?? null,
+      badge: tab.badge ?? null,
     }));
   }, [
     isDynamicMode,
@@ -304,42 +369,52 @@ export default function Tabs({
     dynamicItemTabs,
     itemTabs,
     registeredTabs,
-    getTabActive,
+    dynamicPanelId,
+    activeDynamicKey,
+    activePanelId,
   ]);
 
-  const activeBarTabId = useMemo(
-    () => barTabs.find((tab) => tab.active)?.id ?? null,
-    [barTabs],
-  );
-
-  const { indicatorStyle } = useTabsIndicator({
-    listRef,
-    enabled: slideIndicatorEnabled,
+  const rootClass = useMemo(() => {
+    const classes = ['tabs', `tabs_${resolvedVariant}`];
+    if (resolvedSize === 'sm') classes.push('tabs_sm');
+    if (resolvedSize === 'lg') classes.push('tabs_lg');
+    if (vertical) classes.push('tabs_vertical');
+    if (isEqualLayout) classes.push('tabs_equal');
+    if (isScrollNavLayout) classes.push('tabs_scroll-nav');
+    if (isLegacyScrollable) classes.push('tabs_scrollable');
+    if (isDynamicMode) classes.push('tabs_dynamic');
+    if (resolvedIndicator === 'slide') classes.push('tabs_indicator-slide');
+    return classes;
+  }, [
+    resolvedVariant,
+    resolvedSize,
     vertical,
-    variant,
-    onTabsChange: tabListSizeRef,
-    activeTabId: activeBarTabId,
-  });
+    isEqualLayout,
+    isScrollNavLayout,
+    isLegacyScrollable,
+    isDynamicMode,
+    resolvedIndicator,
+  ]);
 
-  const rootClass = cn(
-    'tabs',
-    `tabs_${variant}`,
-    size === 'sm' && 'tabs_sm',
-    size === 'lg' && 'tabs_lg',
-    vertical && 'tabs_vertical',
-    isEqualLayout && 'tabs_equal',
-    isScrollNavLayout && 'tabs_scroll-nav',
-    isLegacyScrollable && 'tabs_scrollable',
-    isDynamicMode && 'tabs_dynamic',
-    indicator === 'slide' && 'tabs_indicator-slide',
-    className,
-  );
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const panelContent =
+    typeof panel === 'function'
+      ? panel({ item: activeDynamicItem, value: activeDynamicKey, active: true })
+      : panel;
 
   return (
-    <TabsProvider apiValue={tabsApi} activeValue={tabsActive}>
-      <div ref={rootRef} className={rootClass} data-tabs {...rippleAttrs} {...rest}>
+    <TabsContext.Provider value={contextValue}>
+      <div
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        data-tabs=""
+        {...rippleAttrs}
+        {...domRest}
+      >
         <div className="tabs_bar">
-          {isScrollNavLayout && hasOverflow && (
+          {isScrollNavLayout && hasOverflow ? (
             <Button
               className="tabs_nav tabs_nav_prev"
               variant="outline"
@@ -347,18 +422,20 @@ export default function Tabs({
               size="sm"
               iconOnly
               ripple={false}
-              aria-label="이전 탭"
+              ariaLabel="이전 탭"
               disabled={!canScrollPrev}
               onClick={scrollPrev}
               iconBefore={<Icon name="chevron-left" size="sm" />}
             />
-          )}
+          ) : null}
 
-          <div className={cn('tabs_list-wrap', isScrollNavLayout && 'tabs_scroll-viewport')}>
+          <div
+            className={cn('tabs_list-wrap', isScrollNavLayout && 'tabs_scroll-viewport')}
+          >
             <div ref={listRef} className="tabs_list" role="tablist" aria-label={ariaLabel}>
-              {indicator === 'slide' && indicatorStyle && (
+              {resolvedIndicator === 'slide' && indicatorStyle ? (
                 <span className="tabs_indicator" aria-hidden="true" style={indicatorStyle} />
-              )}
+              ) : null}
               {barTabs.map((tab) => (
                 <TabsTab
                   key={tab.id}
@@ -369,8 +446,8 @@ export default function Tabs({
                   active={tab.active}
                   disabled={tab.disabled}
                   tabIndex={tab.active ? 0 : -1}
-                  iconSlot={tab.iconSlot}
-                  badgeSlot={tab.badgeSlot}
+                  icon={tab.icon}
+                  badge={tab.badge}
                   onClick={() => selectTab(tab.id)}
                 />
               ))}
@@ -378,7 +455,7 @@ export default function Tabs({
             </div>
           </div>
 
-          {isScrollNavLayout && hasOverflow && (
+          {isScrollNavLayout && hasOverflow ? (
             <Button
               className="tabs_nav tabs_nav_next"
               variant="outline"
@@ -386,18 +463,18 @@ export default function Tabs({
               size="sm"
               iconOnly
               ripple={false}
-              aria-label="다음 탭"
+              ariaLabel="다음 탭"
               disabled={!canScrollNext}
               onClick={scrollNext}
               iconBefore={<Icon name="chevron-right" size="sm" />}
             />
-          )}
+          ) : null}
 
-          {extra && (
+          {extra != null ? (
             <div className="tabs_extra" data-demo-slot="extra">
               {extra}
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="tabs_panels" data-demo-slot="default">
@@ -409,9 +486,7 @@ export default function Tabs({
                 role="tabpanel"
                 aria-labelledby={activeTabId}
               >
-                {typeof panelSlot === 'function'
-                  ? panelSlot({ item: activeDynamicItem, value: activeKey, active: true })
-                  : panelSlot}
+                {panelContent}
               </div>
               {children}
             </>
@@ -433,6 +508,6 @@ export default function Tabs({
           )}
         </div>
       </div>
-    </TabsProvider>
+    </TabsContext.Provider>
   );
 }

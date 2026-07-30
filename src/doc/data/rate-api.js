@@ -7,25 +7,34 @@ export const ratePropColumns = [
 ];
 
 export const rateProps = [
-  { name: 'model-value', type: 'number', default: '—', description: 'v-model 별점 값' },
-  { name: 'value', type: 'number', default: '—', description: 'model-value 없을 때 표시값' },
+  { name: 'value', type: 'number', default: '—', description: '별점 값 (Vue model-value 대응)' },
   { name: 'count', type: 'number', default: '5', description: '별 개수' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'rate_sm · rate_lg' },
-  { name: 'allow-half', type: 'boolean', default: 'false', description: '0.5점 단위 (rate_allow-half)' },
+  { name: 'allowHalf', type: 'boolean', default: 'false', description: '0.5점 단위 (rate_allow-half)' },
   { name: 'clearable', type: 'boolean', default: 'false', description: '초기화 버튼 (rate_clearable)' },
   { name: 'readonly', type: 'boolean', default: 'false', description: '읽기 전용 표시 (is-readonly)' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'legend', type: 'string', default: '—', description: 'fieldset legend' },
   { name: 'name', type: 'string', default: '—', description: 'radio name (그룹)' },
+  { name: 'className', type: 'string', default: '—', description: 'rate 루트에 추가 클래스' },
+  { name: 'onChange', type: '(value: number) => void', default: '—', description: '별점 변경/초기화 콜백' },
   ripplePropContainer,
 ];
 
-export const rateSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const rateChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const rateSlots = [];
+export const rateChildren = [
+  { name: 'children', description: '추가 콘텐츠 (설명/보조 텍스트 등). Vue default 슬롯 대응' },
+];
+
+/** @deprecated 가이드·Storybook은 rateChildColumns · rateChildren 사용 */
+export const rateSlotColumns = rateChildColumns;
+
+/** @deprecated */
+export const rateSlots = rateChildren;
 
 export const rateClassColumns = [
   { key: 'name', label: '클래스' },
@@ -48,7 +57,7 @@ export const rateEventColumns = [
 ];
 
 export const rateEvents = [
-  { name: 'update:modelValue', description: '별점 변경·초기화 시 (v-model)' },
+  { name: 'onChange', description: '별점 변경·초기화 시 호출 (number 인자, Vue update:modelValue 대응)' },
 ];
 
 export const rateTokenColumns = [

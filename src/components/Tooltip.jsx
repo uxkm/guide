@@ -1,22 +1,17 @@
 import { useId, useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
-import { useOverlayArrowAnchor } from '@/hooks/useOverlayArrowAnchor';
 import { useTooltipDemoCode } from '@/hooks/useDemoCode';
+import { useOverlayArrowAnchor } from '@/hooks/useOverlayArrowAnchor';
 import { overlayOffsetClasses } from '@/utils/overlay-offset';
 import { panelAlignClasses } from '@/utils/overlay-panel-align';
-import { partitionTooltipSlots, resolveOverlayTriggerProp } from '@/utils/overlay-slots';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
-const PLACEMENTS = new Set([
-  'top',
-  'top-start',
-  'top-end',
-  'left',
-  'right',
-  'start',
-  'end',
-]);
+const PLACEMENTS = new Set(['top', 'top-start', 'top-end', 'left', 'right', 'start', 'end']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_ARROW_ANCHORS = new Set(['content', 'target', 'mixed']);
+const VALID_TRIGGERS = new Set(['hover', 'click']);
 
 export default function Tooltip({
   content,
@@ -27,37 +22,36 @@ export default function Tooltip({
   offsetRight,
   offsetBottom,
   offsetLeft,
-  open = false,
-  inverse = false,
-  noArrow = false,
+  open,
+  inverse,
+  noArrow,
   arrowAnchor = 'content',
   panelAlign = 'center',
-  arrowTargetAlign,
-  disabled = false,
-  trigger: triggerProp = 'hover',
+  arrowTargetAlign = 'center',
+  disabled,
+  /** hover | click — Vue `trigger` prop */
+  trigger = 'hover',
   interactive = true,
   closable,
   closeLabel = '닫기',
+  /** Vue `#trigger` 슬롯 */
+  triggerContent,
   children,
   className,
   ...rest
 }) {
-  const { mode: triggerMode, slot: explicitTrigger } = useMemo(
-    () => resolveOverlayTriggerProp(triggerProp, 'hover'),
-    [triggerProp],
-  );
+  const rootRef = useRef(null);
+  const reactId = useId().replace(/:/g, '');
+  const bubbleId = `tooltip-${reactId}`;
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedArrowAnchor = VALID_ARROW_ANCHORS.has(arrowAnchor) ? arrowAnchor : 'content';
+  const resolvedTrigger = VALID_TRIGGERS.has(trigger) ? trigger : 'hover';
+  const bubbleContent = children ?? content;
 
-  const slots = useMemo(
-    () => partitionTooltipSlots(children, explicitTrigger),
-    [children, explicitTrigger],
-  );
-
-  const effectiveInteractive = open ? false : interactive;
-
-  const props = {
-    content,
+  const demoProps = {
+    content: typeof content === 'string' ? content : undefined,
     placement,
-    size,
+    size: resolvedSize,
     offset,
     offsetTop,
     offsetRight,
@@ -66,60 +60,98 @@ export default function Tooltip({
     open,
     inverse,
     noArrow,
-    arrowAnchor,
+    arrowAnchor: resolvedArrowAnchor,
     panelAlign,
     arrowTargetAlign,
     disabled,
-    trigger: triggerMode,
-    interactive: effectiveInteractive,
+    trigger: resolvedTrigger,
+    interactive,
     closable,
     closeLabel,
   };
-  const rootRef = useRef(null);
-  const bubbleId = useId().replace(/:/g, '');
 
-  useTooltipDemoCode(props, rootRef, { class: className, ...rest });
-  useOverlayArrowAnchor(rootRef, props, 'tooltip');
-
-  const rootClass = cn(
+  useTooltipDemoCode(demoProps, rootRef, { className, ...rest });
+  useOverlayArrowAnchor(
+    rootRef,
+    {
+      noArrow,
+      arrowAnchor: resolvedArrowAnchor,
+      panelAlign,
+      arrowTargetAlign,
+      open,
+      placement,
+    },
     'tooltip',
-    size === 'sm' && 'tooltip_sm',
-    size === 'lg' && 'tooltip_lg',
-    ...overlayOffsetClasses('tooltip', props),
-    ...panelAlignClasses('tooltip', panelAlign, 'center'),
-    inverse && 'tooltip_inverse',
-    noArrow && 'tooltip_no-arrow',
-    arrowAnchor === 'target' && 'tooltip_arrow-anchor-target',
-    arrowAnchor === 'mixed' && 'tooltip_arrow-anchor-mixed',
-    placement && PLACEMENTS.has(placement) && `tooltip_placement-${placement}`,
-    open && 'is-open',
-    disabled && 'is-disabled',
-    className,
   );
 
-  const rootAttrs = {};
-  if (effectiveInteractive) rootAttrs['data-tooltip'] = '';
-  if (triggerMode === 'click') rootAttrs['data-tooltip-trigger'] = 'click';
-  if (arrowAnchor === 'mixed') {
-    rootAttrs['data-panel-align'] = panelAlign;
-  } else if (panelAlign !== 'center') {
-    rootAttrs['data-panel-align'] = panelAlign;
-  }
-  if (
-    (arrowAnchor === 'target' || arrowAnchor === 'mixed') &&
-    arrowTargetAlign !== 'center'
-  ) {
-    rootAttrs['data-arrow-target-align'] = arrowTargetAlign;
-  }
+  const rootClass = useMemo(() => {
+    const classes = ['tooltip'];
+    if (resolvedSize === 'sm') classes.push('tooltip_sm');
+    if (resolvedSize === 'lg') classes.push('tooltip_lg');
+    classes.push(
+      ...overlayOffsetClasses('tooltip', {
+        offset,
+        offsetTop,
+        offsetRight,
+        offsetBottom,
+        offsetLeft,
+      }),
+    );
+    classes.push(...panelAlignClasses('tooltip', panelAlign, 'center'));
+    if (inverse) classes.push('tooltip_inverse');
+    if (noArrow) classes.push('tooltip_no-arrow');
+    if (resolvedArrowAnchor === 'target') classes.push('tooltip_arrow-anchor-target');
+    if (resolvedArrowAnchor === 'mixed') classes.push('tooltip_arrow-anchor-mixed');
+    if (placement && PLACEMENTS.has(placement)) {
+      classes.push(`tooltip_placement-${placement}`);
+    }
+    if (open) classes.push('is-open');
+    if (disabled) classes.push('is-disabled');
+    return classes;
+  }, [
+    resolvedSize,
+    offset,
+    offsetTop,
+    offsetRight,
+    offsetBottom,
+    offsetLeft,
+    panelAlign,
+    inverse,
+    noArrow,
+    resolvedArrowAnchor,
+    placement,
+    open,
+    disabled,
+  ]);
 
-  const bubbleHidden = open ? undefined : true;
-  const showCloseButton = closable ?? triggerMode === 'click';
-  const bubbleContent = slots.content ?? content;
+  const rootAttrs = useMemo(() => {
+    const result = {};
+    if (interactive) result['data-tooltip'] = '';
+    if (resolvedTrigger === 'click') result['data-tooltip-trigger'] = 'click';
+    if (resolvedArrowAnchor === 'mixed') {
+      result['data-panel-align'] = panelAlign;
+    } else if (panelAlign !== 'center') {
+      result['data-panel-align'] = panelAlign;
+    }
+    if (
+      (resolvedArrowAnchor === 'target' || resolvedArrowAnchor === 'mixed') &&
+      arrowTargetAlign !== 'center'
+    ) {
+      result['data-arrow-target-align'] = arrowTargetAlign;
+    }
+    return result;
+  }, [interactive, resolvedTrigger, resolvedArrowAnchor, panelAlign, arrowTargetAlign]);
+
+  const bubbleHidden = interactive ? undefined : !open || undefined;
+  const showCloseButton = closable ?? resolvedTrigger === 'click';
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <span ref={rootRef} className={rootClass} {...rootAttrs}>
+    <span ref={rootRef} className={cn(rootClass, className)} {...rootAttrs} {...domRest}>
       <span className="tooltip_trigger" aria-describedby={bubbleId}>
-        {slots.trigger}
+        {triggerContent}
       </span>
       <span
         id={bubbleId}
@@ -128,17 +160,17 @@ export default function Tooltip({
         hidden={bubbleHidden}
       >
         <span className="tooltip_arrow" aria-hidden="true" />
-        {showCloseButton && (
+        {showCloseButton ? (
           <Button
             variant="ghost"
             iconOnly
             className="tooltip_close tooltip_close-floating"
-            data-tooltip-close
-            aria-label={closeLabel}
+            data-tooltip-close=""
+            ariaLabel={closeLabel}
             iconBefore={<Icon name="close" size="sm" className="tooltip_close-icon" />}
           />
-        )}
-        <span className="tooltip_bubble_body">{bubbleContent}</span>
+        ) : null}
+        {bubbleContent}
       </span>
     </span>
   );

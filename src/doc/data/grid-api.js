@@ -13,16 +13,16 @@ export const gridProps = [
     description: '균등 열 수 (grid_cols-*)',
   },
   {
-    name: 'cols-md',
+    name: 'colsMd',
     type: 'number | string',
     default: '—',
-    description: 'md 브레이크포인트 이상 균등 열 수',
+    description: 'md 브레이크포인트 이상 균등 열 수 (grid_cols-md-*)',
   },
   {
-    name: 'cols-lg',
+    name: 'colsLg',
     type: 'number | string',
     default: '—',
-    description: 'lg 브레이크포인트 이상 균등 열 수',
+    description: 'lg 브레이크포인트 이상 균등 열 수 (grid_cols-lg-*)',
   },
   {
     name: 'ratio',
@@ -31,22 +31,22 @@ export const gridProps = [
     description: '2~3열 비율 레이아웃 (grid_ratio-*)',
   },
   {
-    name: 'item-span',
+    name: 'itemSpan',
     type: 'number | string',
     default: '—',
     description: '모든 자식에 동일 span 적용 (12열 기준, grid_item-span-*)',
   },
   {
-    name: 'item-span-md',
+    name: 'itemSpanMd',
     type: 'number | string',
     default: '—',
-    description: 'md 이상 자식 일괄 span',
+    description: 'md 이상 자식 일괄 span (grid_item-span-md-*)',
   },
   {
-    name: 'item-span-lg',
+    name: 'itemSpanLg',
     type: 'number | string',
     default: '—',
-    description: 'lg 이상 자식 일괄 span',
+    description: 'lg 이상 자식 일괄 span (grid_item-span-lg-*)',
   },
   {
     name: 'gap',
@@ -55,17 +55,56 @@ export const gridProps = [
     description: '열·행 간격. 생략 시 --grid-gap (md)',
   },
   {
-    name: 'auto-fit',
+    name: 'autoFit',
     type: 'boolean',
     default: 'false',
     description: 'auto-fit 반복 열 (grid_auto-fit)',
   },
   {
-    name: 'auto-fill',
+    name: 'autoFill',
     type: 'boolean',
     default: 'false',
     description: 'auto-fill 반복 열 (grid_auto-fill)',
   },
+];
+
+export const gridSlotColumns = [
+  { key: 'name', label: 'Children' },
+  { key: 'description', label: '설명' },
+];
+
+export const gridSlots = [
+  { name: 'children', description: '그리드 자식 콘텐츠 (Vue default 슬롯 대응)' },
+];
+
+export const gridClassColumns = [
+  { key: 'name', label: '클래스' },
+  { key: 'description', label: '설명' },
+];
+
+export const gridClasses = [
+  { name: 'grid', description: '12열 CSS Grid 루트' },
+  { name: 'grid_cols-* · grid_cols-md-* · grid_cols-lg-*', description: '균등 열 수' },
+  { name: 'grid_ratio-*', description: '비율 열 (2-1, 1-2-1 등)' },
+  { name: 'grid_item-span-* · grid_item-span-md-* · grid_item-span-lg-*', description: '자식 일괄 span' },
+  { name: 'grid_col-span-* · grid_col-span-md-* · grid_col-span-lg-*', description: '자식별 개별 span (혼합 레이아웃)' },
+  { name: 'grid_gap-sm · grid_gap-lg · grid_gap-none', description: '간격 변형' },
+  { name: 'grid_auto-fit · grid_auto-fill', description: '자동 반복 열' },
+  { name: 'grid_equal-columns', description: '균등 열 자동 흐름' },
+  { name: 'grid_align-center · grid_align-end', description: '교차축 정렬' },
+];
+
+export const gridTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const gridTokens = [
+  { name: '--grid-columns', default: '12', description: '기본 열 수' },
+  { name: '--grid-gap', default: 'var(--space-md)', description: '기본 간격' },
+  { name: '--grid-gap-sm · --grid-gap-lg', default: 'var(--space-sm) · var(--space-lg)', description: '간격 변형' },
+  { name: '--grid-auto-min', default: '10rem', description: 'auto-fit · auto-fill 최소 열 너비' },
 ];
 
 export const gridColPropColumns = [
@@ -84,50 +123,11 @@ export const gridColProps = [
   },
 ];
 
-export const gridSlotColumns = [
-  { key: 'name', label: '슬롯' },
-  { key: 'description', label: '설명' },
-];
-
-export const gridSlots = [
-  { name: 'default', description: '그리드 자식 콘텐츠' },
-];
-
 export const gridColSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
 export const gridColSlots = [
-  { name: 'default', description: '열 셀 내부 콘텐츠' },
-];
-
-export const gridClassColumns = [
-  { key: 'name', label: '클래스' },
-  { key: 'description', label: '설명' },
-];
-
-export const gridClasses = [
-  { name: 'grid', description: '12열 CSS Grid 루트' },
-  { name: 'grid_cols-* · grid_cols-md-* · grid_cols-lg-*', description: '균등 열 수' },
-  { name: 'grid_ratio-*', description: '비율 열 (2-1, 1-2-1 등)' },
-  { name: 'grid_item-span-* · grid_item-span-md-* · grid_item-span-lg-*', description: '자식 일괄 span' },
-  { name: 'grid_col-span-*', description: '자식별 개별 span (GridCol)' },
-  { name: 'grid_gap-sm · grid_gap-lg · grid_gap-none', description: '간격 변형' },
-  { name: 'grid_auto-fit · grid_auto-fill', description: '자동 반복 열' },
-  { name: 'grid_equal-columns', description: '균등 열 자동 흐름' },
-  { name: 'grid_align-center · grid_align-end', description: '교차축 정렬' },
-];
-
-export const gridTokenColumns = [
-  { key: 'name', label: '토큰' },
-  { key: 'default', label: '기본값' },
-  { key: 'description', label: '설명' },
-];
-
-export const gridTokens = [
-  { name: '--grid-columns', default: '12', description: '기본 열 수' },
-  { name: '--grid-gap', default: 'var(--space-md)', description: '기본 간격' },
-  { name: '--grid-gap-sm · --grid-gap-lg', default: 'var(--space-sm) · var(--space-lg)', description: '간격 변형' },
-  { name: '--grid-auto-min', default: '10rem', description: 'auto-fit · auto-fill 최소 열 너비' },
+  { name: 'children', description: '열 셀 내부 콘텐츠 (Vue default 슬롯 대응)' },
 ];

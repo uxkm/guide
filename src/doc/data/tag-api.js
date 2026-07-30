@@ -1,4 +1,5 @@
 import { ripplePropTag, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const tagPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -16,9 +17,9 @@ export const tagProps = [
   { name: 'closable', type: 'boolean', default: 'false', description: '닫기 버튼 표시' },
   { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected)' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },
-  { name: 'label', type: 'string', default: '—', description: '태그 텍스트. default 슬롯으로 대체 가능' },
+  { name: 'label', type: 'string', default: '—', description: '태그 텍스트. children으로 대체 가능' },
   { name: 'href', type: 'string', default: '—', description: '링크 태그일 때 href (a 태그)' },
-  { name: 'close-label', type: 'string', default: '—', description: '닫기 버튼 aria-label' },
+  { name: 'closeLabel', type: 'string', default: '—', description: '닫기 버튼 aria-label' },
   ripplePropTag,
 ];
 
@@ -31,26 +32,27 @@ export const tagGroupPropColumns = [
 
 export const tagGroupProps = [
   { name: 'tight', type: 'boolean', default: 'false', description: '좁은 간격 (tag_group-tight)' },
-  { name: 'aria-label', type: 'string', default: '—', description: '그룹 접근성 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: '그룹 접근성 라벨' },
 ];
 
 export const tagSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const tagSlots = [
-  { name: 'default', description: '태그 텍스트 (label prop 대체)' },
-  { name: 'icon', description: '텍스트 앞 아이콘 (tag_icon)' },
+  { name: 'label', description: '태그 텍스트. children으로 대체 가능' },
+  { name: 'children', description: '태그 텍스트 (label prop 대체)' },
+  { name: 'icon', description: '텍스트 앞 아이콘 (Vue #icon 슬롯 대응, tag_icon)' },
 ];
 
 export const tagGroupSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const tagGroupSlots = [
-  { name: 'default', description: 'Tag 자식 목록' },
+  { name: 'children', description: 'Tag 자식 목록 (Vue default 슬롯 대응)' },
 ];
 
 export const tagClassColumns = [

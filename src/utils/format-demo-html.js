@@ -41,7 +41,7 @@ function countHtmlTags(line, pattern) {
   return matches ? matches.length : 0;
 }
 
-function prettyPrintHtml(html) {
+export function prettyPrintHtml(html) {
   const lines = expandHtmlLines(html).split('\n');
   let indent = 0;
   const output = [];

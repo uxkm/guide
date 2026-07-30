@@ -1,10 +1,13 @@
 import { useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Pagination', {
   defaults: { current: 1, total: 1, pageSize: 10, ariaLabel: '페이지 이동', size: 'md' },
@@ -41,85 +44,114 @@ export default function Pagination({
   current = 1,
   total = 1,
   pageSize = 10,
-  simple = false,
-  minimal = false,
+  simple,
+  minimal,
   size = 'md',
-  round = false,
+  round,
   ariaLabel = '페이지 이동',
-  onUpdateCurrent,
-  onChange,
-  children,
   className,
+  onChange,
   ...rest
 }) {
-  const props = { ripple, current, total, pageSize, simple, minimal, size, round, ariaLabel };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
-
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
-  const pages = buildPages(totalPages, current);
+  const pages = useMemo(() => buildPages(totalPages, current), [totalPages, current]);
 
-  const goTo = (page) => {
-    if (page < 1 || page > totalPages || page === current) return;
-    onUpdateCurrent?.(page);
-    onChange?.(page);
-  };
-
-  const rootClass = cn(
-    'pagination',
-    simple && 'pagination_simple',
-    minimal && 'pagination_minimal',
-    size === 'sm' && 'pagination_sm',
-    size === 'lg' && 'pagination_lg',
-    round && 'pagination_round',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      current,
+      total,
+      pageSize,
+      simple,
+      minimal,
+      size: resolvedSize,
+      round,
+      ariaLabel,
+    },
+    createDemoSlots({}),
+    rootRef,
+    { className, onChange, ...rest },
   );
 
-  const prevBtn = (
+  const rootClass = useMemo(() => {
+    const classes = ['pagination'];
+    if (simple) classes.push('pagination_simple');
+    if (minimal) classes.push('pagination_minimal');
+    if (resolvedSize === 'sm') classes.push('pagination_sm');
+    if (resolvedSize === 'lg') classes.push('pagination_lg');
+    if (round) classes.push('pagination_round');
+    return classes;
+  }, [simple, minimal, resolvedSize, round]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  function goTo(page) {
+    if (page < 1 || page > totalPages || page === current) return;
+    onChange?.(page);
+  }
+
+  function prev() {
+    goTo(current - 1);
+  }
+
+  function next() {
+    goTo(current + 1);
+  }
+
+  const prevButton = (
     <Button
       {...childRippleAttrs}
       variant="ghost"
       size="sm"
       iconOnly
       className="pagination_btn pagination_prev"
-      aria-label="이전 페이지"
+      ariaLabel="이전 페이지"
       disabled={current <= 1}
-      onClick={() => goTo(current - 1)}
+      onClick={prev}
       iconBefore={<Icon name="chevron-left" size="sm" className="pagination_icon" />}
     />
   );
 
-  const nextBtn = (
+  const nextButton = (
     <Button
       {...childRippleAttrs}
       variant="ghost"
       size="sm"
       iconOnly
       className="pagination_btn pagination_next"
-      aria-label="다음 페이지"
+      ariaLabel="다음 페이지"
       disabled={current >= totalPages}
-      onClick={() => goTo(current + 1)}
+      onClick={next}
       iconBefore={<Icon name="chevron-right" size="sm" className="pagination_icon" />}
     />
   );
 
   return (
-    <nav ref={rootRef} {...rippleAttrs} className={rootClass} aria-label={ariaLabel}>
+    <nav
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-label={ariaLabel}
+      {...rippleAttrs}
+      {...domRest}
+    >
       {simple ? (
         <>
-          {prevBtn}
+          {prevButton}
           <span className="pagination_simple-text">
-            <span className="pagination_simple-current">{current}</span>/
+            <span className="pagination_simple-current">{current}</span>
+            {' / '}
             <span className="pagination_simple-total">{totalPages}</span>
           </span>
-          {nextBtn}
+          {nextButton}
         </>
       ) : (
         <ul className="pagination_list">
-          <li className="pagination_item">{prevBtn}</li>
+          <li className="pagination_item">{prevButton}</li>
           {pages.map((page, index) =>
             typeof page === 'string' ? (
               <li key={`${page}-${index}`} className="pagination_item">
@@ -141,7 +173,7 @@ export default function Pagination({
               </li>
             ),
           )}
-          <li className="pagination_item">{nextBtn}</li>
+          <li className="pagination_item">{nextButton}</li>
         </ul>
       )}
     </nav>

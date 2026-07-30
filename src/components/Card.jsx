@@ -1,9 +1,12 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { useRipple } from '@/hooks/useRipple';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_VARIANTS = new Set(['bordered', 'shadow', 'flat']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg', 'compact']);
 
 const formatCode = createComponentFormatter('Card', {
   defaults: { variant: 'bordered', size: 'md', tag: 'article' },
@@ -28,32 +31,45 @@ export default function Card({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { ripple, variant, size, hoverable, title, subtitle, tag };
   const { rippleAttrs } = useRipple({ ripple }, { defaultEnabled: false });
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children, media, header, extra }),
-    [children, media, header, extra],
+  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'bordered';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      variant: resolvedVariant,
+      size: resolvedSize,
+      hoverable,
+      title,
+      subtitle,
+      tag,
+    },
+    createDemoSlots({ default: children, media, header, extra }),
+    rootRef,
+    { className, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'card',
-    variant === 'shadow' && 'card_shadow',
-    variant === 'flat' && 'card_ghost',
-    size === 'sm' && 'card_sm',
-    size === 'lg' && 'card_lg',
-    size === 'compact' && 'card_compact',
-    hoverable && 'card_hover',
-    className,
-  );
+  const rootClass = useMemo(() => {
+    const classes = ['card'];
+    if (resolvedVariant === 'shadow') classes.push('card_shadow');
+    if (resolvedVariant === 'flat') classes.push('card_ghost');
+    if (resolvedSize === 'sm') classes.push('card_sm');
+    if (resolvedSize === 'lg') classes.push('card_lg');
+    if (resolvedSize === 'compact') classes.push('card_compact');
+    if (hoverable) classes.push('card_hover');
+    return classes;
+  }, [resolvedVariant, resolvedSize, hoverable]);
 
   const hasBuiltInHeader = Boolean(title || subtitle || header || extra);
-  const Tag = tag;
-  const domRest = normalizeDomProps(rest);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+  const Tag = tag || 'article';
 
   return (
-    <Tag ref={rootRef} className={rootClass} {...domRest} {...rippleAttrs}>
+    <Tag ref={rootRef} className={cn(rootClass, className)} {...rippleAttrs} {...domRest}>
       {media}
       {hasBuiltInHeader ? (
         <div className="card_header">

@@ -9,20 +9,23 @@ import { NavLink } from 'react-router-dom';
 import { NAV_GROUPS } from '@/data/navigation';
 import { cn } from '@/utils/cn';
 
-const STORAGE_NAV_GROUPS = 'guide-nav-groups';
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 const DESKTOP_BREAKPOINT = 1024;
 
-function readNavGroupState() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_NAV_GROUPS) || '{}');
-  } catch {
-    return {};
-  }
-}
-
 function isDesktop() {
   return window.innerWidth > DESKTOP_BREAKPOINT;
+}
+
+/** activeNav가 속한 그룹만 펼침 상태로 초기화 */
+function getGroupStateForActiveNav(activeNav) {
+  const state = {};
+  NAV_GROUPS.forEach((group, index) => {
+    if (group.flat) return;
+    if (group.items.some((item) => item.slug === activeNav)) {
+      state[`group-${index}`] = true;
+    }
+  });
+  return state;
 }
 
 const GuideSidebar = forwardRef(function GuideSidebar(
@@ -31,29 +34,16 @@ const GuideSidebar = forwardRef(function GuideSidebar(
 ) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [groupState, setGroupState] = useState({});
+  /** 명시적으로 true인 그룹만 펼침. 활성 하위 메뉴가 있는 그룹은 펼침 */
+  const [groupState, setGroupState] = useState(() => getGroupStateForActiveNav(activeNav));
   const navRef = useRef(null);
 
-  function saveNavGroupState(nextState) {
-    try {
-      localStorage.setItem(STORAGE_NAV_GROUPS, JSON.stringify(nextState));
-    } catch {
-      /* ignore */
-    }
+  function isGroupExpanded(groupId) {
+    return groupState[groupId] === true;
   }
 
-  function isGroupExpanded(groupId, hasActive) {
-    if (groupState[groupId] !== undefined) {
-      return groupState[groupId];
-    }
-    return hasActive || true;
-  }
-
-  function toggleGroup(groupId, hasActive) {
-    const current = isGroupExpanded(groupId, hasActive);
-    const nextState = { ...groupState, [groupId]: !current };
-    setGroupState(nextState);
-    saveNavGroupState(nextState);
+  function toggleGroup(groupId) {
+    setGroupState((prev) => ({ ...prev, [groupId]: !prev[groupId] }));
   }
 
   function syncCollapsed(collapsed) {
@@ -76,19 +66,6 @@ const GuideSidebar = forwardRef(function GuideSidebar(
         top: Math.max(0, targetScroll),
         behavior: smooth ? 'smooth' : 'auto',
       });
-    });
-  }
-
-  function ensureActiveGroupExpanded() {
-    setGroupState((prev) => {
-      let next = prev;
-      NAV_GROUPS.forEach((group, index) => {
-        const hasActive = group.items.some((item) => item.slug === activeNav);
-        if (hasActive && prev[`group-${index}`] === false) {
-          next = { ...next, [`group-${index}`]: true };
-        }
-      });
-      return next === prev ? prev : next;
     });
   }
 
@@ -142,9 +119,6 @@ const GuideSidebar = forwardRef(function GuideSidebar(
   }));
 
   useEffect(() => {
-    const initialGroupState = readNavGroupState();
-    setGroupState(initialGroupState);
-
     let collapsed = false;
     try {
       collapsed = localStorage.getItem(STORAGE_SIDEBAR_COLLAPSED) === '1';
@@ -163,8 +137,25 @@ const GuideSidebar = forwardRef(function GuideSidebar(
   }, []);
 
   useEffect(() => {
-    ensureActiveGroupExpanded();
     scrollActiveLinkIntoView(true);
+  }, [activeNav]);
+
+  // 하위 메뉴가 선택된 그룹은 항상 펼침 (새로고침·라우트 이동 포함)
+  useEffect(() => {
+    const activeGroups = getGroupStateForActiveNav(activeNav);
+    if (!Object.keys(activeGroups).length) return;
+
+    setGroupState((prev) => {
+      let changed = false;
+      const next = { ...prev };
+      Object.entries(activeGroups).forEach(([groupId, open]) => {
+        if (open && next[groupId] !== true) {
+          next[groupId] = true;
+          changed = true;
+        }
+      });
+      return changed ? next : prev;
+    });
   }, [activeNav]);
 
   return (
@@ -184,9 +175,29 @@ const GuideSidebar = forwardRef(function GuideSidebar(
 
         <nav ref={navRef} className="guide_nav">
           {NAV_GROUPS.map((group, index) => {
+            if (group.flat) {
+              return (
+                <ul key={group.title} className="guide_nav-list guide_nav-list-top">
+                  {group.items.map((item) => (
+                    <li key={item.slug}>
+                      <NavLink
+                        to={item.to}
+                        className={({ isActive }) =>
+                          cn('guide_nav-link', { 'is-active': isActive })
+                        }
+                        data-ripple
+                        onClick={closeSidebar}
+                      >
+                        <span>{item.label}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
+
             const groupId = `group-${index}`;
-            const hasActive = group.items.some((item) => item.slug === activeNav);
-            const expanded = isGroupExpanded(groupId, hasActive);
+            const expanded = isGroupExpanded(groupId);
 
             return (
               <div
@@ -198,7 +209,7 @@ const GuideSidebar = forwardRef(function GuideSidebar(
                   className="guide_nav-heading"
                   data-ripple
                   aria-expanded={String(expanded)}
-                  onClick={() => toggleGroup(groupId, hasActive)}
+                  onClick={() => toggleGroup(groupId)}
                 >
                   <span className="guide_nav-heading-text">{group.title}</span>
                   <svg

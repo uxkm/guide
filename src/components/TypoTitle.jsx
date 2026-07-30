@@ -1,7 +1,10 @@
-import { createElement, useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useMemo, useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_LEVELS = new Set([1, 2, 3, 4, 5, '1', '2', '3', '4', '5']);
 
 const formatCode = createComponentFormatter('TypoTitle', {
   defaults: { level: 1 },
@@ -16,17 +19,30 @@ export default function TypoTitle({
   className,
   ...rest
 }) {
-  const props = { level, color, label };
   const rootRef = useRef(null);
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children ?? label }),
-    [children, label],
+  const resolvedLevel = VALID_LEVELS.has(level) ? Number(level) : 1;
+  const content = children ?? label;
+
+  useComponentDemoCode(
+    formatCode,
+    { level: resolvedLevel, color, label },
+    createDemoSlots({ default: content }),
+    rootRef,
+    { className, ...rest },
   );
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = [`typo_title-${resolvedLevel}`];
+    if (color) classes.push(`color_${color}`);
+    return classes;
+  }, [resolvedLevel, color]);
 
-  const rootTag = `h${level}`;
-  const rootClass = cn(`typo_title-${level}`, color && `color_${color}`, className);
+  const Tag = `h${resolvedLevel}`;
+  const domRest = normalizeDomProps(rest);
 
-  return createElement(rootTag, { ref: rootRef, className: rootClass, ...rest }, children ?? label);
+  return (
+    <Tag ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+      {content}
+    </Tag>
+  );
 }

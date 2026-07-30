@@ -1,8 +1,21 @@
-import { useMemo, useRef, useState, useCallback } from 'react';
-import { cn } from '@/utils/cn';
-import { StepsProvider } from '@/context/StepsContext.jsx';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import {
+  Children,
+  cloneElement,
+  createContext,
+  isValidElement,
+  useMemo,
+  useRef,
+} from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+export const StepsContext = createContext(null);
+
+const VALID_DIRECTIONS = new Set(['horizontal', 'vertical']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_ALIGNS = new Set(['', 'center']);
 
 const formatCode = createComponentFormatter('Steps', {
   defaults: { direction: 'horizontal', size: 'md' },
@@ -14,84 +27,71 @@ export default function Steps({
   current,
   direction = 'horizontal',
   size = 'md',
-  dot = false,
-  iconStyle = false,
-  navigable = false,
+  dot,
+  iconStyle,
+  navigable,
   align = '',
   ariaLabel,
   children,
   className,
   ...rest
 }) {
-  const props = { current, direction, size, dot, iconStyle, navigable, align, ariaLabel };
   const rootRef = useRef(null);
-  const [itemOrder, setItemOrder] = useState([]);
-  const itemsRef = useRef(new Map());
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedDirection = VALID_DIRECTIONS.has(direction) ? direction : 'horizontal';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedAlign = VALID_ALIGNS.has(align) ? align : '';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const syncItemOrder = useCallback(() => {
-    setItemOrder((prev) => {
-      const next = [...itemsRef.current.keys()];
-      if (prev.length === next.length && prev.every((id, i) => id === next[i])) {
-        return prev;
-      }
-      return next;
-    });
-  }, []);
-
-  const registerItem = useCallback((id, itemProps) => {
-    itemsRef.current.set(id, itemProps);
-    syncItemOrder();
-  }, [syncItemOrder]);
-
-  const unregisterItem = useCallback((id) => {
-    itemsRef.current.delete(id);
-    syncItemOrder();
-  }, [syncItemOrder]);
-
-  const isLastItem = useCallback(
-    (id) => {
-      const order = itemOrder;
-      return order.indexOf(id) === order.length - 1;
-    },
-    [itemOrder],
-  );
-
-  const getItemIndex = useCallback(
-    (id) => itemOrder.indexOf(id) + 1,
-    [itemOrder],
-  );
-
-  const contextValue = useMemo(
-    () => ({
-      registerItem,
-      unregisterItem,
-      isLastItem,
-      getItemIndex,
+  useComponentDemoCode(
+    formatCode,
+    {
+      current,
+      direction: resolvedDirection,
+      size: resolvedSize,
+      dot,
+      iconStyle,
       navigable,
-    }),
-    [registerItem, unregisterItem, isLastItem, getItemIndex, navigable],
+      align: resolvedAlign || undefined,
+      ariaLabel,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
-  const rootClass = cn(
-    'steps',
-    direction === 'vertical' && 'steps_vertical',
-    size === 'sm' && 'steps_sm',
-    size === 'lg' && 'steps_lg',
-    dot && 'steps_dot',
-    iconStyle && 'steps_icon-style',
-    navigable && 'steps_navigable',
-    align === 'center' && 'steps_align-center',
-    className,
-  );
+  const rootClass = useMemo(() => {
+    const classes = ['steps'];
+    if (resolvedDirection === 'vertical') classes.push('steps_vertical');
+    if (resolvedSize === 'sm') classes.push('steps_sm');
+    if (resolvedSize === 'lg') classes.push('steps_lg');
+    if (dot) classes.push('steps_dot');
+    if (iconStyle) classes.push('steps_icon-style');
+    if (navigable) classes.push('steps_navigable');
+    if (resolvedAlign === 'center') classes.push('steps_align-center');
+    return classes;
+  }, [resolvedDirection, resolvedSize, dot, iconStyle, navigable, resolvedAlign]);
+
+  const contextValue = useMemo(() => ({ navigable: Boolean(navigable) }), [navigable]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const childItems = Children.toArray(children).filter(isValidElement);
 
   return (
-    <StepsProvider value={contextValue}>
-      <ol ref={rootRef} className={rootClass} aria-label={ariaLabel} {...rest}>
-        {children}
+    <StepsContext.Provider value={contextValue}>
+      <ol
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        aria-label={ariaLabel}
+        {...domRest}
+      >
+        {childItems.map((child, i) =>
+          cloneElement(child, {
+            index: child.props.index ?? i + 1,
+            isLast: i === childItems.length - 1,
+          }),
+        )}
       </ol>
-    </StepsProvider>
+    </StepsContext.Provider>
   );
 }

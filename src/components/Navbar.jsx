@@ -1,18 +1,21 @@
-import { useMemo, useRef } from 'react';
+import { useId, useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useNavbarDemoCode } from '@/hooks/useDemoCode';
+import { useNavbarDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 export default function Navbar({
   ripple,
   brand,
   size = 'md',
-  borderless = false,
-  dark = false,
-  sticky = false,
-  responsive = false,
+  borderless,
+  dark,
+  sticky,
+  responsive,
   collapseId,
   brandContent,
   brandIcon,
@@ -23,55 +26,78 @@ export default function Navbar({
   className,
   ...rest
 }) {
-  const props = { ripple, brand, size, borderless, dark, sticky, responsive, collapseId };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
-  const collapseTargetId =
-    collapseId || `navbar-collapse-${Math.random().toString(36).slice(2, 9)}`;
-  const demoSlots = useMemo(
-    () => createDemoSlots({ default: children, brand: brandContent, 'brand-icon': brandIcon, items, search, actions }),
-    [children, brandContent, brandIcon, items, search, actions],
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
+  const reactId = useId().replace(/:/g, '');
+  const collapseTargetId = collapseId || `navbar-collapse-${reactId}`;
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+
+  useNavbarDemoCode(
+    {
+      ripple,
+      brand,
+      size: resolvedSize,
+      borderless,
+      dark,
+      sticky,
+      responsive,
+      collapseId,
+    },
+    rootRef,
+    { className, ...rest },
   );
 
-  useNavbarDemoCode(props, rootRef, { class: className, ...rest, ...rippleAttrs });
+  const rootClass = useMemo(() => {
+    const classes = ['navbar'];
+    if (resolvedSize === 'sm') classes.push('navbar_sm');
+    if (resolvedSize === 'lg') classes.push('navbar_lg');
+    if (borderless) classes.push('navbar_borderless');
+    if (dark) classes.push('navbar_dark');
+    if (sticky) classes.push('navbar_sticky');
+    return classes;
+  }, [resolvedSize, borderless, dark, sticky]);
 
-  const rootClass = cn(
-    'navbar',
-    size === 'sm' && 'navbar_sm',
-    size === 'lg' && 'navbar_lg',
-    borderless && 'navbar_borderless',
-    dark && 'navbar_dark',
-    sticky && 'navbar_sticky',
-    className,
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+  const brandInner = brandContent ?? (
+    <>
+      {brandIcon}
+      {brand}
+    </>
   );
+  const navItems = items ?? (children ? <ul className="navbar_list">{children}</ul> : null);
+
+  const handleBrandClick = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <header
       ref={rootRef}
-      className={rootClass}
+      className={cn(rootClass, className)}
       data-navbar={responsive || undefined}
       {...rippleAttrs}
-      {...rest}
+      {...domRest}
     >
       <div className="navbar_container">
-        <a {...childRippleAttrs} href="#" className="navbar_brand" onClick={(e) => e.preventDefault()}>
-          {brandContent ?? (
-            <>
-              {brandIcon}
-              {brand}
-            </>
-          )}
+        <a
+          {...childRippleAttrs}
+          href="#"
+          className="navbar_brand"
+          onClick={handleBrandClick}
+        >
+          {brandInner}
         </a>
-        {responsive && (
+        {responsive ? (
           <Button
             {...childRippleAttrs}
             variant="ghost"
             iconOnly
             className="navbar_toggle"
-            data-navbar-toggle
-            aria-expanded="false"
+            data-navbar-toggle=""
+            expanded={false}
             aria-controls={collapseTargetId}
-            aria-label="메뉴 열기"
+            ariaLabel="메뉴 열기"
             iconBefore={
               <>
                 <Icon name="menu" size="sm" className="navbar_toggle-icon-open" />
@@ -79,15 +105,13 @@ export default function Navbar({
               </>
             }
           />
-        )}
+        ) : null}
         <div className="navbar_collapse" id={collapseTargetId}>
           <nav className="navbar_nav" aria-label="주요 메뉴">
-            {items ?? (
-              children && <ul className="navbar_list">{children}</ul>
-            )}
+            {navItems}
           </nav>
-          {search && <div className="navbar_search">{search}</div>}
-          {actions && <div className="navbar_actions">{actions}</div>}
+          {search ? <div className="navbar_search">{search}</div> : null}
+          {actions ? <div className="navbar_actions">{actions}</div> : null}
         </div>
       </div>
     </header>

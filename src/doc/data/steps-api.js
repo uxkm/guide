@@ -11,10 +11,12 @@ export const stepsProps = [
   { name: 'direction', type: `'horizontal' | 'vertical'`, default: 'horizontal', description: 'steps_vertical' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'steps_sm · steps_lg' },
   { name: 'dot', type: 'boolean', default: 'false', description: 'steps_dot — 원형 마커' },
-  { name: 'icon-style', type: 'boolean', default: 'false', description: 'steps_icon-style' },
+  { name: 'iconStyle', type: 'boolean', default: 'false', description: 'steps_icon-style' },
   { name: 'navigable', type: 'boolean', default: 'false', description: 'steps_navigable — 완료 단계 클릭' },
   { name: 'align', type: `'' | 'center'`, default: '—', description: 'steps_align-center' },
-  { name: 'aria-label', type: 'string', default: '—', description: 'ol aria-label' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: 'ol aria-label' },
+  { name: 'children', type: 'ReactNode', default: '—', description: 'StepsItem 나열' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
 ];
 
 export const stepsItemPropColumns = stepsPropColumns;
@@ -23,16 +25,23 @@ export const stepsItemProps = [
   { name: 'description', type: 'string', default: '—', description: '단계 설명' },
   { name: 'status', type: `'finished' | 'active' | 'wait' | 'error'`, default: 'wait', description: 'is-finished · is-active · is-wait · is-error' },
   { name: 'index', type: 'number', default: '—', description: '단계 번호 (자동 할당)' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '커스텀 항목 마크업 (navigable이 아닐 때)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropSurface,
 ];
 
-export const stepsSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const stepsChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const stepsSlots = [
-  { name: 'default', description: 'StepsItem 나열' },
+export const stepsChildren = [
+  { name: 'children', description: 'StepsItem 나열' },
+];
+
+export const stepsItemChildColumns = stepsChildColumns;
+export const stepsItemChildren = [
+  { name: 'children', description: '커스텀 항목 마크업 (navigable이 아닐 때)' },
 ];
 
 export const stepsClassColumns = [

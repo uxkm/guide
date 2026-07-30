@@ -10,18 +10,27 @@ export const emptyProps = [
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'empty_sm · empty_lg' },
   { name: 'simple', type: 'boolean', default: 'false', description: '아이콘 숨김 (empty_simple)' },
   { name: 'block', type: 'boolean', default: 'false', description: '가운데 블록 정렬 (empty_block)' },
+  { name: 'image', type: 'ReactNode', default: '—', description: '커스텀 이미지·아이콘 (empty_image)' },
+  { name: 'footer', type: 'ReactNode', default: '—', description: '하단 액션 영역 (empty_footer)' },
+  { name: 'className', type: 'string', default: '—', description: 'empty 루트에 추가 클래스' },
 ];
 
-export const emptySlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const emptyChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const emptySlots = [
+export const emptyChildren = [
   { name: 'image', description: '일러스트·아이콘 (empty_image)' },
-  { name: 'description', description: '설명 (description prop 대체)' },
+  { name: 'children', description: '설명 (description prop 대체, Vue description 슬롯 대응)' },
   { name: 'footer', description: '액션 버튼·링크 (empty_footer)' },
 ];
+
+/** @deprecated 가이드·Storybook은 emptyChildColumns · emptyChildren 사용 */
+export const emptySlotColumns = emptyChildColumns;
+
+/** @deprecated */
+export const emptySlots = emptyChildren;
 
 export const emptyClassColumns = [
   { key: 'name', label: '클래스' },

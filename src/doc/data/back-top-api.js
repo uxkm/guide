@@ -8,17 +8,29 @@ export const backTopPropColumns = [
 
 export const backTopProps = [
   { name: 'target', type: 'string', default: '—', description: '스크롤 컨테이너 선택자 (data-target). 생략 시 window' },
-  { name: 'visibility-height', type: 'number | string', default: '400', description: '버튼 표시 임계 스크롤(px, data-visibility-height)' },
+  { name: 'visibilityHeight', type: 'number | string', default: '400', description: '버튼 표시 임계 스크롤(px, data-visibility-height)' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'back_top_sm · back_top_lg' },
   { name: 'color', type: `'' | 'primary' | 'ghost'`, default: '—', description: 'back_top_primary · back_top_ghost' },
   { name: 'label', type: 'string', default: '—', description: '버튼 텍스트 (back_top_label)' },
-  { name: 'aria-label', type: 'string', default: '맨 위로', description: '접근성 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '맨 위로', description: '접근성 라벨' },
   { name: 'interactive', type: 'boolean', default: 'true', description: 'false면 data-back-top 미부여' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '버튼 콘텐츠 (아이콘·텍스트)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropTrigger,
 ];
 
+export const backTopChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
+  { key: 'description', label: '설명' },
+];
+
+export const backTopChildren = [
+  { name: 'children', description: '버튼 콘텐츠 (아이콘·텍스트)' },
+];
+
+/** @deprecated Vue Storybook 호환 — React는 backTopChild* 사용 */
 export const backTopSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Slot' },
   { key: 'description', label: '설명' },
 ];
 

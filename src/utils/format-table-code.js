@@ -2,9 +2,19 @@ import { formatComponentCode } from '@/utils/format-component-code';
 import { resolveRegisteredCode } from '@/utils/resolve-demo-code';
 
 const TABLE_FORMAT_CONFIG = {
-  defaults: { wrap: true },
-  booleanProps: new Set(['bordered', 'striped', 'compact', 'hover', 'wrap']),
+  defaults: { wrap: true, stickyCols: 1 },
+  booleanProps: new Set([
+    'bordered',
+    'striped',
+    'compact',
+    'hover',
+    'wrap',
+    'scroll',
+    'stickyTop',
+    'stickyLeft',
+  ]),
   arrayPropPlaceholders: { columns: 'tableColumns' },
+  skipProps: ['stickyLeftOffsets'],
 };
 
 const SLOT_SECTION_TAGS = new Set(['thead', 'tbody', 'tfoot', 'caption']);
@@ -90,11 +100,27 @@ function resolveTableElement(rootEl) {
   return rootEl.querySelector('table');
 }
 
+function formatStickyLeftOffsetsAttr(offsets) {
+  if (!offsets || typeof offsets !== 'object') return '';
+  const entries = Object.entries(offsets).filter(([, value]) => value != null && value !== '');
+  if (!entries.length) return '';
+  const body = entries.map(([key, value]) => `${key}: '${value}'`).join(', ');
+  return ` :sticky-left-offsets="{ ${body} }"`;
+}
+
 function openTableTag(props, slots, attrs) {
-  return formatComponentCode('Table', props, slots, attrs, {
+  const codeProps = { ...props };
+  if (!codeProps.stickyLeft) {
+    delete codeProps.stickyCols;
+    delete codeProps.stickyLeftOffsets;
+  }
+
+  const open = formatComponentCode('Table', codeProps, slots, attrs, {
     ...TABLE_FORMAT_CONFIG,
     selfClosing: true,
   }).replace(/\s*\/>$/, '');
+
+  return `${open}${formatStickyLeftOffsetsAttr(props.stickyLeftOffsets)}`;
 }
 
 /** Table 데모 코드 — 슬롯(thead · tbody)은 마크업, 중첩 컴포넌트는 등록 코드 */

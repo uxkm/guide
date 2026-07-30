@@ -1,10 +1,12 @@
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { useRipple } from '@/hooks/useRipple';
 import { useCalendarWheelColumn } from '@/hooks/useCalendarWheel';
-import { useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useRipple } from '@/hooks/useRipple';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('CalendarWheelColumn', {
   booleanProps: new Set(['showSteps']),
@@ -19,30 +21,37 @@ export default function CalendarWheelColumn({
   showSteps = true,
   prevLabel,
   nextLabel,
+  className,
+  ...rest
 }) {
   const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
-
   const rootRef = useRef(null);
   const listRef = useRef(null);
   const [activeValue, setActiveValue] = useState(selected);
 
-  useComponentDemoCode(formatCode, { ripple, label, items, selected, showSteps, prevLabel, nextLabel }, {}, rootRef, {});
-
-  const onSelect = useCallback((value) => {
-    setActiveValue(value);
-  }, []);
+  useComponentDemoCode(
+    formatCode,
+    { ripple, label, items, selected, showSteps, prevLabel, nextLabel },
+    createDemoSlots({}),
+    rootRef,
+    { className, ...rest },
+  );
 
   const { scrollToSelected, selectByIndex, moveSelection } = useCalendarWheelColumn(listRef, {
-    onSelect,
+    onSelect(nextLabel) {
+      setActiveValue(nextLabel);
+    },
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setActiveValue(selected);
-    scrollToSelected();
+    const frame = requestAnimationFrame(() => scrollToSelected());
+    return () => cancelAnimationFrame(frame);
   }, [selected, scrollToSelected]);
 
-  useLayoutEffect(() => {
-    scrollToSelected();
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => scrollToSelected());
+    return () => cancelAnimationFrame(frame);
   }, [items, scrollToSelected]);
 
   const resolvedItems = useMemo(
@@ -60,31 +69,49 @@ export default function CalendarWheelColumn({
     [items, activeValue],
   );
 
-  const selectedIndex = resolvedItems.findIndex((item) => item.selected);
+  const selectedIndex = useMemo(
+    () => resolvedItems.findIndex((item) => item.selected),
+    [resolvedItems],
+  );
+
   const prevDisabled = selectedIndex <= 0;
   const nextDisabled = selectedIndex < 0 || selectedIndex >= resolvedItems.length - 1;
 
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   return (
-    <div ref={rootRef} className="calendar_wheel-column" {...rippleAttrs}>
+    <div
+      ref={rootRef}
+      className={cn('calendar_wheel-column', className)}
+      {...rippleAttrs}
+      {...domRest}
+    >
       {showSteps && prevLabel ? (
         <Button
-          {...childRippleAttrs}
           variant="ghost"
           size="sm"
           iconOnly
           className="calendar_wheel-step calendar_wheel-step-prev"
-          aria-label={prevLabel}
+          ariaLabel={prevLabel}
           disabled={prevDisabled}
-          onClick={() => moveSelection(-1)}
           iconBefore={<Icon name="chevron-up" size="sm" />}
+          onClick={() => moveSelection(-1)}
+          {...childRippleAttrs}
         />
       ) : null}
-      <ul ref={listRef} className="calendar_wheel-list" role="listbox" aria-label={label} data-wheel>
+      <ul
+        ref={listRef}
+        className="calendar_wheel-list"
+        role="listbox"
+        aria-label={label}
+        data-wheel=""
+      >
         {resolvedItems.map((item, index) => (
           <li key={item.label}>
             <button
               type="button"
-              className={`calendar_wheel-item${item.selected ? ' is-selected' : ''}`}
+              className={cn('calendar_wheel-item', item.selected && 'is-selected')}
               aria-selected={item.selected ? 'true' : undefined}
               onClick={() => selectByIndex(index)}
               {...childRippleAttrs}
@@ -96,15 +123,15 @@ export default function CalendarWheelColumn({
       </ul>
       {showSteps && nextLabel ? (
         <Button
-          {...childRippleAttrs}
           variant="ghost"
           size="sm"
           iconOnly
           className="calendar_wheel-step calendar_wheel-step-next"
-          aria-label={nextLabel}
+          ariaLabel={nextLabel}
           disabled={nextDisabled}
-          onClick={() => moveSelection(1)}
           iconBefore={<Icon name="chevron-down" size="sm" />}
+          onClick={() => moveSelection(1)}
+          {...childRippleAttrs}
         />
       ) : null}
     </div>

@@ -1,7 +1,10 @@
-import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { toCssSize } from '@/utils/table-column-sizing';
+import { useId, useMemo, useRef } from 'react';
 import { useDropdownDemoCode } from '@/hooks/useDemoCode';
+import { toCssSize } from '@/utils/table-column-sizing';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_PLACEMENTS = new Set(['end', 'top']);
 
 export default function Dropdown({
   open,
@@ -11,55 +14,70 @@ export default function Dropdown({
   maxVisibleItems,
   menuWidth,
   menuMinWidth,
-  trigger,
+  triggerContent,
   children,
   className,
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { open, disabled, placement, fit, maxVisibleItems, menuWidth, menuMinWidth };
-  const menuId = useMemo(
-    () => `dropdown-menu-${Math.random().toString(36).slice(2, 9)}`,
-    [],
+  const reactId = useId().replace(/:/g, '');
+  const menuId = `dropdown-menu-${reactId}`;
+  const resolvedPlacement = VALID_PLACEMENTS.has(placement) ? placement : undefined;
+
+  useDropdownDemoCode(
+    {
+      open,
+      disabled,
+      placement: resolvedPlacement,
+      fit,
+      maxVisibleItems,
+      menuWidth,
+      menuMinWidth,
+    },
+    rootRef,
+    { className, ...rest },
   );
 
-  useDropdownDemoCode(props, rootRef, { class: className, ...rest });
+  const rootClass = useMemo(() => {
+    const classes = ['dropdown'];
+    if (open) classes.push('is-open');
+    if (disabled) classes.push('is-disabled');
+    if (resolvedPlacement === 'end') classes.push('dropdown_placement-end');
+    if (resolvedPlacement === 'top') classes.push('dropdown_placement-top');
+    if (fit) classes.push('dropdown_fit');
+    return classes;
+  }, [open, disabled, resolvedPlacement, fit]);
 
-  const rootClass = cn(
-    'dropdown',
-    open && 'is-open',
-    disabled && 'is-disabled',
-    placement === 'end' && 'dropdown_placement-end',
-    placement === 'top' && 'dropdown_placement-top',
-    fit && 'dropdown_fit',
-    className,
-  );
+  const menuClass = useMemo(() => {
+    const classes = ['dropdown_menu'];
+    if (maxVisibleItems != null) classes.push('dropdown_menu-scrollable');
+    return classes;
+  }, [maxVisibleItems]);
 
-  const menuClass = cn(
-    'dropdown_menu',
-    maxVisibleItems != null && 'dropdown_menu-scrollable',
-  );
+  const menuStyle = useMemo(() => {
+    const style = {};
+    if (maxVisibleItems != null) {
+      style['--dropdown-max-visible-items'] = maxVisibleItems;
+    }
+    if (menuWidth != null) {
+      style.width = toCssSize(menuWidth);
+    }
+    if (menuMinWidth != null) {
+      style.minWidth = toCssSize(menuMinWidth);
+    }
+    return style;
+  }, [maxVisibleItems, menuWidth, menuMinWidth]);
 
-  const menuStyle = {};
-  if (maxVisibleItems != null) {
-    menuStyle['--dropdown-max-visible-items'] = maxVisibleItems;
-  }
-  if (menuWidth != null) {
-    menuStyle.width = toCssSize(menuWidth);
-  }
-  if (menuMinWidth != null) {
-    menuStyle.minWidth = toCssSize(menuMinWidth);
-  }
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <div ref={rootRef} className={rootClass} data-dropdown {...rest}>
-      <div className="dropdown_trigger-host" data-demo-slot="trigger">
-        {trigger}
-      </div>
+    <div ref={rootRef} className={cn(rootClass, className)} data-dropdown="" {...domRest}>
+      <div data-demo-slot="trigger">{triggerContent}</div>
       <div
         id={menuId}
-        className={menuClass}
-        style={Object.keys(menuStyle).length ? menuStyle : undefined}
+        className={cn(menuClass)}
+        style={menuStyle}
         role="menu"
         data-demo-slot="default"
       >

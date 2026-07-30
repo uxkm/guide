@@ -1,7 +1,10 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_MODES = new Set(['vertical', 'horizontal', 'inline']);
 
 const formatCode = createComponentFormatter('Menu', {
   defaults: { mode: 'vertical' },
@@ -20,22 +23,41 @@ export default function Menu({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { mode, bordered, compact, dark, ariaLabel };
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedMode = VALID_MODES.has(mode) ? mode : 'vertical';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'menu',
-    `menu_${mode}`,
-    bordered && 'menu_bordered',
-    compact && 'menu_compact',
-    dark && 'menu_dark',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      mode: resolvedMode,
+      bordered,
+      compact,
+      dark,
+      ariaLabel,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
+  const rootClass = useMemo(() => {
+    const classes = ['menu', `menu_${resolvedMode}`];
+    if (bordered) classes.push('menu_bordered');
+    if (compact) classes.push('menu_compact');
+    if (dark) classes.push('menu_dark');
+    return classes;
+  }, [resolvedMode, bordered, compact, dark]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   return (
-    <nav ref={rootRef} className={rootClass} aria-label={ariaLabel} data-menu-selectable {...rest}>
+    <nav
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-label={ariaLabel}
+      data-menu-selectable=""
+      {...domRest}
+    >
       <ul className="menu_list">{children}</ul>
     </nav>
   );

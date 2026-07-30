@@ -10,17 +10,24 @@ export const skeletonProps = [
   { name: 'avatar', type: 'boolean', default: 'false', description: '아바타 + 본문 행 레이아웃' },
   { name: 'paragraph', type: 'boolean | number', default: 'false', description: '본문 줄 수. true면 3줄' },
   { name: 'round', type: 'boolean', default: 'false', description: '원형만 표시' },
-  { name: 'aria-label', type: 'string', default: '콘텐츠 로딩 중', description: 'role=status 라벨' },
+  { name: 'ariaLabel', type: 'string', default: '콘텐츠 로딩 중', description: 'role=status 라벨' },
+  { name: 'className', type: 'string', default: '—', description: 'skeleton_group 루트에 추가 클래스' },
 ];
 
-export const skeletonSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const skeletonChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const skeletonSlots = [
-  { name: 'default', description: '커스텀 skeleton 막대 추가' },
+export const skeletonChildren = [
+  { name: 'children', description: '커스텀 skeleton 막대 추가' },
 ];
+
+/** @deprecated 가이드·Storybook은 skeletonChildColumns · skeletonChildren 사용 */
+export const skeletonSlotColumns = skeletonChildColumns;
+
+/** @deprecated */
+export const skeletonSlots = skeletonChildren;
 
 export const skeletonClassColumns = [
   { key: 'name', label: '클래스' },

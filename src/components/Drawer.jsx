@@ -1,9 +1,20 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
-import { cn } from '@/utils/cn';
 import { useRipple } from '@/hooks/useRipple';
 import { useDrawerDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_PLACEMENTS = new Set(['left', 'right', 'top', 'bottom']);
+
+const PLACEMENT_CLASS = {
+  left: 'drawer_placement-left',
+  right: 'drawer_placement-right',
+  top: 'drawer_placement-top',
+  bottom: 'drawer_placement-bottom',
+};
 
 export default function Drawer({
   ripple,
@@ -12,8 +23,12 @@ export default function Drawer({
   placement = 'right',
   noBackdrop,
   openOnLoad,
+  draggable,
   title,
   open,
+  footerAlign = 'end',
+  footerRatio = '1-1',
+  footerNoPadBottom,
   header,
   extra,
   footer,
@@ -22,57 +37,112 @@ export default function Drawer({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { ripple, id, size, placement, noBackdrop, openOnLoad, title, open };
-  const { rippleAttrs } = useRipple(props);
+  const { rippleAttrs } = useRipple({ ripple });
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedPlacement = VALID_PLACEMENTS.has(placement) ? placement : 'right';
+  const showDragHandle = Boolean(draggable && resolvedPlacement === 'bottom');
   const titleId = `${id}-title`;
 
-  useDrawerDemoCode(props, rootRef, { class: className, ...rest });
-
-  const placementClass = {
-    left: 'drawer_placement-left',
-    right: 'drawer_placement-right',
-    top: 'drawer_placement-top',
-    bottom: 'drawer_placement-bottom',
-  }[placement];
-
-  const panelClass = cn(
-    'drawer_panel',
-    placementClass,
-    size === 'sm' && 'drawer_sm',
-    size === 'lg' && 'drawer_lg',
+  useDrawerDemoCode(
+    {
+      ripple,
+      id,
+      size: resolvedSize,
+      placement: resolvedPlacement,
+      noBackdrop,
+      openOnLoad,
+      draggable,
+      title,
+      open,
+      footerAlign,
+      footerRatio,
+      footerNoPadBottom,
+    },
+    rootRef,
+    { className, ...rest },
   );
 
-  const rootClass = cn('drawer', open && 'is-open', className);
+  const footerClass = useMemo(() => {
+    const classes = ['drawer_footer'];
+    if (footerAlign && footerAlign !== 'end') {
+      classes.push(`drawer_footer-${footerAlign}`);
+    }
+    if (footerAlign === 'even' && footerRatio && footerRatio !== '1-1') {
+      classes.push(`drawer_footer-even-${footerRatio}`);
+    }
+    if (footerNoPadBottom) {
+      classes.push('drawer_footer-no-pad-b');
+    }
+    return classes;
+  }, [footerAlign, footerRatio, footerNoPadBottom]);
+
+  const panelClass = useMemo(() => {
+    const classes = ['drawer_panel', PLACEMENT_CLASS[resolvedPlacement]];
+    if (resolvedSize === 'sm') classes.push('drawer_sm');
+    if (resolvedSize === 'lg') classes.push('drawer_lg');
+    if (showDragHandle) classes.push('drawer_draggable');
+    return classes;
+  }, [resolvedPlacement, resolvedSize, showDragHandle]);
+
+  const rootClass = useMemo(() => {
+    const classes = ['drawer'];
+    if (open) classes.push('is-open');
+    return classes;
+  }, [open]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+  const showHeader = Boolean(header || title);
+  const isDemoStatic = typeof className === 'string' && className.includes('drawer_demo-static');
 
   return (
     <div
       ref={rootRef}
       id={id}
-      className={rootClass}
-      data-drawer
+      className={cn(rootClass, className)}
+      data-drawer=""
       data-drawer-backdrop={noBackdrop ? 'false' : undefined}
       data-drawer-open-on-load={openOnLoad ? 'true' : undefined}
+      data-drawer-draggable={showDragHandle ? 'true' : undefined}
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       tabIndex={-1}
-      hidden={!open || undefined}
-      {...rest}
+      hidden={isDemoStatic || open ? undefined : true}
+      {...domRest}
     >
-      <div className="drawer_backdrop" data-drawer-close aria-hidden="true" />
-      <div className={panelClass}>
-        {header || title ? (
+      <div className="drawer_backdrop" data-drawer-close="" aria-hidden="true" />
+      <div className={cn(panelClass)}>
+        {showDragHandle ? (
+          <div
+            className="drawer_handle"
+            data-drawer-drag-handle=""
+            role="presentation"
+            aria-hidden="true"
+          >
+            <span className="drawer_handle-bar" />
+          </div>
+        ) : null}
+        {showHeader ? (
           <div className="drawer_header" data-demo-slot="header">
-            {header ?? <h2 className="drawer_title" id={titleId}>{title}</h2>}
-            {extra}
+            {header ?? (
+              <div className="drawer_title" id={titleId} role="heading" aria-level={2}>
+                {title}
+              </div>
+            )}
+            {extra ? (
+              <div className="drawer_extra" data-demo-slot="extra">
+                {extra}
+              </div>
+            ) : null}
             <Button
               variant="ghost"
               iconOnly
               className="drawer_close"
-              data-drawer-close
-              aria-label="닫기"
-              {...rippleAttrs}
+              data-drawer-close=""
+              ariaLabel="닫기"
               iconBefore={<Icon name="close" size="sm" className="drawer_close-icon" />}
+              {...rippleAttrs}
             />
           </div>
         ) : null}
@@ -80,7 +150,7 @@ export default function Drawer({
           {children}
         </div>
         {footer ? (
-          <div className="drawer_footer" data-demo-slot="footer">
+          <div className={cn(footerClass)} data-demo-slot="footer">
             {footer}
           </div>
         ) : null}

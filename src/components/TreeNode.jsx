@@ -1,44 +1,25 @@
-import { useEffect, useMemo, useReducer, useRef } from 'react';
-import { useTree } from '@/components/context/TreeContext';
-import { cn } from '@/utils/cn';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRipple } from '@/hooks/useRipple';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('TreeNode', {
   booleanProps: new Set(['expanded', 'selected', 'disabled', 'expandable', 'plusToggle', 'link']),
   selfClosing: false,
 });
 
-function useMutableRef(initial) {
-  const stateRef = useRef(initial);
-  const [, bump] = useReducer((count) => count + 1, 0);
-
-  return useMemo(
-    () => ({
-      get value() {
-        return stateRef.current;
-      },
-      set value(next) {
-        stateRef.current = next;
-        bump();
-      },
-    }),
-    [],
-  );
-}
-
 export default function TreeNode({
   ripple,
   label,
-  expanded = false,
-  selected = false,
-  disabled = false,
-  expandable = false,
-  plusToggle: plusToggleProp = false,
-  'plus-toggle': plusToggleKebab,
+  expanded,
+  selected,
+  disabled,
+  expandable,
+  plusToggle,
   toggleLabel,
-  link = false,
+  link,
   meta,
   prefix,
   icon,
@@ -46,93 +27,89 @@ export default function TreeNode({
   metaSlot,
   children,
   className,
+  onExpandedChange,
   ...rest
 }) {
-  const plusToggle = plusToggleProp || Boolean(plusToggleKebab);
-  const isExpanded = useMutableRef(expanded);
-  const isSelected = useMutableRef(selected);
-  const tree = useTree();
-  const props = {
-    ripple,
-    label,
-    expanded,
-    selected,
-    disabled,
-    expandable,
-    plusToggle,
-    toggleLabel,
-    link,
-    meta,
-  };
-  const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
   const rootRef = useRef(null);
+  const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
   const hasChildren = Boolean(children);
-  const showToggle = expandable || hasChildren;
-  const demoSlots = useMemo(
-    () =>
-      createDemoSlots({
-        default: children,
-        prefix,
-        icon,
-        label: labelSlot,
-        meta: metaSlot,
-      }),
-    [children, prefix, icon, labelSlot, metaSlot],
-  );
-
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  const showToggle = Boolean(expandable || hasChildren);
+  const [isExpanded, setIsExpanded] = useState(expanded !== false);
 
   useEffect(() => {
-    if (!link || !tree) {
-      return undefined;
-    }
+    if (expanded !== undefined) setIsExpanded(expanded !== false);
+  }, [expanded]);
 
-    return tree.registerSelectable(isSelected);
-  }, [link, tree, isSelected]);
+  useComponentDemoCode(
+    formatCode,
+    {
+      ripple,
+      label,
+      expanded,
+      selected,
+      disabled,
+      expandable,
+      plusToggle,
+      toggleLabel,
+      link,
+      meta,
+    },
+    createDemoSlots({
+      default: children,
+      prefix,
+      icon,
+      label: labelSlot,
+      meta: metaSlot,
+    }),
+    rootRef,
+    { className, onExpandedChange, ...rest },
+  );
 
-  function handleToggleClick() {
-    if (disabled) {
-      return;
-    }
-
-    isExpanded.value = !isExpanded.value;
+  function toggleExpand() {
+    if (disabled) return;
+    const next = !isExpanded;
+    setIsExpanded(next);
+    onExpandedChange?.(next);
   }
 
-  function handleLinkClick() {
-    if (disabled) {
-      return;
-    }
+  const rowClass = useMemo(() => {
+    const classes = ['tree_row'];
+    if (selected) classes.push('is-selected');
+    if (disabled) classes.push('is-disabled');
+    return classes;
+  }, [selected, disabled]);
 
-    if (tree) {
-      tree.selectNode(isSelected);
-      return;
-    }
+  const toggleClass = useMemo(() => {
+    const classes = ['tree_toggle'];
+    if (plusToggle) classes.push('tree_toggle-plus');
+    return classes;
+  }, [plusToggle]);
 
-    isSelected.value = true;
-  }
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
-  const rowClass = cn('tree_row', isSelected.value && 'is-selected', disabled && 'is-disabled');
-  const toggleClass = cn('tree_toggle', plusToggle && 'tree_toggle-plus');
   const labelContent = labelSlot ?? <span className="tree_label">{label}</span>;
+  const metaContent = metaSlot ?? meta;
 
   return (
     <li
       ref={rootRef}
-      {...rippleAttrs}
       className={cn('tree_item', className)}
       role="treeitem"
-      aria-expanded={showToggle ? (isExpanded.value ? 'true' : 'false') : undefined}
+      aria-expanded={showToggle ? (isExpanded ? 'true' : 'false') : undefined}
+      {...rippleAttrs}
+      {...domRest}
     >
-      <div className={rowClass}>
+      <div className={cn(rowClass)}>
         {showToggle ? (
           <button
-            {...childRippleAttrs}
             type="button"
-            className={toggleClass}
-            aria-expanded={isExpanded.value ? 'true' : 'false'}
+            className={cn(toggleClass)}
+            aria-expanded={isExpanded ? 'true' : 'false'}
             aria-label={toggleLabel}
             disabled={disabled || undefined}
-            onClick={handleToggleClick}
+            onClick={toggleExpand}
+            {...childRippleAttrs}
           />
         ) : (
           <span className="tree_toggle tree_toggle_placeholder" aria-hidden="true" />
@@ -140,35 +117,30 @@ export default function TreeNode({
 
         {prefix}
 
-        {icon && (
+        {icon ? (
           <span className="tree_icon" aria-hidden="true">
             {icon}
           </span>
-        )}
+        ) : null}
 
         {link ? (
-          <button
-            {...childRippleAttrs}
-            type="button"
-            className="tree_link"
-            onClick={handleLinkClick}
-          >
+          <button type="button" className="tree_link" {...childRippleAttrs}>
             {labelContent}
           </button>
         ) : (
           labelContent
         )}
 
-        {(meta || metaSlot) && (
-          <span className="tree_meta">{metaSlot ?? meta}</span>
-        )}
+        {metaContent != null && metaContent !== '' ? (
+          <span className="tree_meta">{metaContent}</span>
+        ) : null}
       </div>
 
-      {hasChildren && isExpanded.value && (
+      {hasChildren && isExpanded ? (
         <ul className="tree" role="group">
           {children}
         </ul>
-      )}
+      ) : null}
     </li>
   );
 }

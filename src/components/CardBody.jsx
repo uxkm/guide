@@ -1,18 +1,29 @@
-import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
+import { useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
-const formatCode = createComponentFormatter('CardBody', { selfClosing: false });
+const formatCode = createComponentFormatter('CardBody', {
+  selfClosing: false,
+});
 
 export default function CardBody({ children, className, ...rest }) {
   const rootRef = useRef(null);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
 
-  useComponentDemoCode(formatCode, {}, demoSlots, rootRef, { class: className, ...rest });
+  useComponentDemoCode(
+    formatCode,
+    {},
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
+  );
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <div ref={rootRef} className={cn('card_body', className)} {...rest}>
+    <div ref={rootRef} className={cn('card_body', className)} {...domRest}>
       {children}
     </div>
   );

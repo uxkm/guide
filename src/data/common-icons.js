@@ -298,7 +298,7 @@ commonIconPaths.delete = commonIconPaths.trash;
 /** 갤러리 표시 순서 */
 export const commonIconGallery = [
   // 기본 액션
-  'search', 'plus', 'minus', 'close', 'check', 'edit', 'trash', 'copy', 'save',
+  'search', 'plus', 'minus', 'close', 'check', 'edit', 'trash', 'delete', 'copy', 'save',
   'download', 'upload', 'share', 'link', 'external-link', 'filter', 'refresh',
   'undo', 'redo', 'printer', 'paperclip',
   // 방향 · 탐색

@@ -11,7 +11,9 @@ export const menuProps = [
   { name: 'bordered', type: 'boolean', default: 'false', description: 'menu_bordered' },
   { name: 'compact', type: 'boolean', default: 'false', description: 'menu_compact' },
   { name: 'dark', type: 'boolean', default: 'false', description: 'menu_dark' },
-  { name: 'aria-label', type: 'string', default: '—', description: 'nav aria-label' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: 'nav aria-label' },
+  { name: 'children', type: 'ReactNode', default: '—', description: 'MenuItem · MenuSubmenu 등' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
 ];
 
 export const menuItemPropColumns = menuPropColumns;
@@ -21,6 +23,10 @@ export const menuItemProps = [
   { name: 'active', type: 'boolean', default: 'false', description: 'is-active · aria-current' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
   { name: 'color', type: 'string', default: '—', description: 'color_* (예: danger)' },
+  { name: 'icon', type: 'ReactNode', default: '—', description: 'menu_icon' },
+  { name: 'extra', type: 'ReactNode', default: '—', description: 'menu_extra (배지 등)' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '항목 텍스트 (label 대체)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropSurface,
 ];
 
@@ -28,7 +34,10 @@ export const menuSubmenuPropColumns = menuPropColumns;
 export const menuSubmenuProps = [
   { name: 'label', type: 'string', default: '—', description: '서브메뉴 제목' },
   { name: 'expanded', type: 'boolean', default: 'false', description: '펼침 (aria-expanded)' },
-  { name: 'submenu-id', type: 'string', default: '—', description: 'menu_submenu id (aria-controls)' },
+  { name: 'submenuId', type: 'string', default: '—', description: 'menu_submenu id (aria-controls)' },
+  { name: 'icon', type: 'ReactNode', default: '—', description: 'menu_icon' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '하위 MenuItem' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropSurface,
 ];
 
@@ -37,25 +46,26 @@ export const menuGroupProps = [
   { name: 'title', type: 'string', default: '—', description: '그룹 제목 (menu_group-title, 필수)' },
 ];
 
-export const menuSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const menuChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const menuSlots = [
-  { name: 'default', description: 'MenuItem · MenuSubmenu 등' },
+export const menuChildren = [
+  { name: 'children', description: 'MenuItem · MenuSubmenu 등' },
 ];
 
-export const menuItemSlotColumns = menuSlotColumns;
-export const menuItemSlots = [
-  { name: 'icon', description: 'menu_icon' },
+export const menuItemChildColumns = menuChildColumns;
+export const menuItemChildren = [
+  { name: 'icon', description: 'menu_icon (ReactNode prop)' },
+  { name: 'children', description: '항목 텍스트 (label 대체)' },
   { name: 'extra', description: 'menu_extra (배지 등)' },
 ];
 
-export const menuSubmenuSlotColumns = menuSlotColumns;
-export const menuSubmenuSlots = [
-  { name: 'icon', description: 'menu_icon' },
-  { name: 'default', description: '하위 MenuItem' },
+export const menuSubmenuChildColumns = menuChildColumns;
+export const menuSubmenuChildren = [
+  { name: 'icon', description: 'menu_icon (ReactNode prop)' },
+  { name: 'children', description: '하위 MenuItem' },
 ];
 
 export const menuClassColumns = [

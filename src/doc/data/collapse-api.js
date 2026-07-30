@@ -1,12 +1,12 @@
 import { ripplePropSurface, rippleClassRows } from '@/doc/data/ripple-api';
-export const collapseGroupPropColumns = [
+export const collapsePropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
   { key: 'default', label: '기본값' },
   { key: 'description', label: '설명' },
 ];
 
-export const collapseGroupProps = [
+export const collapseProps = [
   {
     name: 'variant',
     type: `'bordered' | 'ghost' | 'card'`,
@@ -26,25 +26,32 @@ export const collapseGroupProps = [
     description: '한 번에 하나의 패널만 열기 (아코디언 모드)',
   },
   {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
+  },
+  {
     name: 'narrow',
     type: 'boolean',
     default: 'false',
     description: '데모용 최대 너비 제한 (collapse_demo-narrow)',
   },
   {
-    name: 'effect',
-    type: `'slide'`,
+    name: 'children',
+    type: 'ReactNode',
     default: '—',
-    description: '펼침·접힘 높이 슬라이드 (data-effect="slide")',
+    description: 'CollapsePanel 나열',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
   },
 ];
 
-export const collapsePanelPropColumns = [
-  { key: 'name', label: 'Prop' },
-  { key: 'type', label: '타입' },
-  { key: 'default', label: '기본값' },
-  { key: 'description', label: '설명' },
-];
+export const collapsePanelPropColumns = collapsePropColumns;
 
 export const collapsePanelProps = [
   {
@@ -57,7 +64,7 @@ export const collapsePanelProps = [
     name: 'content',
     type: 'string',
     default: '—',
-    description: '패널 본문 (p 태그로 렌더). default 슬롯으로 대체 가능',
+    description: '패널 본문 (p 태그로 렌더). children으로 대체 가능',
   },
   {
     name: 'open',
@@ -72,24 +79,37 @@ export const collapsePanelProps = [
     description: '비활성 패널 (is-disabled + trigger disabled)',
   },
   {
-    name: 'extra-code',
+    name: 'extra',
+    type: 'ReactNode',
+    default: '—',
+    description: '트리거 오른쪽 보조 정보',
+  },
+  {
+    name: 'extraCode',
     type: 'string',
     default: '—',
     description: '코드 예시용 extra 슬롯 마크업 (데모 코드 생성)',
   },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: '패널 본문 (content prop 대체)',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
+  },
   ripplePropSurface,
 ];
 
-export const collapseExternalPropColumns = [
-  { key: 'name', label: 'Prop' },
-  { key: 'type', label: '타입' },
-  { key: 'default', label: '기본값' },
-  { key: 'description', label: '설명' },
-];
+export const collapseExternalPropColumns = collapsePropColumns;
 
 export const collapseExternalProps = [
   {
-    name: 'trigger-label',
+    name: 'triggerLabel',
     type: 'string',
     default: '—',
     description: '외부 트리거 버튼 텍스트',
@@ -107,33 +127,57 @@ export const collapseExternalProps = [
     description: '접힘 영역에 테두리·배경 스타일 적용',
   },
   {
+    name: 'effect',
+    type: `'slide'`,
+    default: '—',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
+  },
+  {
     name: 'open',
     type: 'boolean',
     default: 'false',
     description: '초기 열림 상태',
   },
   {
-    name: 'effect',
-    type: `'slide'`,
+    name: 'lead',
+    type: 'ReactNode',
     default: '—',
-    description: '펼침·접힘 높이 슬라이드 (data-effect="slide")',
+    description: '트리거 위 안내 텍스트',
+  },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    default: '—',
+    description: '접히는 본문 영역',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    default: '—',
+    description: '루트 요소 추가 클래스',
   },
   ripplePropSurface,
 ];
 
-export const collapseSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const collapseChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const collapsePanelSlots = [
-  { name: 'default', description: '패널 본문 (content prop 대체)' },
+export const collapseChildren = [
+  { name: 'children', description: 'CollapsePanel 나열' },
+];
+
+export const collapsePanelChildColumns = collapseChildColumns;
+export const collapsePanelChildren = [
+  { name: 'children', description: '패널 본문 (content prop 대체)' },
   { name: 'extra', description: '트리거 오른쪽 보조 정보' },
 ];
 
-export const collapseExternalSlots = [
+export const collapseExternalChildColumns = collapseChildColumns;
+export const collapseExternalChildren = [
   { name: 'lead', description: '트리거 위 안내 텍스트' },
-  { name: 'default', description: '접히는 본문 영역' },
+  { name: 'children', description: '접히는 본문 영역' },
 ];
 
 export const collapseClassColumns = [
@@ -156,4 +200,8 @@ export const collapseClasses = [
   { name: 'data-collapse-accordion', description: 'HTML 단일 패널만 열기' },
   { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
+  ...rippleClassRows,
 ];
+
+export const collapseGroupPropColumns = collapsePropColumns;
+export const collapseGroupProps = collapseProps;

@@ -1,7 +1,12 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_STATUSES = new Set(['', 'success', 'exception']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_COLORS = new Set(['primary', 'success', 'warning', 'danger']);
 
 const formatCode = createComponentFormatter('Progress', {
   defaults: { percent: 0, size: 'md', color: 'primary' },
@@ -13,72 +18,80 @@ export default function Progress({
   percent = 0,
   status = '',
   size = 'md',
-  showInfo = false,
+  showInfo,
   label,
   color = 'primary',
-  striped = false,
-  animated = false,
-  indeterminate = false,
-  inside = false,
-  block = false,
+  striped,
+  animated,
+  indeterminate,
+  inside,
+  block,
   ariaLabel = '진행률',
-  children,
   className,
   ...rest
 }) {
-  const props = {
-    percent,
-    status,
-    size,
-    showInfo,
-    label,
-    color,
-    striped,
-    animated,
-    indeterminate,
-    inside,
-    block,
-    ariaLabel,
-  };
   const rootRef = useRef(null);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedStatus = VALID_STATUSES.has(status) ? status : '';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedColor = VALID_COLORS.has(color) ? color : 'primary';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const statusColor =
-    status === 'success'
-      ? 'color_success'
-      : status === 'exception'
-        ? 'color_danger'
-        : color === 'danger'
-          ? 'color_danger'
-          : `color_${color}`;
-
-  const rootClass = cn(
-    'progress',
-    statusColor,
-    block ? 'progress_block' : 'progress_fit',
-    size === 'sm' && 'progress_sm',
-    size === 'lg' && 'progress_lg',
-    striped && 'progress_striped',
-    animated && 'progress_animated',
-    indeterminate && 'is-indeterminate',
-    inside && 'progress_inside',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      percent,
+      status: resolvedStatus || undefined,
+      size: resolvedSize,
+      showInfo,
+      label,
+      color: resolvedColor,
+      striped,
+      animated,
+      indeterminate,
+      inside,
+      block,
+      ariaLabel,
+    },
+    createDemoSlots({}),
+    rootRef,
+    { className, ...rest },
   );
 
+  const statusColor = useMemo(() => {
+    if (resolvedStatus === 'success') return 'color_success';
+    if (resolvedStatus === 'exception') return 'color_danger';
+    if (resolvedColor === 'danger') return 'color_danger';
+    return `color_${resolvedColor}`;
+  }, [resolvedStatus, resolvedColor]);
+
+  const rootClass = useMemo(() => {
+    const classes = ['progress', statusColor];
+    if (block) classes.push('progress_block');
+    else classes.push('progress_fit');
+    if (resolvedSize === 'sm') classes.push('progress_sm');
+    if (resolvedSize === 'lg') classes.push('progress_lg');
+    if (striped) classes.push('progress_striped');
+    if (animated) classes.push('progress_animated');
+    if (indeterminate) classes.push('is-indeterminate');
+    if (inside) classes.push('progress_inside');
+    return classes;
+  }, [statusColor, block, resolvedSize, striped, animated, indeterminate, inside]);
+
   const displayValue = `${percent}%`;
+  const trackStyle = inside ? { background: 'var(--color-border-subtle)' } : undefined;
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
-    <div ref={rootRef} className={rootClass}>
-      {(showInfo || label) && (
+    <div ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+      {showInfo || label ? (
         <div className="progress_header">
-          {label && <span className="progress_label">{label}</span>}
-          {showInfo && <span className="progress_value">{displayValue}</span>}
+          {label ? <span className="progress_label">{label}</span> : null}
+          {showInfo ? <span className="progress_value">{displayValue}</span> : null}
         </div>
-      )}
+      ) : null}
       <div
         className="progress_track"
+        style={trackStyle}
         role="progressbar"
         aria-valuenow={indeterminate ? undefined : percent}
         aria-valuemin={0}
@@ -90,7 +103,6 @@ export default function Progress({
           {inside ? displayValue : ''}
         </span>
       </div>
-      {children}
     </div>
   );
 }

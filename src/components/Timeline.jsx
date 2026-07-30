@@ -1,7 +1,11 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_ICON_SIZES = new Set(['sm', 'md']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Timeline', {
   defaults: { size: 'md', tag: 'ol', iconSize: 'md' },
@@ -11,39 +15,58 @@ const formatCode = createComponentFormatter('Timeline', {
 });
 
 export default function Timeline({
-  card = false,
-  alternate = false,
-  horizontal = false,
-  labelCol = false,
-  icon = false,
+  card,
+  alternate,
+  horizontal,
+  labelCol,
+  icon,
   iconSize = 'md',
   size = 'md',
-  tag: Tag = 'ol',
+  tag = 'ol',
   children,
   className,
   ...rest
 }) {
-  const props = { card, alternate, horizontal, labelCol, icon, iconSize, size, tag: Tag };
   const rootRef = useRef(null);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedIconSize = VALID_ICON_SIZES.has(iconSize) ? iconSize : 'md';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'timeline',
-    card && 'timeline_card',
-    alternate && 'timeline_alternate',
-    horizontal && 'timeline_horizontal',
-    labelCol && 'timeline_label-col',
-    icon && 'timeline_icon',
-    icon && iconSize === 'sm' && 'timeline_icon-sm',
-    size === 'sm' && 'timeline_sm',
-    size === 'lg' && 'timeline_lg',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      card,
+      alternate,
+      horizontal,
+      labelCol,
+      icon,
+      iconSize: resolvedIconSize,
+      size: resolvedSize,
+      tag,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
+  const rootClass = useMemo(() => {
+    const classes = ['timeline'];
+    if (card) classes.push('timeline_card');
+    if (alternate) classes.push('timeline_alternate');
+    if (horizontal) classes.push('timeline_horizontal');
+    if (labelCol) classes.push('timeline_label-col');
+    if (icon) classes.push('timeline_icon');
+    if (icon && resolvedIconSize === 'sm') classes.push('timeline_icon-sm');
+    if (resolvedSize === 'sm') classes.push('timeline_sm');
+    if (resolvedSize === 'lg') classes.push('timeline_lg');
+    return classes;
+  }, [card, alternate, horizontal, labelCol, icon, resolvedIconSize, resolvedSize]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+  const Tag = tag || 'ol';
+
   return (
-    <Tag ref={rootRef} className={rootClass}>
+    <Tag ref={rootRef} className={cn(rootClass, className)} {...domRest}>
       {children}
     </Tag>
   );

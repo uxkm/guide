@@ -33,35 +33,36 @@ function toKebab(key) {
   return KEBAB_PROPS[key] || key.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 
-function resolveSlotContent(source) {
-  if (!source) return [];
-  if (typeof source === 'function') return resolveSlotContent(source());
+function normalizeSlotContent(source) {
+  if (source == null) return [];
+
   if (Array.isArray(source)) return source;
-  return [source];
-}
 
-function getIconPropsFromNode(node) {
-  const props = node?.props;
-  if (!props) return null;
+  if (typeof source === 'function') {
+    const resolved = source();
+    if (resolved == null) return [];
+    return Array.isArray(resolved) ? resolved : [resolved];
+  }
 
-  return {
-    name: props.name,
-    className: props.class ?? props.className,
-  };
+  if (typeof source === 'object') return [source];
+
+  return [];
 }
 
 function getSlotIconBlock(slotSource, slotName) {
-  const vnodes = resolveSlotContent(slotSource[slotName]);
+  const vnodes = normalizeSlotContent(slotSource[slotName]);
   if (!vnodes.length) return '';
 
-  const iconProps = getIconPropsFromNode(vnodes[0]);
-  if (!iconProps?.name) return '';
+  const iconProps = vnodes[0]?.props;
+  const name = iconProps?.name;
+  if (!name) return '';
 
-  const classAttr = iconProps.className ? ` class="${iconProps.className}"` : '';
+  const iconClass = iconProps?.class ?? iconProps?.className;
+  const classAttr = iconClass ? ` class="${iconClass}"` : '';
 
   return [
     `  <template #${slotName}>`,
-    `    <Icon name="${iconProps.name}"${classAttr} />`,
+    `    <Icon name="${name}"${classAttr} />`,
     '  </template>',
   ].join('\n');
 }
@@ -142,8 +143,8 @@ function formatCustomAttrs(customAttrs = {}) {
 
 export function formatButtonCode(props, slots = {}, customAttrs = {}, slotVnodes = {}) {
   const slotSource = {
-    'icon-before': slotVnodes['icon-before'] ?? slots['icon-before'],
-    'icon-after': slotVnodes['icon-after'] ?? slots['icon-after'],
+    'icon-before': slotVnodes['icon-before'] ?? slots['icon-before']?.(),
+    'icon-after': slotVnodes['icon-after'] ?? slots['icon-after']?.(),
   };
 
   const attrParts = [

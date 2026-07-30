@@ -13,16 +13,19 @@ export const dropdownProps = [
   { name: 'maxVisibleItems', type: 'number', default: '—', description: '패널에 보이는 최대 항목 수. 초과 시 dropdown_menu-scrollable로 목록 스크롤' },
   { name: 'menuWidth', type: 'string | number', default: '—', description: '패널 가로 너비 (숫자는 rem)' },
   { name: 'menuMinWidth', type: 'string | number', default: '—', description: '패널 최소 가로 너비 (숫자는 rem)' },
+  { name: 'triggerContent', type: 'ReactNode', default: '—', description: '트리거 버튼·링크 (dropdown_trigger)' },
+  { name: 'children', type: 'ReactNode', default: '—', description: '메뉴 패널 (dropdown_menu, 보통 Menu)' },
+  { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
 ];
 
-export const dropdownSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const dropdownChildColumns = [
+  { key: 'name', label: 'Prop / Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const dropdownSlots = [
-  { name: 'trigger', description: '트리거 버튼·링크 (dropdown_trigger)' },
-  { name: 'default', description: '메뉴 패널 (dropdown_menu, 보통 Menu)' },
+export const dropdownChildren = [
+  { name: 'triggerContent', description: '트리거 버튼·링크 (Vue #trigger 슬롯)' },
+  { name: 'children', description: '메뉴 패널 (dropdown_menu, 보통 Menu)' },
 ];
 
 export const dropdownClassColumns = [

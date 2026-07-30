@@ -34,7 +34,7 @@ export const dividerProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '가운데 레이블 텍스트. default 슬롯으로 대체 가능',
+    description: '가운데 레이블 텍스트. children으로 대체 가능',
   },
   {
     name: 'tag',
@@ -45,12 +45,12 @@ export const dividerProps = [
 ];
 
 export const dividerSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
 export const dividerSlots = [
-  { name: 'default', description: '레이블 텍스트 (label prop 대체)' },
+  { name: 'children', description: '레이블 텍스트 (label prop 대체, Vue default 슬롯 대응)' },
 ];
 
 export const dividerClassColumns = [

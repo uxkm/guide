@@ -13,24 +13,33 @@ export const uploadProps = [
   { name: 'fit', type: 'boolean', default: 'false', description: '콘텐츠 너비 (upload_fit)' },
   { name: 'multiple', type: 'boolean', default: 'false', description: '다중 파일 선택' },
   { name: 'accept', type: 'string', default: '—', description: 'input accept 속성' },
-  { name: 'input-id', type: 'string', default: '—', description: 'file input id' },
+  { name: 'inputId', type: 'string', default: '—', description: 'file input id' },
   { name: 'hint', type: 'string', default: '—', description: 'button·drag variant 힌트 텍스트' },
   { name: 'dragover', type: 'boolean', default: 'false', description: '드래그 오버 상태 (is-dragover)' },
   { name: 'error', type: 'boolean', default: 'false', description: '오류 (is-error)' },
+  { name: 'className', type: 'string', default: '—', description: 'upload 루트에 추가 클래스' },
+  { name: 'trigger', type: 'ReactNode', default: '—', description: '업로드 트리거 UI (children 대체)' },
+  { name: 'cards', type: 'ReactNode', default: '—', description: '이미지 카드 그리드 콘텐츠' },
   ripplePropContainer,
 ];
 
-export const uploadSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const uploadChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const uploadSlots = [
+export const uploadChildren = [
   { name: 'trigger', description: '업로드 트리거 UI (button·drag·picture-card·avatar)' },
   { name: 'hint', description: '힌트 텍스트 (hint prop 대체)' },
   { name: 'default', description: '파일 목록 (list variant)' },
   { name: 'cards', description: '이미지 카드 그리드 (picture-card)' },
 ];
+
+/** @deprecated 가이드·Storybook은 uploadChildColumns · uploadChildren 사용 */
+export const uploadSlotColumns = uploadChildColumns;
+
+/** @deprecated */
+export const uploadSlots = uploadChildren;
 
 export const uploadClassColumns = [
   { key: 'name', label: '클래스' },

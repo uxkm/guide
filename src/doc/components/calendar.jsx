@@ -1,5 +1,5 @@
 export const docMeta = {
-  title: 'Calendar | HTML Components',
+  title: 'Calendar | UXKM Guide',
   activeNav: 'calendar',
   pageTitle: 'Calendar',
 };
@@ -14,6 +14,7 @@ import CalendarNav from '@/components/CalendarNav.jsx';
 import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
 import CalendarWheel from '@/components/CalendarWheel.jsx';
 import CalendarWheelColumn from '@/components/CalendarWheelColumn.jsx';
+import Icon from '@/components/Icon.jsx';
 import ApiSection from '@/components/guide/ApiSection.jsx';
 import ApiTable from '@/components/guide/ApiTable.jsx';
 import DemoSection from '@/components/guide/DemoSection.jsx';
@@ -30,6 +31,7 @@ import {
   calendarHeaderPropColumns,
   calendarHeaderProps,
   calendarHeaderSlots,
+  calendarSubSlotColumns,
   calendarMonthPropColumns,
   calendarMonthProps,
   calendarNavPropColumns,
@@ -64,6 +66,428 @@ const wheelYears = Array.from({ length: 11 }, (_, i) => `${2019 + i}년`);
 const wheelMonths = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
 const wheelDays = Array.from({ length: 31 }, (_, i) => `${i + 1}일`);
 
+const basicCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function BasicExample() {
+  return (
+    <Calendar
+      ariaLabel="2024년 6월"
+      header={<CalendarHeader title="2024년 6월" />}
+      weekdays={<CalendarWeekdays />}
+    >
+      <CalendarMonth />
+    </Calendar>
+  );
+}`;
+
+const noHeaderCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function NoHeaderExample() {
+  return (
+    <Calendar noHeader ariaLabel="2024년 6월" weekdays={<CalendarWeekdays />}>
+      <CalendarMonth />
+    </Calendar>
+  );
+}`;
+
+const minimalCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+
+export function MinimalExample() {
+  return (
+    <Calendar minimal compact borderless ariaLabel="2024년 6월 날짜만">
+      <CalendarMonth />
+    </Calendar>
+  );
+}`;
+
+const weekCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarNav from '@/components/CalendarNav.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+import { JUNE_WEEK_DAYS, JUNE_WEEK_LABEL } from '@/data/calendar-demo';
+
+export function WeekExample() {
+  return (
+    <>
+      <Calendar week shadow ariaLabel={\`2024년 \${JUNE_WEEK_LABEL}\`}>
+        <CalendarNav label={JUNE_WEEK_LABEL} />
+        <CalendarWeekdays />
+        <CalendarMonth week days={JUNE_WEEK_DAYS} />
+      </Calendar>
+      <Calendar week compact borderless ariaLabel={\`2024년 \${JUNE_WEEK_LABEL} (컴팩트)\`}>
+        <CalendarNav label={JUNE_WEEK_LABEL} />
+        <CalendarMonth week days={JUNE_WEEK_DAYS} />
+      </Calendar>
+    </>
+  );
+}`;
+
+const wheelCode = `import Button from '@/components/Button.jsx';
+import CalendarGroup from '@/components/CalendarGroup.jsx';
+import CalendarWheel from '@/components/CalendarWheel.jsx';
+import CalendarWheelColumn from '@/components/CalendarWheelColumn.jsx';
+
+const wheelYears = Array.from({ length: 11 }, (_, i) => \`\${2019 + i}년\`);
+const wheelMonths = Array.from({ length: 12 }, (_, i) => \`\${i + 1}월\`);
+const wheelDays = Array.from({ length: 31 }, (_, i) => \`\${i + 1}일\`);
+
+export function WheelExample() {
+  return (
+    <>
+      <CalendarWheel
+        shadow
+        title="날짜 선택"
+        cancelLabel="취소"
+        confirmLabel="완료"
+        ariaLabel="날짜 휠 선택"
+      >
+        <CalendarWheelColumn
+          label="년"
+          items={wheelYears}
+          selected="2024년"
+          prevLabel="이전 년"
+          nextLabel="다음 년"
+        />
+        <CalendarWheelColumn
+          label="월"
+          items={wheelMonths}
+          selected="6월"
+          prevLabel="이전 월"
+          nextLabel="다음 월"
+        />
+        <CalendarWheelColumn
+          label="일"
+          items={wheelDays}
+          selected="15일"
+          prevLabel="이전 일"
+          nextLabel="다음 일"
+        />
+      </CalendarWheel>
+      <CalendarWheel
+        borderless
+        footer
+        toolbar={false}
+        ariaLabel="날짜 휠 선택 (하단 버튼)"
+        footerContent={
+          <>
+            <Button variant="ghost" size="sm" label="취소" />
+            <Button variant="filled" color="primary" size="sm" label="확인" />
+          </>
+        }
+      >
+        <CalendarWheelColumn
+          label="년"
+          items={['2024년']}
+          selected="2024년"
+          prevLabel="이전 년"
+          nextLabel="다음 년"
+        />
+        <CalendarWheelColumn
+          label="월"
+          items={['6월']}
+          selected="6월"
+          prevLabel="이전 월"
+          nextLabel="다음 월"
+        />
+        <CalendarWheelColumn
+          label="일"
+          items={['15일']}
+          selected="15일"
+          prevLabel="이전 일"
+          nextLabel="다음 일"
+        />
+      </CalendarWheel>
+      <CalendarGroup className="calendar_group-center">
+        <CalendarWheel shadow title="년도" ariaLabel="년도 선택">
+          <CalendarWheelColumn
+            label="년"
+            items={['2024년']}
+            selected="2024년"
+            prevLabel="이전 년"
+            nextLabel="다음 년"
+          />
+        </CalendarWheel>
+        <CalendarWheel
+          shadow
+          title="년·월"
+          ariaLabel="년·월 선택"
+          toolbar
+          toolbarContent={<span className="calendar_wheel-title">년·월</span>}
+        >
+          <CalendarWheelColumn label="년" items={['2024년']} selected="2024년" showSteps={false} />
+          <CalendarWheelColumn label="월" items={['6월']} selected="6월" showSteps={false} />
+        </CalendarWheel>
+        <CalendarWheel
+          shadow
+          title="월·일"
+          ariaLabel="월·일 선택"
+          toolbar
+          toolbarContent={<span className="calendar_wheel-title">월·일</span>}
+        >
+          <CalendarWheelColumn label="월" items={['6월']} selected="6월" showSteps={false} />
+          <CalendarWheelColumn label="일" items={['15일']} selected="15일" showSteps={false} />
+        </CalendarWheel>
+      </CalendarGroup>
+    </>
+  );
+}`;
+
+const rangeCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function RangeExample() {
+  return (
+    <Calendar
+      ariaLabel="2024년 6월 범위 선택"
+      header={<CalendarHeader title="2024년 6월" />}
+      weekdays={<CalendarWeekdays />}
+    >
+      <CalendarMonth rangeStart={10} rangeEnd={18} />
+    </Calendar>
+  );
+}`;
+
+const eventCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+import { EVENT_DAYS } from '@/data/calendar-demo';
+
+export function EventExample() {
+  return (
+    <Calendar
+      weekends
+      ariaLabel="2024년 6월 이벤트"
+      header={<CalendarHeader title="2024년 6월" showNav={false} />}
+      weekdays={<CalendarWeekdays />}
+    >
+      <CalendarMonth events={EVENT_DAYS} weekends />
+    </Calendar>
+  );
+}`;
+
+const skinCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarGroup from '@/components/CalendarGroup.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function SkinExample() {
+  return (
+    <CalendarGroup>
+      <Calendar
+        borderless
+        ariaLabel="Borderless"
+        header={<CalendarHeader title="Borderless" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={8} selected={10} />
+      </Calendar>
+      <Calendar
+        ghost
+        ariaLabel="Ghost"
+        header={<CalendarHeader title="Ghost" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={8} selected={10} />
+      </Calendar>
+      <Calendar
+        shadow
+        ariaLabel="Shadow"
+        header={<CalendarHeader title="Shadow" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={8} selected={10} />
+      </Calendar>
+    </CalendarGroup>
+  );
+}`;
+
+const sizeCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarGroup from '@/components/CalendarGroup.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function SizeExample() {
+  return (
+    <CalendarGroup>
+      <Calendar
+        size="sm"
+        ariaLabel="Small"
+        header={<CalendarHeader title="Small" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={7} selected={9} />
+      </Calendar>
+      <Calendar
+        compact
+        ariaLabel="Compact"
+        header={<CalendarHeader title="Compact" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={7} selected={9} />
+      </Calendar>
+      <Calendar
+        size="lg"
+        ariaLabel="Large"
+        header={<CalendarHeader title="Large" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={7} selected={9} />
+      </Calendar>
+    </CalendarGroup>
+  );
+}`;
+
+const footerCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarFooter from '@/components/CalendarFooter.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+
+export function FooterExample() {
+  return (
+    <Calendar
+      shadow
+      ariaLabel="2024년 6월 푸터 포함"
+      header={<CalendarHeader title="2024년 6월" />}
+      weekdays={<CalendarWeekdays />}
+      footer={<CalendarFooter />}
+    >
+      <CalendarMonth />
+    </Calendar>
+  );
+}`;
+
+const dualCode = `import Button from '@/components/Button.jsx';
+import Calendar from '@/components/Calendar.jsx';
+import CalendarGroup from '@/components/CalendarGroup.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+import Icon from '@/components/Icon.jsx';
+import { julyDualDays, juneDualDays } from '@/data/calendar-demo';
+
+const dualJuneDays = juneDualDays();
+const dualJulyDays = julyDualDays();
+
+export function DualExample() {
+  return (
+    <CalendarGroup>
+      <Calendar
+        compact
+        shadow
+        weekends
+        ariaLabel="2024년 6월"
+        header={
+          <div className="calendar_header">
+            <Button
+              variant="ghost"
+              size="sm"
+              iconOnly
+              ariaLabel="이전 달"
+              iconBefore={<Icon name="chevron-left" size="sm" />}
+            />
+            <span className="calendar_title">2024년 6월</span>
+          </div>
+        }
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth days={dualJuneDays} weekends />
+      </Calendar>
+      <Calendar
+        compact
+        shadow
+        weekends
+        ariaLabel="2024년 7월"
+        header={
+          <div className="calendar_header">
+            <span className="calendar_title">2024년 7월</span>
+            <Button
+              variant="ghost"
+              size="sm"
+              iconOnly
+              ariaLabel="다음 달"
+              iconBefore={<Icon name="chevron-right" size="sm" />}
+            />
+          </div>
+        }
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth days={dualJulyDays} weekends />
+      </Calendar>
+    </CalendarGroup>
+  );
+}`;
+
+const agendaCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+
+export function AgendaExample() {
+  return (
+    <>
+      <Calendar
+        agenda
+        shadow
+        role="feed"
+        ariaLabel="2024년 6월 일정"
+        header={<CalendarHeader title="6월 14일 ~ 20일" prevLabel="이전 주" nextLabel="다음 주" />}
+      >
+        <ol className="calendar_agenda-list">{/* … */}</ol>
+      </Calendar>
+      <Calendar
+        agenda
+        borderless
+        className="calendar_agenda_compact"
+        role="feed"
+        ariaLabel="2024년 6월 15일 일정 (컴팩트)"
+        header={<CalendarHeader title="6월 15일 (토)" showNav={false} />}
+      >
+        <ol className="calendar_agenda-list">{/* … */}</ol>
+      </Calendar>
+    </>
+  );
+}`;
+
+const stateCode = `import Calendar from '@/components/Calendar.jsx';
+import CalendarHeader from '@/components/CalendarHeader.jsx';
+import CalendarMonth from '@/components/CalendarMonth.jsx';
+import CalendarWeekdays from '@/components/CalendarWeekdays.jsx';
+import { disabledPartialDays } from '@/data/calendar-demo';
+
+const disabledDays = disabledPartialDays(14, { today: 7, selected: 9 });
+
+export function StateExample() {
+  return (
+    <>
+      <Calendar
+        readonly
+        ariaLabel="읽기 전용 캘린더"
+        header={<CalendarHeader title="읽기 전용" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth partial={14} today={7} selected={9} readonly />
+      </Calendar>
+      <Calendar
+        disabled
+        ariaLabel="비활성 캘린더"
+        header={<CalendarHeader title="비활성" showNav={false} />}
+        weekdays={<CalendarWeekdays />}
+      >
+        <CalendarMonth days={disabledDays} />
+      </Calendar>
+    </>
+  );
+}`;
+
 export default function CalendarDoc() {
   return (
     <>
@@ -76,16 +500,9 @@ export default function CalendarDoc() {
           headingId="basic-heading"
           title="기본"
           description="calendar_header · calendar_weekdays · calendar_grid로 월간 뷰를 구성합니다. is-today · is-selected · is-disabled · is-other-month로 날짜 상태를 표현합니다."
+          code={basicCode}
         >
-          <Calendar ariaLabel="2024년 6월" header={(
-              <>
-              <CalendarHeader title="2024년 6월" />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+          <Calendar ariaLabel="2024년 6월" header={<CalendarHeader title="2024년 6월" />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth />
       </Calendar>
         </DemoSection>
@@ -94,12 +511,9 @@ export default function CalendarDoc() {
           headingId="no-header-heading"
           title="헤더 없음"
           description="calendar_no-header로 월·요일 제목 없이 요일 행과 날짜 그리드만 표시합니다. 팝오버·사이드 패널 등 상위 UI에서 제목을 제공할 때 사용합니다."
+          code={noHeaderCode}
         >
-          <Calendar noHeader ariaLabel="2024년 6월" weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+          <Calendar noHeader ariaLabel="2024년 6월" weekdays={<CalendarWeekdays />}>
       <CalendarMonth />
       </Calendar>
         </DemoSection>
@@ -108,6 +522,7 @@ export default function CalendarDoc() {
           headingId="minimal-heading"
           title="날짜만"
           description="calendar_minimal로 헤더·요일 행 없이 날짜 그리드만 표시합니다. 인라인 날짜 선택·좁은 공간에 적합합니다."
+          code={minimalCode}
         >
           <Calendar minimal compact borderless ariaLabel="2024년 6월 날짜만">
             <CalendarMonth />
@@ -119,6 +534,7 @@ export default function CalendarDoc() {
           title="주간"
           description="calendar_week · calendar_nav으로 한 주만 표시하고 이전·다음 주 버튼으로 이동합니다. calendar_grid-week는 7열 단일 행 그리드입니다."
           stack
+          code={weekCode}
         >
           <Calendar week shadow ariaLabel={`2024년 ${JUNE_WEEK_LABEL}`}>
             <CalendarNav label={JUNE_WEEK_LABEL} />
@@ -137,6 +553,7 @@ export default function CalendarDoc() {
           title="휠 (iOS 스타일)"
           description="calendar_wheel · calendar_wheel-step(이전/다음) · calendar_wheel-columns으로 년·월·일 휠 피커를 구성합니다. 필요한 열만 배치하면 열 수에 맞춰 가로 너비가 줄고 가운데 정렬됩니다."
           stack
+          code={wheelCode}
         >
           <CalendarWheel
             shadow
@@ -168,12 +585,18 @@ export default function CalendarDoc() {
             />
           </CalendarWheel>
 
-          <CalendarWheel borderless ariaLabel="날짜 휠 선택 (하단 버튼)" toolbar={false} footer={(
+          <CalendarWheel
+            borderless
+            footer
+            toolbar={false}
+            ariaLabel="날짜 휠 선택 (하단 버튼)"
+            footerContent={
               <>
                 <Button variant="ghost" size="sm" label="취소" />
                 <Button variant="filled" color="primary" size="sm" label="확인" />
               </>
-            )}>
+            }
+          >
             <CalendarWheelColumn label="년" items={['2024년']} selected="2024년" prevLabel="이전 년" nextLabel="다음 년" />
             <CalendarWheelColumn label="월" items={['6월']} selected="6월" prevLabel="이전 월" nextLabel="다음 월" />
             <CalendarWheelColumn label="일" items={['15일']} selected="15일" prevLabel="이전 일" nextLabel="다음 일" />
@@ -183,19 +606,23 @@ export default function CalendarDoc() {
             <CalendarWheel shadow title="년도" ariaLabel="년도 선택">
               <CalendarWheelColumn label="년" items={['2024년']} selected="2024년" prevLabel="이전 년" nextLabel="다음 년" />
             </CalendarWheel>
-            <CalendarWheel shadow title="년·월" ariaLabel="년·월 선택" toolbar={(
-              <>
-                <span className="calendar_wheel-title">년·월</span>
-              </>
-            )}>
+            <CalendarWheel
+              shadow
+              title="년·월"
+              ariaLabel="년·월 선택"
+              toolbar
+              toolbarContent={<span className="calendar_wheel-title">년·월</span>}
+            >
               <CalendarWheelColumn label="년" items={['2024년']} selected="2024년" showSteps={false} />
               <CalendarWheelColumn label="월" items={['6월']} selected="6월" showSteps={false} />
             </CalendarWheel>
-            <CalendarWheel shadow title="월·일" ariaLabel="월·일 선택" toolbar={(
-              <>
-                <span className="calendar_wheel-title">월·일</span>
-              </>
-            )}>
+            <CalendarWheel
+              shadow
+              title="월·일"
+              ariaLabel="월·일 선택"
+              toolbar
+              toolbarContent={<span className="calendar_wheel-title">월·일</span>}
+            >
               <CalendarWheelColumn label="월" items={['6월']} selected="6월" showSteps={false} />
               <CalendarWheelColumn label="일" items={['15일']} selected="15일" showSteps={false} />
             </CalendarWheel>
@@ -206,16 +633,9 @@ export default function CalendarDoc() {
           headingId="range-heading"
           title="범위 선택"
           description="is-range-start · is-in-range · is-range-end로 기간 선택을 표현합니다. 시작·종료일은 is-selected와 함께 사용합니다."
+          code={rangeCode}
         >
-          <Calendar ariaLabel="2024년 6월 범위 선택" header={(
-              <>
-              <CalendarHeader title="2024년 6월" />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+          <Calendar ariaLabel="2024년 6월 범위 선택" header={<CalendarHeader title="2024년 6월" />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth rangeStart={10} rangeEnd={18} />
       </Calendar>
         </DemoSection>
@@ -224,16 +644,9 @@ export default function CalendarDoc() {
           headingId="event-heading"
           title="이벤트 마커"
           description="has-event로 일정이 있는 날짜에 점 표시를 추가합니다. 선택·범위 상태와 함께 사용할 수 있습니다."
+          code={eventCode}
         >
-          <Calendar weekends ariaLabel="2024년 6월 이벤트" header={(
-              <>
-              <CalendarHeader title="2024년 6월" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+          <Calendar weekends ariaLabel="2024년 6월 이벤트" header={<CalendarHeader title="2024년 6월" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth events={EVENT_DAYS} weekends />
       </Calendar>
         </DemoSection>
@@ -242,39 +655,16 @@ export default function CalendarDoc() {
           headingId="skin-heading"
           title="스킨"
           description="calendar_borderless · calendar_ghost · calendar_shadow로 외형을 조절합니다."
+          code={skinCode}
         >
           <CalendarGroup>
-            <Calendar borderless ariaLabel="Borderless" header={(
-              <>
-              <CalendarHeader title="Borderless" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar borderless ariaLabel="Borderless" header={<CalendarHeader title="Borderless" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={8} selected={10} />
       </Calendar>
-            <Calendar ghost ariaLabel="Ghost" header={(
-              <>
-              <CalendarHeader title="Ghost" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar ghost ariaLabel="Ghost" header={<CalendarHeader title="Ghost" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={8} selected={10} />
       </Calendar>
-            <Calendar shadow ariaLabel="Shadow" header={(
-              <>
-              <CalendarHeader title="Shadow" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar shadow ariaLabel="Shadow" header={<CalendarHeader title="Shadow" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={8} selected={10} />
       </Calendar>
           </CalendarGroup>
@@ -284,39 +674,16 @@ export default function CalendarDoc() {
           headingId="size-heading"
           title="크기"
           description="calendar_sm · calendar_compact · calendar_lg로 셀 크기와 패딩을 조절합니다."
+          code={sizeCode}
         >
           <CalendarGroup>
-            <Calendar size="sm" ariaLabel="Small" header={(
-              <>
-              <CalendarHeader title="Small" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar size="sm" ariaLabel="Small" header={<CalendarHeader title="Small" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={7} selected={9} />
       </Calendar>
-            <Calendar compact ariaLabel="Compact" header={(
-              <>
-              <CalendarHeader title="Compact" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar compact ariaLabel="Compact" header={<CalendarHeader title="Compact" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={7} selected={9} />
       </Calendar>
-            <Calendar size="lg" ariaLabel="Large" header={(
-              <>
-              <CalendarHeader title="Large" showNav={false} />
-              </>
-            )} weekdays={(
-              <>
-              <CalendarWeekdays />
-              </>
-            )}>
+            <Calendar size="lg" ariaLabel="Large" header={<CalendarHeader title="Large" showNav={false} />} weekdays={<CalendarWeekdays />}>
       <CalendarMonth partial={14} today={7} selected={9} />
       </Calendar>
           </CalendarGroup>
@@ -326,18 +693,16 @@ export default function CalendarDoc() {
           headingId="footer-heading"
           title="푸터"
           description="calendar_footer로 오늘 이동·초기화·확인 등 하단 액션을 배치합니다."
+          code={footerCode}
         >
-          <Calendar shadow ariaLabel="2024년 6월 푸터 포함">
-
-              <CalendarHeader title="2024년 6월" />
-
-
-              <CalendarWeekdays />
-
+          <Calendar
+            shadow
+            ariaLabel="2024년 6월 푸터 포함"
+            header={<CalendarHeader title="2024년 6월" />}
+            weekdays={<CalendarWeekdays />}
+            footer={<CalendarFooter />}
+          >
             <CalendarMonth />
-
-              <CalendarFooter />
-
           </Calendar>
         </DemoSection>
 
@@ -345,38 +710,49 @@ export default function CalendarDoc() {
           headingId="dual-heading"
           title="이중 패널"
           description="calendar_group으로 두 달을 나란히 배치합니다. 기간 선택·예약 UI에 사용합니다."
+          code={dualCode}
         >
           <CalendarGroup>
-            <Calendar compact shadow weekends ariaLabel="2024년 6월">
-
+            <Calendar
+              compact
+              shadow
+              weekends
+              ariaLabel="2024년 6월"
+              header={
                 <div className="calendar_header">
-                  <Button variant="ghost" size="sm" iconOnly ariaLabel="이전 달">
-
-                      <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden={true}><path d="M15 18l-6-6 6-6" /></svg>
-
-                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    iconOnly
+                    ariaLabel="이전 달"
+                    iconBefore={<Icon name="chevron-left" size="sm" />}
+                  />
                   <span className="calendar_title">2024년 6월</span>
                 </div>
-
-
-                <CalendarWeekdays />
-
+              }
+              weekdays={<CalendarWeekdays />}
+            >
               <CalendarMonth days={dualJuneDays} weekends />
             </Calendar>
-            <Calendar compact shadow weekends ariaLabel="2024년 7월">
-
+            <Calendar
+              compact
+              shadow
+              weekends
+              ariaLabel="2024년 7월"
+              header={
                 <div className="calendar_header">
                   <span className="calendar_title">2024년 7월</span>
-                  <Button variant="ghost" size="sm" iconOnly ariaLabel="다음 달">
-
-                      <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden={true}><path d="M9 18l6-6-6-6" /></svg>
-
-                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    iconOnly
+                    ariaLabel="다음 달"
+                    iconBefore={<Icon name="chevron-right" size="sm" />}
+                  />
                 </div>
-
-
-                <CalendarWeekdays />
-
+              }
+              weekdays={<CalendarWeekdays />}
+            >
               <CalendarMonth days={dualJulyDays} weekends />
             </Calendar>
           </CalendarGroup>
@@ -387,6 +763,7 @@ export default function CalendarDoc() {
           title="세로 일정"
           description="calendar_agenda · calendar_agenda-list · calendar_agenda-day로 날짜별 일정을 세로로 표시합니다. calendar_agenda-event에 시간·제목·설명을 담습니다."
           stack
+          code={agendaCode}
         >
           <Calendar agenda shadow role="feed" ariaLabel="2024년 6월 일정">
 
@@ -535,6 +912,7 @@ export default function CalendarDoc() {
           title="상태"
           description="calendar_readonly는 날짜 선택을 막고, is-disabled는 캘린더 전체를 비활성화합니다."
           stack
+          code={stateCode}
         >
           <Calendar readonly ariaLabel="읽기 전용 캘린더">
 
@@ -596,25 +974,25 @@ export default function CalendarDoc() {
           <ApiTable columns={calendarWheelColumnPropColumns} rows={calendarWheelColumnProps} codeColumn="name" />
         </ApiSection>
 
-        <ApiSection headingId="api-slots-heading" title="API · Calendar Slots">
+        <ApiSection headingId="api-children-heading" title="API · Calendar Children">
           <ApiTable columns={calendarSlotColumns} rows={calendarSlots} codeColumn="name" />
         </ApiSection>
 
-        <ApiSection headingId="api-header-slots-heading" title="API · CalendarHeader · Footer · Group Slots">
-          <ApiTable columns={calendarSlotColumns} rows={calendarHeaderSlots} codeColumn="name" />
-          <ApiTable columns={calendarSlotColumns} rows={calendarFooterSlots} codeColumn="name" style={{ marginTop: 'var(--space-md)' }} />
-          <ApiTable columns={calendarSlotColumns} rows={calendarGroupSlots} codeColumn="name" style={{ marginTop: 'var(--space-md)' }} />
+        <ApiSection headingId="api-header-slots-heading" title="API · CalendarHeader · Footer · Group Children">
+          <ApiTable columns={calendarSubSlotColumns} rows={calendarHeaderSlots} codeColumn="name" />
+          <ApiTable columns={calendarSubSlotColumns} rows={calendarFooterSlots} codeColumn="name" style={{ marginTop: 'var(--space-md)' }} />
+          <ApiTable columns={calendarSubSlotColumns} rows={calendarGroupSlots} codeColumn="name" style={{ marginTop: 'var(--space-md)' }} />
         </ApiSection>
 
-        <ApiSection headingId="api-grid-slots-heading" title="API · CalendarGrid · CalendarWheel Slots">
-          <ApiTable columns={calendarSlotColumns} rows={calendarGridSlots} codeColumn="name" />
+        <ApiSection headingId="api-grid-slots-heading" title="API · CalendarGrid · CalendarWheel Children">
+          <ApiTable columns={calendarSubSlotColumns} rows={calendarGridSlots} codeColumn="name" />
           <ApiTable columns={calendarSlotColumns} rows={calendarWheelSlots} codeColumn="name" style={{ marginTop: 'var(--space-md)' }} />
         </ApiSection>
 
         <ApiSection
           headingId="api-classes-heading"
           title="클래스 · 속성"
-          description="Vue 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
+          description="React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
         >
           <ApiTable columns={calendarClassColumns} rows={calendarClasses} codeColumn="name" />
         </ApiSection>

@@ -4,6 +4,8 @@ import CalendarGrid from '@/components/CalendarGrid.jsx';
 import { useComponentDemoCode } from '@/hooks/useDemoCode';
 import { june2024Days, partialMonthDays } from '@/data/calendar-demo';
 import { formatCalendarMonthCode } from '@/utils/format-calendar-month-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 export default function CalendarMonth({
   days,
@@ -18,30 +20,65 @@ export default function CalendarMonth({
   partial,
   week,
   readonly,
+  className,
+  ...rest
 }) {
   const rootRef = useRef(null);
 
   useComponentDemoCode(
     (monthProps, _slots, monthAttrs) => formatCalendarMonthCode(monthProps, monthAttrs),
-    { days, preset, selected, today, disabled, events, rangeStart, rangeEnd, weekends, partial, week, readonly },
+    {
+      days,
+      preset,
+      selected,
+      today,
+      disabled,
+      events,
+      rangeStart,
+      rangeEnd,
+      weekends,
+      partial,
+      week,
+      readonly,
+    },
     {},
     rootRef,
-    {},
+    { className, ...rest },
   );
 
   const resolvedDays = useMemo(() => {
     if (days?.length) return days;
 
     if (partial) {
-      return partialMonthDays(partial, { today, selected });
+      return partialMonthDays(partial, {
+        today,
+        selected,
+      });
     }
 
     if (preset === 'june2024' || !preset) {
-      return june2024Days({ selected, today, disabled, events, rangeStart, rangeEnd });
+      return june2024Days({
+        selected,
+        today,
+        disabled,
+        events,
+        rangeStart,
+        rangeEnd,
+      });
     }
 
     return [];
-  }, [days, partial, preset, selected, today, disabled, events, rangeStart, rangeEnd]);
+  }, [
+    days,
+    partial,
+    preset,
+    selected,
+    today,
+    disabled,
+    events,
+    rangeStart,
+    rangeEnd,
+  ]);
 
   const displayDays = useMemo(() => {
     if (!weekends) return resolvedDays;
@@ -52,8 +89,16 @@ export default function CalendarMonth({
     }));
   }, [resolvedDays, weekends]);
 
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   return (
-    <div ref={rootRef} className="calendar_month" style={{ display: 'contents' }}>
+    <div
+      ref={rootRef}
+      className={cn('calendar_month', className)}
+      style={{ display: 'contents' }}
+      {...domRest}
+    >
       <CalendarGrid week={week}>
         {displayDays.map((cell, index) => (
           <CalendarDay key={`${cell.day}-${index}`} {...cell} readonly={readonly} />

@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { cn } from '@/utils/cn';
-import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInputDemoCode } from '@/hooks/useDemoCode';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 export default function Input({
   size = 'md',
@@ -10,74 +12,91 @@ export default function Input({
   placeholder,
   type = 'text',
   block,
-  value: valueProp,
-  modelValue,
-  defaultValue,
+  value,
+  defaultValue = '',
   prefix,
   suffix,
-  readOnly,
-  readonly,
-  ariaLabel,
   className,
   onChange,
-  onInput,
+  onPaste,
   ...rest
 }) {
   const rootRef = useRef(null);
-  const resolvedValue = valueProp ?? modelValue;
-  const props = { size, disabled, error, placeholder, type, block, modelValue: resolvedValue };
-  const [inputValue, setInputValue] = useState(resolvedValue ?? defaultValue ?? '');
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const hasAddon = prefix != null || suffix != null;
 
-  useInputDemoCode(props, rootRef, { class: className, ...rest });
+  const [inputValue, setInputValue] = useState(() => value ?? defaultValue ?? '');
 
   useEffect(() => {
-    if (resolvedValue !== undefined) {
-      setInputValue(resolvedValue ?? '');
+    if (value !== undefined) {
+      setInputValue(value ?? '');
     }
-  }, [resolvedValue]);
+  }, [value]);
 
-  const hasAddon = Boolean(prefix || suffix);
-
-  const inputClass = cn(
-    'input',
-    size === 'sm' && 'input_sm',
-    size === 'lg' && 'input_lg',
-    block && 'input_block',
-    error && 'is-error',
-    type === 'password' && inputValue.length > 0 && 'input_masked',
+  useInputDemoCode(
+    {
+      size: resolvedSize,
+      disabled,
+      error,
+      placeholder,
+      type,
+      block,
+    },
+    rootRef,
+    { className, ...rest },
   );
 
-  const domRest = normalizeDomProps({ ...rest, ariaLabel });
+  const inputClass = useMemo(() => {
+    const classes = ['input'];
+    if (resolvedSize === 'sm') classes.push('input_sm');
+    if (resolvedSize === 'lg') classes.push('input_lg');
+    if (block) classes.push('input_block');
+    if (error) classes.push('is-error');
+    if (type === 'password' && String(inputValue).length > 0) {
+      classes.push('input_masked');
+    }
+    return classes;
+  }, [resolvedSize, block, error, type, inputValue]);
 
-  const isNumericOnly = domRest.inputMode === 'numeric';
+  const {
+    class: _ignoredClassAttr,
+    onChange: _ignoredOnChange,
+    onPaste: _ignoredOnPaste,
+    value: _ignoredValue,
+    defaultValue: _ignoredDefaultValue,
+    ...restForDom
+  } = rest;
+
+  const domRest = normalizeDomProps(restForDom);
+  const inputMode = domRest.inputMode ?? domRest.inputmode;
+  const isNumericOnly = inputMode === 'numeric';
 
   function getMaxLength() {
-    const max = domRest.maxLength;
+    const max = domRest.maxLength ?? domRest.maxlength;
     return max ? Number(max) : 0;
   }
 
-  function sanitizeValue(value) {
+  function sanitizeValue(next) {
     if (isNumericOnly) {
-      let next = value.replace(/\D/g, '');
+      let sanitized = String(next).replace(/\D/g, '');
       const maxLength = getMaxLength();
-      if (maxLength > 0) next = next.slice(0, maxLength);
-      return next;
+      if (maxLength > 0) sanitized = sanitized.slice(0, maxLength);
+      return sanitized;
     }
 
     if (type === 'number') {
-      return value.replace(/[a-zA-ZeE+]/g, '');
+      return String(next).replace(/[a-zA-ZeE+-]/g, '');
     }
 
-    return value;
+    return next;
   }
 
-  function applyValue(event, value) {
-    if (value !== event.target.value) {
-      event.target.value = value;
+  function applyValue(event, next) {
+    if (next !== event.target.value) {
+      event.target.value = next;
     }
-    setInputValue(value);
+    setInputValue(next);
     onChange?.(event);
-    onInput?.(event);
   }
 
   function handleChange(event) {
@@ -85,7 +104,8 @@ export default function Input({
   }
 
   function handlePaste(event) {
-    if (!isNumericOnly) return;
+    onPaste?.(event);
+    if (event.defaultPrevented || !isNumericOnly) return;
 
     event.preventDefault();
 
@@ -100,32 +120,31 @@ export default function Input({
     applyValue(event, sanitizeValue(merged));
   }
 
-  const resolvedReadOnly = readOnly ?? readonly;
-
-  const inputProps = {
-    type,
-    className: hasAddon ? inputClass : cn(inputClass, className),
-    placeholder,
-    disabled,
-    readOnly: resolvedReadOnly,
-    value: inputValue,
-    onChange: handleChange,
-    onInput: handleChange,
-    onPaste: handlePaste,
-    ...domRest,
-    'aria-invalid': error ? 'true' : domRest['aria-invalid'],
-  };
+  const inputEl = (
+    <input
+      ref={hasAddon ? undefined : rootRef}
+      type={type}
+      className={cn(inputClass, className)}
+      placeholder={placeholder}
+      disabled={disabled}
+      value={inputValue}
+      aria-invalid={error ? 'true' : undefined}
+      onChange={handleChange}
+      onPaste={handlePaste}
+      {...domRest}
+    />
+  );
 
   if (hasAddon) {
     return (
       <div ref={rootRef} className={cn('input_group', className)}>
-        {prefix ? (
+        {prefix != null ? (
           <span className="input_group-addon" aria-hidden="true" data-demo-slot="prefix">
             {prefix}
           </span>
         ) : null}
-        <input {...inputProps} />
-        {suffix ? (
+        {inputEl}
+        {suffix != null ? (
           <span className="input_group-addon" data-demo-slot="suffix">
             {suffix}
           </span>
@@ -134,5 +153,5 @@ export default function Input({
     );
   }
 
-  return <input ref={rootRef} {...inputProps} />;
+  return inputEl;
 }

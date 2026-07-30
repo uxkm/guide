@@ -6,33 +6,41 @@ export const tooltipPropColumns = [
 ];
 
 export const tooltipProps = [
-  { name: 'content', type: 'string', default: '—', description: '말풍선 텍스트. default 슬롯으로 대체' },
+  { name: 'content', type: 'string', default: '—', description: '말풍선 텍스트. children으로 대체' },
   { name: 'placement', type: `'top' | 'top-start' | 'top-end' | 'left' | 'right' | 'start' | 'end'`, default: '—', description: 'tooltip_placement-*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'tooltip_sm · tooltip_lg' },
   { name: 'offset', type: `'none' | 'sm' | 'md' | 'lg'`, default: 'md', description: '전 방향 동일 간격. tooltip_offset-* · --tooltip-offset' },
-  { name: 'offset-top · offset-right · offset-bottom · offset-left', type: `'none' | 'sm' | 'md' | 'lg'`, default: '—', description: '방향별 간격. tooltip_offset-top-* 등 · --tooltip-offset-*' },
+  { name: 'offsetTop · offsetRight · offsetBottom · offsetLeft', type: `'none' | 'sm' | 'md' | 'lg'`, default: '—', description: '방향별 간격. tooltip_offset-top-* 등 · --tooltip-offset-*' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 (is-open)' },
   { name: 'inverse', type: 'boolean', default: 'false', description: '어두운 배경 (tooltip_inverse)' },
-  { name: 'no-arrow', type: 'boolean', default: 'false', description: '화살표 숨김' },
-  { name: 'arrow-anchor', type: `'content' | 'target' | 'mixed'`, default: 'content', description: '화살표 기준. target=화살표만, mixed=말풍선·화살표 독립' },
-  { name: 'panel-align', type: `'start' | 'center' | 'end'`, default: 'center', description: '말풍선 교차축 정렬. tooltip_panel-align-* · data-panel-align' },
-  { name: 'arrow-target-align', type: `'center' | 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end'`, default: 'center', description: 'target·mixed 시 트리거 내 화살표 위치' },
+  { name: 'noArrow', type: 'boolean', default: 'false', description: '화살표 숨김' },
+  { name: 'arrowAnchor', type: `'content' | 'target' | 'mixed'`, default: 'content', description: '화살표 기준. target=화살표만, mixed=말풍선·화살표 독립' },
+  { name: 'panelAlign', type: `'start' | 'center' | 'end'`, default: 'center', description: '말풍선 교차축 정렬. tooltip_panel-align-* · data-panel-align' },
+  { name: 'arrowTargetAlign', type: `'center' | 'top' | 'bottom' | 'left' | 'right' | 'start' | 'end'`, default: 'center', description: 'target·mixed 시 트리거 내 화살표 위치' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '트리거 비활성' },
   { name: 'trigger', type: `'hover' | 'click'`, default: 'hover', description: 'click 시 data-tooltip-trigger="click"' },
   { name: 'interactive', type: 'boolean', default: 'true', description: 'false면 data-tooltip 미부여' },
   { name: 'closable', type: 'boolean', default: 'click 시 true', description: '말풍선 닫기 버튼. hover 트리거는 기본 false' },
-  { name: 'close-label', type: 'string', default: '닫기', description: '닫기 버튼 aria-label' },
+  { name: 'closeLabel', type: 'string', default: '닫기', description: '닫기 버튼 aria-label' },
+  { name: 'triggerContent', type: 'ReactNode', default: '—', description: '트리거 UI (Vue #trigger 슬롯 대응)' },
+  { name: 'className', type: 'string', default: '—', description: 'tooltip 루트에 추가 클래스' },
 ];
 
-export const tooltipSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const tooltipChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const tooltipSlots = [
-  { name: 'trigger', description: '트리거 요소' },
-  { name: 'default', description: '말풍선 텍스트 (content 대체)' },
+export const tooltipChildren = [
+  { name: 'triggerContent', description: '트리거 요소 (Vue #trigger 슬롯 대응)' },
+  { name: 'children', description: '말풍선 텍스트 (content 대체, Vue default 슬롯 대응)' },
 ];
+
+/** @deprecated 가이드·Storybook은 tooltipChildColumns · tooltipChildren 사용 */
+export const tooltipSlotColumns = tooltipChildColumns;
+
+/** @deprecated */
+export const tooltipSlots = tooltipChildren;
 
 export const tooltipClassColumns = [
   { key: 'name', label: '클래스' },
@@ -69,54 +77,57 @@ export const tooltipTokens = [
   { name: '--tooltip-inverse-bg · --tooltip-inverse-text', default: '—', description: 'inverse 스킨' },
 ];
 
-export const markupCode = `<!-- 기본 — content prop -->
-<Tooltip content="짧은 도움말 텍스트입니다.">
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="마우스 오버" />
-  </template>
-</Tooltip>
+export const markupCode = `// 기본 — content prop
+<Tooltip
+  content="짧은 도움말 텍스트입니다."
+  triggerContent={<Button className="tooltip_trigger" variant="outline" label="마우스 오버" />}
+/>
 
-<!-- default 슬롯 -->
-<Tooltip>
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="슬롯 예시" />
-  </template>
+// children
+<Tooltip triggerContent={<Button className="tooltip_trigger" variant="outline" label="슬롯 예시" />}>
   짧은 도움말 텍스트입니다.
 </Tooltip>
 
-<!-- 클릭 트리거 — tooltip_close 기본 제공 -->
-<Tooltip trigger="click" content="클릭으로 열고 닫는 Tooltip입니다.">
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="클릭하여 보기" />
-  </template>
-</Tooltip>
+// 클릭 트리거 — tooltip_close 기본 제공
+<Tooltip
+  trigger="click"
+  content="클릭으로 열고 닫는 Tooltip입니다."
+  triggerContent={<Button className="tooltip_trigger" variant="outline" label="클릭하여 보기" />}
+/>
 
-<!-- 비활성 버튼 래핑 -->
-<Tooltip content="필수 항목을 모두 입력해야 제출할 수 있습니다.">
-  <template #trigger>
-    <span class="tooltip_trigger" tabindex="0">
+// 비활성 버튼 래핑
+<Tooltip
+  content="필수 항목을 모두 입력해야 제출할 수 있습니다."
+  triggerContent={
+    <span tabIndex={0}>
       <Button variant="filled" color="primary" label="제출 불가" disabled />
     </span>
-  </template>
-</Tooltip>
+  }
+/>
 
-<!-- 배치 · 스킨 · 간격 -->
-<Tooltip placement="top" inverse offset="lg" content="어두운 배경의 말풍선입니다.">
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="ghost" label="역색 Tooltip" />
-  </template>
-</Tooltip>
+// 배치 · 스킨 · 간격
+<Tooltip
+  placement="top"
+  inverse
+  offset="lg"
+  content="어두운 배경의 말풍선입니다."
+  triggerContent={<Button className="tooltip_trigger" variant="ghost" label="역색 Tooltip" />}
+/>
 
-<!-- 간격 — 방향별 -->
-<Tooltip placement="right" offset-right="lg" content="트리거 오른쪽 배치 시 offset-right가 적용됩니다.">
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="offset-right" />
-  </template>
-</Tooltip>
+// 간격 — 방향별
+<Tooltip
+  placement="right"
+  offsetRight="lg"
+  content="트리거 오른쪽 배치 시 offsetRight가 적용됩니다."
+  triggerContent={<Button className="tooltip_trigger" variant="outline" label="offset-right" />}
+/>
 
-<!-- 혼합 — 말풍선 가운데 · 화살표 오른쪽 -->
-<Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="right" open content="말풍선은 가운데, 화살표는 트리거 오른쪽입니다.">
-  <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" size="sm" label="S" />
-  </template>
-</Tooltip>`;
+// 혼합 — 말풍선 가운데 · 화살표 오른쪽
+<Tooltip
+  arrowAnchor="mixed"
+  panelAlign="center"
+  arrowTargetAlign="right"
+  open
+  content="말풍선은 가운데, 화살표는 트리거 오른쪽입니다."
+  triggerContent={<Button className="tooltip_trigger" variant="outline" size="sm" label="S" />}
+/>\n`;

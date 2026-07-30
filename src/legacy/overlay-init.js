@@ -9,7 +9,7 @@ let globalListenersBound = false;
 function getDropdownItems(menu) {
   return Array.from(
     menu.querySelectorAll(
-      '[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), [role="option"]:not(.is-disabled):not([aria-disabled="true"]), .menu_link:not(.is-disabled):not([aria-disabled="true"]):not([aria-expanded])',
+      '[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), [role="option"]:not(.is-disabled):not([aria-disabled="true"])',
     ),
   );
 }
@@ -74,7 +74,7 @@ function initDropdown(dropdown) {
   });
 
   menu.addEventListener('click', (event) => {
-    const item = event.target.closest('[role="menuitem"], [role="option"], .menu_link:not([aria-expanded])');
+    const item = event.target.closest('[role="menuitem"], [role="option"]');
 
     if (
       !item ||
@@ -234,8 +234,6 @@ function initPopover(popover) {
 
   if (popover.classList.contains('is-open')) {
     updatePopoverLayout(popover);
-  } else {
-    setPopoverOpen(popover, false);
   }
 }
 
@@ -353,8 +351,6 @@ function initTooltip(tooltip) {
 
   if (tooltip.classList.contains('is-open')) {
     updateTooltipLayout(tooltip);
-  } else {
-    setTooltipOpen(tooltip, false);
   }
 }
 
@@ -405,4 +401,31 @@ export function initOverlays(root = document) {
   initPopovers(root);
   initTooltips(root);
   scheduleOverlayLayoutUpdates();
+}
+
+let overlayObserver = null;
+let overlayObserverTimer = null;
+
+/** Vue·Storybook 등 동적 마운트 후 Popover/Dropdown/Tooltip 재초기화 */
+export function observeOverlays(root = document) {
+  if (typeof MutationObserver === 'undefined' || overlayObserver) {
+    return;
+  }
+
+  const target = root.documentElement || root;
+
+  overlayObserver = new MutationObserver(() => {
+    if (overlayObserverTimer) {
+      clearTimeout(overlayObserverTimer);
+    }
+
+    overlayObserverTimer = setTimeout(() => {
+      initOverlays(document);
+    }, 50);
+  });
+
+  overlayObserver.observe(target, {
+    childList: true,
+    subtree: true,
+  });
 }

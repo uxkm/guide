@@ -1,4 +1,5 @@
 import { ripplePropSurface, rippleClassRows } from '@/doc/data/ripple-api';
+
 export const buttonPropColumns = [
   { key: 'name', label: 'Prop' },
   { key: 'type', label: '타입' },
@@ -29,7 +30,7 @@ export const buttonProps = [
     name: 'label',
     type: 'string',
     default: '—',
-    description: '버튼 텍스트. default 슬롯으로 대체 가능',
+    description: '버튼 텍스트. children으로 대체 가능',
   },
   {
     name: 'round',
@@ -44,10 +45,10 @@ export const buttonProps = [
     description: '아이콘 위 · 텍스트 아래 세로 배치',
   },
   {
-    name: 'icon-only',
+    name: 'iconOnly',
     type: 'boolean',
     default: 'false',
-    description: '아이콘만 표시. aria-label 필수',
+    description: '아이콘만 표시. ariaLabel 필수',
   },
   {
     name: 'block',
@@ -74,7 +75,7 @@ export const buttonProps = [
     description: 'HTML disabled 속성',
   },
   {
-    name: 'aria-disabled',
+    name: 'ariaDisabled',
     type: 'boolean',
     default: 'false',
     description: 'is-disabled 클래스와 함께 비활성 표현',
@@ -104,7 +105,7 @@ export const buttonProps = [
     description: '셀렉트 미선택 placeholder 스타일',
   },
   {
-    name: 'select-text',
+    name: 'selectText',
     type: 'boolean',
     default: 'false',
     description: '배경·테두리 없는 셀렉트 텍스트 형태',
@@ -140,10 +141,10 @@ export const buttonProps = [
     description: 'Tab 순서 수동 지정. div·href 없는 a는 기본 0, 비활성 -1',
   },
   {
-    name: 'aria-label',
+    name: 'ariaLabel',
     type: 'string',
     default: '—',
-    description: '접근성 라벨 (icon-only 시 필수)',
+    description: '접근성 라벨 (iconOnly 시 필수)',
   },
   {
     name: 'haspopup',
@@ -167,14 +168,14 @@ export const buttonProps = [
 ];
 
 export const buttonSlotColumns = [
-  { key: 'name', label: '슬롯' },
+  { key: 'name', label: 'Children / Prop' },
   { key: 'description', label: '설명' },
 ];
 
 export const buttonSlots = [
-  { name: 'default', description: '버튼 텍스트 (label prop 대체)' },
-  { name: 'icon-before', description: '텍스트 앞 아이콘' },
-  { name: 'icon-after', description: '텍스트 뒤 아이콘' },
+  { name: 'children', description: '버튼 텍스트 (label prop 대체). iconOnly일 때 iconBefore가 없으면 아이콘 콘텐츠로 사용' },
+  { name: 'iconBefore', description: '텍스트 앞 아이콘 (Vue #icon-before 슬롯 대응)' },
+  { name: 'iconAfter', description: '텍스트 뒤 아이콘 (Vue #icon-after 슬롯 대응)' },
 ];
 
 export const buttonClassColumns = [
@@ -200,4 +201,29 @@ export const buttonClasses = [
   { name: 'is-disabled · is-loading · is-open · is-error', description: '상태 클래스' },
   { name: 'color_primary · color_danger …', description: '색상 유틸 (스킨과 조합)' },
   ...rippleClassRows,
+];
+
+export const buttonTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const buttonTokens = [
+  { name: '--btn-padding-y · --btn-padding-x · --btn-font-size', default: '0.5rem · 1rem · var(--text-size-base)', description: '기본(md) 패딩·타이포' },
+  { name: '--btn-padding-y-sm · --btn-padding-x-sm · --btn-font-size-sm', default: '0.3rem · 0.75rem · var(--text-size-sm)', description: 'sm 크기' },
+  { name: '--btn-padding-y-lg · --btn-padding-x-lg · --btn-font-size-lg', default: '0.65rem · 1.25rem · var(--text-size-lg)', description: 'lg 크기' },
+  { name: '--btn-font-weight · --btn-font-weight-normal · --btn-line-height', default: '600 · 400 · 1.4', description: '타이포 두께·줄높이' },
+  { name: '--btn-border-width · --btn-gap', default: '1px · var(--space-sm)', description: '테두리·내부 간격' },
+  { name: '--btn-icon-size · --btn-icon-size-md · --btn-icon-size-lg · --btn-icon-size-xl', default: '1em · 1.125em · 1.25em · 1.375em', description: '아이콘 크기' },
+  { name: '--btn-icon-only-padding · -sm · -lg', default: '0.5rem · 0.35rem · 0.65rem', description: '아이콘만 버튼 패딩' },
+  { name: '--btn-vertical-min-width · -sm · -lg', default: '4.5rem · 3.75rem · 5.25rem', description: '세로 배치 최소 너비' },
+  { name: '--btn-vertical-padding-y · --btn-vertical-padding-x', default: '0.65rem · 0.75rem', description: '세로 배치 패딩(md)' },
+  { name: '--btn-vertical-label-size · --btn-vertical-label-weight', default: 'var(--text-size-sm) · 500', description: '세로 배치 라벨' },
+  { name: '--btn-select-min-width · --btn-select-max-width', default: '10rem · 320px', description: '셀렉트 트리거 너비' },
+  { name: '--btn-select-padding-right · -sm · -lg', default: '0.65rem · 0.5rem · 0.85rem', description: '셀렉트 캐럿 여백' },
+  { name: '--btn-select-text-padding-x · --btn-select-text-padding-right', default: '0.5rem · 0.35rem', description: '텍스트형 셀렉트 패딩' },
+  { name: '--btn-spinner-size · --btn-spinner-border · --btn-spinner-duration', default: '1em · 2px · 0.6s', description: '로딩 스피너' },
+  { name: '--btn-stack-text-size · --btn-stack-text-line-height', default: 'var(--text-size-sm) · 1.5', description: '스택 하단 안내 텍스트' },
+  { name: '--btn-group-overlap', default: '-1px', description: '그룹 버튼 테두리 겹침' },
 ];

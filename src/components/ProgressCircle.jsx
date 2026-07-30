@@ -1,7 +1,11 @@
-import { useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useMemo, useRef } from 'react';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_COLORS = new Set(['primary', 'success', 'warning', 'danger']);
 
 const formatCode = createComponentFormatter('ProgressCircle', {
   defaults: { percent: 0, color: 'primary', size: 'md' },
@@ -13,33 +17,47 @@ export default function ProgressCircle({
   size = 'md',
   ariaLabel = '진행률',
   className,
+  style,
   ...rest
 }) {
-  const props = { percent, color, size, ariaLabel };
   const rootRef = useRef(null);
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedColor = VALID_COLORS.has(color) ? color : 'primary';
 
-  useComponentDemoCode(formatCode, props, {}, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'progress',
-    'progress_circle',
-    `color_${color}`,
-    size === 'sm' && 'progress_sm',
-    size === 'lg' && 'progress_lg',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      percent,
+      color: resolvedColor,
+      size: resolvedSize,
+      ariaLabel,
+    },
+    createDemoSlots({}),
+    rootRef,
+    { className, style, ...rest },
   );
+
+  const rootClass = useMemo(() => {
+    const classes = ['progress', 'progress_circle', `color_${resolvedColor}`];
+    if (resolvedSize === 'sm') classes.push('progress_sm');
+    if (resolvedSize === 'lg') classes.push('progress_lg');
+    return classes;
+  }, [resolvedColor, resolvedSize]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
     <div
       ref={rootRef}
-      className={rootClass}
+      className={cn(rootClass, className)}
       role="progressbar"
       aria-valuenow={percent}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-label={ariaLabel}
-      style={{ '--progress-percent': percent }}
-      {...rest}
+      style={{ '--progress-percent': percent, ...style }}
+      {...domRest}
     >
       <svg className="progress_circle-svg" viewBox="0 0 100 100" aria-hidden="true">
         <circle className="progress_circle-track" cx="50" cy="50" r="45" />

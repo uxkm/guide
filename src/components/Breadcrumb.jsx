@@ -1,8 +1,12 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createComponentFormatter } from '@/utils/format-component-code';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
 import BreadcrumbItem from '@/components/BreadcrumbItem.jsx';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
+import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
+
+const VALID_SEPARATORS = new Set(['chevron', 'slash', 'dot']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Breadcrumb', {
   defaults: { ariaLabel: '경로', separator: 'chevron', size: 'md' },
@@ -20,24 +24,44 @@ export default function Breadcrumb({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const props = { items, ariaLabel, separator, size };
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const resolvedSeparator = VALID_SEPARATORS.has(separator) ? separator : 'chevron';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const hasItems = Array.isArray(items) && items.length > 0;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
-
-  const rootClass = cn(
-    'breadcrumb',
-    separator === 'slash' && 'breadcrumb_sep-slash',
-    separator === 'dot' && 'breadcrumb_sep-dot',
-    size === 'sm' && 'breadcrumb_sm',
-    size === 'lg' && 'breadcrumb_lg',
-    className,
+  useComponentDemoCode(
+    formatCode,
+    {
+      items,
+      ariaLabel,
+      separator: resolvedSeparator,
+      size: resolvedSize,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, ...rest },
   );
 
+  const rootClass = useMemo(() => {
+    const classes = ['breadcrumb'];
+    if (resolvedSeparator === 'slash') classes.push('breadcrumb_sep-slash');
+    if (resolvedSeparator === 'dot') classes.push('breadcrumb_sep-dot');
+    if (resolvedSize === 'sm') classes.push('breadcrumb_sm');
+    if (resolvedSize === 'lg') classes.push('breadcrumb_lg');
+    return classes;
+  }, [resolvedSeparator, resolvedSize]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
   return (
-    <nav ref={rootRef} className={rootClass} aria-label={ariaLabel} {...rest}>
+    <nav
+      ref={rootRef}
+      className={cn(rootClass, className)}
+      aria-label={ariaLabel}
+      {...domRest}
+    >
       <ol className="breadcrumb_list">
-        {items.length > 0
+        {hasItems
           ? items.map((item, index) => (
               <BreadcrumbItem
                 key={index}

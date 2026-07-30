@@ -7,26 +7,36 @@ export const selectPropColumns = [
 ];
 
 export const selectProps = [
-  { name: 'model-value', type: 'string | number', default: '—', description: 'v-model 바인딩 값' },
+  { name: 'value', type: 'string | number', default: '—', description: '제어 컴포넌트 값 (Vue model-value 대응)' },
+  { name: 'defaultValue', type: 'string | number', default: '—', description: '비제어 초기 값' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'input_sm · btn_sm 등 크기' },
+  { name: 'listSize', type: 'number', default: '—', description: '네이티브 size — multiple 표시 행 수' },
   { name: 'placeholder', type: 'string', default: '—', description: '미선택 placeholder' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'error', type: 'boolean', default: 'false', description: '오류 상태 (is-error)' },
   { name: 'open', type: 'boolean', default: 'false', description: 'custom 트리거 열림 (is-open)' },
   { name: 'block', type: 'boolean', default: 'false', description: '부모 너비 100%' },
   { name: 'custom', type: 'boolean', default: 'false', description: 'button 트리거 + listbox 패턴' },
-  { name: 'select-text', type: 'boolean', default: 'false', description: '텍스트형 트리거 (btn_select-text)' },
+  { name: 'selectText', type: 'boolean', default: 'false', description: '텍스트형 트리거 (btn_select-text)' },
+  { name: 'className', type: 'string', default: '—', description: 'select/input 또는 custom 트리거에 추가 클래스' },
+  { name: 'onChange', type: '(event) => void', default: '—', description: '값 변경 콜백 (Vue update:modelValue 대응)' },
   ripplePropSelect,
 ];
 
-export const selectSlotColumns = [
-  { key: 'name', label: '슬롯' },
+export const selectChildColumns = [
+  { key: 'name', label: 'Children' },
   { key: 'description', label: '설명' },
 ];
 
-export const selectSlots = [
+export const selectChildren = [
   { name: 'default', description: 'option 요소 또는 custom 트리거 라벨' },
 ];
+
+/** @deprecated 가이드·Storybook은 selectChildColumns · selectChildren 사용 */
+export const selectSlotColumns = selectChildColumns;
+
+/** @deprecated */
+export const selectSlots = selectChildren;
 
 export const selectClassColumns = [
   { key: 'name', label: '클래스' },
@@ -48,5 +58,18 @@ export const selectEventColumns = [
 ];
 
 export const selectEvents = [
-  { name: 'update:modelValue', description: '선택 값 변경 시 (v-model)' },
+  { name: 'onChange', description: '선택 값 변경 시 (Vue update:modelValue 대응)' },
+];
+
+
+export const selectTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const selectTokens = [
+  { name: '--select-padding-right · --select-padding-right-sm · --select-padding-right-lg', default: '2.25rem · 2rem · 2.5rem', description: '캐럿 공간(우측 패딩)' },
+  { name: '--select-caret-offset · --select-caret-offset-sm · --select-caret-offset-lg', default: '0.65rem · 0.5rem · 0.85rem', description: '캐럿 위치' },
+  { name: '--select-caret-size · --select-caret-size-sm · --select-caret-size-lg', default: '1em · 0.875em · 1.125em', description: '캐럿 아이콘 크기' },
 ];

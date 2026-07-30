@@ -1,7 +1,8 @@
 import { useMemo, useRef } from 'react';
-import { cn } from '@/utils/cn';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
+import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Skeleton', {
   defaults: { active: true },
@@ -11,42 +12,73 @@ const formatCode = createComponentFormatter('Skeleton', {
 
 const PARAGRAPH_WIDTHS = ['', 'skeleton_w-md', 'skeleton_w-sm'];
 
+function resolveParagraphCount(paragraph) {
+  if (paragraph === true) return 3;
+  if (typeof paragraph === 'number') return paragraph;
+  return 0;
+}
+
 export default function Skeleton({
   active = true,
-  avatar = false,
+  avatar,
   paragraph = false,
-  round = false,
+  round,
   ariaLabel = '콘텐츠 로딩 중',
   children,
   className,
+  style,
   ...rest
 }) {
-  const props = { active, avatar, paragraph, round, ariaLabel };
   const rootRef = useRef(null);
-  const demoSlots = useMemo(() => createDemoSlots({ default: children }), [children]);
+  const paragraphCount = resolveParagraphCount(paragraph);
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, { class: className, ...rest });
+  useComponentDemoCode(
+    formatCode,
+    {
+      active,
+      avatar,
+      paragraph,
+      round,
+      ariaLabel,
+    },
+    createDemoSlots({ default: children }),
+    rootRef,
+    { className, style, ...rest },
+  );
 
-  const paragraphCount =
-    paragraph === true ? 3 : typeof paragraph === 'number' ? paragraph : 0;
+  const rootClass = useMemo(() => {
+    const classes = ['skeleton_group'];
+    if (!active) classes.push('skeleton_static');
+    return classes;
+  }, [active]);
 
-  const rootClass = cn('skeleton_group', !active && 'skeleton_static', className);
-  const skeletonBaseClass = cn('skeleton', !active && 'skeleton_static');
+  const skeletonBaseClass = useMemo(() => {
+    const classes = ['skeleton'];
+    if (!active) classes.push('skeleton_static');
+    return classes;
+  }, [active]);
+
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
+
+  const showAvatarOrRound = Boolean(avatar || round);
 
   return (
     <div
       ref={rootRef}
-      className={rootClass}
+      className={cn(rootClass, className)}
+      style={style}
       role="status"
       aria-live="polite"
       aria-busy="true"
       aria-label={ariaLabel}
+      {...domRest}
     >
-      {avatar || round ? (
+      {showAvatarOrRound ? (
         avatar ? (
           <div className="skeleton_row">
             <span className={cn(skeletonBaseClass, 'skeleton_circle')} aria-hidden="true" />
-            {paragraphCount > 0 && (
+            {paragraphCount > 0 ? (
               <div className="skeleton_row-body">
                 {Array.from({ length: paragraphCount }, (_, i) => (
                   <span
@@ -60,7 +92,7 @@ export default function Skeleton({
                   />
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
         ) : (
           <span className={cn(skeletonBaseClass, 'skeleton_circle')} aria-hidden="true" />

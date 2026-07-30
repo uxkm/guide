@@ -1,76 +1,50 @@
-import { useEffect, useId, useMemo, useRef } from 'react';
-import { useTabsApiContext } from '@/context/TabsContext.jsx';
-import { createDemoSlots, useComponentDemoCode } from '@/hooks/useDemoCode';
-import { formatComponentCode } from '@/utils/format-component-code';
+import { useContext, useEffect, useId, useRef } from 'react';
+import { TabsContext } from '@/components/Tabs.jsx';
+import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
+import { createComponentFormatter } from '@/utils/format-component-code';
 
-function formatSlotContent(content) {
-  if (!content) return '...';
-  if (typeof content === 'string') return content;
-  return '...';
-}
+const formatCode = createComponentFormatter('TabMenu', {
+  booleanProps: new Set(['active', 'disabled']),
+  labelProp: 'label',
+  selfClosing: true,
+  skipProps: ['icon', 'badge'],
+});
 
-function formatCode(props, slots, attrs) {
-  const slotContent = {};
-
-  if (slots.icon?.()) {
-    slotContent.icon = formatSlotContent(slots.icon()[0]?.children);
-  }
-
-  if (slots.badge?.()) {
-    slotContent.badge = formatSlotContent(slots.badge()[0]?.children);
-  }
-
-  return formatComponentCode('TabMenu', props, slots, attrs, {
-    booleanProps: new Set(['active', 'disabled']),
-    labelProp: 'label',
-    selfClosing: true,
-    slotContent,
-  });
-}
-
-export default function TabMenu({
-  label,
-  value,
-  active = false,
-  disabled = false,
-  icon,
-  badge,
-}) {
-  const tabsApi = useTabsApiContext();
+export default function TabMenu({ label, value, active, disabled, icon, badge }) {
+  const tabs = useContext(TabsContext);
   const rootRef = useRef(null);
-  const tabId = useId().replace(/:/g, '');
-  const iconRef = useRef(icon);
-  const badgeRef = useRef(badge);
-  iconRef.current = icon;
-  badgeRef.current = badge;
-  const registerTabRef = useRef(tabsApi?.registerTab);
-  const unregisterTabRef = useRef(tabsApi?.unregisterTab);
-  registerTabRef.current = tabsApi?.registerTab;
-  unregisterTabRef.current = tabsApi?.unregisterTab;
-  const demoSlots = useMemo(
-    () => createDemoSlots({ icon, badge }),
-    [icon, badge],
-  );
-  const props = { label, value, active, disabled };
+  const reactId = useId().replace(/:/g, '');
+  const tabId = `tab-${reactId}`;
 
-  useComponentDemoCode(formatCode, props, demoSlots, rootRef, {});
+  useComponentDemoCode(
+    formatCode,
+    { label, value, active, disabled },
+    createDemoSlots({ icon, badge }),
+    rootRef,
+    {},
+  );
+
+  const registerTabRef = useRef(null);
+  const unregisterTabRef = useRef(null);
+  registerTabRef.current = tabs?.registerTab;
+  unregisterTabRef.current = tabs?.unregisterTab;
 
   useEffect(() => {
-    const registerTab = registerTabRef.current;
-    if (!registerTab) return undefined;
-
-    registerTab({
+    registerTabRef.current?.({
       id: tabId,
       value: value ?? tabId,
       label,
-      active,
-      disabled,
+      active: Boolean(active),
+      disabled: Boolean(disabled),
       menuOnly: true,
-      iconSlot: () => iconRef.current,
-      badgeSlot: () => badgeRef.current,
+      icon: icon ?? null,
+      badge: badge ?? null,
     });
+  }, [tabId, value, label, active, disabled, icon, badge]);
+
+  useEffect(() => {
     return () => unregisterTabRef.current?.(tabId);
-  }, [tabId, value, label, active, disabled]);
+  }, [tabId]);
 
   return <span ref={rootRef} hidden aria-hidden="true" />;
 }
