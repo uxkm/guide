@@ -15,6 +15,24 @@ export const drawerProps = [
   { name: 'openOnLoad', type: 'boolean', default: 'false', description: 'data-drawer-open-on-load="true"' },
   { name: 'draggable', type: 'boolean', default: 'false', description: '하단 패널 핸들·헤더 드래그 펼침/접힘 (placement="bottom", data-drawer-draggable)' },
   { name: 'open', type: 'boolean', default: 'false', description: '열림 상태 (is-open)' },
+  {
+    name: 'footerAlign',
+    type: `'start' | 'center' | 'end' | 'between' | 'even'`,
+    default: 'end',
+    description: '푸터 정렬 (drawer_footer-start · center · between · even). between은 drawer_footer-group으로 좌·우 묶음',
+  },
+  {
+    name: 'footerRatio',
+    type: `'1-1' | '1-2' | '2-1'`,
+    default: '1-1',
+    description: '균등 정렬(even) 좌·우 비율 (drawer_footer-even-1-2 · even-2-1)',
+  },
+  {
+    name: 'footerNoPadBottom',
+    type: 'boolean',
+    default: 'false',
+    description: '푸터 하단 패딩 제거 (drawer_footer-no-pad-b). even과 함께 쓰면 좌우 패딩·간격도 제거',
+  },
   { name: 'header', type: 'ReactNode', default: '—', description: '커스텀 헤더 (title 대체)' },
   { name: 'extra', type: 'ReactNode', default: '—', description: '헤더 보조 영역 (drawer_extra)' },
   { name: 'footer', type: 'ReactNode', default: '—', description: '하단 액션 영역 (drawer_footer)' },
@@ -49,13 +67,29 @@ export const drawerClasses = [
   { name: 'drawer · drawer_backdrop · drawer_panel', description: '루트·백드롭·패널' },
   { name: 'drawer_header · drawer_title · drawer_extra · drawer_close', description: '헤더 파트' },
   { name: 'drawer_body · drawer_footer', description: '본문·푸터' },
+  {
+    name: 'drawer_footer-start · drawer_footer-center · drawer_footer-end · drawer_footer-between · drawer_footer-even',
+    description: '푸터 정렬 (기본 end)',
+  },
+  {
+    name: 'drawer_footer-even-1-2 · drawer_footer-even-2-1',
+    description: '균등 정렬 좌·우 비율 (기본 1:1)',
+  },
+  {
+    name: 'drawer_footer-no-pad-b',
+    description: '푸터 하단 패딩 없음 (even 조합 시 좌우 패딩·간격 제거)',
+  },
+  { name: 'drawer_footer-group', description: '병합 정렬용 좌·우 버튼 묶음' },
   { name: 'drawer_placement-left · drawer_placement-right · drawer_placement-top · drawer_placement-bottom', description: '슬라이드 방향' },
   { name: 'drawer_sm · drawer_lg', description: '패널 크기' },
   { name: 'drawer_handle · drawer_handle-bar · drawer_draggable', description: '하단 드래그 핸들' },
   { name: 'data-drawer · data-drawer-trigger · data-drawer-close', description: 'JS 연동 속성' },
   { name: 'data-drawer-open-on-load', description: '페이지 로드 후 자동 열기' },
   { name: 'data-drawer-draggable · data-drawer-drag-handle', description: '하단 드래그 펼침/접힘' },
-  { name: 'is-open · is-opening · is-closing · is-expanded · is-dragging · hidden', description: '열림·닫힘·드래그·애니메이션 상태' },
+  {
+    name: 'is-open · is-opening · is-closing · is-stack-covered · is-expanded · is-dragging · hidden',
+    description: '열림·닫힘·중첩 하위(백드롭 숨김)·드래그·애니메이션 상태',
+  },
   ...rippleClassRows,
 ];
 
@@ -98,6 +132,14 @@ export const markupCode = `<!-- 트리거 -->
       <button type="button" class="btn btn_filled color_primary" data-drawer-close>저장</button>
     </div>
   </div>
+</div>
+
+<!-- 푸터 정렬: start · center · end · between · even -->
+<!-- 균등 비율: drawer_footer-even · drawer_footer-even-1-2 · drawer_footer-even-2-1 -->
+<!-- 하단 패딩 없음: drawer_footer-no-pad-b (+ even 권장) -->
+<div class="drawer_footer drawer_footer-even drawer_footer-no-pad-b">
+  <button type="button" class="btn btn_ghost" data-drawer-close>취소</button>
+  <button type="button" class="btn btn_filled color_primary" data-drawer-close>확인</button>
 </div>
 
 <!-- 옵션: 백드롭 없음 -->

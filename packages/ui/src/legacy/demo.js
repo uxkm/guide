@@ -812,6 +812,7 @@ import { initOverlays, observeOverlays } from './overlay-init';
   function updateDrawerStackLevels() {
     openDrawerStack.forEach(function (drawer, index) {
       drawer.style.setProperty('--drawer-stack-level', String(index));
+      drawer.classList.toggle('is-stack-covered', index !== openDrawerStack.length - 1);
     });
   }
 
@@ -922,7 +923,7 @@ import { initOverlays, observeOverlays } from './overlay-init';
   }
 
   function finishCloseDrawer(drawer) {
-    drawer.classList.remove('is-closing');
+    drawer.classList.remove('is-closing', 'is-stack-covered');
     drawer.hidden = true;
     drawer.style.removeProperty('--drawer-stack-level');
     setDrawerTriggersExpanded(drawer, false);
@@ -953,8 +954,15 @@ import { initOverlays, observeOverlays } from './overlay-init';
       return;
     }
 
-    drawer.classList.remove('is-open');
+    drawer.classList.remove('is-open', 'is-stack-covered');
     drawer.classList.add('is-closing');
+
+    // 닫힘 시작 시 스택에서 제거해 하위 Drawer 백드롭을 바로 복원
+    openDrawerStack = openDrawerStack.filter(function (item) {
+      return item !== drawer;
+    });
+    updateDrawerStackLevels();
+    updateBodyDrawerLock();
 
     var panel = drawer.querySelector('.drawer_panel');
     var closed = false;
@@ -1244,6 +1252,13 @@ import { initOverlays, observeOverlays } from './overlay-init';
     });
   }
 
+  function updateModalStackLevels() {
+    openModalStack.forEach(function (modal, index) {
+      modal.style.setProperty('--modal-stack-level', String(index));
+      modal.classList.toggle('is-stack-covered', index !== openModalStack.length - 1);
+    });
+  }
+
   function updateBodyModalLock() {
     var openModals = document.querySelectorAll(
       '[data-modal].is-open:not([data-modal-backdrop="false"])'
@@ -1274,6 +1289,7 @@ import { initOverlays, observeOverlays } from './overlay-init';
     }
 
     openModalStack.push(modal);
+    updateModalStackLevels();
     updateBodyModalLock();
 
     requestAnimationFrame(function () {
@@ -1292,14 +1308,16 @@ import { initOverlays, observeOverlays } from './overlay-init';
       return;
     }
 
-    modal.classList.remove('is-open');
+    modal.classList.remove('is-open', 'is-stack-covered');
     modal.hidden = true;
+    modal.style.removeProperty('--modal-stack-level');
     setModalTriggersExpanded(modal, false);
 
     openModalStack = openModalStack.filter(function (item) {
       return item !== modal;
     });
 
+    updateModalStackLevels();
     updateBodyModalLock();
 
     if (modal._modalReturnFocus) {

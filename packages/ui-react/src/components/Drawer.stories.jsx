@@ -19,22 +19,30 @@ const apiSections = [
     title: 'API · Props',
     description:
       'React에서는 camelCase prop을 사용합니다. Vue의 no-backdrop · open-on-load는 noBackdrop · openOnLoad로 다룹니다.',
-    tables: [{ columns: drawerPropColumns, rows: drawerProps, codeColumn: 'name' }],
+    tables: [
+      { columns: drawerPropColumns, rows: drawerProps, codeColumn: 'name' },
+    ],
   },
   {
     title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
-    tables: [{ columns: drawerChildColumns, rows: drawerChildren, codeColumn: 'name' }],
+    tables: [
+      { columns: drawerChildColumns, rows: drawerChildren, codeColumn: 'name' },
+    ],
   },
   {
     title: '클래스 · 속성',
     description:
       'React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다.',
-    tables: [{ columns: drawerClassColumns, rows: drawerClasses, codeColumn: 'name' }],
+    tables: [
+      { columns: drawerClassColumns, rows: drawerClasses, codeColumn: 'name' },
+    ],
   },
   {
     title: '디자인 토큰',
-    tables: [{ columns: drawerTokenColumns, rows: drawerTokens, codeColumn: 'name' }],
+    tables: [
+      { columns: drawerTokenColumns, rows: drawerTokens, codeColumn: 'name' },
+    ],
   },
 ];
 
@@ -60,8 +68,50 @@ const playgroundArgs = {
   openOnLoad: false,
   draggable: false,
   title: '제목',
-  open: true,
+  open: false,
+  footerAlign: 'end',
+  footerRatio: '1-1',
+  footerNoPadBottom: false,
 };
+
+const cancelConfirmFooter = (
+  <>
+    <Button variant="ghost" label="취소" data-drawer-close="" />
+    <Button
+      variant="filled"
+      color="primary"
+      label="확인"
+      data-drawer-close=""
+    />
+  </>
+);
+
+function playgroundFooter(footerAlign) {
+  if (footerAlign === 'between') {
+    return (
+      <>
+        <div className="drawer_footer-group">
+          <Button
+            variant="ghost"
+            color="danger"
+            label="삭제"
+            data-drawer-close=""
+          />
+        </div>
+        <div className="drawer_footer-group">
+          <Button variant="ghost" label="취소" data-drawer-close="" />
+          <Button
+            variant="filled"
+            color="primary"
+            label="확인"
+            data-drawer-close=""
+          />
+        </div>
+      </>
+    );
+  }
+  return cancelConfirmFooter;
+}
 
 export default {
   title: 'Components/피드백/Drawer',
@@ -80,11 +130,37 @@ export default {
       options: ['left', 'right', 'top', 'bottom'],
       type: { name: 'enum', summary: "'left' | 'right' | 'top' | 'bottom'" },
     },
-    noBackdrop: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    openOnLoad: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    draggable: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    noBackdrop: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
+    openOnLoad: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
+    draggable: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
     title: { control: 'text', type: { name: 'string', summary: 'string' } },
     open: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    footerAlign: {
+      control: 'select',
+      options: ['start', 'center', 'end', 'between', 'even'],
+      type: {
+        name: 'enum',
+        summary: "'start' | 'center' | 'end' | 'between' | 'even'",
+      },
+    },
+    footerRatio: {
+      control: 'select',
+      options: ['1-1', '1-2', '2-1'],
+      type: { name: 'enum', summary: "'1-1' | '1-2' | '2-1'" },
+    },
+    footerNoPadBottom: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
   },
   parameters: {
     controls: { disable: false },
@@ -104,9 +180,16 @@ export const Playground = {
   render: (args) => (
     <div className="drawer_demo-frame">
       <div className="drawer_demo-content">
-        <p>Controls로 open · placement · size를 조절하세요.</p>
+        <p>
+          Controls로 open · placement · size · footerAlign · footerRatio ·
+          footerNoPadBottom을 조절하세요.
+        </p>
       </div>
-      <Drawer {...args} className={cnOpen(args.open)}>
+      <Drawer
+        {...args}
+        className={cnOpen(args.open)}
+        footer={playgroundFooter(args.footerAlign)}
+      >
         <p>드로어 내용입니다.</p>
       </Drawer>
     </div>
@@ -124,7 +207,8 @@ export const Basic = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'data-drawer-trigger로 패널을 열고, 백드롭·닫기 버튼·Esc로 닫습니다.',
+        story:
+          'data-drawer-trigger로 패널을 열고, 백드롭·닫기 버튼·Esc로 닫습니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -146,7 +230,12 @@ export function BasicExample() {
         footer={
           <>
             <Button variant="ghost" label="취소" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="확인" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="확인"
+              data-drawer-close=""
+            />
           </>
         }
       >
@@ -174,13 +263,21 @@ export function BasicExample() {
         footer={
           <>
             <Button variant="ghost" label="취소" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="확인" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="확인"
+              data-drawer-close=""
+            />
           </>
         }
       >
-        <p>Drawer 패널 본문입니다. 상세 정보·폼·설정 등 보조 작업에 적합합니다.</p>
         <p>
-          백드롭을 클릭하거나 닫기 버튼, <kbd>Esc</kbd> 키로 패널을 닫을 수 있습니다.
+          Drawer 패널 본문입니다. 상세 정보·폼·설정 등 보조 작업에 적합합니다.
+        </p>
+        <p>
+          백드롭을 클릭하거나 닫기 버튼, <kbd>Esc</kbd> 키로 패널을 닫을 수
+          있습니다.
         </p>
       </Drawer>
     </>,
@@ -205,8 +302,18 @@ export function PlacementExample() {
   return (
     <>
       <div className="drawer_demo-row">
-        <Button variant="outline" label="왼쪽" data-drawer-trigger="#drawer-place-left" aria-controls="drawer-place-left" />
-        <Button variant="outline" label="오른쪽" data-drawer-trigger="#drawer-place-right" aria-controls="drawer-place-right" />
+        <Button
+          variant="outline"
+          label="왼쪽"
+          data-drawer-trigger="#drawer-place-left"
+          aria-controls="drawer-place-left"
+        />
+        <Button
+          variant="outline"
+          label="오른쪽"
+          data-drawer-trigger="#drawer-place-right"
+          aria-controls="drawer-place-right"
+        />
       </div>
       <Drawer id="drawer-place-left" placement="left" title="왼쪽 패널">
         <p>화면 왼쪽에서 슬라이드됩니다.</p>
@@ -272,7 +379,8 @@ export const Size = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'drawer_sm · drawer_lg으로 패널 너비(또는 상·하 배치 시 높이)를 조정합니다.',
+        story:
+          'drawer_sm · drawer_lg으로 패널 너비(또는 상·하 배치 시 높이)를 조정합니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -281,9 +389,26 @@ import Drawer from '@uxkm/ui-react/components/Drawer.jsx';
 export function SizeExample() {
   return (
     <div className="drawer_demo-row">
-      <Button variant="outline" size="sm" label="Small" data-drawer-trigger="#drawer-size-sm" aria-controls="drawer-size-sm" />
-      <Button variant="outline" label="Default" data-drawer-trigger="#drawer-size-default" aria-controls="drawer-size-default" />
-      <Button variant="outline" size="lg" label="Large" data-drawer-trigger="#drawer-size-lg" aria-controls="drawer-size-lg" />
+      <Button
+        variant="outline"
+        size="sm"
+        label="Small"
+        data-drawer-trigger="#drawer-size-sm"
+        aria-controls="drawer-size-sm"
+      />
+      <Button
+        variant="outline"
+        label="Default"
+        data-drawer-trigger="#drawer-size-default"
+        aria-controls="drawer-size-default"
+      />
+      <Button
+        variant="outline"
+        size="lg"
+        label="Large"
+        data-drawer-trigger="#drawer-size-lg"
+        aria-controls="drawer-size-lg"
+      />
     </div>
   );
 }`,
@@ -362,7 +487,12 @@ export function FooterExample() {
         footer={
           <>
             <Button variant="ghost" label="취소" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="저장" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-drawer-close=""
+            />
           </>
         }
       >
@@ -390,7 +520,12 @@ export function FooterExample() {
         footer={
           <>
             <Button variant="ghost" label="취소" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="저장" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-drawer-close=""
+            />
           </>
         }
       >
@@ -399,7 +534,12 @@ export function FooterExample() {
             <label className="form_field-label" htmlFor="drawer-item-name">
               이름
             </label>
-            <input className="input" type="text" id="drawer-item-name" placeholder="항목 이름" />
+            <input
+              className="input"
+              type="text"
+              id="drawer-item-name"
+              placeholder="항목 이름"
+            />
           </div>
           <div className="form_field">
             <label className="form_field-label" htmlFor="drawer-item-desc">
@@ -415,6 +555,282 @@ export function FooterExample() {
         </div>
       </Drawer>
     </>,
+  ),
+};
+
+export const FooterAlign = {
+  name: '푸터 정렬',
+  parameters: {
+    controls: { disable: false },
+    demoPreview: { stack: true },
+    docs: {
+      description: {
+        story:
+          'footerAlign으로 푸터 버튼을 정렬합니다. start · center · end(기본) · between(좌·우 병합) · even(균등). even은 footerRatio로 좌·우 비율(1-1 · 1-2 · 2-1)을 지정하고, footerNoPadBottom으로 하단 패딩을 제거할 수 있습니다. between은 drawer_footer-group으로 좌·우에 1~2개씩 묶습니다.',
+      },
+      source: {
+        code: `import Button from '@uxkm/ui-react/components/Button.jsx';
+import Drawer from '@uxkm/ui-react/components/Drawer.jsx';
+
+export function FooterAlignExample() {
+  return (
+    <>
+      <Drawer
+        id="drawer-footer-start"
+        title="좌측 정렬"
+        placement="bottom"
+        footerAlign="start"
+        footer={/* … */}
+      >
+        <p>footerAlign="start"</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-center"
+        title="가운데 정렬"
+        placement="bottom"
+        footerAlign="center"
+        footer={/* … */}
+      >
+        <p>footerAlign="center"</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-end"
+        title="우측 정렬"
+        placement="bottom"
+        footer={/* … */}
+      >
+        <p>footerAlign="end" (기본)</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-between"
+        title="병합 정렬"
+        placement="bottom"
+        footerAlign="between"
+        footer={/* … */}
+      >
+        <p>footerAlign="between" + drawer_footer-group</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-even"
+        title="균등 1:1"
+        placement="bottom"
+        footerAlign="even"
+        footer={/* … */}
+      >
+        <p>footerAlign="even" · footerRatio="1-1"</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-even-1-2"
+        title="균등 1:2"
+        placement="bottom"
+        footerAlign="even"
+        footerRatio="1-2"
+        footer={/* … */}
+      >
+        <p>footerRatio="1-2" — 좌 1 / 우 2</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-even-2-1"
+        title="균등 2:1"
+        placement="bottom"
+        footerAlign="even"
+        footerRatio="2-1"
+        footer={/* … */}
+      >
+        <p>footerRatio="2-1" — 좌 2 / 우 1</p>
+      </Drawer>
+      <Drawer
+        id="drawer-footer-no-pad"
+        title="하단 패딩 없음"
+        placement="bottom"
+        footerAlign="even"
+        footerNoPadBottom
+        footer={/* … */}
+      >
+        <p>footerNoPadBottom + even</p>
+      </Drawer>
+    </>
+  );
+}`,
+        language: 'tsx',
+      },
+    },
+  },
+  render: () => (
+    <div className="drawer_demo-stack">
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-start"
+          title="좌측 정렬"
+          placement="bottom"
+          footerAlign="start"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerAlign=&quot;start&quot;</code>
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-center"
+          title="가운데 정렬"
+          placement="bottom"
+          footerAlign="center"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerAlign=&quot;center&quot;</code>
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-end"
+          title="우측 정렬"
+          placement="bottom"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerAlign=&quot;end&quot;</code>{' '}
+            (기본)
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-between"
+          title="병합 정렬"
+          placement="bottom"
+          footerAlign="between"
+          className="drawer_demo-static"
+          footer={
+            <>
+              <div className="drawer_footer-group">
+                <Button
+                  variant="ghost"
+                  color="danger"
+                  label="삭제"
+                  data-drawer-close=""
+                />
+              </div>
+              <div className="drawer_footer-group">
+                <Button variant="ghost" label="취소" data-drawer-close="" />
+                <Button
+                  variant="filled"
+                  color="primary"
+                  label="확인"
+                  data-drawer-close=""
+                />
+              </div>
+            </>
+          }
+        >
+          <p>
+            <code className="typo_code">between</code> — 좌 1 / 우 2
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-between-2"
+          title="병합 정렬"
+          placement="bottom"
+          footerAlign="between"
+          className="drawer_demo-static"
+          footer={
+            <>
+              <div className="drawer_footer-group">
+                <Button variant="ghost" label="도움말" data-drawer-close="" />
+                <Button
+                  variant="ghost"
+                  color="danger"
+                  label="삭제"
+                  data-drawer-close=""
+                />
+              </div>
+              <div className="drawer_footer-group">
+                <Button
+                  variant="filled"
+                  color="primary"
+                  label="확인"
+                  data-drawer-close=""
+                />
+              </div>
+            </>
+          }
+        >
+          <p>
+            <code className="typo_code">between</code> — 좌 2 / 우 1
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-even"
+          title="균등 1:1"
+          placement="bottom"
+          footerAlign="even"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">even</code> ·{' '}
+            <code className="typo_code">footerRatio=&quot;1-1&quot;</code>
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-even-1-2"
+          title="균등 1:2"
+          placement="bottom"
+          footerAlign="even"
+          footerRatio="1-2"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerRatio=&quot;1-2&quot;</code> — 좌
+            1 / 우 2
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-even-2-1"
+          title="균등 2:1"
+          placement="bottom"
+          footerAlign="even"
+          footerRatio="2-1"
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerRatio=&quot;2-1&quot;</code> — 좌
+            2 / 우 1
+          </p>
+        </Drawer>
+      </div>
+      <div className="drawer_demo-frame drawer_demo-frame-compact">
+        <Drawer
+          id="drawer-footer-no-pad"
+          title="하단 패딩 없음"
+          placement="bottom"
+          footerAlign="even"
+          footerNoPadBottom
+          className="drawer_demo-static"
+          footer={cancelConfirmFooter}
+        >
+          <p>
+            <code className="typo_code">footerNoPadBottom</code> + even
+          </p>
+        </Drawer>
+      </div>
+    </div>
   ),
 };
 
@@ -469,8 +885,8 @@ export function ExtraExample() {
         extra={<span className="tag tag_solid color_success">완료</span>}
       >
         <p>
-          상세 정보·상태 뱃지 등을 헤더 <code className="typo_code">drawer_extra</code>에 배치할 수
-          있습니다.
+          상세 정보·상태 뱃지 등을 헤더{' '}
+          <code className="typo_code">drawer_extra</code>에 배치할 수 있습니다.
         </p>
       </Drawer>
     </>,
@@ -526,7 +942,11 @@ export function MenuExample() {
         <nav className="menu menu_vertical menu_compact" aria-label="앱 메뉴">
           <ul className="menu_list">
             <li className="menu_item">
-              <a href="#dashboard" className="menu_link is-active" aria-current="page">
+              <a
+                href="#dashboard"
+                className="menu_link is-active"
+                aria-current="page"
+              >
                 <span className="menu_label">대시보드</span>
               </a>
             </li>
@@ -562,7 +982,12 @@ export const OpenOnLoad = {
 
 export function OpenOnLoadExample() {
   return (
-    <Drawer id="drawer-open-on-load" size="sm" title="자동 열기 옵션" openOnLoad>
+    <Drawer
+      id="drawer-open-on-load"
+      size="sm"
+      title="자동 열기 옵션"
+      openOnLoad
+    >
       <p>페이지 로드 후 자동으로 열립니다.</p>
     </Drawer>
   );
@@ -575,8 +1000,10 @@ export function OpenOnLoadExample() {
     <>
       <p className="form_field-hint">
         <code className="typo_code">openOnLoad</code> /{' '}
-        <code className="typo_code">data-drawer-open-on-load=&quot;true&quot;</code> — 가이드
-        페이지에서 자동 열기를 확인할 수 있습니다.
+        <code className="typo_code">
+          data-drawer-open-on-load=&quot;true&quot;
+        </code>{' '}
+        — 가이드 페이지에서 자동 열기를 확인할 수 있습니다.
       </p>
       <Button
         variant="outline"
@@ -587,7 +1014,8 @@ export function OpenOnLoadExample() {
       />
       <Drawer id="drawer-open-on-load" size="sm" title="자동 열기 옵션">
         <p>
-          실서비스에서는 온보딩·공지 등에 <code className="typo_code">openOnLoad</code>를 사용합니다.
+          실서비스에서는 온보딩·공지 등에{' '}
+          <code className="typo_code">openOnLoad</code>를 사용합니다.
         </p>
       </Drawer>
     </>,
@@ -601,7 +1029,8 @@ export const Nested = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: '열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. Esc는 가장 위에 열린 패널부터 닫습니다.',
+        story:
+          '열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. Esc는 가장 위에 열린 패널부터 닫습니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -655,7 +1084,14 @@ export function NestedExample() {
         id="drawer-nested-2"
         size="sm"
         title="2단계 Drawer"
-        footer={<Button variant="filled" color="primary" label="완료" data-drawer-close="" />}
+        footer={
+          <Button
+            variant="filled"
+            color="primary"
+            label="완료"
+            data-drawer-close=""
+          />
+        }
       >
         <p>
           중첩된 Drawer입니다. <kbd>Esc</kbd>를 누르면 이 패널부터 닫힙니다.
@@ -697,11 +1133,19 @@ export function DragSheetExample() {
         footer={
           <>
             <Button variant="ghost" label="닫기" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="공유" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="공유"
+              data-drawer-close=""
+            />
           </>
         }
       >
-        <p>상단 핸들이나 헤더를 위로 드래그하면 펼쳐지고, 아래로 드래그하면 접히거나 닫힙니다.</p>
+        <p>
+          상단 핸들이나 헤더를 위로 드래그하면 펼쳐지고, 아래로 드래그하면
+          접히거나 닫힙니다.
+        </p>
       </Drawer>
     </>
   );
@@ -712,7 +1156,9 @@ export function DragSheetExample() {
   },
   render: drawerDemo(
     <>
-      <p className="form_field-hint">핸들 또는 제목 영역을 위·아래로 드래그(터치 슬라이드)해 보세요.</p>
+      <p className="form_field-hint">
+        핸들 또는 제목 영역을 위·아래로 드래그(터치 슬라이드)해 보세요.
+      </p>
       <Button
         variant="filled"
         color="primary"
@@ -728,15 +1174,22 @@ export function DragSheetExample() {
         footer={
           <>
             <Button variant="ghost" label="닫기" data-drawer-close="" />
-            <Button variant="filled" color="primary" label="공유" data-drawer-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="공유"
+              data-drawer-close=""
+            />
           </>
         }
       >
         <p>
-          상단 핸들이나 헤더를 <strong>위로</strong> 드래그하면 시트가 펼쳐집니다.
+          상단 핸들이나 헤더를 <strong>위로</strong> 드래그하면 시트가
+          펼쳐집니다.
         </p>
         <p>
-          <strong>아래로</strong> 드래그하면 기본 높이로 접히고, 더 내리면 닫힙니다.
+          <strong>아래로</strong> 드래그하면 기본 높이로 접히고, 더 내리면
+          닫힙니다.
         </p>
         <ul>
           <li>링크 복사</li>
@@ -791,7 +1244,8 @@ export function NoBackdropExample() {
       />
       <Drawer id="drawer-no-backdrop" size="sm" title="백드롭 없음" noBackdrop>
         <p>
-          본문을 가리지 않고 패널만 표시합니다. 닫기 버튼이나 <kbd>Esc</kbd>로 닫으세요.
+          본문을 가리지 않고 패널만 표시합니다. 닫기 버튼이나 <kbd>Esc</kbd>로
+          닫으세요.
         </p>
       </Drawer>
     </>,

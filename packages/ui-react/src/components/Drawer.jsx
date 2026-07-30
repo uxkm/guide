@@ -26,6 +26,9 @@ export default function Drawer({
   draggable,
   title,
   open,
+  footerAlign = 'end',
+  footerRatio = '1-1',
+  footerNoPadBottom,
   header,
   extra,
   footer,
@@ -51,10 +54,27 @@ export default function Drawer({
       draggable,
       title,
       open,
+      footerAlign,
+      footerRatio,
+      footerNoPadBottom,
     },
     rootRef,
     { className, ...rest },
   );
+
+  const footerClass = useMemo(() => {
+    const classes = ['drawer_footer'];
+    if (footerAlign && footerAlign !== 'end') {
+      classes.push(`drawer_footer-${footerAlign}`);
+    }
+    if (footerAlign === 'even' && footerRatio && footerRatio !== '1-1') {
+      classes.push(`drawer_footer-even-${footerRatio}`);
+    }
+    if (footerNoPadBottom) {
+      classes.push('drawer_footer-no-pad-b');
+    }
+    return classes;
+  }, [footerAlign, footerRatio, footerNoPadBottom]);
 
   const panelClass = useMemo(() => {
     const classes = ['drawer_panel', PLACEMENT_CLASS[resolvedPlacement]];
@@ -73,6 +93,7 @@ export default function Drawer({
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
   const showHeader = Boolean(header || title);
+  const isDemoStatic = typeof className === 'string' && className.includes('drawer_demo-static');
 
   return (
     <div
@@ -87,7 +108,7 @@ export default function Drawer({
       aria-modal="true"
       aria-labelledby={titleId}
       tabIndex={-1}
-      hidden={!open || undefined}
+      hidden={isDemoStatic || open ? undefined : true}
       {...domRest}
     >
       <div className="drawer_backdrop" data-drawer-close="" aria-hidden="true" />
@@ -129,7 +150,7 @@ export default function Drawer({
           {children}
         </div>
         {footer ? (
-          <div className="drawer_footer" data-demo-slot="footer">
+          <div className={cn(footerClass)} data-demo-slot="footer">
             {footer}
           </div>
         ) : null}

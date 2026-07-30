@@ -16,6 +16,9 @@ export default function Modal({
   backdrop = true,
   title,
   open,
+  footerAlign = 'end',
+  footerRatio = '1-1',
+  footerNoPadBottom,
   header,
   footer,
   children,
@@ -36,10 +39,27 @@ export default function Modal({
       backdrop,
       title,
       open,
+      footerAlign,
+      footerRatio,
+      footerNoPadBottom,
     },
     rootRef,
     { className, ...rest },
   );
+
+  const footerClass = useMemo(() => {
+    const classes = ['modal_footer'];
+    if (footerAlign && footerAlign !== 'end') {
+      classes.push(`modal_footer-${footerAlign}`);
+    }
+    if (footerAlign === 'even' && footerRatio && footerRatio !== '1-1') {
+      classes.push(`modal_footer-even-${footerRatio}`);
+    }
+    if (footerNoPadBottom) {
+      classes.push('modal_footer-no-pad-b');
+    }
+    return classes;
+  }, [footerAlign, footerRatio, footerNoPadBottom]);
 
   const rootClass = useMemo(() => {
     const classes = ['modal'];
@@ -54,6 +74,7 @@ export default function Modal({
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
   const showHeader = Boolean(header || title);
+  const isDemoStatic = typeof className === 'string' && className.includes('modal_demo-static');
 
   return (
     <div
@@ -66,7 +87,7 @@ export default function Modal({
       aria-modal="true"
       aria-labelledby={titleId}
       tabIndex={-1}
-      hidden={!open || undefined}
+      hidden={isDemoStatic || open ? undefined : true}
       {...domRest}
     >
       <div className="modal_backdrop" data-modal-close="" aria-hidden="true" />
@@ -93,7 +114,7 @@ export default function Modal({
           {children}
         </div>
         {footer ? (
-          <div className="modal_footer" data-demo-slot="footer">
+          <div className={cn(footerClass)} data-demo-slot="footer">
             {footer}
           </div>
         ) : null}

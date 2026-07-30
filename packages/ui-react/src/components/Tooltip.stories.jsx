@@ -20,22 +20,38 @@ const apiSections = [
     title: 'API · Props',
     description:
       'React에서는 camelCase prop을 사용합니다. Vue의 no-arrow · arrow-anchor · panel-align · arrow-target-align · offset-* · close-label은 noArrow · arrowAnchor · panelAlign · arrowTargetAlign · offsetTop 등으로 다룹니다. Vue `#trigger` 슬롯은 triggerContent prop입니다.',
-    tables: [{ columns: tooltipPropColumns, rows: tooltipProps, codeColumn: 'name' }],
+    tables: [
+      { columns: tooltipPropColumns, rows: tooltipProps, codeColumn: 'name' },
+    ],
   },
   {
     title: 'API · Children',
     description: 'Vue 슬롯에 대응하는 React prop·children입니다.',
-    tables: [{ columns: tooltipChildColumns, rows: tooltipChildren, codeColumn: 'name' }],
+    tables: [
+      {
+        columns: tooltipChildColumns,
+        rows: tooltipChildren,
+        codeColumn: 'name',
+      },
+    ],
   },
   {
     title: '클래스 · 속성',
     description:
       'React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다.',
-    tables: [{ columns: tooltipClassColumns, rows: tooltipClasses, codeColumn: 'name' }],
+    tables: [
+      {
+        columns: tooltipClassColumns,
+        rows: tooltipClasses,
+        codeColumn: 'name',
+      },
+    ],
   },
   {
     title: '디자인 토큰',
-    tables: [{ columns: tooltipTokenColumns, rows: tooltipTokens, codeColumn: 'name' }],
+    tables: [
+      { columns: tooltipTokenColumns, rows: tooltipTokens, codeColumn: 'name' },
+    ],
   },
 ];
 
@@ -57,7 +73,7 @@ const playgroundArgs = {
   content: '툴팁 텍스트',
   size: 'md',
   offset: 'md',
-  open: true,
+  open: false,
   inverse: false,
   noArrow: false,
   arrowAnchor: 'content',
@@ -82,7 +98,8 @@ export default {
       options: ['top', 'top-start', 'top-end', 'left', 'right', 'start', 'end'],
       type: {
         name: 'enum',
-        summary: "'top' | 'top-start' | 'top-end' | 'left' | 'right' | 'start' | 'end'",
+        summary:
+          "'top' | 'top-start' | 'top-end' | 'left' | 'right' | 'start' | 'end'",
       },
     },
     size: {
@@ -96,8 +113,14 @@ export default {
       type: { name: 'enum', summary: "'none' | 'sm' | 'md' | 'lg'" },
     },
     open: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    inverse: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    noArrow: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    inverse: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
+    noArrow: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
     arrowAnchor: {
       control: 'select',
       options: ['content', 'target', 'mixed'],
@@ -111,17 +134,32 @@ export default {
     arrowTargetAlign: {
       control: 'select',
       options: ['center', 'left', 'right', 'top', 'bottom'],
-      type: { name: 'enum', summary: "'center' | 'left' | 'right' | 'top' | 'bottom'" },
+      type: {
+        name: 'enum',
+        summary: "'center' | 'left' | 'right' | 'top' | 'bottom'",
+      },
     },
-    disabled: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    disabled: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
     trigger: {
       control: 'select',
       options: ['hover', 'click'],
       type: { name: 'enum', summary: "'hover' | 'click'" },
     },
-    interactive: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    closable: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    closeLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
+    interactive: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
+    closable: {
+      control: 'boolean',
+      type: { name: 'boolean', summary: 'boolean' },
+    },
+    closeLabel: {
+      control: 'text',
+      type: { name: 'string', summary: 'string' },
+    },
   },
   parameters: {
     controls: { disable: false },
@@ -140,7 +178,10 @@ export const Playground = {
   args: { ...playgroundArgs },
   render: (args) => (
     <div className="tooltip_demo-stage">
-      <Tooltip {...args} triggerContent={<Button label="툴팁" variant="outline" />} />
+      <Tooltip
+        {...args}
+        triggerContent={<Button label="툴팁" variant="outline" />}
+      />
     </div>
   ),
 };
@@ -186,7 +227,8 @@ export const Slot = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'content prop 대신 children으로 말풍선 텍스트를 넣을 수 있습니다.',
+        story:
+          'content prop 대신 children으로 말풍선 텍스트를 넣을 수 있습니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -217,7 +259,8 @@ export const Open = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'open prop과 is-open 클래스로 말풍선이 표시된 상태를 정적으로 표현합니다.',
+        story:
+          'open prop과 is-open 클래스로 말풍선이 표시된 상태를 정적으로 표현합니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -252,7 +295,8 @@ export const Size = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: 'size prop(sm · md · lg)으로 패딩·글자 크기·최대 너비를 조절합니다.',
+        story:
+          'size prop(sm · md · lg)으로 패딩·글자 크기·최대 너비를 조절합니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -262,7 +306,6 @@ export function SizeExample() {
   return (
     <Tooltip
       size="sm"
-      open
       content="작은 말풍선"
       triggerContent={<Button variant="ghost" size="sm" label="Small" />}
     />
@@ -276,18 +319,15 @@ export function SizeExample() {
     <div className="tooltip_row" style={{ alignItems: 'flex-start' }}>
       <Tooltip
         size="sm"
-        open
         content="작은 말풍선"
         triggerContent={<Button variant="ghost" size="sm" label="Small" />}
       />
       <Tooltip
-        open
         content="기본 크기 말풍선"
         triggerContent={<Button variant="ghost" label="Medium" />}
       />
       <Tooltip
         size="lg"
-        open
         content="큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다."
         triggerContent={<Button variant="ghost" size="lg" label="Large" />}
       />
@@ -313,7 +353,6 @@ export function OffsetExample() {
   return (
     <Tooltip
       offset="lg"
-      open
       content="넓은 간격"
       triggerContent={<Button variant="ghost" size="sm" label="lg" />}
     />
@@ -325,46 +364,52 @@ export function OffsetExample() {
   },
   render: stageRender(
     <div className="tooltip_demo-stage">
-      <p className="form_field-hint" style={{ marginBottom: 'var(--space-md)' }}>
+      <p
+        className="form_field-hint"
+        style={{ marginBottom: 'var(--space-md)' }}
+      >
         전 방향 동일
       </p>
       <div className="tooltip_row" style={{ alignItems: 'flex-start' }}>
         <Tooltip
           offset="none"
-          open
           content="간격 없음"
           triggerContent={<Button variant="ghost" size="sm" label="none" />}
         />
         <Tooltip
           offset="sm"
-          open
           content="좁은 간격"
           triggerContent={<Button variant="ghost" size="sm" label="sm" />}
         />
         <Tooltip
-          open
           content="기본 간격"
           triggerContent={<Button variant="ghost" size="sm" label="md" />}
         />
         <Tooltip
           offset="lg"
-          open
           content="넓은 간격"
           triggerContent={<Button variant="ghost" size="sm" label="lg" />}
         />
       </div>
-      <p className="form_field-hint" style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}>
+      <p
+        className="form_field-hint"
+        style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}
+      >
         방향별 (offset-* · placement)
       </p>
       <div
         className="tooltip_demo-placement"
-        style={{ minHeight: '12rem', padding: 0, border: 'none', background: 'transparent' }}
+        style={{
+          minHeight: '12rem',
+          padding: 0,
+          border: 'none',
+          background: 'transparent',
+        }}
       >
         <div className="tooltip_demo-placement-cell-top">
           <Tooltip
             placement="top"
             offsetTop="lg"
-            open
             content="위쪽 간격"
             triggerContent={<Button variant="ghost" size="sm" label="위" />}
           />
@@ -373,7 +418,6 @@ export function OffsetExample() {
           <Tooltip
             placement="left"
             offsetLeft="lg"
-            open
             content="왼쪽 간격"
             triggerContent={<Button variant="ghost" size="sm" label="왼쪽" />}
           />
@@ -381,7 +425,6 @@ export function OffsetExample() {
         <div className="tooltip_demo-placement-cell-center">
           <Tooltip
             offsetBottom="lg"
-            open
             content="아래쪽 간격"
             triggerContent={<Button variant="ghost" size="sm" label="아래" />}
           />
@@ -390,7 +433,6 @@ export function OffsetExample() {
           <Tooltip
             placement="right"
             offsetRight="lg"
-            open
             content="오른쪽 간격"
             triggerContent={<Button variant="ghost" size="sm" label="오른쪽" />}
           />
@@ -407,7 +449,8 @@ export const Inline = {
     demoPreview: { stack: false },
     docs: {
       description: {
-        story: '문장 안의 링크·텍스트에 Tooltip을 붙여 용어를 설명할 수 있습니다.',
+        story:
+          '문장 안의 링크·텍스트에 Tooltip을 붙여 용어를 설명할 수 있습니다.',
       },
       source: {
         code: `import Link from '@uxkm/ui-react/components/Link.jsx';
@@ -458,7 +501,9 @@ export function TriggerExample() {
   return (
     <Tooltip
       content="버튼 트리거 예시입니다."
-      triggerContent={<Button variant="filled" color="primary" label="Button" />}
+      triggerContent={
+        <Button variant="filled" color="primary" label="Button" />
+      }
     />
   );
 }`,
@@ -470,13 +515,23 @@ export function TriggerExample() {
     <div className="tooltip_row">
       <Tooltip
         content="버튼 트리거 예시입니다."
-        triggerContent={<Button variant="filled" color="primary" label="Button" />}
+        triggerContent={
+          <Button variant="filled" color="primary" label="Button" />
+        }
       />
-      <Tooltip content="링크 스타일 트리거입니다." triggerContent={<Link label="Link 트리거" />} />
+      <Tooltip
+        content="링크 스타일 트리거입니다."
+        triggerContent={<Link label="Link 트리거" />}
+      />
       <Tooltip
         content="아이콘 전용 트리거입니다."
         triggerContent={
-          <Button variant="ghost" iconOnly ariaLabel="정보" iconBefore={<Icon name="info" />} />
+          <Button
+            variant="ghost"
+            iconOnly
+            ariaLabel="정보"
+            iconBefore={<Icon name="info" />}
+          />
         }
       />
     </div>,
@@ -526,7 +581,8 @@ export const Placement = {
     demoPreview: { stack: true },
     docs: {
       description: {
-        story: 'placement prop으로 말풍선 위치를 조정합니다. 기본은 트리거 아래·가운데 정렬입니다.',
+        story:
+          'placement prop으로 말풍선 위치를 조정합니다. 기본은 트리거 아래·가운데 정렬입니다.',
       },
       source: {
         code: `import Button from '@uxkm/ui-react/components/Button.jsx';
@@ -572,7 +628,9 @@ export function PlacementExample() {
           <Tooltip
             placement="right"
             content="트리거 오른쪽"
-            triggerContent={<Button variant="outline" size="sm" label="오른쪽" />}
+            triggerContent={
+              <Button variant="outline" size="sm" label="오른쪽" />
+            }
           />
         </div>
       </div>
@@ -698,7 +756,6 @@ import Tooltip from '@uxkm/ui-react/components/Tooltip.jsx';
 export function ArrowAnchorExample() {
   return (
     <Tooltip
-      open
       arrowAnchor="target"
       content="화살표가 트리거 중앙을 가리킵니다."
       triggerContent={<Button variant="ghost" size="sm" label="S" />}
@@ -711,53 +768,56 @@ export function ArrowAnchorExample() {
   },
   render: stageRender(
     <div className="tooltip_demo-stage">
-      <p className="form_field-hint" style={{ marginBottom: 'var(--space-md)' }}>
+      <p
+        className="form_field-hint"
+        style={{ marginBottom: 'var(--space-md)' }}
+      >
         기준 비교
       </p>
       <div className="tooltip_row" style={{ alignItems: 'flex-start' }}>
         <Tooltip
-          open
           content="패널이 트리거보다 넓을 때 화살표는 말풍선 패딩 기준입니다."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
         <Tooltip
-          open
           arrowAnchor="target"
           content="패널이 트리거보다 넓을 때 화살표가 트리거 중앙을 가리킵니다."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
       </div>
-      <p className="form_field-hint" style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}>
+      <p
+        className="form_field-hint"
+        style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}
+      >
         target — 좌 · 가운데 · 우
       </p>
       <div className="tooltip_row" style={{ alignItems: 'flex-start' }}>
         <Tooltip
-          open
           arrowAnchor="target"
           arrowTargetAlign="left"
           content="트리거 왼쪽을 가리킵니다."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
         <Tooltip
-          open
           arrowAnchor="target"
           content="트리거 가운데를 가리킵니다."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
         <Tooltip
-          open
           arrowAnchor="target"
           arrowTargetAlign="right"
           content="트리거 오른쪽을 가리킵니다."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
       </div>
-      <p className="form_field-hint" style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}>
+      <p
+        className="form_field-hint"
+        style={{ margin: 'var(--space-lg) 0 var(--space-md)' }}
+      >
         mixed — 말풍선 가운데 · 화살표 조합
       </p>
       <div className="tooltip_row" style={{ alignItems: 'flex-start' }}>
         <Tooltip
-          open
           arrowAnchor="mixed"
           panelAlign="center"
           arrowTargetAlign="left"
@@ -765,14 +825,12 @@ export function ArrowAnchorExample() {
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
         <Tooltip
-          open
           arrowAnchor="mixed"
           panelAlign="center"
           content="말풍선·화살표 모두 가운데."
           triggerContent={<Button variant="ghost" size="sm" label="S" />}
         />
         <Tooltip
-          open
           arrowAnchor="mixed"
           panelAlign="center"
           arrowTargetAlign="right"
