@@ -6,7 +6,8 @@ CURRENT_BRANCH=$(git branch --show-current)
 case "$CURRENT_BRANCH" in
   gulp) DEPLOY_DIR="html" ;;
   vue) DEPLOY_DIR="vue" ;;
-  react|next) DEPLOY_DIR="react" ;;
+  react) DEPLOY_DIR="react" ;;
+  next) DEPLOY_DIR="react-next" ;;
   *)
     echo "gulp, vue, react 또는 next 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
     exit 1
