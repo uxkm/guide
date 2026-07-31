@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import BreadcrumbItem from '@/components/BreadcrumbItem.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -71,6 +73,8 @@ export default function Breadcrumb({
                 disabled={item.disabled}
                 icon={item.icon}
                 ariaLabel={item.ariaLabel}
+                as={item.as}
+                onClick={item.onClick}
               />
             ))
           : children}

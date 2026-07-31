@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -37,6 +39,7 @@ export default function Link({
   iconOnly,
   active,
   disabled,
+  as,
   label,
   href,
   target,
@@ -71,6 +74,7 @@ export default function Link({
       iconOnly,
       active,
       disabled,
+      as: typeof as === 'string' ? as : undefined,
       label,
       href,
       target,
@@ -137,14 +141,20 @@ export default function Link({
   }
 
   const domRest = normalizeDomProps(restForDom);
+  const Root = as || 'a';
+  const isNativeAnchor = Root === 'a';
+  const isNativeButton = Root === 'button';
+  const acceptsHref = isNativeAnchor || typeof Root !== 'string';
 
   return (
-    <a
+    <Root
       ref={rootRef}
       className={cn(rootClass, className)}
-      href={resolvedHref}
-      target={target}
-      rel={rel}
+      href={acceptsHref ? resolvedHref : undefined}
+      target={acceptsHref ? target : undefined}
+      rel={acceptsHref ? rel : undefined}
+      type={isNativeButton ? 'button' : undefined}
+      disabled={isNativeButton && disabled ? true : undefined}
       aria-label={ariaLabel}
       aria-current={active ? 'page' : undefined}
       aria-disabled={disabled ? 'true' : undefined}
@@ -155,6 +165,6 @@ export default function Link({
     >
       {icon}
       {showLabel ? labelContent : null}
-    </a>
+    </Root>
   );
 }

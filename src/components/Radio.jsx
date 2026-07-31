@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -6,7 +8,14 @@ import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Radio', {
-  booleanProps: new Set(['checked', 'disabled', 'labelEnd', 'button', 'ripple']),
+  booleanProps: new Set([
+    'checked',
+    'defaultChecked',
+    'disabled',
+    'labelEnd',
+    'button',
+    'ripple',
+  ]),
   selfClosing: true,
 });
 
@@ -49,6 +58,7 @@ export default function Radio({
       label,
       name,
       checked,
+      defaultChecked,
       disabled,
       value,
       labelEnd,
@@ -71,12 +81,12 @@ export default function Radio({
   const domRest = normalizeDomProps(restForDom);
 
   const inputCheckedProps =
-    onChange != null
+    checked != null
       ? { checked: Boolean(checked), onChange }
-      : checked != null
-        ? { defaultChecked: Boolean(checked) }
-        : defaultChecked != null
-          ? { defaultChecked: Boolean(defaultChecked) }
+      : defaultChecked != null
+        ? { defaultChecked: Boolean(defaultChecked), onChange }
+        : onChange != null
+          ? { onChange }
           : {};
 
   const inputEl = (

@@ -40,14 +40,17 @@ function setDropdownOpen(dropdown, open) {
 }
 
 function closeAllDropdowns(except) {
-  document.querySelectorAll('[data-dropdown].is-open').forEach((dropdown) => {
+  document
+    .querySelectorAll('[data-dropdown]:not([data-react-dropdown]).is-open')
+    .forEach((dropdown) => {
     if (dropdown !== except) {
       setDropdownOpen(dropdown, false);
     }
-  });
+    });
 }
 
 function initDropdown(dropdown) {
+  if (dropdown.hasAttribute('data-react-dropdown')) return;
   if (dropdown.dataset.overlayInit) return;
 
   const trigger = dropdown.querySelector('.dropdown_trigger');

@@ -1,14 +1,10 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTimelineItemCode } from '@/utils/format-timeline-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
-
-const formatCode = createComponentFormatter('TimelineItem', {
-  defaults: { color: 'primary' },
-  booleanProps: new Set(['active', 'pending', 'outline']),
-  selfClosing: false,
-});
 
 export default function TimelineItem({
   color = 'primary',
@@ -30,7 +26,7 @@ export default function TimelineItem({
   const rootRef = useRef(null);
 
   useComponentDemoCode(
-    formatCode,
+    formatTimelineItemCode,
     {
       color,
       title,

@@ -1,4 +1,6 @@
-import { useMemo, useRef } from 'react';
+'use client';
+
+import { useId, useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -26,9 +28,10 @@ export default function Modal({
   ...rest
 }) {
   const rootRef = useRef(null);
+  const reactId = useId().replace(/:/g, '');
   const { rippleAttrs } = useRipple({ ripple });
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
-  const titleId = `${id}-title`;
+  const titleId = `${id || `modal-${reactId}`}-title`;
 
   useModalDemoCode(
     {
@@ -85,7 +88,7 @@ export default function Modal({
       data-modal-backdrop={backdrop ? undefined : 'false'}
       role="dialog"
       aria-modal="true"
-      aria-labelledby={titleId}
+      aria-labelledby={!header && title ? titleId : undefined}
       tabIndex={-1}
       hidden={isDemoStatic || open ? undefined : true}
       {...domRest}

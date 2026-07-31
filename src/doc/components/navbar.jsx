@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Navbar | UXKM Guide',
   activeNav: 'navbar',
@@ -13,6 +15,7 @@ import Input from '@/components/Input.jsx';
 import Navbar from '@/components/Navbar.jsx';
 import NavbarItem from '@/components/NavbarItem.jsx';
 import NavbarList from '@/components/NavbarList.jsx';
+import NextLink from 'next/link';
 import {
   navbarChildColumns,
   navbarChildren,
@@ -28,7 +31,8 @@ import {
   navbarTokens,
 } from '@/doc/data/navbar-api';
 
-const basicCode = `import Navbar from '@/components/Navbar.jsx';
+const basicCode = `import NextLink from 'next/link';
+import Navbar from '@/components/Navbar.jsx';
 import NavbarItem from '@/components/NavbarItem.jsx';
 import NavbarList from '@/components/NavbarList.jsx';
 
@@ -36,12 +40,14 @@ export function BasicExample() {
   return (
     <Navbar
       brand="UXKM"
+      brandAs={NextLink}
+      brandHref="/"
       items={
         <NavbarList>
-          <NavbarItem label="홈" active />
-          <NavbarItem label="컴포넌트" />
-          <NavbarItem label="토큰" />
-          <NavbarItem label="접근성" />
+          <NavbarItem as={NextLink} href="/" label="홈" active />
+          <NavbarItem as={NextLink} href="/components/button" label="컴포넌트" />
+          <NavbarItem as={NextLink} href="/design-tokens" label="토큰" />
+          <NavbarItem as={NextLink} href="/getting-started" label="시작하기" />
         </NavbarList>
       }
     />
@@ -285,12 +291,14 @@ export default function NavbarDoc() {
         <div className="navbar_demo">
           <Navbar
             brand="UXKM"
+            brandAs={NextLink}
+            brandHref="/"
             items={
               <NavbarList>
-                <NavbarItem label="홈" active />
-                <NavbarItem label="컴포넌트" />
-                <NavbarItem label="토큰" />
-                <NavbarItem label="접근성" />
+                <NavbarItem as={NextLink} href="/" label="홈" active />
+                <NavbarItem as={NextLink} href="/components/button" label="컴포넌트" />
+                <NavbarItem as={NextLink} href="/design-tokens" label="토큰" />
+                <NavbarItem as={NextLink} href="/getting-started" label="시작하기" />
               </NavbarList>
             }
           />

@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Form Layout | UXKM Guide',
   activeNav: 'form-layout',
@@ -18,11 +20,17 @@ import {
   formLayoutChildren,
   formLayoutClassColumns,
   formLayoutClasses,
+  formLayoutEventColumns,
+  formLayoutEvents,
   formLayoutPropColumns,
   formLayoutProps,
   formLayoutTokenColumns,
   formLayoutTokens,
 } from '@/doc/data/form-layout-api';
+
+function preventDemoSubmit(event) {
+  event.preventDefault();
+}
 
 const verticalCode = `import FormLayout from '@/components/FormLayout.jsx';
 import Input from '@/components/Input.jsx';
@@ -127,14 +135,16 @@ export function HorizontalAlignExample() {
   );
 }`;
 
-const inlineCode = `import Button from '@/components/Button.jsx';
+const inlineCode = `'use client';
+
+import Button from '@/components/Button.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Input from '@/components/Input.jsx';
 import Select from '@/components/Select.jsx';
 
 export function InlineExample() {
   return (
-    <FormLayout layout="inline">
+    <FormLayout layout="inline" onSubmit={(event) => event.preventDefault()}>
       <div className="form_field">
         <label className="form_field-label" htmlFor="fl-i-keyword">
           키워드
@@ -242,14 +252,16 @@ export function WidthExample() {
   );
 }`;
 
-const actionsCode = `import Button from '@/components/Button.jsx';
+const actionsCode = `'use client';
+
+import Button from '@/components/Button.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Input from '@/components/Input.jsx';
 
 export function ActionsExample() {
   return (
     <>
-      <FormLayout layout="vertical">
+      <FormLayout layout="vertical" onSubmit={(event) => event.preventDefault()}>
         <div className="form_field">
           <label className="form_field-label" htmlFor="fl-a-title">
             제목
@@ -261,7 +273,7 @@ export function ActionsExample() {
           <Button variant="ghost" type="button" label="취소" />
         </div>
       </FormLayout>
-      <FormLayout layout="horizontal">
+      <FormLayout layout="horizontal" onSubmit={(event) => event.preventDefault()}>
         <div className="form_field">
           <label className="form_field-label" htmlFor="fl-a2-title">
             제목
@@ -277,7 +289,9 @@ export function ActionsExample() {
   );
 }`;
 
-const exampleCode = `import Button from '@/components/Button.jsx';
+const exampleCode = `'use client';
+
+import Button from '@/components/Button.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Grid from '@/components/Grid.jsx';
 import Input from '@/components/Input.jsx';
@@ -285,7 +299,11 @@ import Textarea from '@/components/Textarea.jsx';
 
 export function ExampleForm() {
   return (
-    <FormLayout layout="vertical" compact>
+    <FormLayout
+      layout="vertical"
+      compact
+      onSubmit={(event) => event.preventDefault()}
+    >
       <Grid itemSpan={6}>
         <div className="form_field">
           <label className="form_field-label" htmlFor="fl-ex-id">
@@ -423,7 +441,7 @@ export default function FormLayoutDoc() {
           description="검색·필터처럼 필드를 한 줄에 나란히 배치합니다. 공간이 부족하면 자동으로 줄바꿈됩니다."
           code={inlineCode}
         >
-          <FormLayout layout="inline">
+          <FormLayout layout="inline" onSubmit={preventDemoSubmit}>
                 <div className="form_field">
                   <label className="form_field-label" htmlFor="fl-i-keyword">키워드</label>
                   <Input id="fl-i-keyword" type="search" placeholder="검색어" />
@@ -515,7 +533,7 @@ export default function FormLayoutDoc() {
           stack
           code={actionsCode}
         >
-          <FormLayout layout="vertical">
+          <FormLayout layout="vertical" onSubmit={preventDemoSubmit}>
             <div className="form_field">
               <label className="form_field-label" htmlFor="fl-a-title">제목</label>
               <Input id="fl-a-title" placeholder="제목" />
@@ -526,7 +544,7 @@ export default function FormLayoutDoc() {
             </div>
           </FormLayout>
 
-          <FormLayout layout="horizontal">
+          <FormLayout layout="horizontal" onSubmit={preventDemoSubmit}>
             <div className="form_field">
               <label className="form_field-label" htmlFor="fl-a2-title">제목</label>
               <Input id="fl-a2-title" placeholder="제목" />
@@ -544,7 +562,7 @@ export default function FormLayoutDoc() {
           description="세로 레이아웃 + 그리드 + 액션을 조합한 회원 정보 폼입니다."
           code={exampleCode}
         >
-          <FormLayout layout="vertical" compact>
+          <FormLayout layout="vertical" compact onSubmit={preventDemoSubmit}>
             <Grid itemSpan={6}>
               <div className="form_field">
                 <label className="form_field-label" htmlFor="fl-ex-id">아이디</label>
@@ -581,6 +599,10 @@ export default function FormLayoutDoc() {
 
         <ApiSection headingId="api-children-heading" title="API · Children">
           <ApiTable columns={formLayoutChildColumns} rows={formLayoutChildren} codeColumn="name" />
+        </ApiSection>
+
+        <ApiSection headingId="api-events-heading" title="API · Events">
+          <ApiTable columns={formLayoutEventColumns} rows={formLayoutEvents} codeColumn="name" />
         </ApiSection>
 
         <ApiSection

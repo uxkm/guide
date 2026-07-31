@@ -7,6 +7,12 @@ export const formLayoutPropColumns = [
 
 export const formLayoutProps = [
   {
+    name: 'ref',
+    type: 'React.Ref<HTMLElement>',
+    default: '—',
+    description: '실제 루트 DOM 참조. 기본 tag에서는 HTMLFormElement를 가리킵니다.',
+  },
+  {
     name: 'layout',
     type: `'vertical' | 'horizontal' | 'inline'`,
     default: 'vertical',
@@ -28,6 +34,12 @@ export const formLayoutProps = [
   },
   { name: 'tag', type: 'string', default: 'form', description: '루트 HTML 태그 (form · div 등)' },
   { name: 'className', type: 'string', default: '—', description: 'form 루트에 추가 클래스' },
+  {
+    name: '...rest',
+    type: 'React.HTMLAttributes<HTMLElement>',
+    default: '—',
+    description: 'action · method · noValidate 등 루트 HTML 속성 전달',
+  },
 ];
 
 export const formLayoutChildColumns = [
@@ -44,6 +56,22 @@ export const formLayoutSlotColumns = formLayoutChildColumns;
 
 /** @deprecated */
 export const formLayoutSlots = formLayoutChildren;
+
+export const formLayoutEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const formLayoutEvents = [
+  {
+    name: 'onSubmit',
+    description: 'form 제출 이벤트. 클라이언트 핸들러에서는 preventDefault를 사용하고, Server Action은 action prop으로 연결합니다.',
+  },
+  {
+    name: 'onReset',
+    description: 'form 초기화 이벤트',
+  },
+];
 
 export const formLayoutClassColumns = [
   { key: 'name', label: '클래스' },

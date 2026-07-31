@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/Button.jsx';
 import { cn } from '@/utils/cn';
 

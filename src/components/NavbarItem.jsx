@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useNavbarItemDemoCode } from '@/hooks/useDemoCode';
@@ -10,6 +12,7 @@ export default function NavbarItem({
   href = '#',
   active,
   badge,
+  as,
   children,
   className,
   onClick,
@@ -19,7 +22,16 @@ export default function NavbarItem({
   const rootRef = useRef(null);
   const content = children ?? label;
 
-  useNavbarItemDemoCode({ ripple, label, href, active }, rootRef);
+  useNavbarItemDemoCode(
+    {
+      ripple,
+      label,
+      href,
+      active,
+      as: typeof as === 'string' ? as : undefined,
+    },
+    rootRef,
+  );
 
   const linkClass = useMemo(() => {
     const classes = ['navbar_link'];
@@ -30,23 +42,29 @@ export default function NavbarItem({
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
 
+  const Root = as || 'a';
+  const acceptsHref = Root === 'a' || typeof Root !== 'string';
+
   const handleClick = (event) => {
-    event.preventDefault();
+    if (!href || href === '#') {
+      event.preventDefault();
+    }
     onClick?.(event);
   };
 
   return (
     <li ref={rootRef} className={cn('navbar_item', className)} {...domRest}>
-      <a
+      <Root
         {...rippleAttrs}
-        href={href}
+        href={acceptsHref ? href : undefined}
+        type={Root === 'button' ? 'button' : undefined}
         className={cn(linkClass)}
         aria-current={active ? 'page' : undefined}
         onClick={handleClick}
       >
         {content}
         {badge}
-      </a>
+      </Root>
     </li>
   );
 }

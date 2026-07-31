@@ -4,7 +4,6 @@ export const docMeta = {
   pageTitle: 'Textarea',
 };
 
-import React from 'react';
 import Button from '@/components/Button.jsx';
 import ApiSection from '@/components/guide/ApiSection.jsx';
 import ApiTable from '@/components/guide/ApiTable.jsx';
@@ -12,6 +11,7 @@ import DemoSection from '@/components/guide/DemoSection.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Input from '@/components/Input.jsx';
 import Textarea from '@/components/Textarea.jsx';
+import TextareaShowCount from '@/components/TextareaShowCount.jsx';
 import {
   textareaChildColumns,
   textareaChildren,
@@ -44,7 +44,7 @@ export function StandaloneExample() {
   return (
     <>
       <Textarea rows={3} placeholder="플레이스홀더" />
-      <Textarea rows={3} value="입력된 내용이 여기에 표시됩니다." />
+      <Textarea rows={3} defaultValue="입력된 내용이 여기에 표시됩니다." />
       <Textarea rows={3} placeholder="비활성" disabled />
     </>
   );
@@ -217,6 +217,7 @@ export function RequiredExample() {
   );
 }`;
 const countCode = `import Textarea from '@/components/Textarea.jsx';
+import TextareaShowCount from '@/components/TextareaShowCount.jsx';
 
 export function CountExample() {
   return (
@@ -224,27 +225,15 @@ export function CountExample() {
       <label className="form_field-label" htmlFor="textarea-count-basic">
         메모
       </label>
-      <div className="textarea_wrap textarea_show-count">
+      <TextareaShowCount countId="textarea-count-basic-count">
         <Textarea
           id="textarea-count-basic"
           rows={4}
           maxLength={200}
           placeholder="내용을 입력하세요"
-          aria-describedby="textarea-count-basic-hint textarea-count-basic-count"
+          aria-describedby="textarea-count-basic-hint"
         />
-        <span
-          className="textarea_count"
-          id="textarea-count-basic-count"
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <span className="textarea_count_visual" aria-hidden="true">
-            0/200
-          </span>
-          <span className="textarea_count_announcer">0자 입력, 최대 200자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p className="form_field-hint" id="textarea-count-basic-hint">
         200자 이내로 작성해 주세요.
       </p>
@@ -269,7 +258,7 @@ export function StateExample() {
         <Textarea
           id="textarea-state-disabled"
           rows={3}
-          value="수정할 수 없는 내용입니다."
+          defaultValue="수정할 수 없는 내용입니다."
           disabled
         />
         <p className="form_field-hint">disabled 속성으로 편집을 막습니다.</p>
@@ -282,7 +271,7 @@ export function StateExample() {
           id="textarea-state-error"
           rows={3}
           error
-          value="짧음"
+          defaultValue="짧음"
           aria-describedby="textarea-state-error-msg"
         />
         <p className="form_field-error" id="textarea-state-error-msg" role="alert">
@@ -296,6 +285,7 @@ const exampleCode = `import Button from '@/components/Button.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Input from '@/components/Input.jsx';
 import Textarea from '@/components/Textarea.jsx';
+import TextareaShowCount from '@/components/TextareaShowCount.jsx';
 
 export function ExampleForm() {
   return (
@@ -310,7 +300,7 @@ export function ExampleForm() {
         <Input
           id="textarea-ex-subject"
           size="sm"
-          value="서비스 이용 문의"
+          defaultValue="서비스 이용 문의"
           required
           aria-required="true"
         />
@@ -322,7 +312,7 @@ export function ExampleForm() {
             *
           </span>
         </label>
-        <div className="textarea_wrap textarea_show-count">
+        <TextareaShowCount countId="textarea-ex-body-count">
           <Textarea
             id="textarea-ex-body"
             size="sm"
@@ -330,24 +320,12 @@ export function ExampleForm() {
             maxLength={500}
             required
             error
-            value="너무 짧아요"
+            defaultValue="너무 짧아요"
             aria-required="true"
             aria-invalid="true"
-            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count"
+            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error"
           />
-          <span
-            className="textarea_count is-limit"
-            id="textarea-ex-body-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              6/500
-            </span>
-            <span className="textarea_count_announcer">6자 입력, 최대 500자</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-ex-body-limit">
           500자 이내로 작성해 주세요.
         </p>
@@ -367,12 +345,6 @@ export function ExampleForm() {
 }`;
 
 export default function TextareaDoc() {
-  const [countBasicValue, setCountBasicValue] = React.useState('');
-  const [countSmValue, setCountSmValue] = React.useState('');
-  const [countFitValue, setCountFitValue] = React.useState('입력된 내용이 있습니다.');
-  const [exampleBodyValue, setExampleBodyValue] = React.useState('너무 짧아요');
-  const [exampleMemoValue, setExampleMemoValue] = React.useState('참고할 내용이 있습니다.');
-
   return (
     <>
       <div className="page_intro">
@@ -403,7 +375,7 @@ export default function TextareaDoc() {
         >
 <>
       <Textarea rows={3} placeholder="플레이스홀더" />
-      <Textarea rows={3} value="입력된 내용이 여기에 표시됩니다." />
+      <Textarea rows={3} defaultValue="입력된 내용이 여기에 표시됩니다." />
       <Textarea rows={3} placeholder="비활성" disabled />
     </>
         </DemoSection>
@@ -586,7 +558,7 @@ export default function TextareaDoc() {
         <DemoSection
           headingId="count-heading"
           title="글자 수 카운터"
-          description="`textarea_wrap textarea_show-count`로 textarea 우측 하단에 현재 글자 수를 표시합니다. `maxLength`와 함께 사용하면 `0/200` 형식으로 최대 글자 수를 함께 보여 줍니다. 카운터를 사용할 때는 `form_field-hint`로 글자 수 안내 문구(예: 200자 이내로 작성해 주세요.)를 함께 제공합니다. 입력 시 스크린 리더에는 `textarea_count_announcer`가 `role=&quot;status&quot;` · `aria-live=&quot;polite&quot;`로 현재·최대 글자 수를 음성 안내합니다."
+          description="<code>TextareaShowCount</code>로 textarea 우측 하단에 현재 글자 수를 표시합니다. <code>maxLength</code>와 함께 사용하면 <code>0/200</code> 형식으로 최대 글자 수를 함께 보여 줍니다. 카운터 ID는 textarea의 <code>aria-describedby</code>에 자동으로 연결되며, 스크린 리더에는 현재·최대 글자 수를 음성 안내합니다."
           stack
           code={countCode}
         >
@@ -595,29 +567,15 @@ export default function TextareaDoc() {
         <label className="form_field-label" htmlFor="textarea-count-basic">
           메모
         </label>
-        <div className="textarea_wrap textarea_show-count">
+        <TextareaShowCount countId="textarea-count-basic-count">
           <Textarea
             id="textarea-count-basic"
             rows={4}
             maxLength={200}
             placeholder="내용을 입력하세요"
-            value={countBasicValue}
-            onChange={(event) => setCountBasicValue(event.target.value)}
-            aria-describedby="textarea-count-basic-hint textarea-count-basic-count"
+            aria-describedby="textarea-count-basic-hint"
           />
-          <span
-            className="textarea_count"
-            id="textarea-count-basic-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              {`${countBasicValue.length}/200`}
-            </span>
-            <span className="textarea_count_announcer">{`${countBasicValue.length}자 입력, 최대 200자`}</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-count-basic-hint">
           200자 이내로 작성해 주세요.
         </p>
@@ -626,30 +584,16 @@ export default function TextareaDoc() {
         <label className="form_field-label" htmlFor="textarea-count-sm">
           Small + 카운터
         </label>
-        <div className="textarea_wrap textarea_show-count">
+        <TextareaShowCount countId="textarea-count-sm-count">
           <Textarea
             id="textarea-count-sm"
             size="sm"
             rows={3}
             maxLength={100}
             placeholder="textarea_sm"
-            value={countSmValue}
-            onChange={(event) => setCountSmValue(event.target.value)}
-            aria-describedby="textarea-count-sm-hint textarea-count-sm-count"
+            aria-describedby="textarea-count-sm-hint"
           />
-          <span
-            className="textarea_count"
-            id="textarea-count-sm-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              {`${countSmValue.length}/100`}
-            </span>
-            <span className="textarea_count_announcer">{`${countSmValue.length}자 입력, 최대 100자`}</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-count-sm-hint">
           100자 이내로 작성해 주세요.
         </p>
@@ -658,29 +602,19 @@ export default function TextareaDoc() {
         <label className="form_field-label" htmlFor="textarea-count-fit">
           제한 너비 + 카운터
         </label>
-        <div className="textarea_wrap textarea_show-count textarea_wrap_fit">
+        <TextareaShowCount
+          className="textarea_wrap_fit"
+          countId="textarea-count-fit-count"
+        >
           <Textarea
             id="textarea-count-fit"
             rows={3}
             maxLength={200}
             placeholder="textarea_wrap_fit"
-            value={countFitValue}
-            onChange={(event) => setCountFitValue(event.target.value)}
-            aria-describedby="textarea-count-fit-hint textarea-count-fit-count"
+            defaultValue="입력된 내용이 있습니다."
+            aria-describedby="textarea-count-fit-hint"
           />
-          <span
-            className="textarea_count"
-            id="textarea-count-fit-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              {`${countFitValue.length}/200`}
-            </span>
-            <span className="textarea_count_announcer">{`${countFitValue.length}자 입력, 최대 200자`}</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-count-fit-hint">
           200자 이내로 작성해 주세요.
         </p>
@@ -708,7 +642,7 @@ export default function TextareaDoc() {
         <Textarea
           id="textarea-state-disabled"
           rows={3}
-          value="수정할 수 없는 내용입니다."
+          defaultValue="수정할 수 없는 내용입니다."
           disabled
         />
         <p className="form_field-hint">disabled 속성으로 편집을 막습니다.</p>
@@ -721,7 +655,7 @@ export default function TextareaDoc() {
           id="textarea-state-error"
           rows={3}
           error
-          value="짧음"
+          defaultValue="짧음"
           aria-describedby="textarea-state-error-msg"
         />
         <p className="form_field-error" id="textarea-state-error-msg" role="alert">
@@ -748,7 +682,7 @@ export default function TextareaDoc() {
         <Input
           id="textarea-ex-subject"
           size="sm"
-          value="서비스 이용 문의"
+          defaultValue="서비스 이용 문의"
           required
           aria-required="true"
         />
@@ -760,7 +694,7 @@ export default function TextareaDoc() {
             *
           </span>
         </label>
-        <div className="textarea_wrap textarea_show-count">
+        <TextareaShowCount countId="textarea-ex-body-count">
           <Textarea
             id="textarea-ex-body"
             size="sm"
@@ -768,25 +702,12 @@ export default function TextareaDoc() {
             maxLength={500}
             required
             error
-            value={exampleBodyValue}
-            onChange={(event) => setExampleBodyValue(event.target.value)}
+            defaultValue="너무 짧아요"
             aria-required="true"
             aria-invalid="true"
-            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count"
+            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error"
           />
-          <span
-            className={`textarea_count${exampleBodyValue.length >= 500 ? ' is-limit' : ''}`}
-            id="textarea-ex-body-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              {`${exampleBodyValue.length}/500`}
-            </span>
-            <span className="textarea_count_announcer">{`${exampleBodyValue.length}자 입력, 최대 500자`}</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-ex-body-limit">
           500자 이내로 작성해 주세요.
         </p>
@@ -801,31 +722,18 @@ export default function TextareaDoc() {
         <label className="form_field-label" htmlFor="textarea-ex-memo">
           추가 메모
         </label>
-        <div className="textarea_wrap textarea_show-count">
+        <TextareaShowCount countId="textarea-ex-memo-count">
           <Textarea
             id="textarea-ex-memo"
             size="sm"
             className="textarea_resize_vertical is-success"
             rows={3}
             maxLength={200}
-            value={exampleMemoValue}
-            onChange={(event) => setExampleMemoValue(event.target.value)}
+            defaultValue="참고할 내용이 있습니다."
             aria-invalid="false"
-            aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success textarea-ex-memo-count"
+            aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success"
           />
-          <span
-            className="textarea_count"
-            id="textarea-ex-memo-count"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <span className="textarea_count_visual" aria-hidden="true">
-              {`${exampleMemoValue.length}/200`}
-            </span>
-            <span className="textarea_count_announcer">{`${exampleMemoValue.length}자 입력, 최대 200자`}</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p className="form_field-hint" id="textarea-ex-memo-hint">
           200자 이내로 작성해 주세요.
         </p>

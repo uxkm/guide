@@ -53,6 +53,7 @@ function updatePanelPosition(root, config) {
   const { panelSelector, triggerSelector, prefix, anchorMixedClass, defaultPanelAlign = 'start' } = config;
   const panel = root.querySelector(panelSelector);
   if (!panel) return;
+  const arrowClearance = ` + var(--${prefix}-arrow-clearance)`;
 
   if (!usesPanelJs(root, config)) {
     resetPanelInlineStyles(panel);
@@ -72,7 +73,7 @@ function updatePanelPosition(root, config) {
   resetPanelInlineStyles(panel);
 
   if (side === 'bottom') {
-    panel.style.top = `calc(100% + var(--${prefix}-offset-bottom))`;
+    panel.style.top = `calc(100% + var(--${prefix}-offset-bottom)${arrowClearance})`;
     let left = 0;
     if (panelAlign === 'center') left = (triggerW - panelW) / 2;
     if (panelAlign === 'end') left = triggerW - panelW;
@@ -82,7 +83,7 @@ function updatePanelPosition(root, config) {
 
   if (side === 'top') {
     panel.style.top = 'auto';
-    panel.style.bottom = `calc(100% + var(--${prefix}-offset-top))`;
+    panel.style.bottom = `calc(100% + var(--${prefix}-offset-top)${arrowClearance})`;
     let left = 0;
     if (panelAlign === 'center') left = (triggerW - panelW) / 2;
     if (panelAlign === 'end') left = triggerW - panelW;
@@ -94,7 +95,7 @@ function updatePanelPosition(root, config) {
     panel.style.top = 'auto';
     panel.style.bottom = 'auto';
     panel.style.left = 'auto';
-    panel.style.right = `calc(100% + var(--${prefix}-offset-left))`;
+    panel.style.right = `calc(100% + var(--${prefix}-offset-left)${arrowClearance})`;
     let top = 0;
     if (panelAlign === 'center') top = (triggerH - panelH) / 2;
     if (panelAlign === 'end') top = triggerH - panelH;
@@ -105,7 +106,7 @@ function updatePanelPosition(root, config) {
   if (side === 'right') {
     panel.style.top = 'auto';
     panel.style.bottom = 'auto';
-    panel.style.left = `calc(100% + var(--${prefix}-offset-right))`;
+    panel.style.left = `calc(100% + var(--${prefix}-offset-right)${arrowClearance})`;
     let top = 0;
     if (panelAlign === 'center') top = (triggerH - panelH) / 2;
     if (panelAlign === 'end') top = triggerH - panelH;

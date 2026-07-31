@@ -43,35 +43,60 @@ export const conventionRows = [
   },
 ];
 
+export const reactNextCards = [
+  {
+    key: 'spa',
+    badge: '기본 방식',
+    title: 'React SPA',
+    summary: '하나의 클라이언트 앱이 화면과 경로를 모두 처리합니다.',
+    facts: [
+      { label: '시작', value: 'index.html · src/main.jsx' },
+      { label: '경로', value: 'React Router에서 처리' },
+      { label: '출력', value: 'Vite → dist/' },
+    ],
+    pros: [
+      '구조와 설정이 단순합니다.',
+      '프레임워크 의존성이 낮고 정적 호스팅이 쉽습니다.',
+    ],
+    cons: [
+      '초기 화면이 JavaScript 실행에 의존합니다.',
+      '검색·공유 메타데이터와 직접 URL 접근을 별도로 구성해야 합니다.',
+    ],
+    bestFor: '검색 노출보다 클라이언트 상호작용이 중요한 도구·관리 화면',
+  },
+  {
+    key: 'next',
+    badge: '현재 구성',
+    title: 'Next.js',
+    summary: 'App Router가 정적 HTML과 경로를 만들고 React가 상호작용을 담당합니다.',
+    facts: [
+      { label: '시작', value: 'app/layout.jsx · [[...slug]]/page.jsx' },
+      { label: '경로', value: 'Next.js App Router' },
+      { label: '출력', value: 'Next.js export → out/' },
+    ],
+    pros: [
+      '문서별 HTML과 메타데이터를 빌드 시 생성합니다.',
+      '파일 라우팅·내부 링크·basePath를 Next.js에서 일관되게 관리합니다.',
+    ],
+    cons: [
+      '서버·클라이언트 컴포넌트 경계를 구분해야 합니다.',
+      '서버 기능은 정적 export에서 사용할 수 없습니다.',
+    ],
+    bestFor: '검색 가능한 정적 문서·콘텐츠와 점진적인 클라이언트 상호작용',
+  },
+];
+
 export const quickstartCode = `# 의존성 설치
 pnpm install
 
-# React + Vite 개발 서버
+# Next.js 개발 서버
 pnpm dev
 
-# React 프로덕션 빌드
+# Next.js 정적 빌드
 pnpm build`;
 
-export const structureCode = `src/
-├── components/               # 재사용 UI 컴포넌트 (React JSX)
-├── context/                  # React Context (사이드바·탭 등)
-├── doc/
-│   ├── components/           # 컴포넌트 문서 페이지 (.jsx)
-│   └── pages/                # 소개·설치 페이지 (.jsx)
-├── hooks/                    # React hooks (useTheme, useDemoCode 등)
-├── scss/
-│   ├── _tokens.scss          # 디자인 토큰 (:root CSS 변수)
-│   ├── _themes.scss          # 라이트/다크 테마
-│   ├── components/           # 컴포넌트별 스타일
-│   └── main.scss             # SCSS 진입점
-├── layouts/                  # 가이드 레이아웃
-├── router/                   # React Router
-└── main.jsx                  # 앱 진입점
-
-dist/                         # Vite 프로덕션 빌드 결과`;
-
 export const docPageCode = `export const docMeta = {
-  title: 'Button | HTML Components',
+  title: 'Button | UXKM Guide',
   activeNav: 'button',
   pageTitle: 'Button',
 };

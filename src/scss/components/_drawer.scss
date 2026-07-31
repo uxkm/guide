@@ -472,44 +472,32 @@
     overflow: hidden;
     background: var(--color-bg);
 
-    // Playground·문서 미리보기 — fixed 오버레이를 프레임 안으로 가둠
-    .drawer {
+    // 열린 상태·푸터 정렬 문서 미리보기만 프레임 안에 고정
+    // 클릭으로 여는 Drawer는 기본 fixed 배치를 유지해 뷰포트 전체에 표시
+    .drawer.drawer_demo-static {
       position: absolute;
       inset: 0;
       z-index: 1;
+      display: block;
+      pointer-events: none;
 
-      &[hidden]:not(.is-open):not(.drawer_demo-static) {
-        display: none;
-      }
-
-      &.is-open,
-      &.is-opening,
-      &.is-closing,
-      &.drawer_demo-static {
-        display: block;
-      }
-
-      .drawer_backdrop,
-      .drawer_panel {
+      > .drawer_backdrop,
+      > .drawer_panel {
         position: absolute;
       }
 
-      &.drawer_demo-static {
+      > .drawer_panel {
+        pointer-events: auto;
+        transform: none;
+      }
+
+      > .drawer_backdrop {
+        opacity: 1;
         pointer-events: none;
+      }
 
-        .drawer_panel {
-          pointer-events: auto;
-          transform: none;
-        }
-
-        .drawer_backdrop {
-          opacity: 1;
-          pointer-events: none;
-        }
-
-        &[data-drawer-backdrop="false"] .drawer_backdrop {
-          display: none;
-        }
+      &[data-drawer-backdrop="false"] > .drawer_backdrop {
+        display: none;
       }
     }
   }

@@ -24,9 +24,8 @@ import {
   inputTokens,
 } from '@/doc/data/input-api';
 
-const basicCode = `import Button from '@/components/Button.jsx';
-import Icon from '@/components/Icon.jsx';
-import Input from '@/components/Input.jsx';
+const basicCode = `import Input from '@/components/Input.jsx';
+import InputClearable from '@/components/InputClearable.jsx';
 
 export function BasicExample() {
   return (
@@ -34,27 +33,17 @@ export function BasicExample() {
           <label className="form_field-label" htmlFor="input-name">
             이름
           </label>
-          <div className="input_clearable">
+          <InputClearable>
             <Input id="input-name" placeholder="이름을 입력하세요" />
-            <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              hidden
-              iconBefore={<Icon name="close" />}
-            />
-          </div>
+          </InputClearable>
           <p className="form_field-hint">2~20자 이내로 입력해 주세요.</p>
         </div>
   );
 }`;
 
-const standaloneCode = `import Button from '@/components/Button.jsx';
-import Icon from '@/components/Icon.jsx';
+const standaloneCode = `import Icon from '@/components/Icon.jsx';
 import Input from '@/components/Input.jsx';
+import InputClearable from '@/components/InputClearable.jsx';
 
 export function StandaloneExample() {
   return (
@@ -63,36 +52,17 @@ export function StandaloneExample() {
             <label className="form_field-label" htmlFor="input-standalone-placeholder">
               검색어
             </label>
-            <div className="input_clearable">
+            <InputClearable>
               <Input id="input-standalone-placeholder" placeholder="플레이스홀더" />
-              <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              hidden
-              iconBefore={<Icon name="close" />}
-            />
-            </div>
+            </InputClearable>
           </div>
           <div className="input_field">
             <label className="form_field-label" htmlFor="input-standalone-value">
               닉네임
             </label>
-            <div className="input_clearable">
+            <InputClearable>
               <Input id="input-standalone-value" defaultValue="입력된 값" />
-              <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              iconBefore={<Icon name="close" />}
-            />
-            </div>
+            </InputClearable>
           </div>
           <div className="input_field">
             <label className="form_field-label" htmlFor="input-standalone-disabled">
@@ -666,9 +636,9 @@ export function StateExample() {
   );
 }`;
 
-const clearableCode = `import Button from '@/components/Button.jsx';
-import Icon from '@/components/Icon.jsx';
+const clearableCode = `import Icon from '@/components/Icon.jsx';
 import Input from '@/components/Input.jsx';
+import InputClearable from '@/components/InputClearable.jsx';
 
 export function ClearableExample() {
   return (
@@ -677,19 +647,9 @@ export function ClearableExample() {
             <label className="form_field-label" htmlFor="input-clear-text">
               텍스트
             </label>
-            <div className="input_clearable">
+            <InputClearable>
               <Input id="input-clear-text" placeholder="입력 후 우측 X 버튼 확인" />
-              <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              hidden
-              iconBefore={<Icon name="close" />}
-            />
-            </div>
+            </InputClearable>
           </div>
           <div className="form_field form_field_fit">
             <label className="form_field-label" htmlFor="input-clear-search">
@@ -699,38 +659,18 @@ export function ClearableExample() {
               <span className="input_group-addon" aria-hidden="true">
                 <Icon name="search" size="sm" />
               </span>
-              <span className="input_clearable">
+              <InputClearable as="span">
                 <Input id="input-clear-search" type="search" placeholder="검색어 입력" />
-                <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              hidden
-              iconBefore={<Icon name="close" />}
-            />
-              </span>
+              </InputClearable>
             </div>
           </div>
           <div className="form_field form_field_fit">
             <label className="form_field-label" htmlFor="input-clear-readonly">
               읽기 전용 (삭제 버튼 없음)
             </label>
-            <div className="input_clearable">
+            <InputClearable>
               <Input id="input-clear-readonly" defaultValue="수정 불가" readOnly />
-              <Button
-              className="input_clear"
-              variant="text"
-              color="muted"
-              ripple={false}
-              ariaLabel="입력 지우기"
-              iconOnly
-              hidden
-              iconBefore={<Icon name="close" />}
-            />
-            </div>
+            </InputClearable>
           </div>
         </>
   );

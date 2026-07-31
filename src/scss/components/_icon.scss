@@ -28,6 +28,14 @@
   vertical-align: -0.125em;
   @include square-size(var(--icon-size));
 
+  > img,
+  > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   @each $size in sm, lg, xl {
     &_#{$size} {
       @include square-size(var(--icon-size-#{$size}));

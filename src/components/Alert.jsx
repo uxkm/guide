@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
@@ -65,6 +67,7 @@ export default function Alert({
   const hasTitle = Boolean(title);
   const descContent = children ?? description;
   const hasDescription = Boolean(descContent);
+  const hasActions = actions != null;
 
   const { class: _ignoredClass, role: _ignoredRole, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
@@ -91,7 +94,11 @@ export default function Alert({
       <div className="alert_body">
         {hasTitle ? <div className="alert_title">{title}</div> : null}
         {hasDescription ? <p className="alert_desc">{descContent}</p> : null}
-        {actions}
+        {hasActions ? (
+          <div className="alert_actions" data-demo-slot="actions">
+            {actions}
+          </div>
+        ) : null}
       </div>
       {closable ? (
         <Button

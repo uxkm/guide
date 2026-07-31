@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -13,11 +15,11 @@ const VARIANT_MAP = {
   code: { tag: 'code', className: 'typo_code' },
   kbd: { tag: 'kbd', className: 'typo_kbd' },
   pre: { tag: 'pre', className: 'typo_pre' },
-  strong: { tag: 'span', className: 'typo_strong' },
-  italic: { tag: 'span', className: 'typo_italic' },
+  strong: { tag: 'strong', className: 'typo_strong' },
+  italic: { tag: 'em', className: 'typo_italic' },
   underline: { tag: 'span', className: 'typo_underline' },
-  delete: { tag: 'span', className: 'typo_delete' },
-  mark: { tag: 'span', className: 'typo_mark' },
+  delete: { tag: 'del', className: 'typo_delete' },
+  mark: { tag: 'mark', className: 'typo_mark' },
   sub: { tag: 'sub', className: 'typo_sub' },
   sup: { tag: 'sup', className: 'typo_sup' },
   small: { tag: 'small', className: 'typo_small' },
@@ -27,10 +29,51 @@ const VARIANT_MAP = {
 };
 
 const VALID_SIZES = new Set(['', 'xs', 'sm', 'lg', 'xl']);
+const VALID_COLORS = new Set([
+  '',
+  'default',
+  'muted',
+  'primary',
+  'success',
+  'warning',
+  'danger',
+  'info',
+  'error',
+]);
+const VALID_ELLIPSIS = new Set([1, 2, 3, '1', '2', '3']);
+const VALID_TAGS = new Set([
+  'p',
+  'span',
+  'div',
+  'label',
+  'code',
+  'kbd',
+  'pre',
+  'strong',
+  'em',
+  'u',
+  'del',
+  'mark',
+  'sub',
+  'sup',
+  'small',
+  'a',
+  'blockquote',
+  'abbr',
+  'cite',
+  'q',
+  'time',
+  'address',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+]);
 
 const formatCode = createComponentFormatter('TypoText', {
   defaults: { variant: 'text', ellipsis: 0 },
-  skipProps: ['tag'],
   selfClosing: false,
 });
 
@@ -50,21 +93,25 @@ export default function TypoText({
   ...rest
 }) {
   const rootRef = useRef(null);
-  const variantConfig = VARIANT_MAP[variant] || VARIANT_MAP.text;
+  const resolvedVariant = Object.hasOwn(VARIANT_MAP, variant) ? variant : 'text';
+  const variantConfig = VARIANT_MAP[resolvedVariant];
+  const resolvedColor = VALID_COLORS.has(color) ? color : '';
   const resolvedSize = VALID_SIZES.has(size) ? size : '';
+  const resolvedTag = VALID_TAGS.has(tag) ? tag : variantConfig.tag;
   const content = children ?? label;
 
   useComponentDemoCode(
     formatCode,
     {
-      variant,
-      color,
+      variant: resolvedVariant,
+      color: resolvedColor,
       size: resolvedSize,
       ellipsis,
       href,
       htmlFor,
       cite,
       label,
+      tag: VALID_TAGS.has(tag) ? tag : undefined,
     },
     createDemoSlots({ default: content }),
     rootRef,
@@ -72,15 +119,13 @@ export default function TypoText({
   );
 
   const ellipsisLines = useMemo(() => {
-    if (ellipsis == null || ellipsis === '') return 0;
-    const lines = Number(ellipsis);
-    return lines >= 1 && lines <= 3 ? lines : 0;
+    return VALID_ELLIPSIS.has(ellipsis) ? Number(ellipsis) : 0;
   }, [ellipsis]);
 
   const rootClass = useMemo(() => {
     const classes = [];
     if (variantConfig.className) classes.push(variantConfig.className);
-    if (color) classes.push(`color_${color}`);
+    if (resolvedColor) classes.push(`color_${resolvedColor}`);
     if (resolvedSize === 'xs') classes.push('size_xs');
     if (resolvedSize === 'sm') classes.push('size_sm');
     if (resolvedSize === 'lg') classes.push('size_lg');
@@ -89,13 +134,13 @@ export default function TypoText({
     if (ellipsisLines === 2) classes.push('text_ellipsis-2');
     if (ellipsisLines === 3) classes.push('text_ellipsis-3');
     return classes;
-  }, [variantConfig.className, color, resolvedSize, ellipsisLines]);
+  }, [variantConfig.className, resolvedColor, resolvedSize, ellipsisLines]);
 
-  const Tag = tag || variantConfig.tag;
+  const Tag = resolvedTag;
   const domRest = normalizeDomProps(rest);
 
   function handleClick(event) {
-    if (variant === 'link' && !href) {
+    if (resolvedTag === 'a' && !href) {
       event.preventDefault();
     }
     onClick?.(event);
@@ -105,10 +150,10 @@ export default function TypoText({
     <Tag
       ref={rootRef}
       className={cn(rootClass, className)}
-      href={variant === 'link' ? href || '#' : undefined}
-      htmlFor={variant === 'label' ? htmlFor : undefined}
-      cite={variant === 'blockquote' ? cite : undefined}
-      onClick={variant === 'link' ? handleClick : onClick}
+      href={resolvedTag === 'a' ? href : undefined}
+      htmlFor={resolvedTag === 'label' ? htmlFor : undefined}
+      cite={resolvedTag === 'blockquote' ? cite : undefined}
+      onClick={resolvedTag === 'a' ? handleClick : onClick}
       {...domRest}
     >
       {content}

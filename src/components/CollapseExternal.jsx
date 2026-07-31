@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
@@ -13,6 +15,8 @@ export default function CollapseExternal({
   narrow,
   boxed = true,
   open,
+  defaultOpen = false,
+  onOpenChange,
   effect,
   lead,
   children,
@@ -23,9 +27,13 @@ export default function CollapseExternal({
   const rootRef = useRef(null);
   const panelRef = useRef(null);
   const isFirstSlideSync = useRef(true);
-  const panelId = `collapse-ext-${useId().replace(/:/g, '')}`;
+  const reactId = useId().replace(/:/g, '');
+  const triggerId = `collapse-ext-trigger-${reactId}`;
+  const panelId = `collapse-ext-panel-${reactId}`;
 
-  const [isOpen, setIsOpen] = useState(() => Boolean(open));
+  const [internalOpen, setInternalOpen] = useState(() => Boolean(defaultOpen));
+  const controlled = open != null;
+  const isOpen = controlled ? Boolean(open) : internalOpen;
   const isOpenStateRef = useRef(isOpen);
   isOpenStateRef.current = isOpen;
   const slide = effect === 'slide';
@@ -41,7 +49,16 @@ export default function CollapseExternal({
   );
 
   useCollapseExternalDemoCode(
-    { ripple, triggerLabel, narrow, boxed, open, effect },
+    {
+      ripple,
+      triggerLabel,
+      narrow,
+      boxed,
+      open,
+      defaultOpen,
+      controlled,
+      effect,
+    },
     rootRef,
     { className, ...rest },
     isOpenDemoRef,
@@ -73,7 +90,11 @@ export default function CollapseExternal({
   );
 
   function toggle() {
-    setIsOpen((prev) => !prev);
+    const nextOpen = !isOpen;
+    if (!controlled) {
+      setInternalOpen(nextOpen);
+    }
+    onOpenChange?.(nextOpen);
   }
 
   const { class: _ignoredClass, ...restForDom } = rest;
@@ -87,6 +108,7 @@ export default function CollapseExternal({
     >
       {lead != null ? <div data-demo-slot="lead">{lead}</div> : null}
       <Button
+        id={triggerId}
         variant="ghost"
         size="sm"
         expanded={isOpen}
@@ -101,6 +123,8 @@ export default function CollapseExternal({
         ref={slide ? panelRef : undefined}
         id={panelId}
         className={cn('collapse', isOpen && 'is-open')}
+        role="region"
+        aria-labelledby={triggerId}
         data-effect={slide ? 'slide' : undefined}
         data-demo-slot="default"
         style={panelStyle}

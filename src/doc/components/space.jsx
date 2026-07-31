@@ -151,15 +151,15 @@ export default function SpaceDoc() {
       <div className="page_intro">
         <h1>Space</h1>
         <p className="lead">
-          자식 요소 사이 간격을 일관되게 맞추는 flex 기반 레이아웃 유틸리티입니다. gap·방향·정렬·줄바꿈을
-          클래스로 조합합니다.
+          자식 요소 사이의 간격과 배치를 관리하는 React 레이아웃 컴포넌트입니다. gap·방향·정렬·줄바꿈을
+          props와 유틸리티 클래스로 조합합니다.
         </p>
       </div>
 
       <DemoSection
         headingId="basic-heading"
         title="기본"
-        description="space는 가로 inline-flex이며 기본 간격은 --space-gap (md)입니다."
+        description="기본 Space는 가로 inline-flex이며 자식을 가운데 정렬합니다. 기본 간격은 --space-gap (md)입니다."
         code={basicCode}
       >
         <Space>
@@ -219,7 +219,7 @@ export default function SpaceDoc() {
       <DemoSection
         headingId="wrap-heading"
         title="줄바꿈"
-        description="space_wrap과 space_block을 함께 사용하면 너비가 부족할 때 자식이 다음 줄로 넘어갑니다."
+        description="block으로 사용 가능한 너비를 확보하고 wrap을 적용하면 자식이 다음 줄로 넘어갑니다."
         stack
         code={wrapCode}
       >
@@ -245,7 +245,7 @@ export default function SpaceDoc() {
       <DemoSection
         headingId="align-heading"
         title="정렬"
-        description="space_align-* · space_justify-*로 교차축·주축 정렬을 지정합니다."
+        description="align은 교차축, justify는 주축 정렬을 지정합니다. 기본값은 각각 center와 start입니다."
         stack
         code={alignCode}
       >

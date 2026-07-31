@@ -75,6 +75,8 @@ const ExternalIcon = (
 
 const basicCode = "import Tag from '@/components/Tag.jsx';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Tag color=\"default\" label=\"Default\" />\n      <Tag color=\"primary\" label=\"Primary\" />\n      <Tag color=\"success\" label=\"Success\" />\n      <Tag color=\"warning\" label=\"Warning\" />\n      <Tag color=\"danger\" label=\"Danger\" />\n      <Tag color=\"info\" label=\"Info\" />\n    </>\n  );\n}";
 
+const semanticCode = "import Tag from '@/components/Tag.jsx';\n\nexport function SemanticExample() {\n  return (\n    <>\n      <ul className=\"tag_group\" aria-label=\"기술 분류\">\n        <Tag as=\"li\" color=\"primary\" label=\"React\" />\n        <Tag as=\"li\" color=\"success\" label=\"Next.js\" />\n      </ul>\n      <p>\n        <Tag as=\"strong\" color=\"warning\" label=\"추천\" /> 항목입니다.\n      </p>\n    </>\n  );\n}";
+
 const solidCode = "import Tag from '@/components/Tag.jsx';\n\nexport function SolidExample() {\n  return (\n    <>\n      <Tag variant=\"solid\" color=\"default\" label=\"Default\" />\n      <Tag variant=\"solid\" color=\"primary\" label=\"Primary\" />\n      <Tag variant=\"solid\" color=\"success\" label=\"Success\" />\n      <Tag variant=\"solid\" color=\"warning\" label=\"Warning\" />\n      <Tag variant=\"solid\" color=\"danger\" label=\"Danger\" />\n      <Tag variant=\"solid\" color=\"info\" label=\"Info\" />\n    </>\n  );\n}";
 
 const outlineCode = "import Tag from '@/components/Tag.jsx';\n\nexport function OutlineExample() {\n  return (\n    <>\n      <Tag variant=\"outline\" color=\"default\" label=\"Default\" />\n      <Tag variant=\"outline\" color=\"primary\" label=\"Primary\" />\n      <Tag variant=\"outline\" color=\"success\" label=\"Success\" />\n      <Tag variant=\"outline\" color=\"warning\" label=\"Warning\" />\n      <Tag variant=\"outline\" color=\"danger\" label=\"Danger\" />\n      <Tag variant=\"outline\" color=\"info\" label=\"Info\" />\n    </>\n  );\n}";
@@ -117,6 +119,22 @@ export default function TagDoc() {
           <Tag color="warning" label="Warning" />
           <Tag color="danger" label="Danger" />
           <Tag color="info" label="Info" />
+        </DemoSection>
+
+        <DemoSection
+          headingId="semantic-heading"
+          title="시맨틱 요소"
+          description="일반 Tag는 기본적으로 span을 사용하며, as prop으로 콘텐츠 구조와 의미에 맞는 HTML 요소 또는 커스텀 컴포넌트를 지정합니다. checkable·add·href 사용 시에는 접근성을 위해 button 또는 a를 자동으로 사용합니다."
+          code={semanticCode}
+          stack
+        >
+          <ul className="tag_group" aria-label="기술 분류">
+            <Tag as="li" color="primary" label="React" />
+            <Tag as="li" color="success" label="Next.js" />
+          </ul>
+          <p>
+            <Tag as="strong" color="warning" label="추천" /> 항목입니다.
+          </p>
         </DemoSection>
 
         <DemoSection

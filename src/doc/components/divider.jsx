@@ -88,15 +88,15 @@ export default function DividerDoc() {
       <div className="page_intro">
         <h1>Divider</h1>
         <p className="lead">
-          콘텐츠를 시각적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티
-          클래스로 조합합니다.
+          콘텐츠 영역이나 인라인 항목을 구분하는 React 컴포넌트입니다. 실선·점선·텍스트 레이블·세로
+          구분을 props와 유틸리티 클래스로 조합합니다.
         </p>
       </div>
 
       <DemoSection
         headingId="basic-heading"
         title="기본"
-        description="divider 클래스로 가로 구분선을 그립니다. hr 또는 div에 사용할 수 있습니다."
+        description="레이블이 없는 가로 Divider는 의미 있는 구분선인 hr로 렌더링됩니다."
         stack
         code={basicCode}
       >
@@ -120,7 +120,7 @@ export default function DividerDoc() {
       <DemoSection
         headingId="text-heading"
         title="텍스트 레이블"
-        description="요소 안에 텍스트가 있으면 양쪽 선과 가운데 레이블로 자동 전환됩니다."
+        description="label이나 children을 전달하면 role=separator인 div와 양쪽 선으로 렌더링됩니다. plain은 레이블 굵기를 낮춥니다."
         stack
         code={textCode}
       >
@@ -143,7 +143,7 @@ export default function DividerDoc() {
       <DemoSection
         headingId="vertical-heading"
         title="세로"
-        description="divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다."
+        description="vertical은 인라인·flex 행 안에서 장식용 세로 구분선으로 사용하며 스크린 리더에서는 숨깁니다."
         code={verticalCode}
       >
         <Space>

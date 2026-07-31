@@ -8,7 +8,8 @@ export const switchPropColumns = [
 
 export const switchProps = [
   { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. children으로 대체' },
-  { name: 'checked', type: 'boolean', default: 'false', description: '켜짐 상태' },
+  { name: 'checked', type: 'boolean', default: '—', description: '제어 켜짐 상태' },
+  { name: 'defaultChecked', type: 'boolean', default: 'false', description: '비제어 초기 켜짐 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'labelEnd', type: 'boolean', default: 'false', description: '라벨을 스위치 뒤에 배치' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'switch_sm · switch_lg' },

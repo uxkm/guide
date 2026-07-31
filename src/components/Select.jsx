@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -9,12 +11,21 @@ const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Select', {
   defaults: { size: 'md' },
-  booleanProps: new Set(['disabled', 'error', 'open', 'block', 'custom', 'selectText']),
+  booleanProps: new Set([
+    'disabled',
+    'error',
+    'open',
+    'block',
+    'custom',
+    'selectText',
+    'multiple',
+  ]),
   skipProps: ['modelValue'],
   selfClosing: false,
 });
 
 export default function Select({
+  ref,
   ripple,
   size = 'md',
   disabled,
@@ -24,6 +35,7 @@ export default function Select({
   block,
   custom,
   selectText,
+  multiple,
   listSize,
   value,
   defaultValue,
@@ -32,7 +44,7 @@ export default function Select({
   onChange,
   ...rest
 }) {
-  const rootRef = useRef(null);
+  const demoRef = useRef(null);
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
 
   const [internalValue, setInternalValue] = useState(
@@ -59,11 +71,12 @@ export default function Select({
       block,
       custom,
       selectText,
+      multiple,
       listSize,
       value: currentValue,
     },
     createDemoSlots({ default: children }),
-    rootRef,
+    demoRef,
     { className, onChange, ...rest },
   );
 
@@ -88,15 +101,28 @@ export default function Select({
   const domRest = normalizeDomProps(restForDom);
 
   function handleChange(event) {
-    setInternalValue(event.target.value);
+    if (value === undefined) {
+      const nextValue = event.currentTarget.multiple
+        ? Array.from(event.currentTarget.selectedOptions, (option) => option.value)
+        : event.currentTarget.value;
+      setInternalValue(nextValue);
+    }
     onChange?.(event);
+  }
+
+  function setRootRef(node) {
+    demoRef.current = node;
+
+    if (typeof ref === 'function') ref(node);
+    else if (ref && typeof ref === 'object') ref.current = node;
   }
 
   if (custom) {
     const triggerLabel = children ?? currentValue ?? placeholder;
+    const isPlaceholder = currentValue == null || currentValue === '';
     return (
       <Button
-        ref={rootRef}
+        ref={setRootRef}
         variant="select"
         className={className}
         size={resolvedSize}
@@ -104,7 +130,7 @@ export default function Select({
         selectText={selectText}
         open={open}
         error={error}
-        placeholder={!currentValue && Boolean(placeholder)}
+        placeholder={isPlaceholder && Boolean(placeholder)}
         disabled={disabled}
         haspopup="listbox"
         expanded={open}
@@ -117,9 +143,9 @@ export default function Select({
     );
   }
 
-  const isControlled = value !== undefined || onChange != null;
+  const isControlled = value !== undefined;
   const valueProps = isControlled
-    ? { value: currentValue ?? '' }
+    ? { value: currentValue ?? (multiple ? [] : '') }
     : defaultValue !== undefined
       ? { defaultValue }
       : placeholder
@@ -128,9 +154,10 @@ export default function Select({
 
   return (
     <select
-      ref={rootRef}
+      ref={setRootRef}
       className={cn(inputClass, className)}
       disabled={disabled}
+      multiple={multiple}
       size={listSize}
       aria-invalid={error ? 'true' : undefined}
       {...valueProps}

@@ -6,7 +6,7 @@ export const emptyPropColumns = [
 ];
 
 export const emptyProps = [
-  { name: 'description', type: 'string', default: '—', description: '설명 텍스트. description 슬롯으로 대체' },
+  { name: 'description', type: 'ReactNode', default: '—', description: '설명 콘텐츠. children이 있으면 children 우선' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'empty_sm · empty_lg' },
   { name: 'simple', type: 'boolean', default: 'false', description: '아이콘 숨김 (empty_simple)' },
   { name: 'block', type: 'boolean', default: 'false', description: '가운데 블록 정렬 (empty_block)' },
@@ -21,9 +21,9 @@ export const emptyChildColumns = [
 ];
 
 export const emptyChildren = [
-  { name: 'image', description: '일러스트·아이콘 (empty_image)' },
-  { name: 'children', description: '설명 (description prop 대체, Vue description 슬롯 대응)' },
-  { name: 'footer', description: '액션 버튼·링크 (empty_footer)' },
+  { name: 'image', description: 'empty_image에 렌더링하는 일러스트·아이콘 React 노드' },
+  { name: 'children', description: 'description 대신 표시하는 React children' },
+  { name: 'footer', description: 'empty_footer에 렌더링하는 액션 버튼·링크 React 노드' },
 ];
 
 /** @deprecated 가이드·Storybook은 emptyChildColumns · emptyChildren 사용 */

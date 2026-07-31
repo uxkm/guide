@@ -1,5 +1,5 @@
 export const docMeta = {
-  title: '디자인 토큰 | HTML Components',
+  title: '디자인 토큰 | UXKM Guide',
   activeNav: 'design-tokens',
   pageTitle: '디자인 토큰',
 };
@@ -8,7 +8,6 @@ import Link from '@/components/Link.jsx';
 import List from '@/components/List.jsx';
 import ListItem from '@/components/ListItem.jsx';
 import TypoText from '@/components/TypoText.jsx';
-import ApiSection from '@/components/guide/ApiSection.jsx';
 import ApiTable from '@/components/guide/ApiTable.jsx';
 import GuideCodeBlock from '@/components/guide/GuideCodeBlock.jsx';
 import GuideSection from '@/components/guide/GuideSection.jsx';
@@ -18,6 +17,7 @@ import {
   componentTokenNote,
   cssUsageCode,
   fileStructureCode,
+  interactionTokens,
   layoutTokens,
   motionTokens,
   radiusTokens,
@@ -38,13 +38,13 @@ export default function DesignTokensDoc() {
               색상·간격·타이포그래피 등 디자인 시스템의 기준 값을 CSS 변수로 관리합니다.
                     <a href="https://uxkm.io/publishing/scss/10-scss-examples/01-design-tokens-base-styles" target="_blank" rel="noopener noreferrer">UXKM 디자인 토큰과 기본 스타일</a>
                     을 참고해, 이 가이드에서는 <TypoText variant="code" tag="span" label=":root" />
-                    CSS 변수와 라이트/다크 테마 구조로 제공합니다. React 앱은
-                    <TypoText variant="code" tag="span" label="src/main.jsx" />
+                    CSS 변수와 라이트/다크 테마 구조로 제공합니다. Next.js 앱은
+                    <TypoText variant="code" tag="span" label="app/layout.jsx" />
                     에서 <TypoText variant="code" tag="span" label="src/scss/main.scss" />를 import해 동일한 토큰을 사용합니다.
               </>
             )} />
 
-        <ApiSection
+        <GuideSection
           headingId="concept-heading"
           title="디자인 토큰이란?"
           description="디자인 시스템에서 반복되는 값을 의미 있는 이름으로 정의한 것입니다. 컴포넌트·페이지 스타일은 하드코딩 대신 토큰을 참조해 일관성을 유지하고, 변경 시 한 곳만 수정하면 전체에 반영됩니다."
@@ -55,12 +55,12 @@ export default function DesignTokensDoc() {
             <ListItem><strong>테마</strong> — 색상 토큰을 테마별로 교체해 라이트/다크를 지원합니다. React에서는 <TypoText variant="code" tag="span" label="useTheme" /> hook으로 전환합니다.</ListItem>
             <ListItem><strong>협업</strong> — 디자이너·개발자가 <TypoText variant="code" tag="span" label="--space-md" /> 같은 공통 언어로 소통합니다.</ListItem>
           </List>
-        </ApiSection>
+        </GuideSection>
 
         <GuideSection
           headingId="structure-heading"
           title="토큰 파일 구조"
-          description="UXKM SCSS 실무 예제와 같이 tokens → themes → base/components 순으로 의존성을 쌓습니다. 이 가이드는 SCSS 변수와 CSS 변수를 함께 씁니다."
+          description="UXKM SCSS 실무 예제와 같이 tokens → themes → base/components 순으로 의존성을 구성합니다. 런타임에 변경할 값은 CSS 변수로, 브레이크포인트·폰트 스택 같은 컴파일 타임 값은 SCSS 변수로 관리합니다."
         >
           <GuideCodeBlock>{fileStructureCode }</GuideCodeBlock>
           <p>
@@ -73,32 +73,40 @@ export default function DesignTokensDoc() {
           </p>
         </GuideSection>
 
-        <ApiSection
+        <GuideSection
           headingId="spacing-heading"
           title="Spacing 토큰"
           description="마진·패딩·gap 등 모든 간격의 기준입니다. rem 단위로 정의해 사용자 글꼴 크기 설정을 존중합니다."
         >
           <ApiTable columns={tokenColumns} rows={spacingTokens} codeColumn="name" />
-        </ApiSection>
+        </GuideSection>
 
-        <ApiSection headingId="radius-heading" title="Radius 토큰">
+        <GuideSection headingId="radius-heading" title="Radius 토큰">
           <ApiTable columns={tokenColumns} rows={radiusTokens} codeColumn="name" />
-        </ApiSection>
+        </GuideSection>
 
-        <ApiSection headingId="typography-heading" title="Typography 토큰">
+        <GuideSection headingId="typography-heading" title="Typography 토큰">
           <ApiTable columns={tokenColumns} rows={textSizeTokens} codeColumn="name" />
           <p className="form_field-hint" style={{ marginTop: 'var(--space-md)' }}>
             제목·본문 변형(<TypoText variant="code" tag="span" label="--typo-title-*" />,
             <TypoText variant="code" tag="span" label="--typo-text-*" />)은 Typography 컴포넌트 문서를 참고하세요.
           </p>
-        </ApiSection>
+        </GuideSection>
 
-        <ApiSection headingId="motion-heading" title="Motion · Layout 토큰">
+        <GuideSection
+          headingId="motion-heading"
+          title="Motion · Interaction · Layout 토큰"
+          description="전환 시간, 리플·포커스 피드백, 가이드 레이아웃의 공통 기준값입니다."
+        >
+          <h3 className="typo_title-4" style={{ marginBottom: 'var(--space-sm)' }}>Motion</h3>
           <ApiTable columns={tokenColumns} rows={motionTokens} codeColumn="name" />
-          <ApiTable columns={tokenColumns} rows={layoutTokens} codeColumn="name" style={{ marginTop: 'var(--space-lg)' }} />
-        </ApiSection>
+          <h3 className="typo_title-4" style={{ margin: 'var(--space-lg) 0 var(--space-sm)' }}>Interaction</h3>
+          <ApiTable columns={tokenColumns} rows={interactionTokens} codeColumn="name" />
+          <h3 className="typo_title-4" style={{ margin: 'var(--space-lg) 0 var(--space-sm)' }}>Layout</h3>
+          <ApiTable columns={tokenColumns} rows={layoutTokens} codeColumn="name" />
+        </GuideSection>
 
-        <ApiSection
+        <GuideSection
           headingId="color-heading"
           title="Color 토큰"
           description="UXKM Color Tokens처럼 Surface(배경·테두리·텍스트)와 Semantic(Primary·Success·Danger·Warning)으로 구분합니다. 실제 hex 값은 테마에 따라 달라집니다."
@@ -110,7 +118,7 @@ export default function DesignTokensDoc() {
           <p style={{ marginTop: 'var(--space-md)' }}>
             테마 적용 방법은 <Link href="/getting-started#theme-heading" label="설치 및 사용 · 테마" />를 참고하세요.
           </p>
-        </ApiSection>
+        </GuideSection>
 
         <GuideSection
           headingId="usage-heading"
@@ -125,6 +133,13 @@ export default function DesignTokensDoc() {
 
           <h3 className="typo_title-4" style={{ margin: 'var(--space-lg) 0 var(--space-sm)' }}>테마</h3>
           <GuideCodeBlock>{themeUsageCode }</GuideCodeBlock>
+          <p>
+            초기 테마는 <TypoText variant="code" tag="span" label="app/layout.jsx" />
+            에서 라이트로 지정하며, <TypoText variant="code" tag="span" label="useTheme" />
+            hook이 저장된 사용자 선택을 읽어
+            <TypoText variant="code" tag="span" label="<html data-theme>" />
+            속성을 갱신합니다.
+          </p>
         </GuideSection>
 
         <GuideSection
@@ -132,11 +147,23 @@ export default function DesignTokensDoc() {
           title="컴포넌트 토큰"
           description={componentTokenNote}
         >
-          <p>
-            예: Icon 문서의 <TypoText variant="code" tag="span" label="--icon-size" />,
-            Button의 <TypoText variant="code" tag="span" label="--btn-padding-y" /> —
-            각 표에는 <strong>기본값</strong>과 <strong>설명(사용)</strong> 열이 함께 제공됩니다.
-          </p>
+          <List className="list_bullet" style={{ width: '100%' }}>
+            <ListItem>
+              <strong>정의 위치</strong>
+              — <TypoText variant="code" tag="span" label="src/scss/components/_*.scss" />
+              의 <TypoText variant="code" tag="span" label=":root" />에 컴포넌트별 기본값을 정의합니다.
+            </ListItem>
+            <ListItem>
+              <strong>재정의</strong>
+              — 페이지 또는 특정 래퍼에서 필요한 토큰만 다시 선언하면 해당 범위의 컴포넌트에 적용됩니다.
+            </ListItem>
+            <ListItem>
+              <strong>문서 확인</strong>
+              — 각 컴포넌트 문서의 디자인 토큰 표에서 토큰명·기본값·설명을 제공합니다.
+              예시는 <Link href="/components/button#tokens-heading" label="Button" />
+              과 <Link href="/components/icon#tokens-heading" label="Icon" />을 참고하세요.
+            </ListItem>
+          </List>
         </GuideSection>
     </>
   );

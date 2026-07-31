@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export const docMeta = {
   title: 'Steps | UXKM Guide',
   activeNav: 'steps',
@@ -92,15 +96,20 @@ export function IconStyleExample() {
   );
 }`;
 
-const navigableCode = `import Steps from '@/components/Steps.jsx';
+const navigableCode = `'use client';
+
+import { useState } from 'react';
+import Steps from '@/components/Steps.jsx';
 import StepsItem from '@/components/StepsItem.jsx';
 
 export function NavigableExample() {
+  const [current, setCurrent] = useState(1);
+
   return (
-    <Steps navigable ariaLabel="설정 마법사 — 탐색 가능">
-      <StepsItem title="환경" description="개발 · 스테이징" status="finished" />
-      <StepsItem title="알림" description="수신 채널 설정" status="active" />
-      <StepsItem title="확인" description="설정 검토" status="wait" />
+    <Steps current={current} navigable ariaLabel="설정 마법사 — 탐색 가능">
+      <StepsItem title="환경" description="개발 · 스테이징" onClick={() => setCurrent(0)} />
+      <StepsItem title="알림" description="수신 채널 설정" onClick={() => setCurrent(1)} />
+      <StepsItem title="확인" description="설정 검토" onClick={() => setCurrent(2)} />
     </Steps>
   );
 }`;
@@ -173,6 +182,30 @@ export function StateExample() {
     </>
   );
 }`;
+
+export function NavigableExample() {
+  const [current, setCurrent] = useState(1);
+
+  return (
+    <Steps current={current} navigable ariaLabel="설정 마법사 — 탐색 가능">
+      <StepsItem
+        title="환경"
+        description="개발 · 스테이징"
+        onClick={() => setCurrent(0)}
+      />
+      <StepsItem
+        title="알림"
+        description="수신 채널 설정"
+        onClick={() => setCurrent(1)}
+      />
+      <StepsItem
+        title="확인"
+        description="설정 검토"
+        onClick={() => setCurrent(2)}
+      />
+    </Steps>
+  );
+}
 
 export default function StepsDoc() {
   return (
@@ -256,11 +289,7 @@ export default function StepsDoc() {
         description="steps_navigable과 steps_trigger로 완료된 단계를 클릭해 이전 단계로 돌아갈 수 있습니다. 대기 단계는 비활성화됩니다."
         code={navigableCode}
       >
-        <Steps navigable ariaLabel="설정 마법사 — 탐색 가능">
-          <StepsItem title="환경" description="개발 · 스테이징" status="finished" />
-          <StepsItem title="알림" description="수신 채널 설정" status="active" />
-          <StepsItem title="확인" description="설정 검토" status="wait" />
-        </Steps>
+        <NavigableExample />
       </DemoSection>
 
       <DemoSection

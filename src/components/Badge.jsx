@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -13,6 +15,7 @@ const formatCode = createComponentFormatter('Badge', {
 });
 
 export default function Badge({
+  as,
   color = 'primary',
   size = 'md',
   dot,
@@ -30,6 +33,7 @@ export default function Badge({
   useComponentDemoCode(
     formatCode,
     {
+      as: typeof as === 'string' ? as : undefined,
       color,
       size: resolvedSize,
       dot,
@@ -57,9 +61,10 @@ export default function Badge({
 
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
+  const Root = as || 'span';
 
   return (
-    <span
+    <Root
       ref={rootRef}
       className={cn(rootClass, className)}
       aria-label={ariaLabel}
@@ -67,6 +72,6 @@ export default function Badge({
       {...domRest}
     >
       {children ?? label}
-    </span>
+    </Root>
   );
 }

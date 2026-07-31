@@ -1,0 +1,99 @@
+```text
+app/                                      # Next.js App Router 진입점
+├── layout.jsx                             # HTML 루트, 전역 SCSS, 폰트, 공통 metadata
+├── not-found.jsx                          # 등록되지 않은 경로에 표시하는 404 페이지
+└── [[...slug]]/
+    └── page.jsx                           # 모든 문서 URL을 처리하는 catch-all 정적 라우트
+                                             · generateStaticParams로 문서 경로 생성
+                                             · generateMetadata로 페이지별 metadata 생성
+
+public/                                    # 빌드 과정 없이 URL로 제공되는 정적 파일
+└── _assets/images/favicon/                # 브라우저·모바일·PWA용 favicon과 manifest
+
+scripts/
+└── deploy-main.sh                         # 정적 빌드 후 main 브랜치 배포를 수행하는 스크립트
+
+src/
+├── assets/                                # 소스에서 import하는 폰트·이미지 리소스
+│   ├── fonts/pass.woff                    # 가이드에서 사용하는 로컬 웹폰트
+│   └── images/                            # 이미지 모듈과 컴포넌트 데모 이미지
+│
+├── components/                            # 실제 서비스에서도 재사용 가능한 React UI 컴포넌트
+│   ├── Button.jsx                         # 단일 컴포넌트 구현 예시
+│   ├── Grid.jsx · GridCol.jsx             # Grid 레이아웃 부모·자식 컴포넌트
+│   ├── Flex.jsx · FlexItem.jsx            # Flex 레이아웃 부모·자식 컴포넌트
+│   └── guide/                             # 문서 사이트 전용 표시 컴포넌트
+│       ├── DemoSection.jsx                # 실행 예시와 코드 영역
+│       ├── GuideCodeBlock.jsx             # 소스 코드 블록
+│       ├── ApiSection.jsx · ApiTable.jsx  # Props·클래스·토큰 API 표
+│       └── GuideSidebar.jsx               # 좌측 문서 내비게이션
+│
+├── context/
+│   └── GuideSidebarContext.jsx            # 모바일 사이드바 열림 상태를 공유하는 Context
+│
+├── data/                                  # 앱 전역에서 사용하는 공통 데이터
+│   ├── navigation.js                      # 좌측 메뉴 그룹·라벨·URL·slug 정의
+│   ├── doc-registry.js                    # 메뉴를 기반으로 정적 경로와 metadata 생성
+│   ├── common-icons.js                    # 공통 Icon SVG path 데이터
+│   └── *-demo.js                          # 여러 문서에서 공유하는 데모 데이터
+│
+├── doc/                                   # 가이드에 렌더링되는 문서 콘텐츠
+│   ├── components/                        # URL /components/{slug}의 컴포넌트 문서
+│   │   ├── button.jsx                     # Button 설명·실행 예시·API 섹션
+│   │   ├── grid.jsx                       # Grid 문서
+│   │   └── flex.jsx                       # Flex 문서
+│   ├── content/                           # MDX로 작성하는 독립 문서 콘텐츠
+│   │   └── repository-structure.mdx       # 소개 페이지의 저장소 구조 코드 블록
+│   ├── pages/                             # 소개·설치·디자인 토큰 같은 일반 문서
+│   │   ├── intro.jsx
+│   │   ├── getting-started.jsx
+│   │   └── design-tokens.jsx
+│   └── data/                              # 문서별 Props·클래스·토큰·예시 데이터
+│       ├── *-api.js                       # 각 컴포넌트 API 표 데이터
+│       ├── intro-data.js                  # 소개 페이지 데이터와 코드 예시
+│       └── getting-started-data.js        # 설치 및 사용 페이지 데이터
+│
+├── hooks/                                 # 상태와 DOM 동작을 캡슐화한 React hooks
+│   ├── useDemoCode.js                     # 실행된 컴포넌트에서 예시 코드 생성
+│   ├── useTheme.js                        # 테마 상태·저장·DOM 속성 관리
+│   └── useTabs*.js                        # Tabs 스크롤과 indicator 동작
+│
+├── layouts/
+│   └── GuideLayout.jsx                    # 헤더·사이드바·본문을 조합하는 문서 레이아웃
+│
+├── legacy/                                # data-* 기반 HTML 데모 초기화 코드
+│   ├── overlay-init.js                    # Modal·Popover·Tooltip 등 overlay 초기화
+│   ├── carousel-init.js                   # Swiper 기반 Carousel 초기화
+│   └── *-init.js                          # 컴포넌트별 DOM 이벤트 초기화
+│
+├── next/
+│   └── DocContent.jsx                     # 문서 로드와 데모 초기화를 담당하는 client 경계
+│
+├── scss/                                  # 전역 토큰·레이아웃·컴포넌트 스타일
+│   ├── main.scss                          # app/layout.jsx가 불러오는 최종 SCSS 진입점
+│   ├── _tokens.scss                       # 색상·간격·크기 등 기본 디자인 토큰
+│   ├── _themes.scss                       # 라이트·다크 테마별 CSS 변수
+│   ├── _utilities.scss                    # Grid·Flex·spacing 등 공통 유틸리티
+│   ├── _layout.scss · _sidebar.scss       # 가이드 공통 레이아웃 스타일
+│   └── components/
+│       ├── _index.scss                    # 컴포넌트 SCSS 모음 진입점
+│       └── _{component}.scss              # 컴포넌트별 구조·상태·변형 스타일
+│
+└── utils/                                 # 컴포넌트와 문서가 공유하는 순수 함수
+    ├── doc-loader.js                      # 문서 모듈 import와 docKey 매핑
+    ├── format-*-code.js                   # 데모 코드를 읽기 좋게 변환
+    ├── normalize-dom-props.js             # React props를 DOM 속성으로 정규화
+    └── overlay-*.js                       # overlay 위치·화살표·offset 계산
+
+CNAME                                     # 정적 호스팅에서 사용할 사용자 도메인
+README.md                                 # 저장소 소개와 설치·실행 명령
+package.json                              # 패키지 정보, 의존성, pnpm 명령
+pnpm-lock.yaml                            # 재현 가능한 의존성 버전 잠금
+jsconfig.json                             # @/ 경로 별칭과 JavaScript 분석 설정
+mdx-components.js                        # MDX 기본 HTML 요소를 가이드 컴포넌트에 연결
+next.config.mjs                           # 정적 export·basePath·이미지·Sass·MDX 설정
+
+.next/                                    # Next.js 개발·빌드 캐시 (Git 제외)
+node_modules/                             # pnpm으로 설치한 의존성 (Git 제외)
+out/                                      # pnpm build가 생성하는 정적 배포 결과 (Git 제외)
+```

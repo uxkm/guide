@@ -1,3 +1,7 @@
+'use client';
+
+import NextLink from 'next/link';
+
 export const docMeta = {
   title: 'Breadcrumb | UXKM Guide',
   activeNav: 'breadcrumb',
@@ -37,17 +41,17 @@ const HomeIcon = (
   </svg>
 );
 
-const basicCode = `import Breadcrumb from '@/components/Breadcrumb.jsx';
+const basicCode = `import NextLink from 'next/link';
+import Breadcrumb from '@/components/Breadcrumb.jsx';
+import BreadcrumbItem from '@/components/BreadcrumbItem.jsx';
 
 export function BasicExample() {
   return (
-    <Breadcrumb
-      items={[
-        { label: '홈', href: '#' },
-        { label: '컴포넌트', href: '#' },
-        { label: 'Breadcrumb', current: true },
-      ]}
-    />
+    <Breadcrumb>
+      <BreadcrumbItem as={NextLink} label="홈" href="/" />
+      <BreadcrumbItem as={NextLink} label="컴포넌트" href="/components/button" />
+      <BreadcrumbItem label="Breadcrumb" current />
+    </Breadcrumb>
   );
 }`;
 
@@ -202,13 +206,15 @@ export default function BreadcrumbDoc() {
         description="이전 단계는 링크, 마지막 항목은 현재 페이지로 표시합니다."
         code={basicCode}
       >
-        <Breadcrumb
-          items={[
-            { label: '홈', href: '#' },
-            { label: '컴포넌트', href: '#' },
-            { label: 'Breadcrumb', current: true },
-          ]}
-        />
+        <Breadcrumb>
+          <BreadcrumbItem as={NextLink} label="홈" href="/" />
+          <BreadcrumbItem
+            as={NextLink}
+            label="컴포넌트"
+            href="/components/button"
+          />
+          <BreadcrumbItem label="Breadcrumb" current />
+        </Breadcrumb>
       </DemoSection>
 
       <DemoSection

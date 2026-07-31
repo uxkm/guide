@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'List | UXKM Guide',
   activeNav: 'list',
@@ -79,6 +81,23 @@ export function BulletVariantExample() {
         <ListItem>사각 마커 항목 A</ListItem>
         <ListItem>사각 마커 항목 B</ListItem>
       </List>
+
+      <List className="list_bullet">
+        <ListItem>
+          레이아웃
+          <List className="list_bullet">
+            <ListItem>Container</ListItem>
+            <ListItem>Grid</ListItem>
+          </List>
+        </ListItem>
+        <ListItem>
+          기본 요소
+          <List className="list_bullet">
+            <ListItem>Button</ListItem>
+            <ListItem>Typography</ListItem>
+          </List>
+        </ListItem>
+      </List>
     </>
   );
 }`;
@@ -102,11 +121,41 @@ import ListItem from '@/components/ListItem.jsx';
 
 export function OrderedVariantExample() {
   return (
-    <List tag="ol" className="list_ordered list_ordered-alpha">
-      <ListItem>첫 번째 옵션</ListItem>
-      <ListItem>두 번째 옵션</ListItem>
-      <ListItem>세 번째 옵션</ListItem>
-    </List>
+    <>
+      <List tag="ol" className="list_ordered list_ordered-alpha">
+        <ListItem>첫 번째 옵션</ListItem>
+        <ListItem>두 번째 옵션</ListItem>
+        <ListItem>세 번째 옵션</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered list_ordered-roman">
+        <ListItem>서론</ListItem>
+        <ListItem>본론</ListItem>
+        <ListItem>결론</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered list_ordered-upper-alpha">
+        <ListItem>항목 A</ListItem>
+        <ListItem>항목 B</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered list_ordered-upper-roman">
+        <ListItem>Chapter I</ListItem>
+        <ListItem>Chapter II</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered">
+        <ListItem title="프로젝트 설정" description="저장소 클론 및 의존성 설치" />
+        <ListItem title="개발 서버 실행" description="pnpm dev로 로컬 미리보기">
+          <List tag="ol" className="list_ordered list_ordered-alpha">
+            <ListItem>터미널에서 프로젝트 폴더 이동</ListItem>
+            <ListItem>pnpm install 실행</ListItem>
+            <ListItem>pnpm dev 실행</ListItem>
+          </List>
+        </ListItem>
+        <ListItem title="빌드" description="pnpm build로 out/ 출력" />
+      </List>
+    </>
   );
 }`;
 
@@ -115,17 +164,61 @@ import ListItem from '@/components/ListItem.jsx';
 
 export function OrderedHierarchicalExample() {
   return (
-    <List tag="ol" className="list_ordered list_ordered-outline">
-      <ListItem>1단계 — 요구사항 정의</ListItem>
-      <ListItem>
-        설계
-        <List tag="ol" className="list_ordered list_ordered-outline">
-          <ListItem>정보 구조</ListItem>
-          <ListItem>UI 설계</ListItem>
-        </List>
-      </ListItem>
-      <ListItem>개발 및 배포</ListItem>
-    </List>
+    <>
+      <List tag="ol" className="list_ordered list_ordered-outline">
+        <ListItem>1단계 — 요구사항 정의</ListItem>
+        <ListItem>
+          설계
+          <List tag="ol" className="list_ordered list_ordered-outline">
+            <ListItem>정보 구조</ListItem>
+            <ListItem>
+              UI 설계
+              <List tag="ol" className="list_ordered list_ordered-outline">
+                <ListItem>와이어프레임</ListItem>
+                <ListItem>프로토타입</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ListItem>
+        <ListItem>개발 및 배포</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered list_ordered-dash">
+        <ListItem>1단계 — 환경 구성</ListItem>
+        <ListItem>
+          개발
+          <List tag="ol" className="list_ordered list_ordered-dash">
+            <ListItem>컴포넌트 구현</ListItem>
+            <ListItem>
+              문서화
+              <List tag="ol" className="list_ordered list_ordered-dash">
+                <ListItem>API 표</ListItem>
+                <ListItem>데모 예제</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ListItem>
+        <ListItem>QA 및 릴리스</ListItem>
+      </List>
+
+      <List tag="ol" className="list_ordered list_ordered-depth">
+        <ListItem>레이아웃</ListItem>
+        <ListItem>
+          기본 요소
+          <List tag="ol" className="list_ordered list_ordered-depth">
+            <ListItem>Button</ListItem>
+            <ListItem>
+              Form
+              <List tag="ol" className="list_ordered list_ordered-depth">
+                <ListItem>Input</ListItem>
+                <ListItem>Select</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ListItem>
+        <ListItem>피드백</ListItem>
+      </List>
+    </>
   );
 }`;
 
@@ -136,8 +229,18 @@ export function BulletLinkExample() {
   return (
     <List className="list_bullet">
       <ListItem>
-        <a href="components/button.html" className="list_link" data-ripple="">
+        <a href="/components/button" className="list_link" data-ripple>
           <span className="list_title">Button</span>
+        </a>
+      </ListItem>
+      <ListItem>
+        <a href="/components/typography" className="list_link" data-ripple>
+          <span className="list_title">Typography</span>
+        </a>
+      </ListItem>
+      <ListItem>
+        <a href="/components/icon" className="list_link" data-ripple>
+          <span className="list_title">Icon</span>
         </a>
       </ListItem>
     </List>
@@ -164,13 +267,27 @@ export function LinkExample() {
   return (
     <List split>
       <ListItem>
-        <a href="components/button.html" className="list_link" data-ripple="">
+        <a href="/components/button" className="list_link" data-ripple>
           <div className="list_content">
             <span className="list_title">대시보드</span>
           </div>
-          <span className="list_action color_muted" aria-hidden="true">
-            ›
-          </span>
+          <span className="list_action color_muted" aria-hidden={true}>›</span>
+        </a>
+      </ListItem>
+      <ListItem>
+        <a href="/components/card" className="list_link" data-ripple>
+          <div className="list_content">
+            <span className="list_title">프로젝트</span>
+          </div>
+          <span className="list_action color_muted" aria-hidden={true}>›</span>
+        </a>
+      </ListItem>
+      <ListItem>
+        <a href="/getting-started" className="list_link" data-ripple>
+          <div className="list_content">
+            <span className="list_title">설정</span>
+          </div>
+          <span className="list_action color_muted" aria-hidden={true}>›</span>
         </a>
       </ListItem>
     </List>
@@ -185,30 +302,99 @@ export function ButtonExample() {
   return (
     <List bordered>
       <ListItem>
-        <button type="button" className="list_link" data-ripple="">
+        <button type="button" className="list_link" data-ripple>
           <Avatar color="primary" initials="홍" ariaHidden />
           <span className="list_content">
             <span className="list_title">홍길동</span>
             <span className="list_meta">메시지 보내기</span>
           </span>
-          <span className="list_action color_muted" aria-hidden="true">
-            ›
+          <span className="list_action color_muted" aria-hidden={true}>›</span>
+        </button>
+      </ListItem>
+      <ListItem>
+        <button type="button" className="list_link" data-ripple>
+          <Avatar color="success" initials="김" ariaHidden />
+          <span className="list_content">
+            <span className="list_title">김철수</span>
+            <span className="list_meta">메시지 보내기</span>
           </span>
+          <span className="list_action color_muted" aria-hidden={true}>›</span>
         </button>
       </ListItem>
     </List>
   );
 }`;
 
-const cardCode = `import List from '@/components/List.jsx';
+const cardCode = `import Avatar from '@/components/Avatar.jsx';
+import List from '@/components/List.jsx';
 import ListItem from '@/components/ListItem.jsx';
 
 export function CardExample() {
   return (
     <List className="list_cards">
       <ListItem>
-        <a href="components/card.html" className="card card_shadow card_clickable card_horizontal">
-          ...
+        <a href="/components/card" className="card card_shadow card_clickable card_horizontal">
+          <div className="card_media card_media-placeholder" role="img" aria-label="프로젝트 썸네일">
+            <svg
+              className="icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              aria-hidden={true}
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+          </div>
+          <div className="card_inner">
+            <div className="card_header">
+              <div className="card_header-main">
+                <h3 className="card_title">프로젝트 Alpha</h3>
+                <p className="card_subtitle">진행 중 · 2일 전</p>
+              </div>
+            </div>
+            <div className="card_body">
+              디자인 시스템 구축 및 컴포넌트 라이브러리 개발
+            </div>
+          </div>
+        </a>
+      </ListItem>
+      <ListItem>
+        <article className="card card_shadow">
+          <div className="card_header">
+            <div className="card_header-main">
+              <div className="card_header-row">
+                <Avatar color="warning" initials="이" ariaHidden />
+                <div>
+                  <h3 className="card_title">이영희</h3>
+                  <p className="card_subtitle">UI/UX 디자이너</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card_body">
+            <p className="list_desc">새 디자인 시안을 공유했습니다.</p>
+          </div>
+          <div className="card_footer card_footer-between">
+            <span className="color_muted size_sm">10분 전</span>
+            <a
+              href="#"
+              className="link color_primary size_sm"
+              onClick={(event) => event.preventDefault()}
+            >
+              보기
+            </a>
+          </div>
+        </article>
+      </ListItem>
+      <ListItem>
+        <a href="/components/list" className="card card_accent color_primary card_clickable">
+          <div className="card_body">
+            <p className="card_title" style={{ marginBottom: '0.25rem' }}>알림</p>
+            <p className="list_desc">리스트와 카드를 함께 사용하는 패턴입니다.</p>
+          </div>
         </a>
       </ListItem>
     </List>
@@ -401,7 +587,7 @@ export default function ListDoc() {
                 <ListItem>pnpm dev 실행</ListItem>
               </List>
             </ListItem>
-            <ListItem title="빌드" description="pnpm build로 html/ 출력" />
+            <ListItem title="빌드" description="pnpm build로 out/ 출력" />
           </List>
         </DemoSection>
 
@@ -475,17 +661,17 @@ export default function ListDoc() {
         >
           <List className="list_bullet">
             <ListItem>
-              <a href="components/button.html" className="list_link" data-ripple>
+              <a href="/components/button" className="list_link" data-ripple>
                 <span className="list_title">Button</span>
               </a>
             </ListItem>
             <ListItem>
-              <a href="components/typography.html" className="list_link" data-ripple>
+              <a href="/components/typography" className="list_link" data-ripple>
                 <span className="list_title">Typography</span>
               </a>
             </ListItem>
             <ListItem>
-              <a href="components/icon.html" className="list_link" data-ripple>
+              <a href="/components/icon" className="list_link" data-ripple>
                 <span className="list_title">Icon</span>
               </a>
             </ListItem>
@@ -513,7 +699,7 @@ export default function ListDoc() {
         >
           <List split>
             <ListItem>
-              <a href="components/button.html" className="list_link" data-ripple>
+              <a href="/components/button" className="list_link" data-ripple>
                 <div className="list_content">
                   <span className="list_title">대시보드</span>
                 </div>
@@ -521,7 +707,7 @@ export default function ListDoc() {
               </a>
             </ListItem>
             <ListItem>
-              <a href="components/card.html" className="list_link" data-ripple>
+              <a href="/components/card" className="list_link" data-ripple>
                 <div className="list_content">
                   <span className="list_title">프로젝트</span>
                 </div>
@@ -529,7 +715,7 @@ export default function ListDoc() {
               </a>
             </ListItem>
             <ListItem>
-              <a href="getting-started.html" className="list_link" data-ripple>
+              <a href="/getting-started" className="list_link" data-ripple>
                 <div className="list_content">
                   <span className="list_title">설정</span>
                 </div>
@@ -577,7 +763,7 @@ export default function ListDoc() {
         >
           <List className="list_cards">
             <ListItem>
-              <a href="components/card.html" className="card card_shadow card_clickable card_horizontal">
+              <a href="/components/card" className="card card_shadow card_clickable card_horizontal">
                 <div className="card_media card_media-placeholder" role="img" aria-label="프로젝트 썸네일">
                   <svg className="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden={true}>
                     <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" />
@@ -619,7 +805,7 @@ export default function ListDoc() {
               </article>
             </ListItem>
             <ListItem>
-              <a href="components/list.html" className="card card_accent color_primary card_clickable">
+              <a href="/components/list" className="card card_accent color_primary card_clickable">
                 <div className="card_body">
                   <p className="card_title" style={{ marginBottom: '0.25rem' }}>알림</p>
                   <p className="list_desc">리스트와 카드를 함께 사용하는 패턴입니다.</p>

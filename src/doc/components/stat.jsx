@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Stat | UXKM Guide',
   activeNav: 'stat',
@@ -70,7 +72,7 @@ export function TrendExample() {
         trend="+0.3%p"
         trendColor="danger"
         trendIcon={
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <path d="m6 9 6 6 6-6" />
           </svg>
         }

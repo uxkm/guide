@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -9,7 +11,7 @@ const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Switch', {
   defaults: { size: 'md' },
-  booleanProps: new Set(['checked', 'disabled', 'labelEnd', 'ripple']),
+  booleanProps: new Set(['checked', 'defaultChecked', 'disabled', 'labelEnd', 'ripple']),
   selfClosing: false,
 });
 
@@ -43,6 +45,7 @@ export default function Switch({
       ripple,
       label,
       checked,
+      defaultChecked,
       disabled,
       labelEnd,
       size: resolvedSize,
@@ -65,12 +68,12 @@ export default function Switch({
   const domRest = normalizeDomProps(restForDom);
 
   const inputCheckedProps =
-    onChange != null
+    checked != null
       ? { checked: Boolean(checked), onChange }
-      : checked != null
-        ? { defaultChecked: Boolean(checked) }
-        : defaultChecked != null
-          ? { defaultChecked: Boolean(defaultChecked) }
+      : defaultChecked != null
+        ? { defaultChecked: Boolean(defaultChecked), onChange }
+        : onChange != null
+          ? { onChange }
           : {};
 
   const resolvedAriaLabel = !hasLabel ? ariaLabel : undefined;

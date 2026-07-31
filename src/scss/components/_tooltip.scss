@@ -73,6 +73,7 @@
   --tooltip-offset-right: var(--tooltip-offset);
   --tooltip-offset-bottom: var(--tooltip-offset);
   --tooltip-offset-left: var(--tooltip-offset);
+  --tooltip-arrow-clearance: calc(var(--tooltip-arrow-size) / 2);
 
   @include overlay-arrow-edge-tokens(tooltip, var(--radius-sm));
 
@@ -107,7 +108,9 @@
 
   &_bubble {
     position: absolute;
-    top: calc(100% + var(--tooltip-offset-bottom));
+    top: calc(
+      100% + var(--tooltip-offset-bottom) + var(--tooltip-arrow-clearance)
+    );
     left: 50%;
     z-index: var(--z-tooltip, 120);
     display: none;
@@ -256,7 +259,9 @@
   &_placement-top {
     .tooltip_bubble {
       top: auto;
-      bottom: calc(100% + var(--tooltip-offset-top));
+      bottom: calc(
+        100% + var(--tooltip-offset-top) + var(--tooltip-arrow-clearance)
+      );
     }
   }
 
@@ -278,7 +283,9 @@
   &_placement-top-start {
     .tooltip_bubble {
       top: auto;
-      bottom: calc(100% + var(--tooltip-offset-top));
+      bottom: calc(
+        100% + var(--tooltip-offset-top) + var(--tooltip-arrow-clearance)
+      );
       left: 0;
       transform: none;
     }
@@ -287,7 +294,9 @@
   &_placement-top-end {
     .tooltip_bubble {
       top: auto;
-      bottom: calc(100% + var(--tooltip-offset-top));
+      bottom: calc(
+        100% + var(--tooltip-offset-top) + var(--tooltip-arrow-clearance)
+      );
       left: auto;
       right: 0;
       transform: none;
@@ -299,7 +308,9 @@
       top: 50%;
       bottom: auto;
       left: auto;
-      right: calc(100% + var(--tooltip-offset-left));
+      right: calc(
+        100% + var(--tooltip-offset-left) + var(--tooltip-arrow-clearance)
+      );
       transform: translateY(-50%);
     }
   }
@@ -308,7 +319,9 @@
     .tooltip_bubble {
       top: 50%;
       bottom: auto;
-      left: calc(100% + var(--tooltip-offset-right));
+      left: calc(
+        100% + var(--tooltip-offset-right) + var(--tooltip-arrow-clearance)
+      );
       transform: translateY(-50%);
     }
   }
@@ -517,6 +530,8 @@
   }
 
   &_no-arrow {
+    --tooltip-arrow-clearance: 0px;
+
     .tooltip_arrow {
       display: none;
     }

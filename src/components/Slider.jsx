@@ -1,4 +1,6 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+'use client';
+
+import { useId, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -10,7 +12,7 @@ import { cn } from '@/utils/cn';
 const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Slider', {
-  defaults: { min: 0, max: 100, value: 50, size: 'md' },
+  defaults: { min: 0, max: 100, defaultValue: 50, size: 'md' },
   booleanProps: new Set(['disabled', 'vertical', 'showValue', 'stepper', 'stepperAlways']),
   skipProps: ['modelValue'],
   selfClosing: true,
@@ -20,7 +22,8 @@ export default function Slider({
   ripple,
   min = 0,
   max = 100,
-  value = 50,
+  value,
+  defaultValue = 50,
   step,
   disabled,
   vertical,
@@ -48,15 +51,9 @@ export default function Slider({
   const resolvedMin = Number(min);
   const resolvedMax = Number(max);
 
-  const [internalValue, setInternalValue] = useState(() => Number(value));
-
-  useEffect(() => {
-    if (value !== undefined) {
-      setInternalValue(Number(value));
-    }
-  }, [value]);
-
-  const currentValue = internalValue;
+  const [internalValue, setInternalValue] = useState(() => Number(defaultValue));
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? Number(value) : internalValue;
   const displayValue = `${currentValue}${valueSuffix ?? ''}`;
 
   useComponentDemoCode(
@@ -65,7 +62,8 @@ export default function Slider({
       ripple,
       min: resolvedMin,
       max: resolvedMax,
-      value: currentValue,
+      value,
+      defaultValue,
       step,
       disabled,
       vertical,
@@ -107,7 +105,9 @@ export default function Slider({
   const domRest = normalizeDomProps(restForDom);
 
   function updateValue(next) {
-    setInternalValue(next);
+    if (!isControlled) {
+      setInternalValue(next);
+    }
     onChange?.(next);
   }
 

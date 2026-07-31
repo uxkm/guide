@@ -1,10 +1,13 @@
+'use client';
+
+import React, { useState } from 'react';
+
 export const docMeta = {
   title: 'Carousel | UXKM Guide',
   activeNav: 'carousel',
   pageTitle: 'Carousel',
 };
 
-import React, { useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Carousel from '@/components/Carousel.jsx';
 import CarouselSlide from '@/components/CarouselSlide.jsx';
@@ -568,7 +571,9 @@ export function CoverflowRiseExample() {
   );
 }`;
 
-const thumbsCode = `import { useState } from 'react';
+const thumbsCode = `'use client';
+
+import { useState } from 'react';
 import Carousel from '@/components/Carousel.jsx';
 import CarouselSlide from '@/components/CarouselSlide.jsx';
 
@@ -617,7 +622,7 @@ export default function CarouselDoc() {
           >
             Swiper
           </a>
-          라이브러리 기반 슬라이드 컴포넌트입니다. 표준{' '}
+          {' '}라이브러리 기반 Next.js Client Component입니다. 표준{' '}
           <code className="typo_code">swiper</code> ·{' '}
           <code className="typo_code">swiper-wrapper</code> ·{' '}
           <code className="typo_code">swiper-slide</code> 마크업을 사용하며, 슬라이드 콘텐츠는{' '}

@@ -50,7 +50,9 @@ export function BasicExample() {
   );
 }`;
 
-const dynamicCode = `import TabMenu from '@/components/TabMenu.jsx';
+const dynamicCode = `'use client';
+
+import TabMenu from '@/components/TabMenu.jsx';
 import Tabs from '@/components/Tabs.jsx';
 
 const dynamicItems = [
@@ -350,13 +352,13 @@ export default function TabsDoc() {
     <>
       <div className="page_intro">
         <h1>Tabs</h1>
-        <p className="lead">같은 맥락의 콘텐츠를 탭으로 전환하는 컴포넌트입니다. 라인·카드·필 스킨, 균등 분할·네비 스크롤 레이아웃, 아이콘·배지를 지원합니다.</p>
+        <p className="lead">같은 맥락의 콘텐츠를 탭으로 전환하는 클라이언트 컴포넌트입니다. 라인·카드·필 스킨, 균등 분할·네비 스크롤 레이아웃, 아이콘·배지를 지원합니다.</p>
       </div>
 
       <DemoSection
         headingId="basic-heading"
         title="기본 (라인)"
-        description={'tabs_line이 기본 스킨입니다. role="tablist" · role="tab" · role="tabpanel"과 aria-selected, aria-controls로 접근성을 보장합니다.'}
+        description={'tabs_line이 기본 스킨입니다. role="tablist" · role="tab" · role="tabpanel"과 aria-selected, aria-controls로 접근성을 보장하며 방향키·Home·End 키로 탭을 전환합니다.'}
         code={basicCode}
       >
         <Tabs ariaLabel="프로젝트 정보">

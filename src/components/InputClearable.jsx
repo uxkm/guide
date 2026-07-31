@@ -1,3 +1,5 @@
+'use client';
+
 import { Children, cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/utils/cn.js';
 import { rippleSurfaceAttrs } from '@/hooks/useRipple.js';
@@ -26,7 +28,11 @@ function findInputElement(wrap, id) {
 
 function clearInputValue(input) {
   const descriptor = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value');
-  descriptor?.set?.call(input, '');
+  if (descriptor?.set) {
+    descriptor.set.call(input, '');
+  } else {
+    input.value = '';
+  }
   input.dispatchEvent(new Event('input', { bubbles: true }));
   input.dispatchEvent(new Event('change', { bubbles: true }));
 }
@@ -59,7 +65,7 @@ export default function InputClearable({ as: Tag = 'div', className, children, .
     }
   }, [externalValue, isExternallyControlled]);
 
-  const showClear = !disabled && !resolvedReadOnly && value.length > 0;
+  const showClear = !disabled && !resolvedReadOnly && String(value).length > 0;
 
   const handleChange = useCallback(
     (event) => {
@@ -76,6 +82,7 @@ export default function InputClearable({ as: Tag = 'div', className, children, .
     const input = findInputElement(wrapRef.current, id);
     if (input) {
       clearInputValue(input);
+      input.focus();
     }
 
     setValue('');

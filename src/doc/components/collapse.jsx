@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export const docMeta = {
   title: 'Collapse | UXKM Guide',
   activeNav: 'collapse',
@@ -28,6 +32,8 @@ import {
   collapsePanelProps,
   collapsePropColumns,
   collapseProps,
+  collapseTokenColumns,
+  collapseTokens,
 } from '@/doc/data/collapse-api';
 
 const standaloneCode = `import CollapseExternal from '@/components/CollapseExternal.jsx';
@@ -55,7 +61,7 @@ import Link from '@/components/Link.jsx';
 export function LinksExample() {
   return (
     <Collapse narrow>
-      <CollapsePanel label="관련 가이드" open>
+      <CollapsePanel label="관련 가이드" defaultOpen>
         <p style={{ margin: 0 }}>
           <Link href="/getting-started" label="시작하기" />
           {' · '}
@@ -70,15 +76,21 @@ export function LinksExample() {
   );
 }`;
 
-const basicCode = `import Collapse from '@/components/Collapse.jsx';
+const basicCode = `'use client';
+
+import { useState } from 'react';
+import Collapse from '@/components/Collapse.jsx';
 import CollapsePanel from '@/components/CollapsePanel.jsx';
 
 export function BasicExample() {
+  const [shippingOpen, setShippingOpen] = useState(true);
+
   return (
     <Collapse narrow>
       <CollapsePanel
         label="배송 정보"
-        open
+        open={shippingOpen}
+        onOpenChange={setShippingOpen}
         content="평일 기준 2~3일 이내 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다."
       />
       <CollapsePanel
@@ -99,7 +111,7 @@ import CollapsePanel from '@/components/CollapsePanel.jsx';
 export function AccordionModeExample() {
   return (
     <Collapse narrow accordion>
-      <CollapsePanel label="알림 설정" open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
+      <CollapsePanel label="알림 설정" defaultOpen content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
       <CollapsePanel label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <CollapsePanel label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
     </Collapse>
@@ -115,12 +127,12 @@ export function SkinExample() {
       <Collapse variant="ghost" narrow>
         <CollapsePanel
           label="Ghost"
-          open
+          defaultOpen
           content="배경만 강조하는 고스트 스킨입니다. 필터·사이드 패널에 적합합니다."
         />
       </Collapse>
       <Collapse variant="card" narrow>
-        <CollapsePanel label="Card" open content="패널마다 카드 형태로 분리됩니다." />
+        <CollapsePanel label="Card" defaultOpen content="패널마다 카드 형태로 분리됩니다." />
         <CollapsePanel label="두 번째 패널" content="카드 스킨의 두 번째 패널입니다." />
       </Collapse>
     </>
@@ -135,7 +147,7 @@ export function ExtraExample() {
     <Collapse narrow>
       <CollapsePanel
         label="진행 중"
-        open
+        defaultOpen
         content="현재 처리 중인 요청 3건입니다."
         extra="3건"
       />
@@ -154,7 +166,7 @@ import CollapsePanel from '@/components/CollapsePanel.jsx';
 export function DisabledExample() {
   return (
     <Collapse narrow>
-      <CollapsePanel label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+      <CollapsePanel label="공개 문서" defaultOpen content="누구나 열람할 수 있는 가이드 문서입니다." />
       <CollapsePanel
         label="팀 전용 (권한 없음)"
         disabled
@@ -174,7 +186,7 @@ export function SlideExample() {
       <Collapse narrow effect="slide">
         <CollapsePanel
           label="배송 정보"
-          open
+          defaultOpen
           content="평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다."
         />
         <CollapsePanel label="결제 수단" content="신용카드, 계좌이체, 간편결제를 지원합니다." />
@@ -193,14 +205,37 @@ export function SizeExample() {
   return (
     <>
       <Collapse size="sm" narrow>
-        <CollapsePanel label="Small" open content="작은 콜랩스 — 좁은 패딩." />
+        <CollapsePanel label="Small" defaultOpen content="작은 콜랩스 — 좁은 패딩." />
       </Collapse>
       <Collapse size="lg" narrow>
-        <CollapsePanel label="Large" open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
+        <CollapsePanel label="Large" defaultOpen content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
       </Collapse>
     </>
   );
 }`;
+
+export function BasicExample() {
+  const [shippingOpen, setShippingOpen] = useState(true);
+
+  return (
+    <Collapse narrow>
+      <CollapsePanel
+        label="배송 정보"
+        open={shippingOpen}
+        onOpenChange={setShippingOpen}
+        content="평일 기준 2~3일 이내 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다."
+      />
+      <CollapsePanel
+        label="결제 수단"
+        content="신용카드, 계좌이체, 간편결제를 지원합니다. 무이자 할부는 카드사 정책에 따릅니다."
+      />
+      <CollapsePanel
+        label="교환·반품 안내"
+        content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
+      />
+    </Collapse>
+  );
+}
 
 export default function CollapseDoc() {
   return (
@@ -208,7 +243,7 @@ export default function CollapseDoc() {
       <div className="page_intro">
         <h1>Collapse</h1>
         <p className="lead">
-          콘텐츠 영역을 접었다 펼 수 있는 컴포넌트입니다. 외부 버튼으로 단일 영역을 제어하거나, 패널 그룹으로
+          콘텐츠 영역을 접었다 펼 수 있는 Next.js Client Component입니다. 외부 버튼으로 단일 영역을 제어하거나, 패널 그룹으로
           여러 섹션을 구성할 수 있습니다.{' '}
           <code className="typo_code">aria-expanded</code> ·{' '}
           <code className="typo_code">aria-controls</code>로 접근성을 보장합니다.
@@ -252,7 +287,7 @@ export default function CollapseDoc() {
         code={linksCode}
       >
         <Collapse narrow>
-          <CollapsePanel label="관련 가이드" open>
+          <CollapsePanel label="관련 가이드" defaultOpen>
             <p style={{ margin: 0 }}>
               <Link href="/getting-started" label="시작하기" />
               {' · '}
@@ -274,21 +309,7 @@ export default function CollapseDoc() {
         description="collapse_bordered가 기본 스킨입니다. 각 패널은 독립적으로 열고 닫을 수 있습니다."
         code={basicCode}
       >
-        <Collapse narrow>
-          <CollapsePanel
-            label="배송 정보"
-            open
-            content="평일 기준 2~3일 이내 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다."
-          />
-          <CollapsePanel
-            label="결제 수단"
-            content="신용카드, 계좌이체, 간편결제를 지원합니다. 무이자 할부는 카드사 정책에 따릅니다."
-          />
-          <CollapsePanel
-            label="교환·반품 안내"
-            content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
-          />
-        </Collapse>
+        <BasicExample />
       </DemoSection>
 
       <DemoSection
@@ -298,7 +319,7 @@ export default function CollapseDoc() {
         code={accordionModeCode}
       >
         <Collapse narrow accordion>
-          <CollapsePanel label="알림 설정" open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
+          <CollapsePanel label="알림 설정" defaultOpen content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
           <CollapsePanel label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
           <CollapsePanel label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
         </Collapse>
@@ -314,12 +335,12 @@ export default function CollapseDoc() {
         <Collapse variant="ghost" narrow>
           <CollapsePanel
             label="Ghost"
-            open
+            defaultOpen
             content="배경만 강조하는 고스트 스킨입니다. 필터·사이드 패널에 적합합니다."
           />
         </Collapse>
         <Collapse variant="card" narrow>
-          <CollapsePanel label="Card" open content="패널마다 카드 형태로 분리됩니다." />
+          <CollapsePanel label="Card" defaultOpen content="패널마다 카드 형태로 분리됩니다." />
           <CollapsePanel label="두 번째 패널" content="카드 스킨의 두 번째 패널입니다." />
         </Collapse>
       </DemoSection>
@@ -331,7 +352,7 @@ export default function CollapseDoc() {
         code={extraCode}
       >
         <Collapse narrow>
-          <CollapsePanel label="진행 중" open content="현재 처리 중인 요청 3건입니다." extra="3건" />
+          <CollapsePanel label="진행 중" defaultOpen content="현재 처리 중인 요청 3건입니다." extra="3건" />
           <CollapsePanel
             label="처리 완료"
             content="최근 일주일간 완료된 요청 12건입니다."
@@ -347,7 +368,7 @@ export default function CollapseDoc() {
         code={disabledCode}
       >
         <Collapse narrow>
-          <CollapsePanel label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+          <CollapsePanel label="공개 문서" defaultOpen content="누구나 열람할 수 있는 가이드 문서입니다." />
           <CollapsePanel
             label="팀 전용 (권한 없음)"
             disabled
@@ -366,7 +387,7 @@ export default function CollapseDoc() {
         <Collapse narrow effect="slide">
           <CollapsePanel
             label="배송 정보"
-            open
+            defaultOpen
             content="평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다."
           />
           <CollapsePanel label="결제 수단" content="신용카드, 계좌이체, 간편결제를 지원합니다." />
@@ -384,10 +405,10 @@ export default function CollapseDoc() {
         stack
       >
         <Collapse size="sm" narrow>
-          <CollapsePanel label="Small" open content="작은 콜랩스 — 좁은 패딩." />
+          <CollapsePanel label="Small" defaultOpen content="작은 콜랩스 — 좁은 패딩." />
         </Collapse>
         <Collapse size="lg" narrow>
-          <CollapsePanel label="Large" open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
+          <CollapsePanel label="Large" defaultOpen content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
         </Collapse>
       </DemoSection>
 
@@ -421,6 +442,10 @@ export default function CollapseDoc() {
         description="React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
       >
         <ApiTable columns={collapseClassColumns} rows={collapseClasses} codeColumn="name" />
+      </ApiSection>
+
+      <ApiSection headingId="tokens-heading" title="디자인 토큰">
+        <ApiTable columns={collapseTokenColumns} rows={collapseTokens} codeColumn="name" />
       </ApiSection>
     </>
   );

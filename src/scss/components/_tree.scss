@@ -232,7 +232,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: calc(var(--tree-toggle-size) / 2 - 0.5px);
+        left: calc(var(--tree-toggle-size) / 2 - var(--tree-indent) - 0.5px);
         border-left: 1px solid var(--tree-line-color);
       }
 
@@ -245,7 +245,7 @@
         content: "";
         position: absolute;
         top: calc(var(--tree-row-height) / 2);
-        left: calc(var(--tree-toggle-size) / 2);
+        left: calc(var(--tree-toggle-size) / 2 - var(--tree-indent));
         width: calc(var(--tree-indent) - var(--tree-toggle-size) / 2 + #{$space-xs});
         border-top: 1px solid var(--tree-line-color);
       }

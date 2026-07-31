@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -55,6 +57,8 @@ export default function Accordion({
         label: item.label,
         content: item.content,
         open: item.open,
+        defaultOpen: item.defaultOpen,
+        controlled: item.controlled,
         disabled: item.disabled,
         hasExtra: item.hasExtra,
         extraCode: item.extraCode,
@@ -102,7 +106,7 @@ export default function Accordion({
 
     if (!multipleRef.current && willOpen) {
       for (const [otherId, other] of itemsMapRef.current) {
-        if (otherId !== id && !other.disabled) {
+        if (otherId !== id && !other.disabled && other.getIsOpen()) {
           other.setIsOpen(false);
         }
       }

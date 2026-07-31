@@ -20,6 +20,7 @@ export const menuItemPropColumns = menuPropColumns;
 export const menuItemProps = [
   { name: 'label', type: 'string', default: '—', description: '항목 텍스트' },
   { name: 'href', type: 'string', default: '—', description: '링크 URL (a 태그)' },
+  { name: 'as', type: 'ElementType', default: 'a | button', description: '항목 루트 요소. Next Link 등을 지정' },
   { name: 'active', type: 'boolean', default: 'false', description: 'is-active · aria-current' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
   { name: 'color', type: 'string', default: '—', description: 'color_* (예: danger)' },
@@ -35,6 +36,7 @@ export const menuSubmenuProps = [
   { name: 'label', type: 'string', default: '—', description: '서브메뉴 제목' },
   { name: 'expanded', type: 'boolean', default: 'false', description: '펼침 (aria-expanded)' },
   { name: 'submenuId', type: 'string', default: '—', description: 'menu_submenu id (aria-controls)' },
+  { name: 'onExpandedChange', type: '(expanded: boolean) => void', default: '—', description: '펼침 상태 변경 콜백' },
   { name: 'icon', type: 'ReactNode', default: '—', description: 'menu_icon' },
   { name: 'children', type: 'ReactNode', default: '—', description: '하위 MenuItem' },
   { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
@@ -81,7 +83,7 @@ export const menuClasses = [
   { name: 'menu_group · menu_group-title · menu_divider', description: '그룹·구분선' },
   { name: 'menu_bordered · menu_compact · menu_dark', description: '스타일 변형' },
   { name: 'is-active · is-disabled', description: '상태' },
-  { name: 'data-menu-selectable', description: '선택 가능 메뉴 JS' },
+  { name: 'data-react-menu', description: 'React가 선택·서브메뉴 상태를 관리하는 메뉴' },
   ...rippleClassRows,
 ];
 

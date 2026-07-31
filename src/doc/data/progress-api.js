@@ -6,7 +6,7 @@ export const progressPropColumns = [
 ];
 
 export const progressProps = [
-  { name: 'percent', type: 'number', default: '0', description: '0–100 진행률 (막대 width)' },
+  { name: 'percent', type: 'number', default: '0', description: '0–100 범위로 보정되는 진행률 (막대 width)' },
   { name: 'status', type: `'success' | 'exception'`, default: '—', description: '완료·오류 색상' },
   { name: 'color', type: `'primary' | 'success' | 'warning' | 'danger'`, default: 'primary', description: '막대 색상 color_*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'progress_sm · progress_lg' },
@@ -23,7 +23,7 @@ export const progressProps = [
 
 export const progressCirclePropColumns = progressPropColumns;
 export const progressCircleProps = [
-  { name: 'percent', type: 'number', default: '0', description: '0–100 (--progress-percent)' },
+  { name: 'percent', type: 'number', default: '0', description: '0–100 범위로 보정되는 진행률 (--progress-percent)' },
   { name: 'color', type: `'primary' | 'success' | 'warning' | 'danger'`, default: 'primary', description: 'color_*' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'progress_sm · progress_lg' },
   { name: 'ariaLabel', type: 'string', default: '진행률', description: 'progressbar 라벨' },
@@ -36,7 +36,7 @@ export const progressChildColumns = [
 ];
 
 export const progressChildren = [
-  { name: 'children', description: '추가 콘텐츠 (현재 미사용)' },
+  { name: 'children', description: '지원하지 않음. label과 showInfo로 표시 콘텐츠를 구성' },
 ];
 
 /** @deprecated 가이드·Storybook은 progressChildColumns · progressChildren 사용 */

@@ -27,8 +27,8 @@ const typeCode = `import Rate from '@/components/Rate.jsx';
 export function TypeExample() {
   return (
     <>
-      <Rate legend="legend — 상품 만족도" value={3} name="rate-type-legend" />
-      <Rate value={4} name="rate-type-labelledby" legend="aria-labelledby — 서비스 평가" />
+      <Rate legend="legend — 상품 만족도" defaultValue={3} name="rate-type-legend" />
+      <Rate defaultValue={4} name="rate-type-labelledby" legend="aria-labelledby — 서비스 평가" />
       <Rate
         legend="aria-label — 단독"
         name="rate-type-aria"
@@ -40,16 +40,16 @@ export function TypeExample() {
 const basicCode = `import Rate from '@/components/Rate.jsx';
 
 export function BasicExample() {
-  return <Rate legend="배송 속도" value={3} name="rate-basic" />;
+  return <Rate legend="배송 속도" defaultValue={3} name="rate-basic" />;
 }`;
 const sizeCode = `import Rate from '@/components/Rate.jsx';
 
 export function SizeExample() {
   return (
     <>
-      <Rate size="sm" legend="Small — rate_sm" value={3} name="rate-size-sm" />
-      <Rate legend="Medium — 기본" value={3} name="rate-size-md" />
-      <Rate size="lg" legend="Large — rate_lg" value={3} name="rate-size-lg" />
+      <Rate size="sm" legend="Small — rate_sm" defaultValue={3} name="rate-size-sm" />
+      <Rate legend="Medium — 기본" defaultValue={3} name="rate-size-md" />
+      <Rate size="lg" legend="Large — rate_lg" defaultValue={3} name="rate-size-lg" />
     </>
   );
 }`;
@@ -58,9 +58,9 @@ const colorCode = `import Rate from '@/components/Rate.jsx';
 export function ColorExample() {
   return (
     <>
-      <Rate className="color_primary" legend="Primary" value={4} name="rate-color-primary" />
-      <Rate className="color_success" legend="Success" value={5} name="rate-color-success" />
-      <Rate className="color_danger" legend="Danger" value={2} name="rate-color-danger" />
+      <Rate className="color_primary" legend="Primary" defaultValue={4} name="rate-color-primary" />
+      <Rate className="color_success" legend="Success" defaultValue={5} name="rate-color-success" />
+      <Rate className="color_danger" legend="Danger" defaultValue={2} name="rate-color-danger" />
     </>
   );
 }`;
@@ -69,7 +69,7 @@ const halfCode = `import Rate from '@/components/Rate.jsx';
 export function HalfExample() {
   return (
     <>
-      <Rate allowHalf legend="정밀 평가 — rate_allow-half" value={3.5} name="rate-half" />
+      <Rate allowHalf legend="정밀 평가 — rate_allow-half" defaultValue={3.5} name="rate-half" />
       <p className="rate_hint">
         별 왼쪽을 클릭하면 반별, 오른쪽을 클릭하면 정수 점수가 선택됩니다.
       </p>
@@ -79,7 +79,7 @@ export function HalfExample() {
 const clearCode = `import Rate from '@/components/Rate.jsx';
 
 export function ClearExample() {
-  return <Rate clearable legend="만족도 — rate_clearable" value={4} name="rate-clear" />;
+  return <Rate clearable legend="만족도 — rate_clearable" defaultValue={4} name="rate-clear" />;
 }`;
 const readonlyCode = `import Rate from '@/components/Rate.jsx';
 
@@ -96,7 +96,7 @@ const stateCode = `import Rate from '@/components/Rate.jsx';
 export function StateExample() {
   return (
     <>
-      <Rate disabled legend="비활성" value={3} name="rate-state-disabled" />
+      <Rate disabled legend="비활성" defaultValue={3} name="rate-state-disabled" />
       <Rate className="is-error" legend="오류 — is-error" name="rate-state-error" />
       <p className="form_field-error">별점을 선택해 주세요.</p>
     </>
@@ -135,8 +135,8 @@ export default function RateDoc() {
           code={typeCode}
         >
 <>
-      <Rate legend="legend — 상품 만족도" value={3} name="rate-type-legend" />
-      <Rate value={4} name="rate-type-labelledby" legend="aria-labelledby — 서비스 평가" />
+      <Rate legend="legend — 상품 만족도" defaultValue={3} name="rate-type-legend" />
+      <Rate defaultValue={4} name="rate-type-labelledby" legend="aria-labelledby — 서비스 평가" />
       <Rate legend="aria-label — 단독" name="rate-type-aria" aria-label="별점 5점 만점" />
     </>
         </DemoSection>
@@ -146,7 +146,7 @@ export default function RateDoc() {
           description="rate_stars 안에 rate_star 레이블을 배치합니다. 같은 name의 radio로 단일 값을 선택합니다."
           code={basicCode}
         >
-<Rate legend="배송 속도" value={3} name="rate-basic" />
+<Rate legend="배송 속도" defaultValue={3} name="rate-basic" />
         </DemoSection>
         <DemoSection
           headingId="size-heading"
@@ -155,9 +155,9 @@ export default function RateDoc() {
           code={sizeCode}
         >
 <>
-      <Rate size="sm" legend="Small — rate_sm" value={3} name="rate-size-sm" />
-      <Rate legend="Medium — 기본" value={3} name="rate-size-md" />
-      <Rate size="lg" legend="Large — rate_lg" value={3} name="rate-size-lg" />
+      <Rate size="sm" legend="Small — rate_sm" defaultValue={3} name="rate-size-sm" />
+      <Rate legend="Medium — 기본" defaultValue={3} name="rate-size-md" />
+      <Rate size="lg" legend="Large — rate_lg" defaultValue={3} name="rate-size-lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -168,9 +168,9 @@ export default function RateDoc() {
           code={colorCode}
         >
 <>
-      <Rate className="color_primary" legend="Primary" value={4} name="rate-color-primary" />
-      <Rate className="color_success" legend="Success" value={5} name="rate-color-success" />
-      <Rate className="color_danger" legend="Danger" value={2} name="rate-color-danger" />
+      <Rate className="color_primary" legend="Primary" defaultValue={4} name="rate-color-primary" />
+      <Rate className="color_success" legend="Success" defaultValue={5} name="rate-color-success" />
+      <Rate className="color_danger" legend="Danger" defaultValue={2} name="rate-color-danger" />
     </>
         </DemoSection>
         <DemoSection
@@ -180,7 +180,7 @@ export default function RateDoc() {
           code={halfCode}
         >
 <>
-      <Rate allowHalf legend="정밀 평가 — rate_allow-half" value={3.5} name="rate-half" />
+      <Rate allowHalf legend="정밀 평가 — rate_allow-half" defaultValue={3.5} name="rate-half" />
       <p className="rate_hint">
         별 왼쪽을 클릭하면 반별, 오른쪽을 클릭하면 정수 점수가 선택됩니다.
       </p>
@@ -192,7 +192,7 @@ export default function RateDoc() {
           description="`rate_clearable`을 추가하면 초기화 버튼으로 값을 지울 수 있습니다."
           code={clearCode}
         >
-<Rate clearable legend="만족도 — rate_clearable" value={4} name="rate-clear" />
+<Rate clearable legend="만족도 — rate_clearable" defaultValue={4} name="rate-clear" />
         </DemoSection>
         <DemoSection
           headingId="readonly-heading"
@@ -214,7 +214,7 @@ export default function RateDoc() {
           code={stateCode}
         >
 <>
-      <Rate disabled legend="비활성" value={3} name="rate-state-disabled" />
+      <Rate disabled legend="비활성" defaultValue={3} name="rate-state-disabled" />
       <Rate className="is-error" legend="오류 — is-error" name="rate-state-error" />
       <p className="form_field-error">별점을 선택해 주세요.</p>
     </>

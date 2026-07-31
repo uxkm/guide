@@ -69,8 +69,20 @@ export const accordionItemProps = [
   {
     name: 'open',
     type: 'boolean',
+    default: '—',
+    description: '열림 상태 (제어)',
+  },
+  {
+    name: 'defaultOpen',
+    type: 'boolean',
     default: 'false',
-    description: '초기 열림 상태',
+    description: '초기 열림 상태 (비제어)',
+  },
+  {
+    name: 'onOpenChange',
+    type: '(open: boolean) => void',
+    default: '—',
+    description: '열림 상태 변경 콜백',
   },
   {
     name: 'disabled',

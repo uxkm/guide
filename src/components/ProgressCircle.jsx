@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -11,6 +13,12 @@ const formatCode = createComponentFormatter('ProgressCircle', {
   defaults: { percent: 0, color: 'primary', size: 'md' },
 });
 
+function normalizePercent(percent) {
+  const numericPercent = Number(percent);
+  if (!Number.isFinite(numericPercent)) return 0;
+  return Math.min(100, Math.max(0, numericPercent));
+}
+
 export default function ProgressCircle({
   percent = 0,
   color = 'primary',
@@ -23,11 +31,12 @@ export default function ProgressCircle({
   const rootRef = useRef(null);
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const resolvedColor = VALID_COLORS.has(color) ? color : 'primary';
+  const resolvedPercent = normalizePercent(percent);
 
   useComponentDemoCode(
     formatCode,
     {
-      percent,
+      percent: resolvedPercent,
       color: resolvedColor,
       size: resolvedSize,
       ariaLabel,
@@ -52,18 +61,18 @@ export default function ProgressCircle({
       ref={rootRef}
       className={cn(rootClass, className)}
       role="progressbar"
-      aria-valuenow={percent}
+      aria-valuenow={resolvedPercent}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-label={ariaLabel}
-      style={{ '--progress-percent': percent, ...style }}
+      style={{ '--progress-percent': resolvedPercent, ...style }}
       {...domRest}
     >
       <svg className="progress_circle-svg" viewBox="0 0 100 100" aria-hidden="true">
         <circle className="progress_circle-track" cx="50" cy="50" r="45" />
         <circle className="progress_circle-bar" cx="50" cy="50" r="45" />
       </svg>
-      <span className="progress_circle-value">{percent}%</span>
+      <span className="progress_circle-value">{resolvedPercent}%</span>
     </div>
   );
 }

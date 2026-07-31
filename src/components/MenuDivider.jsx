@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';

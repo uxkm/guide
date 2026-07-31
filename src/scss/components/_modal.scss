@@ -333,53 +333,40 @@
     overflow: hidden;
     background: var(--color-bg);
 
-    // Playground·문서 미리보기 — fixed 오버레이를 프레임 안으로 가둠
-    .modal {
+    // 열린 상태·푸터 정렬 문서 미리보기만 프레임 안에 고정
+    // 클릭으로 여는 Modal은 기본 fixed 배치를 유지해 뷰포트 전체에 표시
+    .modal.modal_demo-static {
       position: absolute;
       inset: 0;
       z-index: 1;
       padding: var(--space-md);
+      display: flex;
+      pointer-events: none;
 
-      &[hidden]:not(.is-open):not(.modal_demo-static) {
+      > .modal_backdrop {
+        position: absolute;
+        opacity: 1;
+        pointer-events: none;
+      }
+
+      > .modal_dialog {
+        pointer-events: auto;
+        opacity: 1;
+        transform: none;
+      }
+
+      &[data-modal-backdrop="false"] > .modal_backdrop {
         display: none;
       }
 
-      &.is-open,
-      &.modal_demo-static {
-        display: flex;
-      }
-
-      .modal_backdrop {
-        position: absolute;
-      }
-
-      &.modal_demo-static {
-        pointer-events: none;
-
-        .modal_dialog {
-          pointer-events: auto;
-          opacity: 1;
-          transform: none;
-        }
-
-        .modal_backdrop {
-          opacity: 1;
-          pointer-events: none;
-        }
-
-        &[data-modal-backdrop="false"] .modal_backdrop {
-          display: none;
-        }
-      }
-
-      &.modal_scrollable .modal_dialog {
+      &.modal_scrollable > .modal_dialog {
         max-height: calc(100% - var(--space-md) * 2);
       }
 
       &.modal_fullscreen {
         padding: 0;
 
-        .modal_dialog {
+        > .modal_dialog {
           height: 100%;
           max-height: none;
         }

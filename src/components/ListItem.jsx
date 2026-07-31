@@ -1,7 +1,9 @@
+'use client';
+
 import { Fragment, useContext, useMemo, useRef } from 'react';
 import { ListContext } from '@/components/List.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { formatComponentCode, hasComplexDefaultSlot } from '@/utils/format-component-code';
+import { formatListItemCode } from '@/utils/format-list-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
@@ -42,24 +44,8 @@ export default function ListItem({
 
   const itemRole = role !== undefined ? role : listContext.tag === 'div' ? 'listitem' : undefined;
 
-  function formatCode(itemProps, itemSlots, itemAttrs) {
-    const hasComplexDefault = hasComplexDefaultSlot(itemSlots);
-    const hasPrefix = Boolean(itemSlots.prefix?.());
-    const isDefPair =
-      itemProps.tag === 'auto' &&
-      listContext.tag === 'dl' &&
-      itemProps.title &&
-      itemProps.description;
-
-    return formatComponentCode('ListItem', itemProps, itemSlots, itemAttrs, {
-      labelProp: 'title',
-      defaults: { tag: 'auto' },
-      selfClosing: isDefPair || (!hasPrefix && !hasComplexDefault),
-    });
-  }
-
   useComponentDemoCode(
-    formatCode,
+    formatListItemCode,
     { title, description, meta, tag: resolvedTagProp },
     createDemoSlots({ default: children, prefix, extra, actions }),
     rootRef,

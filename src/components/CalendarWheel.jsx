@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Calendar from '@/components/Calendar.jsx';

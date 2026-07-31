@@ -1,9 +1,20 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { useButtonDemoCode } from '@/hooks/useDemoCode';
 import Icon from '@/components/Icon.jsx';
 import { cn } from '@/utils/cn';
+
+const VALID_VARIANTS = new Set(['filled', 'outline', 'ghost', 'text', 'select']);
+const VALID_COLORS = new Set(['primary', 'default', 'success', 'warning', 'danger', 'muted']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_TAGS = new Set(['button', 'a', 'div']);
+
+function isAriaTrue(value) {
+  return value === true || value === 'true';
+}
 
 export default function Button({
   ref,
@@ -24,6 +35,7 @@ export default function Button({
   error,
   placeholder,
   selectText,
+  selectCaret = false,
   label,
   ariaLabel,
   type = 'button',
@@ -44,6 +56,11 @@ export default function Button({
 }) {
   const { rippleAttrs } = useRipple({ ripple });
   const buttonRef = useRef(null);
+  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'filled';
+  const resolvedColor = VALID_COLORS.has(color) ? color : 'primary';
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedTag = VALID_TAGS.has(tag) ? tag : 'button';
+  const resolvedGrow = grow === true || grow === '2' ? grow : false;
 
   function setButtonRef(node) {
     buttonRef.current = node;
@@ -58,14 +75,14 @@ export default function Button({
   useButtonDemoCode(
     {
       ripple,
-      variant,
-      color,
-      size,
+      variant: resolvedVariant,
+      color: resolvedColor,
+      size: resolvedSize,
       round,
       vertical,
       iconOnly,
       block,
-      grow,
+      grow: resolvedGrow,
       fit,
       disabled,
       ariaDisabled,
@@ -74,13 +91,14 @@ export default function Button({
       error,
       placeholder,
       selectText,
+      selectCaret,
       label,
       ariaLabel,
       type,
       haspopup,
       expanded,
       invalid,
-      tag,
+      tag: resolvedTag,
       href,
       role,
       tabindex,
@@ -103,50 +121,62 @@ export default function Button({
     ...restForDom
   } = rest;
 
+  const normalizedDomRest = normalizeDomProps(restForDom);
+  const {
+    'aria-label': domAriaLabel,
+    'aria-disabled': domAriaDisabled,
+    'aria-busy': domAriaBusy,
+    'aria-haspopup': domAriaHaspopup,
+    'aria-expanded': domAriaExpanded,
+    'aria-invalid': domAriaInvalid,
+    ...domRest
+  } = normalizedDomRest;
+  const resolvedAriaDisabled = ariaDisabled ?? domAriaDisabled;
+
   const btnClass = useMemo(() => {
     const classes = ['btn'];
 
-    if (variant === 'select') {
+    if (resolvedVariant === 'select') {
       classes.push('btn_select');
       if (selectText) classes.push('btn_select-text');
       if (placeholder) classes.push('btn_select-placeholder');
     } else {
-      classes.push(`btn_${variant}`);
+      classes.push(`btn_${resolvedVariant}`);
     }
 
-    if (variant === 'text') {
+    if (resolvedVariant === 'text') {
       classes.push('color_primary');
-      if (color !== 'primary') classes.push(`color_${color}`);
-    } else if (variant !== 'ghost' && color) {
-      classes.push(`color_${color}`);
+      if (resolvedColor !== 'primary') classes.push(`color_${resolvedColor}`);
+    } else if (resolvedVariant !== 'ghost' && resolvedColor) {
+      classes.push(`color_${resolvedColor}`);
     }
 
-    if (size === 'sm') classes.push('btn_sm');
-    if (size === 'lg') classes.push('btn_lg');
+    if (resolvedSize === 'sm') classes.push('btn_sm');
+    if (resolvedSize === 'lg') classes.push('btn_lg');
     if (round) classes.push('btn_round');
     if (vertical) classes.push('btn_vertical');
     if (iconOnly) classes.push('btn_icon-only');
     if (block) classes.push('btn_block');
-    if (grow === true) classes.push('btn_grow');
-    if (grow === '2') classes.push('btn_grow-2');
+    if (resolvedGrow === true) classes.push('btn_grow');
+    if (resolvedGrow === '2') classes.push('btn_grow-2');
     if (fit) classes.push('btn_fit');
-    if (ariaDisabled) classes.push('is-disabled');
+    if (isAriaTrue(resolvedAriaDisabled)) classes.push('is-disabled');
     if (loading) classes.push('is-loading');
     if (open) classes.push('is-open');
     if (error) classes.push('is-error');
 
     return classes;
   }, [
-    variant,
-    color,
-    size,
+    resolvedVariant,
+    resolvedColor,
+    resolvedSize,
     round,
     vertical,
     iconOnly,
     block,
-    grow,
+    resolvedGrow,
     fit,
-    ariaDisabled,
+    resolvedAriaDisabled,
     loading,
     open,
     error,
@@ -163,24 +193,28 @@ export default function Button({
     if (role) return role;
     if (typeof fallthroughRole === 'string' && fallthroughRole) return fallthroughRole;
 
-    if (tag === 'div') return 'button';
+    if (resolvedTag === 'div') return 'button';
 
-    if (tag === 'a') {
+    if (resolvedTag === 'a') {
       if (resolvedHref) return undefined;
       return 'button';
     }
 
     return undefined;
-  }, [role, fallthroughRole, tag, resolvedHref]);
+  }, [role, fallthroughRole, resolvedTag, resolvedHref]);
 
-  const isNativeButton = tag === 'button';
-  const isNativeLink = tag === 'a' && Boolean(resolvedHref);
-  const isDisabled = disabled || ariaDisabled;
-  const needsTabIndex = tag === 'div' || (tag === 'a' && !isNativeLink);
+  const isNativeButton = resolvedTag === 'button';
+  const isNativeLink = resolvedTag === 'a' && Boolean(resolvedHref);
+  const isDisabled = Boolean(disabled || isAriaTrue(resolvedAriaDisabled));
+  const isInteractionBlocked = isDisabled || loading;
+  const needsTabIndex = resolvedTag === 'div' || (resolvedTag === 'a' && !isNativeLink);
 
   const rootTabIndex = useMemo(() => {
     const explicit = tabindex ?? fallthroughTabIndex ?? fallthroughTabindexKebab;
-    if (explicit != null && explicit !== '') return Number(explicit);
+    if (explicit != null && explicit !== '') {
+      const numericTabIndex = Number(explicit);
+      if (Number.isFinite(numericTabIndex)) return numericTabIndex;
+    }
     if (isNativeButton || isNativeLink) return isDisabled ? -1 : undefined;
     if (needsTabIndex) return isDisabled ? -1 : 0;
     return undefined;
@@ -195,17 +229,21 @@ export default function Button({
   ]);
 
   const ariaDisabledAttr = useMemo(() => {
-    if (isNativeButton && disabled && !ariaDisabled) return undefined;
+    if (isNativeButton && disabled && !isAriaTrue(resolvedAriaDisabled)) return undefined;
     return isDisabled ? 'true' : undefined;
-  }, [isNativeButton, disabled, ariaDisabled, isDisabled]);
+  }, [isNativeButton, disabled, resolvedAriaDisabled, isDisabled]);
 
   const ariaExpandedAttr =
-    expanded !== undefined ? String(expanded) : open ? 'true' : undefined;
+    expanded !== undefined
+      ? String(expanded)
+      : open
+        ? 'true'
+        : domAriaExpanded;
   const activatesWithSpace = resolvedRole !== 'link';
 
   function handleKeyDown(event) {
     onKeyDown?.(event);
-    if (!needsTabIndex || isDisabled) return;
+    if (!needsTabIndex || isInteractionBlocked) return;
 
     const isEnter = event.key === 'Enter';
     const isSpace = event.key === ' ';
@@ -217,7 +255,7 @@ export default function Button({
   }
 
   function handleClick(event) {
-    if (isDisabled) {
+    if (isInteractionBlocked) {
       event.preventDefault();
       event.stopPropagation();
       return;
@@ -225,25 +263,28 @@ export default function Button({
     onClick?.(event);
   }
 
-  const Tag = tag;
-  const domRest = normalizeDomProps(restForDom);
+  const Tag = resolvedTag;
 
   return (
     <Tag
       ref={setButtonRef}
       className={cn(btnClass, className)}
       type={isNativeButton ? type : undefined}
-      href={tag === 'a' ? resolvedHref : undefined}
-      disabled={isNativeButton ? disabled && !ariaDisabled : undefined}
+      href={resolvedTag === 'a' ? resolvedHref : undefined}
+      disabled={
+        isNativeButton
+          ? Boolean(disabled && !isAriaTrue(resolvedAriaDisabled))
+          : undefined
+      }
       role={resolvedRole}
       tabIndex={rootTabIndex}
       {...domRest}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? domAriaLabel}
       aria-disabled={ariaDisabledAttr}
-      aria-busy={loading ? 'true' : undefined}
-      aria-haspopup={haspopup}
+      aria-busy={loading ? 'true' : domAriaBusy}
+      aria-haspopup={haspopup ?? domAriaHaspopup}
       aria-expanded={ariaExpandedAttr}
-      aria-invalid={invalid || error ? 'true' : undefined}
+      aria-invalid={invalid || error ? 'true' : domAriaInvalid}
       onKeyDown={handleKeyDown}
       onClick={handleClick}
       {...rippleAttrs}
@@ -252,7 +293,7 @@ export default function Button({
       {resolvedIconBefore}
       {showLabel ? <span className="btn_label">{labelContent}</span> : null}
       {iconAfter}
-      {variant === 'select' ? (
+      {resolvedVariant === 'select' || selectCaret ? (
         <Icon name="chevron-down" className="btn_select-caret" aria-hidden="true" />
       ) : null}
     </Tag>

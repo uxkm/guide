@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Select | UXKM Guide',
   activeNav: 'select',
@@ -22,6 +24,10 @@ import {
   selectTokenColumns,
   selectTokens,
 } from '@/doc/data/select-api';
+
+function preventDemoSubmit(event) {
+  event.preventDefault();
+}
 
 const typeCode = `import Select from '@/components/Select.jsx';
 
@@ -78,7 +84,7 @@ export function StandaloneExample() {
         <option>활성</option>
         <option>비활성</option>
       </Select>
-      <Select aria-label="정렬 기준" value="이름순">
+      <Select aria-label="정렬 기준" defaultValue="이름순">
         <option>최신순</option>
         <option>이름순</option>
         <option>오래된순</option>
@@ -323,13 +329,21 @@ export function CustomExample() {
     </>
   );
 }`;
-const exampleCode = `import Button from '@/components/Button.jsx';
+const exampleCode = `'use client';
+
+import Button from '@/components/Button.jsx';
 import FormLayout from '@/components/FormLayout.jsx';
 import Select from '@/components/Select.jsx';
 
 export function ExampleForm() {
   return (
-    <FormLayout layout="vertical" compact noValidate aria-labelledby="example-heading">
+    <FormLayout
+      layout="vertical"
+      compact
+      noValidate
+      aria-labelledby="example-heading"
+      onSubmit={(event) => event.preventDefault()}
+    >
       <div className="form_field">
         <label className="form_field-label" htmlFor="select-ex-country">
           국가<span className="form_field-required" aria-hidden="true">
@@ -340,7 +354,7 @@ export function ExampleForm() {
           id="select-ex-country"
           size="sm"
           className="is-success"
-          value="kr"
+          defaultValue="kr"
           required
           aria-required="true"
           aria-invalid="false"
@@ -382,7 +396,7 @@ export function ExampleForm() {
         <label className="form_field-label" htmlFor="select-ex-lang">
           언어
         </label>
-        <Select id="select-ex-lang" size="sm" value="ko">
+        <Select id="select-ex-lang" size="sm" defaultValue="ko">
           <option value="ko">한국어</option>
           <option value="en">English</option>
           <option value="ja">日本語</option>
@@ -466,7 +480,7 @@ export default function SelectDoc() {
         <option>활성</option>
         <option>비활성</option>
       </Select>
-      <Select aria-label="정렬 기준" value="이름순">
+      <Select aria-label="정렬 기준" defaultValue="이름순">
         <option>최신순</option>
         <option>이름순</option>
         <option>오래된순</option>
@@ -727,7 +741,13 @@ export default function SelectDoc() {
           stack
           code={exampleCode}
         >
-<FormLayout layout="vertical" compact noValidate aria-labelledby="example-heading">
+<FormLayout
+      layout="vertical"
+      compact
+      noValidate
+      aria-labelledby="example-heading"
+      onSubmit={preventDemoSubmit}
+    >
       <div className="form_field">
         <label className="form_field-label" htmlFor="select-ex-country">
           국가
@@ -739,7 +759,7 @@ export default function SelectDoc() {
           id="select-ex-country"
           size="sm"
           className="is-success"
-          value="kr"
+          defaultValue="kr"
           required
           aria-required="true"
           aria-invalid="false"
@@ -782,7 +802,7 @@ export default function SelectDoc() {
         <label className="form_field-label" htmlFor="select-ex-lang">
           언어
         </label>
-        <Select id="select-ex-lang" size="sm" value="ko">
+        <Select id="select-ex-lang" size="sm" defaultValue="ko">
           <option value="ko">한국어</option>
           <option value="en">English</option>
           <option value="ja">日本語</option>

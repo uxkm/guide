@@ -10,6 +10,7 @@ import ApiTable from '@/components/guide/ApiTable.jsx';
 import DemoSection from '@/components/guide/DemoSection.jsx';
 import Icon from '@/components/Icon.jsx';
 import Link from '@/components/Link.jsx';
+import { avatarSample } from '@images';
 import {
   linkClassColumns,
   linkClasses,
@@ -23,21 +24,23 @@ import {
 
 const basicCode = "import Link from '@/components/Link.jsx';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Link label=\"더 보기\" />\n      <Link label=\"가이드 문서\" />\n      <Link underline label=\"항상 밑줄\" />\n    </>\n  );\n}";
 
+const sourceCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\nimport { avatarSample } from '@images';\n\nexport function SourceExample() {\n  return (\n    <>\n      <Link href=\"/components/icon\">\n        <Icon name=\"link\" className=\"link_icon\" />\n        아이콘 문서\n      </Link>\n      <Link href=\"/components/avatar\">\n        <img className=\"link_media\" src={avatarSample.src} alt=\"\" />\n        프로필\n      </Link>\n      <Link as=\"button\" onClick={() => console.log('action')}>\n        커스텀 액션\n      </Link>\n    </>\n  );\n}";
+
 const colorCode = "import Link from '@/components/Link.jsx';\n\nexport function ColorExample() {\n  return (\n    <div className=\"link_row\">\n      <Link color=\"primary\" label=\"Primary\" />\n      <Link color=\"muted\" label=\"Muted\" />\n      <Link color=\"success\" label=\"Success\" />\n      <Link color=\"warning\" label=\"Warning\" />\n      <Link color=\"danger\" label=\"Danger\" />\n    </div>\n  );\n}";
 
 const sizeCode = "import Link from '@/components/Link.jsx';\n\nexport function SizeExample() {\n  return (\n    <>\n      <Link size=\"sm\" label=\"Small\" />\n      <Link label=\"Base\" />\n      <Link size=\"lg\" label=\"Large\" />\n      <Link size=\"xl\" label=\"Extra Large\" />\n    </>\n  );\n}";
 
 const styleCode = "import Link from '@/components/Link.jsx';\n\nexport function StyleExample() {\n  return (\n    <div className=\"link_row\">\n      <Link label=\"기본 (hover 밑줄)\" />\n      <Link underline label=\"항상 밑줄\" />\n      <Link noUnderline label=\"밑줄 없음\" />\n      <Link standalone label=\"터치 영역 확대\" />\n    </div>\n  );\n}";
 
-const navCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function NavExample() {\n  return (\n    <>\n      <nav className=\"link_group-inline\" aria-label=\"섹션 내비게이션\">\n        <Link nav active label=\"개요\" />\n        <Link nav label=\"컴포넌트\" />\n        <Link nav label=\"토큰\" />\n        <Link nav label=\"접근성\" />\n      </nav>\n      <Link\n        back\n        label=\"이전 페이지\"\n        icon={\n          <Icon className=\"link_icon\">\n            <path d=\"M19 12H5M12 19l-7-7 7-7\" />\n          </Icon>\n        }\n      />\n    </>\n  );\n}";
+const navCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function NavExample() {\n  return (\n    <>\n      <nav className=\"link_group-inline\" aria-label=\"섹션 내비게이션\">\n        <Link nav active label=\"개요\" />\n        <Link nav label=\"컴포넌트\" />\n        <Link nav label=\"토큰\" />\n        <Link nav label=\"접근성\" />\n      </nav>\n      <Link\n        back\n        label=\"이전 페이지\"\n        icon={<Icon name=\"arrow-left\" className=\"link_icon\" />}\n      />\n    </>\n  );\n}";
 
-const blockCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function BlockExample() {\n  return (\n    <div className=\"link_group\" style={{ maxWidth: '280px', width: '100%' }}>\n      <Link\n        block\n        label=\"시작하기\"\n        icon={\n          <Icon className=\"link_icon\">\n            <path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\" />\n            <path d=\"M14 2v6h6\" />\n          </Icon>\n        }\n      />\n      <Link\n        block\n        label=\"컴포넌트\"\n        icon={\n          <Icon className=\"link_icon\">\n            <rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\" />\n            <path d=\"M3 9h18M9 21V9\" />\n          </Icon>\n        }\n      />\n      <Link\n        block\n        color=\"muted\"\n        label=\"도움말\"\n        icon={\n          <Icon className=\"link_icon\">\n            <circle cx=\"12\" cy=\"12\" r=\"10\" />\n            <path d=\"M12 16v-4\" />\n            <circle cx=\"12\" cy=\"8\" r=\"1\" fill=\"currentColor\" stroke=\"none\" />\n          </Icon>\n        }\n      />\n    </div>\n  );\n}";
+const blockCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function BlockExample() {\n  return (\n    <div className=\"link_group\" style={{ maxWidth: '280px', width: '100%' }}>\n      <Link block label=\"시작하기\" icon={<Icon name=\"file\" className=\"link_icon\" />} />\n      <Link block label=\"컴포넌트\" icon={<Icon name=\"grid\" className=\"link_icon\" />} />\n      <Link block color=\"muted\" label=\"도움말\" icon={<Icon name=\"info\" className=\"link_icon\" />} />\n    </div>\n  );\n}";
 
-const iconOnlyCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function IconOnlyExample() {\n  return (\n    <>\n      <Link\n        iconOnly\n        ariaLabel=\"검색\"\n        icon={\n          <Icon className=\"link_icon\">\n            <circle cx=\"11\" cy=\"11\" r=\"8\" />\n            <path d=\"m21 21-4.35-4.35\" />\n          </Icon>\n        }\n      />\n      <Link\n        iconOnly\n        ariaLabel=\"편집\"\n        icon={\n          <Icon className=\"link_icon\">\n            <path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" />\n            <path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\" />\n          </Icon>\n        }\n      />\n      <Link\n        iconOnly\n        color=\"muted\"\n        ariaLabel=\"더 보기\"\n        icon={\n          <Icon className=\"link_icon\">\n            <circle cx=\"12\" cy=\"12\" r=\"1\" />\n            <circle cx=\"19\" cy=\"12\" r=\"1\" />\n            <circle cx=\"5\" cy=\"12\" r=\"1\" />\n          </Icon>\n        }\n      />\n    </>\n  );\n}";
+const iconOnlyCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function IconOnlyExample() {\n  return (\n    <>\n      <Link iconOnly ariaLabel=\"검색\" icon={<Icon name=\"search\" className=\"link_icon\" />} />\n      <Link iconOnly ariaLabel=\"편집\" icon={<Icon name=\"edit\" className=\"link_icon\" />} />\n      <Link iconOnly color=\"muted\" ariaLabel=\"더 보기\" icon={<Icon name=\"more-horizontal\" className=\"link_icon\" />} />\n    </>\n  );\n}";
 
-const iconCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function IconDemoExample() {\n  return (\n    <div className=\"link_row\">\n      <Link\n        label=\"외부 링크\"\n        icon={\n          <Icon className=\"link_icon\">\n            <path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\" />\n            <polyline points=\"15 3 21 3 21 9\" />\n            <line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\" />\n          </Icon>\n        }\n      />\n      <Link>\n        다운로드\n        <Icon className=\"link_icon\">\n          <path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\" />\n          <polyline points=\"7 10 12 15 17 10\" />\n          <line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\" />\n        </Icon>\n      </Link>\n      <Link\n        label=\"다음 단계\"\n        icon={\n          <Icon className=\"link_icon\">\n            <path d=\"M5 12h14M12 5l7 7-7 7\" />\n          </Icon>\n        }\n      />\n    </div>\n  );\n}";
+const iconCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function IconDemoExample() {\n  return (\n    <div className=\"link_row\">\n      <Link label=\"외부 링크\" icon={<Icon name=\"external-link\" className=\"link_icon\" />} />\n      <Link>\n        다운로드\n        <Icon name=\"download\" className=\"link_icon\" />\n      </Link>\n      <Link label=\"다음 단계\" icon={<Icon name=\"arrow-right\" className=\"link_icon\" />} />\n    </div>\n  );\n}";
 
-const externalCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function ExternalExample() {\n  return (\n    <Link href=\"https://example.com\" target=\"_blank\" rel=\"noopener noreferrer\">\n      공식 문서\n      <span className=\"color_muted size_sm\">(새 창)</span>\n      <Icon className=\"link_icon\">\n        <path d=\"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6\" />\n        <polyline points=\"15 3 21 3 21 9\" />\n        <line x1=\"10\" y1=\"14\" x2=\"21\" y2=\"3\" />\n      </Icon>\n    </Link>\n  );\n}";
+const externalCode = "import Icon from '@/components/Icon.jsx';\nimport Link from '@/components/Link.jsx';\n\nexport function ExternalExample() {\n  return (\n    <Link href=\"https://example.com\" target=\"_blank\" rel=\"noopener noreferrer\">\n      공식 문서\n      <span className=\"color_muted size_sm\">(새 창)</span>\n      <Icon name=\"external-link\" className=\"link_icon\" />\n    </Link>\n  );\n}";
 
 const disabledCode = "import Link from '@/components/Link.jsx';\n\nexport function DisabledExample() {\n  return (\n    <>\n      <Link disabled label=\"비활성 링크\" />\n      <Link disabled label=\"비활성 (span)\" />\n    </>\n  );\n}";
 
@@ -60,6 +63,25 @@ export default function LinkDoc() {
           <Link label="더 보기" />
           <Link label="가이드 문서" />
           <Link underline label="항상 밑줄" />
+        </DemoSection>
+
+        <DemoSection
+          headingId="source-heading"
+          title="이미지 · 아이콘 · 커스텀 요소"
+          description="children에 이미지·아이콘·컴포넌트를 조합하거나 as로 루트 요소를 변경할 수 있습니다."
+          code={sourceCode}
+        >
+          <Link href="/components/icon">
+            <Icon name="link" className="link_icon" />
+            아이콘 문서
+          </Link>
+          <Link href="/components/avatar">
+            <img className="link_media" src={avatarSample.src} alt="" />
+            프로필
+          </Link>
+          <Link as="button" onClick={() => {}}>
+            커스텀 액션
+          </Link>
         </DemoSection>
 
         <DemoSection
@@ -123,9 +145,7 @@ export default function LinkDoc() {
             back
             label="이전 페이지"
             icon={
-              <Icon className="link_icon">
-                <path d="M19 12H5M12 19l-7-7 7-7" />
-              </Icon>
+              <Icon name="arrow-left" className="link_icon" />
             }
           />
         </DemoSection>
@@ -141,20 +161,14 @@ export default function LinkDoc() {
               block
               label="시작하기"
               icon={
-                <Icon className="link_icon">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <path d="M14 2v6h6" />
-                </Icon>
+                <Icon name="file" className="link_icon" />
               }
             />
             <Link
               block
               label="컴포넌트"
               icon={
-                <Icon className="link_icon">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18M9 21V9" />
-                </Icon>
+                <Icon name="grid" className="link_icon" />
               }
             />
             <Link
@@ -162,11 +176,7 @@ export default function LinkDoc() {
               color="muted"
               label="도움말"
               icon={
-                <Icon className="link_icon">
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 16v-4" />
-                  <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" />
-                </Icon>
+                <Icon name="info" className="link_icon" />
               }
             />
           </div>
@@ -182,20 +192,14 @@ export default function LinkDoc() {
             iconOnly
             ariaLabel="검색"
             icon={
-              <Icon className="link_icon">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-              </Icon>
+              <Icon name="search" className="link_icon" />
             }
           />
           <Link
             iconOnly
             ariaLabel="편집"
             icon={
-              <Icon className="link_icon">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-              </Icon>
+              <Icon name="edit" className="link_icon" />
             }
           />
           <Link
@@ -203,11 +207,7 @@ export default function LinkDoc() {
             color="muted"
             ariaLabel="더 보기"
             icon={
-              <Icon className="link_icon">
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="19" cy="12" r="1" />
-                <circle cx="5" cy="12" r="1" />
-              </Icon>
+              <Icon name="more-horizontal" className="link_icon" />
             }
           />
         </DemoSection>
@@ -223,27 +223,17 @@ export default function LinkDoc() {
             <Link
               label="외부 링크"
               icon={
-                <Icon className="link_icon">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </Icon>
+                <Icon name="external-link" className="link_icon" />
               }
             />
             <Link>
               다운로드
-              <Icon className="link_icon">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </Icon>
+              <Icon name="download" className="link_icon" />
             </Link>
             <Link
               label="다음 단계"
               icon={
-                <Icon className="link_icon">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </Icon>
+                <Icon name="arrow-right" className="link_icon" />
               }
             />
           </div>
@@ -258,11 +248,7 @@ export default function LinkDoc() {
           <Link href="https://example.com" target="_blank" rel="noopener noreferrer">
             공식 문서
             <span className="color_muted size_sm">(새 창)</span>
-            <Icon className="link_icon">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-              <polyline points="15 3 21 3 21 9" />
-              <line x1="10" y1="14" x2="21" y2="3" />
-            </Icon>
+            <Icon name="external-link" className="link_icon" />
           </Link>
         </DemoSection>
 

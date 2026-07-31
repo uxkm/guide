@@ -81,7 +81,7 @@ export function BasicExample() {
       <label className="form_field-label" htmlFor="dp-basic">
         예약 날짜
       </label>
-      <DatePicker inputId="dp-basic" value="2024-06-18" fit />
+      <DatePicker inputId="dp-basic" defaultValue="2024-06-18" fit />
       <p className="form_field-hint">체크인 날짜를 선택해 주세요.</p>
     </div>
   );
@@ -95,19 +95,19 @@ export function SizeExample() {
         <label className="form_field-label" htmlFor="dp-size-sm">
           Small
         </label>
-        <DatePicker inputId="dp-size-sm" size="sm" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-sm" size="sm" defaultValue="2024-06-18" fit />
       </div>
       <div className="form_field form_field_fit">
         <label className="form_field-label" htmlFor="dp-size-md">
           Medium
         </label>
-        <DatePicker inputId="dp-size-md" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-md" defaultValue="2024-06-18" fit />
       </div>
       <div className="form_field form_field_fit">
         <label className="form_field-label" htmlFor="dp-size-lg">
           Large
         </label>
-        <DatePicker inputId="dp-size-lg" size="lg" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-lg" size="lg" defaultValue="2024-06-18" fit />
       </div>
     </>
   );
@@ -121,7 +121,7 @@ export function OpenExample() {
       <label className="form_field-label" htmlFor="dp-open">
         날짜
       </label>
-      <DatePicker inputId="dp-open" value="2024-06-18" fit open>
+      <DatePicker inputId="dp-open" defaultValue="2024-06-18" fit open>
         {/* Calendar panel */}
       </DatePicker>
     </div>
@@ -135,7 +135,7 @@ export function FooterExample() {
       <label className="form_field-label" htmlFor="dp-footer">
         일정 날짜
       </label>
-      <DatePicker inputId="dp-footer" value="2024-06-18" fit open>
+      <DatePicker inputId="dp-footer" defaultValue="2024-06-18" fit open>
         {/* Calendar + CalendarFooter */}
       </DatePicker>
     </div>
@@ -150,11 +150,11 @@ export function RangeExample() {
         조회 기간
       </span>
       <div className="date_picker_range" role="group" aria-labelledby="dp-range-label">
-        <DatePicker value="2024-06-10" ariaLabel="시작일" />
+        <DatePicker defaultValue="2024-06-10" ariaLabel="시작일" />
         <span className="date_picker_sep" aria-hidden="true">
           ~
         </span>
-        <DatePicker value="2024-06-18" ariaLabel="종료일" />
+        <DatePicker defaultValue="2024-06-18" ariaLabel="종료일" />
       </div>
     </div>
   );
@@ -167,7 +167,7 @@ export function RangePanelExample() {
       block
       open
       panelWide
-      value="2024-06-10 ~ 2024-07-06"
+      defaultValue="2024-06-10 ~ 2024-07-06"
       ariaLabel="숙박 기간"
       style={{ maxWidth: '20rem' }}
     >
@@ -330,7 +330,7 @@ export default function DatePickerDoc() {
       <label className="form_field-label" htmlFor="dp-basic">
         예약 날짜
       </label>
-      <DatePicker inputId="dp-basic" value="2024-06-18" fit />
+      <DatePicker inputId="dp-basic" defaultValue="2024-06-18" fit />
       <p className="form_field-hint">체크인 날짜를 선택해 주세요.</p>
     </div>
         </DemoSection>
@@ -346,19 +346,19 @@ export default function DatePickerDoc() {
         <label className="form_field-label" htmlFor="dp-size-sm">
           Small
         </label>
-        <DatePicker inputId="dp-size-sm" size="sm" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-sm" size="sm" defaultValue="2024-06-18" fit />
       </div>
       <div className="form_field form_field_fit">
         <label className="form_field-label" htmlFor="dp-size-md">
           Medium
         </label>
-        <DatePicker inputId="dp-size-md" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-md" defaultValue="2024-06-18" fit />
       </div>
       <div className="form_field form_field_fit">
         <label className="form_field-label" htmlFor="dp-size-lg">
           Large
         </label>
-        <DatePicker inputId="dp-size-lg" size="lg" value="2024-06-18" fit />
+        <DatePicker inputId="dp-size-lg" size="lg" defaultValue="2024-06-18" fit />
       </div>
     </>
         </DemoSection>
@@ -374,7 +374,7 @@ export default function DatePickerDoc() {
       </label>
       <DatePicker
         inputId="dp-open"
-        value="2024-06-18"
+        defaultValue="2024-06-18"
         fit
         open
         panel={
@@ -403,7 +403,7 @@ export default function DatePickerDoc() {
       </label>
       <DatePicker
         inputId="dp-footer"
-        value="2024-06-18"
+        defaultValue="2024-06-18"
         fit
         open
         panel={
@@ -432,11 +432,11 @@ export default function DatePickerDoc() {
         조회 기간
       </span>
       <div className="date_picker_range" role="group" aria-labelledby="dp-range-label">
-        <DatePicker value="2024-06-10" ariaLabel="시작일" />
+        <DatePicker defaultValue="2024-06-10" ariaLabel="시작일" />
         <span className="date_picker_sep" aria-hidden="true">
           ~
         </span>
-        <DatePicker value="2024-06-18" ariaLabel="종료일" />
+        <DatePicker defaultValue="2024-06-18" ariaLabel="종료일" />
       </div>
       <p className="form_field-hint">최대 90일까지 조회할 수 있습니다.</p>
     </div>
@@ -456,7 +456,7 @@ export default function DatePickerDoc() {
         open
         panelWide
         inputId="dp-range-panel-label"
-        value="2024-06-10 ~ 2024-07-06"
+        defaultValue="2024-06-10 ~ 2024-07-06"
         ariaLabel="숙박 기간"
         style={{ maxWidth: '20rem' }}
         panel={
@@ -528,7 +528,7 @@ export default function DatePickerDoc() {
         <label className="form_field-label" htmlFor="dp-state-disabled">
           비활성
         </label>
-        <DatePicker inputId="dp-state-disabled" value="2024-06-18" fit disabled />
+        <DatePicker inputId="dp-state-disabled" defaultValue="2024-06-18" fit disabled />
         <p className="form_field-hint">is-disabled 클래스와 disabled 속성으로 선택을 막습니다.</p>
       </div>
       <div className="form_field form_field_fit">
@@ -553,7 +553,7 @@ export default function DatePickerDoc() {
         </label>
         <DatePicker
           inputId="dp-state-success"
-          value="2024-06-18"
+          defaultValue="2024-06-18"
           fit
           success
           ariaInvalid={false}

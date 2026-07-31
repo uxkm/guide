@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Children,
   cloneElement,
@@ -85,12 +87,22 @@ export default function Steps({
         aria-label={ariaLabel}
         {...domRest}
       >
-        {childItems.map((child, i) =>
-          cloneElement(child, {
+        {childItems.map((child, i) => {
+          const derivedStatus =
+            Number.isInteger(current) && current >= 0
+              ? i < current
+                ? 'finished'
+                : i === current
+                  ? 'active'
+                  : 'wait'
+              : undefined;
+
+          return cloneElement(child, {
             index: child.props.index ?? i + 1,
             isLast: i === childItems.length - 1,
-          }),
-        )}
+            status: child.props.status ?? derivedStatus,
+          });
+        })}
       </ol>
     </StepsContext.Provider>
   );

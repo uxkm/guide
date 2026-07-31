@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';

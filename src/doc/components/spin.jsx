@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Spin | UXKM Guide',
   activeNav: 'spin',
@@ -135,7 +137,7 @@ export default function SpinDoc() {
       <div className="page_intro">
         <h1>Spin</h1>
         <p className="lead">
-          로딩·처리 중 상태를 표시하는 Spin 컴포넌트입니다. 인라인 스피너, 설명 텍스트, 컨테이너
+          로딩·처리 중 상태를 표시하는 Next.js Client Component입니다. 인라인 스피너, 설명 텍스트, 컨테이너
           오버레이를 지원하며 <code className="typo_code">role=&quot;status&quot;</code> ·
           <code className="typo_code">aria-busy</code> · <code className="typo_code">aria-label</code>로
           접근성을 보장합니다.

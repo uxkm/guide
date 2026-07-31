@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Menu | UXKM Guide',
   activeNav: 'menu',
@@ -13,6 +15,7 @@ import MenuDivider from '@/components/MenuDivider.jsx';
 import MenuGroup from '@/components/MenuGroup.jsx';
 import MenuItem from '@/components/MenuItem.jsx';
 import MenuSubmenu from '@/components/MenuSubmenu.jsx';
+import NextLink from 'next/link';
 import {
   menuChildColumns,
   menuChildren,
@@ -34,16 +37,17 @@ import {
   menuTokens,
 } from '@/doc/data/menu-api';
 
-const basicCode = `import Menu from '@/components/Menu.jsx';
+const basicCode = `import NextLink from 'next/link';
+import Menu from '@/components/Menu.jsx';
 import MenuItem from '@/components/MenuItem.jsx';
 
 export function BasicExample() {
   return (
     <Menu mode="vertical" bordered ariaLabel="주요 메뉴">
-      <MenuItem label="대시보드" active />
-      <MenuItem label="분석" />
-      <MenuItem label="사용자" />
-      <MenuItem label="설정" />
+      <MenuItem as={NextLink} href="/" label="홈" active />
+      <MenuItem as={NextLink} href="/components/card" label="Card" />
+      <MenuItem as={NextLink} href="/components/avatar" label="Avatar" />
+      <MenuItem as={NextLink} href="/getting-started" label="시작하기" />
     </Menu>
   );
 }`;
@@ -223,10 +227,10 @@ export default function MenuDoc() {
         code={basicCode}
       >
         <Menu mode="vertical" bordered ariaLabel="주요 메뉴">
-          <MenuItem label="대시보드" active />
-          <MenuItem label="분석" />
-          <MenuItem label="사용자" />
-          <MenuItem label="설정" />
+          <MenuItem as={NextLink} href="/" label="홈" active />
+          <MenuItem as={NextLink} href="/components/card" label="Card" />
+          <MenuItem as={NextLink} href="/components/avatar" label="Avatar" />
+          <MenuItem as={NextLink} href="/getting-started" label="시작하기" />
         </Menu>
       </DemoSection>
 

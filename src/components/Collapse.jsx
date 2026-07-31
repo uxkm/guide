@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -55,6 +57,8 @@ export default function Collapse({
         label: panel.label,
         content: panel.content,
         open: panel.open,
+        defaultOpen: panel.defaultOpen,
+        controlled: panel.controlled,
         disabled: panel.disabled,
         hasExtra: panel.hasExtra,
         extraCode: panel.extraCode,
@@ -103,7 +107,7 @@ export default function Collapse({
 
       if (accordionRef.current && willOpen) {
         for (const [otherId, other] of panelsMapRef.current) {
-          if (otherId !== id && !other.disabled) {
+          if (otherId !== id && !other.disabled && other.getIsOpen()) {
             other.setIsOpen(false);
           }
         }

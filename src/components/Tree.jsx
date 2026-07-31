@@ -1,13 +1,10 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTreeCode } from '@/utils/format-tree-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
-
-const formatCode = createComponentFormatter('Tree', {
-  booleanProps: new Set(['bordered', 'lines', 'compact', 'multiselectable']),
-  selfClosing: false,
-});
 
 export default function Tree({
   bordered,
@@ -22,7 +19,7 @@ export default function Tree({
   const rootRef = useRef(null);
 
   useComponentDemoCode(
-    formatCode,
+    formatTreeCode,
     { bordered, lines, compact, ariaLabel, multiselectable },
     createDemoSlots({ default: children }),
     rootRef,

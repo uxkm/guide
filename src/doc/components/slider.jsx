@@ -31,10 +31,10 @@ export function TypeExample() {
         id="slider-type-label"
         className="slider_fit"
         label="label + for — 기본"
-        value={40}
+        defaultValue={40}
         showValue
       />
-      <Slider className="slider_fit" value={55} aria-label="단독 슬라이더 — aria-label" />
+      <Slider className="slider_fit" defaultValue={55} aria-label="단독 슬라이더 — aria-label" />
       <p className="slider_hint">
         레이블 없이 사용할 때는 <code>aria-label</code>로 접근 가능한 이름을 지정합니다.
       </p>
@@ -42,7 +42,7 @@ export function TypeExample() {
         id="slider-type-labelledby"
         className="slider_fit"
         label="aria-labelledby — 외부 레이블"
-        value={16}
+        defaultValue={16}
         min={12}
         max={24}
         step={1}
@@ -57,7 +57,7 @@ export function TypeExample() {
         id="slider-type-describedby"
         className="slider_fit"
         label="aria-describedby — 보조 설명"
-        value={70}
+        defaultValue={70}
         aria-describedby="slider-type-describedby-hint"
         data-slider-suffix="%"
         data-slider-valuetext-suffix="퍼센트"
@@ -70,7 +70,7 @@ export function TypeExample() {
         id="slider-type-valuetext"
         className="slider_fit"
         label="aria-valuetext — 읽기 쉬운 값"
-        value={3}
+        defaultValue={3}
         min={1}
         max={5}
         step={1}
@@ -86,19 +86,19 @@ export function TypeExample() {
 const basicCode = `import Slider from '@/components/Slider.jsx';
 
 export function BasicExample() {
-  return <Slider className="slider_fit" value={30} aria-label="기본 슬라이더" />;
+  return <Slider className="slider_fit" defaultValue={30} aria-label="기본 슬라이더" />;
 }`;
 const labelCode = `import Slider from '@/components/Slider.jsx';
 
 export function LabelExample() {
   return (
     <>
-      <Slider id="slider-volume" className="slider_fit" label="볼륨" value={60} showValue />
+      <Slider id="slider-volume" className="slider_fit" label="볼륨" defaultValue={60} showValue />
       <Slider
         id="slider-brightness"
         className="slider_fit"
         label="밝기"
-        value={40}
+        defaultValue={40}
         data-slider-suffix="%"
         showValue
       />
@@ -115,14 +115,14 @@ export function SizeExample() {
         size="sm"
         className="slider_fit"
         label="Small — slider_sm"
-        value={30}
+        defaultValue={30}
         showValue
       />
       <Slider
         id="slider-size-md"
         className="slider_fit"
         label="Medium — 기본"
-        value={50}
+        defaultValue={50}
         showValue
       />
       <Slider
@@ -130,7 +130,7 @@ export function SizeExample() {
         size="lg"
         className="slider_fit"
         label="Large — slider_lg"
-        value={70}
+        defaultValue={70}
         showValue
       />
     </>
@@ -145,7 +145,7 @@ export function WidthExample() {
         id="slider-width-fit"
         className="slider_fit"
         label="slider_fit — 최대 320px"
-        value={45}
+        defaultValue={45}
         showValue
       />
       <Slider
@@ -153,7 +153,7 @@ export function WidthExample() {
         className="slider_block"
         style={{ maxWidth: 480 }}
         label="slider_block — 전체 너비"
-        value={65}
+        defaultValue={65}
         showValue
       />
     </>
@@ -163,7 +163,7 @@ const stepCode = `import Slider from '@/components/Slider.jsx';
 
 export function StepExample() {
   return (
-    <Slider className="slider_fit" label="step=10" value={50} step={10} showValue />
+    <Slider className="slider_fit" label="step=10" defaultValue={50} step={10} showValue />
   );
 }`;
 const stepperCode = `import Slider from '@/components/Slider.jsx';
@@ -175,7 +175,7 @@ export function StepperExample() {
         className="slider_fit"
         stepper
         label="볼륨 — slider_stepper"
-        value={60}
+        defaultValue={60}
         showValue
         decreaseLabel="볼륨 줄이기"
         increaseLabel="볼륨 늘리기"
@@ -186,7 +186,7 @@ export function StepperExample() {
         stepper
         stepperAlways
         label="밝기 — slider_stepper_always"
-        value={40}
+        defaultValue={40}
         step={5}
         valueSuffix="%"
         showValue
@@ -198,7 +198,7 @@ export function StepperExample() {
         className="slider_fit"
         stepper
         label="비활성"
-        value={30}
+        defaultValue={30}
         showValue
         disabled
       />
@@ -214,28 +214,28 @@ export function ColorExample() {
         id="slider-color-primary"
         className="color_primary slider_fit"
         label="Primary"
-        value={60}
+        defaultValue={60}
         showValue
       />
       <Slider
         id="slider-color-success"
         className="color_success slider_fit"
         label="Success"
-        value={70}
+        defaultValue={70}
         showValue
       />
       <Slider
         id="slider-color-danger"
         className="color_danger slider_fit"
         label="Danger"
-        value={40}
+        defaultValue={40}
         showValue
       />
       <Slider
         id="slider-color-warning"
         className="color_warning slider_fit"
         label="Warning"
-        value={80}
+        defaultValue={80}
         showValue
       />
     </>
@@ -246,8 +246,8 @@ const stateCode = `import Slider from '@/components/Slider.jsx';
 export function StateExample() {
   return (
     <>
-      <Slider className="slider_fit" label="기본" value={50} showValue />
-      <Slider className="slider_fit" label="비활성" value={30} disabled showValue />
+      <Slider className="slider_fit" label="기본" defaultValue={50} showValue />
+      <Slider className="slider_fit" label="비활성" defaultValue={30} disabled showValue />
     </>
   );
 }`;
@@ -262,7 +262,7 @@ export function FormExample() {
           <label className="form_field-label" htmlFor="slider-form-opacity">
             불투명도
           </label>
-          <Slider id="slider-form-opacity" value={85} data-slider-suffix="%" />
+          <Slider id="slider-form-opacity" defaultValue={85} data-slider-suffix="%" />
           <p className="form_field-hint">0~100% 사이 값</p>
         </div>
         <div className="form_field">
@@ -272,7 +272,7 @@ export function FormExample() {
           <Slider
             id="slider-form-zoom"
             label="현재 값"
-            value={125}
+            defaultValue={125}
             min={50}
             max={200}
             step={25}
@@ -286,7 +286,7 @@ export function FormExample() {
           <label className="form_field-label" htmlFor="slider-form-horizontal">
             선 굵기
           </label>
-          <Slider id="slider-form-horizontal" value={3} min={1} max={10} />
+          <Slider id="slider-form-horizontal" defaultValue={3} min={1} max={10} />
           <p className="form_field-hint">1~10px</p>
         </div>
       </FormLayout>
@@ -313,10 +313,10 @@ export default function SliderDoc() {
         id="slider-type-label"
         className="slider_fit"
         label="label + for — 기본"
-        value={40}
+        defaultValue={40}
         showValue
       />
-      <Slider className="slider_fit" value={55} aria-label="단독 슬라이더 — aria-label" />
+      <Slider className="slider_fit" defaultValue={55} aria-label="단독 슬라이더 — aria-label" />
       <p className="slider_hint">
         레이블 없이 사용할 때는 <code>aria-label</code>로 접근 가능한 이름을 지정합니다.
       </p>
@@ -324,7 +324,7 @@ export default function SliderDoc() {
         id="slider-type-labelledby"
         className="slider_fit"
         label="aria-labelledby — 외부 레이블"
-        value={16}
+        defaultValue={16}
         min={12}
         max={24}
         step={1}
@@ -339,7 +339,7 @@ export default function SliderDoc() {
         id="slider-type-describedby"
         className="slider_fit"
         label="aria-describedby — 보조 설명"
-        value={70}
+        defaultValue={70}
         aria-describedby="slider-type-describedby-hint"
         data-slider-suffix="%"
         data-slider-valuetext-suffix="퍼센트"
@@ -352,7 +352,7 @@ export default function SliderDoc() {
         id="slider-type-valuetext"
         className="slider_fit"
         label="aria-valuetext — 읽기 쉬운 값"
-        value={3}
+        defaultValue={3}
         min={1}
         max={5}
         step={1}
@@ -371,7 +371,7 @@ export default function SliderDoc() {
           description="slider 래퍼 안에 slider_input을 배치합니다. min · max · value로 범위와 초기값을 지정합니다."
           code={basicCode}
         >
-<Slider className="slider_fit" value={30} aria-label="기본 슬라이더" />
+<Slider className="slider_fit" defaultValue={30} aria-label="기본 슬라이더" />
         </DemoSection>
         <DemoSection
           headingId="label-heading"
@@ -380,12 +380,12 @@ export default function SliderDoc() {
           code={labelCode}
         >
 <>
-      <Slider id="slider-volume" className="slider_fit" label="볼륨" value={60} showValue />
+      <Slider id="slider-volume" className="slider_fit" label="볼륨" defaultValue={60} showValue />
       <Slider
         id="slider-brightness"
         className="slider_fit"
         label="밝기"
-        value={40}
+        defaultValue={40}
         data-slider-suffix="%"
         showValue
       />
@@ -403,14 +403,14 @@ export default function SliderDoc() {
         size="sm"
         className="slider_fit"
         label="Small — slider_sm"
-        value={30}
+        defaultValue={30}
         showValue
       />
       <Slider
         id="slider-size-md"
         className="slider_fit"
         label="Medium — 기본"
-        value={50}
+        defaultValue={50}
         showValue
       />
       <Slider
@@ -418,7 +418,7 @@ export default function SliderDoc() {
         size="lg"
         className="slider_fit"
         label="Large — slider_lg"
-        value={70}
+        defaultValue={70}
         showValue
       />
     </>
@@ -434,7 +434,7 @@ export default function SliderDoc() {
         id="slider-width-fit"
         className="slider_fit"
         label="slider_fit — 최대 320px"
-        value={45}
+        defaultValue={45}
         showValue
       />
       <Slider
@@ -442,7 +442,7 @@ export default function SliderDoc() {
         className="slider_block"
         style={{ maxWidth: 480 }}
         label="slider_block — 전체 너비"
-        value={65}
+        defaultValue={65}
         showValue
       />
     </>
@@ -453,7 +453,7 @@ export default function SliderDoc() {
           description="step으로 증감 단위를 지정합니다. slider_ticks로 눈금 레이블을 표시할 수 있습니다."
           code={stepCode}
         >
-<Slider className="slider_fit" label="step=10" value={50} step={10} showValue />
+<Slider className="slider_fit" label="step=10" defaultValue={50} step={10} showValue />
         </DemoSection>
         <DemoSection
           headingId="stepper-heading"
@@ -467,7 +467,7 @@ export default function SliderDoc() {
         className="slider_fit"
         stepper
         label="볼륨 — slider_stepper"
-        value={60}
+        defaultValue={60}
         showValue
         decreaseLabel="볼륨 줄이기"
         increaseLabel="볼륨 늘리기"
@@ -478,7 +478,7 @@ export default function SliderDoc() {
         stepper
         stepperAlways
         label="밝기 — slider_stepper_always"
-        value={40}
+        defaultValue={40}
         step={5}
         valueSuffix="%"
         showValue
@@ -490,7 +490,7 @@ export default function SliderDoc() {
         className="slider_fit"
         stepper
         label="비활성"
-        value={30}
+        defaultValue={30}
         showValue
         disabled
       />
@@ -507,28 +507,28 @@ export default function SliderDoc() {
         id="slider-color-primary"
         className="color_primary slider_fit"
         label="Primary"
-        value={60}
+        defaultValue={60}
         showValue
       />
       <Slider
         id="slider-color-success"
         className="color_success slider_fit"
         label="Success"
-        value={70}
+        defaultValue={70}
         showValue
       />
       <Slider
         id="slider-color-danger"
         className="color_danger slider_fit"
         label="Danger"
-        value={40}
+        defaultValue={40}
         showValue
       />
       <Slider
         id="slider-color-warning"
         className="color_warning slider_fit"
         label="Warning"
-        value={80}
+        defaultValue={80}
         showValue
       />
     </>
@@ -540,8 +540,8 @@ export default function SliderDoc() {
           code={stateCode}
         >
 <>
-      <Slider className="slider_fit" label="기본" value={50} showValue />
-      <Slider className="slider_fit" label="비활성" value={30} disabled showValue />
+      <Slider className="slider_fit" label="기본" defaultValue={50} showValue />
+      <Slider className="slider_fit" label="비활성" defaultValue={30} disabled showValue />
     </>
         </DemoSection>
         <DemoSection
@@ -557,7 +557,7 @@ export default function SliderDoc() {
           <label className="form_field-label" htmlFor="slider-form-opacity">
             불투명도
           </label>
-          <Slider id="slider-form-opacity" value={85} data-slider-suffix="%" />
+          <Slider id="slider-form-opacity" defaultValue={85} data-slider-suffix="%" />
           <p className="form_field-hint">0~100% 사이 값</p>
         </div>
         <div className="form_field">
@@ -567,7 +567,7 @@ export default function SliderDoc() {
           <Slider
             id="slider-form-zoom"
             label="현재 값"
-            value={125}
+            defaultValue={125}
             min={50}
             max={200}
             step={25}
@@ -581,7 +581,7 @@ export default function SliderDoc() {
           <label className="form_field-label" htmlFor="slider-form-horizontal">
             선 굵기
           </label>
-          <Slider id="slider-form-horizontal" value={3} min={1} max={10} />
+          <Slider id="slider-form-horizontal" defaultValue={3} min={1} max={10} />
           <p className="form_field-hint">1~10px</p>
         </div>
       </FormLayout>

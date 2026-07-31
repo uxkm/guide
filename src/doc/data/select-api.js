@@ -7,10 +7,17 @@ export const selectPropColumns = [
 ];
 
 export const selectProps = [
-  { name: 'value', type: 'string | number', default: '—', description: '제어 컴포넌트 값 (Vue model-value 대응)' },
-  { name: 'defaultValue', type: 'string | number', default: '—', description: '비제어 초기 값' },
+  {
+    name: 'ref',
+    type: 'React.Ref<HTMLSelectElement | HTMLButtonElement>',
+    default: '—',
+    description: 'native select 또는 custom 버튼 트리거 DOM 참조',
+  },
+  { name: 'value', type: 'string | number | string[]', default: '—', description: '제어 컴포넌트 값 (Vue model-value 대응)' },
+  { name: 'defaultValue', type: 'string | number | string[]', default: '—', description: '비제어 초기 값' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'input_sm · btn_sm 등 크기' },
   { name: 'listSize', type: 'number', default: '—', description: '네이티브 size — multiple 표시 행 수' },
+  { name: 'multiple', type: 'boolean', default: 'false', description: '네이티브 다중 선택' },
   { name: 'placeholder', type: 'string', default: '—', description: '미선택 placeholder' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'error', type: 'boolean', default: 'false', description: '오류 상태 (is-error)' },
@@ -20,6 +27,12 @@ export const selectProps = [
   { name: 'selectText', type: 'boolean', default: 'false', description: '텍스트형 트리거 (btn_select-text)' },
   { name: 'className', type: 'string', default: '—', description: 'select/input 또는 custom 트리거에 추가 클래스' },
   { name: 'onChange', type: '(event) => void', default: '—', description: '값 변경 콜백 (Vue update:modelValue 대응)' },
+  {
+    name: '...rest',
+    type: 'React.SelectHTMLAttributes<HTMLSelectElement>',
+    default: '—',
+    description: 'name · required · autoComplete 등 네이티브 속성 전달',
+  },
   ripplePropSelect,
 ];
 
@@ -59,6 +72,7 @@ export const selectEventColumns = [
 
 export const selectEvents = [
   { name: 'onChange', description: '선택 값 변경 시 (Vue update:modelValue 대응)' },
+  { name: 'onClick', description: 'custom 버튼 트리거 클릭 시' },
 ];
 
 

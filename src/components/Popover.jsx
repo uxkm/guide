@@ -138,7 +138,13 @@ export default function Popover({
       result['data-arrow-target-align'] = arrowTargetAlign;
     }
     return result;
-  }, [interactive, resolvedTrigger, resolvedArrowAnchor, panelAlign, arrowTargetAlign]);
+  }, [
+    interactive,
+    resolvedTrigger,
+    resolvedArrowAnchor,
+    panelAlign,
+    arrowTargetAlign,
+  ]);
 
   const panelHidden = interactive ? undefined : !open || undefined;
   const showCloseButton = closable ?? resolvedTrigger === 'click';

@@ -24,6 +24,73 @@ import {
   gridTokens,
 } from '@/doc/data/grid-api';
 
+const basicLayoutCode = `import Grid from '@/components/Grid.jsx';
+import GridCol from '@/components/GridCol.jsx';
+
+export function BasicLayoutExample() {
+  return (
+    <Grid gap="sm">
+      <GridCol as="header" span={12} className="grid_demo-cell">
+        Header
+      </GridCol>
+      <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">
+        Sidebar
+      </GridCol>
+      <GridCol
+        as="section"
+        span={12}
+        spanMd={9}
+        className="grid_demo-cell"
+        aria-label="Main content"
+      >
+        Main content
+      </GridCol>
+      <GridCol as="footer" span={12} className="grid_demo-cell">
+        Footer
+      </GridCol>
+    </Grid>
+  );
+}`;
+
+const contentLayoutCode = `import Grid from '@/components/Grid.jsx';
+import GridCol from '@/components/GridCol.jsx';
+
+export function ContentLayoutExample() {
+  return (
+    <Grid gap="sm">
+      <GridCol as="header" span={12} className="grid_demo-cell">
+        Header
+      </GridCol>
+      <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">
+        Sidebar
+      </GridCol>
+      <GridCol
+        as="section"
+        span={12}
+        spanMd={9}
+        className="grid_demo-cell"
+        aria-label="Main content"
+      >
+        <h3>Main content</h3>
+        <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+        <Grid cols={1} colsLg={2} gap="sm">
+          <article className="component_stub">
+            <h4>Content section</h4>
+            <p>주요 정보나 기능을 배치합니다.</p>
+          </article>
+          <article className="component_stub">
+            <h4>Content section</h4>
+            <p>관련 정보나 보조 콘텐츠를 배치합니다.</p>
+          </article>
+        </Grid>
+      </GridCol>
+      <GridCol as="footer" span={12} className="grid_demo-cell">
+        Footer
+      </GridCol>
+    </Grid>
+  );
+}`;
+
 const parentCode = `import Grid from '@/components/Grid.jsx';
 
 export function ParentExample() {
@@ -47,6 +114,27 @@ export function ParentExample() {
         <div className="grid_demo-cell">grid_item-span-4</div>
       </Grid>
     </>
+  );
+}`;
+
+const twelveColumnsCode = `import Grid from '@/components/Grid.jsx';
+
+export function TwelveColumnsExample() {
+  return (
+    <Grid itemSpan={1} gap="sm">
+      <div className="grid_demo-cell">1</div>
+      <div className="grid_demo-cell">2</div>
+      <div className="grid_demo-cell">3</div>
+      <div className="grid_demo-cell">4</div>
+      <div className="grid_demo-cell">5</div>
+      <div className="grid_demo-cell">6</div>
+      <div className="grid_demo-cell">7</div>
+      <div className="grid_demo-cell">8</div>
+      <div className="grid_demo-cell">9</div>
+      <div className="grid_demo-cell">10</div>
+      <div className="grid_demo-cell">11</div>
+      <div className="grid_demo-cell">12</div>
+    </Grid>
   );
 }`;
 
@@ -153,6 +241,7 @@ export function GapExample() {
 }`;
 
 const responsiveCode = `import Grid from '@/components/Grid.jsx';
+import GridCol from '@/components/GridCol.jsx';
 
 export function ResponsiveExample() {
   return (
@@ -166,6 +255,14 @@ export function ResponsiveExample() {
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
+      </Grid>
+      <Grid>
+        <GridCol span={12} spanMd={8} spanLg={9}>
+          <div className="grid_demo-cell">개별 span 12 → md 8 → lg 9</div>
+        </GridCol>
+        <GridCol span={12} spanMd={4} spanLg={3}>
+          <div className="grid_demo-cell">개별 span 12 → md 4 → lg 3</div>
+        </GridCol>
       </Grid>
     </>
   );
@@ -198,6 +295,75 @@ export default function GridDoc() {
       </div>
 
       <DemoSection
+        headingId="basic-layout-heading"
+        title="기본 페이지 레이아웃"
+        description="헤더와 푸터는 전체 12열을 사용하고, 본문 영역은 md 이상에서 사이드바 3열과 콘텐츠 9열로 나눕니다. 작은 화면에서는 모든 영역이 한 열로 쌓입니다."
+        stack
+        code={basicLayoutCode}
+      >
+        <Grid gap="sm">
+          <GridCol as="header" span={12} className="grid_demo-cell">
+            Header
+          </GridCol>
+          <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">
+            Sidebar
+          </GridCol>
+          <GridCol
+            as="section"
+            span={12}
+            spanMd={9}
+            className="grid_demo-cell"
+            aria-label="Main content"
+          >
+            Main content
+          </GridCol>
+          <GridCol as="footer" span={12} className="grid_demo-cell">
+            Footer
+          </GridCol>
+        </Grid>
+      </DemoSection>
+
+      <DemoSection
+        headingId="content-layout-heading"
+        title="콘텐츠가 있는 페이지 레이아웃"
+        description="기본 페이지 레이아웃을 바탕으로 Main content 안에 제목·설명과 반응형 콘텐츠 섹션을 배치한 활용 예시입니다."
+        stack
+        code={contentLayoutCode}
+      >
+        <Grid gap="sm">
+          <GridCol as="header" span={12} className="grid_demo-cell">
+            Header
+          </GridCol>
+          <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">
+            Sidebar
+          </GridCol>
+          <GridCol
+            as="section"
+            span={12}
+            spanMd={9}
+            className="grid_demo-cell"
+            aria-label="Main content"
+          >
+            <h3>Main content</h3>
+            <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+            <Grid cols={1} colsLg={2} gap="sm">
+              <article className="component_stub">
+                <h4>Content section</h4>
+                <p>주요 정보나 기능을 배치합니다.</p>
+              </article>
+              <article className="component_stub">
+                <h4>Content section</h4>
+                <p>관련 정보나 보조 콘텐츠를 배치합니다.</p>
+              </article>
+            </Grid>
+          </GridCol>
+          <GridCol as="footer" span={12} className="grid_demo-cell">
+            Footer
+          </GridCol>
+        </Grid>
+      </DemoSection>
+
+      <DemoSection
         headingId="parent-heading"
         title="부모 클래스로 제어"
         description="열 수·간격·비율·자식 일괄 span은 부모에만 클래스를 부여합니다. 자식에 grid 관련 클래스가 필요 없습니다."
@@ -220,6 +386,29 @@ export default function GridDoc() {
           <div className="grid_demo-cell">grid_item-span-4</div>
           <div className="grid_demo-cell">grid_item-span-4</div>
           <div className="grid_demo-cell">grid_item-span-4</div>
+        </Grid>
+      </DemoSection>
+
+      <DemoSection
+        headingId="twelve-columns-heading"
+        title="12열 전체 활용"
+        description="12열 시스템의 각 열을 하나씩 사용합니다. itemSpan={1}을 부모에 지정하면 12개 항목이 한 행의 전체 열을 채웁니다."
+        stack
+        code={twelveColumnsCode}
+      >
+        <Grid itemSpan={1} gap="sm">
+          <div className="grid_demo-cell">1</div>
+          <div className="grid_demo-cell">2</div>
+          <div className="grid_demo-cell">3</div>
+          <div className="grid_demo-cell">4</div>
+          <div className="grid_demo-cell">5</div>
+          <div className="grid_demo-cell">6</div>
+          <div className="grid_demo-cell">7</div>
+          <div className="grid_demo-cell">8</div>
+          <div className="grid_demo-cell">9</div>
+          <div className="grid_demo-cell">10</div>
+          <div className="grid_demo-cell">11</div>
+          <div className="grid_demo-cell">12</div>
         </Grid>
       </DemoSection>
 
@@ -328,8 +517,8 @@ export default function GridDoc() {
 
       <DemoSection
         headingId="responsive-heading"
-        title="반응형 (부모)"
-        description="grid_cols-md-* · grid_item-span-md-* · grid_item-span-lg-*로 브레이크포인트별 배치를 부모에서 제어합니다."
+        title="반응형"
+        description="Grid의 colsMd · colsLg와 itemSpanMd · itemSpanLg로 전체 배치를, GridCol의 spanMd · spanLg로 자식별 배치를 제어합니다."
         stack
         code={responsiveCode}
       >
@@ -342,6 +531,14 @@ export default function GridDoc() {
           <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
           <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
           <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
+        </Grid>
+        <Grid>
+          <GridCol span={12} spanMd={8} spanLg={9}>
+            <div className="grid_demo-cell">개별 span 12 → md 8 → lg 9</div>
+          </GridCol>
+          <GridCol span={12} spanMd={4} spanLg={3}>
+            <div className="grid_demo-cell">개별 span 12 → md 4 → lg 3</div>
+          </GridCol>
         </Grid>
       </DemoSection>
 

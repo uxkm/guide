@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
@@ -16,6 +18,7 @@ const formatCode = createComponentFormatter('Tag', {
 });
 
 export default function Tag({
+  as,
   ripple,
   color = 'primary',
   variant = 'filled',
@@ -54,6 +57,7 @@ export default function Tag({
   useComponentDemoCode(
     formatCode,
     {
+      as: typeof as === 'string' ? as : undefined,
       ripple,
       color,
       variant: resolvedVariant,
@@ -90,6 +94,7 @@ export default function Tag({
 
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
+  const Root = as || 'span';
 
   const content = (
     <>
@@ -120,7 +125,7 @@ export default function Tag({
   if (needsClosableSplit) {
     const ControlTag = checkable || add ? 'button' : 'a';
     return (
-      <span ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+      <Root ref={rootRef} className={cn(rootClass, className)} {...domRest}>
         <ControlTag
           className="tag_control"
           {...rootRippleAttrs}
@@ -131,30 +136,45 @@ export default function Tag({
           aria-disabled={ControlTag === 'a' && disabled ? 'true' : undefined}
           tabIndex={ControlTag === 'a' && disabled ? -1 : undefined}
           onClick={(event) => {
-            if (ControlTag === 'a') event.preventDefault();
+            if (ControlTag === 'a') {
+              event.preventDefault();
+              if (disabled) {
+                event.stopPropagation();
+                return;
+              }
+            }
             onClick?.(event);
           }}
         >
           {content}
         </ControlTag>
         {closeButton}
-      </span>
+      </Root>
     );
   }
 
-  const RootTag = checkable || add ? 'button' : href ? 'a' : 'span';
+  const RootTag = checkable || add ? 'button' : href ? 'a' : Root;
+  const isNativeButton = RootTag === 'button';
+  const isNativeAnchor = RootTag === 'a';
 
   return (
     <RootTag
       ref={rootRef}
       className={cn(rootClass, className)}
       {...rootRippleAttrs}
-      type={RootTag === 'button' ? 'button' : undefined}
-      href={href || undefined}
-      disabled={disabled || undefined}
+      type={isNativeButton ? 'button' : undefined}
+      href={isNativeAnchor ? href || undefined : undefined}
+      disabled={isNativeButton && disabled ? true : undefined}
       aria-pressed={checkable ? String(Boolean(selected)) : undefined}
+      aria-disabled={isNativeAnchor && disabled ? 'true' : undefined}
+      tabIndex={isNativeAnchor && disabled ? -1 : undefined}
       onClick={(event) => {
-        if (!href && RootTag !== 'button') event.preventDefault();
+        if (disabled && (isNativeButton || isNativeAnchor)) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        if (isNativeAnchor && (!href || href === '#')) event.preventDefault();
         onClick?.(event);
       }}
       {...domRest}

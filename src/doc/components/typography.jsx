@@ -37,30 +37,33 @@ const styleCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport f
 
 const subSupSmallCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function SubSupSmallExample() {\n  return (\n    <>\n      <p>\n        화학식 H<TypoText variant=\"sub\" label=\"2\" />O, 수식 x<TypoText variant=\"sup\" label=\"2\" /> + y\n        <TypoText variant=\"sup\" label=\"2\" /> = z<TypoText variant=\"sup\" label=\"2\" />처럼 아래·위첨자를\n        표현합니다.\n      </p>\n      <p>\n        각주<TypoText variant=\"sup\" label=\"1\" />나 제곱미터 m<TypoText variant=\"sup\" label=\"2\" /> 단위에도\n        활용합니다.\n      </p>\n      <p>\n        <TypoText variant=\"small\" label=\"※ 본 안내는 참고용이며, 법적 효력은 약관을 따릅니다.\" />\n      </p>\n    </>\n  );\n}";
 
-const ellipsisCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function EllipsisExample() {\n  return (\n    <div style={{ maxWidth: '320px', width: '100%' }}>\n      <TypoText\n        ellipsis={1}\n        label=\"1줄 말줄임 — 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet.\"\n      />\n      <TypoText\n        ellipsis={2}\n        label=\"2줄 말줄임 — 두 줄까지 표시한 뒤 넘치는 내용은 말줄임표로 처리합니다. UXKM 가이드는 컴포넌트 문서와 데모를 제공합니다.\"\n      />\n      <TypoText\n        ellipsis={3}\n        label=\"3줄 말줄임 — 세 줄까지 표시합니다. 디자인 시스템의 타이포그래피는 일관된 위계와 가독성을 유지하는 데 중요한 역할을 합니다. 제목·본문·캡션의 크기와 색상을 체계적으로 정의하세요.\"\n      />\n    </div>\n  );\n}";
+const ellipsisCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function EllipsisExample() {\n  return (\n    <div style={{ maxWidth: '320px', width: '100%' }}>\n      <TypoText ellipsis={1}>\n        1줄 말줄임 — children으로 전달한 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet.\n      </TypoText>\n      <TypoText\n        ellipsis={2}\n        label=\"2줄 말줄임 — 두 줄까지 표시한 뒤 넘치는 내용은 말줄임표로 처리합니다. UXKM 가이드는 컴포넌트 문서와 데모를 제공합니다.\"\n      />\n      <TypoText\n        ellipsis={3}\n        label=\"3줄 말줄임 — 세 줄까지 표시합니다. 디자인 시스템의 타이포그래피는 일관된 위계와 가독성을 유지하는 데 중요한 역할을 합니다. 제목·본문·캡션의 크기와 색상을 체계적으로 정의하세요.\"\n      />\n    </div>\n  );\n}";
 
 const blockquoteCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function BlockquoteExample() {\n  return (\n    <TypoText\n      variant=\"blockquote\"\n      color=\"muted\"\n      cite=\"https://example.com\"\n      label=\"좋은 타이포그래피는 읽기 쉬운 콘텐츠의 기반입니다. 위계, 대비, 여백을 일관되게 유지하세요.\"\n    />\n  );\n}";
 
 const listCode = "export function ListExample() {\n  return (\n    <>\n      <ul className=\"typo_list\">\n        <li>디자인 토큰 정의</li>\n        <li>컴포넌트 문서화</li>\n        <li>접근성 검토</li>\n      </ul>\n      <ol className=\"typo_list-ordered\">\n        <li>요구사항 분석</li>\n        <li>와이어프레임 작성</li>\n        <li>프로토타입 검증</li>\n      </ol>\n      <p className=\"form_field-hint\">\n        용어 설명·구조화된 목록은{' '}\n        <a href=\"/components/list#definition-heading\">List — 정의 목록</a>을 참고하세요.\n      </p>\n    </>\n  );\n}";
 
-const linkCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function TypoLinkExample() {\n  return (\n    <TypoText variant=\"paragraph\">\n      자세한 내용은 <TypoText tag=\"a\" variant=\"link\" href=\"#\" label=\"가이드 문서\" />를 참고하세요.{' '}\n      <TypoText tag=\"span\" color=\"muted\" label=\"또는\" />{' '}\n      <TypoText tag=\"a\" variant=\"link\" href=\"#\" size=\"sm\" label=\"작은 링크\" />로 이동할 수 있습니다.\n    </TypoText>\n  );\n}";
+const linkCode = "import TypoText from '@/components/TypoText.jsx';\n\nexport function TypoLinkExample() {\n  return (\n    <TypoText variant=\"paragraph\">\n      자세한 내용은 <TypoText variant=\"link\" href=\"/getting-started/\" label=\"설치 및 사용\" />을 참고하세요.{' '}\n      <TypoText tag=\"span\" color=\"muted\" label=\"또는\" />{' '}\n      <TypoText variant=\"link\" href=\"/design-tokens/\" size=\"sm\" label=\"디자인 토큰\" />으로 이동할 수 있습니다.\n    </TypoText>\n  );\n}";
 
-const leadCode = "import TypoText from '@/components/TypoText.jsx';\nimport TypoTitle from '@/components/TypoTitle.jsx';\n\nexport function LeadExample() {\n  return (\n    <div style={{ maxWidth: '32rem', width: '100%' }}>\n      <div className=\"typo_stack-lg\">\n        <TypoText variant=\"overline\" label=\"가이드 소개\" />\n        <TypoTitle level={3} label=\"React Components\" />\n        <TypoText\n          variant=\"lead\"\n          label=\"React와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다.\"\n        />\n        <TypoText variant=\"caption\" label=\"마지막 업데이트: 2026-06-24\" />\n      </div>\n      <div>\n        <TypoText variant=\"label\" htmlFor=\"demo-email\" label=\"이메일\" />\n        <TypoText\n          variant=\"caption\"\n          style={{ marginTop: '0.25rem' }}\n          label=\"가입 시 사용한 이메일 주소를 입력하세요.\"\n        />\n      </div>\n    </div>\n  );\n}";
+const leadCode = "import TypoText from '@/components/TypoText.jsx';\nimport TypoTitle from '@/components/TypoTitle.jsx';\n\nexport function LeadExample() {\n  return (\n    <div style={{ maxWidth: '32rem', width: '100%' }}>\n      <div className=\"typo_stack-lg\">\n        <TypoText variant=\"overline\" label=\"가이드 소개\" />\n        <TypoTitle level={3} label=\"React Components\" />\n        <TypoText\n          variant=\"lead\"\n          label=\"React와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다.\"\n        />\n        <TypoText variant=\"caption\" label=\"마지막 업데이트: 2026-07-31\" />\n      </div>\n      <div>\n        <TypoText variant=\"label\" htmlFor=\"demo-email\" label=\"이메일\" />\n        <input id=\"demo-email\" className=\"input\" type=\"email\" placeholder=\"name@example.com\" />\n        <TypoText\n          variant=\"caption\"\n          style={{ marginTop: '0.25rem' }}\n          label=\"가입 시 사용한 이메일 주소를 입력하세요.\"\n        />\n      </div>\n    </div>\n  );\n}";
 
 const titleColorCode = "import TypoTitle from '@/components/TypoTitle.jsx';\n\nexport function TitleColorExample() {\n  return (\n    <>\n      <TypoTitle level={3} color=\"primary\" label=\"Primary 제목\" />\n      <TypoTitle level={3} color=\"success\" label=\"Success 제목\" />\n      <TypoTitle level={3} color=\"danger\" label=\"Danger 제목\" />\n      <TypoTitle level={3} color=\"muted\" label=\"Muted 제목\" />\n    </>\n  );\n}";
 
-const kbdCode = "import TypoText from '@/components/TypoText.jsx';\n\nconst buttonMarkupExample = \\`<button class=\"btn btn_filled color_primary\">\n  <span class=\"btn_label\">저장</span>\n</button>\\`;\n\nexport function KbdExample() {\n  return (\n    <>\n      <p>\n        저장하려면 <TypoText tag=\"kbd\" variant=\"kbd\" label=\"⌘\" /> +{' '}\n        <TypoText tag=\"kbd\" variant=\"kbd\" label=\"S\" />를 누르세요. 검색은{' '}\n        <TypoText tag=\"kbd\" variant=\"kbd\" label=\"Ctrl\" /> +{' '}\n        <TypoText tag=\"kbd\" variant=\"kbd\" label=\"K\" />입니다.\n      </p>\n      <TypoText variant=\"pre\">\n        <code>{buttonMarkupExample}</code>\n      </TypoText>\n    </>\n  );\n}";
+const kbdCode = "import TypoText from '@/components/TypoText.jsx';\n\nconst buttonMarkupExample = \\`<button class=\"btn btn_filled color_primary\">\n  <span class=\"btn_label\">저장</span>\n</button>\\`;\n\nexport function KbdExample() {\n  return (\n    <>\n      <p>\n        저장하려면 <TypoText variant=\"kbd\" label=\"⌘\" /> +{' '}\n        <TypoText variant=\"kbd\" label=\"S\" />를 누르세요. 검색은{' '}\n        <TypoText variant=\"kbd\" label=\"Ctrl\" /> +{' '}\n        <TypoText variant=\"kbd\" label=\"K\" />입니다.\n      </p>\n      <TypoText variant=\"pre\">\n        <code>{buttonMarkupExample}</code>\n      </TypoText>\n    </>\n  );\n}";
 
 const nestedListCode = "export function NestedListExample() {\n  return (\n    <ul className=\"typo_list\">\n      <li>\n        레이아웃\n        <ul className=\"typo_list\">\n          <li>Container</li>\n          <li>Grid</li>\n        </ul>\n      </li>\n      <li>\n        기본 요소\n        <ul className=\"typo_list\">\n          <li>Button</li>\n          <li>Typography</li>\n        </ul>\n      </li>\n    </ul>\n  );\n}";
 
-const stackCode = "import TypoText from '@/components/TypoText.jsx';\nimport TypoTitle from '@/components/TypoTitle.jsx';\n\nexport function StackExample() {\n  return (\n    <>\n      <div className=\"typo_stack-lg\" style={{ maxWidth: '28rem' }}>\n        <TypoTitle level={3} label=\"섹션 제목\" />\n        <TypoText\n          variant=\"paragraph\"\n          label=\"typo_stack-lg는 제목과 본문 사이 간격을 넓게 유지합니다. 카드 헤더, 모달 제목, 폼 섹션 등에 활용합니다.\"\n        />\n        <TypoText tag=\"p\" color=\"muted\" size=\"sm\" label=\"마지막 업데이트: 2026-06-24\" />\n      </div>\n      <div className=\"typo_stack\" style={{ maxWidth: '28rem' }}>\n        <TypoTitle level={4} label=\"작은 스택\" />\n        <TypoText tag=\"p\" color=\"muted\" label=\"typo_stack은 좁은 간격으로 제목·설명을 묶습니다.\" />\n      </div>\n    </>\n  );\n}";
+const stackCode = "import TypoText from '@/components/TypoText.jsx';\nimport TypoTitle from '@/components/TypoTitle.jsx';\n\nexport function StackExample() {\n  return (\n    <>\n      <div className=\"typo_stack-lg\" style={{ maxWidth: '28rem' }}>\n        <TypoTitle level={3} label=\"섹션 제목\" />\n        <TypoText\n          variant=\"paragraph\"\n          label=\"typo_stack-lg는 제목과 본문 사이 간격을 넓게 유지합니다. 카드 헤더, 모달 제목, 폼 섹션 등에 활용합니다.\"\n        />\n        <TypoText tag=\"p\" color=\"muted\" size=\"sm\" label=\"마지막 업데이트: 2026-07-31\" />\n      </div>\n      <div className=\"typo_stack\" style={{ maxWidth: '28rem' }}>\n        <TypoTitle level={4} label=\"작은 스택\" />\n        <TypoText tag=\"p\" color=\"muted\" label=\"typo_stack은 좁은 간격으로 제목·설명을 묶습니다.\" />\n      </div>\n    </>\n  );\n}";
 
 export default function TypographyDoc() {
   return (
     <>
       <div className="page_intro">
           <h1>Typography</h1>
-          <p className="lead">제목, 본문, 강조, 말줄임 등 텍스트 표현을 위한 타이포그래피 컴포넌트입니다.</p>
+          <p className="lead">
+            제목·본문·강조·링크·코드 등 텍스트의 의미와 시각적 위계를 표현하는 React 컴포넌트입니다.
+            시맨틱 태그와 타이포그래피 클래스를 props로 함께 적용합니다.
+          </p>
         </div>
 
         <DemoSection
@@ -129,7 +132,7 @@ export default function TypographyDoc() {
         <DemoSection
           headingId="style-heading"
           title="텍스트 스타일"
-          description="강조, 기울임, 밑줄, 취소선, 형광펜, 인라인 코드 등 인라인 스타일을 조합합니다."
+          description="strong · em · del · mark 등 의미 있는 태그와 밑줄·인라인 코드 스타일을 조합합니다."
           stack
           code={styleCode}
         >
@@ -179,12 +182,15 @@ export default function TypographyDoc() {
         <DemoSection
           headingId="ellipsis-heading"
           title="말줄임"
-          description="text_ellipsis로 1줄, text_ellipsis-2·3으로 여러 줄 말줄임을 적용합니다. 부모에 너비 제한이 필요합니다."
+          description="label 또는 children으로 전달한 콘텐츠에 1~3줄 말줄임을 적용합니다. 부모에 너비 제한이 필요합니다."
           stack
           code={ellipsisCode}
         >
           <div style={{ maxWidth: '320px', width: '100%' }}>
-            <TypoText ellipsis={1} label="1줄 말줄임 — 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet." />
+            <TypoText ellipsis={1}>
+              1줄 말줄임 — children으로 전달한 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum
+              dolor sit amet.
+            </TypoText>
             <TypoText ellipsis={2} label="2줄 말줄임 — 두 줄까지 표시한 뒤 넘치는 내용은 말줄임표로 처리합니다. UXKM 가이드는 컴포넌트 문서와 데모를 제공합니다." />
             <TypoText ellipsis={3} label="3줄 말줄임 — 세 줄까지 표시합니다. 디자인 시스템의 타이포그래피는 일관된 위계와 가독성을 유지하는 데 중요한 역할을 합니다. 제목·본문·캡션의 크기와 색상을 체계적으로 정의하세요." />
           </div>
@@ -233,14 +239,14 @@ export default function TypographyDoc() {
         <DemoSection
           headingId="link-heading"
           title="링크"
-          description="본문 내 하이퍼링크에 typo_link 클래스를 사용합니다."
+          description="variant=link는 a 태그와 typo_link 클래스를 사용합니다. 실제 이동할 href를 함께 지정하세요."
           stack
           code={linkCode}
         >
           <TypoText variant="paragraph">
-            자세한 내용은 <TypoText tag="a" variant="link" href="#" label="가이드 문서" />를 참고하세요.{' '}
+            자세한 내용은 <TypoText variant="link" href="/getting-started/" label="설치 및 사용" />을 참고하세요.{' '}
             <TypoText tag="span" color="muted" label="또는" />{' '}
-            <TypoText tag="a" variant="link" href="#" size="sm" label="작은 링크" />로 이동할 수 있습니다.
+            <TypoText variant="link" href="/design-tokens/" size="sm" label="디자인 토큰" />으로 이동할 수 있습니다.
           </TypoText>
         </DemoSection>
 
@@ -256,11 +262,12 @@ export default function TypographyDoc() {
               <TypoText variant="overline" label="가이드 소개" />
               <TypoTitle level={3} label="React Components" />
               <TypoText variant="lead" label="React와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다." />
-              <TypoText variant="caption" label="마지막 업데이트: 2026-06-24" />
+              <TypoText variant="caption" label="마지막 업데이트: 2026-07-31" />
             </div>
 
             <div>
               <TypoText variant="label" htmlFor="demo-email" label="이메일" />
+              <input id="demo-email" className="input" type="email" placeholder="name@example.com" />
               <TypoText variant="caption" style={{ marginTop: '0.25rem' }} label="가입 시 사용한 이메일 주소를 입력하세요." />
             </div>
           </div>
@@ -287,8 +294,8 @@ export default function TypographyDoc() {
           code={kbdCode}
         >
           <p>
-            저장하려면 <TypoText tag="kbd" variant="kbd" label="⌘" /> + <TypoText tag="kbd" variant="kbd" label="S" />를 누르세요.
-            검색은 <TypoText tag="kbd" variant="kbd" label="Ctrl" /> + <TypoText tag="kbd" variant="kbd" label="K" />입니다.
+            저장하려면 <TypoText variant="kbd" label="⌘" /> + <TypoText variant="kbd" label="S" />를 누르세요.
+            검색은 <TypoText variant="kbd" label="Ctrl" /> + <TypoText variant="kbd" label="K" />입니다.
           </p>
 
           <TypoText variant="pre"><code>{buttonMarkupExample}</code></TypoText>
@@ -327,7 +334,7 @@ export default function TypographyDoc() {
           <div className="typo_stack-lg" style={{ maxWidth: '28rem' }}>
             <TypoTitle level={3} label="섹션 제목" />
             <TypoText variant="paragraph" label="typo_stack-lg는 제목과 본문 사이 간격을 넓게 유지합니다. 카드 헤더, 모달 제목, 폼 섹션 등에 활용합니다." />
-            <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-06-24" />
+            <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-07-31" />
           </div>
 
           <div className="typo_stack" style={{ maxWidth: '28rem' }}>

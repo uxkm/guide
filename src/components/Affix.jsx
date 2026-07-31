@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useMemo, useRef } from 'react';
 import { initAffix } from '@/legacy/affix-init.js';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';

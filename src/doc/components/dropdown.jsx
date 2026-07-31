@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export const docMeta = {
   title: 'Dropdown | UXKM Guide',
   activeNav: 'dropdown',
@@ -33,14 +37,21 @@ const MoreIcon = (
   </svg>
 );
 
-const basicCode = `import Button from '@/components/Button.jsx';
+const basicCode = `'use client';
+
+import { useState } from 'react';
+import Button from '@/components/Button.jsx';
 import Dropdown from '@/components/Dropdown.jsx';
 import Menu from '@/components/Menu.jsx';
 import MenuItem from '@/components/MenuItem.jsx';
 
 export function BasicExample() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Dropdown
+      open={open}
+      onOpenChange={setOpen}
       triggerContent={
         <Button variant="outline" className="dropdown_trigger" label="작업" haspopup="menu" />
       }
@@ -340,7 +351,7 @@ export function ExampleDemo() {
     <div className="dropdown_demo-toolbar">
       <Dropdown
         placement="end"
-        data-dropdown-close-on-select=""
+        closeOnSelect
         triggerContent={
           <Button variant="ghost" size="sm" className="dropdown_trigger" haspopup="menu" selectCaret>
             <Avatar size="sm" color="primary" initials="김" ariaHidden />
@@ -358,12 +369,32 @@ export function ExampleDemo() {
   );
 }`;
 
+export function BasicExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dropdown
+      open={open}
+      onOpenChange={setOpen}
+      triggerContent={
+        <Button variant="outline" className="dropdown_trigger" label="작업" haspopup="menu" />
+      }
+    >
+      <Menu mode="vertical" compact ariaLabel="작업 메뉴">
+        <MenuItem label="복사" />
+        <MenuItem label="이동" />
+        <MenuItem label="공유" />
+      </Menu>
+    </Dropdown>
+  );
+}
+
 export default function DropdownDoc() {
   return (
     <>
       <div className="page_intro">
         <h1>Dropdown</h1>
-        <p className="lead">버튼·링크 등 트리거를 클릭하면 메뉴 패널이 표시되는 Dropdown 컴포넌트입니다. Menu 컴포넌트와 조합해 액션 목록·사용자 메뉴·필터 등에 사용합니다.</p>
+        <p className="lead">버튼·링크 등 트리거를 클릭하면 메뉴 패널이 표시되는 Next.js Client Component입니다. Menu 컴포넌트와 조합해 액션 목록·사용자 메뉴·필터 등에 사용합니다.</p>
       </div>
 
       <DemoSection
@@ -372,17 +403,7 @@ export default function DropdownDoc() {
         description="dropdown · dropdown_trigger · dropdown_menu으로 트리거와 패널을 구성합니다. 패널 안에는 menu_vertical · menu_compact를 배치합니다."
         code={basicCode}
       >
-        <Dropdown
-          triggerContent={
-            <Button variant="outline" className="dropdown_trigger" label="작업" haspopup="menu" />
-          }
-        >
-          <Menu mode="vertical" compact ariaLabel="작업 메뉴">
-            <MenuItem label="복사" />
-            <MenuItem label="이동" />
-            <MenuItem label="공유" />
-          </Menu>
-        </Dropdown>
+        <BasicExample />
       </DemoSection>
 
       <DemoSection
@@ -691,14 +712,14 @@ export default function DropdownDoc() {
       <DemoSection
         headingId="example-heading"
         title="조합 예시"
-        description="툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. data-dropdown으로 클릭·Esc·외부 클릭 시 닫힙니다."
+        description="툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. closeOnSelect로 항목 선택 시 닫히며 Esc·외부 클릭도 지원합니다."
         code={exampleCode}
       >
         <div className="dropdown_demo-toolbar">
           <Button variant="ghost" size="sm" label="알림" />
           <Dropdown
             placement="end"
-            data-dropdown-close-on-select=""
+            closeOnSelect
             triggerContent={
               <Button variant="ghost" size="sm" className="dropdown_trigger" haspopup="menu" selectCaret>
                 <Avatar size="sm" color="primary" initials="김" ariaHidden />

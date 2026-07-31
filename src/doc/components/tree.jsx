@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Tree | UXKM Guide',
   activeNav: 'tree',
@@ -147,6 +149,33 @@ export function CheckboxExample() {
           prefix={
             <label className="tree_check">
               <input type="checkbox" aria-label="보내기" />
+            </label>
+          }
+        />
+      </TreeNode>
+      <TreeNode
+        label="설정"
+        expanded={false}
+        toggleLabel="설정 펼치기"
+        prefix={
+          <label className="tree_check">
+            <input type="checkbox" aria-label="설정" />
+          </label>
+        }
+      >
+        <TreeNode
+          label="사용자 관리"
+          prefix={
+            <label className="tree_check">
+              <input type="checkbox" aria-label="사용자 관리" />
+            </label>
+          }
+        />
+        <TreeNode
+          label="알림 설정"
+          prefix={
+            <label className="tree_check">
+              <input type="checkbox" aria-label="알림 설정" />
             </label>
           }
         />

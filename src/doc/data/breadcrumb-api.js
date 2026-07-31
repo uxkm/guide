@@ -7,7 +7,7 @@ export const breadcrumbPropColumns = [
 ];
 
 export const breadcrumbProps = [
-  { name: 'items', type: 'Array<{ label, href?, current?, disabled? }>', default: '[]', description: '경로 데이터. children 대체' },
+  { name: 'items', type: 'Array<{ label, href?, current?, disabled?, as? }>', default: '[]', description: '경로 데이터. children 대체' },
   { name: 'ariaLabel', type: 'string', default: '경로', description: 'nav aria-label' },
   { name: 'separator', type: `'chevron' | 'slash' | 'dot'`, default: 'chevron', description: 'breadcrumb_sep-slash · breadcrumb_sep-dot' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'breadcrumb_sm · breadcrumb_lg' },
@@ -23,6 +23,7 @@ export const breadcrumbItemProps = [
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
   { name: 'icon', type: 'boolean', default: 'false', description: 'breadcrumb_link-icon' },
   { name: 'ariaLabel', type: 'string', default: '—', description: '아이콘 전용 링크 라벨' },
+  { name: 'as', type: 'ElementType', default: 'a', description: 'next/link 등 링크 렌더러' },
   { name: 'children', type: 'ReactNode', default: '—', description: '링크 텍스트·아이콘 (label 대체)' },
   { name: 'className', type: 'string', default: '—', description: '루트 요소 추가 클래스' },
   ripplePropSurface,

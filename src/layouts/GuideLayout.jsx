@@ -1,35 +1,43 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import GuideSidebar from '@/components/guide/GuideSidebar.jsx';
 import GuideHeader from '@/components/guide/GuideHeader.jsx';
 import { GuideSidebarProvider } from '@/context/GuideSidebarContext';
-import { getDocByKey } from '@/utils/doc-loader';
-import { useDocKey } from '@/utils/route-doc';
+import { getDocMetaByKey } from '@/data/doc-registry';
+import { getDocKeyFromPathname } from '@/utils/route-doc';
+import { initClickableCard } from '@/utils/clickable-card';
+import { initRipple } from '@/utils/ripple';
 import { cn } from '@/utils/cn';
 
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 
-export default function GuideLayout() {
-  const location = useLocation();
-  const docKey = useDocKey();
+export default function GuideLayout({ children }) {
+  const pathname = usePathname();
+  const docKey = getDocKeyFromPathname(pathname);
   const sidebarRef = useRef(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [pathname]);
 
   const activeNav = useMemo(
-    () => getDocByKey(docKey)?.meta.activeNav || docKey,
+    () => getDocMetaByKey(docKey).activeNav || docKey,
     [docKey],
   );
 
   const pageTitle = useMemo(
-    () => getDocByKey(docKey)?.meta.pageTitle || 'UXKM Guide',
+    () => getDocMetaByKey(docKey).pageTitle,
     [docKey],
   );
 
   useEffect(() => {
+    initClickableCard();
+    initRipple();
+    import('@/legacy/demo.js');
+
     try {
       setSidebarCollapsed(localStorage.getItem(STORAGE_SIDEBAR_COLLAPSED) === '1');
     } catch {
@@ -52,7 +60,7 @@ export default function GuideLayout() {
 
         <div className="guide_main">
           <GuideHeader title={pageTitle} />
-          <Outlet key={location.pathname} />
+          {children}
         </div>
       </div>
     </GuideSidebarProvider>

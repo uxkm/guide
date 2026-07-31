@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { useNavbarListDemoCode } from '@/hooks/useDemoCode';
 import { cn } from '@/utils/cn';

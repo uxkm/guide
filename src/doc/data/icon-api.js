@@ -15,6 +15,24 @@ export const iconProps = [
     description: 'common-icons 갤러리 키. 지정 시 children 대신 미리 정의된 stroke 경로를 렌더합니다',
   },
   {
+    name: 'src',
+    type: 'string | StaticImport',
+    default: '—',
+    description: '이미지 아이콘 경로. 단독 사용하거나 as="img"와 조합합니다',
+  },
+  {
+    name: 'alt',
+    type: 'string',
+    default: "''",
+    description: 'src 이미지의 대체 텍스트. 장식용 이미지는 빈 문자열을 사용합니다',
+  },
+  {
+    name: 'as',
+    type: 'React.ElementType',
+    default: '—',
+    description: 'img 또는 커스텀 루트 요소. 커스텀 요소에서는 children으로 임의 콘텐츠를 전달합니다',
+  },
+  {
     name: 'size',
     type: `'sm' | 'md' | 'lg' | 'xl'`,
     default: 'md',
@@ -79,7 +97,7 @@ export const iconSlotColumns = [
 export const iconSlots = [
   {
     name: 'children',
-    description: 'SVG path·circle 등 자식 요소. name prop이 있으면 children 대신 갤러리 경로를 사용',
+    description: '기본 모드에서는 SVG path·circle, as 모드에서는 img·svg·컴포넌트 등 임의 콘텐츠',
   },
 ];
 

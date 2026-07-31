@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Progress | UXKM Guide',
   activeNav: 'progress',
@@ -128,7 +130,7 @@ export default function ProgressDoc() {
       <div className="page_intro">
         <h1>Progress</h1>
         <p className="lead">
-          작업 진행률을 시각적으로 표시하는 Progress 컴포넌트입니다. 선형·원형, 색상·크기 변형,
+          작업 진행률을 시각적으로 표시하는 Next.js Client Component입니다. 선형·원형, 색상·크기 변형,
           줄무늬·불확정 상태를 지원하며 <code className="typo_code">role=&quot;progressbar&quot;</code> ·
           <code className="typo_code">aria-valuenow</code>로 접근성을 보장합니다.
         </p>

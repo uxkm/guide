@@ -1,4 +1,6 @@
-import { useMemo, useRef } from 'react';
+'use client';
+
+import { useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -10,7 +12,14 @@ import { cn } from '@/utils/cn';
 const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const formatCode = createComponentFormatter('Pagination', {
-  defaults: { current: 1, total: 1, pageSize: 10, ariaLabel: '페이지 이동', size: 'md' },
+  defaults: {
+    current: 1,
+    defaultCurrent: 1,
+    total: 1,
+    pageSize: 10,
+    ariaLabel: '페이지 이동',
+    size: 'md',
+  },
   booleanProps: new Set(['simple', 'minimal', 'round', 'ripple']),
   selfClosing: false,
 });
@@ -41,7 +50,8 @@ function buildPages(totalPages, current) {
 
 export default function Pagination({
   ripple,
-  current = 1,
+  current,
+  defaultCurrent = 1,
   total = 1,
   pageSize = 10,
   simple,
@@ -54,18 +64,31 @@ export default function Pagination({
   ...rest
 }) {
   const rootRef = useRef(null);
+  const [internalCurrent, setInternalCurrent] = useState(defaultCurrent);
   const { rippleAttrs, childRippleAttrs } = useRipple({ ripple }, { mode: 'container' });
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
-  const pages = useMemo(() => buildPages(totalPages, current), [totalPages, current]);
+  const resolvedPageSize = Number.isFinite(pageSize) && pageSize > 0 ? pageSize : 10;
+  const resolvedTotal = Number.isFinite(total) && total >= 0 ? total : 0;
+  const totalPages = Math.max(1, Math.ceil(resolvedTotal / resolvedPageSize));
+  const controlled = current != null;
+  const candidateCurrent = controlled ? current : internalCurrent;
+  const resolvedCurrent = Math.min(
+    totalPages,
+    Math.max(1, Number.isFinite(candidateCurrent) ? Math.trunc(candidateCurrent) : 1),
+  );
+  const pages = useMemo(
+    () => buildPages(totalPages, resolvedCurrent),
+    [totalPages, resolvedCurrent],
+  );
 
   useComponentDemoCode(
     formatCode,
     {
       ripple,
       current,
-      total,
-      pageSize,
+      defaultCurrent,
+      total: resolvedTotal,
+      pageSize: resolvedPageSize,
       simple,
       minimal,
       size: resolvedSize,
@@ -91,16 +114,19 @@ export default function Pagination({
   const domRest = normalizeDomProps(restForDom);
 
   function goTo(page) {
-    if (page < 1 || page > totalPages || page === current) return;
+    if (page < 1 || page > totalPages || page === resolvedCurrent) return;
+    if (!controlled) {
+      setInternalCurrent(page);
+    }
     onChange?.(page);
   }
 
   function prev() {
-    goTo(current - 1);
+    goTo(resolvedCurrent - 1);
   }
 
   function next() {
-    goTo(current + 1);
+    goTo(resolvedCurrent + 1);
   }
 
   const prevButton = (
@@ -111,7 +137,7 @@ export default function Pagination({
       iconOnly
       className="pagination_btn pagination_prev"
       ariaLabel="이전 페이지"
-      disabled={current <= 1}
+      disabled={resolvedCurrent <= 1}
       onClick={prev}
       iconBefore={<Icon name="chevron-left" size="sm" className="pagination_icon" />}
     />
@@ -125,7 +151,7 @@ export default function Pagination({
       iconOnly
       className="pagination_btn pagination_next"
       ariaLabel="다음 페이지"
-      disabled={current >= totalPages}
+      disabled={resolvedCurrent >= totalPages}
       onClick={next}
       iconBefore={<Icon name="chevron-right" size="sm" className="pagination_icon" />}
     />
@@ -143,7 +169,7 @@ export default function Pagination({
         <>
           {prevButton}
           <span className="pagination_simple-text">
-            <span className="pagination_simple-current">{current}</span>
+            <span className="pagination_simple-current">{resolvedCurrent}</span>
             {' / '}
             <span className="pagination_simple-total">{totalPages}</span>
           </span>
@@ -164,8 +190,9 @@ export default function Pagination({
                 <Button
                   {...childRippleAttrs}
                   variant="text"
-                  className={cn('pagination_link', page === current && 'is-active')}
-                  aria-current={page === current ? 'page' : undefined}
+                  className={cn('pagination_link', page === resolvedCurrent && 'is-active')}
+                  aria-current={page === resolvedCurrent ? 'page' : undefined}
+                  ariaLabel={`${page}페이지`}
                   onClick={() => goTo(page)}
                 >
                   {page}

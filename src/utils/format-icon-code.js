@@ -1,10 +1,18 @@
 const DEFAULTS = { size: 'md' };
 const BOOLEAN_PROPS = new Set(['inline', 'spin', 'button', 'circle', 'square', 'pulse']);
 const ICON_INTERNAL_CLASSES = /^icon(?:_|$)|^color_/;
-
-function toKebab(key) {
-  return key.replace(/([A-Z])/g, '-$1').toLowerCase();
-}
+const SVG_ATTR_TO_REACT = {
+  class: 'className',
+  'clip-path': 'clipPath',
+  'clip-rule': 'clipRule',
+  'fill-rule': 'fillRule',
+  'stroke-dasharray': 'strokeDasharray',
+  'stroke-dashoffset': 'strokeDashoffset',
+  'stroke-linecap': 'strokeLinecap',
+  'stroke-linejoin': 'strokeLinejoin',
+  'stroke-miterlimit': 'strokeMiterlimit',
+  'stroke-width': 'strokeWidth',
+};
 
 function shouldSkipProp(key, value) {
   if (value === undefined || value === null || value === '') return true;
@@ -19,16 +27,17 @@ function formatIconProps(props, customAttrs = {}) {
     if (shouldSkipProp(key, value)) return acc;
 
     if (BOOLEAN_PROPS.has(key)) {
-      acc.push(toKebab(key));
+      acc.push(key);
       return acc;
     }
 
-    acc.push(`${toKebab(key)}="${value}"`);
+    acc.push(`${key}="${value}"`);
     return acc;
   }, []);
 
-  if (customAttrs.class) {
-    parts.push(`class="${customAttrs.class}"`);
+  const className = customAttrs.className ?? customAttrs.class;
+  if (className) {
+    parts.push(`className="${className}"`);
   }
 
   return parts.length ? ` ${parts.join(' ')}` : '';
@@ -43,7 +52,7 @@ function formatShapeElement(el) {
   const tag = el.tagName.toLowerCase();
   const attrs = [...el.attributes]
     .filter((attr) => !attr.name.startsWith('data-'))
-    .map((attr) => `${attr.name}="${attr.value}"`)
+    .map((attr) => `${SVG_ATTR_TO_REACT[attr.name] ?? attr.name}="${attr.value}"`)
     .join(' ');
 
   return `  <${tag}${attrs ? ` ${attrs}` : ''}/>`;
@@ -128,12 +137,12 @@ export function getIconAttrsFromDom(rootEl) {
   const classHost = tag === 'svg' ? rootEl : rootEl;
   const demoClasses = [...classHost.classList].filter((name) => !ICON_INTERNAL_CLASSES.test(name));
 
-  return demoClasses.length ? { class: demoClasses.join(' ') } : {};
+  return demoClasses.length ? { className: demoClasses.join(' ') } : {};
 }
 
 export function formatIconCode(props, customAttrs = {}, rootEl) {
   const attrStr = formatIconProps(props, customAttrs);
-  const slotContent = formatIconSlotContent(rootEl);
+  const slotContent = props.name ? '' : formatIconSlotContent(rootEl);
 
   if (!slotContent) {
     return `<Icon${attrStr} />`;

@@ -25,8 +25,8 @@ const typeCode = `import Switch from '@/components/Switch.jsx';
 export function TypeExample() {
   return (
     <>
-      <Switch checked label="기본 — switch" />
-      <Switch labelEnd checked label="레이블 뒤 — switch_label-end" />
+      <Switch defaultChecked label="기본 — switch" />
+      <Switch labelEnd defaultChecked label="레이블 뒤 — switch_label-end" />
     </>
   );
 }`;
@@ -35,7 +35,7 @@ const labelEndCode = `import Switch from '@/components/Switch.jsx';
 export function LabelEndExample() {
   return (
     <>
-      <Switch labelEnd checked label="푸시 알림 받기" />
+      <Switch labelEnd defaultChecked label="푸시 알림 받기" />
       <Switch labelEnd>
         <span className="switch_content">
           <span className="switch_label">마케팅 정보 수신</span>
@@ -47,12 +47,12 @@ export function LabelEndExample() {
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="switch_group-legend">알림 설정 — switch_group_block</legend>
-        <Switch labelEnd checked label="이메일 알림" />
-        <Switch labelEnd checked label="푸시 알림" />
+        <Switch labelEnd defaultChecked label="이메일 알림" />
+        <Switch labelEnd defaultChecked label="푸시 알림" />
         <Switch labelEnd label="SMS 알림" />
       </fieldset>
-      <Switch labelEnd size="sm" checked label="Small — switch_sm" />
-      <Switch labelEnd size="lg" checked label="Large — switch_lg" />
+      <Switch labelEnd size="sm" defaultChecked label="Small — switch_sm" />
+      <Switch labelEnd size="lg" defaultChecked label="Large — switch_lg" />
     </>
   );
 }`;
@@ -61,7 +61,7 @@ const basicCode = `import Switch from '@/components/Switch.jsx';
 export function BasicExample() {
   return (
     <>
-      <Switch checked label="다크 모드" />
+      <Switch defaultChecked label="다크 모드" />
       <Switch label="자동 저장" />
     </>
   );
@@ -72,7 +72,7 @@ export function StandaloneExample() {
   return (
     <>
       <Switch ariaLabel="기능 켜기" />
-      <Switch checked ariaLabel="기능 끄기" />
+      <Switch defaultChecked ariaLabel="기능 끄기" />
       <Switch disabled ariaLabel="비활성" />
     </>
   );
@@ -82,9 +82,9 @@ const sizeCode = `import Switch from '@/components/Switch.jsx';
 export function SizeExample() {
   return (
     <>
-      <Switch labelEnd size="sm" checked label="Small — switch_sm" />
-      <Switch labelEnd checked label="Medium — 기본" />
-      <Switch labelEnd size="lg" checked label="Large — switch_lg" />
+      <Switch labelEnd size="sm" defaultChecked label="Small — switch_sm" />
+      <Switch labelEnd defaultChecked label="Medium — 기본" />
+      <Switch labelEnd size="lg" defaultChecked label="Large — switch_lg" />
     </>
   );
 }`;
@@ -93,14 +93,14 @@ const widthCode = `import Switch from '@/components/Switch.jsx';
 export function WidthExample() {
   return (
     <>
-      <Switch labelEnd checked label="기본 — 인라인 너비" />
-      <Switch labelEnd className="switch_block" checked label="switch_block — 전체 너비" />
+      <Switch labelEnd defaultChecked label="기본 — 인라인 너비" />
+      <Switch labelEnd className="switch_block" defaultChecked label="switch_block — 전체 너비" />
       <fieldset
         className="switch_group switch_group_block"
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="switch_group-legend">switch_group_block</legend>
-        <Switch labelEnd checked label="Wi-Fi" />
+        <Switch labelEnd defaultChecked label="Wi-Fi" />
         <Switch labelEnd label="블루투스" />
       </fieldset>
     </>
@@ -111,10 +111,10 @@ const colorCode = `import Switch from '@/components/Switch.jsx';
 export function ColorExample() {
   return (
     <>
-      <Switch className="color_primary" labelEnd checked label="Primary" />
-      <Switch className="color_success" labelEnd checked label="Success" />
-      <Switch className="color_danger" labelEnd checked label="Danger" />
-      <Switch className="color_warning" labelEnd checked label="Warning" />
+      <Switch className="color_primary" labelEnd defaultChecked label="Primary" />
+      <Switch className="color_success" labelEnd defaultChecked label="Success" />
+      <Switch className="color_danger" labelEnd defaultChecked label="Danger" />
+      <Switch className="color_warning" labelEnd defaultChecked label="Warning" />
     </>
   );
 }`;
@@ -124,9 +124,9 @@ export function StateExample() {
   return (
     <>
       <Switch labelEnd label="꺼짐" />
-      <Switch labelEnd checked label="켜짐" />
+      <Switch labelEnd defaultChecked label="켜짐" />
       <Switch labelEnd disabled label="비활성" />
-      <Switch labelEnd checked disabled label="켜짐 (비활성)" />
+      <Switch labelEnd defaultChecked disabled label="켜짐 (비활성)" />
     </>
   );
 }`;
@@ -140,7 +140,7 @@ export function GroupExample() {
         style={{ maxWidth: 400, width: '100%' }}
       >
         <legend className="switch_group-legend">개인정보 설정</legend>
-        <Switch labelEnd checked>
+        <Switch labelEnd defaultChecked>
           <span className="switch_content">
             <span className="switch_label">프로필 공개</span>
             <span className="switch_hint">다른 사용자가 내 프로필을 볼 수 있습니다.</span>
@@ -152,7 +152,7 @@ export function GroupExample() {
             <span className="switch_hint">최근 활동이 타임라인에 노출됩니다.</span>
           </span>
         </Switch>
-        <Switch labelEnd checked label="검색 허용" />
+        <Switch labelEnd defaultChecked label="검색 허용" />
       </fieldset>
       <fieldset
         className="switch_group switch_group_block switch_group_compact"
@@ -180,7 +180,7 @@ export function FormExample() {
             className="switch_group switch_group_block"
             aria-labelledby="switch-form-vertical-label"
           >
-            <Switch labelEnd checked label="이메일 알림" />
+            <Switch labelEnd defaultChecked label="이메일 알림" />
             <Switch labelEnd label="푸시 알림" />
           </fieldset>
         </div>
@@ -192,7 +192,7 @@ export function FormExample() {
           </span>
           <Switch
             labelEnd
-            checked
+            defaultChecked
             label="편집 내용 자동 저장"
             aria-labelledby="switch-form-horizontal-label"
           />
@@ -218,8 +218,8 @@ export default function SwitchDoc() {
           code={typeCode}
         >
 <>
-      <Switch checked label="기본 — switch" />
-      <Switch labelEnd checked label="레이블 뒤 — switch_label-end" />
+      <Switch defaultChecked label="기본 — switch" />
+      <Switch labelEnd defaultChecked label="레이블 뒤 — switch_label-end" />
     </>
         </DemoSection>
         <DemoSection
@@ -229,7 +229,7 @@ export default function SwitchDoc() {
           code={labelEndCode}
         >
 <>
-      <Switch labelEnd checked label="푸시 알림 받기" />
+      <Switch labelEnd defaultChecked label="푸시 알림 받기" />
       <Switch labelEnd>
         <span className="switch_content">
           <span className="switch_label">마케팅 정보 수신</span>
@@ -241,12 +241,12 @@ export default function SwitchDoc() {
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="switch_group-legend">알림 설정 — switch_group_block</legend>
-        <Switch labelEnd checked label="이메일 알림" />
-        <Switch labelEnd checked label="푸시 알림" />
+        <Switch labelEnd defaultChecked label="이메일 알림" />
+        <Switch labelEnd defaultChecked label="푸시 알림" />
         <Switch labelEnd label="SMS 알림" />
       </fieldset>
-      <Switch labelEnd size="sm" checked label="Small — switch_sm" />
-      <Switch labelEnd size="lg" checked label="Large — switch_lg" />
+      <Switch labelEnd size="sm" defaultChecked label="Small — switch_sm" />
+      <Switch labelEnd size="lg" defaultChecked label="Large — switch_lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -256,7 +256,7 @@ export default function SwitchDoc() {
           code={basicCode}
         >
 <>
-      <Switch checked label="다크 모드" />
+      <Switch defaultChecked label="다크 모드" />
       <Switch label="자동 저장" />
     </>
         </DemoSection>
@@ -269,7 +269,7 @@ export default function SwitchDoc() {
         >
 <>
       <Switch ariaLabel="기능 켜기" />
-      <Switch checked ariaLabel="기능 끄기" />
+      <Switch defaultChecked ariaLabel="기능 끄기" />
       <Switch disabled ariaLabel="비활성" />
     </>
         </DemoSection>
@@ -281,9 +281,9 @@ export default function SwitchDoc() {
           code={sizeCode}
         >
 <>
-      <Switch labelEnd size="sm" checked label="Small — switch_sm" />
-      <Switch labelEnd checked label="Medium — 기본" />
-      <Switch labelEnd size="lg" checked label="Large — switch_lg" />
+      <Switch labelEnd size="sm" defaultChecked label="Small — switch_sm" />
+      <Switch labelEnd defaultChecked label="Medium — 기본" />
+      <Switch labelEnd size="lg" defaultChecked label="Large — switch_lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -293,14 +293,14 @@ export default function SwitchDoc() {
           code={widthCode}
         >
 <>
-      <Switch labelEnd checked label="기본 — 인라인 너비" />
-      <Switch labelEnd className="switch_block" checked label="switch_block — 전체 너비" />
+      <Switch labelEnd defaultChecked label="기본 — 인라인 너비" />
+      <Switch labelEnd className="switch_block" defaultChecked label="switch_block — 전체 너비" />
       <fieldset
         className="switch_group switch_group_block"
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="switch_group-legend">switch_group_block</legend>
-        <Switch labelEnd checked label="Wi-Fi" />
+        <Switch labelEnd defaultChecked label="Wi-Fi" />
         <Switch labelEnd label="블루투스" />
       </fieldset>
     </>
@@ -313,10 +313,10 @@ export default function SwitchDoc() {
           code={colorCode}
         >
 <>
-      <Switch className="color_primary" labelEnd checked label="Primary" />
-      <Switch className="color_success" labelEnd checked label="Success" />
-      <Switch className="color_danger" labelEnd checked label="Danger" />
-      <Switch className="color_warning" labelEnd checked label="Warning" />
+      <Switch className="color_primary" labelEnd defaultChecked label="Primary" />
+      <Switch className="color_success" labelEnd defaultChecked label="Success" />
+      <Switch className="color_danger" labelEnd defaultChecked label="Danger" />
+      <Switch className="color_warning" labelEnd defaultChecked label="Warning" />
     </>
         </DemoSection>
         <DemoSection
@@ -328,9 +328,9 @@ export default function SwitchDoc() {
         >
 <>
       <Switch labelEnd label="꺼짐" />
-      <Switch labelEnd checked label="켜짐" />
+      <Switch labelEnd defaultChecked label="켜짐" />
       <Switch labelEnd disabled label="비활성" />
-      <Switch labelEnd checked disabled label="켜짐 (비활성)" />
+      <Switch labelEnd defaultChecked disabled label="켜짐 (비활성)" />
     </>
         </DemoSection>
         <DemoSection
@@ -346,7 +346,7 @@ export default function SwitchDoc() {
         style={{ maxWidth: 400, width: '100%' }}
       >
         <legend className="switch_group-legend">개인정보 설정</legend>
-        <Switch labelEnd checked>
+        <Switch labelEnd defaultChecked>
           <span className="switch_content">
             <span className="switch_label">프로필 공개</span>
             <span className="switch_hint">다른 사용자가 내 프로필을 볼 수 있습니다.</span>
@@ -358,7 +358,7 @@ export default function SwitchDoc() {
             <span className="switch_hint">최근 활동이 타임라인에 노출됩니다.</span>
           </span>
         </Switch>
-        <Switch labelEnd checked label="검색 허용" />
+        <Switch labelEnd defaultChecked label="검색 허용" />
       </fieldset>
       <fieldset
         className="switch_group switch_group_block switch_group_compact"
@@ -387,7 +387,7 @@ export default function SwitchDoc() {
             className="switch_group switch_group_block"
             aria-labelledby="switch-form-vertical-label"
           >
-            <Switch labelEnd checked label="이메일 알림" />
+            <Switch labelEnd defaultChecked label="이메일 알림" />
             <Switch labelEnd label="푸시 알림" />
           </fieldset>
         </div>
@@ -399,7 +399,7 @@ export default function SwitchDoc() {
           </span>
           <Switch
             labelEnd
-            checked
+            defaultChecked
             label="편집 내용 자동 저장"
             aria-labelledby="switch-form-horizontal-label"
           />

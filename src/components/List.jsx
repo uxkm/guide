@@ -1,6 +1,8 @@
+'use client';
+
 import { createContext, useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { formatComponentCode } from '@/utils/format-component-code';
+import { formatListCode } from '@/utils/format-list-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
@@ -65,22 +67,8 @@ export default function List({
     return classes;
   }, [resolvedVariant, bordered, split, block, resolvedSize, resolvedLayout, resolvedDescAlign]);
 
-  function formatCode(listProps, listSlots, listAttrs) {
-    return formatComponentCode(
-      'List',
-      listProps,
-      listSlots,
-      { ...listAttrs, class: cn(rootClass, listAttrs.class) },
-      {
-        defaults: { size: 'md', variant: 'default', layout: 'block', descAlign: 'left' },
-        booleanProps: new Set(['bordered', 'split', 'block']),
-        selfClosing: false,
-      },
-    );
-  }
-
   useComponentDemoCode(
-    formatCode,
+    formatListCode,
     {
       bordered,
       split,

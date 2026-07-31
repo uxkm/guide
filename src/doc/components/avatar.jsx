@@ -6,7 +6,6 @@ export const docMeta = {
 
 import Avatar from '@/components/Avatar.jsx';
 import AvatarGroup from '@/components/AvatarGroup.jsx';
-import Icon from '@/components/Icon.jsx';
 import { avatarSample } from '@images';
 import ApiSection from '@/components/guide/ApiSection.jsx';
 import ApiTable from '@/components/guide/ApiTable.jsx';
@@ -26,7 +25,9 @@ import {
   avatarTokens,
 } from '@/doc/data/avatar-api';
 
-const basicCode = "import Avatar from '@/components/Avatar.jsx';\nimport Icon from '@/components/Icon.jsx';\nimport { avatarSample } from '@images';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Avatar src={avatarSample} alt=\"홍길동\" />\n      <Avatar color=\"primary\" initials=\"홍\" ariaHidden />\n      <Avatar\n        color=\"default\"\n        ariaHidden\n        icon={<Icon name=\"user\" className=\"avatar_icon\" />}\n      />\n    </>\n  );\n}";
+const basicCode = "import Avatar from '@/components/Avatar.jsx';\nimport { avatarSample } from '@images';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Avatar src={avatarSample} alt=\"홍길동\" />\n      <Avatar color=\"primary\" initials=\"홍\" ariaHidden />\n      <Avatar name=\"user\" color=\"default\" ariaHidden />\n    </>\n  );\n}";
+
+const sourceCode = "import Avatar from '@/components/Avatar.jsx';\nimport { avatarSample } from '@images';\n\nexport function SourceExample() {\n  return (\n    <>\n      <Avatar name=\"user\" color=\"primary\" ariaLabel=\"기본 사용자\" />\n      <Avatar as=\"button\" ariaLabel=\"프로필 열기\">\n        <img className=\"avatar_image\" src={avatarSample.src} alt=\"\" />\n      </Avatar>\n      <Avatar as=\"span\" color=\"success\" ariaLabel=\"온라인 사용자\">\n        <strong>ON</strong>\n      </Avatar>\n    </>\n  );\n}";
 
 const sizeCode = "import Avatar from '@/components/Avatar.jsx';\n\nexport function SizeExample() {\n  return (\n    <>\n      <Avatar size=\"sm\" color=\"primary\" initials=\"A\" ariaHidden />\n      <Avatar color=\"primary\" initials=\"B\" ariaHidden />\n      <Avatar size=\"lg\" color=\"primary\" initials=\"C\" ariaHidden />\n      <Avatar size=\"xl\" color=\"primary\" initials=\"D\" ariaHidden />\n    </>\n  );\n}";
 
@@ -36,7 +37,7 @@ const colorCode = "import Avatar from '@/components/Avatar.jsx';\n\nexport funct
 
 const badgeCode = "import Avatar from '@/components/Avatar.jsx';\n\nexport function BadgeExample() {\n  return (\n    <>\n      <Avatar color=\"primary\" initials=\"온\" badgeColor=\"success\" badgeLabel=\"온라인\" ariaHidden />\n      <Avatar color=\"default\" initials=\"대\" badgeColor=\"warning\" badgeLabel=\"자리 비움\" ariaHidden />\n      <Avatar color=\"default\" initials=\"오\" badgeColor=\"danger\" badgeLabel=\"오프라인\" ariaHidden />\n    </>\n  );\n}";
 
-const groupCode = "import Avatar from '@/components/Avatar.jsx';\nimport AvatarGroup from '@/components/AvatarGroup.jsx';\nimport Icon from '@/components/Icon.jsx';\nimport { avatarSample } from '@images';\n\nexport function GroupExample() {\n  return (\n    <>\n      <AvatarGroup ariaLabel=\"팀 멤버 4명\">\n        <Avatar color=\"primary\" initials=\"김\" ariaHidden />\n        <Avatar color=\"success\" initials=\"이\" ariaHidden />\n        <Avatar color=\"warning\" initials=\"박\" ariaHidden />\n        <Avatar color=\"danger\" initials=\"최\" ariaHidden />\n      </AvatarGroup>\n      <AvatarGroup ariaLabel=\"팀 멤버 3명\">\n        <Avatar src={avatarSample} alt=\"홍길동\" />\n        <Avatar color=\"primary\" initials=\"홍\" ariaHidden />\n        <Avatar\n          color=\"default\"\n          ariaHidden\n          icon={<Icon name=\"plus\" className=\"avatar_icon\" />}\n        />\n      </AvatarGroup>\n    </>\n  );\n}";
+const groupCode = "import Avatar from '@/components/Avatar.jsx';\nimport AvatarGroup from '@/components/AvatarGroup.jsx';\nimport { avatarSample } from '@images';\n\nexport function GroupExample() {\n  return (\n    <>\n      <AvatarGroup ariaLabel=\"팀 멤버 4명\">\n        <Avatar color=\"primary\" initials=\"김\" ariaHidden />\n        <Avatar color=\"success\" initials=\"이\" ariaHidden />\n        <Avatar color=\"warning\" initials=\"박\" ariaHidden />\n        <Avatar color=\"danger\" initials=\"최\" ariaHidden />\n      </AvatarGroup>\n      <AvatarGroup ariaLabel=\"팀 멤버 3명\">\n        <Avatar src={avatarSample} alt=\"홍길동\" />\n        <Avatar color=\"primary\" initials=\"홍\" ariaHidden />\n        <Avatar name=\"plus\" color=\"default\" ariaHidden />\n      </AvatarGroup>\n    </>\n  );\n}";
 
 export default function AvatarDoc() {
   return (
@@ -54,11 +55,22 @@ export default function AvatarDoc() {
         >
           <Avatar src={avatarSample} alt="홍길동" />
           <Avatar color="primary" initials="홍" ariaHidden />
-          <Avatar
-            color="default"
-            ariaHidden
-            icon={<Icon name="user" className="avatar_icon" />}
-          />
+          <Avatar name="user" color="default" ariaHidden />
+        </DemoSection>
+
+        <DemoSection
+          headingId="source-heading"
+          title="이름 · 이미지 · 커스텀 요소"
+          description="name으로 기본 아이콘을 사용하고, src 이미지 또는 as와 children을 조합해 커스텀 아바타를 구성합니다."
+          code={sourceCode}
+        >
+          <Avatar name="user" color="primary" ariaLabel="기본 사용자" />
+          <Avatar as="button" ariaLabel="프로필 열기">
+            <img className="avatar_image" src={avatarSample.src} alt="" />
+          </Avatar>
+          <Avatar as="span" color="success" ariaLabel="온라인 사용자">
+            <strong>ON</strong>
+          </Avatar>
         </DemoSection>
 
         <DemoSection
@@ -125,11 +137,7 @@ export default function AvatarDoc() {
           <AvatarGroup ariaLabel="팀 멤버 3명">
             <Avatar src={avatarSample} alt="홍길동" />
             <Avatar color="primary" initials="홍" ariaHidden />
-            <Avatar
-              color="default"
-              ariaHidden
-              icon={<Icon name="plus" className="avatar_icon" />}
-            />
+            <Avatar name="plus" color="default" ariaHidden />
           </AvatarGroup>
         </DemoSection>
 

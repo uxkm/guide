@@ -1,18 +1,13 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import Icon from '@/components/Icon.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatStatCode } from '@/utils/format-stat-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
 const VALID_SIZES = new Set(['sm', 'md', 'lg']);
-
-const formatCode = createComponentFormatter('Stat', {
-  defaults: { size: 'md' },
-  booleanProps: new Set(['card', 'shadow']),
-  labelProp: 'title',
-  selfClosing: false,
-});
 
 export default function Stat({
   title,
@@ -37,7 +32,7 @@ export default function Stat({
   const hasValue = value != null && value !== '';
 
   useComponentDemoCode(
-    formatCode,
+    formatStatCode,
     {
       title,
       value: typeof value === 'string' || typeof value === 'number' ? value : undefined,

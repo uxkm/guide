@@ -38,7 +38,7 @@ export const timelineSlotColumns = [
 ];
 
 export const timelineSlots = [
-  { name: 'children', description: 'TimelineItem 자식 (Vue default 슬롯 대응)' },
+  { name: 'children', description: 'TimelineItem을 전달하는 React children' },
 ];
 
 export const timelineItemSlotColumns = [
@@ -50,9 +50,9 @@ export const timelineItemSlots = [
   { name: 'title', description: '이벤트 제목 (timeline_title)' },
   { name: 'description', description: '설명 (timeline_desc)' },
   { name: 'time', description: '시간 텍스트 (timeline_time)' },
-  { name: 'children', description: '콘텐츠 (title·description 대체, Vue default 슬롯 대응)' },
-  { name: 'dot', description: '커스텀 점·아이콘 (Vue #dot 슬롯 대응)' },
-  { name: 'meta', description: '하단 메타 (Vue #meta 슬롯 대응, timeline_meta)' },
+  { name: 'children', description: 'title·description 대신 표시할 React children' },
+  { name: 'dot', description: '커스텀 점·아이콘으로 전달하는 React 노드' },
+  { name: 'meta', description: '하단 메타로 전달하는 React 노드 (timeline_meta)' },
 ];
 
 export const timelineClassColumns = [

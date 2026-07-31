@@ -1,4 +1,6 @@
-import { useMemo, useRef } from 'react';
+'use client';
+
+import { useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -23,6 +25,7 @@ export default function DatePicker({
   open,
   placeholder,
   value,
+  defaultValue,
   fit,
   block,
   inline,
@@ -44,7 +47,10 @@ export default function DatePicker({
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const panelContent = panel ?? children;
   const showTrigger = !inline;
-  const hasValue = Boolean(value);
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? (value ?? '') : internalValue;
+  const hasValue = Boolean(currentValue);
   const isExpanded = Boolean(open);
 
   useDatePickerDemoCode(
@@ -57,6 +63,7 @@ export default function DatePicker({
       open,
       placeholder,
       value,
+      defaultValue,
       fit,
       block,
       inline,
@@ -86,9 +93,9 @@ export default function DatePicker({
 
   const inputClass = useMemo(() => {
     const classes = ['date_picker_input'];
-    if (!value && placeholder) classes.push('date_picker_placeholder');
+    if (!currentValue && placeholder) classes.push('date_picker_placeholder');
     return classes;
-  }, [value, placeholder]);
+  }, [currentValue, placeholder]);
 
   const {
     class: _ignoredClass,
@@ -102,6 +109,9 @@ export default function DatePicker({
   function handleClear(event) {
     event.preventDefault();
     event.stopPropagation();
+    if (!isControlled) {
+      setInternalValue('');
+    }
     onClear?.(event);
   }
 
@@ -113,7 +123,7 @@ export default function DatePicker({
             id={inputId}
             type="text"
             className={cn(inputClass)}
-            value={value ?? ''}
+            value={currentValue}
             placeholder={placeholder}
             readOnly
             disabled={disabled}

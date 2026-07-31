@@ -1,14 +1,11 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTreeNodeCode } from '@/utils/format-tree-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
-
-const formatCode = createComponentFormatter('TreeNode', {
-  booleanProps: new Set(['expanded', 'selected', 'disabled', 'expandable', 'plusToggle', 'link']),
-  selfClosing: false,
-});
 
 export default function TreeNode({
   ripple,
@@ -41,7 +38,7 @@ export default function TreeNode({
   }, [expanded]);
 
   useComponentDemoCode(
-    formatCode,
+    formatTreeNodeCode,
     {
       ripple,
       label,
@@ -97,6 +94,8 @@ export default function TreeNode({
       className={cn('tree_item', className)}
       role="treeitem"
       aria-expanded={showToggle ? (isExpanded ? 'true' : 'false') : undefined}
+      aria-selected={selected ? 'true' : undefined}
+      aria-disabled={disabled ? 'true' : undefined}
       {...rippleAttrs}
       {...domRest}
     >
@@ -124,7 +123,12 @@ export default function TreeNode({
         ) : null}
 
         {link ? (
-          <button type="button" className="tree_link" {...childRippleAttrs}>
+          <button
+            type="button"
+            className="tree_link"
+            disabled={disabled || undefined}
+            {...childRippleAttrs}
+          >
             {labelContent}
           </button>
         ) : (

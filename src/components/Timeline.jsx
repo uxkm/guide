@@ -1,18 +1,14 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTimelineCode } from '@/utils/format-timeline-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
 const VALID_ICON_SIZES = new Set(['sm', 'md']);
 const VALID_SIZES = new Set(['sm', 'md', 'lg']);
-
-const formatCode = createComponentFormatter('Timeline', {
-  defaults: { size: 'md', tag: 'ol', iconSize: 'md' },
-  booleanProps: new Set(['card', 'alternate', 'horizontal', 'labelCol', 'icon']),
-  skipProps: ['tag'],
-  selfClosing: false,
-});
+const VALID_TAGS = new Set(['ol', 'ul']);
 
 export default function Timeline({
   card,
@@ -30,9 +26,10 @@ export default function Timeline({
   const rootRef = useRef(null);
   const resolvedIconSize = VALID_ICON_SIZES.has(iconSize) ? iconSize : 'md';
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedTag = VALID_TAGS.has(tag) ? tag : 'ol';
 
   useComponentDemoCode(
-    formatCode,
+    formatTimelineCode,
     {
       card,
       alternate,
@@ -41,7 +38,7 @@ export default function Timeline({
       icon,
       iconSize: resolvedIconSize,
       size: resolvedSize,
-      tag,
+      tag: resolvedTag,
     },
     createDemoSlots({ default: children }),
     rootRef,
@@ -63,7 +60,7 @@ export default function Timeline({
 
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
-  const Tag = tag || 'ol';
+  const Tag = resolvedTag;
 
   return (
     <Tag ref={rootRef} className={cn(rootClass, className)} {...domRest}>

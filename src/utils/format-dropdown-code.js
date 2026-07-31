@@ -1,7 +1,8 @@
 import { createSlotComponentFormatter } from '@/utils/format-slot-component-code';
 
 const formatDropdownCode = createSlotComponentFormatter('Dropdown', {
-  booleanProps: new Set(['open', 'disabled', 'fit']),
+  defaults: { defaultOpen: false, closeOnSelect: false },
+  booleanProps: new Set(['open', 'defaultOpen', 'disabled', 'fit', 'closeOnSelect']),
   slots: [
     { name: 'trigger', wrap: 'template' },
     { name: 'default', wrap: 'direct' },

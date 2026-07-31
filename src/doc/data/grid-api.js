@@ -116,10 +116,28 @@ export const gridColPropColumns = [
 
 export const gridColProps = [
   {
+    name: 'as',
+    type: 'string',
+    default: `'div'`,
+    description: 'GridCol이 렌더링할 HTML 요소 (예: header, aside, section, footer)',
+  },
+  {
     name: 'span',
     type: 'number | string',
     default: '—',
-    description: '12열 기준 개별 열 span (grid_col-span-*, 필수)',
+    description: '12열 기준 개별 열 span (grid_col-span-*)',
+  },
+  {
+    name: 'spanMd',
+    type: 'number | string',
+    default: '—',
+    description: 'md 이상 개별 열 span (grid_col-span-md-*)',
+  },
+  {
+    name: 'spanLg',
+    type: 'number | string',
+    default: '—',
+    description: 'lg 이상 개별 열 span (grid_col-span-lg-*)',
   },
 ];
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -26,7 +28,11 @@ export default function Divider({
   const resolvedOrient = VALID_ORIENTS.has(orient) ? orient : '';
   const resolvedTagProp = VALID_TAGS.has(tag) ? tag : 'auto';
   const content = children ?? label;
-  const hasLabel = Boolean(content);
+  const hasLabel =
+    content !== undefined &&
+    content !== null &&
+    content !== false &&
+    content !== '';
 
   const resolvedTag = useMemo(() => {
     if (resolvedTagProp !== 'auto') return resolvedTagProp;
@@ -54,15 +60,19 @@ export default function Divider({
 
   const domRest = normalizeDomProps(rest);
   const Tag = resolvedTag;
+  const isDecorativeVertical = vertical && !hasLabel;
+  const separatorRole = resolvedTag === 'hr' || isDecorativeVertical ? undefined : 'separator';
 
   return (
     <Tag
       ref={rootRef}
       className={cn(rootClass, className)}
-      aria-hidden={vertical ? 'true' : undefined}
+      role={separatorRole}
+      aria-hidden={isDecorativeVertical ? 'true' : undefined}
+      aria-orientation={vertical && hasLabel ? 'vertical' : undefined}
       {...domRest}
     >
-      {content}
+      {resolvedTag === 'hr' ? null : content}
     </Tag>
   );
 }

@@ -7,9 +7,9 @@ export const statPropColumns = [
 
 export const statProps = [
   { name: 'title', type: 'string', default: '—', description: '지표 라벨 (stat_label)' },
-  { name: 'value', type: 'string', default: '—', description: '주요 수치 (stat_value)' },
-  { name: 'prefix', type: 'string', default: '—', description: '값 앞 접두 (stat_prefix)' },
-  { name: 'suffix', type: 'string', default: '—', description: '값 뒤 접미 (stat_suffix)' },
+  { name: 'value', type: 'ReactNode', default: '—', description: '주요 수치 (stat_value)' },
+  { name: 'prefix', type: 'ReactNode', default: '—', description: '값 앞 접두 (stat_prefix)' },
+  { name: 'suffix', type: 'ReactNode', default: '—', description: '값 뒤 접미 (stat_suffix)' },
   { name: 'description', type: 'string', default: '—', description: '보조 설명 (stat_desc)' },
   { name: 'trend', type: 'string', default: '—', description: '증감 텍스트 (stat_trend)' },
   { name: 'trendColor', type: 'string', default: '—', description: 'trend·description 색상 color_*' },
@@ -26,9 +26,9 @@ export const statSlotColumns = [
 ];
 
 export const statSlots = [
-  { name: 'value', description: '수치 커스텀 (value prop 대체, Vue #value 슬롯 대응)' },
-  { name: 'trendIcon', description: '증감 아이콘 (Vue #trend-icon 슬롯 대응)' },
-  { name: 'children', description: '아이콘·커스텀 레이아웃 등 (Vue default 슬롯 대응)' },
+  { name: 'value', description: '문자열·숫자 또는 커스텀 React 노드로 표시할 주요 수치' },
+  { name: 'trendIcon', description: '기본 chevron-up을 대체하는 React 노드' },
+  { name: 'children', description: '아이콘·커스텀 레이아웃 등에 사용하는 React children' },
 ];
 
 export const statClassColumns = [

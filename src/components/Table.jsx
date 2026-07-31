@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useTableDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { columnColStyle, columnRootVars } from '@/utils/table-column-sizing';

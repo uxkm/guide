@@ -409,8 +409,8 @@ export default function ModalDoc() {
       <div className="page_intro">
         <h1>Modal</h1>
         <p className="lead">
-          화면 중앙에 표시되는 대화상자 컴포넌트입니다. 확인·폼·상세 보기 등
-          사용자의 집중이 필요한 작업에 사용하며,{' '}
+          화면 중앙에 표시되는 Next.js Client Component입니다. 확인·폼·상세
+          보기 등 사용자의 집중이 필요한 작업에 사용하며,{' '}
           <code className="typo_code">role=&quot;dialog&quot;</code> ·{' '}
           <code className="typo_code">aria-modal</code>로 접근성을 보장합니다.
         </p>

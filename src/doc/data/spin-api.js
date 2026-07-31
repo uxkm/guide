@@ -108,7 +108,7 @@ export const spinChildColumns = [
 ];
 
 export const spinChildren = [
-  { name: 'children', description: 'tip 외 추가 콘텐츠 (선택)' },
+  { name: 'children', description: 'tip 외 추가 콘텐츠로 전달하는 React children (선택)' },
 ];
 
 export const spinWrapChildColumns = [
@@ -117,7 +117,7 @@ export const spinWrapChildColumns = [
 ];
 
 export const spinWrapChildren = [
-  { name: 'children', description: '오버레이 아래 실제 콘텐츠 (spin_wrap-body)' },
+  { name: 'children', description: '오버레이 아래 spin_wrap-body에 렌더링하는 React children' },
 ];
 
 /** @deprecated 가이드·Storybook은 spinChildColumns · spinChildren 사용 */

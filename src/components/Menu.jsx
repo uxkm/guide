@@ -1,10 +1,13 @@
-import { useMemo, useRef } from 'react';
+'use client';
+
+import { createContext, useMemo, useRef, useState } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
 const VALID_MODES = new Set(['vertical', 'horizontal', 'inline']);
+export const MenuContext = createContext(null);
 
 const formatCode = createComponentFormatter('Menu', {
   defaults: { mode: 'vertical' },
@@ -24,6 +27,7 @@ export default function Menu({
 }) {
   const rootRef = useRef(null);
   const resolvedMode = VALID_MODES.has(mode) ? mode : 'vertical';
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
   useComponentDemoCode(
     formatCode,
@@ -50,15 +54,22 @@ export default function Menu({
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
 
+  const contextValue = useMemo(
+    () => ({ selectedItemId, selectItem: setSelectedItemId }),
+    [selectedItemId],
+  );
+
   return (
-    <nav
-      ref={rootRef}
-      className={cn(rootClass, className)}
-      aria-label={ariaLabel}
-      data-menu-selectable=""
-      {...domRest}
-    >
-      <ul className="menu_list">{children}</ul>
-    </nav>
+    <MenuContext.Provider value={contextValue}>
+      <nav
+        ref={rootRef}
+        className={cn(rootClass, className)}
+        aria-label={ariaLabel}
+        data-react-menu=""
+        {...domRest}
+      >
+        <ul className="menu_list">{children}</ul>
+      </nav>
+    </MenuContext.Provider>
   );
 }

@@ -6,6 +6,12 @@ export const badgePropColumns = [
 ];
 
 export const badgeProps = [
+  {
+    name: 'as',
+    type: 'React.ElementType',
+    default: 'span',
+    description: '콘텐츠 의미에 맞는 루트 요소 또는 커스텀 컴포넌트',
+  },
   { name: 'color', type: 'string', default: 'primary', description: '공통 color_* 클래스' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'badge_sm · badge_lg' },
   { name: 'dot', type: 'boolean', default: 'false', description: '텍스트 앞 점 표시 (badge_dot)' },

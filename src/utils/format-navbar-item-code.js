@@ -25,6 +25,8 @@ export function formatNavbarItemCode(props, rootEl, registry) {
   const attrs = [];
 
   if (props.label) attrs.push(`label="${props.label}"`);
+  if (props.href && props.href !== '#') attrs.push(`href="${props.href}"`);
+  if (props.as) attrs.push(`as="${props.as}"`);
   if (props.active) attrs.push('active');
 
   const attrStr = attrs.length ? ` ${attrs.join(' ')}` : '';

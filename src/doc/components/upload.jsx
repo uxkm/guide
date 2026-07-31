@@ -245,6 +245,7 @@ export default function UploadDoc() {
           <code>upload_input</code>은 시각적으로 숨기고 <code>label.upload_trigger</code> ·
           <code>label.upload_dropzone</code>으로 트리거합니다.
           버튼형 트리거는 <code>button</code> 대신 <code>span.btn</code>으로 스킨을 적용합니다.
+          파일 입력은 비제어 방식으로 동작하며 선택 결과는 <code>onChange</code>에서 처리합니다.
         </p>
       </div>
 

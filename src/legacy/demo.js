@@ -421,6 +421,10 @@ import { initOverlays, observeOverlays } from './overlay-init';
   document.querySelectorAll('.rate').forEach(initRate);
 
   document.querySelectorAll('.menu_item-submenu > .menu_link[aria-expanded]').forEach(function (btn) {
+    if (btn.closest('[data-react-menu]')) {
+      return;
+    }
+
     btn.addEventListener('click', function (event) {
       if (btn.classList.contains('is-disabled') || btn.getAttribute('aria-disabled') === 'true') {
         return;
@@ -823,8 +827,8 @@ import { initOverlays, observeOverlays } from './overlay-init';
     var hasPageOverlay = false;
 
     openDrawers.forEach(function (drawer) {
-      // 문서·Playground 데모 프레임 안 Drawer는 페이지 스크롤을 잠그지 않음
-      if (!drawer.closest('.drawer_demo-frame')) {
+      // 프레임 안에 고정한 정적 미리보기만 페이지 스크롤 잠금에서 제외
+      if (!drawer.classList.contains('drawer_demo-static')) {
         hasPageOverlay = true;
       }
     });
@@ -1004,7 +1008,7 @@ import { initOverlays, observeOverlays } from './overlay-init';
   function getDrawerDragContainerHeight(drawer) {
     var frame = drawer.closest('.drawer_demo-frame');
 
-    if (frame) {
+    if (frame && drawer.classList.contains('drawer_demo-static')) {
       return frame.clientHeight;
     }
 
@@ -1266,8 +1270,8 @@ import { initOverlays, observeOverlays } from './overlay-init';
     var hasPageOverlay = false;
 
     openModals.forEach(function (modal) {
-      // 문서·Playground 데모 프레임 안 Modal은 페이지 스크롤을 잠그지 않음
-      if (!modal.closest('.modal_demo-frame')) {
+      // 프레임 안에 고정한 정적 미리보기만 페이지 스크롤 잠금에서 제외
+      if (!modal.classList.contains('modal_demo-static')) {
         hasPageOverlay = true;
       }
     });
@@ -1598,4 +1602,3 @@ import { initOverlays, observeOverlays } from './overlay-init';
 import { initInputClearAll } from './input-clear-init';
 
 initInputClearAll();
-

@@ -25,10 +25,10 @@ const typeCode = `import Checkbox from '@/components/Checkbox.jsx';
 export function TypeExample() {
   return (
     <>
-      <Checkbox checked label="기본 — checkbox" />
+      <Checkbox defaultChecked label="기본 — checkbox" />
       <Checkbox labelEnd label="레이블 뒤 — checkbox_label-end" />
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button checked label="버튼형" />
+        <Checkbox button defaultChecked label="버튼형" />
         <Checkbox button label="UI" />
         <Checkbox button label="UX" />
       </fieldset>
@@ -43,7 +43,7 @@ export function TypeExample() {
             <div className="card_extra">
               <Checkbox
                 id="checkbox-type-card"
-                checked
+                defaultChecked
                 aria-labelledby="checkbox-type-card-title checkbox-type-card-desc"
               />
             </div>
@@ -61,7 +61,7 @@ const labelEndCode = `import Checkbox from '@/components/Checkbox.jsx';
 export function LabelEndExample() {
   return (
     <>
-      <Checkbox labelEnd checked label="푸시 알림 받기" />
+      <Checkbox labelEnd defaultChecked label="푸시 알림 받기" />
       <Checkbox labelEnd>
         <span className="checkbox_content">
           <span className="checkbox_label">마케팅 정보 수신</span>
@@ -73,12 +73,12 @@ export function LabelEndExample() {
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="checkbox_group-legend">알림 설정 — checkbox_group_block</legend>
-        <Checkbox labelEnd checked label="이메일 알림" />
-        <Checkbox labelEnd checked label="푸시 알림" />
+        <Checkbox labelEnd defaultChecked label="이메일 알림" />
+        <Checkbox labelEnd defaultChecked label="푸시 알림" />
         <Checkbox labelEnd label="SMS 알림" />
       </fieldset>
-      <Checkbox className="checkbox_sm" labelEnd checked label="Small — checkbox_sm" />
-      <Checkbox className="checkbox_lg" labelEnd checked label="Large — checkbox_lg" />
+      <Checkbox className="checkbox_sm" labelEnd defaultChecked label="Small — checkbox_sm" />
+      <Checkbox className="checkbox_lg" labelEnd defaultChecked label="Large — checkbox_lg" />
     </>
   );
 }`;
@@ -91,7 +91,7 @@ export function BasicExample() {
         알림 설정
       </span>
       <fieldset className="checkbox_group" aria-labelledby="checkbox-notify-label">
-        <Checkbox checked>
+        <Checkbox defaultChecked>
           <span className="checkbox_content">
             <span className="checkbox_label">이메일 알림</span>
             <span className="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
@@ -113,7 +113,7 @@ export function StandaloneExample() {
   return (
     <>
       <Checkbox ariaLabel="항목 선택" />
-      <Checkbox checked ariaLabel="선택됨" />
+      <Checkbox defaultChecked ariaLabel="선택됨" />
       <Checkbox disabled ariaLabel="비활성" />
     </>
   );
@@ -123,9 +123,9 @@ const sizeCode = `import Checkbox from '@/components/Checkbox.jsx';
 export function SizeExample() {
   return (
     <>
-      <Checkbox className="checkbox_sm" checked label="Small — checkbox_sm" />
-      <Checkbox checked label="Medium — 기본" />
-      <Checkbox className="checkbox_lg" checked label="Large — checkbox_lg" />
+      <Checkbox className="checkbox_sm" defaultChecked label="Small — checkbox_sm" />
+      <Checkbox defaultChecked label="Medium — 기본" />
+      <Checkbox className="checkbox_lg" defaultChecked label="Large — checkbox_lg" />
     </>
   );
 }`;
@@ -134,14 +134,14 @@ const widthCode = `import Checkbox from '@/components/Checkbox.jsx';
 export function WidthExample() {
   return (
     <>
-      <Checkbox checked label="기본 — 인라인 너비" />
-      <Checkbox className="checkbox_block" checked label="checkbox_block — 전체 너비" />
+      <Checkbox defaultChecked label="기본 — 인라인 너비" />
+      <Checkbox className="checkbox_block" defaultChecked label="checkbox_block — 전체 너비" />
       <fieldset
         className="checkbox_group checkbox_group_block"
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="checkbox_group-legend">checkbox_group_block</legend>
-        <Checkbox checked label="항목 1" />
+        <Checkbox defaultChecked label="항목 1" />
         <Checkbox label="항목 2" />
       </fieldset>
     </>
@@ -152,10 +152,10 @@ const colorCode = `import Checkbox from '@/components/Checkbox.jsx';
 export function ColorExample() {
   return (
     <>
-      <Checkbox className="color_primary" checked label="Primary" />
-      <Checkbox className="color_success" checked label="Success" />
-      <Checkbox className="color_danger" checked label="Danger" />
-      <Checkbox className="color_warning" checked label="Warning" />
+      <Checkbox className="color_primary" defaultChecked label="Primary" />
+      <Checkbox className="color_success" defaultChecked label="Success" />
+      <Checkbox className="color_danger" defaultChecked label="Danger" />
+      <Checkbox className="color_warning" defaultChecked label="Warning" />
     </>
   );
 }`;
@@ -165,10 +165,10 @@ export function StateExample() {
   return (
     <>
       <Checkbox label="미선택" />
-      <Checkbox checked label="선택됨" />
-      <Checkbox checked indeterminate label="불확정" />
+      <Checkbox defaultChecked label="선택됨" />
+      <Checkbox defaultChecked indeterminate label="불확정" />
       <Checkbox disabled label="비활성" />
-      <Checkbox checked disabled label="선택됨 (비활성)" />
+      <Checkbox defaultChecked disabled label="선택됨 (비활성)" />
     </>
   );
 }`;
@@ -179,14 +179,14 @@ export function GroupExample() {
     <>
       <fieldset className="checkbox_group">
         <legend className="checkbox_group-legend">관심 분야 (세로)</legend>
-        <Checkbox checked label="디자인" />
+        <Checkbox defaultChecked label="디자인" />
         <Checkbox label="개발" />
         <Checkbox label="기획" />
       </fieldset>
       <fieldset className="checkbox_group checkbox_group_horizontal">
         <legend className="checkbox_group-legend">언어 (가로)</legend>
-        <Checkbox button checked label="한국어" />
-        <Checkbox button checked label="English" />
+        <Checkbox button defaultChecked label="한국어" />
+        <Checkbox button defaultChecked label="English" />
         <Checkbox button label="日本語" />
       </fieldset>
     </>
@@ -198,15 +198,15 @@ export function ButtonTypeExample() {
   return (
     <>
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button checked label="전체" />
+        <Checkbox button defaultChecked label="전체" />
         <Checkbox button label="진행 중" />
         <Checkbox button label="완료" />
         <Checkbox button disabled label="보류 (비활성)" />
       </fieldset>
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button className="checkbox_sm color_success" checked label="Small" />
-        <Checkbox button className="color_success" checked label="Medium" />
-        <Checkbox button className="checkbox_lg color_success" checked label="Large" />
+        <Checkbox button className="checkbox_sm color_success" defaultChecked label="Small" />
+        <Checkbox button className="color_success" defaultChecked label="Medium" />
+        <Checkbox button className="checkbox_lg color_success" defaultChecked label="Large" />
       </fieldset>
     </>
   );
@@ -233,7 +233,7 @@ export function CardTypeExample() {
                     id="checkbox-plan-basic"
                     name="plan"
                     value="basic"
-                    checked
+                    defaultChecked
                     aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc"
                   />
                 </div>
@@ -260,7 +260,7 @@ export function FormExample() {
             수신 동의
           </span>
           <fieldset className="checkbox_group" aria-labelledby="checkbox-form-vertical-label">
-            <Checkbox checked label="마케팅 정보 수신" />
+            <Checkbox defaultChecked label="마케팅 정보 수신" />
             <Checkbox label="뉴스레터 구독" />
           </fieldset>
         </div>
@@ -274,7 +274,7 @@ export function FormExample() {
             className="checkbox_group checkbox_group_horizontal"
             aria-labelledby="checkbox-form-horizontal-label"
           >
-            <Checkbox button checked label="조회" />
+            <Checkbox button defaultChecked label="조회" />
             <Checkbox button label="편집" />
           </fieldset>
         </div>
@@ -299,10 +299,10 @@ export default function CheckboxDoc() {
           code={typeCode}
         >
 <>
-      <Checkbox checked label="기본 — checkbox" />
+      <Checkbox defaultChecked label="기본 — checkbox" />
       <Checkbox labelEnd label="레이블 뒤 — checkbox_label-end" />
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button checked label="버튼형" />
+        <Checkbox button defaultChecked label="버튼형" />
         <Checkbox button label="UI" />
         <Checkbox button label="UX" />
       </fieldset>
@@ -317,7 +317,7 @@ export default function CheckboxDoc() {
             <div className="card_extra">
               <Checkbox
                 id="checkbox-type-card"
-                checked
+                defaultChecked
                 aria-labelledby="checkbox-type-card-title checkbox-type-card-desc"
               />
             </div>
@@ -336,7 +336,7 @@ export default function CheckboxDoc() {
           code={labelEndCode}
         >
 <>
-      <Checkbox labelEnd checked label="푸시 알림 받기" />
+      <Checkbox labelEnd defaultChecked label="푸시 알림 받기" />
       <Checkbox labelEnd>
         <span className="checkbox_content">
           <span className="checkbox_label">마케팅 정보 수신</span>
@@ -348,12 +348,12 @@ export default function CheckboxDoc() {
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="checkbox_group-legend">알림 설정 — checkbox_group_block</legend>
-        <Checkbox labelEnd checked label="이메일 알림" />
-        <Checkbox labelEnd checked label="푸시 알림" />
+        <Checkbox labelEnd defaultChecked label="이메일 알림" />
+        <Checkbox labelEnd defaultChecked label="푸시 알림" />
         <Checkbox labelEnd label="SMS 알림" />
       </fieldset>
-      <Checkbox className="checkbox_sm" labelEnd checked label="Small — checkbox_sm" />
-      <Checkbox className="checkbox_lg" labelEnd checked label="Large — checkbox_lg" />
+      <Checkbox className="checkbox_sm" labelEnd defaultChecked label="Small — checkbox_sm" />
+      <Checkbox className="checkbox_lg" labelEnd defaultChecked label="Large — checkbox_lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -367,7 +367,7 @@ export default function CheckboxDoc() {
         알림 설정
       </span>
       <fieldset className="checkbox_group" aria-labelledby="checkbox-notify-label">
-        <Checkbox checked>
+        <Checkbox defaultChecked>
           <span className="checkbox_content">
             <span className="checkbox_label">이메일 알림</span>
             <span className="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
@@ -391,7 +391,7 @@ export default function CheckboxDoc() {
         >
 <>
       <Checkbox ariaLabel="항목 선택" />
-      <Checkbox checked ariaLabel="선택됨" />
+      <Checkbox defaultChecked ariaLabel="선택됨" />
       <Checkbox disabled ariaLabel="비활성" />
     </>
         </DemoSection>
@@ -403,9 +403,9 @@ export default function CheckboxDoc() {
           code={sizeCode}
         >
 <>
-      <Checkbox className="checkbox_sm" checked label="Small — checkbox_sm" />
-      <Checkbox checked label="Medium — 기본" />
-      <Checkbox className="checkbox_lg" checked label="Large — checkbox_lg" />
+      <Checkbox className="checkbox_sm" defaultChecked label="Small — checkbox_sm" />
+      <Checkbox defaultChecked label="Medium — 기본" />
+      <Checkbox className="checkbox_lg" defaultChecked label="Large — checkbox_lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -415,14 +415,14 @@ export default function CheckboxDoc() {
           code={widthCode}
         >
 <>
-      <Checkbox checked label="기본 — 인라인 너비" />
-      <Checkbox className="checkbox_block" checked label="checkbox_block — 전체 너비" />
+      <Checkbox defaultChecked label="기본 — 인라인 너비" />
+      <Checkbox className="checkbox_block" defaultChecked label="checkbox_block — 전체 너비" />
       <fieldset
         className="checkbox_group checkbox_group_block"
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="checkbox_group-legend">checkbox_group_block</legend>
-        <Checkbox checked label="항목 1" />
+        <Checkbox defaultChecked label="항목 1" />
         <Checkbox label="항목 2" />
       </fieldset>
     </>
@@ -435,10 +435,10 @@ export default function CheckboxDoc() {
           code={colorCode}
         >
 <>
-      <Checkbox className="color_primary" checked label="Primary" />
-      <Checkbox className="color_success" checked label="Success" />
-      <Checkbox className="color_danger" checked label="Danger" />
-      <Checkbox className="color_warning" checked label="Warning" />
+      <Checkbox className="color_primary" defaultChecked label="Primary" />
+      <Checkbox className="color_success" defaultChecked label="Success" />
+      <Checkbox className="color_danger" defaultChecked label="Danger" />
+      <Checkbox className="color_warning" defaultChecked label="Warning" />
     </>
         </DemoSection>
         <DemoSection
@@ -450,10 +450,10 @@ export default function CheckboxDoc() {
         >
 <>
       <Checkbox label="미선택" />
-      <Checkbox checked label="선택됨" />
-      <Checkbox checked indeterminate label="불확정" />
+      <Checkbox defaultChecked label="선택됨" />
+      <Checkbox defaultChecked indeterminate label="불확정" />
       <Checkbox disabled label="비활성" />
-      <Checkbox checked disabled label="선택됨 (비활성)" />
+      <Checkbox defaultChecked disabled label="선택됨 (비활성)" />
     </>
         </DemoSection>
         <DemoSection
@@ -466,14 +466,14 @@ export default function CheckboxDoc() {
 <>
       <fieldset className="checkbox_group">
         <legend className="checkbox_group-legend">관심 분야 (세로)</legend>
-        <Checkbox checked label="디자인" />
+        <Checkbox defaultChecked label="디자인" />
         <Checkbox label="개발" />
         <Checkbox label="기획" />
       </fieldset>
       <fieldset className="checkbox_group checkbox_group_horizontal">
         <legend className="checkbox_group-legend">언어 (가로)</legend>
-        <Checkbox button checked label="한국어" />
-        <Checkbox button checked label="English" />
+        <Checkbox button defaultChecked label="한국어" />
+        <Checkbox button defaultChecked label="English" />
         <Checkbox button label="日本語" />
       </fieldset>
     </>
@@ -487,15 +487,15 @@ export default function CheckboxDoc() {
         >
 <>
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button checked label="전체" />
+        <Checkbox button defaultChecked label="전체" />
         <Checkbox button label="진행 중" />
         <Checkbox button label="완료" />
         <Checkbox button disabled label="보류 (비활성)" />
       </fieldset>
       <fieldset className="checkbox_group checkbox_group_horizontal">
-        <Checkbox button className="checkbox_sm color_success" checked label="Small" />
-        <Checkbox button className="color_success" checked label="Medium" />
-        <Checkbox button className="checkbox_lg color_success" checked label="Large" />
+        <Checkbox button className="checkbox_sm color_success" defaultChecked label="Small" />
+        <Checkbox button className="color_success" defaultChecked label="Medium" />
+        <Checkbox button className="checkbox_lg color_success" defaultChecked label="Large" />
       </fieldset>
     </>
         </DemoSection>
@@ -524,7 +524,7 @@ export default function CheckboxDoc() {
                     id="checkbox-plan-basic"
                     name="plan"
                     value="basic"
-                    checked
+                    defaultChecked
                     aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc"
                   />
                 </div>
@@ -597,7 +597,7 @@ export default function CheckboxDoc() {
                 <div className="card_extra">
                   <Checkbox
                     id="checkbox-perm-read"
-                    checked
+                    defaultChecked
                     aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc"
                   />
                 </div>
@@ -618,7 +618,7 @@ export default function CheckboxDoc() {
                 <div className="card_extra">
                   <Checkbox
                     id="checkbox-perm-write"
-                    checked
+                    defaultChecked
                     aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc"
                   />
                 </div>
@@ -669,7 +669,7 @@ export default function CheckboxDoc() {
                     id="checkbox-plan-full-basic"
                     name="plan-clickable"
                     value="basic"
-                    checked
+                    defaultChecked
                     aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc"
                   />
                 </div>
@@ -744,7 +744,7 @@ export default function CheckboxDoc() {
             수신 동의
           </span>
           <fieldset className="checkbox_group" aria-labelledby="checkbox-form-vertical-label">
-            <Checkbox checked label="마케팅 정보 수신" />
+            <Checkbox defaultChecked label="마케팅 정보 수신" />
             <Checkbox label="뉴스레터 구독" />
           </fieldset>
         </div>
@@ -758,7 +758,7 @@ export default function CheckboxDoc() {
             className="checkbox_group checkbox_group_horizontal"
             aria-labelledby="checkbox-form-horizontal-label"
           >
-            <Checkbox button checked label="조회" />
+            <Checkbox button defaultChecked label="조회" />
             <Checkbox button label="편집" />
           </fieldset>
         </div>

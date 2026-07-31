@@ -38,11 +38,19 @@
   border-radius: 50%;
   background: var(--color-surface-raised);
   color: color-token(muted);
+  margin: 0;
+  padding: 0;
+  border: 0;
   font-size: var(--avatar-font-size);
+  font-family: inherit;
   font-weight: 600;
   line-height: 1;
   user-select: none;
   @include square-size(var(--avatar-size));
+
+  &:is(button, a) {
+    cursor: pointer;
+  }
 
   &.color_default {
     color: color-token(default);

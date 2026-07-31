@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext, useMemo, useRef } from 'react';
 import Icon from '@/components/Icon.jsx';
 import { StepsContext } from '@/components/Steps.jsx';

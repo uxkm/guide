@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';

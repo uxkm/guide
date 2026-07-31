@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'guide-theme';
-
-function getSystemTheme() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
+const DEFAULT_THEME = 'light';
 
 function getStoredTheme() {
   try {
@@ -16,9 +13,7 @@ function getStoredTheme() {
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState(
-    () => document.documentElement.getAttribute('data-theme') || getSystemTheme(),
-  );
+  const [theme, setTheme] = useState(DEFAULT_THEME);
 
   function applyTheme(next, persist = false) {
     setTheme(next);
@@ -37,17 +32,8 @@ export function useTheme() {
   }
 
   useEffect(() => {
-    applyTheme(getStoredTheme() || getSystemTheme(), false);
-
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = () => {
-      if (!getStoredTheme()) {
-        applyTheme(getSystemTheme(), false);
-      }
-    };
-
-    media.addEventListener('change', onChange);
-    return () => media.removeEventListener('change', onChange);
+    const documentTheme = document.documentElement.getAttribute('data-theme');
+    applyTheme(getStoredTheme() || documentTheme || DEFAULT_THEME, false);
   }, []);
 
   useEffect(() => {

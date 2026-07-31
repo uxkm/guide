@@ -1,4 +1,7 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
+import Icon from '@/components/Icon.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
@@ -13,6 +16,8 @@ const formatCode = createComponentFormatter('Avatar', {
 });
 
 export default function Avatar({
+  as,
+  name,
   src,
   alt,
   initials,
@@ -22,15 +27,18 @@ export default function Avatar({
   badgeColor,
   badgeLabel,
   ariaHidden,
+  ariaLabel,
   icon,
+  children,
   className,
   ...rest
 }) {
   const rootRef = useRef(null);
   const [imageError, setImageError] = useState(false);
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const hasChildren = children != null && children !== false;
   const showImage = Boolean(src) && !imageError;
-  const showInitials = !showImage && !icon && initials;
+  const showInitials = !showImage && !hasChildren && !icon && !name && initials;
 
   useEffect(() => {
     setImageError(false);
@@ -39,6 +47,8 @@ export default function Avatar({
   useComponentDemoCode(
     formatCode,
     {
+      as: typeof as === 'string' ? as : undefined,
+      name,
       src,
       alt,
       initials,
@@ -46,9 +56,10 @@ export default function Avatar({
       size: resolvedSize,
       square,
       ariaHidden,
+      ariaLabel,
     },
     createDemoSlots({
-      default: showInitials ? initials : undefined,
+      default: hasChildren ? children : showInitials ? initials : undefined,
       icon,
     }),
     rootRef,
@@ -66,28 +77,39 @@ export default function Avatar({
   }, [color, resolvedSize, square]);
 
   const domRest = normalizeDomProps(rest);
+  const Root = as || 'span';
+  const isNativeButton = Root === 'button';
+  const hasNativeSemantics = isNativeButton || Root === 'a';
+  const resolvedSrc = typeof src === 'object' && src ? src.src : src;
 
   function handleImageError() {
     setImageError(true);
   }
 
   return (
-    <span
+    <Root
       ref={rootRef}
       className={cn(rootClass, className)}
+      type={isNativeButton ? 'button' : undefined}
+      role={!hasNativeSemantics && !ariaHidden && ariaLabel ? 'img' : undefined}
+      aria-label={!ariaHidden ? ariaLabel : undefined}
       aria-hidden={ariaHidden ? 'true' : undefined}
       {...domRest}
     >
       {showImage ? (
         <img
-          key={src}
+          key={resolvedSrc}
           className="avatar_image"
-          src={src}
+          src={resolvedSrc}
           alt={alt || ''}
           onError={handleImageError}
         />
+      ) : hasChildren ? (
+        children
       ) : icon ? (
         icon
+      ) : name ? (
+        <Icon name={name} className="avatar_icon" />
       ) : showInitials ? (
         initials
       ) : null}
@@ -97,6 +119,6 @@ export default function Avatar({
           aria-label={badgeLabel}
         />
       ) : null}
-    </span>
+    </Root>
   );
 }

@@ -16,7 +16,7 @@ export const dividerProps = [
     name: 'plain',
     type: 'boolean',
     default: 'false',
-    description: '레이블 보조 톤 (divider_plain)',
+    description: '레이블 글자 굵기를 400으로 변경 (divider_plain)',
   },
   {
     name: 'vertical',
@@ -32,15 +32,15 @@ export const dividerProps = [
   },
   {
     name: 'label',
-    type: 'string',
+    type: 'ReactNode',
     default: '—',
-    description: '가운데 레이블 텍스트. children으로 대체 가능',
+    description: '구분선 레이블. children이 있으면 children을 우선 사용',
   },
   {
     name: 'tag',
     type: `'auto' | 'hr' | 'div' | 'span'`,
     default: 'auto',
-    description: '루트 태그. auto는 vertical·레이블 유무에 따라 hr · div · span 선택',
+    description: '루트 태그. auto는 레이블 없는 가로 hr · 레이블 있는 가로 div · 세로 span 선택',
   },
 ];
 
@@ -50,7 +50,7 @@ export const dividerSlotColumns = [
 ];
 
 export const dividerSlots = [
-  { name: 'children', description: '레이블 텍스트 (label prop 대체, Vue default 슬롯 대응)' },
+  { name: 'children', description: '레이블 콘텐츠. label prop보다 우선하며 ReactNode를 지원' },
 ];
 
 export const dividerClassColumns = [
@@ -61,7 +61,7 @@ export const dividerClassColumns = [
 export const dividerClasses = [
   { name: 'divider', description: '가로·세로 구분선 루트' },
   { name: 'divider_dashed', description: '점선 스타일' },
-  { name: 'divider_plain', description: '보조 톤 레이블' },
+  { name: 'divider_plain', description: '레이블 글자 굵기를 400으로 변경' },
   { name: 'divider_vertical', description: '세로 구분선 (인라인·flex 행)' },
   { name: 'divider_orient-left · divider_orient-right', description: '레이블 좌·우 정렬' },
 ];
@@ -78,5 +78,5 @@ export const dividerTokens = [
   { name: '--divider-margin-y', default: 'var(--space-md)', description: '가로 구분선 상하 여백' },
   { name: '--divider-margin-x', default: 'var(--space-sm)', description: '세로 구분선 좌우 여백' },
   { name: '--divider-text-gap', default: 'var(--space-md)', description: '레이블·선 사이 간격' },
-  { name: '--divider-orient-inset', default: '5%', description: 'orient-left · orient-right 선 길이' },
+  { name: '--divider-orient-inset', default: '5%', description: '좌·우 정렬 시 짧은 쪽 선 길이' },
 ];

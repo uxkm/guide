@@ -6,10 +6,13 @@ export const dropdownPropColumns = [
 ];
 
 export const dropdownProps = [
-  { name: 'open', type: 'boolean', default: 'false', description: '열림 (is-open)' },
+  { name: 'open', type: 'boolean', default: '—', description: '열림 상태 (제어)' },
+  { name: 'defaultOpen', type: 'boolean', default: 'false', description: '초기 열림 상태 (비제어)' },
+  { name: 'onOpenChange', type: '(open: boolean) => void', default: '—', description: '열림 상태 변경 콜백' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'is-disabled' },
   { name: 'placement', type: `'end' | 'top'`, default: '—', description: 'dropdown_placement-end · dropdown_placement-top' },
   { name: 'fit', type: 'boolean', default: 'false', description: 'dropdown_fit — 트리거 너비 맞춤' },
+  { name: 'closeOnSelect', type: 'boolean', default: 'false', description: '메뉴 항목 선택 후 패널 닫기' },
   { name: 'maxVisibleItems', type: 'number', default: '—', description: '패널에 보이는 최대 항목 수. 초과 시 dropdown_menu-scrollable로 목록 스크롤' },
   { name: 'menuWidth', type: 'string | number', default: '—', description: '패널 가로 너비 (숫자는 rem)' },
   { name: 'menuMinWidth', type: 'string | number', default: '—', description: '패널 최소 가로 너비 (숫자는 rem)' },
@@ -37,7 +40,7 @@ export const dropdownClasses = [
   { name: 'dropdown · dropdown_menu', description: '루트·메뉴 패널' },
   { name: 'dropdown_placement-end · dropdown_placement-top · dropdown_fit', description: '배치·너비' },
   { name: 'dropdown_menu-scrollable', description: 'maxVisibleItems 지정 시 — menu_list 스크롤' },
-  { name: 'data-dropdown · data-dropdown-close-on-select', description: 'JS 연동' },
+  { name: 'data-dropdown · data-react-dropdown', description: 'React Dropdown 식별자' },
   { name: 'is-open · is-disabled', description: '상태' },
   { name: 'role="menu"', description: '메뉴 시맨틱' },
 ];

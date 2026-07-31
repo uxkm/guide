@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -11,8 +13,13 @@ const VALID_COLORS = new Set(['primary', 'success', 'warning', 'danger']);
 const formatCode = createComponentFormatter('Progress', {
   defaults: { percent: 0, size: 'md', color: 'primary' },
   booleanProps: new Set(['showInfo', 'striped', 'animated', 'indeterminate', 'inside', 'block']),
-  selfClosing: false,
 });
+
+function normalizePercent(percent) {
+  const numericPercent = Number(percent);
+  if (!Number.isFinite(numericPercent)) return 0;
+  return Math.min(100, Math.max(0, numericPercent));
+}
 
 export default function Progress({
   percent = 0,
@@ -34,11 +41,12 @@ export default function Progress({
   const resolvedStatus = VALID_STATUSES.has(status) ? status : '';
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const resolvedColor = VALID_COLORS.has(color) ? color : 'primary';
+  const resolvedPercent = normalizePercent(percent);
 
   useComponentDemoCode(
     formatCode,
     {
-      percent,
+      percent: resolvedPercent,
       status: resolvedStatus || undefined,
       size: resolvedSize,
       showInfo,
@@ -76,7 +84,7 @@ export default function Progress({
     return classes;
   }, [statusColor, block, resolvedSize, striped, animated, indeterminate, inside]);
 
-  const displayValue = `${percent}%`;
+  const displayValue = `${resolvedPercent}%`;
   const trackStyle = inside ? { background: 'var(--color-border-subtle)' } : undefined;
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
@@ -93,13 +101,13 @@ export default function Progress({
         className="progress_track"
         style={trackStyle}
         role="progressbar"
-        aria-valuenow={indeterminate ? undefined : percent}
+        aria-valuenow={indeterminate ? undefined : resolvedPercent}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={ariaLabel}
         aria-busy={indeterminate ? 'true' : undefined}
       >
-        <span className="progress_bar" style={{ width: `${percent}%` }}>
+        <span className="progress_bar" style={{ width: `${resolvedPercent}%` }}>
           {inside ? displayValue : ''}
         </span>
       </div>

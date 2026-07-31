@@ -5,8 +5,8 @@ export const requirementColumns = [
 ];
 
 export const requirementRows = [
-  { tool: 'Node.js', version: '18 이상 권장', note: 'LTS 버전 사용' },
-  { tool: 'pnpm', version: '9.x', note: 'packageManager 필드에 명시된 버전' },
+  { tool: 'Node.js', version: '20.9 이상', note: 'Next.js 16 실행 요구사항' },
+  { tool: 'pnpm', version: '9.15.9', note: 'packageManager 필드에 명시된 버전' },
 ];
 
 export const scriptColumns = [
@@ -15,10 +15,11 @@ export const scriptColumns = [
 ];
 
 export const scriptRows = [
-  { command: 'pnpm dev', description: 'Vite 개발 서버 — 소개 페이지로 바로 진입' },
-  { command: 'pnpm build', description: '프로덕션 빌드 → dist/ 생성' },
-  { command: 'pnpm preview', description: '빌드 결과 로컬 미리보기' },
-  { command: 'pnpm deploy:main', description: 'react 브랜치에서 main/react/로 정적 배포' },
+  { command: 'pnpm dev', description: 'Turbopack 기반 Next.js 개발 서버 — http://localhost:3000' },
+  { command: 'pnpm build', description: 'Turbopack 기반 Next.js 정적 export — out/ 생성' },
+  { command: 'pnpm start', description: 'out/ 정적 빌드 결과를 로컬 서버로 실행' },
+  { command: 'pnpm preview', description: 'out/ 정적 빌드 결과를 로컬 서버로 미리보기' },
+  { command: 'pnpm deploy:main', description: '/react로 빌드한 뒤 main/react/에 커밋·푸시' },
 ];
 
 export const newComponentColumns = [
@@ -32,7 +33,8 @@ export const newComponentRows = [
   { path: 'src/scss/components/_{name}.scss', role: '컴포넌트 스타일' },
   { path: 'src/scss/components/_index.scss', role: '@use "{name}" 등록' },
   { path: 'src/data/navigation.js', role: '사이드바 메뉴 항목 추가' },
-  { path: 'src/router/index.jsx', role: '라우트 등록 (handle.docKey)' },
+  { path: 'src/data/doc-registry.js', role: '정적 경로·페이지 메타데이터 등록' },
+  { path: 'src/utils/doc-loader.js', role: '문서 모듈 import 및 slug 매핑 등록' },
 ];
 
 export const installCode = `# 저장소 클론
@@ -41,6 +43,9 @@ cd guide
 
 # 의존성 설치
 pnpm install`;
+
+export const basePathCode = `# /react 하위 경로용 정적 사이트 생성
+NEXT_PUBLIC_BASE_PATH=/react pnpm build`;
 
 export const stylesCode = `// 전체 스타일
 @use "main";

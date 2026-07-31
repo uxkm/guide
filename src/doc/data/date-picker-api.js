@@ -7,7 +7,8 @@ export const datePickerPropColumns = [
 ];
 
 export const datePickerProps = [
-  { name: 'value', type: 'string', default: '—', description: '표시할 날짜 문자열' },
+  { name: 'value', type: 'string', default: '—', description: '제어 날짜 문자열' },
+  { name: 'defaultValue', type: 'string', default: '—', description: '비제어 초기 날짜 문자열' },
   { name: 'placeholder', type: 'string', default: '—', description: '미선택 placeholder' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'date_picker_sm · date_picker_lg' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },

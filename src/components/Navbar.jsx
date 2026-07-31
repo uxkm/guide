@@ -1,4 +1,6 @@
-import { useId, useMemo, useRef } from 'react';
+'use client';
+
+import { useId, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -17,6 +19,8 @@ export default function Navbar({
   sticky,
   responsive,
   collapseId,
+  brandAs,
+  brandHref = '#',
   brandContent,
   brandIcon,
   items,
@@ -31,6 +35,7 @@ export default function Navbar({
   const reactId = useId().replace(/:/g, '');
   const collapseTargetId = collapseId || `navbar-collapse-${reactId}`;
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const [isOpen, setIsOpen] = useState(false);
 
   useNavbarDemoCode(
     {
@@ -42,6 +47,8 @@ export default function Navbar({
       sticky,
       responsive,
       collapseId,
+      brandAs: typeof brandAs === 'string' ? brandAs : undefined,
+      brandHref: brandHref === '#' ? undefined : brandHref,
     },
     rootRef,
     { className, ...rest },
@@ -67,37 +74,45 @@ export default function Navbar({
   );
   const navItems = items ?? (children ? <ul className="navbar_list">{children}</ul> : null);
 
-  const handleBrandClick = (event) => {
-    event.preventDefault();
-  };
+  const Brand = brandAs || 'a';
+  const brandAcceptsHref = Brand === 'a' || typeof Brand !== 'string';
+
+  function handleBrandClick(event) {
+    if (!brandHref || brandHref === '#') {
+      event.preventDefault();
+    }
+  }
+
+  function toggleMenu() {
+    setIsOpen((open) => !open);
+  }
 
   return (
     <header
       ref={rootRef}
-      className={cn(rootClass, className)}
-      data-navbar={responsive || undefined}
+      className={cn(rootClass, responsive && isOpen && 'is-open', className)}
       {...rippleAttrs}
       {...domRest}
     >
       <div className="navbar_container">
-        <a
+        <Brand
           {...childRippleAttrs}
-          href="#"
+          href={brandAcceptsHref ? brandHref : undefined}
           className="navbar_brand"
           onClick={handleBrandClick}
         >
           {brandInner}
-        </a>
+        </Brand>
         {responsive ? (
           <Button
             {...childRippleAttrs}
             variant="ghost"
             iconOnly
             className="navbar_toggle"
-            data-navbar-toggle=""
-            expanded={false}
+            expanded={isOpen}
             aria-controls={collapseTargetId}
-            ariaLabel="메뉴 열기"
+            ariaLabel={isOpen ? '메뉴 닫기' : '메뉴 열기'}
+            onClick={toggleMenu}
             iconBefore={
               <>
                 <Icon name="menu" size="sm" className="navbar_toggle-icon-open" />
@@ -106,7 +121,10 @@ export default function Navbar({
             }
           />
         ) : null}
-        <div className="navbar_collapse" id={collapseTargetId}>
+        <div
+          className={cn('navbar_collapse', responsive && isOpen && 'is-open')}
+          id={collapseTargetId}
+        >
           <nav className="navbar_nav" aria-label="주요 메뉴">
             {navItems}
           </nav>

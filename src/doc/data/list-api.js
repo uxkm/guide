@@ -70,7 +70,7 @@ export const listSlotColumns = [
 ];
 
 export const listSlots = [
-  { name: 'children', description: 'ListItem 자식 (Vue default 슬롯 대응)' },
+  { name: 'children', description: 'ListItem 또는 목록 콘텐츠를 전달하는 React children' },
 ];
 
 export const listItemSlotColumns = [
@@ -79,13 +79,13 @@ export const listItemSlotColumns = [
 ];
 
 export const listItemSlots = [
-  { name: 'prefix', description: '앞쪽 아바타·아이콘 등 (Vue #prefix 슬롯 대응)' },
+  { name: 'prefix', description: '앞쪽에 표시할 아바타·아이콘 등의 React 노드' },
   { name: 'title', description: '항목 제목 (list_title)' },
   { name: 'description', description: '설명 (list_desc)' },
   { name: 'meta', description: '보조 메타 (list_meta)' },
-  { name: 'extra', description: '우측 보조 텍스트 (Vue #extra 슬롯 대응, list_extra)' },
-  { name: 'actions', description: '우측 액션 (Vue #actions 슬롯 대응, list_action)' },
-  { name: 'children', description: '본문 (title·description 대체, Vue default 슬롯 대응)' },
+  { name: 'extra', description: '우측 보조 콘텐츠로 전달하는 React 노드 (list_extra)' },
+  { name: 'actions', description: '우측 액션으로 전달하는 React 노드 (list_action)' },
+  { name: 'children', description: 'title·description 대신 표시할 React children' },
 ];
 
 export const listClassColumns = [

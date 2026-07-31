@@ -1,8 +1,11 @@
+'use client';
+
 import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { AccordionContext } from '@/components/Accordion.jsx';
 import { useRipple } from '@/hooks/useRipple';
+import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 import { setSlideRegionOpen } from '@/utils/slide-region';
 
@@ -11,6 +14,8 @@ export default function AccordionItem({
   label,
   content,
   open,
+  defaultOpen = false,
+  onOpenChange,
   disabled,
   extraCode,
   extra,
@@ -27,14 +32,27 @@ export default function AccordionItem({
   const triggerId = `accordion-trigger-${reactId}`;
   const panelId = `accordion-panel-${reactId}`;
 
-  const [isOpen, setIsOpen] = useState(() => Boolean(open));
+  const [internalOpen, setInternalOpen] = useState(() => Boolean(defaultOpen));
+  const controlled = open != null;
+  const isOpen = controlled ? Boolean(open) : internalOpen;
   const isOpenRef = useRef(isOpen);
   isOpenRef.current = isOpen;
+  const controlledRef = useRef(controlled);
+  controlledRef.current = controlled;
+  const onOpenChangeRef = useRef(onOpenChange);
+  onOpenChangeRef.current = onOpenChange;
   const panelRef = useRef(null);
   const isFirstSlideSync = useRef(true);
   const slide = accordion?.effect === 'slide';
 
   const hasExtra = extra != null;
+
+  function setIsOpen(nextOpen) {
+    if (!controlledRef.current) {
+      setInternalOpen(nextOpen);
+    }
+    onOpenChangeRef.current?.(nextOpen);
+  }
 
   // 마운트 시 1회 등록 — Context 갱신으로 재등록·열림 상태 리셋되지 않도록
   useEffect(() => {
@@ -45,7 +63,9 @@ export default function AccordionItem({
       id: triggerId,
       label,
       content,
-      open: Boolean(open),
+      open: controlled ? Boolean(open) : Boolean(defaultOpen),
+      defaultOpen: Boolean(defaultOpen),
+      controlled,
       disabled: Boolean(disabled),
       hasExtra,
       extraCode,
@@ -63,11 +83,24 @@ export default function AccordionItem({
     api.updateItemMeta(triggerId, {
       label,
       content,
+      open: controlled ? Boolean(open) : undefined,
+      defaultOpen: Boolean(defaultOpen),
+      controlled,
       disabled: Boolean(disabled),
       hasExtra,
       extraCode,
     });
-  }, [triggerId, label, content, disabled, hasExtra, extraCode]);
+  }, [
+    triggerId,
+    label,
+    content,
+    open,
+    defaultOpen,
+    controlled,
+    disabled,
+    hasExtra,
+    extraCode,
+  ]);
 
   useLayoutEffect(() => {
     if (!slide) return;
@@ -112,7 +145,8 @@ export default function AccordionItem({
     }
   }
 
-  const { class: _ignoredClass, ...domRest } = rest;
+  const { class: _ignoredClass, ...restForDom } = rest;
+  const domRest = normalizeDomProps(restForDom);
 
   return (
     <div className={cn(itemClass, className)} {...domRest}>

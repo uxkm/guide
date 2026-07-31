@@ -6,21 +6,21 @@ CURRENT_BRANCH=$(git branch --show-current)
 case "$CURRENT_BRANCH" in
   gulp) DEPLOY_DIR="html" ;;
   vue) DEPLOY_DIR="vue" ;;
-  react) DEPLOY_DIR="react" ;;
+  react|next) DEPLOY_DIR="react" ;;
   *)
-    echo "gulp, vue 또는 react 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
+    echo "gulp, vue, react 또는 next 브랜치에서 실행하세요. (현재: $CURRENT_BRANCH)"
     exit 1
     ;;
 esac
 
 echo "==> 빌드 중..."
-pnpm build
+NEXT_PUBLIC_BASE_PATH="/$DEPLOY_DIR" pnpm build
 
 echo "==> 빌드 결과 임시 저장..."
 TEMP=$(mktemp -d)
 trap 'rm -rf "$TEMP"' EXIT
 
-cp -R dist/* "$TEMP/"
+cp -R out/. "$TEMP/"
 
 echo "==> main 브랜치로 전환..."
 STASHED=0
@@ -32,9 +32,9 @@ fi
 git checkout main
 
 echo "==> $DEPLOY_DIR/ 폴더에 배포 (기존 html/ 등 유지)..."
-rm -rf "$DEPLOY_DIR" dist
+rm -rf "$DEPLOY_DIR"
 mkdir -p "$DEPLOY_DIR"
-cp -R "$TEMP"/* "$DEPLOY_DIR/"
+cp -R "$TEMP"/. "$DEPLOY_DIR/"
 
 git add "$DEPLOY_DIR"
 

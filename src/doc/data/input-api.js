@@ -9,6 +9,12 @@ export const inputPropColumns = [
 
 export const inputProps = [
   {
+    name: 'ref',
+    type: 'React.Ref<HTMLInputElement>',
+    default: '—',
+    description: '실제 input DOM 참조 (prefix · suffix 사용 시에도 input을 가리킴)',
+  },
+  {
     name: 'value',
     type: 'string',
     default: '—',
@@ -87,5 +93,13 @@ export const inputEvents = [
   {
     name: 'onChange',
     description: '입력 값 변경 시 (Vue update:modelValue 대응). React change 이벤트를 전달합니다.',
+  },
+  {
+    name: 'onPaste',
+    description: '붙여넣기 시. data-input-split · data-input-otp 내부에서는 값을 각 칸에 분배합니다.',
+  },
+  {
+    name: 'onKeyDown',
+    description: '키 입력 시. 분할 입력의 Backspace 이동과 OTP 좌우 방향키 이동을 지원합니다.',
   },
 ];

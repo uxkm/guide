@@ -1,4 +1,6 @@
-import { useId, useRef } from 'react';
+'use client';
+
+import { useId, useRef, useState } from 'react';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
 import { useRipple } from '@/hooks/useRipple';
@@ -19,12 +21,14 @@ export default function MenuSubmenu({
   icon,
   children,
   className,
+  onExpandedChange,
   ...rest
 }) {
   const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
   const reactId = useId().replace(/:/g, '');
   const submenuId = submenuIdProp || `menu-sub-${reactId}`;
+  const [isExpanded, setIsExpanded] = useState(() => Boolean(expanded));
 
   useComponentDemoCode(
     formatCode,
@@ -34,18 +38,27 @@ export default function MenuSubmenu({
     { className, ...rest },
   );
 
+  function toggleSubmenu() {
+    setIsExpanded((current) => {
+      const next = !current;
+      onExpandedChange?.(next);
+      return next;
+    });
+  }
+
   return (
     <li
       ref={rootRef}
       className={cn('menu_item', 'menu_item-submenu', className)}
-      aria-expanded={expanded ? 'true' : 'false'}
+      aria-expanded={isExpanded ? 'true' : 'false'}
       {...rest}
     >
       <Button
         variant="text"
         className="menu_link"
-        expanded={Boolean(expanded)}
+        expanded={isExpanded}
         aria-controls={submenuId}
+        onClick={toggleSubmenu}
         iconBefore={icon}
         iconAfter={<Icon name="chevron-down" className="menu_arrow" />}
         {...rippleAttrs}

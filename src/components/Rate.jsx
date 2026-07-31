@@ -1,4 +1,6 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+'use client';
+
+import { useId, useMemo, useRef, useState } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -47,6 +49,7 @@ function readonlyStarClass(star, value, allowHalf) {
 export default function Rate({
   ripple,
   value,
+  defaultValue,
   count = 5,
   allowHalf,
   clearable,
@@ -66,21 +69,16 @@ export default function Rate({
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const resolvedCount = Number(count) > 0 ? Number(count) : 5;
 
-  const [internalValue, setInternalValue] = useState(value);
-
-  useEffect(() => {
-    if (value !== undefined) {
-      setInternalValue(value);
-    }
-  }, [value]);
-
-  const currentValue = internalValue;
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
 
   useComponentDemoCode(
     formatCode,
     {
       ripple,
-      value: currentValue,
+      value,
+      defaultValue,
       count: resolvedCount,
       allowHalf,
       clearable,
@@ -114,13 +112,17 @@ export default function Rate({
   const domRest = normalizeDomProps(restForDom);
 
   function handleChange(next) {
-    setInternalValue(next);
+    if (!isControlled) {
+      setInternalValue(next);
+    }
     onChange?.(next);
   }
 
   function handleClear(event) {
     event.preventDefault();
-    setInternalValue(undefined);
+    if (!isControlled) {
+      setInternalValue(undefined);
+    }
     onChange?.(undefined);
   }
 

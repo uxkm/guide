@@ -9,6 +9,12 @@ export const linkPropColumns = [
 
 export const linkProps = [
   {
+    name: 'as',
+    type: 'React.ElementType',
+    default: 'a',
+    description: '루트 요소 또는 커스텀 링크 컴포넌트. button 등으로 변경할 수 있습니다',
+  },
+  {
     name: 'color',
     type: `'primary' | 'muted' | 'success' | 'warning' | 'danger'`,
     default: 'primary',
@@ -116,7 +122,7 @@ export const linkSlots = [
   { name: 'label', description: '링크 텍스트. children으로 대체 가능' },
   {
     name: 'children',
-    description: '링크 텍스트 (label prop 대체). 아이콘·보조 텍스트를 함께 넣을 수 있음',
+    description: 'label 대체 콘텐츠. 텍스트·이미지·아이콘·커스텀 컴포넌트를 함께 넣을 수 있음',
   },
   { name: 'icon', description: '텍스트 앞 아이콘 (Vue #icon 슬롯 대응, link_icon 클래스)' },
 ];

@@ -20,6 +20,7 @@ export const uploadProps = [
   { name: 'className', type: 'string', default: '—', description: 'upload 루트에 추가 클래스' },
   { name: 'trigger', type: 'ReactNode', default: '—', description: '업로드 트리거 UI (children 대체)' },
   { name: 'cards', type: 'ReactNode', default: '—', description: '이미지 카드 그리드 콘텐츠' },
+  { name: 'onChange', type: '(event) => void', default: '—', description: '파일 선택 변경 콜백' },
   ripplePropContainer,
 ];
 

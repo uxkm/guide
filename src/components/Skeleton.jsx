@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -31,6 +33,7 @@ export default function Skeleton({
 }) {
   const rootRef = useRef(null);
   const paragraphCount = resolveParagraphCount(paragraph);
+  const defaultParagraphCount = paragraph === false ? 3 : paragraphCount;
 
   useComponentDemoCode(
     formatCode,
@@ -99,14 +102,18 @@ export default function Skeleton({
         )
       ) : (
         <>
-          <span className={cn(skeletonBaseClass, 'skeleton_title')} aria-hidden="true" />
-          {Array.from({ length: paragraphCount || 3 }, (_, i) => (
-            <span
-              key={i}
-              className={cn(skeletonBaseClass, 'skeleton_text', PARAGRAPH_WIDTHS[i] || '')}
-              aria-hidden="true"
-            />
-          ))}
+          {defaultParagraphCount > 0 ? (
+            <>
+              <span className={cn(skeletonBaseClass, 'skeleton_title')} aria-hidden="true" />
+              {Array.from({ length: defaultParagraphCount }, (_, i) => (
+                <span
+                  key={i}
+                  className={cn(skeletonBaseClass, 'skeleton_text', PARAGRAPH_WIDTHS[i] || '')}
+                  aria-hidden="true"
+                />
+              ))}
+            </>
+          ) : null}
         </>
       )}
       {children}

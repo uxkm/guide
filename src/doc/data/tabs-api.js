@@ -17,7 +17,7 @@ export const tabsProps = [
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'tabs_sm · tabs_lg' },
   { name: 'vertical', type: 'boolean', default: 'false', description: 'tabs_vertical' },
   { name: 'scrollable', type: 'boolean', default: 'false', description: 'layout=auto일 때 가로 스크롤바 표시 (tabs_scrollable)' },
-  { name: 'ariaLabel', type: 'string', default: '—', description: 'tablist aria-label' },
+  { name: 'ariaLabel', type: 'string', default: '—', description: 'tablist aria-label. vertical에 따라 aria-orientation 자동 설정' },
   { name: 'items', type: 'Array<{ key?, label, content?, active?, disabled? }>', default: '—', description: '선언적 탭. panels: content로 패널 생성 · dynamic: label만 사용' },
   { name: 'extra', type: 'ReactNode', default: '—', description: '탭 바 우측 영역 (tabs_extra)' },
   { name: 'panel', type: 'ReactNode | Function', default: '—', description: 'mode=dynamic 단일 패널 본문' },
@@ -83,7 +83,7 @@ export const tabsClasses = [
   { name: 'tabs_list-wrap · tabs_scroll-viewport · tabs_nav', description: '목록 래퍼·스크롤 뷰포트·좌우 네비 버튼' },
   { name: 'tabs_sm · tabs_lg · tabs_vertical · tabs_scrollable', description: '크기·레이아웃' },
   { name: 'is-active · is-disabled', description: '탭·패널 상태' },
-  { name: 'data-tabs', description: '키보드·포커스 JS' },
+  { name: 'data-tabs', description: '키보드·포커스 동작 식별자' },
   { name: 'role="tablist" · role="tab" · role="tabpanel"', description: '접근성' },
   ...rippleClassRows,
 ];

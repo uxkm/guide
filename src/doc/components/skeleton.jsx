@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Skeleton | UXKM Guide',
   activeNav: 'skeleton',
@@ -5,6 +7,7 @@ export const docMeta = {
 };
 
 import Skeleton from '@/components/Skeleton.jsx';
+import NextLink from 'next/link';
 import ApiSection from '@/components/guide/ApiSection.jsx';
 import ApiTable from '@/components/guide/ApiTable.jsx';
 import DemoSection from '@/components/guide/DemoSection.jsx';
@@ -83,7 +86,7 @@ export default function SkeletonDoc() {
       <div className="page_intro">
         <h1>Skeleton</h1>
         <p className="lead">
-          콘텐츠가 로드되기 전 레이아웃을 미리 보여 주는 Skeleton 컴포넌트입니다. 텍스트·아바타·이미지·
+          콘텐츠가 로드되기 전 레이아웃을 미리 보여 주는 Next.js Client Component입니다. 텍스트·아바타·이미지·
           버튼 형태와 조합 레이아웃을 지원하며 <code className="typo_code">role=&quot;status&quot;</code> ·
           <code className="typo_code">aria-busy</code> · <code className="typo_code">aria-label</code>로 접근성을 보장합니다.
         </p>
@@ -180,7 +183,7 @@ export default function SkeletonDoc() {
       >
         <ApiTable columns={skeletonClassColumns} rows={skeletonClasses} codeColumn="name" />
         <p className="form_field-hint" style={{ marginTop: 'var(--space-md)' }}>
-          전체 영역 스피너·오버레이는 <a href="spin.html">Spin</a> 컴포넌트를,
+          전체 영역 스피너·오버레이는 <NextLink href="/components/spin">Spin</NextLink> 컴포넌트를,
           빈 상태 UI는 Empty 컴포넌트를 사용하세요.
         </p>
       </ApiSection>

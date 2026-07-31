@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -6,7 +8,15 @@ import { normalizeDomProps } from '@/utils/normalize-dom-props';
 import { cn } from '@/utils/cn';
 
 const formatCode = createComponentFormatter('Checkbox', {
-  booleanProps: new Set(['checked', 'disabled', 'indeterminate', 'labelEnd', 'button', 'ripple']),
+  booleanProps: new Set([
+    'checked',
+    'defaultChecked',
+    'disabled',
+    'indeterminate',
+    'labelEnd',
+    'button',
+    'ripple',
+  ]),
   selfClosing: true,
 });
 
@@ -50,6 +60,7 @@ export default function Checkbox({
       ripple,
       label,
       checked,
+      defaultChecked,
       disabled,
       indeterminate,
       labelEnd,
@@ -78,12 +89,12 @@ export default function Checkbox({
   const domRest = normalizeDomProps(restForDom);
 
   const inputCheckedProps =
-    onChange != null
+    checked != null
       ? { checked: Boolean(checked), onChange }
-      : checked != null
-        ? { defaultChecked: Boolean(checked) }
-        : defaultChecked != null
-          ? { defaultChecked: Boolean(defaultChecked) }
+      : defaultChecked != null
+        ? { defaultChecked: Boolean(defaultChecked), onChange }
+        : onChange != null
+          ? { onChange }
           : {};
 
   const inputProps = {

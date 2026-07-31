@@ -71,6 +71,8 @@ export function OpenExample() {
   return (
     <Popover
       open
+      interactive={false}
+      className="popover_demo-static"
       panelLabel="열린 Popover"
       triggerContent={
         <Button
@@ -195,7 +197,7 @@ import Popover from '@/components/Popover.jsx';
 
 export function HoverExample() {
   return (
-    <p>
+    <div className="popover_inline-sentence">
       결제 시{' '}
       <Popover
         trigger="hover"
@@ -212,7 +214,7 @@ export function HoverExample() {
         방식입니다.
       </Popover>{' '}
       서비스를 이용할 수 있습니다.
-    </p>
+    </div>
   );
 }`;
 const triggerCode = `import Button from '@/components/Button.jsx';
@@ -415,6 +417,8 @@ export default function PopoverDoc() {
       >
         <Popover
           open
+          interactive={false}
+          className="popover_demo-static"
           panelLabel="열린 Popover"
           triggerContent={
             <Button
@@ -723,7 +727,7 @@ export default function PopoverDoc() {
         description='trigger="hover"로 마우스 오버·포커스 시 패널을 표시합니다. 짧은 설명·용어 정의에 적합합니다.'
         code={hoverCode}
       >
-        <p>
+        <div className="popover_inline-sentence">
           결제 시{' '}
           <Popover
             trigger="hover"
@@ -740,7 +744,7 @@ export default function PopoverDoc() {
             방식입니다.
           </Popover>{' '}
           서비스를 이용할 수 있습니다.
-        </p>
+        </div>
       </DemoSection>
       <DemoSection
         headingId="trigger-heading"

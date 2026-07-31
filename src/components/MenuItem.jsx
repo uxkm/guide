@@ -1,4 +1,7 @@
-import { useMemo, useRef } from 'react';
+'use client';
+
+import { useContext, useId, useMemo, useRef } from 'react';
+import { MenuContext } from '@/components/Menu.jsx';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -19,6 +22,7 @@ export default function MenuItem({
   color,
   icon,
   extra,
+  as,
   children,
   className,
   onClick,
@@ -26,12 +30,26 @@ export default function MenuItem({
 }) {
   const { rippleAttrs } = useRipple({ ripple });
   const rootRef = useRef(null);
+  const menu = useContext(MenuContext);
+  const reactId = useId().replace(/:/g, '');
+  const itemId = `menu-item-${reactId}`;
   const labelContent = children ?? label;
   const showLabel = labelContent != null && labelContent !== '';
+  const isActive = menu?.selectedItemId
+    ? menu.selectedItemId === itemId
+    : Boolean(active);
 
   useComponentDemoCode(
     formatCode,
-    { ripple, label, href, active, disabled, color },
+    {
+      ripple,
+      label,
+      href,
+      active,
+      disabled,
+      color,
+      as: typeof as === 'string' ? as : undefined,
+    },
     createDemoSlots({
       default: labelContent,
       icon,
@@ -49,39 +67,46 @@ export default function MenuItem({
 
   const linkClass = useMemo(() => {
     const classes = ['menu_link'];
-    if (active) classes.push('is-active');
+    if (isActive) classes.push('is-active');
     if (disabled) classes.push('is-disabled');
     if (color) classes.push(`color_${color}`);
     return classes;
-  }, [active, disabled, color]);
+  }, [isActive, disabled, color]);
 
-  const Tag = href && !disabled ? 'a' : disabled ? 'span' : 'button';
+  const Root = disabled ? 'span' : as || (href ? 'a' : 'button');
+  const acceptsHref = Root === 'a' || typeof Root !== 'string';
 
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
 
   const handleClick = (event) => {
-    if (Tag === 'a') event.preventDefault();
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
+    if ((!href || href === '#') && Root === 'a') {
+      event.preventDefault();
+    }
+    menu?.selectItem(itemId);
     onClick?.(event);
   };
 
   return (
     <li ref={rootRef} className={cn(itemClass, className)} {...domRest}>
-      <Tag
+      <Root
         {...rippleAttrs}
         className={cn(linkClass)}
-        href={Tag === 'a' ? href || '#' : undefined}
-        type={Tag === 'button' ? 'button' : undefined}
-        aria-current={active ? 'page' : undefined}
+        href={acceptsHref ? href : undefined}
+        type={Root === 'button' ? 'button' : undefined}
+        aria-current={isActive ? 'page' : undefined}
         aria-disabled={disabled ? 'true' : undefined}
-        disabled={Tag === 'button' ? disabled : undefined}
-        tabIndex={disabled && Tag === 'a' ? -1 : undefined}
+        tabIndex={disabled ? -1 : undefined}
         onClick={handleClick}
       >
         {icon}
         {showLabel ? <span className="menu_label">{labelContent}</span> : null}
         {extra}
-      </Tag>
+      </Root>
     </li>
   );
 }

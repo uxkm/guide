@@ -69,8 +69,20 @@ export const collapsePanelProps = [
   {
     name: 'open',
     type: 'boolean',
+    default: '—',
+    description: '열림 상태 (제어)',
+  },
+  {
+    name: 'defaultOpen',
+    type: 'boolean',
     default: 'false',
-    description: '초기 열림 상태',
+    description: '초기 열림 상태 (비제어)',
+  },
+  {
+    name: 'onOpenChange',
+    type: '(open: boolean) => void',
+    default: '—',
+    description: '열림 상태 변경 콜백',
   },
   {
     name: 'disabled',
@@ -135,8 +147,20 @@ export const collapseExternalProps = [
   {
     name: 'open',
     type: 'boolean',
+    default: '—',
+    description: '열림 상태 (제어)',
+  },
+  {
+    name: 'defaultOpen',
+    type: 'boolean',
     default: 'false',
-    description: '초기 열림 상태',
+    description: '초기 열림 상태 (비제어)',
+  },
+  {
+    name: 'onOpenChange',
+    type: '(open: boolean) => void',
+    default: '—',
+    description: '열림 상태 변경 콜백',
   },
   {
     name: 'lead',
@@ -205,3 +229,52 @@ export const collapseClasses = [
 
 export const collapseGroupPropColumns = collapsePropColumns;
 export const collapseGroupProps = collapseProps;
+
+export const collapseTokenColumns = [
+  { key: 'name', label: '토큰' },
+  { key: 'default', label: '기본값' },
+  { key: 'description', label: '설명' },
+];
+
+export const collapseTokens = [
+  {
+    name: '--collapse-font-size · --collapse-content-font-size',
+    default: 'var(--text-size-sm)',
+    description: '트리거 그룹·본문 기본 글자 크기',
+  },
+  {
+    name: '--collapse-trigger-font-weight · --collapse-trigger-gap',
+    default: '600 · var(--space-sm)',
+    description: '트리거 글자 두께·내부 간격',
+  },
+  {
+    name: '--collapse-trigger-padding-y · --collapse-trigger-padding-x',
+    default: '0.875rem · var(--space-lg)',
+    description: '기본 트리거 패딩',
+  },
+  {
+    name: '--collapse-content-padding-top · --collapse-content-padding-y · --collapse-content-padding-x',
+    default: 'var(--space-md) · var(--space-lg) · var(--space-lg)',
+    description: '기본 본문 패딩',
+  },
+  {
+    name: '--collapse-icon-size · --collapse-card-gap',
+    default: '1rem · var(--space-sm)',
+    description: '펼침 아이콘 크기·카드 사이 간격',
+  },
+  {
+    name: '--collapse-font-size-sm · --collapse-trigger-padding-y-sm · --collapse-trigger-padding-x-sm · --collapse-content-padding-y-sm · --collapse-content-padding-x-sm · --collapse-content-padding-top-sm · --collapse-icon-size-sm',
+    default: 'var(--text-size-xs) · 0.625rem · var(--space-md) · var(--space-md) · var(--space-md) · var(--space-sm) · 0.875rem',
+    description: 'sm 크기의 글자·트리거·본문·아이콘 값',
+  },
+  {
+    name: '--collapse-font-size-lg · --collapse-trigger-padding-y-lg · --collapse-trigger-padding-x-lg · --collapse-content-padding-y-lg · --collapse-content-padding-x-lg · --collapse-content-padding-top-lg · --collapse-icon-size-lg',
+    default: 'var(--text-size-base) · 1rem · var(--space-xl) · var(--space-xl) · var(--space-xl) · var(--space-lg) · 1.125rem',
+    description: 'lg 크기의 글자·트리거·본문·아이콘 값',
+  },
+  {
+    name: '--collapse-slide-duration · --collapse-slide-easing',
+    default: '0.28s · ease',
+    description: '펼침·접힘 슬라이드 시간과 가속 곡선',
+  },
+];

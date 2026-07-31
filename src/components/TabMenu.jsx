@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext, useEffect, useId, useRef } from 'react';
 import { TabsContext } from '@/components/Tabs.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';

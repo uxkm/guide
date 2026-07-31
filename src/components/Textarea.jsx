@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -14,6 +16,7 @@ const formatCode = createComponentFormatter('Textarea', {
 });
 
 export default function Textarea({
+  ref,
   size = 'md',
   disabled,
   error,
@@ -26,10 +29,11 @@ export default function Textarea({
   onChange,
   ...rest
 }) {
-  const rootRef = useRef(null);
+  const demoRef = useRef(null);
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
 
   const [textValue, setTextValue] = useState(() => value ?? defaultValue ?? '');
+  const currentValue = value !== undefined ? (value ?? '') : textValue;
 
   useEffect(() => {
     if (value !== undefined) {
@@ -46,10 +50,10 @@ export default function Textarea({
       placeholder,
       block,
       rows,
-      value: textValue,
+      value: currentValue,
     },
     createDemoSlots(),
-    rootRef,
+    demoRef,
     { className, onChange, ...rest },
   );
 
@@ -73,18 +77,27 @@ export default function Textarea({
   const domRest = normalizeDomProps(restForDom);
 
   function handleChange(event) {
-    setTextValue(event.target.value);
+    if (value === undefined) {
+      setTextValue(event.target.value);
+    }
     onChange?.(event);
+  }
+
+  function setTextareaRef(node) {
+    demoRef.current = node;
+
+    if (typeof ref === 'function') ref(node);
+    else if (ref && typeof ref === 'object') ref.current = node;
   }
 
   return (
     <textarea
-      ref={rootRef}
+      ref={setTextareaRef}
       className={cn(rootClass, className)}
       rows={rows}
       placeholder={placeholder}
       disabled={disabled}
-      value={textValue}
+      value={currentValue}
       aria-invalid={error ? 'true' : undefined}
       onChange={handleChange}
       {...domRest}

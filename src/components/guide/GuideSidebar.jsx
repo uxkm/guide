@@ -1,3 +1,5 @@
+'use client';
+
 import {
   forwardRef,
   useEffect,
@@ -5,7 +7,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 import { NAV_GROUPS } from '@/data/navigation';
 import { cn } from '@/utils/cn';
 
@@ -83,16 +85,16 @@ const GuideSidebar = forwardRef(function GuideSidebar(
   function toggleSidebarCollapse() {
     if (!isDesktop()) return;
 
-    setSidebarCollapsed((prev) => {
-      const next = !prev;
-      try {
-        localStorage.setItem(STORAGE_SIDEBAR_COLLAPSED, next ? '1' : '0');
-      } catch {
-        /* ignore */
-      }
-      syncCollapsed(next);
-      return next;
-    });
+    const next = !sidebarCollapsed;
+    setSidebarCollapsed(next);
+
+    try {
+      localStorage.setItem(STORAGE_SIDEBAR_COLLAPSED, next ? '1' : '0');
+    } catch {
+      /* ignore */
+    }
+
+    syncCollapsed(next);
   }
 
   function onResize() {
@@ -166,11 +168,17 @@ const GuideSidebar = forwardRef(function GuideSidebar(
         aria-label="컴포넌트 메뉴"
       >
         <div className="guide_sidebar-brand">
-          <NavLink className="guide_sidebar-back" to="/" end>
+          <Link
+            className="guide_sidebar-back"
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="UXKM Guide 첫 화면 새 창에서 열기"
+          >
             ← UXKM Guide
-          </NavLink>
+          </Link>
           <div className="guide_sidebar-title">UI Components</div>
-          <p className="guide_sidebar-desc">React · Vite</p>
+          <p className="guide_sidebar-desc">Next.js · React</p>
         </div>
 
         <nav ref={navRef} className="guide_nav">
@@ -180,16 +188,17 @@ const GuideSidebar = forwardRef(function GuideSidebar(
                 <ul key={group.title} className="guide_nav-list guide_nav-list-top">
                   {group.items.map((item) => (
                     <li key={item.slug}>
-                      <NavLink
-                        to={item.to}
-                        className={({ isActive }) =>
-                          cn('guide_nav-link', { 'is-active': isActive })
-                        }
+                      <Link
+                        href={item.to}
+                        className={cn('guide_nav-link', {
+                          'is-active': item.slug === activeNav,
+                        })}
+                        aria-current={item.slug === activeNav ? 'page' : undefined}
                         data-ripple
                         onClick={closeSidebar}
                       >
                         <span>{item.label}</span>
-                      </NavLink>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -228,16 +237,17 @@ const GuideSidebar = forwardRef(function GuideSidebar(
                 <ul className="guide_nav-list">
                   {group.items.map((item) => (
                     <li key={item.slug}>
-                      <NavLink
-                        to={item.to}
-                        className={({ isActive }) =>
-                          cn('guide_nav-link', { 'is-active': isActive })
-                        }
+                      <Link
+                        href={item.to}
+                        className={cn('guide_nav-link', {
+                          'is-active': item.slug === activeNav,
+                        })}
+                        aria-current={item.slug === activeNav ? 'page' : undefined}
                         data-ripple
                         onClick={closeSidebar}
                       >
                         <span>{item.label}</span>
-                      </NavLink>
+                      </Link>
                     </li>
                   ))}
                 </ul>

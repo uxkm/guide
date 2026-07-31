@@ -18,7 +18,7 @@ export const buttonProps = [
     name: 'color',
     type: `'primary' | 'default' | 'success' | 'warning' | 'danger' | 'muted'`,
     default: 'primary',
-    description: '색상 변형. text 스킨에서는 톤(muted·danger 등)으로 사용',
+    description: '색상 변형. filled는 default·primary·success·warning·danger, text는 primary·muted·success·warning·danger 지원',
   },
   {
     name: 'size',
@@ -28,7 +28,7 @@ export const buttonProps = [
   },
   {
     name: 'label',
-    type: 'string',
+    type: 'ReactNode',
     default: '—',
     description: '버튼 텍스트. children으로 대체 가능',
   },
@@ -54,7 +54,7 @@ export const buttonProps = [
     name: 'block',
     type: 'boolean',
     default: 'false',
-    description: '부모 너비 100%',
+    description: '루트 버튼을 부모 너비 100%로 확장',
   },
   {
     name: 'grow',
@@ -72,19 +72,19 @@ export const buttonProps = [
     name: 'disabled',
     type: 'boolean',
     default: 'false',
-    description: 'HTML disabled 속성',
+    description: 'button은 HTML disabled, a·div는 aria-disabled와 상호작용 차단 적용',
   },
   {
     name: 'ariaDisabled',
     type: 'boolean',
     default: 'false',
-    description: 'is-disabled 클래스와 함께 비활성 표현',
+    description: 'Tab 순서에서 제외하고 is-disabled·aria-disabled·상호작용 차단 적용',
   },
   {
     name: 'loading',
     type: 'boolean',
     default: 'false',
-    description: '로딩 스피너 표시',
+    description: '스피너와 aria-busy를 표시하고 중복 상호작용 차단',
   },
   {
     name: 'open',
@@ -111,6 +111,12 @@ export const buttonProps = [
     description: '배경·테두리 없는 셀렉트 텍스트 형태',
   },
   {
+    name: 'selectCaret',
+    type: 'boolean',
+    default: 'false',
+    description: 'select 이외의 스킨에도 드롭다운 캐럿 표시',
+  },
+  {
     name: 'type',
     type: `'button' | 'submit' | 'reset'`,
     default: 'button',
@@ -120,25 +126,25 @@ export const buttonProps = [
     name: 'tag',
     type: `'button' | 'a' | 'div'`,
     default: 'button',
-    description: '루트 HTML 태그. div·href 없는 a는 role + tabindex=0 자동 적용',
+    description: '루트 HTML 태그. div·href 없는 a는 role과 tabIndex={0} 자동 적용',
   },
   {
     name: 'href',
     type: 'string',
     default: '—',
-    description: 'tag="a"일 때 href. 있으면 네이티브 링크(Tab 초점 자동), 없으면 role+tabindex 필요',
+    description: 'tag="a"일 때 href. 있으면 네이티브 링크, 없으면 role과 tabIndex 자동 적용',
   },
   {
     name: 'role',
     type: `'button' | 'link'`,
     default: '—',
-    description: 'tag="a"이고 href 없을 때 의미 지정. role만으로 Tab 초점 불가 — tabindex 자동 부여',
+    description: 'tag="a"이고 href가 없을 때 의미 지정. 필요한 tabIndex는 자동 적용',
   },
   {
-    name: 'tabindex',
+    name: 'tabIndex',
     type: 'number',
     default: '—',
-    description: 'Tab 순서 수동 지정. div·href 없는 a는 기본 0, 비활성 -1',
+    description: 'React tabIndex. div·href 없는 a는 기본 0, 비활성 -1',
   },
   {
     name: 'ariaLabel',
@@ -148,7 +154,7 @@ export const buttonProps = [
   },
   {
     name: 'haspopup',
-    type: 'string',
+    type: `boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'`,
     default: '—',
     description: 'aria-haspopup (셀렉트·드롭다운 트리거)',
   },
@@ -173,9 +179,9 @@ export const buttonSlotColumns = [
 ];
 
 export const buttonSlots = [
-  { name: 'children', description: '버튼 텍스트 (label prop 대체). iconOnly일 때 iconBefore가 없으면 아이콘 콘텐츠로 사용' },
-  { name: 'iconBefore', description: '텍스트 앞 아이콘 (Vue #icon-before 슬롯 대응)' },
-  { name: 'iconAfter', description: '텍스트 뒤 아이콘 (Vue #icon-after 슬롯 대응)' },
+  { name: 'children', description: 'label을 대체하는 ReactNode. iconOnly이고 iconBefore가 없으면 아이콘 콘텐츠로 사용' },
+  { name: 'iconBefore', description: '텍스트 앞에 렌더링할 ReactNode 아이콘' },
+  { name: 'iconAfter', description: '텍스트 뒤에 렌더링할 ReactNode 아이콘' },
 ];
 
 export const buttonClassColumns = [
@@ -216,13 +222,18 @@ export const buttonTokens = [
   { name: '--btn-font-weight · --btn-font-weight-normal · --btn-line-height', default: '600 · 400 · 1.4', description: '타이포 두께·줄높이' },
   { name: '--btn-border-width · --btn-gap', default: '1px · var(--space-sm)', description: '테두리·내부 간격' },
   { name: '--btn-icon-size · --btn-icon-size-md · --btn-icon-size-lg · --btn-icon-size-xl', default: '1em · 1.125em · 1.25em · 1.375em', description: '아이콘 크기' },
-  { name: '--btn-icon-only-padding · -sm · -lg', default: '0.5rem · 0.35rem · 0.65rem', description: '아이콘만 버튼 패딩' },
-  { name: '--btn-vertical-min-width · -sm · -lg', default: '4.5rem · 3.75rem · 5.25rem', description: '세로 배치 최소 너비' },
+  { name: '--btn-icon-only-padding · --btn-icon-only-padding-sm · --btn-icon-only-padding-lg', default: '0.5rem · 0.35rem · 0.65rem', description: '아이콘만 버튼 패딩' },
+  { name: '--btn-vertical-min-width · --btn-vertical-min-width-sm · --btn-vertical-min-width-lg', default: '4.5rem · 3.75rem · 5.25rem', description: '세로 배치 최소 너비' },
   { name: '--btn-vertical-padding-y · --btn-vertical-padding-x', default: '0.65rem · 0.75rem', description: '세로 배치 패딩(md)' },
-  { name: '--btn-vertical-label-size · --btn-vertical-label-weight', default: 'var(--text-size-sm) · 500', description: '세로 배치 라벨' },
+  { name: '--btn-vertical-padding-y-sm · --btn-vertical-padding-x-sm', default: '0.5rem · 0.6rem', description: '세로 배치 패딩(sm)' },
+  { name: '--btn-vertical-padding-y-lg · --btn-vertical-padding-x-lg', default: '0.85rem · 0.9rem', description: '세로 배치 패딩(lg)' },
+  { name: '--btn-vertical-label-size · --btn-vertical-label-size-sm · --btn-vertical-label-size-lg', default: 'var(--text-size-sm) · var(--text-size-xs) · var(--text-size-base)', description: '세로 배치 라벨 크기' },
+  { name: '--btn-vertical-label-weight · --btn-vertical-label-line-height', default: '500 · 1.25', description: '세로 배치 라벨 두께·줄높이' },
   { name: '--btn-select-min-width · --btn-select-max-width', default: '10rem · 320px', description: '셀렉트 트리거 너비' },
-  { name: '--btn-select-padding-right · -sm · -lg', default: '0.65rem · 0.5rem · 0.85rem', description: '셀렉트 캐럿 여백' },
+  { name: '--btn-select-padding-right · --btn-select-padding-right-sm · --btn-select-padding-right-lg', default: '0.65rem · 0.5rem · 0.85rem', description: '셀렉트 캐럿 여백' },
   { name: '--btn-select-text-padding-x · --btn-select-text-padding-right', default: '0.5rem · 0.35rem', description: '텍스트형 셀렉트 패딩' },
+  { name: '--btn-select-text-padding-x-sm · --btn-select-text-padding-right-sm', default: '0.35rem · 0.25rem', description: '텍스트형 셀렉트 패딩(sm)' },
+  { name: '--btn-select-text-padding-x-lg · --btn-select-text-padding-right-lg', default: '0.65rem · 0.45rem', description: '텍스트형 셀렉트 패딩(lg)' },
   { name: '--btn-spinner-size · --btn-spinner-border · --btn-spinner-duration', default: '1em · 2px · 0.6s', description: '로딩 스피너' },
   { name: '--btn-stack-text-size · --btn-stack-text-line-height', default: 'var(--text-size-sm) · 1.5', description: '스택 하단 안내 텍스트' },
   { name: '--btn-group-overlap', default: '-1px', description: '그룹 버튼 테두리 겹침' },

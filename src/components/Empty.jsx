@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useEmptyDemoCode } from '@/hooks/useDemoCode';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';

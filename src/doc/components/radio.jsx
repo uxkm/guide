@@ -25,10 +25,10 @@ const typeCode = `import Radio from '@/components/Radio.jsx';
 export function TypeExample() {
   return (
     <>
-      <Radio name="radio-type-basic" checked label="기본 — radio" />
+      <Radio name="radio-type-basic" defaultChecked label="기본 — radio" />
       <Radio name="radio-type-label-end" labelEnd label="레이블 뒤 — radio_label-end" />
       <fieldset className="radio_group radio_group_horizontal">
-        <Radio button name="radio-type-btn" checked value="a" label="버튼형" />
+        <Radio button name="radio-type-btn" defaultChecked value="a" label="버튼형" />
         <Radio button name="radio-type-btn" value="b" label="UI" />
         <Radio button name="radio-type-btn" value="c" label="UX" />
       </fieldset>
@@ -40,7 +40,7 @@ const labelEndCode = `import Radio from '@/components/Radio.jsx';
 export function LabelEndExample() {
   return (
     <>
-      <Radio name="radio-label-end-pay" labelEnd checked label="신용카드" />
+      <Radio name="radio-label-end-pay" labelEnd defaultChecked label="신용카드" />
       <Radio name="radio-label-end-pay2" labelEnd>
         <span className="radio_content">
           <span className="radio_label">계좌이체</span>
@@ -59,7 +59,7 @@ export function BasicExample() {
         결제 수단
       </span>
       <fieldset className="radio_group" aria-labelledby="radio-pay-label">
-        <Radio name="radio-pay" checked value="card">
+        <Radio name="radio-pay" defaultChecked value="card">
           <span className="radio_content">
             <span className="radio_label">신용카드</span>
             <span className="radio_hint">Visa · Mastercard · 국내 카드</span>
@@ -81,7 +81,7 @@ export function StandaloneExample() {
   return (
     <div className="radio_group radio_group_horizontal">
       <Radio name="radio-standalone" ariaLabel="항목 선택" />
-      <Radio name="radio-standalone" checked ariaLabel="선택됨" />
+      <Radio name="radio-standalone" defaultChecked ariaLabel="선택됨" />
       <Radio name="radio-standalone-disabled" disabled ariaLabel="비활성" />
     </div>
   );
@@ -91,7 +91,7 @@ const sizeCode = `import Radio from '@/components/Radio.jsx';
 export function SizeExample() {
   return (
     <div className="radio_group radio_group_horizontal">
-      <Radio className="radio_sm" name="radio-size" checked label="Small — radio_sm" />
+      <Radio className="radio_sm" name="radio-size" defaultChecked label="Small — radio_sm" />
       <Radio name="radio-size" label="Medium — 기본" />
       <Radio className="radio_lg" name="radio-size" label="Large — radio_lg" />
     </div>
@@ -102,8 +102,8 @@ const widthCode = `import Radio from '@/components/Radio.jsx';
 export function WidthExample() {
   return (
     <>
-      <Radio name="radio-width-inline" checked label="기본 — 인라인 너비" />
-      <Radio name="radio-width-block" className="radio_block" checked label="radio_block — 전체 너비" />
+      <Radio name="radio-width-inline" defaultChecked label="기본 — 인라인 너비" />
+      <Radio name="radio-width-block" className="radio_block" defaultChecked label="radio_block — 전체 너비" />
     </>
   );
 }`;
@@ -112,10 +112,10 @@ const colorCode = `import Radio from '@/components/Radio.jsx';
 export function ColorExample() {
   return (
     <>
-      <Radio className="color_primary" name="radio-color-primary" checked label="Primary" />
-      <Radio className="color_success" name="radio-color-success" checked label="Success" />
-      <Radio className="color_danger" name="radio-color-danger" checked label="Danger" />
-      <Radio className="color_warning" name="radio-color-warning" checked label="Warning" />
+      <Radio className="color_primary" name="radio-color-primary" defaultChecked label="Primary" />
+      <Radio className="color_success" name="radio-color-success" defaultChecked label="Success" />
+      <Radio className="color_danger" name="radio-color-danger" defaultChecked label="Danger" />
+      <Radio className="color_warning" name="radio-color-warning" defaultChecked label="Warning" />
     </>
   );
 }`;
@@ -125,9 +125,9 @@ export function StateExample() {
   return (
     <>
       <Radio name="radio-state" label="미선택" />
-      <Radio name="radio-state" checked label="선택됨" />
+      <Radio name="radio-state" defaultChecked label="선택됨" />
       <Radio name="radio-state-disabled" disabled label="비활성" />
-      <Radio name="radio-state-disabled" checked disabled label="선택됨 (비활성)" />
+      <Radio name="radio-state-disabled" defaultChecked disabled label="선택됨 (비활성)" />
     </>
   );
 }`;
@@ -138,13 +138,13 @@ export function GroupExample() {
     <>
       <fieldset className="radio_group">
         <legend className="radio_group-legend">배송 방법 (세로)</legend>
-        <Radio name="radio-group-ship" checked value="standard" label="일반 배송" />
+        <Radio name="radio-group-ship" defaultChecked value="standard" label="일반 배송" />
         <Radio name="radio-group-ship" value="express" label="빠른 배송" />
         <Radio name="radio-group-ship" value="pickup" label="매장 픽업" />
       </fieldset>
       <fieldset className="radio_group radio_group_horizontal">
         <legend className="radio_group-legend">크기 (가로)</legend>
-        <Radio button name="radio-group-size" checked value="s" label="S" />
+        <Radio button name="radio-group-size" defaultChecked value="s" label="S" />
         <Radio button name="radio-group-size" value="m" label="M" />
         <Radio button name="radio-group-size" value="l" label="L" />
       </fieldset>
@@ -156,7 +156,7 @@ const buttonTypeCode = `import Radio from '@/components/Radio.jsx';
 export function ButtonTypeExample() {
   return (
     <fieldset className="radio_group radio_group_horizontal">
-      <Radio button name="radio-btn-filter" checked value="all" label="전체" />
+      <Radio button name="radio-btn-filter" defaultChecked value="all" label="전체" />
       <Radio button name="radio-btn-filter" value="active" label="진행 중" />
       <Radio button name="radio-btn-filter" value="done" label="완료" />
       <Radio button name="radio-btn-filter" disabled value="hold" label="보류 (비활성)" />
@@ -191,7 +191,7 @@ export function FormExample() {
             수신 채널
           </span>
           <fieldset className="radio_group" aria-labelledby="radio-form-vertical-label">
-            <Radio name="radio-form-channel" checked value="email" label="이메일" />
+            <Radio name="radio-form-channel" defaultChecked value="email" label="이메일" />
             <Radio name="radio-form-channel" value="sms" label="SMS" />
           </fieldset>
         </div>
@@ -205,7 +205,7 @@ export function FormExample() {
             className="radio_group radio_group_horizontal"
             aria-labelledby="radio-form-horizontal-label"
           >
-            <Radio button name="radio-form-role" checked value="viewer" label="뷰어" />
+            <Radio button name="radio-form-role" defaultChecked value="viewer" label="뷰어" />
             <Radio button name="radio-form-role" value="editor" label="편집자" />
           </fieldset>
         </div>
@@ -226,7 +226,7 @@ function PlanCard({
   subtitle,
   desc,
   value,
-  checked,
+  defaultChecked,
   disabled,
   colorClass,
   name = 'radio-plan',
@@ -246,7 +246,7 @@ function PlanCard({
               id={id}
               name={name}
               value={value}
-              checked={checked}
+              defaultChecked={defaultChecked}
               disabled={disabled}
               ariaLabelledby={`${titleId} ${descId}`}
             />
@@ -276,10 +276,10 @@ export default function RadioDoc() {
           code={typeCode}
         >
 <>
-      <Radio name="radio-type-basic" checked label="기본 — radio" />
+      <Radio name="radio-type-basic" defaultChecked label="기본 — radio" />
       <Radio name="radio-type-label-end" labelEnd label="레이블 뒤 — radio_label-end" />
       <fieldset className="radio_group radio_group_horizontal">
-        <Radio button name="radio-type-btn" checked value="a" label="버튼형" />
+        <Radio button name="radio-type-btn" defaultChecked value="a" label="버튼형" />
         <Radio button name="radio-type-btn" value="b" label="UI" />
         <Radio button name="radio-type-btn" value="c" label="UX" />
       </fieldset>
@@ -293,7 +293,7 @@ export default function RadioDoc() {
           code={labelEndCode}
         >
 <>
-      <Radio name="radio-label-end-pay" labelEnd checked label="신용카드" />
+      <Radio name="radio-label-end-pay" labelEnd defaultChecked label="신용카드" />
       <Radio name="radio-label-end-pay2" labelEnd>
         <span className="radio_content">
           <span className="radio_label">계좌이체</span>
@@ -305,11 +305,11 @@ export default function RadioDoc() {
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="radio_group-legend">배송 방법 — radio_group_block</legend>
-        <Radio name="radio-label-end-ship" labelEnd checked value="standard" label="일반 배송" />
+        <Radio name="radio-label-end-ship" labelEnd defaultChecked value="standard" label="일반 배송" />
         <Radio name="radio-label-end-ship" labelEnd value="express" label="빠른 배송" />
       </fieldset>
-      <Radio className="radio_sm" name="radio-label-end-size" labelEnd checked label="Small — radio_sm" />
-      <Radio className="radio_lg" name="radio-label-end-size2" labelEnd checked label="Large — radio_lg" />
+      <Radio className="radio_sm" name="radio-label-end-size" labelEnd defaultChecked label="Small — radio_sm" />
+      <Radio className="radio_lg" name="radio-label-end-size2" labelEnd defaultChecked label="Large — radio_lg" />
     </>
         </DemoSection>
         <DemoSection
@@ -323,7 +323,7 @@ export default function RadioDoc() {
         결제 수단
       </span>
       <fieldset className="radio_group" aria-labelledby="radio-pay-label">
-        <Radio name="radio-pay" checked value="card">
+        <Radio name="radio-pay" defaultChecked value="card">
           <span className="radio_content">
             <span className="radio_label">신용카드</span>
             <span className="radio_hint">Visa · Mastercard · 국내 카드</span>
@@ -347,7 +347,7 @@ export default function RadioDoc() {
         >
 <div className="radio_group radio_group_horizontal">
       <Radio name="radio-standalone" ariaLabel="항목 선택" />
-      <Radio name="radio-standalone" checked ariaLabel="선택됨" />
+      <Radio name="radio-standalone" defaultChecked ariaLabel="선택됨" />
       <Radio name="radio-standalone-disabled" disabled ariaLabel="비활성" />
     </div>
         </DemoSection>
@@ -359,7 +359,7 @@ export default function RadioDoc() {
           code={sizeCode}
         >
 <div className="radio_group radio_group_horizontal">
-      <Radio className="radio_sm" name="radio-size" checked label="Small — radio_sm" />
+      <Radio className="radio_sm" name="radio-size" defaultChecked label="Small — radio_sm" />
       <Radio name="radio-size" label="Medium — 기본" />
       <Radio className="radio_lg" name="radio-size" label="Large — radio_lg" />
     </div>
@@ -371,14 +371,14 @@ export default function RadioDoc() {
           code={widthCode}
         >
 <>
-      <Radio name="radio-width-inline" checked label="기본 — 인라인 너비" />
-      <Radio name="radio-width-block" className="radio_block" checked label="radio_block — 전체 너비" />
+      <Radio name="radio-width-inline" defaultChecked label="기본 — 인라인 너비" />
+      <Radio name="radio-width-block" className="radio_block" defaultChecked label="radio_block — 전체 너비" />
       <fieldset
         className="radio_group radio_group_block"
         style={{ maxWidth: 360, width: '100%' }}
       >
         <legend className="radio_group-legend">radio_group_block</legend>
-        <Radio name="radio-width-g1" checked label="항목 1" />
+        <Radio name="radio-width-g1" defaultChecked label="항목 1" />
         <Radio name="radio-width-g1" label="항목 2" />
       </fieldset>
     </>
@@ -391,10 +391,10 @@ export default function RadioDoc() {
           code={colorCode}
         >
 <>
-      <Radio className="color_primary" name="radio-color-primary" checked label="Primary" />
-      <Radio className="color_success" name="radio-color-success" checked label="Success" />
-      <Radio className="color_danger" name="radio-color-danger" checked label="Danger" />
-      <Radio className="color_warning" name="radio-color-warning" checked label="Warning" />
+      <Radio className="color_primary" name="radio-color-primary" defaultChecked label="Primary" />
+      <Radio className="color_success" name="radio-color-success" defaultChecked label="Success" />
+      <Radio className="color_danger" name="radio-color-danger" defaultChecked label="Danger" />
+      <Radio className="color_warning" name="radio-color-warning" defaultChecked label="Warning" />
     </>
         </DemoSection>
         <DemoSection
@@ -406,9 +406,9 @@ export default function RadioDoc() {
         >
 <>
       <Radio name="radio-state" label="미선택" />
-      <Radio name="radio-state" checked label="선택됨" />
+      <Radio name="radio-state" defaultChecked label="선택됨" />
       <Radio name="radio-state-disabled" disabled label="비활성" />
-      <Radio name="radio-state-disabled" checked disabled label="선택됨 (비활성)" />
+      <Radio name="radio-state-disabled" defaultChecked disabled label="선택됨 (비활성)" />
     </>
         </DemoSection>
         <DemoSection
@@ -421,13 +421,13 @@ export default function RadioDoc() {
 <>
       <fieldset className="radio_group">
         <legend className="radio_group-legend">배송 방법 (세로)</legend>
-        <Radio name="radio-group-ship" checked value="standard" label="일반 배송" />
+        <Radio name="radio-group-ship" defaultChecked value="standard" label="일반 배송" />
         <Radio name="radio-group-ship" value="express" label="빠른 배송" />
         <Radio name="radio-group-ship" value="pickup" label="매장 픽업" />
       </fieldset>
       <fieldset className="radio_group radio_group_horizontal">
         <legend className="radio_group-legend">크기 (가로)</legend>
-        <Radio button name="radio-group-size" checked value="s" label="S" />
+        <Radio button name="radio-group-size" defaultChecked value="s" label="S" />
         <Radio button name="radio-group-size" value="m" label="M" />
         <Radio button name="radio-group-size" value="l" label="L" />
       </fieldset>
@@ -442,7 +442,7 @@ export default function RadioDoc() {
         >
 <>
       <fieldset className="radio_group radio_group_horizontal">
-        <Radio button name="radio-btn-filter" checked value="all" label="전체" />
+        <Radio button name="radio-btn-filter" defaultChecked value="all" label="전체" />
         <Radio button name="radio-btn-filter" value="active" label="진행 중" />
         <Radio button name="radio-btn-filter" value="done" label="완료" />
         <Radio button name="radio-btn-filter" disabled value="hold" label="보류 (비활성)" />
@@ -452,7 +452,7 @@ export default function RadioDoc() {
           button
           className="radio_sm color_success"
           name="radio-btn-size"
-          checked
+          defaultChecked
           value="sm"
           label="Small"
         />
@@ -460,7 +460,7 @@ export default function RadioDoc() {
           button
           className="color_success"
           name="radio-btn-size"
-          checked
+          defaultChecked
           value="md"
           label="Medium"
         />
@@ -468,7 +468,7 @@ export default function RadioDoc() {
           button
           className="radio_lg color_success"
           name="radio-btn-size"
-          checked
+          defaultChecked
           value="lg"
           label="Large"
         />
@@ -494,7 +494,7 @@ export default function RadioDoc() {
             subtitle="월 9,000원"
             desc="개인 프로젝트에 적합합니다."
             value="basic"
-            checked
+            defaultChecked
           />
           <PlanCard
             id="radio-plan-pro"
@@ -534,7 +534,7 @@ export default function RadioDoc() {
                     id="radio-role-read"
                     name="radio-role"
                     value="read"
-                    checked
+                    defaultChecked
                     aria-labelledby="radio-role-read-title radio-role-read-desc"
                   />
                 </div>
@@ -609,7 +609,7 @@ export default function RadioDoc() {
                     id="radio-plan-full-basic"
                     name="radio-plan-clickable"
                     value="basic"
-                    checked
+                    defaultChecked
                     aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc"
                   />
                 </div>
@@ -684,7 +684,7 @@ export default function RadioDoc() {
             수신 채널
           </span>
           <fieldset className="radio_group" aria-labelledby="radio-form-vertical-label">
-            <Radio name="radio-form-channel" checked value="email" label="이메일" />
+            <Radio name="radio-form-channel" defaultChecked value="email" label="이메일" />
             <Radio name="radio-form-channel" value="sms" label="SMS" />
           </fieldset>
         </div>
@@ -698,7 +698,7 @@ export default function RadioDoc() {
             className="radio_group radio_group_horizontal"
             aria-labelledby="radio-form-horizontal-label"
           >
-            <Radio button name="radio-form-role" checked value="viewer" label="뷰어" />
+            <Radio button name="radio-form-role" defaultChecked value="viewer" label="뷰어" />
             <Radio button name="radio-form-role" value="editor" label="편집자" />
           </fieldset>
         </div>

@@ -6,6 +6,12 @@ export const textareaPropColumns = [
 ];
 
 export const textareaProps = [
+  {
+    name: 'ref',
+    type: 'React.Ref<HTMLTextAreaElement>',
+    default: '—',
+    description: '실제 textarea DOM 참조',
+  },
   { name: 'value', type: 'string', default: '—', description: '제어 컴포넌트 값 (Vue model-value 대응)' },
   { name: 'defaultValue', type: 'string', default: "''", description: '비제어 초기 값' },
   { name: 'rows', type: 'number | string', default: '3', description: 'textarea rows 속성' },
@@ -25,6 +31,10 @@ export const textareaChildColumns = [
 
 export const textareaChildren = [
   { name: 'children', description: '초기 텍스트. React에서는 value/defaultValue 사용을 권장합니다.' },
+  {
+    name: 'TextareaShowCount',
+    description: 'Textarea를 감싸 현재/최대 글자 수와 접근성 안내를 자동으로 갱신하는 래퍼',
+  },
 ];
 
 /** @deprecated 가이드·Storybook은 textareaChildColumns · textareaChildren 사용 */
@@ -41,6 +51,10 @@ export const textareaClassColumns = [
 export const textareaClasses = [
   { name: 'textarea', description: '텍스트영역 루트' },
   { name: 'textarea_sm · textarea_lg · textarea_block', description: '크기·너비' },
+  {
+    name: 'textarea_wrap · textarea_show-count · textarea_count',
+    description: 'TextareaShowCount 글자 수 카운터 구조',
+  },
   { name: 'is-error · is-disabled', description: '상태' },
 ];
 

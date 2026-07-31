@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+'use client';
+
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '@/components/Button.jsx';
 import Icon from '@/components/Icon.jsx';
@@ -37,6 +39,11 @@ export default function BackTop({
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
   const resolvedColor = VALID_COLORS.has(color) ? color : '';
   const teleported = !target;
+  const [portalTarget, setPortalTarget] = useState(null);
+
+  useEffect(() => {
+    setPortalTarget(teleported ? document.body : null);
+  }, [teleported]);
 
   useComponentDemoCode(
     formatCode,
@@ -77,7 +84,7 @@ export default function BackTop({
   useEffect(() => {
     if (!interactive || !rootRef.current) return undefined;
     return initBackTop(rootRef.current);
-  }, [interactive, target, visibilityHeight]);
+  }, [interactive, target, visibilityHeight, portalTarget]);
 
   const { class: _ignoredClass, ...restForDom } = rest;
   const domRest = normalizeDomProps(restForDom);
@@ -101,8 +108,8 @@ export default function BackTop({
     </div>
   );
 
-  if (teleported && typeof document !== 'undefined') {
-    return createPortal(node, document.body);
+  if (portalTarget) {
+    return createPortal(node, portalTarget);
   }
 
   return node;

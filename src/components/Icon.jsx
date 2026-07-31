@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { normalizeDomProps } from '@/utils/normalize-dom-props';
@@ -9,6 +11,9 @@ import { cn } from '@/utils/cn';
 export default function Icon({
   ripple,
   name,
+  src,
+  alt,
+  as,
   color,
   size = 'md',
   inline,
@@ -29,7 +34,22 @@ export default function Icon({
   const useNamedPaths = Boolean(name) && !children;
 
   useIconDemoCode(
-    { ripple, name, color, size, inline, spin, button, circle, square, pulse, ariaLabel },
+    {
+      ripple,
+      name,
+      src,
+      alt,
+      as: typeof as === 'string' ? as : undefined,
+      color,
+      size,
+      inline,
+      spin,
+      button,
+      circle,
+      square,
+      pulse,
+      ariaLabel,
+    },
     rootRef,
     { className, ...rest },
   );
@@ -42,42 +62,72 @@ export default function Icon({
     spin && 'icon_spin',
   );
 
-  const svgClass = cn(innerSvgClass, color && `color_${color}`, inline && 'icon_inline', className);
+  const isImage = as === 'img' || (Boolean(src) && !as);
+  const isCustom = Boolean(as) && as !== 'img';
+  const isWrapped = button || circle || square;
+  const rootClass = cn(
+    innerSvgClass,
+    !isWrapped && color && `color_${color}`,
+    !isWrapped && inline && 'icon_inline',
+    !isWrapped && className,
+  );
 
   const buttonRippleAttrs =
     button && (ripple === false ? { 'data-ripple': 'false' } : { 'data-ripple': 'true' });
   const domRest = normalizeDomProps(rest);
+  const resolvedSrc = typeof src === 'object' && src ? src.src : src;
 
   const svgContent = useNamedPaths ? renderIconElements(namedElements) : children;
 
   const svg = (
     <svg
-      className={button || circle || square ? innerSvgClass : svgClass}
+      className={rootClass}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden={button || ariaLabel ? undefined : 'true'}
+      role={!button && ariaLabel ? 'img' : undefined}
+      aria-hidden={button || !ariaLabel ? 'true' : undefined}
       aria-label={!button ? ariaLabel : undefined}
-      ref={button || circle || square ? undefined : rootRef}
+      ref={isWrapped ? undefined : rootRef}
+      {...(!isWrapped ? domRest : {})}
     >
       {svgContent}
     </svg>
   );
+
+  const image = isImage ? (
+    <img
+      ref={isWrapped ? undefined : rootRef}
+      className={rootClass}
+      src={resolvedSrc}
+      alt={alt ?? ''}
+      aria-label={ariaLabel}
+      aria-hidden={!alt && !ariaLabel ? 'true' : undefined}
+      {...(!isWrapped ? domRest : {})}
+    />
+  ) : null;
+
+  const content = isImage ? image : svg;
 
   if (button) {
     return (
       <button
         ref={rootRef}
         type="button"
-        className={cn('icon_button', color && `color_${color}`, inline && 'icon_inline')}
+        className={cn(
+          'icon_button',
+          color && `color_${color}`,
+          inline && 'icon_inline',
+          className,
+        )}
         aria-label={ariaLabel}
         {...buttonRippleAttrs}
         {...domRest}
       >
-        {svg}
+        {content}
       </button>
     );
   }
@@ -93,9 +143,11 @@ export default function Icon({
           size === 'lg' && 'icon_circle-lg',
           size === 'sm' && 'icon_circle-sm',
           inline && 'icon_inline',
+          className,
         )}
+        {...domRest}
       >
-        {svg}
+        {content}
       </span>
     );
   }
@@ -104,12 +156,35 @@ export default function Icon({
     return (
       <span
         ref={rootRef}
-        className={cn('icon_square', color && `color_${color}`, inline && 'icon_inline')}
+        className={cn(
+          'icon_square',
+          color && `color_${color}`,
+          inline && 'icon_inline',
+          className,
+        )}
+        {...domRest}
       >
-        {svg}
+        {content}
       </span>
     );
   }
 
-  return svg;
+  if (isCustom) {
+    const CustomElement = as;
+
+    return (
+      <CustomElement
+        ref={rootRef}
+        className={rootClass}
+        role={ariaLabel ? 'img' : undefined}
+        aria-hidden={ariaLabel ? undefined : 'true'}
+        aria-label={ariaLabel}
+        {...domRest}
+      >
+        {children}
+      </CustomElement>
+    );
+  }
+
+  return content;
 }

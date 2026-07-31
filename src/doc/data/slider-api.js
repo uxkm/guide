@@ -7,7 +7,8 @@ export const sliderPropColumns = [
 ];
 
 export const sliderProps = [
-  { name: 'value', type: 'number', default: '50', description: '제어/초기 값 (Vue model-value 대응)' },
+  { name: 'value', type: 'number', default: '—', description: '제어 값 (Vue model-value 대응)' },
+  { name: 'defaultValue', type: 'number', default: '50', description: '비제어 초기 값' },
   { name: 'min', type: 'number', default: '0', description: '최솟값' },
   { name: 'max', type: 'number', default: '100', description: '최댓값' },
   { name: 'step', type: 'number', default: '—', description: '증감 단위' },

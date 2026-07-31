@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useRipple } from '@/hooks/useRipple';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
@@ -19,6 +21,7 @@ export default function BreadcrumbItem({
   disabled,
   icon,
   ariaLabel,
+  as,
   children,
   className,
   onClick,
@@ -30,7 +33,16 @@ export default function BreadcrumbItem({
 
   useComponentDemoCode(
     formatCode,
-    { ripple, label, href, current, disabled, icon, ariaLabel },
+    {
+      ripple,
+      label,
+      href,
+      current,
+      disabled,
+      icon,
+      ariaLabel,
+      as: typeof as === 'string' ? as : undefined,
+    },
     createDemoSlots({ default: content }),
     rootRef,
     { className, onClick, ...rest },
@@ -53,14 +65,18 @@ export default function BreadcrumbItem({
   const domRest = normalizeDomProps(restForDom);
 
   const handleLinkClick = (event) => {
-    event.preventDefault();
+    if (!href || href === '#') {
+      event.preventDefault();
+    }
     onClick?.(event);
   };
+
+  const LinkComponent = as || 'a';
 
   let inner = null;
   if (href && !current && !disabled) {
     inner = (
-      <a
+      <LinkComponent
         {...rippleAttrs}
         className={cn(linkClass)}
         href={href}
@@ -68,7 +84,7 @@ export default function BreadcrumbItem({
         onClick={handleLinkClick}
       >
         {content}
-      </a>
+      </LinkComponent>
     );
   } else if (disabled) {
     inner = (

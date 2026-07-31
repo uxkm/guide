@@ -9,6 +9,7 @@ import ApiTable from '@/components/guide/ApiTable.jsx';
 import DemoSection from '@/components/guide/DemoSection.jsx';
 import Icon from '@/components/Icon.jsx';
 import TypoText from '@/components/TypoText.jsx';
+import { avatarSample } from '@images';
 import { commonIconGallery } from '@/data/common-icons';
 import {
   iconClassColumns,
@@ -21,7 +22,9 @@ import {
   iconTokens,
 } from '@/doc/data/icon-api';
 
-const basicCode = "import Icon from '@/components/Icon.jsx';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Icon>\n        <circle cx=\"11\" cy=\"11\" r=\"8\" />\n        <path d=\"m21 21-4.35-4.35\" />\n      </Icon>\n      <Icon>\n        <path d=\"M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7\" />\n        <path d=\"M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z\" />\n      </Icon>\n      <Icon>\n        <path d=\"M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\" />\n      </Icon>\n    </>\n  );\n}";
+const basicCode = "import Icon from '@/components/Icon.jsx';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Icon name=\"search\" />\n      <Icon name=\"edit\" />\n      <Icon name=\"trash\" />\n    </>\n  );\n}";
+
+const sourceCode = "import Icon from '@/components/Icon.jsx';\nimport { avatarSample } from '@images';\n\nexport function SourceExample() {\n  return (\n    <>\n      <Icon as=\"img\" src={avatarSample} alt=\"프로필\" size=\"lg\" />\n      <Icon as=\"span\" size=\"lg\" ariaLabel=\"프로필\">\n        <img src={avatarSample.src} alt=\"\" />\n      </Icon>\n    </>\n  );\n}";
 
 const sizeCode = "import Icon from '@/components/Icon.jsx';\n\nexport function SizeExample() {\n  return (\n    <>\n      <Icon size=\"sm\">\n        <path d=\"M12 5v14M5 12h14\" />\n      </Icon>\n      <Icon>\n        <path d=\"M12 5v14M5 12h14\" />\n      </Icon>\n      <Icon size=\"lg\">\n        <path d=\"M12 5v14M5 12h14\" />\n      </Icon>\n      <Icon size=\"xl\">\n        <path d=\"M12 5v14M5 12h14\" />\n      </Icon>\n    </>\n  );\n}";
 
@@ -39,32 +42,36 @@ const groupCode = "import Icon from '@/components/Icon.jsx';\n\nexport function 
 
 const spinCode = "import Icon from '@/components/Icon.jsx';\n\nexport function SpinExample() {\n  return (\n    <>\n      <Icon spin color=\"primary\">\n        <path d=\"M21 12a9 9 0 1 1-6.219-8.56\" />\n      </Icon>\n      <Icon spin size=\"lg\" color=\"muted\">\n        <path d=\"M21 12a9 9 0 1 1-6.219-8.56\" />\n      </Icon>\n    </>\n  );\n}";
 
-const galleryCode = "import Icon from '@/components/Icon.jsx';\nimport { commonIconGallery } from '@/data/common-icons';\n\nexport function GalleryExample() {\n  return (\n    <div className=\"icon_grid\">\n      {commonIconGallery.map((name) => (\n        <div key={name} className=\"icon_grid-item\">\n          <Icon name={name} className=\"icon_lg\" />\n          <span className=\"color_muted\">{name}</span>\n        </div>\n      ))}\n    </div>\n  );\n}";
+const galleryCode = "import Icon from '@/components/Icon.jsx';\nimport { commonIconGallery } from '@/data/common-icons';\n\nexport function GalleryExample() {\n  return (\n    <div className=\"icon_grid\">\n      {commonIconGallery.map((name) => (\n        <div key={name} className=\"icon_grid-item\">\n          <Icon name={name} size=\"lg\" />\n          <span className=\"color_muted\">{name}</span>\n        </div>\n      ))}\n    </div>\n  );\n}";
 
 export default function IconDoc() {
   return (
     <>
       <div className="page_intro">
           <h1>Icon</h1>
-          <p className="lead">SVG 인라인 아이콘의 크기, 색상, 정렬을 일관되게 적용하는 기본 요소입니다.</p>
+          <p className="lead">이름, 이미지, 커스텀 요소를 같은 크기와 정렬 규칙으로 표시하는 기본 요소입니다.</p>
         </div>
 
         <DemoSection
           headingId="basic-heading"
-          title="기본"
-          description="svg 태그에 icon 클래스를 적용합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다."
+          title="이름으로 사용"
+          description="name prop에 common-icons 키를 지정하는 방식을 권장합니다."
           code={basicCode}
         >
-          <Icon>
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </Icon>
-          <Icon>
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-          </Icon>
-          <Icon>
-            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+          <Icon name="search" />
+          <Icon name="edit" />
+          <Icon name="trash" />
+        </DemoSection>
+
+        <DemoSection
+          headingId="source-heading"
+          title="이미지 · 커스텀 요소"
+          description="src로 이미지 아이콘을 렌더하거나, as로 루트 요소를 지정하고 img·svg·컴포넌트를 children으로 전달할 수 있습니다."
+          code={sourceCode}
+        >
+          <Icon as="img" src={avatarSample} alt="프로필" size="lg" />
+          <Icon as="span" size="lg" ariaLabel="프로필">
+            <img src={avatarSample.src} alt="" />
           </Icon>
         </DemoSection>
 
@@ -249,7 +256,7 @@ export default function IconDoc() {
           <div className="icon_grid">
             {commonIconGallery.map((name) => (
               <div key={name} className="icon_grid-item">
-                <Icon name={name} className="icon_lg" />
+                <Icon name={name} size="lg" />
                 <TypoText tag="span" size="sm" color="muted">{name}</TypoText>
               </div>
             ))}

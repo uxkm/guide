@@ -22,7 +22,7 @@ export const spaceProps = [
     name: 'block',
     type: 'boolean',
     default: 'false',
-    description: '부모 너비 100% flex (space_block)',
+    description: '루트를 display: flex와 width: 100%로 변경 (space_block)',
   },
   {
     name: 'gap',
@@ -33,13 +33,13 @@ export const spaceProps = [
   {
     name: 'align',
     type: `'start' | 'center' | 'end' | 'baseline' | 'stretch'`,
-    default: '—',
+    default: 'center',
     description: '교차축 정렬 (space_align-*)',
   },
   {
     name: 'justify',
     type: `'start' | 'center' | 'end' | 'between'`,
-    default: '—',
+    default: 'start',
     description: '주축 정렬 (space_justify-*)',
   },
 ];
@@ -50,7 +50,7 @@ export const spaceSlotColumns = [
 ];
 
 export const spaceSlots = [
-  { name: 'children', description: '간격을 둘 자식 요소 (Vue default 슬롯 대응)' },
+  { name: 'children', description: '간격과 정렬을 적용할 ReactNode 자식 요소' },
 ];
 
 export const spaceClassColumns = [
@@ -59,7 +59,7 @@ export const spaceClassColumns = [
 ];
 
 export const spaceClasses = [
-  { name: 'space', description: 'inline-flex 루트, 기본 가로 배치' },
+  { name: 'space', description: 'inline-flex 루트, 기본 가로 배치·가운데 정렬' },
   { name: 'space_vertical', description: '세로 방향' },
   { name: 'space_wrap', description: '줄바꿈' },
   { name: 'space_block', description: 'display flex + width 100%' },

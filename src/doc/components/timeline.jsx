@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Timeline | UXKM Guide',
   activeNav: 'timeline',

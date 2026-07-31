@@ -1,21 +1,14 @@
-import { formatComponentCode } from '@/utils/format-component-code';
 import { resolveRegisteredCode } from '@/utils/resolve-demo-code';
 
-const TABLE_FORMAT_CONFIG = {
-  defaults: { wrap: true, stickyCols: 1 },
-  booleanProps: new Set([
-    'bordered',
-    'striped',
-    'compact',
-    'hover',
-    'wrap',
-    'scroll',
-    'stickyTop',
-    'stickyLeft',
-  ]),
-  arrayPropPlaceholders: { columns: 'tableColumns' },
-  skipProps: ['stickyLeftOffsets'],
-};
+const BOOLEAN_PROPS = [
+  'bordered',
+  'striped',
+  'compact',
+  'hover',
+  'scroll',
+  'stickyTop',
+  'stickyLeft',
+];
 
 const SLOT_SECTION_TAGS = new Set(['thead', 'tbody', 'tfoot', 'caption']);
 
@@ -47,7 +40,18 @@ function indentLines(text, level) {
 function serializeElementAttrs(node) {
   return [...node.attributes]
     .filter((attr) => attr.name !== 'data-demo-id' && !attr.name.startsWith('data-v-'))
-    .map((attr) => `${attr.name}="${attr.value}"`)
+    .map((attr) => {
+      const shouldKeepKebab = attr.name.startsWith('aria-') || attr.name.startsWith('data-');
+      const name = shouldKeepKebab
+        ? attr.name
+        : attr.name === 'class'
+          ? 'className'
+          : attr.name === 'for'
+            ? 'htmlFor'
+            : attr.name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+
+      return `${name}="${attr.value}"`;
+    })
     .join(' ');
 }
 
@@ -105,33 +109,86 @@ function formatStickyLeftOffsetsAttr(offsets) {
   const entries = Object.entries(offsets).filter(([, value]) => value != null && value !== '');
   if (!entries.length) return '';
   const body = entries.map(([key, value]) => `${key}: '${value}'`).join(', ');
-  return ` :sticky-left-offsets="{ ${body} }"`;
+  return `stickyLeftOffsets={{ ${body} }}`;
 }
 
-function openTableTag(props, slots, attrs) {
-  const codeProps = { ...props };
-  if (!codeProps.stickyLeft) {
-    delete codeProps.stickyCols;
-    delete codeProps.stickyLeftOffsets;
+function escapeAttribute(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+}
+
+function formatCustomAttrs(attrs) {
+  const parts = [];
+
+  Object.entries(attrs).forEach(([key, value]) => {
+    if (value == null || value === '' || key === 'style' || key === 'class' || key === 'className') {
+      return;
+    }
+
+    if (key.startsWith('on') && typeof value === 'function') {
+      parts.push(`${key}={() => {}}`);
+      return;
+    }
+
+    if (typeof value === 'boolean') {
+      if (value) parts.push(key);
+      return;
+    }
+
+    if (typeof value === 'number') {
+      parts.push(`${key}={${value}}`);
+      return;
+    }
+
+    parts.push(`${key}="${escapeAttribute(value)}"`);
+  });
+
+  return parts;
+}
+
+function formatTableAttrs(props, attrs) {
+  const parts = [];
+
+  BOOLEAN_PROPS.forEach((name) => {
+    if (props[name]) parts.push(name);
+  });
+
+  if (props.wrap === false) parts.push('wrap={false}');
+  if (props.scrollMaxHeight != null && props.scrollMaxHeight !== '') {
+    parts.push(`scrollMaxHeight="${escapeAttribute(props.scrollMaxHeight)}"`);
+  }
+  if (props.stickyLeft && props.stickyCols != null && props.stickyCols !== 1) {
+    parts.push(`stickyCols={${props.stickyCols}}`);
+  }
+  if (props.stickyLeft) {
+    const offsets = formatStickyLeftOffsetsAttr(props.stickyLeftOffsets);
+    if (offsets) parts.push(offsets);
+  }
+  if (Array.isArray(props.columns) && props.columns.length) {
+    parts.push('columns={tableColumns}');
   }
 
-  const open = formatComponentCode('Table', codeProps, slots, attrs, {
-    ...TABLE_FORMAT_CONFIG,
-    selfClosing: true,
-  }).replace(/\s*\/>$/, '');
+  if (attrs.className || attrs.class) {
+    parts.push(`className="${escapeAttribute(attrs.className ?? attrs.class)}"`);
+  }
+  parts.push(...formatCustomAttrs(attrs));
 
-  return `${open}${formatStickyLeftOffsetsAttr(props.stickyLeftOffsets)}`;
+  return parts.length ? ` ${parts.join(' ')}` : '';
+}
+
+function formatEmptyTable(props, attrs) {
+  return `<Table${formatTableAttrs(props, attrs)} />`;
+}
+
+function openTableTag(props, attrs) {
+  return `<Table${formatTableAttrs(props, attrs)}`;
 }
 
 /** Table 데모 코드 — 슬롯(thead · tbody)은 마크업, 중첩 컴포넌트는 등록 코드 */
-export function formatTableCode(props, slots, attrs, rootEl, registry) {
+export function formatTableCode(props = {}, slots = {}, attrs = {}, rootEl, registry) {
   const table = resolveTableElement(rootEl);
 
   if (!table) {
-    return formatComponentCode('Table', props, slots, attrs, {
-      ...TABLE_FORMAT_CONFIG,
-      selfClosing: true,
-    });
+    return formatEmptyTable(props, attrs);
   }
 
   const sectionLines = [...table.children]
@@ -140,11 +197,8 @@ export function formatTableCode(props, slots, attrs, rootEl, registry) {
     .filter(Boolean);
 
   if (!sectionLines.length) {
-    return formatComponentCode('Table', props, slots, attrs, {
-      ...TABLE_FORMAT_CONFIG,
-      selfClosing: true,
-    });
+    return formatEmptyTable(props, attrs);
   }
 
-  return [openTableTag(props, slots, attrs) + '>', ...sectionLines, '</Table>'].join('\n');
+  return [openTableTag(props, attrs) + '>', ...sectionLines, '</Table>'].join('\n');
 }

@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export const docMeta = {
   title: 'Accordion | UXKM Guide',
   activeNav: 'accordion',
@@ -24,10 +28,15 @@ import {
   accordionTokens,
 } from '@/doc/data/accordion-api';
 
-const basicCode = `import Accordion from '@/components/Accordion.jsx';
+const basicCode = `'use client';
+
+import { useState } from 'react';
+import Accordion from '@/components/Accordion.jsx';
 import AccordionItem from '@/components/AccordionItem.jsx';
 
 export function BasicExample() {
+  const [returnsOpen, setReturnsOpen] = useState(true);
+
   return (
     <Accordion variant="card" narrow>
       <AccordionItem
@@ -36,7 +45,8 @@ export function BasicExample() {
       />
       <AccordionItem
         label="교환·반품은 어떻게 하나요?"
-        open
+        open={returnsOpen}
+        onOpenChange={setReturnsOpen}
         content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
       />
       <AccordionItem
@@ -53,8 +63,8 @@ import AccordionItem from '@/components/AccordionItem.jsx';
 export function MultipleExample() {
   return (
     <Accordion narrow multiple>
-      <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
-      <AccordionItem label="개인정보" open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
+      <AccordionItem label="알림" defaultOpen content="이메일·푸시 알림 수신 여부를 설정합니다." />
+      <AccordionItem label="개인정보" defaultOpen content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
     </Accordion>
   );
@@ -66,7 +76,7 @@ import AccordionItem from '@/components/AccordionItem.jsx';
 export function FlushExample() {
   return (
     <Accordion variant="flush" narrow>
-      <AccordionItem label="일반" open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
+      <AccordionItem label="일반" defaultOpen content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
       <AccordionItem label="접근성" content="고대비 모드, 모션 감소, 스크린 리더 안내를 조정합니다." />
       <AccordionItem label="고급" content="개발자 도구와 실험 기능을 켜거나 끕니다." />
     </Accordion>
@@ -79,7 +89,7 @@ import AccordionItem from '@/components/AccordionItem.jsx';
 export function BorderedExample() {
   return (
     <Accordion variant="bordered" narrow>
-      <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+      <AccordionItem label="알림" defaultOpen content="이메일·푸시 알림 수신 여부를 설정합니다." />
       <AccordionItem label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
     </Accordion>
@@ -92,7 +102,7 @@ import AccordionItem from '@/components/AccordionItem.jsx';
 export function CardExample() {
   return (
     <Accordion variant="card" narrow multiple>
-      <AccordionItem label="프로젝트 개요" open content="목표, 일정, 이해관계자 정보를 요약합니다." />
+      <AccordionItem label="프로젝트 개요" defaultOpen content="목표, 일정, 이해관계자 정보를 요약합니다." />
       <AccordionItem label="최근 활동" content="커밋, 댓글, 파일 변경 이력을 표시합니다." />
     </Accordion>
   );
@@ -106,7 +116,7 @@ export function ExtraExample() {
     <Accordion narrow>
       <AccordionItem
         label="미해결 문의"
-        open
+        defaultOpen
         content="답변이 필요한 고객 문의 3건이 있습니다."
         extra={<span className="badge badge_count color_danger badge_sm">3</span>}
       />
@@ -125,7 +135,7 @@ import AccordionItem from '@/components/AccordionItem.jsx';
 export function DisabledExample() {
   return (
     <Accordion narrow>
-      <AccordionItem label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+      <AccordionItem label="공개 문서" defaultOpen content="누구나 열람할 수 있는 가이드 문서입니다." />
       <AccordionItem
         label="팀 전용 (권한 없음)"
         disabled
@@ -143,7 +153,7 @@ export function SlideExample() {
     <Accordion variant="card" narrow effect="slide">
       <AccordionItem
         label="배송 안내"
-        open
+        defaultOpen
         content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
       />
       <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
@@ -162,14 +172,37 @@ export function SizeExample() {
   return (
     <>
       <Accordion size="sm" narrow>
-        <AccordionItem label="Small" open content="작은 아코디언 — 좁은 패딩." />
+        <AccordionItem label="Small" defaultOpen content="작은 아코디언 — 좁은 패딩." />
       </Accordion>
       <Accordion size="lg" narrow>
-        <AccordionItem label="Large" open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
+        <AccordionItem label="Large" defaultOpen content="큰 아코디언 — 넓은 패딩과 큰 글자." />
       </Accordion>
     </>
   );
 }`;
+
+export function BasicExample() {
+  const [returnsOpen, setReturnsOpen] = useState(true);
+
+  return (
+    <Accordion variant="card" narrow>
+      <AccordionItem
+        label="배송은 얼마나 걸리나요?"
+        content="평일 기준 2~3일 이내 출고되며, 도서·산간 지역은 1~2일 추가 소요될 수 있습니다."
+      />
+      <AccordionItem
+        label="교환·반품은 어떻게 하나요?"
+        open={returnsOpen}
+        onOpenChange={setReturnsOpen}
+        content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
+      />
+      <AccordionItem
+        label="해외 배송이 가능한가요?"
+        content="현재 국내 배송만 지원합니다. 해외 배송은 준비 중이며 오픈 시 공지사항으로 안내드립니다."
+      />
+    </Accordion>
+  );
+}
 
 export default function AccordionDoc() {
   return (
@@ -177,7 +210,7 @@ export default function AccordionDoc() {
       <div className="page_intro">
         <h1>Accordion</h1>
         <p className="lead">
-          여러 섹션을 접었다 펼 수 있는 아코디언 컴포넌트입니다. FAQ·설정·필터 패널 등에 사용하며,{' '}
+          여러 섹션을 접었다 펼 수 있는 Next.js Client Component입니다. FAQ·설정·필터 패널 등에 사용하며,{' '}
           <code className="typo_code">aria-expanded</code> ·{' '}
           <code className="typo_code">aria-controls</code>로 접근성을 보장합니다.
         </p>
@@ -189,21 +222,7 @@ export default function AccordionDoc() {
         description="FAQ처럼 항목 사이 간격이 있는 accordion_card 스킨입니다. 한 번에 하나의 패널만 열리며(단일 모드), 화살표 키로 트리거 간 포커스를 이동할 수 있습니다."
         code={basicCode}
       >
-        <Accordion variant="card" narrow>
-          <AccordionItem
-            label="배송은 얼마나 걸리나요?"
-            content="평일 기준 2~3일 이내 출고되며, 도서·산간 지역은 1~2일 추가 소요될 수 있습니다."
-          />
-          <AccordionItem
-            label="교환·반품은 어떻게 하나요?"
-            open
-            content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
-          />
-          <AccordionItem
-            label="해외 배송이 가능한가요?"
-            content="현재 국내 배송만 지원합니다. 해외 배송은 준비 중이며 오픈 시 공지사항으로 안내드립니다."
-          />
-        </Accordion>
+        <BasicExample />
       </DemoSection>
 
       <DemoSection
@@ -213,8 +232,8 @@ export default function AccordionDoc() {
         code={multipleCode}
       >
         <Accordion narrow multiple>
-          <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
-          <AccordionItem label="개인정보" open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
+          <AccordionItem label="알림" defaultOpen content="이메일·푸시 알림 수신 여부를 설정합니다." />
+          <AccordionItem label="개인정보" defaultOpen content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
           <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
         </Accordion>
       </DemoSection>
@@ -226,7 +245,7 @@ export default function AccordionDoc() {
         code={flushCode}
       >
         <Accordion variant="flush" narrow>
-          <AccordionItem label="일반" open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
+          <AccordionItem label="일반" defaultOpen content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
           <AccordionItem label="접근성" content="고대비 모드, 모션 감소, 스크린 리더 안내를 조정합니다." />
           <AccordionItem label="고급" content="개발자 도구와 실험 기능을 켜거나 끕니다." />
         </Accordion>
@@ -239,7 +258,7 @@ export default function AccordionDoc() {
         code={borderedCode}
       >
         <Accordion variant="bordered" narrow>
-          <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+          <AccordionItem label="알림" defaultOpen content="이메일·푸시 알림 수신 여부를 설정합니다." />
           <AccordionItem label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
           <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
         </Accordion>
@@ -252,7 +271,7 @@ export default function AccordionDoc() {
         code={cardCode}
       >
         <Accordion variant="card" narrow multiple>
-          <AccordionItem label="프로젝트 개요" open content="목표, 일정, 이해관계자 정보를 요약합니다." />
+          <AccordionItem label="프로젝트 개요" defaultOpen content="목표, 일정, 이해관계자 정보를 요약합니다." />
           <AccordionItem label="최근 활동" content="커밋, 댓글, 파일 변경 이력을 표시합니다." />
         </Accordion>
       </DemoSection>
@@ -266,7 +285,7 @@ export default function AccordionDoc() {
         <Accordion narrow>
           <AccordionItem
             label="미해결 문의"
-            open
+            defaultOpen
             content="답변이 필요한 고객 문의 3건이 있습니다."
             extra={<span className="badge badge_count color_danger badge_sm">3</span>}
           />
@@ -285,7 +304,7 @@ export default function AccordionDoc() {
         code={disabledCode}
       >
         <Accordion narrow>
-          <AccordionItem label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+          <AccordionItem label="공개 문서" defaultOpen content="누구나 열람할 수 있는 가이드 문서입니다." />
           <AccordionItem
             label="팀 전용 (권한 없음)"
             disabled
@@ -303,7 +322,7 @@ export default function AccordionDoc() {
         <Accordion variant="card" narrow effect="slide">
           <AccordionItem
             label="배송 안내"
-            open
+            defaultOpen
             content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
           />
           <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
@@ -322,10 +341,10 @@ export default function AccordionDoc() {
         stack
       >
         <Accordion size="sm" narrow>
-          <AccordionItem label="Small" open content="작은 아코디언 — 좁은 패딩." />
+          <AccordionItem label="Small" defaultOpen content="작은 아코디언 — 좁은 패딩." />
         </Accordion>
         <Accordion size="lg" narrow>
-          <AccordionItem label="Large" open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
+          <AccordionItem label="Large" defaultOpen content="큰 아코디언 — 넓은 패딩과 큰 글자." />
         </Accordion>
       </DemoSection>
 

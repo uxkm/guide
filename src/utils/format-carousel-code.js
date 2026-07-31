@@ -26,21 +26,37 @@ const BOOLEAN_PROPS = new Set([
   'freeMode',
 ]);
 
-function toKebab(key) {
-  return key.replace(/([A-Z])/g, '-$1').toLowerCase();
-}
-
 function shouldSkipProp(key, value, props = {}) {
   if (value === undefined || value === null || value === '') return true;
+  if (key === 'demo' && value === false) return false;
   if (key === 'navigation' && value === false) return false;
   if (key === 'pagination' && value === false) return false;
   if (value === false) return true;
   if (key in DEFAULTS && value === DEFAULTS[key]) return true;
-  if (key === 'ariaLabel') return true;
   if (key === 'autoplayToggle' && props.autoplay) return true;
   if (key === 'thumbs') return true;
   if (key === 'coverflowEffect') return true;
   return false;
+}
+
+function formatString(value) {
+  return JSON.stringify(String(value));
+}
+
+function formatProp(key, value) {
+  if (BOOLEAN_PROPS.has(key)) {
+    return value ? key : `${key}={false}`;
+  }
+
+  if (typeof value === 'number') {
+    return `${key}={${value}}`;
+  }
+
+  if (typeof value === 'boolean') {
+    return value ? key : `${key}={false}`;
+  }
+
+  return `${key}=${formatString(value)}`;
 }
 
 function formatCarouselProps(props, customAttrs = {}) {
@@ -48,51 +64,16 @@ function formatCarouselProps(props, customAttrs = {}) {
     const value = props[key];
     if (shouldSkipProp(key, value, props)) return acc;
 
-    if (BOOLEAN_PROPS.has(key)) {
-      acc.push(toKebab(key));
-      return acc;
-    }
-
-    if (key === 'slidesPerView' && typeof value === 'string') {
-      acc.push(`slides-per-view="${value}"`);
-      return acc;
-    }
-
-    if (
-      key === 'slidesPerView' ||
-      key === 'slidesPerGroup' ||
-      key === 'delay' ||
-      key === 'spaceBetween' ||
-      key === 'gridRows' ||
-      key === 'initialSlide' ||
-      key === 'coverflowSides'
-    ) {
-      acc.push(`:${toKebab(key)}="${value}"`);
-      return acc;
-    }
-
-    if (key === 'pagination' && typeof value === 'string') {
-      acc.push(`pagination="${value}"`);
-      return acc;
-    }
-
-    if (key === 'pagination' && value === true) return acc;
-    if (key === 'pagination' && value === false) {
-      acc.push(':pagination="false"');
-      return acc;
-    }
-    if (key === 'navigation' && value === true) return acc;
-    if (key === 'navigation' && value === false) {
-      acc.push(':navigation="false"');
-      return acc;
-    }
-
-    acc.push(`${toKebab(key)}="${value}"`);
+    acc.push(formatProp(key, value));
     return acc;
   }, []);
 
   Object.entries(customAttrs).forEach(([key, value]) => {
-    if (key === 'class' || key === 'style') return;
+    if (value === undefined || value === null || value === '') return;
+    if (key === 'style' || key.startsWith('on')) return;
+
+    const propName = key === 'class' ? 'className' : key;
+    parts.push(formatProp(propName, value));
   });
 
   return parts;
@@ -100,7 +81,6 @@ function formatCarouselProps(props, customAttrs = {}) {
 
 export function formatCarouselCode(props, slideCount = 0, customAttrs = {}) {
   const propParts = formatCarouselProps(props, customAttrs);
-  propParts.unshift(`aria-label="${props.ariaLabel}"`);
 
   const attrStr = propParts.length ? ` ${propParts.join(' ')}` : '';
 
@@ -110,9 +90,11 @@ export function formatCarouselCode(props, slideCount = 0, customAttrs = {}) {
 
   return [
     `<Carousel${attrStr}>`,
-    '  <CarouselSlide v-for="slide in slides" :key="slide.title">',
-    '    …',
-    '  </CarouselSlide>',
+    '  {slides.map((slide) => (',
+    '    <CarouselSlide key={slide.title}>',
+    '      …',
+    '    </CarouselSlide>',
+    '  ))}',
     '</Carousel>',
   ].join('\n');
 }

@@ -49,7 +49,11 @@ function formatAccordionItem(item) {
   const attrs = [];
 
   attrs.push(`label="${item.label}"`);
-  if (isItemOpen(item)) attrs.push('open');
+  if (item.controlled && isItemOpen(item)) {
+    attrs.push('open');
+  } else if (!item.controlled && item.defaultOpen) {
+    attrs.push('defaultOpen');
+  }
   if (item.disabled) attrs.push('disabled');
 
   const attrStr = attrs.join(' ');

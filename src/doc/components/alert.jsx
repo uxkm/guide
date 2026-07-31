@@ -111,10 +111,10 @@ export function ActionsExample() {
         title="저장 실패"
         description="변경 사항을 저장하지 못했습니다. 다시 시도해 주세요."
         actions={
-          <div className="alert_actions">
+          <>
             <Button variant="filled" color="danger" size="sm" label="다시 시도" />
             <Button variant="ghost" size="sm" label="취소" />
-          </div>
+          </>
         }
       />
       <Alert
@@ -122,10 +122,10 @@ export function ActionsExample() {
         title="이용 약관 변경"
         description="2026년 3월 1일부터 새 약관이 적용됩니다."
         actions={
-          <div className="alert_actions">
+          <>
             <Link href="#" size="sm" label="약관 보기" />
             <Button variant="text" color="primary" size="sm" label="동의하기" />
-          </div>
+          </>
         }
       />
     </>
@@ -180,7 +180,9 @@ export default function AlertDoc() {
     <>
       <div className="page_intro">
         <h1>Alert</h1>
-        <p className="lead">중요한 정보나 피드백을 사용자에게 전달하는 알림 컴포넌트입니다.</p>
+        <p className="lead">
+          중요한 정보나 피드백을 사용자에게 전달하는 Next.js Client Component입니다.
+        </p>
       </div>
 
       <DemoSection
@@ -282,10 +284,10 @@ export default function AlertDoc() {
         title="저장 실패"
         description="변경 사항을 저장하지 못했습니다. 다시 시도해 주세요."
         actions={
-          <div className="alert_actions">
+          <>
             <Button variant="filled" color="danger" size="sm" label="다시 시도" />
             <Button variant="ghost" size="sm" label="취소" />
-          </div>
+          </>
         }
       />
       <Alert
@@ -293,10 +295,10 @@ export default function AlertDoc() {
         title="이용 약관 변경"
         description="2026년 3월 1일부터 새 약관이 적용됩니다."
         actions={
-          <div className="alert_actions">
+          <>
             <Link href="#" size="sm" label="약관 보기" />
             <Button variant="text" color="primary" size="sm" label="동의하기" />
-          </div>
+          </>
         }
       />
     </>

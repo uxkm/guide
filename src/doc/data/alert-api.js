@@ -15,7 +15,7 @@ export const alertProps = [
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'alert_sm · alert_lg' },
   { name: 'role', type: 'string', default: 'alert', description: '루트 role (alert · status 등)' },
   { name: 'icon', type: 'ReactNode', default: '—', description: '커스텀 아이콘' },
-  { name: 'actions', type: 'ReactNode', default: '—', description: '본문 아래 액션 영역' },
+  { name: 'actions', type: 'ReactNode', default: '—', description: '본문 아래 alert_actions 영역에 렌더링' },
   { name: 'className', type: 'string', default: '—', description: 'alert 루트에 추가 클래스' },
   ripplePropTrigger,
 ];
@@ -28,7 +28,7 @@ export const alertChildColumns = [
 export const alertChildren = [
   { name: 'children', description: '본문 (description prop 대체, Vue default 슬롯 대응)' },
   { name: 'icon', description: '커스텀 아이콘 (alert_icon)' },
-  { name: 'actions', description: '본문 아래 액션 버튼·링크' },
+  { name: 'actions', description: '본문 아래 액션 버튼·링크 (alert_actions 래퍼 자동 생성)' },
 ];
 
 /** @deprecated 가이드·Storybook은 alertChildColumns · alertChildren 사용 */

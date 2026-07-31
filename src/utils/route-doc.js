@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom';
-
 const STATIC_PATH_TO_DOC_KEY = {
   '/': 'intro',
   '/getting-started': 'getting-started',
@@ -20,10 +18,4 @@ export function getDocKeyFromPathname(pathname) {
   }
 
   return 'intro';
-}
-
-/** 현재 URL에서 문서 slug를 반환합니다. */
-export function useDocKey() {
-  const { pathname } = useLocation();
-  return getDocKeyFromPathname(pathname);
 }

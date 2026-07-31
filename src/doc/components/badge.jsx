@@ -29,6 +29,8 @@ import {
 
 const basicCode = "import Badge from '@/components/Badge.jsx';\n\nexport function BasicExample() {\n  return (\n    <>\n      <Badge color=\"default\" label=\"Default\" />\n      <Badge color=\"primary\" label=\"Primary\" />\n      <Badge color=\"success\" label=\"Success\" />\n      <Badge color=\"warning\" label=\"Warning\" />\n      <Badge color=\"danger\" label=\"Danger\" />\n      <Badge color=\"info\" label=\"Info\" />\n    </>\n  );\n}";
 
+const semanticCode = "import Badge from '@/components/Badge.jsx';\n\nexport function SemanticExample() {\n  return (\n    <>\n      <p>\n        처리 상태: <Badge as=\"strong\" color=\"success\" label=\"완료\" />\n      </p>\n      <p>\n        검색 결과 <Badge as=\"data\" value=\"12\" count color=\"primary\" label=\"12\" />건\n      </p>\n      <p>\n        <Badge as=\"mark\" color=\"warning\" label=\"업데이트\" /> 확인이 필요합니다.\n      </p>\n    </>\n  );\n}";
+
 const sizeCode = "import Badge from '@/components/Badge.jsx';\n\nexport function SizeExample() {\n  return (\n    <>\n      <Badge size=\"sm\" color=\"primary\" label=\"Small\" />\n      <Badge color=\"primary\" label=\"Medium\" />\n      <Badge size=\"lg\" color=\"primary\" label=\"Large\" />\n    </>\n  );\n}";
 
 const dotCode = "import Badge from '@/components/Badge.jsx';\n\nexport function DotExample() {\n  return (\n    <>\n      <Badge dot color=\"primary\" label=\"Online\" />\n      <Badge dot color=\"success\" label=\"Active\" />\n      <Badge dot color=\"warning\" label=\"Away\" />\n      <Badge dot color=\"danger\" label=\"Offline\" />\n    </>\n  );\n}";
@@ -57,6 +59,23 @@ export default function BadgeDoc() {
           <Badge color="warning" label="Warning" />
           <Badge color="danger" label="Danger" />
           <Badge color="info" label="Info" />
+        </DemoSection>
+
+        <DemoSection
+          headingId="semantic-heading"
+          title="시맨틱 요소"
+          description="기본은 span이며, as prop으로 콘텐츠 의미에 맞는 HTML 요소 또는 커스텀 컴포넌트를 지정합니다."
+          code={semanticCode}
+        >
+          <p>
+            처리 상태: <Badge as="strong" color="success" label="완료" />
+          </p>
+          <p>
+            검색 결과 <Badge as="data" value="12" count color="primary" label="12" />건
+          </p>
+          <p>
+            <Badge as="mark" color="warning" label="업데이트" /> 확인이 필요합니다.
+          </p>
         </DemoSection>
 
         <DemoSection

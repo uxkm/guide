@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Table | UXKM Guide',
   activeNav: 'table',

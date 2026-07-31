@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import Spin from '@/components/Spin.jsx';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';

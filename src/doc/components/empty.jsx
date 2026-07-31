@@ -1,3 +1,5 @@
+'use client';
+
 export const docMeta = {
   title: 'Empty | UXKM Guide',
   activeNav: 'empty',
@@ -97,7 +99,7 @@ export default function EmptyDoc() {
       <div className="page_intro">
         <h1>Empty</h1>
         <p className="lead">
-          데이터가 없거나 검색 결과가 없을 때 빈 상태를 안내하는 Empty 컴포넌트입니다.
+          데이터가 없거나 검색 결과가 없을 때 빈 상태를 안내하는 Next.js Client Component입니다.
           기본 아이콘·설명·액션 버튼 조합을 지원하며 <code className="typo_code">role=&quot;status&quot;</code>로
           접근성을 보장합니다.
         </p>

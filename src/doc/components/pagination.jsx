@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 export const docMeta = {
   title: 'Pagination | UXKM Guide',
   activeNav: 'pagination',
@@ -19,10 +23,20 @@ import {
   paginationTokens,
 } from '@/doc/data/pagination-api';
 
-const basicCode = `import Pagination from '@/components/Pagination.jsx';
+const basicCode = `'use client';
+
+import { useState } from 'react';
+import Pagination from '@/components/Pagination.jsx';
 
 export function BasicExample() {
-  return <Pagination current={1} total={50} pageSize={10} />;
+  const [page, setPage] = useState(1);
+
+  return (
+    <>
+      <Pagination current={page} total={50} pageSize={10} onChange={setPage} />
+      <p aria-live="polite">현재 페이지: {page}</p>
+    </>
+  );
 }`;
 
 const minimalCode = `import Pagination from '@/components/Pagination.jsx';
@@ -114,6 +128,19 @@ export function StateExample() {
   );
 }`;
 
+export function BasicExample() {
+  const [page, setPage] = useState(1);
+
+  return (
+    <>
+      <Pagination current={page} total={50} pageSize={10} onChange={setPage} />
+      <p className="color_muted size_sm" aria-live="polite">
+        현재 페이지: {page}
+      </p>
+    </>
+  );
+}
+
 export default function PaginationDoc() {
   return (
     <>
@@ -128,7 +155,7 @@ export default function PaginationDoc() {
         description="이전·다음 버튼과 페이지 번호로 구성합니다."
         code={basicCode}
       >
-        <Pagination current={1} total={50} pageSize={10} />
+        <BasicExample />
       </DemoSection>
 
       <DemoSection

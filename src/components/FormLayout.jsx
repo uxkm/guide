@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useRef } from 'react';
 import { useComponentDemoCode, createDemoSlots } from '@/hooks/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -15,6 +17,7 @@ const formatCode = createComponentFormatter('FormLayout', {
 });
 
 export default function FormLayout({
+  ref,
   layout = 'vertical',
   fit,
   compact,
@@ -25,7 +28,7 @@ export default function FormLayout({
   className,
   ...rest
 }) {
-  const rootRef = useRef(null);
+  const demoRef = useRef(null);
   const resolvedLayout = VALID_LAYOUTS.has(layout) ? layout : 'vertical';
   const resolvedLabelWidth = VALID_LABEL_WIDTHS.has(labelWidth) ? labelWidth : '';
 
@@ -40,7 +43,7 @@ export default function FormLayout({
       tag,
     },
     createDemoSlots({ default: children }),
-    rootRef,
+    demoRef,
     { className, ...rest },
   );
 
@@ -60,8 +63,15 @@ export default function FormLayout({
   const Tag = tag || 'form';
   const domRest = normalizeDomProps(rest);
 
+  function setRootRef(node) {
+    demoRef.current = node;
+
+    if (typeof ref === 'function') ref(node);
+    else if (ref && typeof ref === 'object') ref.current = node;
+  }
+
   return (
-    <Tag ref={rootRef} className={cn(rootClass, className)} {...domRest}>
+    <Tag ref={setRootRef} className={cn(rootClass, className)} {...domRest}>
       {children}
     </Tag>
   );

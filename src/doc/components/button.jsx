@@ -16,6 +16,8 @@ import {
   buttonProps,
   buttonSlotColumns,
   buttonSlots,
+  buttonTokenColumns,
+  buttonTokens,
 } from '@/doc/data/button-api';
 
 const basicCode = `import Button from '@/components/Button.jsx';
@@ -34,7 +36,7 @@ export function BasicExample() {
         <Button variant="filled" color="success" label="Success" />
         <Button variant="filled" color="warning" label="Warning" />
         <Button variant="filled" color="danger" label="Danger" />
-        <Button variant="outline" color="danger" label="Outline Danger" />
+        <Button variant="text" color="muted" label="Text Muted" />
         <Button variant="text" color="danger" label="Text Danger" />
       </div>
     </>
@@ -462,7 +464,10 @@ export default function ButtonDoc() {
     <>
       <div className="page_intro">
           <h1>Button</h1>
-          <p className="lead">사용자 액션을 트리거하는 버튼 컴포넌트입니다.</p>
+          <p className="lead">
+            클릭·키보드 입력으로 사용자 액션이나 링크 이동을 실행하는 React 컴포넌트입니다. 스킨·색상·크기·
+            아이콘·상태를 props와 유틸리티 클래스로 조합합니다.
+          </p>
         </div>
 
         <DemoSection
@@ -483,7 +488,7 @@ export default function ButtonDoc() {
             <Button variant="filled" color="success" label="Success" />
             <Button variant="filled" color="warning" label="Warning" />
             <Button variant="filled" color="danger" label="Danger" />
-            <Button variant="outline" color="danger" label="Outline Danger" />
+            <Button variant="text" color="muted" label="Text Muted" />
             <Button variant="text" color="danger" label="Text Danger" />
           </div>
         </DemoSection>
@@ -640,7 +645,7 @@ export default function ButtonDoc() {
               <Icon name="chevron-right" />
               </>
             )} />
-            <Button variant="text" color="primary" aria-disabled label="is-disabled" iconAfter={(
+            <Button variant="text" color="primary" ariaDisabled label="is-disabled" iconAfter={(
               <>
               <Icon name="chevron-right" />
               </>
@@ -1008,9 +1013,9 @@ export default function ButtonDoc() {
             <Button variant="filled" color="danger" disabled label="Danger" />
           </div>
           <div className="btn_row btn_row-wrap">
-            <Button variant="filled" color="primary" aria-disabled label="is-disabled" />
-            <Button variant="filled" color="default" aria-disabled label="is-disabled" />
-            <Button variant="outline" color="primary" aria-disabled label="is-disabled" />
+            <Button variant="filled" color="primary" ariaDisabled label="is-disabled" />
+            <Button variant="filled" color="default" ariaDisabled label="is-disabled" />
+            <Button variant="outline" color="primary" ariaDisabled label="is-disabled" />
           </div>
           <div className="btn_row btn_row-wrap">
             <Button variant="filled" color="primary" loading label="저장 중" />
@@ -1097,7 +1102,7 @@ export default function ButtonDoc() {
         <DemoSection
           headingId="tag-heading"
           title="루트 태그"
-          description="tag prop으로 button · a · div를 선택합니다. div와 href 없는 a는 role만으로 Tab 초점이 이동하지 않으므로 tabindex=0을 자동 부여합니다."
+          description="tag prop으로 button · a · div를 선택합니다. div와 href 없는 a에는 키보드 접근을 위해 role과 tabIndex={0}을 자동 적용합니다."
           stack
           code={tagCode}
         >
@@ -1113,7 +1118,7 @@ export default function ButtonDoc() {
           <ApiTable columns={buttonPropColumns} rows={buttonProps} codeColumn="name" />
           <p className="form_field-hint" style={{ marginTop: 'var(--space-md)' }}>
             선언되지 않은 HTML 속성·이벤트(<code className="typo_code">id</code>,
-            <code className="typo_code">data-*</code>, <code className="typo_code">@click</code> 등)는
+            <code className="typo_code">data-*</code>, <code className="typo_code">onClick</code> 등)는
             <code className="typo_code">tag</code>로 지정한 루트 요소에 그대로 전달됩니다.
           </p>
         </ApiSection>
@@ -1128,6 +1133,10 @@ export default function ButtonDoc() {
           description="React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
         >
           <ApiTable columns={buttonClassColumns} rows={buttonClasses} codeColumn="name" />
+        </ApiSection>
+
+        <ApiSection headingId="tokens-heading" title="디자인 토큰">
+          <ApiTable columns={buttonTokenColumns} rows={buttonTokens} codeColumn="name" />
         </ApiSection>
     </>
   );

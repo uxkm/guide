@@ -1,3 +1,5 @@
+'use client';
+
 import {
   createContext,
   useCallback,
@@ -374,6 +376,44 @@ export default function Tabs({
     activePanelId,
   ]);
 
+  const handleTabKeyDown = useCallback(
+    (event, currentId) => {
+      const enabledTabs = barTabs.filter((tab) => !tab.disabled);
+      if (!enabledTabs.length) return;
+
+      const currentIndex = enabledTabs.findIndex((tab) => tab.id === currentId);
+      if (currentIndex === -1) return;
+
+      let nextIndex = null;
+
+      if (
+        (!vertical && event.key === 'ArrowRight') ||
+        (vertical && event.key === 'ArrowDown')
+      ) {
+        nextIndex = (currentIndex + 1) % enabledTabs.length;
+      } else if (
+        (!vertical && event.key === 'ArrowLeft') ||
+        (vertical && event.key === 'ArrowUp')
+      ) {
+        nextIndex = (currentIndex - 1 + enabledTabs.length) % enabledTabs.length;
+      } else if (event.key === 'Home') {
+        nextIndex = 0;
+      } else if (event.key === 'End') {
+        nextIndex = enabledTabs.length - 1;
+      }
+
+      if (nextIndex == null) return;
+
+      event.preventDefault();
+      const nextTab = enabledTabs[nextIndex];
+      selectTab(nextTab.id);
+      listRef.current
+        ?.querySelector(`#${CSS.escape(nextTab.id)}`)
+        ?.focus();
+    },
+    [barTabs, selectTab, vertical],
+  );
+
   const rootClass = useMemo(() => {
     const classes = ['tabs', `tabs_${resolvedVariant}`];
     if (resolvedSize === 'sm') classes.push('tabs_sm');
@@ -432,7 +472,13 @@ export default function Tabs({
           <div
             className={cn('tabs_list-wrap', isScrollNavLayout && 'tabs_scroll-viewport')}
           >
-            <div ref={listRef} className="tabs_list" role="tablist" aria-label={ariaLabel}>
+            <div
+              ref={listRef}
+              className="tabs_list"
+              role="tablist"
+              aria-label={ariaLabel}
+              aria-orientation={vertical ? 'vertical' : 'horizontal'}
+            >
               {resolvedIndicator === 'slide' && indicatorStyle ? (
                 <span className="tabs_indicator" aria-hidden="true" style={indicatorStyle} />
               ) : null}
@@ -449,6 +495,7 @@ export default function Tabs({
                   icon={tab.icon}
                   badge={tab.badge}
                   onClick={() => selectTab(tab.id)}
+                  onKeyDown={(event) => handleTabKeyDown(event, tab.id)}
                 />
               ))}
               {tabsSlot}

@@ -14,6 +14,8 @@ export const navbarProps = [
   { name: 'sticky', type: 'boolean', default: 'false', description: '상단 고정 (navbar_sticky)' },
   { name: 'responsive', type: 'boolean', default: 'false', description: '모바일 토글·data-navbar' },
   { name: 'collapseId', type: 'string', default: '—', description: 'navbar_collapse id (토글 aria-controls)' },
+  { name: 'brandAs', type: 'ElementType', default: 'a', description: '브랜드 루트 요소. Next Link 등을 지정' },
+  { name: 'brandHref', type: 'string', default: '#', description: '브랜드 링크 URL' },
   { name: 'brandContent', type: 'ReactNode', default: '—', description: '브랜드 영역 (brand prop 대체)' },
   { name: 'brandIcon', type: 'ReactNode', default: '—', description: '브랜드 아이콘' },
   { name: 'items', type: 'ReactNode', default: '—', description: '메뉴 목록 (NavbarList)' },
@@ -27,6 +29,7 @@ export const navbarItemPropColumns = navbarPropColumns;
 export const navbarItemProps = [
   { name: 'label', type: 'string', default: '—', description: '링크 텍스트. children으로 대체' },
   { name: 'href', type: 'string', default: '#', description: '링크 URL' },
+  { name: 'as', type: 'ElementType', default: 'a', description: '링크 루트 요소. Next Link 등을 지정' },
   { name: 'active', type: 'boolean', default: 'false', description: 'is-active · aria-current="page"' },
   { name: 'badge', type: 'ReactNode', default: '—', description: '링크 옆 배지' },
   { name: 'children', type: 'ReactNode', default: '—', description: '링크 텍스트 (label 대체)' },
@@ -65,7 +68,7 @@ export const navbarClasses = [
   { name: 'navbar_item · navbar_link', description: '항목·링크 (is-active)' },
   { name: 'navbar_search · navbar_actions', description: '검색·액션 영역' },
   { name: 'navbar_sm · navbar_lg · navbar_sticky · navbar_borderless · navbar_dark', description: '크기·변형' },
-  { name: 'data-navbar · data-navbar-toggle', description: '반응형 JS 연동' },
+  { name: 'is-open', description: 'React 상태로 관리하는 반응형 메뉴 열림 상태' },
   ...rippleClassRows,
 ];
 

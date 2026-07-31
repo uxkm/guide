@@ -8,7 +8,8 @@ export const checkboxPropColumns = [
 
 export const checkboxProps = [
   { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. children으로 대체' },
-  { name: 'checked', type: 'boolean', default: 'false', description: '체크 상태' },
+  { name: 'checked', type: 'boolean', default: '—', description: '제어 체크 상태' },
+  { name: 'defaultChecked', type: 'boolean', default: 'false', description: '비제어 초기 체크 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'indeterminate', type: 'boolean', default: 'false', description: '부분 선택 (전체 선택 등)' },
   { name: 'labelEnd', type: 'boolean', default: 'false', description: '라벨을 체크박스 앞에 배치' },

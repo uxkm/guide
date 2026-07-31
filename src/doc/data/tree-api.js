@@ -20,14 +20,14 @@ export const treeNodePropColumns = treePropColumns;
 export const treeNodeProps = [
   { name: 'label', type: 'string', default: '—', description: '노드 라벨 (tree_label)' },
   { name: 'expanded', type: 'boolean', default: '—', description: '펼침 상태 (aria-expanded)' },
-  { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected)' },
-  { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },
+  { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected · aria-selected)' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 상태 및 상호작용 차단 (is-disabled · aria-disabled)' },
   { name: 'expandable', type: 'boolean', default: 'false', description: '토글 버튼 강제 표시' },
   { name: 'plusToggle', type: 'boolean', default: 'false', description: '+ / − 토글 (tree_toggle-plus)' },
   { name: 'toggleLabel', type: 'string', default: '—', description: '토글 버튼 aria-label' },
   { name: 'link', type: 'boolean', default: 'false', description: '클릭 가능 행 (tree_link)' },
   { name: 'meta', type: 'string', default: '—', description: '우측 메타 텍스트 (tree_meta)' },
-  { name: 'onExpandedChange', type: 'function', default: '—', description: '펼침 상태 변경 콜백 (Vue update:expanded 대응)' },
+  { name: 'onExpandedChange', type: '(expanded: boolean) => void', default: '—', description: '펼침 상태가 변경될 때 호출되는 React 콜백' },
   { name: 'className', type: 'string', default: '—', description: 'tree_item에 추가 클래스' },
   ripplePropContainer,
 ];
@@ -38,7 +38,7 @@ export const treeSlotColumns = [
 ];
 
 export const treeSlots = [
-  { name: 'children', description: 'TreeNode 자식 (Vue default 슬롯 대응)' },
+  { name: 'children', description: 'TreeNode를 전달하는 React children' },
 ];
 
 export const treeNodeSlotColumns = [
@@ -47,13 +47,13 @@ export const treeNodeSlotColumns = [
 ];
 
 export const treeNodeSlots = [
-  { name: 'prefix', description: '토글 앞 체크박스 등 (Vue #prefix 슬롯 대응)' },
-  { name: 'icon', description: '라벨 앞 아이콘 (Vue #icon 슬롯 대응, tree_icon)' },
+  { name: 'prefix', description: '토글 앞 체크박스 등으로 전달하는 React 노드' },
+  { name: 'icon', description: '라벨 앞 아이콘으로 전달하는 React 노드 (tree_icon)' },
   { name: 'label', description: '라벨 텍스트 (label prop 대체)' },
-  { name: 'labelSlot', description: '라벨 커스텀 (Vue #label 슬롯 대응)' },
+  { name: 'labelSlot', description: 'label prop을 대체하는 커스텀 React 노드' },
   { name: 'meta', description: '우측 메타 텍스트 prop' },
-  { name: 'metaSlot', description: '우측 메타 ReactNode (Vue #meta 슬롯 대응)' },
-  { name: 'children', description: '하위 TreeNode (Vue default 슬롯 대응, 중첩 tree)' },
+  { name: 'metaSlot', description: 'meta prop을 대체하는 우측 React 노드' },
+  { name: 'children', description: '중첩 트리를 구성하는 하위 TreeNode children' },
 ];
 
 export const treeClassColumns = [

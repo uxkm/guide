@@ -13,7 +13,7 @@ export default function ApiSection({ title, headingId, description, children }) 
       {description ? (
         <p dangerouslySetInnerHTML={{ __html: formattedDescription }} />
       ) : null}
-      <div className="demo_section-preview demo_section-preview-start">{children}</div>
+      {children}
     </section>
   );
 }
