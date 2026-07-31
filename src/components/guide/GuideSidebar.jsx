@@ -13,6 +13,7 @@ import { cn } from '@/utils/cn';
 
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 const DESKTOP_BREAKPOINT = 1024;
+const GUIDE_LANDING_HREF = process.env.NEXT_PUBLIC_BASE_PATH ? '/index.html' : '/';
 
 function isDesktop() {
   return window.innerWidth > DESKTOP_BREAKPOINT;
@@ -168,15 +169,13 @@ const GuideSidebar = forwardRef(function GuideSidebar(
         aria-label="컴포넌트 메뉴"
       >
         <div className="guide_sidebar-brand">
-          <Link
+          <a
             className="guide_sidebar-back"
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="UXKM Guide 첫 화면 새 창에서 열기"
+            href={GUIDE_LANDING_HREF}
+            aria-label="UXKM Guide 첫 화면으로 이동"
           >
             ← UXKM Guide
-          </Link>
+          </a>
           <div className="guide_sidebar-title">UI Components</div>
           <p className="guide_sidebar-desc">Next.js · React</p>
         </div>
