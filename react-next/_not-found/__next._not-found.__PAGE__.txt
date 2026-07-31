@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[71724,["/react-next/_next/static/chunks/35occq6axle7o.js","/react-next/_next/static/chunks/0s8knay5tu72s.js"],"OutletBoundary"]
+3:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"guide_content","children":["$","div",null,{"className":"page_intro","children":[["$","h1",null,{"children":"페이지를 찾을 수 없습니다"}],["$","p",null,{"className":"lead","children":"요청한 문서가 존재하지 않습니다."}]]}]}],null,["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"W1b5WjoWa_ft8ndWR5RzS"}
+4:null
