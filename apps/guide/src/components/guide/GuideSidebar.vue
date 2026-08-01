@@ -14,6 +14,7 @@ const emit = defineEmits(['update:collapsed']);
 
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 const DESKTOP_BREAKPOINT = 1024;
+const GUIDE_HOME_HREF = import.meta.env.PROD ? '/index.html' : '/';
 
 const sidebarOpen = ref(false);
 const sidebarCollapsed = ref(false);
@@ -163,7 +164,7 @@ defineExpose({
     aria-label="컴포넌트 메뉴"
   >
     <div class="guide_sidebar-brand">
-      <RouterLink class="guide_sidebar-back" to="/">← UXKM Guide</RouterLink>
+      <a class="guide_sidebar-back" :href="GUIDE_HOME_HREF">← UXKM Guide</a>
       <div class="guide_sidebar-title">UI Components</div>
       <p class="guide_sidebar-desc">Vue · Vite</p>
     </div>
