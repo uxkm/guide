@@ -11,6 +11,7 @@ import { cn } from '@uxkm/ui-react/utils/cn';
 
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 const DESKTOP_BREAKPOINT = 1024;
+const GUIDE_HOME_HREF = import.meta.env.PROD ? '/index.html' : '/';
 
 function isDesktop() {
   return window.innerWidth > DESKTOP_BREAKPOINT;
@@ -166,9 +167,9 @@ const GuideSidebar = forwardRef(function GuideSidebar(
         aria-label="컴포넌트 메뉴"
       >
         <div className="guide_sidebar-brand">
-          <NavLink className="guide_sidebar-back" to="/" end>
+          <a className="guide_sidebar-back" href={GUIDE_HOME_HREF}>
             ← UXKM Guide
-          </NavLink>
+          </a>
           <div className="guide_sidebar-title">UI Components</div>
           <p className="guide_sidebar-desc">React · Vite</p>
         </div>
