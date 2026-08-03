@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, provide, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
 import GuideSidebar from '@/components/guide/GuideSidebar.vue';
 import GuideHeader from '@/components/guide/GuideHeader.vue';
 import { getDocByKey } from '@/utils/doc-loader';
@@ -18,9 +17,10 @@ provide('guideSidebar', {
 });
 
 const docKey = computed(() => {
-  if (route.name === 'intro') return 'intro';
-  if (route.name === 'getting-started') return 'getting-started';
-  return String(route.name || 'intro');
+  const path = route.path.replace(/\/$/, '') || '/';
+  if (path === '/') return 'intro';
+  if (path.startsWith('/components/')) return path.slice('/components/'.length);
+  return path.slice(1);
 });
 
 const activeNav = computed(() => getDocByKey(docKey.value)?.meta.activeNav || docKey.value);
@@ -46,7 +46,7 @@ onMounted(() => {
 
     <div class="guide_main">
       <GuideHeader :title="pageTitle" />
-      <router-view />
+      <slot />
     </div>
   </div>
 </template>

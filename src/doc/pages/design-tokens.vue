@@ -7,7 +7,6 @@ export const docMeta = {
 </script>
 
 <script setup>
-import Link from '@/components/Link.vue';
 import List from '@/components/List.vue';
 import ListItem from '@/components/ListItem.vue';
 import TypoText from '@/components/TypoText.vue';
@@ -108,7 +107,7 @@ import {
     <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">Semantic</h3>
     <ApiTable :columns="colorTokenColumns" :rows="semanticColorTokens" code-column="name" />
     <p style="margin-top: var(--space-md);">
-      테마 적용 방법은 <Link href="/getting-started#theme-heading" label="설치 및 사용 · 테마" />를 참고하세요.
+      테마 적용 방법은 <NuxtLink class="link color_primary" to="/getting-started#theme-heading">설치 및 사용 · 테마</NuxtLink>를 참고하세요.
     </p>
   </ApiSection>
 

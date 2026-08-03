@@ -1,4 +1,4 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 
 const STORAGE_KEY = 'guide-theme';
 
@@ -16,7 +16,14 @@ function getStoredTheme() {
 }
 
 export function useTheme() {
-  const theme = ref(document.documentElement.getAttribute('data-theme') || getSystemTheme());
+  const theme = ref('light');
+  let mediaQuery;
+
+  function onSystemThemeChange() {
+    if (!getStoredTheme()) {
+      applyTheme(getSystemTheme(), false);
+    }
+  }
 
   function applyTheme(next, persist = false) {
     theme.value = next;
@@ -35,13 +42,14 @@ export function useTheme() {
   }
 
   onMounted(() => {
-    applyTheme(getStoredTheme() || getSystemTheme(), false);
+    const initialTheme = document.documentElement.getAttribute('data-theme');
+    applyTheme(initialTheme || getStoredTheme() || getSystemTheme(), false);
+    mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', onSystemThemeChange);
+  });
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      if (!getStoredTheme()) {
-        applyTheme(getSystemTheme(), false);
-      }
-    });
+  onUnmounted(() => {
+    mediaQuery?.removeEventListener('change', onSystemThemeChange);
   });
 
   watch(theme, (value) => {

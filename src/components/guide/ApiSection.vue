@@ -21,7 +21,7 @@ const formattedDescription = computed(() => formatDocDescription(props.descripti
   <section class="section" :aria-labelledby="headingId">
     <h2 :id="headingId">{{ title }}</h2>
     <p v-if="description" v-html="formattedDescription" />
-    <div class="demo_section-preview demo_section-preview-start">
+    <div class="api_section-content">
       <slot />
     </div>
   </section>

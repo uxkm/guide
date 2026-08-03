@@ -87,7 +87,7 @@ const props = defineProps({
       </ListItem>
       <ListItem>
         <strong>이 저장소의 빌드</strong>
-        — <strong>Vue 3 + Vite</strong>로 개발·빌드합니다. 문서는
+        — <strong>Nuxt 4 + Vue 3</strong>로 개발·빌드합니다. 문서는
         <TypoText variant="code" tag="span" label="src/doc/" />
         의 Vue SFC로 관리합니다.
       </ListItem>
@@ -97,7 +97,7 @@ const props = defineProps({
   <GuideSection
     heading-id="quickstart-heading"
     title="빠른 시작"
-    description="이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Vite 개발 서버를 실행합니다. 자세한 내용은 설치 및 사용을 참고하세요."
+    description="이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Nuxt 개발 서버를 실행합니다. 자세한 내용은 설치 및 사용을 참고하세요."
   >
     <p>
       <Link
@@ -121,7 +121,7 @@ const props = defineProps({
         :title="category.title"
         :description="category.description"
         :count="category.count"
-        :href="category.href"
+        :href="props.resolveHref(category.href)"
         :target="category.target ?? props.categoryLinkTarget"
       />
     </div>
@@ -130,7 +130,7 @@ const props = defineProps({
   <GuideSection
     heading-id="structure-heading"
     title="이 저장소 구조"
-    description="아래는 이 가이드 저장소의 디렉터리 구성입니다. SCSS·Vue 문서 소스는 src/에서 관리하고, Vite 빌드 결과는 dist/에 생성됩니다."
+    description="아래는 이 가이드 저장소의 디렉터리 구성입니다. SCSS·Vue 문서 소스와 Nuxt 페이지·레이아웃은 src/에서 관리합니다."
   >
     <GuideCodeBlock>{{ structureCode }}</GuideCodeBlock>
     <p>

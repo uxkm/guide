@@ -9,7 +9,6 @@ export const docMeta = {
 <script setup>
 import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
-import Link from '@/components/Link.vue';
 import TypoText from '@/components/TypoText.vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
@@ -34,7 +33,7 @@ import {
 <template>
   <PageIntro title="설치 및 사용">
     <template #lead>
-      이 가이드 저장소의 설치·실행 방법을 안내합니다. Vue 3 + Vite로 개발·빌드하며, 문서는
+      이 가이드 저장소의 설치·실행 방법을 안내합니다. Nuxt 4 + Vue 3로 개발·빌드하며, 문서는
       <TypoText variant="code" tag="span" label="src/doc/" />
       의 Vue SFC로 관리합니다.
     </template>
@@ -51,7 +50,7 @@ import {
   <GuideSection
     heading-id="install-heading"
     title="설치"
-    description="루트에서 의존성을 설치한 뒤 Vite 개발 서버를 실행합니다."
+    description="루트에서 의존성을 설치한 뒤 Nuxt 개발 서버를 실행합니다."
   >
     <GuideCodeBlock>{{ installCode }}</GuideCodeBlock>
   </GuideSection>
@@ -79,13 +78,13 @@ import {
   <GuideSection
     heading-id="build-heading"
     title="프로덕션 빌드"
-    description="pnpm build 결과물은 dist/ 폴더에 생성됩니다. 정적 호스팅에 dist/ 내용을 배포하면 됩니다."
+    description="pnpm build는 Nitro 서버 결과물을, pnpm generate는 .output/public/에 정적 사이트를 생성합니다."
   >
     <GuideCodeBlock>pnpm build</GuideCodeBlock>
   </GuideSection>
 
   <GuideSection heading-id="styles-heading" title="스타일 적용">
-    <p><strong>이 가이드</strong>는 Vite 빌드 시 <TypoText variant="code" tag="span" label="src/scss/main.scss" />가 자동으로 번들됩니다.</p>
+    <p><strong>이 가이드</strong>는 Nuxt 빌드 시 <TypoText variant="code" tag="span" label="src/scss/main.scss" />가 자동으로 번들됩니다.</p>
     <p>
       <strong>다른 프로젝트</strong>에서 SCSS 소스를 직접 쓰려면 자체 빌드 도구(Vite, Webpack 등)에
       <TypoText variant="code" tag="span" label="src/scss/main.scss" />
@@ -126,7 +125,7 @@ import {
       <TypoText variant="code" tag="span" label="src/scss/_tokens.scss" />
       와 <TypoText variant="code" tag="span" label="_themes.scss" />
       에서 CSS 변수로 정의됩니다. 전역 토큰의 기본값·사용 방법은
-      <Link href="/design-tokens" label="디자인 토큰" />
+      <NuxtLink class="link color_primary" to="/design-tokens">디자인 토큰</NuxtLink>
       문서를 참고하세요.
     </p>
   </GuideSection>

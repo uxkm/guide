@@ -46,10 +46,10 @@ export const conventionRows = [
 export const quickstartCode = `# 의존성 설치
 pnpm install
 
-# Vue + Vite 개발 서버
+# Nuxt 개발 서버
 pnpm dev
 
-# Vue 프로덕션 빌드
+# Nitro 프로덕션 빌드
 pnpm build`;
 
 export const structureCode = `src/
@@ -57,16 +57,18 @@ export const structureCode = `src/
 ├── doc/
 │   ├── components/           # 컴포넌트 문서 페이지
 │   └── pages/                # 소개·설치 페이지
+├── pages/                    # Nuxt 파일 기반 라우트
+├── layouts/default.vue       # 가이드 공통 레이아웃
+├── plugins/                  # Nuxt 클라이언트 플러그인
 ├── scss/
 │   ├── _tokens.scss          # 디자인 토큰 (:root CSS 변수)
 │   ├── _themes.scss          # 라이트/다크 테마
 │   ├── components/           # 컴포넌트별 스타일
 │   └── main.scss             # SCSS 진입점
-├── layouts/                  # 가이드 레이아웃
-├── router/                   # Vue Router
-└── main.js                   # 앱 진입점
+└── app.vue                   # Nuxt 앱 루트
 
-dist/                         # Vite 프로덕션 빌드 결과`;
+nuxt.config.js                # 앱·정적 배포 설정
+.output/                      # Nuxt 빌드·정적 생성 결과`;
 
 export const docPageCode = `<script>
 export const docMeta = {

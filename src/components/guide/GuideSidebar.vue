@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
-import { RouterLink } from 'vue-router';
 import { NAV_GROUPS } from '@/data/navigation';
 
 const props = defineProps({
@@ -163,16 +162,16 @@ defineExpose({
     aria-label="컴포넌트 메뉴"
   >
     <div class="guide_sidebar-brand">
-      <RouterLink class="guide_sidebar-back" to="/">← UXKM Guide</RouterLink>
+      <NuxtLink class="guide_sidebar-back" to="/">← UXKM Guide</NuxtLink>
       <div class="guide_sidebar-title">UI Components</div>
-      <p class="guide_sidebar-desc">Vue · Vite</p>
+      <p class="guide_sidebar-desc">Vue · Nuxt</p>
     </div>
 
     <nav ref="navRef" class="guide_nav">
       <template v-for="(group, index) in NAV_GROUPS" :key="group.title">
         <ul v-if="group.flat" class="guide_nav-list guide_nav-list-top">
           <li v-for="item in group.items" :key="item.slug">
-            <RouterLink
+            <NuxtLink
               :to="item.to"
               class="guide_nav-link"
               data-ripple
@@ -180,7 +179,7 @@ defineExpose({
               @click="closeSidebar"
             >
               <span>{{ item.label }}</span>
-            </RouterLink>
+            </NuxtLink>
           </li>
         </ul>
 
@@ -212,7 +211,7 @@ defineExpose({
           </button>
           <ul class="guide_nav-list">
             <li v-for="item in group.items" :key="item.slug">
-              <RouterLink
+              <NuxtLink
                 :to="item.to"
                 class="guide_nav-link"
                 data-ripple
@@ -220,7 +219,7 @@ defineExpose({
                 @click="closeSidebar"
               >
                 <span>{{ item.label }}</span>
-              </RouterLink>
+              </NuxtLink>
             </li>
           </ul>
         </div>

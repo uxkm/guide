@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
 import { docRevision, getDocByKey } from '@/utils/doc-loader';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
@@ -19,6 +18,7 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const baseURL = useRuntimeConfig().app.baseURL;
 const contentRef = ref(null);
 const renderKey = ref(0);
 
@@ -27,6 +27,16 @@ const doc = computed(() => {
   renderKey.value;
   return getDocByKey(props.docKey);
 });
+
+const docComponentProps = computed(() => {
+  if (props.docKey !== 'intro') return {};
+  return { resolveHref: resolveGuideHref };
+});
+
+function resolveGuideHref(href) {
+  if (!href?.startsWith('/') || href.startsWith('//')) return href;
+  return `${baseURL.replace(/\/$/, '')}${href}`;
+}
 
 async function initContent() {
   await nextTick();
@@ -78,13 +88,13 @@ if (import.meta.hot) {
   });
 }
 
-watch(doc, (value) => {
-  if (value?.meta?.title) {
-    document.title = value.meta.title;
-  }
-});
+useHead(() => ({
+  title: doc.value?.meta?.title || 'UXKM Guide',
+}));
 
 function onContentClick(event) {
+  if (event.defaultPrevented) return;
+
   const link = event.target.closest('a[href^="/"]');
   const root = contentRef.value;
   if (!link || !root?.contains(link)) return;
@@ -93,7 +103,10 @@ function onContentClick(event) {
   if (!href || href.startsWith('//')) return;
 
   event.preventDefault();
-  router.push(href);
+  const routeHref = baseURL !== '/' && href.startsWith(baseURL)
+    ? `/${href.slice(baseURL.length)}`
+    : href;
+  router.push(routeHref);
 }
 </script>
 
@@ -102,6 +115,7 @@ function onContentClick(event) {
     <component
       :is="doc.component"
       :key="`${docKey}-${renderKey}`"
+      v-bind="docComponentProps"
     />
   </main>
   <main v-else class="guide_content">

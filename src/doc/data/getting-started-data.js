@@ -5,7 +5,7 @@ export const requirementColumns = [
 ];
 
 export const requirementRows = [
-  { tool: 'Node.js', version: '18 이상 권장', note: 'LTS 버전 사용' },
+  { tool: 'Node.js', version: '20 이상', note: 'LTS 버전 사용' },
   { tool: 'pnpm', version: '9.x', note: 'packageManager 필드에 명시된 버전' },
 ];
 
@@ -15,8 +15,9 @@ export const scriptColumns = [
 ];
 
 export const scriptRows = [
-  { command: 'pnpm dev', description: 'Vite 개발 서버 — 소개 페이지로 바로 진입' },
-  { command: 'pnpm build', description: '프로덕션 빌드 → dist/ 생성' },
+  { command: 'pnpm dev', description: 'Nuxt 개발 서버 — 소개 페이지로 바로 진입' },
+  { command: 'pnpm build', description: 'Nitro 프로덕션 서버 빌드' },
+  { command: 'pnpm generate', description: '정적 사이트 → .output/public/ 생성' },
   { command: 'pnpm preview', description: '빌드 결과 로컬 미리보기' },
 ];
 
@@ -31,6 +32,7 @@ export const newComponentRows = [
   { path: 'src/scss/components/_{name}.scss', role: '컴포넌트 스타일' },
   { path: 'src/scss/components/_index.scss', role: '@use "{name}" 등록' },
   { path: 'src/data/navigation.js', role: '사이드바 메뉴 항목 추가' },
+  { path: 'src/pages/components/[slug].vue', role: 'Nuxt 동적 문서 라우트' },
 ];
 
 export const installCode = `# 저장소 클론
