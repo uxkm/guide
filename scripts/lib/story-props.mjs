@@ -52,6 +52,22 @@ const COMPONENT_ARG_OVERRIDES = {
 
 /** 자식 컴포넌트가 필요한 플레이그라운드 렌더 템플릿 */
 export const PLAYGROUND_RENDER = {
+  Flex: {
+    components: [],
+    args: {
+      cols: 3,
+      directionMd: '',
+      directionLg: '',
+      ratio: '',
+      gap: 'sm',
+      justify: '',
+    },
+    template: `<Flex v-bind="args">
+      <div class="flex_demo-cell">항목 1</div>
+      <div class="flex_demo-cell">항목 2</div>
+      <div class="flex_demo-cell">항목 3</div>
+    </Flex>`,
+  },
   Icon: {
     components: [],
     template: `<Icon v-bind="args" />`,
@@ -420,13 +436,14 @@ export function formatArgs(args) {
 }
 
 export function buildPlaygroundStory(primaryComponent, props) {
-  const args = buildArgs(props, primaryComponent);
-  const argsBlock = Object.keys(args).length ? `\n  args: {\n${formatArgs(args)}\n  },` : '';
   const playground = PLAYGROUND_RENDER[primaryComponent];
+  const args = { ...buildArgs(props, primaryComponent), ...playground?.args };
+  const argsBlock = Object.keys(args).length ? `\n  args: {\n${formatArgs(args)}\n  },` : '';
 
   if (playground) {
     const components = [...new Set([primaryComponent, ...playground.components])];
     return `export const Playground = {${argsBlock}
+  parameters: { controls: { disable: false } },
   render: (_args, context) => ({
     components: { ${components.join(', ')} },
     setup() {

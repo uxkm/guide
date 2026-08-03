@@ -13,6 +13,7 @@ export const NAV_GROUPS = [
     items: [
       { label: 'Container', to: '/components/container', slug: 'container' },
       { label: 'Grid', to: '/components/grid', slug: 'grid' },
+      { label: 'Flex', to: '/components/flex', slug: 'flex' },
       { label: 'Divider', to: '/components/divider', slug: 'divider' },
       { label: 'Space', to: '/components/space', slug: 'space' },
     ],
@@ -61,6 +62,7 @@ export const NAV_GROUPS = [
     title: '피드백',
     items: [
       { label: 'Alert', to: '/components/alert', slug: 'alert' },
+      { label: 'Snackbar', to: '/components/snackbar', slug: 'snackbar' },
       { label: 'Modal', to: '/components/modal', slug: 'modal' },
       { label: 'Drawer', to: '/components/drawer', slug: 'drawer' },
       { label: 'Popover', to: '/components/popover', slug: 'popover' },

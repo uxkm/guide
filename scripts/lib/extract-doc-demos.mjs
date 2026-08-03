@@ -23,6 +23,7 @@ const DOC_STORY_NAME = {
 
 /** 가이드 slug → autodocs subcomponents (primary 외) */
 const DOC_SUBCOMPONENTS = {
+  flex: ['FlexItem'],
   typography: ['TypoText'],
 };
 
@@ -547,6 +548,9 @@ export function buildDocStorySource(doc, getStoryTitle, getStoryId) {
 
   const playgroundConfig = PLAYGROUND_RENDER[primaryComponent];
   if (playgroundConfig) {
+    importLines.push(
+      "import { storyArgsRef } from '@/storybook/story-renders.js';",
+    );
     for (const name of playgroundConfig.components) {
       if (imported.has(name)) continue;
       importLines.push(`import ${name} from './${name}.vue';`);

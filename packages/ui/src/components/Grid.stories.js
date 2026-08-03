@@ -77,6 +77,64 @@ export const Playground = {
 };
 
 
+export const BasicLayout = {
+  name: "기본 페이지 레이아웃",
+  parameters: {
+    demoPreview: { stack: true },
+    docs: {
+      description: {
+        story: "Flex 예시와 동일하게 헤더와 푸터는 전체 너비를 사용하고, 본문은 md 이상에서 사이드바 3/12와 콘텐츠 9/12로 나눕니다.",
+      },
+      source: {
+        code: "<script setup>\nimport Grid from '@uxkm/ui/components/Grid.vue';\n</script>\n\n<template>\n  <Grid gap=\"sm\">\n    <header class=\"grid_col-span-12 grid_demo-cell\">Header</header>\n    <aside class=\"grid_col-span-12 grid_col-span-md-3 grid_demo-cell\">Sidebar</aside>\n    <section class=\"grid_col-span-12 grid_col-span-md-9 grid_demo-cell\" aria-label=\"Main content\">Main content</section>\n    <footer class=\"grid_col-span-12 grid_demo-cell\">Footer</footer>\n  </Grid>\n</template>",
+        language: 'vue',
+      },
+    },
+  },
+  render: () => ({
+    components: { Grid },
+    template: `<Grid gap="sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <section class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell" aria-label="Main content">Main content</section>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </Grid>`,
+  }),
+};
+
+export const ContentLayout = {
+  name: "콘텐츠가 있는 페이지 레이아웃",
+  parameters: {
+    demoPreview: { stack: true },
+    docs: {
+      description: {
+        story: "기본 레이아웃의 Main content 안에 제목·설명과 반응형 콘텐츠 섹션을 배치한 활용 예시입니다.",
+      },
+      source: {
+        code: "<script setup>\nimport Grid from '@uxkm/ui/components/Grid.vue';\n</script>\n\n<template>\n  <Grid gap=\"sm\">\n    <header class=\"grid_col-span-12 grid_demo-cell\">Header</header>\n    <aside class=\"grid_col-span-12 grid_col-span-md-3 grid_demo-cell\">Sidebar</aside>\n    <main class=\"grid_col-span-12 grid_col-span-md-9 grid_demo-cell\">\n      <h3>Main content</h3>\n      <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>\n      <Grid :cols=\"1\" :cols-lg=\"2\" gap=\"sm\">\n        <article class=\"component_stub\"><h4>Content section</h4><p>주요 정보나 기능을 배치합니다.</p></article>\n        <article class=\"component_stub\"><h4>Content section</h4><p>관련 정보나 보조 콘텐츠를 배치합니다.</p></article>\n      </Grid>\n    </main>\n    <footer class=\"grid_col-span-12 grid_demo-cell\">Footer</footer>\n  </Grid>\n</template>",
+        language: 'vue',
+      },
+    },
+  },
+  render: () => ({
+    components: { Grid },
+    template: `<Grid gap="sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <main class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell">
+        <h3>Main content</h3>
+        <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+        <Grid :cols="1" :cols-lg="2" gap="sm">
+          <article class="component_stub"><h4>Content section</h4><p>주요 정보나 기능을 배치합니다.</p></article>
+          <article class="component_stub"><h4>Content section</h4><p>관련 정보나 보조 콘텐츠를 배치합니다.</p></article>
+        </Grid>
+      </main>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </Grid>`,
+  }),
+};
+
+
 export const Parent = {
   name: "부모 클래스로 제어",
   parameters: {
@@ -382,4 +440,3 @@ export const Auto = {
       </Grid>`,
   })),
 };
-

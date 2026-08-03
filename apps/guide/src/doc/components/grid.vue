@@ -22,6 +22,39 @@ import {
   gridTokens,
 } from '@/doc/data/grid-api';
 
+const basicLayoutCode = `<script setup>
+import Grid from '@uxkm/ui/components/Grid.vue';
+<\/script>
+
+<template>
+  <Grid gap="sm">
+    <header class="grid_col-span-12 grid_demo-cell">Header</header>
+    <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+    <section class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell">Main content</section>
+    <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+  </Grid>
+</template>`;
+
+const contentLayoutCode = `<script setup>
+import Grid from '@uxkm/ui/components/Grid.vue';
+<\/script>
+
+<template>
+  <Grid gap="sm">
+    <header class="grid_col-span-12 grid_demo-cell">Header</header>
+    <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+    <main class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell">
+      <h3>Main content</h3>
+      <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+      <Grid :cols="1" :cols-lg="2" gap="sm">
+        <article class="component_stub"><h4>Content section</h4><p>주요 정보나 기능을 배치합니다.</p></article>
+        <article class="component_stub"><h4>Content section</h4><p>관련 정보나 보조 콘텐츠를 배치합니다.</p></article>
+      </Grid>
+    </main>
+    <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+  </Grid>
+</template>`;
+
 const parentCode = `<script setup>
 import Grid from '@uxkm/ui/components/Grid.vue';
 <\/script>
@@ -179,6 +212,43 @@ import Grid from '@uxkm/ui/components/Grid.vue';
       12열 CSS Grid 기반 레이아웃 시스템입니다. 대부분의 배치는 <strong>부모 .grid</strong>에 클래스만 지정하고, 자식은 마크업 콘텐츠만 두면 됩니다.
     </p>
   </div>
+
+  <DemoSection
+    heading-id="basic-layout-heading"
+    title="기본 페이지 레이아웃"
+    description="Flex 예시와 동일하게 헤더와 푸터는 전체 너비를 사용하고, 본문은 md 이상에서 사이드바 3/12와 콘텐츠 9/12로 나눕니다."
+    stack
+    :code="basicLayoutCode"
+  >
+    <Grid gap="sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <section class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell" aria-label="Main content">Main content</section>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </Grid>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="content-layout-heading"
+    title="콘텐츠가 있는 페이지 레이아웃"
+    description="기본 레이아웃의 Main content 안에 제목·설명과 반응형 콘텐츠 섹션을 배치한 활용 예시입니다."
+    stack
+    :code="contentLayoutCode"
+  >
+    <Grid gap="sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <main class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell">
+        <h3>Main content</h3>
+        <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+        <Grid :cols="1" :cols-lg="2" gap="sm">
+          <article class="component_stub"><h4>Content section</h4><p>주요 정보나 기능을 배치합니다.</p></article>
+          <article class="component_stub"><h4>Content section</h4><p>관련 정보나 보조 콘텐츠를 배치합니다.</p></article>
+        </Grid>
+      </main>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </Grid>
+  </DemoSection>
 
   <DemoSection
     heading-id="parent-heading"

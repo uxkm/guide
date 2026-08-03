@@ -19,6 +19,7 @@ import { buildArgTypes, buildArgs, formatArgs, parseProps } from './lib/story-pr
 /** 부모 컴포넌트 스토리에서만 다루는 자식 — 독립 스토리 생성 제외 */
 const SKIP_STORIES = new Set([
   'CarouselSlide',
+  'FlexItem',
   'CollapsePanel',
   'CollapseExternal',
   'AccordionItem',
