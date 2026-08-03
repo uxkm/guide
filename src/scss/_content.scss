@@ -105,6 +105,7 @@
 // 가이드 데모 — 레이아웃 유틸 시각화
 .container_demo-fill,
 .grid_demo-cell,
+.flex_demo-cell,
 .space_demo-box {
   padding: $space-md;
   background: var(--color-accent-muted);
@@ -216,6 +217,15 @@
   display: contents;
 }
 
+// 하단 API 표 — 예시 프레임 없이 테이블만 표시
+.section:not(.demo_section)
+  > .demo_section-preview:has(> .table_wrap:only-child) {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
 // 컴포넌트 데모 페이지 공통 구조
 .demo {
   &_section-header {
@@ -260,6 +270,13 @@
     &-start {
       flex-direction: column;
       align-items: flex-start;
+    }
+
+    &-plain {
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
     }
 
     &-code {

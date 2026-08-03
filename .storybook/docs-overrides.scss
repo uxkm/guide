@@ -97,12 +97,60 @@
   @include reset-ui-tag-skin;
 }
 
-// Storybook Docs — Controls / ArgTypes 타입 배지가 UI Tag 스킨에 가려지지 않도록
-.sbdocs :is(.docblock-argstable, .docblock-argstable-body, .docblock-argstable-head) {
-  @include reset-ui-tag-skin;
+// Storybook Docs — API 표 스토리 (클래스 · 속성 / 디자인 토큰)
+.sbdocs-preview:has(.sb-api-table) {
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: visible !important;
 }
 
-// Storybook Docs — API 표 스토리 (클래스 · 속성 / 디자인 토큰)
+.sbdocs-preview:has(.sb-api-table) > *,
+.sbdocs-preview:has(.sb-api-table) .innerZoomElementWrapper,
+.sbdocs-preview:has(.sb-api-table) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.sb-api-table) .docs-story,
+.sbdocs-preview:has(.sb-api-table) [id^='story--'] {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+.sbdocs-preview:has(.sb-api-table) .sbdocs-preview-actions,
+.sbdocs-preview:has(.sb-api-table) .docblock-code-toggle,
+.sbdocs-preview:has(.sb-api-table) .docblock-source {
+  display: none !important;
+}
+
+// 설명 목록 전용 — Storybook Preview 프레임 없이 본문만 표시
+.sbdocs-preview:has(.sb-demo-layout_plain) {
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.sbdocs-preview:has(.sb-demo-layout_plain) .sbdocs-preview-actions,
+.sbdocs-preview:has(.sb-demo-layout_plain) .docblock-code-toggle,
+.sbdocs-preview:has(.sb-demo-layout_plain) .docblock-source {
+  display: none !important;
+}
+
+.sbdocs-preview:has(.sb-demo-layout_plain) > *,
+.sbdocs-preview:has(.sb-demo-layout_plain) .innerZoomElementWrapper,
+.sbdocs-preview:has(.sb-demo-layout_plain) .innerZoomElementWrapper > *,
+.sbdocs-preview:has(.sb-demo-layout_plain) .docs-story,
+.sbdocs-preview:has(.sb-demo-layout_plain) [id^='story--'] {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
 .sbdocs .sb-demo-layout .table_wrap,
 .sbdocs .sb-guide-page .table_wrap {
   width: 100%;

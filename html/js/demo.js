@@ -3038,6 +3038,367 @@
 })();
 
 /**
+ * Snackbar 표시 · 자동 닫힘 · 호버/포커스 일시 정지 — 데모용
+ */
+(function () {
+  var openSnackbars = [];
+  var motionDuration = 220;
+  var snackbarSequence = 0;
+  var snackbarPlacements = [
+    'top-start', 'top-center', 'top-end',
+    'middle-start', 'middle-end',
+    'bottom-start', 'bottom-center', 'bottom-end'
+  ];
+  var snackbarPlacementLabels = {
+    'top-start': '상단 좌측',
+    'top-center': '상단 가운데',
+    'top-end': '상단 우측',
+    'middle-start': '중간 좌측',
+    'middle-end': '중간 우측',
+    'bottom-start': '하단 좌측',
+    'bottom-center': '하단 가운데',
+    'bottom-end': '하단 우측'
+  };
+  var snackbarColors = ['info', 'success', 'warning', 'error'];
+  var snackbarIconPaths = {
+    info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+    success: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>',
+    warning: '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>',
+    error: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>'
+  };
+
+  function getSnackbarScope(element) {
+    return element.closest('.demo_section-preview, .sb-demo-layout') || document;
+  }
+
+  function updateSnackbarPlayground(scope) {
+    if (!scope || !scope.querySelectorAll) return;
+    var count = scope.querySelectorAll('[data-snackbar-playground-item]:not([hidden])').length;
+
+    scope.querySelectorAll('[data-snackbar-clear]').forEach(function (button) {
+      var label = button.querySelector('.btn_label');
+      button.disabled = count === 0;
+      if (label) label.textContent = '전체 닫기' + (count ? ' (' + count + ')' : '');
+    });
+  }
+
+  function clearSnackbarTimer(snackbar) {
+    if (snackbar._snackbarTimer) {
+      clearTimeout(snackbar._snackbarTimer);
+      snackbar._snackbarTimer = null;
+    }
+  }
+
+  function clearSnackbarMotionTimer(snackbar) {
+    if (snackbar._snackbarMotionTimer) {
+      clearTimeout(snackbar._snackbarMotionTimer);
+      snackbar._snackbarMotionTimer = null;
+    }
+  }
+
+  function finishSnackbarEnter(snackbar) {
+    if (!snackbar || snackbar.hidden || snackbar.classList.contains('is-leaving')) {
+      return;
+    }
+
+    clearSnackbarMotionTimer(snackbar);
+    snackbar.classList.remove('is-entering');
+    snackbar.classList.add('is-open');
+    scheduleSnackbarClose(snackbar, snackbar._snackbarDuration || 0);
+  }
+
+  function finishSnackbarClose(snackbar) {
+    var scope = getSnackbarScope(snackbar);
+    clearSnackbarMotionTimer(snackbar);
+    snackbar.classList.remove('is-entering', 'is-open', 'is-leaving');
+    snackbar.hidden = true;
+
+    if (snackbar.hasAttribute('data-snackbar-playground-item')) {
+      snackbar.remove();
+      updateSnackbarPlayground(scope);
+    }
+  }
+
+  function closeSnackbar(snackbar) {
+    if (!snackbar || snackbar.hidden) {
+      return;
+    }
+
+    clearSnackbarTimer(snackbar);
+    clearSnackbarMotionTimer(snackbar);
+    snackbar._snackbarRemaining = 0;
+    snackbar.classList.remove('is-entering', 'is-open');
+    openSnackbars = openSnackbars.filter(function (item) {
+      return item !== snackbar;
+    });
+
+    if (snackbar.classList.contains('snackbar_motion-none')) {
+      finishSnackbarClose(snackbar);
+      return;
+    }
+
+    snackbar.classList.add('is-leaving');
+    snackbar._snackbarMotionTimer = setTimeout(function () {
+      finishSnackbarClose(snackbar);
+    }, motionDuration);
+  }
+
+  function scheduleSnackbarClose(snackbar, duration) {
+    clearSnackbarTimer(snackbar);
+
+    if (duration <= 0) {
+      snackbar._snackbarRemaining = 0;
+      return;
+    }
+
+    if (snackbar._snackbarPauseReasons && snackbar._snackbarPauseReasons.size) {
+      snackbar._snackbarRemaining = duration;
+      return;
+    }
+
+    snackbar._snackbarRemaining = duration;
+    snackbar._snackbarDeadline = Date.now() + duration;
+    snackbar._snackbarTimer = setTimeout(function () {
+      closeSnackbar(snackbar);
+    }, duration);
+  }
+
+  function showSnackbar(snackbar) {
+    if (!snackbar) {
+      return;
+    }
+
+    var duration = Number(snackbar.getAttribute('data-snackbar-duration'));
+
+    if (!snackbar.hasAttribute('data-snackbar-duration') || Number.isNaN(duration)) {
+      duration = 5000;
+    }
+
+    clearSnackbarTimer(snackbar);
+    clearSnackbarMotionTimer(snackbar);
+    snackbar._snackbarPauseReasons = new Set();
+    snackbar._snackbarDuration = duration;
+    snackbar.hidden = false;
+    snackbar.classList.remove('is-entering', 'is-open', 'is-leaving');
+    openSnackbars = openSnackbars.filter(function (item) {
+      return item !== snackbar;
+    });
+    openSnackbars.push(snackbar);
+    updateSnackbarPlayground(getSnackbarScope(snackbar));
+
+    if (snackbar.classList.contains('snackbar_motion-none')) {
+      finishSnackbarEnter(snackbar);
+      return;
+    }
+
+    requestAnimationFrame(function () {
+      snackbar.classList.add('is-entering');
+      snackbar._snackbarMotionTimer = setTimeout(function () {
+        finishSnackbarEnter(snackbar);
+      }, motionDuration);
+    });
+  }
+
+  function pauseSnackbar(snackbar, reason) {
+    if (!snackbar) {
+      return;
+    }
+
+    snackbar._snackbarPauseReasons = snackbar._snackbarPauseReasons || new Set();
+    snackbar._snackbarPauseReasons.add(reason);
+
+    if (!snackbar._snackbarTimer) return;
+
+    snackbar._snackbarRemaining = Math.max(0, snackbar._snackbarDeadline - Date.now());
+    clearSnackbarTimer(snackbar);
+  }
+
+  function resumeSnackbar(snackbar, reason) {
+    if (!snackbar) {
+      return;
+    }
+
+    if (snackbar._snackbarPauseReasons) {
+      snackbar._snackbarPauseReasons.delete(reason);
+    }
+
+    if (
+      snackbar.hidden ||
+      snackbar._snackbarTimer ||
+      (snackbar._snackbarPauseReasons && snackbar._snackbarPauseReasons.size)
+    ) return;
+
+    scheduleSnackbarClose(snackbar, snackbar._snackbarRemaining || 0);
+  }
+
+  function createSnackbar(scope, placement, sequence, round, motion) {
+    var region = scope.querySelector('[data-snackbar-region="' + placement + '"]');
+    if (!region) return null;
+
+    snackbarSequence += 1;
+    var color = snackbarColors[(snackbarSequence - 1) % snackbarColors.length];
+    var snackbar = document.createElement('div');
+    var classes = [
+      'snackbar',
+      'color_' + color,
+      'snackbar_motion-' + motion,
+      'snackbar_placement-' + placement
+    ];
+    if (round) classes.push('snackbar_round');
+
+    snackbar.className = classes.join(' ');
+    snackbar.setAttribute('role', color === 'error' ? 'alert' : 'status');
+    snackbar.setAttribute('aria-live', color === 'error' ? 'assertive' : 'polite');
+    snackbar.setAttribute('aria-atomic', 'true');
+    snackbar.setAttribute('aria-relevant', 'additions text');
+    snackbar.setAttribute('data-snackbar-duration', '8000');
+    snackbar.setAttribute('data-snackbar-playground-item', '');
+    snackbar.hidden = true;
+    snackbar.innerHTML =
+      '<svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' + snackbarIconPaths[color] + '</svg>' +
+      '<span class="snackbar_message"></span>' +
+      '<span class="snackbar_action"><button type="button" class="btn btn_ghost btn_sm" data-snackbar-close><span class="btn_label">확인</span></button></span>' +
+      '<button type="button" class="btn btn_ghost btn_icon-only snackbar_close" data-snackbar-close aria-label="알림 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
+    snackbar.querySelector('.snackbar_message').textContent =
+      snackbarPlacementLabels[placement] + ' 알림' + (sequence ? ' ' + sequence : '');
+    region.appendChild(snackbar);
+    showSnackbar(snackbar);
+    return snackbar;
+  }
+
+  function addSnackbars(scope, placement, count, round, motion) {
+    if (snackbarPlacements.indexOf(placement) === -1) return;
+    var resolvedCount = Math.min(10, Math.max(1, Number(count) || 1));
+    for (var index = 0; index < resolvedCount; index += 1) {
+      createSnackbar(
+        scope,
+        placement,
+        resolvedCount > 1 ? index + 1 : 0,
+        Boolean(round),
+        motion === 'slide' ? 'slide' : 'fade'
+      );
+    }
+  }
+
+  function initSnackbarOpenOnLoad() {
+    document.querySelectorAll('[data-snackbar-open-on-load]').forEach(function (snackbar) {
+      if (snackbar._snackbarOpenedOnLoad) return;
+      snackbar._snackbarOpenedOnLoad = true;
+      showSnackbar(snackbar);
+    });
+  }
+
+  document.addEventListener('click', function (event) {
+    var addButton = event.target.closest('[data-snackbar-add]');
+
+    if (addButton) {
+      addSnackbars(
+        getSnackbarScope(addButton),
+        addButton.getAttribute('data-snackbar-add'),
+        1,
+        false,
+        'fade'
+      );
+      return;
+    }
+
+    var addAllButton = event.target.closest('[data-snackbar-add-all]');
+
+    if (addAllButton) {
+      var addAllScope = getSnackbarScope(addAllButton);
+      snackbarPlacements.forEach(function (placement) {
+        addSnackbars(
+          addAllScope,
+          placement,
+          addAllButton.getAttribute('data-snackbar-count') || 1,
+          addAllButton.hasAttribute('data-snackbar-round'),
+          addAllButton.getAttribute('data-snackbar-motion') || 'fade'
+        );
+      });
+      return;
+    }
+
+    var clearButton = event.target.closest('[data-snackbar-clear]');
+
+    if (clearButton) {
+      var clearScope = getSnackbarScope(clearButton);
+      clearScope.querySelectorAll('[data-snackbar-playground-item]').forEach(function (snackbar) {
+        closeSnackbar(snackbar);
+      });
+      return;
+    }
+
+    var trigger = event.target.closest('[data-snackbar-trigger]');
+
+    if (trigger) {
+      var selector = trigger.getAttribute('data-snackbar-trigger');
+      var snackbar = null;
+
+      try {
+        snackbar = selector ? document.querySelector(selector) : null;
+      } catch (error) {}
+
+      showSnackbar(snackbar);
+      return;
+    }
+
+    var closeEl = event.target.closest('[data-snackbar-close]');
+
+    if (closeEl) {
+      closeSnackbar(closeEl.closest('.snackbar'));
+    }
+  });
+
+  document.addEventListener('pointerover', function (event) {
+    var snackbar = event.target.closest('.snackbar');
+    if (snackbar) pauseSnackbar(snackbar, 'hover');
+  });
+
+  document.addEventListener('pointerout', function (event) {
+    var snackbar = event.target.closest('.snackbar');
+    if (snackbar && !snackbar.contains(event.relatedTarget)) resumeSnackbar(snackbar, 'hover');
+  });
+
+  document.addEventListener('focusin', function (event) {
+    var snackbar = event.target.closest('.snackbar');
+    if (snackbar) pauseSnackbar(snackbar, 'focus');
+  });
+
+  document.addEventListener('focusout', function (event) {
+    var snackbar = event.target.closest('.snackbar');
+    if (snackbar && !snackbar.contains(event.relatedTarget)) resumeSnackbar(snackbar, 'focus');
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key !== 'Escape') return;
+    var snackbar = event.target.closest('.snackbar');
+    if (!snackbar || !snackbar.querySelector('[data-snackbar-close]')) return;
+    event.preventDefault();
+    closeSnackbar(snackbar);
+  });
+
+  document.addEventListener('animationend', function (event) {
+    var snackbar = event.target.closest('.snackbar');
+    if (!snackbar || event.target !== snackbar) return;
+    if (snackbar.classList.contains('is-entering')) finishSnackbarEnter(snackbar);
+    if (snackbar.classList.contains('is-leaving')) finishSnackbarClose(snackbar);
+  });
+
+  initSnackbarOpenOnLoad();
+
+  if (typeof MutationObserver !== 'undefined') {
+    var snackbarOpenObserver = new MutationObserver(function () {
+      initSnackbarOpenOnLoad();
+    });
+
+    snackbarOpenObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+  }
+})();
+
+/**
  * 분할·OTP 입력 — 포커스 자동 이동 (데모용)
  */
 (function () {
@@ -3355,4 +3716,3 @@
     });
   });
 })();
-

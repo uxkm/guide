@@ -50,6 +50,12 @@
   --container-max-width-lg: 64rem;
   --container-max-width-xl: 80rem;
 
+  // ----- Flex
+  --flex-gap: var(--space-md);
+  --flex-gap-sm: var(--space-sm);
+  --flex-gap-lg: var(--space-lg);
+  --flex-auto-min: 10rem;
+
   // ----- Grid
   --grid-columns: 12;
   --grid-gap: var(--space-md);
@@ -724,6 +730,39 @@
   --alert-font-size-lg: var(--text-size-base);
   --alert-icon-size-lg: 1.5rem;
   --alert-close-size-lg: 1.5rem;
+
+  // ----- Snackbar — Vue · React · Next 공통 구조
+  --snackbar-min-width: 18rem;
+  --snackbar-max-width: 36rem;
+  --snackbar-padding-y: var(--space-sm);
+  --snackbar-padding-x: var(--space-md);
+  --snackbar-gap: var(--space-sm);
+  --snackbar-font-size: var(--text-size-base);
+  --snackbar-line-height: 1.5;
+  --snackbar-icon-size: 1.25rem;
+  --snackbar-action-gap: var(--space-sm);
+  --snackbar-close-size: 2rem;
+  --snackbar-round-padding-x: var(--space-lg);
+  --snackbar-round-padding-x-sm: var(--space-md);
+  --snackbar-round-padding-x-lg: var(--space-xl);
+  --snackbar-motion-duration: 200ms;
+  --snackbar-motion-distance: 1rem;
+  --snackbar-motion-easing: cubic-bezier(0.2, 0, 0, 1);
+  --snackbar-region-offset: var(--space-md);
+  --snackbar-region-gap: var(--space-sm);
+  --snackbar-region-z-index: 1200;
+  --snackbar-region-inset-block-start: var(--snackbar-region-offset);
+  --snackbar-region-inset-block-end: var(--snackbar-region-offset);
+  --snackbar-region-inset-inline-start: var(--snackbar-region-offset);
+  --snackbar-region-inset-inline-end: var(--snackbar-region-offset);
+  --snackbar-padding-y-sm: var(--space-xs);
+  --snackbar-padding-x-sm: var(--space-sm);
+  --snackbar-font-size-sm: var(--text-size-sm);
+  --snackbar-icon-size-sm: 1rem;
+  --snackbar-padding-y-lg: var(--space-md);
+  --snackbar-padding-x-lg: var(--space-lg);
+  --snackbar-font-size-lg: var(--text-size-lg);
+  --snackbar-icon-size-lg: 1.5rem;
 
   // ----- Tag — structure
   --tag-padding-y: 0.15rem;

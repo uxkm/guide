@@ -4,6 +4,10 @@
  */
 
 import { rewriteGuideHrefsForStorybook } from './storybook-links.js';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { PureArgsTable } from '@storybook/addon-docs/blocks';
+import { ensure, ThemeProvider, themes } from 'storybook/theming';
 
 /**
  * 속성 플래그가 있는 루트 요소 전체를 추출 (예: data-drawer, data-modal).
@@ -127,6 +131,7 @@ export function extractDemoSections(html) {
       previewHtml: preview.inner.trim(),
       stack: /\bdemo_section-preview-stack\b/.test(className),
       start: /\bdemo_section-preview-start\b/.test(className),
+      plain: /\bdemo_section-preview-plain\b/.test(className),
     });
   }
 
@@ -168,6 +173,7 @@ export function extractApiSections(html) {
       previewHtml: preview.inner.trim(),
       stack: /\bdemo_section-preview-stack\b/.test(className),
       start: /\bdemo_section-preview-start\b/.test(className),
+      api: true,
     });
   }
 
@@ -199,7 +205,7 @@ export function pageBody(html) {
 /**
  * 가이드 .demo_section-preview와 동일한 간격으로 렌더 (소스 코드에는 래퍼 미포함)
  * @param {string} html
- * @param {{ stack?: boolean, start?: boolean }} [options]
+ * @param {{ stack?: boolean, start?: boolean, plain?: boolean }} [options]
  */
 export function renderHtml(html, options = {}) {
   const el = document.createElement('div');
@@ -207,12 +213,60 @@ export function renderHtml(html, options = {}) {
 
   if (options.stack) classes.push('sb-demo-layout_stack');
   if (options.start) classes.push('sb-demo-layout_start');
+  if (options.plain) classes.push('sb-demo-layout_plain');
 
   el.className = classes.join(' ');
   el.innerHTML = rewriteGuideHrefsForStorybook(
     html.replace(/\.\.\/images\//g, '/images/'),
   );
   return el;
+}
+
+/**
+ * Storybook Docs 전용 API 표 — 가이드 표의 내용만 Storybook 표 구조로 변환
+ * @param {string} html
+ * @returns {HTMLDivElement}
+ */
+export function renderApiTable(html) {
+  const source = document.createElement('div');
+  const container = document.createElement('div');
+
+  source.innerHTML = rewriteGuideHrefsForStorybook(html);
+  container.className = 'sb-api-table';
+
+  const table = source.querySelector('table');
+  const headers = Array.from(table?.querySelectorAll('thead th') || []).map((cell) =>
+    cell.textContent.trim(),
+  );
+  const descriptionIndex = headers.findIndex((label) => /설명|description/i.test(label));
+  const defaultIndex = headers.findIndex((label) => /기본값|default/i.test(label));
+  const rows = {};
+
+  table?.querySelectorAll('tbody tr').forEach((row, index) => {
+    const cells = Array.from(row.querySelectorAll('th, td'));
+    const name = cells[0]?.textContent.trim() || `API ${index + 1}`;
+    const description = cells[descriptionIndex]?.textContent.trim() || '';
+    const defaultValue = cells[defaultIndex]?.textContent.trim() || '';
+
+    rows[`api-${index}`] = {
+      name,
+      description,
+      table: defaultValue ? { defaultValue: { summary: defaultValue } } : {},
+    };
+  });
+
+  const themeName = document.documentElement.getAttribute('data-theme') === 'dark'
+    ? 'dark'
+    : 'light';
+  container.innerHTML = renderToStaticMarkup(
+    React.createElement(
+      ThemeProvider,
+      { theme: ensure(themes[themeName]) },
+      React.createElement(PureArgsTable, { rows, sort: 'none' }),
+    ),
+  );
+
+  return container;
 }
 
 /**
@@ -250,12 +304,15 @@ export function guidePageDocsParameters() {
 }
 
 /**
- * @param {{ previewHtml: string, stack?: boolean, start?: boolean }} demo
+ * @param {{ previewHtml: string, stack?: boolean, start?: boolean, plain?: boolean, api?: boolean }} demo
  */
 export function renderDemo(demo) {
+  if (demo.api) return renderApiTable(demo.previewHtml);
+
   return renderHtml(demo.previewHtml, {
     stack: demo.stack,
     start: demo.start,
+    plain: demo.plain,
   });
 }
 

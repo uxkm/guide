@@ -25,7 +25,7 @@ export default {
 };
 
 export const Demo0 = {
-  name: '부모 클래스로 제어',
+  name: '기본 페이지 레이아웃',
   render: () => renderDemo(demos[0]),
   parameters: {
     docs: {
@@ -37,7 +37,7 @@ export const Demo0 = {
   },
 };
 export const Demo1 = {
-  name: '균등 열',
+  name: '콘텐츠가 있는 페이지 레이아웃',
   render: () => renderDemo(demos[1]),
   parameters: {
     docs: {
@@ -49,7 +49,7 @@ export const Demo1 = {
   },
 };
 export const Demo2 = {
-  name: '비율 열',
+  name: '부모 클래스로 제어',
   render: () => renderDemo(demos[2]),
   parameters: {
     docs: {
@@ -61,7 +61,7 @@ export const Demo2 = {
   },
 };
 export const Demo3 = {
-  name: '자식 일괄 span (12열)',
+  name: '12열 전체 활용',
   render: () => renderDemo(demos[3]),
   parameters: {
     docs: {
@@ -73,7 +73,7 @@ export const Demo3 = {
   },
 };
 export const Demo4 = {
-  name: '자식별 span (혼합 레이아웃)',
+  name: '균등 열',
   render: () => renderDemo(demos[4]),
   parameters: {
     docs: {
@@ -85,7 +85,7 @@ export const Demo4 = {
   },
 };
 export const Demo5 = {
-  name: '간격',
+  name: '비율 열',
   render: () => renderDemo(demos[5]),
   parameters: {
     docs: {
@@ -97,7 +97,7 @@ export const Demo5 = {
   },
 };
 export const Demo6 = {
-  name: '반응형 (부모)',
+  name: '자식 일괄 span (12열)',
   render: () => renderDemo(demos[6]),
   parameters: {
     docs: {
@@ -109,13 +109,49 @@ export const Demo6 = {
   },
 };
 export const Demo7 = {
-  name: '자동 배치',
+  name: '자식별 span (혼합 레이아웃)',
   render: () => renderDemo(demos[7]),
   parameters: {
     docs: {
       ...gulpSource(demos[7].previewHtml).docs,
       description: {
         story: demos[7].description,
+      },
+    },
+  },
+};
+export const Demo8 = {
+  name: '간격',
+  render: () => renderDemo(demos[8]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[8].previewHtml).docs,
+      description: {
+        story: demos[8].description,
+      },
+    },
+  },
+};
+export const Demo9 = {
+  name: '반응형 (부모)',
+  render: () => renderDemo(demos[9]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[9].previewHtml).docs,
+      description: {
+        story: demos[9].description,
+      },
+    },
+  },
+};
+export const Demo10 = {
+  name: '자동 배치',
+  render: () => renderDemo(demos[10]),
+  parameters: {
+    docs: {
+      ...gulpSource(demos[10].previewHtml).docs,
+      description: {
+        story: demos[10].description,
       },
     },
   },

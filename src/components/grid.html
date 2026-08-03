@@ -8,6 +8,45 @@ pageTitle: Grid
   <p class="lead">12열 CSS Grid 기반 레이아웃 시스템입니다. 대부분의 배치는 <strong>부모 .grid</strong>에 클래스만 지정하고, 자식은 마크업 콘텐츠만 두면 됩니다.</p>
 </div>
 
+<section class="section demo_section" aria-labelledby="basic-layout-heading">
+  <div class="demo_section-header">
+    <h2 id="basic-layout-heading">기본 페이지 레이아웃</h2>
+    <p>헤더와 푸터는 전체 12열을 사용하고, 본문 영역은 md 이상에서 사이드바 3열과 콘텐츠 9열로 나눕니다. 작은 화면에서는 모든 영역이 한 열로 쌓입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="grid grid_gap-sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <div class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell" role="region" aria-label="Main content">Main content</div>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="content-layout-heading">
+  <div class="demo_section-header">
+    <h2 id="content-layout-heading">콘텐츠가 있는 페이지 레이아웃</h2>
+    <p>기본 페이지 레이아웃을 바탕으로 Main content 안에 제목·설명과 반응형 콘텐츠 섹션을 배치한 활용 예시입니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="grid grid_gap-sm">
+      <header class="grid_col-span-12 grid_demo-cell">Header</header>
+      <aside class="grid_col-span-12 grid_col-span-md-3 grid_demo-cell">Sidebar</aside>
+      <main class="grid_col-span-12 grid_col-span-md-9 grid_demo-cell">
+        <h3>Main content</h3>
+        <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+        <div class="grid grid_cols-1 grid_cols-lg-2 grid_gap-sm">
+          <article class="component_stub"><h4>Content section</h4><p>주요 정보나 기능을 배치합니다.</p></article>
+          <article class="component_stub"><h4>Content section</h4><p>관련 정보나 보조 콘텐츠를 배치합니다.</p></article>
+        </div>
+      </main>
+      <footer class="grid_col-span-12 grid_demo-cell">Footer</footer>
+    </div>
+  </div>
+</section>
+
 <section class="section demo_section" aria-labelledby="parent-heading">
   <div class="demo_section-header">
     <h2 id="parent-heading">부모 클래스로 제어</h2>
@@ -31,6 +70,30 @@ pageTitle: Grid
       <div class="grid_demo-cell">grid_item-span-4</div>
       <div class="grid_demo-cell">grid_item-span-4</div>
       <div class="grid_demo-cell">grid_item-span-4</div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo_section" aria-labelledby="twelve-columns-heading">
+  <div class="demo_section-header">
+    <h2 id="twelve-columns-heading">12열 전체 활용</h2>
+    <p>12열 시스템의 각 열을 하나씩 사용합니다. grid_item-span-1을 부모에 지정하면 12개 항목이 한 행의 전체 열을 채웁니다.</p>
+  </div>
+
+  <div class="demo_section-preview demo_section-preview-stack">
+    <div class="grid grid_item-span-1 grid_gap-sm">
+      <div class="grid_demo-cell">1</div>
+      <div class="grid_demo-cell">2</div>
+      <div class="grid_demo-cell">3</div>
+      <div class="grid_demo-cell">4</div>
+      <div class="grid_demo-cell">5</div>
+      <div class="grid_demo-cell">6</div>
+      <div class="grid_demo-cell">7</div>
+      <div class="grid_demo-cell">8</div>
+      <div class="grid_demo-cell">9</div>
+      <div class="grid_demo-cell">10</div>
+      <div class="grid_demo-cell">11</div>
+      <div class="grid_demo-cell">12</div>
     </div>
   </div>
 </section>

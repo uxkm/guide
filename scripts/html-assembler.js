@@ -861,6 +861,11 @@ function processDemoSections(body) {
       const openEnd = sectionHtml.indexOf('>') + 1;
       const closeStart = sectionHtml.lastIndexOf('</section>');
       const attrsAndOpen = sectionHtml.slice(0, openEnd);
+
+      if (/\bdemo_section-no-code\b/.test(attrsAndOpen)) {
+        return sectionHtml;
+      }
+
       const inner = sectionHtml.slice(openEnd, closeStart);
       const processedInner = processDemoSection(inner);
 

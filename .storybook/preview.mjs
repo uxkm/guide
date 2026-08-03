@@ -4,6 +4,7 @@ import '../src/js/ripple.js';
 import { initDrawerRuntime } from '../stories/lib/drawer-runtime.js';
 import { initModalRuntime } from '../stories/lib/modal-runtime.js';
 import { initAlertRuntime } from '../stories/lib/alert-runtime.js';
+import { initSnackbarRuntime } from '../stories/lib/snackbar-runtime.js';
 import { initPopovers } from '../stories/lib/popover-runtime.js';
 import { initTooltips } from '../stories/lib/tooltip-runtime.js';
 import { initDropdowns } from '../stories/lib/dropdown-runtime.js';
@@ -22,6 +23,7 @@ import { initTrees } from '../stories/lib/tree-runtime.js';
 initDrawerRuntime();
 initModalRuntime();
 initAlertRuntime();
+initSnackbarRuntime();
 
 /**
  * Checkbox · Radio 카드 전체 클릭 + span.checkbox_control 클릭 위임

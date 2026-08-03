@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snackbar | HTML Components</title>
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");if("light"!==t&&"dark"!==t)t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t)}catch(e){}}();</script>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body data-active-nav="snackbar">
+  <div class="guide_layout">
+    <div id="guide-sidebar-mount"></div>
+
+    <div class="guide_main">
+      <header class="guide_header">
+        <button type="button" class="guide_header-menu-btn" id="guide-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <button type="button" class="guide_header-sidebar-btn" id="guide-sidebar-toggle" aria-label="사이드바 접기" aria-expanded="true" aria-controls="guide-sidebar">
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="m16 15-3-3 3-3"/>
+          </svg>
+          <svg class="guide_header-sidebar-icon guide_header-sidebar-icon-closed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 3v18"/>
+            <path d="m14 9 3 3-3 3"/>
+          </svg>
+        </button>
+        <span class="guide_header-title">Snackbar</span>
+      </header>
+      <main class="guide_content">
+        <div class="page_intro">
+          <h1>Snackbar</h1>
+          <p class="lead">작업 결과나 짧은 상태 변화를 화면 흐름을 방해하지 않고 일시적으로 전달하는 피드백 컴포넌트입니다.</p>
+        </div>
+
+        <section class="section demo_section" aria-labelledby="basic-heading">
+          <div class="demo_section-header">
+            <h2 id="basic-heading">기본</h2>
+            <p>info · success · warning · error 의미 색상으로 짧은 피드백을 전달합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static" aria-label="알림">
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status" aria-live="polite">
+                <span class="snackbar_message">변경 사항이 저장되었습니다.</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot; aria-label=&quot;알림&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;변경 사항이 저장되었습니다.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="status-heading">
+          <div class="demo_section-header">
+            <h2 id="status-heading">상태와 아이콘</h2>
+            <p>장식 아이콘은 메시지의 의미를 보조하며 스크린 리더에서는 숨깁니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static" aria-label="상태 알림 예시">
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+                </svg>
+                <span class="snackbar_message">새 업데이트를 사용할 수 있습니다.</span>
+              </div>
+
+              <div class="snackbar color_success snackbar_motion-none is-open" role="status">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+                </svg>
+                <span class="snackbar_message">파일 업로드가 완료되었습니다.</span>
+              </div>
+
+              <div class="snackbar color_warning snackbar_motion-none is-open" role="status">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>
+                </svg>
+                <span class="snackbar_message">네트워크 연결이 불안정합니다.</span>
+              </div>
+
+              <div class="snackbar color_error snackbar_motion-none is-open" role="alert">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>
+                </svg>
+                <span class="snackbar_message">저장하지 못했습니다. 다시 시도해 주세요.</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot; aria-label=&quot;상태 알림 예시&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+      &lt;path d=&quot;M12 16v-4M12 8h.01&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;새 업데이트를 사용할 수 있습니다.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_success snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;
+      &lt;path d=&quot;M22 4 12 14.01l-3-3&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;파일 업로드가 완료되었습니다.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_warning snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z&quot;/&gt;
+      &lt;path d=&quot;M12 9v4M12 17h.01&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;네트워크 연결이 불안정합니다.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_error snackbar_motion-none is-open&quot; role=&quot;alert&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+      &lt;path d=&quot;m15 9-6 6M9 9l6 6&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;저장하지 못했습니다. 다시 시도해 주세요.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="simple-heading">
+          <div class="demo_section-header">
+            <h2 id="simple-heading">간단한 메시지</h2>
+            <p>아이콘 없이 메시지만 전달할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static">
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">인터넷 연결이 복구되었습니다.</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;인터넷 연결이 복구되었습니다.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="shape-heading">
+          <div class="demo_section-header">
+            <h2 id="shape-heading">형태</h2>
+            <p>기본형은 radius-md를 사용하고 snackbar_round는 높이 비율에 맞춘 캡슐형 모서리를 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static">
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">기본 스퀘어 라운드</span>
+              </div>
+              <div class="snackbar snackbar_round color_success snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">비율형 캡슐 라운드</span>
+              </div>
+              <div class="snackbar snackbar_round color_warning snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">액션과 닫기가 포함된 라운드</span>
+                <span class="snackbar_action"><button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">확인</span></button></span>
+                <button type="button" class="btn btn_ghost btn_icon-only snackbar_close" data-snackbar-close aria-label="알림 닫기">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;기본 스퀘어 라운드&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar snackbar_round color_success snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;비율형 캡슐 라운드&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar snackbar_round color_warning snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;액션과 닫기가 포함된 라운드&lt;/span&gt;
+    &lt;span class=&quot;snackbar_action&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only snackbar_close&quot; data-snackbar-close aria-label=&quot;알림 닫기&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="motion-heading">
+          <div class="demo_section-header">
+            <h2 id="motion-heading">호출 · 닫기 효과</h2>
+            <p>fade · slide · none을 제공하며 slide는 placement와 가장 가까운 화면 가장자리 방향을 따릅니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static">
+              <div class="snackbar color_info snackbar_motion-fade is-open" role="status"><span class="snackbar_message">Fade 효과</span></div>
+              <div class="snackbar color_success snackbar_motion-slide snackbar_placement-middle-end is-open" role="status"><span class="snackbar_message">우측 Slide 효과</span></div>
+              <div class="snackbar color_warning snackbar_motion-none is-open" role="status"><span class="snackbar_message">전환 효과 없음</span></div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-fade is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;Fade 효과&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_success snackbar_motion-slide snackbar_placement-middle-end is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;우측 Slide 효과&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_warning snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;전환 효과 없음&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="size-heading">
+          <div class="demo_section-header">
+            <h2 id="size-heading">크기</h2>
+            <p>snackbar_sm · 기본 md · snackbar_lg 세 가지 크기를 제공합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static">
+              <div class="snackbar snackbar_sm color_info snackbar_motion-none is-open" role="status"><span class="snackbar_message">Small Snackbar</span></div>
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status"><span class="snackbar_message">Medium Snackbar</span></div>
+              <div class="snackbar snackbar_lg color_info snackbar_motion-none is-open" role="status"><span class="snackbar_message">Large Snackbar</span></div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot;&gt;
+  &lt;div class=&quot;snackbar snackbar_sm color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;Small Snackbar&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;Medium Snackbar&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar snackbar_lg color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;Large Snackbar&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="controls-heading">
+          <div class="demo_section-header">
+            <h2 id="controls-heading">액션과 닫기</h2>
+            <p>하나의 짧은 후속 액션 또는 닫기 버튼을 제공합니다. 액션은 메시지와 직접 관련된 동사로 작성합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static" aria-label="액션 알림 예시">
+              <div class="snackbar color_success snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">항목을 삭제했습니다.</span>
+                <span class="snackbar_action"><button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">실행 취소</span></button></span>
+              </div>
+
+              <div class="snackbar color_warning snackbar_motion-none is-open" role="status">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+                </svg>
+                <span class="snackbar_message">알림 설정이 업데이트되었습니다.</span>
+                <button type="button" class="btn btn_ghost btn_icon-only snackbar_close" data-snackbar-close aria-label="알림 닫기">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot; aria-label=&quot;액션 알림 예시&quot;&gt;
+  &lt;div class=&quot;snackbar color_success snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;항목을 삭제했습니다.&lt;/span&gt;
+    &lt;span class=&quot;snackbar_action&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;실행 취소&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_warning snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+      &lt;path d=&quot;M12 16v-4M12 8h.01&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;알림 설정이 업데이트되었습니다.&lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only snackbar_close&quot; data-snackbar-close aria-label=&quot;알림 닫기&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="interactive-heading">
+          <div class="demo_section-header">
+            <h2 id="interactive-heading">표시와 위치</h2>
+            <p>처음 로드할 때 하단 중앙 Snackbar가 자동으로 열립니다. 버튼으로 top/middle/bottom과 start/center/end를 조합한 8개 위치를 확인할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_playground">
+              <div class="snackbar_playground-controls" aria-label="Snackbar 위치 테스트">
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="top-start"><span class="btn_label">상단 좌측</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="top-center"><span class="btn_label">상단 가운데</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="top-end"><span class="btn_label">상단 우측</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="middle-start"><span class="btn_label">중간 좌측</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="middle-end"><span class="btn_label">중간 우측</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="bottom-start"><span class="btn_label">하단 좌측</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="bottom-center"><span class="btn_label">하단 가운데</span></button>
+                <button type="button" class="btn btn_outline btn_sm" data-snackbar-add="bottom-end"><span class="btn_label">하단 우측</span></button>
+              </div>
+              <div class="snackbar_playground-actions">
+                <button type="button" class="btn btn_filled color_primary" data-snackbar-add-all><span class="btn_label">모든 위치에 1개</span></button>
+                <button type="button" class="btn btn_filled color_success" data-snackbar-add-all data-snackbar-count="3"><span class="btn_label">각 위치에 3개씩</span></button>
+                <button type="button" class="btn btn_outline" data-snackbar-add-all data-snackbar-round><span class="btn_label">모든 위치에 라운드</span></button>
+                <button type="button" class="btn btn_outline" data-snackbar-add-all data-snackbar-motion="slide"><span class="btn_label">모든 위치 Slide</span></button>
+                <button type="button" class="btn btn_ghost" data-snackbar-clear disabled><span class="btn_label">전체 닫기</span></button>
+              </div>
+            </div>
+
+            <div class="snackbar_region snackbar_region-top-start" data-snackbar-region="top-start" aria-label="상단 좌측 Snackbar 영역"></div>
+            <div class="snackbar_region snackbar_region-top-center" data-snackbar-region="top-center" aria-label="상단 가운데 Snackbar 영역"></div>
+
+            <div class="snackbar_region snackbar_region-bottom-center" data-snackbar-region="bottom-center" aria-label="하단 가운데 Snackbar 영역">
+              <div class="snackbar color_info snackbar_motion-slide snackbar_placement-bottom-center" role="status" aria-live="polite" aria-atomic="true" aria-relevant="additions text" data-snackbar-duration="8000" data-snackbar-open-on-load data-snackbar-playground-item hidden>
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+                </svg>
+                <span class="snackbar_message">하단 가운데 알림</span>
+                <span class="snackbar_action"><button type="button" class="btn btn_ghost btn_sm" data-snackbar-close><span class="btn_label">확인</span></button></span>
+                <button type="button" class="btn btn_ghost btn_icon-only snackbar_close" data-snackbar-close aria-label="알림 닫기">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="snackbar_region snackbar_region-top-end" data-snackbar-region="top-end" aria-label="상단 우측 Snackbar 영역"></div>
+            <div class="snackbar_region snackbar_region-middle-start" data-snackbar-region="middle-start" aria-label="중간 좌측 Snackbar 영역"></div>
+            <div class="snackbar_region snackbar_region-middle-end" data-snackbar-region="middle-end" aria-label="중간 우측 Snackbar 영역"></div>
+            <div class="snackbar_region snackbar_region-bottom-start" data-snackbar-region="bottom-start" aria-label="하단 좌측 Snackbar 영역"></div>
+            <div class="snackbar_region snackbar_region-bottom-end" data-snackbar-region="bottom-end" aria-label="하단 우측 Snackbar 영역"></div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Snackbar 위치 테스트 --&gt;
+
+&lt;div class=&quot;snackbar_playground&quot;&gt;
+  &lt;div class=&quot;snackbar_playground-controls&quot; aria-label=&quot;Snackbar 위치 테스트&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;top-start&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;상단 좌측&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;top-center&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;상단 가운데&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;top-end&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;상단 우측&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;middle-start&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;중간 좌측&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;middle-end&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;중간 우측&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;bottom-start&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;하단 좌측&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;bottom-center&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;하단 가운데&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_sm&quot; data-snackbar-add=&quot;bottom-end&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;하단 우측&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar_playground-actions&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot; data-snackbar-add-all&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;모든 위치에 1개&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_success&quot; data-snackbar-add-all data-snackbar-count=&quot;3&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;각 위치에 3개씩&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-snackbar-add-all data-snackbar-round&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;모든 위치에 라운드&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_outline&quot; data-snackbar-add-all data-snackbar-motion=&quot;slide&quot;&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;모든 위치 Slide&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot; data-snackbar-clear disabled&gt;
+      &lt;span class=&quot;btn_label&quot;&gt;전체 닫기&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 상단 좌측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-top-start&quot; data-snackbar-region=&quot;top-start&quot; aria-label=&quot;상단 좌측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 상단 가운데 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-top-center&quot; data-snackbar-region=&quot;top-center&quot; aria-label=&quot;상단 가운데 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 하단 가운데 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-bottom-center&quot; data-snackbar-region=&quot;bottom-center&quot; aria-label=&quot;하단 가운데 Snackbar 영역&quot;&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-slide snackbar_placement-bottom-center&quot; role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot; aria-relevant=&quot;additions text&quot; data-snackbar-duration=&quot;8000&quot; data-snackbar-open-on-load data-snackbar-playground-item hidden&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot;/&gt;
+      &lt;path d=&quot;M12 16v-4M12 8h.01&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;하단 가운데 알림&lt;/span&gt;
+    &lt;span class=&quot;snackbar_action&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; data-snackbar-close&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/span&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only snackbar_close&quot; data-snackbar-close aria-label=&quot;알림 닫기&quot;&gt;
+      &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M18 6 6 18M6 6l12 12&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 상단 우측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-top-end&quot; data-snackbar-region=&quot;top-end&quot; aria-label=&quot;상단 우측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 중간 좌측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-middle-start&quot; data-snackbar-region=&quot;middle-start&quot; aria-label=&quot;중간 좌측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 중간 우측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-middle-end&quot; data-snackbar-region=&quot;middle-end&quot; aria-label=&quot;중간 우측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 하단 좌측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-bottom-start&quot; data-snackbar-region=&quot;bottom-start&quot; aria-label=&quot;하단 좌측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;
+
+&lt;!-- 하단 우측 Snackbar 영역 --&gt;
+
+&lt;div class=&quot;snackbar_region snackbar_region-bottom-end&quot; data-snackbar-region=&quot;bottom-end&quot; aria-label=&quot;하단 우측 Snackbar 영역&quot;&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="stack-heading">
+          <div class="demo_section-header">
+            <h2 id="stack-heading">여러 알림</h2>
+            <p>같은 snackbar_region 안에서 snackbar-region-gap 간격으로 쌓입니다. 중요한 최신 알림을 사용자와 가까운 쪽에 배치합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="snackbar_region snackbar_region_static" aria-label="쌓인 알림 예시">
+              <div class="snackbar color_success snackbar_motion-none is-open" role="status">
+                <svg class="snackbar_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+                <span class="snackbar_message">프로필을 저장했습니다.</span>
+              </div>
+              <div class="snackbar color_info snackbar_motion-none is-open" role="status">
+                <span class="snackbar_message">초대 링크를 클립보드에 복사했습니다.</span>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;snackbar_region snackbar_region_static&quot; aria-label=&quot;쌓인 알림 예시&quot;&gt;
+  &lt;div class=&quot;snackbar color_success snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;svg class=&quot;snackbar_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M22 11.08V12a10 10 0 1 1-5.93-9.14&quot;/&gt;
+      &lt;path d=&quot;M22 4 12 14.01l-3-3&quot;/&gt;
+    &lt;/svg&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;프로필을 저장했습니다.&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;snackbar color_info snackbar_motion-none is-open&quot; role=&quot;status&quot;&gt;
+    &lt;span class=&quot;snackbar_message&quot;&gt;초대 링크를 클립보드에 복사했습니다.&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section demo_section-no-code" aria-labelledby="used-icons-heading">
+          <div class="demo_section-header">
+            <h2 id="used-icons-heading">사용된 아이콘</h2>
+            <p>Vue · React · Next와 동일한 공통 아이콘 이름을 사용합니다. 상태 아이콘은 메시지를 보조하는 장식 요소입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-plain">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead><tr><th scope="col">아이콘</th><th scope="col">이름</th><th scope="col">사용</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><svg class="icon color_info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></td>
+                    <td><code class="typo_code">info</code></td><td>정보 · 기본 상태</td>
+                  </tr>
+                  <tr>
+                    <td><svg class="icon color_success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></td>
+                    <td><code class="typo_code">check-circle</code></td><td>성공</td>
+                  </tr>
+                  <tr>
+                    <td><svg class="icon color_warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></td>
+                    <td><code class="typo_code">alert-triangle</code></td><td>경고</td>
+                  </tr>
+                  <tr>
+                    <td><svg class="icon color_danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></td>
+                    <td><code class="typo_code">x-circle</code></td><td>오류 · danger</td>
+                  </tr>
+                  <tr>
+                    <td><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></td>
+                    <td><code class="typo_code">close</code></td><td>Snackbar 닫기</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section demo_section demo_section-no-code" aria-labelledby="accessibility-heading">
+          <div class="demo_section-header">
+            <h2 id="accessibility-heading">접근성</h2>
+            <p>Snackbar는 포커스를 강제로 이동하지 않고 라이브 영역으로 상태 변화를 전달합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start demo_section-preview-plain">
+            <ul class="typo_list">
+              <li>일반적인 작업 결과는 <code class="typo_code">role="status"</code>와 <code class="typo_code">aria-live="polite"</code>를 사용하고, 즉시 확인해야 하는 오류에만 <code class="typo_code">role="alert"</code>를 사용합니다.</li>
+              <li><code class="typo_code">aria-atomic="true"</code>로 메시지 전체를 알리고 <code class="typo_code">aria-relevant="additions text"</code>로 추가·변경된 내용을 전달합니다.</li>
+              <li>자동 닫기를 사용할 때는 내용을 읽고 액션을 수행할 충분한 시간을 제공하며, 호버 또는 내부 포커스 중에는 남은 시간을 일시정지합니다.</li>
+              <li>닫기 가능한 Snackbar 내부에 포커스가 있을 때 <kbd>Esc</kbd>로 닫을 수 있습니다. 표시될 때 사용자 포커스를 Snackbar로 강제 이동하지 않습니다.</li>
+              <li>상태 아이콘은 <code class="typo_code">aria-hidden="true"</code>로 숨깁니다. 색상이나 아이콘에만 의존하지 않고 메시지 텍스트로 상태를 설명합니다.</li>
+              <li>액션은 하나의 짧고 명확한 동작으로 제공하고, 아이콘 전용 닫기 버튼에는 <code class="typo_code">aria-label="알림 닫기"</code>를 지정합니다.</li>
+              <li>운영체제에서 모션 감소를 설정하면 Fade·Slide 시간을 최소화합니다.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead><tr><th scope="col">클래스 · 속성</th><th scope="col">설명</th></tr></thead>
+                <tbody>
+                  <tr><td><code class="typo_code">snackbar</code> · <code class="typo_code">snackbar_message</code></td><td>알림 루트 · 메시지</td></tr>
+                  <tr><td><code class="typo_code">snackbar_icon</code> · <code class="typo_code">snackbar_action</code> · <code class="typo_code">snackbar_close</code></td><td>아이콘 · 후속 액션 · 닫기 버튼</td></tr>
+                  <tr><td><code class="typo_code">color_info</code> · <code class="typo_code">color_success</code> · <code class="typo_code">color_warning</code> · <code class="typo_code">color_error</code></td><td>Vue · React · Next 공통 의미 색상</td></tr>
+                  <tr><td><code class="typo_code">snackbar_sm</code> · <code class="typo_code">snackbar_lg</code> · <code class="typo_code">snackbar_round</code></td><td>크기 · 캡슐형 모서리</td></tr>
+                  <tr><td><code class="typo_code">snackbar_motion-fade</code> · <code class="typo_code">snackbar_motion-slide</code></td><td>호출·닫기 모션</td></tr>
+                  <tr><td><code class="typo_code">snackbar_placement-{placement}</code></td><td>Slide 진입·퇴장 방향</td></tr>
+                  <tr><td><code class="typo_code">snackbar_region</code> · <code class="typo_code">snackbar_region_static</code></td><td>고정 위치 알림 영역 · 문서 흐름 안의 정적 영역</td></tr>
+                  <tr><td><code class="typo_code">snackbar_region-{placement}</code></td><td>top/middle/bottom과 start/center/end를 조합한 8개 위치</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-trigger="#id"</code> · <code class="typo_code">data-snackbar-close</code></td><td>대상 알림 표시 · 닫기</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-add="{placement}"</code> · <code class="typo_code">data-snackbar-add-all</code></td><td>특정 위치 · 모든 위치에 동적 Snackbar 추가</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-count</code> · <code class="typo_code">data-snackbar-round</code> · <code class="typo_code">data-snackbar-motion</code></td><td>동적 예시의 개수·형태·모션 옵션</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-clear</code></td><td>표시된 위치 예시 전체 닫기</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-open-on-load</code></td><td>가이드 또는 Storybook 렌더링 직후 한 번 자동 표시</td></tr>
+                  <tr><td><code class="typo_code">data-snackbar-duration="4000"</code></td><td>자동 닫힘 시간(ms). 0이면 자동으로 닫지 않음</td></tr>
+                  <tr><td><code class="typo_code">role="status"</code> · <code class="typo_code">aria-live="polite"</code></td><td>일반 상태 안내. 오류처럼 즉시 전달해야 하면 role="alert" 사용</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead><tr><th scope="col">토큰</th><th scope="col">기본값</th><th scope="col">설명</th></tr></thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--snackbar-min-width</code> · <code class="typo_code">--snackbar-max-width</code></td><td>18rem · 36rem</td><td>최소·최대 너비</td></tr>
+                  <tr><td><code class="typo_code">--snackbar-padding-y</code> · <code class="typo_code">--snackbar-padding-x</code> · <code class="typo_code">--snackbar-gap</code></td><td>space-sm · space-md · space-sm</td><td>패딩·내부 간격</td></tr>
+                  <tr><td><code class="typo_code">--color-snackbar-*-bg</code> · <code class="typo_code">--color-snackbar-*-border</code></td><td>테마별 불투명 색상</td><td>의미 색상별 표면·테두리</td></tr>
+                  <tr><td><code class="typo_code">--snackbar-round-padding-x</code></td><td>space-lg</td><td>round 유형 가로 패딩</td></tr>
+                  <tr><td><code class="typo_code">--snackbar-region-offset</code> · <code class="typo_code">--snackbar-region-gap</code> · <code class="typo_code">--snackbar-region-z-index</code></td><td>1rem · 0.5rem · 1200</td><td>화면 여백·쌓기 간격·레이어</td></tr>
+                  <tr><td><code class="typo_code">--snackbar-motion-distance</code> · <code class="typo_code">--snackbar-motion-duration</code> · <code class="typo_code">--snackbar-motion-easing</code></td><td>1rem · 200ms · cubic-bezier</td><td>등장 거리·시간·가속 곡선</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/demo.js"></script>
+  <script src="../js/ripple.js"></script>
+</body>
+</html>

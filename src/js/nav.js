@@ -16,6 +16,7 @@
       items: [
         { label: 'Container', href: 'components/container.html', slug: 'container' },
         { label: 'Grid', href: 'components/grid.html', slug: 'grid' },
+        { label: 'Flex', href: 'components/flex.html', slug: 'flex' },
         { label: 'Divider', href: 'components/divider.html', slug: 'divider' },
         { label: 'Space', href: 'components/space.html', slug: 'space' },
       ],
@@ -64,6 +65,7 @@
       title: '피드백',
       items: [
         { label: 'Alert', href: 'components/alert.html', slug: 'alert' },
+        { label: 'Snackbar', href: 'components/snackbar.html', slug: 'snackbar' },
         { label: 'Modal', href: 'components/modal.html', slug: 'modal' },
         { label: 'Drawer', href: 'components/drawer.html', slug: 'drawer' },
         { label: 'Popover', href: 'components/popover.html', slug: 'popover' },
