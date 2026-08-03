@@ -311,6 +311,11 @@
         --card-soft: rgba(46, 139, 99, 0.14);
       }
 
+      &.card--nuxt {
+        --card-color: #00a86b;
+        --card-soft: rgba(0, 168, 107, 0.14);
+      }
+
       [data-theme="dark"] & {
         --icon-cutout: #11151a;
         color: #f6f8fb;
@@ -344,6 +349,11 @@
       [data-theme="dark"] &.card--vue {
         --card-color: #42b883;
         --card-soft: rgba(66, 184, 131, 0.14);
+      }
+
+      [data-theme="dark"] &.card--nuxt {
+        --card-color: #00dc82;
+        --card-soft: rgba(0, 220, 130, 0.14);
       }
 
       &:hover,
@@ -569,6 +579,21 @@
           <span class="badge">Vue</span>
         </div>
       </a>
+
+      <!-- <a class="card card--nuxt" href="./nuxt/">
+        <span class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <path d="M5 37.5 19.5 12.4a2.6 2.6 0 0 1 4.5 0l14.5 25.1H5Z" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+            <path d="m23.5 37.5 7.8-13.6a2.6 2.6 0 0 1 4.5 0l7.8 13.6H23.5Z" fill="var(--icon-cutout)" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <h2>Nuxt</h2>
+        <p>Nuxt 기반 Vue 컴포넌트 가이드</p>
+        <div class="card-meta">
+          <span class="count" aria-label="컴포넌트 50개">50개</span>
+          <span class="badge">Vue · Nuxt</span>
+        </div>
+      </a> -->
 
       <a class="card card--storybook" href="./vue-storybook/">
         <span class="card-icon" aria-hidden="true">
