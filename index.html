@@ -46,16 +46,30 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/_assets/images/favicon/favicon-16x16.png">
   <link rel="shortcut icon" type="image/x-icon" href="/_assets/images/favicon/favicon/favicon.ico">
   <link rel="manifest" href="/_assets/images/favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#050608">
+  <meta name="msapplication-TileColor" content="#f4f6f9">
   <meta name="msapplication-TileImage" content="/_assets/images/favicon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#050608">
+  <meta name="theme-color" content="#f4f6f9" id="theme-color-meta">
 
+  <script>!function(){try{var t=localStorage.getItem("guide-theme");document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}}();</script>
   <style>
     :root {
+      color-scheme: light;
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --border: #dce2eb;
+      --text: #182131;
+      --muted: #657286;
+      --heaer-text: #f5f7fa;
+    }
+
+    [data-theme="dark"] {
       color-scheme: dark;
       --bg: #050608;
+      --surface: #11151a;
+      --border: rgba(255, 255, 255, 0.2);
       --text: #f5f7fa;
       --muted: #aab3bf;
+      --heaer-text: #f5f7fa;
     }
 
     * {
@@ -70,13 +84,21 @@
       color: var(--text);
       min-height: 100vh;
       line-height: 1.6;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     .container {
-      max-width: 1440px;
+      /* max-width: 1440px; */
+      max-width: 100%;
       min-height: 100vh;
       margin: 0 auto;
-      padding: 4rem 2rem;
+      /* padding: 4rem 2rem; */
+      padding: 0 0 4rem;
+      background-color: transparent;
+      transition: background-color 0.2s ease;
+    }
+
+    [data-theme="dark"] .container {
       background-image:
         linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.42)),
         url(./main_top_bg.jpg);
@@ -89,7 +111,44 @@
     .page-header {
       position: relative;
       margin-bottom: 3rem;
+      padding: 4rem 2rem;
+      background-color: #000;
       text-align: center;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      margin-top: -20px;
+      padding: 0;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(21, 31, 50, 0.08);
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible {
+      color: #4f7df3;
+      border-color: #4f7df3;
+      outline: none;
+    }
+
+    .theme-toggle__icon--sun,
+    [data-theme="dark"] .theme-toggle__icon--moon {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-toggle__icon--sun {
+      display: block;
     }
 
     .page-header h1 {
@@ -102,8 +161,7 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1;
-      color: #ffffff;
-      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+      color: var(--text);
     }
     .page-header .logo {
       display: inline-block;
@@ -151,12 +209,22 @@
 
     .brand-text {
       padding-bottom: 0.1rem;
-      color: #ffffff;
+      color: var(--heaer-text);
     }
 
     .page-header p {
-      color: #cbd2db;
+      color: var(--heaer-text);
       font-size: 1.05rem;
+    }
+
+    [data-theme="dark"] .page-header h1,
+    [data-theme="dark"] .brand-text {
+      color: #ffffff;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
+    }
+
+    [data-theme="dark"] .page-header p {
+      color: #cbd2db;
       text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
     }
 
@@ -164,26 +232,27 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
     .card {
       --card-color: #61dafb;
       --card-soft: rgba(97, 218, 251, 0.14);
-      --icon-cutout: #11151a;
+      --icon-cutout: #ffffff;
       position: relative;
       display: flex;
       min-height: 320px;
       overflow: hidden;
       flex-direction: column;
-      background: linear-gradient(145deg, rgba(22, 26, 32, 0.92), rgba(8, 10, 13, 0.88));
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 22px;
       padding: 2.5rem 2rem 2rem;
       text-decoration: none;
-      color: #f6f8fb;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      color: var(--text);
+      box-shadow: 0 16px 38px rgba(21, 31, 50, 0.09);
       transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
@@ -211,8 +280,8 @@
     }
 
     .card--next {
-      --card-color: #f4f6f8;
-      --card-soft: rgba(255, 255, 255, 0.12);
+      --card-color: #202631;
+      --card-soft: rgba(32, 38, 49, 0.1);
     }
 
     .card--vue {
@@ -220,10 +289,31 @@
       --card-soft: rgba(66, 184, 131, 0.14);
     }
 
+    [data-theme="dark"] .card {
+      --icon-cutout: #11151a;
+      background: linear-gradient(145deg, rgba(22, 26, 32, 0.92), rgba(8, 10, 13, 0.88));
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #f6f8fb;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] .card--next {
+      --card-color: #f4f6f8;
+      --card-soft: rgba(255, 255, 255, 0.12);
+    }
+
     .card:hover,
     .card:focus-visible {
       border-color: var(--card-color);
       transform: translateY(-4px);
+      background: #ffffff;
+      box-shadow: 0 22px 48px rgba(21, 31, 50, 0.16);
+    }
+
+    [data-theme="dark"] .card:hover,
+    [data-theme="dark"] .card:focus-visible {
       background: linear-gradient(145deg, rgba(28, 33, 40, 0.96), rgba(11, 14, 18, 0.94));
       box-shadow: 0 24px 55px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.07);
     }
@@ -254,14 +344,14 @@
 
     .card h2 {
       margin-bottom: 0.45rem;
-      color: #f7f8fa;
+      color: var(--text);
       font-size: 1.3rem;
       line-height: 1.35;
       letter-spacing: -0.025em;
     }
 
     .card p {
-      color: #aeb6c2;
+      color: var(--muted);
       font-size: 0.96rem;
     }
 
@@ -290,7 +380,7 @@
       padding: 0;
       font-size: 0.75rem;
       font-weight: 700;
-      color: #99a3b0;
+      color: var(--muted);
       background: transparent;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -298,11 +388,19 @@
 
     @media (max-width: 640px) {
       .container {
-        padding: 2.5rem 1rem;
+        padding: 0 0 2.5rem;
       }
 
       .page-header {
         margin-bottom: 2rem;
+        padding-top: 2.5rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
+      .brand-text {
+        margin-bottom: 8px;
+        padding-bottom: 0.1rem;
+        font-size: 1.5rem;
       }
 
       .grid {
@@ -331,8 +429,12 @@
     footer {
       margin-top: 4rem;
       text-align: center;
-      color: #aeb7c3;
+      color: var(--muted);
       font-size: 0.875rem;
+    }
+
+    [data-theme="dark"] footer {
+      color: #aeb7c3;
       text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
     }
   </style>
@@ -340,6 +442,14 @@
 <body>
   <div class="container">
     <header class="page-header">
+      <button type="button" class="theme-toggle" id="root-theme-btn" aria-label="다크 모드로 전환">
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
       <h1>
         <span class="logo">
           UXKM
@@ -462,5 +572,30 @@
       <p>guide.uxkm.io</p>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'guide-theme';
+      var root = document.documentElement;
+      var button = document.getElementById('root-theme-btn');
+      var themeMeta = document.getElementById('theme-color-meta');
+
+      function updateTheme(theme, persist) {
+        root.setAttribute('data-theme', theme);
+        button.setAttribute('aria-label', theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환');
+        themeMeta.setAttribute('content', theme === 'dark' ? '#050608' : '#f4f6f9');
+
+        if (persist) {
+          try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+        }
+      }
+
+      button.addEventListener('click', function () {
+        updateTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+      });
+
+      updateTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', false);
+    })();
+  </script>
 </body>
 </html>
