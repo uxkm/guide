@@ -22,12 +22,10 @@ pnpm build-storybook
 echo "==> 빌드 결과 임시 저장..."
 TEMP_GUIDE=$(mktemp -d)
 TEMP_STORYBOOK=$(mktemp -d)
-TEMP_LANDING=$(mktemp)
-trap 'rm -rf "$TEMP_GUIDE" "$TEMP_STORYBOOK"; rm -f "$TEMP_LANDING"' EXIT
+trap 'rm -rf "$TEMP_GUIDE" "$TEMP_STORYBOOK"' EXIT
 
 cp -R apps/guide/dist/* "$TEMP_GUIDE/"
 cp -R apps/storybook/storybook-static/* "$TEMP_STORYBOOK/"
-cp scripts/landing-index.html "$TEMP_LANDING"
 
 echo "==> main 브랜치로 전환..."
 STASHED=0
@@ -48,15 +46,7 @@ rm -rf "$STORYBOOK_DEPLOY_DIR"
 mkdir -p "$STORYBOOK_DEPLOY_DIR"
 cp -R "$TEMP_STORYBOOK"/* "$STORYBOOK_DEPLOY_DIR/"
 
-echo "==> 랜딩 index.html 업데이트..."
-cp "$TEMP_LANDING" index.html
-
-echo "==> 랜딩 favicon 에셋 업데이트..."
-mkdir -p _assets/images
-rm -rf _assets/images/favicon
-cp -R "$TEMP_GUIDE/_assets/images/favicon" _assets/images/
-
-git add "$GUIDE_DEPLOY_DIR" "$STORYBOOK_DEPLOY_DIR" index.html _assets
+git add "$GUIDE_DEPLOY_DIR" "$STORYBOOK_DEPLOY_DIR"
 
 if git diff --cached --quiet; then
   echo "변경 사항 없음. 배포를 건너뜁니다."
