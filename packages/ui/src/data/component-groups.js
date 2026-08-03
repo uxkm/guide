@@ -10,7 +10,7 @@ export const STORY_GROUP_ORDER = [
 ];
 
 export const STORY_GROUPS = {
-  레이아웃: ['Container', 'Grid', 'Divider', 'Space'],
+  레이아웃: ['Container', 'Grid', 'Flex', 'Divider', 'Space'],
   '기본 요소': ['Button', 'Typography', 'Icon', 'Link'],
   '데이터 표시': [
     'Avatar',
@@ -39,6 +39,7 @@ export const STORY_GROUPS = {
   ],
   피드백: [
     'Alert',
+    'Snackbar',
     'Modal',
     'Drawer',
     'Popover',

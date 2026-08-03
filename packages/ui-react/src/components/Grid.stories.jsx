@@ -5,6 +5,10 @@ import { withDocsCanvasRender } from '../storybook/story-renders.jsx';
 import {
   gridClassColumns,
   gridClasses,
+  gridColPropColumns,
+  gridColProps,
+  gridColSlotColumns,
+  gridColSlots,
   gridPropColumns,
   gridProps,
   gridSlotColumns,
@@ -24,6 +28,13 @@ const apiSections = [
     title: 'API · Children',
     description: 'Vue default 슬롯에 대응하는 React children입니다.',
     tables: [{ columns: gridSlotColumns, rows: gridSlots, codeColumn: 'name' }],
+  },
+  {
+    title: 'API · GridCol',
+    tables: [
+      { columns: gridColPropColumns, rows: gridColProps, codeColumn: 'name' },
+      { columns: gridColSlotColumns, rows: gridColSlots, codeColumn: 'name' },
+    ],
   },
   {
     title: '클래스 · 속성',
@@ -92,6 +103,69 @@ export const Playground = {
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
   render: renderGridPlayground,
+};
+
+export const BasicLayout = {
+  name: '기본 페이지 레이아웃',
+  parameters: {
+    demoPreview: { stack: true },
+    docs: {
+      description: { story: '헤더와 푸터는 12열을 사용하고, md 이상에서 사이드바 3열과 콘텐츠 9열로 나눅니다.' },
+      source: { language: 'tsx', code: `import Grid from '@uxkm/ui-react/components/Grid.jsx';
+import GridCol from '@uxkm/ui-react/components/GridCol.jsx';
+
+export function BasicLayoutExample() {
+  return (
+    <Grid gap="sm">
+      <GridCol as="header" span={12}>Header</GridCol>
+      <GridCol as="aside" span={12} spanMd={3}>Sidebar</GridCol>
+      <GridCol as="main" span={12} spanMd={9}>Main content</GridCol>
+      <GridCol as="footer" span={12}>Footer</GridCol>
+    </Grid>
+  );
+}` },
+    },
+  },
+  render: withDocsCanvasRender(
+    <Grid gap="sm">
+      <GridCol as="header" span={12} className="grid_demo-cell">Header</GridCol>
+      <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">Sidebar</GridCol>
+      <GridCol as="main" span={12} spanMd={9} className="grid_demo-cell">Main content</GridCol>
+      <GridCol as="footer" span={12} className="grid_demo-cell">Footer</GridCol>
+    </Grid>,
+  ),
+};
+
+export const ContentLayout = {
+  name: '콘텐츠가 있는 페이지 레이아웃',
+  parameters: { demoPreview: { stack: true }, docs: { description: { story: 'Main content 안에 반응형 콘텐츠 섹션을 중첩한 활용 예시입니다.' } } },
+  render: withDocsCanvasRender(
+    <Grid gap="sm">
+      <GridCol as="header" span={12} className="grid_demo-cell">Header</GridCol>
+      <GridCol as="aside" span={12} spanMd={3} className="grid_demo-cell">Sidebar</GridCol>
+      <GridCol as="main" span={12} spanMd={9} className="grid_demo-cell">
+        <h3>Main content</h3>
+        <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+        <Grid cols={1} colsLg={2} gap="sm">
+          <article className="component_stub">Content section</article>
+          <article className="component_stub">Content section</article>
+        </Grid>
+      </GridCol>
+      <GridCol as="footer" span={12} className="grid_demo-cell">Footer</GridCol>
+    </Grid>,
+  ),
+};
+
+export const TwelveColumns = {
+  name: '12열 전체 활용',
+  parameters: { demoPreview: { stack: true }, docs: { description: { story: 'itemSpan={1}을 부모에 지정하여 12개 항목이 한 행을 채웁니다.' } } },
+  render: withDocsCanvasRender(
+    <Grid itemSpan={1} gap="sm">
+      {Array.from({ length: 12 }, (_, index) => (
+        <div className="grid_demo-cell" key={index}>{index + 1}</div>
+      ))}
+    </Grid>,
+  ),
 };
 
 export const Parent = {
@@ -456,6 +530,14 @@ export function ResponsiveExample() {
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
         <div className="grid_demo-cell">span 12 → md 6 → lg 4</div>
+      </Grid>
+      <Grid>
+        <GridCol span={12} spanMd={8} spanLg={9}>
+          <div className="grid_demo-cell">개별 span 12 → md 8 → lg 9</div>
+        </GridCol>
+        <GridCol span={12} spanMd={4} spanLg={3}>
+          <div className="grid_demo-cell">개별 span 12 → md 4 → lg 3</div>
+        </GridCol>
       </Grid>
     </>,
   ),
