@@ -1,0 +1,1225 @@
+import{r as z,d as No,E as Bo,n as ko,j as o,B as e,I as zo,a as E}from"./iframe-Ec8Bs185.js";import{w as wo}from"./story-renders-Bo_F9MSp.js";import{h as Fo,a as Ao}from"./ripple-api-CjGOCEZT.js";import"./preload-helper-DUxc-Dqw.js";const Po=new Set(["sm","md","lg","fullscreen"]);function a({ripple:l,id:s,size:w="md",scrollable:N,backdrop:F=!0,title:B,open:c,footerAlign:m="end",footerRatio:i="1-1",footerNoPadBottom:k,header:A,footer:P,children:xo,className:p,...C}){const R=z.useRef(null),{rippleAttrs:bo}=No({ripple:l}),n=Po.has(w)?w:"md",S=`${s}-title`;Bo({ripple:l,id:s,size:n,scrollable:N,backdrop:F,title:B,open:c,footerAlign:m,footerRatio:i,footerNoPadBottom:k},R,{className:p,...C});const vo=z.useMemo(()=>{const t=["modal_footer"];return m&&m!=="end"&&t.push(`modal_footer-${m}`),m==="even"&&i&&i!=="1-1"&&t.push(`modal_footer-even-${i}`),k&&t.push("modal_footer-no-pad-b"),t},[m,i,k]),ho=z.useMemo(()=>{const t=["modal"];return n==="sm"&&t.push("modal_sm"),n==="lg"&&t.push("modal_lg"),n==="fullscreen"&&t.push("modal_fullscreen"),N&&t.push("modal_scrollable"),c&&t.push("is-open"),t},[n,N,c]),{class:Ho,..._o}=C,jo=ko(_o),Mo=!!(A||B),yo=typeof p=="string"&&p.includes("modal_demo-static");return o.jsxs("div",{ref:R,id:s,className:E(ho,p),"data-modal":"","data-modal-backdrop":F?void 0:"false",role:"dialog","aria-modal":"true","aria-labelledby":S,tabIndex:-1,hidden:yo||c?void 0:!0,...jo,children:[o.jsx("div",{className:"modal_backdrop","data-modal-close":"","aria-hidden":"true"}),o.jsxs("div",{className:"modal_dialog",children:[Mo?o.jsxs("div",{className:"modal_header","data-demo-slot":"header",children:[A??o.jsx("div",{className:"modal_title",id:S,role:"heading","aria-level":2,children:B}),o.jsx(e,{variant:"ghost",iconOnly:!0,className:"modal_close","data-modal-close":"",ariaLabel:"닫기",iconBefore:o.jsx(zo,{name:"close",size:"sm",className:"modal_close-icon"}),...bo})]}):null,o.jsx("div",{className:"modal_body","data-demo-slot":"default",children:xo}),P?o.jsx("div",{className:E(vo),"data-demo-slot":"footer",children:P}):null]})]})}a.__docgenInfo={description:"",methods:[],displayName:"Modal",props:{size:{defaultValue:{value:"'md'",computed:!1},required:!1},backdrop:{defaultValue:{value:"true",computed:!1},required:!1},footerAlign:{defaultValue:{value:"'end'",computed:!1},required:!1},footerRatio:{defaultValue:{value:"'1-1'",computed:!1},required:!1}}};const Co=[{key:"name",label:"Prop"},{key:"type",label:"타입"},{key:"default",label:"기본값"},{key:"description",label:"설명"}],Ro=[{name:"id",type:"string",default:"—",description:"루트 id (필수, data-modal-trigger 연결)"},{name:"title",type:"string",default:"—",description:"기본 헤더 제목 (modal_title)"},{name:"size",type:"'sm' | 'md' | 'lg' | 'fullscreen'",default:"md",description:"modal_sm · modal_lg · modal_fullscreen"},{name:"scrollable",type:"boolean",default:"false",description:"본문 스크롤 (modal_scrollable)"},{name:"backdrop",type:"boolean",default:"true",description:'백드롭 표시 (false → data-modal-backdrop="false")'},{name:"open",type:"boolean",default:"false",description:"열림 상태 (is-open, hidden 해제)"},{name:"footerAlign",type:"'start' | 'center' | 'end' | 'between' | 'even'",default:"end",description:"푸터 정렬 (modal_footer-start · center · between · even). between은 modal_footer-group으로 좌·우 묶음"},{name:"footerRatio",type:"'1-1' | '1-2' | '2-1'",default:"1-1",description:"균등 정렬(even) 좌·우 비율 (modal_footer-even-1-2 · even-2-1)"},{name:"footerNoPadBottom",type:"boolean",default:"false",description:"푸터 하단 패딩 제거 (modal_footer-no-pad-b). even과 함께 쓰면 좌우 패딩·간격도 제거"},{name:"header",type:"ReactNode",default:"—",description:"커스텀 헤더 (title 대체)"},{name:"footer",type:"ReactNode",default:"—",description:"하단 액션 영역 (modal_footer)"},{name:"className",type:"string",default:"—",description:"modal 루트에 추가 클래스"},Fo],So=[{key:"name",label:"Children"},{key:"description",label:"설명"}],Eo=[{name:"header",description:"헤더 (title 대체)"},{name:"children",description:"본문 (modal_body, Vue default 슬롯 대응)"},{name:"footer",description:"하단 액션 (modal_footer)"}],Do=[{key:"name",label:"클래스"},{key:"description",label:"설명"}],qo=[{name:"modal · modal_backdrop · modal_dialog",description:"루트·백드롭·대화상자"},{name:"modal_header · modal_title · modal_close · modal_body · modal_footer",description:"구조 파트"},{name:"modal_footer-start · modal_footer-center · modal_footer-end · modal_footer-between · modal_footer-even",description:"푸터 정렬 (기본 end)"},{name:"modal_footer-even-1-2 · modal_footer-even-2-1",description:"균등 정렬 좌·우 비율 (기본 1:1)"},{name:"modal_footer-no-pad-b",description:"푸터 하단 패딩 없음 (even 조합 시 좌우 패딩·간격 제거)"},{name:"modal_footer-group",description:"병합 정렬용 좌·우 버튼 묶음"},{name:"modal_sm · modal_lg · modal_fullscreen · modal_scrollable",description:"크기·스크롤"},{name:"data-modal · data-modal-trigger · data-modal-close",description:"JS 연동 속성"},{name:"is-open · is-stack-covered · hidden",description:"열림·중첩 하위(백드롭 숨김)·닫힘 상태"},{name:'role="dialog" · aria-modal="true"',description:"접근성 시맨틱"},...Ao],Lo=[{key:"name",label:"토큰"},{key:"default",label:"기본값"},{key:"description",label:"설명"}],Io=[{name:"--modal-z-index",default:"300",description:"레이어 순서"},{name:"--modal-width · --modal-width-sm · --modal-width-lg",default:"32rem · 24rem · 48rem",description:"대화상자 너비"},{name:"--modal-bg · --modal-radius · --modal-shadow",default:"—",description:"배경·모서리·그림자"}],Vo=[{title:"API · Props",description:"React에서는 camelCase prop을 사용합니다.",tables:[{columns:Co,rows:Ro,codeColumn:"name"}]},{title:"API · Children",description:"Vue 슬롯에 대응하는 React prop·children입니다.",tables:[{columns:So,rows:Eo,codeColumn:"name"}]},{title:"클래스 · 속성",description:"React 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다.",tables:[{columns:Do,rows:qo,codeColumn:"name"}]},{title:"디자인 토큰",tables:[{columns:Lo,rows:Io,codeColumn:"name"}]}];function Oo(l){return o.jsx("div",{className:"modal_demo-frame",children:o.jsx("div",{className:"modal_demo-content",children:l})})}function d(l){const s=()=>Oo(l);return wo(s,s)}const To={id:"story-modal",size:"md",scrollable:!1,backdrop:!0,title:"제목",open:!1,footerAlign:"end",footerRatio:"1-1",footerNoPadBottom:!1},r=o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"확인","data-modal-close":""})]});function $o(l){return l==="between"?o.jsxs(o.Fragment,{children:[o.jsx("div",{className:"modal_footer-group",children:o.jsx(e,{variant:"ghost",color:"danger",label:"삭제","data-modal-close":""})}),o.jsxs("div",{className:"modal_footer-group",children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"확인","data-modal-close":""})]})]}):r}const Qo={title:"Components/피드백/Modal",id:"components-modal",component:a,tags:["autodocs"],argTypes:{id:{control:"text",type:{name:"string",summary:"string"}},size:{control:"select",options:["sm","md","lg","fullscreen"],type:{name:"enum",summary:"'sm' | 'md' | 'lg' | 'fullscreen'"}},scrollable:{control:"boolean",type:{name:"boolean",summary:"boolean"}},backdrop:{control:"boolean",type:{name:"boolean",summary:"boolean"}},title:{control:"text",type:{name:"string",summary:"string"}},open:{control:"boolean",type:{name:"boolean",summary:"boolean"}},footerAlign:{control:"select",options:["start","center","end","between","even"],type:{name:"enum",summary:"'start' | 'center' | 'end' | 'between' | 'even'"}},footerRatio:{control:"select",options:["1-1","1-2","2-1"],type:{name:"enum",summary:"'1-1' | '1-2' | '2-1'"}},footerNoPadBottom:{control:"boolean",type:{name:"boolean",summary:"boolean"}}},parameters:{controls:{disable:!1},layout:"padded",apiSections:Vo,docs:{description:{component:"중앙 대화상자 Modal 컴포넌트입니다."}}}},f={parameters:{controls:{disable:!1}},args:{...To},render:l=>o.jsxs("div",{className:"modal_demo-frame",children:[o.jsx("div",{className:"modal_demo-content",children:o.jsx("p",{children:"Controls로 open · size · scrollable · backdrop · footerAlign · footerRatio · footerNoPadBottom을 조절하세요."})}),o.jsx(a,{...l,className:l.open?"modal_demo-static":void 0,footer:$o(l.footerAlign),children:o.jsx("p",{children:"모달 본문입니다."})})]})},u={name:"기본",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"data-modal-trigger로 대화상자를 열고, 백드롭·닫기 버튼·Esc로 닫습니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function BasicExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="primary"
+        label="모달 열기"
+        data-modal-trigger="#modal-basic"
+        aria-controls="modal-basic"
+      />
+      <Modal
+        id="modal-basic"
+        title="알림"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="확인"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>Modal 대화상자 본문입니다.</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"filled",color:"primary",label:"모달 열기","data-modal-trigger":"#modal-basic","aria-controls":"modal-basic"}),o.jsx(a,{id:"modal-basic",title:"알림",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"확인","data-modal-close":""})]}),children:o.jsxs("p",{children:["Modal 대화상자 본문입니다. 백드롭을 클릭하거나 닫기 버튼,"," ",o.jsx("kbd",{children:"Esc"})," 키로 닫을 수 있습니다."]})})]}))},g={name:"열린 상태",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"open prop으로 is-open 클래스를 추가하고 hidden을 해제합니다. 문서·스토리 미리보기에서는 modal_demo-frame 안에서 열린 모습을 확인합니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function OpenExample() {
+  return (
+    <Modal
+      id="modal-open"
+      title="알림"
+      open
+      footer={
+        <>
+          <Button variant="ghost" label="취소" data-modal-close="" />
+          <Button
+            variant="filled"
+            color="primary"
+            label="확인"
+            data-modal-close=""
+          />
+        </>
+      }
+    >
+      <p>열린 상태의 Modal입니다.</p>
+    </Modal>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx("p",{children:"open prop으로 대화상자가 열린 상태를 미리 보여 줍니다."}),o.jsx(a,{id:"modal-open",title:"알림",open:!0,className:"modal_demo-static",footer:r,children:o.jsx("p",{children:"열린 상태의 Modal입니다. 백드롭·헤더·푸터 구성을 한눈에 확인할 수 있습니다."})})]}))},x={name:"크기",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"modal_sm · modal_lg · modal_fullscreen으로 대화상자 너비를 조정합니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function SizeExample() {
+  return (
+    <>
+      <div className="modal_demo-row">
+        <Button
+          variant="outline"
+          size="sm"
+          label="Small"
+          data-modal-trigger="#modal-size-sm"
+          aria-controls="modal-size-sm"
+        />
+        <Button
+          variant="outline"
+          label="Default"
+          data-modal-trigger="#modal-size-default"
+          aria-controls="modal-size-default"
+        />
+        <Button
+          variant="outline"
+          size="lg"
+          label="Large"
+          data-modal-trigger="#modal-size-lg"
+          aria-controls="modal-size-lg"
+        />
+        <Button
+          variant="outline"
+          label="Fullscreen"
+          data-modal-trigger="#modal-size-fullscreen"
+          aria-controls="modal-size-fullscreen"
+        />
+      </div>
+      <Modal id="modal-size-sm" size="sm" title="Small">
+        <p>좁은 너비</p>
+      </Modal>
+      <Modal id="modal-size-default" title="Default">
+        <p>기본 너비 32rem</p>
+      </Modal>
+      <Modal id="modal-size-lg" size="lg" title="Large">
+        <p>넓은 너비</p>
+      </Modal>
+      <Modal id="modal-size-fullscreen" size="fullscreen" title="Fullscreen">
+        <p>뷰포트 전체</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsxs("div",{className:"modal_demo-row",children:[o.jsx(e,{variant:"outline",size:"sm",label:"Small","data-modal-trigger":"#modal-size-sm","aria-controls":"modal-size-sm"}),o.jsx(e,{variant:"outline",label:"Default","data-modal-trigger":"#modal-size-default","aria-controls":"modal-size-default"}),o.jsx(e,{variant:"outline",size:"lg",label:"Large","data-modal-trigger":"#modal-size-lg","aria-controls":"modal-size-lg"}),o.jsx(e,{variant:"outline",label:"Fullscreen","data-modal-trigger":"#modal-size-fullscreen","aria-controls":"modal-size-fullscreen"})]}),o.jsx(a,{id:"modal-size-sm",size:"sm",title:"Small",children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"modal_sm"})," — 확인·간단한 알림에 적합한 좁은 너비입니다."]})}),o.jsx(a,{id:"modal-size-default",title:"Default",children:o.jsx("p",{children:"기본 너비 32rem"})}),o.jsx(a,{id:"modal-size-lg",size:"lg",title:"Large",children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"modal_lg"})," — 상세 보기·넓은 폼·테이블 미리보기 등에 사용합니다."]})}),o.jsx(a,{id:"modal-size-fullscreen",size:"fullscreen",title:"Fullscreen",footer:o.jsx(e,{variant:"ghost",label:"닫기","data-modal-close":""}),children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"modal_fullscreen"})," — 뷰포트 전체를 사용하는 대화상자입니다."]})})]}))},b={name:"헤더·푸터",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"modal_header · modal_body · modal_footer로 영역을 나눕니다. 푸터에 액션 버튼을 배치합니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FooterExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="primary"
+        label="새 항목 추가"
+        data-modal-trigger="#modal-footer"
+        aria-controls="modal-footer"
+      />
+      <Modal
+        id="modal-footer"
+        title="새 항목 추가"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>폼 본문</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"filled",color:"primary",label:"새 항목 추가","data-modal-trigger":"#modal-footer","aria-controls":"modal-footer"}),o.jsxs(a,{id:"modal-footer",title:"새 항목 추가",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"저장","data-modal-close":""})]}),children:[o.jsxs("div",{className:"form_field",children:[o.jsx("label",{className:"form_field-label",htmlFor:"modal-item-name",children:"이름"}),o.jsx("input",{className:"input",type:"text",id:"modal-item-name",placeholder:"항목 이름"})]}),o.jsxs("div",{className:"form_field",children:[o.jsx("label",{className:"form_field-label",htmlFor:"modal-item-desc",children:"설명"}),o.jsx("textarea",{className:"textarea",id:"modal-item-desc",rows:3,placeholder:"간단한 설명"})]})]})]}))},v={name:"푸터 정렬",parameters:{controls:{disable:!1},demoPreview:{stack:!0},docs:{description:{story:"footerAlign으로 푸터 버튼을 정렬합니다. start · center · end(기본) · between(좌·우 병합) · even(균등). even은 footerRatio로 좌·우 비율(1-1 · 1-2 · 2-1)을 지정하고, footerNoPadBottom으로 하단 패딩을 제거할 수 있습니다. between은 modal_footer-group으로 좌·우에 1~2개씩 묶습니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FooterAlignExample() {
+  return (
+    <>
+      <Modal
+        id="modal-footer-start"
+        title="좌측 정렬"
+        footerAlign="start"
+        footer={/* … */}
+      >
+        <p>footerAlign="start"</p>
+      </Modal>
+      <Modal
+        id="modal-footer-center"
+        title="가운데 정렬"
+        footerAlign="center"
+        footer={/* … */}
+      >
+        <p>footerAlign="center"</p>
+      </Modal>
+      <Modal id="modal-footer-end" title="우측 정렬" footer={/* … */}>
+        <p>footerAlign="end" (기본)</p>
+      </Modal>
+      <Modal
+        id="modal-footer-between"
+        title="병합 정렬"
+        footerAlign="between"
+        footer={/* … */}
+      >
+        <p>footerAlign="between" + modal_footer-group</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even"
+        title="균등 1:1"
+        footerAlign="even"
+        footer={/* … */}
+      >
+        <p>footerAlign="even" · footerRatio="1-1"</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even-1-2"
+        title="균등 1:2"
+        footerAlign="even"
+        footerRatio="1-2"
+        footer={/* … */}
+      >
+        <p>footerRatio="1-2" — 좌 1 / 우 2</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even-2-1"
+        title="균등 2:1"
+        footerAlign="even"
+        footerRatio="2-1"
+        footer={/* … */}
+      >
+        <p>footerRatio="2-1" — 좌 2 / 우 1</p>
+      </Modal>
+      <Modal
+        id="modal-footer-no-pad"
+        title="하단 패딩 없음"
+        footerAlign="even"
+        footerNoPadBottom
+        footer={/* … */}
+      >
+        <p>footerNoPadBottom + even</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:()=>o.jsxs("div",{className:"modal_demo-stack",children:[o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-start",title:"좌측 정렬",footerAlign:"start",className:"modal_demo-static",footer:r,children:o.jsx("p",{children:o.jsx("code",{className:"typo_code",children:'footerAlign="start"'})})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-center",title:"가운데 정렬",footerAlign:"center",className:"modal_demo-static",footer:r,children:o.jsx("p",{children:o.jsx("code",{className:"typo_code",children:'footerAlign="center"'})})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-end",title:"우측 정렬",className:"modal_demo-static",footer:r,children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:'footerAlign="end"'})," ","(기본)"]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-between",title:"병합 정렬",footerAlign:"between",className:"modal_demo-static",footer:o.jsxs(o.Fragment,{children:[o.jsx("div",{className:"modal_footer-group",children:o.jsx(e,{variant:"ghost",color:"danger",label:"삭제","data-modal-close":""})}),o.jsxs("div",{className:"modal_footer-group",children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"확인","data-modal-close":""})]})]}),children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"between"})," — 좌 1 / 우 2"]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-between-2",title:"병합 정렬",footerAlign:"between",className:"modal_demo-static",footer:o.jsxs(o.Fragment,{children:[o.jsxs("div",{className:"modal_footer-group",children:[o.jsx(e,{variant:"ghost",label:"도움말","data-modal-close":""}),o.jsx(e,{variant:"ghost",color:"danger",label:"삭제","data-modal-close":""})]}),o.jsx("div",{className:"modal_footer-group",children:o.jsx(e,{variant:"filled",color:"primary",label:"확인","data-modal-close":""})})]}),children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"between"})," — 좌 2 / 우 1"]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-even",title:"균등 1:1",footerAlign:"even",className:"modal_demo-static",footer:r,children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"even"})," ·"," ",o.jsx("code",{className:"typo_code",children:'footerRatio="1-1"'})]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-even-1-2",title:"균등 1:2",footerAlign:"even",footerRatio:"1-2",className:"modal_demo-static",footer:r,children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:'footerRatio="1-2"'})," — 좌 1 / 우 2"]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-even-2-1",title:"균등 2:1",footerAlign:"even",footerRatio:"2-1",className:"modal_demo-static",footer:r,children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:'footerRatio="2-1"'})," — 좌 2 / 우 1"]})})}),o.jsx("div",{className:"modal_demo-frame modal_demo-frame-compact",children:o.jsx(a,{id:"modal-footer-no-pad",title:"하단 패딩 없음",footerAlign:"even",footerNoPadBottom:!0,className:"modal_demo-static",footer:r,children:o.jsxs("p",{children:[o.jsx("code",{className:"typo_code",children:"footerNoPadBottom"})," + even"]})})})]})},h={name:"확인 대화상자",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"삭제·취소 등 되돌릴 수 없는 작업 전에 사용자 확인을 받습니다. modal_sm으로 좁은 레이아웃을 사용합니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function ConfirmExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="danger"
+        label="삭제"
+        data-modal-trigger="#modal-confirm"
+        aria-controls="modal-confirm"
+      />
+      <Modal
+        id="modal-confirm"
+        size="sm"
+        title="항목 삭제"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="danger"
+              label="삭제"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"filled",color:"danger",label:"삭제","data-modal-trigger":"#modal-confirm","aria-controls":"modal-confirm"}),o.jsx(a,{id:"modal-confirm",size:"sm",title:"항목 삭제","aria-describedby":"modal-confirm-desc",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"danger",label:"삭제","data-modal-close":""})]}),children:o.jsx("p",{id:"modal-confirm-desc",children:"이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?"})})]}))},_={name:"폼",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"입력 필드가 포함된 대화상자입니다. Form Layout · Input 컴포넌트와 조합합니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FormExample() {
+  return (
+    <>
+      <Button
+        variant="outline"
+        label="프로필 편집"
+        data-modal-trigger="#modal-form"
+        aria-controls="modal-form"
+      />
+      <Modal
+        id="modal-form"
+        title="프로필 편집"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>폼 본문</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"outline",label:"프로필 편집","data-modal-trigger":"#modal-form","aria-controls":"modal-form"}),o.jsx(a,{id:"modal-form",title:"프로필 편집",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"취소","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"저장","data-modal-close":""})]}),children:o.jsxs("div",{className:"form_layout form_layout-vertical",children:[o.jsxs("div",{className:"form_field",children:[o.jsx("label",{className:"form_field-label",htmlFor:"modal-profile-name",children:"이름"}),o.jsx("input",{className:"input",type:"text",id:"modal-profile-name",defaultValue:"홍길동"})]}),o.jsxs("div",{className:"form_field",children:[o.jsx("label",{className:"form_field-label",htmlFor:"modal-profile-email",children:"이메일"}),o.jsx("input",{className:"input",type:"email",id:"modal-profile-email",defaultValue:"hong@example.com"})]}),o.jsxs("div",{className:"form_field",children:[o.jsx("label",{className:"form_field-label",htmlFor:"modal-profile-bio",children:"소개"}),o.jsx("textarea",{className:"textarea",id:"modal-profile-bio",rows:3,placeholder:"자기소개를 입력하세요"})]})]})})]}))},j={name:"스크롤 본문",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"modal_scrollable을 루트에 추가하면 본문이 길 때 modal_body 안에서 스크롤됩니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function ScrollExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="이용 약관 보기"
+        data-modal-trigger="#modal-scroll"
+        aria-controls="modal-scroll"
+      />
+      <Modal
+        id="modal-scroll"
+        scrollable
+        title="이용 약관"
+        footer={
+          <>
+            <Button variant="ghost" label="거부" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="동의"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>긴 본문…</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"이용 약관 보기","data-modal-trigger":"#modal-scroll","aria-controls":"modal-scroll"}),o.jsxs(a,{id:"modal-scroll",scrollable:!0,title:"이용 약관",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"거부","data-modal-close":""}),o.jsx(e,{variant:"filled",color:"primary",label:"동의","data-modal-close":""})]}),children:[o.jsx("p",{children:"제1조 (목적) 본 약관은 서비스 이용과 관련하여 회사와 이용자 간의 권리·의무 및 책임사항을 규정함을 목적으로 합니다."}),o.jsx("p",{children:'제2조 (정의) 본 약관에서 사용하는 용어의 정의는 다음과 같습니다. ① "서비스"란 회사가 제공하는 모든 온라인 서비스를 의미합니다. ② "이용자"란 본 약관에 따라 서비스를 이용하는 회원 및 비회원을 말합니다.'}),o.jsx("p",{children:"제3조 (약관의 효력) 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공지함으로써 효력이 발생합니다."}),o.jsx("p",{children:"제4조 (서비스의 제공) 회사는 다음과 같은 서비스를 제공합니다. 정보 제공, 커뮤니티, 기타 회사가 정하는 서비스."}),o.jsx("p",{children:"제5조 (서비스의 중단) 회사는 컴퓨터 등 정보통신설비의 보수점검·교체 및 고장, 통신의 두절 등의 사유가 발생한 경우 서비스의 제공을 일시적으로 중단할 수 있습니다."}),o.jsx("p",{children:"제6조 (회원가입) 이용자는 회사가 정한 가입 양식에 따라 회원정보를 기입한 후 본 약관에 동의한다는 의사표시를 함으로써 회원가입을 신청합니다."}),o.jsx("p",{children:"제7조 (회원 탈퇴 및 자격 상실) 회원은 회사에 언제든지 탈퇴를 요청할 수 있으며 회사는 즉시 회원탈퇴를 처리합니다."}),o.jsx("p",{children:"제8조 (개인정보보호) 회사는 관련 법령이 정하는 바에 따라 이용자의 개인정보를 보호하기 위해 노력합니다."}),o.jsx("p",{children:"제9조 (회사의 의무) 회사는 법령과 본 약관이 금지하거나 공서양속에 반하는 행위를 하지 않으며, 지속적이고 안정적으로 서비스를 제공하기 위해 노력합니다."}),o.jsx("p",{children:"제10조 (이용자의 의무) 이용자는 관계 법령, 본 약관의 규정, 이용안내 및 서비스와 관련하여 공지한 주의사항을 준수하여야 합니다."})]})]}))},M={name:"중첩 Modal",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"열린 Modal 안에서 다른 Modal을 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. Esc는 가장 위에 열린 대화상자부터 닫습니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function NestedExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="중첩 예시 열기"
+        data-modal-trigger="#modal-nested-1"
+        aria-controls="modal-nested-1"
+      />
+      <Modal
+        id="modal-nested-1"
+        title="1단계 Modal"
+        footer={
+          <>
+            <Button variant="ghost" label="닫기" data-modal-close="" />
+            <Button
+              variant="outline"
+              label="2단계 열기"
+              data-modal-trigger="#modal-nested-2"
+              aria-controls="modal-nested-2"
+            />
+          </>
+        }
+      >
+        <p>다음 단계 Modal을 열어 중첩 동작을 확인하세요.</p>
+      </Modal>
+      <Modal
+        id="modal-nested-2"
+        size="sm"
+        title="2단계 Modal"
+        footer={
+          <Button
+            variant="filled"
+            color="primary"
+            label="완료"
+            data-modal-close=""
+          />
+        }
+      >
+        <p>중첩된 Modal입니다.</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"중첩 예시 열기","data-modal-trigger":"#modal-nested-1","aria-controls":"modal-nested-1"}),o.jsx(a,{id:"modal-nested-1",title:"1단계 Modal",footer:o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"닫기","data-modal-close":""}),o.jsx(e,{variant:"outline",label:"2단계 열기","data-modal-trigger":"#modal-nested-2","aria-controls":"modal-nested-2"})]}),children:o.jsx("p",{children:"다음 단계 Modal을 열어 중첩 동작을 확인하세요. 2단계가 열리면 이 백드롭은 잠시 숨겨집니다."})}),o.jsx(a,{id:"modal-nested-2",size:"sm",title:"2단계 Modal",footer:o.jsx(e,{variant:"filled",color:"primary",label:"완료","data-modal-close":""}),children:o.jsxs("p",{children:["중첩된 Modal입니다. 닫으면 1단계 백드롭이 다시 표시됩니다."," ",o.jsx("kbd",{children:"Esc"}),"를 누르면 이 대화상자부터 닫힙니다."]})})]}))},y={name:"백드롭 없음",parameters:{controls:{disable:!1},demoPreview:{stack:!1},docs:{description:{story:"backdrop={false}로 어두운 배경을 숨깁니다. 본문과 동시에 상호작용할 수 있습니다."},source:{code:`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function NoBackdropExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="백드롭 없이 열기"
+        data-modal-trigger="#modal-no-backdrop"
+        aria-controls="modal-no-backdrop"
+      />
+      <Modal
+        id="modal-no-backdrop"
+        size="sm"
+        title="백드롭 없음"
+        backdrop={false}
+      >
+        <p>본문을 가리지 않고 대화상자만 표시합니다.</p>
+      </Modal>
+    </>
+  );
+}`,language:"tsx"}}},render:d(o.jsxs(o.Fragment,{children:[o.jsx(e,{variant:"ghost",label:"백드롭 없이 열기","data-modal-trigger":"#modal-no-backdrop","aria-controls":"modal-no-backdrop"}),o.jsx(a,{id:"modal-no-backdrop",size:"sm",title:"백드롭 없음",backdrop:!1,children:o.jsxs("p",{children:["본문을 가리지 않고 대화상자만 표시합니다. 닫기 버튼이나 ",o.jsx("kbd",{children:"Esc"}),"로 닫으세요."]})})]}))};var D,q,L;f.parameters={...f.parameters,docs:{...(D=f.parameters)==null?void 0:D.docs,source:{originalSource:`{
+  parameters: {
+    controls: {
+      disable: false
+    }
+  },
+  args: {
+    ...playgroundArgs
+  },
+  render: args => <div className="modal_demo-frame">
+      <div className="modal_demo-content">
+        <p>
+          Controls로 open · size · scrollable · backdrop · footerAlign ·
+          footerRatio · footerNoPadBottom을 조절하세요.
+        </p>
+      </div>
+      <Modal {...args} className={args.open ? 'modal_demo-static' : undefined} footer={playgroundFooter(args.footerAlign)}>
+        <p>모달 본문입니다.</p>
+      </Modal>
+    </div>
+}`,...(L=(q=f.parameters)==null?void 0:q.docs)==null?void 0:L.source}}};var I,V,O;u.parameters={...u.parameters,docs:{...(I=u.parameters)==null?void 0:I.docs,source:{originalSource:`{
+  name: '기본',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'data-modal-trigger로 대화상자를 열고, 백드롭·닫기 버튼·Esc로 닫습니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function BasicExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="primary"
+        label="모달 열기"
+        data-modal-trigger="#modal-basic"
+        aria-controls="modal-basic"
+      />
+      <Modal
+        id="modal-basic"
+        title="알림"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="확인"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>Modal 대화상자 본문입니다.</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="filled" color="primary" label="모달 열기" data-modal-trigger="#modal-basic" aria-controls="modal-basic" />
+      <Modal id="modal-basic" title="알림" footer={<>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button variant="filled" color="primary" label="확인" data-modal-close="" />
+          </>}>
+        <p>
+          Modal 대화상자 본문입니다. 백드롭을 클릭하거나 닫기 버튼,{' '}
+          <kbd>Esc</kbd> 키로 닫을 수 있습니다.
+        </p>
+      </Modal>
+    </>)
+}`,...(O=(V=u.parameters)==null?void 0:V.docs)==null?void 0:O.source}}};var T,$,H;g.parameters={...g.parameters,docs:{...(T=g.parameters)==null?void 0:T.docs,source:{originalSource:`{
+  name: '열린 상태',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'open prop으로 is-open 클래스를 추가하고 hidden을 해제합니다. 문서·스토리 미리보기에서는 modal_demo-frame 안에서 열린 모습을 확인합니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function OpenExample() {
+  return (
+    <Modal
+      id="modal-open"
+      title="알림"
+      open
+      footer={
+        <>
+          <Button variant="ghost" label="취소" data-modal-close="" />
+          <Button
+            variant="filled"
+            color="primary"
+            label="확인"
+            data-modal-close=""
+          />
+        </>
+      }
+    >
+      <p>열린 상태의 Modal입니다.</p>
+    </Modal>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <p>open prop으로 대화상자가 열린 상태를 미리 보여 줍니다.</p>
+      <Modal id="modal-open" title="알림" open className="modal_demo-static" footer={cancelConfirmFooter}>
+        <p>
+          열린 상태의 Modal입니다. 백드롭·헤더·푸터 구성을 한눈에 확인할 수
+          있습니다.
+        </p>
+      </Modal>
+    </>)
+}`,...(H=($=g.parameters)==null?void 0:$.docs)==null?void 0:H.source}}};var J,Z,G;x.parameters={...x.parameters,docs:{...(J=x.parameters)==null?void 0:J.docs,source:{originalSource:`{
+  name: '크기',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'modal_sm · modal_lg · modal_fullscreen으로 대화상자 너비를 조정합니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function SizeExample() {
+  return (
+    <>
+      <div className="modal_demo-row">
+        <Button
+          variant="outline"
+          size="sm"
+          label="Small"
+          data-modal-trigger="#modal-size-sm"
+          aria-controls="modal-size-sm"
+        />
+        <Button
+          variant="outline"
+          label="Default"
+          data-modal-trigger="#modal-size-default"
+          aria-controls="modal-size-default"
+        />
+        <Button
+          variant="outline"
+          size="lg"
+          label="Large"
+          data-modal-trigger="#modal-size-lg"
+          aria-controls="modal-size-lg"
+        />
+        <Button
+          variant="outline"
+          label="Fullscreen"
+          data-modal-trigger="#modal-size-fullscreen"
+          aria-controls="modal-size-fullscreen"
+        />
+      </div>
+      <Modal id="modal-size-sm" size="sm" title="Small">
+        <p>좁은 너비</p>
+      </Modal>
+      <Modal id="modal-size-default" title="Default">
+        <p>기본 너비 32rem</p>
+      </Modal>
+      <Modal id="modal-size-lg" size="lg" title="Large">
+        <p>넓은 너비</p>
+      </Modal>
+      <Modal id="modal-size-fullscreen" size="fullscreen" title="Fullscreen">
+        <p>뷰포트 전체</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <div className="modal_demo-row">
+        <Button variant="outline" size="sm" label="Small" data-modal-trigger="#modal-size-sm" aria-controls="modal-size-sm" />
+        <Button variant="outline" label="Default" data-modal-trigger="#modal-size-default" aria-controls="modal-size-default" />
+        <Button variant="outline" size="lg" label="Large" data-modal-trigger="#modal-size-lg" aria-controls="modal-size-lg" />
+        <Button variant="outline" label="Fullscreen" data-modal-trigger="#modal-size-fullscreen" aria-controls="modal-size-fullscreen" />
+      </div>
+      <Modal id="modal-size-sm" size="sm" title="Small">
+        <p>
+          <code className="typo_code">modal_sm</code> — 확인·간단한 알림에
+          적합한 좁은 너비입니다.
+        </p>
+      </Modal>
+      <Modal id="modal-size-default" title="Default">
+        <p>기본 너비 32rem</p>
+      </Modal>
+      <Modal id="modal-size-lg" size="lg" title="Large">
+        <p>
+          <code className="typo_code">modal_lg</code> — 상세 보기·넓은 폼·테이블
+          미리보기 등에 사용합니다.
+        </p>
+      </Modal>
+      <Modal id="modal-size-fullscreen" size="fullscreen" title="Fullscreen" footer={<Button variant="ghost" label="닫기" data-modal-close="" />}>
+        <p>
+          <code className="typo_code">modal_fullscreen</code> — 뷰포트 전체를
+          사용하는 대화상자입니다.
+        </p>
+      </Modal>
+    </>)
+}`,...(G=(Z=x.parameters)==null?void 0:Z.docs)==null?void 0:G.source}}};var K,Q,U;b.parameters={...b.parameters,docs:{...(K=b.parameters)==null?void 0:K.docs,source:{originalSource:`{
+  name: '헤더·푸터',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'modal_header · modal_body · modal_footer로 영역을 나눕니다. 푸터에 액션 버튼을 배치합니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FooterExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="primary"
+        label="새 항목 추가"
+        data-modal-trigger="#modal-footer"
+        aria-controls="modal-footer"
+      />
+      <Modal
+        id="modal-footer"
+        title="새 항목 추가"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>폼 본문</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="filled" color="primary" label="새 항목 추가" data-modal-trigger="#modal-footer" aria-controls="modal-footer" />
+      <Modal id="modal-footer" title="새 항목 추가" footer={<>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button variant="filled" color="primary" label="저장" data-modal-close="" />
+          </>}>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="modal-item-name">
+            이름
+          </label>
+          <input className="input" type="text" id="modal-item-name" placeholder="항목 이름" />
+        </div>
+        <div className="form_field">
+          <label className="form_field-label" htmlFor="modal-item-desc">
+            설명
+          </label>
+          <textarea className="textarea" id="modal-item-desc" rows={3} placeholder="간단한 설명" />
+        </div>
+      </Modal>
+    </>)
+}`,...(U=(Q=b.parameters)==null?void 0:Q.docs)==null?void 0:U.source}}};var W,X,Y;v.parameters={...v.parameters,docs:{...(W=v.parameters)==null?void 0:W.docs,source:{originalSource:`{
+  name: '푸터 정렬',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: true
+    },
+    docs: {
+      description: {
+        story: 'footerAlign으로 푸터 버튼을 정렬합니다. start · center · end(기본) · between(좌·우 병합) · even(균등). even은 footerRatio로 좌·우 비율(1-1 · 1-2 · 2-1)을 지정하고, footerNoPadBottom으로 하단 패딩을 제거할 수 있습니다. between은 modal_footer-group으로 좌·우에 1~2개씩 묶습니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FooterAlignExample() {
+  return (
+    <>
+      <Modal
+        id="modal-footer-start"
+        title="좌측 정렬"
+        footerAlign="start"
+        footer={/* … */}
+      >
+        <p>footerAlign="start"</p>
+      </Modal>
+      <Modal
+        id="modal-footer-center"
+        title="가운데 정렬"
+        footerAlign="center"
+        footer={/* … */}
+      >
+        <p>footerAlign="center"</p>
+      </Modal>
+      <Modal id="modal-footer-end" title="우측 정렬" footer={/* … */}>
+        <p>footerAlign="end" (기본)</p>
+      </Modal>
+      <Modal
+        id="modal-footer-between"
+        title="병합 정렬"
+        footerAlign="between"
+        footer={/* … */}
+      >
+        <p>footerAlign="between" + modal_footer-group</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even"
+        title="균등 1:1"
+        footerAlign="even"
+        footer={/* … */}
+      >
+        <p>footerAlign="even" · footerRatio="1-1"</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even-1-2"
+        title="균등 1:2"
+        footerAlign="even"
+        footerRatio="1-2"
+        footer={/* … */}
+      >
+        <p>footerRatio="1-2" — 좌 1 / 우 2</p>
+      </Modal>
+      <Modal
+        id="modal-footer-even-2-1"
+        title="균등 2:1"
+        footerAlign="even"
+        footerRatio="2-1"
+        footer={/* … */}
+      >
+        <p>footerRatio="2-1" — 좌 2 / 우 1</p>
+      </Modal>
+      <Modal
+        id="modal-footer-no-pad"
+        title="하단 패딩 없음"
+        footerAlign="even"
+        footerNoPadBottom
+        footer={/* … */}
+      >
+        <p>footerNoPadBottom + even</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: () => <div className="modal_demo-stack">
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-start" title="좌측 정렬" footerAlign="start" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerAlign=&quot;start&quot;</code>
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-center" title="가운데 정렬" footerAlign="center" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerAlign=&quot;center&quot;</code>
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-end" title="우측 정렬" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerAlign=&quot;end&quot;</code>{' '}
+            (기본)
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-between" title="병합 정렬" footerAlign="between" className="modal_demo-static" footer={<>
+              <div className="modal_footer-group">
+                <Button variant="ghost" color="danger" label="삭제" data-modal-close="" />
+              </div>
+              <div className="modal_footer-group">
+                <Button variant="ghost" label="취소" data-modal-close="" />
+                <Button variant="filled" color="primary" label="확인" data-modal-close="" />
+              </div>
+            </>}>
+          <p>
+            <code className="typo_code">between</code> — 좌 1 / 우 2
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-between-2" title="병합 정렬" footerAlign="between" className="modal_demo-static" footer={<>
+              <div className="modal_footer-group">
+                <Button variant="ghost" label="도움말" data-modal-close="" />
+                <Button variant="ghost" color="danger" label="삭제" data-modal-close="" />
+              </div>
+              <div className="modal_footer-group">
+                <Button variant="filled" color="primary" label="확인" data-modal-close="" />
+              </div>
+            </>}>
+          <p>
+            <code className="typo_code">between</code> — 좌 2 / 우 1
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-even" title="균등 1:1" footerAlign="even" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">even</code> ·{' '}
+            <code className="typo_code">footerRatio=&quot;1-1&quot;</code>
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-even-1-2" title="균등 1:2" footerAlign="even" footerRatio="1-2" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerRatio=&quot;1-2&quot;</code> — 좌
+            1 / 우 2
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-even-2-1" title="균등 2:1" footerAlign="even" footerRatio="2-1" className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerRatio=&quot;2-1&quot;</code> — 좌
+            2 / 우 1
+          </p>
+        </Modal>
+      </div>
+      <div className="modal_demo-frame modal_demo-frame-compact">
+        <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footerAlign="even" footerNoPadBottom className="modal_demo-static" footer={cancelConfirmFooter}>
+          <p>
+            <code className="typo_code">footerNoPadBottom</code> + even
+          </p>
+        </Modal>
+      </div>
+    </div>
+}`,...(Y=(X=v.parameters)==null?void 0:X.docs)==null?void 0:Y.source}}};var oo,eo,ao;h.parameters={...h.parameters,docs:{...(oo=h.parameters)==null?void 0:oo.docs,source:{originalSource:`{
+  name: '확인 대화상자',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: '삭제·취소 등 되돌릴 수 없는 작업 전에 사용자 확인을 받습니다. modal_sm으로 좁은 레이아웃을 사용합니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function ConfirmExample() {
+  return (
+    <>
+      <Button
+        variant="filled"
+        color="danger"
+        label="삭제"
+        data-modal-trigger="#modal-confirm"
+        aria-controls="modal-confirm"
+      />
+      <Modal
+        id="modal-confirm"
+        size="sm"
+        title="항목 삭제"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="danger"
+              label="삭제"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="filled" color="danger" label="삭제" data-modal-trigger="#modal-confirm" aria-controls="modal-confirm" />
+      <Modal id="modal-confirm" size="sm" title="항목 삭제" aria-describedby="modal-confirm-desc" footer={<>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button variant="filled" color="danger" label="삭제" data-modal-close="" />
+          </>}>
+        <p id="modal-confirm-desc">
+          이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?
+        </p>
+      </Modal>
+    </>)
+}`,...(ao=(eo=h.parameters)==null?void 0:eo.docs)==null?void 0:ao.source}}};var lo,to,ro;_.parameters={..._.parameters,docs:{...(lo=_.parameters)==null?void 0:lo.docs,source:{originalSource:`{
+  name: '폼',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: '입력 필드가 포함된 대화상자입니다. Form Layout · Input 컴포넌트와 조합합니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function FormExample() {
+  return (
+    <>
+      <Button
+        variant="outline"
+        label="프로필 편집"
+        data-modal-trigger="#modal-form"
+        aria-controls="modal-form"
+      />
+      <Modal
+        id="modal-form"
+        title="프로필 편집"
+        footer={
+          <>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="저장"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>폼 본문</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="outline" label="프로필 편집" data-modal-trigger="#modal-form" aria-controls="modal-form" />
+      <Modal id="modal-form" title="프로필 편집" footer={<>
+            <Button variant="ghost" label="취소" data-modal-close="" />
+            <Button variant="filled" color="primary" label="저장" data-modal-close="" />
+          </>}>
+        <div className="form_layout form_layout-vertical">
+          <div className="form_field">
+            <label className="form_field-label" htmlFor="modal-profile-name">
+              이름
+            </label>
+            <input className="input" type="text" id="modal-profile-name" defaultValue="홍길동" />
+          </div>
+          <div className="form_field">
+            <label className="form_field-label" htmlFor="modal-profile-email">
+              이메일
+            </label>
+            <input className="input" type="email" id="modal-profile-email" defaultValue="hong@example.com" />
+          </div>
+          <div className="form_field">
+            <label className="form_field-label" htmlFor="modal-profile-bio">
+              소개
+            </label>
+            <textarea className="textarea" id="modal-profile-bio" rows={3} placeholder="자기소개를 입력하세요" />
+          </div>
+        </div>
+      </Modal>
+    </>)
+}`,...(ro=(to=_.parameters)==null?void 0:to.docs)==null?void 0:ro.source}}};var so,mo,io;j.parameters={...j.parameters,docs:{...(so=j.parameters)==null?void 0:so.docs,source:{originalSource:`{
+  name: '스크롤 본문',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'modal_scrollable을 루트에 추가하면 본문이 길 때 modal_body 안에서 스크롤됩니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function ScrollExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="이용 약관 보기"
+        data-modal-trigger="#modal-scroll"
+        aria-controls="modal-scroll"
+      />
+      <Modal
+        id="modal-scroll"
+        scrollable
+        title="이용 약관"
+        footer={
+          <>
+            <Button variant="ghost" label="거부" data-modal-close="" />
+            <Button
+              variant="filled"
+              color="primary"
+              label="동의"
+              data-modal-close=""
+            />
+          </>
+        }
+      >
+        <p>긴 본문…</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="ghost" label="이용 약관 보기" data-modal-trigger="#modal-scroll" aria-controls="modal-scroll" />
+      <Modal id="modal-scroll" scrollable title="이용 약관" footer={<>
+            <Button variant="ghost" label="거부" data-modal-close="" />
+            <Button variant="filled" color="primary" label="동의" data-modal-close="" />
+          </>}>
+        <p>
+          제1조 (목적) 본 약관은 서비스 이용과 관련하여 회사와 이용자 간의
+          권리·의무 및 책임사항을 규정함을 목적으로 합니다.
+        </p>
+        <p>
+          제2조 (정의) 본 약관에서 사용하는 용어의 정의는 다음과 같습니다. ①
+          &quot;서비스&quot;란 회사가 제공하는 모든 온라인 서비스를 의미합니다.
+          ② &quot;이용자&quot;란 본 약관에 따라 서비스를 이용하는 회원 및
+          비회원을 말합니다.
+        </p>
+        <p>
+          제3조 (약관의 효력) 본 약관은 서비스 화면에 게시하거나 기타의 방법으로
+          이용자에게 공지함으로써 효력이 발생합니다.
+        </p>
+        <p>
+          제4조 (서비스의 제공) 회사는 다음과 같은 서비스를 제공합니다. 정보
+          제공, 커뮤니티, 기타 회사가 정하는 서비스.
+        </p>
+        <p>
+          제5조 (서비스의 중단) 회사는 컴퓨터 등 정보통신설비의 보수점검·교체 및
+          고장, 통신의 두절 등의 사유가 발생한 경우 서비스의 제공을 일시적으로
+          중단할 수 있습니다.
+        </p>
+        <p>
+          제6조 (회원가입) 이용자는 회사가 정한 가입 양식에 따라 회원정보를
+          기입한 후 본 약관에 동의한다는 의사표시를 함으로써 회원가입을
+          신청합니다.
+        </p>
+        <p>
+          제7조 (회원 탈퇴 및 자격 상실) 회원은 회사에 언제든지 탈퇴를 요청할 수
+          있으며 회사는 즉시 회원탈퇴를 처리합니다.
+        </p>
+        <p>
+          제8조 (개인정보보호) 회사는 관련 법령이 정하는 바에 따라 이용자의
+          개인정보를 보호하기 위해 노력합니다.
+        </p>
+        <p>
+          제9조 (회사의 의무) 회사는 법령과 본 약관이 금지하거나 공서양속에
+          반하는 행위를 하지 않으며, 지속적이고 안정적으로 서비스를 제공하기
+          위해 노력합니다.
+        </p>
+        <p>
+          제10조 (이용자의 의무) 이용자는 관계 법령, 본 약관의 규정, 이용안내 및
+          서비스와 관련하여 공지한 주의사항을 준수하여야 합니다.
+        </p>
+      </Modal>
+    </>)
+}`,...(io=(mo=j.parameters)==null?void 0:mo.docs)==null?void 0:io.source}}};var no,co,po;M.parameters={...M.parameters,docs:{...(no=M.parameters)==null?void 0:no.docs,source:{originalSource:`{
+  name: '중첩 Modal',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: '열린 Modal 안에서 다른 Modal을 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. Esc는 가장 위에 열린 대화상자부터 닫습니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function NestedExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="중첩 예시 열기"
+        data-modal-trigger="#modal-nested-1"
+        aria-controls="modal-nested-1"
+      />
+      <Modal
+        id="modal-nested-1"
+        title="1단계 Modal"
+        footer={
+          <>
+            <Button variant="ghost" label="닫기" data-modal-close="" />
+            <Button
+              variant="outline"
+              label="2단계 열기"
+              data-modal-trigger="#modal-nested-2"
+              aria-controls="modal-nested-2"
+            />
+          </>
+        }
+      >
+        <p>다음 단계 Modal을 열어 중첩 동작을 확인하세요.</p>
+      </Modal>
+      <Modal
+        id="modal-nested-2"
+        size="sm"
+        title="2단계 Modal"
+        footer={
+          <Button
+            variant="filled"
+            color="primary"
+            label="완료"
+            data-modal-close=""
+          />
+        }
+      >
+        <p>중첩된 Modal입니다.</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="ghost" label="중첩 예시 열기" data-modal-trigger="#modal-nested-1" aria-controls="modal-nested-1" />
+      <Modal id="modal-nested-1" title="1단계 Modal" footer={<>
+            <Button variant="ghost" label="닫기" data-modal-close="" />
+            <Button variant="outline" label="2단계 열기" data-modal-trigger="#modal-nested-2" aria-controls="modal-nested-2" />
+          </>}>
+        <p>
+          다음 단계 Modal을 열어 중첩 동작을 확인하세요. 2단계가 열리면 이
+          백드롭은 잠시 숨겨집니다.
+        </p>
+      </Modal>
+      <Modal id="modal-nested-2" size="sm" title="2단계 Modal" footer={<Button variant="filled" color="primary" label="완료" data-modal-close="" />}>
+        <p>
+          중첩된 Modal입니다. 닫으면 1단계 백드롭이 다시 표시됩니다.{' '}
+          <kbd>Esc</kbd>를 누르면 이 대화상자부터 닫힙니다.
+        </p>
+      </Modal>
+    </>)
+}`,...(po=(co=M.parameters)==null?void 0:co.docs)==null?void 0:po.source}}};var fo,uo,go;y.parameters={...y.parameters,docs:{...(fo=y.parameters)==null?void 0:fo.docs,source:{originalSource:`{
+  name: '백드롭 없음',
+  parameters: {
+    controls: {
+      disable: false
+    },
+    demoPreview: {
+      stack: false
+    },
+    docs: {
+      description: {
+        story: 'backdrop={false}로 어두운 배경을 숨깁니다. 본문과 동시에 상호작용할 수 있습니다.'
+      },
+      source: {
+        code: \`import Button from '@uxkm/ui-react/components/Button.jsx';
+import Modal from '@uxkm/ui-react/components/Modal.jsx';
+
+export function NoBackdropExample() {
+  return (
+    <>
+      <Button
+        variant="ghost"
+        label="백드롭 없이 열기"
+        data-modal-trigger="#modal-no-backdrop"
+        aria-controls="modal-no-backdrop"
+      />
+      <Modal
+        id="modal-no-backdrop"
+        size="sm"
+        title="백드롭 없음"
+        backdrop={false}
+      >
+        <p>본문을 가리지 않고 대화상자만 표시합니다.</p>
+      </Modal>
+    </>
+  );
+}\`,
+        language: 'tsx'
+      }
+    }
+  },
+  render: modalDemo(<>
+      <Button variant="ghost" label="백드롭 없이 열기" data-modal-trigger="#modal-no-backdrop" aria-controls="modal-no-backdrop" />
+      <Modal id="modal-no-backdrop" size="sm" title="백드롭 없음" backdrop={false}>
+        <p>
+          본문을 가리지 않고 대화상자만 표시합니다. 닫기 버튼이나 <kbd>Esc</kbd>
+          로 닫으세요.
+        </p>
+      </Modal>
+    </>)
+}`,...(go=(uo=y.parameters)==null?void 0:uo.docs)==null?void 0:go.source}}};const Uo=["Playground","Basic","Open","Size","Footer","FooterAlign","Confirm","Form","Scroll","Nested","NoBackdrop"];export{u as Basic,h as Confirm,b as Footer,v as FooterAlign,_ as Form,M as Nested,y as NoBackdrop,g as Open,f as Playground,j as Scroll,x as Size,Uo as __namedExportsOrder,Qo as default};
