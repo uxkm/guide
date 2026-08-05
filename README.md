@@ -1,138 +1,501 @@
 # UXKM Framework Components
 
-HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 동일한 UXKM UI 컴포넌트를 제공하고 Storybook으로 통합 문서화하는 `pnpm` 기반 모노레포입니다.
+HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 동일한 UXKM UI 컴포넌트를 제공하고, Storybook과 Vue·React 가이드북으로 통합 문서화하는 `pnpm` 기반 모노레포입니다.
 
-`dev` 브랜치에서 애플리케이션, 공통 패키지, 문서 및 빌드 스크립트를 관리합니다. 각 프레임워크의 정적 결과물은 `build/frameworks`에 모아 검증한 뒤 배포 전용 `main` 브랜치에 반영합니다.
+`dev` 브랜치에서 프레임워크 애플리케이션, 프레임워크별 소개 문서, 전체 UI 컴포넌트, 가이드북, 공통 패키지, Storybook 문서 및 빌드 스크립트를 관리합니다.
+
+각 프레임워크와 가이드북의 정적 결과물은 `build` 디렉터리에 모아 검증한 뒤 배포 전용 `main` 브랜치에 반영합니다.
 
 > 현재 문서는 모노레포 구축을 위한 기준 구조입니다. 디렉터리와 설정은 구축 단계에 따라 순차적으로 생성합니다.
 
-## 전체 구조
+---
+
+## 핵심 구성
+
+```text
+dev 브랜치
+├── Frameworks
+│   ├── HTML
+│   ├── Gulp/Nunjucks
+│   ├── Vue
+│   ├── React
+│   ├── Nuxt
+│   └── Next.js
+├── Guidebook
+│   ├── Vue + Nuxt 문법
+│   └── React + Next.js 문법
+├── Storybook
+├── Packages
+└── Scripts
+
+main 브랜치
+├── frameworks
+├── guidebook
+├── .nojekyll
+└── CNAME
+```
+
+---
+
+# 1. 프레임워크 공통 문서 구조
+
+각 프레임워크 앱은 동일한 소개 문서와 동일한 컴포넌트 분류를 제공합니다.
+
+```text
+Framework
+├── Introduction
+│   ├── Overview
+│   ├── Getting Started
+│   └── Design Tokens
+│
+└── Components
+    ├── Layout
+    │   ├── Container
+    │   ├── Grid
+    │   ├── Flex
+    │   ├── Divider
+    │   └── Space
+    │
+    ├── Basic
+    │   ├── Button
+    │   ├── Typography
+    │   ├── Icon
+    │   └── Link
+    │
+    ├── Data Display
+    │   ├── Avatar
+    │   ├── Badge
+    │   ├── Tag
+    │   ├── Card
+    │   ├── Table
+    │   ├── List
+    │   ├── Stat
+    │   ├── Calendar
+    │   ├── Timeline
+    │   └── Tree
+    │
+    ├── Form
+    │   ├── Form Layout
+    │   ├── Input
+    │   ├── Textarea
+    │   ├── Select
+    │   ├── Checkbox
+    │   ├── Radio
+    │   ├── Switch
+    │   ├── Slider
+    │   ├── Rate
+    │   ├── Date Picker
+    │   └── Upload
+    │
+    ├── Feedback
+    │   ├── Alert
+    │   ├── Snackbar
+    │   ├── Modal
+    │   ├── Drawer
+    │   ├── Popover
+    │   ├── Tooltip
+    │   ├── Progress
+    │   ├── Spin
+    │   ├── Skeleton
+    │   └── Empty
+    │
+    ├── Navigation
+    │   ├── Navbar
+    │   ├── Menu
+    │   ├── Tabs
+    │   ├── Breadcrumb
+    │   ├── Pagination
+    │   ├── Steps
+    │   └── Dropdown
+    │
+    └── Miscellaneous
+        ├── Accordion
+        ├── Collapse
+        ├── Carousel
+        ├── Affix
+        └── Back Top
+```
+
+컴포넌트는 전체 52개입니다.
+
+| 분류 | 개수 |
+| --- | ---: |
+| Layout | 5 |
+| Basic | 4 |
+| Data Display | 10 |
+| Form | 11 |
+| Feedback | 10 |
+| Navigation | 7 |
+| Miscellaneous | 5 |
+| 전체 | 52 |
+
+---
+
+# 2. 전체 모노레포 구조
 
 ```text
 uxkm-framework-components/
 ├── apps/
-│   ├── html/
-│   │   ├── src/
-│   │   │   ├── pages/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   └── scripts/
-│   │   ├── public/
-│   │   ├── dist/
-│   │   └── package.json
-│   │
-│   ├── gulp/
-│   │   ├── src/
-│   │   │   ├── pages/
-│   │   │   ├── templates/
+│   ├── frameworks/
+│   │   ├── html/
+│   │   │   ├── src/
+│   │   │   │   ├── introduction/
+│   │   │   │   │   ├── overview.html
+│   │   │   │   │   ├── getting-started.html
+│   │   │   │   │   └── design-tokens.html
+│   │   │   │   ├── pages/
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── layout/
+│   │   │   │   │   │   ├── container/
+│   │   │   │   │   │   │   └── container.html
+│   │   │   │   │   │   ├── grid/
+│   │   │   │   │   │   │   └── grid.html
+│   │   │   │   │   │   ├── flex/
+│   │   │   │   │   │   │   └── flex.html
+│   │   │   │   │   │   ├── divider/
+│   │   │   │   │   │   │   └── divider.html
+│   │   │   │   │   │   └── space/
+│   │   │   │   │   │       └── space.html
+│   │   │   │   │   ├── basic/
+│   │   │   │   │   │   ├── button/button.html
+│   │   │   │   │   │   ├── typography/typography.html
+│   │   │   │   │   │   ├── icon/icon.html
+│   │   │   │   │   │   └── link/link.html
+│   │   │   │   │   ├── data-display/
+│   │   │   │   │   │   ├── avatar/avatar.html
+│   │   │   │   │   │   ├── badge/badge.html
+│   │   │   │   │   │   ├── tag/tag.html
+│   │   │   │   │   │   ├── card/card.html
+│   │   │   │   │   │   ├── table/table.html
+│   │   │   │   │   │   ├── list/list.html
+│   │   │   │   │   │   ├── stat/stat.html
+│   │   │   │   │   │   ├── calendar/calendar.html
+│   │   │   │   │   │   ├── timeline/timeline.html
+│   │   │   │   │   │   └── tree/tree.html
+│   │   │   │   │   ├── form/
+│   │   │   │   │   │   ├── form-layout/form-layout.html
+│   │   │   │   │   │   ├── input/input.html
+│   │   │   │   │   │   ├── textarea/textarea.html
+│   │   │   │   │   │   ├── select/select.html
+│   │   │   │   │   │   ├── checkbox/checkbox.html
+│   │   │   │   │   │   ├── radio/radio.html
+│   │   │   │   │   │   ├── switch/switch.html
+│   │   │   │   │   │   ├── slider/slider.html
+│   │   │   │   │   │   ├── rate/rate.html
+│   │   │   │   │   │   ├── date-picker/date-picker.html
+│   │   │   │   │   │   └── upload/upload.html
+│   │   │   │   │   ├── feedback/
+│   │   │   │   │   │   ├── alert/alert.html
+│   │   │   │   │   │   ├── snackbar/snackbar.html
+│   │   │   │   │   │   ├── modal/modal.html
+│   │   │   │   │   │   ├── drawer/drawer.html
+│   │   │   │   │   │   ├── popover/popover.html
+│   │   │   │   │   │   ├── tooltip/tooltip.html
+│   │   │   │   │   │   ├── progress/progress.html
+│   │   │   │   │   │   ├── spin/spin.html
+│   │   │   │   │   │   ├── skeleton/skeleton.html
+│   │   │   │   │   │   └── empty/empty.html
+│   │   │   │   │   ├── navigation/
+│   │   │   │   │   │   ├── navbar/navbar.html
+│   │   │   │   │   │   ├── menu/menu.html
+│   │   │   │   │   │   ├── tabs/tabs.html
+│   │   │   │   │   │   ├── breadcrumb/breadcrumb.html
+│   │   │   │   │   │   ├── pagination/pagination.html
+│   │   │   │   │   │   ├── steps/steps.html
+│   │   │   │   │   │   └── dropdown/dropdown.html
+│   │   │   │   │   └── miscellaneous/
+│   │   │   │   │       ├── accordion/accordion.html
+│   │   │   │   │       ├── collapse/collapse.html
+│   │   │   │   │       ├── carousel/carousel.html
+│   │   │   │   │       ├── affix/affix.html
+│   │   │   │   │       └── back-top/back-top.html
+│   │   │   │   └── scripts/
+│   │   │   ├── public/
+│   │   │   ├── dist/
+│   │   │   └── package.json
+│   │   │
+│   │   ├── gulp/
+│   │   │   ├── src/
+│   │   │   │   ├── introduction/
+│   │   │   │   │   ├── overview.html
+│   │   │   │   │   ├── getting-started.html
+│   │   │   │   │   └── design-tokens.html
+│   │   │   │   ├── pages/
+│   │   │   │   ├── templates/
+│   │   │   │   │   ├── layouts/
+│   │   │   │   │   └── partials/
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── layout/
+│   │   │   │   │   │   ├── container/container.html
+│   │   │   │   │   │   ├── grid/grid.html
+│   │   │   │   │   │   ├── flex/flex.html
+│   │   │   │   │   │   ├── divider/divider.html
+│   │   │   │   │   │   └── space/space.html
+│   │   │   │   │   ├── basic/
+│   │   │   │   │   │   ├── button/button.html
+│   │   │   │   │   │   ├── typography/typography.html
+│   │   │   │   │   │   ├── icon/icon.html
+│   │   │   │   │   │   └── link/link.html
+│   │   │   │   │   ├── data-display/
+│   │   │   │   │   │   ├── avatar/avatar.html
+│   │   │   │   │   │   ├── badge/badge.html
+│   │   │   │   │   │   ├── tag/tag.html
+│   │   │   │   │   │   ├── card/card.html
+│   │   │   │   │   │   ├── table/table.html
+│   │   │   │   │   │   ├── list/list.html
+│   │   │   │   │   │   ├── stat/stat.html
+│   │   │   │   │   │   ├── calendar/calendar.html
+│   │   │   │   │   │   ├── timeline/timeline.html
+│   │   │   │   │   │   └── tree/tree.html
+│   │   │   │   │   ├── form/
+│   │   │   │   │   │   ├── form-layout/form-layout.html
+│   │   │   │   │   │   ├── input/input.html
+│   │   │   │   │   │   ├── textarea/textarea.html
+│   │   │   │   │   │   ├── select/select.html
+│   │   │   │   │   │   ├── checkbox/checkbox.html
+│   │   │   │   │   │   ├── radio/radio.html
+│   │   │   │   │   │   ├── switch/switch.html
+│   │   │   │   │   │   ├── slider/slider.html
+│   │   │   │   │   │   ├── rate/rate.html
+│   │   │   │   │   │   ├── date-picker/date-picker.html
+│   │   │   │   │   │   └── upload/upload.html
+│   │   │   │   │   ├── feedback/
+│   │   │   │   │   │   ├── alert/alert.html
+│   │   │   │   │   │   ├── snackbar/snackbar.html
+│   │   │   │   │   │   ├── modal/modal.html
+│   │   │   │   │   │   ├── drawer/drawer.html
+│   │   │   │   │   │   ├── popover/popover.html
+│   │   │   │   │   │   ├── tooltip/tooltip.html
+│   │   │   │   │   │   ├── progress/progress.html
+│   │   │   │   │   │   ├── spin/spin.html
+│   │   │   │   │   │   ├── skeleton/skeleton.html
+│   │   │   │   │   │   └── empty/empty.html
+│   │   │   │   │   ├── navigation/
+│   │   │   │   │   │   ├── navbar/navbar.html
+│   │   │   │   │   │   ├── menu/menu.html
+│   │   │   │   │   │   ├── tabs/tabs.html
+│   │   │   │   │   │   ├── breadcrumb/breadcrumb.html
+│   │   │   │   │   │   ├── pagination/pagination.html
+│   │   │   │   │   │   ├── steps/steps.html
+│   │   │   │   │   │   └── dropdown/dropdown.html
+│   │   │   │   │   └── miscellaneous/
+│   │   │   │   │       ├── accordion/accordion.html
+│   │   │   │   │       ├── collapse/collapse.html
+│   │   │   │   │       ├── carousel/carousel.html
+│   │   │   │   │       ├── affix/affix.html
+│   │   │   │   │       └── back-top/back-top.html
+│   │   │   │   └── scripts/
+│   │   │   ├── gulpfile.js
+│   │   │   ├── dist/
+│   │   │   └── package.json
+│   │   │
+│   │   ├── vue/
+│   │   │   ├── src/
+│   │   │   │   ├── introduction/
+│   │   │   │   │   ├── Overview.vue
+│   │   │   │   │   ├── GettingStarted.vue
+│   │   │   │   │   └── DesignTokens.vue
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── layout/
+│   │   │   │   │   │   ├── container/Container.vue
+│   │   │   │   │   │   ├── grid/Grid.vue
+│   │   │   │   │   │   ├── flex/Flex.vue
+│   │   │   │   │   │   ├── divider/Divider.vue
+│   │   │   │   │   │   └── space/Space.vue
+│   │   │   │   │   ├── basic/
+│   │   │   │   │   │   ├── button/Button.vue
+│   │   │   │   │   │   ├── typography/Typography.vue
+│   │   │   │   │   │   ├── icon/Icon.vue
+│   │   │   │   │   │   └── link/Link.vue
+│   │   │   │   │   ├── data-display/
+│   │   │   │   │   │   ├── avatar/Avatar.vue
+│   │   │   │   │   │   ├── badge/Badge.vue
+│   │   │   │   │   │   ├── tag/Tag.vue
+│   │   │   │   │   │   ├── card/Card.vue
+│   │   │   │   │   │   ├── table/Table.vue
+│   │   │   │   │   │   ├── list/List.vue
+│   │   │   │   │   │   ├── stat/Stat.vue
+│   │   │   │   │   │   ├── calendar/Calendar.vue
+│   │   │   │   │   │   ├── timeline/Timeline.vue
+│   │   │   │   │   │   └── tree/Tree.vue
+│   │   │   │   │   ├── form/
+│   │   │   │   │   │   ├── form-layout/FormLayout.vue
+│   │   │   │   │   │   ├── input/Input.vue
+│   │   │   │   │   │   ├── textarea/Textarea.vue
+│   │   │   │   │   │   ├── select/Select.vue
+│   │   │   │   │   │   ├── checkbox/Checkbox.vue
+│   │   │   │   │   │   ├── radio/Radio.vue
+│   │   │   │   │   │   ├── switch/Switch.vue
+│   │   │   │   │   │   ├── slider/Slider.vue
+│   │   │   │   │   │   ├── rate/Rate.vue
+│   │   │   │   │   │   ├── date-picker/DatePicker.vue
+│   │   │   │   │   │   └── upload/Upload.vue
+│   │   │   │   │   ├── feedback/
+│   │   │   │   │   │   ├── alert/Alert.vue
+│   │   │   │   │   │   ├── snackbar/Snackbar.vue
+│   │   │   │   │   │   ├── modal/Modal.vue
+│   │   │   │   │   │   ├── drawer/Drawer.vue
+│   │   │   │   │   │   ├── popover/Popover.vue
+│   │   │   │   │   │   ├── tooltip/Tooltip.vue
+│   │   │   │   │   │   ├── progress/Progress.vue
+│   │   │   │   │   │   ├── spin/Spin.vue
+│   │   │   │   │   │   ├── skeleton/Skeleton.vue
+│   │   │   │   │   │   └── empty/Empty.vue
+│   │   │   │   │   ├── navigation/
+│   │   │   │   │   │   ├── navbar/Navbar.vue
+│   │   │   │   │   │   ├── menu/Menu.vue
+│   │   │   │   │   │   ├── tabs/Tabs.vue
+│   │   │   │   │   │   ├── breadcrumb/Breadcrumb.vue
+│   │   │   │   │   │   ├── pagination/Pagination.vue
+│   │   │   │   │   │   ├── steps/Steps.vue
+│   │   │   │   │   │   └── dropdown/Dropdown.vue
+│   │   │   │   │   └── miscellaneous/
+│   │   │   │   │       ├── accordion/Accordion.vue
+│   │   │   │   │       ├── collapse/Collapse.vue
+│   │   │   │   │       ├── carousel/Carousel.vue
+│   │   │   │   │       ├── affix/Affix.vue
+│   │   │   │   │       └── back-top/BackTop.vue
+│   │   │   │   ├── views/
+│   │   │   │   ├── router/
+│   │   │   │   ├── composables/
+│   │   │   │   └── main.js
+│   │   │   ├── public/
+│   │   │   ├── vite.config.js
+│   │   │   ├── dist/
+│   │   │   └── package.json
+│   │   │
+│   │   ├── react/
+│   │   │   ├── src/
+│   │   │   │   ├── introduction/
+│   │   │   │   │   ├── Overview.jsx
+│   │   │   │   │   ├── GettingStarted.jsx
+│   │   │   │   │   └── DesignTokens.jsx
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── layout/
+│   │   │   │   │   │   ├── container/Container.jsx
+│   │   │   │   │   │   ├── grid/Grid.jsx
+│   │   │   │   │   │   ├── flex/Flex.jsx
+│   │   │   │   │   │   ├── divider/Divider.jsx
+│   │   │   │   │   │   └── space/Space.jsx
+│   │   │   │   │   ├── basic/
+│   │   │   │   │   │   ├── button/Button.jsx
+│   │   │   │   │   │   ├── typography/Typography.jsx
+│   │   │   │   │   │   ├── icon/Icon.jsx
+│   │   │   │   │   │   └── link/Link.jsx
+│   │   │   │   │   ├── data-display/
+│   │   │   │   │   │   ├── avatar/Avatar.jsx
+│   │   │   │   │   │   ├── badge/Badge.jsx
+│   │   │   │   │   │   ├── tag/Tag.jsx
+│   │   │   │   │   │   ├── card/Card.jsx
+│   │   │   │   │   │   ├── table/Table.jsx
+│   │   │   │   │   │   ├── list/List.jsx
+│   │   │   │   │   │   ├── stat/Stat.jsx
+│   │   │   │   │   │   ├── calendar/Calendar.jsx
+│   │   │   │   │   │   ├── timeline/Timeline.jsx
+│   │   │   │   │   │   └── tree/Tree.jsx
+│   │   │   │   │   ├── form/
+│   │   │   │   │   │   ├── form-layout/FormLayout.jsx
+│   │   │   │   │   │   ├── input/Input.jsx
+│   │   │   │   │   │   ├── textarea/Textarea.jsx
+│   │   │   │   │   │   ├── select/Select.jsx
+│   │   │   │   │   │   ├── checkbox/Checkbox.jsx
+│   │   │   │   │   │   ├── radio/Radio.jsx
+│   │   │   │   │   │   ├── switch/Switch.jsx
+│   │   │   │   │   │   ├── slider/Slider.jsx
+│   │   │   │   │   │   ├── rate/Rate.jsx
+│   │   │   │   │   │   ├── date-picker/DatePicker.jsx
+│   │   │   │   │   │   └── upload/Upload.jsx
+│   │   │   │   │   ├── feedback/
+│   │   │   │   │   │   ├── alert/Alert.jsx
+│   │   │   │   │   │   ├── snackbar/Snackbar.jsx
+│   │   │   │   │   │   ├── modal/Modal.jsx
+│   │   │   │   │   │   ├── drawer/Drawer.jsx
+│   │   │   │   │   │   ├── popover/Popover.jsx
+│   │   │   │   │   │   ├── tooltip/Tooltip.jsx
+│   │   │   │   │   │   ├── progress/Progress.jsx
+│   │   │   │   │   │   ├── spin/Spin.jsx
+│   │   │   │   │   │   ├── skeleton/Skeleton.jsx
+│   │   │   │   │   │   └── empty/Empty.jsx
+│   │   │   │   │   ├── navigation/
+│   │   │   │   │   │   ├── navbar/Navbar.jsx
+│   │   │   │   │   │   ├── menu/Menu.jsx
+│   │   │   │   │   │   ├── tabs/Tabs.jsx
+│   │   │   │   │   │   ├── breadcrumb/Breadcrumb.jsx
+│   │   │   │   │   │   ├── pagination/Pagination.jsx
+│   │   │   │   │   │   ├── steps/Steps.jsx
+│   │   │   │   │   │   └── dropdown/Dropdown.jsx
+│   │   │   │   │   └── miscellaneous/
+│   │   │   │   │       ├── accordion/Accordion.jsx
+│   │   │   │   │       ├── collapse/Collapse.jsx
+│   │   │   │   │       ├── carousel/Carousel.jsx
+│   │   │   │   │       ├── affix/Affix.jsx
+│   │   │   │   │       └── back-top/BackTop.jsx
+│   │   │   │   ├── pages/
+│   │   │   │   ├── hooks/
+│   │   │   │   ├── router/
+│   │   │   │   └── main.jsx
+│   │   │   ├── public/
+│   │   │   ├── vite.config.js
+│   │   │   ├── dist/
+│   │   │   └── package.json
+│   │   │
+│   │   ├── nuxt/
+│   │   │   ├── app/
+│   │   │   │   ├── introduction/
+│   │   │   │   │   ├── Overview.vue
+│   │   │   │   │   ├── GettingStarted.vue
+│   │   │   │   │   └── DesignTokens.vue
+│   │   │   │   ├── components/
+│   │   │   │   │   ├── layout/
+│   │   │   │   │   ├── basic/
+│   │   │   │   │   ├── data-display/
+│   │   │   │   │   ├── form/
+│   │   │   │   │   ├── feedback/
+│   │   │   │   │   ├── navigation/
+│   │   │   │   │   └── miscellaneous/
+│   │   │   │   ├── pages/
+│   │   │   │   ├── composables/
 │   │   │   │   ├── layouts/
-│   │   │   │   └── partials/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   └── scripts/
-│   │   ├── gulpfile.js
-│   │   ├── dist/
-│   │   └── package.json
+│   │   │   │   └── app.vue
+│   │   │   ├── public/
+│   │   │   ├── nuxt.config.ts
+│   │   │   ├── .output/
+│   │   │   └── package.json
+│   │   │
+│   │   └── next/
+│   │       ├── app/
+│   │       │   ├── layout.jsx
+│   │       │   ├── not-found.jsx
+│   │       │   └── [[...slug]]/
+│   │       │       └── page.jsx
+│   │       ├── src/
+│   │       │   ├── introduction/
+│   │       │   │   ├── Overview.jsx
+│   │       │   │   ├── GettingStarted.jsx
+│   │       │   │   └── DesignTokens.jsx
+│   │       │   ├── components/
+│   │       │   │   ├── layout/
+│   │       │   │   ├── basic/
+│   │       │   │   ├── data-display/
+│   │       │   │   ├── form/
+│   │       │   │   ├── feedback/
+│   │       │   │   ├── navigation/
+│   │       │   │   └── miscellaneous/
+│   │       │   ├── doc/
+│   │       │   ├── hooks/
+│   │       │   ├── layouts/
+│   │       │   └── utils/
+│   │       ├── public/
+│   │       ├── next.config.mjs
+│   │       ├── out/
+│   │       └── package.json
 │   │
-│   ├── vue/
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   ├── views/
-│   │   │   ├── router/
-│   │   │   ├── composables/
-│   │   │   └── main.js
-│   │   ├── public/
-│   │   ├── vite.config.js
-│   │   ├── dist/
-│   │   └── package.json
-│   │
-│   ├── react/
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   ├── pages/
-│   │   │   ├── hooks/
-│   │   │   ├── router/
-│   │   │   └── main.jsx
-│   │   ├── public/
-│   │   ├── vite.config.js
-│   │   ├── dist/
-│   │   └── package.json
-│   │
-│   ├── nuxt/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   ├── pages/
-│   │   │   ├── composables/
-│   │   │   ├── layouts/
-│   │   │   └── app.vue
-│   │   ├── public/
-│   │   ├── nuxt.config.ts
-│   │   ├── .output/
-│   │   └── package.json
-│   │
-│   ├── next/
-│   │   ├── app/
-│   │   │   ├── layout.jsx
-│   │   │   ├── not-found.jsx
-│   │   │   └── [[...slug]]/
-│   │   │       └── page.jsx
-│   │   ├── src/
-│   │   │   ├── components/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── basic/
-│   │   │   │   ├── data-display/
-│   │   │   │   ├── form/
-│   │   │   │   ├── feedback/
-│   │   │   │   ├── navigation/
-│   │   │   │   └── miscellaneous/
-│   │   │   ├── doc/
-│   │   │   ├── hooks/
-│   │   │   ├── layouts/
-│   │   │   └── utils/
-│   │   ├── public/
-│   │   ├── next.config.mjs
-│   │   ├── out/
-│   │   └── package.json
+│   ├── guidebook/
+│   │   ├── vue/
+│   │   └── react/
 │   │
 │   └── storybook/
 │       ├── .storybook/
-│       │   ├── main.ts
-│       │   ├── preview.ts
-│       │   ├── manager.ts
-│       │   └── preview-head.html
 │       ├── src/
 │       │   ├── docs/
 │       │   │   ├── introduction/
@@ -148,108 +511,43 @@ uxkm-framework-components/
 │       │   │       ├── navigation/
 │       │   │       └── miscellaneous/
 │       │   ├── shared/
-│       │   │   ├── DemoSection.tsx
-│       │   │   ├── FrameworkCodeTabs.tsx
-│       │   │   ├── FrameworkPreview.tsx
-│       │   │   ├── GuideCodeBlock.tsx
-│       │   │   ├── ApiSection.tsx
-│       │   │   ├── ApiTable.tsx
-│       │   │   ├── DesignTokenTable.tsx
-│       │   │   ├── AccessibilitySection.tsx
-│       │   │   └── RelatedComponents.tsx
 │       │   ├── data/
-│       │   │   ├── navigation.ts
-│       │   │   ├── doc-registry.ts
-│       │   │   └── component-registry.ts
 │       │   └── utils/
-│       │       ├── source-loader.ts
-│       │       ├── format-source-code.ts
-│       │       └── normalize-framework-code.ts
 │       ├── storybook-static/
 │       └── package.json
 │
 ├── packages/
 │   ├── styles/
-│   │   ├── src/
-│   │   │   ├── main.scss
-│   │   │   ├── _tokens.scss
-│   │   │   ├── _themes.scss
-│   │   │   ├── _utilities.scss
-│   │   │   ├── _layout.scss
-│   │   │   ├── _sidebar.scss
-│   │   │   └── components/
-│   │   │       ├── _index.scss
-│   │   │       ├── _container.scss
-│   │   │       ├── _grid.scss
-│   │   │       ├── _flex.scss
-│   │   │       ├── _button.scss
-│   │   │       ├── _input.scss
-│   │   │       ├── _modal.scss
-│   │   │       └── _tabs.scss
-│   │   ├── dist/
-│   │   │   ├── uxkm.css
-│   │   │   └── uxkm.min.css
-│   │   └── package.json
-│   │
 │   ├── assets/
-│   │   ├── fonts/
-│   │   ├── images/
-│   │   │   ├── common/
-│   │   │   ├── components/
-│   │   │   └── demo/
-│   │   ├── icons/
-│   │   └── package.json
-│   │
 │   ├── tokens/
-│   │   ├── src/
-│   │   │   ├── colors.json
-│   │   │   ├── spacing.json
-│   │   │   ├── typography.json
-│   │   │   ├── radius.json
-│   │   │   └── shadows.json
-│   │   └── package.json
-│   │
 │   ├── content/
-│   │   ├── introduction/
-│   │   │   ├── overview.json
-│   │   │   ├── getting-started.json
-│   │   │   └── design-tokens.json
-│   │   ├── components/
-│   │   └── package.json
-│   │
 │   ├── component-specs/
-│   │   ├── layout/
-│   │   ├── basic/
-│   │   ├── data-display/
-│   │   ├── form/
-│   │   ├── feedback/
-│   │   ├── navigation/
-│   │   ├── miscellaneous/
-│   │   └── package.json
-│   │
-│   └── navigation/
-│       ├── src/
-│       │   ├── introduction.ts
-│       │   ├── components.ts
-│       │   └── index.ts
-│       └── package.json
+│   ├── navigation/
+│   ├── guide-content/
+│   ├── guide-navigation/
+│   └── code-examples/
 │
 ├── scripts/
 │   ├── build-styles.mjs
 │   ├── copy-assets.mjs
 │   ├── collect-frameworks.mjs
+│   ├── collect-guidebook.mjs
 │   ├── validate-components.mjs
+│   ├── validate-guidebook.mjs
 │   └── deploy-main.mjs
 │
 ├── build/
-│   └── frameworks/
-│       ├── html/
-│       ├── gulp/
+│   ├── frameworks/
+│   │   ├── html/
+│   │   ├── gulp/
+│   │   ├── vue/
+│   │   ├── react/
+│   │   ├── nuxt/
+│   │   ├── next/
+│   │   └── storybook/
+│   └── guidebook/
 │       ├── vue/
-│       ├── react/
-│       ├── nuxt/
-│       ├── next/
-│       └── storybook/
+│       └── react/
 │
 ├── package.json
 ├── pnpm-workspace.yaml
@@ -258,162 +556,363 @@ uxkm-framework-components/
 └── README.md
 ```
 
-## 구조 설계 원칙
+> Nuxt와 Next.js의 `components` 디렉터리도 HTML, Gulp, Vue, React와 동일하게 52개 컴포넌트를 포함합니다. 전체 트리의 중복이 과도하게 길어지는 것을 피하기 위해 상위 분류까지만 표시했지만 실제 생성 기준은 모든 프레임워크에서 동일합니다.
 
-### 프레임워크별 독립 앱
+---
 
-`apps` 아래의 각 디렉터리는 독립적으로 개발하고 빌드할 수 있는 워크스페이스입니다. 모든 앱은 동일한 컴포넌트 분류와 공통 명세를 사용하지만 각 프레임워크의 권장 문법과 라우팅 방식을 따릅니다.
+# 3. 프레임워크별 소개 구조
 
-| 앱 | 구성 및 역할 | 빌드 결과 |
+각 프레임워크는 자체 소개 문서를 포함합니다.
+
+```text
+Introduction
+├── Overview
+├── Getting Started
+└── Design Tokens
+```
+
+## HTML
+
+```text
+apps/frameworks/html/src/introduction/
+├── overview.html
+├── getting-started.html
+└── design-tokens.html
+```
+
+## Gulp/Nunjucks
+
+```text
+apps/frameworks/gulp/src/introduction/
+├── overview.html
+├── getting-started.html
+└── design-tokens.html
+```
+
+Nunjucks 문법을 사용하더라도 확장자는 `.html`로 유지할 수 있습니다.
+
+## Vue
+
+```text
+apps/frameworks/vue/src/introduction/
+├── Overview.vue
+├── GettingStarted.vue
+└── DesignTokens.vue
+```
+
+## React
+
+```text
+apps/frameworks/react/src/introduction/
+├── Overview.jsx
+├── GettingStarted.jsx
+└── DesignTokens.jsx
+```
+
+## Nuxt
+
+```text
+apps/frameworks/nuxt/app/introduction/
+├── Overview.vue
+├── GettingStarted.vue
+└── DesignTokens.vue
+```
+
+## Next.js
+
+```text
+apps/frameworks/next/src/introduction/
+├── Overview.jsx
+├── GettingStarted.jsx
+└── DesignTokens.jsx
+```
+
+---
+
+# 4. 컴포넌트 문서 구조
+
+각 컴포넌트 페이지는 동일한 문서 구조를 사용합니다.
+
+```text
+Component
+├── Overview
+├── Preview
+├── Examples
+├── API
+├── States
+├── Accessibility
+├── Design Tokens
+└── Related Components
+```
+
+프레임워크별 컴포넌트 앱에서는 해당 기술의 실제 구현 코드와 실행 결과를 제공합니다.
+
+Storybook에서는 하나의 컴포넌트 문서에서 다음 코드를 비교합니다.
+
+```text
+[ HTML ] [ Gulp/Nunjucks ] [ Vue ] [ React ] [ Nuxt ] [ Next.js ]
+```
+
+---
+
+# 5. 프레임워크 구현과 가이드북 분리
+
+```text
+apps/
+├── frameworks/
+│   ├── html
+│   ├── gulp
+│   ├── vue
+│   ├── react
+│   ├── nuxt
+│   └── next
+├── guidebook/
+│   ├── vue
+│   └── react
+└── storybook
+```
+
+`apps/frameworks`는 소개 문서와 전체 52개 컴포넌트의 실제 구현을 제공합니다.
+
+`apps/guidebook`은 프레임워크 학습 문서를 제공합니다.
+
+```text
+Vue Guidebook
+└── Vue + Nuxt 문법 비교
+
+React Guidebook
+└── React + Next.js 문법 비교
+```
+
+---
+
+# 6. 프레임워크별 독립 앱
+
+| 앱 | 역할 | 빌드 결과 |
 | --- | --- | --- |
-| `apps/html` | 순수 HTML, CSS, JavaScript 기반 가이드 | `dist` |
-| `apps/gulp` | Gulp와 Nunjucks 기반 정적 가이드 | `dist` |
-| `apps/vue` | Vue와 Vite 기반 SPA | `dist` |
-| `apps/react` | React와 Vite 기반 SPA | `dist` |
-| `apps/nuxt` | Nuxt 기반 정적 가이드 | `.output` |
-| `apps/next` | Next.js App Router 기반 정적 가이드 | `out` |
-| `apps/storybook` | 컴포넌트 문서와 프레임워크별 예제 통합 | `storybook-static` |
+| `apps/frameworks/html` | 소개 문서, 순수 HTML 컴포넌트 및 JavaScript 동작 | `dist` |
+| `apps/frameworks/gulp` | 소개 문서, Gulp/Nunjucks 기반 컴포넌트 | `dist` |
+| `apps/frameworks/vue` | 소개 문서와 Vue/Vite 컴포넌트 앱 | `dist` |
+| `apps/frameworks/react` | 소개 문서와 React/Vite 컴포넌트 앱 | `dist` |
+| `apps/frameworks/nuxt` | 소개 문서와 Nuxt 컴포넌트 앱 | `.output/public` |
+| `apps/frameworks/next` | 소개 문서와 Next.js App Router 컴포넌트 앱 | `out` |
+| `apps/storybook` | 전체 컴포넌트 통합 문서와 코드 비교 | `storybook-static` |
 
-`apps/gulp`는 Nunjucks를 기본 템플릿 엔진으로 사용합니다. Nunjucks 문법을 사용하되 페이지, 레이아웃, partial, 컴포넌트 파일 확장자는 `.njk`가 아닌 `.html`로 통일합니다.
+---
 
-### 공통 컴포넌트 분류
+# 7. 가이드북 구조
 
-모든 프레임워크 구현체, Storybook 문서, 컴포넌트 명세는 동일한 분류 체계를 사용합니다.
+## Vue 가이드북
 
-| 분류 | 용도 |
-| --- | --- |
-| `layout` | Container, Grid, Flex 등 화면 구조 |
-| `basic` | Button, Icon, Typography 등 기본 요소 |
-| `data-display` | Table, Badge, Card 등 데이터 표시 |
-| `form` | Input, Select, Checkbox 등 입력 요소 |
-| `feedback` | Modal, Alert, Toast 등 상태와 피드백 |
-| `navigation` | Tabs, Breadcrumb, Pagination 등 탐색 요소 |
-| `miscellaneous` | 다른 분류에 속하지 않는 보조 컴포넌트 |
+```text
+Vue Guidebook
+├── Introduction
+├── Start
+├── Template
+├── Reactivity
+├── Components
+├── Forms
+├── Routing
+├── Data Fetching
+├── Composition API
+├── Accessibility
+└── Deployment
+```
 
-컴포넌트를 추가하거나 이동할 때는 모든 앱과 `packages/component-specs`, Storybook 문서에서 동일한 분류를 유지합니다.
+각 문서에서 다음 탭을 제공합니다.
 
-## 앱별 상세 역할
+```text
+[ Vue ] [ Nuxt ]
+```
 
-### HTML과 Gulp
+## React 가이드북
 
-`apps/html`은 프레임워크에 의존하지 않는 기준 마크업과 기본 동작을 검증하는 앱입니다. `pages`는 가이드 페이지, `components`는 분류별 UI 구현체, `scripts`는 컴포넌트 동작을 관리합니다.
+```text
+React Guidebook
+├── Introduction
+├── Start
+├── JSX
+├── Components
+├── State
+├── Events
+├── Forms
+├── Hooks
+├── Routing
+├── Data Fetching
+├── Rendering
+├── Accessibility
+└── Deployment
+```
 
-`apps/gulp`는 HTML 기준 구현을 Nunjucks 템플릿으로 확장합니다. 공통 화면 골격은 `templates/layouts`, 반복되는 조각은 `templates/partials`, UI 구현은 `components`에 둡니다. `gulpfile.js`가 템플릿 렌더링, 스타일 처리, 정적 자산 복사 및 `dist` 생성을 담당합니다.
+각 문서에서 다음 탭을 제공합니다.
 
-### Vue와 React
+```text
+[ React ] [ Next.js ]
+```
 
-Vue와 React 앱은 Vite를 공통 빌드 도구로 사용합니다. Vue는 `views`, `router`, `composables`로 구성하고 React는 `pages`, `router`, `hooks`로 구성합니다. 프레임워크별 재사용 로직은 각각 `composables`와 `hooks`에 두며 UI 컴포넌트와 분리합니다.
+---
 
-### Nuxt와 Next.js
-
-Nuxt는 `app/pages`, `app/layouts`, `app/composables`와 자동 컴포넌트 등록 구조를 사용합니다. Next.js는 App Router를 사용하며 `[[...slug]]/page.jsx`에서 가이드 경로를 처리합니다. 두 앱은 정적 호스팅이 가능하도록 빌드하며 `/frameworks/nuxt/`, `/frameworks/next/` 하위 경로를 기준으로 자산과 라우팅을 설정합니다.
-
-### Storybook
-
-Storybook은 전체 컴포넌트 시스템의 문서 허브입니다.
-
-- `docs/introduction`: 개요, 시작 방법, 디자인 토큰 문서
-- `docs/components`: 공통 분류에 따른 컴포넌트 MDX 문서
-- `shared`: 데모, 코드 탭, API 표, 접근성 및 연관 컴포넌트 UI
-- `data`: 문서 탐색과 컴포넌트 등록 정보
-- `utils`: 프레임워크 소스 로드, 포맷 및 코드 정규화
-- `.storybook`: Storybook 빌드, 프리뷰, 매니저 및 `<head>` 설정
-
-`FrameworkCodeTabs`와 `FrameworkPreview`는 하나의 문서 안에서 프레임워크별 구현 코드와 렌더링 결과를 비교할 수 있도록 구성합니다.
-
-## 공통 패키지
+# 8. 공통 패키지
 
 | 패키지 | 역할 |
 | --- | --- |
-| `packages/styles` | 공통 SCSS, 레이아웃, 테마, 유틸리티, 컴포넌트 스타일 및 CSS 배포 파일 |
-| `packages/assets` | 공용 폰트, 아이콘, 이미지 및 데모용 정적 자산 |
-| `packages/tokens` | 색상, 간격, 타이포그래피, 모서리, 그림자 디자인 토큰의 원본 JSON |
-| `packages/content` | 소개 문서와 컴포넌트 설명에 사용하는 프레임워크 독립 콘텐츠 |
-| `packages/component-specs` | 컴포넌트 API, 상태, 동작, 마크업 및 접근성 기준 명세 |
-| `packages/navigation` | 소개 및 컴포넌트 문서의 공통 탐색 구조와 노출 순서 |
+| `packages/styles` | 공통 SCSS, 프레임워크 스타일, 가이드북 스타일, Storybook 스타일 |
+| `packages/assets` | 공용 폰트, 이미지, 아이콘, 컴포넌트 및 가이드북 자산 |
+| `packages/tokens` | 색상, 간격, 타이포그래피, 모서리, 그림자 디자인 토큰 |
+| `packages/content` | 프레임워크 소개와 컴포넌트 설명의 공통 콘텐츠 |
+| `packages/component-specs` | 컴포넌트 API, 상태, 의미 구조, 접근성 기준 |
+| `packages/navigation` | 프레임워크와 Storybook의 소개·컴포넌트 메뉴 구조 |
+| `packages/guide-content` | Vue·React 가이드북의 공통 설명 |
+| `packages/guide-navigation` | Vue·React 가이드북 목차와 노출 순서 |
+| `packages/code-examples` | Vue·Nuxt·React·Next.js 학습 코드 예제 |
 
-공통 패키지는 특정 UI 프레임워크에 의존하지 않는 것을 원칙으로 합니다. 프레임워크별 변환이 필요하면 각 앱의 구현 계층에서 처리합니다.
+---
 
-## 컴포넌트 동기화 기준
+# 9. 프레임워크 내 공통 탐색 구조
 
-`packages/component-specs`를 기준 명세로 사용하고 모든 프레임워크 구현체는 다음 항목을 공유합니다.
+각 프레임워크의 좌측 메뉴는 동일하게 구성합니다.
+
+```text
+Introduction
+├── Overview
+├── Getting Started
+└── Design Tokens
+
+Components
+├── Layout
+├── Basic
+├── Data Display
+├── Form
+├── Feedback
+├── Navigation
+└── Miscellaneous
+```
+
+예시 URL:
+
+```text
+/frameworks/html/introduction/overview/
+/frameworks/html/components/basic/button/
+
+/frameworks/vue/introduction/overview/
+/frameworks/vue/components/basic/button/
+
+/frameworks/react/introduction/overview/
+/frameworks/react/components/basic/button/
+```
+
+---
+
+# 10. 컴포넌트 동기화 기준
+
+`packages/component-specs`를 기준 명세로 사용합니다.
+
+모든 프레임워크 구현체는 다음 항목을 공유합니다.
 
 1. 컴포넌트 이름과 목적
-2. Props 또는 HTML Attributes와 기본값
-3. 상태와 사용자 인터랙션
-4. 의미에 맞는 HTML 구조
-5. 키보드 조작과 WAI-ARIA를 포함한 접근성 요구사항
-6. 디자인 토큰과 공통 스타일
-7. 문서 탐색 순서와 Storybook 사용 예제
+2. Props 또는 HTML Attributes
+3. 기본값
+4. 상태와 사용자 인터랙션
+5. 의미에 맞는 HTML 구조
+6. 키보드 조작
+7. WAI-ARIA 요구사항
+8. 디자인 토큰
+9. Storybook 예제
+10. 프레임워크별 차이점
 
-프레임워크의 특성 때문에 API 또는 동작이 달라지는 경우 `component-specs`와 Storybook 문서에 차이점을 명시합니다.
+---
 
-## 루트 자동화 스크립트
-
-| 스크립트 | 역할 |
-| --- | --- |
-| `scripts/build-styles.mjs` | 디자인 토큰과 SCSS를 빌드해 `uxkm.css`, `uxkm.min.css` 생성 |
-| `scripts/copy-assets.mjs` | 공통 폰트, 이미지, 아이콘을 각 앱 또는 스테이징 경로로 복사 |
-| `scripts/collect-frameworks.mjs` | 각 앱의 빌드 결과를 `build/frameworks/<framework>`에 수집 |
-| `scripts/validate-components.mjs` | 프레임워크별 컴포넌트와 명세의 누락 또는 분류 불일치 검사 |
-| `scripts/deploy-main.mjs` | 검증한 정적 결과물을 배포용 `main` 브랜치 구조로 반영 |
-
-## pnpm Workspace
-
-루트 `pnpm-workspace.yaml`에서 앱과 공통 패키지를 워크스페이스로 등록합니다.
+# 11. pnpm Workspace
 
 ```yaml
 packages:
-  - apps/*
-  - packages/*
+  - 'apps/frameworks/*'
+  - 'apps/guidebook/*'
+  - 'apps/storybook'
+  - 'packages/*'
 ```
 
-루트 `package.json`은 패키지 매니저 버전과 공통 명령을 관리하고, 각 앱과 패키지는 자체 `package.json`에서 필요한 의존성과 스크립트를 선언합니다. `pnpm-lock.yaml`은 전체 워크스페이스의 의존성 버전을 고정합니다.
-
-예정된 기본 명령은 다음과 같습니다.
+예정된 기본 명령:
 
 ```bash
 pnpm install
+
 pnpm dev
+pnpm dev:frameworks
+pnpm dev:guidebook
+pnpm dev:storybook
+
 pnpm build
-pnpm test
+pnpm build:frameworks
+pnpm build:guidebook
+pnpm build:storybook
+
 pnpm lint
+pnpm test
 pnpm validate
-pnpm storybook
 pnpm deploy
 ```
 
-실제 명령 이름과 필터 범위는 각 워크스페이스를 구성할 때 확정합니다.
+---
 
-## 빌드 흐름
+# 12. 자동화 스크립트
+
+| 스크립트 | 역할 |
+| --- | --- |
+| `build-styles.mjs` | 디자인 토큰과 SCSS 빌드 |
+| `copy-assets.mjs` | 공통 자산을 각 앱과 빌드 경로에 복사 |
+| `collect-frameworks.mjs` | 각 프레임워크와 Storybook 결과 수집 |
+| `collect-guidebook.mjs` | Vue·React 가이드북 결과 수집 |
+| `validate-components.mjs` | 52개 컴포넌트와 소개 문서 누락 검사 |
+| `validate-guidebook.mjs` | 가이드 문서와 코드 예제 연결 검사 |
+| `deploy-main.mjs` | 검증된 결과를 `main` 브랜치에 반영 |
+
+---
+
+# 13. 빌드 흐름
 
 ```text
-packages의 공통 소스 빌드
+packages 공통 소스 빌드
         ↓
-apps의 프레임워크별 정적 빌드
+HTML·Gulp·Vue·React·Nuxt·Next.js 빌드
         ↓
-build/frameworks에 결과물 수집
+Vue·React 가이드북 빌드
         ↓
-컴포넌트·링크·정적 자산 경로 검증
+Storybook 빌드
         ↓
-main 브랜치에 배포 결과 반영
+build/frameworks 및 build/guidebook 수집
+        ↓
+소개·컴포넌트·링크·자산 검증
+        ↓
+main 브랜치 반영
 ```
 
-빌드 결과는 다음 경로에서 수집합니다.
+---
 
-| 원본 | 스테이징 경로 |
+# 14. 빌드 결과 수집
+
+## Frameworks
+
+| 원본 | 수집 경로 |
 | --- | --- |
-| `apps/html/dist` | `build/frameworks/html` |
-| `apps/gulp/dist` | `build/frameworks/gulp` |
-| `apps/vue/dist` | `build/frameworks/vue` |
-| `apps/react/dist` | `build/frameworks/react` |
-| `apps/nuxt/.output` | `build/frameworks/nuxt` |
-| `apps/next/out` | `build/frameworks/next` |
+| `apps/frameworks/html/dist` | `build/frameworks/html` |
+| `apps/frameworks/gulp/dist` | `build/frameworks/gulp` |
+| `apps/frameworks/vue/dist` | `build/frameworks/vue` |
+| `apps/frameworks/react/dist` | `build/frameworks/react` |
+| `apps/frameworks/nuxt/.output/public` | `build/frameworks/nuxt` |
+| `apps/frameworks/next/out` | `build/frameworks/next` |
 | `apps/storybook/storybook-static` | `build/frameworks/storybook` |
 
-## `main` 브랜치 배포 구조
+## Guidebook
 
-`main` 브랜치는 소스 코드가 아닌 검증 완료된 정적 배포 파일을 관리합니다.
+| 원본 | 수집 경로 |
+| --- | --- |
+| `apps/guidebook/vue/dist` | `build/guidebook/vue` |
+| `apps/guidebook/react/out` | `build/guidebook/react` |
+
+---
+
+# 15. main 브랜치 배포 구조
 
 ```text
 main/
@@ -422,30 +921,20 @@ main/
 │   ├── index.html
 │   ├── html/
 │   │   ├── index.html
+│   │   ├── introduction/
+│   │   ├── components/
 │   │   └── assets/
-│   │       ├── css/
-│   │       ├── js/
-│   │       ├── images/
-│   │       └── icons/
 │   ├── gulp/
 │   │   ├── index.html
+│   │   ├── introduction/
+│   │   ├── components/
 │   │   └── assets/
-│   │       ├── css/
-│   │       ├── js/
-│   │       ├── images/
-│   │       └── icons/
 │   ├── vue/
 │   │   ├── index.html
 │   │   └── assets/
-│   │       ├── index-[hash].css
-│   │       ├── index-[hash].js
-│   │       └── images/
 │   ├── react/
 │   │   ├── index.html
 │   │   └── assets/
-│   │       ├── index-[hash].css
-│   │       ├── index-[hash].js
-│   │       └── images/
 │   ├── nuxt/
 │   │   ├── index.html
 │   │   ├── _nuxt/
@@ -458,25 +947,115 @@ main/
 │       ├── index.html
 │       ├── iframe.html
 │       └── assets/
+├── guidebook/
+│   ├── index.html
+│   ├── vue/
+│   │   ├── index.html
+│   │   └── assets/
+│   └── react/
+│       ├── index.html
+│       ├── _next/
+│       └── assets/
 ├── .nojekyll
 └── CNAME
 ```
 
-모든 앱은 `/frameworks/<framework>/`를 배포 기준 경로로 사용합니다. `.nojekyll`은 GitHub Pages가 `_nuxt`, `_next`처럼 밑줄로 시작하는 디렉터리를 제외하지 않도록 하며, `CNAME`은 사용자 지정 도메인을 설정합니다.
+Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실제 하위 문서 디렉터리가 빌드 결과에 생성됩니다.
 
-## 컴포넌트 추가 절차
+---
 
-1. `packages/component-specs`의 해당 분류에 API, 상태, 동작 및 접근성 명세를 작성합니다.
-2. 필요한 디자인 값과 리소스를 `tokens`, `styles`, `assets`에 추가합니다.
-3. `packages/content`에 공통 설명을 작성하고 `packages/navigation`에 노출 순서를 등록합니다.
-4. `apps/html`에서 의미 구조와 기본 동작을 먼저 검증합니다.
-5. Gulp/Nunjucks, Vue, React, Nuxt, Next.js 구현체를 같은 분류에 추가합니다.
-6. Storybook MDX 문서에 데모, API, 접근성, 토큰 및 프레임워크별 코드를 연결합니다.
-7. 컴포넌트 일치 여부를 검사한 뒤 전체 앱을 빌드하고 스테이징 결과를 검증합니다.
+# 16. 배포 URL
 
-## 브랜치 운영
+```text
+/frameworks/
 
-- 기능 단위 작업은 별도 브랜치에서 수행하고 검토 후 `dev`에 통합합니다.
-- `dev`는 모노레포의 소스, 문서, 공통 패키지 및 자동화 스크립트를 관리합니다.
-- `main`은 `dev`에서 빌드하고 검증한 정적 배포 결과물만 관리합니다.
-- `main`에 직접 소스 기능을 개발하거나 프레임워크 의존성을 설치하지 않습니다.
+/frameworks/html/
+/frameworks/gulp/
+/frameworks/vue/
+/frameworks/react/
+/frameworks/nuxt/
+/frameworks/next/
+/frameworks/storybook/
+```
+
+프레임워크 소개와 컴포넌트 문서 예:
+
+```text
+/frameworks/html/introduction/overview/
+/frameworks/html/components/basic/button/
+
+/frameworks/vue/introduction/overview/
+/frameworks/vue/components/basic/button/
+
+/frameworks/next/introduction/overview/
+/frameworks/next/components/basic/button/
+```
+
+가이드북:
+
+```text
+/guidebook/
+/guidebook/vue/
+/guidebook/react/
+```
+
+가이드북 문서 예:
+
+```text
+/guidebook/vue/components/props/
+/guidebook/react/components/props/
+```
+
+---
+
+# 17. 컴포넌트 추가 절차
+
+1. `packages/component-specs`에 명세를 작성합니다.
+2. `packages/tokens`, `packages/styles`, `packages/assets`에 공통 자원을 추가합니다.
+3. `packages/content`에 공통 설명을 작성합니다.
+4. `packages/navigation`에 메뉴 순서를 등록합니다.
+5. HTML 기준 구현을 작성합니다.
+6. Gulp/Nunjucks 구현을 작성합니다.
+7. Vue와 React 구현을 작성합니다.
+8. Nuxt와 Next.js 구현을 작성합니다.
+9. Storybook에 프레임워크별 코드를 연결합니다.
+10. 52개 구성과 문서 누락 여부를 검사합니다.
+11. 전체 앱을 빌드하고 배포 결과를 검증합니다.
+
+---
+
+# 18. 브랜치 운영
+
+- 기능 단위 작업은 별도 브랜치에서 수행합니다.
+- 검토가 끝난 기능은 `dev` 브랜치에 통합합니다.
+- `dev`는 전체 모노레포 소스를 관리합니다.
+- `main`은 정적 배포 결과만 관리합니다.
+- `main`에서 프레임워크 개발이나 패키지 설치를 하지 않습니다.
+- 배포 시 `frameworks`와 `guidebook` 디렉터리를 검증된 빌드 결과로 교체합니다.
+
+---
+
+# 19. 최종 역할 구분
+
+```text
+Frameworks
+= 각 프레임워크의 소개 문서와 전체 52개 UXKM 컴포넌트 구현
+
+Storybook
+= 하나의 컴포넌트에서 HTML·Gulp·Vue·React·Nuxt·Next.js 코드 비교
+
+Guidebook/Vue
+= Vue 학습 문서와 Nuxt 문법 비교
+
+Guidebook/React
+= React 학습 문서와 Next.js 문법 비교
+
+Packages
+= 스타일, 자산, 토큰, 콘텐츠, 명세, 탐색 구조, 코드 예제
+
+dev
+= 전체 소스와 설정 관리
+
+main
+= 정적 빌드 결과 전용 배포
+```
