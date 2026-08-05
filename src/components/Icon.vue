@@ -9,11 +9,17 @@ defineOptions({ inheritAttrs: false });
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
-  /**
-   * common-icons 갤러리 키.
-   * path·image 슬롯이 없을 때만 미리 정의된 stroke 경로를 렌더합니다.
-   */
+  /** common-icons 갤러리 키. 커스텀 콘텐츠가 없을 때 stroke 경로를 렌더합니다. */
   name: String,
+  /** 이미지 아이콘 경로. as 미지정 시 img로 렌더합니다. */
+  src: [String, Object],
+  /** 이미지 아이콘의 대체 텍스트 */
+  alt: {
+    type: String,
+    default: '',
+  },
+  /** img 또는 커스텀 루트 요소 */
+  as: [String, Object, Function],
   color: String,
   size: {
     type: String,
@@ -37,84 +43,66 @@ const rootRef = ref(null);
 useIconDemoCode(props, rootRef, attrs, slots);
 
 const hasImageSlot = computed(() => Boolean(slots.image));
-/** 기본 슬롯 또는 #path — SVG path·circle 등 커스텀 도형 */
-const hasPathSlot = computed(() => Boolean(slots.path) || Boolean(slots.default));
+const hasDefaultContent = computed(() => Boolean(slots.default) || Boolean(slots.path));
 const namedElements = computed(() => (props.name ? commonIconPaths[props.name] ?? [] : []));
-/** name은 커스텀 슬롯이 없을 때만 사용 */
 const useNamedPaths = computed(
-  () => Boolean(props.name) && namedElements.value.length > 0 && !hasImageSlot.value && !hasPathSlot.value,
+  () => Boolean(props.name) && !hasImageSlot.value && !hasDefaultContent.value,
 );
+const isImage = computed(() => props.as === 'img' || (Boolean(props.src) && !props.as));
+const isCustom = computed(() => Boolean(props.as) && props.as !== 'img');
+const isWrapped = computed(() => props.button || props.circle || props.square);
+const resolvedSrc = computed(() => {
+  if (typeof props.src === 'object' && props.src) return props.src.src;
+  return props.src;
+});
 
 const buttonRippleAttrs = computed(() => {
   if (!props.button) return {};
-  if (props.ripple === false) return { 'data-ripple': 'false' };
-  return { 'data-ripple': 'true' };
+  return { 'data-ripple': props.ripple === false ? 'false' : 'true' };
 });
 
-/** button · circle · square · image 슬롯은 래퍼(또는 span)가 루트 */
-const rootTag = computed(() => {
-  if (props.button) return 'button';
-  if (props.circle || props.square) return 'span';
-  if (hasImageSlot.value) return 'span';
-  return null;
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
 });
 
-const sizeClasses = computed(() => {
-  const classes = [];
-  if (props.size === 'sm') classes.push('icon_sm');
-  if (props.size === 'lg') classes.push('icon_lg');
-  if (props.size === 'xl') classes.push('icon_xl');
-  return classes;
-});
-
-const innerSvgClass = computed(() => {
-  const classes = ['icon', ...sizeClasses.value];
+const innerClass = computed(() => {
+  const classes = ['icon'];
+  if (!props.circle && props.size === 'sm') classes.push('icon_sm');
+  if (!props.circle && props.size === 'lg') classes.push('icon_lg');
+  if (!props.circle && props.size === 'xl') classes.push('icon_xl');
   if (props.spin) classes.push('icon_spin');
   return classes;
 });
 
-const svgClass = computed(() => {
-  const classes = [...innerSvgClass.value];
-  if (props.color) classes.push(`color_${props.color}`);
-  if (props.inline) classes.push('icon_inline');
-  if (attrs.class) classes.push(attrs.class);
-  return classes;
-});
-
-/** image 전용 루트(래퍼 없음)용 클래스 */
-const imageRootClass = computed(() => {
-  const classes = ['icon', 'icon_img', ...sizeClasses.value];
-  if (props.color) classes.push(`color_${props.color}`);
-  if (props.inline) classes.push('icon_inline');
-  if (props.spin) classes.push('icon_spin');
-  if (attrs.class) classes.push(attrs.class);
+const rootClass = computed(() => {
+  const classes = [...innerClass.value];
+  if (!isWrapped.value && props.color) classes.push(`color_${props.color}`);
+  if (!isWrapped.value && props.inline) classes.push('icon_inline');
+  if (!isWrapped.value && attrs.class) classes.push(attrs.class);
   return classes;
 });
 
 const wrapperClass = computed(() => {
-  const withInline = (classes) => {
-    if (props.inline) classes.push('icon_inline');
-    return classes;
-  };
+  const classes = [];
 
-  if (props.button) {
-    return withInline(['icon_button', props.color ? `color_${props.color}` : null].filter(Boolean));
-  }
-  if (props.circle) {
-    const classes = ['icon_circle'];
-    if (props.color) classes.push(`color_${props.color}`);
+  if (props.button) classes.push('icon_button');
+  else if (props.circle) {
+    classes.push('icon_circle');
     if (props.pulse) classes.push('icon_pulse');
     if (props.size === 'lg') classes.push('icon_circle-lg');
     if (props.size === 'sm') classes.push('icon_circle-sm');
-    return withInline(classes);
+  } else if (props.square) {
+    classes.push('icon_square');
   }
-  if (props.square) {
-    return withInline(['icon_square', props.color ? `color_${props.color}` : null].filter(Boolean));
-  }
-  return null;
+
+  if (props.color) classes.push(`color_${props.color}`);
+  if (props.inline) classes.push('icon_inline');
+  if (attrs.class) classes.push(attrs.class);
+  return classes;
 });
 
-const svgStrokeAttrs = {
+const svgAttrs = {
   viewBox: '0 0 24 24',
   fill: 'none',
   stroke: 'currentColor',
@@ -125,34 +113,40 @@ const svgStrokeAttrs = {
 </script>
 
 <template>
-  <!-- button · circle · square 래퍼 -->
   <component
-    v-if="rootTag && (button || circle || square)"
-    :is="rootTag"
+    v-if="isWrapped"
+    :is="button ? 'button' : 'span'"
     ref="rootRef"
-    v-bind="buttonRippleAttrs"
+    v-bind="{ ...fallthroughAttrs, ...buttonRippleAttrs }"
     :class="wrapperClass"
     :type="button ? 'button' : undefined"
     :aria-label="button ? ariaLabel : undefined"
-    :aria-hidden="!button && !ariaLabel ? 'true' : undefined"
   >
-    <template v-if="hasImageSlot">
-      <span :class="[...innerSvgClass, 'icon_img']" aria-hidden="true">
-        <slot name="image" />
-      </span>
-    </template>
+    <img
+      v-if="isImage"
+      :class="rootClass"
+      :src="resolvedSrc"
+      :alt="alt"
+      :aria-label="ariaLabel"
+      :aria-hidden="!alt && !ariaLabel ? 'true' : undefined"
+    >
+    <span v-else-if="hasImageSlot" :class="rootClass" aria-hidden="true">
+      <slot name="image" />
+    </span>
     <svg
       v-else
-      :class="innerSvgClass"
-      v-bind="svgStrokeAttrs"
-      aria-hidden="true"
+      :class="rootClass"
+      v-bind="svgAttrs"
+      :role="!button && ariaLabel ? 'img' : undefined"
+      :aria-hidden="button || !ariaLabel ? 'true' : undefined"
+      :aria-label="!button ? ariaLabel : undefined"
     >
       <template v-if="useNamedPaths">
         <component
-          :is="el.tag"
-          v-for="(el, i) in namedElements"
-          :key="i"
-          v-bind="el.attrs"
+          :is="element.tag"
+          v-for="(element, index) in namedElements"
+          :key="index"
+          v-bind="element.attrs"
         />
       </template>
       <slot v-else name="path">
@@ -161,32 +155,57 @@ const svgStrokeAttrs = {
     </svg>
   </component>
 
-  <!-- image 슬롯만 (래퍼 없음) -->
+  <img
+    v-else-if="isImage"
+    ref="rootRef"
+    v-bind="fallthroughAttrs"
+    :class="rootClass"
+    :src="resolvedSrc"
+    :alt="alt"
+    :aria-label="ariaLabel"
+    :aria-hidden="!alt && !ariaLabel ? 'true' : undefined"
+  >
+
+  <component
+    v-else-if="isCustom"
+    :is="as"
+    ref="rootRef"
+    v-bind="fallthroughAttrs"
+    :class="rootClass"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
+    :aria-label="ariaLabel"
+  >
+    <slot />
+  </component>
+
   <span
     v-else-if="hasImageSlot"
     ref="rootRef"
-    :class="imageRootClass"
-    :aria-hidden="!ariaLabel ? 'true' : undefined"
+    v-bind="fallthroughAttrs"
+    :class="rootClass"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
     :aria-label="ariaLabel"
   >
     <slot name="image" />
   </span>
 
-  <!-- name · path 슬롯 (SVG 루트) -->
   <svg
     v-else
     ref="rootRef"
-    :class="svgClass"
-    v-bind="svgStrokeAttrs"
-    :aria-hidden="!ariaLabel ? 'true' : undefined"
+    v-bind="{ ...svgAttrs, ...fallthroughAttrs }"
+    :class="rootClass"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
     :aria-label="ariaLabel"
   >
     <template v-if="useNamedPaths">
       <component
-        :is="el.tag"
-        v-for="(el, i) in namedElements"
-        :key="i"
-        v-bind="el.attrs"
+        :is="element.tag"
+        v-for="(element, index) in namedElements"
+        :key="index"
+        v-bind="element.attrs"
       />
     </template>
     <slot v-else name="path">

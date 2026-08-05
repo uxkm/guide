@@ -20,6 +20,7 @@ import {
   componentTokenNote,
   cssUsageCode,
   fileStructureCode,
+  interactionTokens,
   layoutTokens,
   motionTokens,
   radiusTokens,
@@ -50,7 +51,7 @@ import {
   >
     <List class="list_bullet" style="width: 100%;">
       <ListItem><strong>일관성</strong> — 같은 의미의 값은 항상 같은 토큰을 사용합니다.</ListItem>
-      <ListItem><strong>유지보수</strong> — 간격·색상 변경 시 <TypoText variant="code" tag="span" label="_tokens.scss" /> · <TypoText variant="code" tag="span" label="_themes.scss" />만 수정합니다.</ListItem>
+      <ListItem><strong>유지보수</strong> — 전역 간격·색상은 <TypoText variant="code" tag="span" label="_tokens.scss" /> · <TypoText variant="code" tag="span" label="_themes.scss" />에서, 컴포넌트 전용 값은 해당 컴포넌트 SCSS에서 관리합니다.</ListItem>
       <ListItem><strong>테마</strong> — 색상 토큰을 테마별로 교체해 라이트/다크를 지원합니다.</ListItem>
       <ListItem><strong>협업</strong> — 디자이너·개발자가 <TypoText variant="code" tag="span" label="--space-md" /> 같은 공통 언어로 소통합니다.</ListItem>
     </List>
@@ -59,7 +60,7 @@ import {
   <GuideSection
     heading-id="structure-heading"
     title="토큰 파일 구조"
-    description="UXKM SCSS 실무 예제와 같이 tokens → themes → base/components 순으로 의존성을 쌓습니다. 이 가이드는 SCSS 변수와 CSS 변수를 함께 씁니다."
+    description="main.scss에서 tokens → themes → base/components 순으로 불러옵니다. 런타임에 바뀌는 값은 CSS 변수로, 브레이크포인트·폰트 스택처럼 컴파일 시 필요한 값은 SCSS 변수로 관리합니다."
   >
     <GuideCodeBlock>{{ fileStructureCode }}</GuideCodeBlock>
     <p>
@@ -92,9 +93,13 @@ import {
     </p>
   </ApiSection>
 
-  <ApiSection heading-id="motion-heading" title="Motion · Layout 토큰">
+  <ApiSection heading-id="motion-heading" title="Motion · Interaction · Layout 토큰">
+    <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">Motion</h3>
     <ApiTable :columns="tokenColumns" :rows="motionTokens" code-column="name" />
-    <ApiTable :columns="tokenColumns" :rows="layoutTokens" code-column="name" style="margin-top: var(--space-lg);" />
+    <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">Interaction</h3>
+    <ApiTable :columns="tokenColumns" :rows="interactionTokens" code-column="name" />
+    <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">Layout</h3>
+    <ApiTable :columns="tokenColumns" :rows="layoutTokens" code-column="name" />
   </ApiSection>
 
   <ApiSection
@@ -114,7 +119,7 @@ import {
   <GuideSection
     heading-id="usage-heading"
     title="토큰 사용 방법"
-    description="SCSS·CSS·HTML 어디서든 var()로 참조합니다. 컴포넌트 범위에서 CSS 변수를 재정의하면 해당 블록만 스케일을 바꿀 수 있습니다."
+    description="CSS 변수는 SCSS·CSS·HTML에서 var()로 참조합니다. 컴포넌트 범위에서 변수를 재정의하면 해당 요소와 하위 요소에만 적용됩니다. SCSS에서는 mixins의 color-token() 같은 헬퍼도 사용할 수 있습니다."
   >
     <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">SCSS</h3>
     <GuideCodeBlock>{{ scssUsageCode }}</GuideCodeBlock>

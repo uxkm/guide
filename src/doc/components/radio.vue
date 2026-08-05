@@ -15,6 +15,8 @@ import Radio from '@/components/Radio.vue';
 import {
   radioClassColumns,
   radioClasses,
+  radioEventColumns,
+  radioEvents,
   radioPropColumns,
   radioProps,
   radioSlotColumns,
@@ -28,10 +30,10 @@ import Radio from '@/components/Radio.vue';
 <\/script>
 
 <template>
-  <Radio name="radio-type-basic" checked label="기본 — radio" />
+  <Radio name="radio-type-basic" default-checked label="기본 — radio" />
   <Radio name="radio-type-label-end" label-end label="레이블 뒤 — radio_label-end" />
   <fieldset class="radio_group radio_group_horizontal">
-    <Radio button name="radio-type-btn" checked value="a" label="버튼형" />
+    <Radio button name="radio-type-btn" default-checked value="a" label="버튼형" />
     <Radio button name="radio-type-btn" value="b" label="UI" />
     <Radio button name="radio-type-btn" value="c" label="UX" />
   </fieldset>
@@ -42,7 +44,7 @@ import Radio from '@/components/Radio.vue';
 <\/script>
 
 <template>
-  <Radio name="radio-label-end-pay" label-end checked label="신용카드" />
+  <Radio name="radio-label-end-pay" label-end default-checked label="신용카드" />
   <Radio name="radio-label-end-pay2" label-end>
     <span class="radio_content">
       <span class="radio_label">계좌이체</span>
@@ -51,11 +53,11 @@ import Radio from '@/components/Radio.vue';
   </Radio>
   <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
     <legend class="radio_group-legend">배송 방법 — radio_group_block</legend>
-    <Radio name="radio-label-end-ship" label-end checked value="standard" label="일반 배송" />
+    <Radio name="radio-label-end-ship" label-end default-checked value="standard" label="일반 배송" />
     <Radio name="radio-label-end-ship" label-end value="express" label="빠른 배송" />
   </fieldset>
-  <Radio class="radio_sm" name="radio-label-end-size" label-end checked label="Small — radio_sm" />
-  <Radio class="radio_lg" name="radio-label-end-size2" label-end checked label="Large — radio_lg" />
+  <Radio class="radio_sm" name="radio-label-end-size" label-end default-checked label="Small — radio_sm" />
+  <Radio class="radio_lg" name="radio-label-end-size2" label-end default-checked label="Large — radio_lg" />
 </template>`;
 
 const basicCode = `<script setup>
@@ -66,7 +68,7 @@ import Radio from '@/components/Radio.vue';
   <div class="form_field">
     <span class="form_field-label" id="radio-pay-label">결제 수단</span>
     <fieldset class="radio_group" aria-labelledby="radio-pay-label">
-      <Radio name="radio-pay" checked value="card">
+      <Radio name="radio-pay" default-checked value="card">
         <span class="radio_content">
           <span class="radio_label">신용카드</span>
           <span class="radio_hint">Visa · Mastercard · 국내 카드</span>
@@ -89,7 +91,7 @@ import Radio from '@/components/Radio.vue';
 <template>
   <div class="radio_group radio_group_horizontal">
     <Radio name="radio-standalone" aria-label="항목 선택" />
-    <Radio name="radio-standalone" checked aria-label="선택됨" />
+    <Radio name="radio-standalone" default-checked aria-label="선택됨" />
     <Radio name="radio-standalone-disabled" disabled aria-label="비활성" />
   </div>
 </template>`;
@@ -100,7 +102,7 @@ import Radio from '@/components/Radio.vue';
 
 <template>
   <div class="radio_group radio_group_horizontal">
-    <Radio class="radio_sm" name="radio-size" checked label="Small — radio_sm" />
+    <Radio class="radio_sm" name="radio-size" default-checked label="Small — radio_sm" />
     <Radio name="radio-size" label="Medium — 기본" />
     <Radio class="radio_lg" name="radio-size" label="Large — radio_lg" />
   </div>
@@ -111,11 +113,11 @@ import Radio from '@/components/Radio.vue';
 <\/script>
 
 <template>
-  <Radio name="radio-width-inline" checked label="기본 — 인라인 너비" />
-  <Radio name="radio-width-block" class="radio_block" checked label="radio_block — 전체 너비" />
+  <Radio name="radio-width-inline" default-checked label="기본 — 인라인 너비" />
+  <Radio name="radio-width-block" class="radio_block" default-checked label="radio_block — 전체 너비" />
   <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
     <legend class="radio_group-legend">radio_group_block</legend>
-    <Radio name="radio-width-g1" checked label="항목 1" />
+    <Radio name="radio-width-g1" default-checked label="항목 1" />
     <Radio name="radio-width-g1" label="항목 2" />
   </fieldset>
 </template>`;
@@ -125,10 +127,10 @@ import Radio from '@/components/Radio.vue';
 <\/script>
 
 <template>
-  <Radio class="color_primary" name="radio-color-primary" checked label="Primary" />
-  <Radio class="color_success" name="radio-color-success" checked label="Success" />
-  <Radio class="color_danger" name="radio-color-danger" checked label="Danger" />
-  <Radio class="color_warning" name="radio-color-warning" checked label="Warning" />
+  <Radio class="color_primary" name="radio-color-primary" default-checked label="Primary" />
+  <Radio class="color_success" name="radio-color-success" default-checked label="Success" />
+  <Radio class="color_danger" name="radio-color-danger" default-checked label="Danger" />
+  <Radio class="color_warning" name="radio-color-warning" default-checked label="Warning" />
 </template>`;
 
 const stateCode = `<script setup>
@@ -137,9 +139,9 @@ import Radio from '@/components/Radio.vue';
 
 <template>
   <Radio name="radio-state" label="미선택" />
-  <Radio name="radio-state" checked label="선택됨" />
+  <Radio name="radio-state" default-checked label="선택됨" />
   <Radio name="radio-state-disabled" disabled label="비활성" />
-  <Radio name="radio-state-disabled" checked disabled label="선택됨 (비활성)" />
+  <Radio name="radio-state-disabled" default-checked disabled label="선택됨 (비활성)" />
 </template>`;
 
 const groupCode = `<script setup>
@@ -149,13 +151,13 @@ import Radio from '@/components/Radio.vue';
 <template>
   <fieldset class="radio_group">
     <legend class="radio_group-legend">배송 방법 (세로)</legend>
-    <Radio name="radio-group-ship" checked value="standard" label="일반 배송" />
+    <Radio name="radio-group-ship" default-checked value="standard" label="일반 배송" />
     <Radio name="radio-group-ship" value="express" label="빠른 배송" />
     <Radio name="radio-group-ship" value="pickup" label="매장 픽업" />
   </fieldset>
   <fieldset class="radio_group radio_group_horizontal">
     <legend class="radio_group-legend">크기 (가로)</legend>
-    <Radio button name="radio-group-size" checked value="s" label="S" />
+    <Radio button name="radio-group-size" default-checked value="s" label="S" />
     <Radio button name="radio-group-size" value="m" label="M" />
     <Radio button name="radio-group-size" value="l" label="L" />
   </fieldset>
@@ -167,15 +169,15 @@ import Radio from '@/components/Radio.vue';
 
 <template>
   <fieldset class="radio_group radio_group_horizontal">
-    <Radio button name="radio-btn-filter" checked value="all" label="전체" />
+    <Radio button name="radio-btn-filter" default-checked value="all" label="전체" />
     <Radio button name="radio-btn-filter" value="active" label="진행 중" />
     <Radio button name="radio-btn-filter" value="done" label="완료" />
     <Radio button name="radio-btn-filter" disabled value="hold" label="보류 (비활성)" />
   </fieldset>
   <fieldset class="radio_group radio_group_horizontal">
-    <Radio button class="radio_sm color_success" name="radio-btn-size" checked value="sm" label="Small" />
-    <Radio button class="color_success" name="radio-btn-size" checked value="md" label="Medium" />
-    <Radio button class="radio_lg color_success" name="radio-btn-size" checked value="lg" label="Large" />
+    <Radio button class="radio_sm color_success" name="radio-btn-size" default-checked value="sm" label="Small" />
+    <Radio button class="color_success" name="radio-btn-size" default-checked value="md" label="Medium" />
+    <Radio button class="radio_lg color_success" name="radio-btn-size" default-checked value="lg" label="Large" />
   </fieldset>
 </template>`;
 
@@ -195,7 +197,7 @@ import Radio from '@/components/Radio.vue';
               <p class="card_subtitle">월 9,000원</p>
             </div>
             <div class="card_extra">
-              <Radio id="radio-plan-basic" name="radio-plan" value="basic" checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc"  />
+              <Radio id="radio-plan-basic" name="radio-plan" value="basic" default-checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc"  />
             </div>
           </div>
           <div class="card_body" id="radio-plan-basic-desc">개인 프로젝트에 적합합니다.</div>
@@ -241,7 +243,7 @@ import Radio from '@/components/Radio.vue';
               <h3 class="card_title" id="radio-role-read-title">읽기</h3>
             </div>
             <div class="card_extra">
-              <Radio id="radio-role-read" name="radio-role" value="read" checked aria-labelledby="radio-role-read-title radio-role-read-desc"  />
+              <Radio id="radio-role-read" name="radio-role" value="read" default-checked aria-labelledby="radio-role-read-title radio-role-read-desc"  />
             </div>
           </div>
           <div class="card_body" id="radio-role-read-desc">조회 권한</div>
@@ -286,7 +288,7 @@ import Radio from '@/components/Radio.vue';
               <p class="card_subtitle">월 9,000원</p>
             </div>
             <div class="card_extra">
-              <Radio id="radio-plan-full-basic" name="radio-plan-clickable" value="basic" checked aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc"  />
+              <Radio id="radio-plan-full-basic" name="radio-plan-clickable" value="basic" default-checked aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc"  />
             </div>
           </div>
           <div class="card_body" id="radio-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
@@ -334,7 +336,7 @@ import Radio from '@/components/Radio.vue';
     <div class="form_field">
       <span class="form_field-label" id="radio-form-vertical-label">수신 채널</span>
       <fieldset class="radio_group" aria-labelledby="radio-form-vertical-label">
-        <Radio name="radio-form-channel" checked value="email" label="이메일" />
+        <Radio name="radio-form-channel" default-checked value="email" label="이메일" />
         <Radio name="radio-form-channel" value="sms" label="SMS" />
       </fieldset>
     </div>
@@ -343,7 +345,7 @@ import Radio from '@/components/Radio.vue';
     <div class="form_field">
       <span class="form_field-label" id="radio-form-horizontal-label">역할</span>
       <fieldset class="radio_group radio_group_horizontal" aria-labelledby="radio-form-horizontal-label">
-        <Radio button name="radio-form-role" checked value="viewer" label="뷰어" />
+        <Radio button name="radio-form-role" default-checked value="viewer" label="뷰어" />
         <Radio button name="radio-form-role" value="editor" label="편집자" />
       </fieldset>
     </div>
@@ -365,10 +367,10 @@ import Radio from '@/components/Radio.vue';
     stack
     :code="typeCode"
   >
-    <Radio name="radio-type-basic" checked label="기본 — radio" />
+    <Radio name="radio-type-basic" default-checked label="기본 — radio" />
     <Radio name="radio-type-label-end" label-end label="레이블 뒤 — radio_label-end" />
     <fieldset class="radio_group radio_group_horizontal">
-      <Radio button name="radio-type-btn" checked value="a" label="버튼형" />
+      <Radio button name="radio-type-btn" default-checked value="a" label="버튼형" />
       <Radio button name="radio-type-btn" value="b" label="UI" />
       <Radio button name="radio-type-btn" value="c" label="UX" />
     </fieldset>
@@ -381,7 +383,7 @@ import Radio from '@/components/Radio.vue';
     stack
     :code="labelEndCode"
   >
-    <Radio name="radio-label-end-pay" label-end checked label="신용카드" />
+    <Radio name="radio-label-end-pay" label-end default-checked label="신용카드" />
     <Radio name="radio-label-end-pay2" label-end>
       <span class="radio_content">
         <span class="radio_label">계좌이체</span>
@@ -390,11 +392,11 @@ import Radio from '@/components/Radio.vue';
     </Radio>
     <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
       <legend class="radio_group-legend">배송 방법 — radio_group_block</legend>
-      <Radio name="radio-label-end-ship" label-end checked value="standard" label="일반 배송" />
+      <Radio name="radio-label-end-ship" label-end default-checked value="standard" label="일반 배송" />
       <Radio name="radio-label-end-ship" label-end value="express" label="빠른 배송" />
     </fieldset>
-    <Radio class="radio_sm" name="radio-label-end-size" label-end checked label="Small — radio_sm" />
-    <Radio class="radio_lg" name="radio-label-end-size2" label-end checked label="Large — radio_lg" />
+    <Radio class="radio_sm" name="radio-label-end-size" label-end default-checked label="Small — radio_sm" />
+    <Radio class="radio_lg" name="radio-label-end-size2" label-end default-checked label="Large — radio_lg" />
   </DemoSection>
 
   <DemoSection
@@ -406,7 +408,7 @@ import Radio from '@/components/Radio.vue';
     <div class="form_field">
       <span class="form_field-label" id="radio-pay-label">결제 수단</span>
       <fieldset class="radio_group" aria-labelledby="radio-pay-label">
-        <Radio name="radio-pay" checked value="card">
+        <Radio name="radio-pay" default-checked value="card">
           <span class="radio_content">
             <span class="radio_label">신용카드</span>
             <span class="radio_hint">Visa · Mastercard · 국내 카드</span>
@@ -431,7 +433,7 @@ import Radio from '@/components/Radio.vue';
   >
     <div class="radio_group radio_group_horizontal">
       <Radio name="radio-standalone" aria-label="항목 선택" />
-      <Radio name="radio-standalone" checked aria-label="선택됨" />
+      <Radio name="radio-standalone" default-checked aria-label="선택됨" />
       <Radio name="radio-standalone-disabled" disabled aria-label="비활성" />
     </div>
   </DemoSection>
@@ -444,7 +446,7 @@ import Radio from '@/components/Radio.vue';
     :code="sizeCode"
   >
     <div class="radio_group radio_group_horizontal">
-      <Radio class="radio_sm" name="radio-size" checked label="Small — radio_sm" />
+      <Radio class="radio_sm" name="radio-size" default-checked label="Small — radio_sm" />
       <Radio name="radio-size" label="Medium — 기본" />
       <Radio class="radio_lg" name="radio-size" label="Large — radio_lg" />
     </div>
@@ -456,11 +458,11 @@ import Radio from '@/components/Radio.vue';
     description="기본은 인라인(콘텐츠) 너비입니다. radio_block · radio_group_block으로 전체 너비를 사용합니다."
     :code="widthCode"
   >
-    <Radio name="radio-width-inline" checked label="기본 — 인라인 너비" />
-    <Radio name="radio-width-block" class="radio_block" checked label="radio_block — 전체 너비" />
+    <Radio name="radio-width-inline" default-checked label="기본 — 인라인 너비" />
+    <Radio name="radio-width-block" class="radio_block" default-checked label="radio_block — 전체 너비" />
     <fieldset class="radio_group radio_group_block" style="max-width: 360px; width: 100%;">
       <legend class="radio_group-legend">radio_group_block</legend>
-      <Radio name="radio-width-g1" checked label="항목 1" />
+      <Radio name="radio-width-g1" default-checked label="항목 1" />
       <Radio name="radio-width-g1" label="항목 2" />
     </fieldset>
   </DemoSection>
@@ -472,10 +474,10 @@ import Radio from '@/components/Radio.vue';
     stack
     :code="colorCode"
   >
-    <Radio class="color_primary" name="radio-color-primary" checked label="Primary" />
-    <Radio class="color_success" name="radio-color-success" checked label="Success" />
-    <Radio class="color_danger" name="radio-color-danger" checked label="Danger" />
-    <Radio class="color_warning" name="radio-color-warning" checked label="Warning" />
+    <Radio class="color_primary" name="radio-color-primary" default-checked label="Primary" />
+    <Radio class="color_success" name="radio-color-success" default-checked label="Success" />
+    <Radio class="color_danger" name="radio-color-danger" default-checked label="Danger" />
+    <Radio class="color_warning" name="radio-color-warning" default-checked label="Warning" />
   </DemoSection>
 
   <DemoSection
@@ -486,9 +488,9 @@ import Radio from '@/components/Radio.vue';
     :code="stateCode"
   >
     <Radio name="radio-state" label="미선택" />
-    <Radio name="radio-state" checked label="선택됨" />
+    <Radio name="radio-state" default-checked label="선택됨" />
     <Radio name="radio-state-disabled" disabled label="비활성" />
-    <Radio name="radio-state-disabled" checked disabled label="선택됨 (비활성)" />
+    <Radio name="radio-state-disabled" default-checked disabled label="선택됨 (비활성)" />
   </DemoSection>
 
   <DemoSection
@@ -500,13 +502,13 @@ import Radio from '@/components/Radio.vue';
   >
     <fieldset class="radio_group">
       <legend class="radio_group-legend">배송 방법 (세로)</legend>
-      <Radio name="radio-group-ship" checked value="standard" label="일반 배송" />
+      <Radio name="radio-group-ship" default-checked value="standard" label="일반 배송" />
       <Radio name="radio-group-ship" value="express" label="빠른 배송" />
       <Radio name="radio-group-ship" value="pickup" label="매장 픽업" />
     </fieldset>
     <fieldset class="radio_group radio_group_horizontal">
       <legend class="radio_group-legend">크기 (가로)</legend>
-      <Radio button name="radio-group-size" checked value="s" label="S" />
+      <Radio button name="radio-group-size" default-checked value="s" label="S" />
       <Radio button name="radio-group-size" value="m" label="M" />
       <Radio button name="radio-group-size" value="l" label="L" />
     </fieldset>
@@ -520,15 +522,15 @@ import Radio from '@/components/Radio.vue';
     :code="buttonTypeCode"
   >
     <fieldset class="radio_group radio_group_horizontal">
-      <Radio button name="radio-btn-filter" checked value="all" label="전체" />
+      <Radio button name="radio-btn-filter" default-checked value="all" label="전체" />
       <Radio button name="radio-btn-filter" value="active" label="진행 중" />
       <Radio button name="radio-btn-filter" value="done" label="완료" />
       <Radio button name="radio-btn-filter" disabled value="hold" label="보류 (비활성)" />
     </fieldset>
     <fieldset class="radio_group radio_group_horizontal">
-      <Radio button class="radio_sm color_success" name="radio-btn-size" checked value="sm" label="Small" />
-      <Radio button class="color_success" name="radio-btn-size" checked value="md" label="Medium" />
-      <Radio button class="radio_lg color_success" name="radio-btn-size" checked value="lg" label="Large" />
+      <Radio button class="radio_sm color_success" name="radio-btn-size" default-checked value="sm" label="Small" />
+      <Radio button class="color_success" name="radio-btn-size" default-checked value="md" label="Medium" />
+      <Radio button class="radio_lg color_success" name="radio-btn-size" default-checked value="lg" label="Large" />
     </fieldset>
   </DemoSection>
 
@@ -550,7 +552,7 @@ import Radio from '@/components/Radio.vue';
                     <p class="card_subtitle">월 9,000원</p>
                   </div>
                   <div class="card_extra">
-                    <Radio id="radio-plan-basic" name="radio-plan" value="basic" checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc"  />
+                    <Radio id="radio-plan-basic" name="radio-plan" value="basic" default-checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc"  />
                   </div>
                 </div>
                 <div class="card_body" id="radio-plan-basic-desc">개인 프로젝트에 적합합니다.</div>
@@ -597,7 +599,7 @@ import Radio from '@/components/Radio.vue';
                     <h3 class="card_title" id="radio-role-read-title">읽기</h3>
                   </div>
                   <div class="card_extra">
-                    <Radio id="radio-role-read" name="radio-role" value="read" checked aria-labelledby="radio-role-read-title radio-role-read-desc"  />
+                    <Radio id="radio-role-read" name="radio-role" value="read" default-checked aria-labelledby="radio-role-read-title radio-role-read-desc"  />
                   </div>
                 </div>
                 <div class="card_body" id="radio-role-read-desc">조회 권한</div>
@@ -643,7 +645,7 @@ import Radio from '@/components/Radio.vue';
                     <p class="card_subtitle">월 9,000원</p>
                   </div>
                   <div class="card_extra">
-                    <Radio id="radio-plan-full-basic" name="radio-plan-clickable" value="basic" checked aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc"  />
+                    <Radio id="radio-plan-full-basic" name="radio-plan-clickable" value="basic" default-checked aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc"  />
                   </div>
                 </div>
                 <div class="card_body" id="radio-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
@@ -692,7 +694,7 @@ import Radio from '@/components/Radio.vue';
       <div class="form_field">
         <span class="form_field-label" id="radio-form-vertical-label">수신 채널</span>
         <fieldset class="radio_group" aria-labelledby="radio-form-vertical-label">
-          <Radio name="radio-form-channel" checked value="email" label="이메일" />
+          <Radio name="radio-form-channel" default-checked value="email" label="이메일" />
           <Radio name="radio-form-channel" value="sms" label="SMS" />
         </fieldset>
       </div>
@@ -701,7 +703,7 @@ import Radio from '@/components/Radio.vue';
       <div class="form_field">
         <span class="form_field-label" id="radio-form-horizontal-label">역할</span>
         <fieldset class="radio_group radio_group_horizontal" aria-labelledby="radio-form-horizontal-label">
-          <Radio button name="radio-form-role" checked value="viewer" label="뷰어" />
+          <Radio button name="radio-form-role" default-checked value="viewer" label="뷰어" />
           <Radio button name="radio-form-role" value="editor" label="편집자" />
         </fieldset>
       </div>
@@ -714,6 +716,10 @@ import Radio from '@/components/Radio.vue';
 
   <ApiSection heading-id="api-slots-heading" title="API · Slots">
     <ApiTable :columns="radioSlotColumns" :rows="radioSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-events-heading" title="API · Events">
+    <ApiTable :columns="radioEventColumns" :rows="radioEvents" code-column="name" />
   </ApiSection>
 
   <ApiSection

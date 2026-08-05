@@ -18,6 +18,9 @@ const PLACEMENTS = new Set([
   'right',
   'end',
 ]);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_ARROW_ANCHORS = new Set(['content', 'target', 'mixed']);
+const VALID_TRIGGERS = new Set(['click', 'hover']);
 
 const props = defineProps({
   placement: String,
@@ -70,20 +73,49 @@ const props = defineProps({
 const attrs = useAttrs();
 const slots = useSlots();
 const rootRef = ref(null);
-const panelId = useId().replace(/:/g, '');
+const panelId = `popover-${useId().replace(/:/g, '')}`;
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedArrowAnchor = computed(() =>
+  VALID_ARROW_ANCHORS.has(props.arrowAnchor) ? props.arrowAnchor : 'content'
+);
+const resolvedTrigger = computed(() =>
+  VALID_TRIGGERS.has(props.trigger) ? props.trigger : 'click'
+);
 
-usePopoverDemoCode(props, rootRef, attrs);
-useOverlayArrowAnchor(rootRef, props, 'popover');
+usePopoverDemoCode(
+  () => ({
+    ...props,
+    size: resolvedSize.value,
+    arrowAnchor: resolvedArrowAnchor.value,
+    trigger: resolvedTrigger.value,
+  }),
+  rootRef,
+  attrs
+);
+useOverlayArrowAnchor(
+  rootRef,
+  {
+    get noArrow() { return props.noArrow; },
+    get arrowAnchor() { return resolvedArrowAnchor.value; },
+    get panelAlign() { return props.panelAlign; },
+    get arrowTargetAlign() { return props.arrowTargetAlign; },
+    get open() { return props.open; },
+    get placement() { return props.placement; },
+  },
+  'popover'
+);
 
 const rootClass = computed(() => {
   const classes = ['popover'];
-  if (props.size === 'sm') classes.push('popover_sm');
-  if (props.size === 'lg') classes.push('popover_lg');
+  if (resolvedSize.value === 'sm') classes.push('popover_sm');
+  if (resolvedSize.value === 'lg') classes.push('popover_lg');
   classes.push(...overlayOffsetClasses('popover', props));
   classes.push(...panelAlignClasses('popover', props.panelAlign, 'start'));
   if (props.noArrow) classes.push('popover_no-arrow');
-  if (props.arrowAnchor === 'target') classes.push('popover_arrow-anchor-target');
-  if (props.arrowAnchor === 'mixed') classes.push('popover_arrow-anchor-mixed');
+  if (resolvedArrowAnchor.value === 'target') classes.push('popover_arrow-anchor-target');
+  if (resolvedArrowAnchor.value === 'mixed') classes.push('popover_arrow-anchor-mixed');
   if (props.placement && PLACEMENTS.has(props.placement)) {
     classes.push(`popover_placement-${props.placement}`);
   }
@@ -96,14 +128,14 @@ const rootClass = computed(() => {
 const rootAttrs = computed(() => {
   const result = {};
   if (props.interactive) result['data-popover'] = '';
-  if (props.trigger === 'hover') result['data-popover-trigger'] = 'hover';
-  if (props.arrowAnchor === 'mixed') {
+  if (resolvedTrigger.value === 'hover') result['data-popover-trigger'] = 'hover';
+  if (resolvedArrowAnchor.value === 'mixed') {
     result['data-panel-align'] = props.panelAlign;
   } else if (props.panelAlign !== 'start') {
     result['data-panel-align'] = props.panelAlign;
   }
   if (
-    (props.arrowAnchor === 'target' || props.arrowAnchor === 'mixed') &&
+    (resolvedArrowAnchor.value === 'target' || resolvedArrowAnchor.value === 'mixed') &&
     props.arrowTargetAlign !== 'center'
   ) {
     result['data-arrow-target-align'] = props.arrowTargetAlign;
@@ -116,7 +148,7 @@ const panelHidden = computed(() => {
   return !props.open || undefined;
 });
 
-const showCloseButton = computed(() => props.closable ?? props.trigger === 'click');
+const showCloseButton = computed(() => props.closable ?? resolvedTrigger.value === 'click');
 const hasTitle = computed(() => Boolean(props.title || slots.title));
 const showHeaderWithClose = computed(
   () => showCloseButton.value && (hasTitle.value || Boolean(props.panelLabel)),
@@ -132,10 +164,18 @@ const ariaLabel = computed(() => {
   if (labelledById.value) return undefined;
   return props.panelLabel || undefined;
 });
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+const rootDomAttrs = computed(() => ({
+  ...rootAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" v-bind="rootAttrs">
+  <div ref="rootRef" :class="rootClass" v-bind="rootDomAttrs">
     <slot name="trigger" />
     <div
       :id="panelId"

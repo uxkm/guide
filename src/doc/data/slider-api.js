@@ -7,8 +7,8 @@ export const sliderPropColumns = [
 ];
 
 export const sliderProps = [
-  { name: 'model-value', type: 'number', default: '—', description: 'v-model 바인딩 값' },
-  { name: 'value', type: 'number', default: '50', description: 'model-value 없을 때 기본값' },
+  { name: 'model-value', type: 'number', default: '—', description: '제어 값. v-model 바인딩' },
+  { name: 'default-value', type: 'number', default: '50', description: '비제어 초기 값' },
   { name: 'min', type: 'number', default: '0', description: '최솟값' },
   { name: 'max', type: 'number', default: '100', description: '최댓값' },
   { name: 'step', type: 'number', default: '—', description: '증감 단위' },

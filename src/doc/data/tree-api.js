@@ -18,8 +18,8 @@ export const treeNodePropColumns = treePropColumns;
 export const treeNodeProps = [
   { name: 'label', type: 'string', default: '—', description: '노드 라벨 (tree_label)' },
   { name: 'expanded', type: 'boolean', default: '—', description: '펼침 상태 (aria-expanded)' },
-  { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected)' },
-  { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },
+  { name: 'selected', type: 'boolean', default: 'false', description: '선택 상태 (is-selected · aria-selected)' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 상태 및 상호작용 차단 (is-disabled · aria-disabled)' },
   { name: 'expandable', type: 'boolean', default: 'false', description: '토글 버튼 강제 표시' },
   { name: 'plus-toggle', type: 'boolean', default: 'false', description: '+ / − 토글 (tree_toggle-plus)' },
   { name: 'toggle-label', type: 'string', default: '—', description: '토글 버튼 aria-label' },

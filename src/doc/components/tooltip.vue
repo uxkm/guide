@@ -41,7 +41,7 @@ import {
   >
     <Tooltip content="짧은 도움말 텍스트입니다.">
       <template #trigger>
-        <Button class="tooltip_trigger" variant="outline" label="마우스 오버" />
+        <Button variant="outline" label="마우스 오버" />
       </template>
     </Tooltip>
   </DemoSection>
@@ -53,7 +53,7 @@ import {
   >
     <Tooltip>
       <template #trigger>
-        <Button class="tooltip_trigger" variant="outline" label="슬롯 예시" />
+        <Button variant="outline" label="슬롯 예시" />
       </template>
       짧은 도움말 텍스트입니다.
     </Tooltip>
@@ -64,9 +64,9 @@ import {
     title="열린 상태"
     description="open prop과 is-open 클래스로 말풍선이 표시된 상태를 정적으로 표현합니다."
   >
-    <Tooltip open content="정적 데모용 열린 상태입니다.">
+    <Tooltip open :interactive="false" class="tooltip_demo-static" content="정적 데모용 열린 상태입니다.">
       <template #trigger>
-        <Button class="tooltip_trigger" variant="filled" color="primary" label="열림" />
+        <Button variant="filled" color="primary" label="열림" />
       </template>
     </Tooltip>
   </DemoSection>
@@ -76,23 +76,25 @@ import {
     title="크기"
     description="size prop(sm · md · lg)으로 패딩·글자 크기·최대 너비를 조절합니다. tooltip_sm · tooltip_lg 클래스와 대응됩니다."
   >
-    <Tooltip size="sm" content="작은 말풍선">
-      <template #trigger>
-        <Button class="tooltip_trigger" variant="ghost" size="sm" label="Small" />
-      </template>
-    </Tooltip>
+    <div class="tooltip_row" style="align-items: flex-start;">
+      <Tooltip size="sm" content="작은 말풍선">
+        <template #trigger>
+          <Button variant="ghost" size="sm" label="Small" />
+        </template>
+      </Tooltip>
 
-    <Tooltip content="기본 크기 말풍선">
-      <template #trigger>
-        <Button class="tooltip_trigger" variant="ghost" label="Medium" />
-      </template>
-    </Tooltip>
+      <Tooltip content="기본 크기 말풍선">
+        <template #trigger>
+          <Button variant="ghost" label="Medium" />
+        </template>
+      </Tooltip>
 
-    <Tooltip size="lg" content="큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다.">
-      <template #trigger>
-        <Button class="tooltip_trigger" variant="ghost" size="lg" label="Large" />
-      </template>
-    </Tooltip>
+      <Tooltip size="lg" content="큰 말풍선 — 조금 더 긴 설명을 담을 수 있습니다.">
+        <template #trigger>
+          <Button variant="ghost" size="lg" label="Large" />
+        </template>
+      </Tooltip>
+    </div>
   </DemoSection>
 
   <DemoSection
@@ -101,65 +103,67 @@ import {
     description="offset prop(none · sm · md · lg)으로 전 방향 간격을, offset-top · offset-right · offset-bottom · offset-left로 방향별 간격을 조절합니다. 배치에 따라 해당 방향 토큰이 트리거↔말풍선 사이에 적용됩니다."
     stack
   >
-    <p class="form_field-hint" style="margin-bottom: var(--space-md);">전 방향 동일</p>
-    <div class="tooltip_row">
-      <Tooltip offset="none" content="간격 없음">
-        <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="none" />
-        </template>
-      </Tooltip>
-
-      <Tooltip offset="sm" content="좁은 간격">
-        <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="sm" />
-        </template>
-      </Tooltip>
-
-      <Tooltip content="기본 간격">
-        <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="md" />
-        </template>
-      </Tooltip>
-
-      <Tooltip offset="lg" content="넓은 간격">
-        <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="lg" />
-        </template>
-      </Tooltip>
-    </div>
-
-    <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">방향별 (offset-* · placement)</p>
-    <div class="tooltip_demo-placement" style="min-height: 12rem;">
-      <div class="tooltip_demo-placement-cell-top">
-        <Tooltip placement="top" offset-top="lg" content="위쪽 간격">
+    <div class="tooltip_demo-stage">
+      <p class="form_field-hint" style="margin-bottom: var(--space-md);">전 방향 동일</p>
+      <div class="tooltip_row" style="align-items: flex-start;">
+        <Tooltip offset="none" content="간격 없음">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="위" />
+            <Button variant="ghost" size="sm" label="none" />
+          </template>
+        </Tooltip>
+
+        <Tooltip offset="sm" content="좁은 간격">
+          <template #trigger>
+            <Button variant="ghost" size="sm" label="sm" />
+          </template>
+        </Tooltip>
+
+        <Tooltip content="기본 간격">
+          <template #trigger>
+            <Button variant="ghost" size="sm" label="md" />
+          </template>
+        </Tooltip>
+
+        <Tooltip offset="lg" content="넓은 간격">
+          <template #trigger>
+            <Button variant="ghost" size="sm" label="lg" />
           </template>
         </Tooltip>
       </div>
 
-      <div class="tooltip_demo-placement-cell-left">
-        <Tooltip placement="left" offset-left="lg" content="왼쪽 간격">
-          <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="왼쪽" />
-          </template>
-        </Tooltip>
-      </div>
+      <p class="form_field-hint" style="margin: var(--space-lg) 0 var(--space-md);">방향별 (offset-* · placement)</p>
+      <div class="tooltip_demo-placement" style="min-height: 12rem; padding: 0; border: none; background: transparent;">
+        <div class="tooltip_demo-placement-cell-top">
+          <Tooltip placement="top" offset-top="lg" content="위쪽 간격">
+            <template #trigger>
+              <Button variant="ghost" size="sm" label="위" />
+            </template>
+          </Tooltip>
+        </div>
 
-      <div class="tooltip_demo-placement-cell-center">
-        <Tooltip offset-bottom="lg" content="아래쪽 간격">
-          <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="아래" />
-          </template>
-        </Tooltip>
-      </div>
+        <div class="tooltip_demo-placement-cell-left">
+          <Tooltip placement="left" offset-left="lg" content="왼쪽 간격">
+            <template #trigger>
+              <Button variant="ghost" size="sm" label="왼쪽" />
+            </template>
+          </Tooltip>
+        </div>
 
-      <div class="tooltip_demo-placement-cell-right">
-        <Tooltip placement="right" offset-right="lg" content="오른쪽 간격">
-          <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="오른쪽" />
-          </template>
-        </Tooltip>
+        <div class="tooltip_demo-placement-cell-center">
+          <Tooltip offset-bottom="lg" content="아래쪽 간격">
+            <template #trigger>
+              <Button variant="ghost" size="sm" label="아래" />
+            </template>
+          </Tooltip>
+        </div>
+
+        <div class="tooltip_demo-placement-cell-right">
+          <Tooltip placement="right" offset-right="lg" content="오른쪽 간격">
+            <template #trigger>
+              <Button variant="ghost" size="sm" label="오른쪽" />
+            </template>
+          </Tooltip>
+        </div>
       </div>
     </div>
   </DemoSection>
@@ -173,7 +177,7 @@ import {
       결제 시
       <Tooltip content="구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.">
         <template #trigger>
-          <Link class="tooltip_trigger" label="에스크로" />
+          <Link label="에스크로" />
         </template>
       </Tooltip>
       서비스를 이용할 수 있습니다.
@@ -189,19 +193,19 @@ import {
     <div class="tooltip_row">
       <Tooltip content="버튼 트리거 예시입니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="filled" color="primary" label="Button" />
+          <Button variant="filled" color="primary" label="Button" />
         </template>
       </Tooltip>
 
       <Tooltip content="링크 스타일 트리거입니다.">
         <template #trigger>
-          <Link class="tooltip_trigger" label="Link 트리거" />
+          <Link label="Link 트리거" />
         </template>
       </Tooltip>
 
       <Tooltip content="아이콘 전용 트리거입니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" icon-only aria-label="정보">
+          <Button variant="ghost" icon-only aria-label="정보">
             <template #icon-before>
               <Icon name="info" />
             </template>
@@ -218,7 +222,7 @@ import {
   >
     <Tooltip trigger="click" content="클릭으로 열고 닫는 Tooltip입니다.">
       <template #trigger>
-        <Button class="tooltip_trigger" variant="outline" label="클릭하여 보기" />
+        <Button variant="outline" label="클릭하여 보기" />
       </template>
     </Tooltip>
   </DemoSection>
@@ -233,7 +237,7 @@ import {
       <div class="tooltip_demo-placement-cell-top">
         <Tooltip placement="top" content="트리거 위">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="outline" size="sm" label="위" />
+            <Button variant="outline" size="sm" label="위" />
           </template>
         </Tooltip>
       </div>
@@ -241,7 +245,7 @@ import {
       <div class="tooltip_demo-placement-cell-left">
         <Tooltip placement="left" content="트리거 왼쪽">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="outline" size="sm" label="왼쪽" />
+            <Button variant="outline" size="sm" label="왼쪽" />
           </template>
         </Tooltip>
       </div>
@@ -249,7 +253,7 @@ import {
       <div class="tooltip_demo-placement-cell-center">
         <Tooltip content="트리거 아래 · 가운데">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="outline" size="sm" label="아래" />
+            <Button variant="outline" size="sm" label="아래" />
           </template>
         </Tooltip>
       </div>
@@ -257,7 +261,7 @@ import {
       <div class="tooltip_demo-placement-cell-right">
         <Tooltip placement="right" content="트리거 오른쪽">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="outline" size="sm" label="오른쪽" />
+            <Button variant="outline" size="sm" label="오른쪽" />
           </template>
         </Tooltip>
       </div>
@@ -266,19 +270,19 @@ import {
     <div class="tooltip_row" style="width: 100%; justify-content: space-between;">
       <Tooltip placement="top-start" content="위쪽 왼쪽 정렬">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="위 · 왼쪽" />
+          <Button variant="ghost" label="위 · 왼쪽" />
         </template>
       </Tooltip>
 
       <Tooltip placement="start" content="아래쪽 왼쪽 정렬">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="아래 · 왼쪽" />
+          <Button variant="ghost" label="아래 · 왼쪽" />
         </template>
       </Tooltip>
 
       <Tooltip placement="end" content="아래쪽 오른쪽 정렬">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="아래 · 오른쪽" />
+          <Button variant="ghost" label="아래 · 오른쪽" />
         </template>
       </Tooltip>
     </div>
@@ -291,7 +295,7 @@ import {
   >
     <Tooltip inverse content="어두운 배경의 말풍선입니다.">
       <template #trigger>
-        <Button class="tooltip_trigger" variant="ghost" label="역색 Tooltip" />
+        <Button variant="ghost" label="역색 Tooltip" />
       </template>
     </Tooltip>
   </DemoSection>
@@ -299,11 +303,11 @@ import {
   <DemoSection
     heading-id="disabled-heading"
     title="비활성 트리거"
-    description="비활성 버튼은 tooltip_trigger span으로 감싸 pointer-events가 막힌 요소에도 설명을 제공합니다."
+    description="비활성 버튼은 포커스 가능한 span으로 감싸 pointer-events가 막힌 요소에도 설명을 제공합니다."
   >
     <Tooltip content="필수 항목을 모두 입력해야 제출할 수 있습니다.">
       <template #trigger>
-        <span class="tooltip_trigger" tabindex="0">
+        <span tabindex="0">
           <Button variant="filled" color="primary" label="제출 불가" disabled />
         </span>
       </template>
@@ -320,13 +324,13 @@ import {
     <div class="tooltip_row" style="align-items: flex-start;">
       <Tooltip content="패널이 트리거보다 넓을 때 화살표는 말풍선 패딩 기준입니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+          <Button variant="ghost" size="sm" label="S" />
         </template>
       </Tooltip>
 
       <Tooltip arrow-anchor="target" content="패널이 트리거보다 넓을 때 화살표가 트리거 중앙을 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+          <Button variant="ghost" size="sm" label="S" />
         </template>
       </Tooltip>
     </div>
@@ -335,19 +339,19 @@ import {
     <div class="tooltip_row" style="align-items: flex-start;">
       <Tooltip arrow-anchor="target" arrow-target-align="left" content="트리거 왼쪽을 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+          <Button variant="ghost" size="sm" label="S" />
         </template>
       </Tooltip>
 
       <Tooltip arrow-anchor="target" content="트리거 가운데를 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+          <Button variant="ghost" size="sm" label="S" />
         </template>
       </Tooltip>
 
       <Tooltip arrow-anchor="target" arrow-target-align="right" content="트리거 오른쪽을 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+          <Button variant="ghost" size="sm" label="S" />
         </template>
       </Tooltip>
     </div>
@@ -356,19 +360,19 @@ import {
     <div class="tooltip_row" style="align-items: center;">
       <Tooltip placement="left" arrow-anchor="target" arrow-target-align="top" content="트리거 위쪽을 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="트리거" />
+          <Button variant="ghost" label="트리거" />
         </template>
       </Tooltip>
 
       <Tooltip placement="left" arrow-anchor="target" content="트리거 가운데를 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="트리거" />
+          <Button variant="ghost" label="트리거" />
         </template>
       </Tooltip>
 
       <Tooltip placement="left" arrow-anchor="target" arrow-target-align="bottom" content="트리거 아래쪽을 가리킵니다.">
         <template #trigger>
-          <Button class="tooltip_trigger" variant="ghost" label="트리거" />
+          <Button variant="ghost" label="트리거" />
         </template>
       </Tooltip>
     </div>
@@ -378,21 +382,21 @@ import {
       <div style="display: flex; justify-content: center;">
         <Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="left" content="말풍선 가운데, 화살표 왼쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div style="display: flex; justify-content: center;">
         <Tooltip arrow-anchor="mixed" panel-align="center" content="말풍선·화살표 모두 가운데.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div style="display: flex; justify-content: center;">
         <Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="right" content="말풍선 가운데, 화살표 오른쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
@@ -403,21 +407,21 @@ import {
       <div>
         <Tooltip arrow-anchor="mixed" panel-align="start" arrow-target-align="left" content="말풍선 왼쪽, 화살표 왼쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div>
         <Tooltip arrow-anchor="mixed" panel-align="start" content="말풍선 왼쪽, 화살표 가운데.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div>
         <Tooltip arrow-anchor="mixed" panel-align="start" arrow-target-align="right" content="말풍선 왼쪽, 화살표 오른쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
@@ -428,21 +432,21 @@ import {
       <div style="display: flex; justify-content: flex-end;">
         <Tooltip arrow-anchor="mixed" panel-align="end" arrow-target-align="left" content="말풍선 오른쪽, 화살표 왼쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div style="display: flex; justify-content: flex-end;">
         <Tooltip arrow-anchor="mixed" panel-align="end" content="말풍선 오른쪽, 화살표 가운데.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
       <div style="display: flex; justify-content: flex-end;">
         <Tooltip arrow-anchor="mixed" panel-align="end" arrow-target-align="right" content="말풍선 오른쪽, 화살표 오른쪽.">
           <template #trigger>
-            <Button class="tooltip_trigger" variant="ghost" size="sm" label="S" />
+            <Button variant="ghost" size="sm" label="S" />
           </template>
         </Tooltip>
       </div>
@@ -456,7 +460,7 @@ import {
   >
     <Tooltip no-arrow content="화살표가 표시되지 않는 말풍선입니다.">
       <template #trigger>
-        <Button class="tooltip_trigger" variant="ghost" label="화살표 없음" />
+        <Button variant="ghost" label="화살표 없음" />
       </template>
     </Tooltip>
   </DemoSection>

@@ -43,6 +43,22 @@ import Badge from '@/components/Badge.vue';
   <Badge color="info" label="Info" />
 </template>`;
 
+const semanticCode = `<script setup>
+import Badge from '@/components/Badge.vue';
+<\/script>
+
+<template>
+  <p>
+    처리 상태: <Badge as="strong" color="success" label="완료" />
+  </p>
+  <p>
+    검색 결과 <Badge as="data" value="12" count color="primary" label="12" />건
+  </p>
+  <p>
+    <Badge as="mark" color="warning" label="업데이트" /> 확인이 필요합니다.
+  </p>
+</template>`;
+
 const sizeCode = `<script setup>
 import Badge from '@/components/Badge.vue';
 <\/script>
@@ -92,9 +108,7 @@ import Icon from '@/components/Icon.vue';
   <BadgeWrap>
     <Button variant="ghost" icon-only aria-label="메시지">
       <template #icon-before>
-        <Icon>
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </Icon>
+        <Icon name="message" />
       </template>
     </Button>
     <Badge count color="danger" aria-label="새 메시지 12건" label="12" />
@@ -128,9 +142,26 @@ import Icon from '@/components/Icon.vue';
   </DemoSection>
 
   <DemoSection
+    heading-id="semantic-heading"
+    title="시맨틱 요소"
+    description="기본은 span이며, as prop으로 콘텐츠 의미에 맞는 HTML 요소 또는 커스텀 컴포넌트를 지정합니다."
+    :code="semanticCode"
+  >
+    <p>
+      처리 상태: <Badge as="strong" color="success" label="완료" />
+    </p>
+    <p>
+      검색 결과 <Badge as="data" value="12" count color="primary" label="12" />건
+    </p>
+    <p>
+      <Badge as="mark" color="warning" label="업데이트" /> 확인이 필요합니다.
+    </p>
+  </DemoSection>
+
+  <DemoSection
     heading-id="size-heading"
     title="크기"
-    description="badge_sm · badge_lg로 스케일을 조절합니다."
+    description="size prop으로 badge_sm · badge_lg 스케일을 조절합니다."
     :code="sizeCode"
   >
     <Badge size="sm" color="primary" label="Small" />
@@ -141,7 +172,7 @@ import Icon from '@/components/Icon.vue';
   <DemoSection
     heading-id="dot-heading"
     title="Dot 배지"
-    description="badge_dot로 상태 표시용 점(dot)이 포함된 배지를 만듭니다."
+    description="dot prop으로 상태 표시용 점이 포함된 배지를 만듭니다."
     :code="dotCode"
   >
     <Badge dot color="primary" label="Online" />
@@ -153,7 +184,7 @@ import Icon from '@/components/Icon.vue';
   <DemoSection
     heading-id="count-heading"
     title="카운트"
-    description="badge_count로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다."
+    description="count prop으로 숫자·짧은 텍스트를 강조합니다. 99+처럼 긴 값도 표시할 수 있습니다."
     :code="countCode"
   >
     <Badge count color="danger" label="3" />
@@ -166,7 +197,7 @@ import Icon from '@/components/Icon.vue';
   <DemoSection
     heading-id="wrap-heading"
     title="겹침 표시"
-    description="badge_wrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다."
+    description="BadgeWrap으로 버튼·아이콘 위에 카운트 또는 점 배지를 겹쳐 표시합니다."
     :code="wrapCode"
   >
     <BadgeWrap>
@@ -177,9 +208,7 @@ import Icon from '@/components/Icon.vue';
     <BadgeWrap>
       <Button variant="ghost" icon-only aria-label="메시지">
         <template #icon-before>
-          <Icon>
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </Icon>
+          <Icon name="message" />
         </template>
       </Button>
       <Badge count color="danger" aria-label="새 메시지 12건" label="12" />

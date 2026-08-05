@@ -22,6 +22,15 @@ import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useButtonDemoCode } from '@/composables/useDemoCode';
 import Icon from '@/components/Icon.vue';
 
+const VALID_VARIANTS = new Set(['filled', 'outline', 'ghost', 'text', 'select']);
+const VALID_COLORS = new Set(['primary', 'default', 'success', 'warning', 'danger', 'muted']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_TAGS = new Set(['button', 'a', 'div']);
+
+function isAriaTrue(value) {
+  return value === true || value === 'true';
+}
+
 defineOptions({
   inheritAttrs: false,
 });
@@ -77,6 +86,8 @@ const props = defineProps({
   placeholder: Boolean,
   /** 배경·테두리 없는 셀렉트 텍스트 형태 */
   selectText: Boolean,
+  /** select 이외의 스킨에도 드롭다운 캐럿 표시 */
+  selectCaret: Boolean,
   /** 버튼 텍스트. default 슬롯으로 대체 가능 */
   label: String,
   /** 접근성 라벨 (icon-only 시 필수) */
@@ -87,7 +98,7 @@ const props = defineProps({
     default: 'button',
   },
   /** aria-haspopup (셀렉트·드롭다운 트리거) */
-  haspopup: String,
+  haspopup: [Boolean, String],
   /** aria-expanded (셀렉트·팝오버 트리거). 미지정 시 속성 생략 */
   expanded: {
     type: Boolean,
@@ -121,38 +132,63 @@ const slots = useSlots();
 const attrs = useAttrs();
 const buttonRef = ref(null);
 
-useButtonDemoCode(props, slots, buttonRef, attrs);
+const resolvedVariant = computed(() =>
+  VALID_VARIANTS.has(props.variant) ? props.variant : 'filled'
+);
+const resolvedColor = computed(() =>
+  VALID_COLORS.has(props.color) ? props.color : 'primary'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const resolvedTag = computed(() => (VALID_TAGS.has(props.tag) ? props.tag : 'button'));
+const resolvedGrow = computed(() =>
+  props.grow === true || props.grow === '2' ? props.grow : false
+);
+const resolvedAriaDisabled = computed(() => props.ariaDisabled ?? attrs['aria-disabled']);
+
+useButtonDemoCode(
+  () => ({
+    ...props,
+    variant: resolvedVariant.value,
+    color: resolvedColor.value,
+    size: resolvedSize.value,
+    grow: resolvedGrow.value,
+    tag: resolvedTag.value,
+  }),
+  slots,
+  buttonRef,
+  attrs
+);
 
 const btnClass = computed(() => {
   const classes = ['btn'];
 
-  if (props.variant === 'select') {
+  if (resolvedVariant.value === 'select') {
     classes.push('btn_select');
     if (props.selectText) classes.push('btn_select-text');
     if (props.placeholder) classes.push('btn_select-placeholder');
   } else {
-    classes.push(`btn_${props.variant}`);
+    classes.push(`btn_${resolvedVariant.value}`);
   }
 
-  if (props.variant === 'text') {
+  if (resolvedVariant.value === 'text') {
     classes.push('color_primary');
-    if (props.color !== 'primary') {
-      classes.push(`color_${props.color}`);
+    if (resolvedColor.value !== 'primary') {
+      classes.push(`color_${resolvedColor.value}`);
     }
-  } else if (props.variant !== 'ghost' && props.color) {
-    classes.push(`color_${props.color}`);
+  } else if (resolvedVariant.value !== 'ghost' && resolvedColor.value) {
+    classes.push(`color_${resolvedColor.value}`);
   }
 
-  if (props.size === 'sm') classes.push('btn_sm');
-  if (props.size === 'lg') classes.push('btn_lg');
+  if (resolvedSize.value === 'sm') classes.push('btn_sm');
+  if (resolvedSize.value === 'lg') classes.push('btn_lg');
   if (props.round) classes.push('btn_round');
   if (props.vertical) classes.push('btn_vertical');
   if (props.iconOnly) classes.push('btn_icon-only');
   if (props.block) classes.push('btn_block');
-  if (props.grow === true) classes.push('btn_grow');
-  if (props.grow === '2') classes.push('btn_grow-2');
+  if (resolvedGrow.value === true) classes.push('btn_grow');
+  if (resolvedGrow.value === '2') classes.push('btn_grow-2');
   if (props.fit) classes.push('btn_fit');
-  if (props.ariaDisabled) classes.push('is-disabled');
+  if (isAriaTrue(resolvedAriaDisabled.value)) classes.push('is-disabled');
   if (props.loading) classes.push('is-loading');
   if (props.open) classes.push('is-open');
   if (props.error) classes.push('is-error');
@@ -178,9 +214,9 @@ const resolvedRole = computed(() => {
   if (props.role) return props.role;
   if (typeof attrs.role === 'string' && attrs.role) return attrs.role;
 
-  if (props.tag === 'div') return 'button';
+  if (resolvedTag.value === 'div') return 'button';
 
-  if (props.tag === 'a') {
+  if (resolvedTag.value === 'a') {
     if (resolvedHref.value) return undefined;
     return 'button';
   }
@@ -188,13 +224,14 @@ const resolvedRole = computed(() => {
   return undefined;
 });
 
-const isNativeButton = computed(() => props.tag === 'button');
-const isNativeLink = computed(() => props.tag === 'a' && Boolean(resolvedHref.value));
-const isDisabled = computed(() => props.disabled || props.ariaDisabled);
+const isNativeButton = computed(() => resolvedTag.value === 'button');
+const isNativeLink = computed(() => resolvedTag.value === 'a' && Boolean(resolvedHref.value));
+const isDisabled = computed(() => Boolean(props.disabled || isAriaTrue(resolvedAriaDisabled.value)));
+const isInteractionBlocked = computed(() => isDisabled.value || props.loading);
 
 /** div·href 없는 a — role과 별개로 tabindex가 Tab 초점을 만듦 */
 const needsTabIndex = computed(
-  () => props.tag === 'div' || (props.tag === 'a' && !isNativeLink.value)
+  () => resolvedTag.value === 'div' || (resolvedTag.value === 'a' && !isNativeLink.value)
 );
 
 /**
@@ -206,7 +243,8 @@ const needsTabIndex = computed(
 const rootTabIndex = computed(() => {
   const explicit = props.tabindex ?? attrs.tabindex;
   if (explicit != null && explicit !== '') {
-    return Number(explicit);
+    const numericTabIndex = Number(explicit);
+    if (Number.isFinite(numericTabIndex)) return numericTabIndex;
   }
 
   if (isNativeButton.value || isNativeLink.value) {
@@ -222,17 +260,29 @@ const rootTabIndex = computed(() => {
 
 /** button[disabled]는 aria-disabled 중복 불필요. div·a는 aria-disabled로 비활성 표현 */
 const ariaDisabledAttr = computed(() => {
-  if (isNativeButton.value && props.disabled && !props.ariaDisabled) {
+  if (isNativeButton.value && props.disabled && !isAriaTrue(resolvedAriaDisabled.value)) {
     return undefined;
   }
 
   return isDisabled.value ? 'true' : undefined;
 });
 
-/** role · href · tabindex · onClick은 컴포넌트에서 제어하므로 fallthrough에서 제외 */
+/** 컴포넌트에서 제어하는 속성은 fallthrough에서 제외 */
 const fallthroughAttrs = computed(() => {
-  const { class: _class, role: _role, href: _href, tabindex: _tabindex, onClick: _onClick, ...rest } =
-    attrs;
+  const {
+    class: _class,
+    role: _role,
+    href: _href,
+    tabindex: _tabindex,
+    onClick: _onClick,
+    'aria-label': _ariaLabel,
+    'aria-disabled': _ariaDisabled,
+    'aria-busy': _ariaBusy,
+    'aria-haspopup': _ariaHaspopup,
+    'aria-expanded': _ariaExpanded,
+    'aria-invalid': _ariaInvalid,
+    ...rest
+  } = attrs;
   return { ...rest, ...rippleAttrs.value };
 });
 
@@ -241,7 +291,7 @@ const showLabel = computed(() => !props.iconOnly && (props.label || slots.defaul
 const ariaExpanded = computed(() => {
   if (props.expanded !== undefined) return String(props.expanded);
   if (props.open) return 'true';
-  return undefined;
+  return attrs['aria-expanded'];
 });
 
 /** div·href 없는 a — 네이티브 키보드 활성화 없음, Enter/Space로 click 위임 */
@@ -251,7 +301,7 @@ const needsKeyboardActivation = computed(() => needsTabIndex.value);
 const activatesWithSpace = computed(() => resolvedRole.value !== 'link');
 
 function onKeydown(event) {
-  if (!needsKeyboardActivation.value || isDisabled.value) return;
+  if (!needsKeyboardActivation.value || isInteractionBlocked.value) return;
 
   const isEnter = event.key === 'Enter';
   const isSpace = event.key === ' ';
@@ -276,7 +326,7 @@ function invokeListener(listener, event) {
 
 /** div·a는 disabled 속성 미지원 — aria-disabled + click 차단으로 대체 */
 function onClick(event) {
-  if (isDisabled.value) {
+  if (isInteractionBlocked.value) {
     event.preventDefault();
     event.stopPropagation();
     return;
@@ -288,21 +338,21 @@ function onClick(event) {
 
 <template>
   <component
-    :is="tag"
+    :is="resolvedTag"
     ref="buttonRef"
     v-bind="fallthroughAttrs"
     :class="rootClass"
     :type="isNativeButton ? type : undefined"
-    :href="tag === 'a' ? resolvedHref : undefined"
-    :disabled="isNativeButton ? disabled && !ariaDisabled : undefined"
+    :href="resolvedTag === 'a' ? resolvedHref : undefined"
+    :disabled="isNativeButton ? Boolean(disabled && !isAriaTrue(resolvedAriaDisabled)) : undefined"
     :role="resolvedRole"
     :tabindex="rootTabIndex"
-    :aria-label="ariaLabel"
+    :aria-label="ariaLabel ?? attrs['aria-label']"
     :aria-disabled="ariaDisabledAttr"
-    :aria-busy="loading ? 'true' : undefined"
-    :aria-haspopup="haspopup"
+    :aria-busy="loading ? 'true' : attrs['aria-busy']"
+    :aria-haspopup="haspopup ?? attrs['aria-haspopup']"
     :aria-expanded="ariaExpanded"
-    :aria-invalid="invalid || error ? 'true' : undefined"
+    :aria-invalid="invalid || error ? 'true' : attrs['aria-invalid']"
     @keydown="onKeydown"
     @click="onClick"
   >
@@ -312,6 +362,11 @@ function onClick(event) {
       <slot>{{ label }}</slot>
     </span>
     <slot name="icon-after" />
-    <Icon v-if="variant === 'select'" name="chevron-down" class="btn_select-caret" />
+    <Icon
+      v-if="resolvedVariant === 'select' || selectCaret"
+      name="chevron-down"
+      class="btn_select-caret"
+      aria-hidden="true"
+    />
   </component>
 </template>

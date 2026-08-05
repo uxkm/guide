@@ -35,7 +35,12 @@
   gap: var(--link-gap);
   font-weight: var(--link-font-weight);
   font-size: inherit;
+  font-family: inherit;
   line-height: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
   text-decoration: none;
   cursor: pointer;
   transition: color var(--transition-fast);
@@ -158,6 +163,15 @@
     height: 1em;
     flex-shrink: 0;
     pointer-events: none;
+  }
+
+  &_media {
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: $radius-sm;
   }
 
   &_row {

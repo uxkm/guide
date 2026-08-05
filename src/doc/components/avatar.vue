@@ -9,7 +9,6 @@ export const docMeta = {
 <script setup>
 import Avatar from '@/components/Avatar.vue';
 import AvatarGroup from '@/components/AvatarGroup.vue';
-import Icon from '@/components/Icon.vue';
 import { avatarSample } from '@images';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
@@ -31,17 +30,27 @@ import {
 
 const basicCode = `<script setup>
 import Avatar from '@/components/Avatar.vue';
-import Icon from '@/components/Icon.vue';
 import { avatarSample } from '@images';
 <\/script>
 
 <template>
   <Avatar :src="avatarSample" alt="홍길동" />
   <Avatar color="primary" initials="홍" aria-hidden />
-  <Avatar color="default" aria-hidden>
-    <template #icon>
-      <Icon name="user" class="avatar_icon" />
-    </template>
+  <Avatar name="user" color="default" aria-hidden />
+</template>`;
+
+const sourceCode = `<script setup>
+import Avatar from '@/components/Avatar.vue';
+import { avatarSample } from '@images';
+<\/script>
+
+<template>
+  <Avatar name="user" color="primary" aria-label="기본 사용자" />
+  <Avatar as="button" aria-label="프로필 열기">
+    <img class="avatar_image" :src="avatarSample" alt="" />
+  </Avatar>
+  <Avatar as="span" color="success" aria-label="온라인 사용자">
+    <strong>ON</strong>
   </Avatar>
 </template>`;
 
@@ -92,7 +101,6 @@ import Avatar from '@/components/Avatar.vue';
 const groupCode = `<script setup>
 import Avatar from '@/components/Avatar.vue';
 import AvatarGroup from '@/components/AvatarGroup.vue';
-import Icon from '@/components/Icon.vue';
 import { avatarSample } from '@images';
 <\/script>
 
@@ -106,11 +114,7 @@ import { avatarSample } from '@images';
   <AvatarGroup aria-label="팀 멤버 3명">
     <Avatar :src="avatarSample" alt="홍길동" />
     <Avatar color="primary" initials="홍" aria-hidden />
-    <Avatar color="default" aria-hidden>
-      <template #icon>
-        <Icon name="plus" class="avatar_icon" />
-      </template>
-    </Avatar>
+    <Avatar name="plus" color="default" aria-hidden />
   </AvatarGroup>
 </template>`;
 
@@ -130,10 +134,21 @@ import { avatarSample } from '@images';
   >
     <Avatar :src="avatarSample" alt="홍길동" />
     <Avatar color="primary" initials="홍" aria-hidden />
-    <Avatar color="default" aria-hidden>
-      <template #icon>
-        <Icon name="user" class="avatar_icon" />
-      </template>
+    <Avatar name="user" color="default" aria-hidden />
+  </DemoSection>
+
+  <DemoSection
+    heading-id="source-heading"
+    title="이름 · 이미지 · 커스텀 요소"
+    description="name으로 기본 아이콘을 사용하고, src 이미지 또는 as와 기본 슬롯을 조합해 커스텀 아바타를 구성합니다."
+    :code="sourceCode"
+  >
+    <Avatar name="user" color="primary" aria-label="기본 사용자" />
+    <Avatar as="button" aria-label="프로필 열기">
+      <img class="avatar_image" :src="avatarSample" alt="" />
+    </Avatar>
+    <Avatar as="span" color="success" aria-label="온라인 사용자">
+      <strong>ON</strong>
     </Avatar>
   </DemoSection>
 
@@ -152,7 +167,7 @@ import { avatarSample } from '@images';
   <DemoSection
     heading-id="shape-heading"
     title="형태"
-    description="기본은 원형이며, avatar_square로 사각형(둥근 모서리)을 적용합니다."
+    description="기본은 원형이며, square prop으로 avatar_square(둥근 모서리)를 적용합니다."
     :code="shapeCode"
   >
     <Avatar color="primary" initials="원" aria-hidden />
@@ -176,7 +191,7 @@ import { avatarSample } from '@images';
   <DemoSection
     heading-id="badge-heading"
     title="상태 배지"
-    description="avatar_badge로 온라인·오프라인 등 상태를 표시합니다. 부모에 position: relative가 적용됩니다."
+    description="badge-color · badge-label prop으로 온라인·오프라인 등 상태를 표시합니다. 부모에 position: relative가 적용됩니다."
     :code="badgeCode"
   >
     <Avatar color="primary" initials="온" badge-color="success" badge-label="온라인" aria-hidden />
@@ -187,7 +202,7 @@ import { avatarSample } from '@images';
   <DemoSection
     heading-id="group-heading"
     title="그룹"
-    description="avatar_group으로 여러 아바타를 겹쳐 표시합니다."
+    description="AvatarGroup으로 여러 아바타를 겹쳐 표시합니다."
     stack
     :code="groupCode"
   >
@@ -201,11 +216,7 @@ import { avatarSample } from '@images';
     <AvatarGroup aria-label="팀 멤버 3명">
       <Avatar :src="avatarSample" alt="홍길동" />
       <Avatar color="primary" initials="홍" aria-hidden />
-      <Avatar color="default" aria-hidden>
-        <template #icon>
-          <Icon name="plus" class="avatar_icon" />
-        </template>
-      </Avatar>
+      <Avatar name="plus" color="default" aria-hidden />
     </AvatarGroup>
   </DemoSection>
 

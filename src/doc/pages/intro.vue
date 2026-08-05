@@ -24,6 +24,7 @@ import {
   introCategories,
   quickstartCode,
   structureCode,
+  vueNuxtCards,
 } from '@/doc/data/intro-data';
 
 const props = defineProps({
@@ -51,14 +52,14 @@ const props = defineProps({
 <template>
   <PageIntro title="UI Components">
     <template #lead>
-      Vue와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 마크업과 클래스 조합으로 버튼·폼·피드백·네비게이션 등 50여 개 컴포넌트를 확인할 수 있으며, 컴포넌트 자체는 HTML·CSS만으로도 다른 프로젝트에 적용할 수 있습니다.
+      Nuxt 4와 Vue 3로 구현한 UI 컴포넌트 가이드입니다. 마크업과 클래스 조합으로 버튼·폼·피드백·네비게이션 등 50여 개 컴포넌트를 확인할 수 있으며, 컴포넌트 자체는 HTML·CSS만으로도 다른 프로젝트에 적용할 수 있습니다.
     </template>
   </PageIntro>
 
   <ApiSection
     heading-id="overview-heading"
     title="개요"
-    description="이 사이트는 디자인 시스템 문서이자 재사용 가능한 UI 패턴 모음입니다. 각 컴포넌트 페이지에서 라이브 데모, 마크업 예시, 클래스·속성 표, 디자인 토큰을 함께 제공합니다."
+    description="Nuxt의 파일 기반 라우팅과 Nitro 사전 렌더링으로 제공하는 디자인 시스템 문서이자 재사용 가능한 UI 패턴 모음입니다. 각 컴포넌트 페이지에서 라이브 데모, 마크업 예시, 클래스·속성 표, 디자인 토큰을 함께 제공합니다."
   >
     <List class="list_bullet" style="width: 100%;">
       <ListItem>
@@ -86,8 +87,9 @@ const props = defineProps({
         속성과 키보드·포커스 패턴을 컴포넌트별로 안내합니다.
       </ListItem>
       <ListItem>
-        <strong>이 저장소의 빌드</strong>
-        — <strong>Nuxt 4 + Vue 3</strong>로 개발·빌드합니다. 문서는
+        <strong>Nuxt 정적 사이트</strong>
+        — <strong>Nuxt 4 + Vue 3</strong>로 개발하며,
+        <TypoText variant="code" tag="span" label="nuxt generate" />로 정적 사이트를 생성합니다. 문서는
         <TypoText variant="code" tag="span" label="src/doc/" />
         의 Vue SFC로 관리합니다.
       </ListItem>
@@ -95,9 +97,59 @@ const props = defineProps({
   </ApiSection>
 
   <GuideSection
+    heading-id="vue-nuxt-heading"
+    title="기본 Vue 방식과 Nuxt 방식의 차이"
+    description="기본 Vue SPA는 브라우저에서 하나의 앱을 실행하고 모든 화면 전환을 처리합니다. 현재 가이드는 Nuxt가 문서별 정적 HTML과 메타데이터를 만들고, Vue가 필요한 데모 상호작용만 담당하도록 구성했습니다."
+  >
+    <div class="approach_compare-grid">
+      <article
+        v-for="approach in vueNuxtCards"
+        :key="approach.key"
+        :class="['approach_compare-card', `approach_compare-card-${approach.key}`]"
+      >
+        <header class="approach_compare-header">
+          <span class="approach_compare-badge">{{ approach.badge }}</span>
+          <h3>{{ approach.title }}</h3>
+          <p>{{ approach.summary }}</p>
+        </header>
+
+        <dl class="approach_compare-facts">
+          <div v-for="fact in approach.facts" :key="fact.label">
+            <dt>{{ fact.label }}</dt>
+            <dd>{{ fact.value }}</dd>
+          </div>
+        </dl>
+
+        <div class="approach_compare-section approach_compare-section-pros">
+          <h4>장점</h4>
+          <ul>
+            <li v-for="item in approach.pros" :key="item">{{ item }}</li>
+          </ul>
+        </div>
+
+        <div class="approach_compare-section approach_compare-section-cons">
+          <h4>단점</h4>
+          <ul>
+            <li v-for="item in approach.cons" :key="item">{{ item }}</li>
+          </ul>
+        </div>
+
+        <footer class="approach_compare-fit">
+          <strong>적합한 경우</strong>
+          <span>{{ approach.bestFor }}</span>
+        </footer>
+      </article>
+    </div>
+    <p>
+      즉, 컴포넌트와 상태 관리는 동일한 Vue 방식으로 작성하고,
+      페이지 생성·정적 생성·배포 경로 같은 애플리케이션 구조는 Nuxt가 담당합니다.
+    </p>
+  </GuideSection>
+
+  <GuideSection
     heading-id="quickstart-heading"
     title="빠른 시작"
-    description="이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Nuxt 개발 서버를 실행합니다. 자세한 내용은 설치 및 사용을 참고하세요."
+    description="이 가이드 저장소를 클론한 뒤 의존성을 설치하고 Nuxt 개발 서버를 실행합니다. 서버가 시작되면 http://localhost:3000에서 확인할 수 있습니다. 자세한 내용은 설치 및 사용을 참고하세요."
   >
     <p>
       <Link

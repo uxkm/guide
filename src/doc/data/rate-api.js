@@ -8,7 +8,7 @@ export const ratePropColumns = [
 
 export const rateProps = [
   { name: 'model-value', type: 'number', default: '—', description: 'v-model 별점 값' },
-  { name: 'value', type: 'number', default: '—', description: 'model-value 없을 때 표시값' },
+  { name: 'default-value', type: 'number', default: '—', description: '비제어 초기 별점 값' },
   { name: 'count', type: 'number', default: '5', description: '별 개수' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'rate_sm · rate_lg' },
   { name: 'allow-half', type: 'boolean', default: 'false', description: '0.5점 단위 (rate_allow-half)' },

@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTreeCode } from '@/utils/format-tree-code';
 
 defineOptions({ inheritAttrs: false });
 
@@ -17,12 +17,7 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
-const formatCode = createComponentFormatter('Tree', {
-  booleanProps: new Set(['bordered', 'lines', 'compact', 'multiselectable']),
-  selfClosing: false,
-});
-
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(formatTreeCode, props, slots, rootRef, attrs);
 
 const rootClass = computed(() => {
   const classes = ['tree'];

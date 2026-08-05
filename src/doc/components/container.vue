@@ -22,31 +22,19 @@ import {
   containerTokens,
 } from '@/doc/data/container-api';
 
-const basicCode = `<script setup>
-import Container from '@/components/Container.vue';
-<\/script>
-
-<template>
+const basicCode = `<template>
   <Container>
     <div class="container_demo-fill">container — 기본 최대 너비</div>
   </Container>
 </template>`;
 
-const fluidCode = `<script setup>
-import Container from '@/components/Container.vue';
-<\/script>
-
-<template>
+const fluidCode = `<template>
   <Container fluid>
     <div class="container_demo-fill">container container_fluid — 전체 너비</div>
   </Container>
 </template>`;
 
-const sizeCode = `<script setup>
-import Container from '@/components/Container.vue';
-<\/script>
-
-<template>
+const sizeCode = `<template>
   <Container size="sm">
     <div class="container_demo-fill">container_sm (36rem)</div>
   </Container>
@@ -61,11 +49,7 @@ import Container from '@/components/Container.vue';
   </Container>
 </template>`;
 
-const nestedCode = `<script setup>
-import Container from '@/components/Container.vue';
-<\/script>
-
-<template>
+const nestedCode = `<template>
   <Container fluid>
     <div class="container_demo-fill" style="margin-bottom: var(--space-md);">바깥 — fluid</div>
     <Container size="md">
@@ -73,12 +57,18 @@ import Container from '@/components/Container.vue';
     </Container>
   </Container>
 </template>`;
+
+const attrsCode = `<template>
+  <Container id="main-content" size="lg" aria-label="주요 콘텐츠">
+    <div class="container_demo-fill">HTML 속성 전달</div>
+  </Container>
+</template>`;
 </script>
 
 <template>
   <div class="page_intro">
     <h1>Container</h1>
-    <p class="lead">콘텐츠의 최대 너비와 좌우 여백을 일관되게 제한하는 레이아웃 컨테이너입니다.</p>
+    <p class="lead">Nuxt에서 자동 등록되어, 콘텐츠의 최대 너비와 좌우 여백을 일관되게 제한하는 레이아웃 컨테이너입니다.</p>
   </div>
 
   <DemoSection
@@ -90,6 +80,18 @@ import Container from '@/components/Container.vue';
   >
     <Container>
       <div class="container_demo-fill">container — 기본 최대 너비</div>
+    </Container>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="attrs-heading"
+    title="HTML 속성"
+    description="id·style·aria-* 및 이벤트 리스너는 컨테이너의 루트 요소에 전달됩니다. class는 기본·변형 클래스와 병합됩니다."
+    stack
+    :code="attrsCode"
+  >
+    <Container id="main-content" size="lg" aria-label="주요 콘텐츠">
+      <div class="container_demo-fill">HTML 속성 전달</div>
     </Container>
   </DemoSection>
 

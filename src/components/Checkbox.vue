@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, useAttrs, useId, useSlots, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, useAttrs, useId, useSlots, watch } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -10,13 +10,18 @@ const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
   label: String,
-  checked: Boolean,
+  checked: {
+    type: Boolean,
+    default: undefined,
+  },
+  defaultChecked: Boolean,
   disabled: Boolean,
   indeterminate: Boolean,
   labelEnd: Boolean,
   button: Boolean,
   ariaLabel: String,
 });
+const emit = defineEmits(['update:checked', 'change']);
 const { rippleAttrs } = useRipple(props, { defaultEnabled: false });
 
 const interactiveRippleAttrs = computed(() => {
@@ -32,10 +37,23 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 const inputRef = ref(null);
-const inputId = useId();
+const generatedId = useId();
+const inputId = computed(() => attrs.id ?? generatedId);
+const internalChecked = ref(Boolean(props.checked ?? props.defaultChecked));
+const currentChecked = computed(() =>
+  props.checked === undefined ? internalChecked.value : Boolean(props.checked)
+);
 
 const formatCode = createComponentFormatter('Checkbox', {
-  booleanProps: new Set(['checked', 'disabled', 'indeterminate', 'labelEnd', 'button', 'ripple']),
+  booleanProps: new Set([
+    'checked',
+    'defaultChecked',
+    'disabled',
+    'indeterminate',
+    'labelEnd',
+    'button',
+    'ripple',
+  ]),
   selfClosing: true,
 });
 
@@ -51,6 +69,18 @@ const rootClass = computed(() => {
 
 const hasLabel = computed(() => Boolean(props.label || slots.default));
 const isStandalone = computed(() => !hasLabel.value);
+const standaloneClass = computed(() => ['checkbox_control', attrs.class]);
+const inputAttrs = computed(() => {
+  const { class: _class, id: _id, ...rest } = attrs;
+  return rest;
+});
+
+watch(
+  () => props.checked,
+  (checked) => {
+    if (checked !== undefined) internalChecked.value = Boolean(checked);
+  }
+);
 
 function syncIndeterminate() {
   if (inputRef.value) {
@@ -60,18 +90,36 @@ function syncIndeterminate() {
 
 onMounted(syncIndeterminate);
 watch(() => props.indeterminate, syncIndeterminate);
+
+function onChange(event) {
+  const nextChecked = event.currentTarget.checked;
+
+  if (props.checked === undefined) {
+    internalChecked.value = nextChecked;
+  } else {
+    nextTick(() => {
+      if (inputRef.value) inputRef.value.checked = Boolean(props.checked);
+    });
+  }
+
+  emit('update:checked', nextChecked);
+  emit('change', event);
+  nextTick(syncIndeterminate);
+}
 </script>
 
 <template>
   <label v-if="isStandalone" ref="rootRef"
-    v-bind="interactiveRippleAttrs" class="checkbox_control" :aria-label="ariaLabel">
+    v-bind="interactiveRippleAttrs" :class="standaloneClass" :aria-label="ariaLabel">
     <input
+      :id="attrs.id"
       ref="inputRef"
       type="checkbox"
       class="checkbox_input"
-      :checked="checked"
+      :checked="currentChecked"
       :disabled="disabled"
-      v-bind="attrs"
+      v-bind="inputAttrs"
+      @change="onChange"
     />
     <span class="checkbox_box" aria-hidden="true" />
   </label>
@@ -81,9 +129,10 @@ watch(() => props.indeterminate, syncIndeterminate);
       ref="inputRef"
       type="checkbox"
       class="checkbox_input"
-      :checked="checked"
+      :checked="currentChecked"
       :disabled="disabled"
-      v-bind="attrs"
+      v-bind="inputAttrs"
+      @change="onChange"
     />
     <span class="checkbox_label">
       <slot>{{ label }}</slot>
@@ -99,9 +148,10 @@ watch(() => props.indeterminate, syncIndeterminate);
         ref="inputRef"
         type="checkbox"
         class="checkbox_input"
-        :checked="checked"
+        :checked="currentChecked"
         :disabled="disabled"
-        v-bind="attrs"
+        v-bind="inputAttrs"
+        @change="onChange"
       />
       <span class="checkbox_box" aria-hidden="true" />
     </span>

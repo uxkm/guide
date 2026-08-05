@@ -43,6 +43,49 @@ export const conventionRows = [
   },
 ];
 
+export const vueNuxtCards = [
+  {
+    key: 'spa',
+    badge: '기본 방식',
+    title: 'Vue SPA',
+    summary: '하나의 클라이언트 앱이 화면과 경로를 모두 처리합니다.',
+    facts: [
+      { label: '시작', value: 'index.html · src/main.js' },
+      { label: '경로', value: 'Vue Router에서 처리' },
+      { label: '출력', value: 'Vite → dist/' },
+    ],
+    pros: [
+      '구조와 설정이 단순합니다.',
+      '프레임워크 의존성이 낮고 정적 호스팅이 쉽습니다.',
+    ],
+    cons: [
+      '초기 화면이 JavaScript 실행에 의존합니다.',
+      '검색·공유 메타데이터와 직접 URL 접근을 별도로 구성해야 합니다.',
+    ],
+    bestFor: '검색 노출보다 클라이언트 상호작용이 중요한 도구·관리 화면',
+  },
+  {
+    key: 'nuxt',
+    badge: '현재 구성',
+    title: 'Nuxt',
+    summary: 'Nuxt가 정적 HTML과 경로를 만들고 Vue가 상호작용을 담당합니다.',
+    facts: [
+      { label: '시작', value: 'app.vue · pages/ · layouts/' },
+      { label: '경로', value: 'Nuxt 파일 기반 라우팅' },
+      { label: '출력', value: 'nuxt generate → .output/public/' },
+    ],
+    pros: [
+      '문서별 HTML과 메타데이터를 빌드 시 생성합니다.',
+      '파일 라우팅·내부 링크·baseURL을 Nuxt에서 일관되게 관리합니다.',
+    ],
+    cons: [
+      '서버와 클라이언트의 실행 환경을 구분해야 합니다.',
+      '동적 서버 기능은 정적 생성 시 별도 배포 전략이 필요합니다.',
+    ],
+    bestFor: '검색 가능한 정적 문서·콘텐츠와 점진적인 클라이언트 상호작용',
+  },
+];
+
 export const quickstartCode = `# 의존성 설치
 pnpm install
 

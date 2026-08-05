@@ -14,7 +14,7 @@ export const typoTitleProps = [
   },
   {
     name: 'color',
-    type: 'string',
+    type: `'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'error'`,
     default: '—',
     description: '공통 color_* 클래스',
   },
@@ -42,13 +42,13 @@ export const typoTextProps = [
   },
   {
     name: 'tag',
-    type: 'string',
+    type: `'p' | 'span' | 'div' | 'label' | 'code' | 'kbd' | 'pre' | 'strong' | 'em' | 'del' | 'mark' | 'sub' | 'sup' | 'small' | 'a' | 'blockquote' | …`,
     default: '—',
     description: '루트 HTML 태그 수동 지정 (variant 기본 태그 대체)',
   },
   {
     name: 'color',
-    type: 'string',
+    type: `'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'error'`,
     default: '—',
     description: '공통 color_* 클래스',
   },
@@ -68,19 +68,19 @@ export const typoTextProps = [
     name: 'href',
     type: 'string',
     default: '—',
-    description: 'variant="link"일 때 href',
+    description: 'a 태그로 렌더링될 때 링크 목적지',
   },
   {
     name: 'html-for',
     type: 'string',
     default: '—',
-    description: 'variant="label"일 때 for 속성',
+    description: 'label 태그로 렌더링될 때 연결할 폼 컨트롤 id',
   },
   {
     name: 'cite',
     type: 'string',
     default: '—',
-    description: 'variant="blockquote"일 때 cite 속성',
+    description: 'blockquote 태그로 렌더링될 때 인용 출처 URL',
   },
   {
     name: 'label',
@@ -116,7 +116,7 @@ export const typographyClassColumns = [
 export const typographyClasses = [
   { name: 'typo_title-1 ~ typo_title-5', description: '제목 스케일' },
   { name: 'typo_paragraph · typo_lead · typo_caption · typo_label · typo_overline', description: '본문·보조 텍스트' },
-  { name: 'typo_strong · typo_italic · typo_underline · typo_delete · typo_mark', description: '인라인 강조' },
+  { name: 'typo_strong · typo_italic · typo_underline · typo_delete · typo_mark', description: 'strong · em · span · del · mark 기반 인라인 강조' },
   { name: 'typo_sub · typo_sup · typo_small', description: '아래첨자 · 위첨자 · 보조 소문자 (sub · sup · small 태그)' },
   { name: 'typo_link', description: '본문 안 인라인 링크' },
   { name: 'typo_code · typo_kbd · typo_pre', description: '코드·키보드·코드 블록' },
@@ -135,14 +135,21 @@ export const typographyTokenColumns = [
 ];
 
 export const typographyTokens = [
-  { name: '--typo-title-*-size · weight · line-height', default: '—', description: '제목 레벨별 타이포' },
-  { name: '--typo-text-size · --typo-text-line-height', default: 'var(--text-size-base) · 1.6', description: '기본 본문' },
-  { name: '--typo-paragraph-gap', default: 'var(--space-md)', description: '단락 간격' },
-  { name: '--typo-list-gap', default: 'var(--space-xs)', description: '목록 항목 간격' },
-  { name: '--typo-lead-size · --typo-caption-size · --typo-label-size', default: '—', description: '리드·캡션·라벨 크기' },
+  { name: '--typo-title-1-size · … · --typo-title-5-size', default: '2.375rem · 1.875rem · 1.5rem · 1.25rem · 1rem', description: '제목 레벨별 크기' },
+  { name: '--typo-title-1-weight · … · --typo-title-5-weight', default: '700 · 700 · 600 · 600 · 600', description: '제목 레벨별 굵기' },
+  { name: '--typo-title-1-line-height · … · --typo-title-5-line-height', default: '1.2 · 1.25 · 1.3 · 1.35 · 1.4', description: '제목 레벨별 줄높이' },
+  { name: '--typo-title-1-letter-spacing · --typo-title-2-letter-spacing · --typo-title-3-letter-spacing', default: '-0.02em · -0.015em · -0.01em', description: 'h1~h3 자간' },
+  { name: '--typo-text-line-height', default: '1.6', description: '단락·목록·인용문 줄높이' },
+  { name: '--typo-paragraph-gap · --typo-list-gap', default: 'var(--space-md) · var(--space-xs)', description: '단락·목록 항목 간격' },
   { name: '--typo-mark-bg', default: 'rgba(250, 219, 20, 0.35)', description: '형광펜 배경' },
+  { name: '--typo-code-padding-y · --typo-code-padding-x · --typo-code-radius', default: '0.1em · 0.35em · 4px', description: '인라인 코드·mark 패딩과 모서리' },
+  { name: '--typo-blockquote-border-width', default: '3px', description: '인용문 왼쪽 테두리' },
   { name: '--typo-sub-sup-size · --typo-sub-offset · --typo-sup-offset', default: '0.75em · -0.25em · -0.5em', description: '아래·위첨자 크기·오프셋' },
   { name: '--typo-small-size', default: 'var(--text-size-sm)', description: 'small 태그 보조 텍스트 크기' },
+  { name: '--typo-lead-size · --typo-lead-line-height', default: 'var(--text-size-lg) · 1.6', description: '리드 텍스트' },
+  { name: '--typo-caption-size · --typo-label-size · --typo-label-weight', default: 'var(--text-size-xs) · var(--text-size-sm) · 600', description: '캡션·레이블' },
+  { name: '--typo-overline-size · --typo-overline-weight · --typo-overline-spacing', default: 'var(--text-size-xs) · 600 · 0.06em', description: '오버라인 텍스트' },
+  { name: '--typo-kbd-padding-y · --typo-kbd-padding-x', default: '0.15em · 0.4em', description: '키보드 키 패딩' },
   { name: '--typo-pre-padding · --typo-pre-radius', default: 'var(--space-md) · var(--radius-md)', description: '코드 블록' },
 ];
 

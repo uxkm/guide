@@ -3,6 +3,8 @@ import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
+const VALID_SIZES = new Set(['', 'sm', 'lg']);
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -23,7 +25,6 @@ const props = defineProps({
   size: {
     type: String,
     default: '',
-    validator: (v) => ['', 'sm', 'lg'].includes(v),
   },
   role: {
     type: String,
@@ -34,6 +35,7 @@ const props = defineProps({
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : ''));
 
 const formatCode = createComponentFormatter('Calendar', {
   defaults: { role: 'application' },
@@ -54,7 +56,7 @@ const formatCode = createComponentFormatter('Calendar', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs, {
+useComponentDemoCode(formatCode, () => ({ ...props, size: resolvedSize.value }), slots, rootRef, attrs, {
   when: (calendarProps) => !calendarProps.wheel,
 });
 
@@ -72,8 +74,8 @@ const rootClass = computed(() => {
   if (props.weekends) classes.push('calendar_weekends');
   if (props.agenda) classes.push('calendar_agenda');
   if (props.wheel) classes.push('calendar_wheel');
-  if (props.size === 'sm') classes.push('calendar_sm');
-  if (props.size === 'lg') classes.push('calendar_lg');
+  if (resolvedSize.value === 'sm') classes.push('calendar_sm');
+  if (resolvedSize.value === 'lg') classes.push('calendar_lg');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });

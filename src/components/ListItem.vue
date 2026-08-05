@@ -20,16 +20,19 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 const listContext = inject('listContext', computed(() => ({ tag: 'ul', variant: 'default' })));
+const resolvedTagProp = computed(() =>
+  ['auto', 'li', 'dt', 'dd'].includes(props.tag) ? props.tag : 'auto'
+);
 
 const isDefinitionPair = computed(() => {
-  if (props.tag !== 'auto') return false;
+  if (resolvedTagProp.value !== 'auto') return false;
   if (listContext.value.tag !== 'dl') return false;
   return Boolean(props.title && props.description);
 });
 
 const resolvedTag = computed(() => {
   if (isDefinitionPair.value) return null;
-  if (props.tag !== 'auto') return props.tag;
+  if (resolvedTagProp.value !== 'auto') return resolvedTagProp.value;
   if (listContext.value.tag === 'dl') {
     if (props.title && !props.description) return 'dt';
     if (props.description && !props.title) return 'dd';
@@ -64,7 +67,13 @@ const formatCode = (itemProps, itemSlots, itemAttrs) => {
   });
 };
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({ ...props, tag: resolvedTagProp.value }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const hasContent = () =>
   Boolean(props.title || props.description || props.meta || slots.default);

@@ -28,13 +28,12 @@ const rootClass = computed(() => {
   const classes = ['container'];
   if (props.fluid) classes.push('container_fluid');
   if (props.size) classes.push(`container_${props.size}`);
-  if (attrs.class) classes.push(attrs.class);
   return classes;
 });
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass">
+  <div ref="rootRef" v-bind="attrs" :class="rootClass">
     <slot />
   </div>
 </template>

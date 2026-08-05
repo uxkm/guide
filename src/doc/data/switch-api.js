@@ -8,7 +8,8 @@ export const switchPropColumns = [
 
 export const switchProps = [
   { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. default 슬롯으로 대체' },
-  { name: 'checked', type: 'boolean', default: 'false', description: '켜짐 상태' },
+  { name: 'checked', type: 'boolean', default: '—', description: '제어 켜짐 상태. v-model:checked 지원' },
+  { name: 'default-checked', type: 'boolean', default: 'false', description: '비제어 초기 켜짐 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'label-end', type: 'boolean', default: 'false', description: '라벨을 스위치 뒤에 배치' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'switch_sm · switch_lg' },
@@ -22,7 +23,17 @@ export const switchSlotColumns = [
 ];
 
 export const switchSlots = [
-  { name: 'default', description: '라벨 텍스트 (label prop 대체)' },
+  { name: 'default', description: '라벨 텍스트 (label prop 대체). switch_content · switch_hint 조합 가능' },
+];
+
+export const switchEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const switchEvents = [
+  { name: 'update:checked', description: '켜짐 상태 변경 시. v-model:checked에 사용' },
+  { name: 'change', description: '네이티브 input change 이벤트' },
 ];
 
 export const switchClassColumns = [

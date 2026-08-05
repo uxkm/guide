@@ -1,8 +1,10 @@
 <script setup>
 import Spin from '@/components/Spin.vue';
-import { computed, ref } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   loading: Boolean,
@@ -15,26 +17,33 @@ const props = defineProps({
   },
 });
 
+const slots = useSlots();
+const attrs = useAttrs();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('SpinWrap', {
   booleanProps: new Set(['loading', 'block', 'blur']),
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
-const rootClass = computed(() => [
-  'spin_wrap',
-  {
-    'spin_wrap-block': props.block,
-    'spin_wrap-blur': props.blur,
-    'is-loading': props.loading,
-  },
-]);
+const rootClass = computed(() => {
+  const classes = ['spin_wrap'];
+  if (props.block) classes.push('spin_wrap-block');
+  if (props.blur) classes.push('spin_wrap-blur');
+  if (props.loading) classes.push('is-loading');
+  if (attrs.class) classes.push(attrs.class);
+  return classes;
+});
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass">
+  <div ref="rootRef" :class="rootClass" v-bind="fallthroughAttrs">
     <div class="spin_wrap-body">
       <slot />
     </div>

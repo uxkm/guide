@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Icon | HTML Components',
+  title: 'Icon | UXKM Guide',
   activeNav: 'icon',
   pageTitle: 'Icon',
 };
@@ -35,22 +35,15 @@ import Icon from '@/components/Icon.vue';
   <Icon name="trash" />
 </template>`;
 
-const customCode = `<script setup>
+const sourceCode = `<script setup>
 import Icon from '@/components/Icon.vue';
 import { avatarSample } from '@images';
 <\/script>
 
 <template>
-  <Icon name="search" />
-  <Icon>
-    <template #path>
-      <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
-    </template>
-  </Icon>
-  <Icon size="lg">
-    <template #image>
-      <img :src="avatarSample" alt="" />
-    </template>
+  <Icon as="img" :src="avatarSample" alt="프로필" size="lg" />
+  <Icon as="span" size="lg" aria-label="프로필">
+    <img :src="avatarSample" alt="" />
   </Icon>
 </template>`;
 
@@ -166,7 +159,7 @@ import { commonIconGallery } from '@/data/common-icons';
       :key="name"
       class="icon_grid-item"
     >
-      <Icon :name="name" class="icon_lg" />
+      <Icon :name="name" size="lg" />
       <TypoText tag="span" size="sm" color="muted">{{ name }}</TypoText>
     </div>
   </div>
@@ -176,13 +169,13 @@ import { commonIconGallery } from '@/data/common-icons';
 <template>
   <div class="page_intro">
     <h1>Icon</h1>
-    <p class="lead">name 갤러리, #path 커스텀 SVG, #image 이미지 삽입을 슬롯으로 구분하는 아이콘 기본 요소입니다.</p>
+    <p class="lead">이름, 이미지, 커스텀 요소를 같은 크기와 정렬 규칙으로 표시하는 기본 요소입니다.</p>
   </div>
 
   <DemoSection
     heading-id="basic-heading"
-    title="기본"
-    description="name prop으로 common-icons 갤러리 키를 지정합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다."
+    title="이름으로 사용"
+    description="name prop에 common-icons 키를 지정하는 방식을 권장합니다. stroke 아이콘은 currentColor로 부모 색상을 상속합니다."
     :code="basicCode"
   >
     <Icon name="search" />
@@ -191,21 +184,14 @@ import { commonIconGallery } from '@/data/common-icons';
   </DemoSection>
 
   <DemoSection
-    heading-id="custom-heading"
-    title="커스텀 · 슬롯"
-    description="우선순위는 #image &gt; #path(또는 기본 슬롯) &gt; name입니다. 갤러리에 없는 도형은 #path로, 이미지는 #image로 넣습니다."
-    :code="customCode"
+    heading-id="source-heading"
+    title="이미지 · 커스텀 요소"
+    description="src로 이미지 아이콘을 렌더하거나, as로 루트 요소를 지정하고 img·svg·컴포넌트를 기본 슬롯으로 전달할 수 있습니다."
+    :code="sourceCode"
   >
-    <Icon name="search" />
-    <Icon>
-      <template #path>
-        <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
-      </template>
-    </Icon>
-    <Icon size="lg">
-      <template #image>
-        <img :src="avatarSample" alt="" />
-      </template>
+    <Icon as="img" :src="avatarSample" alt="프로필" size="lg" />
+    <Icon as="span" size="lg" aria-label="프로필">
+      <img :src="avatarSample" alt="" />
     </Icon>
   </DemoSection>
 
@@ -329,7 +315,7 @@ import { commonIconGallery } from '@/data/common-icons';
         :key="name"
         class="icon_grid-item"
       >
-        <Icon :name="name" class="icon_lg" />
+        <Icon :name="name" size="lg" />
         <TypoText tag="span" size="sm" color="muted">{{ name }}</TypoText>
       </div>
     </div>

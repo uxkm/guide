@@ -40,6 +40,20 @@ import Tag from '@/components/Tag.vue';
   <Tag color="info" label="Info" />
 </template>`;
 
+const semanticCode = `<script setup>
+import Tag from '@/components/Tag.vue';
+<\/script>
+
+<template>
+  <ul class="tag_group" aria-label="기술 분류">
+    <Tag as="li" color="primary" label="Vue" />
+    <Tag as="li" color="success" label="Nuxt" />
+  </ul>
+  <p>
+    <Tag as="strong" color="warning" label="추천" /> 항목입니다.
+  </p>
+</template>`;
+
 const solidCode = `<script setup>
 import Tag from '@/components/Tag.vue';
 <\/script>
@@ -281,9 +295,24 @@ import TagGroup from '@/components/TagGroup.vue';
   </DemoSection>
 
   <DemoSection
+    heading-id="semantic-heading"
+    title="시맨틱 요소"
+    description="일반 Tag는 기본적으로 span을 사용하며, as prop으로 콘텐츠 구조와 의미에 맞는 HTML 요소 또는 커스텀 컴포넌트를 지정합니다. checkable·add·href 사용 시에는 접근성을 위해 button 또는 a를 자동으로 사용합니다."
+    :code="semanticCode"
+  >
+    <ul class="tag_group" aria-label="기술 분류">
+      <Tag as="li" color="primary" label="Vue" />
+      <Tag as="li" color="success" label="Nuxt" />
+    </ul>
+    <p>
+      <Tag as="strong" color="warning" label="추천" /> 항목입니다.
+    </p>
+  </DemoSection>
+
+  <DemoSection
     heading-id="solid-heading"
     title="솔리드"
-    description="tag_solid로 채움 배경·대비 텍스트를 적용합니다. 강조가 필요한 레이블에 사용합니다."
+    description='variant="solid"로 tag_solid 채움 배경·대비 텍스트를 적용합니다.'
     :code="solidCode"
   >
     <Tag variant="solid" color="default" label="Default" />
@@ -297,7 +326,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="outline-heading"
     title="아웃라인"
-    description="tag_outline으로 배경 없이 테두리만 표시합니다."
+    description='variant="outline"으로 배경 없이 테두리만 표시합니다.'
     :code="outlineCode"
   >
     <Tag variant="outline" color="default" label="Default" />
@@ -311,7 +340,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="size-heading"
     title="크기"
-    description="tag_sm · tag_lg로 스케일을 조절합니다. Filled · Outline · Solid 모두 적용 가능합니다."
+    description="size prop으로 tag_sm · tag_lg 스케일을 조절합니다. Filled · Outline · Solid 모두 적용 가능합니다."
     stack
     :code="sizeCode"
   >
@@ -335,7 +364,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="round-heading"
     title="둥근"
-    description="tag_round로 pill 형태의 모서리를 적용합니다."
+    description="round prop으로 tag_round pill 형태의 모서리를 적용합니다."
     :code="roundCode"
   >
     <Tag round color="primary" label="Filled" />
@@ -347,7 +376,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="icon-heading"
     title="아이콘"
-    description="tag_icon으로 앞에 아이콘을 배치합니다. 크기는 태그 스케일에 맞춰 조절됩니다."
+    description="icon 슬롯으로 텍스트 앞에 아이콘을 배치합니다. 크기는 태그 스케일에 맞춰 조절됩니다."
     :code="iconCode"
   >
     <Tag color="primary" label="Design">
@@ -388,7 +417,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="close-heading"
     title="닫기 가능"
-    description="tag_close 버튼으로 제거 가능한 태그를 만듭니다. Filled · Outline · Solid · 아이콘 조합이 가능합니다."
+    description="closable prop과 close-label로 제거 가능한 태그를 만듭니다."
     stack
     :code="closeCode"
   >
@@ -411,7 +440,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="checkable-heading"
     title="선택 가능"
-    description="tag_checkable로 필터·토글 태그를 만듭니다. is-selected로 선택 상태를 표시합니다."
+    description="checkable prop으로 필터·토글 태그를 만듭니다. selected prop으로 is-selected 상태를 표시합니다."
     stack
     :code="checkableCode"
   >
@@ -440,7 +469,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="add-heading"
     title="추가"
-    description="tag_add로 새 항목을 추가하는 버튼 형태의 태그를 만듭니다."
+    description="add prop으로 새 항목을 추가하는 버튼 형태의 태그를 만듭니다."
     :code="addCode"
   >
     <Tag add round label="태그 추가">
@@ -457,7 +486,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="link-heading"
     title="링크"
-    description="a 태그에 .tag 클래스를 적용해 클릭 가능한 태그 링크를 만듭니다."
+    description="href prop으로 클릭 가능한 태그 링크(a.tag)를 만듭니다."
     :code="linkCode"
   >
     <Tag href="#" color="primary" label="문서 보기" />
@@ -477,7 +506,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="disabled-heading"
     title="비활성"
-    description="is-disabled로 비활성 상태를 표시합니다. button 태그에는 disabled 속성을 함께 사용합니다."
+    description="disabled prop으로 is-disabled 상태를 표시합니다. button 태그에는 disabled 속성을 함께 사용합니다."
     :code="disabledCode"
   >
     <Tag disabled color="primary" label="Filled" />
@@ -490,7 +519,7 @@ import TagGroup from '@/components/TagGroup.vue';
   <DemoSection
     heading-id="group-heading"
     title="그룹"
-    description="tag_group으로 여러 태그를 묶어 표시합니다. tag_group-tight로 간격을 줄일 수 있습니다."
+    description="TagGroup으로 여러 태그를 묶어 표시합니다. tight prop으로 tag_group-tight 간격을 줄일 수 있습니다."
     stack
     :code="groupCode"
   >

@@ -5,6 +5,16 @@ import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useAlertDemoCode } from '@/composables/useDemoCode';
 
+const VALID_COLORS = new Set(['info', 'success', 'warning', 'danger']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
+const ALERT_ICONS = {
+  info: 'info',
+  success: 'check-circle',
+  warning: 'alert-triangle',
+  danger: 'x-circle',
+};
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -34,7 +44,6 @@ const props = defineProps({
 });
 const { rippleAttrs } = useRipple(props);
 
-
 const emit = defineEmits(['close']);
 
 const slots = useSlots();
@@ -42,17 +51,32 @@ const attrs = useAttrs();
 const rootRef = ref(null);
 const visible = ref(true);
 
-useAlertDemoCode(props, rootRef, attrs);
+const resolvedColor = computed(() =>
+  VALID_COLORS.has(props.color) ? props.color : 'info'
+);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+
+useAlertDemoCode(
+  () => ({
+    ...props,
+    color: resolvedColor.value,
+    size: resolvedSize.value,
+  }),
+  rootRef,
+  attrs
+);
 
 const colorClass = computed(() => {
-  if (props.color === 'danger') return 'color_error';
-  return `color_${props.color}`;
+  if (resolvedColor.value === 'danger') return 'color_error';
+  return `color_${resolvedColor.value}`;
 });
 
 const rootClass = computed(() => {
   const classes = ['alert', colorClass.value];
-  if (props.size === 'sm') classes.push('alert_sm');
-  if (props.size === 'lg') classes.push('alert_lg');
+  if (resolvedSize.value === 'sm') classes.push('alert_sm');
+  if (resolvedSize.value === 'lg') classes.push('alert_lg');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });
@@ -60,19 +84,16 @@ const rootClass = computed(() => {
 const hasTitle = computed(() => Boolean(props.title));
 const hasDescription = computed(() => Boolean(props.description || slots.default));
 
-const alertIconName = computed(() => {
-  const names = {
-    info: 'info',
-    success: 'check-circle',
-    warning: 'alert-triangle',
-    danger: 'x-circle',
-  };
-  return names[props.color] ?? 'info';
+const alertIconName = computed(() => ALERT_ICONS[resolvedColor.value] ?? 'info');
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
 });
 
-function onClose() {
+function onClose(event) {
   visible.value = false;
-  emit('close');
+  emit('close', event);
 }
 </script>
 
@@ -80,9 +101,9 @@ function onClose() {
   <div
     v-if="visible"
     ref="rootRef"
+    v-bind="fallthroughAttrs"
     :class="rootClass"
     :role="role"
-    v-bind="attrs"
   >
     <div v-if="showIcon" data-demo-slot="icon">
       <slot name="icon">
@@ -94,7 +115,9 @@ function onClose() {
       <p v-if="hasDescription" class="alert_desc">
         <slot>{{ description }}</slot>
       </p>
-      <slot name="actions" />
+      <div v-if="$slots.actions" class="alert_actions" data-demo-slot="actions">
+        <slot name="actions" />
+      </div>
     </div>
     <Button
       v-if="closable"

@@ -158,7 +158,7 @@ import ListItem from '@/components/ListItem.vue';
         <ListItem>pnpm dev 실행</ListItem>
       </List>
     </ListItem>
-    <ListItem title="빌드" description="pnpm build로 html/ 출력" />
+    <ListItem title="빌드" description="pnpm build로 .output/ 출력" />
   </List>
 </template>`;
 
@@ -229,17 +229,17 @@ import ListItem from '@/components/ListItem.vue';
 <template>
   <List class="list_bullet">
     <ListItem>
-      <a href="components/button.html" class="list_link" data-ripple>
+      <a href="/components/button" class="list_link" data-ripple>
         <span class="list_title">Button</span>
       </a>
     </ListItem>
     <ListItem>
-      <a href="components/typography.html" class="list_link" data-ripple>
+      <a href="/components/typography" class="list_link" data-ripple>
         <span class="list_title">Typography</span>
       </a>
     </ListItem>
     <ListItem>
-      <a href="components/icon.html" class="list_link" data-ripple>
+      <a href="/components/icon" class="list_link" data-ripple>
         <span class="list_title">Icon</span>
       </a>
     </ListItem>
@@ -267,7 +267,7 @@ import ListItem from '@/components/ListItem.vue';
 <template>
   <List split>
     <ListItem>
-      <a href="components/button.html" class="list_link" data-ripple>
+      <a href="/components/button" class="list_link" data-ripple>
         <div class="list_content">
           <span class="list_title">대시보드</span>
         </div>
@@ -275,7 +275,7 @@ import ListItem from '@/components/ListItem.vue';
       </a>
     </ListItem>
     <ListItem>
-      <a href="components/card.html" class="list_link" data-ripple>
+      <a href="/components/card" class="list_link" data-ripple>
         <div class="list_content">
           <span class="list_title">프로젝트</span>
         </div>
@@ -283,7 +283,7 @@ import ListItem from '@/components/ListItem.vue';
       </a>
     </ListItem>
     <ListItem>
-      <a href="getting-started.html" class="list_link" data-ripple>
+      <a href="/getting-started" class="list_link" data-ripple>
         <div class="list_content">
           <span class="list_title">설정</span>
         </div>
@@ -333,7 +333,7 @@ import ListItem from '@/components/ListItem.vue';
 <template>
   <List class="list_cards">
     <ListItem>
-      <a href="components/card.html" class="card card_shadow card_clickable card_horizontal">
+      <a href="/components/card" class="card card_shadow card_clickable card_horizontal">
         <div class="card_media card_media-placeholder" role="img" aria-label="프로젝트 썸네일">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -377,7 +377,7 @@ import ListItem from '@/components/ListItem.vue';
       </article>
     </ListItem>
     <ListItem>
-      <a href="components/list.html" class="card card_accent color_primary card_clickable">
+      <a href="/components/list" class="card card_accent color_primary card_clickable">
         <div class="card_body">
           <p class="card_title" style="margin-bottom: 0.25rem;">알림</p>
           <p class="list_desc">리스트와 카드를 함께 사용하는 패턴입니다.</p>
@@ -580,7 +580,7 @@ import ListItem from '@/components/ListItem.vue';
           <ListItem>pnpm dev 실행</ListItem>
         </List>
       </ListItem>
-      <ListItem title="빌드" description="pnpm build로 html/ 출력" />
+      <ListItem title="빌드" description="pnpm build로 .output/ 출력" />
     </List>
   </DemoSection>
 
@@ -654,17 +654,17 @@ import ListItem from '@/components/ListItem.vue';
   >
     <List class="list_bullet">
       <ListItem>
-        <a href="components/button.html" class="list_link" data-ripple>
+        <a href="/components/button" class="list_link" data-ripple>
           <span class="list_title">Button</span>
         </a>
       </ListItem>
       <ListItem>
-        <a href="components/typography.html" class="list_link" data-ripple>
+        <a href="/components/typography" class="list_link" data-ripple>
           <span class="list_title">Typography</span>
         </a>
       </ListItem>
       <ListItem>
-        <a href="components/icon.html" class="list_link" data-ripple>
+        <a href="/components/icon" class="list_link" data-ripple>
           <span class="list_title">Icon</span>
         </a>
       </ListItem>
@@ -692,7 +692,7 @@ import ListItem from '@/components/ListItem.vue';
   >
     <List split>
       <ListItem>
-        <a href="components/button.html" class="list_link" data-ripple>
+        <a href="/components/button" class="list_link" data-ripple>
           <div class="list_content">
             <span class="list_title">대시보드</span>
           </div>
@@ -700,7 +700,7 @@ import ListItem from '@/components/ListItem.vue';
         </a>
       </ListItem>
       <ListItem>
-        <a href="components/card.html" class="list_link" data-ripple>
+        <a href="/components/card" class="list_link" data-ripple>
           <div class="list_content">
             <span class="list_title">프로젝트</span>
           </div>
@@ -708,7 +708,7 @@ import ListItem from '@/components/ListItem.vue';
         </a>
       </ListItem>
       <ListItem>
-        <a href="getting-started.html" class="list_link" data-ripple>
+        <a href="/getting-started" class="list_link" data-ripple>
           <div class="list_content">
             <span class="list_title">설정</span>
           </div>
@@ -756,7 +756,7 @@ import ListItem from '@/components/ListItem.vue';
   >
     <List class="list_cards">
       <ListItem>
-        <a href="components/card.html" class="card card_shadow card_clickable card_horizontal">
+        <a href="/components/card" class="card card_shadow card_clickable card_horizontal">
           <div class="card_media card_media-placeholder" role="img" aria-label="프로젝트 썸네일">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" />
@@ -798,7 +798,7 @@ import ListItem from '@/components/ListItem.vue';
         </article>
       </ListItem>
       <ListItem>
-        <a href="components/list.html" class="card card_accent color_primary card_clickable">
+        <a href="/components/list" class="card card_accent color_primary card_clickable">
           <div class="card_body">
             <p class="card_title" style="margin-bottom: 0.25rem;">알림</p>
             <p class="list_desc">리스트와 카드를 함께 사용하는 패턴입니다.</p>

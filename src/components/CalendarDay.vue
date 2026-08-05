@@ -53,12 +53,21 @@ const isDisabled = computed(() => {
   if (props.otherMonth && !isPartOfRange.value) return true;
   return false;
 });
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+const buttonAttrs = computed(() => ({
+  ...rippleAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 </script>
 
 <template>
   <button
     type="button"
-    v-bind="rippleAttrs"
+    v-bind="buttonAttrs"
     :class="dayClass"
     :disabled="isDisabled || undefined"
     :aria-current="today ? 'date' : undefined"

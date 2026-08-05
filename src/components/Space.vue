@@ -14,8 +14,16 @@ const props = defineProps({
     default: 'md',
     validator: (v) => ['xs', 'sm', 'md', 'lg', 'xl'].includes(v),
   },
-  align: String,
-  justify: String,
+  align: {
+    type: String,
+    default: '',
+    validator: (v) => ['', 'start', 'center', 'end', 'baseline', 'stretch'].includes(v),
+  },
+  justify: {
+    type: String,
+    default: '',
+    validator: (v) => ['', 'start', 'center', 'end', 'between'].includes(v),
+  },
 });
 
 const slots = useSlots();
@@ -37,13 +45,12 @@ const rootClass = computed(() => {
   if (props.gap && props.gap !== 'md') classes.push(`space_gap-${props.gap}`);
   if (props.align) classes.push(`space_align-${props.align}`);
   if (props.justify) classes.push(`space_justify-${props.justify}`);
-  if (attrs.class) classes.push(attrs.class);
   return classes;
 });
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass">
+  <div ref="rootRef" v-bind="attrs" :class="rootClass">
     <slot />
   </div>
 </template>

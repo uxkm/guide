@@ -8,6 +8,12 @@ export const linkPropColumns = [
 
 export const linkProps = [
   {
+    name: 'as',
+    type: 'string | Component',
+    default: 'a',
+    description: '루트 요소 또는 커스텀 링크 컴포넌트. button 등으로 변경할 수 있습니다',
+  },
+  {
     name: 'color',
     type: `'primary' | 'muted' | 'success' | 'warning' | 'danger'`,
     default: 'primary',
@@ -112,7 +118,7 @@ export const linkSlotColumns = [
 ];
 
 export const linkSlots = [
-  { name: 'default', description: '링크 텍스트 (label prop 대체)' },
+  { name: 'default', description: 'label 대체 콘텐츠. 텍스트·이미지·아이콘·커스텀 컴포넌트를 함께 넣을 수 있음' },
   { name: 'icon', description: '텍스트 앞 아이콘 (link_icon)' },
 ];
 
@@ -126,6 +132,7 @@ export const linkClasses = [
   { name: 'link_underline · link_no-underline · link_standalone', description: '밑줄·터치 영역' },
   { name: 'link_nav · link_back · link_block · link_icon-only', description: '용도별 변형' },
   { name: 'link_icon', description: '링크 내 아이콘' },
+  { name: 'link_media', description: '링크 내 이미지·미디어' },
   { name: 'link_row · link_group · link_group-inline', description: '링크 묶음 레이아웃' },
   { name: 'is-active · is-disabled', description: '상태 클래스' },
   { name: 'color_* · size_*', description: '공통 색상·크기 유틸' },

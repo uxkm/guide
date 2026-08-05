@@ -3,6 +3,8 @@ import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useTableDemoCode } from '@/composables/useDemoCode';
 import { columnColStyle, columnRootVars } from '@/utils/table-column-sizing';
 
+const VALID_STICKY_COLS = new Set([1, 2, 3, 4]);
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -44,14 +46,21 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
-useTableDemoCode(props, slots, rootRef, attrs);
+const hasColumns = computed(() => Array.isArray(props.columns) && props.columns.length > 0);
+const resolvedStickyCols = computed(() =>
+  VALID_STICKY_COLS.has(props.stickyCols) ? props.stickyCols : 1
+);
 
-const hasColumns = computed(() => props.columns.length > 0);
+useTableDemoCode(
+  () => ({ ...props, stickyCols: resolvedStickyCols.value }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const stickyColsClass = computed(() => {
   if (!props.stickyLeft) return null;
-  const n = props.stickyCols || 1;
-  return `table_sticky-cols-${n}`;
+  return `table_sticky-cols-${resolvedStickyCols.value}`;
 });
 
 const tableClass = computed(() => {
@@ -100,11 +109,27 @@ const wrapStyle = computed(() => {
   return style;
 });
 
+const unwrappedTableStyle = computed(() => ({
+  ...tableStyle.value,
+  ...wrapStyle.value,
+}));
+
+const bindAttrs = computed(() => {
+  const { class: _class, style: _style, ...rest } = attrs;
+  return rest;
+});
+
 const colStyle = (column) => columnColStyle(column);
 </script>
 
 <template>
-  <div v-if="wrap" ref="rootRef" :class="wrapClass" :style="wrapStyle">
+  <div
+    v-if="wrap"
+    ref="rootRef"
+    :class="wrapClass"
+    :style="wrapStyle"
+    v-bind="bindAttrs"
+  >
     <table :class="tableClass" :style="tableStyle">
       <colgroup v-if="hasColumns">
         <col
@@ -120,7 +145,8 @@ const colStyle = (column) => columnColStyle(column);
     v-else
     ref="rootRef"
     :class="[...tableClass, attrs.class]"
-    :style="tableStyle"
+    :style="unwrappedTableStyle"
+    v-bind="bindAttrs"
   >
     <colgroup v-if="hasColumns">
       <col

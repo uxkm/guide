@@ -2,7 +2,7 @@
 import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTreeNodeCode } from '@/utils/format-tree-code';
 
 defineOptions({ inheritAttrs: false });
 
@@ -10,7 +10,10 @@ const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
   label: String,
-  expanded: Boolean,
+  expanded: {
+    type: Boolean,
+    default: undefined,
+  },
   selected: Boolean,
   disabled: Boolean,
   expandable: Boolean,
@@ -21,17 +24,11 @@ const props = defineProps({
 });
 const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
 
-
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
-const formatCode = createComponentFormatter('TreeNode', {
-  booleanProps: new Set(['expanded', 'selected', 'disabled', 'expandable', 'plusToggle', 'link']),
-  selfClosing: false,
-});
-
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(formatTreeNodeCode, props, slots, rootRef, attrs);
 
 const emit = defineEmits(['update:expanded']);
 
@@ -53,7 +50,17 @@ function toggleExpand() {
   emit('update:expanded', isExpanded.value);
 }
 
-const itemClass = computed(() => attrs.class);
+const itemClass = computed(() => ['tree_item', attrs.class].filter(Boolean));
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+
+const rootAttrs = computed(() => ({
+  ...rippleAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 
 const rowClass = computed(() => {
   const classes = ['tree_row'];
@@ -72,11 +79,12 @@ const toggleClass = computed(() => {
 <template>
   <li
     ref="rootRef"
-    v-bind="rippleAttrs"
-    class="tree_item"
+    v-bind="rootAttrs"
     :class="itemClass"
     role="treeitem"
     :aria-expanded="showToggle ? (isExpanded ? 'true' : 'false') : undefined"
+    :aria-selected="selected ? 'true' : undefined"
+    :aria-disabled="disabled ? 'true' : undefined"
   >
     <div :class="rowClass">
       <button
@@ -97,7 +105,13 @@ const toggleClass = computed(() => {
         <slot name="icon" />
       </span>
 
-      <button v-if="link" v-bind="childRippleAttrs" type="button" class="tree_link">
+      <button
+        v-if="link"
+        v-bind="childRippleAttrs"
+        type="button"
+        class="tree_link"
+        :disabled="disabled || undefined"
+      >
         <slot name="label">
           <span class="tree_label">{{ label }}</span>
         </slot>

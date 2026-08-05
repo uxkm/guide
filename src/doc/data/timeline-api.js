@@ -13,7 +13,7 @@ export const timelineProps = [
   { name: 'icon', type: 'boolean', default: 'false', description: '아이콘 점 모드 (timeline_icon)' },
   { name: 'icon-size', type: `'sm' | 'md'`, default: 'md', description: 'icon 모드 점 크기 (timeline_icon-sm)' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'timeline_sm · timeline_lg' },
-  { name: 'tag', type: 'string', default: 'ol', description: '루트 태그 (ol · ul)' },
+  { name: 'tag', type: `'ol' | 'ul'`, default: 'ol', description: '루트 태그' },
 ];
 
 export const timelineItemPropColumns = timelinePropColumns;

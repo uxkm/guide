@@ -91,7 +91,7 @@ export function isIconDomNode(node) {
 
   const tag = node.tagName.toLowerCase();
 
-  if (tag === 'svg' && node.classList.contains('icon')) return true;
+  if (node.classList.contains('icon')) return true;
   if (tag === 'button' && node.classList.contains('icon_button')) return true;
   if (tag === 'span' && node.classList.contains('icon_circle')) return true;
   if (tag === 'span' && node.classList.contains('icon_square')) return true;
@@ -130,26 +130,23 @@ export function getIconPropsFromDom(rootEl) {
 
     const color = readColorProp(rootEl);
     if (color) props.color = color;
-  } else if (svg) {
-    if (svg.classList.contains('icon_sm')) props.size = 'sm';
-    else if (svg.classList.contains('icon_lg')) props.size = 'lg';
-    else if (svg.classList.contains('icon_xl')) props.size = 'xl';
+  } else if (svg || rootEl.classList.contains('icon')) {
+    const classRoot = svg ?? rootEl;
+    if (classRoot.classList.contains('icon_sm')) props.size = 'sm';
+    else if (classRoot.classList.contains('icon_lg')) props.size = 'lg';
+    else if (classRoot.classList.contains('icon_xl')) props.size = 'xl';
 
-    const color = readColorProp(svg);
+    const color = readColorProp(classRoot);
     if (color) props.color = color;
 
-    if (svg.classList.contains('icon_spin')) props.spin = true;
-    if (svg.classList.contains('icon_inline')) props.inline = true;
-  } else if (rootEl.classList.contains('icon_img')) {
-    if (rootEl.classList.contains('icon_sm')) props.size = 'sm';
-    else if (rootEl.classList.contains('icon_lg')) props.size = 'lg';
-    else if (rootEl.classList.contains('icon_xl')) props.size = 'xl';
+    if (classRoot.classList.contains('icon_spin')) props.spin = true;
+    if (classRoot.classList.contains('icon_inline')) props.inline = true;
 
-    const color = readColorProp(rootEl);
-    if (color) props.color = color;
-
-    if (rootEl.classList.contains('icon_spin')) props.spin = true;
-    if (rootEl.classList.contains('icon_inline')) props.inline = true;
+    if (tag === 'img') {
+      props.as = 'img';
+      props.src = rootEl.getAttribute('src');
+      props.alt = rootEl.getAttribute('alt') ?? '';
+    }
   }
 
   if (svg?.classList.contains('icon_inline') || rootEl.classList.contains('icon_inline')) {
@@ -178,8 +175,7 @@ function hasSlot(slots, name) {
 
 export function formatIconCode(props, customAttrs = {}, rootEl, slots = null) {
   const attrStr = formatIconProps(props, customAttrs);
-  const useImage = hasSlot(slots, 'image') || rootEl?.classList?.contains('icon_img')
-    || Boolean(rootEl?.querySelector?.('.icon_img'));
+  const useImage = hasSlot(slots, 'image');
 
   if (useImage) {
     const propsWithoutName = { ...props };

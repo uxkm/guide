@@ -64,6 +64,8 @@ export const dividerClasses = [
   { name: 'divider_plain', description: '보조 톤 레이블' },
   { name: 'divider_vertical', description: '세로 구분선 (인라인·flex 행)' },
   { name: 'divider_orient-left · divider_orient-right', description: '레이블 좌·우 정렬' },
+  { name: 'role="separator"', description: 'hr가 아닌 루트에 자동 적용되는 구분선 역할' },
+  { name: 'aria-orientation="vertical"', description: 'vertical일 때 자동 적용되는 세로 방향 정보' },
 ];
 
 export const dividerTokenColumns = [

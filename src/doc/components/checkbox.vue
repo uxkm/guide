@@ -15,6 +15,8 @@ import FormLayout from '@/components/FormLayout.vue';
 import {
   checkboxClassColumns,
   checkboxClasses,
+  checkboxEventColumns,
+  checkboxEvents,
   checkboxPropColumns,
   checkboxProps,
   checkboxSlotColumns,
@@ -28,10 +30,10 @@ import Checkbox from '@/components/Checkbox.vue';
 <\/script>
 
 <template>
-  <Checkbox checked label="기본 — checkbox" />
+  <Checkbox default-checked label="기본 — checkbox" />
   <Checkbox label-end label="레이블 뒤 — checkbox_label-end" />
   <fieldset class="checkbox_group checkbox_group_horizontal">
-    <Checkbox button checked label="버튼형" />
+    <Checkbox button default-checked label="버튼형" />
     <Checkbox button label="UI" />
     <Checkbox button label="UX" />
   </fieldset>
@@ -42,7 +44,7 @@ import Checkbox from '@/components/Checkbox.vue';
           <h3 class="card_title" id="checkbox-type-card-title">카드형 — checkbox_card</h3>
         </div>
         <div class="card_extra">
-          <Checkbox id="checkbox-type-card" checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc" />
+          <Checkbox id="checkbox-type-card" default-checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc" />
         </div>
       </div>
       <div class="card_body" id="checkbox-type-card-desc">card 컴포넌트와 조합해 제목·설명을 표시합니다.</div>
@@ -55,7 +57,7 @@ import Checkbox from '@/components/Checkbox.vue';
 <\/script>
 
 <template>
-  <Checkbox label-end checked label="푸시 알림 받기" />
+  <Checkbox label-end default-checked label="푸시 알림 받기" />
   <Checkbox label-end>
     <span class="checkbox_content">
       <span class="checkbox_label">마케팅 정보 수신</span>
@@ -64,12 +66,12 @@ import Checkbox from '@/components/Checkbox.vue';
   </Checkbox>
   <fieldset class="checkbox_group checkbox_group_block" style="max-width: 360px; width: 100%;">
     <legend class="checkbox_group-legend">알림 설정 — checkbox_group_block</legend>
-    <Checkbox label-end checked label="이메일 알림" />
-    <Checkbox label-end checked label="푸시 알림" />
+    <Checkbox label-end default-checked label="이메일 알림" />
+    <Checkbox label-end default-checked label="푸시 알림" />
     <Checkbox label-end label="SMS 알림" />
   </fieldset>
-  <Checkbox class="checkbox_sm" label-end checked label="Small — checkbox_sm" />
-  <Checkbox class="checkbox_lg" label-end checked label="Large — checkbox_lg" />
+  <Checkbox class="checkbox_sm" label-end default-checked label="Small — checkbox_sm" />
+  <Checkbox class="checkbox_lg" label-end default-checked label="Large — checkbox_lg" />
 </template>`;
 
 const basicCode = `<script setup>
@@ -80,7 +82,7 @@ import Checkbox from '@/components/Checkbox.vue';
   <div class="form_field">
     <span class="form_field-label" id="checkbox-notify-label">알림 설정</span>
     <fieldset class="checkbox_group" aria-labelledby="checkbox-notify-label">
-      <Checkbox checked>
+      <Checkbox default-checked>
         <span class="checkbox_content">
           <span class="checkbox_label">이메일 알림</span>
           <span class="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
@@ -102,7 +104,7 @@ import Checkbox from '@/components/Checkbox.vue';
 
 <template>
   <Checkbox aria-label="항목 선택" />
-  <Checkbox checked aria-label="선택됨" />
+  <Checkbox default-checked aria-label="선택됨" />
   <Checkbox disabled aria-label="비활성" />
 </template>`;
 
@@ -111,9 +113,9 @@ import Checkbox from '@/components/Checkbox.vue';
 <\/script>
 
 <template>
-  <Checkbox class="checkbox_sm" checked label="Small — checkbox_sm" />
-  <Checkbox checked label="Medium — 기본" />
-  <Checkbox class="checkbox_lg" checked label="Large — checkbox_lg" />
+  <Checkbox class="checkbox_sm" default-checked label="Small — checkbox_sm" />
+  <Checkbox default-checked label="Medium — 기본" />
+  <Checkbox class="checkbox_lg" default-checked label="Large — checkbox_lg" />
 </template>`;
 
 const widthCode = `<script setup>
@@ -121,11 +123,11 @@ import Checkbox from '@/components/Checkbox.vue';
 <\/script>
 
 <template>
-  <Checkbox checked label="기본 — 인라인 너비" />
-  <Checkbox class="checkbox_block" checked label="checkbox_block — 전체 너비" />
+  <Checkbox default-checked label="기본 — 인라인 너비" />
+  <Checkbox class="checkbox_block" default-checked label="checkbox_block — 전체 너비" />
   <fieldset class="checkbox_group checkbox_group_block" style="max-width: 360px; width: 100%;">
     <legend class="checkbox_group-legend">checkbox_group_block</legend>
-    <Checkbox checked label="항목 1" />
+    <Checkbox default-checked label="항목 1" />
     <Checkbox label="항목 2" />
   </fieldset>
 </template>`;
@@ -135,10 +137,10 @@ import Checkbox from '@/components/Checkbox.vue';
 <\/script>
 
 <template>
-  <Checkbox class="color_primary" checked label="Primary" />
-  <Checkbox class="color_success" checked label="Success" />
-  <Checkbox class="color_danger" checked label="Danger" />
-  <Checkbox class="color_warning" checked label="Warning" />
+  <Checkbox class="color_primary" default-checked label="Primary" />
+  <Checkbox class="color_success" default-checked label="Success" />
+  <Checkbox class="color_danger" default-checked label="Danger" />
+  <Checkbox class="color_warning" default-checked label="Warning" />
 </template>`;
 
 const stateCode = `<script setup>
@@ -147,10 +149,10 @@ import Checkbox from '@/components/Checkbox.vue';
 
 <template>
   <Checkbox label="미선택" />
-  <Checkbox checked label="선택됨" />
-  <Checkbox checked indeterminate label="불확정" />
+  <Checkbox default-checked label="선택됨" />
+  <Checkbox default-checked indeterminate label="불확정" />
   <Checkbox disabled label="비활성" />
-  <Checkbox checked disabled label="선택됨 (비활성)" />
+  <Checkbox default-checked disabled label="선택됨 (비활성)" />
 </template>`;
 
 const groupCode = `<script setup>
@@ -160,14 +162,14 @@ import Checkbox from '@/components/Checkbox.vue';
 <template>
   <fieldset class="checkbox_group">
     <legend class="checkbox_group-legend">관심 분야 (세로)</legend>
-    <Checkbox checked label="디자인" />
+    <Checkbox default-checked label="디자인" />
     <Checkbox label="개발" />
     <Checkbox label="기획" />
   </fieldset>
   <fieldset class="checkbox_group checkbox_group_horizontal">
     <legend class="checkbox_group-legend">언어 (가로)</legend>
-    <Checkbox button checked label="한국어" />
-    <Checkbox button checked label="English" />
+    <Checkbox button default-checked label="한국어" />
+    <Checkbox button default-checked label="English" />
     <Checkbox button label="日本語" />
   </fieldset>
 </template>`;
@@ -178,15 +180,15 @@ import Checkbox from '@/components/Checkbox.vue';
 
 <template>
   <fieldset class="checkbox_group checkbox_group_horizontal">
-    <Checkbox button checked label="전체" />
+    <Checkbox button default-checked label="전체" />
     <Checkbox button label="진행 중" />
     <Checkbox button label="완료" />
     <Checkbox button disabled label="보류 (비활성)" />
   </fieldset>
   <fieldset class="checkbox_group checkbox_group_horizontal">
-    <Checkbox button class="checkbox_sm color_success" checked label="Small" />
-    <Checkbox button class="color_success" checked label="Medium" />
-    <Checkbox button class="checkbox_lg color_success" checked label="Large" />
+    <Checkbox button class="checkbox_sm color_success" default-checked label="Small" />
+    <Checkbox button class="color_success" default-checked label="Medium" />
+    <Checkbox button class="checkbox_lg color_success" default-checked label="Large" />
   </fieldset>
 </template>`;
 
@@ -206,7 +208,7 @@ import Checkbox from '@/components/Checkbox.vue';
               <p class="card_subtitle">월 9,000원</p>
             </div>
             <div class="card_extra">
-              <Checkbox id="checkbox-plan-basic" name="plan" value="basic" checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc" />
+              <Checkbox id="checkbox-plan-basic" name="plan" value="basic" default-checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc" />
             </div>
           </div>
           <div class="card_body" id="checkbox-plan-basic-desc">개인 프로젝트에 적합합니다.</div>
@@ -252,7 +254,7 @@ import Checkbox from '@/components/Checkbox.vue';
               <h3 class="card_title" id="checkbox-perm-read-title">읽기</h3>
             </div>
             <div class="card_extra">
-              <Checkbox id="checkbox-perm-read" checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc" />
+              <Checkbox id="checkbox-perm-read" default-checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc" />
             </div>
           </div>
           <div class="card_body" id="checkbox-perm-read-desc">조회 권한</div>
@@ -265,7 +267,7 @@ import Checkbox from '@/components/Checkbox.vue';
               <h3 class="card_title" id="checkbox-perm-write-title">쓰기</h3>
             </div>
             <div class="card_extra">
-              <Checkbox id="checkbox-perm-write" checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc" />
+              <Checkbox id="checkbox-perm-write" default-checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc" />
             </div>
           </div>
           <div class="card_body" id="checkbox-perm-write-desc">수정 권한</div>
@@ -297,7 +299,7 @@ import Checkbox from '@/components/Checkbox.vue';
               <p class="card_subtitle">월 9,000원</p>
             </div>
             <div class="card_extra">
-              <Checkbox id="checkbox-plan-full-basic" name="plan-clickable" value="basic" checked aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc"  />
+              <Checkbox id="checkbox-plan-full-basic" name="plan-clickable" value="basic" default-checked aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc"  />
             </div>
           </div>
           <div class="card_body" id="checkbox-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
@@ -345,7 +347,7 @@ import FormLayout from '@/components/FormLayout.vue';
     <div class="form_field">
       <span class="form_field-label" id="checkbox-form-vertical-label">수신 동의</span>
       <fieldset class="checkbox_group" aria-labelledby="checkbox-form-vertical-label">
-        <Checkbox checked label="마케팅 정보 수신" />
+        <Checkbox default-checked label="마케팅 정보 수신" />
         <Checkbox label="뉴스레터 구독" />
       </fieldset>
     </div>
@@ -354,7 +356,7 @@ import FormLayout from '@/components/FormLayout.vue';
     <div class="form_field">
       <span class="form_field-label" id="checkbox-form-horizontal-label">권한</span>
       <fieldset class="checkbox_group checkbox_group_horizontal" aria-labelledby="checkbox-form-horizontal-label">
-        <Checkbox button checked label="조회" />
+        <Checkbox button default-checked label="조회" />
         <Checkbox button label="편집" />
       </fieldset>
     </div>
@@ -376,10 +378,10 @@ import FormLayout from '@/components/FormLayout.vue';
     stack
     :code="typeCode"
   >
-    <Checkbox checked label="기본 — checkbox" />
+    <Checkbox default-checked label="기본 — checkbox" />
     <Checkbox label-end label="레이블 뒤 — checkbox_label-end" />
     <fieldset class="checkbox_group checkbox_group_horizontal">
-      <Checkbox button checked label="버튼형" />
+      <Checkbox button default-checked label="버튼형" />
       <Checkbox button label="UI" />
       <Checkbox button label="UX" />
     </fieldset>
@@ -390,7 +392,7 @@ import FormLayout from '@/components/FormLayout.vue';
             <h3 class="card_title" id="checkbox-type-card-title">카드형 — checkbox_card</h3>
           </div>
           <div class="card_extra">
-            <Checkbox id="checkbox-type-card" checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc" />
+            <Checkbox id="checkbox-type-card" default-checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc" />
           </div>
         </div>
         <div class="card_body" id="checkbox-type-card-desc">card 컴포넌트와 조합해 제목·설명을 표시합니다.</div>
@@ -404,7 +406,7 @@ import FormLayout from '@/components/FormLayout.vue';
     description="<code>checkbox_label-end</code>는 <code>checkbox_label</code> → <code>checkbox_control</code> 순으로 마크업합니다. 전체 너비가 필요하면 <code>checkbox_block</code> 또는 <code>checkbox_group_block</code>을 추가합니다."
     :code="labelEndCode"
   >
-    <Checkbox label-end checked label="푸시 알림 받기" />
+    <Checkbox label-end default-checked label="푸시 알림 받기" />
     <Checkbox label-end>
       <span class="checkbox_content">
         <span class="checkbox_label">마케팅 정보 수신</span>
@@ -413,12 +415,12 @@ import FormLayout from '@/components/FormLayout.vue';
     </Checkbox>
     <fieldset class="checkbox_group checkbox_group_block" style="max-width: 360px; width: 100%;">
       <legend class="checkbox_group-legend">알림 설정 — checkbox_group_block</legend>
-      <Checkbox label-end checked label="이메일 알림" />
-      <Checkbox label-end checked label="푸시 알림" />
+      <Checkbox label-end default-checked label="이메일 알림" />
+      <Checkbox label-end default-checked label="푸시 알림" />
       <Checkbox label-end label="SMS 알림" />
     </fieldset>
-    <Checkbox class="checkbox_sm" label-end checked label="Small — checkbox_sm" />
-    <Checkbox class="checkbox_lg" label-end checked label="Large — checkbox_lg" />
+    <Checkbox class="checkbox_sm" label-end default-checked label="Small — checkbox_sm" />
+    <Checkbox class="checkbox_lg" label-end default-checked label="Large — checkbox_lg" />
   </DemoSection>
 
   <DemoSection
@@ -430,7 +432,7 @@ import FormLayout from '@/components/FormLayout.vue';
     <div class="form_field">
       <span class="form_field-label" id="checkbox-notify-label">알림 설정</span>
       <fieldset class="checkbox_group" aria-labelledby="checkbox-notify-label">
-        <Checkbox checked>
+        <Checkbox default-checked>
           <span class="checkbox_content">
             <span class="checkbox_label">이메일 알림</span>
             <span class="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
@@ -454,7 +456,7 @@ import FormLayout from '@/components/FormLayout.vue';
     :code="standaloneCode"
   >
     <Checkbox aria-label="항목 선택" />
-    <Checkbox checked aria-label="선택됨" />
+    <Checkbox default-checked aria-label="선택됨" />
     <Checkbox disabled aria-label="비활성" />
   </DemoSection>
 
@@ -465,9 +467,9 @@ import FormLayout from '@/components/FormLayout.vue';
     stack
     :code="sizeCode"
   >
-    <Checkbox class="checkbox_sm" checked label="Small — checkbox_sm" />
-    <Checkbox checked label="Medium — 기본" />
-    <Checkbox class="checkbox_lg" checked label="Large — checkbox_lg" />
+    <Checkbox class="checkbox_sm" default-checked label="Small — checkbox_sm" />
+    <Checkbox default-checked label="Medium — 기본" />
+    <Checkbox class="checkbox_lg" default-checked label="Large — checkbox_lg" />
   </DemoSection>
 
   <DemoSection
@@ -476,11 +478,11 @@ import FormLayout from '@/components/FormLayout.vue';
     description="기본은 인라인(콘텐츠) 너비입니다. checkbox_block · checkbox_group_block으로 전체 너비를 사용합니다."
     :code="widthCode"
   >
-    <Checkbox checked label="기본 — 인라인 너비" />
-    <Checkbox class="checkbox_block" checked label="checkbox_block — 전체 너비" />
+    <Checkbox default-checked label="기본 — 인라인 너비" />
+    <Checkbox class="checkbox_block" default-checked label="checkbox_block — 전체 너비" />
     <fieldset class="checkbox_group checkbox_group_block" style="max-width: 360px; width: 100%;">
       <legend class="checkbox_group-legend">checkbox_group_block</legend>
-      <Checkbox checked label="항목 1" />
+      <Checkbox default-checked label="항목 1" />
       <Checkbox label="항목 2" />
     </fieldset>
   </DemoSection>
@@ -492,10 +494,10 @@ import FormLayout from '@/components/FormLayout.vue';
     stack
     :code="colorCode"
   >
-    <Checkbox class="color_primary" checked label="Primary" />
-    <Checkbox class="color_success" checked label="Success" />
-    <Checkbox class="color_danger" checked label="Danger" />
-    <Checkbox class="color_warning" checked label="Warning" />
+    <Checkbox class="color_primary" default-checked label="Primary" />
+    <Checkbox class="color_success" default-checked label="Success" />
+    <Checkbox class="color_danger" default-checked label="Danger" />
+    <Checkbox class="color_warning" default-checked label="Warning" />
   </DemoSection>
 
   <DemoSection
@@ -506,10 +508,10 @@ import FormLayout from '@/components/FormLayout.vue';
     :code="stateCode"
   >
     <Checkbox label="미선택" />
-    <Checkbox checked label="선택됨" />
-    <Checkbox checked indeterminate label="불확정" />
+    <Checkbox default-checked label="선택됨" />
+    <Checkbox default-checked indeterminate label="불확정" />
     <Checkbox disabled label="비활성" />
-    <Checkbox checked disabled label="선택됨 (비활성)" />
+    <Checkbox default-checked disabled label="선택됨 (비활성)" />
   </DemoSection>
 
   <DemoSection
@@ -521,14 +523,14 @@ import FormLayout from '@/components/FormLayout.vue';
   >
     <fieldset class="checkbox_group">
       <legend class="checkbox_group-legend">관심 분야 (세로)</legend>
-      <Checkbox checked label="디자인" />
+      <Checkbox default-checked label="디자인" />
       <Checkbox label="개발" />
       <Checkbox label="기획" />
     </fieldset>
     <fieldset class="checkbox_group checkbox_group_horizontal">
       <legend class="checkbox_group-legend">언어 (가로)</legend>
-      <Checkbox button checked label="한국어" />
-      <Checkbox button checked label="English" />
+      <Checkbox button default-checked label="한국어" />
+      <Checkbox button default-checked label="English" />
       <Checkbox button label="日本語" />
     </fieldset>
   </DemoSection>
@@ -541,15 +543,15 @@ import FormLayout from '@/components/FormLayout.vue';
     :code="buttonTypeCode"
   >
     <fieldset class="checkbox_group checkbox_group_horizontal">
-      <Checkbox button checked label="전체" />
+      <Checkbox button default-checked label="전체" />
       <Checkbox button label="진행 중" />
       <Checkbox button label="완료" />
       <Checkbox button disabled label="보류 (비활성)" />
     </fieldset>
     <fieldset class="checkbox_group checkbox_group_horizontal">
-      <Checkbox button class="checkbox_sm color_success" checked label="Small" />
-      <Checkbox button class="color_success" checked label="Medium" />
-      <Checkbox button class="checkbox_lg color_success" checked label="Large" />
+      <Checkbox button class="checkbox_sm color_success" default-checked label="Small" />
+      <Checkbox button class="color_success" default-checked label="Medium" />
+      <Checkbox button class="checkbox_lg color_success" default-checked label="Large" />
     </fieldset>
   </DemoSection>
 
@@ -571,7 +573,7 @@ import FormLayout from '@/components/FormLayout.vue';
                     <p class="card_subtitle">월 9,000원</p>
                   </div>
                   <div class="card_extra">
-                    <Checkbox id="checkbox-plan-basic" name="plan" value="basic" checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc" />
+                    <Checkbox id="checkbox-plan-basic" name="plan" value="basic" default-checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc" />
                   </div>
                 </div>
                 <div class="card_body" id="checkbox-plan-basic-desc">개인 프로젝트에 적합합니다.</div>
@@ -618,7 +620,7 @@ import FormLayout from '@/components/FormLayout.vue';
                     <h3 class="card_title" id="checkbox-perm-read-title">읽기</h3>
                   </div>
                   <div class="card_extra">
-                    <Checkbox id="checkbox-perm-read" checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc" />
+                    <Checkbox id="checkbox-perm-read" default-checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc" />
                   </div>
                 </div>
                 <div class="card_body" id="checkbox-perm-read-desc">조회 권한</div>
@@ -631,7 +633,7 @@ import FormLayout from '@/components/FormLayout.vue';
                     <h3 class="card_title" id="checkbox-perm-write-title">쓰기</h3>
                   </div>
                   <div class="card_extra">
-                    <Checkbox id="checkbox-perm-write" checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc" />
+                    <Checkbox id="checkbox-perm-write" default-checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc" />
                   </div>
                 </div>
                 <div class="card_body" id="checkbox-perm-write-desc">수정 권한</div>
@@ -664,7 +666,7 @@ import FormLayout from '@/components/FormLayout.vue';
                     <p class="card_subtitle">월 9,000원</p>
                   </div>
                   <div class="card_extra">
-                    <Checkbox id="checkbox-plan-full-basic" name="plan-clickable" value="basic" checked aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc"  />
+                    <Checkbox id="checkbox-plan-full-basic" name="plan-clickable" value="basic" default-checked aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc"  />
                   </div>
                 </div>
                 <div class="card_body" id="checkbox-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
@@ -713,7 +715,7 @@ import FormLayout from '@/components/FormLayout.vue';
       <div class="form_field">
         <span class="form_field-label" id="checkbox-form-vertical-label">수신 동의</span>
         <fieldset class="checkbox_group" aria-labelledby="checkbox-form-vertical-label">
-          <Checkbox checked label="마케팅 정보 수신" />
+          <Checkbox default-checked label="마케팅 정보 수신" />
           <Checkbox label="뉴스레터 구독" />
         </fieldset>
       </div>
@@ -722,7 +724,7 @@ import FormLayout from '@/components/FormLayout.vue';
       <div class="form_field">
         <span class="form_field-label" id="checkbox-form-horizontal-label">권한</span>
         <fieldset class="checkbox_group checkbox_group_horizontal" aria-labelledby="checkbox-form-horizontal-label">
-          <Checkbox button checked label="조회" />
+          <Checkbox button default-checked label="조회" />
           <Checkbox button label="편집" />
         </fieldset>
       </div>
@@ -735,6 +737,10 @@ import FormLayout from '@/components/FormLayout.vue';
 
   <ApiSection heading-id="api-slots-heading" title="API · Slots">
     <ApiTable :columns="checkboxSlotColumns" :rows="checkboxSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-events-heading" title="API · Events">
+    <ApiTable :columns="checkboxEventColumns" :rows="checkboxEvents" code-column="name" />
   </ApiSection>
 
   <ApiSection

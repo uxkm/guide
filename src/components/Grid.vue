@@ -46,13 +46,12 @@ const rootClass = computed(() => {
   if (props.gap === 'none') classes.push('grid_gap-none');
   if (props.autoFit) classes.push('grid_auto-fit');
   if (props.autoFill) classes.push('grid_auto-fill');
-  if (attrs.class) classes.push(attrs.class);
   return classes;
 });
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass">
+  <div ref="rootRef" v-bind="attrs" :class="rootClass">
     <slot />
   </div>
 </template>

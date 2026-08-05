@@ -1,7 +1,7 @@
 <script setup>
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
-import { ref } from 'vue';
+import { ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
@@ -17,10 +17,12 @@ const props = defineProps({
   },
 });
 
+const attrs = useAttrs();
+const slots = useSlots();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('CalendarNav', { selfClosing: false });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 </script>
 
 <template>

@@ -8,7 +8,6 @@ import { initBackTopAll } from '@/legacy/back-top-init';
 import { initCarousel } from '@/legacy/carousel-init';
 import { initOverlays } from '@/legacy/overlay-init';
 import { initInputClearAll } from '@/legacy/input-clear-init';
-import { initTextareaCountAll } from '@/legacy/textarea-count-init';
 
 const props = defineProps({
   docKey: {
@@ -63,9 +62,6 @@ async function initContent() {
     initInputClearAll(root);
   }
 
-  if (root.querySelector('.textarea_show-count')) {
-    initTextareaCountAll(root);
-  }
 }
 
 watch(

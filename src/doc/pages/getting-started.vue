@@ -17,6 +17,7 @@ import GuideCodeBlock from '@/components/guide/GuideCodeBlock.vue';
 import GuideSection from '@/components/guide/GuideSection.vue';
 import PageIntro from '@/components/guide/PageIntro.vue';
 import {
+  buildCode,
   installCode,
   markupCode,
   newComponentColumns,
@@ -33,7 +34,7 @@ import {
 <template>
   <PageIntro title="설치 및 사용">
     <template #lead>
-      이 가이드 저장소의 설치·실행 방법을 안내합니다. Nuxt 4 + Vue 3로 개발·빌드하며, 문서는
+      저장소를 로컬에서 실행하고 UI 컴포넌트를 프로젝트에 적용하는 방법을 안내합니다. Nuxt 4 + Vue 3로 개발·빌드하며, 문서는
       <TypoText variant="code" tag="span" label="src/doc/" />
       의 Vue SFC로 관리합니다.
     </template>
@@ -49,8 +50,8 @@ import {
 
   <GuideSection
     heading-id="install-heading"
-    title="설치"
-    description="루트에서 의존성을 설치한 뒤 Nuxt 개발 서버를 실행합니다."
+    title="빠른 시작"
+    description="저장소를 복제하고 의존성을 설치한 뒤 개발 서버를 실행합니다. 브라우저에서 http://localhost:3000/getting-started에 접속하면 이 페이지를 확인할 수 있습니다."
   >
     <GuideCodeBlock>{{ installCode }}</GuideCodeBlock>
   </GuideSection>
@@ -68,19 +69,11 @@ import {
   </ApiSection>
 
   <GuideSection
-    heading-id="dev-heading"
-    title="개발 서버"
-    description="pnpm dev 실행 후 브라우저에서 접속하면 컴포넌트 가이드 소개 페이지가 표시됩니다."
-  >
-    <GuideCodeBlock>pnpm dev</GuideCodeBlock>
-  </GuideSection>
-
-  <GuideSection
     heading-id="build-heading"
-    title="프로덕션 빌드"
-    description="pnpm build는 Nitro 서버 결과물을, pnpm generate는 .output/public/에 정적 사이트를 생성합니다."
+    title="빌드 및 미리보기"
+    description="서버 배포에는 build를, 정적 호스팅에는 generate를 사용합니다. 두 방식 모두 결과 생성 후 preview로 확인할 수 있습니다."
   >
-    <GuideCodeBlock>pnpm build</GuideCodeBlock>
+    <GuideCodeBlock>{{ buildCode }}</GuideCodeBlock>
   </GuideSection>
 
   <GuideSection heading-id="styles-heading" title="스타일 적용">
@@ -88,7 +81,7 @@ import {
     <p>
       <strong>다른 프로젝트</strong>에서 SCSS 소스를 직접 쓰려면 자체 빌드 도구(Vite, Webpack 등)에
       <TypoText variant="code" tag="span" label="src/scss/main.scss" />
-      를 포함하거나, 필요한 컴포넌트만 선택 import합니다.
+      를 포함합니다. 필요한 컴포넌트만 가져올 때도 공통 토큰·테마·리셋을 먼저 불러와야 합니다.
     </p>
     <GuideCodeBlock>{{ stylesCode }}</GuideCodeBlock>
   </GuideSection>
@@ -100,7 +93,7 @@ import {
     stack
   >
     <Button variant="filled" color="primary" label="저장" />
-    <Alert color="info" description="변경 사항이 저장되었습니다." />
+    <Alert color="info" description="변경 사항이 저장되었습니다." :show-icon="false" />
   </DemoSection>
 
   <GuideSection
@@ -115,9 +108,9 @@ import {
     <p>
       라이트/다크 테마는 <TypoText variant="code" tag="span" label="data-theme" /> 속성으로 전환됩니다.
       <TypoText variant="code" tag="span" label="useTheme" />
-      composable이 헤더의 토글 버튼과
+      composable이 헤더 토글과
       <TypoText variant="code" tag="span" label="localStorage" />
-      를 관리합니다.
+      의 <TypoText variant="code" tag="span" label="guide-theme" /> 값을 관리합니다. 저장된 값이 없으면 운영체제의 색상 설정을 따릅니다.
     </p>
     <GuideCodeBlock>{{ themeCode }}</GuideCodeBlock>
     <p>

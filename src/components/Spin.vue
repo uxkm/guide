@@ -5,6 +5,9 @@ import { createComponentFormatter } from '@/utils/format-component-code';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_COLORS = new Set(['primary', 'success', 'warning', 'danger']);
+
 const props = defineProps({
   size: {
     type: String,
@@ -15,6 +18,7 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
+    validator: (v) => ['primary', 'success', 'warning', 'danger'].includes(v),
   },
   inline: Boolean,
   block: Boolean,
@@ -29,23 +33,45 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedColor = computed(() =>
+  VALID_COLORS.has(props.color) ? props.color : 'primary'
+);
+
 const formatCode = createComponentFormatter('Spin', {
   defaults: { size: 'md', color: 'primary' },
   booleanProps: new Set(['inline', 'block', 'overlay']),
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    size: resolvedSize.value,
+    color: resolvedColor.value,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
-  const classes = ['spin', `color_${props.color}`];
-  if (props.size === 'sm') classes.push('spin_sm');
-  if (props.size === 'lg') classes.push('spin_lg');
+  const classes = ['spin', `color_${resolvedColor.value}`];
+  if (resolvedSize.value === 'sm') classes.push('spin_sm');
+  if (resolvedSize.value === 'lg') classes.push('spin_lg');
   if (props.inline) classes.push('spin_inline');
   if (props.block) classes.push('spin_block');
   if (props.overlay) classes.push('spin_overlay');
   if (attrs.class) classes.push(attrs.class);
   return classes;
+});
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
 });
 </script>
 
@@ -57,6 +83,7 @@ const rootClass = computed(() => {
     aria-live="polite"
     aria-busy="true"
     :aria-label="ariaLabel"
+    v-bind="fallthroughAttrs"
   >
     <span class="spin_indicator" aria-hidden="true" />
     <p v-if="tip" class="spin_tip">{{ tip }}</p>

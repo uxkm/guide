@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
-import { createComponentFormatter } from '@/utils/format-component-code';
+import { formatTimelineItemCode } from '@/utils/format-timeline-code';
 
 defineOptions({ inheritAttrs: false });
 
@@ -25,13 +25,7 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
-const formatCode = createComponentFormatter('TimelineItem', {
-  defaults: { color: 'primary' },
-  booleanProps: new Set(['active', 'pending', 'outline']),
-  selfClosing: false,
-});
-
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(formatTimelineItemCode, props, slots, rootRef, attrs);
 
 const itemClass = computed(() => {
   const classes = ['timeline_item'];
@@ -47,10 +41,15 @@ const dotClass = computed(() => {
   if (props.color) classes.push(`color_${props.color}`);
   return classes;
 });
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
-  <li ref="rootRef" :class="itemClass">
+  <li ref="rootRef" v-bind="fallthroughAttrs" :class="itemClass">
     <time v-if="label" class="timeline_label" :datetime="labelDatetime">{{ label }}</time>
     <span v-if="$slots.dot" class="timeline_dot" aria-hidden="true">
       <slot name="dot" />

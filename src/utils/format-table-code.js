@@ -14,6 +14,7 @@ const TABLE_FORMAT_CONFIG = {
     'stickyLeft',
   ]),
   arrayPropPlaceholders: { columns: 'tableColumns' },
+  falseExplicitProps: new Set(['wrap']),
   skipProps: ['stickyLeftOffsets'],
 };
 

@@ -36,14 +36,34 @@ function expandHtmlLines(html) {
   return protectedComments.restore(protectedComments.html.replace(/>\s*</g, '>\n<').trim());
 }
 
-function countHtmlTags(line, pattern) {
-  const matches = line.match(pattern);
-  return matches ? matches.length : 0;
+function getTagBalance(line) {
+  const tags = line.match(/<\/?[a-z][\w:-]*\b[^>]*>/gi) ?? [];
+  let openTags = 0;
+  let closeTags = 0;
+
+  tags.forEach((tagSource) => {
+    const tagMatch = tagSource.match(/^<\/?([a-z][\w:-]*)/i);
+    const tag = tagMatch?.[1]?.toLowerCase();
+
+    if (tagSource.startsWith('</')) {
+      closeTags += 1;
+      return;
+    }
+
+    if (/\/\s*>$/.test(tagSource) || VOID_TAGS.has(tag)) return;
+    openTags += 1;
+  });
+
+  const leadingCloseTags = line.match(/^(?:<\/[a-z][\w:-]*\s*>\s*)+/i)?.[0]
+    .match(/<\//g)?.length ?? 0;
+
+  return { openTags, closeTags, leadingCloseTags };
 }
 
 export function prettyPrintHtml(html) {
   const lines = expandHtmlLines(html).split('\n');
   let indent = 0;
+  let pendingTag = null;
   const output = [];
 
   lines.forEach((rawLine) => {
@@ -55,23 +75,37 @@ export function prettyPrintHtml(html) {
       return;
     }
 
-    const openTags = countHtmlTags(line, /<[a-z][\w-]*\b[^>]*>/gi);
-    const closeTags = countHtmlTags(line, /<\/[a-z][\w-]*\s*>/gi);
-    const isClosingOnly = line.startsWith('</') && openTags === 0;
-    const tagMatch = line.match(/^<\/?([a-z][\w-]*)/i);
-    const tag = tagMatch ? tagMatch[1].toLowerCase() : '';
-    const isVoid = VOID_TAGS.has(tag) || /\/>$/.test(line);
-    const isSelfContained = openTags > 0 && openTags === closeTags;
+    if (pendingTag) {
+      const closesTag = line.includes('>');
+      const isClosingDelimiter = /^\/?>/.test(line);
+      const lineIndent = isClosingDelimiter ? indent : indent + 1;
 
-    if (isClosingOnly) {
-      indent = Math.max(0, indent - 1);
+      output.push('  '.repeat(lineIndent) + line);
+      pendingTag.source += ` ${line}`;
+
+      if (closesTag) {
+        const isSelfClosing = /\/\s*>/.test(pendingTag.source);
+        if (!isSelfClosing && !VOID_TAGS.has(pendingTag.name)) indent += 1;
+        pendingTag = null;
+      }
+      return;
     }
 
-    output.push('  '.repeat(indent) + line);
-
-    if (!isClosingOnly && !isVoid && !isSelfContained && openTags > closeTags) {
-      indent += openTags - closeTags;
+    const multilineTagMatch = line.match(/^<([a-z][\w:-]*)\b/i);
+    if (multilineTagMatch && !line.includes('>')) {
+      output.push('  '.repeat(indent) + line);
+      pendingTag = {
+        name: multilineTagMatch[1].toLowerCase(),
+        source: line,
+      };
+      return;
     }
+
+    const { openTags, closeTags, leadingCloseTags } = getTagBalance(line);
+    const lineIndent = Math.max(0, indent - leadingCloseTags);
+
+    output.push('  '.repeat(lineIndent) + line);
+    indent = Math.max(0, indent + openTags - closeTags);
   });
 
   return output.join('\n');

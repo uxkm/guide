@@ -15,6 +15,8 @@ import Switch from '@/components/Switch.vue';
 import {
   switchClassColumns,
   switchClasses,
+  switchEventColumns,
+  switchEvents,
   switchPropColumns,
   switchProps,
   switchSlotColumns,
@@ -28,8 +30,8 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch checked label="기본 — switch" />
-  <Switch label-end checked label="레이블 뒤 — switch_label-end" />
+  <Switch default-checked label="기본 — switch" />
+  <Switch label-end default-checked label="레이블 뒤 — switch_label-end" />
 </template>`;
 
 const labelEndCode = `<script setup>
@@ -37,7 +39,7 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch label-end checked label="푸시 알림 받기" />
+  <Switch label-end default-checked label="푸시 알림 받기" />
   <Switch label-end>
     <span class="switch_content">
       <span class="switch_label">마케팅 정보 수신</span>
@@ -46,12 +48,12 @@ import Switch from '@/components/Switch.vue';
   </Switch>
   <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
     <legend class="switch_group-legend">알림 설정 — switch_group_block</legend>
-    <Switch label-end checked label="이메일 알림" />
-    <Switch label-end checked label="푸시 알림" />
+    <Switch label-end default-checked label="이메일 알림" />
+    <Switch label-end default-checked label="푸시 알림" />
     <Switch label-end label="SMS 알림" />
   </fieldset>
-  <Switch label-end size="sm" checked label="Small — switch_sm" />
-  <Switch label-end size="lg" checked label="Large — switch_lg" />
+  <Switch label-end size="sm" default-checked label="Small — switch_sm" />
+  <Switch label-end size="lg" default-checked label="Large — switch_lg" />
 </template>`;
 
 const basicCode = `<script setup>
@@ -59,7 +61,7 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch checked label="다크 모드" />
+  <Switch default-checked label="다크 모드" />
   <Switch label="자동 저장" />
 </template>`;
 
@@ -69,7 +71,7 @@ import Switch from '@/components/Switch.vue';
 
 <template>
   <Switch aria-label="기능 켜기" />
-  <Switch checked aria-label="기능 끄기" />
+  <Switch default-checked aria-label="기능 끄기" />
   <Switch disabled aria-label="비활성" />
 </template>`;
 
@@ -78,9 +80,9 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch label-end size="sm" checked label="Small — switch_sm" />
-  <Switch label-end checked label="Medium — 기본" />
-  <Switch label-end size="lg" checked label="Large — switch_lg" />
+  <Switch label-end size="sm" default-checked label="Small — switch_sm" />
+  <Switch label-end default-checked label="Medium — 기본" />
+  <Switch label-end size="lg" default-checked label="Large — switch_lg" />
 </template>`;
 
 const widthCode = `<script setup>
@@ -88,11 +90,11 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch label-end checked label="기본 — 인라인 너비" />
-  <Switch label-end class="switch_block" checked label="switch_block — 전체 너비" />
+  <Switch label-end default-checked label="기본 — 인라인 너비" />
+  <Switch label-end class="switch_block" default-checked label="switch_block — 전체 너비" />
   <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
     <legend class="switch_group-legend">switch_group_block</legend>
-    <Switch label-end checked label="Wi-Fi" />
+    <Switch label-end default-checked label="Wi-Fi" />
     <Switch label-end label="블루투스" />
   </fieldset>
 </template>`;
@@ -102,10 +104,10 @@ import Switch from '@/components/Switch.vue';
 <\/script>
 
 <template>
-  <Switch class="color_primary" label-end checked label="Primary" />
-  <Switch class="color_success" label-end checked label="Success" />
-  <Switch class="color_danger" label-end checked label="Danger" />
-  <Switch class="color_warning" label-end checked label="Warning" />
+  <Switch class="color_primary" label-end default-checked label="Primary" />
+  <Switch class="color_success" label-end default-checked label="Success" />
+  <Switch class="color_danger" label-end default-checked label="Danger" />
+  <Switch class="color_warning" label-end default-checked label="Warning" />
 </template>`;
 
 const stateCode = `<script setup>
@@ -114,9 +116,9 @@ import Switch from '@/components/Switch.vue';
 
 <template>
   <Switch label-end label="꺼짐" />
-  <Switch label-end checked label="켜짐" />
+  <Switch label-end default-checked label="켜짐" />
   <Switch label-end disabled label="비활성" />
-  <Switch label-end checked disabled label="켜짐 (비활성)" />
+  <Switch label-end default-checked disabled label="켜짐 (비활성)" />
 </template>`;
 
 const groupCode = `<script setup>
@@ -126,7 +128,7 @@ import Switch from '@/components/Switch.vue';
 <template>
   <fieldset class="switch_group switch_group_block" style="max-width: 400px; width: 100%;">
     <legend class="switch_group-legend">개인정보 설정</legend>
-    <Switch label-end checked>
+    <Switch label-end default-checked>
       <span class="switch_content">
         <span class="switch_label">프로필 공개</span>
         <span class="switch_hint">다른 사용자가 내 프로필을 볼 수 있습니다.</span>
@@ -138,7 +140,7 @@ import Switch from '@/components/Switch.vue';
         <span class="switch_hint">최근 활동이 타임라인에 노출됩니다.</span>
       </span>
     </Switch>
-    <Switch label-end checked label="검색 허용" />
+    <Switch label-end default-checked label="검색 허용" />
   </fieldset>
   <fieldset class="switch_group switch_group_block switch_group_compact" style="max-width: 400px; width: 100%;">
     <legend class="switch_group-legend">접근성 — switch_group_compact</legend>
@@ -157,7 +159,7 @@ import Switch from '@/components/Switch.vue';
     <div class="form_field">
       <span class="form_field-label" id="switch-form-vertical-label">알림</span>
       <fieldset class="switch_group switch_group_block" aria-labelledby="switch-form-vertical-label">
-        <Switch label-end checked label="이메일 알림" />
+        <Switch label-end default-checked label="이메일 알림" />
         <Switch label-end label="푸시 알림" />
       </fieldset>
     </div>
@@ -165,7 +167,7 @@ import Switch from '@/components/Switch.vue';
   <FormLayout layout="horizontal" fit>
     <div class="form_field">
       <span class="form_field-label" id="switch-form-horizontal-label">자동 저장</span>
-      <Switch label-end checked label="편집 내용 자동 저장" aria-labelledby="switch-form-horizontal-label" />
+      <Switch label-end default-checked label="편집 내용 자동 저장" aria-labelledby="switch-form-horizontal-label" />
     </div>
   </FormLayout>
 </template>`;
@@ -185,8 +187,8 @@ import Switch from '@/components/Switch.vue';
     stack
     :code="typeCode"
   >
-    <Switch checked label="기본 — switch" />
-    <Switch label-end checked label="레이블 뒤 — switch_label-end" />
+    <Switch default-checked label="기본 — switch" />
+    <Switch label-end default-checked label="레이블 뒤 — switch_label-end" />
   </DemoSection>
 
   <DemoSection
@@ -195,7 +197,7 @@ import Switch from '@/components/Switch.vue';
     description="<code>switch_label-end</code>는 <code>switch_label</code> → <code>switch_control</code> 순으로 마크업합니다. 전체 너비가 필요하면 <code>switch_block</code> 또는 <code>switch_group_block</code>을 추가합니다."
     :code="labelEndCode"
   >
-    <Switch label-end checked label="푸시 알림 받기" />
+    <Switch label-end default-checked label="푸시 알림 받기" />
     <Switch label-end>
       <span class="switch_content">
         <span class="switch_label">마케팅 정보 수신</span>
@@ -205,13 +207,13 @@ import Switch from '@/components/Switch.vue';
 
     <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
       <legend class="switch_group-legend">알림 설정 — switch_group_block</legend>
-      <Switch label-end checked label="이메일 알림" />
-      <Switch label-end checked label="푸시 알림" />
+      <Switch label-end default-checked label="이메일 알림" />
+      <Switch label-end default-checked label="푸시 알림" />
       <Switch label-end label="SMS 알림" />
     </fieldset>
 
-    <Switch label-end size="sm" checked label="Small — switch_sm" />
-    <Switch label-end size="lg" checked label="Large — switch_lg" />
+    <Switch label-end size="sm" default-checked label="Small — switch_sm" />
+    <Switch label-end size="lg" default-checked label="Large — switch_lg" />
   </DemoSection>
 
   <DemoSection
@@ -220,7 +222,7 @@ import Switch from '@/components/Switch.vue';
     description="레이블과 보조 설명(switch_hint)을 함께 사용할 수 있습니다."
     :code="basicCode"
   >
-    <Switch checked label="다크 모드" />
+    <Switch default-checked label="다크 모드" />
     <Switch label="자동 저장" />
   </DemoSection>
 
@@ -232,7 +234,7 @@ import Switch from '@/components/Switch.vue';
     :code="standaloneCode"
   >
     <Switch aria-label="기능 켜기" />
-    <Switch checked aria-label="기능 끄기" />
+    <Switch default-checked aria-label="기능 끄기" />
     <Switch disabled aria-label="비활성" />
   </DemoSection>
 
@@ -243,9 +245,9 @@ import Switch from '@/components/Switch.vue';
     stack
     :code="sizeCode"
   >
-    <Switch label-end size="sm" checked label="Small — switch_sm" />
-    <Switch label-end checked label="Medium — 기본" />
-    <Switch label-end size="lg" checked label="Large — switch_lg" />
+    <Switch label-end size="sm" default-checked label="Small — switch_sm" />
+    <Switch label-end default-checked label="Medium — 기본" />
+    <Switch label-end size="lg" default-checked label="Large — switch_lg" />
   </DemoSection>
 
   <DemoSection
@@ -254,12 +256,12 @@ import Switch from '@/components/Switch.vue';
     description="기본은 인라인(콘텐츠) 너비입니다. switch_block · switch_group_block으로 전체 너비를 사용합니다."
     :code="widthCode"
   >
-    <Switch label-end checked label="기본 — 인라인 너비" />
-    <Switch label-end class="switch_block" checked label="switch_block — 전체 너비" />
+    <Switch label-end default-checked label="기본 — 인라인 너비" />
+    <Switch label-end class="switch_block" default-checked label="switch_block — 전체 너비" />
 
     <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
       <legend class="switch_group-legend">switch_group_block</legend>
-      <Switch label-end checked label="Wi-Fi" />
+      <Switch label-end default-checked label="Wi-Fi" />
       <Switch label-end label="블루투스" />
     </fieldset>
   </DemoSection>
@@ -271,10 +273,10 @@ import Switch from '@/components/Switch.vue';
     stack
     :code="colorCode"
   >
-    <Switch class="color_primary" label-end checked label="Primary" />
-    <Switch class="color_success" label-end checked label="Success" />
-    <Switch class="color_danger" label-end checked label="Danger" />
-    <Switch class="color_warning" label-end checked label="Warning" />
+    <Switch class="color_primary" label-end default-checked label="Primary" />
+    <Switch class="color_success" label-end default-checked label="Success" />
+    <Switch class="color_danger" label-end default-checked label="Danger" />
+    <Switch class="color_warning" label-end default-checked label="Warning" />
   </DemoSection>
 
   <DemoSection
@@ -285,9 +287,9 @@ import Switch from '@/components/Switch.vue';
     :code="stateCode"
   >
     <Switch label-end label="꺼짐" />
-    <Switch label-end checked label="켜짐" />
+    <Switch label-end default-checked label="켜짐" />
     <Switch label-end disabled label="비활성" />
-    <Switch label-end checked disabled label="켜짐 (비활성)" />
+    <Switch label-end default-checked disabled label="켜짐 (비활성)" />
   </DemoSection>
 
   <DemoSection
@@ -299,7 +301,7 @@ import Switch from '@/components/Switch.vue';
   >
     <fieldset class="switch_group switch_group_block" style="max-width: 400px; width: 100%;">
       <legend class="switch_group-legend">개인정보 설정</legend>
-      <Switch label-end checked>
+      <Switch label-end default-checked>
         <span class="switch_content">
           <span class="switch_label">프로필 공개</span>
           <span class="switch_hint">다른 사용자가 내 프로필을 볼 수 있습니다.</span>
@@ -311,7 +313,7 @@ import Switch from '@/components/Switch.vue';
           <span class="switch_hint">최근 활동이 타임라인에 노출됩니다.</span>
         </span>
       </Switch>
-      <Switch label-end checked label="검색 허용" />
+      <Switch label-end default-checked label="검색 허용" />
     </fieldset>
 
     <fieldset class="switch_group switch_group_block switch_group_compact" style="max-width: 400px; width: 100%;">
@@ -332,7 +334,7 @@ import Switch from '@/components/Switch.vue';
       <div class="form_field">
         <span class="form_field-label" id="switch-form-vertical-label">알림</span>
         <fieldset class="switch_group switch_group_block" aria-labelledby="switch-form-vertical-label">
-          <Switch label-end checked label="이메일 알림" />
+          <Switch label-end default-checked label="이메일 알림" />
           <Switch label-end label="푸시 알림" />
         </fieldset>
       </div>
@@ -341,7 +343,7 @@ import Switch from '@/components/Switch.vue';
     <FormLayout layout="horizontal" fit>
       <div class="form_field">
         <span class="form_field-label" id="switch-form-horizontal-label">자동 저장</span>
-        <Switch label-end checked label="편집 내용 자동 저장" aria-labelledby="switch-form-horizontal-label" />
+        <Switch label-end default-checked label="편집 내용 자동 저장" aria-labelledby="switch-form-horizontal-label" />
       </div>
     </FormLayout>
   </DemoSection>
@@ -352,6 +354,10 @@ import Switch from '@/components/Switch.vue';
 
   <ApiSection heading-id="api-slots-heading" title="API · Slots">
     <ApiTable :columns="switchSlotColumns" :rows="switchSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-events-heading" title="API · Events">
+    <ApiTable :columns="switchEventColumns" :rows="switchEvents" code-column="name" />
   </ApiSection>
 
   <ApiSection

@@ -90,6 +90,7 @@
   --popover-offset-right: var(--popover-offset);
   --popover-offset-bottom: var(--popover-offset);
   --popover-offset-left: var(--popover-offset);
+  --popover-arrow-clearance: calc(var(--popover-arrow-size) / 2);
 
   @include overlay-arrow-edge-tokens(popover, var(--radius-lg));
 
@@ -99,7 +100,7 @@
 
   &.is-open {
     > .popover_trigger[aria-expanded] {
-      z-index: calc(var(--z-popover, 110) + 1);
+      z-index: var(--z-popover, 110);
     }
 
     > .popover_panel {
@@ -117,9 +118,11 @@
 
   &_panel {
     position: absolute;
-    top: calc(100% + var(--popover-offset-bottom));
+    top: calc(
+      100% + var(--popover-offset-bottom) + var(--popover-arrow-clearance)
+    );
     left: 0;
-    z-index: var(--z-popover, 110);
+    z-index: calc(var(--z-popover, 110) + 1);
     display: none;
     min-width: var(--popover-min-width);
     max-width: var(--popover-max-width);
@@ -278,6 +281,7 @@
 
   &_offset-none {
     --popover-offset: 0;
+    --popover-arrow-clearance: 0px;
   }
 
   &_offset-sm {
@@ -309,14 +313,18 @@
   &_placement-top {
     .popover_panel {
       top: auto;
-      bottom: calc(100% + var(--popover-offset-top));
+      bottom: calc(
+        100% + var(--popover-offset-top) + var(--popover-arrow-clearance)
+      );
     }
   }
 
   &_placement-top-center {
     .popover_panel {
       top: auto;
-      bottom: calc(100% + var(--popover-offset-top));
+      bottom: calc(
+        100% + var(--popover-offset-top) + var(--popover-arrow-clearance)
+      );
       left: 50%;
       transform: translateX(-50%);
     }
@@ -327,7 +335,9 @@
       top: 50%;
       bottom: auto;
       left: auto;
-      right: calc(100% + var(--popover-offset-left));
+      right: calc(
+        100% + var(--popover-offset-left) + var(--popover-arrow-clearance)
+      );
       transform: translateY(-50%);
     }
   }
@@ -336,7 +346,9 @@
     .popover_panel {
       top: 50%;
       bottom: auto;
-      left: calc(100% + var(--popover-offset-right));
+      left: calc(
+        100% + var(--popover-offset-right) + var(--popover-arrow-clearance)
+      );
       transform: translateY(-50%);
     }
   }
@@ -538,6 +550,8 @@
   }
 
   &_no-arrow {
+    --popover-arrow-clearance: 0px;
+
     .popover_arrow {
       display: none;
     }
@@ -562,6 +576,10 @@
     flex-wrap: wrap;
     gap: var(--space-md);
     align-items: center;
+  }
+
+  &_inline-sentence {
+    line-height: 1.6;
   }
 
   &_demo-placement {

@@ -40,7 +40,7 @@ export const modalSlotColumns = [
 ];
 
 export const modalSlots = [
-  { name: 'header', description: '헤더 (title 대체)' },
+  { name: 'header', description: '헤더 (title 대체, aria-labelledby 또는 aria-label 별도 지정)' },
   { name: 'default', description: '본문 (modal_body)' },
   { name: 'footer', description: '하단 액션 (modal_footer)' },
 ];

@@ -7,6 +7,7 @@ export const docMeta = {
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import Button from '@/components/Button.vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
@@ -25,6 +26,8 @@ import {
   selectTokenColumns,
   selectTokens,
 } from '@/doc/data/select-api';
+
+const selectedInterests = ref(['UX 디자인', '접근성']);
 
 const typeCode = `<script setup>
 import Select from '@/components/Select.vue';
@@ -190,16 +193,19 @@ import Select from '@/components/Select.vue';
 </template>`;
 
 const multipleCode = `<script setup>
+import { ref } from 'vue';
 import Select from '@/components/Select.vue';
+
+const selectedInterests = ref(['UX 디자인', '접근성']);
 <\/script>
 
 <template>
   <div class="form_field">
     <label class="form_field-label" for="select-multiple">관심 분야</label>
-    <Select id="select-multiple" multiple :list-size="5" aria-describedby="select-multiple-hint">
-      <option selected>UX 디자인</option>
+    <Select v-model="selectedInterests" id="select-multiple" multiple :list-size="5" aria-describedby="select-multiple-hint">
+      <option>UX 디자인</option>
       <option>UI 개발</option>
-      <option selected>접근성</option>
+      <option>접근성</option>
       <option>디자인 시스템</option>
       <option>리서치</option>
       <option>프로토타이핑</option>
@@ -263,7 +269,7 @@ import Select from '@/components/Select.vue';
 <\/script>
 
 <template>
-  <FormLayout layout="vertical" compact novalidate aria-labelledby="example-heading">
+  <FormLayout layout="vertical" compact novalidate aria-labelledby="example-heading" @submit.prevent>
     <div class="form_field">
       <label class="form_field-label" for="select-ex-country">
         국가<span class="form_field-required" aria-hidden="true">*</span>
@@ -517,10 +523,10 @@ import Select from '@/components/Select.vue';
   >
     <div class="form_field">
       <label class="form_field-label" for="select-multiple">관심 분야</label>
-      <Select id="select-multiple" multiple :list-size="5" aria-describedby="select-multiple-hint">
-        <option selected>UX 디자인</option>
+      <Select v-model="selectedInterests" id="select-multiple" multiple :list-size="5" aria-describedby="select-multiple-hint">
+        <option>UX 디자인</option>
         <option>UI 개발</option>
-        <option selected>접근성</option>
+        <option>접근성</option>
         <option>디자인 시스템</option>
         <option>리서치</option>
         <option>프로토타이핑</option>
@@ -589,7 +595,7 @@ import Select from '@/components/Select.vue';
     stack
     :code="exampleCode"
   >
-    <FormLayout layout="vertical" compact novalidate aria-labelledby="example-heading">
+    <FormLayout layout="vertical" compact novalidate aria-labelledby="example-heading" @submit.prevent>
       <div class="form_field">
         <label class="form_field-label" for="select-ex-country">
           국가<span class="form_field-required" aria-hidden="true">*</span>

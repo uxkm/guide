@@ -23,11 +23,7 @@ import {
   buttonTokens,
 } from '@/doc/data/button-api';
 
-const basicCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const basicCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="filled" color="primary" label="Filled Primary" />
     <Button variant="filled" color="default" label="Filled Default" />
@@ -39,16 +35,12 @@ import Button from '@/components/Button.vue';
     <Button variant="filled" color="success" label="Success" />
     <Button variant="filled" color="warning" label="Warning" />
     <Button variant="filled" color="danger" label="Danger" />
-    <Button variant="outline" color="danger" label="Outline Danger" />
+    <Button variant="text" color="muted" label="Text Muted" />
     <Button variant="text" color="danger" label="Text Danger" />
   </div>
 </template>`;
 
-const typeSelectCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const typeSelectCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="select" label="서울특별시" haspopup="listbox" />
     <Button variant="select" placeholder label="옵션을 선택하세요" haspopup="listbox" />
@@ -71,12 +63,7 @@ import Button from '@/components/Button.vue';
   </div>
 </template>`;
 
-const typeTextCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeTextCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="text" color="primary" label="Primary" />
     <Button variant="text" color="muted" label="Muted" />
@@ -202,12 +189,7 @@ import Icon from '@/components/Icon.vue';
   <Button variant="text" color="primary" block label="전체 너비 텍스트 버튼" />
 </template>`;
 
-const typeIconTextCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeIconTextCode = `<template>
   <Button variant="filled" color="primary" label="추가">
     <template #icon-before>
       <Icon name="plus" />
@@ -225,12 +207,7 @@ import Icon from '@/components/Icon.vue';
   </Button>
 </template>`;
 
-const typeIconTextVerticalCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeIconTextVerticalCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="filled" color="primary" vertical label="홈">
       <template #icon-before>
@@ -295,12 +272,7 @@ import Icon from '@/components/Icon.vue';
   </div>
 </template>`;
 
-const typeIconTextVerticalEqualCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeIconTextVerticalEqualCode = `<template>
   <div class="btn_row-equal" role="toolbar" aria-label="하단 탭 바">
     <Button variant="text" color="primary" vertical label="홈">
       <template #icon-before>
@@ -325,12 +297,7 @@ import Icon from '@/components/Icon.vue';
   </div>
 </template>`;
 
-const typeTextIconCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeTextIconCode = `<template>
   <Button variant="filled" color="primary" label="다음">
     <template #icon-after>
       <Icon name="chevron-right" />
@@ -348,12 +315,7 @@ import Icon from '@/components/Icon.vue';
   </Button>
 </template>`;
 
-const typeIconOnlyCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeIconOnlyCode = `<template>
   <Button variant="filled" color="primary" icon-only aria-label="추가">
     <template #icon-before>
       <Icon name="plus" />
@@ -386,12 +348,7 @@ import Icon from '@/components/Icon.vue';
   </Button>
 </template>`;
 
-const typeIconOnlySizeCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const typeIconOnlySizeCode = `<template>
   <Button variant="filled" color="primary" icon-only size="sm" aria-label="추가 (small)">
     <template #icon-before>
       <Icon name="plus" />
@@ -424,33 +381,20 @@ import Icon from '@/components/Icon.vue';
   </Button>
 </template>`;
 
-const variantCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const variantCode = `<template>
   <Button variant="filled" color="success" label="Success" />
   <Button variant="filled" color="danger" label="Danger" />
   <Button variant="filled" color="warning" label="Warning" />
   <Button variant="outline" color="primary" label="Outline" />
 </template>`;
 
-const sizeCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const sizeCode = `<template>
   <Button variant="filled" color="primary" size="sm" label="Small" />
   <Button variant="filled" color="primary" label="Medium" />
   <Button variant="filled" color="primary" size="lg" label="Large" />
 </template>`;
 
-const shapeRoundCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const shapeRoundCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="filled" color="primary" round label="Primary" />
     <Button variant="filled" color="default" round label="Default" />
@@ -507,12 +451,7 @@ import Icon from '@/components/Icon.vue';
   </div>
 </template>`;
 
-const widthCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const widthCode = `<template>
   <Button variant="filled" color="primary" block label="전체 너비 버튼" />
   <div class="btn_row-equal">
     <Button variant="filled" color="default" label="취소" />
@@ -557,11 +496,7 @@ import Icon from '@/components/Icon.vue';
   </Button>
 </template>`;
 
-const stateCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const stateCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="filled" color="primary" disabled label="Primary" />
     <Button variant="filled" color="default" disabled label="Default" />
@@ -584,12 +519,7 @@ import Button from '@/components/Button.vue';
   <Button variant="filled" color="primary" block loading label="전체 너비 로딩" />
 </template>`;
 
-const groupCode = `<script setup>
-import Button from '@/components/Button.vue';
-import Icon from '@/components/Icon.vue';
-<\/script>
-
-<template>
+const groupCode = `<template>
   <div class="btn_group btn_group-fit btn_group-align-start" role="group" aria-label="가로 버튼 그룹 small 좌측">
     <Button variant="filled" color="default" size="sm" label="Left" />
     <Button variant="filled" color="default" size="sm" label="Middle" />
@@ -659,11 +589,7 @@ import Icon from '@/components/Icon.vue';
   </div>
 </template>`;
 
-const tagCode = `<script setup>
-import Button from '@/components/Button.vue';
-<\/script>
-
-<template>
+const tagCode = `<template>
   <div class="btn_row btn_row-wrap">
     <Button variant="filled" color="primary" label="button" />
     <Button tag="a" href="/getting-started" variant="outline" color="primary" label="a + href" />
@@ -677,7 +603,10 @@ import Button from '@/components/Button.vue';
 <template>
   <div class="page_intro">
     <h1>Button</h1>
-    <p class="lead">사용자 액션을 트리거하는 버튼 컴포넌트입니다.</p>
+    <p class="lead">
+      클릭·키보드 입력으로 사용자 액션이나 링크 이동을 실행하는 Vue 컴포넌트입니다.
+      스킨·색상·크기·아이콘·상태를 props와 유틸리티 클래스로 조합합니다.
+    </p>
   </div>
 
   <DemoSection
@@ -698,7 +627,7 @@ import Button from '@/components/Button.vue';
       <Button variant="filled" color="success" label="Success" />
       <Button variant="filled" color="warning" label="Warning" />
       <Button variant="filled" color="danger" label="Danger" />
-      <Button variant="outline" color="danger" label="Outline Danger" />
+      <Button variant="text" color="muted" label="Text Muted" />
       <Button variant="text" color="danger" label="Text Danger" />
     </div>
   </DemoSection>
@@ -1220,7 +1149,7 @@ import Button from '@/components/Button.vue';
   <DemoSection
     heading-id="tag-heading"
     title="루트 태그"
-    description="tag prop으로 button · a · div를 선택합니다. div와 href 없는 a는 role만으로 Tab 초점이 이동하지 않으므로 tabindex=0을 자동 부여합니다."
+    description="tag prop으로 button · a · div를 선택합니다. div와 href 없는 a에는 키보드 접근을 위해 role과 tabindex=0을 자동 적용합니다."
     stack
     :code="tagCode"
   >

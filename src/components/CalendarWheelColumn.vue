@@ -1,11 +1,13 @@
 <script setup>
-import { computed, ref, watch, nextTick } from 'vue';
+import { computed, ref, watch, nextTick, useAttrs, useSlots } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useCalendarWheelColumn } from '@/composables/useCalendarWheel';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
@@ -25,7 +27,8 @@ const props = defineProps({
 });
 const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
 
-
+const attrs = useAttrs();
+const slots = useSlots();
 const rootRef = ref(null);
 const listRef = ref(null);
 const activeValue = ref(props.selected);
@@ -35,7 +38,17 @@ const formatCode = createComponentFormatter('CalendarWheelColumn', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+
+const rootClass = computed(() => ['calendar_wheel-column', attrs.class].filter(Boolean));
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+const rootAttrs = computed(() => ({
+  ...rippleAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 
 const { scrollToSelected, selectByIndex, moveSelection } = useCalendarWheelColumn(listRef, {
   onSelect(label) {
@@ -87,9 +100,7 @@ function onNextClick() {
 </script>
 
 <template>
-  <div ref="rootRef" class="calendar_wheel-column"
-    v-bind="rippleAttrs"
-  >
+  <div ref="rootRef" v-bind="rootAttrs" :class="rootClass">
     <Button
       v-if="showSteps && prevLabel"
       v-bind="childRippleAttrs"

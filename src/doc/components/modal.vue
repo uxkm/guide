@@ -105,7 +105,7 @@ import Modal from '@/components/Modal.vue';
 
 <template>
   <!-- 좌측 -->
-  <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start" open>
+  <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start">
     <p>footer-align="start"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -114,7 +114,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 가운데 -->
-  <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center" open>
+  <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center">
     <p>footer-align="center"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -123,7 +123,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 우측 (기본) -->
-  <Modal id="modal-footer-end" title="우측 정렬" open>
+  <Modal id="modal-footer-end" title="우측 정렬">
     <p>footer-align="end" (기본)</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -132,7 +132,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 병합: 좌 1 / 우 2 -->
-  <Modal id="modal-footer-between" title="병합 정렬" footer-align="between" open>
+  <Modal id="modal-footer-between" title="병합 정렬" footer-align="between">
     <p>footer-align="between" + modal_footer-group</p>
     <template #footer>
       <div class="modal_footer-group">
@@ -146,7 +146,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 균등 1:1 -->
-  <Modal id="modal-footer-even" title="균등 1:1" footer-align="even" open>
+  <Modal id="modal-footer-even" title="균등 1:1" footer-align="even">
     <p>footer-align="even" · footer-ratio="1-1"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -155,7 +155,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 균등 1:2 -->
-  <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2" open>
+  <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2">
     <p>footer-ratio="1-2" — 좌 1 / 우 2</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -164,7 +164,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 균등 2:1 -->
-  <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1" open>
+  <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1">
     <p>footer-ratio="2-1" — 좌 2 / 우 1</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -173,7 +173,7 @@ import Modal from '@/components/Modal.vue';
   </Modal>
 
   <!-- 하단 패딩 없음 + 균등 -->
-  <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom open>
+  <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom>
     <p>footer-no-pad-bottom + even</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
@@ -189,8 +189,8 @@ import Modal from '@/components/Modal.vue';
 
 <template>
   <Button variant="filled" color="danger" label="삭제" data-modal-trigger="#modal-confirm" aria-controls="modal-confirm" />
-  <Modal id="modal-confirm" size="sm" title="항목 삭제">
-    <p>이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?</p>
+  <Modal id="modal-confirm" size="sm" title="항목 삭제" aria-describedby="modal-confirm-desc">
+    <p id="modal-confirm-desc">이 작업은 되돌릴 수 없습니다. 정말 삭제하시겠습니까?</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-modal-close />
       <Button variant="filled" color="danger" label="삭제" data-modal-close />
@@ -333,7 +333,7 @@ import Modal from '@/components/Modal.vue';
   >
     <div class="modal_demo-stack">
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start" open class="modal_demo-static">
+        <Modal id="modal-footer-start" title="좌측 정렬" footer-align="start" class="modal_demo-static">
           <p><code class="typo_code">footer-align="start"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -342,7 +342,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center" open class="modal_demo-static">
+        <Modal id="modal-footer-center" title="가운데 정렬" footer-align="center" class="modal_demo-static">
           <p><code class="typo_code">footer-align="center"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -351,7 +351,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-end" title="우측 정렬" open class="modal_demo-static">
+        <Modal id="modal-footer-end" title="우측 정렬" class="modal_demo-static">
           <p><code class="typo_code">footer-align="end"</code> (기본)</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -360,7 +360,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-between" title="병합 정렬" footer-align="between" open class="modal_demo-static">
+        <Modal id="modal-footer-between" title="병합 정렬" footer-align="between" class="modal_demo-static">
           <p><code class="typo_code">between</code> — 좌 1 / 우 2</p>
           <template #footer>
             <div class="modal_footer-group">
@@ -374,7 +374,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-between-2" title="병합 정렬" footer-align="between" open class="modal_demo-static">
+        <Modal id="modal-footer-between-2" title="병합 정렬" footer-align="between" class="modal_demo-static">
           <p><code class="typo_code">between</code> — 좌 2 / 우 1</p>
           <template #footer>
             <div class="modal_footer-group">
@@ -388,7 +388,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-even" title="균등 1:1" footer-align="even" open class="modal_demo-static">
+        <Modal id="modal-footer-even" title="균등 1:1" footer-align="even" class="modal_demo-static">
           <p><code class="typo_code">even</code> · <code class="typo_code">footer-ratio="1-1"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -397,7 +397,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2" open class="modal_demo-static">
+        <Modal id="modal-footer-even-1-2" title="균등 1:2" footer-align="even" footer-ratio="1-2" class="modal_demo-static">
           <p><code class="typo_code">footer-ratio="1-2"</code> — 좌 1 / 우 2</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -406,7 +406,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1" open class="modal_demo-static">
+        <Modal id="modal-footer-even-2-1" title="균등 2:1" footer-align="even" footer-ratio="2-1" class="modal_demo-static">
           <p><code class="typo_code">footer-ratio="2-1"</code> — 좌 2 / 우 1</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />
@@ -415,7 +415,7 @@ import Modal from '@/components/Modal.vue';
         </Modal>
       </div>
       <div class="modal_demo-frame modal_demo-frame-compact">
-        <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom open class="modal_demo-static">
+        <Modal id="modal-footer-no-pad" title="하단 패딩 없음" footer-align="even" footer-no-pad-bottom class="modal_demo-static">
           <p><code class="typo_code">footer-no-pad-bottom</code> + even</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-modal-close />

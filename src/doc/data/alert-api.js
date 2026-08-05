@@ -25,7 +25,7 @@ export const alertSlotColumns = [
 export const alertSlots = [
   { name: 'default', description: '본문 (description prop 대체)' },
   { name: 'icon', description: '커스텀 아이콘 (alert_icon)' },
-  { name: 'actions', description: '본문 아래 액션 버튼·링크' },
+  { name: 'actions', description: '본문 아래 alert_actions 영역에 렌더링' },
 ];
 
 export const alertClassColumns = [
@@ -36,7 +36,7 @@ export const alertClassColumns = [
 export const alertClasses = [
   { name: 'alert', description: '알림 루트' },
   { name: 'alert_sm · alert_lg', description: '크기' },
-  { name: 'alert_icon · alert_body · alert_title · alert_desc', description: '구조 파트' },
+  { name: 'alert_icon · alert_body · alert_title · alert_desc · alert_actions', description: '구조 파트' },
   { name: 'alert_close', description: '닫기 버튼' },
   { name: 'color_info · color_success · color_warning · color_error', description: '의미 색상' },
   ...rippleClassRows,

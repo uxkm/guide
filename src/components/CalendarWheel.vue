@@ -1,7 +1,7 @@
 <script setup>
 import Button from '@/components/Button.vue';
 import Calendar from '@/components/Calendar.vue';
-import { computed, ref, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
@@ -20,16 +20,17 @@ const props = defineProps({
 });
 
 const slots = useSlots();
+const attrs = useAttrs();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('CalendarWheel', {
   booleanProps: new Set(['shadow', 'borderless', 'footer', 'toolbar']),
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
 const showToolbar = computed(
-  () => props.toolbar && (props.title || props.cancelLabel || props.confirmLabel),
+  () => props.toolbar && (slots.toolbar || props.title || props.cancelLabel || props.confirmLabel),
 );
 </script>
 
@@ -42,7 +43,7 @@ const showToolbar = computed(
     role="group"
     :aria-label="ariaLabel"
   >
-    <div v-if="showToolbar" class="calendar_wheel-toolbar">
+    <div v-if="showToolbar" class="calendar_wheel-toolbar" data-demo-slot="toolbar">
       <slot name="toolbar">
         <Button v-if="cancelLabel" variant="text" size="sm" :label="cancelLabel" />
         <span v-if="title" class="calendar_wheel-title">{{ title }}</span>
@@ -62,7 +63,7 @@ const showToolbar = computed(
       </div>
       <div class="calendar_wheel-fade" aria-hidden="true" />
     </div>
-    <div v-if="footer || $slots.footer" class="calendar_wheel-footer">
+    <div v-if="footer || $slots.footer" class="calendar_wheel-footer" data-demo-slot="footer">
       <slot name="footer" />
     </div>
   </Calendar>

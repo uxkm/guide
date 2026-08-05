@@ -1,10 +1,12 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots, watch } from 'vue';
+import { computed, nextTick, ref, useAttrs, useId, useSlots } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 defineOptions({ inheritAttrs: false });
 
@@ -19,7 +21,7 @@ const props = defineProps({
     type: Number,
     default: 100,
   },
-  value: {
+  defaultValue: {
     type: Number,
     default: 50,
   },
@@ -39,7 +41,10 @@ const props = defineProps({
     default: 'md',
     validator: (v) => ['sm', 'md', 'lg'].includes(v),
   },
-  modelValue: Number,
+  modelValue: {
+    type: Number,
+    default: undefined,
+  },
 });
 const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
 
@@ -49,45 +54,50 @@ const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
-const inputId = `slider-${Math.random().toString(36).slice(2, 9)}`;
-const internalValue = ref(props.modelValue ?? props.value);
+const inputRef = ref(null);
+const generatedId = useId();
+const inputId = computed(() => attrs.id ?? generatedId);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedMin = computed(() => Number(props.min));
+const resolvedMax = computed(() => Number(props.max));
+const internalValue = ref(Number(props.defaultValue));
 
 const formatCode = createComponentFormatter('Slider', {
-  defaults: { min: 0, max: 100, value: 50, size: 'md' },
+  defaults: { min: 0, max: 100, defaultValue: 50, size: 'md' },
   booleanProps: new Set(['disabled', 'vertical', 'showValue', 'stepper', 'stepperAlways']),
   skipProps: ['modelValue'],
   selfClosing: true,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
-
-const currentValue = computed(() => props.modelValue ?? internalValue.value);
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (value == null) return;
-    internalValue.value = value;
-  },
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    min: resolvedMin.value,
+    max: resolvedMax.value,
+    size: resolvedSize.value,
+  }),
+  slots,
+  rootRef,
+  attrs
 );
 
-watch(
-  () => props.value,
-  (value) => {
-    if (props.modelValue != null) return;
-    internalValue.value = value;
-  },
+const isControlled = computed(() => props.modelValue !== undefined);
+const currentValue = computed(() =>
+  isControlled.value ? Number(props.modelValue) : internalValue.value
 );
 
 function updateValue(nextValue) {
-  internalValue.value = nextValue;
+  if (!isControlled.value) internalValue.value = nextValue;
   emit('update:modelValue', nextValue);
 }
 
 const rootClass = computed(() => {
   const classes = ['slider'];
-  if (props.size === 'sm') classes.push('slider_sm');
-  if (props.size === 'lg') classes.push('slider_lg');
+  if (resolvedSize.value === 'sm') classes.push('slider_sm');
+  if (resolvedSize.value === 'lg') classes.push('slider_lg');
   if (props.vertical) classes.push('slider_vertical');
   if (props.stepper) classes.push('slider_stepper');
   if (props.stepperAlways) classes.push('slider_stepper_always');
@@ -102,22 +112,37 @@ const displayValue = computed(() => {
 
 function adjustValue(delta) {
   const step = props.step ?? 1;
-  const next = Math.min(props.max, Math.max(props.min, currentValue.value + delta * step));
+  const next = Math.min(
+    resolvedMax.value,
+    Math.max(resolvedMin.value, currentValue.value + delta * step)
+  );
   updateValue(next);
 }
 
 const fallthroughAttrs = computed(() => {
-  const { class: _class, ...rest } = attrs;
+  const {
+    class: _class,
+    id: _id,
+    style: _style,
+    value: _value,
+    ...rest
+  } = attrs;
   return rest;
 });
 
 function onInput(event) {
   updateValue(Number(event.target.value));
+
+  if (isControlled.value) {
+    nextTick(() => {
+      if (inputRef.value) inputRef.value.value = String(currentValue.value);
+    });
+  }
 }
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass"
+  <div ref="rootRef" :class="rootClass" :style="attrs.style"
     v-bind="rippleAttrs"
   >
     <div v-if="label || showValue" class="slider_header">
@@ -140,11 +165,12 @@ function onInput(event) {
         </template>
       </Button>
       <input
+        ref="inputRef"
         :id="inputId"
         type="range"
         class="slider_input"
-        :min="min"
-        :max="max"
+        :min="resolvedMin"
+        :max="resolvedMax"
         :step="step"
         :value="currentValue"
         :disabled="disabled"
@@ -168,11 +194,12 @@ function onInput(event) {
     </div>
     <input
       v-else
+      ref="inputRef"
       :id="inputId"
       type="range"
       class="slider_input"
-      :min="min"
-      :max="max"
+      :min="resolvedMin"
+      :max="resolvedMax"
       :step="step"
       :value="currentValue"
       :disabled="disabled"

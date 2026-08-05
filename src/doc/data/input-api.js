@@ -66,4 +66,6 @@ export const inputEventColumns = [
 
 export const inputEvents = [
   { name: 'update:modelValue', description: '입력 값 변경 시 (v-model)' },
+  { name: 'paste', description: '붙여넣기 이벤트. data-input-split · data-input-otp 내부에서는 값을 각 칸에 분배합니다.' },
+  { name: 'keydown', description: '키 입력 이벤트. 분할 입력의 Backspace 이동과 OTP 좌우 방향키 이동을 지원합니다.' },
 ];

@@ -267,7 +267,7 @@ import Space from '@/components/Space.vue';
   <ApiSection
     heading-id="api-classes-heading"
     title="클래스 · 속성"
-    description="Vue 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
+    description="Vue 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합하며, id · style · aria-* 등 전달 속성은 루트 요소에 적용됩니다."
   >
     <ApiTable :columns="spaceClassColumns" :rows="spaceClasses" code-column="name" />
   </ApiSection>

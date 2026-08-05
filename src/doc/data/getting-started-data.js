@@ -5,8 +5,8 @@ export const requirementColumns = [
 ];
 
 export const requirementRows = [
-  { tool: 'Node.js', version: '20 이상', note: 'LTS 버전 사용' },
-  { tool: 'pnpm', version: '9.x', note: 'packageManager 필드에 명시된 버전' },
+  { tool: 'Node.js', version: '22.19+ / 24.11+', note: 'Nuxt 4.5.1이 지원하는 LTS 버전 사용' },
+  { tool: 'pnpm', version: '9.15.9', note: 'package.json의 packageManager 필드 기준' },
 ];
 
 export const scriptColumns = [
@@ -15,10 +15,11 @@ export const scriptColumns = [
 ];
 
 export const scriptRows = [
-  { command: 'pnpm dev', description: 'Nuxt 개발 서버 — 소개 페이지로 바로 진입' },
+  { command: 'pnpm dev', description: 'Nuxt 개발 서버 실행 (기본 주소: http://localhost:3000)' },
   { command: 'pnpm build', description: 'Nitro 프로덕션 서버 빌드' },
-  { command: 'pnpm generate', description: '정적 사이트 → .output/public/ 생성' },
-  { command: 'pnpm preview', description: '빌드 결과 로컬 미리보기' },
+  { command: 'pnpm generate', description: '정적 사이트 생성 (.output/public/)' },
+  { command: 'pnpm preview', description: 'build 또는 generate 결과를 로컬에서 미리보기' },
+  { command: 'pnpm deploy:main', description: 'nuxt 브랜치의 정적 결과물을 main/nuxt/에 배포' },
 ];
 
 export const newComponentColumns = [
@@ -36,13 +37,25 @@ export const newComponentRows = [
 ];
 
 export const installCode = `# 저장소 클론
-git clone <repository-url>
+git clone git@github.com:uxkm/guide.git
 cd guide
 
 # 의존성 설치
-pnpm install`;
+pnpm install
 
-export const stylesCode = `// 전체 스타일
+# 개발 서버 실행
+pnpm dev`;
+
+export const buildCode = `# Nitro 서버용 빌드
+pnpm build
+
+# 또는 정적 사이트 생성
+pnpm generate
+
+# 생성 결과 확인
+pnpm preview`;
+
+export const stylesCode = `// 전체 스타일 — Vite의 SCSS loadPaths에 src/scss를 등록한 경우
 @use "main";
 
 // 또는 필요한 컴포넌트만 선택

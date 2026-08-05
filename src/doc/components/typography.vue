@@ -28,11 +28,7 @@ import {
   buttonMarkupExample,
 } from '@/doc/data/typography-api';
 
-const titleCode = `<script setup>
-import TypoTitle from '@/components/TypoTitle.vue';
-<\/script>
-
-<template>
+const titleCode = `<template>
   <div class="typo_stack-lg">
     <TypoTitle :level="1" label="h1. 제목 레벨 1" />
     <TypoTitle :level="2" label="h2. 제목 레벨 2" />
@@ -42,25 +38,17 @@ import TypoTitle from '@/components/TypoTitle.vue';
   </div>
 </template>`;
 
-const textCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const textCode = `<template>
   <p>
     기본 본문 텍스트입니다. 인라인으로 <TypoText tag="span" color="muted" label="보조 설명" />을 함께 쓸 수 있습니다.
-    </p>
-    <div>
-      <TypoText variant="paragraph" label="typo_paragraph — 첫 번째 단락입니다. 단락 사이에 일정한 간격이 적용됩니다." />
-      <TypoText variant="paragraph" label="두 번째 단락입니다. 마지막 단락은 하단 여백이 제거됩니다." />
-    </div>
+  </p>
+  <div>
+    <TypoText variant="paragraph" label="typo_paragraph — 첫 번째 단락입니다. 단락 사이에 일정한 간격이 적용됩니다." />
+    <TypoText variant="paragraph" label="두 번째 단락입니다. 마지막 단락은 하단 여백이 제거됩니다." />
+  </div>
 </template>`;
 
-const colorCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const colorCode = `<template>
   <TypoText color="default" label="기본 텍스트 (Default)" />
   <TypoText color="muted" label="보조 텍스트 (Muted)" />
   <TypoText color="success" label="성공 메시지 (Success)" />
@@ -69,11 +57,7 @@ import TypoText from '@/components/TypoText.vue';
   <TypoText color="primary" label="강조 텍스트 (Primary)" />
 </template>`;
 
-const sizeCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const sizeCode = `<template>
   <TypoText size="xs" label="Extra Small — 0.75rem" />
   <TypoText size="sm" label="Small — 0.8125rem" />
   <TypoText label="Base — 0.875rem (기본)" />
@@ -81,70 +65,56 @@ import TypoText from '@/components/TypoText.vue';
   <TypoText size="xl" label="Extra Large — 1.125rem" />
 </template>`;
 
-const styleCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const styleCode = `<template>
   <p>
     <TypoText variant="strong" label="굵은 텍스트" />와
-      <TypoText variant="italic" label="기울임 텍스트" />,
-        <TypoText variant="underline" label="밑줄 텍스트" />,
-          <TypoText variant="delete" label="취소선 텍스트" />를 함께 사용할 수 있습니다.
-          </p>
-          <p>
-            <TypoText variant="mark" label="형광펜 강조" />와
-              <TypoText variant="code" label="inline code" /> 표현도 지원합니다.
-              </p>
-              <p class="color_muted">
-                조합 예시:
-                <TypoText variant="strong" color="danger" label="중요 경고" />,
-                  <TypoText variant="italic" color="primary" label="강조 설명" />,
-                    <TypoText variant="delete" color="muted" label="삭제된 항목" />
-                  </p>
+    <TypoText variant="italic" label="기울임 텍스트" />,
+    <TypoText variant="underline" label="밑줄 텍스트" />,
+    <TypoText variant="delete" label="취소선 텍스트" />를 함께 사용할 수 있습니다.
+  </p>
+  <p>
+    <TypoText variant="mark" label="형광펜 강조" />와
+    <TypoText variant="code" label="inline code" /> 표현도 지원합니다.
+  </p>
+  <p class="color_muted">
+    조합 예시:
+    <TypoText variant="strong" color="danger" label="중요 경고" />,
+    <TypoText variant="italic" color="primary" label="강조 설명" />,
+    <TypoText variant="delete" color="muted" label="삭제된 항목" />
+  </p>
 </template>`;
 
-const subSupSmallCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const subSupSmallCode = `<template>
   <p>
     화학식 H<TypoText variant="sub" label="2" />O,
-      수식 x<TypoText variant="sup" label="2" /> + y<TypoText variant="sup" label="2" /> = z<TypoText variant="sup" label="2" />처럼
-            아래·위첨자를 표현합니다.
-          </p>
-          <p>
-            각주<TypoText variant="sup" label="1" />나
-              제곱미터 m<TypoText variant="sup" label="2" /> 단위에도 활용합니다.
-              </p>
-              <p>
-                <TypoText variant="small" label="※ 본 안내는 참고용이며, 법적 효력은 약관을 따릅니다." />
-              </p>
+    수식 x<TypoText variant="sup" label="2" /> + y<TypoText variant="sup" label="2" /> = z<TypoText variant="sup" label="2" />처럼
+    아래·위첨자를 표현합니다.
+  </p>
+  <p>
+    각주<TypoText variant="sup" label="1" />나
+    제곱미터 m<TypoText variant="sup" label="2" /> 단위에도 활용합니다.
+  </p>
+  <p>
+    <TypoText variant="small" label="※ 본 안내는 참고용이며, 법적 효력은 약관을 따릅니다." />
+  </p>
 </template>`;
 
-const ellipsisCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const ellipsisCode = `<template>
   <div style="max-width: 320px; width: 100%;">
-    <TypoText :ellipsis="1" label="1줄 말줄임 — 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet." />
+    <TypoText :ellipsis="1">
+      1줄 말줄임 — default 슬롯으로 전달한 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet.
+    </TypoText>
     <TypoText :ellipsis="2" label="2줄 말줄임 — 두 줄까지 표시한 뒤 넘치는 내용은 말줄임표로 처리합니다. UXKM 가이드는 컴포넌트 문서와 데모를 제공합니다." />
     <TypoText :ellipsis="3" label="3줄 말줄임 — 세 줄까지 표시합니다. 디자인 시스템의 타이포그래피는 일관된 위계와 가독성을 유지하는 데 중요한 역할을 합니다. 제목·본문·캡션의 크기와 색상을 체계적으로 정의하세요." />
   </div>
 </template>`;
 
-const blockquoteCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const blockquoteCode = `<template>
   <TypoText
-  variant="blockquote"
-  color="muted"
-  cite="https://example.com"
-  label="좋은 타이포그래피는 읽기 쉬운 콘텐츠의 기반입니다. 위계, 대비, 여백을 일관되게 유지하세요."
+    variant="blockquote"
+    color="muted"
+    cite="https://example.com"
+    label="좋은 타이포그래피는 읽기 쉬운 콘텐츠의 기반입니다. 위계, 대비, 여백을 일관되게 유지하세요."
   />
 </template>`;
 
@@ -160,65 +130,49 @@ const listCode = `<template>
     <li>프로토타입 검증</li>
   </ol>
   <p class="form_field-hint">
-    용어 설명·구조화된 목록은 <a href="list.html#definition-heading">List — 정의 목록</a>을 참고하세요.
+    용어 설명·구조화된 목록은 <a href="/components/list#definition-heading">List — 정의 목록</a>을 참고하세요.
   </p>
 </template>`;
 
-const linkCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const linkCode = `<template>
   <TypoText variant="paragraph">
-    자세한 내용은 <TypoText tag="a" variant="link" href="#" label="가이드 문서" />를 참고하세요.
-      <TypoText tag="span" color="muted" label="또는" />
-      <TypoText tag="a" variant="link" href="#" size="sm" label="작은 링크" />로 이동할 수 있습니다.
-      </TypoText>
+    자세한 내용은 <TypoText variant="link" href="/getting-started" label="설치 및 사용" />을 참고하세요.
+    <TypoText tag="span" color="muted" label="또는" />
+    <TypoText variant="link" href="/design-tokens" size="sm" label="디자인 토큰" />으로 이동할 수 있습니다.
+  </TypoText>
 </template>`;
 
-const leadCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-import TypoTitle from '@/components/TypoTitle.vue';
-<\/script>
-
-<template>
+const leadCode = `<template>
   <div style="max-width: 32rem; width: 100%;">
     <div class="typo_stack-lg">
       <TypoText variant="overline" label="가이드 소개" />
-      <TypoTitle :level="3" label="HTML Components" />
-      <TypoText variant="lead" label="순수 HTML과 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다." />
-      <TypoText variant="caption" label="마지막 업데이트: 2026-06-24" />
+      <TypoTitle :level="3" label="Vue Components" />
+      <TypoText variant="lead" label="Vue와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다." />
+      <TypoText variant="caption" label="마지막 업데이트: 2026-07-31" />
     </div>
     <div>
       <TypoText variant="label" html-for="demo-email" label="이메일" />
+      <input id="demo-email" class="input" type="email" placeholder="name@example.com" />
       <TypoText variant="caption" style="margin-top: 0.25rem;" label="가입 시 사용한 이메일 주소를 입력하세요." />
     </div>
   </div>
 </template>`;
 
-const titleColorCode = `<script setup>
-import TypoTitle from '@/components/TypoTitle.vue';
-<\/script>
-
-<template>
+const titleColorCode = `<template>
   <TypoTitle :level="3" color="primary" label="Primary 제목" />
   <TypoTitle :level="3" color="success" label="Success 제목" />
   <TypoTitle :level="3" color="danger" label="Danger 제목" />
   <TypoTitle :level="3" color="muted" label="Muted 제목" />
 </template>`;
 
-const kbdCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-<\/script>
-
-<template>
+const kbdCode = `<template>
   <p>
-    저장하려면 <TypoText tag="kbd" variant="kbd" label="⌘" /> + <TypoText tag="kbd" variant="kbd" label="S" />를 누르세요.
-        검색은 <TypoText tag="kbd" variant="kbd" label="Ctrl" /> + <TypoText tag="kbd" variant="kbd" label="K" />입니다.
-          </p>
-          <TypoText variant="pre">
-            <code>{{ buttonMarkupExample }}</code>
-          </TypoText>
+    저장하려면 <TypoText variant="kbd" label="⌘" /> + <TypoText variant="kbd" label="S" />를 누르세요.
+    검색은 <TypoText variant="kbd" label="Ctrl" /> + <TypoText variant="kbd" label="K" />입니다.
+  </p>
+  <TypoText variant="pre">
+    <code>{{ buttonMarkupExample }}</code>
+  </TypoText>
 </template>`;
 
 const nestedListCode = `<template>
@@ -238,16 +192,11 @@ const nestedListCode = `<template>
   </ul>
 </template>`;
 
-const stackCode = `<script setup>
-import TypoText from '@/components/TypoText.vue';
-import TypoTitle from '@/components/TypoTitle.vue';
-<\/script>
-
-<template>
+const stackCode = `<template>
   <div class="typo_stack-lg" style="max-width: 28rem;">
     <TypoTitle :level="3" label="섹션 제목" />
     <TypoText variant="paragraph" label="typo_stack-lg는 제목과 본문 사이 간격을 넓게 유지합니다. 카드 헤더, 모달 제목, 폼 섹션 등에 활용합니다." />
-    <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-06-24" />
+    <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-07-31" />
   </div>
   <div class="typo_stack" style="max-width: 28rem;">
     <TypoTitle :level="4" label="작은 스택" />
@@ -260,7 +209,10 @@ import TypoTitle from '@/components/TypoTitle.vue';
 <template>
   <div class="page_intro">
     <h1>Typography</h1>
-    <p class="lead">제목, 본문, 강조, 말줄임 등 텍스트 표현을 위한 타이포그래피 컴포넌트입니다.</p>
+    <p class="lead">
+      제목·본문·강조·링크·코드 등 텍스트의 의미와 시각적 위계를 표현하는 Vue 컴포넌트입니다.
+      시맨틱 태그와 타이포그래피 클래스를 props로 함께 적용합니다.
+    </p>
   </div>
 
   <DemoSection
@@ -328,7 +280,7 @@ import TypoTitle from '@/components/TypoTitle.vue';
   <DemoSection
     heading-id="style-heading"
     title="텍스트 스타일"
-    description="강조, 기울임, 밑줄, 취소선, 형광펜, 인라인 코드 등 인라인 스타일을 조합합니다."
+    description="strong · em · del · mark 등 의미 있는 태그와 밑줄·인라인 코드 스타일을 조합합니다."
     stack
     :code="styleCode"
   >
@@ -378,12 +330,14 @@ import TypoTitle from '@/components/TypoTitle.vue';
   <DemoSection
     heading-id="ellipsis-heading"
     title="말줄임"
-    description="text_ellipsis로 1줄, text_ellipsis-2·3으로 여러 줄 말줄임을 적용합니다. 부모에 너비 제한이 필요합니다."
+    description="label 또는 default 슬롯으로 전달한 콘텐츠에 1~3줄 말줄임을 적용합니다. 부모에 너비 제한이 필요합니다."
     stack
     :code="ellipsisCode"
   >
     <div style="max-width: 320px; width: 100%;">
-      <TypoText :ellipsis="1" label="1줄 말줄임 — 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet." />
+      <TypoText :ellipsis="1">
+        1줄 말줄임 — default 슬롯으로 전달한 긴 텍스트가 영역을 넘으면 말줄임표로 표시됩니다. Lorem ipsum dolor sit amet.
+      </TypoText>
       <TypoText :ellipsis="2" label="2줄 말줄임 — 두 줄까지 표시한 뒤 넘치는 내용은 말줄임표로 처리합니다. UXKM 가이드는 컴포넌트 문서와 데모를 제공합니다." />
       <TypoText :ellipsis="3" label="3줄 말줄임 — 세 줄까지 표시합니다. 디자인 시스템의 타이포그래피는 일관된 위계와 가독성을 유지하는 데 중요한 역할을 합니다. 제목·본문·캡션의 크기와 색상을 체계적으로 정의하세요." />
     </div>
@@ -424,21 +378,21 @@ import TypoTitle from '@/components/TypoTitle.vue';
     </ol>
 
     <p class="form_field-hint">
-      용어 설명·구조화된 목록은 <a href="list.html#definition-heading">List — 정의 목록</a>을 참고하세요.
+      용어 설명·구조화된 목록은 <a href="/components/list#definition-heading">List — 정의 목록</a>을 참고하세요.
     </p>
   </DemoSection>
 
   <DemoSection
     heading-id="link-heading"
     title="링크"
-    description="본문 내 하이퍼링크에 typo_link 클래스를 사용합니다."
+    description="variant=link는 a 태그와 typo_link 클래스를 사용합니다. 실제 이동할 href를 함께 지정하세요."
     stack
     :code="linkCode"
   >
     <TypoText variant="paragraph">
-      자세한 내용은 <TypoText tag="a" variant="link" href="#" label="가이드 문서" />를 참고하세요.
+      자세한 내용은 <TypoText variant="link" href="/getting-started" label="설치 및 사용" />을 참고하세요.
       <TypoText tag="span" color="muted" label="또는" />
-      <TypoText tag="a" variant="link" href="#" size="sm" label="작은 링크" />로 이동할 수 있습니다.
+      <TypoText variant="link" href="/design-tokens" size="sm" label="디자인 토큰" />으로 이동할 수 있습니다.
     </TypoText>
   </DemoSection>
 
@@ -452,13 +406,14 @@ import TypoTitle from '@/components/TypoTitle.vue';
     <div style="max-width: 32rem; width: 100%;">
       <div class="typo_stack-lg">
         <TypoText variant="overline" label="가이드 소개" />
-        <TypoTitle :level="3" label="HTML Components" />
-        <TypoText variant="lead" label="순수 HTML과 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다." />
-        <TypoText variant="caption" label="마지막 업데이트: 2026-06-24" />
+        <TypoTitle :level="3" label="Vue Components" />
+        <TypoText variant="lead" label="Vue와 SCSS로 구성된 UI 컴포넌트 가이드입니다. 접근성과 일관성을 기준으로 설계되었습니다." />
+        <TypoText variant="caption" label="마지막 업데이트: 2026-07-31" />
       </div>
 
       <div>
         <TypoText variant="label" html-for="demo-email" label="이메일" />
+        <input id="demo-email" class="input" type="email" placeholder="name@example.com" />
         <TypoText variant="caption" style="margin-top: 0.25rem;" label="가입 시 사용한 이메일 주소를 입력하세요." />
       </div>
     </div>
@@ -485,8 +440,8 @@ import TypoTitle from '@/components/TypoTitle.vue';
     :code="kbdCode"
   >
     <p>
-      저장하려면 <TypoText tag="kbd" variant="kbd" label="⌘" /> + <TypoText tag="kbd" variant="kbd" label="S" />를 누르세요.
-      검색은 <TypoText tag="kbd" variant="kbd" label="Ctrl" /> + <TypoText tag="kbd" variant="kbd" label="K" />입니다.
+      저장하려면 <TypoText variant="kbd" label="⌘" /> + <TypoText variant="kbd" label="S" />를 누르세요.
+      검색은 <TypoText variant="kbd" label="Ctrl" /> + <TypoText variant="kbd" label="K" />입니다.
     </p>
 
     <TypoText variant="pre"><code>{{ buttonMarkupExample }}</code></TypoText>
@@ -525,7 +480,7 @@ import TypoTitle from '@/components/TypoTitle.vue';
     <div class="typo_stack-lg" style="max-width: 28rem;">
       <TypoTitle :level="3" label="섹션 제목" />
       <TypoText variant="paragraph" label="typo_stack-lg는 제목과 본문 사이 간격을 넓게 유지합니다. 카드 헤더, 모달 제목, 폼 섹션 등에 활용합니다." />
-      <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-06-24" />
+      <TypoText tag="p" color="muted" size="sm" label="마지막 업데이트: 2026-07-31" />
     </div>
 
     <div class="typo_stack" style="max-width: 28rem;">

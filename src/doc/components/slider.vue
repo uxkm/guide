@@ -34,12 +34,12 @@ import Slider from '@/components/Slider.vue';
   id="slider-type-label"
   class="slider_fit"
   label="label + for — 기본"
-  :value="40"
+  :default-value="40"
   show-value
   />
   <Slider
   class="slider_fit"
-  :value="55"
+  :default-value="55"
   aria-label="단독 슬라이더 — aria-label"
   />
   <p class="slider_hint">레이블 없이 사용할 때는 <code>aria-label</code>로 접근 가능한 이름을 지정합니다.</p>
@@ -47,7 +47,7 @@ import Slider from '@/components/Slider.vue';
   id="slider-type-labelledby"
   class="slider_fit"
   label="aria-labelledby — 외부 레이블"
-  :value="16"
+  :default-value="16"
   :min="12"
   :max="24"
   :step="1"
@@ -60,7 +60,7 @@ import Slider from '@/components/Slider.vue';
   id="slider-type-describedby"
   class="slider_fit"
   label="aria-describedby — 보조 설명"
-  :value="70"
+  :default-value="70"
   aria-describedby="slider-type-describedby-hint"
   data-slider-suffix="%"
   data-slider-valuetext-suffix="퍼센트"
@@ -71,7 +71,7 @@ import Slider from '@/components/Slider.vue';
   id="slider-type-valuetext"
   class="slider_fit"
   label="aria-valuetext — 읽기 쉬운 값"
-  :value="3"
+  :default-value="3"
   :min="1"
   :max="5"
   :step="1"
@@ -86,7 +86,7 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider class="slider_fit" :value="30" aria-label="기본 슬라이더" />
+  <Slider class="slider_fit" :default-value="30" aria-label="기본 슬라이더" />
 </template>`;
 
 const labelCode = `<script setup>
@@ -94,12 +94,12 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider id="slider-volume" class="slider_fit" label="볼륨" :value="60" show-value />
+  <Slider id="slider-volume" class="slider_fit" label="볼륨" :default-value="60" show-value />
   <Slider
   id="slider-brightness"
   class="slider_fit"
   label="밝기"
-  :value="40"
+  :default-value="40"
   data-slider-suffix="%"
   show-value
   />
@@ -110,9 +110,9 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider id="slider-size-sm" class="slider_sm slider_fit" label="Small — slider_sm" :value="30" show-value />
-  <Slider id="slider-size-md" class="slider_fit" label="Medium — 기본" :value="50" show-value />
-  <Slider id="slider-size-lg" class="slider_lg slider_fit" label="Large — slider_lg" :value="70" show-value />
+  <Slider id="slider-size-sm" size="sm" class="slider_fit" label="Small — slider_sm" :default-value="30" show-value />
+  <Slider id="slider-size-md" class="slider_fit" label="Medium — 기본" :default-value="50" show-value />
+  <Slider id="slider-size-lg" size="lg" class="slider_fit" label="Large — slider_lg" :default-value="70" show-value />
 </template>`;
 
 const widthCode = `<script setup>
@@ -120,13 +120,13 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider id="slider-width-fit" class="slider_fit" label="slider_fit — 최대 320px" :value="45" show-value />
+  <Slider id="slider-width-fit" class="slider_fit" label="slider_fit — 최대 320px" :default-value="45" show-value />
   <Slider
   id="slider-width-block"
   class="slider_block"
   style="max-width: 480px;"
   label="slider_block — 전체 너비"
-  :value="65"
+  :default-value="65"
   show-value
   />
 </template>`;
@@ -136,7 +136,7 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider class="slider_fit" label="step=10" :value="50" :step="10" show-value />
+  <Slider class="slider_fit" label="step=10" :default-value="50" :step="10" show-value />
 </template>`;
 
 const stepperCode = `<script setup>
@@ -148,7 +148,7 @@ import Slider from '@/components/Slider.vue';
   class="slider_fit"
   stepper
   label="볼륨 — slider_stepper"
-  :value="60"
+  :default-value="60"
   show-value
   decrease-label="볼륨 줄이기"
   increase-label="볼륨 늘리기"
@@ -159,7 +159,7 @@ import Slider from '@/components/Slider.vue';
   stepper
   stepper-always
   label="밝기 — slider_stepper_always"
-  :value="40"
+  :default-value="40"
   :step="5"
   value-suffix="%"
   show-value
@@ -171,7 +171,7 @@ import Slider from '@/components/Slider.vue';
   class="slider_fit"
   stepper
   label="비활성"
-  :value="30"
+  :default-value="30"
   show-value
   disabled
   />
@@ -182,10 +182,10 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider id="slider-color-primary" class="color_primary slider_fit" label="Primary" :value="60" show-value />
-  <Slider id="slider-color-success" class="color_success slider_fit" label="Success" :value="70" show-value />
-  <Slider id="slider-color-danger" class="color_danger slider_fit" label="Danger" :value="40" show-value />
-  <Slider id="slider-color-warning" class="color_warning slider_fit" label="Warning" :value="80" show-value />
+  <Slider id="slider-color-primary" class="color_primary slider_fit" label="Primary" :default-value="60" show-value />
+  <Slider id="slider-color-success" class="color_success slider_fit" label="Success" :default-value="70" show-value />
+  <Slider id="slider-color-danger" class="color_danger slider_fit" label="Danger" :default-value="40" show-value />
+  <Slider id="slider-color-warning" class="color_warning slider_fit" label="Warning" :default-value="80" show-value />
 </template>`;
 
 const stateCode = `<script setup>
@@ -193,8 +193,8 @@ import Slider from '@/components/Slider.vue';
 <\/script>
 
 <template>
-  <Slider class="slider_fit" label="기본" :value="50" show-value />
-  <Slider class="slider_fit" label="비활성" :value="30" disabled show-value />
+  <Slider class="slider_fit" label="기본" :default-value="50" show-value />
+  <Slider class="slider_fit" label="비활성" :default-value="30" disabled show-value />
 </template>`;
 
 const formCode = `<script setup>
@@ -206,7 +206,7 @@ import Slider from '@/components/Slider.vue';
   <FormLayout layout="vertical" fit>
     <div class="form_field">
       <label class="form_field-label" for="slider-form-opacity">불투명도</label>
-      <Slider id="slider-form-opacity" :value="85" data-slider-suffix="%" />
+      <Slider id="slider-form-opacity" :default-value="85" data-slider-suffix="%" />
       <p class="form_field-hint">0~100% 사이 값</p>
     </div>
     <div class="form_field">
@@ -214,7 +214,7 @@ import Slider from '@/components/Slider.vue';
       <Slider
       id="slider-form-zoom"
       label="현재 값"
-      :value="125"
+      :default-value="125"
       :min="50"
       :max="200"
       :step="25"
@@ -226,7 +226,7 @@ import Slider from '@/components/Slider.vue';
   <FormLayout layout="horizontal" fit>
     <div class="form_field">
       <label class="form_field-label" for="slider-form-horizontal">선 굵기</label>
-      <Slider id="slider-form-horizontal" :value="3" :min="1" :max="10" />
+      <Slider id="slider-form-horizontal" :default-value="3" :min="1" :max="10" />
       <p class="form_field-hint">1~10px</p>
     </div>
   </FormLayout>
@@ -250,12 +250,12 @@ import Slider from '@/components/Slider.vue';
       id="slider-type-label"
       class="slider_fit"
       label="label + for — 기본"
-      :value="40"
+      :default-value="40"
       show-value
     />
     <Slider
       class="slider_fit"
-      :value="55"
+      :default-value="55"
       aria-label="단독 슬라이더 — aria-label"
     />
     <p class="slider_hint">레이블 없이 사용할 때는 <code>aria-label</code>로 접근 가능한 이름을 지정합니다.</p>
@@ -263,7 +263,7 @@ import Slider from '@/components/Slider.vue';
       id="slider-type-labelledby"
       class="slider_fit"
       label="aria-labelledby — 외부 레이블"
-      :value="16"
+      :default-value="16"
       :min="12"
       :max="24"
       :step="1"
@@ -276,7 +276,7 @@ import Slider from '@/components/Slider.vue';
       id="slider-type-describedby"
       class="slider_fit"
       label="aria-describedby — 보조 설명"
-      :value="70"
+      :default-value="70"
       aria-describedby="slider-type-describedby-hint"
       data-slider-suffix="%"
       data-slider-valuetext-suffix="퍼센트"
@@ -287,7 +287,7 @@ import Slider from '@/components/Slider.vue';
       id="slider-type-valuetext"
       class="slider_fit"
       label="aria-valuetext — 읽기 쉬운 값"
-      :value="3"
+      :default-value="3"
       :min="1"
       :max="5"
       :step="1"
@@ -300,10 +300,10 @@ import Slider from '@/components/Slider.vue';
   <DemoSection
     heading-id="basic-heading"
     title="기본"
-    description="slider 래퍼 안에 slider_input을 배치합니다. min · max · value로 범위와 초기값을 지정합니다."
+    description="slider 래퍼 안에 slider_input을 배치합니다. min · max · default-value로 범위와 초기값을 지정합니다."
     :code="basicCode"
   >
-    <Slider class="slider_fit" :value="30" aria-label="기본 슬라이더" />
+    <Slider class="slider_fit" :default-value="30" aria-label="기본 슬라이더" />
   </DemoSection>
 
   <DemoSection
@@ -312,12 +312,12 @@ import Slider from '@/components/Slider.vue';
     description="slider_header에 slider_label과 output.slider_value를 함께 사용합니다. output의 for 속성은 대응하는 input id와 연결합니다."
     :code="labelCode"
   >
-    <Slider id="slider-volume" class="slider_fit" label="볼륨" :value="60" show-value />
+    <Slider id="slider-volume" class="slider_fit" label="볼륨" :default-value="60" show-value />
     <Slider
       id="slider-brightness"
       class="slider_fit"
       label="밝기"
-      :value="40"
+      :default-value="40"
       data-slider-suffix="%"
       show-value
     />
@@ -329,9 +329,9 @@ import Slider from '@/components/Slider.vue';
     description="slider_sm · slider(기본) · slider_lg로 트랙·썸·텍스트 크기를 조절합니다."
     :code="sizeCode"
   >
-    <Slider id="slider-size-sm" class="slider_sm slider_fit" label="Small — slider_sm" :value="30" show-value />
-    <Slider id="slider-size-md" class="slider_fit" label="Medium — 기본" :value="50" show-value />
-    <Slider id="slider-size-lg" class="slider_lg slider_fit" label="Large — slider_lg" :value="70" show-value />
+    <Slider id="slider-size-sm" size="sm" class="slider_fit" label="Small — slider_sm" :default-value="30" show-value />
+    <Slider id="slider-size-md" class="slider_fit" label="Medium — 기본" :default-value="50" show-value />
+    <Slider id="slider-size-lg" size="lg" class="slider_fit" label="Large — slider_lg" :default-value="70" show-value />
   </DemoSection>
 
   <DemoSection
@@ -340,13 +340,13 @@ import Slider from '@/components/Slider.vue';
     description="기본은 부모 100%입니다. slider_fit으로 --slider-max-width(320px)까지 제한하고, slider_block으로 전체 너비를 사용합니다."
     :code="widthCode"
   >
-    <Slider id="slider-width-fit" class="slider_fit" label="slider_fit — 최대 320px" :value="45" show-value />
+    <Slider id="slider-width-fit" class="slider_fit" label="slider_fit — 최대 320px" :default-value="45" show-value />
     <Slider
       id="slider-width-block"
       class="slider_block"
       style="max-width: 480px;"
       label="slider_block — 전체 너비"
-      :value="65"
+      :default-value="65"
       show-value
     />
   </DemoSection>
@@ -357,7 +357,7 @@ import Slider from '@/components/Slider.vue';
     description="step으로 증감 단위를 지정합니다. slider_ticks로 눈금 레이블을 표시할 수 있습니다."
     :code="stepCode"
   >
-    <Slider class="slider_fit" label="step=10" :value="50" :step="10" show-value />
+    <Slider class="slider_fit" label="step=10" :default-value="50" :step="10" show-value />
   </DemoSection>
 
   <DemoSection
@@ -371,7 +371,7 @@ import Slider from '@/components/Slider.vue';
       class="slider_fit"
       stepper
       label="볼륨 — slider_stepper"
-      :value="60"
+      :default-value="60"
       show-value
       decrease-label="볼륨 줄이기"
       increase-label="볼륨 늘리기"
@@ -383,7 +383,7 @@ import Slider from '@/components/Slider.vue';
       stepper
       stepper-always
       label="밝기 — slider_stepper_always"
-      :value="40"
+      :default-value="40"
       :step="5"
       value-suffix="%"
       show-value
@@ -396,7 +396,7 @@ import Slider from '@/components/Slider.vue';
       class="slider_fit"
       stepper
       label="비활성"
-      :value="30"
+      :default-value="30"
       show-value
       disabled
     />
@@ -408,10 +408,10 @@ import Slider from '@/components/Slider.vue';
     description="color_primary(기본) · color_success · color_danger · color_warning으로 트랙·썸 색을 지정합니다."
     :code="colorCode"
   >
-    <Slider id="slider-color-primary" class="color_primary slider_fit" label="Primary" :value="60" show-value />
-    <Slider id="slider-color-success" class="color_success slider_fit" label="Success" :value="70" show-value />
-    <Slider id="slider-color-danger" class="color_danger slider_fit" label="Danger" :value="40" show-value />
-    <Slider id="slider-color-warning" class="color_warning slider_fit" label="Warning" :value="80" show-value />
+    <Slider id="slider-color-primary" class="color_primary slider_fit" label="Primary" :default-value="60" show-value />
+    <Slider id="slider-color-success" class="color_success slider_fit" label="Success" :default-value="70" show-value />
+    <Slider id="slider-color-danger" class="color_danger slider_fit" label="Danger" :default-value="40" show-value />
+    <Slider id="slider-color-warning" class="color_warning slider_fit" label="Warning" :default-value="80" show-value />
   </DemoSection>
 
   <DemoSection
@@ -420,8 +420,8 @@ import Slider from '@/components/Slider.vue';
     description="비활성·오류(is-error) 상태를 지원합니다."
     :code="stateCode"
   >
-    <Slider class="slider_fit" label="기본" :value="50" show-value />
-    <Slider class="slider_fit" label="비활성" :value="30" disabled show-value />
+    <Slider class="slider_fit" label="기본" :default-value="50" show-value />
+    <Slider class="slider_fit" label="비활성" :default-value="30" disabled show-value />
   </DemoSection>
 
   <DemoSection
@@ -434,7 +434,7 @@ import Slider from '@/components/Slider.vue';
     <FormLayout layout="vertical" fit>
       <div class="form_field">
         <label class="form_field-label" for="slider-form-opacity">불투명도</label>
-        <Slider id="slider-form-opacity" :value="85" data-slider-suffix="%" />
+        <Slider id="slider-form-opacity" :default-value="85" data-slider-suffix="%" />
         <p class="form_field-hint">0~100% 사이 값</p>
       </div>
       <div class="form_field">
@@ -442,7 +442,7 @@ import Slider from '@/components/Slider.vue';
         <Slider
           id="slider-form-zoom"
           label="현재 값"
-          :value="125"
+          :default-value="125"
           :min="50"
           :max="200"
           :step="25"
@@ -455,7 +455,7 @@ import Slider from '@/components/Slider.vue';
     <FormLayout layout="horizontal" fit>
       <div class="form_field">
         <label class="form_field-label" for="slider-form-horizontal">선 굵기</label>
-        <Slider id="slider-form-horizontal" :value="3" :min="1" :max="10" />
+        <Slider id="slider-form-horizontal" :default-value="3" :min="1" :max="10" />
         <p class="form_field-hint">1~10px</p>
       </div>
     </FormLayout>

@@ -10,7 +10,7 @@ export const containerProps = [
     name: 'fluid',
     type: 'boolean',
     default: 'false',
-    description: '최대 너비 제한 없이 부모 너비 전체 사용 (container_fluid). size(sm · md · lg · xl)가 선택된 경우에만 적용됩니다.',
+    description: '최대 너비 제한 없이 부모 너비 전체 사용 (container_fluid). size와 함께 지정하면 fluid가 우선합니다.',
   },
   {
     name: 'size',

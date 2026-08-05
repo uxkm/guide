@@ -32,6 +32,7 @@ export const textareaClassColumns = [
 export const textareaClasses = [
   { name: 'textarea', description: '텍스트영역 루트' },
   { name: 'textarea_sm · textarea_lg · textarea_block', description: '크기·너비' },
+  { name: 'textarea_wrap · textarea_show-count · textarea_count', description: 'TextareaShowCount 글자 수 카운터 구조' },
   { name: 'is-error · is-disabled', description: '상태' },
 ];
 
@@ -42,6 +43,11 @@ export const textareaEventColumns = [
 
 export const textareaEvents = [
   { name: 'update:modelValue', description: '입력 값 변경 시 (v-model)' },
+];
+
+export const textareaShowCountProps = [
+  { name: 'count-id', type: 'string', default: '자동 생성', description: '카운터 ID. Textarea의 aria-describedby에 자동 병합' },
+  { name: 'tag', type: 'string', default: 'div', description: '래퍼 HTML 태그' },
 ];
 
 

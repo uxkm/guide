@@ -28,6 +28,14 @@
   vertical-align: -0.125em;
   @include square-size(var(--icon-size));
 
+  > img,
+  > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   @each $size in sm, lg, xl {
     &_#{$size} {
       @include square-size(var(--icon-size-#{$size}));
@@ -40,18 +48,6 @@
 
   &_spin {
     animation: icon-spin var(--icon-spin-duration) linear infinite;
-  }
-
-  // #image 슬롯 호스트 — img가 아이콘 박스에 맞춤
-  &_img {
-    overflow: hidden;
-
-    > img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
   }
 
   &_circle {

@@ -1,7 +1,7 @@
 <script setup>
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
-import { computed, ref } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
@@ -19,14 +19,22 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  showPrev: Boolean,
-  showNext: Boolean,
+  showPrev: {
+    type: Boolean,
+    default: undefined,
+  },
+  showNext: {
+    type: Boolean,
+    default: undefined,
+  },
 });
 
+const attrs = useAttrs();
+const slots = useSlots();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('CalendarHeader', { selfClosing: false });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 
 const prevVisible = computed(() => props.showPrev ?? props.showNav);
 const nextVisible = computed(() => props.showNext ?? props.showNav);

@@ -4,6 +4,9 @@ import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
+const VALID_COLORS = new Set(['primary', 'muted', 'success', 'warning', 'danger']);
+const VALID_SIZES = new Set(['', 'sm', 'lg', 'xl']);
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -12,12 +15,10 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: (v) => ['primary', 'muted', 'success', 'warning', 'danger'].includes(v),
   },
   size: {
     type: String,
     default: '',
-    validator: (v) => ['', 'sm', 'lg', 'xl'].includes(v),
   },
   underline: Boolean,
   noUnderline: Boolean,
@@ -28,22 +29,43 @@ const props = defineProps({
   iconOnly: Boolean,
   active: Boolean,
   disabled: Boolean,
+  /** a, button 또는 커스텀 링크 컴포넌트 */
+  as: {
+    type: [String, Object, Function],
+    default: 'a',
+  },
   label: String,
   href: String,
   target: String,
   rel: String,
   ariaLabel: String,
 });
+
 const { rippleAttrs } = useRipple(props);
-
-
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
+const resolvedColor = computed(() =>
+  VALID_COLORS.has(props.color) ? props.color : 'primary'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : ''));
+const resolvedAs = computed(() => props.as || 'a');
+const isNativeAnchor = computed(() => resolvedAs.value === 'a');
+const isNativeButton = computed(() => resolvedAs.value === 'button');
+const acceptsHref = computed(
+  () => isNativeAnchor.value || typeof resolvedAs.value !== 'string'
+);
+const resolvedHref = computed(() => {
+  const value = props.href ?? attrs.href;
+  return value != null && value !== '' ? String(value) : '#';
+});
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? attrs['aria-label']);
+
 const formatCode = createComponentFormatter('Link', {
-  defaults: { color: 'primary' },
-  booleanProps: new Set(['underline',
+  defaults: { color: 'primary', as: 'a' },
+  booleanProps: new Set([
+    'underline',
     'noUnderline',
     'standalone',
     'nav',
@@ -51,16 +73,29 @@ const formatCode = createComponentFormatter('Link', {
     'back',
     'iconOnly',
     'active',
-    'disabled',, 'ripple']),
+    'disabled',
+    'ripple',
+  ]),
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    color: resolvedColor.value,
+    size: resolvedSize.value,
+    as: typeof resolvedAs.value === 'string' ? resolvedAs.value : undefined,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
-  const classes = ['link', `color_${props.color}`];
-  if (props.size === 'sm') classes.push('size_sm');
-  if (props.size === 'lg') classes.push('size_lg');
-  if (props.size === 'xl') classes.push('size_xl');
+  const classes = ['link', `color_${resolvedColor.value}`];
+  if (resolvedSize.value === 'sm') classes.push('size_sm');
+  if (resolvedSize.value === 'lg') classes.push('size_lg');
+  if (resolvedSize.value === 'xl') classes.push('size_xl');
   if (props.underline) classes.push('link_underline');
   if (props.noUnderline) classes.push('link_no-underline');
   if (props.standalone) classes.push('link_standalone');
@@ -74,7 +109,36 @@ const rootClass = computed(() => {
   return classes;
 });
 
-const showLabel = computed(() => !props.iconOnly && (props.label || slots.default));
+const showLabel = computed(() => {
+  if (props.iconOnly) return false;
+  return Boolean(slots.default) || (props.label != null && props.label !== '');
+});
+
+const fallthroughAttrs = computed(() => {
+  const {
+    class: _class,
+    href: _href,
+    target: _target,
+    rel: _rel,
+    type: _type,
+    disabled: _disabled,
+    tabindex: _tabindex,
+    onClick: _onClick,
+    'aria-label': _ariaLabel,
+    'aria-current': _ariaCurrent,
+    'aria-disabled': _ariaDisabled,
+    ...rest
+  } = attrs;
+  return { ...rest, ...rippleAttrs.value };
+});
+
+function invokeListener(listener, event) {
+  if (Array.isArray(listener)) {
+    listener.forEach((handler) => handler?.(event));
+    return;
+  }
+  listener?.(event);
+}
 
 function onClick(event) {
   if (props.disabled) {
@@ -83,30 +147,33 @@ function onClick(event) {
     return;
   }
 
-  const resolvedHref = props.href || attrs.href;
-  if (!resolvedHref || resolvedHref === '#') {
-    event.preventDefault();
-  }
+  const clickHref = props.href ?? attrs.href;
+  if (!clickHref || clickHref === '#') event.preventDefault();
+
+  invokeListener(attrs.onClick, event);
 }
 </script>
 
 <template>
-  <a
+  <component
+    :is="resolvedAs"
     ref="rootRef"
-    v-bind="rippleAttrs"
+    v-bind="fallthroughAttrs"
     :class="rootClass"
-    :href="href || '#'"
-    :target="target"
-    :rel="rel"
-    :aria-label="ariaLabel"
+    :href="acceptsHref ? resolvedHref : undefined"
+    :target="acceptsHref ? target : undefined"
+    :rel="acceptsHref ? rel : undefined"
+    :type="isNativeButton ? 'button' : undefined"
+    :disabled="isNativeButton && disabled ? true : undefined"
+    :aria-label="resolvedAriaLabel"
     :aria-current="active ? 'page' : undefined"
     :aria-disabled="disabled ? 'true' : undefined"
-    :tabindex="disabled ? -1 : undefined"
+    :tabindex="disabled ? -1 : attrs.tabindex"
     @click="onClick"
   >
     <slot name="icon" />
     <template v-if="showLabel">
       <slot>{{ label }}</slot>
     </template>
-  </a>
+  </component>
 </template>

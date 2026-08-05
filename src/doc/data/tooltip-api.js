@@ -72,14 +72,14 @@ export const tooltipTokens = [
 export const markupCode = `<!-- 기본 — content prop -->
 <Tooltip content="짧은 도움말 텍스트입니다.">
   <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="마우스 오버" />
+    <Button variant="outline" label="마우스 오버" />
   </template>
 </Tooltip>
 
 <!-- default 슬롯 -->
 <Tooltip>
   <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="슬롯 예시" />
+    <Button variant="outline" label="슬롯 예시" />
   </template>
   짧은 도움말 텍스트입니다.
 </Tooltip>
@@ -87,14 +87,14 @@ export const markupCode = `<!-- 기본 — content prop -->
 <!-- 클릭 트리거 — tooltip_close 기본 제공 -->
 <Tooltip trigger="click" content="클릭으로 열고 닫는 Tooltip입니다.">
   <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="클릭하여 보기" />
+    <Button variant="outline" label="클릭하여 보기" />
   </template>
 </Tooltip>
 
 <!-- 비활성 버튼 래핑 -->
 <Tooltip content="필수 항목을 모두 입력해야 제출할 수 있습니다.">
   <template #trigger>
-    <span class="tooltip_trigger" tabindex="0">
+    <span tabindex="0">
       <Button variant="filled" color="primary" label="제출 불가" disabled />
     </span>
   </template>
@@ -103,20 +103,20 @@ export const markupCode = `<!-- 기본 — content prop -->
 <!-- 배치 · 스킨 · 간격 -->
 <Tooltip placement="top" inverse offset="lg" content="어두운 배경의 말풍선입니다.">
   <template #trigger>
-    <Button class="tooltip_trigger" variant="ghost" label="역색 Tooltip" />
+    <Button variant="ghost" label="역색 Tooltip" />
   </template>
 </Tooltip>
 
 <!-- 간격 — 방향별 -->
 <Tooltip placement="right" offset-right="lg" content="트리거 오른쪽 배치 시 offset-right가 적용됩니다.">
   <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" label="offset-right" />
+    <Button variant="outline" label="offset-right" />
   </template>
 </Tooltip>
 
 <!-- 혼합 — 말풍선 가운데 · 화살표 오른쪽 -->
 <Tooltip arrow-anchor="mixed" panel-align="center" arrow-target-align="right" open content="말풍선은 가운데, 화살표는 트리거 오른쪽입니다.">
   <template #trigger>
-    <Button class="tooltip_trigger" variant="outline" size="sm" label="S" />
+    <Button variant="outline" size="sm" label="S" />
   </template>
 </Tooltip>`;

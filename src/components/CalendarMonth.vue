@@ -4,7 +4,9 @@ import CalendarGrid from '@/components/CalendarGrid.vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { june2024Days, partialMonthDays } from '@/data/calendar-demo';
 import { formatCalendarMonthCode } from '@/utils/format-calendar-month-code';
-import { computed, ref } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   days: Array,
@@ -25,13 +27,20 @@ const props = defineProps({
 });
 
 const rootRef = ref(null);
+const attrs = useAttrs();
+const slots = useSlots();
+const rootClass = computed(() => ['calendar_month', attrs.class].filter(Boolean));
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 
 useComponentDemoCode(
   (monthProps, _slots, monthAttrs) => formatCalendarMonthCode(monthProps, monthAttrs),
   props,
-  {},
+  slots,
   rootRef,
-  {},
+  attrs,
 );
 
 const resolvedDays = computed(() => {
@@ -70,7 +79,12 @@ const displayDays = computed(() => {
 </script>
 
 <template>
-  <div ref="rootRef" class="calendar_month" style="display: contents">
+  <div
+    ref="rootRef"
+    :class="rootClass"
+    style="display: contents"
+    v-bind="fallthroughAttrs"
+  >
     <CalendarGrid :week="week">
       <CalendarDay
         v-for="(cell, index) in displayDays"

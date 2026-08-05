@@ -83,18 +83,14 @@ import Link from '@/components/Link.vue';
 <template>
   <Alert color="danger" title="저장 실패" description="변경 사항을 저장하지 못했습니다. 다시 시도해 주세요.">
     <template #actions>
-      <div class="alert_actions">
-        <Button variant="filled" color="danger" size="sm" label="다시 시도" />
-        <Button variant="ghost" size="sm" label="취소" />
-      </div>
+      <Button variant="filled" color="danger" size="sm" label="다시 시도" />
+      <Button variant="ghost" size="sm" label="취소" />
     </template>
   </Alert>
   <Alert color="info" title="이용 약관 변경" description="2026년 3월 1일부터 새 약관이 적용됩니다.">
     <template #actions>
-      <div class="alert_actions">
-        <Link href="#" size="sm" label="약관 보기" />
-        <Button variant="text" color="primary" size="sm" label="동의하기" />
-      </div>
+      <Link href="#" size="sm" label="약관 보기" />
+      <Button variant="text" color="primary" size="sm" label="동의하기" />
     </template>
   </Alert>
 </template>`;
@@ -195,25 +191,21 @@ import Link from '@/components/Link.vue';
   <DemoSection
     heading-id="actions-heading"
     title="액션"
-    description="alert_actions로 확인·취소 등 후속 동작 버튼을 배치합니다."
+    description="actions 슬롯에 확인·취소 등 후속 동작을 전달하면 alert_actions 영역에 배치됩니다."
     stack
     :code="actionsCode"
   >
     <Alert color="danger" title="저장 실패" description="변경 사항을 저장하지 못했습니다. 다시 시도해 주세요.">
       <template #actions>
-        <div class="alert_actions">
-          <Button variant="filled" color="danger" size="sm" label="다시 시도" />
-          <Button variant="ghost" size="sm" label="취소" />
-        </div>
+        <Button variant="filled" color="danger" size="sm" label="다시 시도" />
+        <Button variant="ghost" size="sm" label="취소" />
       </template>
     </Alert>
 
     <Alert color="info" title="이용 약관 변경" description="2026년 3월 1일부터 새 약관이 적용됩니다.">
       <template #actions>
-        <div class="alert_actions">
-          <Link href="#" size="sm" label="약관 보기" />
-          <Button variant="text" color="primary" size="sm" label="동의하기" />
-        </div>
+        <Link href="#" size="sm" label="약관 보기" />
+        <Button variant="text" color="primary" size="sm" label="동의하기" />
       </template>
     </Alert>
   </DemoSection>

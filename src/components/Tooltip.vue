@@ -19,6 +19,9 @@ const PLACEMENTS = new Set([
   'start',
   'end',
 ]);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_ARROW_ANCHORS = new Set(['content', 'target', 'mixed']);
+const VALID_TRIGGERS = new Set(['hover', 'click']);
 
 const props = defineProps({
   content: String,
@@ -74,21 +77,50 @@ const props = defineProps({
 
 const attrs = useAttrs();
 const rootRef = ref(null);
-const bubbleId = useId().replace(/:/g, '');
+const bubbleId = `tooltip-${useId().replace(/:/g, '')}`;
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedArrowAnchor = computed(() =>
+  VALID_ARROW_ANCHORS.has(props.arrowAnchor) ? props.arrowAnchor : 'content'
+);
+const resolvedTrigger = computed(() =>
+  VALID_TRIGGERS.has(props.trigger) ? props.trigger : 'hover'
+);
 
-useTooltipDemoCode(props, rootRef, attrs);
-useOverlayArrowAnchor(rootRef, props, 'tooltip');
+useTooltipDemoCode(
+  () => ({
+    ...props,
+    size: resolvedSize.value,
+    arrowAnchor: resolvedArrowAnchor.value,
+    trigger: resolvedTrigger.value,
+  }),
+  rootRef,
+  attrs
+);
+useOverlayArrowAnchor(
+  rootRef,
+  {
+    get noArrow() { return props.noArrow; },
+    get arrowAnchor() { return resolvedArrowAnchor.value; },
+    get panelAlign() { return props.panelAlign; },
+    get arrowTargetAlign() { return props.arrowTargetAlign; },
+    get open() { return props.open; },
+    get placement() { return props.placement; },
+  },
+  'tooltip'
+);
 
 const rootClass = computed(() => {
   const classes = ['tooltip'];
-  if (props.size === 'sm') classes.push('tooltip_sm');
-  if (props.size === 'lg') classes.push('tooltip_lg');
+  if (resolvedSize.value === 'sm') classes.push('tooltip_sm');
+  if (resolvedSize.value === 'lg') classes.push('tooltip_lg');
   classes.push(...overlayOffsetClasses('tooltip', props));
   classes.push(...panelAlignClasses('tooltip', props.panelAlign, 'center'));
   if (props.inverse) classes.push('tooltip_inverse');
   if (props.noArrow) classes.push('tooltip_no-arrow');
-  if (props.arrowAnchor === 'target') classes.push('tooltip_arrow-anchor-target');
-  if (props.arrowAnchor === 'mixed') classes.push('tooltip_arrow-anchor-mixed');
+  if (resolvedArrowAnchor.value === 'target') classes.push('tooltip_arrow-anchor-target');
+  if (resolvedArrowAnchor.value === 'mixed') classes.push('tooltip_arrow-anchor-mixed');
   if (props.placement && PLACEMENTS.has(props.placement)) {
     classes.push(`tooltip_placement-${props.placement}`);
   }
@@ -101,14 +133,14 @@ const rootClass = computed(() => {
 const rootAttrs = computed(() => {
   const result = {};
   if (props.interactive) result['data-tooltip'] = '';
-  if (props.trigger === 'click') result['data-tooltip-trigger'] = 'click';
-  if (props.arrowAnchor === 'mixed') {
+  if (resolvedTrigger.value === 'click') result['data-tooltip-trigger'] = 'click';
+  if (resolvedArrowAnchor.value === 'mixed') {
     result['data-panel-align'] = props.panelAlign;
   } else if (props.panelAlign !== 'center') {
     result['data-panel-align'] = props.panelAlign;
   }
   if (
-    (props.arrowAnchor === 'target' || props.arrowAnchor === 'mixed') &&
+    (resolvedArrowAnchor.value === 'target' || resolvedArrowAnchor.value === 'mixed') &&
     props.arrowTargetAlign !== 'center'
   ) {
     result['data-arrow-target-align'] = props.arrowTargetAlign;
@@ -121,11 +153,19 @@ const bubbleHidden = computed(() => {
   return !props.open || undefined;
 });
 
-const showCloseButton = computed(() => props.closable ?? props.trigger === 'click');
+const showCloseButton = computed(() => props.closable ?? resolvedTrigger.value === 'click');
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+const rootDomAttrs = computed(() => ({
+  ...rootAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 </script>
 
 <template>
-  <span ref="rootRef" :class="rootClass" v-bind="rootAttrs">
+  <span ref="rootRef" :class="rootClass" v-bind="rootDomAttrs">
     <span class="tooltip_trigger" :aria-describedby="bubbleId">
       <slot name="trigger" />
     </span>

@@ -36,7 +36,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover panel-label="안내">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" label="Popover 열기" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" label="Popover 열기" aria-haspopup="dialog" />
     </template>
     <p>트리거를 클릭하면 이 패널이 표시됩니다.</p>
   </Popover>
@@ -50,7 +50,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover>
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" label="라벨 없음" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" label="라벨 없음" aria-haspopup="dialog" />
     </template>
     <p>짧은 안내 문구만 필요할 때 사용합니다.</p>
   </Popover>
@@ -62,7 +62,7 @@ import Popover from '@/components/Popover.vue';
 <\/script>
 
 <template>
-  <Popover open panel-label="열린 Popover">
+  <Popover open :interactive="false" class="popover_demo-static" panel-label="열린 Popover">
     <template #trigger>
       <Button class="popover_trigger" variant="filled" color="primary" label="열림" haspopup="dialog" :expanded="true" />
     </template>
@@ -78,7 +78,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover size="sm" panel-label="작은 Popover">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" size="sm" label="Small" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" size="sm" label="Small" aria-haspopup="dialog" />
     </template>
     <p>작은 패널입니다.</p>
   </Popover>
@@ -92,7 +92,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover offset="lg" panel-label="lg">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" size="sm" label="lg" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" size="sm" label="lg" aria-haspopup="dialog" />
     </template>
     <p>넓은 간격</p>
   </Popover>
@@ -106,7 +106,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover title="배송 안내">
     <template #trigger>
-      <Button class="popover_trigger" variant="ghost" label="도움말" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="ghost" label="도움말" aria-haspopup="dialog" />
     </template>
     <p>평일 오후 2시 이전 주문은 당일 출고됩니다.</p>
   </Popover>
@@ -120,7 +120,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover title="항목 삭제">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" label="삭제 확인" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" label="삭제 확인" aria-haspopup="dialog" />
     </template>
     <p>이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</p>
     <template #footer>
@@ -136,16 +136,16 @@ import Popover from '@/components/Popover.vue';
 <\/script>
 
 <template>
-  <p>
+  <div class="popover_inline-sentence">
     결제 시
     <Popover trigger="hover" panel-label="에스크로 설명">
       <template #trigger>
-        <Link class="popover_trigger" label="에스크로" aria-aria-haspopup="dialog" />
+        <Link class="popover_trigger" label="에스크로" aria-haspopup="dialog" />
       </template>
       구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.
     </Popover>
     서비스를 이용할 수 있습니다.
-  </p>
+  </div>
 </template>`;
 
 const triggerCode = `<script setup>
@@ -159,7 +159,7 @@ import Popover from '@/components/Popover.vue';
   <div class="popover_row">
     <Popover panel-label="Button 트리거">
       <template #trigger>
-        <Button class="popover_trigger" variant="filled" color="primary" label="Button" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="filled" color="primary" label="Button" aria-haspopup="dialog" />
       </template>
       <p>버튼 트리거 예시입니다.</p>
     </Popover>
@@ -174,7 +174,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover placement="top-center" panel-label="위쪽 가운데 배치">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-haspopup="dialog" />
     </template>
     <p>트리거 위 · 가운데</p>
   </Popover>
@@ -189,7 +189,7 @@ import Textarea from '@/components/Textarea.vue';
 <template>
   <Popover title="빠른 메모">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" label="메모 추가" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" label="메모 추가" aria-haspopup="dialog" />
     </template>
     <div class="form_field">
       <label class="form_label" for="popover-memo-input">내용</label>
@@ -210,7 +210,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover arrow-anchor="target" panel-label="target">
     <template #trigger>
-      <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
     </template>
     <p>화살표가 트리거 중앙을 가리킵니다.</p>
   </Popover>
@@ -224,7 +224,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <Popover no-arrow panel-label="화살표 없는 Popover">
     <template #trigger>
-      <Button class="popover_trigger" variant="ghost" label="화살표 없음" aria-aria-haspopup="dialog" />
+      <Button class="popover_trigger" variant="ghost" label="화살표 없음" aria-haspopup="dialog" />
     </template>
     <p>화살표가 표시되지 않는 패널입니다.</p>
   </Popover>
@@ -235,7 +235,7 @@ import Popover from '@/components/Popover.vue';
 <template>
   <div class="page_intro">
   <h1>Popover</h1>
-  <p class="lead">클릭·호버로 트리거 옆에 떠 있는 정보 패널 컴포넌트입니다. 짧은 설명·확인·간단한 폼 등 Dropdown보다 풍부한 콘텐츠를 표시할 때 사용하며, <code class="typo_code">aria-aria-haspopup="dialog"</code> · <code class="typo_code">role="dialog"</code>로 접근성을 보장합니다.</p>
+  <p class="lead">클릭·호버로 트리거 옆에 떠 있는 정보 패널 컴포넌트입니다. 짧은 설명·확인·간단한 폼 등 Dropdown보다 풍부한 콘텐츠를 표시할 때 사용하며, <code class="typo_code">aria-haspopup="dialog"</code> · <code class="typo_code">role="dialog"</code>로 접근성을 보장합니다.</p>
 </div>
 
   <DemoSection
@@ -246,7 +246,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover panel-label="안내">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" label="Popover 열기" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" label="Popover 열기" aria-haspopup="dialog" />
       </template>
       <p>트리거를 클릭하면 이 패널이 표시됩니다.</p>
     </Popover>
@@ -260,7 +260,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover>
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" label="라벨 없음" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" label="라벨 없음" aria-haspopup="dialog" />
       </template>
       <p>짧은 안내 문구만 필요할 때 사용합니다. 제목 행 없이 콘텐츠가 바로 표시됩니다.</p>
     </Popover>
@@ -269,10 +269,10 @@ import Popover from '@/components/Popover.vue';
   <DemoSection
     heading-id="open-heading"
     title="열린 상태"
-    description="open prop과 is-open 클래스로 패널이 열린 상태를 표현합니다. 트리거에는 haspopup · expanded를 함께 지정합니다."
+    description="open prop과 is-open 클래스로 패널이 열린 상태를 표현합니다. 트리거에는 aria-expanded=&quot;true&quot;를 함께 지정합니다."
     :code="openCode"
   >
-    <Popover open panel-label="열린 Popover">
+    <Popover open :interactive="false" class="popover_demo-static" panel-label="열린 Popover">
       <template #trigger>
         <Button class="popover_trigger" variant="filled" color="primary" label="열림" haspopup="dialog" :expanded="true" />
       </template>
@@ -288,21 +288,21 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover size="sm" panel-label="작은 Popover">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" size="sm" label="Small" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" size="sm" label="Small" aria-haspopup="dialog" />
       </template>
       <p>작은 패널입니다. 짧은 안내에 적합합니다.</p>
     </Popover>
 
     <Popover panel-label="기본 Popover">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" label="Medium" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" label="Medium" aria-haspopup="dialog" />
       </template>
       <p>기본 크기 패널입니다.</p>
     </Popover>
 
     <Popover size="lg" panel-label="큰 Popover">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" size="lg" label="Large" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" size="lg" label="Large" aria-haspopup="dialog" />
       </template>
       <p>큰 패널입니다. 본문이 길거나 폼·목록을 담을 때 사용합니다.</p>
     </Popover>
@@ -319,28 +319,28 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row">
       <Popover offset="none" panel-label="none">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="none" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="none" aria-haspopup="dialog" />
         </template>
         <p>간격 없음</p>
       </Popover>
 
       <Popover offset="sm" panel-label="sm">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="sm" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="sm" aria-haspopup="dialog" />
         </template>
         <p>좁은 간격</p>
       </Popover>
 
       <Popover panel-label="md">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="md" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="md" aria-haspopup="dialog" />
         </template>
         <p>기본 간격</p>
       </Popover>
 
       <Popover offset="lg" panel-label="lg">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="lg" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="lg" aria-haspopup="dialog" />
         </template>
         <p>넓은 간격</p>
       </Popover>
@@ -351,7 +351,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-top">
         <Popover placement="top-center" offset-top="lg" panel-label="offset-top lg">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-haspopup="dialog" />
           </template>
           <p>위쪽 간격</p>
         </Popover>
@@ -360,7 +360,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-left">
         <Popover placement="left" offset-left="lg" panel-label="offset-left lg">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="왼쪽" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="왼쪽" aria-haspopup="dialog" />
           </template>
           <p>왼쪽 간격</p>
         </Popover>
@@ -369,7 +369,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-center">
         <Popover offset-bottom="lg" panel-label="offset-bottom lg">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="아래" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="아래" aria-haspopup="dialog" />
           </template>
           <p>아래쪽 간격</p>
         </Popover>
@@ -378,7 +378,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-right">
         <Popover placement="right" offset-right="lg" panel-label="offset-right lg">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="오른쪽" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="오른쪽" aria-haspopup="dialog" />
           </template>
           <p>오른쪽 간격</p>
         </Popover>
@@ -394,7 +394,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover title="배송 안내">
       <template #trigger>
-        <Button class="popover_trigger" variant="ghost" label="도움말" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="ghost" label="도움말" aria-haspopup="dialog" />
       </template>
       <p>평일 오후 2시 이전 주문은 당일 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다.</p>
     </Popover>
@@ -408,7 +408,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover title="항목 삭제">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" label="삭제 확인" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" label="삭제 확인" aria-haspopup="dialog" />
       </template>
       <p>이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</p>
       <template #footer>
@@ -424,16 +424,16 @@ import Popover from '@/components/Popover.vue';
     description="trigger=&quot;hover&quot;로 마우스 오버·포커스 시 패널을 표시합니다. data-popover-trigger=&quot;hover&quot;와 동일하며, 짧은 설명·용어 정의에 적합합니다."
     :code="hoverCode"
   >
-    <p>
+    <div class="popover_inline-sentence">
       결제 시
       <Popover trigger="hover" panel-label="에스크로 설명">
         <template #trigger>
-          <Link class="popover_trigger" label="에스크로" aria-aria-haspopup="dialog" />
+          <Link class="popover_trigger" label="에스크로" aria-haspopup="dialog" />
         </template>
         구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.
       </Popover>
       서비스를 이용할 수 있습니다.
-    </p>
+    </div>
   </DemoSection>
 
   <DemoSection
@@ -446,21 +446,21 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row">
       <Popover panel-label="Button 트리거">
         <template #trigger>
-          <Button class="popover_trigger" variant="filled" color="primary" label="Button" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="filled" color="primary" label="Button" aria-haspopup="dialog" />
         </template>
         <p>버튼 트리거 예시입니다.</p>
       </Popover>
 
       <Popover panel-label="Link 트리거">
         <template #trigger>
-          <Link class="popover_trigger" label="Link 트리거" aria-aria-haspopup="dialog" />
+          <Link class="popover_trigger" label="Link 트리거" aria-haspopup="dialog" />
         </template>
         <p>링크 스타일 트리거입니다.</p>
       </Popover>
 
       <Popover panel-label="추가 정보">
         <template #trigger>
-          <Button class="popover_trigger" variant="ghost" icon-only aria-label="정보" aria-aria-haspopup="dialog">
+          <Button class="popover_trigger" variant="ghost" icon-only aria-label="정보" aria-haspopup="dialog">
             <template #icon-before>
               <Icon name="info" />
             </template>
@@ -482,7 +482,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-top">
         <Popover placement="top-center" panel-label="위쪽 가운데 배치">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="위" aria-haspopup="dialog" />
           </template>
           <p>트리거 위 · 가운데</p>
         </Popover>
@@ -491,7 +491,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-left">
         <Popover placement="left" panel-label="왼쪽 배치">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="왼쪽" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="왼쪽" aria-haspopup="dialog" />
           </template>
           <p>트리거 왼쪽</p>
         </Popover>
@@ -500,7 +500,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-center">
         <Popover placement="bottom-center" panel-label="아래쪽 가운데 배치">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="아래" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="아래" aria-haspopup="dialog" />
           </template>
           <p>트리거 아래 · 가운데</p>
         </Popover>
@@ -509,7 +509,7 @@ import Popover from '@/components/Popover.vue';
       <div class="popover_demo-placement-cell-right">
         <Popover placement="right" panel-label="오른쪽 배치">
           <template #trigger>
-            <Button class="popover_trigger" variant="outline" size="sm" label="오른쪽" aria-aria-haspopup="dialog" />
+            <Button class="popover_trigger" variant="outline" size="sm" label="오른쪽" aria-haspopup="dialog" />
           </template>
           <p>트리거 오른쪽</p>
         </Popover>
@@ -519,21 +519,21 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row" style="width: 100%; justify-content: space-between;">
       <Popover placement="top" panel-label="위쪽 왼쪽 정렬">
         <template #trigger>
-          <Button class="popover_trigger" variant="ghost" label="위 · 왼쪽 정렬" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="ghost" label="위 · 왼쪽 정렬" aria-haspopup="dialog" />
         </template>
         <p>패널 왼쪽 정렬</p>
       </Popover>
 
       <Popover panel-label="아래쪽 왼쪽 정렬">
         <template #trigger>
-          <Button class="popover_trigger" variant="ghost" label="아래 · 왼쪽 정렬" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="ghost" label="아래 · 왼쪽 정렬" aria-haspopup="dialog" />
         </template>
         <p>기본 배치</p>
       </Popover>
 
       <Popover placement="end" panel-label="오른쪽 정렬">
         <template #trigger>
-          <Button class="popover_trigger" variant="ghost" label="아래 · 오른쪽 정렬" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="ghost" label="아래 · 오른쪽 정렬" aria-haspopup="dialog" />
         </template>
         <p>패널 오른쪽 정렬</p>
       </Popover>
@@ -548,7 +548,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover title="빠른 메모">
       <template #trigger>
-        <Button class="popover_trigger" variant="outline" label="메모 추가" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="outline" label="메모 추가" aria-haspopup="dialog" />
       </template>
       <div class="form_field">
         <label class="form_label" for="popover-memo-input">내용</label>
@@ -572,14 +572,14 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row" style="align-items: flex-start;">
       <Popover panel-label="content">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
         </template>
         <p>패널이 트리거보다 넓을 때 화살표는 패널 패딩 기준으로 배치됩니다.</p>
       </Popover>
 
       <Popover arrow-anchor="target" panel-label="target">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
         </template>
         <p>패널이 트리거보다 넓을 때 화살표가 트리거 중앙을 가리킵니다.</p>
       </Popover>
@@ -589,21 +589,21 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row" style="align-items: flex-start;">
       <Popover arrow-anchor="target" arrow-target-align="left" panel-label="left">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
         </template>
         <p>트리거 왼쪽을 가리킵니다.</p>
       </Popover>
 
       <Popover arrow-anchor="target" panel-label="center">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
         </template>
         <p>트리거 가운데를 가리킵니다.</p>
       </Popover>
 
       <Popover arrow-anchor="target" arrow-target-align="right" panel-label="right">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" size="sm" label="S" aria-haspopup="dialog" />
         </template>
         <p>트리거 오른쪽을 가리킵니다.</p>
       </Popover>
@@ -613,21 +613,21 @@ import Popover from '@/components/Popover.vue';
     <div class="popover_row" style="align-items: center;">
       <Popover placement="left" arrow-anchor="target" arrow-target-align="top" panel-label="top">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" label="트리거" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" label="트리거" aria-haspopup="dialog" />
         </template>
         <p>트리거 위쪽을 가리킵니다.</p>
       </Popover>
 
       <Popover placement="left" arrow-anchor="target" panel-label="center">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" label="트리거" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" label="트리거" aria-haspopup="dialog" />
         </template>
         <p>트리거 가운데를 가리킵니다.</p>
       </Popover>
 
       <Popover placement="left" arrow-anchor="target" arrow-target-align="bottom" panel-label="bottom">
         <template #trigger>
-          <Button class="popover_trigger" variant="outline" label="트리거" aria-aria-haspopup="dialog" />
+          <Button class="popover_trigger" variant="outline" label="트리거" aria-haspopup="dialog" />
         </template>
         <p>트리거 아래쪽을 가리킵니다.</p>
       </Popover>
@@ -726,7 +726,7 @@ import Popover from '@/components/Popover.vue';
   >
     <Popover no-arrow panel-label="화살표 없는 Popover">
       <template #trigger>
-        <Button class="popover_trigger" variant="ghost" label="화살표 없음" aria-aria-haspopup="dialog" />
+        <Button class="popover_trigger" variant="ghost" label="화살표 없음" aria-haspopup="dialog" />
       </template>
       <p>화살표가 표시되지 않는 패널입니다.</p>
     </Popover>

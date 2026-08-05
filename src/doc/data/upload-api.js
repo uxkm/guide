@@ -32,6 +32,15 @@ export const uploadSlots = [
   { name: 'cards', description: '이미지 카드 그리드 (picture-card)' },
 ];
 
+export const uploadEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const uploadEvents = [
+  { name: 'change', description: '파일 선택 변경 시. 네이티브 input change 이벤트 전달' },
+];
+
 export const uploadClassColumns = [
   { key: 'name', label: '클래스' },
   { key: 'description', label: '설명' },

@@ -8,7 +8,8 @@ export const checkboxPropColumns = [
 
 export const checkboxProps = [
   { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. default 슬롯으로 대체' },
-  { name: 'checked', type: 'boolean', default: 'false', description: '체크 상태' },
+  { name: 'checked', type: 'boolean', default: '—', description: '제어 체크 상태. v-model:checked 지원' },
+  { name: 'default-checked', type: 'boolean', default: 'false', description: '비제어 초기 체크 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'indeterminate', type: 'boolean', default: 'false', description: '부분 선택 (전체 선택 등)' },
   { name: 'label-end', type: 'boolean', default: 'false', description: '라벨을 체크박스 앞에 배치' },
@@ -23,7 +24,17 @@ export const checkboxSlotColumns = [
 ];
 
 export const checkboxSlots = [
-  { name: 'default', description: '라벨 텍스트 (label prop 대체)' },
+  { name: 'default', description: '라벨 텍스트 (label prop 대체). checkbox_content · checkbox_hint 조합 가능' },
+];
+
+export const checkboxEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const checkboxEvents = [
+  { name: 'update:checked', description: '체크 상태 변경 시. v-model:checked에 사용' },
+  { name: 'change', description: '네이티브 input change 이벤트' },
 ];
 
 export const checkboxClassColumns = [

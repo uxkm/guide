@@ -81,7 +81,7 @@ import Space from '@/components/Space.vue';
 <template>
   <div class="page_intro">
     <h1>Divider</h1>
-    <p class="lead">콘텐츠를 시각적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티 클래스로 조합합니다.</p>
+    <p class="lead">콘텐츠를 시각적·의미적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티 클래스로 조합합니다.</p>
   </div>
 
   <DemoSection
@@ -134,7 +134,7 @@ import Space from '@/components/Space.vue';
   <DemoSection
     heading-id="vertical-heading"
     title="세로"
-    description="divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다."
+    description="divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다. 스크린리더에는 세로 separator로 전달됩니다. 장식용으로만 사용할 때는 aria-hidden을 true로 지정합니다."
     :code="verticalCode"
   >
     <Space>

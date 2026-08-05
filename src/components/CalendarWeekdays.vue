@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 import { WEEKDAYS } from '@/data/calendar-demo';
@@ -11,10 +11,12 @@ const props = defineProps({
   },
 });
 
+const attrs = useAttrs();
+const slots = useSlots();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('CalendarWeekdays', { selfClosing: false });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
 </script>
 
 <template>

@@ -5,6 +5,16 @@ import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useDrawerDemoCode } from '@/composables/useDemoCode';
 
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_PLACEMENTS = new Set(['left', 'right', 'top', 'bottom']);
+
+const PLACEMENT_CLASS = {
+  left: 'drawer_placement-left',
+  right: 'drawer_placement-right',
+  top: 'drawer_placement-top',
+  bottom: 'drawer_placement-bottom',
+};
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -47,29 +57,41 @@ const props = defineProps({
 });
 const { rippleAttrs } = useRipple(props);
 
-
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
-const titleId = `${props.id}-title`;
-const showDragHandle = computed(() => props.draggable && props.placement === 'bottom');
+const titleId = computed(() => `${props.id}-title`);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedPlacement = computed(() =>
+  VALID_PLACEMENTS.has(props.placement) ? props.placement : 'right'
+);
+const showDragHandle = computed(
+  () => props.draggable && resolvedPlacement.value === 'bottom'
+);
 
-useDrawerDemoCode(props, rootRef, attrs);
+useDrawerDemoCode(
+  () => ({
+    ...props,
+    size: resolvedSize.value,
+    placement: resolvedPlacement.value,
+  }),
+  rootRef,
+  attrs
+);
 
-const placementClass = computed(() => {
-  const map = {
-    left: 'drawer_placement-left',
-    right: 'drawer_placement-right',
-    top: 'drawer_placement-top',
-    bottom: 'drawer_placement-bottom',
-  };
-  return map[props.placement];
-});
+const showHeader = computed(() => Boolean(slots.header || props.title));
+const isDemoStatic = computed(
+  () => typeof attrs.class === 'string' && attrs.class.includes('drawer_demo-static')
+);
+
+const placementClass = computed(() => PLACEMENT_CLASS[resolvedPlacement.value]);
 
 const panelClass = computed(() => {
   const classes = ['drawer_panel', placementClass.value];
-  if (props.size === 'sm') classes.push('drawer_sm');
-  if (props.size === 'lg') classes.push('drawer_lg');
+  if (resolvedSize.value === 'sm') classes.push('drawer_sm');
+  if (resolvedSize.value === 'lg') classes.push('drawer_lg');
   if (showDragHandle.value) classes.push('drawer_draggable');
   return classes;
 });
@@ -114,7 +136,7 @@ const fallthroughAttrs = computed(() => {
     aria-modal="true"
     :aria-labelledby="titleId"
     tabindex="-1"
-    :hidden="!open || undefined"
+    :hidden="isDemoStatic || open ? undefined : true"
     v-bind="fallthroughAttrs"
   >
     <div class="drawer_backdrop" data-drawer-close aria-hidden="true" />
@@ -128,9 +150,11 @@ const fallthroughAttrs = computed(() => {
       >
         <span class="drawer_handle-bar" />
       </div>
-      <div v-if="$slots.header || title" class="drawer_header" data-demo-slot="header">
+      <div v-if="showHeader" class="drawer_header" data-demo-slot="header">
         <slot name="header">
-          <h2 class="drawer_title" :id="titleId">{{ title }}</h2>
+          <div class="drawer_title" :id="titleId" role="heading" aria-level="2">
+            {{ title }}
+          </div>
         </slot>
         <div v-if="$slots.extra" class="drawer_extra" data-demo-slot="extra">
           <slot name="extra" />

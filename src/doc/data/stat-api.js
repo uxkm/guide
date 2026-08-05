@@ -7,9 +7,9 @@ export const statPropColumns = [
 
 export const statProps = [
   { name: 'title', type: 'string', default: '—', description: '지표 라벨 (stat_label)' },
-  { name: 'value', type: 'string', default: '—', description: '주요 수치 (stat_value)' },
-  { name: 'prefix', type: 'string', default: '—', description: '값 앞 접두 (stat_prefix)' },
-  { name: 'suffix', type: 'string', default: '—', description: '값 뒤 접미 (stat_suffix)' },
+  { name: 'value', type: 'string | number', default: '—', description: '주요 수치 (stat_value)' },
+  { name: 'prefix', type: 'string | number', default: '—', description: '값 앞 접두 (stat_prefix)' },
+  { name: 'suffix', type: 'string | number', default: '—', description: '값 뒤 접미 (stat_suffix)' },
   { name: 'description', type: 'string', default: '—', description: '보조 설명 (stat_desc)' },
   { name: 'trend', type: 'string', default: '—', description: '증감 텍스트 (stat_trend)' },
   { name: 'trend-color', type: 'string', default: '—', description: 'trend·description 색상 color_*' },

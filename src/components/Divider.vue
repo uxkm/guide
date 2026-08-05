@@ -47,17 +47,20 @@ const rootClass = computed(() => {
   if (props.vertical) classes.push('divider_vertical');
   if (props.orient === 'left') classes.push('divider_orient-left');
   if (props.orient === 'right') classes.push('divider_orient-right');
-  if (attrs.class) classes.push(attrs.class);
   return classes;
 });
+
+const separatorRole = computed(() => (resolvedTag.value === 'hr' ? undefined : 'separator'));
 </script>
 
 <template>
   <component
     :is="resolvedTag"
     ref="rootRef"
+    :role="separatorRole"
+    :aria-orientation="vertical ? 'vertical' : undefined"
+    v-bind="attrs"
     :class="rootClass"
-    :aria-hidden="vertical ? 'true' : undefined"
   >
     <slot>{{ label }}</slot>
   </component>

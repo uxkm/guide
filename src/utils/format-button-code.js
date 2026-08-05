@@ -19,6 +19,7 @@ const BOOLEAN_PROPS = new Set([
   'error',
   'placeholder',
   'selectText',
+  'selectCaret',
   'invalid',
 ]);
 
@@ -27,6 +28,7 @@ const KEBAB_PROPS = {
   ariaLabel: 'aria-label',
   iconOnly: 'icon-only',
   selectText: 'select-text',
+  selectCaret: 'select-caret',
 };
 
 function toKebab(key) {

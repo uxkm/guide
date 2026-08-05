@@ -104,7 +104,7 @@ import Drawer from '@/components/Drawer.vue';
 
 <template>
   <!-- 좌측 -->
-  <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start" open>
+  <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start">
     <p>footer-align="start"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -113,7 +113,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 가운데 -->
-  <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center" open>
+  <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center">
     <p>footer-align="center"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -122,7 +122,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 우측 (기본) -->
-  <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom" open>
+  <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom">
     <p>footer-align="end" (기본)</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -131,7 +131,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 병합: 좌 1 / 우 2 -->
-  <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between" open>
+  <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between">
     <p>footer-align="between" + drawer_footer-group</p>
     <template #footer>
       <div class="drawer_footer-group">
@@ -145,7 +145,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 균등 1:1 -->
-  <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even" open>
+  <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even">
     <p>footer-align="even" · footer-ratio="1-1"</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -154,7 +154,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 균등 1:2 -->
-  <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2" open>
+  <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2">
     <p>footer-ratio="1-2" — 좌 1 / 우 2</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -163,7 +163,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 균등 2:1 -->
-  <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1" open>
+  <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1">
     <p>footer-ratio="2-1" — 좌 2 / 우 1</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -172,7 +172,7 @@ import Drawer from '@/components/Drawer.vue';
   </Drawer>
 
   <!-- 하단 패딩 없음 + 균등 -->
-  <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom open>
+  <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom>
     <p>footer-no-pad-bottom + even</p>
     <template #footer>
       <Button variant="ghost" label="취소" data-drawer-close />
@@ -330,7 +330,7 @@ import Drawer from '@/components/Drawer.vue';
   >
     <div class="drawer_demo-stack">
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-start" title="좌측 정렬" placement="bottom" footer-align="start" class="drawer_demo-static">
           <p><code class="typo_code">footer-align="start"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -339,7 +339,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-center" title="가운데 정렬" placement="bottom" footer-align="center" class="drawer_demo-static">
           <p><code class="typo_code">footer-align="center"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -348,7 +348,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-end" title="우측 정렬" placement="bottom" class="drawer_demo-static">
           <p><code class="typo_code">footer-align="end"</code> (기본)</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -357,7 +357,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-between" title="병합 정렬" placement="bottom" footer-align="between" class="drawer_demo-static">
           <p><code class="typo_code">between</code> — 좌 1 / 우 2</p>
           <template #footer>
             <div class="drawer_footer-group">
@@ -371,7 +371,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-between-2" title="병합 정렬" placement="bottom" footer-align="between" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-between-2" title="병합 정렬" placement="bottom" footer-align="between" class="drawer_demo-static">
           <p><code class="typo_code">between</code> — 좌 2 / 우 1</p>
           <template #footer>
             <div class="drawer_footer-group">
@@ -385,7 +385,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-even" title="균등 1:1" placement="bottom" footer-align="even" class="drawer_demo-static">
           <p><code class="typo_code">even</code> · <code class="typo_code">footer-ratio="1-1"</code></p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -394,7 +394,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-even-1-2" title="균등 1:2" placement="bottom" footer-align="even" footer-ratio="1-2" class="drawer_demo-static">
           <p><code class="typo_code">footer-ratio="1-2"</code> — 좌 1 / 우 2</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -403,7 +403,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1" open class="drawer_demo-static">
+        <Drawer id="drawer-footer-even-2-1" title="균등 2:1" placement="bottom" footer-align="even" footer-ratio="2-1" class="drawer_demo-static">
           <p><code class="typo_code">footer-ratio="2-1"</code> — 좌 2 / 우 1</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />
@@ -412,7 +412,7 @@ import Drawer from '@/components/Drawer.vue';
         </Drawer>
       </div>
       <div class="drawer_demo-frame drawer_demo-frame-compact">
-        <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom open class="drawer_demo-static">
+        <Drawer id="drawer-footer-no-pad" title="하단 패딩 없음" placement="bottom" footer-align="even" footer-no-pad-bottom class="drawer_demo-static">
           <p><code class="typo_code">footer-no-pad-bottom</code> + even</p>
           <template #footer>
             <Button variant="ghost" label="취소" data-drawer-close />

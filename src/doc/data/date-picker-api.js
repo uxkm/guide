@@ -7,7 +7,8 @@ export const datePickerPropColumns = [
 ];
 
 export const datePickerProps = [
-  { name: 'value', type: 'string', default: '—', description: '표시할 날짜 문자열' },
+  { name: 'model-value', type: 'string', default: '—', description: '제어 날짜 문자열. v-model 바인딩' },
+  { name: 'default-value', type: 'string', default: '—', description: '비제어 초기 날짜 문자열' },
   { name: 'placeholder', type: 'string', default: '—', description: '미선택 placeholder' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'date_picker_sm · date_picker_lg' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성 (is-disabled)' },
@@ -32,6 +33,17 @@ export const datePickerSlotColumns = [
 
 export const datePickerSlots = [
   { name: 'panel', description: '캘린더 패널 (Calendar 등)' },
+];
+
+export const datePickerEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const datePickerEvents = [
+  { name: 'update:modelValue', description: '지우기 버튼으로 값이 초기화될 때 (v-model)' },
+  { name: 'clear', description: '지우기 버튼 클릭 시. MouseEvent 전달' },
+  { name: 'calendar-click', description: '캘린더 버튼 클릭 시. MouseEvent 전달' },
 ];
 
 export const datePickerClassColumns = [

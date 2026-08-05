@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Link | HTML Components',
+  title: 'Link | UXKM Guide',
   activeNav: 'link',
   pageTitle: 'Link',
 };
@@ -13,6 +13,7 @@ import ApiTable from '@/components/guide/ApiTable.vue';
 import DemoSection from '@/components/guide/DemoSection.vue';
 import Icon from '@/components/Icon.vue';
 import Link from '@/components/Link.vue';
+import { avatarSample } from '@images';
 import {
   linkClassColumns,
   linkClasses,
@@ -32,6 +33,26 @@ import Link from '@/components/Link.vue';
   <Link label="더 보기" />
   <Link label="가이드 문서" />
   <Link underline label="항상 밑줄" />
+</template>`;
+
+const sourceCode = `<script setup>
+import Icon from '@/components/Icon.vue';
+import Link from '@/components/Link.vue';
+import { avatarSample } from '@images';
+<\/script>
+
+<template>
+  <Link href="/components/icon">
+    <Icon name="link" class="link_icon" />
+    아이콘 문서
+  </Link>
+  <Link href="/components/avatar">
+    <img class="link_media" :src="avatarSample" alt="" />
+    프로필
+  </Link>
+  <Link as="button" @click="console.log('action')">
+    커스텀 액션
+  </Link>
 </template>`;
 
 const colorCode = `<script setup>
@@ -85,11 +106,9 @@ import Link from '@/components/Link.vue';
     <Link nav label="접근성" />
   </nav>
   <Link back label="이전 페이지">
-  <template #icon>
-    <Icon class="link_icon">
-      <path d="M19 12H5M12 19l-7-7 7-7" />
-    </Icon>
-  </template>
+    <template #icon>
+      <Icon name="arrow-left" class="link_icon" />
+    </template>
   </Link>
 </template>`;
 
@@ -101,30 +120,14 @@ import Link from '@/components/Link.vue';
 <template>
   <div class="link_group" style="max-width: 280px; width: 100%;">
     <Link block label="시작하기">
-    <template #icon>
-      <Icon class="link_icon">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6" />
-      </Icon>
-    </template>
-  </Link>
-  <Link block label="컴포넌트">
-  <template #icon>
-    <Icon class="link_icon">
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <path d="M3 9h18M9 21V9" />
-    </Icon>
-  </template>
-  </Link>
-  <Link block color="muted" label="도움말">
-  <template #icon>
-    <Icon class="link_icon">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 16v-4" />
-      <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" />
-    </Icon>
-  </template>
-  </Link>
+      <template #icon><Icon name="file" class="link_icon" /></template>
+    </Link>
+    <Link block label="컴포넌트">
+      <template #icon><Icon name="grid" class="link_icon" /></template>
+    </Link>
+    <Link block color="muted" label="도움말">
+      <template #icon><Icon name="info" class="link_icon" /></template>
+    </Link>
   </div>
 </template>`;
 
@@ -135,29 +138,13 @@ import Link from '@/components/Link.vue';
 
 <template>
   <Link icon-only aria-label="검색">
-  <template #icon>
-    <Icon class="link_icon">
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.35-4.35" />
-    </Icon>
-  </template>
+    <template #icon><Icon name="search" class="link_icon" /></template>
   </Link>
   <Link icon-only aria-label="편집">
-  <template #icon>
-    <Icon class="link_icon">
-      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-    </Icon>
-  </template>
+    <template #icon><Icon name="edit" class="link_icon" /></template>
   </Link>
   <Link icon-only color="muted" aria-label="더 보기">
-  <template #icon>
-    <Icon class="link_icon">
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </Icon>
-  </template>
+    <template #icon><Icon name="more-horizontal" class="link_icon" /></template>
   </Link>
 </template>`;
 
@@ -169,29 +156,15 @@ import Link from '@/components/Link.vue';
 <template>
   <div class="link_row">
     <Link label="외부 링크">
-    <template #icon>
-      <Icon class="link_icon">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-        <polyline points="15 3 21 3 21 9" />
-        <line x1="10" y1="14" x2="21" y2="3" />
-      </Icon>
-    </template>
-  </Link>
-  <Link>
-  다운로드
-  <Icon class="link_icon">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" y1="15" x2="12" y2="3" />
-  </Icon>
-  </Link>
-  <Link label="다음 단계">
-  <template #icon>
-    <Icon class="link_icon">
-      <path d="M5 12h14M12 5l7 7-7 7" />
-    </Icon>
-  </template>
-  </Link>
+      <template #icon><Icon name="external-link" class="link_icon" /></template>
+    </Link>
+    <Link>
+      다운로드
+      <Icon name="download" class="link_icon" />
+    </Link>
+    <Link label="다음 단계">
+      <template #icon><Icon name="arrow-right" class="link_icon" /></template>
+    </Link>
   </div>
 </template>`;
 
@@ -208,11 +181,7 @@ import Link from '@/components/Link.vue';
   >
   공식 문서
   <span class="color_muted size_sm">(새 창)</span>
-  <Icon class="link_icon">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </Icon>
+  <Icon name="external-link" class="link_icon" />
   </Link>
 </template>`;
 
@@ -258,6 +227,25 @@ import Link from '@/components/Link.vue';
     <Link label="더 보기" />
     <Link label="가이드 문서" />
     <Link underline label="항상 밑줄" />
+  </DemoSection>
+
+  <DemoSection
+    heading-id="source-heading"
+    title="이미지 · 아이콘 · 커스텀 요소"
+    description="기본 슬롯에 이미지·아이콘·컴포넌트를 조합하거나 as로 루트 요소를 변경할 수 있습니다."
+    :code="sourceCode"
+  >
+    <Link href="/components/icon">
+      <Icon name="link" class="link_icon" />
+      아이콘 문서
+    </Link>
+    <Link href="/components/avatar">
+      <img class="link_media" :src="avatarSample" alt="" />
+      프로필
+    </Link>
+    <Link as="button" @click="() => {}">
+      커스텀 액션
+    </Link>
   </DemoSection>
 
   <DemoSection
@@ -319,9 +307,7 @@ import Link from '@/components/Link.vue';
 
     <Link back label="이전 페이지">
       <template #icon>
-        <Icon class="link_icon">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </Icon>
+        <Icon name="arrow-left" class="link_icon" />
       </template>
     </Link>
   </DemoSection>
@@ -335,27 +321,17 @@ import Link from '@/components/Link.vue';
     <div class="link_group" style="max-width: 280px; width: 100%;">
       <Link block label="시작하기">
         <template #icon>
-          <Icon class="link_icon">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <path d="M14 2v6h6" />
-          </Icon>
+          <Icon name="file" class="link_icon" />
         </template>
       </Link>
       <Link block label="컴포넌트">
         <template #icon>
-          <Icon class="link_icon">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M3 9h18M9 21V9" />
-          </Icon>
+          <Icon name="grid" class="link_icon" />
         </template>
       </Link>
       <Link block color="muted" label="도움말">
         <template #icon>
-          <Icon class="link_icon">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 16v-4" />
-            <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" />
-          </Icon>
+          <Icon name="info" class="link_icon" />
         </template>
       </Link>
     </div>
@@ -369,27 +345,17 @@ import Link from '@/components/Link.vue';
   >
     <Link icon-only aria-label="검색">
       <template #icon>
-        <Icon class="link_icon">
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.35-4.35" />
-        </Icon>
+        <Icon name="search" class="link_icon" />
       </template>
     </Link>
     <Link icon-only aria-label="편집">
       <template #icon>
-        <Icon class="link_icon">
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-        </Icon>
+        <Icon name="edit" class="link_icon" />
       </template>
     </Link>
     <Link icon-only color="muted" aria-label="더 보기">
       <template #icon>
-        <Icon class="link_icon">
-          <circle cx="12" cy="12" r="1" />
-          <circle cx="19" cy="12" r="1" />
-          <circle cx="5" cy="12" r="1" />
-        </Icon>
+        <Icon name="more-horizontal" class="link_icon" />
       </template>
     </Link>
   </DemoSection>
@@ -404,28 +370,18 @@ import Link from '@/components/Link.vue';
     <div class="link_row">
       <Link label="외부 링크">
         <template #icon>
-          <Icon class="link_icon">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
-          </Icon>
+          <Icon name="external-link" class="link_icon" />
         </template>
       </Link>
 
       <Link>
         다운로드
-        <Icon class="link_icon">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" y1="15" x2="12" y2="3" />
-        </Icon>
+        <Icon name="download" class="link_icon" />
       </Link>
 
       <Link label="다음 단계">
         <template #icon>
-          <Icon class="link_icon">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </Icon>
+          <Icon name="arrow-right" class="link_icon" />
         </template>
       </Link>
     </div>
@@ -444,11 +400,7 @@ import Link from '@/components/Link.vue';
     >
       공식 문서
       <span class="color_muted size_sm">(새 창)</span>
-      <Icon class="link_icon">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-        <polyline points="15 3 21 3 21 9" />
-        <line x1="10" y1="14" x2="21" y2="3" />
-      </Icon>
+      <Icon name="external-link" class="link_icon" />
     </Link>
   </DemoSection>
 

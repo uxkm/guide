@@ -10,7 +10,8 @@ export const radioProps = [
   { name: 'label', type: 'string', default: '—', description: '라벨 텍스트. default 슬롯으로 대체' },
   { name: 'name', type: 'string', default: '—', description: 'radio 그룹 name 속성' },
   { name: 'value', type: 'string', default: '—', description: 'radio value 속성' },
-  { name: 'checked', type: 'boolean', default: 'false', description: '선택 상태' },
+  { name: 'checked', type: 'boolean', default: '—', description: '제어 선택 상태. v-model:checked 지원' },
+  { name: 'default-checked', type: 'boolean', default: 'false', description: '비제어 초기 선택 상태' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'label-end', type: 'boolean', default: 'false', description: '라벨을 라디오 앞에 배치' },
   { name: 'button', type: 'boolean', default: 'false', description: '버튼형 (radio_button)' },
@@ -24,7 +25,17 @@ export const radioSlotColumns = [
 ];
 
 export const radioSlots = [
-  { name: 'default', description: '라벨 텍스트 (label prop 대체)' },
+  { name: 'default', description: '라벨 텍스트 (label prop 대체). radio_content · radio_hint 조합 가능' },
+];
+
+export const radioEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const radioEvents = [
+  { name: 'update:checked', description: '선택 상태 변경 시. v-model:checked에 사용' },
+  { name: 'change', description: '네이티브 input change 이벤트' },
 ];
 
 export const radioClassColumns = [

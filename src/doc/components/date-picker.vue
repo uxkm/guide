@@ -7,6 +7,7 @@ export const docMeta = {
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import CalendarGroup from '@/components/CalendarGroup.vue';
 import Calendar from '@/components/Calendar.vue';
 import CalendarFooter from '@/components/CalendarFooter.vue';
@@ -23,6 +24,8 @@ import { juneDualDays, julyDualDays } from '@/data/calendar-demo';
 import {
   datePickerClassColumns,
   datePickerClasses,
+  datePickerEventColumns,
+  datePickerEvents,
   datePickerPropColumns,
   datePickerProps,
   datePickerSlotColumns,
@@ -33,6 +36,7 @@ import {
 
 const rangeJuneDays = juneDualDays();
 const rangeJulyDays = julyDualDays();
+const clearValue = ref('2024-06-18');
 
 const typeCode = `<script setup>
 import DatePicker from '@/components/DatePicker.vue';
@@ -59,7 +63,7 @@ import DatePicker from '@/components/DatePicker.vue';
 <template>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-basic">예약 날짜</label>
-    <DatePicker input-id="dp-basic" value="2024-06-18" fit />
+    <DatePicker input-id="dp-basic" default-value="2024-06-18" fit />
     <p class="form_field-hint">체크인 날짜를 선택해 주세요.</p>
   </div>
 </template>`;
@@ -71,15 +75,15 @@ import DatePicker from '@/components/DatePicker.vue';
 <template>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-size-sm">Small</label>
-    <DatePicker input-id="dp-size-sm" size="sm" value="2024-06-18" fit />
+    <DatePicker input-id="dp-size-sm" size="sm" default-value="2024-06-18" fit />
   </div>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-size-md">Medium</label>
-    <DatePicker input-id="dp-size-md" value="2024-06-18" fit />
+    <DatePicker input-id="dp-size-md" default-value="2024-06-18" fit />
   </div>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-size-lg">Large</label>
-    <DatePicker input-id="dp-size-lg" size="lg" value="2024-06-18" fit />
+    <DatePicker input-id="dp-size-lg" size="lg" default-value="2024-06-18" fit />
   </div>
 </template>`;
 
@@ -93,7 +97,7 @@ import DatePicker from '@/components/DatePicker.vue';
 <template>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-open">날짜</label>
-    <DatePicker input-id="dp-open" value="2024-06-18" fit open>
+    <DatePicker input-id="dp-open" default-value="2024-06-18" fit open>
       <template #panel>
         <Calendar no-header compact borderless aria-label="2024년 6월" weekends>
           <template #weekdays>
@@ -118,7 +122,7 @@ import DatePicker from '@/components/DatePicker.vue';
 <template>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-footer">일정 날짜</label>
-    <DatePicker input-id="dp-footer" value="2024-06-18" fit open>
+    <DatePicker input-id="dp-footer" default-value="2024-06-18" fit open>
       <template #panel>
         <Calendar compact borderless aria-label="2024년 6월" weekends>
           <template #header>
@@ -145,9 +149,9 @@ import DatePicker from '@/components/DatePicker.vue';
   <div class="form_field">
     <span class="form_field-label" id="dp-range-label">조회 기간</span>
     <div class="date_picker_range" role="group" aria-labelledby="dp-range-label">
-      <DatePicker value="2024-06-10" aria-label="시작일" />
+      <DatePicker default-value="2024-06-10" aria-label="시작일" />
       <span class="date_picker_sep" aria-hidden="true">~</span>
-      <DatePicker value="2024-06-18" aria-label="종료일" />
+      <DatePicker default-value="2024-06-18" aria-label="종료일" />
     </div>
     <p class="form_field-hint">최대 90일까지 조회할 수 있습니다.</p>
   </div>
@@ -173,7 +177,7 @@ const rangeJulyDays = julyDualDays();
     open
     panel-wide
     input-id="dp-range-panel-label"
-    value="2024-06-10 ~ 2024-07-06"
+    default-value="2024-06-10 ~ 2024-07-06"
     aria-label="숙박 기간"
     style="max-width: 20rem;"
     >
@@ -220,13 +224,15 @@ import DatePicker from '@/components/DatePicker.vue';
 </template>`;
 
 const clearCode = `<script setup>
+import { ref } from 'vue';
 import DatePicker from '@/components/DatePicker.vue';
+const value = ref('2024-06-18');
 <\/script>
 
 <template>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-clear">필터 날짜</label>
-    <DatePicker input-id="dp-clear" value="2024-06-18" fit clearable />
+    <DatePicker v-model="value" input-id="dp-clear" fit clearable />
   </div>
 </template>`;
 
@@ -241,7 +247,7 @@ import DatePicker from '@/components/DatePicker.vue';
   </div>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="dp-state-disabled">비활성</label>
-    <DatePicker input-id="dp-state-disabled" value="2024-06-18" fit disabled />
+    <DatePicker input-id="dp-state-disabled" default-value="2024-06-18" fit disabled />
     <p class="form_field-hint">is-disabled 클래스와 disabled 속성으로 선택을 막습니다.</p>
   </div>
   <div class="form_field form_field_fit">
@@ -260,7 +266,7 @@ import DatePicker from '@/components/DatePicker.vue';
     <label class="form_field-label" for="dp-state-success">성공</label>
     <DatePicker
     input-id="dp-state-success"
-    value="2024-06-18"
+    default-value="2024-06-18"
     fit
     success
     :aria-invalid="false"
@@ -333,7 +339,7 @@ import Input from '@/components/Input.vue';
   >
     <div class="form_field form_field_fit">
           <label class="form_field-label" for="dp-basic">예약 날짜</label>
-          <DatePicker input-id="dp-basic" value="2024-06-18" fit />
+          <DatePicker input-id="dp-basic" default-value="2024-06-18" fit />
           <p class="form_field-hint">체크인 날짜를 선택해 주세요.</p>
         </div>
   </DemoSection>
@@ -347,15 +353,15 @@ import Input from '@/components/Input.vue';
   >
     <div class="form_field form_field_fit">
           <label class="form_field-label" for="dp-size-sm">Small</label>
-          <DatePicker input-id="dp-size-sm" size="sm" value="2024-06-18" fit />
+          <DatePicker input-id="dp-size-sm" size="sm" default-value="2024-06-18" fit />
         </div>
         <div class="form_field form_field_fit">
           <label class="form_field-label" for="dp-size-md">Medium</label>
-          <DatePicker input-id="dp-size-md" value="2024-06-18" fit />
+          <DatePicker input-id="dp-size-md" default-value="2024-06-18" fit />
         </div>
         <div class="form_field form_field_fit">
           <label class="form_field-label" for="dp-size-lg">Large</label>
-          <DatePicker input-id="dp-size-lg" size="lg" value="2024-06-18" fit />
+          <DatePicker input-id="dp-size-lg" size="lg" default-value="2024-06-18" fit />
         </div>
   </DemoSection>
 
@@ -367,7 +373,7 @@ import Input from '@/components/Input.vue';
   >
     <div class="form_field form_field_fit">
       <label class="form_field-label" for="dp-open">날짜</label>
-      <DatePicker input-id="dp-open" value="2024-06-18" fit open>
+      <DatePicker input-id="dp-open" default-value="2024-06-18" fit open>
         <template #panel>
           <Calendar no-header compact borderless aria-label="2024년 6월" weekends>
             <template #weekdays>
@@ -388,7 +394,7 @@ import Input from '@/components/Input.vue';
   >
     <div class="form_field form_field_fit">
       <label class="form_field-label" for="dp-footer">일정 날짜</label>
-      <DatePicker input-id="dp-footer" value="2024-06-18" fit open>
+      <DatePicker input-id="dp-footer" default-value="2024-06-18" fit open>
         <template #panel>
           <Calendar compact borderless aria-label="2024년 6월" weekends>
             <template #header>
@@ -416,9 +422,9 @@ import Input from '@/components/Input.vue';
     <div class="form_field">
       <span class="form_field-label" id="dp-range-label">조회 기간</span>
       <div class="date_picker_range" role="group" aria-labelledby="dp-range-label">
-        <DatePicker value="2024-06-10" aria-label="시작일" />
+        <DatePicker default-value="2024-06-10" aria-label="시작일" />
         <span class="date_picker_sep" aria-hidden="true">~</span>
-        <DatePicker value="2024-06-18" aria-label="종료일" />
+        <DatePicker default-value="2024-06-18" aria-label="종료일" />
       </div>
       <p class="form_field-hint">최대 90일까지 조회할 수 있습니다.</p>
     </div>
@@ -437,7 +443,7 @@ import Input from '@/components/Input.vue';
         open
         panel-wide
         input-id="dp-range-panel-label"
-        value="2024-06-10 ~ 2024-07-06"
+        default-value="2024-06-10 ~ 2024-07-06"
         aria-label="숙박 기간"
         style="max-width: 20rem;"
       >
@@ -488,7 +494,7 @@ import Input from '@/components/Input.vue';
   >
     <div class="form_field form_field_fit">
       <label class="form_field-label" for="dp-clear">필터 날짜</label>
-      <DatePicker input-id="dp-clear" value="2024-06-18" fit clearable />
+      <DatePicker v-model="clearValue" input-id="dp-clear" fit clearable />
     </div>
   </DemoSection>
 
@@ -506,7 +512,7 @@ import Input from '@/components/Input.vue';
 
     <div class="form_field form_field_fit">
       <label class="form_field-label" for="dp-state-disabled">비활성</label>
-      <DatePicker input-id="dp-state-disabled" value="2024-06-18" fit disabled />
+      <DatePicker input-id="dp-state-disabled" default-value="2024-06-18" fit disabled />
       <p class="form_field-hint">is-disabled 클래스와 disabled 속성으로 선택을 막습니다.</p>
     </div>
 
@@ -527,7 +533,7 @@ import Input from '@/components/Input.vue';
       <label class="form_field-label" for="dp-state-success">성공</label>
       <DatePicker
         input-id="dp-state-success"
-        value="2024-06-18"
+        default-value="2024-06-18"
         fit
         success
         :aria-invalid="false"
@@ -573,6 +579,10 @@ import Input from '@/components/Input.vue';
 
   <ApiSection heading-id="api-slots-heading" title="API · Slots">
     <ApiTable :columns="datePickerSlotColumns" :rows="datePickerSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-events-heading" title="API · Events">
+    <ApiTable :columns="datePickerEventColumns" :rows="datePickerEvents" code-column="name" />
   </ApiSection>
 
   <ApiSection

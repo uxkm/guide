@@ -16,9 +16,9 @@ if (import.meta.hot) {
   });
 }
 
-function getVueDocMeta(component) {
+function getVueDocMeta(docModule) {
   return (
-    component?.docMeta ?? {
+    docModule?.docMeta ?? {
       title: 'UXKM Guide',
       activeNav: '',
       pageTitle: '',
@@ -26,29 +26,29 @@ function getVueDocMeta(component) {
   );
 }
 
-function resolveDoc(key) {
+function resolveDocModule(key) {
   const pagePath = `../doc/pages/${key}.vue`;
   if (pageDocs[pagePath]) {
-    return pageDocs[pagePath].default;
+    return pageDocs[pagePath];
   }
 
   const componentPath = `../doc/components/${key}.vue`;
   if (vueComponentDocs[componentPath]) {
-    return vueComponentDocs[componentPath].default;
+    return vueComponentDocs[componentPath];
   }
 
   return null;
 }
 
 export function getDocByKey(key) {
-  const component = resolveDoc(key);
-  if (!component) {
+  const docModule = resolveDocModule(key);
+  if (!docModule?.default) {
     return null;
   }
 
   return {
-    meta: getVueDocMeta(component),
-    component,
+    meta: getVueDocMeta(docModule),
+    component: docModule.default,
   };
 }
 

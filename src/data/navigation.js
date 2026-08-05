@@ -13,6 +13,7 @@ export const NAV_GROUPS = [
     items: [
       { label: 'Container', to: '/components/container', slug: 'container' },
       { label: 'Grid', to: '/components/grid', slug: 'grid' },
+      { label: 'Flex', to: '/components/flex', slug: 'flex' },
       { label: 'Divider', to: '/components/divider', slug: 'divider' },
       { label: 'Space', to: '/components/space', slug: 'space' },
     ],

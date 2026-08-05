@@ -7,9 +7,10 @@ export const selectPropColumns = [
 ];
 
 export const selectProps = [
-  { name: 'model-value', type: 'string | number', default: '—', description: 'v-model 바인딩 값' },
+  { name: 'model-value', type: 'string | number | Array<string | number>', default: '—', description: 'v-model 바인딩 값. multiple이면 배열' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'input_sm · btn_sm 등 크기' },
   { name: 'list-size', type: 'number', default: '—', description: '네이티브 size — multiple 표시 행 수' },
+  { name: 'multiple', type: 'boolean', default: 'false', description: '네이티브 다중 선택' },
   { name: 'placeholder', type: 'string', default: '—', description: '미선택 placeholder' },
   { name: 'disabled', type: 'boolean', default: 'false', description: '비활성' },
   { name: 'error', type: 'boolean', default: 'false', description: '오류 상태 (is-error)' },
@@ -50,6 +51,7 @@ export const selectEventColumns = [
 
 export const selectEvents = [
   { name: 'update:modelValue', description: '선택 값 변경 시 (v-model)' },
+  { name: 'click', description: 'custom 버튼 트리거 클릭 시' },
 ];
 
 

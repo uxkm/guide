@@ -1,33 +1,10 @@
 /**
- * 컴포넌트 데모 코드 블록 펼침/접힘 · 휠 피커
+ * 컴포넌트 레거시 데모 상호작용
  */
 import { initBackTopAll } from './back-top-init';
 import { initOverlays, observeOverlays } from './overlay-init';
 
 (function () {
-  document.querySelectorAll('.demo_code-toggle').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      var panel = btn.nextElementSibling;
-      var section = btn.closest('.demo_section');
-      var label = btn.querySelector('.demo_code-toggle-label');
-
-      btn.setAttribute('aria-expanded', String(!expanded));
-
-      if (panel) {
-        panel.hidden = expanded;
-      }
-
-      if (label) {
-        label.textContent = expanded ? '코드 보기' : '코드 숨기기';
-      }
-
-      if (section) {
-        section.classList.toggle('is-code-open', !expanded);
-      }
-    });
-  });
-
   document.querySelectorAll('.tree_toggle:not(.tree_toggle_placeholder)').forEach(function (btn) {
     btn.addEventListener('click', function () {
       if (btn.disabled) {
@@ -1525,77 +1502,6 @@ import { initOverlays, observeOverlays } from './overlay-init';
   document.querySelectorAll('[data-input-otp]').forEach(initOtpInputs);
 })();
 
-/**
- * Textarea 글자 수 카운터 — 데모용
- */
-(function () {
-  function formatTextareaCountVisual(current, max) {
-    if (max > 0) {
-      return current + '/' + max;
-    }
-
-    return String(current);
-  }
-
-  function formatTextareaCountAnnounce(current, max) {
-    if (max > 0) {
-      var message = current + '자 입력, 최대 ' + max + '자';
-
-      if (current >= max) {
-        message += ', 글자 수 제한에 도달했습니다';
-      }
-
-      return message;
-    }
-
-    return current + '자 입력';
-  }
-
-  function updateTextareaCount(wrap) {
-    var textarea = wrap.querySelector('.textarea');
-    var counter = wrap.querySelector('.textarea_count');
-    var visual = counter ? counter.querySelector('.textarea_count_visual') : null;
-    var announcer = counter ? counter.querySelector('.textarea_count_announcer') : null;
-
-    if (!textarea || !counter) {
-      return;
-    }
-
-    var current = textarea.value.length;
-    var max = textarea.maxLength;
-    var display = formatTextareaCountVisual(current, max);
-    var announce = formatTextareaCountAnnounce(current, max);
-
-    if (visual) {
-      visual.textContent = display;
-    } else {
-      counter.textContent = display;
-    }
-
-    if (announcer) {
-      announcer.textContent = announce;
-    }
-
-    counter.classList.toggle('is-limit', max > 0 && current >= max);
-  }
-
-  function initTextareaCount(wrap) {
-    var textarea = wrap.querySelector('.textarea');
-
-    if (!textarea) {
-      return;
-    }
-
-    updateTextareaCount(wrap);
-    textarea.addEventListener('input', function () {
-      updateTextareaCount(wrap);
-    });
-  }
-
-  document.querySelectorAll('.textarea_show-count').forEach(initTextareaCount);
-})();
-
 import { initInputClearAll } from './input-clear-init';
 
 initInputClearAll();
-

@@ -9,9 +9,9 @@ export const formLayoutProps = [
   { name: 'layout', type: `'vertical' | 'horizontal' | 'inline'`, default: 'vertical', description: 'form_vertical · form_horizontal · form_inline' },
   { name: 'fit', type: 'boolean', default: 'false', description: '콘텐츠 너비에 맞춤 (form_fit)' },
   { name: 'compact', type: 'boolean', default: 'false', description: '좁은 필드 간격 (form_compact)' },
-  { name: 'label-align-start', type: 'boolean', default: 'false', description: '라벨 상단 정렬 (form_label-align-start)' },
-  { name: 'label-width', type: `'sm' | 'lg'`, default: '—', description: '가로 레이아웃 라벨 너비' },
-  { name: 'tag', type: 'string', default: 'form', description: '루트 HTML 태그' },
+  { name: 'label-align-start', type: 'boolean', default: 'false', description: '라벨 상단·왼쪽 정렬 (form_label-align-start)' },
+  { name: 'label-width', type: `'sm' | 'lg'`, default: '—', description: '가로 레이아웃 라벨 너비 (form_label-width-sm · form_label-width-lg)' },
+  { name: 'tag', type: 'string', default: 'form', description: '루트 HTML 태그 (form · div 등)' },
 ];
 
 export const formLayoutSlotColumns = [
@@ -21,6 +21,16 @@ export const formLayoutSlotColumns = [
 
 export const formLayoutSlots = [
   { name: 'default', description: 'form_field · form_actions 등 폼 콘텐츠' },
+];
+
+export const formLayoutEventColumns = [
+  { key: 'name', label: '이벤트' },
+  { key: 'description', label: '설명' },
+];
+
+export const formLayoutEvents = [
+  { name: 'submit', description: 'form 제출 이벤트. @submit.prevent로 기본 제출 동작을 막을 수 있습니다.' },
+  { name: 'reset', description: 'form 초기화 이벤트' },
 ];
 
 export const formLayoutClassColumns = [

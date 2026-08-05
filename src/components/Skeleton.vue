@@ -5,6 +5,14 @@ import { createComponentFormatter } from '@/utils/format-component-code';
 
 defineOptions({ inheritAttrs: false });
 
+const PARAGRAPH_WIDTHS = ['', 'skeleton_w-md', 'skeleton_w-sm'];
+
+function resolveParagraphCount(paragraph) {
+  if (paragraph === true) return 3;
+  if (typeof paragraph !== 'number' || !Number.isFinite(paragraph)) return 0;
+  return Math.max(0, Math.floor(paragraph));
+}
+
 const props = defineProps({
   active: {
     type: Boolean,
@@ -47,13 +55,15 @@ const skeletonBaseClass = computed(() => {
   return classes;
 });
 
-const paragraphCount = computed(() => {
-  if (props.paragraph === true) return 3;
-  if (typeof props.paragraph === 'number') return props.paragraph;
-  return 0;
-});
+const paragraphCount = computed(() => resolveParagraphCount(props.paragraph));
+const defaultParagraphCount = computed(() =>
+  props.paragraph === false ? 3 : paragraphCount.value
+);
 
-const paragraphWidths = ['', 'skeleton_w-md', 'skeleton_w-sm'];
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
@@ -64,6 +74,7 @@ const paragraphWidths = ['', 'skeleton_w-md', 'skeleton_w-sm'];
     aria-live="polite"
     aria-busy="true"
     :aria-label="ariaLabel"
+    v-bind="fallthroughAttrs"
   >
     <template v-if="avatar || round">
       <div v-if="avatar" class="skeleton_row">
@@ -72,7 +83,7 @@ const paragraphWidths = ['', 'skeleton_w-md', 'skeleton_w-sm'];
           <span
             v-for="i in paragraphCount"
             :key="i"
-            :class="[...skeletonBaseClass, 'skeleton_text', paragraphWidths[i - 1] || 'skeleton_w-lg']"
+            :class="[...skeletonBaseClass, 'skeleton_text', PARAGRAPH_WIDTHS[i - 1] || 'skeleton_w-lg']"
             aria-hidden="true"
           />
         </div>
@@ -80,13 +91,15 @@ const paragraphWidths = ['', 'skeleton_w-md', 'skeleton_w-sm'];
       <span v-else-if="round" :class="[...skeletonBaseClass, 'skeleton_circle']" aria-hidden="true" />
     </template>
     <template v-else>
-      <span :class="[...skeletonBaseClass, 'skeleton_title']" aria-hidden="true" />
-      <span
-        v-for="i in (paragraphCount || 3)"
-        :key="i"
-        :class="[...skeletonBaseClass, 'skeleton_text', paragraphWidths[i - 1] || '']"
-        aria-hidden="true"
-      />
+      <template v-if="defaultParagraphCount">
+        <span :class="[...skeletonBaseClass, 'skeleton_title']" aria-hidden="true" />
+        <span
+          v-for="i in defaultParagraphCount"
+          :key="i"
+          :class="[...skeletonBaseClass, 'skeleton_text', PARAGRAPH_WIDTHS[i - 1] || '']"
+          aria-hidden="true"
+        />
+      </template>
     </template>
     <slot />
   </div>

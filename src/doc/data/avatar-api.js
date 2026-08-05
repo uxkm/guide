@@ -6,7 +6,9 @@ export const avatarPropColumns = [
 ];
 
 export const avatarProps = [
-  { name: 'src', type: 'string', default: '—', description: '이미지 URL (avatar_image)' },
+  { name: 'as', type: 'string | Component', default: 'span', description: '루트 요소 또는 커스텀 컴포넌트' },
+  { name: 'name', type: 'string', default: '—', description: 'common-icons 키. avatar_icon으로 렌더합니다' },
+  { name: 'src', type: 'string | { src: string }', default: '—', description: '이미지 URL 또는 정적 이미지 객체 (avatar_image)' },
   { name: 'alt', type: 'string', default: '—', description: '이미지 대체 텍스트' },
   { name: 'initials', type: 'string', default: '—', description: '이니셜 텍스트 (이미지·아이콘 없을 때)' },
   { name: 'color', type: 'string', default: '—', description: '이니셜·아이콘 배경 color_*' },
@@ -15,6 +17,7 @@ export const avatarProps = [
   { name: 'badge-color', type: 'string', default: '—', description: '상태 점 색상 (avatar_badge)' },
   { name: 'badge-label', type: 'string', default: '—', description: '상태 점 aria-label' },
   { name: 'aria-hidden', type: 'boolean', default: 'false', description: '그룹 내 장식용 아바타' },
+  { name: 'aria-label', type: 'string', default: '—', description: '아이콘·커스텀 아바타의 접근성 라벨' },
 ];
 
 export const avatarGroupPropColumns = [
@@ -34,6 +37,7 @@ export const avatarSlotColumns = [
 ];
 
 export const avatarSlots = [
+  { name: 'default', description: '이미지·아이콘·컴포넌트 등 커스텀 콘텐츠' },
   { name: 'icon', description: '아이콘 슬롯 (avatar_icon)' },
 ];
 

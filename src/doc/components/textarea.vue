@@ -14,6 +14,7 @@ import DemoSection from '@/components/guide/DemoSection.vue';
 import FormLayout from '@/components/FormLayout.vue';
 import Input from '@/components/Input.vue';
 import Textarea from '@/components/Textarea.vue';
+import TextareaShowCount from '@/components/TextareaShowCount.vue';
 import {
   textareaClassColumns,
   textareaClasses,
@@ -23,6 +24,7 @@ import {
   textareaProps,
   textareaSlotColumns,
   textareaSlots,
+  textareaShowCountProps,
   textareaTokenColumns,
   textareaTokens,
 } from '@/doc/data/textarea-api';
@@ -153,60 +155,49 @@ import Textarea from '@/components/Textarea.vue';
 
 const countCode = `<script setup>
 import Textarea from '@/components/Textarea.vue';
+import TextareaShowCount from '@/components/TextareaShowCount.vue';
 <\/script>
 
 <template>
   <div class="form_field">
     <label class="form_field-label" for="textarea-count-basic">메모</label>
-    <div class="textarea_wrap textarea_show-count">
+    <TextareaShowCount count-id="textarea-count-basic-count">
       <Textarea
-      id="textarea-count-basic"
-      :rows="4"
-      maxlength="200"
-      placeholder="내용을 입력하세요"
-      aria-describedby="textarea-count-basic-hint textarea-count-basic-count"
+        id="textarea-count-basic"
+        :rows="4"
+        maxlength="200"
+        placeholder="내용을 입력하세요"
+        aria-describedby="textarea-count-basic-hint"
       />
-      <span class="textarea_count" id="textarea-count-basic-count" role="status" aria-live="polite" aria-atomic="true">
-        <span class="textarea_count_visual" aria-hidden="true">0/200</span>
-        <span class="textarea_count_announcer">0자 입력, 최대 200자</span>
-      </span>
-    </div>
+    </TextareaShowCount>
     <p class="form_field-hint" id="textarea-count-basic-hint">200자 이내로 작성해 주세요.</p>
   </div>
   <div class="form_field">
     <label class="form_field-label" for="textarea-count-sm">Small + 카운터</label>
-    <div class="textarea_wrap textarea_show-count">
+    <TextareaShowCount count-id="textarea-count-sm-count">
       <Textarea
-      id="textarea-count-sm"
-      size="sm"
-      :rows="3"
-      maxlength="100"
-      placeholder="textarea_sm"
-      aria-describedby="textarea-count-sm-hint textarea-count-sm-count"
+        id="textarea-count-sm"
+        size="sm"
+        :rows="3"
+        maxlength="100"
+        placeholder="textarea_sm"
+        aria-describedby="textarea-count-sm-hint"
       />
-      <span class="textarea_count" id="textarea-count-sm-count" role="status" aria-live="polite" aria-atomic="true">
-        <span class="textarea_count_visual" aria-hidden="true">0/100</span>
-        <span class="textarea_count_announcer">0자 입력, 최대 100자</span>
-      </span>
-    </div>
+    </TextareaShowCount>
     <p class="form_field-hint" id="textarea-count-sm-hint">100자 이내로 작성해 주세요.</p>
   </div>
   <div class="form_field form_field_fit">
     <label class="form_field-label" for="textarea-count-fit">제한 너비 + 카운터</label>
-    <div class="textarea_wrap textarea_show-count textarea_wrap_fit">
+    <TextareaShowCount class="textarea_wrap_fit" count-id="textarea-count-fit-count">
       <Textarea
-      id="textarea-count-fit"
-      :rows="3"
-      maxlength="200"
-      placeholder="textarea_wrap_fit"
-      model-value="입력된 내용이 있습니다."
-      aria-describedby="textarea-count-fit-hint textarea-count-fit-count"
+        id="textarea-count-fit"
+        :rows="3"
+        maxlength="200"
+        placeholder="textarea_wrap_fit"
+        model-value="입력된 내용이 있습니다."
+        aria-describedby="textarea-count-fit-hint"
       />
-      <span class="textarea_count" id="textarea-count-fit-count" role="status" aria-live="polite" aria-atomic="true">
-        <span class="textarea_count_visual" aria-hidden="true">12/200</span>
-        <span class="textarea_count_announcer">12자 입력, 최대 200자</span>
-      </span>
-    </div>
+    </TextareaShowCount>
     <p class="form_field-hint" id="textarea-count-fit-hint">200자 이내로 작성해 주세요.</p>
   </div>
 </template>`;
@@ -237,6 +228,7 @@ import Button from '@/components/Button.vue';
 import FormLayout from '@/components/FormLayout.vue';
 import Input from '@/components/Input.vue';
 import Textarea from '@/components/Textarea.vue';
+import TextareaShowCount from '@/components/TextareaShowCount.vue';
 <\/script>
 
 <template>
@@ -251,46 +243,38 @@ import Textarea from '@/components/Textarea.vue';
       <label class="form_field-label" for="textarea-ex-body">
         문의 내용<span class="form_field-required" aria-hidden="true">*</span>
       </label>
-      <div class="textarea_wrap textarea_show-count">
+      <TextareaShowCount count-id="textarea-ex-body-count">
         <Textarea
-        id="textarea-ex-body"
-        size="sm"
-        :rows="5"
-        maxlength="500"
-        required
-        error
-        model-value="너무 짧아요"
-        aria-required="true"
-        aria-invalid="true"
-        aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count"
+          id="textarea-ex-body"
+          size="sm"
+          :rows="5"
+          maxlength="500"
+          required
+          error
+          model-value="너무 짧아요"
+          aria-required="true"
+          aria-invalid="true"
+          aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error"
         />
-        <span class="textarea_count is-limit" id="textarea-ex-body-count" role="status" aria-live="polite" aria-atomic="true">
-          <span class="textarea_count_visual" aria-hidden="true">6/500</span>
-          <span class="textarea_count_announcer">6자 입력, 최대 500자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p class="form_field-hint" id="textarea-ex-body-limit">500자 이내로 작성해 주세요.</p>
       <p class="form_field-hint" id="textarea-ex-body-hint">구체적인 상황을 알려주시면 빠르게 답변드립니다.</p>
       <p class="form_field-error" id="textarea-ex-body-error" role="alert">10자 이상 입력해 주세요.</p>
     </div>
     <div class="form_field">
       <label class="form_field-label" for="textarea-ex-memo">추가 메모</label>
-      <div class="textarea_wrap textarea_show-count">
+      <TextareaShowCount count-id="textarea-ex-memo-count">
         <Textarea
-        id="textarea-ex-memo"
-        size="sm"
-        class="textarea_resize_vertical is-success"
-        :rows="3"
-        maxlength="200"
-        model-value="참고할 내용이 있습니다."
-        aria-invalid="false"
-        aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success textarea-ex-memo-count"
+          id="textarea-ex-memo"
+          size="sm"
+          class="textarea_resize_vertical is-success"
+          :rows="3"
+          maxlength="200"
+          model-value="참고할 내용이 있습니다."
+          aria-invalid="false"
+          aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success"
         />
-        <span class="textarea_count" id="textarea-ex-memo-count" role="status" aria-live="polite" aria-atomic="true">
-          <span class="textarea_count_visual" aria-hidden="true">14/200</span>
-          <span class="textarea_count_announcer">14자 입력, 최대 200자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p class="form_field-hint" id="textarea-ex-memo-hint">200자 이내로 작성해 주세요.</p>
       <p class="form_field-success" id="textarea-ex-memo-success" role="status">선택 항목이 정상적으로 저장되었습니다.</p>
     </div>
@@ -450,63 +434,51 @@ import Textarea from '@/components/Textarea.vue';
   <DemoSection
     heading-id="count-heading"
     title="글자 수 카운터"
-    description="<code>textarea_wrap textarea_show-count</code>로 textarea 우측 하단에 현재 글자 수를 표시합니다. <code>maxlength</code>와 함께 사용하면 <code>0/200</code> 형식으로 최대 글자 수를 함께 보여 줍니다. 카운터를 사용할 때는 <code>form_field-hint</code>로 글자 수 안내 문구(예: 200자 이내로 작성해 주세요.)를 함께 제공합니다. 입력 시 스크린 리더에는 <code>textarea_count_announcer</code>가 <code>role=&quot;status&quot;</code> · <code>aria-live=&quot;polite&quot;</code>로 현재·최대 글자 수를 음성 안내합니다."
+    description="<code>TextareaShowCount</code>로 textarea 우측 하단에 현재 글자 수를 표시합니다. <code>maxlength</code>와 함께 사용하면 <code>0/200</code> 형식으로 최대 글자 수를 함께 보여 줍니다. 카운터 ID는 textarea의 <code>aria-describedby</code>에 자동으로 연결되며, 스크린 리더에는 현재·최대 글자 수를 음성 안내합니다."
     stack
     :code="countCode"
   >
     <div class="form_field">
       <label class="form_field-label" for="textarea-count-basic">메모</label>
-      <div class="textarea_wrap textarea_show-count">
+      <TextareaShowCount count-id="textarea-count-basic-count">
         <Textarea
           id="textarea-count-basic"
           :rows="4"
           maxlength="200"
           placeholder="내용을 입력하세요"
-          aria-describedby="textarea-count-basic-hint textarea-count-basic-count"
+          aria-describedby="textarea-count-basic-hint"
         />
-        <span class="textarea_count" id="textarea-count-basic-count" role="status" aria-live="polite" aria-atomic="true">
-          <span class="textarea_count_visual" aria-hidden="true">0/200</span>
-          <span class="textarea_count_announcer">0자 입력, 최대 200자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p class="form_field-hint" id="textarea-count-basic-hint">200자 이내로 작성해 주세요.</p>
     </div>
 
     <div class="form_field">
       <label class="form_field-label" for="textarea-count-sm">Small + 카운터</label>
-      <div class="textarea_wrap textarea_show-count">
+      <TextareaShowCount count-id="textarea-count-sm-count">
         <Textarea
           id="textarea-count-sm"
           size="sm"
           :rows="3"
           maxlength="100"
           placeholder="textarea_sm"
-          aria-describedby="textarea-count-sm-hint textarea-count-sm-count"
+          aria-describedby="textarea-count-sm-hint"
         />
-        <span class="textarea_count" id="textarea-count-sm-count" role="status" aria-live="polite" aria-atomic="true">
-          <span class="textarea_count_visual" aria-hidden="true">0/100</span>
-          <span class="textarea_count_announcer">0자 입력, 최대 100자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p class="form_field-hint" id="textarea-count-sm-hint">100자 이내로 작성해 주세요.</p>
     </div>
 
     <div class="form_field form_field_fit">
       <label class="form_field-label" for="textarea-count-fit">제한 너비 + 카운터</label>
-      <div class="textarea_wrap textarea_show-count textarea_wrap_fit">
+      <TextareaShowCount class="textarea_wrap_fit" count-id="textarea-count-fit-count">
         <Textarea
           id="textarea-count-fit"
           :rows="3"
           maxlength="200"
           placeholder="textarea_wrap_fit"
           model-value="입력된 내용이 있습니다."
-          aria-describedby="textarea-count-fit-hint textarea-count-fit-count"
+          aria-describedby="textarea-count-fit-hint"
         />
-        <span class="textarea_count" id="textarea-count-fit-count" role="status" aria-live="polite" aria-atomic="true">
-          <span class="textarea_count_visual" aria-hidden="true">12/200</span>
-          <span class="textarea_count_announcer">12자 입력, 최대 200자</span>
-        </span>
-      </div>
+      </TextareaShowCount>
       <p class="form_field-hint" id="textarea-count-fit-hint">200자 이내로 작성해 주세요.</p>
     </div>
   </DemoSection>
@@ -553,7 +525,7 @@ import Textarea from '@/components/Textarea.vue';
         <label class="form_field-label" for="textarea-ex-body">
           문의 내용<span class="form_field-required" aria-hidden="true">*</span>
         </label>
-        <div class="textarea_wrap textarea_show-count">
+        <TextareaShowCount count-id="textarea-ex-body-count">
           <Textarea
             id="textarea-ex-body"
             size="sm"
@@ -564,13 +536,9 @@ import Textarea from '@/components/Textarea.vue';
             model-value="너무 짧아요"
             aria-required="true"
             aria-invalid="true"
-            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error textarea-ex-body-count"
+            aria-describedby="textarea-ex-body-hint textarea-ex-body-limit textarea-ex-body-error"
           />
-          <span class="textarea_count is-limit" id="textarea-ex-body-count" role="status" aria-live="polite" aria-atomic="true">
-            <span class="textarea_count_visual" aria-hidden="true">6/500</span>
-            <span class="textarea_count_announcer">6자 입력, 최대 500자</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p class="form_field-hint" id="textarea-ex-body-limit">500자 이내로 작성해 주세요.</p>
         <p class="form_field-hint" id="textarea-ex-body-hint">구체적인 상황을 알려주시면 빠르게 답변드립니다.</p>
         <p class="form_field-error" id="textarea-ex-body-error" role="alert">10자 이상 입력해 주세요.</p>
@@ -578,7 +546,7 @@ import Textarea from '@/components/Textarea.vue';
 
       <div class="form_field">
         <label class="form_field-label" for="textarea-ex-memo">추가 메모</label>
-        <div class="textarea_wrap textarea_show-count">
+        <TextareaShowCount count-id="textarea-ex-memo-count">
           <Textarea
             id="textarea-ex-memo"
             size="sm"
@@ -587,13 +555,9 @@ import Textarea from '@/components/Textarea.vue';
             maxlength="200"
             model-value="참고할 내용이 있습니다."
             aria-invalid="false"
-            aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success textarea-ex-memo-count"
+            aria-describedby="textarea-ex-memo-hint textarea-ex-memo-success"
           />
-          <span class="textarea_count" id="textarea-ex-memo-count" role="status" aria-live="polite" aria-atomic="true">
-            <span class="textarea_count_visual" aria-hidden="true">14/200</span>
-            <span class="textarea_count_announcer">14자 입력, 최대 200자</span>
-          </span>
-        </div>
+        </TextareaShowCount>
         <p class="form_field-hint" id="textarea-ex-memo-hint">200자 이내로 작성해 주세요.</p>
         <p class="form_field-success" id="textarea-ex-memo-success" role="status">선택 항목이 정상적으로 저장되었습니다.</p>
       </div>
@@ -615,6 +579,14 @@ import Textarea from '@/components/Textarea.vue';
 
   <ApiSection heading-id="api-events-heading" title="API · Events">
     <ApiTable :columns="textareaEventColumns" :rows="textareaEvents" code-column="name" />
+  </ApiSection>
+
+  <ApiSection
+    heading-id="api-show-count-heading"
+    title="API · TextareaShowCount"
+    description="Textarea를 기본 슬롯에 하나 배치하면 값과 maxlength를 기준으로 카운터를 자동 갱신합니다."
+  >
+    <ApiTable :columns="textareaPropColumns" :rows="textareaShowCountProps" code-column="name" />
   </ApiSection>
 
   <ApiSection

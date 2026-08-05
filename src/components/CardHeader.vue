@@ -1,5 +1,5 @@
 <script setup>
-import { ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
@@ -19,10 +19,15 @@ const formatCode = createComponentFormatter('CardHeader', {
 });
 
 useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+
+const bindAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
-  <div ref="rootRef" class="card_header" :class="attrs.class">
+  <div ref="rootRef" class="card_header" :class="attrs.class" v-bind="bindAttrs">
     <div class="card_header-main">
       <slot>
         <h3 v-if="title" class="card_title">{{ title }}</h3>

@@ -8,7 +8,7 @@ export const skeletonPropColumns = [
 export const skeletonProps = [
   { name: 'active', type: 'boolean', default: 'true', description: '쉬머 애니메이션. false면 skeleton_static' },
   { name: 'avatar', type: 'boolean', default: 'false', description: '아바타 + 본문 행 레이아웃' },
-  { name: 'paragraph', type: 'boolean | number', default: 'false', description: '본문 줄 수. true면 3줄' },
+  { name: 'paragraph', type: 'boolean | number', default: 'false', description: '본문 줄 수. 기본 레이아웃은 false·true일 때 3줄이며, 0이면 자동 콘텐츠 숨김' },
   { name: 'round', type: 'boolean', default: 'false', description: '원형만 표시' },
   { name: 'aria-label', type: 'string', default: '콘텐츠 로딩 중', description: 'role=status 라벨' },
 ];

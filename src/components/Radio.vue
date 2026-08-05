@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, nextTick, ref, useAttrs, useSlots } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -11,13 +11,18 @@ const props = defineProps({
   ripple: rippleProp,
   label: String,
   name: String,
-  checked: Boolean,
+  checked: {
+    type: Boolean,
+    default: undefined,
+  },
+  defaultChecked: Boolean,
   disabled: Boolean,
   value: String,
   labelEnd: Boolean,
   button: Boolean,
   ariaLabel: String,
 });
+const emit = defineEmits(['update:checked', 'change']);
 const { rippleAttrs } = useRipple(props, { defaultEnabled: false });
 
 const interactiveRippleAttrs = computed(() => {
@@ -32,9 +37,20 @@ const interactiveRippleAttrs = computed(() => {
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const inputRef = ref(null);
+const currentChecked = computed(() =>
+  props.checked === undefined ? props.defaultChecked : Boolean(props.checked)
+);
 
 const formatCode = createComponentFormatter('Radio', {
-  booleanProps: new Set(['checked', 'disabled', 'labelEnd', 'button', 'ripple']),
+  booleanProps: new Set([
+    'checked',
+    'defaultChecked',
+    'disabled',
+    'labelEnd',
+    'button',
+    'ripple',
+  ]),
   selfClosing: true,
 });
 
@@ -50,36 +66,53 @@ const rootClass = computed(() => {
 
 const hasLabel = computed(() => Boolean(props.label || slots.default));
 const isStandalone = computed(() => !hasLabel.value);
+const standaloneClass = computed(() => ['radio_control', attrs.class]);
 
 const inputAttrs = computed(() => {
   const { class: _class, ...rest } = attrs;
   return rest;
 });
+
+function onChange(event) {
+  const nextChecked = event.currentTarget.checked;
+  emit('update:checked', nextChecked);
+  emit('change', event);
+
+  if (props.checked !== undefined) {
+    nextTick(() => {
+      if (inputRef.value) inputRef.value.checked = Boolean(props.checked);
+    });
+  }
+}
 </script>
 
 <template>
   <label v-if="isStandalone" ref="rootRef"
-    v-bind="interactiveRippleAttrs" class="radio_control" :aria-label="ariaLabel">
+    v-bind="interactiveRippleAttrs" :class="standaloneClass" :aria-label="ariaLabel">
     <input
+      ref="inputRef"
       type="radio"
       class="radio_input"
       :name="name"
       :value="value"
-      :checked="checked"
+      :checked="currentChecked"
       :disabled="disabled"
       v-bind="inputAttrs"
+      @change="onChange"
     />
     <span class="radio_box" aria-hidden="true" />
   </label>
   <label v-else-if="button" ref="rootRef" v-bind="interactiveRippleAttrs" :class="rootClass">
     <input
+      ref="inputRef"
       type="radio"
       class="radio_input"
       :name="name"
       :value="value"
-      :checked="checked"
+      :checked="currentChecked"
       :disabled="disabled"
       v-bind="inputAttrs"
+      @change="onChange"
     />
     <span class="radio_label">
       <slot>{{ label }}</slot>
@@ -91,13 +124,15 @@ const inputAttrs = computed(() => {
     </span>
     <span class="radio_control">
       <input
+        ref="inputRef"
         type="radio"
         class="radio_input"
         :name="name"
         :value="value"
-        :checked="checked"
+        :checked="currentChecked"
         :disabled="disabled"
         v-bind="inputAttrs"
+        @change="onChange"
       />
       <span class="radio_box" aria-hidden="true" />
     </span>

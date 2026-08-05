@@ -1,12 +1,14 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, useAttrs, useSlots } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
+const attrs = useAttrs();
+const slots = useSlots();
 const rootRef = ref(null);
 const formatCode = createComponentFormatter('CalendarGroup', { selfClosing: false });
 
-useComponentDemoCode(formatCode, {}, {}, rootRef, {});
+useComponentDemoCode(formatCode, {}, slots, rootRef, attrs);
 </script>
 
 <template>

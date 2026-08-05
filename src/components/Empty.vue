@@ -4,6 +4,8 @@ import { useEmptyDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
 const props = defineProps({
   description: String,
   size: {
@@ -19,12 +21,20 @@ const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
 
-useEmptyDemoCode(props, rootRef, attrs);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+
+useEmptyDemoCode(
+  () => ({ ...props, size: resolvedSize.value }),
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
   const classes = ['empty'];
-  if (props.size === 'sm') classes.push('empty_sm');
-  if (props.size === 'lg') classes.push('empty_lg');
+  if (resolvedSize.value === 'sm') classes.push('empty_sm');
+  if (resolvedSize.value === 'lg') classes.push('empty_lg');
   if (props.simple) classes.push('empty_simple');
   if (props.block) classes.push('empty_block');
   if (attrs.class) classes.push(attrs.class);
@@ -33,10 +43,15 @@ const rootClass = computed(() => {
 
 const hasImage = computed(() => !props.simple);
 const hasFooter = computed(() => Boolean(slots.footer));
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
-  <div ref="rootRef" :class="rootClass" role="status">
+  <div ref="rootRef" :class="rootClass" role="status" v-bind="fallthroughAttrs">
     <div v-if="hasImage" class="empty_image" aria-hidden="true" data-demo-slot="image">
       <slot name="image">
         <svg viewBox="0 0 64 41" fill="none" aria-hidden="true">

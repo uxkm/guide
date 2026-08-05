@@ -521,10 +521,11 @@ export function provideDemoCode() {
   return store;
 }
 
-export function useButtonDemoCode(props, slots, buttonRef, attrs = {}) {
+export function useButtonDemoCode(propsOrGetter, slots, buttonRef, attrs = {}) {
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(buttonRef.value);
     if (!el) return null;
+    const props = typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
     return {
       el,
@@ -659,8 +660,10 @@ export function useNavbarDemoCode(props, rootRef, attrs = {}) {
   });
 }
 
-export function useTableDemoCode(props, slots, rootRef, attrs = {}) {
+export function useTableDemoCode(propsOrGetter, slots, rootRef, attrs = {}) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
@@ -672,13 +675,15 @@ export function useTableDemoCode(props, slots, rootRef, attrs = {}) {
     return {
       el,
       context,
-      code: () => formatTableCode(props, slots, attrs, el, context?.registry),
+      code: () => formatTableCode(resolveProps(), slots, attrs, el, context?.registry),
     };
   });
 }
 
-export function useComponentDemoCode(formatter, props, slots, rootRef, attrs = {}, options = {}) {
+export function useComponentDemoCode(formatter, propsOrGetter, slots, rootRef, attrs = {}, options = {}) {
   const { when } = options;
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(
     () => {
@@ -686,6 +691,7 @@ export function useComponentDemoCode(formatter, props, slots, rootRef, attrs = {
 
       const el = resolveDemoElement(rootRef.value);
       if (!el) return null;
+      const props = resolveProps();
 
       return {
         el,
@@ -693,13 +699,15 @@ export function useComponentDemoCode(formatter, props, slots, rootRef, attrs = {
       };
     },
     {
-      when: when ? () => when(props) : undefined,
+      when: when ? () => when(resolveProps()) : undefined,
     },
   );
 }
 
-export function usePopoverDemoCode(props, rootRef, attrs = {}) {
+export function usePopoverDemoCode(propsOrGetter, rootRef, attrs = {}) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
@@ -710,7 +718,13 @@ export function usePopoverDemoCode(props, rootRef, attrs = {}) {
 
     return {
       el,
-      code: () => formatPopoverCode(props, attrs, el, getDemoRegistryForElement(el) ?? context?.registry),
+      code: () =>
+        formatPopoverCode(
+          resolveProps(),
+          attrs,
+          el,
+          getDemoRegistryForElement(el) ?? context?.registry
+        ),
     };
   });
 }
@@ -732,8 +746,10 @@ export function useDropdownDemoCode(props, rootRef, attrs = {}) {
   });
 }
 
-function useSlotComponentDemoCode(formatter, props, rootRef, attrs = {}) {
+function useSlotComponentDemoCode(formatter, propsOrGetter, rootRef, attrs = {}) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
@@ -744,7 +760,13 @@ function useSlotComponentDemoCode(formatter, props, rootRef, attrs = {}) {
 
     return {
       el,
-      code: () => formatter(props, attrs, el, getDemoRegistryForElement(el) ?? context?.registry),
+      code: () =>
+        formatter(
+          resolveProps(),
+          attrs,
+          el,
+          getDemoRegistryForElement(el) ?? context?.registry
+        ),
     };
   });
 }
@@ -777,12 +799,15 @@ export function useTabsDemoCode(props, rootRef, attrs = {}) {
   return useSlotComponentDemoCode(formatTabsCode, props, rootRef, attrs);
 }
 
-export function useInputDemoCode(props, rootRef, attrs = {}) {
+export function useInputDemoCode(propsOrGetter, rootRef, attrs = {}) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
     if (!el) return null;
+    const props = resolveProps();
 
     const context = resolveDemoContext(el, injectedContext);
     context?.revision.value;
@@ -801,8 +826,10 @@ export function useInputDemoCode(props, rootRef, attrs = {}) {
   });
 }
 
-export function useTooltipDemoCode(props, rootRef, attrs = {}) {
+export function useTooltipDemoCode(propsOrGetter, rootRef, attrs = {}) {
   const injectedContext = inject(DEMO_CODE_KEY, null);
+  const resolveProps = () =>
+    typeof propsOrGetter === 'function' ? propsOrGetter() : propsOrGetter;
 
   return useDemoCodeRegistration(() => {
     const el = resolveDemoElement(rootRef.value);
@@ -813,7 +840,13 @@ export function useTooltipDemoCode(props, rootRef, attrs = {}) {
 
     return {
       el,
-      code: () => formatTooltipCode(props, attrs, el, getDemoRegistryForElement(el) ?? context?.registry),
+      code: () =>
+        formatTooltipCode(
+          resolveProps(),
+          attrs,
+          el,
+          getDemoRegistryForElement(el) ?? context?.registry
+        ),
     };
   });
 }

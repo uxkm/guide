@@ -27,6 +27,8 @@ import {
   cardHeaderPropColumns,
   cardHeaderProps,
   cardHeaderSlots,
+  cardBodyPropColumns,
+  cardBodyProps,
   cardBodySlots,
   cardPropColumns,
   cardProps,
@@ -221,6 +223,100 @@ import CardHeader from '@/components/CardHeader.vue';
   </Card>
 </template>`;
 
+const webzineCode = `<script setup>
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+<\/script>
+
+<template>
+  <Card layout="webzine" variant="shadow" title="도시를 바꾸는 작은 디자인" subtitle="Design Journal · 2026.07.31">
+    <template #media><div class="card_media card_media-placeholder" role="img" aria-label="웹진 대표 이미지" /></template>
+    <CardBody>일상의 동선과 경험을 개선하는 공공 디자인 사례를 깊이 있게 소개합니다.</CardBody>
+  </Card>
+</template>`;
+
+const newsListCode = `<script setup>
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+<\/script>
+
+<template>
+  <div class="card_news-list">
+    <Card layout="news" title="디자인 시스템 업데이트" subtitle="제품 소식 · 10분 전">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="업데이트 뉴스 이미지" /></template>
+      <CardBody>접근성 토큰과 컴포넌트 API가 개선되었습니다.</CardBody>
+    </Card>
+    <Card layout="news" media-position="right" title="새로운 가이드 공개" subtitle="가이드 · 1시간 전">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="가이드 뉴스 이미지" /></template>
+      <CardBody>콘텐츠 작성과 레이아웃 원칙을 확인하세요.</CardBody>
+    </Card>
+  </div>
+</template>`;
+
+const mediaPositionCode = `<script setup>
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+<\/script>
+
+<template>
+  <div class="card_deck card_deck-2">
+    <Card media-position="left" :media-divider="false" title="이미지 좌측 · 구분선 없음">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="좌측 배치 이미지" /></template>
+      <CardBody>미디어 다음에 콘텐츠를 배치합니다.</CardBody>
+    </Card>
+    <Card media-position="right" :media-divider="false" title="이미지 우측 · 구분선 없음">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="우측 배치 이미지" /></template>
+      <CardBody>콘텐츠 다음에 미디어를 배치합니다.</CardBody>
+    </Card>
+  </div>
+</template>`;
+
+const productListCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+import CardFooter from '@/components/CardFooter.vue';
+<\/script>
+
+<template>
+  <div class="card_product-list">
+    <Card layout="product" :media-divider="false" title="라이트 러닝 재킷" subtitle="무료 배송">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="라이트 러닝 재킷 상품 이미지" /></template>
+      <CardBody :line-clamp="2">가볍고 통기성이 좋은 데일리 러닝 재킷입니다. 생활 방수 소재를 적용했습니다.</CardBody>
+      <CardFooter justify="between">
+        <p class="card_price"><data value="89000">89,000원</data><del class="card_price-original">109,000원</del></p>
+        <Button variant="filled" size="sm" label="담기" />
+      </CardFooter>
+    </Card>
+    <Card layout="product" :media-divider="false" title="데일리 백팩" subtitle="오늘 출발">
+      <template #media><div class="card_media card_media-placeholder" role="img" aria-label="데일리 백팩 상품 이미지" /></template>
+      <CardBody :line-clamp="1">노트북 수납과 생활 방수를 지원하는 가벼운 데일리 백팩입니다.</CardBody>
+      <CardFooter justify="between">
+        <p class="card_price"><data value="64000">64,000원</data></p>
+        <Button variant="outline" size="sm" label="상세보기" />
+      </CardFooter>
+    </Card>
+  </div>
+</template>`;
+
+const lineClampCode = `<script setup>
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+import CardHeader from '@/components/CardHeader.vue';
+
+const description = '디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.';
+<\/script>
+
+<template>
+  <div class="card_deck card_deck-3">
+    <Card><CardHeader title="한 줄 말줄임" /><CardBody :line-clamp="1">{{ description }}</CardBody></Card>
+    <Card><CardHeader title="두 줄 말줄임" /><CardBody :line-clamp="2">{{ description }}</CardBody></Card>
+    <Card><CardHeader title="세 줄 말줄임" /><CardBody :line-clamp="3">{{ description }}</CardBody></Card>
+  </div>
+</template>`;
+
+const clampDescription = '디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다. 구성 요소와 사용 원칙을 하나의 언어로 정리하면 디자이너와 개발자가 같은 기준으로 협업할 수 있으며, 새로운 기능을 추가할 때도 품질을 안정적으로 유지할 수 있습니다.';
+
 const iconCode = `<script setup>
 import Card from '@/components/Card.vue';
 import CardBody from '@/components/CardBody.vue';
@@ -298,7 +394,7 @@ import Tag from '@/components/Tag.vue';
         <Tag size="sm" color="default" label="SCSS" />
       </div>
     </CardBody>
-    <CardFooter between>
+    <CardFooter ratio="2:1">
       <span class="color_muted size_sm">서울 · 온라인</span>
       <Button variant="outline" color="primary" size="sm" label="팔로우" />
     </CardFooter>
@@ -312,18 +408,33 @@ import CardBody from '@/components/CardBody.vue';
 
 <template>
   <div class="card_deck card_deck-2">
-    <Card tag="a" href="#" hoverable class="card_clickable" @click.prevent>
+    <Card as="a" href="#" hoverable class="card_clickable" @click.prevent>
       <CardBody>
         <h3 class="card_title">링크 카드</h3>
         <p class="card_subtitle">클릭하면 상세 페이지로 이동합니다.</p>
       </CardBody>
     </Card>
-    <Card hoverable variant="shadow" class="card_clickable" tabindex="0" role="link">
+    <Card as="button" type="button" hoverable variant="shadow" class="card_clickable">
       <CardBody>
-        <h3 class="card_title">인터랙티브 카드</h3>
-        <p class="card_subtitle">tabindex와 role로 키보드 접근을 지원합니다.</p>
+        <h3 class="card_title">버튼 카드</h3>
+        <p class="card_subtitle">네이티브 button으로 키보드 동작을 지원합니다.</p>
       </CardBody>
     </Card>
+  </div>
+</template>`;
+
+const footerLayoutCode = `<script setup>
+import Button from '@/components/Button.vue';
+import Card from '@/components/Card.vue';
+import CardBody from '@/components/CardBody.vue';
+import CardFooter from '@/components/CardFooter.vue';
+<\/script>
+
+<template>
+  <div class="card_deck">
+    <Card><CardBody>단일 액션</CardBody><CardFooter full justify="center"><Button variant="filled" label="전체 너비 액션" /></CardFooter></Card>
+    <Card><CardBody>균등 분할</CardBody><CardFooter ratio="1:1" flush><Button variant="ghost" label="취소" /><Button variant="filled" label="확인" /></CardFooter></Card>
+    <Card><CardBody>상황별 비율</CardBody><CardFooter ratio="1:2"><Button variant="ghost" label="이전" /><Button variant="filled" label="다음 단계" /></CardFooter></Card>
   </div>
 </template>`;
 
@@ -546,6 +657,101 @@ import CardHeader from '@/components/CardHeader.vue';
   </DemoSection>
 
   <DemoSection
+    heading-id="webzine-heading"
+    title="웹진형"
+    description="layout=&quot;webzine&quot;은 넓은 상단 이미지와 강조된 제목·본문으로 에디토리얼 콘텐츠를 구성합니다."
+    :code="webzineCode"
+  >
+    <Card layout="webzine" variant="shadow" title="도시를 바꾸는 작은 디자인" subtitle="Design Journal · 2026.07.31" style="max-width: 680px; width: 100%;">
+      <template #media>
+        <div class="card_media card_media-placeholder" role="img" aria-label="웹진 대표 이미지">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>
+        </div>
+      </template>
+      <CardBody>일상의 동선과 경험을 개선하는 공공 디자인 사례를 깊이 있게 소개합니다.</CardBody>
+    </Card>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="news-list-heading"
+    title="뉴스 리스트형"
+    description="layout=&quot;news&quot;는 밀도 높은 가로형 뉴스 항목을 만듭니다. 기본 이미지는 좌측이며 mediaPosition으로 우측 배치도 가능합니다."
+    :code="newsListCode"
+    stack
+  >
+    <div class="card_news-list">
+      <Card layout="news" title="디자인 시스템 업데이트" subtitle="제품 소식 · 10분 전">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="업데이트 뉴스 이미지" /></template>
+        <CardBody>접근성 토큰과 컴포넌트 API가 개선되었습니다.</CardBody>
+      </Card>
+      <Card layout="news" media-position="right" title="새로운 가이드 공개" subtitle="가이드 · 1시간 전">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="가이드 뉴스 이미지" /></template>
+        <CardBody>콘텐츠 작성과 레이아웃 원칙을 확인하세요.</CardBody>
+      </Card>
+    </div>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="media-position-heading"
+    title="이미지 좌측 · 우측"
+    description="mediaPosition을 left 또는 right로 지정하면 Card가 미디어와 콘텐츠 래퍼를 자동으로 구성합니다. mediaDivider=false로 이미지 경계선을 제거할 수 있습니다."
+    :code="mediaPositionCode"
+    stack
+  >
+    <div class="card_deck card_deck-2">
+      <Card media-position="left" :media-divider="false" title="이미지 좌측 · 구분선 없음">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="좌측 배치 이미지" /></template>
+        <CardBody>미디어 다음에 콘텐츠를 배치합니다.</CardBody>
+      </Card>
+      <Card media-position="right" :media-divider="false" title="이미지 우측 · 구분선 없음">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="우측 배치 이미지" /></template>
+        <CardBody>콘텐츠 다음에 미디어를 배치합니다.</CardBody>
+      </Card>
+    </div>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="product-list-heading"
+    title="상품 리스트형"
+    description="layout=&quot;product&quot;는 상품 이미지·설명·가격·액션을 밀도 높은 가로 목록으로 구성합니다."
+    :code="productListCode"
+    stack
+  >
+    <div class="card_product-list">
+      <Card layout="product" :media-divider="false" title="라이트 러닝 재킷" subtitle="무료 배송">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="라이트 러닝 재킷 상품 이미지" /></template>
+        <CardBody :line-clamp="2">가볍고 통기성이 좋은 데일리 러닝 재킷입니다. 생활 방수 소재를 적용했습니다.</CardBody>
+        <CardFooter justify="between">
+          <p class="card_price"><data value="89000">89,000원</data><del class="card_price-original"><data value="109000">109,000원</data></del></p>
+          <Button variant="filled" size="sm" label="담기" />
+        </CardFooter>
+      </Card>
+      <Card layout="product" :media-divider="false" title="데일리 백팩" subtitle="오늘 출발">
+        <template #media><div class="card_media card_media-placeholder" role="img" aria-label="데일리 백팩 상품 이미지" /></template>
+        <CardBody :line-clamp="1">노트북 수납과 생활 방수를 지원하는 가벼운 데일리 백팩입니다.</CardBody>
+        <CardFooter justify="between">
+          <p class="card_price"><data value="64000">64,000원</data></p>
+          <Button variant="outline" size="sm" label="상세보기" />
+        </CardFooter>
+      </Card>
+    </div>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="line-clamp-heading"
+    title="내용 말줄임"
+    description="CardBody의 lineClamp로 내용 영역을 1줄·2줄·3줄까지 표시한 뒤 말줄임 처리합니다."
+    :code="lineClampCode"
+    stack
+  >
+    <div class="card_deck card_deck-3">
+      <Card><CardHeader title="한 줄 말줄임" /><CardBody :line-clamp="1">{{ clampDescription }}</CardBody></Card>
+      <Card><CardHeader title="두 줄 말줄임" /><CardBody :line-clamp="2">{{ clampDescription }}</CardBody></Card>
+      <Card><CardHeader title="세 줄 말줄임" /><CardBody :line-clamp="3">{{ clampDescription }}</CardBody></Card>
+    </div>
+  </DemoSection>
+
+  <DemoSection
     heading-id="icon-heading"
     title="아이콘 · 통계"
     description="card_icon · card_stat으로 기능 소개·지표 카드를 구성합니다."
@@ -614,7 +820,7 @@ import CardHeader from '@/components/CardHeader.vue';
           <Tag size="sm" color="default" label="SCSS" />
         </div>
       </CardBody>
-      <CardFooter between>
+      <CardFooter ratio="2:1">
         <span class="color_muted size_sm">서울 · 온라인</span>
         <Button variant="outline" color="primary" size="sm" label="팔로우" />
       </CardFooter>
@@ -622,22 +828,36 @@ import CardHeader from '@/components/CardHeader.vue';
   </DemoSection>
 
   <DemoSection
+    heading-id="footer-layout-heading"
+    title="푸터 레이아웃"
+    description="justify로 좌·중앙·우·양끝 정렬하고, full로 단일 항목을 100% 확장합니다. ratio는 1:1 · 1:2 · 2:1 분할을, flush는 패딩 제거를 적용합니다."
+    :code="footerLayoutCode"
+    stack
+  >
+    <div class="card_deck">
+      <Card><CardBody>단일 액션</CardBody><CardFooter full justify="center"><Button variant="filled" label="전체 너비 액션" /></CardFooter></Card>
+      <Card><CardBody>균등 분할</CardBody><CardFooter ratio="1:1" flush><Button variant="ghost" label="취소" /><Button variant="filled" label="확인" /></CardFooter></Card>
+      <Card><CardBody>상황별 비율</CardBody><CardFooter ratio="1:2"><Button variant="ghost" label="이전" /><Button variant="filled" label="다음 단계" /></CardFooter></Card>
+    </div>
+  </DemoSection>
+
+  <DemoSection
     heading-id="clickable-heading"
     title="클릭 가능"
-    description="a 태그 또는 card_clickable로 전체 카드를 링크·버튼으로 만듭니다. hoverable과 함께 사용합니다."
+    description="as로 링크 또는 네이티브 button을 지정해 카드 전체를 올바른 링크·버튼으로 만듭니다."
     :code="clickableCode"
   >
     <div class="card_deck card_deck-2">
-      <Card tag="a" href="#" hoverable class="card_clickable" @click.prevent>
+      <Card as="a" href="#" hoverable class="card_clickable" @click.prevent>
         <CardBody>
           <h3 class="card_title">링크 카드</h3>
           <p class="card_subtitle">클릭하면 상세 페이지로 이동합니다.</p>
         </CardBody>
       </Card>
-      <Card hoverable variant="shadow" class="card_clickable" tabindex="0" role="link">
+      <Card as="button" type="button" hoverable variant="shadow" class="card_clickable">
         <CardBody>
-          <h3 class="card_title">인터랙티브 카드</h3>
-          <p class="card_subtitle">tabindex와 role로 키보드 접근을 지원합니다.</p>
+          <h3 class="card_title">버튼 카드</h3>
+          <p class="card_subtitle">네이티브 button으로 키보드 동작을 지원합니다.</p>
         </CardBody>
       </Card>
     </div>
@@ -686,6 +906,10 @@ import CardHeader from '@/components/CardHeader.vue';
 
   <ApiSection heading-id="api-header-props-heading" title="API · CardHeader Props">
     <ApiTable :columns="cardHeaderPropColumns" :rows="cardHeaderProps" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-body-props-heading" title="API · CardBody Props">
+    <ApiTable :columns="cardBodyPropColumns" :rows="cardBodyProps" code-column="name" />
   </ApiSection>
 
   <ApiSection heading-id="api-footer-props-heading" title="API · CardFooter Props">

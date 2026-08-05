@@ -1,15 +1,17 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useId, useSlots } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
-  value: Number,
+  defaultValue: Number,
   count: {
     type: Number,
     default: 5,
@@ -25,7 +27,10 @@ const props = defineProps({
   },
   legend: String,
   name: String,
-  modelValue: Number,
+  modelValue: {
+    type: Number,
+    default: undefined,
+  },
 });
 const { rippleAttrs, childRippleAttrs } = useRipple(props, { mode: 'container' });
 
@@ -35,7 +40,15 @@ const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
-const groupName = props.name || `rate-${Math.random().toString(36).slice(2, 9)}`;
+const generatedName = useId();
+const groupName = computed(() => props.name || generatedName);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
+const resolvedCount = computed(() =>
+  Number(props.count) > 0 ? Number(props.count) : 5
+);
+const internalValue = ref(props.defaultValue);
 
 const formatCode = createComponentFormatter('Rate', {
   defaults: { count: 5, size: 'md' },
@@ -44,14 +57,27 @@ const formatCode = createComponentFormatter('Rate', {
   selfClosing: true,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    count: resolvedCount.value,
+    size: resolvedSize.value,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
-const currentValue = computed(() => props.modelValue ?? props.value);
+const isControlled = computed(() => props.modelValue !== undefined);
+const currentValue = computed(() =>
+  isControlled.value ? props.modelValue : internalValue.value
+);
 
 const rootClass = computed(() => {
   const classes = ['rate'];
-  if (props.size === 'sm') classes.push('rate_sm');
-  if (props.size === 'lg') classes.push('rate_lg');
+  if (resolvedSize.value === 'sm') classes.push('rate_sm');
+  if (resolvedSize.value === 'lg') classes.push('rate_lg');
   if (props.allowHalf) classes.push('rate_allow-half');
   if (props.clearable) classes.push('rate_clearable');
   if (props.readonly) classes.push('is-readonly');
@@ -59,22 +85,34 @@ const rootClass = computed(() => {
   return classes;
 });
 
-const stars = computed(() => Array.from({ length: props.count }, (_, i) => i + 1));
+const stars = computed(() => Array.from({ length: resolvedCount.value }, (_, i) => i + 1));
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
+
+const interactiveAttrs = computed(() => ({
+  ...rippleAttrs.value,
+  ...fallthroughAttrs.value,
+}));
 
 const starPath =
   'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z';
 
 function onChange(val) {
+  if (!isControlled.value) internalValue.value = val;
   emit('update:modelValue', val);
 }
 
 function onClear() {
+  if (!isControlled.value) internalValue.value = undefined;
   emit('update:modelValue', undefined);
 }
 
 const readonlyAriaLabel = computed(() => {
   const val = currentValue.value ?? 0;
-  return `${props.count}점 만점 중 ${val}점`;
+  return `${resolvedCount.value}점 만점 중 ${val}점`;
 });
 
 function readonlyStarClass(star) {
@@ -92,6 +130,7 @@ function readonlyStarClass(star) {
     :class="rootClass"
     role="img"
     :aria-label="readonlyAriaLabel"
+    v-bind="fallthroughAttrs"
   >
     <div class="rate_stars">
       <span
@@ -118,7 +157,13 @@ function readonlyStarClass(star) {
     <span v-if="currentValue" class="rate_value">{{ currentValue }}</span>
   </div>
 
-  <fieldset v-else ref="rootRef" v-bind="rippleAttrs" :class="rootClass" :disabled="disabled">
+  <fieldset
+    v-else
+    ref="rootRef"
+    v-bind="interactiveAttrs"
+    :class="rootClass"
+    :disabled="disabled"
+  >
     <legend v-if="legend" class="rate_legend">{{ legend }}</legend>
     <div class="rate_control">
       <div class="rate_stars">

@@ -19,6 +19,8 @@ import Textarea from '@/components/Textarea.vue';
 import {
   formLayoutClassColumns,
   formLayoutClasses,
+  formLayoutEventColumns,
+  formLayoutEvents,
   formLayoutPropColumns,
   formLayoutProps,
   formLayoutSlotColumns,
@@ -116,7 +118,7 @@ import Select from '@/components/Select.vue';
 <\/script>
 
 <template>
-  <FormLayout layout="inline">
+  <FormLayout layout="inline" @submit.prevent>
     <div class="form_field">
       <label class="form_field-label" for="fl-i-keyword">키워드</label>
       <Input id="fl-i-keyword" type="search" placeholder="검색어" />
@@ -206,7 +208,7 @@ import Input from '@/components/Input.vue';
 <\/script>
 
 <template>
-  <FormLayout layout="vertical">
+  <FormLayout layout="vertical" @submit.prevent>
     <div class="form_field">
       <label class="form_field-label" for="fl-a-title">제목</label>
       <Input id="fl-a-title" placeholder="제목" />
@@ -216,7 +218,7 @@ import Input from '@/components/Input.vue';
       <Button variant="ghost" type="button" label="취소" />
     </div>
   </FormLayout>
-  <FormLayout layout="horizontal">
+  <FormLayout layout="horizontal" @submit.prevent>
     <div class="form_field">
       <label class="form_field-label" for="fl-a2-title">제목</label>
       <Input id="fl-a2-title" placeholder="제목" />
@@ -237,7 +239,7 @@ import Textarea from '@/components/Textarea.vue';
 <\/script>
 
 <template>
-  <FormLayout layout="vertical" compact>
+  <FormLayout layout="vertical" compact @submit.prevent>
     <Grid :item-span="6">
       <div class="form_field">
         <label class="form_field-label" for="fl-ex-id">아이디</label>
@@ -371,7 +373,7 @@ import Textarea from '@/components/Textarea.vue';
     description="검색·필터처럼 필드를 한 줄에 나란히 배치합니다. 공간이 부족하면 자동으로 줄바꿈됩니다."
     :code="inlineCode"
   >
-    <FormLayout layout="inline">
+    <FormLayout layout="inline" @submit.prevent>
           <div class="form_field">
             <label class="form_field-label" for="fl-i-keyword">키워드</label>
             <Input id="fl-i-keyword" type="search" placeholder="검색어" />
@@ -477,7 +479,7 @@ import Textarea from '@/components/Textarea.vue';
   >
     <div class="demo_preview-block">
       <h3 class="typo_overline">세로</h3>
-      <FormLayout layout="vertical">
+      <FormLayout layout="vertical" @submit.prevent>
         <div class="form_field">
           <label class="form_field-label" for="fl-a-title">제목</label>
           <Input id="fl-a-title" placeholder="제목" />
@@ -491,7 +493,7 @@ import Textarea from '@/components/Textarea.vue';
 
     <div class="demo_preview-block">
       <h3 class="typo_overline">가로</h3>
-      <FormLayout layout="horizontal">
+      <FormLayout layout="horizontal" @submit.prevent>
         <div class="form_field">
           <label class="form_field-label" for="fl-a2-title">제목</label>
           <Input id="fl-a2-title" placeholder="제목" />
@@ -510,7 +512,7 @@ import Textarea from '@/components/Textarea.vue';
     description="세로 레이아웃 + 그리드 + 액션을 조합한 회원 정보 폼입니다."
     :code="exampleCode"
   >
-    <FormLayout layout="vertical" compact>
+    <FormLayout layout="vertical" compact @submit.prevent>
       <Grid :item-span="6">
         <div class="form_field">
           <label class="form_field-label" for="fl-ex-id">아이디</label>
@@ -543,10 +545,19 @@ import Textarea from '@/components/Textarea.vue';
 
   <ApiSection heading-id="api-props-heading" title="API · Props">
     <ApiTable :columns="formLayoutPropColumns" :rows="formLayoutProps" code-column="name" />
+    <p class="form_field-hint" style="margin-top: var(--space-md);">
+      선언되지 않은 HTML 속성·이벤트(<code class="typo_code">action</code>,
+      <code class="typo_code">method</code>, <code class="typo_code">novalidate</code>,
+      <code class="typo_code">@submit</code> 등)는 루트 요소에 그대로 전달됩니다.
+    </p>
   </ApiSection>
 
   <ApiSection heading-id="api-slots-heading" title="API · Slots">
     <ApiTable :columns="formLayoutSlotColumns" :rows="formLayoutSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-events-heading" title="API · Events">
+    <ApiTable :columns="formLayoutEventColumns" :rows="formLayoutEvents" code-column="name" />
   </ApiSection>
 
   <ApiSection

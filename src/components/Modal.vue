@@ -5,6 +5,8 @@ import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useModalDemoCode } from '@/composables/useDemoCode';
 
+const VALID_SIZES = new Set(['sm', 'md', 'lg', 'fullscreen']);
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
@@ -44,19 +46,37 @@ const props = defineProps({
 });
 const { rippleAttrs } = useRipple(props);
 
-
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
-const titleId = `${props.id}-title`;
+const titleId = computed(() => `${props.id}-title`);
+const resolvedSize = computed(() =>
+  VALID_SIZES.has(props.size) ? props.size : 'md'
+);
 
-useModalDemoCode(props, rootRef, attrs);
+useModalDemoCode(
+  () => ({
+    ...props,
+    size: resolvedSize.value,
+  }),
+  rootRef,
+  attrs
+);
+
+const showHeader = computed(() => Boolean(slots.header || props.title));
+const ariaLabelledby = computed(() => {
+  if (attrs['aria-labelledby']) return attrs['aria-labelledby'];
+  return !slots.header && props.title ? titleId.value : undefined;
+});
+const isDemoStatic = computed(
+  () => typeof attrs.class === 'string' && attrs.class.includes('modal_demo-static')
+);
 
 const rootClass = computed(() => {
   const classes = ['modal'];
-  if (props.size === 'sm') classes.push('modal_sm');
-  if (props.size === 'lg') classes.push('modal_lg');
-  if (props.size === 'fullscreen') classes.push('modal_fullscreen');
+  if (resolvedSize.value === 'sm') classes.push('modal_sm');
+  if (resolvedSize.value === 'lg') classes.push('modal_lg');
+  if (resolvedSize.value === 'fullscreen') classes.push('modal_fullscreen');
   if (props.scrollable) classes.push('modal_scrollable');
   if (props.open) classes.push('is-open');
   if (attrs.class) classes.push(attrs.class);
@@ -78,7 +98,7 @@ const footerClass = computed(() => {
 });
 
 const fallthroughAttrs = computed(() => {
-  const { class: _class, ...rest } = attrs;
+  const { class: _class, 'aria-labelledby': _ariaLabelledby, ...rest } = attrs;
   return rest;
 });
 </script>
@@ -92,16 +112,18 @@ const fallthroughAttrs = computed(() => {
     :data-modal-backdrop="backdrop ? undefined : 'false'"
     role="dialog"
     aria-modal="true"
-    :aria-labelledby="titleId"
+    :aria-labelledby="ariaLabelledby"
     tabindex="-1"
-    :hidden="!open || undefined"
+    :hidden="isDemoStatic || open ? undefined : true"
     v-bind="fallthroughAttrs"
   >
     <div class="modal_backdrop" data-modal-close aria-hidden="true" />
     <div class="modal_dialog">
-      <div v-if="$slots.header || title" class="modal_header" data-demo-slot="header">
+      <div v-if="showHeader" class="modal_header" data-demo-slot="header">
         <slot name="header">
-          <h2 class="modal_title" :id="titleId">{{ title }}</h2>
+          <div class="modal_title" :id="titleId" role="heading" aria-level="2">
+            {{ title }}
+          </div>
         </slot>
         <Button
           variant="ghost"

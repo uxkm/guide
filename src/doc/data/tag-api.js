@@ -7,6 +7,12 @@ export const tagPropColumns = [
 ];
 
 export const tagProps = [
+  {
+    name: 'as',
+    type: 'string | Component',
+    default: 'span',
+    description: '일반 Tag의 루트 요소 또는 커스텀 컴포넌트. 인터랙션 태그는 button·a를 자동 사용',
+  },
   { name: 'color', type: 'string', default: 'primary', description: '공통 color_* 클래스' },
   { name: 'variant', type: `'filled' | 'solid' | 'outline' | 'borderless'`, default: 'filled', description: '태그 스킨' },
   { name: 'size', type: `'sm' | 'md' | 'lg'`, default: 'md', description: 'tag_sm · tag_lg' },

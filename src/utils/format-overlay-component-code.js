@@ -53,5 +53,8 @@ export const formatAlertCode = createSlotComponentFormatter('Alert', {
   defaults: { color: 'info', size: 'md', role: 'alert' },
   booleanProps: new Set(['closable', 'showIcon', 'ripple']),
   skipProps: ['role'],
-  slots: [{ name: 'icon', wrap: 'template' }],
+  slots: [
+    { name: 'icon', wrap: 'template' },
+    { name: 'actions', wrap: 'template' },
+  ],
 });
