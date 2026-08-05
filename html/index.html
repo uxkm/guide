@@ -42,14 +42,12 @@
           <h2 id="overview-heading">개요</h2>
           <p>이 사이트는 디자인 시스템 문서이자 재사용 가능한 UI 패턴 모음입니다. 각 컴포넌트 페이지에서 라이브 데모, 마크업 예시, 클래스·속성 표, 디자인 토큰을 함께 제공합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start" style="border-radius: var(--radius-lg);">
-            <ul class="list list_bullet" style="width: 100%;">
-              <li class="list_item"><strong>OOCSS 구조</strong> — 블록(<code class="typo_code">.btn</code>) + 파트(<code class="typo_code">.btn_label</code>) + 스킨·크기·상태 클래스를 조합해 사용합니다.</li>
-              <li class="list_item"><strong>디자인 토큰</strong> — 색상·간격·타이포 등은 <code class="typo_code">_tokens.scss</code>의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다. 자세한 목록은 <a href="design-tokens.html">디자인 토큰</a>을 참고하세요.</li>
-              <li class="list_item"><strong>접근성</strong> — <code class="typo_code">role</code> · <code class="typo_code">aria-*</code> 속성과 키보드·포커스 패턴을 컴포넌트별로 안내합니다.</li>
-              <li class="list_item"><strong>이 저장소의 빌드</strong> — 문서 사이트 생성은 <strong>Gulp</strong>로 수행합니다. SCSS 컴파일, HTML 조립, 이미지 압축, JS 복사 후 결과물을 <code class="typo_code">html/</code>에 출력합니다.</li>
-            </ul>
-          </div>
+          <ul class="list list_bullet">
+            <li class="list_item"><strong>OOCSS 구조</strong> — 블록(<code class="typo_code">.btn</code>) + 파트(<code class="typo_code">.btn_label</code>) + 스킨·크기·상태 클래스를 조합해 사용합니다.</li>
+            <li class="list_item"><strong>디자인 토큰</strong> — 색상·간격·타이포 등은 <code class="typo_code">_tokens.scss</code>의 CSS 변수로 관리하며, 라이트/다크 테마를 지원합니다. 자세한 목록은 <a href="design-tokens.html">디자인 토큰</a>을 참고하세요.</li>
+            <li class="list_item"><strong>접근성</strong> — <code class="typo_code">role</code> · <code class="typo_code">aria-*</code> 속성과 키보드·포커스 패턴을 컴포넌트별로 안내합니다.</li>
+            <li class="list_item"><strong>이 저장소의 빌드</strong> — 문서 사이트 생성은 <strong>Gulp</strong>로 수행합니다. SCSS 컴파일, HTML 조립, 이미지 압축, JS 복사 후 결과물을 <code class="typo_code">html/</code>에 출력합니다.</li>
+          </ul>
         </section>
 
         <section class="section" aria-labelledby="quickstart-heading">
@@ -75,8 +73,8 @@ pnpm build</code></pre>
           <div class="card_grid">
             <a class="category_card" href="components/container.html">
               <h3>레이아웃</h3>
-              <p>Container, Grid, Divider, Space</p>
-              <span class="count">4개 컴포넌트</span>
+              <p>Container, Grid, Flex, Divider, Space</p>
+              <span class="count">5개 컴포넌트</span>
             </a>
             <a class="category_card" href="components/button.html">
               <h3>기본 요소</h3>

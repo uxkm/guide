@@ -228,9 +228,236 @@
         </div>
         </section>
 
+        <section class="section demo_section" aria-labelledby="bordered-heading">
+          <div class="demo_section-header">
+            <h2 id="bordered-heading">테두리</h2>
+            <p>table_bordered로 모든 셀에 테두리를 적용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">항목</th>
+                    <th scope="col">수량</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>001</td><td>사과</td><td>10</td></tr>
+                  <tr><td>002</td><td>바나나</td><td>25</td></tr>
+                  <tr><td>003</td><td>오렌지</td><td>8</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
+  &lt;table class=&quot;table table_bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope=&quot;col&quot;&gt;ID&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;항목&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;수량&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;001&lt;/td&gt;
+        &lt;td&gt;사과&lt;/td&gt;
+        &lt;td&gt;10&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;002&lt;/td&gt;
+        &lt;td&gt;바나나&lt;/td&gt;
+        &lt;td&gt;25&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;003&lt;/td&gt;
+        &lt;td&gt;오렌지&lt;/td&gt;
+        &lt;td&gt;8&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="compact-heading">
+          <div class="demo_section-header">
+            <h2 id="compact-heading">컴팩트</h2>
+            <p>table_compact로 셀 패딩을 줄여 밀도를 높입니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_compact table_columns" style="--table-col-1-white-space: nowrap; --table-col-2-white-space: nowrap; --table-col-3-white-space: nowrap;">
+                <colgroup>
+                  <col style="width: 8rem; min-width: 6rem;">
+                  <col style="width: 8rem; min-width: 6.5rem;">
+                  <col style="width: 5rem; min-width: 4rem;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">제품</th>
+                    <th scope="col">가격</th>
+                    <th scope="col">재고</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>노트북</td><td>1,200,000원</td><td>24</td></tr>
+                  <tr><td>키보드</td><td>89,000원</td><td>156</td></tr>
+                  <tr><td>마우스</td><td>45,000원</td><td>89</td></tr>
+                  <tr><td>모니터</td><td>350,000원</td><td>12</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
+  &lt;table class=&quot;table table_compact table_columns&quot; style=&quot;--table-col-1-white-space: nowrap; --table-col-2-white-space: nowrap; --table-col-3-white-space: nowrap;&quot;&gt;
+    &lt;colgroup&gt;
+      &lt;col style=&quot;width: 8rem; min-width: 6rem;&quot;&gt;
+      &lt;col style=&quot;width: 8rem; min-width: 6.5rem;&quot;&gt;
+      &lt;col style=&quot;width: 5rem; min-width: 4rem;&quot;&gt;
+    &lt;/colgroup&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope=&quot;col&quot;&gt;제품&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;가격&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;재고&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;노트북&lt;/td&gt;
+        &lt;td&gt;1,200,000원&lt;/td&gt;
+        &lt;td&gt;24&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;키보드&lt;/td&gt;
+        &lt;td&gt;89,000원&lt;/td&gt;
+        &lt;td&gt;156&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;마우스&lt;/td&gt;
+        &lt;td&gt;45,000원&lt;/td&gt;
+        &lt;td&gt;89&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;모니터&lt;/td&gt;
+        &lt;td&gt;350,000원&lt;/td&gt;
+        &lt;td&gt;12&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="hover-heading">
+          <div class="demo_section-header">
+            <h2 id="hover-heading">호버</h2>
+            <p>table_hover로 tbody 행에 마우스를 올렸을 때 배경색을 강조합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_hover table_columns" style="--table-col-1-white-space: nowrap; --table-col-3-white-space: nowrap;">
+                <colgroup>
+                  <col style="width: 7rem; min-width: 5.5rem;">
+                  <col style="min-width: 9rem;">
+                  <col style="width: 6.5rem; min-width: 5rem;">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">이름</th>
+                    <th scope="col">역할</th>
+                    <th scope="col">상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>홍길동</td><td>프론트엔드</td><td><span class="badge color_success badge_dot">Active</span></td></tr>
+                  <tr><td>김철수</td><td>백엔드</td><td><span class="badge color_success badge_dot">Active</span></td></tr>
+                  <tr><td>이영희</td><td>디자이너</td><td><span class="badge color_warning badge_dot">Away</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;table_wrap&quot;&gt;
+  &lt;table class=&quot;table table_hover table_columns&quot; style=&quot;--table-col-1-white-space: nowrap; --table-col-3-white-space: nowrap;&quot;&gt;
+    &lt;colgroup&gt;
+      &lt;col style=&quot;width: 7rem; min-width: 5.5rem;&quot;&gt;
+      &lt;col style=&quot;min-width: 9rem;&quot;&gt;
+      &lt;col style=&quot;width: 6.5rem; min-width: 5rem;&quot;&gt;
+    &lt;/colgroup&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope=&quot;col&quot;&gt;이름&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;역할&lt;/th&gt;
+        &lt;th scope=&quot;col&quot;&gt;상태&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;홍길동&lt;/td&gt;
+        &lt;td&gt;프론트엔드&lt;/td&gt;
+        &lt;td&gt;
+          &lt;span class=&quot;badge color_success badge_dot&quot;&gt;Active&lt;/span&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;김철수&lt;/td&gt;
+        &lt;td&gt;백엔드&lt;/td&gt;
+        &lt;td&gt;
+          &lt;span class=&quot;badge color_success badge_dot&quot;&gt;Active&lt;/span&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;이영희&lt;/td&gt;
+        &lt;td&gt;디자이너&lt;/td&gt;
+        &lt;td&gt;
+          &lt;span class=&quot;badge color_warning badge_dot&quot;&gt;Away&lt;/span&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
         <section class="section demo_section" aria-labelledby="variant-heading">
           <div class="demo_section-header">
-            <h2 id="variant-heading">변형</h2>
+            <h2 id="variant-heading">조합</h2>
             <p>bordered · compact · hover를 조합할 수 있습니다.</p>
           </div>
 

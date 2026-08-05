@@ -374,38 +374,33 @@
         <section class="section demo_section" aria-labelledby="window-heading">
           <div class="demo_section-header">
             <h2 id="window-heading">페이지 스크롤</h2>
-            <p><code class="typo_code">data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. Docs·프리뷰에서는 페이지형 스크롤 영역으로 같은 동작을 확인합니다.</p>
+            <p><code class="typo_code">data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 섹션 아래로 페이지를 스크롤하면 배너가 상단에 고정됩니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="affix_demo-narrow">
-              <div class="affix_demo-page" id="affix-scroll-page">
-                <div class="affix_demo-content">
-                  <p>이 영역은 실제 페이지처럼 길게 스크롤됩니다. 배너가 상단(오프셋 12px)에 고정되는지 확인하세요.</p>
+              <p style="margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted)">
+                아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.
+              </p>
 
-                  <div
-                    class="affix"
-                    data-affix
-                    data-target="#affix-scroll-page"
-                    data-offset-top="12"
-                    style="--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))"
-                  >
-                    <div class="affix_placeholder" aria-hidden="true" hidden></div>
-                    <div class="affix_target affix_bar">
-                      <span class="affix_bar-label" style="color: var(--color-accent-text)">신규 컴포넌트 가이드가 업데이트되었습니다</span>
-                      <div class="affix_bar-actions">
-                        <a href="getting-started.html" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></a>
-                      </div>
-                    </div>
+              <div
+                class="affix"
+                data-affix
+                data-offset-top="64"
+                style="--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))"
+              >
+                <div class="affix_placeholder" aria-hidden="true" hidden></div>
+                <div class="affix_target affix_bar">
+                  <span class="affix_bar-label" style="color: var(--color-accent-text)">신규 컴포넌트 가이드가 업데이트되었습니다</span>
+                  <div class="affix_bar-actions">
+                    <a href="../getting-started.html" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></a>
                   </div>
-
-                  <p>실제 서비스에서는 <code class="typo_code">data-target</code>을 생략해 window 스크롤에 연결합니다.</p>
-                  <p>스크롤을 계속하면 배너가 영역에 맞춰 고정·해제됩니다.</p>
-                  <p>긴 문서·대시보드 상단 툴바에서 자주 쓰는 패턴입니다.</p>
-                  <p>아래로 더 내려가며 고정이 유지되는지 확인하세요.</p>
-                  <p>영역 끝으로 가면 고정이 해제됩니다.</p>
                 </div>
               </div>
+
+              <p style="margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted)">
+                페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.
+              </p>
             </div>
           </div>
 
@@ -418,34 +413,29 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;affix_demo-narrow&quot;&gt;
-  &lt;div class=&quot;affix_demo-page&quot; id=&quot;affix-scroll-page&quot;&gt;
-    &lt;div class=&quot;affix_demo-content&quot;&gt;
-      &lt;p&gt;이 영역은 실제 페이지처럼 길게 스크롤됩니다. 배너가 상단(오프셋 12px)에 고정되는지 확인하세요.&lt;/p&gt;
-      &lt;div
-      class=&quot;affix&quot;
-      data-affix
-      data-target=&quot;#affix-scroll-page&quot;
-      data-offset-top=&quot;12&quot;
-      style=&quot;--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))&quot;
-      &gt;
-      &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;affix_target affix_bar&quot;&gt;
-        &lt;span class=&quot;affix_bar-label&quot; style=&quot;color: var(--color-accent-text)&quot;&gt;신규 컴포넌트 가이드가 업데이트되었습니다&lt;/span&gt;
-        &lt;div class=&quot;affix_bar-actions&quot;&gt;
-          &lt;a href=&quot;getting-started.html&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
-            &lt;span class=&quot;btn_label&quot;&gt;시작하기&lt;/span&gt;
-          &lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+  &lt;p style=&quot;margin: 0 0 var(--space-md); font-size: var(--text-size-sm); color: var(--color-text-muted)&quot;&gt;
+    아래 배너가 페이지 스크롤 시 상단(오프셋 64px)에 고정됩니다. 가이드 헤더 높이를 고려한 예시입니다.
+  &lt;/p&gt;
+  &lt;div
+  class=&quot;affix&quot;
+  data-affix
+  data-offset-top=&quot;64&quot;
+  style=&quot;--affix-bar-bg: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))&quot;
+  &gt;
+  &lt;div class=&quot;affix_placeholder&quot; aria-hidden=&quot;true&quot; hidden&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;affix_target affix_bar&quot;&gt;
+    &lt;span class=&quot;affix_bar-label&quot; style=&quot;color: var(--color-accent-text)&quot;&gt;신규 컴포넌트 가이드가 업데이트되었습니다&lt;/span&gt;
+    &lt;div class=&quot;affix_bar-actions&quot;&gt;
+      &lt;a href=&quot;../getting-started.html&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;시작하기&lt;/span&gt;
+      &lt;/a&gt;
     &lt;/div&gt;
-    &lt;p&gt;실제 서비스에서는 &lt;code class=&quot;typo_code&quot;&gt;data-target&lt;/code&gt;을 생략해 window 스크롤에 연결합니다.&lt;/p&gt;
-    &lt;p&gt;스크롤을 계속하면 배너가 영역에 맞춰 고정·해제됩니다.&lt;/p&gt;
-    &lt;p&gt;긴 문서·대시보드 상단 툴바에서 자주 쓰는 패턴입니다.&lt;/p&gt;
-    &lt;p&gt;아래로 더 내려가며 고정이 유지되는지 확인하세요.&lt;/p&gt;
-    &lt;p&gt;영역 끝으로 가면 고정이 해제됩니다.&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
+&lt;p style=&quot;margin: var(--space-md) 0 0; font-size: var(--text-size-sm); color: var(--color-text-muted)&quot;&gt;
+  페이지를 계속 스크롤하여 고정·해제 동작을 확인하세요.
+&lt;/p&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -468,21 +458,47 @@
 
         <section class="section" aria-labelledby="api-attrs-heading">
           <h2 id="api-attrs-heading">데이터 속성</h2>
+          <p>HTML에서는 루트 <code class="typo_code">.affix</code>에 다음 속성을 지정합니다. Nuxt와 Next의 <code class="typo_code">target</code>·<code class="typo_code">offsetTop</code>·<code class="typo_code">offsetBottom</code> prop과 대응합니다.</p>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
               <table class="table table_bordered table_compact">
                 <thead>
                   <tr>
-                    <th scope="col">이름</th>
+                    <th scope="col">속성</th>
+                    <th scope="col">타입</th>
+                    <th scope="col">기본값</th>
                     <th scope="col">설명</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">data-affix</code></td><td>Affix 활성화. 루트 .affix 요소에 지정</td></tr>
-                  <tr><td><code class="typo_code">data-target</code></td><td>스크롤 컨테이너 CSS 선택자. 생략 시 window</td></tr>
-                  <tr><td><code class="typo_code">data-offset-top</code></td><td>상단 고정 시 상단 간격(px)</td></tr>
-                  <tr><td><code class="typo_code">data-offset-bottom</code></td><td>하단 고정 시 하단 간격(px). 지정 시 하단 고정 모드</td></tr>
+                  <tr><td><code class="typo_code">data-affix</code></td><td>boolean</td><td>—</td><td>Affix 활성화. 루트 .affix 요소에 지정</td></tr>
+                  <tr><td><code class="typo_code">data-target</code></td><td>string</td><td>window</td><td>스크롤 컨테이너 CSS 선택자. 생략 시 window 스크롤 기준</td></tr>
+                  <tr><td><code class="typo_code">data-offset-top</code></td><td>number</td><td>0</td><td>상단 고정 시 뷰포트·컨테이너 상단과의 간격(px)</td></tr>
+                  <tr><td><code class="typo_code">data-offset-bottom</code></td><td>number</td><td>0</td><td>하단 고정 시 하단과의 간격(px). 속성을 지정하면 하단 고정 모드</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-markup-heading">
+          <h2 id="api-markup-heading">마크업 구조</h2>
+          <p>컴포넌트는 루트, 레이아웃 보존용 플레이스홀더, 실제 고정 대상의 세 요소로 구성됩니다.</p>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">요소</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">.affix</code></td><td>루트 래퍼. <code class="typo_code">data-affix</code> · <code class="typo_code">data-target</code> · <code class="typo_code">data-offset-*</code> 속성을 지정</td></tr>
+                  <tr><td><code class="typo_code">.affix_placeholder</code></td><td>고정 시 레이아웃 점프 방지용 플레이스홀더 (<code class="typo_code">aria-hidden="true"</code>, <code class="typo_code">hidden</code>)</td></tr>
+                  <tr><td><code class="typo_code">.affix_target</code></td><td>실제 고정·해제되는 대상. <code class="typo_code">affix_bar</code> 또는 <code class="typo_code">affix_anchor</code> 스킨과 조합</td></tr>
                 </tbody>
               </table>
             </div>
@@ -491,6 +507,7 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 스킨</h2>
+          <p>OOCSS 구조 클래스와 스킨 클래스입니다. <code class="typo_code">affix_bar-actions</code> 안의 버튼은 Button 컴포넌트로 조합합니다.</p>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">

@@ -73,6 +73,59 @@
         </div>
         </section>
 
+        <section class="section demo_section" aria-labelledby="source-heading">
+          <div class="demo_section-header">
+            <h2 id="source-heading">이미지 · 아이콘 · 커스텀 요소</h2>
+            <p>이미지·아이콘을 링크 텍스트와 조합하거나, 실제 동작의 의미에 맞춰 button을 루트 요소로 사용할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <a href="icon.html" class="link color_primary">
+              <svg class="link_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              아이콘 문서
+            </a>
+            <a href="avatar.html" class="link color_primary">
+              <img class="link_media" src="../images/avatar-sample.svg" alt="" />
+              프로필
+            </a>
+            <button type="button" class="link color_primary">커스텀 액션</button>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Primary --&gt;
+
+&lt;a href=&quot;icon.html&quot; class=&quot;link color_primary&quot;&gt;
+  &lt;svg class=&quot;link_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;path d=&quot;M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71&quot;/&gt;
+    &lt;path d=&quot;M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71&quot;/&gt;
+  &lt;/svg&gt;
+  아이콘 문서
+&lt;/a&gt;
+
+&lt;!-- Primary --&gt;
+
+&lt;a href=&quot;avatar.html&quot; class=&quot;link color_primary&quot;&gt;
+  &lt;img class=&quot;link_media&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;&quot; /&gt;
+  프로필
+&lt;/a&gt;
+
+&lt;!-- 커스텀 액션 --&gt;
+
+&lt;button type=&quot;button&quot; class=&quot;link color_primary&quot;&gt;커스텀 액션&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
         <section class="section demo_section" aria-labelledby="color-heading">
           <div class="demo_section-header">
             <h2 id="color-heading">색상</h2>
@@ -238,7 +291,7 @@
             <p>link_block · link_group으로 세로 링크 목록을 구성합니다.</p>
           </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-start">
             <div class="link_group" style="max-width: 280px; width: 100%;">
               <a href="#" class="link link_block color_primary">
                 <svg class="link_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -477,7 +530,7 @@
 
           <div class="demo_section-preview">
             <a href="#" class="link color_primary is-disabled" aria-disabled="true" tabindex="-1">비활성 링크</a>
-            <a href="#" class="link color_primary is-disabled" aria-disabled="true" tabindex="-1">비활성 (span)</a>
+            <span class="link color_primary is-disabled" aria-disabled="true">비활성 (span)</span>
           </div>
 
         <div class="demo_section-code">
@@ -494,7 +547,7 @@
 
 &lt;!-- 비활성 (span) --&gt;
 
-&lt;a href=&quot;#&quot; class=&quot;link color_primary is-disabled&quot; aria-disabled=&quot;true&quot; tabindex=&quot;-1&quot;&gt;비활성 (span)&lt;/a&gt;</code></pre>
+&lt;span class=&quot;link color_primary is-disabled&quot; aria-disabled=&quot;true&quot;&gt;비활성 (span)&lt;/span&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -561,114 +614,57 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 이동에는 a, 현재 문맥의 동작에는 button을 사용해 아래 항목을 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">link</code></td>
-                    <td>하이퍼링크 루트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">link_underline</code> · <code class="typo_code">link_no-underline</code> · <code class="typo_code">link_standalone</code></td>
-                    <td>밑줄·터치 영역</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">link_nav</code> · <code class="typo_code">link_back</code> · <code class="typo_code">link_block</code> · <code class="typo_code">link_icon-only</code></td>
-                    <td>용도별 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">link_icon</code></td>
-                    <td>링크 내 아이콘</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">link_row</code> · <code class="typo_code">link_group</code> · <code class="typo_code">link_group-inline</code></td>
-                    <td>링크 묶음 레이아웃</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">is-active</code> · <code class="typo_code">is-disabled</code></td>
-                    <td>상태 클래스</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">color_*</code> · <code class="typo_code">size_*</code></td>
-                    <td>공통 색상·크기 유틸</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="form_field-hint" style="margin-top: var(--space-md);">
-              본문 안 인라인 링크는 Typography의 <code class="typo_code">typo_link</code>를 사용합니다.
-              이 Link는 독립 액션·내비게이션 링크용입니다.
-            </p>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">link</code></td><td>독립 액션·내비게이션 링크 루트</td></tr>
+                <tr><td><code class="typo_code">link_underline · link_no-underline · link_standalone</code></td><td>밑줄·터치 영역 변형</td></tr>
+                <tr><td><code class="typo_code">link_nav · link_back · link_block · link_icon-only</code></td><td>용도별 변형</td></tr>
+                <tr><td><code class="typo_code">link_icon · link_media</code></td><td>링크 내부 아이콘·이미지</td></tr>
+                <tr><td><code class="typo_code">link_row · link_group · link_group-inline</code></td><td>링크 묶음 레이아웃</td></tr>
+                <tr><td><code class="typo_code">is-active · is-disabled</code></td><td>활성·비활성 상태</td></tr>
+                <tr><td><code class="typo_code">color_* · size_*</code></td><td>공통 색상·크기 유틸리티</td></tr>
+                <tr><td><code class="typo_code">href</code></td><td>이동 목적지. 페이지·리소스 이동이 아닌 동작에는 button 사용</td></tr>
+                <tr><td><code class="typo_code">aria-current="page"</code></td><td>현재 페이지를 가리키는 내비게이션 링크</td></tr>
+                <tr><td><code class="typo_code">aria-label</code></td><td>아이콘 전용 링크의 접근 가능한 이름</td></tr>
+                <tr><td><code class="typo_code">aria-disabled="true" · tabindex="-1"</code></td><td>비활성 링크 상태와 Tab 순서 제외</td></tr>
+                <tr><td><code class="typo_code">target="_blank" · rel="noopener noreferrer"</code></td><td>새 창 링크의 보안 속성. 링크 텍스트에도 새 창 안내 제공</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체 클릭 파장 비활성</td></tr>
+              </tbody>
+            </table>
           </div>
+          <p class="form_field-hint" style="margin-top: var(--space-md);">본문 안 인라인 링크는 Typography의 <code class="typo_code">typo_link</code>를 사용합니다.</p>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--link-gap</code></td>
-                    <td>var(--space-xs)</td>
-                    <td>아이콘·텍스트 간격</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--link-font-weight</code></td>
-                    <td>500</td>
-                    <td>기본 글자 두께</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--link-underline-offset</code></td>
-                    <td>2px</td>
-                    <td>밑줄 오프셋</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--link-nav-padding-y</code> · <code class="typo_code">--link-nav-padding-x</code></td>
-                    <td>0.35rem · 0.5rem</td>
-                    <td>내비게이션 링크 패딩</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--link-standalone-padding-y</code> · <code class="typo_code">--link-standalone-padding-x</code></td>
-                    <td>0.25rem · 0.15rem</td>
-                    <td>터치 영역 확대 패딩</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--link-icon-only-size</code></td>
-                    <td>2rem</td>
-                    <td>아이콘 전용 링크 크기</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--link-gap</code></td><td><code class="typo_code">var(--space-xs)</code></td><td>아이콘·텍스트 간격</td></tr>
+                <tr><td><code class="typo_code">--link-font-weight</code></td><td><code class="typo_code">500</code></td><td>링크 글자 굵기</td></tr>
+                <tr><td><code class="typo_code">--link-underline-offset</code></td><td><code class="typo_code">2px</code></td><td>밑줄 오프셋</td></tr>
+                <tr><td><code class="typo_code">--link-nav-padding-y · --link-nav-padding-x</code></td><td><code class="typo_code">0.35rem · 0.5rem</code></td><td>내비게이션 링크 패딩</td></tr>
+                <tr><td><code class="typo_code">--link-standalone-padding-y · --link-standalone-padding-x</code></td><td><code class="typo_code">0.25rem · 0.15rem</code></td><td>독립 링크 터치 영역</td></tr>
+                <tr><td><code class="typo_code">--link-icon-only-size</code></td><td><code class="typo_code">2rem</code></td><td>아이콘 전용 링크 크기</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

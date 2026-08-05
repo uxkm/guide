@@ -362,8 +362,8 @@
                 <div class="alert_title">새 소식</div>
                 <p class="alert_desc">대시보드가 새롭게 개편되었습니다.</p>
               </div>
-              <button type="button" class="alert_close" aria-label="알림 닫기">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="alert_close" data-ripple aria-label="알림 닫기">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -376,8 +376,8 @@
               <div class="alert_body">
                 <p class="alert_desc">브라우저가 오래되었습니다. 최신 버전으로 업데이트해 주세요.</p>
               </div>
-              <button type="button" class="alert_close" aria-label="알림 닫기">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="alert_close" data-ripple aria-label="알림 닫기">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -403,8 +403,8 @@
     &lt;div class=&quot;alert_title&quot;&gt;새 소식&lt;/div&gt;
     &lt;p class=&quot;alert_desc&quot;&gt;대시보드가 새롭게 개편되었습니다.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; aria-label=&quot;알림 닫기&quot;&gt;
-    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; data-ripple aria-label=&quot;알림 닫기&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
     &lt;/svg&gt;
   &lt;/button&gt;
@@ -420,8 +420,8 @@
   &lt;div class=&quot;alert_body&quot;&gt;
     &lt;p class=&quot;alert_desc&quot;&gt;브라우저가 오래되었습니다. 최신 버전으로 업데이트해 주세요.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; aria-label=&quot;알림 닫기&quot;&gt;
-    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; data-ripple aria-label=&quot;알림 닫기&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
     &lt;/svg&gt;
   &lt;/button&gt;
@@ -531,8 +531,8 @@
               <div class="alert_body">
                 <p class="alert_desc">시스템 점검으로 일부 기능이 제한될 수 있습니다.</p>
               </div>
-              <button type="button" class="alert_close" aria-label="알림 닫기">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="alert_close" data-ripple aria-label="알림 닫기">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -555,8 +555,8 @@
   &lt;div class=&quot;alert_body&quot;&gt;
     &lt;p class=&quot;alert_desc&quot;&gt;시스템 점검으로 일부 기능이 제한될 수 있습니다.&lt;/p&gt;
   &lt;/div&gt;
-  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; aria-label=&quot;알림 닫기&quot;&gt;
-    &lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;alert_close&quot; data-ripple aria-label=&quot;알림 닫기&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;path d=&quot;M18 6L6 18M6 6l12 12&quot;/&gt;
     &lt;/svg&gt;
   &lt;/button&gt;
@@ -651,107 +651,63 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 라이브 영역 속성입니다. HTML에서는 메시지의 중요도와 상태에 맞는 역할·색상·구조를 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">alert</code></td>
-                    <td>알림 루트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">alert_sm</code> · <code class="typo_code">alert_lg</code></td>
-                    <td>크기 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">alert_banner</code></td>
-                    <td>전체 너비 배너 (좌우 테두리·모서리 반경 제거)</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">alert_icon</code> · <code class="typo_code">alert_body</code> · <code class="typo_code">alert_title</code> · <code class="typo_code">alert_desc</code></td>
-                    <td>아이콘·본문·제목·설명</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">alert_actions</code> · <code class="typo_code">alert_close</code></td>
-                    <td>후속 액션 · 닫기 버튼</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">color_*</code></td>
-                    <td>공통 색상 유틸 (info · success · warning · error)</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">role="alert"</code> · <code class="typo_code">role="status"</code></td>
-                    <td>긴급·상태 안내 시맨틱</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">aria-label</code> · <code class="typo_code">aria-hidden</code></td>
-                    <td>닫기 버튼 라벨 · 장식 아이콘 숨김</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">alert</code></td><td>Alert 루트</td></tr>
+                <tr><td><code class="typo_code">alert_sm · alert_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">alert_banner</code></td><td>좌우 테두리와 모서리 반경을 제거한 전체 너비 배너</td></tr>
+                <tr><td><code class="typo_code">alert_icon</code></td><td>메시지 의미를 보조하는 아이콘</td></tr>
+                <tr><td><code class="typo_code">alert_body · alert_title · alert_desc</code></td><td>본문 영역, 제목과 설명</td></tr>
+                <tr><td><code class="typo_code">alert_actions</code></td><td>본문 아래 후속 동작 버튼·링크 영역</td></tr>
+                <tr><td><code class="typo_code">alert_close</code></td><td>Alert를 숨기는 닫기 버튼</td></tr>
+                <tr><td><code class="typo_code">color_info · color_success · color_warning · color_error</code></td><td>정보·성공·주의·오류 의미 색상</td></tr>
+                <tr><td><code class="typo_code">role="alert"</code></td><td>즉시 전달해야 하는 중요 메시지의 단정적 라이브 영역</td></tr>
+                <tr><td><code class="typo_code">role="status"</code></td><td>작업을 방해하지 않고 전달하는 상태 메시지의 정중한 라이브 영역</td></tr>
+                <tr><td><code class="typo_code">aria-label</code></td><td>아이콘 전용 닫기 버튼에 접근 가능한 이름 제공</td></tr>
+                <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 상태 아이콘을 접근성 트리에서 제외</td></tr>
+                <tr><td><code class="typo_code">hidden</code></td><td>닫힌 Alert를 화면과 접근성 트리에서 제거</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>닫기 버튼의 클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>닫기 버튼 또는 Alert 하위 전체의 클릭 파장 비활성</td></tr>
+                <tr><td><code class="typo_code">click</code></td><td>닫기와 후속 액션을 처리하는 네이티브 이벤트</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--alert-padding-y</code> · <code class="typo_code">--alert-padding-x</code> · <code class="typo_code">--alert-gap</code></td>
-                    <td><code class="typo_code">var(--space-md)</code> · <code class="typo_code">var(--space-lg)</code> · <code class="typo_code">var(--space-md)</code></td>
-                    <td>기본 패딩·간격</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-font-size</code> · <code class="typo_code">--alert-line-height</code></td>
-                    <td><code class="typo_code">var(--text-size-base)</code> · 1.5</td>
-                    <td>기본 타이포</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-title-weight</code> · <code class="typo_code">--alert-title-gap</code> · <code class="typo_code">--alert-desc-opacity</code></td>
-                    <td>600 · <code class="typo_code">var(--space-xs)</code> · 0.85</td>
-                    <td>제목·설명</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-icon-size</code> · <code class="typo_code">--alert-icon-offset</code> · <code class="typo_code">--alert-close-size</code></td>
-                    <td>1.25rem · 0.1rem · 1.25rem</td>
-                    <td>아이콘·닫기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-actions-gap</code> · <code class="typo_code">--alert-actions-margin-top</code></td>
-                    <td><code class="typo_code">var(--space-sm)</code></td>
-                    <td>액션 영역</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-padding-y-sm</code> · <code class="typo_code">--alert-padding-x-sm</code> · <code class="typo_code">--alert-font-size-sm</code></td>
-                    <td><code class="typo_code">var(--space-sm)</code> · <code class="typo_code">var(--space-md)</code> · <code class="typo_code">var(--text-size-sm)</code></td>
-                    <td>sm 크기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--alert-padding-y-lg</code> · <code class="typo_code">--alert-padding-x-lg</code> · <code class="typo_code">--alert-font-size-lg</code></td>
-                    <td><code class="typo_code">var(--space-lg)</code> · <code class="typo_code">var(--space-xl)</code> · <code class="typo_code">var(--text-size-base)</code></td>
-                    <td>lg 크기</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--alert-padding-y · --alert-padding-x · --alert-gap</code></td><td><code class="typo_code">var(--space-md) · var(--space-lg) · var(--space-md)</code></td><td>기본 패딩과 내부 간격</td></tr>
+                <tr><td><code class="typo_code">--alert-font-size · --alert-line-height</code></td><td><code class="typo_code">var(--text-size-base) · 1.5</code></td><td>기본 본문 글자 크기와 줄 높이</td></tr>
+                <tr><td><code class="typo_code">--alert-title-weight · --alert-title-gap</code></td><td><code class="typo_code">600 · var(--space-xs)</code></td><td>제목 두께와 설명 사이 간격</td></tr>
+                <tr><td><code class="typo_code">--alert-desc-opacity</code></td><td><code class="typo_code">0.85</code></td><td>제목이 있는 설명 텍스트 불투명도</td></tr>
+                <tr><td><code class="typo_code">--alert-icon-size · --alert-icon-offset</code></td><td><code class="typo_code">1.25rem · 0.1rem</code></td><td>기본 아이콘 크기와 수직 정렬</td></tr>
+                <tr><td><code class="typo_code">--alert-close-size</code></td><td><code class="typo_code">1.25rem</code></td><td>기본 닫기 버튼 크기</td></tr>
+                <tr><td><code class="typo_code">--alert-actions-gap · --alert-actions-margin-top</code></td><td><code class="typo_code">var(--space-sm) · var(--space-sm)</code></td><td>액션 사이와 본문 위 간격</td></tr>
+                <tr><td><code class="typo_code">--alert-padding-y-sm · --alert-padding-x-sm · --alert-font-size-sm</code></td><td><code class="typo_code">var(--space-sm) · var(--space-md) · var(--text-size-sm)</code></td><td>작은 Alert 패딩과 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--alert-icon-size-sm · --alert-close-size-sm</code></td><td><code class="typo_code">1rem · 1rem</code></td><td>작은 Alert 아이콘과 닫기 크기</td></tr>
+                <tr><td><code class="typo_code">--alert-padding-y-lg · --alert-padding-x-lg · --alert-font-size-lg</code></td><td><code class="typo_code">var(--space-lg) · var(--space-xl) · var(--text-size-base)</code></td><td>큰 Alert 패딩과 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--alert-icon-size-lg · --alert-close-size-lg</code></td><td><code class="typo_code">1.5rem · 1.5rem</code></td><td>큰 Alert 아이콘과 닫기 크기</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

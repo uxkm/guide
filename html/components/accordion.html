@@ -498,6 +498,91 @@
         </div>
         </section>
 
+        <section class="section demo_section" aria-labelledby="card-heading">
+          <div class="demo_section-header">
+            <h2 id="card-heading">카드</h2>
+            <p><code class="typo_code">accordion_card</code>로 각 항목을 독립 카드로 분리합니다. 대시보드·위젯 그룹에 사용합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="accordion accordion_card accordion_demo-narrow" data-accordion data-accordion-multiple>
+              <div class="accordion_item is-open">
+                <div class="accordion_heading" role="heading" aria-level="3">
+                  <button type="button" class="btn btn_text accordion_trigger" id="acc-card-1" aria-expanded="true" aria-controls="acc-card-panel-1">
+                    <span class="accordion_label">프로젝트 개요</span>
+                    <svg class="accordion_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="accordion_panel" id="acc-card-panel-1" role="region" aria-labelledby="acc-card-1">
+                  <div class="accordion_content">
+                    <p>목표, 일정, 이해관계자 정보를 요약합니다.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion_item">
+                <div class="accordion_heading" role="heading" aria-level="3">
+                  <button type="button" class="btn btn_text accordion_trigger" id="acc-card-2" aria-expanded="false" aria-controls="acc-card-panel-2">
+                    <span class="accordion_label">최근 활동</span>
+                    <svg class="accordion_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="accordion_panel" id="acc-card-panel-2" role="region" aria-labelledby="acc-card-2" hidden>
+                  <div class="accordion_content">
+                    <p>커밋, 댓글, 파일 변경 이력을 표시합니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;accordion accordion_card accordion_demo-narrow&quot; data-accordion data-accordion-multiple&gt;
+  &lt;div class=&quot;accordion_item is-open&quot;&gt;
+    &lt;div class=&quot;accordion_heading&quot; role=&quot;heading&quot; aria-level=&quot;3&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_text accordion_trigger&quot; id=&quot;acc-card-1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;acc-card-panel-1&quot;&gt;
+        &lt;span class=&quot;accordion_label&quot;&gt;프로젝트 개요&lt;/span&gt;
+        &lt;svg class=&quot;accordion_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;accordion_panel&quot; id=&quot;acc-card-panel-1&quot; role=&quot;region&quot; aria-labelledby=&quot;acc-card-1&quot;&gt;
+      &lt;div class=&quot;accordion_content&quot;&gt;
+        &lt;p&gt;목표, 일정, 이해관계자 정보를 요약합니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;accordion_item&quot;&gt;
+    &lt;div class=&quot;accordion_heading&quot; role=&quot;heading&quot; aria-level=&quot;3&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_text accordion_trigger&quot; id=&quot;acc-card-2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;acc-card-panel-2&quot;&gt;
+        &lt;span class=&quot;accordion_label&quot;&gt;최근 활동&lt;/span&gt;
+        &lt;svg class=&quot;accordion_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;accordion_panel&quot; id=&quot;acc-card-panel-2&quot; role=&quot;region&quot; aria-labelledby=&quot;acc-card-2&quot; hidden&gt;
+      &lt;div class=&quot;accordion_content&quot;&gt;
+        &lt;p&gt;커밋, 댓글, 파일 변경 이력을 표시합니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
         <section class="section demo_section" aria-labelledby="extra-heading">
           <div class="demo_section-header">
             <h2 id="extra-heading">보조 정보</h2>
@@ -917,6 +1002,7 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스·상태·접근성 속성입니다. HTML에서는 아래 항목을 직접 조합하고 <code class="typo_code">data-accordion</code>으로 동작을 연결합니다.</p>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
@@ -941,6 +1027,15 @@
                   <tr><td><code class="typo_code">data-accordion-multiple</code></td><td>HTML 마크업 다중 열기 허용</td></tr>
                   <tr><td><code class="typo_code">data-effect="slide"</code></td><td>펼침·접힘 높이 슬라이드 애니메이션</td></tr>
                   <tr><td><code class="typo_code">is-open · is-disabled</code></td><td>상태 클래스</td></tr>
+                  <tr><td><code class="typo_code">aria-expanded · aria-controls</code></td><td>트리거의 열림 상태와 연결된 패널 ID</td></tr>
+                  <tr><td><code class="typo_code">disabled · aria-disabled</code></td><td>비활성 트리거 상태. 포커스 이동과 토글 대상에서 제외</td></tr>
+                  <tr><td><code class="typo_code">role="heading" · aria-level</code></td><td>트리거를 감싸는 논리적 헤딩과 문서 계층</td></tr>
+                  <tr><td><code class="typo_code">role="region" · aria-labelledby</code></td><td>패널 영역과 해당 트리거의 접근 가능한 이름 연결</td></tr>
+                  <tr><td><code class="typo_code">hidden · inert · aria-hidden</code></td><td>닫힌 패널과 슬라이드 전환 중 콘텐츠 노출·포커스 차단</td></tr>
+                  <tr><td><code class="typo_code">Enter · Space</code></td><td>네이티브 button 동작으로 현재 항목 열기·닫기</td></tr>
+                  <tr><td><code class="typo_code">ArrowDown · ArrowUp · Home · End</code></td><td>비활성 항목을 제외한 트리거 간 순환·처음·끝 포커스 이동</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>AccordionItem 트리거의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 트리거 또는 Accordion 하위 전체 클릭 파장 비활성</td></tr>
                 </tbody>
               </table>
             </div>
@@ -965,11 +1060,15 @@
                   <tr><td><code class="typo_code">--accordion-trigger-font-weight</code> · <code class="typo_code">--accordion-trigger-gap</code></td><td>600 · var(--space-sm)</td><td>트리거 타이포·간격</td></tr>
                   <tr><td><code class="typo_code">--accordion-trigger-padding-y</code> · <code class="typo_code">--accordion-trigger-padding-x</code></td><td>0.875rem · var(--space-lg)</td><td>트리거 패딩(md)</td></tr>
                   <tr><td><code class="typo_code">--accordion-content-font-size</code></td><td>var(--text-size-sm)</td><td>콘텐츠 글자 크기</td></tr>
-                  <tr><td><code class="typo_code">--accordion-content-padding-y</code> · <code class="typo_code">--accordion-content-padding-x</code></td><td>var(--space-lg)</td><td>콘텐츠 상하·좌우 패딩</td></tr>
+                  <tr><td><code class="typo_code">--accordion-content-padding-y</code> · <code class="typo_code">--accordion-content-padding-x</code></td><td>var(--space-lg) · var(--space-lg)</td><td>콘텐츠 상하·좌우 패딩</td></tr>
                   <tr><td><code class="typo_code">--accordion-icon-size</code></td><td>1rem</td><td>펼침 아이콘(md)</td></tr>
                   <tr><td><code class="typo_code">--accordion-slide-duration</code> · <code class="typo_code">--accordion-slide-easing</code></td><td>0.28s · ease</td><td>슬라이드 전환</td></tr>
                   <tr><td><code class="typo_code">--accordion-card-gap</code></td><td>0</td><td>카드형 아코디언 항목 간격</td></tr>
                   <tr><td><code class="typo_code">--accordion-card-trigger-bg</code></td><td>var(--color-surface-raised)</td><td>카드형 트리거 배경</td></tr>
+                  <tr><td><code class="typo_code">--accordion-font-size-sm</code> · <code class="typo_code">--accordion-trigger-padding-y-sm</code> · <code class="typo_code">--accordion-trigger-padding-x-sm</code></td><td>var(--text-size-xs) · 0.625rem · var(--space-md)</td><td>sm 크기</td></tr>
+                  <tr><td><code class="typo_code">--accordion-content-padding-y-sm</code> · <code class="typo_code">--accordion-content-padding-x-sm</code> · <code class="typo_code">--accordion-icon-size-sm</code></td><td>var(--space-md) · var(--space-md) · 0.875rem</td><td>sm 본문 패딩·아이콘</td></tr>
+                  <tr><td><code class="typo_code">--accordion-font-size-lg</code> · <code class="typo_code">--accordion-trigger-padding-y-lg</code> · <code class="typo_code">--accordion-trigger-padding-x-lg</code></td><td>var(--text-size-base) · 1rem · var(--space-xl)</td><td>lg 크기</td></tr>
+                  <tr><td><code class="typo_code">--accordion-content-padding-y-lg</code> · <code class="typo_code">--accordion-content-padding-x-lg</code> · <code class="typo_code">--accordion-icon-size-lg</code></td><td>var(--space-xl) · var(--space-xl) · 1.125rem</td><td>lg 본문 패딩·아이콘</td></tr>
                 </tbody>
               </table>
             </div>

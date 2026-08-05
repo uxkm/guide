@@ -35,7 +35,7 @@
       <main class="guide_content">
         <div class="page_intro">
           <h1>Icon</h1>
-          <p class="lead">SVG 인라인 아이콘의 크기, 색상, 정렬을 일관되게 적용하는 기본 요소입니다.</p>
+          <p class="lead">SVG, 이미지, 커스텀 요소를 같은 크기와 정렬 규칙으로 표시하는 기본 요소입니다.</p>
         </div>
 
         <section class="section demo_section" aria-labelledby="basic-heading">
@@ -83,6 +83,40 @@
 &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
   &lt;path d=&quot;M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
 &lt;/svg&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="source-heading">
+          <div class="demo_section-header">
+            <h2 id="source-heading">이미지 · 커스텀 요소</h2>
+            <p>이미지 자체에 icon 클래스를 적용하거나, icon 래퍼 안에 img · svg 등 임의 콘텐츠를 배치할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <img class="icon icon_lg" src="../images/avatar-sample.svg" alt="프로필" />
+            <span class="icon icon_lg" role="img" aria-label="프로필">
+              <img src="../images/avatar-sample.svg" alt="" />
+            </span>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;!-- Large --&gt;
+
+&lt;img class=&quot;icon icon_lg&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;프로필&quot; /&gt;
+
+&lt;!-- Large --&gt;
+
+&lt;span class=&quot;icon icon_lg&quot; role=&quot;img&quot; aria-label=&quot;프로필&quot;&gt;
+  &lt;img src=&quot;../images/avatar-sample.svg&quot; alt=&quot;&quot; /&gt;
+&lt;/span&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -556,8 +590,8 @@
 
         <section class="section" aria-labelledby="gallery-heading">
           <div class="demo_section-header">
-            <h2 id="gallery-heading">자주 쓰는 아이콘</h2>
-            <p>프로젝트 전반에서 재사용하는 stroke SVG 예시입니다. viewBox 0 0 24 24 · stroke-width 2 기준으로, <a href="https://fonts.google.com/icons" target="_blank" rel="noopener noreferrer">Material Symbols</a>에서 자주 쓰는 유형을 참고했습니다.</p>
+            <h2 id="gallery-heading">아이콘 유형</h2>
+            <p>프로젝트에서 제공하는 stroke SVG 아이콘 전체입니다. viewBox 0 0 24 24 · stroke-width 2 기준입니다.</p>
           </div>
 
           <div class="icon_grid">
@@ -874,112 +908,55 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 요소의 의미에 맞게 아래 항목을 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">icon</code></td>
-                    <td>SVG 루트 기본 크기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_sm</code> · <code class="typo_code">icon_lg</code> · <code class="typo_code">icon_xl</code></td>
-                    <td>크기 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_inline</code></td>
-                    <td>텍스트 인라인 정렬</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_spin</code></td>
-                    <td>회전 애니메이션</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_button</code></td>
-                    <td>아이콘 버튼 래퍼</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_circle</code> · <code class="typo_code">icon_square</code></td>
-                    <td>배경 형태</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_circle-sm</code> · <code class="typo_code">icon_circle-lg</code></td>
-                    <td>원형 배경 크기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_pulse</code></td>
-                    <td>펄스 강조</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">icon_group</code></td>
-                    <td>여러 아이콘 가로 배치 컨테이너</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">color_*</code></td>
-                    <td>공통 색상 유틸</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">icon</code></td><td>SVG·이미지·커스텀 래퍼의 기본 크기</td></tr>
+                <tr><td><code class="typo_code">icon_sm · icon_lg · icon_xl</code></td><td>크기 변형</td></tr>
+                <tr><td><code class="typo_code">icon_inline</code></td><td>텍스트 인라인 기준선 정렬</td></tr>
+                <tr><td><code class="typo_code">icon_spin</code></td><td>회전 애니메이션</td></tr>
+                <tr><td><code class="typo_code">icon_button</code></td><td>아이콘 버튼 래퍼</td></tr>
+                <tr><td><code class="typo_code">icon_circle · icon_square</code></td><td>원형·사각 배경</td></tr>
+                <tr><td><code class="typo_code">icon_circle-sm · icon_circle-lg</code></td><td>원형 배경 크기</td></tr>
+                <tr><td><code class="typo_code">icon_pulse</code></td><td>펄스 강조 애니메이션</td></tr>
+                <tr><td><code class="typo_code">icon_group · icon_grid · icon_grid-item</code></td><td>아이콘 묶음·갤러리 컨테이너</td></tr>
+                <tr><td><code class="typo_code">color_default · color_muted · color_primary · color_success · color_warning · color_danger</code></td><td>공통 색상 유틸리티</td></tr>
+                <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 아이콘을 접근성 트리에서 숨김</td></tr>
+                <tr><td><code class="typo_code">aria-label</code></td><td>의미 있는 아이콘·아이콘 버튼의 접근 가능한 이름</td></tr>
+                <tr><td><code class="typo_code">alt</code></td><td>이미지 아이콘 대체 텍스트. 장식용 이미지는 빈 문자열 사용</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>아이콘 버튼의 클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체 클릭 파장 비활성</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--icon-size-sm</code> · <code class="typo_code">--icon-size</code> · <code class="typo_code">--icon-size-lg</code> · <code class="typo_code">--icon-size-xl</code></td>
-                    <td>1rem · 1.25rem · 1.5rem · 2rem</td>
-                    <td>아이콘 지름</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--icon-spin-duration</code></td>
-                    <td>0.8s</td>
-                    <td>회전 주기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--icon-circle-size</code> · <code class="typo_code">--icon-circle-size-sm</code> · <code class="typo_code">--icon-circle-size-lg</code></td>
-                    <td>2.25rem · 1.75rem · 2.75rem</td>
-                    <td>원형 배경 크기</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--icon-pulse-duration</code></td>
-                    <td>1.5s</td>
-                    <td>펄스 애니메이션 주기</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--icon-size-sm · --icon-size · --icon-size-lg · --icon-size-xl</code></td><td><code class="typo_code">1rem · 1.25rem · 1.5rem · 2rem</code></td><td>아이콘 지름</td></tr>
+                <tr><td><code class="typo_code">--icon-spin-duration</code></td><td><code class="typo_code">0.8s</code></td><td>회전 주기</td></tr>
+                <tr><td><code class="typo_code">--icon-circle-size · --icon-circle-size-sm · --icon-circle-size-lg</code></td><td><code class="typo_code">2.25rem · 1.75rem · 2.75rem</code></td><td>원형 배경 크기</td></tr>
+                <tr><td><code class="typo_code">--icon-pulse-duration</code></td><td><code class="typo_code">1.5s</code></td><td>펄스 애니메이션 주기</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

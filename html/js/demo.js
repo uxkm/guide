@@ -697,7 +697,11 @@
         return;
       }
 
-      event.preventDefault();
+      var href = link.getAttribute('href');
+
+      if (!href || href === '#') {
+        event.preventDefault();
+      }
 
       menu.querySelectorAll('.menu_link.is-active').forEach(function (el) {
         el.classList.remove('is-active');
@@ -728,6 +732,121 @@
       collapse.classList.toggle('is-open', nextExpanded);
     });
   });
+
+  function initPagination(pagination) {
+    var pageButtons = Array.prototype.slice.call(pagination.querySelectorAll('.pagination_link'));
+    var prevButton = pagination.querySelector('.pagination_prev');
+    var nextButton = pagination.querySelector('.pagination_next');
+    var output = pagination.parentElement && pagination.parentElement.querySelector('[data-pagination-current-output]');
+    var pages = pageButtons.map(function (button) {
+      return Number.parseInt(button.textContent, 10);
+    }).filter(Number.isFinite);
+
+    if (!pages.length) {
+      return;
+    }
+
+    var firstPage = Math.min.apply(Math, pages);
+    var lastPage = Math.max.apply(Math, pages);
+
+    function getCurrentPage() {
+      var activeButton = pagination.querySelector('.pagination_link[aria-current="page"]');
+      var page = activeButton ? Number.parseInt(activeButton.textContent, 10) : firstPage;
+      return Number.isFinite(page) ? page : firstPage;
+    }
+
+    function setCurrentPage(page) {
+      var target = pageButtons.find(function (button) {
+        return Number.parseInt(button.textContent, 10) === page;
+      });
+
+      if (!target) {
+        return;
+      }
+
+      pageButtons.forEach(function (button) {
+        var isCurrent = button === target;
+        button.classList.toggle('is-active', isCurrent);
+
+        if (isCurrent) {
+          button.setAttribute('aria-current', 'page');
+        } else {
+          button.removeAttribute('aria-current');
+        }
+      });
+
+      if (prevButton) prevButton.disabled = page <= firstPage;
+      if (nextButton) nextButton.disabled = page >= lastPage;
+      if (output) output.textContent = '현재 페이지: ' + page;
+    }
+
+    pageButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        setCurrentPage(Number.parseInt(button.textContent, 10));
+      });
+    });
+
+    if (prevButton) {
+      prevButton.addEventListener('click', function () {
+        setCurrentPage(getCurrentPage() - 1);
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', function () {
+        setCurrentPage(getCurrentPage() + 1);
+      });
+    }
+
+    setCurrentPage(getCurrentPage());
+  }
+
+  document.querySelectorAll('[data-pagination]').forEach(initPagination);
+
+  function initNavigableSteps(steps) {
+    var items = Array.prototype.slice.call(steps.querySelectorAll(':scope > .steps_item'));
+
+    function setCurrentStep(currentIndex) {
+      items.forEach(function (item, index) {
+        var trigger = item.querySelector(':scope > .steps_trigger');
+        var status = index < currentIndex ? 'finished' : index === currentIndex ? 'active' : 'wait';
+        var finishedIcon = item.querySelector('[data-steps-finished-icon]');
+        var stepIndex = item.querySelector('[data-steps-index]');
+
+        item.classList.remove('is-finished', 'is-active', 'is-wait', 'is-error');
+        item.classList.add('is-' + status);
+
+        if (trigger) {
+          trigger.disabled = status === 'wait';
+
+          if (status === 'active') {
+            trigger.setAttribute('aria-current', 'step');
+          } else {
+            trigger.removeAttribute('aria-current');
+          }
+        }
+
+        if (finishedIcon) finishedIcon.hidden = status !== 'finished';
+        if (stepIndex) stepIndex.hidden = status === 'finished';
+      });
+    }
+
+    items.forEach(function (item, index) {
+      var trigger = item.querySelector(':scope > .steps_trigger');
+
+      if (!trigger) {
+        return;
+      }
+
+      trigger.addEventListener('click', function () {
+        if (!trigger.disabled) {
+          setCurrentStep(index);
+        }
+      });
+    });
+  }
+
+  document.querySelectorAll('[data-steps-navigable]').forEach(initNavigableSteps);
 
   function isTabDisabled(tab) {
     return tab.disabled || tab.classList.contains('is-disabled') || tab.getAttribute('aria-disabled') === 'true';
@@ -936,6 +1055,8 @@
     var nextBtn = tabsRoot.querySelector('.tabs_nav_next');
     var list = tabsRoot.querySelector('.tabs_list');
 
+    tablist.setAttribute('aria-orientation', isVertical ? 'vertical' : 'horizontal');
+
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         activateTab(tabsRoot, tabs, panels, tab);
@@ -1025,15 +1146,35 @@
   function isAccordionItemDisabled(item) {
     var trigger = item.querySelector('.accordion_trigger');
 
-    return item.classList.contains('is-disabled') || (trigger && trigger.disabled);
+    return (
+      item.classList.contains('is-disabled') ||
+      (trigger && (trigger.disabled || trigger.getAttribute('aria-disabled') === 'true'))
+    );
+  }
+
+  function getAccordionItems(root) {
+    return Array.prototype.slice.call(root.children).filter(function (child) {
+      return child.classList.contains('accordion_item');
+    });
   }
 
   function getAccordionTriggers(root) {
-    return Array.prototype.slice.call(root.querySelectorAll('.accordion_trigger')).filter(function (trigger) {
-      var item = trigger.closest('.accordion_item');
-
-      return item && !isAccordionItemDisabled(item);
+    return getAccordionItems(root).map(function (item) {
+      return item.querySelector(':scope > .accordion_heading .accordion_trigger');
+    }).filter(function (trigger) {
+      return trigger && !isAccordionItemDisabled(trigger.closest('.accordion_item'));
     });
+  }
+
+  function getAccordionPanel(item, trigger) {
+    var panelId = trigger ? trigger.getAttribute('aria-controls') : null;
+    var directPanel = item.querySelector(':scope > .accordion_panel');
+
+    if (directPanel && (!panelId || directPanel.id === panelId)) {
+      return directPanel;
+    }
+
+    return panelId ? document.getElementById(panelId) : directPanel;
   }
 
   function usesSlideEffect(el) {
@@ -1206,8 +1347,7 @@
 
   function setAccordionItemOpen(item, open, slide, animate) {
     var trigger = item.querySelector('.accordion_trigger');
-    var panelId = trigger ? trigger.getAttribute('aria-controls') : null;
-    var panel = panelId ? document.getElementById(panelId) : item.querySelector('.accordion_panel');
+    var panel = getAccordionPanel(item, trigger);
 
     item.classList.toggle('is-open', open);
 
@@ -1236,7 +1376,7 @@
   function initAccordion(root) {
     var multiple = root.hasAttribute('data-accordion-multiple');
     var slide = usesSlideEffect(root);
-    var items = Array.prototype.slice.call(root.querySelectorAll('.accordion_item'));
+    var items = getAccordionItems(root);
 
     items.forEach(function (item) {
       var trigger = item.querySelector('.accordion_trigger');
@@ -1245,8 +1385,7 @@
         return;
       }
 
-      var panelId = trigger.getAttribute('aria-controls');
-      var panel = panelId ? document.getElementById(panelId) : item.querySelector('.accordion_panel');
+      var panel = getAccordionPanel(item, trigger);
 
       if (!panel) {
         return;
@@ -1282,9 +1421,17 @@
       });
 
       trigger.addEventListener('keydown', function (event) {
+        if (event.defaultPrevented || isAccordionItemDisabled(item)) {
+          return;
+        }
+
         var triggers = getAccordionTriggers(root);
         var index = triggers.indexOf(trigger);
         var nextTrigger = null;
+
+        if (index === -1 || !triggers.length) {
+          return;
+        }
 
         if (event.key === 'ArrowDown') {
           nextTrigger = triggers[(index + 1) % triggers.length];
@@ -1309,7 +1456,27 @@
   function isCollapsePanelDisabled(panel) {
     var trigger = panel.querySelector('.collapse_trigger');
 
-    return panel.classList.contains('is-disabled') || (trigger && trigger.disabled);
+    return (
+      panel.classList.contains('is-disabled') ||
+      (trigger && (trigger.disabled || trigger.getAttribute('aria-disabled') === 'true'))
+    );
+  }
+
+  function getCollapsePanels(root) {
+    return Array.prototype.slice.call(root.children).filter(function (child) {
+      return child.classList.contains('collapse_panel');
+    });
+  }
+
+  function getCollapseBody(panel, trigger) {
+    var bodyId = trigger ? trigger.getAttribute('aria-controls') : null;
+    var directBody = panel.querySelector(':scope > .collapse_body');
+
+    if (directBody && (!bodyId || directBody.id === bodyId)) {
+      return directBody;
+    }
+
+    return bodyId ? document.getElementById(bodyId) : directBody;
   }
 
   function setCollapseRegionOpen(region, open, slide, animate) {
@@ -1331,8 +1498,7 @@
 
   function setCollapsePanelOpen(panel, open, slide, animate) {
     var trigger = panel.querySelector('.collapse_trigger');
-    var bodyId = trigger ? trigger.getAttribute('aria-controls') : null;
-    var body = bodyId ? document.getElementById(bodyId) : panel.querySelector('.collapse_body');
+    var body = getCollapseBody(panel, trigger);
 
     panel.classList.toggle('is-open', open);
 
@@ -1348,7 +1514,7 @@
   function initCollapseGroup(root) {
     var accordion = root.hasAttribute('data-collapse-accordion');
     var slide = usesSlideEffect(root);
-    var panels = Array.prototype.slice.call(root.querySelectorAll('.collapse_panel'));
+    var panels = getCollapsePanels(root);
 
     panels.forEach(function (panel) {
       var trigger = panel.querySelector('.collapse_trigger');
@@ -1357,8 +1523,7 @@
         return;
       }
 
-      var bodyId = trigger.getAttribute('aria-controls');
-      var body = bodyId ? document.getElementById(bodyId) : panel.querySelector('.collapse_body');
+      var body = getCollapseBody(panel, trigger);
 
       if (!body) {
         return;
@@ -1419,9 +1584,14 @@
   document.querySelectorAll('[data-collapse]').forEach(initCollapseGroup);
   document.querySelectorAll('[data-collapse-trigger]').forEach(initCollapseTrigger);
 
+  var DROPDOWN_ITEM_SELECTOR =
+    '.menu_link:not(.is-disabled):not([aria-disabled="true"]), ' +
+    '[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), ' +
+    '[role="option"]:not(.is-disabled):not([aria-disabled="true"])';
+
   function getDropdownItems(menu) {
     return Array.prototype.slice.call(
-      menu.querySelectorAll('[role="menuitem"]:not(.is-disabled):not([aria-disabled="true"]), [role="option"]:not(.is-disabled):not([aria-disabled="true"])')
+      menu.querySelectorAll(DROPDOWN_ITEM_SELECTOR)
     );
   }
 
@@ -1429,7 +1599,7 @@
     return dropdown.hasAttribute('data-dropdown-static');
   }
 
-  function setDropdownOpen(dropdown, open) {
+  function setDropdownOpen(dropdown, open, focusPosition) {
     var trigger = dropdown.querySelector('.dropdown_trigger');
     var menu = dropdown.querySelector('.dropdown_menu');
 
@@ -1445,17 +1615,22 @@
       trigger.classList.toggle('is-open', open);
     }
 
-    if (menu && open) {
+    if (menu) {
+      menu.setAttribute('aria-hidden', String(!open));
+    }
+
+    if (menu && open && focusPosition) {
       var items = getDropdownItems(menu);
       var active = items.find(function (item) {
-        return item.classList.contains('is-active') || item.getAttribute('aria-selected') === 'true';
+        return (
+          item.classList.contains('is-active') ||
+          item.getAttribute('aria-selected') === 'true' ||
+          item.getAttribute('aria-current') === 'page'
+        );
       });
+      var target = focusPosition === 'last' ? items[items.length - 1] : active || items[0];
 
-      if (active) {
-        active.focus();
-      } else if (items[0]) {
-        items[0].focus();
-      }
+      if (target) target.focus();
     }
   }
 
@@ -1470,6 +1645,13 @@
   function initDropdown(dropdown) {
     var trigger = dropdown.querySelector('.dropdown_trigger');
     var menu = dropdown.querySelector('.dropdown_menu');
+
+    if (trigger && menu) {
+      var initiallyOpen = dropdown.classList.contains('is-open');
+      trigger.setAttribute('aria-expanded', String(initiallyOpen));
+      trigger.classList.toggle('is-open', initiallyOpen);
+      menu.setAttribute('aria-hidden', String(!initiallyOpen));
+    }
 
     // 정적 펼침(is-open) 데모는 토글·외부 클릭 닫기를 붙이지 않는다
     if (!trigger || !menu || dropdown.classList.contains('is-disabled') || trigger.disabled || isDropdownStatic(dropdown)) {
@@ -1490,8 +1672,23 @@
       }
     });
 
+    trigger.addEventListener('keydown', function (event) {
+      if (event.defaultPrevented || trigger.disabled || trigger.getAttribute('aria-disabled') === 'true') {
+        return;
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        closeAllDropdowns(dropdown);
+        setDropdownOpen(dropdown, true, event.key === 'ArrowUp' ? 'last' : 'active');
+      } else if (event.key === 'Escape' && dropdown.classList.contains('is-open')) {
+        event.preventDefault();
+        setDropdownOpen(dropdown, false);
+      }
+    });
+
     menu.addEventListener('click', function (event) {
-      var item = event.target.closest('[role="menuitem"], [role="option"]');
+      var item = event.target.closest(DROPDOWN_ITEM_SELECTOR);
 
       if (!item || !menu.contains(item) || item.classList.contains('is-disabled') || item.getAttribute('aria-disabled') === 'true') {
         return;
@@ -1658,7 +1855,7 @@
     resetPopoverPanelInlineStyles(panel);
 
     if (side === 'bottom') {
-      panel.style.top = 'calc(100% + var(--popover-offset-bottom))';
+      panel.style.top = 'calc(100% + var(--popover-offset-bottom) + var(--popover-arrow-clearance))';
       left = 0;
       if (panelAlign === 'center') left = (triggerW - panelW) / 2;
       if (panelAlign === 'end') left = triggerW - panelW;
@@ -1668,7 +1865,7 @@
 
     if (side === 'top') {
       panel.style.top = 'auto';
-      panel.style.bottom = 'calc(100% + var(--popover-offset-top))';
+      panel.style.bottom = 'calc(100% + var(--popover-offset-top) + var(--popover-arrow-clearance))';
       left = 0;
       if (panelAlign === 'center') left = (triggerW - panelW) / 2;
       if (panelAlign === 'end') left = triggerW - panelW;
@@ -1680,7 +1877,7 @@
       panel.style.top = 'auto';
       panel.style.bottom = 'auto';
       panel.style.left = 'auto';
-      panel.style.right = 'calc(100% + var(--popover-offset-left))';
+      panel.style.right = 'calc(100% + var(--popover-offset-left) + var(--popover-arrow-clearance))';
       top = 0;
       if (panelAlign === 'center') top = (triggerH - panelH) / 2;
       if (panelAlign === 'end') top = triggerH - panelH;
@@ -1691,7 +1888,7 @@
     if (side === 'right') {
       panel.style.top = 'auto';
       panel.style.bottom = 'auto';
-      panel.style.left = 'calc(100% + var(--popover-offset-right))';
+      panel.style.left = 'calc(100% + var(--popover-offset-right) + var(--popover-arrow-clearance))';
       top = 0;
       if (panelAlign === 'center') top = (triggerH - panelH) / 2;
       if (panelAlign === 'end') top = triggerH - panelH;
@@ -1961,7 +2158,7 @@
     resetTooltipBubbleInlineStyles(bubble);
 
     if (side === 'bottom') {
-      bubble.style.top = 'calc(100% + var(--tooltip-offset-bottom))';
+      bubble.style.top = 'calc(100% + var(--tooltip-offset-bottom) + var(--tooltip-arrow-clearance))';
       left = (triggerW - panelW) / 2;
       if (panelAlign === 'start') left = 0;
       if (panelAlign === 'end') left = triggerW - panelW;
@@ -1971,7 +2168,7 @@
 
     if (side === 'top') {
       bubble.style.top = 'auto';
-      bubble.style.bottom = 'calc(100% + var(--tooltip-offset-top))';
+      bubble.style.bottom = 'calc(100% + var(--tooltip-offset-top) + var(--tooltip-arrow-clearance))';
       left = (triggerW - panelW) / 2;
       if (panelAlign === 'start') left = 0;
       if (panelAlign === 'end') left = triggerW - panelW;
@@ -1983,7 +2180,7 @@
       bubble.style.top = 'auto';
       bubble.style.bottom = 'auto';
       bubble.style.left = 'auto';
-      bubble.style.right = 'calc(100% + var(--tooltip-offset-left))';
+      bubble.style.right = 'calc(100% + var(--tooltip-offset-left) + var(--tooltip-arrow-clearance))';
       top = (triggerH - panelH) / 2;
       if (panelAlign === 'start') top = 0;
       if (panelAlign === 'end') top = triggerH - panelH;
@@ -1994,7 +2191,7 @@
     if (side === 'right') {
       bubble.style.top = 'auto';
       bubble.style.bottom = 'auto';
-      bubble.style.left = 'calc(100% + var(--tooltip-offset-right))';
+      bubble.style.left = 'calc(100% + var(--tooltip-offset-right) + var(--tooltip-arrow-clearance))';
       top = (triggerH - panelH) / 2;
       if (panelAlign === 'start') top = 0;
       if (panelAlign === 'end') top = triggerH - panelH;
@@ -2264,7 +2461,7 @@
     var offsetTop = parseAffixOffset(root.getAttribute('data-offset-top'), 0);
     var useBottom = root.hasAttribute('data-offset-bottom');
     var offsetBottom = useBottom ? parseAffixOffset(root.getAttribute('data-offset-bottom'), 0) : 0;
-    var affixEl = root.querySelector('.affix_target');
+    var affixEl = root.querySelector(':scope > .affix_target');
 
     if (!affixEl) {
       return;
@@ -2272,7 +2469,7 @@
 
     root.dataset.affixInit = '1';
 
-    var placeholder = root.querySelector('.affix_placeholder');
+    var placeholder = root.querySelector(':scope > .affix_placeholder');
 
     if (!placeholder) {
       placeholder = document.createElement('div');
@@ -2432,7 +2629,7 @@
     }
 
     var visibilityHeight = parseBackTopOffset(root.getAttribute('data-visibility-height'), 400);
-    var btn = root.querySelector('.back_top_btn');
+    var btn = root.querySelector(':scope > .back_top_btn');
 
     if (!btn) {
       return;
@@ -2492,6 +2689,7 @@
   function updateDrawerStackLevels() {
     openDrawerStack.forEach(function (drawer, index) {
       drawer.style.setProperty('--drawer-stack-level', String(index));
+      drawer.classList.toggle('is-stack-covered', index !== openDrawerStack.length - 1);
     });
   }
 
@@ -2502,8 +2700,8 @@
     var hasPageOverlay = false;
 
     openDrawers.forEach(function (drawer) {
-      // 문서·Playground 데모 프레임 안 Drawer는 페이지 스크롤을 잠그지 않음
-      if (!drawer.closest('.drawer_demo-frame')) {
+      // 프레임 안에 고정한 정적 미리보기만 페이지 스크롤 잠금에서 제외
+      if (!drawer.classList.contains('drawer_demo-static')) {
         hasPageOverlay = true;
       }
     });
@@ -2521,7 +2719,7 @@
       return;
     }
 
-    drawer.classList.remove('is-closing');
+    drawer.classList.remove('is-closing', 'is-stack-covered');
     drawer.hidden = false;
     drawer.classList.add('is-opening');
 
@@ -2633,8 +2831,15 @@
       return;
     }
 
-    drawer.classList.remove('is-open');
+    drawer.classList.remove('is-open', 'is-stack-covered');
     drawer.classList.add('is-closing');
+
+    // 닫힘 시작 시 스택에서 제거해 하위 Drawer 백드롭을 바로 복원
+    openDrawerStack = openDrawerStack.filter(function (item) {
+      return item !== drawer;
+    });
+    updateDrawerStackLevels();
+    updateBodyDrawerLock();
 
     var panel = drawer.querySelector('.drawer_panel');
     var closed = false;
@@ -2676,7 +2881,7 @@
   function getDrawerDragContainerHeight(drawer) {
     var frame = drawer.closest('.drawer_demo-frame');
 
-    if (frame) {
+    if (frame && drawer.classList.contains('drawer_demo-static')) {
       return frame.clientHeight;
     }
 
@@ -2908,6 +3113,13 @@
 
   var openModalStack = [];
 
+  function updateModalStack() {
+    openModalStack.forEach(function (modal, index) {
+      modal.style.setProperty('--modal-stack-level', String(index));
+      modal.classList.toggle('is-stack-covered', index < openModalStack.length - 1);
+    });
+  }
+
   function getModalTriggers(modal) {
     if (!modal.id) {
       return [];
@@ -2944,6 +3156,7 @@
     }
 
     openModalStack.push(modal);
+    updateModalStack();
     updateBodyModalLock();
 
     requestAnimationFrame(function () {
@@ -2969,6 +3182,10 @@
     openModalStack = openModalStack.filter(function (item) {
       return item !== modal;
     });
+
+    modal.classList.remove('is-stack-covered');
+    modal.style.removeProperty('--modal-stack-level');
+    updateModalStack();
 
     updateBodyModalLock();
 
@@ -3355,4 +3572,3 @@
     });
   });
 })();
-

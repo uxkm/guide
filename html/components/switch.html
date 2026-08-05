@@ -45,7 +45,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="switch">
+            <label class="switch" data-ripple>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
@@ -53,7 +53,7 @@
               <span class="switch_label">기본 — switch</span>
             </label>
 
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">레이블 뒤 — switch_label-end</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -72,7 +72,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -85,7 +85,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;레이블 뒤 — switch_label-end&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -106,7 +106,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">푸시 알림 받기</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" id="switch-label-end-push" checked>
@@ -114,7 +114,7 @@
               </span>
             </label>
 
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_content">
                 <span class="switch_label">마케팅 정보 수신</span>
                 <span class="switch_hint">이벤트·할인 소식을 이메일로 받습니다.</span>
@@ -127,21 +127,21 @@
 
             <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
               <legend class="switch_group-legend">알림 설정 — switch_group_block</legend>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">이메일 알림</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch" checked>
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">푸시 알림</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch" checked>
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">SMS 알림</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch">
@@ -150,14 +150,14 @@
               </label>
             </fieldset>
 
-            <label class="switch switch_label-end switch_sm">
+            <label class="switch switch_label-end switch_sm" data-ripple>
               <span class="switch_label">Small — switch_sm</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end switch_lg">
+            <label class="switch switch_label-end switch_lg" data-ripple>
               <span class="switch_label">Large — switch_lg</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -176,7 +176,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;푸시 알림 받기&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; id=&quot;switch-label-end-push&quot; checked&gt;
@@ -189,7 +189,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_content&quot;&gt;
     &lt;span class=&quot;switch_label&quot;&gt;마케팅 정보 수신&lt;/span&gt;
     &lt;span class=&quot;switch_hint&quot;&gt;이벤트·할인 소식을 이메일로 받습니다.&lt;/span&gt;
@@ -207,7 +207,7 @@
 
 &lt;fieldset class=&quot;switch_group switch_group_block&quot; style=&quot;max-width: 360px; width: 100%;&quot;&gt;
   &lt;legend class=&quot;switch_group-legend&quot;&gt;알림 설정 — switch_group_block&lt;/legend&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;이메일 알림&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -217,7 +217,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;푸시 알림&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -227,7 +227,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;SMS 알림&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -241,7 +241,7 @@
 
 &lt;!-- 예시 4 --&gt;
 
-&lt;label class=&quot;switch switch_label-end switch_sm&quot;&gt;
+&lt;label class=&quot;switch switch_label-end switch_sm&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Small — switch_sm&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -254,7 +254,7 @@
 
 &lt;!-- 예시 5 --&gt;
 
-&lt;label class=&quot;switch switch_label-end switch_lg&quot;&gt;
+&lt;label class=&quot;switch switch_label-end switch_lg&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Large — switch_lg&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -275,7 +275,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
-            <label class="switch">
+            <label class="switch" data-ripple>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" id="switch-basic-dark" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
@@ -283,7 +283,7 @@
               <span class="switch_label">다크 모드</span>
             </label>
 
-            <label class="switch">
+            <label class="switch" data-ripple>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" id="switch-basic-auto">
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
@@ -302,7 +302,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; id=&quot;switch-basic-dark&quot; checked&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -315,7 +315,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; id=&quot;switch-basic-auto&quot;&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -336,19 +336,19 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="switch" aria-label="기능 켜기">
+            <label class="switch" data-ripple aria-label="기능 켜기">
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch">
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch" aria-label="기능 끄기">
+            <label class="switch" data-ripple aria-label="기능 끄기">
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch" aria-label="비활성">
+            <label class="switch" data-ripple aria-label="비활성">
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" disabled>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
@@ -366,7 +366,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 기능 켜기 --&gt;
 
-&lt;label class=&quot;switch&quot; aria-label=&quot;기능 켜기&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple aria-label=&quot;기능 켜기&quot;&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -378,7 +378,7 @@
 
 &lt;!-- 기능 끄기 --&gt;
 
-&lt;label class=&quot;switch&quot; aria-label=&quot;기능 끄기&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple aria-label=&quot;기능 끄기&quot;&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -390,7 +390,7 @@
 
 &lt;!-- 비활성 --&gt;
 
-&lt;label class=&quot;switch&quot; aria-label=&quot;비활성&quot;&gt;
+&lt;label class=&quot;switch&quot; data-ripple aria-label=&quot;비활성&quot;&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; disabled&gt;
     &lt;span class=&quot;switch_track&quot; aria-hidden=&quot;true&quot;&gt;
@@ -410,21 +410,21 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="switch switch_sm switch_label-end">
+            <label class="switch switch_sm switch_label-end" data-ripple>
               <span class="switch_label">Small — switch_sm</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">Medium — 기본</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_lg switch_label-end">
+            <label class="switch switch_lg switch_label-end" data-ripple>
               <span class="switch_label">Large — switch_lg</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -443,7 +443,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch switch_sm switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_sm switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Small — switch_sm&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -456,7 +456,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Medium — 기본&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -469,7 +469,7 @@
 
 &lt;!-- 예시 3 --&gt;
 
-&lt;label class=&quot;switch switch_lg switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_lg switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Large — switch_lg&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -490,7 +490,7 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">기본 — 인라인 너비</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -498,7 +498,7 @@
               </span>
             </label>
 
-            <label class="switch switch_label-end switch_block">
+            <label class="switch switch_label-end switch_block" data-ripple>
               <span class="switch_label">switch_block — 전체 너비</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -508,14 +508,14 @@
 
             <fieldset class="switch_group switch_group_block" style="max-width: 360px; width: 100%;">
               <legend class="switch_group-legend">switch_group_block</legend>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">Wi-Fi</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch" checked>
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">블루투스</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch">
@@ -535,7 +535,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;기본 — 인라인 너비&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -548,7 +548,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch switch_label-end switch_block&quot;&gt;
+&lt;label class=&quot;switch switch_label-end switch_block&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;switch_block — 전체 너비&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -563,7 +563,7 @@
 
 &lt;fieldset class=&quot;switch_group switch_group_block&quot; style=&quot;max-width: 360px; width: 100%;&quot;&gt;
   &lt;legend class=&quot;switch_group-legend&quot;&gt;switch_group_block&lt;/legend&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;Wi-Fi&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -573,7 +573,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;블루투스&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -595,28 +595,28 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="switch color_primary switch_label-end">
+            <label class="switch color_primary switch_label-end" data-ripple>
               <span class="switch_label">Primary</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch color_success switch_label-end">
+            <label class="switch color_success switch_label-end" data-ripple>
               <span class="switch_label">Success</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch color_danger switch_label-end">
+            <label class="switch color_danger switch_label-end" data-ripple>
               <span class="switch_label">Danger</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch color_warning switch_label-end">
+            <label class="switch color_warning switch_label-end" data-ripple>
               <span class="switch_label">Warning</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
@@ -635,7 +635,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- Primary --&gt;
 
-&lt;label class=&quot;switch color_primary switch_label-end&quot;&gt;
+&lt;label class=&quot;switch color_primary switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Primary&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -648,7 +648,7 @@
 
 &lt;!-- Success --&gt;
 
-&lt;label class=&quot;switch color_success switch_label-end&quot;&gt;
+&lt;label class=&quot;switch color_success switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Success&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -661,7 +661,7 @@
 
 &lt;!-- Danger --&gt;
 
-&lt;label class=&quot;switch color_danger switch_label-end&quot;&gt;
+&lt;label class=&quot;switch color_danger switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Danger&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -674,7 +674,7 @@
 
 &lt;!-- Warning --&gt;
 
-&lt;label class=&quot;switch color_warning switch_label-end&quot;&gt;
+&lt;label class=&quot;switch color_warning switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;Warning&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -695,28 +695,28 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">꺼짐</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch">
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">켜짐</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">비활성</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" disabled>
                 <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
               </span>
             </label>
-            <label class="switch switch_label-end">
+            <label class="switch switch_label-end" data-ripple>
               <span class="switch_label">켜짐 (비활성)</span>
               <span class="switch_control">
                 <input type="checkbox" class="switch_input" role="switch" checked disabled>
@@ -735,7 +735,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 예시 1 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;꺼짐&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -748,7 +748,7 @@
 
 &lt;!-- 예시 2 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;켜짐&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -761,7 +761,7 @@
 
 &lt;!-- 예시 3 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;비활성&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; disabled&gt;
@@ -774,7 +774,7 @@
 
 &lt;!-- 예시 4 --&gt;
 
-&lt;label class=&quot;switch switch_label-end&quot;&gt;
+&lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
   &lt;span class=&quot;switch_label&quot;&gt;켜짐 (비활성)&lt;/span&gt;
   &lt;span class=&quot;switch_control&quot;&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked disabled&gt;
@@ -797,7 +797,7 @@
           <div class="demo_section-preview demo_section-preview-stack">
             <fieldset class="switch_group switch_group_block" style="max-width: 400px; width: 100%;">
               <legend class="switch_group-legend">개인정보 설정</legend>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_content">
                   <span class="switch_label">프로필 공개</span>
                   <span class="switch_hint">다른 사용자가 내 프로필을 볼 수 있습니다.</span>
@@ -807,7 +807,7 @@
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_content">
                   <span class="switch_label">활동 기록 표시</span>
                   <span class="switch_hint">최근 활동이 타임라인에 노출됩니다.</span>
@@ -817,7 +817,7 @@
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">검색 허용</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch" checked>
@@ -828,14 +828,14 @@
 
             <fieldset class="switch_group switch_group_block switch_group_compact" style="max-width: 400px; width: 100%;">
               <legend class="switch_group-legend">접근성 — switch_group_compact</legend>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">고대비 모드</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch">
                   <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                 </span>
               </label>
-              <label class="switch switch_label-end">
+              <label class="switch switch_label-end" data-ripple>
                 <span class="switch_label">애니메이션 줄이기</span>
                 <span class="switch_control">
                   <input type="checkbox" class="switch_input" role="switch">
@@ -857,7 +857,7 @@
 
 &lt;fieldset class=&quot;switch_group switch_group_block&quot; style=&quot;max-width: 400px; width: 100%;&quot;&gt;
   &lt;legend class=&quot;switch_group-legend&quot;&gt;개인정보 설정&lt;/legend&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_content&quot;&gt;
       &lt;span class=&quot;switch_label&quot;&gt;프로필 공개&lt;/span&gt;
       &lt;span class=&quot;switch_hint&quot;&gt;다른 사용자가 내 프로필을 볼 수 있습니다.&lt;/span&gt;
@@ -870,7 +870,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_content&quot;&gt;
       &lt;span class=&quot;switch_label&quot;&gt;활동 기록 표시&lt;/span&gt;
       &lt;span class=&quot;switch_hint&quot;&gt;최근 활동이 타임라인에 노출됩니다.&lt;/span&gt;
@@ -883,7 +883,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;검색 허용&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -899,7 +899,7 @@
 
 &lt;fieldset class=&quot;switch_group switch_group_block switch_group_compact&quot; style=&quot;max-width: 400px; width: 100%;&quot;&gt;
   &lt;legend class=&quot;switch_group-legend&quot;&gt;접근성 — switch_group_compact&lt;/legend&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;고대비 모드&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -909,7 +909,7 @@
       &lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;switch switch_label-end&quot;&gt;
+  &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
     &lt;span class=&quot;switch_label&quot;&gt;애니메이션 줄이기&lt;/span&gt;
     &lt;span class=&quot;switch_control&quot;&gt;
       &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -935,14 +935,14 @@
               <div class="form_field">
                 <span class="form_field-label" id="switch-form-vertical-label">알림</span>
                 <fieldset class="switch_group switch_group_block" aria-labelledby="switch-form-vertical-label">
-                  <label class="switch switch_label-end">
+                  <label class="switch switch_label-end" data-ripple>
                     <span class="switch_label">이메일 알림</span>
                     <span class="switch_control">
                       <input type="checkbox" class="switch_input" role="switch" checked>
                       <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
                     </span>
                   </label>
-                  <label class="switch switch_label-end">
+                  <label class="switch switch_label-end" data-ripple>
                     <span class="switch_label">푸시 알림</span>
                     <span class="switch_control">
                       <input type="checkbox" class="switch_input" role="switch">
@@ -956,7 +956,7 @@
             <form class="form form_horizontal form_fit">
               <div class="form_field">
                 <span class="form_field-label" id="switch-form-horizontal-label">자동 저장</span>
-                <label class="switch switch_label-end" aria-labelledby="switch-form-horizontal-label">
+                <label class="switch switch_label-end" data-ripple aria-labelledby="switch-form-horizontal-label">
                   <span class="switch_label">편집 내용 자동 저장</span>
                   <span class="switch_control">
                     <input type="checkbox" class="switch_input" role="switch" checked>
@@ -984,7 +984,7 @@
   &lt;div class=&quot;form_field&quot;&gt;
     &lt;span class=&quot;form_field-label&quot; id=&quot;switch-form-vertical-label&quot;&gt;알림&lt;/span&gt;
     &lt;fieldset class=&quot;switch_group switch_group_block&quot; aria-labelledby=&quot;switch-form-vertical-label&quot;&gt;
-      &lt;label class=&quot;switch switch_label-end&quot;&gt;
+      &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
         &lt;span class=&quot;switch_label&quot;&gt;이메일 알림&lt;/span&gt;
         &lt;span class=&quot;switch_control&quot;&gt;
           &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -994,7 +994,7 @@
           &lt;/span&gt;
         &lt;/span&gt;
       &lt;/label&gt;
-      &lt;label class=&quot;switch switch_label-end&quot;&gt;
+      &lt;label class=&quot;switch switch_label-end&quot; data-ripple&gt;
         &lt;span class=&quot;switch_label&quot;&gt;푸시 알림&lt;/span&gt;
         &lt;span class=&quot;switch_control&quot;&gt;
           &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot;&gt;
@@ -1015,7 +1015,7 @@
 &lt;form class=&quot;form form_horizontal form_fit&quot;&gt;
   &lt;div class=&quot;form_field&quot;&gt;
     &lt;span class=&quot;form_field-label&quot; id=&quot;switch-form-horizontal-label&quot;&gt;자동 저장&lt;/span&gt;
-    &lt;label class=&quot;switch switch_label-end&quot; aria-labelledby=&quot;switch-form-horizontal-label&quot;&gt;
+    &lt;label class=&quot;switch switch_label-end&quot; data-ripple aria-labelledby=&quot;switch-form-horizontal-label&quot;&gt;
       &lt;span class=&quot;switch_label&quot;&gt;편집 내용 자동 저장&lt;/span&gt;
       &lt;span class=&quot;switch_control&quot;&gt;
         &lt;input type=&quot;checkbox&quot; class=&quot;switch_input&quot; role=&quot;switch&quot; checked&gt;
@@ -1033,87 +1033,62 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 네이티브 스위치 속성입니다. HTML에서는 레이아웃과 상태에 맞게 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">switch</code></td>
-                    <td>스위치 루트 label</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">switch_sm</code> · <code class="typo_code">switch_lg</code> · <code class="typo_code">switch_label-end</code></td>
-                    <td>크기·레이아웃</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">switch_control</code> · <code class="typo_code">switch_input</code> · <code class="typo_code">switch_track</code> · <code class="typo_code">switch_thumb</code></td>
-                    <td>입력·트랙</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">switch_label</code></td>
-                    <td>라벨</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">switch_group</code></td>
-                    <td>여러 스위치 묶음</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">switch</code></td><td>스위치 루트 label</td></tr>
+                <tr><td><code class="typo_code">switch_control · switch_input · switch_track · switch_thumb</code></td><td>네이티브 입력, 트랙과 이동 손잡이 구조</td></tr>
+                <tr><td><code class="typo_code">switch_label · switch_content · switch_hint</code></td><td>레이블, 복합 레이블 콘텐츠, 보조 설명</td></tr>
+                <tr><td><code class="typo_code">switch_sm · switch_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">switch_block · switch_group_block</code></td><td>단일 스위치와 그룹의 부모 너비 100% 변형</td></tr>
+                <tr><td><code class="typo_code">switch_label-end</code></td><td>레이블을 스위치 앞에 배치</td></tr>
+                <tr><td><code class="typo_code">switch_group · switch_group_horizontal · switch_group_compact</code></td><td>세로·가로·조밀한 스위치 그룹</td></tr>
+                <tr><td><code class="typo_code">switch_group-legend</code></td><td>fieldset 그룹의 범례</td></tr>
+                <tr><td><code class="typo_code">color_primary · color_success · color_danger · color_warning</code></td><td>켜짐 상태의 색상 변형</td></tr>
+                <tr><td><code class="typo_code">is-error</code></td><td>오류 상태 클래스</td></tr>
+                <tr><td><code class="typo_code">type="checkbox" · role="switch"</code></td><td>네이티브 입력 유형과 스위치 역할</td></tr>
+                <tr><td><code class="typo_code">checked · disabled</code></td><td>네이티브 켜짐·비활성 상태</td></tr>
+                <tr><td><code class="typo_code">name · value</code></td><td>폼 제출 이름과 값을 지정하는 네이티브 속성</td></tr>
+                <tr><td><code class="typo_code">aria-label · aria-labelledby</code></td><td>단독 스위치와 그룹에 접근 가능한 이름 제공</td></tr>
+                <tr><td><code class="typo_code">data-ripple · data-ripple="surface"</code></td><td>클릭 파장 활성. surface는 루트 표면에 파장을 제한</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체의 클릭 파장 비활성</td></tr>
+                <tr><td><code class="typo_code">change</code></td><td>켜짐 상태 변경을 처리하는 네이티브 이벤트</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--switch-width</code> · <code class="typo_code">--switch-height</code></td>
-                    <td>2.75rem · 1.5rem</td>
-                    <td>트랙 크기 (md)</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--switch-width-sm</code> · <code class="typo_code">--switch-width-lg</code></td>
-                    <td>2.25rem · 3.25rem</td>
-                    <td>크기 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--switch-gap</code> · <code class="typo_code">--switch-radius</code></td>
-                    <td>—</td>
-                    <td>라벨 간격·모서리</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--switch-width · --switch-height</code></td><td><code class="typo_code">2.75rem · 1.5rem</code></td><td>기본(md) 트랙 크기</td></tr>
+                <tr><td><code class="typo_code">--switch-width-sm · --switch-height-sm</code></td><td><code class="typo_code">2.25rem · 1.25rem</code></td><td>sm 트랙 크기</td></tr>
+                <tr><td><code class="typo_code">--switch-width-lg · --switch-height-lg</code></td><td><code class="typo_code">3.25rem · 1.75rem</code></td><td>lg 트랙 크기</td></tr>
+                <tr><td><code class="typo_code">--switch-padding · --switch-radius</code></td><td><code class="typo_code">2px · 999px</code></td><td>트랙 내부 여백과 모서리</td></tr>
+                <tr><td><code class="typo_code">--switch-gap · --switch-gap-sm · --switch-gap-lg</code></td><td><code class="typo_code">var(--checkbox-gap) · var(--checkbox-gap-sm) · var(--checkbox-gap-lg)</code></td><td>레이블 간격</td></tr>
+                <tr><td><code class="typo_code">--switch-font-size · --switch-line-height</code></td><td><code class="typo_code">var(--checkbox-font-size) · var(--checkbox-line-height)</code></td><td>기본(md) 레이블 타이포</td></tr>
+                <tr><td><code class="typo_code">--switch-font-size-sm · --switch-font-size-lg</code></td><td><code class="typo_code">var(--checkbox-font-size-sm) · var(--checkbox-font-size-lg)</code></td><td>sm·lg 레이블 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--switch-label-weight · --switch-hint-size</code></td><td><code class="typo_code">var(--checkbox-label-weight) · var(--checkbox-hint-size)</code></td><td>레이블 두께와 힌트 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--switch-group-gap</code></td><td><code class="typo_code">var(--checkbox-group-gap)</code></td><td>그룹 항목 간격</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

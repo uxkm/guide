@@ -35,7 +35,7 @@
       <main class="guide_content">
         <div class="page_intro">
           <h1>Divider</h1>
-          <p class="lead">콘텐츠를 시각적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티 클래스로 조합합니다.</p>
+          <p class="lead">콘텐츠를 시각적·의미적으로 구분하는 구분선입니다. 단순 선·점선·텍스트 레이블·세로 구분을 유틸리티 클래스로 조합합니다.</p>
         </div>
 
         <section class="section demo_section" aria-labelledby="basic-heading">
@@ -111,12 +111,12 @@
         <section class="section demo_section" aria-labelledby="text-heading">
           <div class="demo_section-header">
             <h2 id="text-heading">텍스트 레이블</h2>
-            <p>요소 안에 텍스트가 있으면 양쪽 선과 가운데 레이블로 자동 전환됩니다.</p>
+            <p>요소 안에 텍스트가 있으면 양쪽 선과 가운데 레이블로 전환합니다. div에는 구분선의 의미를 전달하는 role="separator"를 지정합니다.</p>
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <div class="divider">섹션 제목</div>
-            <div class="divider divider_plain">보조 설명</div>
+            <div class="divider" role="separator">섹션 제목</div>
+            <div class="divider divider_plain" role="separator">보조 설명</div>
           </div>
 
         <div class="demo_section-code">
@@ -129,11 +129,11 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 섹션 제목 --&gt;
 
-&lt;div class=&quot;divider&quot;&gt;섹션 제목&lt;/div&gt;
+&lt;div class=&quot;divider&quot; role=&quot;separator&quot;&gt;섹션 제목&lt;/div&gt;
 
 &lt;!-- 보조 설명 --&gt;
 
-&lt;div class=&quot;divider divider_plain&quot;&gt;보조 설명&lt;/div&gt;</code></pre>
+&lt;div class=&quot;divider divider_plain&quot; role=&quot;separator&quot;&gt;보조 설명&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -145,9 +145,9 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <div class="divider divider_orient-left">왼쪽</div>
-            <div class="divider">가운데</div>
-            <div class="divider divider_orient-right">오른쪽</div>
+            <div class="divider divider_orient-left" role="separator">왼쪽</div>
+            <div class="divider" role="separator">가운데</div>
+            <div class="divider divider_orient-right" role="separator">오른쪽</div>
           </div>
 
         <div class="demo_section-code">
@@ -160,15 +160,15 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 왼쪽 --&gt;
 
-&lt;div class=&quot;divider divider_orient-left&quot;&gt;왼쪽&lt;/div&gt;
+&lt;div class=&quot;divider divider_orient-left&quot; role=&quot;separator&quot;&gt;왼쪽&lt;/div&gt;
 
 &lt;!-- 가운데 --&gt;
 
-&lt;div class=&quot;divider&quot;&gt;가운데&lt;/div&gt;
+&lt;div class=&quot;divider&quot; role=&quot;separator&quot;&gt;가운데&lt;/div&gt;
 
 &lt;!-- 오른쪽 --&gt;
 
-&lt;div class=&quot;divider divider_orient-right&quot;&gt;오른쪽&lt;/div&gt;</code></pre>
+&lt;div class=&quot;divider divider_orient-right&quot; role=&quot;separator&quot;&gt;오른쪽&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -176,7 +176,7 @@
         <section class="section demo_section" aria-labelledby="vertical-heading">
           <div class="demo_section-header">
             <h2 id="vertical-heading">세로</h2>
-            <p>divider_vertical은 인라인·flex 행 안에서 세로 구분선으로 사용합니다.</p>
+            <p>divider_vertical은 인라인·flex 행 안에서 장식용 세로 구분선으로 사용하며, aria-hidden="true"로 스크린 리더에서 숨깁니다.</p>
           </div>
 
           <div class="demo_section-preview">
@@ -212,90 +212,49 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 아래 항목을 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">divider</code></td>
-                    <td>가로·세로 구분선 루트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">divider_dashed</code></td>
-                    <td>점선 스타일</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">divider_plain</code></td>
-                    <td>보조 톤 레이블</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">divider_vertical</code></td>
-                    <td>세로 구분선 (인라인·flex 행)</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">divider_orient-left</code> · <code class="typo_code">divider_orient-right</code></td>
-                    <td>레이블 좌·우 정렬</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">divider</code></td><td>가로·세로 구분선 루트</td></tr>
+                <tr><td><code class="typo_code">divider_dashed</code></td><td>점선 스타일</td></tr>
+                <tr><td><code class="typo_code">divider_plain</code></td><td>레이블 글자 굵기를 400으로 변경</td></tr>
+                <tr><td><code class="typo_code">divider_vertical</code></td><td>세로 구분선 (인라인·flex 행)</td></tr>
+                <tr><td><code class="typo_code">divider_orient-left · divider_orient-right</code></td><td>레이블 좌·우 정렬</td></tr>
+                <tr><td><code class="typo_code">role="separator"</code></td><td>hr가 아닌 의미 있는 구분선에 적용</td></tr>
+                <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 세로 구분선을 스크린 리더에서 숨김</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--divider-color</code></td>
-                    <td><code class="typo_code">var(--color-border-subtle)</code></td>
-                    <td>선 색상</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--divider-thickness</code></td>
-                    <td>1px</td>
-                    <td>선 두께</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--divider-margin-y</code></td>
-                    <td><code class="typo_code">var(--space-md)</code></td>
-                    <td>가로 구분선 상하 여백</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--divider-margin-x</code></td>
-                    <td><code class="typo_code">var(--space-sm)</code></td>
-                    <td>세로 구분선 좌우 여백</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--divider-text-gap</code></td>
-                    <td><code class="typo_code">var(--space-md)</code></td>
-                    <td>레이블·선 사이 간격</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--divider-orient-inset</code></td>
-                    <td>5%</td>
-                    <td>orient-left · orient-right 선 길이</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--divider-color</code></td><td><code class="typo_code">var(--color-border-subtle)</code></td><td>선 색상</td></tr>
+                <tr><td><code class="typo_code">--divider-thickness</code></td><td><code class="typo_code">1px</code></td><td>선 두께</td></tr>
+                <tr><td><code class="typo_code">--divider-margin-y</code></td><td><code class="typo_code">var(--space-md)</code></td><td>가로 구분선 상하 여백</td></tr>
+                <tr><td><code class="typo_code">--divider-margin-x</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>세로 구분선 좌우 여백</td></tr>
+                <tr><td><code class="typo_code">--divider-text-gap</code></td><td><code class="typo_code">var(--space-md)</code></td><td>레이블·선 사이 간격</td></tr>
+                <tr><td><code class="typo_code">--divider-orient-inset</code></td><td><code class="typo_code">5%</code></td><td>좌·우 정렬 시 짧은 쪽 선 길이</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

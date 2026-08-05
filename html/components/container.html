@@ -176,82 +176,45 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML에서는 아래 클래스를 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">container</code></td>
-                    <td>중앙 정렬·기본 max-width·좌우 패딩</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">container_fluid</code></td>
-                    <td>max-width 제한 해제</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">container_sm</code> · <code class="typo_code">container_md</code> · <code class="typo_code">container_lg</code> · <code class="typo_code">container_xl</code></td>
-                    <td>고정 최대 너비 변형 (36 · 48 · 64 · 80rem)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">container</code></td><td>중앙 정렬·기본 max-width·좌우 패딩</td></tr>
+                <tr><td><code class="typo_code">container_fluid</code></td><td>max-width 제한 해제. 크기 클래스와 함께 사용하면 fluid가 우선</td></tr>
+                <tr><td><code class="typo_code">container_sm · container_md · container_lg · container_xl</code></td><td>고정 최대 너비 변형</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--container-max-width</code></td>
-                    <td>72rem</td>
-                    <td>기본 최대 너비</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--container-max-width-sm</code></td>
-                    <td>36rem</td>
-                    <td>container_sm</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--container-max-width-md</code></td>
-                    <td>48rem</td>
-                    <td>container_md</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--container-max-width-lg</code></td>
-                    <td>64rem</td>
-                    <td>container_lg</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--container-max-width-xl</code></td>
-                    <td>80rem</td>
-                    <td>container_xl</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--container-padding-x</code></td>
-                    <td><code class="typo_code">var(--space-xl)</code></td>
-                    <td>좌우 패딩</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--container-max-width</code></td><td><code class="typo_code">72rem</code></td><td>기본 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--container-max-width-sm</code></td><td><code class="typo_code">36rem</code></td><td><code class="typo_code">container_sm</code> 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--container-max-width-md</code></td><td><code class="typo_code">48rem</code></td><td><code class="typo_code">container_md</code> 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--container-max-width-lg</code></td><td><code class="typo_code">64rem</code></td><td><code class="typo_code">container_lg</code> 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--container-max-width-xl</code></td><td><code class="typo_code">80rem</code></td><td><code class="typo_code">container_xl</code> 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--container-padding-x</code></td><td><code class="typo_code">var(--space-xl)</code></td><td>좌우 패딩</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

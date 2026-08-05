@@ -46,14 +46,14 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="upload">
-              <label class="upload_trigger">
+              <label class="upload_trigger" data-ripple>
                 <input type="file" class="upload_input" id="upload-btn-basic">
                 <span class="btn btn_filled color_primary"><span class="btn_label">파일 선택</span></span>
               </label>
             </div>
 
             <div class="upload">
-              <label class="upload_trigger">
+              <label class="upload_trigger" data-ripple>
                 <input type="file" class="upload_input" id="upload-btn-outline">
                 <span class="btn btn_outline color_primary"><span class="btn_label">업로드</span></span>
               </label>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="upload">
-              <label class="upload_trigger">
+              <label class="upload_trigger" data-ripple>
                 <input type="file" class="upload_input" id="upload-btn-sizes">
                 <span class="btn btn_filled color_primary btn_sm"><span class="btn_label">Small</span></span>
                 <span class="btn btn_filled color_primary btn_lg"><span class="btn_label">Large</span></span>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="upload is-disabled">
-              <label class="upload_trigger">
+              <label class="upload_trigger" data-ripple>
                 <input type="file" class="upload_input" disabled>
                 <span class="btn btn_filled color_primary is-disabled"><span class="btn_label">비활성</span></span>
               </label>
@@ -87,7 +87,7 @@
             <pre><code>&lt;!-- 예시 1 --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-basic&quot;&gt;
     &lt;span class=&quot;btn btn_filled color_primary&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;파일 선택&lt;/span&gt;
@@ -98,7 +98,7 @@
 &lt;!-- PNG, JPG · 최대 5MB --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-outline&quot;&gt;
     &lt;span class=&quot;btn btn_outline color_primary&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;업로드&lt;/span&gt;
@@ -110,7 +110,7 @@
 &lt;!-- 예시 2 --&gt;
 
 &lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_trigger&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-btn-sizes&quot;&gt;
     &lt;span class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;Small&lt;/span&gt;
@@ -124,7 +124,7 @@
 &lt;!-- 예시 3 --&gt;
 
 &lt;div class=&quot;upload is-disabled&quot;&gt;
-  &lt;label class=&quot;upload_trigger&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; disabled&gt;
     &lt;span class=&quot;btn btn_filled color_primary is-disabled&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;비활성&lt;/span&gt;
@@ -143,7 +143,7 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="upload upload_fit">
-              <label class="upload_dropzone">
+              <label class="upload_dropzone" data-ripple>
                 <input type="file" class="upload_input" id="upload-dropzone-basic" multiple>
                 <span class="upload_dropzone-icon" aria-hidden="true">
                   <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -156,7 +156,7 @@
             </div>
 
             <div class="upload upload_fit">
-              <label class="upload_dropzone is-dragover">
+              <label class="upload_dropzone is-dragover" data-ripple>
                 <input type="file" class="upload_input" multiple>
                 <span class="upload_dropzone-icon" aria-hidden="true">
                   <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -180,7 +180,7 @@
             <pre><code>&lt;!-- 예시 1 --&gt;
 
 &lt;div class=&quot;upload upload_fit&quot;&gt;
-  &lt;label class=&quot;upload_dropzone&quot;&gt;
+  &lt;label class=&quot;upload_dropzone&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-dropzone-basic&quot; multiple&gt;
     &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;svg class=&quot;icon icon_xl&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
@@ -197,7 +197,7 @@
 &lt;!-- 예시 2 --&gt;
 
 &lt;div class=&quot;upload upload_fit&quot;&gt;
-  &lt;label class=&quot;upload_dropzone is-dragover&quot;&gt;
+  &lt;label class=&quot;upload_dropzone is-dragover&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; multiple&gt;
     &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;svg class=&quot;icon icon_xl&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
@@ -222,13 +222,13 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="upload upload_fit">
-              <label class="upload_trigger">
+              <label class="upload_trigger" data-ripple>
                 <input type="file" class="upload_input" multiple>
                 <span class="btn btn_filled color_primary"><span class="btn_label">파일 추가</span></span>
               </label>
 
-              <ul class="upload_list" role="list">
-                <li class="upload_item is-uploading">
+              <ul class="list upload_list" role="list">
+                <li class="list_item upload_item is-uploading">
                   <span class="upload_item-icon" aria-hidden="true">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -242,13 +242,13 @@
                     <span class="upload_item-meta">2.4 MB · 60%</span>
                   </div>
                   <button type="button" class="btn btn_text btn_icon-only color_danger upload_item-action" aria-label="업로드 취소">
-                    <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
                   </button>
                 </li>
 
-                <li class="upload_item is-done">
+                <li class="list_item upload_item is-done">
                   <span class="upload_item-icon" aria-hidden="true">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -259,13 +259,13 @@
                     <span class="upload_item-meta">업로드 완료 · 8.1 MB</span>
                   </div>
                   <button type="button" class="btn btn_text btn_icon-only color_danger upload_item-action" aria-label="파일 삭제">
-                    <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                     </svg>
                   </button>
                 </li>
 
-                <li class="upload_item is-error">
+                <li class="list_item upload_item is-error">
                   <span class="upload_item-icon" aria-hidden="true">
                     <svg class="icon color_danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
@@ -279,7 +279,7 @@
                     <span class="upload_item-meta">파일 크기가 10MB를 초과합니다.</span>
                   </div>
                   <button type="button" class="btn btn_text btn_icon-only color_danger upload_item-action" aria-label="파일 삭제">
-                    <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                       <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                     </svg>
                   </button>
@@ -297,14 +297,14 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;upload upload_fit&quot;&gt;
-  &lt;label class=&quot;upload_trigger&quot;&gt;
+  &lt;label class=&quot;upload_trigger&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; multiple&gt;
     &lt;span class=&quot;btn btn_filled color_primary&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;파일 추가&lt;/span&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;ul class=&quot;upload_list&quot; role=&quot;list&quot;&gt;
-    &lt;li class=&quot;upload_item is-uploading&quot;&gt;
+  &lt;ul class=&quot;list upload_list&quot; role=&quot;list&quot;&gt;
+    &lt;li class=&quot;list_item upload_item is-uploading&quot;&gt;
       &lt;span class=&quot;upload_item-icon&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
           &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
@@ -320,13 +320,13 @@
         &lt;span class=&quot;upload_item-meta&quot;&gt;2.4 MB · 60%&lt;/span&gt;
       &lt;/div&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn_text btn_icon-only color_danger upload_item-action&quot; aria-label=&quot;업로드 취소&quot;&gt;
-        &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
           &lt;line x1=&quot;18&quot; y1=&quot;6&quot; x2=&quot;6&quot; y2=&quot;18&quot;/&gt;
           &lt;line x1=&quot;6&quot; y1=&quot;6&quot; x2=&quot;18&quot; y2=&quot;18&quot;/&gt;
         &lt;/svg&gt;
       &lt;/button&gt;
     &lt;/li&gt;
-    &lt;li class=&quot;upload_item is-done&quot;&gt;
+    &lt;li class=&quot;list_item upload_item is-done&quot;&gt;
       &lt;span class=&quot;upload_item-icon&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
           &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
@@ -338,12 +338,12 @@
         &lt;span class=&quot;upload_item-meta&quot;&gt;업로드 완료 · 8.1 MB&lt;/span&gt;
       &lt;/div&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn_text btn_icon-only color_danger upload_item-action&quot; aria-label=&quot;파일 삭제&quot;&gt;
-        &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
           &lt;path d=&quot;M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
         &lt;/svg&gt;
       &lt;/button&gt;
     &lt;/li&gt;
-    &lt;li class=&quot;upload_item is-error&quot;&gt;
+    &lt;li class=&quot;list_item upload_item is-error&quot;&gt;
       &lt;span class=&quot;upload_item-icon&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;svg class=&quot;icon color_danger&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
           &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
@@ -359,7 +359,7 @@
         &lt;span class=&quot;upload_item-meta&quot;&gt;파일 크기가 10MB를 초과합니다.&lt;/span&gt;
       &lt;/div&gt;
       &lt;button type=&quot;button&quot; class=&quot;btn btn_text btn_icon-only color_danger upload_item-action&quot; aria-label=&quot;파일 삭제&quot;&gt;
-        &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
           &lt;path d=&quot;M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
         &lt;/svg&gt;
       &lt;/button&gt;
@@ -383,12 +383,12 @@
                   <img class="upload_card-image" src="../images/avatar-sample.svg" alt="미리보기 1">
                   <div class="upload_card-actions">
                     <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="미리보기">
-                      <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
                       </svg>
                     </button>
                     <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="삭제">
-                      <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                       </svg>
                     </button>
@@ -399,19 +399,19 @@
                   <img class="upload_card-image" src="../images/avatar-sample.svg" alt="미리보기 2">
                   <div class="upload_card-actions">
                     <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="미리보기">
-                      <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
                       </svg>
                     </button>
                     <button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="삭제">
-                      <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                       </svg>
                     </button>
                   </div>
                 </div>
 
-                <label class="upload_card upload_card-trigger">
+                <label class="upload_card upload_card-trigger" data-ripple>
                   <input type="file" class="upload_input" accept="image/*">
                   <svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -437,13 +437,13 @@
       &lt;img class=&quot;upload_card-image&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;미리보기 1&quot;&gt;
       &lt;div class=&quot;upload_card-actions&quot;&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only btn_sm&quot; aria-label=&quot;미리보기&quot;&gt;
-          &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
             &lt;path d=&quot;M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z&quot;/&gt;
             &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
           &lt;/svg&gt;
         &lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only btn_sm&quot; aria-label=&quot;삭제&quot;&gt;
-          &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
             &lt;path d=&quot;M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
           &lt;/svg&gt;
         &lt;/button&gt;
@@ -453,19 +453,19 @@
       &lt;img class=&quot;upload_card-image&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;미리보기 2&quot;&gt;
       &lt;div class=&quot;upload_card-actions&quot;&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only btn_sm&quot; aria-label=&quot;미리보기&quot;&gt;
-          &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
             &lt;path d=&quot;M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z&quot;/&gt;
             &lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;
           &lt;/svg&gt;
         &lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_icon-only btn_sm&quot; aria-label=&quot;삭제&quot;&gt;
-          &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
             &lt;path d=&quot;M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2&quot;/&gt;
           &lt;/svg&gt;
         &lt;/button&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;label class=&quot;upload_card upload_card-trigger&quot;&gt;
+    &lt;label class=&quot;upload_card upload_card-trigger&quot; data-ripple&gt;
       &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; accept=&quot;image/*&quot;&gt;
       &lt;svg class=&quot;icon icon_lg&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;line x1=&quot;12&quot; y1=&quot;5&quot; x2=&quot;12&quot; y2=&quot;19&quot;/&gt;
@@ -488,7 +488,7 @@
 
           <div class="demo_section-preview">
             <div class="upload">
-              <label class="upload_avatar">
+              <label class="upload_avatar" data-ripple>
                 <input type="file" class="upload_input" accept="image/*" id="upload-avatar">
                 <span class="avatar avatar_xl">
                   <img class="avatar_image" src="../images/avatar-sample.svg" alt="프로필 사진">
@@ -511,7 +511,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;upload&quot;&gt;
-  &lt;label class=&quot;upload_avatar&quot;&gt;
+  &lt;label class=&quot;upload_avatar&quot; data-ripple&gt;
     &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; accept=&quot;image/*&quot; id=&quot;upload-avatar&quot;&gt;
     &lt;span class=&quot;avatar avatar_xl&quot;&gt;
       &lt;img class=&quot;avatar_image&quot; src=&quot;../images/avatar-sample.svg&quot; alt=&quot;프로필 사진&quot;&gt;
@@ -539,7 +539,7 @@
             <div class="form_field form_field_fit">
               <label class="form_field-label" for="upload-form-attach">첨부파일</label>
               <div class="upload upload_fit">
-                <label class="upload_dropzone">
+                <label class="upload_dropzone" data-ripple>
                   <input type="file" class="upload_input" id="upload-form-attach" multiple>
                   <span class="upload_dropzone-icon" aria-hidden="true">
                     <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -556,7 +556,7 @@
             <div class="form_field form_field_fit">
               <label class="form_field-label" for="upload-form-error">증빙 서류</label>
               <div class="upload upload_fit">
-                <label class="upload_dropzone is-error">
+                <label class="upload_dropzone is-error" data-ripple>
                   <input type="file" class="upload_input" id="upload-form-error" aria-invalid="true" aria-describedby="upload-form-error-msg">
                   <span class="upload_dropzone-icon" aria-hidden="true">
                     <svg class="icon icon_xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -584,7 +584,7 @@
 &lt;div class=&quot;form_field form_field_fit&quot;&gt;
   &lt;label class=&quot;form_field-label&quot; for=&quot;upload-form-attach&quot;&gt;첨부파일&lt;/label&gt;
   &lt;div class=&quot;upload upload_fit&quot;&gt;
-    &lt;label class=&quot;upload_dropzone&quot;&gt;
+    &lt;label class=&quot;upload_dropzone&quot; data-ripple&gt;
       &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-form-attach&quot; multiple&gt;
       &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;svg class=&quot;icon icon_xl&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
@@ -605,7 +605,7 @@
 &lt;div class=&quot;form_field form_field_fit&quot;&gt;
   &lt;label class=&quot;form_field-label&quot; for=&quot;upload-form-error&quot;&gt;증빙 서류&lt;/label&gt;
   &lt;div class=&quot;upload upload_fit&quot;&gt;
-    &lt;label class=&quot;upload_dropzone is-error&quot;&gt;
+    &lt;label class=&quot;upload_dropzone is-error&quot; data-ripple&gt;
       &lt;input type=&quot;file&quot; class=&quot;upload_input&quot; id=&quot;upload-form-error&quot; aria-invalid=&quot;true&quot; aria-describedby=&quot;upload-form-error-msg&quot;&gt;
       &lt;span class=&quot;upload_dropzone-icon&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;svg class=&quot;icon icon_xl&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;
@@ -626,95 +626,65 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 네이티브 파일 입력 속성입니다. HTML에서는 업로드 유형과 파일 상태에 맞게 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">upload</code></td>
-                    <td>루트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">upload_sm</code> · <code class="typo_code">upload_lg</code> · <code class="typo_code">upload_fit</code></td>
-                    <td>크기·너비</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">upload_trigger</code> · <code class="typo_code">upload_dropzone</code> · <code class="typo_code">upload_input</code></td>
-                    <td>button·drag 트리거</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">upload_card</code> · <code class="typo_code">upload_cards</code> · <code class="typo_code">upload_avatar</code></td>
-                    <td>picture-card·avatar</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">upload_list</code> · <code class="typo_code">upload_item</code> · <code class="typo_code">upload_item-info</code></td>
-                    <td>목록 variant</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">upload_hint</code> · <code class="typo_code">upload_progress</code></td>
-                    <td>힌트·진행률</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">is-dragover</code> · <code class="typo_code">is-error</code> · <code class="typo_code">is-disabled</code></td>
-                    <td>상태</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">upload</code></td><td>Upload 루트</td></tr>
+                <tr><td><code class="typo_code">upload_sm · upload_lg · upload_fit</code></td><td>드롭존 크기와 최대 너비 변형</td></tr>
+                <tr><td><code class="typo_code">upload_trigger · upload_input</code></td><td>버튼형 label 트리거와 시각적으로 숨긴 file input</td></tr>
+                <tr><td><code class="typo_code">upload_dropzone · upload_dropzone-icon</code></td><td>클릭·드래그 파일 선택 영역과 아이콘</td></tr>
+                <tr><td><code class="typo_code">upload_dropzone-title · upload_dropzone-desc</code></td><td>드롭존 제목과 파일 제한 설명</td></tr>
+                <tr><td><code class="typo_code">upload_hint</code></td><td>허용 형식·용량 등 업로드 보조 설명</td></tr>
+                <tr><td><code class="typo_code">upload_list · upload_item</code></td><td>파일 목록과 개별 파일 항목</td></tr>
+                <tr><td><code class="typo_code">upload_item-icon · upload_item-body · upload_item-action</code></td><td>파일 아이콘·정보 영역·취소 또는 삭제 액션</td></tr>
+                <tr><td><code class="typo_code">upload_item-name · upload_item-meta</code></td><td>파일명과 용량·진행·오류 정보</td></tr>
+                <tr><td><code class="typo_code">upload_progress · upload_progress-bar</code></td><td>업로드 진행률 트랙과 값 막대</td></tr>
+                <tr><td><code class="typo_code">upload_cards · upload_card · upload_card-image</code></td><td>이미지 카드 그리드, 카드와 미리보기 이미지</td></tr>
+                <tr><td><code class="typo_code">upload_card-trigger · upload_card-actions</code></td><td>사진 추가 트리거와 카드 호버 액션</td></tr>
+                <tr><td><code class="typo_code">upload_avatar · upload_avatar-overlay</code></td><td>아바타 파일 선택 트리거와 호버 오버레이</td></tr>
+                <tr><td><code class="typo_code">is-dragover · is-uploading · is-done · is-error · is-disabled</code></td><td>드래그 오버·진행·완료·오류·비활성 상태</td></tr>
+                <tr><td><code class="typo_code">type="file" · multiple · accept · disabled</code></td><td>파일 입력 유형, 다중 선택, 허용 형식과 비활성 상태</td></tr>
+                <tr><td><code class="typo_code">aria-invalid · aria-describedby</code></td><td>오류 상태와 피드백 메시지 연결</td></tr>
+                <tr><td><code class="typo_code">role="progressbar"</code></td><td>파일 업로드 진행 상태의 접근성 역할</td></tr>
+                <tr><td><code class="typo_code">aria-valuenow · aria-valuemin · aria-valuemax</code></td><td>현재·최소·최대 업로드 진행률</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>버튼·드롭존·사진 카드·아바타 트리거의 클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 트리거 또는 Upload 하위 전체의 클릭 파장 비활성</td></tr>
+                <tr><td><code class="typo_code">change · dragenter · dragover · dragleave · drop</code></td><td>파일 선택과 드래그 앤 드롭을 처리하는 네이티브 이벤트</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--upload-max-width</code></td>
-                    <td><code class="typo_code">var(--input-max-width)</code></td>
-                    <td>최대 너비</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--upload-dropzone-padding</code> · <code class="typo_code">--upload-dropzone-icon-size</code></td>
-                    <td>—</td>
-                    <td>드롭존</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--upload-card-size</code> · <code class="typo_code">--upload-list-gap</code></td>
-                    <td>6.5rem · <code class="typo_code">var(--space-xs)</code></td>
-                    <td>카드·목록</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--upload-max-width · --upload-gap</code></td><td><code class="typo_code">var(--input-max-width) · var(--space-sm)</code></td><td>최대 너비와 Upload 내부 간격</td></tr>
+                <tr><td><code class="typo_code">--upload-dropzone-padding · --upload-dropzone-gap</code></td><td><code class="typo_code">var(--space-xl) · var(--space-sm)</code></td><td>드롭존 패딩과 요소 간격</td></tr>
+                <tr><td><code class="typo_code">--upload-dropzone-icon-size</code></td><td><code class="typo_code">2.5rem</code></td><td>기본 드롭존 아이콘 크기</td></tr>
+                <tr><td><code class="typo_code">--upload-list-gap · --upload-item-gap</code></td><td><code class="typo_code">var(--space-xs) · var(--space-sm)</code></td><td>파일 목록과 항목 내부 간격</td></tr>
+                <tr><td><code class="typo_code">--upload-item-padding-y · --upload-item-padding-x</code></td><td><code class="typo_code">0.5rem · 0.75rem</code></td><td>파일 항목의 세로·가로 패딩</td></tr>
+                <tr><td><code class="typo_code">--upload-item-icon-size · --upload-progress-height</code></td><td><code class="typo_code">1.5rem · 4px</code></td><td>파일 아이콘 크기와 진행률 막대 높이</td></tr>
+                <tr><td><code class="typo_code">--upload-card-size · --upload-card-gap</code></td><td><code class="typo_code">6.5rem · var(--space-sm)</code></td><td>사진 카드 크기와 카드 사이 간격</td></tr>
+                <tr><td><code class="typo_code">--upload-hint-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>힌트·메타·드롭존 설명 글자 크기</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

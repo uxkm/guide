@@ -55,7 +55,7 @@
               <div class="card_body">
                 카드 본문 영역입니다. 관련 콘텐츠, 설명, 데이터를 담을 수 있습니다.
               </div>
-              <div class="card_footer">
+              <div class="card_footer card_footer-start">
                 <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">확인</span></button>
                 <button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">취소</span></button>
               </div>
@@ -80,7 +80,7 @@
   &lt;div class=&quot;card_body&quot;&gt;
     카드 본문 영역입니다. 관련 콘텐츠, 설명, 데이터를 담을 수 있습니다.
   &lt;/div&gt;
-  &lt;div class=&quot;card_footer&quot;&gt;
+  &lt;div class=&quot;card_footer card_footer-start&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
     &lt;/button&gt;
@@ -145,7 +145,7 @@
         <section class="section demo_section" aria-labelledby="skin-heading">
           <div class="demo_section-header">
             <h2 id="skin-heading">스킨</h2>
-            <p>기본은 테두리·그림자가 적용됩니다. card_shadow · card_ghost · card_elevated로 외형을 조절합니다.</p>
+            <p>기본은 테두리·그림자가 적용됩니다. variant로 외형을 조절합니다.</p>
           </div>
 
           <div class="demo_section-preview">
@@ -194,7 +194,7 @@
         <section class="section demo_section" aria-labelledby="size-heading">
           <div class="demo_section-header">
             <h2 id="size-heading">크기</h2>
-            <p>card_sm · card_lg · card_compact로 패딩과 제목 크기를 조절합니다.</p>
+            <p>size로 패딩과 제목 크기를 조절합니다.</p>
           </div>
 
           <div class="demo_section-preview">
@@ -416,7 +416,7 @@
                 <div class="card_body">
                   HTML 컴포넌트 사용법과 접근성 가이드를 확인하세요.
                 </div>
-                <div class="card_footer">
+                <div class="card_footer card_footer-start">
                   <a href="#" class="link color_primary size_sm">문서 보기</a>
                 </div>
               </div>
@@ -445,11 +445,398 @@
     &lt;div class=&quot;card_body&quot;&gt;
       HTML 컴포넌트 사용법과 접근성 가이드를 확인하세요.
     &lt;/div&gt;
-    &lt;div class=&quot;card_footer&quot;&gt;
+    &lt;div class=&quot;card_footer card_footer-start&quot;&gt;
       &lt;a href=&quot;#&quot; class=&quot;link color_primary size_sm&quot;&gt;문서 보기&lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/article&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="webzine-heading">
+          <div class="demo_section-header">
+            <h2 id="webzine-heading">웹진형</h2>
+            <p>card_webzine은 넓은 상단 이미지와 강조된 제목·본문으로 에디토리얼 콘텐츠를 구성합니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <article class="card card_webzine card_shadow" style="max-width: 680px; width: 100%;">
+              <div class="card_media card_media-placeholder" role="img" aria-label="웹진 대표 이미지">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                </svg>
+              </div>
+              <div class="card_header">
+                <div class="card_header-main">
+                  <h3 class="card_title">도시를 바꾸는 작은 디자인</h3>
+                  <p class="card_subtitle">Design Journal · 2026.07.31</p>
+                </div>
+              </div>
+              <div class="card_body">일상의 동선과 경험을 개선하는 공공 디자인 사례를 깊이 있게 소개합니다.</div>
+            </article>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;article class=&quot;card card_webzine card_shadow&quot; style=&quot;max-width: 680px; width: 100%;&quot;&gt;
+  &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;웹진 대표 이미지&quot;&gt;
+    &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+      &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card_header&quot;&gt;
+    &lt;div class=&quot;card_header-main&quot;&gt;
+      &lt;h3 class=&quot;card_title&quot;&gt;도시를 바꾸는 작은 디자인&lt;/h3&gt;
+      &lt;p class=&quot;card_subtitle&quot;&gt;Design Journal · 2026.07.31&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;card_body&quot;&gt;일상의 동선과 경험을 개선하는 공공 디자인 사례를 깊이 있게 소개합니다.&lt;/div&gt;
+&lt;/article&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="news-list-heading">
+          <div class="demo_section-header">
+            <h2 id="news-list-heading">뉴스 리스트형</h2>
+            <p>card_news는 밀도 높은 가로형 뉴스 항목을 만듭니다. 이미지는 좌측 또는 우측에 배치할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="card_news-list">
+              <article class="card card_news card_media-left">
+                <div class="card_media card_media-placeholder" role="img" aria-label="업데이트 뉴스 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                </div>
+                <div class="card_inner">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">디자인 시스템 업데이트</h3>
+                      <p class="card_subtitle">제품 소식 · 10분 전</p>
+                    </div>
+                  </div>
+                  <div class="card_body">접근성 토큰과 컴포넌트 API가 개선되었습니다.</div>
+                </div>
+              </article>
+              <article class="card card_news card_media-right">
+                <div class="card_inner">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">새로운 가이드 공개</h3>
+                      <p class="card_subtitle">가이드 · 1시간 전</p>
+                    </div>
+                  </div>
+                  <div class="card_body">콘텐츠 작성과 레이아웃 원칙을 확인하세요.</div>
+                </div>
+                <div class="card_media card_media-placeholder" role="img" aria-label="가이드 뉴스 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;card_news-list&quot;&gt;
+  &lt;article class=&quot;card card_news card_media-left&quot;&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;업데이트 뉴스 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M13 2L3 14h9l-1 8 10-12h-9l1-8z&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;디자인 시스템 업데이트&lt;/h3&gt;
+          &lt;p class=&quot;card_subtitle&quot;&gt;제품 소식 · 10분 전&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;접근성 토큰과 컴포넌트 API가 개선되었습니다.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card card_news card_media-right&quot;&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;새로운 가이드 공개&lt;/h3&gt;
+          &lt;p class=&quot;card_subtitle&quot;&gt;가이드 · 1시간 전&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;콘텐츠 작성과 레이아웃 원칙을 확인하세요.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;가이드 뉴스 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+        &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="media-position-heading">
+          <div class="demo_section-header">
+            <h2 id="media-position-heading">이미지 좌측 · 우측</h2>
+            <p>card_media-left · card_media-right로 미디어 위치를 정하고, card_media-no-divider로 이미지 경계선을 제거합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="card_deck card_deck-2">
+              <article class="card card_media-left card_media-no-divider">
+                <div class="card_media card_media-placeholder" role="img" aria-label="좌측 배치 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                  </svg>
+                </div>
+                <div class="card_inner">
+                  <div class="card_header"><h3 class="card_title">이미지 좌측 · 구분선 없음</h3></div>
+                  <div class="card_body">미디어 다음에 콘텐츠를 배치합니다.</div>
+                </div>
+              </article>
+              <article class="card card_media-right card_media-no-divider">
+                <div class="card_inner">
+                  <div class="card_header"><h3 class="card_title">이미지 우측 · 구분선 없음</h3></div>
+                  <div class="card_body">콘텐츠 다음에 미디어를 배치합니다.</div>
+                </div>
+                <div class="card_media card_media-placeholder" role="img" aria-label="우측 배치 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                  </svg>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;card_deck card_deck-2&quot;&gt;
+  &lt;article class=&quot;card card_media-left card_media-no-divider&quot;&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;좌측 배치 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+        &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;h3 class=&quot;card_title&quot;&gt;이미지 좌측 · 구분선 없음&lt;/h3&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;미디어 다음에 콘텐츠를 배치합니다.&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card card_media-right card_media-no-divider&quot;&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;h3 class=&quot;card_title&quot;&gt;이미지 우측 · 구분선 없음&lt;/h3&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body&quot;&gt;콘텐츠 다음에 미디어를 배치합니다.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;우측 배치 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+        &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="product-list-heading">
+          <div class="demo_section-header">
+            <h2 id="product-list-heading">상품 리스트형</h2>
+            <p>card_product는 상품 이미지·설명·가격·액션을 밀도 높은 가로 목록으로 구성합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="card_product-list">
+              <article class="card card_product card_media-left card_media-no-divider">
+                <div class="card_media card_media-placeholder" role="img" aria-label="라이트 러닝 재킷 상품 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                </div>
+                <div class="card_inner">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">라이트 러닝 재킷</h3>
+                      <p class="card_subtitle">무료 배송</p>
+                    </div>
+                  </div>
+                  <div class="card_body card_body-clamp card_body-clamp-2">가볍고 통기성이 좋은 데일리 러닝 재킷입니다. 생활 방수 소재를 적용했습니다.</div>
+                  <div class="card_footer card_footer-between">
+                    <p class="card_price"><data value="89000">89,000원</data><del class="card_price-original"><data value="109000">109,000원</data></del></p>
+                    <button type="button" class="btn btn_filled color_primary btn_sm"><span class="btn_label">담기</span></button>
+                  </div>
+                </div>
+              </article>
+              <article class="card card_product card_media-left card_media-no-divider">
+                <div class="card_media card_media-placeholder" role="img" aria-label="데일리 백팩 상품 이미지">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+                  </svg>
+                </div>
+                <div class="card_inner">
+                  <div class="card_header">
+                    <div class="card_header-main">
+                      <h3 class="card_title">데일리 백팩</h3>
+                      <p class="card_subtitle">오늘 출발</p>
+                    </div>
+                  </div>
+                  <div class="card_body card_body-clamp card_body-clamp-1">노트북 수납과 생활 방수를 지원하는 가벼운 데일리 백팩입니다.</div>
+                  <div class="card_footer card_footer-between">
+                    <p class="card_price"><data value="64000">64,000원</data></p>
+                    <button type="button" class="btn btn_outline color_primary btn_sm"><span class="btn_label">상세보기</span></button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;card_product-list&quot;&gt;
+  &lt;article class=&quot;card card_product card_media-left card_media-no-divider&quot;&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;라이트 러닝 재킷 상품 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M13 2L3 14h9l-1 8 10-12h-9l1-8z&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;라이트 러닝 재킷&lt;/h3&gt;
+          &lt;p class=&quot;card_subtitle&quot;&gt;무료 배송&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body card_body-clamp card_body-clamp-2&quot;&gt;가볍고 통기성이 좋은 데일리 러닝 재킷입니다. 생활 방수 소재를 적용했습니다.&lt;/div&gt;
+      &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+        &lt;p class=&quot;card_price&quot;&gt;
+          &lt;data value=&quot;89000&quot;&gt;89,000원&lt;/data&gt;
+          &lt;del class=&quot;card_price-original&quot;&gt;
+            &lt;data value=&quot;109000&quot;&gt;109,000원&lt;/data&gt;
+          &lt;/del&gt;
+        &lt;/p&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+          &lt;span class=&quot;btn_label&quot;&gt;담기&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card card_product card_media-left card_media-no-divider&quot;&gt;
+    &lt;div class=&quot;card_media card_media-placeholder&quot; role=&quot;img&quot; aria-label=&quot;데일리 백팩 상품 이미지&quot;&gt;
+      &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;path d=&quot;M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z&quot;/&gt;
+        &lt;path d=&quot;M14 2v6h6&quot;/&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_inner&quot;&gt;
+      &lt;div class=&quot;card_header&quot;&gt;
+        &lt;div class=&quot;card_header-main&quot;&gt;
+          &lt;h3 class=&quot;card_title&quot;&gt;데일리 백팩&lt;/h3&gt;
+          &lt;p class=&quot;card_subtitle&quot;&gt;오늘 출발&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;card_body card_body-clamp card_body-clamp-1&quot;&gt;노트북 수납과 생활 방수를 지원하는 가벼운 데일리 백팩입니다.&lt;/div&gt;
+      &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+        &lt;p class=&quot;card_price&quot;&gt;
+          &lt;data value=&quot;64000&quot;&gt;64,000원&lt;/data&gt;
+        &lt;/p&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary btn_sm&quot;&gt;
+          &lt;span class=&quot;btn_label&quot;&gt;상세보기&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="line-clamp-heading">
+          <div class="demo_section-header">
+            <h2 id="line-clamp-heading">내용 말줄임</h2>
+            <p>card_body-clamp와 card_body-clamp-1 · -2 · -3을 조합해 본문을 지정한 줄 수 뒤에서 말줄임 처리합니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="card_deck card_deck-3">
+              <article class="card">
+                <div class="card_header"><h3 class="card_title">한 줄 말줄임</h3></div>
+                <div class="card_body card_body-clamp card_body-clamp-1">디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.</div>
+              </article>
+              <article class="card">
+                <div class="card_header"><h3 class="card_title">두 줄 말줄임</h3></div>
+                <div class="card_body card_body-clamp card_body-clamp-2">디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.</div>
+              </article>
+              <article class="card">
+                <div class="card_header"><h3 class="card_title">세 줄 말줄임</h3></div>
+                <div class="card_body card_body-clamp card_body-clamp-3">디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.</div>
+              </article>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;card_deck card_deck-3&quot;&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_header&quot;&gt;
+      &lt;h3 class=&quot;card_title&quot;&gt;한 줄 말줄임&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_body card_body-clamp card_body-clamp-1&quot;&gt;디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.&lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_header&quot;&gt;
+      &lt;h3 class=&quot;card_title&quot;&gt;두 줄 말줄임&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_body card_body-clamp card_body-clamp-2&quot;&gt;디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.&lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_header&quot;&gt;
+      &lt;h3 class=&quot;card_title&quot;&gt;세 줄 말줄임&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card_body card_body-clamp card_body-clamp-3&quot;&gt;디자인 시스템은 제품 전반의 일관성을 높이고 반복되는 의사결정을 줄여 팀이 더 빠르게 사용자 문제에 집중하도록 돕습니다.&lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -574,7 +961,7 @@
                   <span class="tag tag_sm color_default">SCSS</span>
                 </div>
               </div>
-              <div class="card_footer card_footer-between">
+              <div class="card_footer card_footer-start card_footer-ratio card_footer-ratio-2-1">
                 <span class="color_muted size_sm">서울 · 온라인</span>
                 <button type="button" class="btn btn_outline color_primary btn_sm"><span class="btn_label">팔로우</span></button>
               </div>
@@ -617,7 +1004,7 @@
       &lt;span class=&quot;tag tag_sm color_default&quot;&gt;SCSS&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;div class=&quot;card_footer card_footer-between&quot;&gt;
+  &lt;div class=&quot;card_footer card_footer-start card_footer-ratio card_footer-ratio-2-1&quot;&gt;
     &lt;span class=&quot;color_muted size_sm&quot;&gt;서울 · 온라인&lt;/span&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn btn_outline color_primary btn_sm&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;팔로우&lt;/span&gt;
@@ -628,24 +1015,32 @@
         </div>
         </section>
 
-        <section class="section demo_section" aria-labelledby="clickable-heading">
+        <section class="section demo_section" aria-labelledby="footer-layout-heading">
           <div class="demo_section-header">
-            <h2 id="clickable-heading">클릭 가능</h2>
-            <p>a 태그 또는 card_clickable로 전체 카드를 링크·버튼으로 만듭니다. card_hover와 함께 사용합니다.</p>
+            <h2 id="footer-layout-heading">푸터 레이아웃</h2>
+            <p>정렬·전체 너비·1:1 · 1:2 · 2:1 비율과 패딩 제거 클래스로 액션 영역을 구성합니다.</p>
           </div>
 
-          <div class="demo_section-preview">
-            <div class="card_deck card_deck-2">
-              <a href="#" class="card card_clickable card_hover">
-                <div class="card_body">
-                  <h3 class="card_title">링크 카드</h3>
-                  <p class="card_subtitle">클릭하면 상세 페이지로 이동합니다.</p>
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="card_deck">
+              <article class="card">
+                <div class="card_body">단일 액션</div>
+                <div class="card_footer card_footer-center card_footer-full">
+                  <button type="button" class="btn btn_filled color_primary"><span class="btn_label">전체 너비 액션</span></button>
                 </div>
-              </a>
-              <article class="card card_clickable card_hover card_shadow" tabindex="0" role="link">
-                <div class="card_body">
-                  <h3 class="card_title">인터랙티브 카드</h3>
-                  <p class="card_subtitle">tabindex와 role로 키보드 접근을 지원합니다.</p>
+              </article>
+              <article class="card">
+                <div class="card_body">균등 분할</div>
+                <div class="card_footer card_footer-start card_footer-ratio card_footer-ratio-1-1 card_footer-flush">
+                  <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                  <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card_body">상황별 비율</div>
+                <div class="card_footer card_footer-start card_footer-ratio card_footer-ratio-1-2">
+                  <button type="button" class="btn btn_ghost"><span class="btn_label">이전</span></button>
+                  <button type="button" class="btn btn_filled color_primary"><span class="btn_label">다음 단계</span></button>
                 </div>
               </article>
             </div>
@@ -659,19 +1054,86 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;card_deck&quot;&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_body&quot;&gt;단일 액션&lt;/div&gt;
+    &lt;div class=&quot;card_footer card_footer-center card_footer-full&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;전체 너비 액션&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_body&quot;&gt;균등 분할&lt;/div&gt;
+    &lt;div class=&quot;card_footer card_footer-start card_footer-ratio card_footer-ratio-1-1 card_footer-flush&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+  &lt;article class=&quot;card&quot;&gt;
+    &lt;div class=&quot;card_body&quot;&gt;상황별 비율&lt;/div&gt;
+    &lt;div class=&quot;card_footer card_footer-start card_footer-ratio card_footer-ratio-1-2&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;이전&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+        &lt;span class=&quot;btn_label&quot;&gt;다음 단계&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="clickable-heading">
+          <div class="demo_section-header">
+            <h2 id="clickable-heading">클릭 가능</h2>
+            <p>as에 대응해 링크 또는 네이티브 button을 사용하여 카드 전체를 올바른 링크·버튼으로 만듭니다.</p>
+          </div>
+
+          <div class="demo_section-preview">
+            <div class="card_deck card_deck-2">
+              <a href="avatar.html" class="card card_clickable card_hover">
+                <div class="card_body">
+                  <h3 class="card_title">링크 카드</h3>
+                  <p class="card_subtitle">클릭하면 상세 페이지로 이동합니다.</p>
+                </div>
+              </a>
+              <button type="button" class="card card_clickable card_hover card_shadow">
+                <div class="card_body">
+                  <h3 class="card_title">버튼 카드</h3>
+                  <p class="card_subtitle">네이티브 button으로 키보드 동작을 지원합니다.</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;card_deck card_deck-2&quot;&gt;
-  &lt;a href=&quot;#&quot; class=&quot;card card_clickable card_hover&quot;&gt;
+  &lt;a href=&quot;avatar.html&quot; class=&quot;card card_clickable card_hover&quot;&gt;
     &lt;div class=&quot;card_body&quot;&gt;
       &lt;h3 class=&quot;card_title&quot;&gt;링크 카드&lt;/h3&gt;
       &lt;p class=&quot;card_subtitle&quot;&gt;클릭하면 상세 페이지로 이동합니다.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/a&gt;
-  &lt;article class=&quot;card card_clickable card_hover card_shadow&quot; tabindex=&quot;0&quot; role=&quot;link&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;card card_clickable card_hover card_shadow&quot;&gt;
     &lt;div class=&quot;card_body&quot;&gt;
-      &lt;h3 class=&quot;card_title&quot;&gt;인터랙티브 카드&lt;/h3&gt;
-      &lt;p class=&quot;card_subtitle&quot;&gt;tabindex와 role로 키보드 접근을 지원합니다.&lt;/p&gt;
+      &lt;h3 class=&quot;card_title&quot;&gt;버튼 카드&lt;/h3&gt;
+      &lt;p class=&quot;card_subtitle&quot;&gt;네이티브 button으로 키보드 동작을 지원합니다.&lt;/p&gt;
     &lt;/div&gt;
-  &lt;/article&gt;
+  &lt;/button&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -719,21 +1181,15 @@
           <div class="demo_section-preview demo_section-preview-stack">
             <div class="card_deck">
               <article class="card card_hover">
-                <div class="card_header">
-                  <h3 class="card_title">Feature A</h3>
-                </div>
+                <div class="card_header"><h3 class="card_title">Feature A</h3></div>
                 <div class="card_body">빠른 성능과 가벼운 번들 크기.</div>
               </article>
               <article class="card card_hover">
-                <div class="card_header">
-                  <h3 class="card_title">Feature B</h3>
-                </div>
+                <div class="card_header"><h3 class="card_title">Feature B</h3></div>
                 <div class="card_body">접근성을 고려한 마크업 구조.</div>
               </article>
               <article class="card card_hover">
-                <div class="card_header">
-                  <h3 class="card_title">Feature C</h3>
-                </div>
+                <div class="card_header"><h3 class="card_title">Feature C</h3></div>
                 <div class="card_body">Pure SCSS로 커스터마이즈 가능.</div>
               </article>
             </div>
@@ -773,108 +1229,70 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next Card 컴포넌트가 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 콘텐츠 의미와 동작에 맞는 요소에 아래 항목을 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">card</code></td>
-                    <td>카드 루트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_shadow</code> · <code class="typo_code">card_ghost</code> · <code class="typo_code">card_borderless</code> · <code class="typo_code">card_elevated</code></td>
-                    <td>스킨 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_sm</code> · <code class="typo_code">card_lg</code> · <code class="typo_code">card_compact</code></td>
-                    <td>크기·패딩</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_hover</code> · <code class="typo_code">card_clickable</code> · <code class="typo_code">card_accent</code></td>
-                    <td>인터랙션·강조</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_header</code> · <code class="typo_code">card_body</code> · <code class="typo_code">card_footer</code> · <code class="typo_code">card_media</code></td>
-                    <td>구조 파트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_title</code> · <code class="typo_code">card_subtitle</code> · <code class="typo_code">card_extra</code></td>
-                    <td>헤더 파트</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_footer-between</code></td>
-                    <td>푸터 양끝 정렬</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">card_deck</code> · <code class="typo_code">card_deck-2</code> · <code class="typo_code">card_deck-3</code></td>
-                    <td>카드 그리드</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">is-disabled</code></td>
-                    <td>비활성 상태</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">card</code></td><td>카드 루트</td></tr>
+                <tr><td><code class="typo_code">card_shadow · card_elevated · card_ghost · card_borderless</code></td><td>그림자·강한 그림자·투명·테두리 제거 스킨</td></tr>
+                <tr><td><code class="typo_code">card_sm · card_lg · card_compact</code></td><td>크기·패딩 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">card_webzine · card_news · card_product</code></td><td>웹진형·뉴스형·상품형 레이아웃</td></tr>
+                <tr><td><code class="typo_code">card_news-list · card_product-list</code></td><td>뉴스·상품 목록 컨테이너</td></tr>
+                <tr><td><code class="typo_code">card_horizontal · card_media-left · card_media-right · card_media-no-divider</code></td><td>가로형·미디어 좌우 배치·구분선 제거</td></tr>
+                <tr><td><code class="typo_code">card_hover · card_clickable · card_accent · color_*</code></td><td>호버·클릭 가능·색상 강조선</td></tr>
+                <tr><td><code class="typo_code">card_inner · card_header · card_body · card_footer · card_media</code></td><td>카드 구조 파트</td></tr>
+                <tr><td><code class="typo_code">card_header-main · card_header-row · card_title · card_subtitle · card_extra</code></td><td>헤더 내부 파트</td></tr>
+                <tr><td><code class="typo_code">card_media-placeholder · card_icon · card_avatar · card_stat · card_actions</code></td><td>미디어·콘텐츠 보조 파트</td></tr>
+                <tr><td><code class="typo_code">card_body-clamp · card_body-clamp-1 · card_body-clamp-2 · card_body-clamp-3</code></td><td>본문 1·2·3줄 말줄임</td></tr>
+                <tr><td><code class="typo_code">card_price · card_price-original</code></td><td>상품 현재가·원래 가격</td></tr>
+                <tr><td><code class="typo_code">card_footer-start · card_footer-center · card_footer-end · card_footer-between</code></td><td>푸터 가로 정렬</td></tr>
+                <tr><td><code class="typo_code">card_footer-full · card_footer-flush</code></td><td>단일 자식 100% 확장·패딩 제거</td></tr>
+                <tr><td><code class="typo_code">card_footer-ratio · card_footer-ratio-1-1 · card_footer-ratio-1-2 · card_footer-ratio-2-1</code></td><td>푸터 직접 자식 비율 분할</td></tr>
+                <tr><td><code class="typo_code">card_deck · card_deck-2 · card_deck-3</code></td><td>반응형 카드 그리드</td></tr>
+                <tr><td><code class="typo_code">is-disabled</code></td><td>비활성 상태</td></tr>
+                <tr><td><code class="typo_code">href</code></td><td>이동 목적지가 있는 전체 클릭 카드는 a 사용</td></tr>
+                <tr><td><code class="typo_code">type="button"</code></td><td>현재 화면에서 동작하는 전체 클릭 카드는 button 사용</td></tr>
+                <tr><td><code class="typo_code">role="img" · aria-label</code></td><td>대체 텍스트가 없는 미디어 영역에 접근 가능한 이름 제공</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체 클릭 파장 비활성</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
-
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">--card-padding</code> · <code class="typo_code">--card-padding-sm</code> · <code class="typo_code">--card-padding-lg</code></td>
-                    <td>—</td>
-                    <td>카드 패딩</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--card-radius</code> · <code class="typo_code">--card-border-color</code> · <code class="typo_code">--card-shadow</code></td>
-                    <td>—</td>
-                    <td>모서리·테두리·그림자</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--card-title-size</code> · <code class="typo_code">--card-subtitle-size</code></td>
-                    <td>—</td>
-                    <td>제목·부제 타이포</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">--card-accent-width</code> · <code class="typo_code">--card-hover-translate</code></td>
-                    <td>3px · -2px</td>
-                    <td>강조선·호버 이동</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--card-padding · --card-padding-sm · --card-padding-lg</code></td><td><code class="typo_code">var(--space-lg) · var(--space-md) · var(--space-xl)</code></td><td>카드 패딩</td></tr>
+                <tr><td><code class="typo_code">--card-gap</code></td><td><code class="typo_code">var(--space-md)</code></td><td>헤더 내부 간격</td></tr>
+                <tr><td><code class="typo_code">--card-border-color · --card-border-width · --card-radius</code></td><td><code class="typo_code">var(--color-border-subtle) · 1px · var(--radius-lg)</code></td><td>테두리·모서리</td></tr>
+                <tr><td><code class="typo_code">--card-shadow · --card-shadow-md</code></td><td><code class="typo_code">var(--shadow-sm) · var(--shadow-md)</code></td><td>기본·강조 그림자</td></tr>
+                <tr><td><code class="typo_code">--card-header-bg · --card-footer-bg</code></td><td><code class="typo_code">var(--color-surface-raised)</code></td><td>헤더·푸터 배경</td></tr>
+                <tr><td><code class="typo_code">--card-divider-color · --card-divider-width</code></td><td><code class="typo_code">var(--color-border-subtle) · 1px</code></td><td>파트·미디어 구분선</td></tr>
+                <tr><td><code class="typo_code">--card-title-size · --card-title-weight · --card-title-gap</code></td><td><code class="typo_code">var(--text-size-lg) · 600 · var(--space-sm)</code></td><td>제목 타이포·간격</td></tr>
+                <tr><td><code class="typo_code">--card-subtitle-size · --card-body-color · --card-body-line-height</code></td><td><code class="typo_code">var(--text-size-sm) · var(--color-text-muted) · 1.6</code></td><td>부제·본문 타이포</td></tr>
+                <tr><td><code class="typo_code">--card-media-ratio · --card-webzine-media-ratio</code></td><td><code class="typo_code">16 / 9 · 3 / 2</code></td><td>기본·웹진 이미지 비율</td></tr>
+                <tr><td><code class="typo_code">--card-horizontal-media-width · --card-news-media-width · --card-product-media-width</code></td><td><code class="typo_code">7.5rem · 10rem · 8.5rem</code></td><td>가로형·뉴스·상품 이미지 너비</td></tr>
+                <tr><td><code class="typo_code">--card-accent-width · --card-hover-translate</code></td><td><code class="typo_code">3px · -2px</code></td><td>강조선 너비·호버 이동</td></tr>
+                <tr><td><code class="typo_code">--card-icon-size</code></td><td><code class="typo_code">2.5rem</code></td><td>기능 카드 아이콘 영역 크기</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

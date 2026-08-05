@@ -46,7 +46,7 @@
           </div>
 
           <div class="demo_section-preview">
-            <nav class="pagination" aria-label="페이지 이동">
+            <nav class="pagination" aria-label="페이지 이동" data-pagination>
               <ul class="pagination_list">
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_prev" aria-label="이전 페이지" disabled>
@@ -56,19 +56,19 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">3</button>
+                  <button type="button" class="pagination_link" aria-label="3페이지">3</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">4</button>
+                  <button type="button" class="pagination_link" aria-label="4페이지">4</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">5</button>
+                  <button type="button" class="pagination_link" aria-label="5페이지">5</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -79,6 +79,7 @@
                 </li>
               </ul>
             </nav>
+            <p class="color_muted size_sm" aria-live="polite" data-pagination-current-output>현재 페이지: 1</p>
           </div>
 
         <div class="demo_section-code">
@@ -89,7 +90,9 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동&quot;&gt;
+            <pre><code>&lt;!-- 페이지 이동 --&gt;
+
+&lt;nav class=&quot;pagination&quot; aria-label=&quot;페이지 이동&quot; data-pagination&gt;
   &lt;ul class=&quot;pagination_list&quot;&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_prev&quot; aria-label=&quot;이전 페이지&quot; disabled&gt;
@@ -99,19 +102,19 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;3페이지&quot;&gt;3&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;4&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;4페이지&quot;&gt;4&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;5&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;5페이지&quot;&gt;5&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -121,7 +124,11 @@
       &lt;/button&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
-&lt;/nav&gt;</code></pre>
+&lt;/nav&gt;
+
+&lt;!-- 현재 페이지: 1 --&gt;
+
+&lt;p class=&quot;color_muted size_sm&quot; aria-live=&quot;polite&quot; data-pagination-current-output&gt;현재 페이지: 1&lt;/p&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -144,19 +151,19 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">1</button>
+                  <button type="button" class="pagination_link" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">3</button>
+                  <button type="button" class="pagination_link" aria-label="3페이지">3</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">4</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="4페이지">4</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">5</button>
+                  <button type="button" class="pagination_link" aria-label="5페이지">5</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -187,19 +194,19 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;3페이지&quot;&gt;3&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;4&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;4페이지&quot;&gt;4&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;5&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;5페이지&quot;&gt;5&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -232,10 +239,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -257,10 +264,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -282,10 +289,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -318,10 +325,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -345,10 +352,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -372,10 +379,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -408,25 +415,25 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">1</button>
+                  <button type="button" class="pagination_link" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">4</button>
+                  <button type="button" class="pagination_link" aria-label="4페이지">4</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">5</button>
+                  <button type="button" class="pagination_link" aria-label="5페이지">5</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">6</button>
+                  <button type="button" class="pagination_link" aria-label="6페이지">6</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">7</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="7페이지">7</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">8</button>
+                  <button type="button" class="pagination_link" aria-label="8페이지">8</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -457,25 +464,25 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;4&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;4페이지&quot;&gt;4&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;5&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;5페이지&quot;&gt;5&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;6&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;6페이지&quot;&gt;6&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;7&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;7페이지&quot;&gt;7&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;8&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;8페이지&quot;&gt;8&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -508,25 +515,25 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">1</button>
+                  <button type="button" class="pagination_link" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">9</button>
+                  <button type="button" class="pagination_link" aria-label="9페이지">9</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">10</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="10페이지">10</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">11</button>
+                  <button type="button" class="pagination_link" aria-label="11페이지">11</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">50</button>
+                  <button type="button" class="pagination_link" aria-label="50페이지">50</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -557,25 +564,25 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;9&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;9페이지&quot;&gt;9&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;10&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;10페이지&quot;&gt;10&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;11&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;11페이지&quot;&gt;11&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;50&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;50페이지&quot;&gt;50&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -707,25 +714,25 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">1</button>
+                  <button type="button" class="pagination_link" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">4</button>
+                  <button type="button" class="pagination_link" aria-label="4페이지">4</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">5</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="5페이지">5</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">6</button>
+                  <button type="button" class="pagination_link" aria-label="6페이지">6</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">13</button>
+                  <button type="button" class="pagination_link" aria-label="13페이지">13</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -766,25 +773,25 @@
           &lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
           &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;4&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;4페이지&quot;&gt;4&lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;5&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;5페이지&quot;&gt;5&lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;6&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;6페이지&quot;&gt;6&lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
           &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;13&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;13페이지&quot;&gt;13&lt;/button&gt;
         &lt;/li&gt;
         &lt;li class=&quot;pagination_item&quot;&gt;
           &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -824,10 +831,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -849,10 +856,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -874,10 +881,10 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -910,10 +917,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -937,10 +944,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -964,10 +971,10 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -1000,13 +1007,13 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">1</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">2</button>
+                  <button type="button" class="pagination_link" aria-label="2페이지">2</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">3</button>
+                  <button type="button" class="pagination_link" aria-label="3페이지">3</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지">
@@ -1028,25 +1035,25 @@
                   </button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">1</button>
+                  <button type="button" class="pagination_link" aria-label="1페이지">1</button>
                 </li>
                 <li class="pagination_item">
                   <span class="pagination_ellipsis" aria-hidden="true">…</span>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">6</button>
+                  <button type="button" class="pagination_link" aria-label="6페이지">6</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">7</button>
+                  <button type="button" class="pagination_link" aria-label="7페이지">7</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">8</button>
+                  <button type="button" class="pagination_link" aria-label="8페이지">8</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link">9</button>
+                  <button type="button" class="pagination_link" aria-label="9페이지">9</button>
                 </li>
                 <li class="pagination_item">
-                  <button type="button" class="pagination_link is-active" aria-current="page">10</button>
+                  <button type="button" class="pagination_link is-active" aria-current="page" aria-label="10페이지">10</button>
                 </li>
                 <li class="pagination_item">
                   <button type="button" class="pagination_btn pagination_next" aria-label="다음 페이지" disabled>
@@ -1079,13 +1086,13 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;2&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;2페이지&quot;&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;3&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;3페이지&quot;&gt;3&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot;&gt;
@@ -1109,25 +1116,25 @@
       &lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;1&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;1페이지&quot;&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;span class=&quot;pagination_ellipsis&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/span&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;6&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;6페이지&quot;&gt;6&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;7&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;7페이지&quot;&gt;7&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;8&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;8페이지&quot;&gt;8&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot;&gt;9&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link&quot; aria-label=&quot;9페이지&quot;&gt;9&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot;&gt;10&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;pagination_link is-active&quot; aria-current=&quot;page&quot; aria-label=&quot;10페이지&quot;&gt;10&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;pagination_item&quot;&gt;
       &lt;button type=&quot;button&quot; class=&quot;pagination_btn pagination_next&quot; aria-label=&quot;다음 페이지&quot; disabled&gt;
@@ -1156,10 +1163,10 @@
     &lt;/li&gt;
     &lt;li class="pagination_item"&gt;
       &lt;button type="button" class="pagination_link is-active"
-        aria-current="page"&gt;1&lt;/button&gt;
+        aria-current="page" aria-label="1페이지"&gt;1&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class="pagination_item"&gt;
-      &lt;button type="button" class="pagination_link"&gt;2&lt;/button&gt;
+      &lt;button type="button" class="pagination_link" aria-label="2페이지"&gt;2&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class="pagination_item"&gt;
       &lt;button type="button" class="pagination_btn pagination_next"
@@ -1192,6 +1199,10 @@
                   <tr><td><code class="typo_code">pagination_wrap · pagination_total · pagination_jumper</code></td><td>툴바 조합</td></tr>
                   <tr><td><code class="typo_code">is-active · is-disabled</code></td><td>현재·비활성 페이지</td></tr>
                   <tr><td><code class="typo_code">aria-current="page"</code></td><td>현재 페이지 표시</td></tr>
+                  <tr><td><code class="typo_code">aria-label="N페이지"</code></td><td>숫자 버튼의 접근 가능한 이름</td></tr>
+                  <tr><td><code class="typo_code">data-pagination</code></td><td>페이지 선택·이전·다음 상태 JS</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>페이지·이전·다음 버튼의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Pagination 하위 전체 클릭 파장 비활성</td></tr>
                 </tbody>
               </table>
             </div>

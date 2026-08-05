@@ -3,16 +3,8 @@
  * Vue packages/ui/src/legacy/carousel-init.js 동기화
  */
 (function () {
-  function getSwiper() {
-    if (typeof Swiper !== 'undefined') {
-      return Swiper;
-    }
-
-    if (typeof window !== 'undefined' && window.Swiper) {
-      return window.Swiper;
-    }
-
-    return null;
+  if (typeof Swiper === 'undefined') {
+    return;
   }
 
   var SELECTOR = '.carousel [data-swiper]';
@@ -242,9 +234,7 @@
   }
 
   function init(el) {
-    var SwiperCtor = getSwiper();
-
-    if (!SwiperCtor || el.dataset.swiperInit) {
+    if (el.dataset.swiperInit) {
       return;
     }
 
@@ -399,25 +389,7 @@
     var linkedThumbsSwiper = null;
 
     if (thumbsSelector) {
-      var thumbsScope =
-        (el.closest && el.closest('.sb-demo-layout')) ||
-        (rootEl && rootEl.parentElement) ||
-        document;
-      var thumbsEl = null;
-
-      try {
-        thumbsEl = thumbsScope.querySelector(thumbsSelector);
-      } catch (error) {
-        thumbsEl = null;
-      }
-
-      if (!thumbsEl) {
-        try {
-          thumbsEl = document.querySelector(thumbsSelector);
-        } catch (error) {
-          thumbsEl = null;
-        }
-      }
+      var thumbsEl = document.querySelector(thumbsSelector);
 
       if (thumbsEl && thumbsEl.swiper) {
         linkedThumbsSwiper = thumbsEl.swiper;
@@ -429,7 +401,7 @@
     var swiper;
 
     try {
-      swiper = new SwiperCtor(el, config);
+      swiper = new Swiper(el, config);
     } catch (error) {
       console.error('[carousel] Swiper 초기화 실패:', error);
       return;
@@ -512,13 +484,8 @@
     bindToggle(rootEl, swiper);
   }
 
-  function boot(root) {
-    if (!getSwiper()) {
-      return;
-    }
-
-    var scope = root && root.querySelectorAll ? root : document;
-    var els = Array.prototype.slice.call(scope.querySelectorAll(SELECTOR));
+  function boot() {
+    var els = Array.prototype.slice.call(document.querySelectorAll(SELECTOR));
     // 썸네일(연결 대상)을 먼저 초기화한 뒤 메인(data-swiper-thumbs)을 연결
     var dependents = [];
     var independents = [];
@@ -535,15 +502,9 @@
     dependents.forEach(init);
   }
 
-  if (typeof window !== 'undefined') {
-    window.initGuideCarousels = boot;
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      boot(document);
-    });
+    document.addEventListener('DOMContentLoaded', boot);
   } else {
-    boot(document);
+    boot();
   }
 })();

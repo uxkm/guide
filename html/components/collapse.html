@@ -47,7 +47,7 @@
           <div class="demo_section-preview demo_section-preview-start">
             <div class="collapse_demo-narrow">
               <p style="margin: 0 0 var(--space-md)">주문이 접수되었습니다. 배송 전까지 아래에서 상세 내역을 확인할 수 있습니다.</p>
-              <button type="button" class="btn btn_ghost btn_sm" data-collapse-trigger aria-expanded="false" aria-controls="collapse-standalone">
+              <button type="button" class="btn btn_ghost btn_sm" id="collapse-standalone-trigger" data-collapse-trigger aria-expanded="false" aria-controls="collapse-standalone">
                 <span class="btn_label">주문 상세 보기</span>
                 <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M6 9l6 6 6-6"/>
@@ -56,17 +56,21 @@
               <div
                 class="collapse"
                 id="collapse-standalone"
+                role="region"
+                aria-labelledby="collapse-standalone-trigger"
                 hidden
-                style="margin-top: var(--space-sm); padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised);"
+                style="margin-top: var(--space-sm)"
               >
-                <dl class="list list_definition list_inline list_block list_compact" style="--list-inline-label-width: auto; --list-inline-gap: 1rem; margin: 0;">
-                  <dt class="list_title">주문번호</dt>
-                  <dd class="list_desc">ORD-2024-0815</dd>
-                  <dt class="list_title">결제금액</dt>
-                  <dd class="list_desc">₩42,000</dd>
-                  <dt class="list_title">배송지</dt>
-                  <dd class="list_desc">서울특별시 강남구 테헤란로 123</dd>
-                </dl>
+                <div style="padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised);">
+                  <dl class="list list_definition list_inline list_block list_compact" style="--list-inline-label-width: auto; --list-inline-gap: 1rem; margin: 0;">
+                    <dt class="list_title">주문번호</dt>
+                    <dd class="list_desc">ORD-2024-0815</dd>
+                    <dt class="list_title">결제금액</dt>
+                    <dd class="list_desc">₩42,000</dd>
+                    <dt class="list_title">배송지</dt>
+                    <dd class="list_desc">서울특별시 강남구 테헤란로 123</dd>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
@@ -81,7 +85,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;collapse_demo-narrow&quot;&gt;
   &lt;p style=&quot;margin: 0 0 var(--space-md)&quot;&gt;주문이 접수되었습니다. 배송 전까지 아래에서 상세 내역을 확인할 수 있습니다.&lt;/p&gt;
-  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; data-collapse-trigger aria-expanded=&quot;false&quot; aria-controls=&quot;collapse-standalone&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; id=&quot;collapse-standalone-trigger&quot; data-collapse-trigger aria-expanded=&quot;false&quot; aria-controls=&quot;collapse-standalone&quot;&gt;
     &lt;span class=&quot;btn_label&quot;&gt;주문 상세 보기&lt;/span&gt;
     &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
@@ -90,18 +94,119 @@
   &lt;div
   class=&quot;collapse&quot;
   id=&quot;collapse-standalone&quot;
+  role=&quot;region&quot;
+  aria-labelledby=&quot;collapse-standalone-trigger&quot;
   hidden
-  style=&quot;margin-top: var(--space-sm); padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised);&quot;
+  style=&quot;margin-top: var(--space-sm)&quot;
   &gt;
-  &lt;dl class=&quot;list list_definition list_inline list_block list_compact&quot; style=&quot;--list-inline-label-width: auto; --list-inline-gap: 1rem; margin: 0;&quot;&gt;
-    &lt;dt class=&quot;list_title&quot;&gt;주문번호&lt;/dt&gt;
-    &lt;dd class=&quot;list_desc&quot;&gt;ORD-2024-0815&lt;/dd&gt;
-    &lt;dt class=&quot;list_title&quot;&gt;결제금액&lt;/dt&gt;
-    &lt;dd class=&quot;list_desc&quot;&gt;₩42,000&lt;/dd&gt;
-    &lt;dt class=&quot;list_title&quot;&gt;배송지&lt;/dt&gt;
-    &lt;dd class=&quot;list_desc&quot;&gt;서울특별시 강남구 테헤란로 123&lt;/dd&gt;
-  &lt;/dl&gt;
+  &lt;div style=&quot;padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised);&quot;&gt;
+    &lt;dl class=&quot;list list_definition list_inline list_block list_compact&quot; style=&quot;--list-inline-label-width: auto; --list-inline-gap: 1rem; margin: 0;&quot;&gt;
+      &lt;dt class=&quot;list_title&quot;&gt;주문번호&lt;/dt&gt;
+      &lt;dd class=&quot;list_desc&quot;&gt;ORD-2024-0815&lt;/dd&gt;
+      &lt;dt class=&quot;list_title&quot;&gt;결제금액&lt;/dt&gt;
+      &lt;dd class=&quot;list_desc&quot;&gt;₩42,000&lt;/dd&gt;
+      &lt;dt class=&quot;list_title&quot;&gt;배송지&lt;/dt&gt;
+      &lt;dd class=&quot;list_desc&quot;&gt;서울특별시 강남구 테헤란로 123&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
+        <section class="section demo_section" aria-labelledby="links-heading">
+          <div class="demo_section-header">
+            <h2 id="links-heading">패널 내 링크</h2>
+            <p>패널 본문에 Link를 배치해 관련 문서로 이동할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="collapse_group collapse_bordered collapse_demo-narrow" data-collapse>
+              <div class="collapse_panel is-open">
+                <div class="collapse_header">
+                  <button type="button" class="btn btn_text collapse_trigger" id="col-links-1" aria-expanded="true" aria-controls="col-links-body-1">
+                    <span class="collapse_label">관련 가이드</span>
+                    <svg class="collapse_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="collapse_body" id="col-links-body-1" role="region" aria-labelledby="col-links-1">
+                  <div class="collapse_content">
+                    <p style="margin: 0">
+                      <a href="../getting-started.html" class="link color_primary">시작하기</a>
+                      ·
+                      <a href="button.html" class="link color_primary">Button</a>
+                      ·
+                      <a href="dropdown.html" class="link color_primary">Dropdown</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="collapse_panel">
+                <div class="collapse_header">
+                  <button type="button" class="btn btn_text collapse_trigger" id="col-links-2" aria-expanded="false" aria-controls="col-links-body-2">
+                    <span class="collapse_label">교환·반품 안내</span>
+                    <svg class="collapse_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="collapse_body" id="col-links-body-2" role="region" aria-labelledby="col-links-2" hidden>
+                  <div class="collapse_content">
+                    <p>수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;collapse_group collapse_bordered collapse_demo-narrow&quot; data-collapse&gt;
+  &lt;div class=&quot;collapse_panel is-open&quot;&gt;
+    &lt;div class=&quot;collapse_header&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_text collapse_trigger&quot; id=&quot;col-links-1&quot; aria-expanded=&quot;true&quot; aria-controls=&quot;col-links-body-1&quot;&gt;
+        &lt;span class=&quot;collapse_label&quot;&gt;관련 가이드&lt;/span&gt;
+        &lt;svg class=&quot;collapse_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;collapse_body&quot; id=&quot;col-links-body-1&quot; role=&quot;region&quot; aria-labelledby=&quot;col-links-1&quot;&gt;
+      &lt;div class=&quot;collapse_content&quot;&gt;
+        &lt;p style=&quot;margin: 0&quot;&gt;
+          &lt;a href=&quot;../getting-started.html&quot; class=&quot;link color_primary&quot;&gt;시작하기&lt;/a&gt;
+          ·
+          &lt;a href=&quot;button.html&quot; class=&quot;link color_primary&quot;&gt;Button&lt;/a&gt;
+          ·
+          &lt;a href=&quot;dropdown.html&quot; class=&quot;link color_primary&quot;&gt;Dropdown&lt;/a&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;collapse_panel&quot;&gt;
+    &lt;div class=&quot;collapse_header&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn_text collapse_trigger&quot; id=&quot;col-links-2&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;col-links-body-2&quot;&gt;
+        &lt;span class=&quot;collapse_label&quot;&gt;교환·반품 안내&lt;/span&gt;
+        &lt;svg class=&quot;collapse_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;collapse_body&quot; id=&quot;col-links-body-2&quot; role=&quot;region&quot; aria-labelledby=&quot;col-links-2&quot; hidden&gt;
+      &lt;div class=&quot;collapse_content&quot;&gt;
+        &lt;p&gt;수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
           </div>
         </div>
@@ -777,7 +882,7 @@
             <div class="demo_preview-block">
               <h3 class="typo_overline">외부 트리거</h3>
               <div class="collapse_demo-narrow">
-                <button type="button" class="btn btn_ghost btn_sm" data-collapse-trigger aria-expanded="false" aria-controls="collapse-slide-standalone">
+                <button type="button" class="btn btn_ghost btn_sm" id="collapse-slide-trigger" data-collapse-trigger aria-expanded="false" aria-controls="collapse-slide-standalone">
                   <span class="btn_label">상세 보기</span>
                   <svg class="btn_select-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M6 9l6 6 6-6"/>
@@ -786,6 +891,8 @@
                 <div
                   class="collapse"
                   id="collapse-slide-standalone"
+                  role="region"
+                  aria-labelledby="collapse-slide-trigger"
                   data-effect="slide"
                   hidden
                   style="margin-top: var(--space-sm)"
@@ -849,7 +956,7 @@
 &lt;div class=&quot;demo_preview-block&quot;&gt;
   &lt;h3 class=&quot;typo_overline&quot;&gt;외부 트리거&lt;/h3&gt;
   &lt;div class=&quot;collapse_demo-narrow&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; data-collapse-trigger aria-expanded=&quot;false&quot; aria-controls=&quot;collapse-slide-standalone&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost btn_sm&quot; id=&quot;collapse-slide-trigger&quot; data-collapse-trigger aria-expanded=&quot;false&quot; aria-controls=&quot;collapse-slide-standalone&quot;&gt;
       &lt;span class=&quot;btn_label&quot;&gt;상세 보기&lt;/span&gt;
       &lt;svg class=&quot;btn_select-caret&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;path d=&quot;M6 9l6 6 6-6&quot;/&gt;
@@ -858,6 +965,8 @@
     &lt;div
     class=&quot;collapse&quot;
     id=&quot;collapse-slide-standalone&quot;
+    role=&quot;region&quot;
+    aria-labelledby=&quot;collapse-slide-trigger&quot;
     data-effect=&quot;slide&quot;
     hidden
     style=&quot;margin-top: var(--space-sm)&quot;
@@ -878,9 +987,10 @@
 
           <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
             <pre class="typo_pre"><code>&lt;!-- 외부 트리거 --&gt;
-&lt;button type="button" class="btn btn_ghost btn_sm" data-collapse-trigger
+&lt;button type="button" class="btn btn_ghost btn_sm" id="collapse-trigger-1" data-collapse-trigger
   aria-expanded="false" aria-controls="collapse-1"&gt;펼치기&lt;/button&gt;
-&lt;div class="collapse" id="collapse-1" hidden&gt;…&lt;/div&gt;
+&lt;div class="collapse" id="collapse-1" role="region"
+  aria-labelledby="collapse-trigger-1" hidden&gt;…&lt;/div&gt;
 
 &lt;!-- 패널 그룹 --&gt;
 &lt;div class="collapse_group collapse_bordered" data-collapse&gt;
@@ -909,6 +1019,7 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스·상태·접근성 속성입니다. HTML에서는 아래 항목을 직접 조합하고 <code class="typo_code">data-collapse</code> 또는 <code class="typo_code">data-collapse-trigger</code>로 동작을 연결합니다.</p>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
@@ -934,6 +1045,41 @@
                   <tr><td><code class="typo_code">data-collapse-accordion</code></td><td>HTML 단일 패널만 열기</td></tr>
                   <tr><td><code class="typo_code">data-effect="slide"</code></td><td>펼침·접힘 높이 슬라이드 애니메이션</td></tr>
                   <tr><td><code class="typo_code">is-open · is-disabled</code></td><td>상태 클래스</td></tr>
+                  <tr><td><code class="typo_code">aria-expanded · aria-controls</code></td><td>트리거의 열림 상태와 연결된 본문 ID</td></tr>
+                  <tr><td><code class="typo_code">disabled · aria-disabled</code></td><td>비활성 트리거 상태와 토글 차단</td></tr>
+                  <tr><td><code class="typo_code">role="region" · aria-labelledby</code></td><td>접힘 본문과 해당 트리거의 접근 가능한 이름 연결</td></tr>
+                  <tr><td><code class="typo_code">hidden · inert · aria-hidden</code></td><td>닫힌 본문과 슬라이드 전환 중 콘텐츠 노출·포커스 차단</td></tr>
+                  <tr><td><code class="typo_code">Enter · Space</code></td><td>네이티브 button 동작으로 현재 패널 열기·닫기</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>외부 트리거와 CollapsePanel 트리거의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 트리거 또는 Collapse 하위 전체 클릭 파장 비활성</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+
+          <div class="demo_section-preview demo_section-preview-start">
+            <div class="table_wrap">
+              <table class="table table_bordered table_compact">
+                <thead>
+                  <tr>
+                    <th scope="col">토큰</th>
+                    <th scope="col">기본값</th>
+                    <th scope="col">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code class="typo_code">--collapse-font-size · --collapse-content-font-size</code></td><td>var(--text-size-sm)</td><td>트리거 그룹·본문 기본 글자 크기</td></tr>
+                  <tr><td><code class="typo_code">--collapse-trigger-font-weight · --collapse-trigger-gap</code></td><td>600 · var(--space-sm)</td><td>트리거 글자 두께·내부 간격</td></tr>
+                  <tr><td><code class="typo_code">--collapse-trigger-padding-y · --collapse-trigger-padding-x</code></td><td>0.875rem · var(--space-lg)</td><td>기본 트리거 패딩</td></tr>
+                  <tr><td><code class="typo_code">--collapse-content-padding-top · --collapse-content-padding-y · --collapse-content-padding-x</code></td><td>var(--space-md) · var(--space-lg) · var(--space-lg)</td><td>기본 본문 패딩</td></tr>
+                  <tr><td><code class="typo_code">--collapse-icon-size · --collapse-card-gap</code></td><td>1rem · var(--space-sm)</td><td>펼침 아이콘 크기·카드 사이 간격</td></tr>
+                  <tr><td><code class="typo_code">--collapse-font-size-sm · --collapse-trigger-padding-y-sm · --collapse-trigger-padding-x-sm · --collapse-content-padding-y-sm · --collapse-content-padding-x-sm · --collapse-content-padding-top-sm · --collapse-icon-size-sm</code></td><td>var(--text-size-xs) · 0.625rem · var(--space-md) · var(--space-md) · var(--space-md) · var(--space-sm) · 0.875rem</td><td>sm 크기의 글자·트리거·본문·아이콘 값</td></tr>
+                  <tr><td><code class="typo_code">--collapse-font-size-lg · --collapse-trigger-padding-y-lg · --collapse-trigger-padding-x-lg · --collapse-content-padding-y-lg · --collapse-content-padding-x-lg · --collapse-content-padding-top-lg · --collapse-icon-size-lg</code></td><td>var(--text-size-base) · 1rem · var(--space-xl) · var(--space-xl) · var(--space-xl) · var(--space-lg) · 1.125rem</td><td>lg 크기의 글자·트리거·본문·아이콘 값</td></tr>
+                  <tr><td><code class="typo_code">--collapse-slide-duration · --collapse-slide-easing</code></td><td>0.28s · ease</td><td>펼침·접힘 슬라이드 시간과 가속 곡선</td></tr>
                 </tbody>
               </table>
             </div>

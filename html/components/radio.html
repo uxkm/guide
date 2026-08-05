@@ -41,9 +41,10 @@
         <section class="section demo_section" aria-labelledby="type-heading">
           <div class="demo_section-header">
             <h2 id="type-heading">유형</h2>
-              </div>
+            <p>기본은 <code>span.radio_control</code> + <code>label.radio_label for</code>(명시 연결) 순서입니다. 보이는 레이블이 없으면 <code>label.radio_control</code>로 input을 암묵 연결합니다. <code>radio_label-end</code>는 레이블 → 라디오 순서이며, 기본 너비는 콘텐츠 기준입니다.</p>
+          </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="radio">
               <span class="radio_control">
                 <input id="radio-auto-0" type="radio" class="radio_input" name="radio-type-basic" checked>
@@ -61,15 +62,15 @@
             </div>
 
             <fieldset class="radio_group radio_group_horizontal">
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-type-btn" value="a" checked>
                 <span class="radio_label">버튼형</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-type-btn" value="b">
                 <span class="radio_label">UI</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-type-btn" value="c">
                 <span class="radio_label">UX</span>
               </label>
@@ -109,15 +110,15 @@
 &lt;!-- 예시 3 --&gt;
 
 &lt;fieldset class=&quot;radio_group radio_group_horizontal&quot;&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-type-btn&quot; value=&quot;a&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;버튼형&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-type-btn&quot; value=&quot;b&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;UI&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-type-btn&quot; value=&quot;c&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;UX&lt;/span&gt;
   &lt;/label&gt;
@@ -129,9 +130,10 @@
         <section class="section demo_section" aria-labelledby="label-end-heading">
           <div class="demo_section-header">
             <h2 id="label-end-heading">레이블 뒤</h2>
-              </div>
+            <p><code>radio_label-end</code>는 <code>radio_label</code> → <code>radio_control</code> 순으로 마크업합니다. 전체 너비가 필요하면 <code>radio_block</code> 또는 <code>radio_group_block</code>을 추가합니다.</p>
+          </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="radio radio_label-end">
               <label class="radio_label" for="radio-label-end-basic">신용카드</label>
               <span class="radio_control">
@@ -275,7 +277,7 @@
             <p>레이블과 보조 설명(radio_hint)을 함께 사용할 수 있습니다.</p>
           </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-start">
             <div class="form_field">
               <span class="form_field-label" id="radio-pay-label">결제 수단</span>
               <fieldset class="radio_group" aria-labelledby="radio-pay-label">
@@ -356,15 +358,15 @@
             <p>레이블 없이 라디오만 사용할 수 있습니다. aria-label로 접근 가능한 이름을 지정합니다.</p>
           </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-stack">
             <div class="radio_group radio_group_horizontal">
-              <label class="radio_control"><input aria-label="항목 선택" type="radio" class="radio_input" name="radio-standalone">
+              <label class="radio_control" data-ripple><input aria-label="항목 선택" type="radio" class="radio_input" name="radio-standalone">
                 <span class="radio_box" aria-hidden="true"></span>
               </label>
-              <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone" checked aria-label="선택됨">
+              <label class="radio_control" data-ripple><input type="radio" class="radio_input" name="radio-standalone" checked aria-label="선택됨">
                 <span class="radio_box" aria-hidden="true"></span>
               </label>
-              <label class="radio_control"><input type="radio" class="radio_input" name="radio-standalone-disabled" disabled aria-label="비활성">
+              <label class="radio_control" data-ripple><input type="radio" class="radio_input" name="radio-standalone-disabled" disabled aria-label="비활성">
                 <span class="radio_box" aria-hidden="true"></span>
               </label>
             </div>
@@ -379,17 +381,17 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;div class=&quot;radio_group radio_group_horizontal&quot;&gt;
-  &lt;label class=&quot;radio_control&quot;&gt;
+  &lt;label class=&quot;radio_control&quot; data-ripple&gt;
     &lt;input aria-label=&quot;항목 선택&quot; type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-standalone&quot;&gt;
     &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio_control&quot;&gt;
+  &lt;label class=&quot;radio_control&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-standalone&quot; checked aria-label=&quot;선택됨&quot;&gt;
     &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio_control&quot;&gt;
+  &lt;label class=&quot;radio_control&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-standalone-disabled&quot; disabled aria-label=&quot;비활성&quot;&gt;
     &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;/span&gt;
@@ -475,7 +477,7 @@
             <p>기본은 인라인(콘텐츠) 너비입니다. radio_block · radio_group_block으로 전체 너비를 사용합니다.</p>
           </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-start">
             <div class="radio">
               <span class="radio_control">
                 <input id="radio-auto-10" type="radio" class="radio_input" name="radio-width-inline" checked>
@@ -784,15 +786,15 @@
 
             <fieldset class="radio_group radio_group_horizontal">
               <legend class="radio_group-legend">크기 (가로)</legend>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-group-size" value="s" checked>
                 <span class="radio_label">S</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-group-size" value="m">
                 <span class="radio_label">M</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-group-size" value="l">
                 <span class="radio_label">L</span>
               </label>
@@ -841,15 +843,15 @@
 
 &lt;fieldset class=&quot;radio_group radio_group_horizontal&quot;&gt;
   &lt;legend class=&quot;radio_group-legend&quot;&gt;크기 (가로)&lt;/legend&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-group-size&quot; value=&quot;s&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;S&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-group-size&quot; value=&quot;m&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;M&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-group-size&quot; value=&quot;l&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;L&lt;/span&gt;
   &lt;/label&gt;
@@ -866,34 +868,34 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <fieldset class="radio_group radio_group_horizontal">
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-filter" value="all" checked>
                 <span class="radio_label">전체</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-filter" value="active">
                 <span class="radio_label">진행 중</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-filter" value="done">
                 <span class="radio_label">완료</span>
               </label>
-              <label class="radio radio_button">
+              <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-filter" value="hold" disabled>
                 <span class="radio_label">보류 (비활성)</span>
               </label>
             </fieldset>
 
             <fieldset class="radio_group radio_group_horizontal">
-              <label class="radio radio_button radio_sm color_success">
+              <label class="radio radio_button radio_sm color_success" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-size" value="sm" checked>
                 <span class="radio_label">Small</span>
               </label>
-              <label class="radio radio_button color_success">
+              <label class="radio radio_button color_success" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-size" value="md" checked>
                 <span class="radio_label">Medium</span>
               </label>
-              <label class="radio radio_button radio_lg color_success">
+              <label class="radio radio_button radio_lg color_success" data-ripple>
                 <input type="radio" class="radio_input" name="radio-btn-size" value="lg" checked>
                 <span class="radio_label">Large</span>
               </label>
@@ -911,19 +913,19 @@
             <pre><code>&lt;!-- 예시 1 --&gt;
 
 &lt;fieldset class=&quot;radio_group radio_group_horizontal&quot;&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-filter&quot; value=&quot;all&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;전체&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-filter&quot; value=&quot;active&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;진행 중&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-filter&quot; value=&quot;done&quot;&gt;
     &lt;span class=&quot;radio_label&quot;&gt;완료&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button&quot;&gt;
+  &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-filter&quot; value=&quot;hold&quot; disabled&gt;
     &lt;span class=&quot;radio_label&quot;&gt;보류 (비활성)&lt;/span&gt;
   &lt;/label&gt;
@@ -932,15 +934,15 @@
 &lt;!-- 예시 2 --&gt;
 
 &lt;fieldset class=&quot;radio_group radio_group_horizontal&quot;&gt;
-  &lt;label class=&quot;radio radio_button radio_sm color_success&quot;&gt;
+  &lt;label class=&quot;radio radio_button radio_sm color_success&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-size&quot; value=&quot;sm&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;Small&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button color_success&quot;&gt;
+  &lt;label class=&quot;radio radio_button color_success&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-size&quot; value=&quot;md&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;Medium&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;radio radio_button radio_lg color_success&quot;&gt;
+  &lt;label class=&quot;radio radio_button radio_lg color_success&quot; data-ripple&gt;
     &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-btn-size&quot; value=&quot;lg&quot; checked&gt;
     &lt;span class=&quot;radio_label&quot;&gt;Large&lt;/span&gt;
   &lt;/label&gt;
@@ -952,9 +954,10 @@
         <section class="section demo_section" aria-labelledby="card-type-heading">
           <div class="demo_section-header">
             <h2 id="card-type-heading">카드형</h2>
-              </div>
+            <p><code>div.radio_card</code> + <code>article.card</code> 조합입니다. <code>card_extra</code>에는 <code>label.radio_control</code>로 input을 암묵 연결합니다. 카드 전체를 눌러 선택하려면 <code>div.radio_card.radio_card-clickable</code>을 쓰고 클릭은 JS로 위임합니다. 접근 가능한 이름은 <code>aria-labelledby</code>로 card_title · card_body에 연결합니다.</p>
+          </div>
 
-          <div class="demo_section-preview">
+          <div class="demo_section-preview demo_section-preview-stack">
             <fieldset class="radio_group">
               <legend class="radio_group-legend">요금제 선택</legend>
               <div class="card_deck card_deck-2">
@@ -966,7 +969,7 @@
                         <p class="card_subtitle">월 9,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-plan-basic" name="radio-plan" value="basic" checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-plan-basic" name="radio-plan" value="basic" checked aria-labelledby="radio-plan-basic-title radio-plan-basic-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -982,7 +985,7 @@
                         <p class="card_subtitle">월 29,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-plan-pro" name="radio-plan" value="pro" aria-labelledby="radio-plan-pro-title radio-plan-pro-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-plan-pro" name="radio-plan" value="pro" aria-labelledby="radio-plan-pro-title radio-plan-pro-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -998,7 +1001,7 @@
                         <p class="card_subtitle">별도 문의</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-plan-enterprise" name="radio-plan" value="enterprise" disabled aria-labelledby="radio-plan-enterprise-title radio-plan-enterprise-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-plan-enterprise" name="radio-plan" value="enterprise" disabled aria-labelledby="radio-plan-enterprise-title radio-plan-enterprise-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1019,7 +1022,7 @@
                         <h3 class="card_title" id="radio-role-read-title">읽기</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-role-read" name="radio-role" value="read" checked aria-labelledby="radio-role-read-title radio-role-read-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-role-read" name="radio-role" value="read" checked aria-labelledby="radio-role-read-title radio-role-read-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1034,7 +1037,7 @@
                         <h3 class="card_title" id="radio-role-write-title">쓰기</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-role-write" name="radio-role" value="write" aria-labelledby="radio-role-write-title radio-role-write-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-role-write" name="radio-role" value="write" aria-labelledby="radio-role-write-title radio-role-write-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1049,7 +1052,7 @@
                         <h3 class="card_title" id="radio-role-admin-title">관리</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control"><input type="radio" class="radio_input" id="radio-role-admin" name="radio-role" value="admin" aria-labelledby="radio-role-admin-title radio-role-admin-desc">
+                        <label class="radio_control" data-ripple><input type="radio" class="radio_input" id="radio-role-admin" name="radio-role" value="admin" aria-labelledby="radio-role-admin-title radio-role-admin-desc">
                         <span class="radio_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1063,7 +1066,7 @@
             <fieldset class="radio_group">
               <legend class="radio_group-legend">요금제 선택 — 카드 전체 클릭 (radio_card-clickable)</legend>
               <div class="card_deck card_deck-2">
-                <div class="radio_card radio_card-clickable">
+                <div class="radio_card radio_card-clickable" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1071,7 +1074,7 @@
                         <p class="card_subtitle">월 9,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control">
+                        <label class="radio_control" data-ripple>
                           <input type="radio" class="radio_input" id="radio-plan-full-basic" name="radio-plan-clickable" value="basic" checked aria-labelledby="radio-plan-full-basic-title radio-plan-full-basic-desc">
                           <span class="radio_box" aria-hidden="true"></span>
                         </label>
@@ -1080,7 +1083,7 @@
                     <div class="card_body" id="radio-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
                   </article>
                 </div>
-                <div class="radio_card radio_card-clickable color_primary">
+                <div class="radio_card radio_card-clickable color_primary" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1088,7 +1091,7 @@
                         <p class="card_subtitle">월 29,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control">
+                        <label class="radio_control" data-ripple>
                           <input type="radio" class="radio_input" id="radio-plan-full-pro" name="radio-plan-clickable" value="pro" aria-labelledby="radio-plan-full-pro-title radio-plan-full-pro-desc">
                           <span class="radio_box" aria-hidden="true"></span>
                         </label>
@@ -1097,7 +1100,7 @@
                     <div class="card_body" id="radio-plan-full-pro-desc">제목·설명·여백을 포함한 전체 영역이 클릭 대상입니다.</div>
                   </article>
                 </div>
-                <div class="radio_card radio_card-clickable">
+                <div class="radio_card radio_card-clickable" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1105,7 +1108,7 @@
                         <p class="card_subtitle">별도 문의</p>
                       </div>
                       <div class="card_extra">
-                        <label class="radio_control">
+                        <label class="radio_control" data-ripple>
                           <input type="radio" class="radio_input" id="radio-plan-full-enterprise" name="radio-plan-clickable" value="enterprise" disabled aria-labelledby="radio-plan-full-enterprise-title radio-plan-full-enterprise-desc">
                           <span class="radio_box" aria-hidden="true"></span>
                         </label>
@@ -1139,7 +1142,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 9,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-basic&quot; name=&quot;radio-plan&quot; value=&quot;basic&quot; checked aria-labelledby=&quot;radio-plan-basic-title radio-plan-basic-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1157,7 +1160,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 29,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-pro&quot; name=&quot;radio-plan&quot; value=&quot;pro&quot; aria-labelledby=&quot;radio-plan-pro-title radio-plan-pro-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1175,7 +1178,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;별도 문의&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-enterprise&quot; name=&quot;radio-plan&quot; value=&quot;enterprise&quot; disabled aria-labelledby=&quot;radio-plan-enterprise-title radio-plan-enterprise-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1200,7 +1203,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;radio-role-read-title&quot;&gt;읽기&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-role-read&quot; name=&quot;radio-role&quot; value=&quot;read&quot; checked aria-labelledby=&quot;radio-role-read-title radio-role-read-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1217,7 +1220,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;radio-role-write-title&quot;&gt;쓰기&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-role-write&quot; name=&quot;radio-role&quot; value=&quot;write&quot; aria-labelledby=&quot;radio-role-write-title radio-role-write-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1234,7 +1237,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;radio-role-admin-title&quot;&gt;관리&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-role-admin&quot; name=&quot;radio-role&quot; value=&quot;admin&quot; aria-labelledby=&quot;radio-role-admin-title radio-role-admin-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1252,7 +1255,7 @@
 &lt;fieldset class=&quot;radio_group&quot;&gt;
   &lt;legend class=&quot;radio_group-legend&quot;&gt;요금제 선택 — 카드 전체 클릭 (radio_card-clickable)&lt;/legend&gt;
   &lt;div class=&quot;card_deck card_deck-2&quot;&gt;
-    &lt;div class=&quot;radio_card radio_card-clickable&quot;&gt;
+    &lt;div class=&quot;radio_card radio_card-clickable&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1260,7 +1263,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 9,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-full-basic&quot; name=&quot;radio-plan-clickable&quot; value=&quot;basic&quot; checked aria-labelledby=&quot;radio-plan-full-basic-title radio-plan-full-basic-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1270,7 +1273,7 @@
         &lt;div class=&quot;card_body&quot; id=&quot;radio-plan-full-basic-desc&quot;&gt;카드 어디를 눌러도 선택됩니다.&lt;/div&gt;
       &lt;/article&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;radio_card radio_card-clickable color_primary&quot;&gt;
+    &lt;div class=&quot;radio_card radio_card-clickable color_primary&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1278,7 +1281,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 29,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-full-pro&quot; name=&quot;radio-plan-clickable&quot; value=&quot;pro&quot; aria-labelledby=&quot;radio-plan-full-pro-title radio-plan-full-pro-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1288,7 +1291,7 @@
         &lt;div class=&quot;card_body&quot; id=&quot;radio-plan-full-pro-desc&quot;&gt;제목·설명·여백을 포함한 전체 영역이 클릭 대상입니다.&lt;/div&gt;
       &lt;/article&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;radio_card radio_card-clickable&quot;&gt;
+    &lt;div class=&quot;radio_card radio_card-clickable&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1296,7 +1299,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;별도 문의&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;radio_control&quot;&gt;
+            &lt;label class=&quot;radio_control&quot; data-ripple&gt;
               &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; id=&quot;radio-plan-full-enterprise&quot; name=&quot;radio-plan-clickable&quot; value=&quot;enterprise&quot; disabled aria-labelledby=&quot;radio-plan-full-enterprise-title radio-plan-full-enterprise-desc&quot;&gt;
               &lt;span class=&quot;radio_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1345,11 +1348,11 @@
               <div class="form_field">
                 <span class="form_field-label" id="radio-form-horizontal-label">역할</span>
                 <fieldset class="radio_group radio_group_horizontal" aria-labelledby="radio-form-horizontal-label">
-                  <label class="radio radio_button">
+                  <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-form-role" value="viewer" checked>
                 <span class="radio_label">뷰어</span>
                   </label>
-                  <label class="radio radio_button">
+                  <label class="radio radio_button" data-ripple>
                 <input type="radio" class="radio_input" name="radio-form-role" value="editor">
                 <span class="radio_label">편집자</span>
                   </label>
@@ -1409,11 +1412,11 @@
   &lt;div class=&quot;form_field&quot;&gt;
     &lt;span class=&quot;form_field-label&quot; id=&quot;radio-form-horizontal-label&quot;&gt;역할&lt;/span&gt;
     &lt;fieldset class=&quot;radio_group radio_group_horizontal&quot; aria-labelledby=&quot;radio-form-horizontal-label&quot;&gt;
-      &lt;label class=&quot;radio radio_button&quot;&gt;
+      &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
         &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-form-role&quot; value=&quot;viewer&quot; checked&gt;
         &lt;span class=&quot;radio_label&quot;&gt;뷰어&lt;/span&gt;
       &lt;/label&gt;
-      &lt;label class=&quot;radio radio_button&quot;&gt;
+      &lt;label class=&quot;radio radio_button&quot; data-ripple&gt;
         &lt;input type=&quot;radio&quot; class=&quot;radio_input&quot; name=&quot;radio-form-role&quot; value=&quot;editor&quot;&gt;
         &lt;span class=&quot;radio_label&quot;&gt;편집자&lt;/span&gt;
       &lt;/label&gt;
@@ -1426,56 +1429,62 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 네이티브 라디오 속성입니다. HTML에서는 그룹, 레이아웃과 상태에 맞게 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">클래스</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><code class="typo_code">radio</code></td>
-                    <td>라디오 래퍼</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">radio_control</code> · <code class="typo_code">radio_input</code> · <code class="typo_code">radio_box</code></td>
-                    <td>입력·커스텀 원</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">radio_label</code></td>
-                    <td>라벨</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">radio_label-end</code> · <code class="typo_code">radio_button</code></td>
-                    <td>레이아웃 변형</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">radio_group</code></td>
-                    <td>fieldset 그룹</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">radio_card</code> · <code class="typo_code">radio_card-clickable</code></td>
-                    <td>카드형 — clickable은 data-ripple + JS 위임</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple</code></td>
-                    <td>클릭 파장 활성. data-ripple="surface"는 절대 위치 보조 버튼용</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-ripple="false"</code></td>
-                    <td>해당 요소 ripple 비활성</td>
-                  </tr>
-                  <tr>
-                    <td><code class="typo_code">data-no-ripple</code></td>
-                    <td>하위 전체 ripple 비활성</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">radio</code></td><td>레이블이 있는 라디오 루트</td></tr>
+                <tr><td><code class="typo_code">radio_control · radio_input · radio_box</code></td><td>네이티브 입력과 커스텀 선택 원을 묶는 구조</td></tr>
+                <tr><td><code class="typo_code">radio_label · radio_content · radio_hint</code></td><td>레이블, 복합 레이블 콘텐츠, 보조 설명</td></tr>
+                <tr><td><code class="typo_code">radio_sm · radio_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">radio_block · radio_group_block</code></td><td>단일 라디오와 그룹의 부모 너비 100% 변형</td></tr>
+                <tr><td><code class="typo_code">radio_label-end · radio_button</code></td><td>레이블을 앞에 배치하는 변형과 버튼형 선택</td></tr>
+                <tr><td><code class="typo_code">radio_group · radio_group_horizontal · radio_group_compact</code></td><td>세로·가로·조밀한 라디오 그룹</td></tr>
+                <tr><td><code class="typo_code">radio_group-legend</code></td><td>fieldset 그룹의 범례</td></tr>
+                <tr><td><code class="typo_code">radio_card · radio_card-clickable</code></td><td>카드형 조합. clickable은 카드 전체 클릭을 JS로 위임</td></tr>
+                <tr><td><code class="typo_code">color_primary · color_success · color_danger · color_warning</code></td><td>선택 상태와 버튼·카드형 색상 변형</td></tr>
+                <tr><td><code class="typo_code">is-checked · is-disabled · is-error</code></td><td>CSS·JS 상태 클래스</td></tr>
+                <tr><td><code class="typo_code">type="radio" · checked · disabled</code></td><td>입력 유형과 네이티브 선택·비활성 상태</td></tr>
+                <tr><td><code class="typo_code">name · value</code></td><td>동일 그룹 연결과 제출 값을 지정하는 네이티브 속성</td></tr>
+                <tr><td><code class="typo_code">id · for</code></td><td>네이티브 입력과 보이는 레이블의 명시적 연결</td></tr>
+                <tr><td><code class="typo_code">aria-label · aria-labelledby</code></td><td>단독 라디오, 그룹과 카드형 라디오에 접근 가능한 이름 제공</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>단독·버튼형·클릭 가능한 카드의 클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체의 클릭 파장 비활성</td></tr>
+                <tr><td><code class="typo_code">change</code></td><td>선택 상태 변경을 처리하는 네이티브 이벤트</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--radio-size · --radio-size-sm · --radio-size-lg</code></td><td><code class="typo_code">var(--checkbox-size) · var(--checkbox-size-sm) · var(--checkbox-size-lg)</code></td><td>라디오 원 크기</td></tr>
+                <tr><td><code class="typo_code">--radio-border-width</code></td><td><code class="typo_code">var(--checkbox-border-width)</code></td><td>선택 원 테두리 두께</td></tr>
+                <tr><td><code class="typo_code">--radio-gap · --radio-gap-sm · --radio-gap-lg</code></td><td><code class="typo_code">var(--checkbox-gap) · var(--checkbox-gap-sm) · var(--checkbox-gap-lg)</code></td><td>라벨 간격</td></tr>
+                <tr><td><code class="typo_code">--radio-font-size · --radio-line-height</code></td><td><code class="typo_code">var(--checkbox-font-size) · var(--checkbox-line-height)</code></td><td>기본(md) 레이블 타이포</td></tr>
+                <tr><td><code class="typo_code">--radio-font-size-sm · --radio-font-size-lg</code></td><td><code class="typo_code">var(--checkbox-font-size-sm) · var(--checkbox-font-size-lg)</code></td><td>sm·lg 레이블 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--radio-label-weight · --radio-hint-size</code></td><td><code class="typo_code">var(--checkbox-label-weight) · var(--checkbox-hint-size)</code></td><td>레이블 두께와 힌트 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--radio-control-offset · --radio-group-gap</code></td><td><code class="typo_code">var(--checkbox-control-offset) · var(--checkbox-group-gap)</code></td><td>원 수직 정렬과 그룹 항목 간격</td></tr>
+                <tr><td><code class="typo_code">--radio-button-padding-y · --radio-button-padding-x</code></td><td><code class="typo_code">var(--checkbox-button-padding-y) · var(--checkbox-button-padding-x)</code></td><td>버튼형 패딩</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>
