@@ -1,0 +1,35 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .: {}
+
+  apps/gulp: {}
+
+  apps/html: {}
+
+  apps/next: {}
+
+  apps/nuxt: {}
+
+  apps/react: {}
+
+  apps/storybook: {}
+
+  apps/vue: {}
+
+  packages/assets: {}
+
+  packages/component-specs: {}
+
+  packages/content: {}
+
+  packages/navigation: {}
+
+  packages/styles: {}
+
+  packages/tokens: {}

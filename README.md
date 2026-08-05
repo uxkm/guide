@@ -369,6 +369,7 @@ uxkm-framework-components/
 │   └── code-examples/
 │
 ├── scripts/
+│   ├── dev.mjs
 │   ├── build-styles.mjs
 │   ├── copy-assets.mjs
 │   ├── collect-frameworks.mjs
@@ -694,12 +695,15 @@ pnpm validate
 pnpm deploy
 ```
 
+현재 초기 구조에서는 `pnpm dev`가 `http://127.0.0.1:3000`에 Workspace 확인용 개발 대시보드를 실행합니다. 각 프레임워크 앱을 구현하면 개별 앱 실행 명령을 루트 개발 명령에 순차적으로 연결합니다.
+
 ---
 
 # 12. 자동화 스크립트
 
 | 스크립트 | 역할 |
 | --- | --- |
+| `dev.mjs` | 초기 Workspace 구성을 확인하는 로컬 개발 대시보드 실행 |
 | `build-styles.mjs` | 디자인 토큰과 SCSS 빌드 |
 | `copy-assets.mjs` | 공통 자산을 각 앱과 빌드 경로에 복사 |
 | `collect-frameworks.mjs` | 각 프레임워크와 Storybook 결과 수집 |
