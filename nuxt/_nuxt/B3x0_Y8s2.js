@@ -1,0 +1,1 @@
+import{L as e,f as t}from"./CCnt5OSV.js";import{t as n}from"./jpvLtmXA2.js";var r={__name:`getting-started`,setup(r){return(r,i)=>(e(),t(n,{"doc-key":`getting-started`}))}};export{r as default};

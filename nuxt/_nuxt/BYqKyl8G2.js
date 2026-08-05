@@ -1,0 +1,1 @@
+import{B as e,L as t,Y as n,b as r,d as i,m as a}from"./CCnt5OSV.js";import{t as o}from"./Ca85r0nz2.js";var s={class:`demo_section-preview demo_section-preview-start demo_section-preview-code`},c={__name:`GuideCodeBlock`,setup(c){return(c,l)=>(t(),a(`div`,s,[r(o,{variant:`pre`},{default:n(()=>[i(`code`,null,[e(c.$slots,`default`)])]),_:3})]))}};export{c as t};
