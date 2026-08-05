@@ -1,1 +1,0 @@
-import{L as e,f as t,st as n,u as r}from"./CCnt5OSV.js";import{f as i}from"./DkiTeYXI.js";import"./DZE7SQ--.js";import{t as a}from"./jpvLtmXA2.js";var o={__name:`[slug]`,setup(o){let s=i(),c=r(()=>String(s.params.slug||``));return(r,i)=>(e(),t(a,{"doc-key":n(c)},null,8,[`doc-key`]))}};export{o as default};
