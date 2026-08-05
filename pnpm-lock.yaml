@@ -8,6 +8,10 @@ importers:
 
   .: {}
 
+  apps/guidebook/react: {}
+
+  apps/guidebook/vue: {}
+
   apps/gulp: {}
 
   apps/html: {}

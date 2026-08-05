@@ -73,6 +73,24 @@ const workspaces = [
     group: 'apps'
   },
   {
+    label: 'Vue Guidebook',
+    shortLabel: 'V · N',
+    path: 'apps/guidebook/vue',
+    description: 'Vue와 Nuxt의 문법 및 구현 방식을 비교하는 학습 가이드',
+    badge: 'Vue · Nuxt',
+    color: 'vue-guidebook',
+    group: 'guidebooks'
+  },
+  {
+    label: 'React Guidebook',
+    shortLabel: 'R · N',
+    path: 'apps/guidebook/react',
+    description: 'React와 Next.js의 문법 및 구현 방식을 비교하는 학습 가이드',
+    badge: 'React · Next.js',
+    color: 'react-guidebook',
+    group: 'guidebooks'
+  },
+  {
     label: 'Styles',
     shortLabel: 'SCSS',
     path: 'packages/styles',
@@ -168,6 +186,7 @@ function renderCards(group) {
 
 function renderPage() {
   const appCount = workspaceDetails.filter(({ group }) => group === 'apps').length;
+  const guidebookCount = workspaceDetails.filter(({ group }) => group === 'guidebooks').length;
   const packageCount = workspaceDetails.filter(({ group }) => group === 'packages').length;
 
   return `<!doctype html>
@@ -291,6 +310,8 @@ function renderPage() {
       .card--nuxt { --card-color: #00a86b; --card-soft: rgba(0, 168, 107, 0.14); }
       .card--next { --card-color: #202631; --card-soft: rgba(32, 38, 49, 0.1); }
       .card--storybook { --card-color: #d93472; --card-soft: rgba(217, 52, 114, 0.14); }
+      .card--vue-guidebook { --card-color: #2e8b63; --card-soft: rgba(46, 139, 99, 0.14); }
+      .card--react-guidebook { --card-color: #087ea4; --card-soft: rgba(8, 126, 164, 0.14); }
       .card--styles { --card-color: #bf4080; --card-soft: rgba(191, 64, 128, 0.13); }
       .card--assets { --card-color: #dc8b19; --card-soft: rgba(220, 139, 25, 0.14); }
       .card--tokens { --card-color: #7557c7; --card-soft: rgba(117, 87, 199, 0.13); }
@@ -387,6 +408,14 @@ function renderPage() {
           <div class="grid">${renderCards('apps')}</div>
         </section>
 
+        <section class="section" aria-labelledby="guidebooks-heading">
+          <div class="section-header">
+            <h2 id="guidebooks-heading">Framework Guidebooks</h2>
+            <span class="section-count">${guidebookCount}개 Workspace</span>
+          </div>
+          <div class="grid">${renderCards('guidebooks')}</div>
+        </section>
+
         <section class="section" aria-labelledby="packages-heading">
           <div class="section-header">
             <h2 id="packages-heading">Shared Packages</h2>
@@ -429,6 +458,17 @@ const server = createServer((request, response) => {
     'cache-control': 'no-store'
   });
   response.end(renderPage());
+});
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`포트 ${port}이 이미 사용 중입니다.`);
+    console.error(`기존 서버를 종료하거나 PORT=${port + 1} pnpm dev로 실행하세요.`);
+    process.exitCode = 1;
+    return;
+  }
+
+  throw error;
 });
 
 server.listen(port, host, () => {

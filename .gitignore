@@ -3,6 +3,7 @@ node_modules/
 
 # Framework build output
 apps/*/dist/
+apps/guidebook/*/dist/
 apps/nuxt/.output/
 apps/next/.next/
 apps/next/out/
