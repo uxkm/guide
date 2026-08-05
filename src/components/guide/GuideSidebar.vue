@@ -162,7 +162,7 @@ defineExpose({
     aria-label="컴포넌트 메뉴"
   >
     <div class="guide_sidebar-brand">
-      <NuxtLink class="guide_sidebar-back" to="/">← UXKM Guide</NuxtLink>
+      <a class="guide_sidebar-back" href="/">← UXKM Guide</a>
       <div class="guide_sidebar-title">UI Components</div>
       <p class="guide_sidebar-desc">Vue · Nuxt</p>
     </div>
