@@ -1,12 +1,13 @@
 <script>
 export const docMeta = {
-  title: 'Steps | HTML Components',
+  title: 'Steps | UXKM Guide',
   activeNav: 'steps',
   pageTitle: 'Steps',
 };
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
 import DemoSection from '@/components/guide/DemoSection.vue';
@@ -24,6 +25,8 @@ import {
   stepsTokenColumns,
   stepsTokens,
 } from '@/doc/data/steps-api';
+
+const currentStep = ref(1);
 
 const basicCode = `<script setup>
 import Steps from '@/components/Steps.vue';
@@ -94,15 +97,18 @@ import StepsItem from '@/components/StepsItem.vue';
 </template>`;
 
 const navigableCode = `<script setup>
+import { ref } from 'vue';
 import Steps from '@/components/Steps.vue';
 import StepsItem from '@/components/StepsItem.vue';
+
+const currentStep = ref(1);
 <\/script>
 
 <template>
-  <Steps navigable aria-label="설정 마법사 — 탐색 가능">
-    <StepsItem title="환경" description="개발 · 스테이징" status="finished" />
-    <StepsItem title="알림" description="수신 채널 설정" status="active" />
-    <StepsItem title="확인" description="설정 검토" status="wait" />
+  <Steps :current="currentStep" navigable aria-label="설정 마법사 — 탐색 가능">
+    <StepsItem title="환경" description="개발 · 스테이징" @click="currentStep = 0" />
+    <StepsItem title="알림" description="수신 채널 설정" @click="currentStep = 1" />
+    <StepsItem title="확인" description="설정 검토" @click="currentStep = 2" />
   </Steps>
 </template>`;
 
@@ -253,10 +259,10 @@ import StepsItem from '@/components/StepsItem.vue';
     description="steps_navigable과 steps_trigger로 완료된 단계를 클릭해 이전 단계로 돌아갈 수 있습니다. 대기 단계는 비활성화됩니다."
     :code="navigableCode"
   >
-    <Steps navigable aria-label="설정 마법사 — 탐색 가능">
-      <StepsItem title="환경" description="개발 · 스테이징" status="finished" />
-      <StepsItem title="알림" description="수신 채널 설정" status="active" />
-      <StepsItem title="확인" description="설정 검토" status="wait" />
+    <Steps :current="currentStep" navigable aria-label="설정 마법사 — 탐색 가능">
+      <StepsItem title="환경" description="개발 · 스테이징" @click="currentStep = 0" />
+      <StepsItem title="알림" description="수신 채널 설정" @click="currentStep = 1" />
+      <StepsItem title="확인" description="설정 검토" @click="currentStep = 2" />
     </Steps>
   </DemoSection>
 

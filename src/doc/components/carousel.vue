@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Carousel | HTML Components',
+  title: 'Carousel | UXKM Guide',
   activeNav: 'carousel',
   pageTitle: 'Carousel',
 };
@@ -69,7 +69,7 @@ const thumbsSwiper = ref(null);
     <h1>Carousel</h1>
     <p class="lead">
       <a href="https://swiperjs.com/demos" class="link color_primary" target="_blank" rel="noopener noreferrer">Swiper</a>
-      라이브러리 기반 슬라이드 컴포넌트입니다. 표준
+      라이브러리 기반 Nuxt 컴포넌트입니다. Swiper 인스턴스는 클라이언트 마운트 후 초기화되며, 표준
       <code class="typo_code">swiper</code> ·
       <code class="typo_code">swiper-wrapper</code> ·
       <code class="typo_code">swiper-slide</code> 마크업을 사용하며, 슬라이드 콘텐츠는

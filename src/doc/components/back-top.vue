@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Back Top | HTML Components',
+  title: 'Back Top | UXKM Guide',
   activeNav: 'back-top',
   pageTitle: 'Back Top',
 };
@@ -140,13 +140,13 @@ import BackTop from '@/components/BackTop.vue';
 <template>
   <div class="page_intro">
   <h1>Back Top</h1>
-  <p class="lead">긴 콘텐츠를 스크롤한 뒤 페이지(또는 지정 영역) 맨 위로 빠르게 이동하는 플로팅 버튼입니다. <code class="typo_code">data-target</code>으로 스크롤 컨테이너를 지정하고, <code class="typo_code">data-visibility-height</code>으로 표시 임계값을 조절할 수 있습니다.</p>
+  <p class="lead">긴 콘텐츠를 스크롤한 뒤 페이지(또는 지정 영역) 맨 위로 빠르게 이동하는 Nuxt 플로팅 버튼입니다. <code class="typo_code">target</code>으로 스크롤 컨테이너를 지정하고, <code class="typo_code">visibility-height</code>으로 표시 임계값을 조절할 수 있습니다.</p>
 </div>
 
   <DemoSection
     heading-id="basic-heading"
     title="기본"
-    description="<code class=&quot;typo_code&quot;>data-back-top</code>과 <code class=&quot;typo_code&quot;>data-target</code>으로 스크롤 영역을 연결합니다. 영역을 일정 이상 스크롤하면 우측 하단에 버튼이 나타납니다."
+    description="<code class=&quot;typo_code&quot;>target</code>으로 스크롤 영역을 연결합니다. 영역을 일정 이상 스크롤하면 우측 하단에 버튼이 나타납니다."
     :code="basicCode"
   >
     <div class="back_top_demo-wrap">
@@ -170,7 +170,7 @@ import BackTop from '@/components/BackTop.vue';
   <DemoSection
     heading-id="visibility-heading"
     title="표시 임계값"
-    description="<code class=&quot;typo_code&quot;>data-visibility-height</code>으로 버튼이 나타나는 스크롤 거리(px)를 지정합니다. 기본값은 400px입니다."
+    description="<code class=&quot;typo_code&quot;>visibility-height</code>으로 버튼이 나타나는 스크롤 거리(px)를 지정합니다. 기본값은 400px입니다."
     :code="visibilityCode"
   >
     <div class="back_top_demo-wrap">
@@ -260,7 +260,7 @@ import BackTop from '@/components/BackTop.vue';
   <DemoSection
     heading-id="window-heading"
     title="페이지 스크롤"
-    description="<code class=&quot;typo_code&quot;>data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 페이지를 아래로 스크롤하면 우측 하단에 버튼이 나타납니다."
+    description="<code class=&quot;typo_code&quot;>target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 페이지를 아래로 스크롤하면 우측 하단에 버튼이 나타납니다."
     :code="windowCode"
   >
     <p style="margin: 0; font-size: var(--text-size-sm); color: var(--color-text-muted);">페이지를 충분히 스크롤한 뒤 우측 하단 플로팅 버튼을 확인하세요. 클릭하면 페이지 최상단으로 부드럽게 이동합니다.</p>

@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Menu | HTML Components',
+  title: 'Menu | UXKM Guide',
   activeNav: 'menu',
   pageTitle: 'Menu',
 };
@@ -45,10 +45,10 @@ import MenuItem from '@/components/MenuItem.vue';
 
 <template>
   <Menu mode="vertical" bordered aria-label="주요 메뉴">
-    <MenuItem label="대시보드" active />
-    <MenuItem label="분석" />
-    <MenuItem label="사용자" />
-    <MenuItem label="설정" />
+    <MenuItem as="NuxtLink" href="/" label="홈" active />
+    <MenuItem as="NuxtLink" href="/components/card" label="Card" />
+    <MenuItem as="NuxtLink" href="/components/avatar" label="Avatar" />
+    <MenuItem as="NuxtLink" href="/getting-started" label="시작하기" />
   </Menu>
 </template>`;
 
@@ -307,10 +307,10 @@ import MenuItem from '@/components/MenuItem.vue';
     :code="basicCode"
   >
     <Menu mode="vertical" bordered aria-label="주요 메뉴">
-      <MenuItem label="대시보드" active />
-      <MenuItem label="분석" />
-      <MenuItem label="사용자" />
-      <MenuItem label="설정" />
+      <MenuItem as="NuxtLink" href="/" label="홈" active />
+      <MenuItem as="NuxtLink" href="/components/card" label="Card" />
+      <MenuItem as="NuxtLink" href="/components/avatar" label="Avatar" />
+      <MenuItem as="NuxtLink" href="/getting-started" label="시작하기" />
     </Menu>
   </DemoSection>
 

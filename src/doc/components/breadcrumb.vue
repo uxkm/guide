@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Breadcrumb | HTML Components',
+  title: 'Breadcrumb | UXKM Guide',
   activeNav: 'breadcrumb',
   pageTitle: 'Breadcrumb',
 };
@@ -29,16 +29,15 @@ import {
 
 const basicCode = `<script setup>
 import Breadcrumb from '@/components/Breadcrumb.vue';
+import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
 <\/script>
 
 <template>
-  <Breadcrumb
-  :items="[
-  { label: '홈', href: '#' },
-  { label: '컴포넌트', href: '#' },
-  { label: 'Breadcrumb', current: true },
-  ]"
-  />
+  <Breadcrumb>
+    <BreadcrumbItem as="NuxtLink" label="홈" href="/" />
+    <BreadcrumbItem as="NuxtLink" label="컴포넌트" href="/components/button" />
+    <BreadcrumbItem label="Breadcrumb" current />
+  </Breadcrumb>
 </template>`;
 
 const separatorCode = `<script setup>
@@ -177,13 +176,15 @@ import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
     description="이전 단계는 링크, 마지막 항목은 현재 페이지로 표시합니다."
     :code="basicCode"
   >
-    <Breadcrumb
-      :items="[
-        { label: '홈', href: '#' },
-        { label: '컴포넌트', href: '#' },
-        { label: 'Breadcrumb', current: true },
-      ]"
-    />
+    <Breadcrumb>
+      <BreadcrumbItem as="NuxtLink" label="홈" href="/" />
+      <BreadcrumbItem
+        as="NuxtLink"
+        label="컴포넌트"
+        href="/components/button"
+      />
+      <BreadcrumbItem label="Breadcrumb" current />
+    </Breadcrumb>
   </DemoSection>
 
   <DemoSection

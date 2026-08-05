@@ -1,9 +1,9 @@
 <script setup>
 import DocView from '@/components/guide/DocView.vue';
-import { getDocByKey } from '@/utils/doc-loader';
+import { hasDocByKey } from '@/utils/doc-loader';
 
 definePageMeta({
-  validate: (route) => getDocByKey(String(route.params.slug || '')) !== null,
+  validate: (route) => hasDocByKey(String(route.params.slug || '')),
 });
 
 const route = useRoute();

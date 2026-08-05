@@ -7,7 +7,8 @@ export const paginationPropColumns = [
 ];
 
 export const paginationProps = [
-  { name: 'current', type: 'number', default: '1', description: '현재 페이지 (v-model:current)' },
+  { name: 'current', type: 'number', default: '—', description: '현재 페이지 (제어, v-model:current)' },
+  { name: 'default-current', type: 'number', default: '1', description: '초기 페이지 (비제어)' },
   { name: 'total', type: 'number', default: '1', description: '전체 항목 수' },
   { name: 'page-size', type: 'number', default: '10', description: '페이지당 항목 수' },
   { name: 'simple', type: 'boolean', default: 'false', description: 'pagination_simple — 이전·다음+현재/전체' },

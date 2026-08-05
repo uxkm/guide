@@ -7,12 +7,15 @@
  *
  * provide('collapse')로 자식과 상태를 공유합니다.
  */
-import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
+import { computed, provide, ref, shallowRef, useAttrs } from 'vue';
 import { useCollapseDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
   inheritAttrs: false,
 });
+
+const VALID_VARIANTS = new Set(['bordered', 'ghost', 'card']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const props = defineProps({
   /** 패널 그룹 스킨. bordered · ghost · card */
@@ -43,13 +46,17 @@ const attrs = useAttrs();
 const rootRef = ref(null);
 const panels = new Map();
 const registeredPanels = shallowRef([]);
-const effect = toRef(props, 'effect');
+const resolvedVariant = computed(() =>
+  VALID_VARIANTS.has(props.variant) ? props.variant : 'bordered'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const resolvedEffect = computed(() => (props.effect === 'slide' ? 'slide' : undefined));
 
 const rootClass = computed(() => [
   'collapse_group',
-  `collapse_${props.variant}`,
-  props.size === 'sm' ? 'collapse_sm' : null,
-  props.size === 'lg' ? 'collapse_lg' : null,
+  `collapse_${resolvedVariant.value}`,
+  resolvedSize.value === 'sm' ? 'collapse_sm' : null,
+  resolvedSize.value === 'lg' ? 'collapse_lg' : null,
   props.narrow ? 'collapse_demo-narrow' : null,
   attrs.class,
 ]);
@@ -69,39 +76,58 @@ function unregisterPanel(id) {
   registeredPanels.value = [...panels.values()];
 }
 
+function updatePanelMeta(id, patch) {
+  const panel = panels.get(id);
+  if (!panel) return;
+  Object.assign(panel, patch);
+  registeredPanels.value = [...panels.values()];
+}
+
 /** 패널 열기·닫기. accordion이면 열 때 다른 패널을 닫음 */
-function togglePanel(id, isOpenRef) {
+function togglePanel(id) {
   const panel = panels.get(id);
   if (!panel || panel.disabled) return;
 
-  const willOpen = !isOpenRef.value;
+  const willOpen = !panel.getIsOpen();
 
   if (props.accordion && willOpen) {
     for (const [otherId, other] of panels) {
-      if (otherId !== id && !other.disabled) {
-        other.isOpen.value = false;
+      if (otherId !== id && !other.disabled && other.getIsOpen()) {
+        other.setIsOpen(false);
       }
     }
   }
 
-  isOpenRef.value = willOpen;
+  panel.setIsOpen(willOpen);
+  registeredPanels.value = [...panels.values()];
 }
 
 provide('collapse', {
   registerPanel,
   unregisterPanel,
+  updatePanelMeta,
   togglePanel,
-  effect,
+  effect: resolvedEffect,
 });
 
-useCollapseDemoCode(props, registeredPanels, rootRef, attrs);
+useCollapseDemoCode(
+  () => ({
+    ...props,
+    variant: resolvedVariant.value,
+    size: resolvedSize.value,
+    effect: resolvedEffect.value,
+  }),
+  registeredPanels,
+  rootRef,
+  attrs
+);
 </script>
 
 <template>
   <div
     ref="rootRef"
     :class="rootClass"
-    :data-effect="effect || undefined"
+    :data-effect="resolvedEffect"
     v-bind="fallthroughAttrs"
   >
     <slot />

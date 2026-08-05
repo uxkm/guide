@@ -398,6 +398,10 @@ import { initOverlays, observeOverlays } from './overlay-init';
   document.querySelectorAll('.rate').forEach(initRate);
 
   document.querySelectorAll('.menu_item-submenu > .menu_link[aria-expanded]').forEach(function (btn) {
+    if (btn.closest('[data-vue-menu]')) {
+      return;
+    }
+
     btn.addEventListener('click', function (event) {
       if (btn.classList.contains('is-disabled') || btn.getAttribute('aria-disabled') === 'true') {
         return;

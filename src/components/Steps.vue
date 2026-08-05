@@ -5,6 +5,10 @@ import { createComponentFormatter } from '@/utils/format-component-code';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_DIRECTIONS = new Set(['horizontal', 'vertical']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_ALIGNS = new Set(['', 'center']);
+
 const props = defineProps({
   current: Number,
   direction: {
@@ -33,6 +37,11 @@ const attrs = useAttrs();
 const rootRef = ref(null);
 const items = new Map();
 const itemOrder = ref([]);
+const resolvedDirection = computed(() =>
+  VALID_DIRECTIONS.has(props.direction) ? props.direction : 'horizontal'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const resolvedAlign = computed(() => (VALID_ALIGNS.has(props.align) ? props.align : ''));
 
 const formatCode = createComponentFormatter('Steps', {
   defaults: { direction: 'horizontal', size: 'md' },
@@ -40,17 +49,28 @@ const formatCode = createComponentFormatter('Steps', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    direction: resolvedDirection.value,
+    size: resolvedSize.value,
+    align: resolvedAlign.value || undefined,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
   const classes = ['steps'];
-  if (props.direction === 'vertical') classes.push('steps_vertical');
-  if (props.size === 'sm') classes.push('steps_sm');
-  if (props.size === 'lg') classes.push('steps_lg');
+  if (resolvedDirection.value === 'vertical') classes.push('steps_vertical');
+  if (resolvedSize.value === 'sm') classes.push('steps_sm');
+  if (resolvedSize.value === 'lg') classes.push('steps_lg');
   if (props.dot) classes.push('steps_dot');
   if (props.iconStyle) classes.push('steps_icon-style');
   if (props.navigable) classes.push('steps_navigable');
-  if (props.align === 'center') classes.push('steps_align-center');
+  if (resolvedAlign.value === 'center') classes.push('steps_align-center');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });
@@ -79,11 +99,22 @@ function getItemIndex(id) {
   return itemOrder.value.indexOf(id) + 1;
 }
 
+function getItemStatus(id) {
+  if (!Number.isInteger(props.current) || props.current < 0) return undefined;
+
+  const index = itemOrder.value.indexOf(id);
+  if (index < 0) return undefined;
+  if (index < props.current) return 'finished';
+  if (index === props.current) return 'active';
+  return 'wait';
+}
+
 provide('steps', {
   registerItem,
   unregisterItem,
   isLastItem,
   getItemIndex,
+  getItemStatus,
   navigable: computed(() => props.navigable),
 });
 </script>

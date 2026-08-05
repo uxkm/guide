@@ -1,12 +1,13 @@
 <script>
 export const docMeta = {
-  title: 'Accordion | HTML Components',
+  title: 'Accordion | UXKM Guide',
   activeNav: 'accordion',
   pageTitle: 'Accordion',
 };
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import Accordion from '@/components/Accordion.vue';
 import AccordionItem from '@/components/AccordionItem.vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
@@ -21,13 +22,19 @@ import {
   accordionPropColumns,
   accordionProps,
   accordionSlotColumns,
+  accordionSlots,
   accordionTokenColumns,
   accordionTokens,
 } from '@/doc/data/accordion-api';
 
+const returnsOpen = ref(true);
+
 const basicCode = `<script setup>
+import { ref } from 'vue';
 import Accordion from '@/components/Accordion.vue';
 import AccordionItem from '@/components/AccordionItem.vue';
+
+const returnsOpen = ref(true);
 <\/script>
 
 <template>
@@ -38,7 +45,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
     />
     <AccordionItem
     label="교환·반품은 어떻게 하나요?"
-    open
+    v-model:open="returnsOpen"
     content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
     />
     <AccordionItem
@@ -55,8 +62,8 @@ import AccordionItem from '@/components/AccordionItem.vue';
 
 <template>
   <Accordion narrow multiple>
-    <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
-    <AccordionItem label="개인정보" open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
+    <AccordionItem label="알림" default-open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+    <AccordionItem label="개인정보" default-open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
     <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
   </Accordion>
 </template>`;
@@ -68,7 +75,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
 
 <template>
   <Accordion variant="flush" narrow>
-    <AccordionItem label="일반" open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
+    <AccordionItem label="일반" default-open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
     <AccordionItem label="접근성" content="고대비 모드, 모션 감소, 스크린 리더 안내를 조정합니다." />
     <AccordionItem label="고급" content="개발자 도구와 실험 기능을 켜거나 끕니다." />
   </Accordion>
@@ -81,9 +88,25 @@ import AccordionItem from '@/components/AccordionItem.vue';
 
 <template>
   <Accordion variant="bordered" narrow>
-    <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+    <AccordionItem label="알림" default-open content="이메일·푸시 알림 수신 여부를 설정합니다." />
     <AccordionItem label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
     <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
+  </Accordion>
+</template>`;
+
+const cardCode = `<script setup>
+import Accordion from '@/components/Accordion.vue';
+import AccordionItem from '@/components/AccordionItem.vue';
+<\/script>
+
+<template>
+  <Accordion variant="card" narrow multiple>
+    <AccordionItem
+      label="프로젝트 개요"
+      default-open
+      content="목표, 일정, 이해관계자 정보를 요약합니다."
+    />
+    <AccordionItem label="최근 활동" content="커밋, 댓글, 파일 변경 이력을 표시합니다." />
   </Accordion>
 </template>`;
 
@@ -96,7 +119,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
   <Accordion narrow>
     <AccordionItem
     label="미해결 문의"
-    open
+    default-open
     content="답변이 필요한 고객 문의 3건이 있습니다."
     extra-code='<span class="badge badge_count color_danger badge_sm">3</span>'
     >
@@ -121,7 +144,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
 
 <template>
   <Accordion narrow>
-    <AccordionItem label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+    <AccordionItem label="공개 문서" default-open content="누구나 열람할 수 있는 가이드 문서입니다." />
     <AccordionItem
     label="팀 전용 (권한 없음)"
     disabled
@@ -137,10 +160,10 @@ import AccordionItem from '@/components/AccordionItem.vue';
 
 <template>
   <Accordion size="sm" narrow>
-    <AccordionItem label="Small" open content="작은 아코디언 — 좁은 패딩." />
+    <AccordionItem label="Small" default-open content="작은 아코디언 — 좁은 패딩." />
   </Accordion>
   <Accordion size="lg" narrow>
-    <AccordionItem label="Large" open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
+    <AccordionItem label="Large" default-open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
   </Accordion>
 </template>`;
 
@@ -153,7 +176,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
   <Accordion variant="card" narrow effect="slide">
     <AccordionItem
     label="배송 안내"
-    open
+    default-open
     content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
     />
     <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
@@ -170,7 +193,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
   <div class="page_intro">
     <h1>Accordion</h1>
     <p class="lead">
-      여러 섹션을 접었다 펼 수 있는 아코디언 컴포넌트입니다. FAQ·설정·필터 패널 등에 사용하며,
+      여러 섹션을 접었다 펼 수 있는 Nuxt 아코디언 컴포넌트입니다. FAQ·설정·필터 패널 등에 사용하며,
       <code class="typo_code">aria-expanded</code> ·
       <code class="typo_code">aria-controls</code>로 접근성을 보장합니다.
     </p>
@@ -189,7 +212,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
       />
       <AccordionItem
         label="교환·반품은 어떻게 하나요?"
-        open
+        v-model:open="returnsOpen"
         content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다. 단순 변심 반품 시 왕복 배송비가 부과됩니다."
       />
       <AccordionItem
@@ -206,8 +229,8 @@ import AccordionItem from '@/components/AccordionItem.vue';
     :code="multipleCode"
   >
     <Accordion narrow multiple>
-      <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
-      <AccordionItem label="개인정보" open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
+      <AccordionItem label="알림" default-open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+      <AccordionItem label="개인정보" default-open content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
     </Accordion>
   </DemoSection>
@@ -219,7 +242,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
     :code="flushCode"
   >
     <Accordion variant="flush" narrow>
-      <AccordionItem label="일반" open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
+      <AccordionItem label="일반" default-open content="언어, 시간대, 테마 등 기본 환경 설정입니다." />
       <AccordionItem label="접근성" content="고대비 모드, 모션 감소, 스크린 리더 안내를 조정합니다." />
       <AccordionItem label="고급" content="개발자 도구와 실험 기능을 켜거나 끕니다." />
     </Accordion>
@@ -232,9 +255,25 @@ import AccordionItem from '@/components/AccordionItem.vue';
     :code="borderedCode"
   >
     <Accordion variant="bordered" narrow>
-      <AccordionItem label="알림" open content="이메일·푸시 알림 수신 여부를 설정합니다." />
+      <AccordionItem label="알림" default-open content="이메일·푸시 알림 수신 여부를 설정합니다." />
       <AccordionItem label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <AccordionItem label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
+    </Accordion>
+  </DemoSection>
+
+  <DemoSection
+    heading-id="card-heading"
+    title="카드"
+    description="accordion_card로 각 항목을 독립 카드로 분리합니다. 대시보드·위젯 그룹에 사용합니다."
+    :code="cardCode"
+  >
+    <Accordion variant="card" narrow multiple>
+      <AccordionItem
+        label="프로젝트 개요"
+        default-open
+        content="목표, 일정, 이해관계자 정보를 요약합니다."
+      />
+      <AccordionItem label="최근 활동" content="커밋, 댓글, 파일 변경 이력을 표시합니다." />
     </Accordion>
   </DemoSection>
 
@@ -247,7 +286,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
     <Accordion narrow>
       <AccordionItem
         label="미해결 문의"
-        open
+        default-open
         content="답변이 필요한 고객 문의 3건이 있습니다."
         extra-code='<span class="badge badge_count color_danger badge_sm">3</span>'
       >
@@ -272,7 +311,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
     :code="disabledCode"
   >
     <Accordion narrow>
-      <AccordionItem label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+      <AccordionItem label="공개 문서" default-open content="누구나 열람할 수 있는 가이드 문서입니다." />
       <AccordionItem
         label="팀 전용 (권한 없음)"
         disabled
@@ -289,11 +328,11 @@ import AccordionItem from '@/components/AccordionItem.vue';
     :code="sizeCode"
   >
     <Accordion size="sm" narrow>
-      <AccordionItem label="Small" open content="작은 아코디언 — 좁은 패딩." />
+      <AccordionItem label="Small" default-open content="작은 아코디언 — 좁은 패딩." />
     </Accordion>
 
     <Accordion size="lg" narrow>
-      <AccordionItem label="Large" open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
+      <AccordionItem label="Large" default-open content="큰 아코디언 — 넓은 패딩과 큰 글자." />
     </Accordion>
   </DemoSection>
 
@@ -306,7 +345,7 @@ import AccordionItem from '@/components/AccordionItem.vue';
     <Accordion variant="card" narrow effect="slide">
       <AccordionItem
         label="배송 안내"
-        open
+        default-open
         content="평일 기준 2~3일 이내 출고됩니다. 패널을 열고 닫을 때 높이가 부드럽게 전환됩니다."
       />
       <AccordionItem label="교환·반품" content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다." />
@@ -325,7 +364,11 @@ import AccordionItem from '@/components/AccordionItem.vue';
     <ApiTable :columns="accordionItemPropColumns" :rows="accordionItemProps" code-column="name" />
   </ApiSection>
 
-  <ApiSection heading-id="api-slots-heading" title="API · AccordionItem Slots">
+  <ApiSection heading-id="api-slots-heading" title="API · Accordion Slots">
+    <ApiTable :columns="accordionSlotColumns" :rows="accordionSlots" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="api-item-slots-heading" title="API · AccordionItem Slots">
     <ApiTable :columns="accordionSlotColumns" :rows="accordionItemSlots" code-column="name" />
   </ApiSection>
 

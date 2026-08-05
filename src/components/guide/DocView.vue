@@ -1,13 +1,6 @@
 <script setup>
-import { ref, computed, watch, nextTick } from 'vue';
-import { docRevision, getDocByKey } from '@/utils/doc-loader';
-import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
-import { initAffixAll } from '@/legacy/affix-init';
-import { initBackTopAll } from '@/legacy/back-top-init';
-import { initCarousel } from '@/legacy/carousel-init';
-import { initOverlays } from '@/legacy/overlay-init';
-import { initInputClearAll } from '@/legacy/input-clear-init';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+import { loadDocByKey } from '@/utils/doc-loader';
 
 const props = defineProps({
   docKey: {
@@ -19,13 +12,19 @@ const props = defineProps({
 const router = useRouter();
 const baseURL = useRuntimeConfig().app.baseURL;
 const contentRef = ref(null);
-const renderKey = ref(0);
+const doc = shallowRef(await loadDocByKey(props.docKey));
+let loadRevision = 0;
+let contentCleanups = [];
 
-const doc = computed(() => {
-  docRevision.value;
-  renderKey.value;
-  return getDocByKey(props.docKey);
-});
+async function loadDoc(docKey) {
+  const revision = ++loadRevision;
+  const nextDoc = await loadDocByKey(docKey);
+  if (revision !== loadRevision || docKey !== props.docKey) return;
+
+  doc.value = nextDoc;
+  await nextTick();
+  await initContent();
+}
 
 const docComponentProps = computed(() => {
   if (props.docKey !== 'intro') return {};
@@ -42,47 +41,49 @@ async function initContent() {
   const root = contentRef.value;
   if (!root?.querySelectorAll) return;
 
+  contentCleanups.forEach((cleanup) => cleanup());
+  contentCleanups = [];
+
   if (root.querySelector('[data-affix]')) {
-    initAffixAll(root);
+    const { initAffixAll } = await import('@/legacy/affix-init');
+    contentCleanups.push(initAffixAll(root));
   }
 
   if (root.querySelector('[data-back-top]')) {
-    initBackTopAll(root);
+    const { initBackTopAll } = await import('@/legacy/back-top-init');
+    contentCleanups.push(initBackTopAll(root));
   }
 
   if (root.querySelector('[data-swiper]')) {
+    const [{ default: Swiper }, { initCarousel }] = await Promise.all([
+      import('swiper/bundle'),
+      import('@/legacy/carousel-init'),
+    ]);
     initCarousel(root, Swiper);
   }
 
   if (root.querySelector('[data-dropdown], [data-popover], [data-tooltip]')) {
+    const { initOverlays } = await import('@/legacy/overlay-init');
     initOverlays(root);
   }
 
   if (root.querySelector('.input_clearable')) {
+    const { initInputClearAll } = await import('@/legacy/input-clear-init');
     initInputClearAll(root);
   }
-
 }
 
 watch(
-  () => [props.docKey, docRevision.value, renderKey.value],
-  () => {
-    initContent();
-  },
-  { immediate: true }
+  () => props.docKey,
+  (docKey) => loadDoc(docKey),
 );
 
-if (import.meta.hot) {
-  import.meta.hot.on('vite:afterUpdate', (payload) => {
-    const shouldRefresh = payload.updates.some(({ path }) =>
-      /\/src\/(doc\/(components|pages)|components)\//.test(path)
-    );
+onMounted(initContent);
 
-    if (shouldRefresh) {
-      renderKey.value += 1;
-    }
-  });
-}
+onBeforeUnmount(() => {
+  contentCleanups.forEach((cleanup) => cleanup());
+  contentCleanups = [];
+});
 
 useHead(() => ({
   title: doc.value?.meta?.title || 'UXKM Guide',
@@ -110,7 +111,7 @@ function onContentClick(event) {
   <main v-if="doc" ref="contentRef" class="guide_content" @click="onContentClick">
     <component
       :is="doc.component"
-      :key="`${docKey}-${renderKey}`"
+      :key="docKey"
       v-bind="docComponentProps"
     />
   </main>

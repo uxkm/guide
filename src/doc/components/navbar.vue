@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Navbar | HTML Components',
+  title: 'Navbar | UXKM Guide',
   activeNav: 'navbar',
   pageTitle: 'Navbar',
 };
@@ -14,8 +14,6 @@ import Button from '@/components/Button.vue';
 import DemoSection from '@/components/guide/DemoSection.vue';
 import Icon from '@/components/Icon.vue';
 import Input from '@/components/Input.vue';
-import Menu from '@/components/Menu.vue';
-import MenuItem from '@/components/MenuItem.vue';
 import Navbar from '@/components/Navbar.vue';
 import NavbarItem from '@/components/NavbarItem.vue';
 import NavbarList from '@/components/NavbarList.vue';
@@ -42,13 +40,13 @@ import NavbarList from '@/components/NavbarList.vue';
 
 <template>
   <div class="navbar_demo">
-    <Navbar brand="UXKM">
+    <Navbar brand="UXKM" brand-as="NuxtLink" brand-href="/">
       <template #items>
         <NavbarList>
-          <NavbarItem label="홈" active />
-          <NavbarItem label="컴포넌트" />
-          <NavbarItem label="토큰" />
-          <NavbarItem label="접근성" />
+          <NavbarItem as="NuxtLink" href="/" label="홈" active />
+          <NavbarItem as="NuxtLink" href="/components/button" label="컴포넌트" />
+          <NavbarItem as="NuxtLink" href="/design-tokens" label="토큰" />
+          <NavbarItem as="NuxtLink" href="/getting-started" label="시작하기" />
         </NavbarList>
       </template>
     </Navbar>
@@ -289,13 +287,13 @@ import NavbarList from '@/components/NavbarList.vue';
     :code="basicCode"
   >
     <div class="navbar_demo">
-      <Navbar brand="UXKM">
+      <Navbar brand="UXKM" brand-as="NuxtLink" brand-href="/">
         <template #items>
           <NavbarList>
-            <NavbarItem label="홈" active />
-            <NavbarItem label="컴포넌트" />
-            <NavbarItem label="토큰" />
-            <NavbarItem label="접근성" />
+            <NavbarItem as="NuxtLink" href="/" label="홈" active />
+            <NavbarItem as="NuxtLink" href="/components/button" label="컴포넌트" />
+            <NavbarItem as="NuxtLink" href="/design-tokens" label="토큰" />
+            <NavbarItem as="NuxtLink" href="/getting-started" label="시작하기" />
           </NavbarList>
         </template>
       </Navbar>

@@ -1,10 +1,12 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs, useSlots, watchEffect } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { initAffix } from '@/legacy/affix-init';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
 defineOptions({ inheritAttrs: false });
+
+const VALID_SKINS = new Set(['', 'bar', 'anchor']);
 
 const props = defineProps({
   /** 스크롤 컨테이너 CSS 선택자. 생략 시 window */
@@ -32,6 +34,9 @@ const props = defineProps({
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const resolvedSkin = computed(() =>
+  VALID_SKINS.has(props.skin) ? props.skin : ''
+);
 
 const formatCode = createComponentFormatter('Affix', {
   defaults: { offsetTop: 0, interactive: true },
@@ -39,7 +44,16 @@ const formatCode = createComponentFormatter('Affix', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    skin: resolvedSkin.value || undefined,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
   const classes = ['affix'];
@@ -49,8 +63,8 @@ const rootClass = computed(() => {
 
 const targetClass = computed(() => {
   const classes = ['affix_target'];
-  if (props.skin === 'bar') classes.push('affix_bar');
-  if (props.skin === 'anchor') classes.push('affix_anchor');
+  if (resolvedSkin.value === 'bar') classes.push('affix_bar');
+  if (resolvedSkin.value === 'anchor') classes.push('affix_anchor');
   return classes;
 });
 
@@ -58,7 +72,11 @@ const rootAttrs = computed(() => {
   const result = {};
   if (props.interactive) result['data-affix'] = '';
   if (props.target) result['data-target'] = props.target;
-  if (props.offsetTop && Number(props.offsetTop) !== 0) {
+  if (
+    props.offsetTop !== undefined &&
+    props.offsetTop !== null &&
+    Number(props.offsetTop) !== 0
+  ) {
     result['data-offset-top'] = String(props.offsetTop);
   }
   if (props.offsetBottom !== undefined && props.offsetBottom !== null && props.offsetBottom !== '') {
@@ -72,17 +90,17 @@ const fallthroughAttrs = computed(() => {
   return rest;
 });
 
-let cleanupAffix = null;
+watchEffect(
+  (onCleanup) => {
+    props.target;
+    props.offsetTop;
+    props.offsetBottom;
 
-onMounted(() => {
-  if (!props.interactive || !rootRef.value) return;
-  cleanupAffix = initAffix(rootRef.value);
-});
-
-onUnmounted(() => {
-  cleanupAffix?.();
-  cleanupAffix = null;
-});
+    if (!props.interactive || !rootRef.value) return;
+    onCleanup(initAffix(rootRef.value));
+  },
+  { flush: 'post' }
+);
 </script>
 
 <template>

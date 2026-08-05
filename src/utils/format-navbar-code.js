@@ -2,7 +2,7 @@ import { formatDemoHtml } from '@/utils/format-demo-html';
 import { formatIconCodeFromDom } from '@/utils/format-icon-code';
 import { resolveRegisteredCode } from '@/utils/resolve-demo-code';
 
-const DEFAULTS = { size: 'md' };
+const DEFAULTS = { size: 'md', brandAs: 'a', brandHref: '#' };
 const BOOLEAN_PROPS = new Set(['borderless', 'dark', 'sticky', 'responsive']);
 
 function toKebab(key) {

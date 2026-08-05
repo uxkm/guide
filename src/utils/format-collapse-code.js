@@ -17,7 +17,7 @@ function shouldSkipGroupProp(key, value) {
 }
 
 function isPanelOpen(panel) {
-  return panel.isOpen?.value ?? panel.open;
+  return panel.getIsOpen?.() ?? panel.isOpen?.value ?? panel.open;
 }
 
 function formatGroupProps(props, customAttrs = {}) {
@@ -49,7 +49,11 @@ function formatCollapsePanel(panel) {
   const attrs = [];
 
   attrs.push(`label="${panel.label}"`);
-  if (isPanelOpen(panel)) attrs.push('open');
+  if (panel.controlled && isPanelOpen(panel)) {
+    attrs.push('open');
+  } else if (!panel.controlled && panel.defaultOpen) {
+    attrs.push('default-open');
+  }
   if (panel.disabled) attrs.push('disabled');
 
   const attrStr = attrs.join(' ');
@@ -95,7 +99,11 @@ export function formatCollapseExternalCode(props, customAttrs = {}, isOpenRef = 
   const parts = [`trigger-label="${props.triggerLabel}"`];
 
   if (props.narrow) parts.push('narrow');
-  if (isOpenRef?.value ?? props.open) parts.push('open');
+  if (props.controlled && (isOpenRef?.value ?? props.open)) {
+    parts.push('open');
+  } else if (!props.controlled && props.defaultOpen) {
+    parts.push('default-open');
+  }
   if (props.boxed === false) parts.push(':boxed="false"');
   if (props.effect) parts.push(`effect="${props.effect}"`);
 

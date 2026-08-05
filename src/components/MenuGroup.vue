@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   title: {
@@ -11,13 +13,19 @@ const props = defineProps({
 });
 
 const rootRef = ref(null);
+const attrs = useAttrs();
 const formatCode = createComponentFormatter('MenuGroup', { selfClosing: true });
 
-useComponentDemoCode(formatCode, props, {}, rootRef, {});
+useComponentDemoCode(formatCode, props, {}, rootRef, attrs);
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 </script>
 
 <template>
-  <li ref="rootRef" class="menu_group" role="presentation">
+  <li ref="rootRef" v-bind="fallthroughAttrs" :class="['menu_group', attrs.class]" role="presentation">
     <span class="menu_group-title">{{ title }}</span>
   </li>
 </template>

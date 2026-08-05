@@ -34,7 +34,7 @@
   vertical-align: middle;
 
   &.is-open {
-    > .dropdown_trigger[aria-expanded] {
+    > [data-demo-slot="trigger"] > .dropdown_trigger[aria-expanded] {
       z-index: calc(var(--z-dropdown, 100) + 1);
     }
 
@@ -126,7 +126,8 @@
     display: flex;
     width: 100%;
 
-    > .dropdown_trigger {
+    > [data-demo-slot="trigger"],
+    > [data-demo-slot="trigger"] > .dropdown_trigger {
       width: 100%;
     }
 
@@ -136,7 +137,7 @@
   }
 
   &_fit {
-    > .dropdown_trigger.btn_select {
+    > [data-demo-slot="trigger"] > .dropdown_trigger.btn_select {
       min-width: var(--dropdown-min-width);
     }
   }

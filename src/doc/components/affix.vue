@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Affix | HTML Components',
+  title: 'Affix | UXKM Guide',
   activeNav: 'affix',
   pageTitle: 'Affix',
 };
@@ -193,15 +193,15 @@ import Button from '@/components/Button.vue';
   <div class="page_intro">
     <h1>Affix</h1>
     <p class="lead">
-      스크롤 시 지정한 위치에 요소를 고정하는 컴포넌트입니다. 툴바·앵커 내비게이션·액션 버튼 등에 사용하며,
-      <code class="typo_code">data-target</code>으로 스크롤 컨테이너를 지정할 수 있습니다.
+      스크롤 시 지정한 위치에 요소를 고정하는 Nuxt 컴포넌트입니다. 툴바·앵커 내비게이션·액션 버튼 등에 사용하며,
+      <code class="typo_code">target</code>으로 스크롤 컨테이너를 지정할 수 있습니다.
     </p>
   </div>
 
   <DemoSection
     heading-id="basic-heading"
     title="기본"
-    description="<code class=&quot;typo_code&quot;>data-affix</code>와 <code class=&quot;typo_code&quot;>data-target</code>으로 스크롤 영역을 연결합니다. 영역을 스크롤하면 <code class=&quot;typo_code&quot;>.affix_target</code>이 상단에 고정됩니다."
+    description="<code class=&quot;typo_code&quot;>target</code>으로 스크롤 영역을 연결합니다. 영역을 스크롤하면 <code class=&quot;typo_code&quot;>.affix_target</code>이 상단에 고정됩니다."
     :code="basicCode"
   >
     <div class="affix_demo-narrow">
@@ -234,7 +234,7 @@ import Button from '@/components/Button.vue';
   <DemoSection
     heading-id="offset-heading"
     title="상단 오프셋"
-    description="<code class=&quot;typo_code&quot;>data-offset-top</code>으로 뷰포트(또는 컨테이너) 상단과의 간격을 지정합니다. 고정 헤더 아래에 붙일 때 사용합니다."
+    description="<code class=&quot;typo_code&quot;>offset-top</code>으로 뷰포트(또는 컨테이너) 상단과의 간격을 지정합니다. 고정 헤더 아래에 붙일 때 사용합니다."
     :code="offsetCode"
   >
     <div class="affix_demo-narrow">
@@ -344,7 +344,7 @@ import Button from '@/components/Button.vue';
   <DemoSection
     heading-id="bottom-heading"
     title="하단 고정"
-    description="<code class=&quot;typo_code&quot;>data-offset-bottom</code>을 지정하면 요소가 컨테이너 하단에 고정됩니다. 모바일 하단 액션 바에 활용합니다."
+    description="<code class=&quot;typo_code&quot;>offset-bottom</code>을 지정하면 요소가 컨테이너 하단에 고정됩니다. 모바일 하단 액션 바에 활용합니다."
     :code="bottomCode"
   >
     <div class="affix_demo-narrow">
@@ -381,7 +381,7 @@ import Button from '@/components/Button.vue';
   <DemoSection
     heading-id="window-heading"
     title="페이지 스크롤"
-    description="<code class=&quot;typo_code&quot;>data-target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 섹션 아래로 페이지를 스크롤하면 배너가 상단에 고정됩니다."
+    description="<code class=&quot;typo_code&quot;>target</code>을 생략하면 window 스크롤을 기준으로 동작합니다. 이 섹션 아래로 페이지를 스크롤하면 배너가 상단에 고정됩니다."
     :code="windowCode"
   >
     <div class="affix_demo-narrow">
@@ -440,8 +440,8 @@ import Button from '@/components/Button.vue';
   <ApiSection heading-id="api-attrs-heading" title="API · Data Attributes">
     <ApiTable :columns="affixAttrColumns" :rows="affixAttrs" code-column="name" />
     <p class="form_field-hint" style="margin-top: var(--space-md);">
-      Affix는 HTML 마크업 + JS 초기화 방식입니다. Vue 앱에서는 컴포넌트 마운트 시
-      <code class="typo_code">initAffix</code>가 자동 호출되며, 문서 로드 시
+      HTML 마크업에서는 JS 초기화 방식을 사용합니다. Nuxt 앱에서는 컴포넌트가
+      <code class="typo_code">initAffix</code>를 자동으로 관리하며, 일반 문서 로드 시
       <code class="typo_code">initAffixAll</code>이
       <code class="typo_code">[data-affix]</code> 요소를 초기화합니다.
     </p>

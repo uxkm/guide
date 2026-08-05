@@ -1,12 +1,13 @@
 <script>
 export const docMeta = {
-  title: 'Pagination | HTML Components',
+  title: 'Pagination | UXKM Guide',
   activeNav: 'pagination',
   pageTitle: 'Pagination',
 };
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
 import DemoSection from '@/components/guide/DemoSection.vue';
@@ -21,6 +22,20 @@ import {
   paginationTokenColumns,
   paginationTokens,
 } from '@/doc/data/pagination-api';
+
+const page = ref(1);
+
+const basicCode = `<script setup>
+import { ref } from 'vue';
+import Pagination from '@/components/Pagination.vue';
+
+const page = ref(1);
+<\/script>
+
+<template>
+  <Pagination v-model:current="page" :total="50" :page-size="10" />
+  <p aria-live="polite">현재 페이지: {{ page }}</p>
+</template>`;
 </script>
 
 <template>
@@ -33,8 +48,10 @@ import {
     heading-id="basic-heading"
     title="기본"
     description="이전·다음 버튼과 페이지 번호로 구성합니다."
+    :code="basicCode"
   >
-    <Pagination :current="1" :total="50" :page-size="10" />
+    <Pagination v-model:current="page" :total="50" :page-size="10" />
+    <p class="color_muted size_sm" aria-live="polite">현재 페이지: {{ page }}</p>
   </DemoSection>
 
   <DemoSection

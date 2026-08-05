@@ -35,7 +35,7 @@ export const accordionProps = [
     name: 'effect',
     type: `'slide'`,
     default: '—',
-    description: '펼침·접힘 효과 — slide면 data-effect="slide"로 높이 슬라이드',
+    description: '펼침·접힘 높이 슬라이드 애니메이션 (data-effect="slide")',
   },
 ];
 
@@ -62,8 +62,20 @@ export const accordionItemProps = [
   {
     name: 'open',
     type: 'boolean',
+    default: '—',
+    description: '열림 상태 (제어, v-model:open)',
+  },
+  {
+    name: 'default-open',
+    type: 'boolean',
     default: 'false',
-    description: '초기 열림 상태',
+    description: '초기 열림 상태 (비제어)',
+  },
+  {
+    name: '@open-change',
+    type: '(open: boolean) => void',
+    default: '—',
+    description: '열림 상태 변경 이벤트',
   },
   {
     name: 'disabled',
@@ -83,6 +95,10 @@ export const accordionItemProps = [
 export const accordionSlotColumns = [
   { key: 'name', label: '슬롯' },
   { key: 'description', label: '설명' },
+];
+
+export const accordionSlots = [
+  { name: 'default', description: 'AccordionItem 나열' },
 ];
 
 export const accordionItemSlots = [
@@ -109,6 +125,7 @@ export const accordionClasses = [
   { name: 'data-accordion-multiple', description: 'HTML 마크업 다중 열기 허용' },
   { name: 'data-effect="slide"', description: '펼침·접힘 높이 슬라이드 애니메이션' },
   { name: 'is-open · is-disabled', description: '상태 클래스' },
+  ...rippleClassRows,
 ];
 
 

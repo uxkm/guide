@@ -1,15 +1,17 @@
 <script>
 export const docMeta = {
-  title: 'Collapse | HTML Components',
+  title: 'Collapse | UXKM Guide',
   activeNav: 'collapse',
   pageTitle: 'Collapse',
 };
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import CollapseExternal from '@/components/CollapseExternal.vue';
 import Collapse from '@/components/Collapse.vue';
 import CollapsePanel from '@/components/CollapsePanel.vue';
+import Link from '@/components/Link.vue';
 import List from '@/components/List.vue';
 import ListItem from '@/components/ListItem.vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
@@ -27,7 +29,12 @@ import {
   collapsePanelProps,
   collapsePanelSlots,
   collapseSlotColumns,
+  collapseSlots,
+  collapseTokenColumns,
+  collapseTokens,
 } from '@/doc/data/collapse-api';
+
+const shippingOpen = ref(true);
 
 const standaloneCode = `<script setup>
 import CollapseExternal from '@/components/CollapseExternal.vue';
@@ -57,16 +64,41 @@ import ListItem from '@/components/ListItem.vue';
   </CollapseExternal>
 </template>`;
 
-const basicCode = `<script setup>
+const linksCode = `<script setup>
 import Collapse from '@/components/Collapse.vue';
 import CollapsePanel from '@/components/CollapsePanel.vue';
+import Link from '@/components/Link.vue';
+<\/script>
+
+<template>
+  <Collapse narrow>
+    <CollapsePanel label="관련 가이드" default-open>
+      <p style="margin: 0">
+        <Link href="/getting-started" label="시작하기" />
+        ·
+        <Link href="/components/button" label="Button" />
+      </p>
+    </CollapsePanel>
+    <CollapsePanel
+      label="교환·반품 안내"
+      content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다."
+    />
+  </Collapse>
+</template>`;
+
+const basicCode = `<script setup>
+import { ref } from 'vue';
+import Collapse from '@/components/Collapse.vue';
+import CollapsePanel from '@/components/CollapsePanel.vue';
+
+const shippingOpen = ref(true);
 <\/script>
 
 <template>
   <Collapse narrow>
     <CollapsePanel
     label="배송 정보"
-    open
+    v-model:open="shippingOpen"
     content="평일 기준 2~3일 이내 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다."
     />
     <CollapsePanel
@@ -87,7 +119,7 @@ import CollapsePanel from '@/components/CollapsePanel.vue';
 
 <template>
   <Collapse narrow accordion>
-    <CollapsePanel label="알림 설정" open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
+    <CollapsePanel label="알림 설정" default-open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
     <CollapsePanel label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
     <CollapsePanel label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
   </Collapse>
@@ -102,12 +134,12 @@ import CollapsePanel from '@/components/CollapsePanel.vue';
   <Collapse variant="ghost" narrow>
     <CollapsePanel
     label="Ghost"
-    open
+    default-open
     content="배경만 강조하는 고스트 스킨입니다. 필터·사이드 패널에 적합합니다."
     />
   </Collapse>
   <Collapse variant="card" narrow>
-    <CollapsePanel label="Card" open content="패널마다 카드 형태로 분리됩니다." />
+    <CollapsePanel label="Card" default-open content="패널마다 카드 형태로 분리됩니다." />
     <CollapsePanel label="두 번째 패널" content="카드 스킨의 두 번째 패널입니다." />
   </Collapse>
 </template>`;
@@ -119,7 +151,7 @@ import CollapsePanel from '@/components/CollapsePanel.vue';
 
 <template>
   <Collapse narrow>
-    <CollapsePanel label="진행 중" open content="현재 처리 중인 요청 3건입니다." extra-code="3건">
+    <CollapsePanel label="진행 중" default-open content="현재 처리 중인 요청 3건입니다." extra-code="3건">
       <template #extra>3건</template>
     </CollapsePanel>
     <CollapsePanel
@@ -139,7 +171,7 @@ import CollapsePanel from '@/components/CollapsePanel.vue';
 
 <template>
   <Collapse narrow>
-    <CollapsePanel label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+    <CollapsePanel label="공개 문서" default-open content="누구나 열람할 수 있는 가이드 문서입니다." />
     <CollapsePanel
     label="팀 전용 (권한 없음)"
     disabled
@@ -155,10 +187,10 @@ import CollapsePanel from '@/components/CollapsePanel.vue';
 
 <template>
   <Collapse size="sm" narrow>
-    <CollapsePanel label="Small" open content="작은 콜랩스 — 좁은 패딩." />
+    <CollapsePanel label="Small" default-open content="작은 콜랩스 — 좁은 패딩." />
   </Collapse>
   <Collapse size="lg" narrow>
-    <CollapsePanel label="Large" open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
+    <CollapsePanel label="Large" default-open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
   </Collapse>
 </template>`;
 
@@ -172,15 +204,13 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
   <Collapse narrow effect="slide">
     <CollapsePanel
     label="배송 정보"
-    open
+    default-open
     content="평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다."
     />
     <CollapsePanel label="결제 수단" content="신용카드, 계좌이체, 간편결제를 지원합니다." />
   </Collapse>
-  <CollapseExternal trigger-label="상세 보기" narrow effect="slide" :boxed="false">
-    <div style="margin-top: var(--space-sm); padding: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised);">
-      <p style="margin: 0">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>
-    </div>
+  <CollapseExternal trigger-label="상세 보기" narrow effect="slide">
+    <p style="margin: 0">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>
   </CollapseExternal>
 </template>`;
 
@@ -190,7 +220,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
   <div class="page_intro">
     <h1>Collapse</h1>
     <p class="lead">
-      콘텐츠 영역을 접었다 펼 수 있는 컴포넌트입니다. 외부 버튼으로 단일 영역을 제어하거나, 패널 그룹으로
+      콘텐츠 영역을 접었다 펼 수 있는 Nuxt 컴포넌트입니다. 외부 버튼으로 단일 영역을 제어하거나, 패널 그룹으로
       여러 섹션을 구성할 수 있습니다.
       <code class="typo_code">aria-expanded</code> ·
       <code class="typo_code">aria-controls</code>로 접근성을 보장합니다.
@@ -225,6 +255,29 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
   </DemoSection>
 
   <DemoSection
+    heading-id="links-heading"
+    title="패널 내 링크"
+    description="패널 본문에 Link를 배치해 관련 문서로 이동할 수 있습니다."
+    :code="linksCode"
+  >
+    <Collapse narrow>
+      <CollapsePanel label="관련 가이드" default-open>
+        <p style="margin: 0">
+          <Link href="/getting-started" label="시작하기" />
+          ·
+          <Link href="/components/button" label="Button" />
+          ·
+          <Link href="/components/dropdown" label="Dropdown" />
+        </p>
+      </CollapsePanel>
+      <CollapsePanel
+        label="교환·반품 안내"
+        content="수령 후 7일 이내 마이페이지에서 신청할 수 있습니다."
+      />
+    </Collapse>
+  </DemoSection>
+
+  <DemoSection
     heading-id="basic-heading"
     title="패널 그룹"
     description="collapse_bordered가 기본 스킨입니다. 각 패널은 독립적으로 열고 닫을 수 있습니다."
@@ -233,7 +286,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     <Collapse narrow>
       <CollapsePanel
         label="배송 정보"
-        open
+        v-model:open="shippingOpen"
         content="평일 기준 2~3일 이내 출고됩니다. 제주·도서 산간 지역은 1~2일 추가 소요될 수 있습니다."
       />
       <CollapsePanel
@@ -254,7 +307,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     :code="accordionCode"
   >
     <Collapse narrow accordion>
-      <CollapsePanel label="알림 설정" open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
+      <CollapsePanel label="알림 설정" default-open content="이메일·푸시·SMS 알림 수신 여부를 설정합니다." />
       <CollapsePanel label="개인정보" content="프로필 공개 범위와 데이터 다운로드를 관리합니다." />
       <CollapsePanel label="보안" content="비밀번호 변경과 2단계 인증을 설정합니다." />
     </Collapse>
@@ -270,13 +323,13 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     <Collapse variant="ghost" narrow>
       <CollapsePanel
         label="Ghost"
-        open
+        default-open
         content="배경만 강조하는 고스트 스킨입니다. 필터·사이드 패널에 적합합니다."
       />
     </Collapse>
 
     <Collapse variant="card" narrow>
-      <CollapsePanel label="Card" open content="패널마다 카드 형태로 분리됩니다." />
+      <CollapsePanel label="Card" default-open content="패널마다 카드 형태로 분리됩니다." />
       <CollapsePanel label="두 번째 패널" content="카드 스킨의 두 번째 패널입니다." />
     </Collapse>
   </DemoSection>
@@ -288,7 +341,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     :code="extraCode"
   >
     <Collapse narrow>
-      <CollapsePanel label="진행 중" open content="현재 처리 중인 요청 3건입니다." extra-code="3건">
+      <CollapsePanel label="진행 중" default-open content="현재 처리 중인 요청 3건입니다." extra-code="3건">
         <template #extra>3건</template>
       </CollapsePanel>
       <CollapsePanel
@@ -308,7 +361,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     :code="disabledCode"
   >
     <Collapse narrow>
-      <CollapsePanel label="공개 문서" open content="누구나 열람할 수 있는 가이드 문서입니다." />
+      <CollapsePanel label="공개 문서" default-open content="누구나 열람할 수 있는 가이드 문서입니다." />
       <CollapsePanel
         label="팀 전용 (권한 없음)"
         disabled
@@ -325,11 +378,11 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     :code="sizeCode"
   >
     <Collapse size="sm" narrow>
-      <CollapsePanel label="Small" open content="작은 콜랩스 — 좁은 패딩." />
+      <CollapsePanel label="Small" default-open content="작은 콜랩스 — 좁은 패딩." />
     </Collapse>
 
     <Collapse size="lg" narrow>
-      <CollapsePanel label="Large" open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
+      <CollapsePanel label="Large" default-open content="큰 콜랩스 — 넓은 패딩과 큰 글자." />
     </Collapse>
   </DemoSection>
 
@@ -345,7 +398,7 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
       <Collapse narrow effect="slide">
         <CollapsePanel
           label="배송 정보"
-          open
+          default-open
           content="평일 기준 2~3일 이내 출고됩니다. 열고 닫을 때 높이가 슬라이드됩니다."
         />
         <CollapsePanel label="결제 수단" content="신용카드, 계좌이체, 간편결제를 지원합니다." />
@@ -354,18 +407,8 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
 
     <div class="demo_preview-block">
       <h3 class="typo_overline">외부 트리거</h3>
-      <CollapseExternal trigger-label="상세 보기" narrow effect="slide" :boxed="false">
-        <div
-          style="
-            margin-top: var(--space-sm);
-            padding: var(--space-lg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            background: var(--color-surface-raised);
-          "
-        >
-          <p style="margin: 0">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>
-        </div>
+      <CollapseExternal trigger-label="상세 보기" narrow effect="slide">
+        <p style="margin: 0">외부 트리거로 연결된 영역도 슬라이드로 펼쳐집니다.</p>
       </CollapseExternal>
     </div>
   </DemoSection>
@@ -382,6 +425,10 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     <ApiTable :columns="collapsePropColumns" :rows="collapseProps" code-column="name" />
   </ApiSection>
 
+  <ApiSection heading-id="api-collapse-slots-heading" title="API · Collapse Slots">
+    <ApiTable :columns="collapseSlotColumns" :rows="collapseSlots" code-column="name" />
+  </ApiSection>
+
   <ApiSection heading-id="api-panel-props-heading" title="API · CollapsePanel Props">
     <ApiTable :columns="collapsePanelPropColumns" :rows="collapsePanelProps" code-column="name" />
   </ApiSection>
@@ -396,5 +443,9 @@ import CollapseExternal from '@/components/CollapseExternal.vue';
     description="Vue 컴포넌트가 렌더하는 OOCSS 클래스입니다. HTML 마크업으로 직접 작성할 때 동일하게 조합합니다."
   >
     <ApiTable :columns="collapseClassColumns" :rows="collapseClasses" code-column="name" />
+  </ApiSection>
+
+  <ApiSection heading-id="tokens-heading" title="디자인 토큰">
+    <ApiTable :columns="collapseTokenColumns" :rows="collapseTokens" code-column="name" />
   </ApiSection>
 </template>

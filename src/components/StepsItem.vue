@@ -5,6 +5,10 @@ import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
 
+defineOptions({ inheritAttrs: false });
+
+const VALID_STATUSES = new Set(['finished', 'active', 'wait', 'error']);
+
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
@@ -15,7 +19,7 @@ const props = defineProps({
   description: String,
   status: {
     type: String,
-    default: 'wait',
+    default: undefined,
     validator: (v) => ['finished', 'active', 'wait', 'error'].includes(v),
   },
   index: Number,
@@ -25,6 +29,15 @@ const { rippleAttrs } = useRipple(props);
 const attrs = useAttrs();
 const slots = useSlots();
 const rootRef = ref(null);
+const steps = inject('steps', null);
+const itemId = useId().replace(/:/g, '');
+const isNavigable = computed(() => steps?.navigable?.value ?? false);
+const resolvedStatus = computed(() => {
+  if (props.status != null) {
+    return VALID_STATUSES.has(props.status) ? props.status : 'wait';
+  }
+  return steps?.getItemStatus(itemId) ?? 'wait';
+});
 
 const formatCode = createComponentFormatter('StepsItem', {
   defaults: { status: 'wait' },
@@ -34,20 +47,38 @@ const formatCode = createComponentFormatter('StepsItem', {
   selfClosing: true,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
-
-const steps = inject('steps', null);
-const itemId = useId().replace(/:/g, '');
-
-const isNavigable = computed(() => steps?.navigable?.value ?? false);
+useComponentDemoCode(
+  formatCode,
+  () => ({ ...props, status: resolvedStatus.value }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const itemClass = computed(() => [
   'steps_item',
-  `is-${props.status}`,
+  `is-${resolvedStatus.value}`,
+  attrs.class,
 ]);
 
 const isLast = computed(() => steps?.isLastItem(itemId) ?? false);
 const stepIndex = computed(() => props.index ?? steps?.getItemIndex(itemId) ?? 0);
+const itemAttrs = computed(() => {
+  const { class: _class, onClick: _onClick, ...rest } = attrs;
+  return rest;
+});
+
+function invokeListener(listener, event) {
+  if (Array.isArray(listener)) {
+    listener.forEach((handler) => handler?.(event));
+    return;
+  }
+  listener?.(event);
+}
+
+function onClick(event) {
+  invokeListener(attrs.onClick, event);
+}
 
 onMounted(() => {
   steps?.registerItem(itemId, props);
@@ -61,21 +92,23 @@ onUnmounted(() => {
 <template>
   <li
     ref="rootRef"
+    v-bind="itemAttrs"
     :class="itemClass"
-    :aria-current="!isNavigable && status === 'active' ? 'step' : undefined"
+    :aria-current="!isNavigable && resolvedStatus === 'active' ? 'step' : undefined"
   >
     <button
       v-if="isNavigable"
       type="button"
       class="steps_trigger"
-      :disabled="status === 'wait'"
-      :aria-current="status === 'active' ? 'step' : undefined"
+      :disabled="resolvedStatus === 'wait'"
+      :aria-current="resolvedStatus === 'active' ? 'step' : undefined"
       v-bind="rippleAttrs"
+      @click="onClick"
     >
       <span class="steps_head">
         <span class="steps_indicator" aria-hidden="true">
-          <Icon v-if="status === 'finished'" name="check" class="steps_icon" />
-          <Icon v-else-if="status === 'error'" name="close" class="steps_icon" />
+          <Icon v-if="resolvedStatus === 'finished'" name="check" class="steps_icon" />
+          <Icon v-else-if="resolvedStatus === 'error'" name="close" class="steps_icon" />
           <span v-else class="steps_index">{{ stepIndex }}</span>
         </span>
         <span v-if="!isLast" class="steps_tail" aria-hidden="true" />
@@ -88,8 +121,8 @@ onUnmounted(() => {
     <slot v-else>
       <div class="steps_head">
         <span class="steps_indicator" aria-hidden="true">
-          <Icon v-if="status === 'finished'" name="check" class="steps_icon" />
-          <Icon v-else-if="status === 'error'" name="close" class="steps_icon" />
+          <Icon v-if="resolvedStatus === 'finished'" name="check" class="steps_icon" />
+          <Icon v-else-if="resolvedStatus === 'error'" name="close" class="steps_icon" />
           <span v-else class="steps_index">{{ stepIndex }}</span>
         </span>
         <span v-if="!isLast" class="steps_tail" aria-hidden="true" />

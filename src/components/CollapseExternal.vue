@@ -33,8 +33,13 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /** 초기 열림 상태 */
-  open: Boolean,
+  /** 열림 상태 (제어, v-model:open) */
+  open: {
+    type: Boolean,
+    default: undefined,
+  },
+  /** 초기 열림 상태 (비제어) */
+  defaultOpen: Boolean,
   /** 펼침·접힘 효과. slide — 높이 슬라이드 */
   effect: {
     type: String,
@@ -42,27 +47,38 @@ const props = defineProps({
     validator: (value) => value === undefined || value === null || value === '' || value === 'slide',
   },
 });
+const emit = defineEmits(['update:open', 'open-change']);
 const { rippleAttrs } = useRipple(props);
 
 
 const attrs = useAttrs();
 const rootRef = ref(null);
 const panelRef = ref(null);
-const panelId = useId().replace(/:/g, '');
-const isOpen = ref(props.open);
+const generatedId = useId().replace(/:/g, '');
+const triggerId = `collapse-ext-trigger-${generatedId}`;
+const panelId = `collapse-ext-panel-${generatedId}`;
+const internalOpen = ref(props.defaultOpen);
 
-const slideEffect = computed(() => props.effect === 'slide');
+const controlled = computed(() => props.open != null);
+const isOpen = computed(() =>
+  controlled.value ? Boolean(props.open) : internalOpen.value
+);
+const resolvedEffect = computed(() => (props.effect === 'slide' ? 'slide' : undefined));
+const slideEffect = computed(() => resolvedEffect.value === 'slide');
 
 const wrapperClass = computed(() => [
   props.narrow ? 'collapse_demo-narrow' : null,
   attrs.class,
 ]);
 
-/** boxed일 때 인라인 스타일로 테두리·배경·패딩 적용 */
+/** 슬라이드 height:0일 때 패딩 박스가 먼저 보이지 않도록 바깥에는 여백만 적용 */
 const panelStyle = computed(() =>
+  props.boxed ? { marginTop: 'var(--space-sm)' } : undefined
+);
+
+const panelInnerStyle = computed(() =>
   props.boxed
     ? {
-        marginTop: 'var(--space-sm)',
         padding: 'var(--space-lg)',
         border: '1px solid var(--color-border)',
         borderRadius: 'var(--radius-md)',
@@ -87,13 +103,22 @@ const panelClass = computed(() =>
 );
 
 function toggle() {
-  isOpen.value = !isOpen.value;
+  const nextOpen = !isOpen.value;
+  if (!controlled.value) {
+    internalOpen.value = nextOpen;
+  }
+  emit('update:open', nextOpen);
+  emit('open-change', nextOpen);
 }
 
-watch(isOpen, (open) => {
-  if (!slideEffect.value) return;
-  setSlideRegionOpen(panelRef.value, open, true);
-});
+watch(
+  [slideEffect, isOpen],
+  ([slide, open], [wasSlide]) => {
+    if (!slide) return;
+    setSlideRegionOpen(panelRef.value, open, Boolean(wasSlide));
+  },
+  { flush: 'post' }
+);
 
 onMounted(() => {
   if (slideEffect.value) {
@@ -101,7 +126,18 @@ onMounted(() => {
   }
 });
 
-useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
+useCollapseExternalDemoCode(
+  () => ({
+    ...props,
+    open: controlled.value ? Boolean(props.open) : undefined,
+    defaultOpen: Boolean(props.defaultOpen),
+    controlled: controlled.value,
+    effect: resolvedEffect.value,
+  }),
+  rootRef,
+  attrs,
+  isOpen
+);
 </script>
 
 <template>
@@ -110,6 +146,7 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
       <slot name="lead" />
     </div>
     <Button
+      :id="triggerId"
       variant="ghost"
       size="sm"
       :expanded="isOpen"
@@ -126,13 +163,17 @@ useCollapseExternalDemoCode(props, rootRef, attrs, isOpen);
       :id="panelId"
       ref="panelRef"
       class="collapse"
+      role="region"
+      :aria-labelledby="triggerId"
       data-demo-slot="default"
       :class="panelClass"
-      :data-effect="effect || undefined"
+      :data-effect="resolvedEffect"
       :style="panelStyle"
       v-bind="panelBind"
     >
-      <slot />
+      <div :style="panelInnerStyle">
+        <slot />
+      </div>
     </div>
   </div>
 </template>

@@ -32,6 +32,7 @@ function toKebab(key) {
 
 function shouldSkipProp(key, value, props = {}) {
   if (value === undefined || value === null || value === '') return true;
+  if (key === 'demo' && value === false) return false;
   if (key === 'navigation' && value === false) return false;
   if (key === 'pagination' && value === false) return false;
   if (value === false) return true;
@@ -49,7 +50,7 @@ function formatCarouselProps(props, customAttrs = {}) {
     if (shouldSkipProp(key, value, props)) return acc;
 
     if (BOOLEAN_PROPS.has(key)) {
-      acc.push(toKebab(key));
+      acc.push(value ? toKebab(key) : `:${toKebab(key)}="false"`);
       return acc;
     }
 
@@ -92,7 +93,25 @@ function formatCarouselProps(props, customAttrs = {}) {
   }, []);
 
   Object.entries(customAttrs).forEach(([key, value]) => {
-    if (key === 'class' || key === 'style') return;
+    if (value === undefined || value === null || value === '') return;
+    if (key === 'style') return;
+
+    if (key.startsWith('on') && typeof value === 'function') {
+      parts.push(`@${key.slice(2).toLowerCase()}="..."`);
+      return;
+    }
+
+    if (typeof value === 'boolean') {
+      if (value) parts.push(toKebab(key));
+      return;
+    }
+
+    if (typeof value === 'number') {
+      parts.push(`:${toKebab(key)}="${value}"`);
+      return;
+    }
+
+    parts.push(`${toKebab(key)}="${value}"`);
   });
 
   return parts;

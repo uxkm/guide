@@ -2,7 +2,7 @@
 import { computed, ref, provide, onMounted } from 'vue';
 import GuideSidebar from '@/components/guide/GuideSidebar.vue';
 import GuideHeader from '@/components/guide/GuideHeader.vue';
-import { getDocByKey } from '@/utils/doc-loader';
+import { NAV_GROUPS } from '@/data/navigation';
 
 const STORAGE_SIDEBAR_COLLAPSED = 'guide-sidebar-collapsed';
 
@@ -23,9 +23,15 @@ const docKey = computed(() => {
   return path.slice(1);
 });
 
-const activeNav = computed(() => getDocByKey(docKey.value)?.meta.activeNav || docKey.value);
+const activeNav = computed(() => docKey.value);
 
-const pageTitle = computed(() => getDocByKey(docKey.value)?.meta.pageTitle || 'UXKM Guide');
+const pageTitle = computed(() => {
+  for (const group of NAV_GROUPS) {
+    const item = group.items.find(({ slug }) => slug === docKey.value);
+    if (item) return item.label;
+  }
+  return 'UXKM Guide';
+});
 
 onMounted(() => {
   try {

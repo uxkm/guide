@@ -596,7 +596,7 @@ defineExpose({
   swiper: swiperInstance,
 });
 
-useCarouselDemoCode(props, slideCount, rootRef, attrs);
+useCarouselDemoCode(() => props, slideCount, rootRef, attrs);
 
 watch(
   swiperConfigKeys,

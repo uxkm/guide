@@ -1,12 +1,13 @@
 <script>
 export const docMeta = {
-  title: 'Dropdown | HTML Components',
+  title: 'Dropdown | UXKM Guide',
   activeNav: 'dropdown',
   pageTitle: 'Dropdown',
 };
 </script>
 
 <script setup>
+import { ref } from 'vue';
 import ApiSection from '@/components/guide/ApiSection.vue';
 import ApiTable from '@/components/guide/ApiTable.vue';
 import Avatar from '@/components/Avatar.vue';
@@ -29,17 +30,22 @@ import {
   dropdownTokens,
 } from '@/doc/data/dropdown-api';
 
+const basicOpen = ref(false);
+
 const basicCode = `<script setup>
+import { ref } from 'vue';
 import Button from '@/components/Button.vue';
 import Dropdown from '@/components/Dropdown.vue';
 import Menu from '@/components/Menu.vue';
 import MenuItem from '@/components/MenuItem.vue';
+
+const open = ref(false);
 <\/script>
 
 <template>
-  <Dropdown>
+  <Dropdown v-model:open="open">
     <template #trigger>
-      <Button variant="outline" class="dropdown_trigger" label="작업" aria-haspopup="menu" />
+      <Button variant="outline" class="dropdown_trigger" label="작업" haspopup="menu" />
     </template>
     <Menu mode="vertical" compact aria-label="작업 메뉴">
       <MenuItem label="복사" />
@@ -59,7 +65,7 @@ import MenuItem from '@/components/MenuItem.vue';
 <template>
   <Dropdown open>
     <template #trigger>
-      <Button variant="filled" color="primary" class="dropdown_trigger" label="카테고리" aria-haspopup="menu" aria-expanded="true" />
+      <Button variant="filled" color="primary" class="dropdown_trigger" label="카테고리" haspopup="menu" />
     </template>
     <Menu mode="vertical" compact aria-label="카테고리">
       <MenuItem label="전체" active />
@@ -363,7 +369,7 @@ import MenuItem from '@/components/MenuItem.vue';
       알림
       <Badge count size="sm" color="danger" aria-label="읽지 않은 알림 2건">2</Badge>
     </Button>
-    <Dropdown placement="end" data-dropdown-close-on-select>
+    <Dropdown placement="end" close-on-select>
       <template #trigger>
         <Button variant="ghost" size="sm" class="dropdown_trigger" haspopup="menu" select-caret>
           <Avatar size="sm" color="primary" initials="김" aria-hidden />
@@ -396,7 +402,7 @@ import MenuItem from '@/components/MenuItem.vue';
 <template>
   <div class="page_intro">
   <h1>Dropdown</h1>
-  <p class="lead">버튼·링크 등 트리거를 클릭하면 메뉴 패널이 표시되는 Dropdown 컴포넌트입니다. Menu 컴포넌트와 조합해 액션 목록·사용자 메뉴·필터 등에 사용합니다.</p>
+  <p class="lead">버튼·링크 등 트리거를 클릭하면 메뉴 패널이 표시되는 Nuxt 컴포넌트입니다. Menu 컴포넌트와 조합해 액션 목록·사용자 메뉴·필터 등에 사용합니다.</p>
 </div>
 
   <DemoSection
@@ -405,9 +411,9 @@ import MenuItem from '@/components/MenuItem.vue';
     description="dropdown · dropdown_trigger · dropdown_menu으로 트리거와 패널을 구성합니다. 패널 안에는 menu_vertical · menu_compact를 배치합니다."
     :code="basicCode"
   >
-    <Dropdown>
+    <Dropdown v-model:open="basicOpen">
       <template #trigger>
-        <Button variant="outline" class="dropdown_trigger" label="작업" aria-haspopup="menu" />
+        <Button variant="outline" class="dropdown_trigger" label="작업" haspopup="menu" />
       </template>
       <Menu mode="vertical" compact aria-label="작업 메뉴">
         <MenuItem label="복사" />
@@ -425,7 +431,7 @@ import MenuItem from '@/components/MenuItem.vue';
   >
     <Dropdown open>
       <template #trigger>
-        <Button variant="filled" color="primary" class="dropdown_trigger" label="카테고리" aria-haspopup="menu" aria-expanded="true" />
+        <Button variant="filled" color="primary" class="dropdown_trigger" label="카테고리" haspopup="menu" />
       </template>
       <Menu mode="vertical" compact aria-label="카테고리">
         <MenuItem label="전체" active />
@@ -706,7 +712,7 @@ import MenuItem from '@/components/MenuItem.vue';
   <DemoSection
     heading-id="example-heading"
     title="조합 예시"
-    description="툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. data-dropdown으로 클릭·Esc·외부 클릭 시 닫힙니다."
+    description="툴바 우측에 사용자 메뉴 Dropdown을 배치한 예시입니다. close-on-select로 항목 선택 시 닫히며 Esc·외부 클릭도 지원합니다."
     :code="exampleCode"
   >
     <div class="dropdown_demo-toolbar">
@@ -720,7 +726,7 @@ import MenuItem from '@/components/MenuItem.vue';
         <Badge count size="sm" color="danger" aria-label="읽지 않은 알림 2건">2</Badge>
       </Button>
 
-      <Dropdown placement="end" data-dropdown-close-on-select>
+      <Dropdown placement="end" close-on-select>
         <template #trigger>
           <Button variant="ghost" size="sm" class="dropdown_trigger" haspopup="menu" select-caret>
             <Avatar size="sm" color="primary" initials="김" aria-hidden />

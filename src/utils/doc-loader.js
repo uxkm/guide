@@ -1,20 +1,7 @@
-import { ref } from 'vue';
-
-const pageDocs = import.meta.glob('../doc/pages/*.vue', {
-  eager: true,
-});
-
-const vueComponentDocs = import.meta.glob('../doc/components/*.vue', {
-  eager: true,
-});
-
-export const docRevision = ref(0);
-
-if (import.meta.hot) {
-  import.meta.hot.accept(() => {
-    docRevision.value += 1;
-  });
-}
+// 문서 전체를 첫 진입 청크에 포함하지 않고 현재 경로의 문서만 로드합니다.
+// glob의 키는 빌드 시 확정되므로 존재 여부와 정적 생성 대상은 동기적으로 확인할 수 있습니다.
+const pageDocLoaders = import.meta.glob('../doc/pages/*.vue');
+const vueComponentDocLoaders = import.meta.glob('../doc/components/*.vue');
 
 function getVueDocMeta(docModule) {
   return (
@@ -26,22 +13,31 @@ function getVueDocMeta(docModule) {
   );
 }
 
-function resolveDocModule(key) {
+function resolveDocLoader(key) {
   const pagePath = `../doc/pages/${key}.vue`;
-  if (pageDocs[pagePath]) {
-    return pageDocs[pagePath];
+  if (pageDocLoaders[pagePath]) {
+    return pageDocLoaders[pagePath];
   }
 
   const componentPath = `../doc/components/${key}.vue`;
-  if (vueComponentDocs[componentPath]) {
-    return vueComponentDocs[componentPath];
+  if (vueComponentDocLoaders[componentPath]) {
+    return vueComponentDocLoaders[componentPath];
   }
 
   return null;
 }
 
-export function getDocByKey(key) {
-  const docModule = resolveDocModule(key);
+export function hasDocByKey(key) {
+  return resolveDocLoader(key) !== null;
+}
+
+export async function loadDocByKey(key) {
+  const loader = resolveDocLoader(key);
+  if (!loader) {
+    return null;
+  }
+
+  const docModule = await loader();
   if (!docModule?.default) {
     return null;
   }
@@ -53,7 +49,7 @@ export function getDocByKey(key) {
 }
 
 export function getAllDocSlugs() {
-  return Object.keys(vueComponentDocs).map((path) =>
+  return Object.keys(vueComponentDocLoaders).map((path) =>
     path.replace('../doc/components/', '').replace('.vue', '')
   );
 }

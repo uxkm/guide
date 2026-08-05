@@ -12,8 +12,10 @@ export const navbarProps = [
   { name: 'borderless', type: 'boolean', default: 'false', description: '하단 테두리 제거' },
   { name: 'dark', type: 'boolean', default: 'false', description: '어두운 배경 (navbar_dark)' },
   { name: 'sticky', type: 'boolean', default: 'false', description: '상단 고정 (navbar_sticky)' },
-  { name: 'responsive', type: 'boolean', default: 'false', description: '모바일 토글·data-navbar' },
+  { name: 'responsive', type: 'boolean', default: 'false', description: '모바일 토글·열림 상태 관리' },
   { name: 'collapse-id', type: 'string', default: '—', description: 'navbar_collapse id (토글 aria-controls)' },
+  { name: 'brand-as', type: 'string | Component', default: 'a', description: '브랜드 루트 요소. NuxtLink 같은 커스텀 링크 컴포넌트 지정' },
+  { name: 'brand-href', type: 'string', default: '#', description: '브랜드 링크 URL' },
   ripplePropContainer,
 ];
 
@@ -21,6 +23,7 @@ export const navbarItemPropColumns = navbarPropColumns;
 export const navbarItemProps = [
   { name: 'label', type: 'string', default: '—', description: '링크 텍스트. default 슬롯으로 대체' },
   { name: 'href', type: 'string', default: '#', description: '링크 URL' },
+  { name: 'as', type: 'string | Component', default: 'a', description: '링크 루트 요소. NuxtLink 같은 커스텀 링크 컴포넌트 지정' },
   { name: 'active', type: 'boolean', default: 'false', description: 'is-active · aria-current="page"' },
   ripplePropSurface,
 ];
@@ -56,7 +59,7 @@ export const navbarClasses = [
   { name: 'navbar_item · navbar_link', description: '항목·링크 (is-active)' },
   { name: 'navbar_search · navbar_actions', description: '검색·액션 영역' },
   { name: 'navbar_sm · navbar_lg · navbar_sticky · navbar_borderless · navbar_dark', description: '크기·변형' },
-  { name: 'data-navbar · data-navbar-toggle', description: '반응형 JS 연동' },
+  { name: 'is-open', description: 'Vue 상태로 관리하는 반응형 메뉴 열림 상태' },
   ...rippleClassRows,
 ];
 

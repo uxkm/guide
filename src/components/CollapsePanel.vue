@@ -6,11 +6,13 @@
  *
  * 접근성: button 트리거 + role="region" 본문, aria-expanded · aria-controls.
  */
-import { computed, inject, onMounted, onUnmounted, ref, useId, useSlots, watch } from 'vue';
+import { computed, inject, onMounted, onUnmounted, ref, useAttrs, useId, useSlots, watch } from 'vue';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { setSlideRegionOpen } from '@/utils/slide-region';
+
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
@@ -22,29 +24,45 @@ const props = defineProps({
   },
   /** 패널 본문 (p 태그로 렌더). default 슬롯으로 대체 가능 */
   content: String,
-  /** 초기 열림 상태 */
-  open: Boolean,
+  /** 열림 상태 (제어, v-model:open) */
+  open: {
+    type: Boolean,
+    default: undefined,
+  },
+  /** 초기 열림 상태 (비제어) */
+  defaultOpen: Boolean,
   /** 비활성 패널 (is-disabled + trigger disabled) */
   disabled: Boolean,
   /** 코드 예시용 extra 슬롯 마크업 (데모 코드 생성) */
   extraCode: String,
 });
+const emit = defineEmits(['update:open', 'open-change']);
 const { rippleAttrs } = useRipple(props);
 
-
+const attrs = useAttrs();
 const slots = useSlots();
 const group = inject('collapse', null);
-const triggerId = useId().replace(/:/g, '');
-const bodyId = useId().replace(/:/g, '');
-const isOpen = ref(props.open);
+const generatedId = useId().replace(/:/g, '');
+const triggerId = `collapse-trigger-${generatedId}`;
+const bodyId = `collapse-body-${generatedId}`;
+const internalOpen = ref(props.defaultOpen);
 const bodyRef = ref(null);
 
+const controlled = computed(() => props.open != null);
+const isOpen = computed(() =>
+  controlled.value ? Boolean(props.open) : internalOpen.value
+);
 const slideEffect = computed(() => group?.effect?.value === 'slide');
 
 const panelClass = computed(() => [
   'collapse_panel',
   { 'is-open': isOpen.value, 'is-disabled': props.disabled },
 ]);
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
+});
 
 /** slide일 때는 hidden을 Vue가 건드리지 않음 (setSlideRegionOpen이 소유) */
 const bodyBind = computed(() =>
@@ -53,13 +71,50 @@ const bodyBind = computed(() =>
 
 function toggle() {
   if (props.disabled || !group) return;
-  group.togglePanel(triggerId, isOpen);
+  group.togglePanel(triggerId);
 }
 
-watch(isOpen, (open) => {
-  if (!slideEffect.value) return;
-  setSlideRegionOpen(bodyRef.value, open, true);
-});
+function setIsOpen(nextOpen) {
+  if (nextOpen === isOpen.value) return;
+  if (!controlled.value) {
+    internalOpen.value = nextOpen;
+  }
+  emit('update:open', nextOpen);
+  emit('open-change', nextOpen);
+}
+
+watch(
+  [slideEffect, isOpen],
+  ([slide, open], [wasSlide]) => {
+    if (!slide) return;
+    setSlideRegionOpen(bodyRef.value, open, Boolean(wasSlide));
+  },
+  { flush: 'post' }
+);
+
+watch(
+  () => [
+    props.label,
+    props.content,
+    props.open,
+    props.defaultOpen,
+    props.disabled,
+    props.extraCode,
+    Boolean(slots.extra),
+  ],
+  () => {
+    group?.updatePanelMeta(triggerId, {
+      label: props.label,
+      content: props.content,
+      open: controlled.value ? Boolean(props.open) : undefined,
+      defaultOpen: Boolean(props.defaultOpen),
+      controlled: controlled.value,
+      disabled: Boolean(props.disabled),
+      hasExtra: Boolean(slots.extra),
+      extraCode: props.extraCode,
+    });
+  }
+);
 
 onMounted(() => {
   if (!group) return;
@@ -68,11 +123,14 @@ onMounted(() => {
     id: triggerId,
     label: props.label,
     content: props.content,
-    open: props.open,
-    disabled: props.disabled,
+    open: controlled.value ? Boolean(props.open) : undefined,
+    defaultOpen: Boolean(props.defaultOpen),
+    controlled: controlled.value,
+    disabled: Boolean(props.disabled),
     hasExtra: Boolean(slots.extra),
     extraCode: props.extraCode,
-    isOpen,
+    getIsOpen: () => isOpen.value,
+    setIsOpen,
   });
 
   if (slideEffect.value) {
@@ -86,7 +144,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div :class="panelClass">
+  <div :class="[panelClass, attrs.class]" v-bind="fallthroughAttrs">
     <div class="collapse_header">
       <Button
         :id="triggerId"

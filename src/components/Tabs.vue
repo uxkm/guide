@@ -22,6 +22,12 @@ import TabsTab from '@/components/TabsTab.vue';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_MODES = new Set(['panels', 'dynamic']);
+const VALID_VARIANTS = new Set(['line', 'card', 'pill']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_LAYOUTS = new Set(['auto', 'equal', 'scroll']);
+const VALID_INDICATORS = new Set(['static', 'slide']);
+
 const props = defineProps({
   /** 클릭 파장(ripple). true 활성 · false 비활성 · 미지정 시 컴포넌트 기본 */
   ripple: rippleProp,
@@ -75,13 +81,39 @@ const tabs = new Map();
 const registeredTabs = ref([]);
 const dynamicPanelId = useId().replace(/:/g, '');
 const activeKey = ref(null);
+const itemsActiveKey = ref(null);
 
-useTabsDemoCode(props, rootRef, attrs);
+const resolvedMode = computed(() =>
+  VALID_MODES.has(props.mode) ? props.mode : 'panels'
+);
+const resolvedVariant = computed(() =>
+  VALID_VARIANTS.has(props.variant) ? props.variant : 'line'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const resolvedLayout = computed(() =>
+  VALID_LAYOUTS.has(props.layout) ? props.layout : 'auto'
+);
+const resolvedIndicator = computed(() =>
+  VALID_INDICATORS.has(props.indicator) ? props.indicator : 'static'
+);
 
-const isDynamicMode = computed(() => props.mode === 'dynamic');
-const isScrollNavLayout = computed(() => props.layout === 'scroll' && !props.vertical);
-const isEqualLayout = computed(() => props.layout === 'equal');
-const isLegacyScrollable = computed(() => props.scrollable && props.layout === 'auto');
+useTabsDemoCode(
+  () => ({
+    ...props,
+    mode: resolvedMode.value,
+    variant: resolvedVariant.value,
+    size: resolvedSize.value,
+    layout: resolvedLayout.value,
+    indicator: resolvedIndicator.value,
+  }),
+  rootRef,
+  attrs
+);
+
+const isDynamicMode = computed(() => resolvedMode.value === 'dynamic');
+const isScrollNavLayout = computed(() => resolvedLayout.value === 'scroll' && !props.vertical);
+const isEqualLayout = computed(() => resolvedLayout.value === 'equal');
+const isLegacyScrollable = computed(() => props.scrollable && resolvedLayout.value === 'auto');
 const usesItems = computed(() => Boolean(props.items?.length));
 const usesPanelItems = computed(() => usesItems.value && !isDynamicMode.value);
 
@@ -91,26 +123,26 @@ const tabListSize = computed(() => {
 });
 
 const rootClass = computed(() => {
-  const classes = ['tabs', `tabs_${props.variant}`];
-  if (props.size === 'sm') classes.push('tabs_sm');
-  if (props.size === 'lg') classes.push('tabs_lg');
+  const classes = ['tabs', `tabs_${resolvedVariant.value}`];
+  if (resolvedSize.value === 'sm') classes.push('tabs_sm');
+  if (resolvedSize.value === 'lg') classes.push('tabs_lg');
   if (props.vertical) classes.push('tabs_vertical');
   if (isEqualLayout.value) classes.push('tabs_equal');
   if (isScrollNavLayout.value) classes.push('tabs_scroll-nav');
   if (isLegacyScrollable.value) classes.push('tabs_scrollable');
   if (isDynamicMode.value) classes.push('tabs_dynamic');
-  if (props.indicator === 'slide') classes.push('tabs_indicator-slide');
+  if (resolvedIndicator.value === 'slide') classes.push('tabs_indicator-slide');
   if (attrs.class) classes.push(attrs.class);
   return classes;
 });
 
-const slideIndicatorEnabled = computed(() => props.indicator === 'slide');
+const slideIndicatorEnabled = computed(() => resolvedIndicator.value === 'slide');
 
 const { indicatorStyle, updateIndicator } = useTabsIndicator({
   listRef,
   enabled: slideIndicatorEnabled,
   vertical: toRef(props, 'vertical'),
-  variant: toRef(props, 'variant'),
+  variant: resolvedVariant,
   onTabsChange: () => tabListSize.value,
 });
 
@@ -189,6 +221,17 @@ function selectTab(id) {
     return;
   }
 
+  if (usesPanelItems.value) {
+    const index = props.items.findIndex((_, itemIndex) => `item-tab-${itemIndex}` === id);
+    const item = props.items[index];
+    if (item && !item.disabled) {
+      itemsActiveKey.value = resolveItemKey(item, index);
+      updateIndicator();
+      updateScrollState();
+    }
+    return;
+  }
+
   registeredTabs.value.forEach((tab) => {
     if (!tab.disabled) {
       setTabActive(tab, tab.id === id);
@@ -240,10 +283,17 @@ watchEffect(() => {
   }
 
   if (usesPanelItems.value) {
-    const hasActive = props.items.some((item) => item.active);
-    props.items.forEach((item, index) => {
-      if (!hasActive && index === 0) item.active = true;
-    });
+    const currentItem = props.items.find(
+      (item, index) => resolveItemKey(item, index) === itemsActiveKey.value && !item.disabled
+    );
+    if (currentItem) return;
+
+    const preset = props.items.find((item) => item.active && !item.disabled);
+    const first = props.items.find((item) => !item.disabled) ?? props.items[0];
+    const item = preset || first;
+    if (item) {
+      itemsActiveKey.value = resolveItemKey(item, props.items.indexOf(item));
+    }
     return;
   }
 
@@ -301,15 +351,17 @@ const activeTabId = computed(() => {
 
 const itemTabs = computed(() => {
   if (!usesPanelItems.value) return [];
-  const hasActive = props.items.some((item) => item.active);
-  return props.items.map((item, index) => ({
-    id: `item-tab-${index}`,
-    panelId: `item-panel-${index}`,
-    label: item.label,
-    content: item.content,
-    disabled: item.disabled,
-    isActive: item.active || (!hasActive && index === 0),
-  }));
+  return props.items.map((item, index) => {
+    const key = resolveItemKey(item, index);
+    return {
+      id: `item-tab-${index}`,
+      panelId: `item-panel-${index}`,
+      label: item.label,
+      content: item.content,
+      disabled: item.disabled,
+      isActive: itemsActiveKey.value === key,
+    };
+  });
 });
 
 const barTabs = computed(() => {
@@ -347,6 +399,41 @@ const barTabs = computed(() => {
     badgeSlot: tab.badgeSlot ?? null,
   }));
 });
+
+function handleTabKeyDown(event, currentId) {
+  const enabledTabs = barTabs.value.filter((tab) => !tab.disabled);
+  if (!enabledTabs.length) return;
+
+  const currentIndex = enabledTabs.findIndex((tab) => tab.id === currentId);
+  if (currentIndex === -1) return;
+
+  let nextIndex = null;
+
+  if (
+    (!props.vertical && event.key === 'ArrowRight') ||
+    (props.vertical && event.key === 'ArrowDown')
+  ) {
+    nextIndex = (currentIndex + 1) % enabledTabs.length;
+  } else if (
+    (!props.vertical && event.key === 'ArrowLeft') ||
+    (props.vertical && event.key === 'ArrowUp')
+  ) {
+    nextIndex = (currentIndex - 1 + enabledTabs.length) % enabledTabs.length;
+  } else if (event.key === 'Home') {
+    nextIndex = 0;
+  } else if (event.key === 'End') {
+    nextIndex = enabledTabs.length - 1;
+  }
+
+  if (nextIndex == null) return;
+
+  event.preventDefault();
+  const nextTab = enabledTabs[nextIndex];
+  selectTab(nextTab.id);
+  [...(listRef.value?.querySelectorAll('[role="tab"]') ?? [])]
+    .find((tab) => tab.id === nextTab.id)
+    ?.focus();
+}
 </script>
 
 <template>
@@ -370,9 +457,15 @@ const barTabs = computed(() => {
       </Button>
 
       <div class="tabs_list-wrap" :class="{ 'tabs_scroll-viewport': isScrollNavLayout }">
-        <div ref="listRef" class="tabs_list" role="tablist" :aria-label="ariaLabel">
+        <div
+          ref="listRef"
+          class="tabs_list"
+          role="tablist"
+          :aria-label="ariaLabel"
+          :aria-orientation="vertical ? 'vertical' : 'horizontal'"
+        >
           <span
-            v-if="indicator === 'slide'"
+            v-if="resolvedIndicator === 'slide'"
             v-show="indicatorStyle"
             class="tabs_indicator"
             aria-hidden="true"
@@ -391,6 +484,7 @@ const barTabs = computed(() => {
             :icon-slot="tab.iconSlot"
             :badge-slot="tab.badgeSlot"
             @click="selectTab(tab.id)"
+            @keydown="handleTabKeyDown($event, tab.id)"
           />
           <slot name="tabs" />
         </div>

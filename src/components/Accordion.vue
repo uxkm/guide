@@ -8,12 +8,15 @@
  * 키보드(↑↓ Home End)는 AccordionItem 트리거에서 처리합니다.
  * provide('accordion')로 자식과 상태를 공유합니다.
  */
-import { computed, provide, ref, shallowRef, toRef, useAttrs } from 'vue';
+import { computed, provide, ref, shallowRef, useAttrs } from 'vue';
 import { useAccordionDemoCode } from '@/composables/useDemoCode';
 
 defineOptions({
   inheritAttrs: false,
 });
+
+const VALID_VARIANTS = new Set(['bordered', 'flush', 'card']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
 
 const props = defineProps({
   /** 아코디언 스킨. bordered · flush · card */
@@ -44,13 +47,17 @@ const attrs = useAttrs();
 const rootRef = ref(null);
 const items = new Map();
 const registeredItems = shallowRef([]);
-const effect = toRef(props, 'effect');
+const resolvedVariant = computed(() =>
+  VALID_VARIANTS.has(props.variant) ? props.variant : 'bordered'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const resolvedEffect = computed(() => (props.effect === 'slide' ? 'slide' : undefined));
 
 const rootClass = computed(() => [
   'accordion',
-  `accordion_${props.variant}`,
-  props.size === 'sm' ? 'accordion_sm' : null,
-  props.size === 'lg' ? 'accordion_lg' : null,
+  `accordion_${resolvedVariant.value}`,
+  resolvedSize.value === 'sm' ? 'accordion_sm' : null,
+  resolvedSize.value === 'lg' ? 'accordion_lg' : null,
   props.narrow ? 'accordion_demo-narrow' : null,
   attrs.class,
 ]);
@@ -70,6 +77,13 @@ function unregisterItem(id) {
   registeredItems.value = [...items.values()];
 }
 
+function updateItemMeta(id, patch) {
+  const item = items.get(id);
+  if (!item) return;
+  Object.assign(item, patch);
+  registeredItems.value = [...items.values()];
+}
+
 function getTriggers() {
   return registeredItems.value.filter((item) => !item.disabled).map((item) => item.id);
 }
@@ -79,40 +93,52 @@ function focusTrigger(id) {
 }
 
 /** 패널 열기·닫기. multiple이 아니면 열 때 다른 패널을 닫음 */
-function toggleItem(id, isOpenRef) {
+function toggleItem(id) {
   const item = items.get(id);
   if (!item || item.disabled) return;
 
-  const willOpen = !isOpenRef.value;
+  const willOpen = !item.getIsOpen();
 
   if (!props.multiple && willOpen) {
     for (const [otherId, other] of items) {
-      if (otherId !== id && !other.disabled) {
-        other.isOpen.value = false;
+      if (otherId !== id && !other.disabled && other.getIsOpen()) {
+        other.setIsOpen(false);
       }
     }
   }
 
-  isOpenRef.value = willOpen;
+  item.setIsOpen(willOpen);
+  registeredItems.value = [...items.values()];
 }
 
 provide('accordion', {
   registerItem,
   unregisterItem,
+  updateItemMeta,
   toggleItem,
   getTriggers,
   focusTrigger,
-  effect,
+  effect: resolvedEffect,
 });
 
-useAccordionDemoCode(props, registeredItems, rootRef, attrs);
+useAccordionDemoCode(
+  () => ({
+    ...props,
+    variant: resolvedVariant.value,
+    size: resolvedSize.value,
+    effect: resolvedEffect.value,
+  }),
+  registeredItems,
+  rootRef,
+  attrs
+);
 </script>
 
 <template>
   <div
     ref="rootRef"
     :class="rootClass"
-    :data-effect="effect || undefined"
+    :data-effect="resolvedEffect"
     v-bind="fallthroughAttrs"
   >
     <slot />

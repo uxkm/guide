@@ -17,7 +17,7 @@ function shouldSkipProp(key, value) {
 }
 
 function isItemOpen(item) {
-  return item.isOpen?.value ?? item.open;
+  return item.getIsOpen?.() ?? item.isOpen?.value ?? item.open;
 }
 
 function formatAccordionProps(props, customAttrs = {}) {
@@ -49,7 +49,11 @@ function formatAccordionItem(item) {
   const attrs = [];
 
   attrs.push(`label="${item.label}"`);
-  if (isItemOpen(item)) attrs.push('open');
+  if (item.controlled && isItemOpen(item)) {
+    attrs.push('open');
+  } else if (!item.controlled && item.defaultOpen) {
+    attrs.push('default-open');
+  }
   if (item.disabled) attrs.push('disabled');
 
   const attrStr = attrs.join(' ');

@@ -200,15 +200,14 @@
   &_horizontal {
     max-width: none;
 
-    .menu_list {
+    > .menu_list {
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
       gap: $space-xs;
-    }
-
-    .menu_link {
-      width: auto;
+      > .menu_item > .menu_link {
+        width: auto;
+      }
     }
 
     .menu_submenu {

@@ -1,6 +1,6 @@
 <script>
 export const docMeta = {
-  title: 'Tabs | HTML Components',
+  title: 'Tabs | UXKM Guide',
   activeNav: 'tabs',
   pageTitle: 'Tabs',
 };
@@ -358,7 +358,7 @@ import Tabs from '@/components/Tabs.vue';
   <DemoSection
     heading-id="basic-heading"
     title="기본 (라인)"
-    description="tabs_line이 기본 스킨입니다. role=&quot;tablist&quot; · role=&quot;tab&quot; · role=&quot;tabpanel&quot;과 aria-selected, aria-controls로 접근성을 보장합니다."
+    description="tabs_line이 기본 스킨입니다. role=&quot;tablist&quot; · role=&quot;tab&quot; · role=&quot;tabpanel&quot;과 aria-selected, aria-controls로 접근성을 보장하며 방향키·Home·End 키로 탭을 전환합니다."
     :code="basicCode"
   >
     <Tabs aria-label="프로젝트 정보">

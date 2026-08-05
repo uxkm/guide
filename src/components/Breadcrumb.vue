@@ -6,6 +6,9 @@ import BreadcrumbItem from '@/components/BreadcrumbItem.vue';
 
 defineOptions({ inheritAttrs: false });
 
+const VALID_SEPARATORS = new Set(['chevron', 'slash', 'dot']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+
 const props = defineProps({
   items: {
     type: Array,
@@ -30,6 +33,11 @@ const props = defineProps({
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const resolvedSeparator = computed(() =>
+  VALID_SEPARATORS.has(props.separator) ? props.separator : 'chevron'
+);
+const resolvedSize = computed(() => (VALID_SIZES.has(props.size) ? props.size : 'md'));
+const hasItems = computed(() => Array.isArray(props.items) && props.items.length > 0);
 
 const formatCode = createComponentFormatter('Breadcrumb', {
   defaults: { ariaLabel: '경로', separator: 'chevron', size: 'md' },
@@ -37,23 +45,38 @@ const formatCode = createComponentFormatter('Breadcrumb', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    separator: resolvedSeparator.value,
+    size: resolvedSize.value,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
   const classes = ['breadcrumb'];
-  if (props.separator === 'slash') classes.push('breadcrumb_sep-slash');
-  if (props.separator === 'dot') classes.push('breadcrumb_sep-dot');
-  if (props.size === 'sm') classes.push('breadcrumb_sm');
-  if (props.size === 'lg') classes.push('breadcrumb_lg');
+  if (resolvedSeparator.value === 'slash') classes.push('breadcrumb_sep-slash');
+  if (resolvedSeparator.value === 'dot') classes.push('breadcrumb_sep-dot');
+  if (resolvedSize.value === 'sm') classes.push('breadcrumb_sm');
+  if (resolvedSize.value === 'lg') classes.push('breadcrumb_lg');
   if (attrs.class) classes.push(attrs.class);
   return classes;
+});
+
+const fallthroughAttrs = computed(() => {
+  const { class: _class, ...rest } = attrs;
+  return rest;
 });
 </script>
 
 <template>
-  <nav ref="rootRef" :class="rootClass" :aria-label="ariaLabel">
+  <nav ref="rootRef" :class="rootClass" :aria-label="ariaLabel" v-bind="fallthroughAttrs">
     <ol class="breadcrumb_list">
-      <template v-if="items.length">
+      <template v-if="hasItems">
         <BreadcrumbItem
           v-for="(item, index) in items"
           :key="index"
@@ -63,6 +86,8 @@ const rootClass = computed(() => {
           :disabled="item.disabled"
           :icon="item.icon"
           :aria-label="item.ariaLabel"
+          :as="item.as"
+          @click="item.onClick"
         />
       </template>
       <slot v-else />

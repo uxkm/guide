@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, resolveComponent, useAttrs, useSlots } from 'vue';
 import { rippleProp, useRipple } from '@/composables/useRipple';
 import { useComponentDemoCode } from '@/composables/useDemoCode';
 import { createComponentFormatter } from '@/utils/format-component-code';
@@ -15,6 +15,11 @@ const props = defineProps({
   disabled: Boolean,
   icon: Boolean,
   ariaLabel: String,
+  /** 링크 루트 요소. NuxtLink 같은 커스텀 링크 컴포넌트를 지정할 수 있습니다. */
+  as: {
+    type: [String, Object, Function],
+    default: undefined,
+  },
 });
 const { rippleAttrs } = useRipple(props);
 
@@ -22,6 +27,7 @@ const { rippleAttrs } = useRipple(props);
 const slots = useSlots();
 const attrs = useAttrs();
 const rootRef = ref(null);
+const NuxtLinkComponent = resolveComponent('NuxtLink');
 
 const formatCode = createComponentFormatter('BreadcrumbItem', {
   booleanProps: new Set(['current', 'disabled', 'icon', 'ripple']),
@@ -29,7 +35,16 @@ const formatCode = createComponentFormatter('BreadcrumbItem', {
   selfClosing: false,
 });
 
-useComponentDemoCode(formatCode, props, slots, rootRef, attrs);
+useComponentDemoCode(
+  formatCode,
+  () => ({
+    ...props,
+    as: typeof props.as === 'string' ? props.as : undefined,
+  }),
+  slots,
+  rootRef,
+  attrs
+);
 
 const rootClass = computed(() => {
   const classes = ['breadcrumb_item'];
@@ -44,24 +59,50 @@ const linkClass = computed(() => {
   if (props.disabled) classes.push('is-disabled');
   return classes;
 });
+
+const resolvedAs = computed(() =>
+  props.as === 'NuxtLink' ? NuxtLinkComponent : props.as || 'a'
+);
+const acceptsHref = computed(
+  () => resolvedAs.value === 'a' || typeof resolvedAs.value !== 'string'
+);
+const itemAttrs = computed(() => {
+  const { class: _class, onClick: _onClick, ...rest } = attrs;
+  return rest;
+});
+
+function invokeListener(listener, event) {
+  if (Array.isArray(listener)) {
+    listener.forEach((handler) => handler?.(event));
+    return;
+  }
+  listener?.(event);
+}
+
+function onLinkClick(event) {
+  if (!props.href || props.href === '#') event.preventDefault();
+  invokeListener(attrs.onClick, event);
+}
 </script>
 
 <template>
   <li
     ref="rootRef"
+    v-bind="itemAttrs"
     :class="rootClass"
     :aria-current="current ? 'page' : undefined"
   >
-    <a
+    <component
       v-if="href && !current && !disabled"
+      :is="resolvedAs"
       v-bind="rippleAttrs"
       :class="linkClass"
-      :href="href"
+      :href="acceptsHref ? href : undefined"
       :aria-label="ariaLabel || undefined"
-      @click.prevent
+      @click="onLinkClick"
     >
       <slot>{{ label }}</slot>
-    </a>
+    </component>
     <span
       v-else-if="disabled"
       :class="linkClass"
