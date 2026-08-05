@@ -75,12 +75,16 @@
   }
 
   &_code {
+    display: inline;
     font-family: $font-family-mono;
     font-size: 0.875em;
     padding: var(--typo-code-padding-y) var(--typo-code-padding-x);
     background: var(--color-surface-raised);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--typo-code-radius);
+    vertical-align: baseline;
+    white-space: normal;
+    word-break: break-word;
   }
 
   // ----- Ellipsis — 공통 .text_ellipsis* 사용 (utilities)
@@ -177,7 +181,7 @@
     margin: 0;
   }
 
-  // ----- Keyboard · Pre · Definition list
+  // ----- Keyboard · Pre
 
   &_kbd {
     display: inline-block;
@@ -211,23 +215,4 @@
     }
   }
 
-  &_dl {
-    margin: 0;
-    line-height: var(--typo-text-line-height);
-  }
-
-  &_dt {
-    font-weight: 600;
-    color: var(--color-text);
-    margin-top: $space-sm;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  &_dd {
-    margin: $space-xs 0 0;
-    color: var(--color-text-muted);
-  }
 }

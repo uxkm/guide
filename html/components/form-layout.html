@@ -633,6 +633,62 @@
           </div>
         </div>
         </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 루트 폼 속성입니다. HTML에서는 의미에 맞는 요소에 필요한 레이아웃 클래스를 직접 조합합니다.</p>
+
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">form</code></td><td>폼 레이아웃 루트</td></tr>
+                <tr><td><code class="typo_code">form_vertical · form_horizontal · form_inline</code></td><td>세로·가로·인라인 필드 배치</td></tr>
+                <tr><td><code class="typo_code">form_fit · form_compact</code></td><td>입력 최대 너비 제한과 좁은 필드 간격</td></tr>
+                <tr><td><code class="typo_code">form_label-align-start</code></td><td>가로 레이아웃 레이블을 왼쪽 정렬</td></tr>
+                <tr><td><code class="typo_code">form_label-width-sm · form_label-width-lg</code></td><td>가로 레이아웃 레이블 열 너비</td></tr>
+                <tr><td><code class="typo_code">form_field · form_field-control</code></td><td>개별 필드 블록과 입력 컨트롤 영역</td></tr>
+                <tr><td><code class="typo_code">form_field-label · form_field-hint · form_field-error</code></td><td>레이블·도움말·오류 메시지</td></tr>
+                <tr><td><code class="typo_code">form_required</code></td><td>필수 입력 표시 마크</td></tr>
+                <tr><td><code class="typo_code">form_actions</code></td><td>제출·초기화·취소 버튼 묶음</td></tr>
+                <tr><td><code class="typo_code">form · div</code></td><td>제출 기능이 있으면 form, 레이아웃만 필요하면 div 등 의미에 맞는 루트 요소 사용</td></tr>
+                <tr><td><code class="typo_code">action · method · enctype · novalidate</code></td><td>form 루트에 전달하는 네이티브 제출 속성</td></tr>
+                <tr><td><code class="typo_code">submit · reset</code></td><td>폼 제출·초기화 이벤트. 필요하면 submit 기본 동작을 제어합니다.</td></tr>
+                <tr><td><code class="typo_code">for · id</code></td><td>레이블과 입력 컨트롤의 명시적 연결</td></tr>
+                <tr><td><code class="typo_code">required · aria-required="true"</code></td><td>네이티브 필수 입력과 사용자 정의 컨트롤의 필수 상태</td></tr>
+                <tr><td><code class="typo_code">aria-describedby</code></td><td>입력 컨트롤과 도움말·오류 메시지 연결</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--form-label-width</code></td><td><code class="typo_code">7.5rem</code></td><td>가로 레이아웃 기본 레이블 너비</td></tr>
+                <tr><td><code class="typo_code">--form-label-width-sm · --form-label-width-lg</code></td><td><code class="typo_code">5rem · 10rem</code></td><td>작은·큰 레이블 열 너비</td></tr>
+                <tr><td><code class="typo_code">--form-field-gap</code></td><td><code class="typo_code">var(--space-lg)</code></td><td>필드 사이 세로 간격</td></tr>
+                <tr><td><code class="typo_code">--form-inline-field-min-width</code></td><td><code class="typo_code">8rem</code></td><td>인라인 필드의 최소 너비</td></tr>
+                <tr><td><code class="typo_code">--form-actions-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>액션 버튼 사이 간격</td></tr>
+                <tr><td><code class="typo_code">--input-max-width</code></td><td><code class="typo_code">320px</code></td><td>form_fit에서 사용하는 입력 컨트롤 최대 너비</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
   </div>

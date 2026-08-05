@@ -2,25 +2,26 @@
  * 컴포넌트 가이드 사이드바 네비게이션
  */
 (function () {
+  const NAV_TOP_LEVEL = [
+    { label: '소개', href: 'index.html', slug: 'intro' },
+    { label: '설치 및 사용', href: 'getting-started.html', slug: 'getting-started' },
+    { label: '디자인 토큰', href: 'design-tokens.html', slug: 'design-tokens' },
+  ];
+
   const NAV_GROUPS = [
     {
-      title: '시작하기',
-      items: [
-        { label: '소개', href: 'index.html', slug: 'intro' },
-        { label: '설치 및 사용', href: 'getting-started.html', slug: 'getting-started' },
-        { label: '디자인 토큰', href: 'design-tokens.html', slug: 'design-tokens' },
-      ],
-    },
-    {
+      id: 'layout',
       title: '레이아웃',
       items: [
         { label: 'Container', href: 'components/container.html', slug: 'container' },
         { label: 'Grid', href: 'components/grid.html', slug: 'grid' },
+        { label: 'Flex', href: 'components/flex.html', slug: 'flex' },
         { label: 'Divider', href: 'components/divider.html', slug: 'divider' },
         { label: 'Space', href: 'components/space.html', slug: 'space' },
       ],
     },
     {
+      id: 'basic',
       title: '기본 요소',
       items: [
         { label: 'Button', href: 'components/button.html', slug: 'button' },
@@ -30,6 +31,7 @@
       ],
     },
     {
+      id: 'data-display',
       title: '데이터 표시',
       items: [
         { label: 'Avatar', href: 'components/avatar.html', slug: 'avatar' },
@@ -45,6 +47,7 @@
       ],
     },
     {
+      id: 'form',
       title: '폼',
       items: [
         { label: 'Form Layout', href: 'components/form-layout.html', slug: 'form-layout' },
@@ -61,9 +64,11 @@
       ],
     },
     {
+      id: 'feedback',
       title: '피드백',
       items: [
         { label: 'Alert', href: 'components/alert.html', slug: 'alert' },
+        { label: 'Snackbar', href: 'components/snackbar.html', slug: 'snackbar' },
         { label: 'Modal', href: 'components/modal.html', slug: 'modal' },
         { label: 'Drawer', href: 'components/drawer.html', slug: 'drawer' },
         { label: 'Popover', href: 'components/popover.html', slug: 'popover' },
@@ -75,6 +80,7 @@
       ],
     },
     {
+      id: 'navigation',
       title: '네비게이션',
       items: [
         { label: 'Navbar', href: 'components/navbar.html', slug: 'navbar' },
@@ -87,6 +93,7 @@
       ],
     },
     {
+      id: 'etc',
       title: '기타',
       items: [
         { label: 'Accordion', href: 'components/accordion.html', slug: 'accordion' },
@@ -147,13 +154,31 @@
     const currentSlug = getCurrentSlug();
     const savedGroups = readNavGroupState();
 
-    const groupsHtml = NAV_GROUPS.map(function (group, index) {
-      const groupId = 'group-' + index;
+    const topLevelHtml = NAV_TOP_LEVEL.map(function (item) {
+      const href = resolveHref(item.href, base);
+      const isActive = item.slug === currentSlug;
+      const classes = ['guide_nav-link', 'guide_nav-link-top', isActive ? 'is-active' : '']
+        .filter(Boolean)
+        .join(' ');
+
+      return (
+        '<li><a class="' +
+        classes +
+        '" href="' +
+        href +
+        '"><span>' +
+        item.label +
+        '</span></a></li>'
+      );
+    }).join('');
+
+    const groupsHtml = NAV_GROUPS.map(function (group) {
+      const groupId = 'group-' + group.id;
       const hasActive = group.items.some(function (item) {
         return item.slug === currentSlug;
       });
       const isExpanded =
-        savedGroups[groupId] !== undefined ? savedGroups[groupId] : index === 0;
+        savedGroups[groupId] !== undefined ? savedGroups[groupId] : false;
       const expanded = hasActive || isExpanded;
 
       const itemsHtml = group.items.map(function (item) {
@@ -219,6 +244,9 @@
       '<p class="guide_sidebar-desc">Pure HTML · SCSS</p>' +
       '</div>' +
       '<nav class="guide_nav">' +
+      '<ul class="guide_nav-top">' +
+      topLevelHtml +
+      '</ul>' +
       groupsHtml +
       '</nav>' +
       '</aside>' +
@@ -382,5 +410,5 @@
     init();
   }
 
-  window.GuideNav = { NAV_GROUPS: NAV_GROUPS };
+  window.GuideNav = { NAV_TOP_LEVEL: NAV_TOP_LEVEL, NAV_GROUPS: NAV_GROUPS };
 })();

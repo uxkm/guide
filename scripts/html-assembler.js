@@ -343,7 +343,7 @@ function parseTopLevelNodes(html) {
 
 function extractDemoCellText(elementHtml) {
   const cell = elementHtml.match(
-    /class="[^"]*\b(?:grid|space|container)_demo-[^"]*"[^>]*>([^<]+)</
+    /class="[^"]*\b(?:grid|flex|space|container)_demo-[^"]*"[^>]*>([^<]+)</
   );
 
   if (cell) {
@@ -409,8 +409,9 @@ function extractComponentClassCaption(elementHtml) {
   const classes = classMatch[1].split(/\s+/);
   const utility = classes.find(function (cls) {
     return (
-      /^(?:grid|space|tag|list|typo|tooltip|input|timeline)_[\w-]+$/.test(cls) &&
+      /^(?:grid|flex|space|tag|list|typo|tooltip|input|timeline)_[\w-]+$/.test(cls) &&
       cls !== 'grid' &&
+      cls !== 'flex' &&
       cls !== 'space'
     );
   });
@@ -855,22 +856,56 @@ function processDemoSection(inner) {
 }
 
 function processDemoSections(body) {
-  return body.replace(
-    /<section\s+[^>]*\bclass="[^"]*\bdemo_section\b[^"]*"[^>]*>[\s\S]*?<\/section>/gi,
-    function (sectionHtml) {
-      const openEnd = sectionHtml.indexOf('>') + 1;
-      const closeStart = sectionHtml.lastIndexOf('</section>');
-      const attrsAndOpen = sectionHtml.slice(0, openEnd);
-      const inner = sectionHtml.slice(openEnd, closeStart);
-      const processedInner = processDemoSection(inner);
+  const output = [];
+  const sectionOpenRe = /<section\b[^>]*>/gi;
+  let cursor = 0;
+  let match;
 
-      if (processedInner === inner) {
-        return sectionHtml;
+  while ((match = sectionOpenRe.exec(body)) !== null) {
+    const sectionStart = match.index;
+    const openTag = match[0];
+    const openEnd = sectionOpenRe.lastIndex;
+    const sectionTagRe = /<\/?section\b[^>]*>/gi;
+    let depth = 1;
+    let closeStart = -1;
+    let closeEnd = -1;
+    let sectionTag;
+
+    sectionTagRe.lastIndex = openEnd;
+
+    while ((sectionTag = sectionTagRe.exec(body)) !== null) {
+      if (/^<\/section/i.test(sectionTag[0])) {
+        depth -= 1;
+      } else {
+        depth += 1;
       }
 
-      return attrsAndOpen + processedInner + '</section>';
+      if (depth === 0) {
+        closeStart = sectionTag.index;
+        closeEnd = sectionTagRe.lastIndex;
+        break;
+      }
     }
-  );
+
+    if (closeStart === -1) {
+      break;
+    }
+
+    output.push(body.slice(cursor, sectionStart));
+
+    if (/\bclass="[^"]*\bdemo_section\b[^"]*"/i.test(openTag)) {
+      const inner = body.slice(openEnd, closeStart);
+      output.push(openTag + processDemoSection(inner) + body.slice(closeStart, closeEnd));
+    } else {
+      output.push(body.slice(sectionStart, closeEnd));
+    }
+
+    cursor = closeEnd;
+    sectionOpenRe.lastIndex = closeEnd;
+  }
+
+  output.push(body.slice(cursor));
+  return output.join('');
 }
 
 function indentHeader(body) {

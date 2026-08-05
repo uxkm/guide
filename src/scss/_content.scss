@@ -38,6 +38,27 @@
   }
 }
 
+// 1뎁스 문서 — 표·코드·목록·설명이 연속될 때 문서 흐름 간격을 통일합니다.
+:where(
+    body[data-active-nav="intro"],
+    body[data-active-nav="getting-started"],
+    body[data-active-nav="design-tokens"]
+  )
+  .section {
+  > :where(p, .table_wrap, .demo_section-preview, .list, .card_grid)
+    + :where(p, .table_wrap, .demo_section-preview, .list, .card_grid) {
+    margin-top: $space-lg;
+  }
+
+  > h3.typo_title-4 {
+    margin-top: $space-lg;
+  }
+
+  > h3.typo_title-4 + :where(.table_wrap, .demo_section-preview) {
+    margin-top: $space-sm;
+  }
+}
+
 .card {
   &_grid {
     display: grid;
@@ -105,6 +126,7 @@
 // 가이드 데모 — 레이아웃 유틸 시각화
 .container_demo-fill,
 .grid_demo-cell,
+.flex_demo-cell,
 .space_demo-box {
   padding: $space-md;
   background: var(--color-accent-muted);
@@ -118,6 +140,40 @@
 .container {
   &_demo-fill {
     padding: $space-lg;
+  }
+
+  // 크기 비교 데모 — 좁은 화면에서는 xl(80) 대비 비율(36·48·64·80)로 축소, 넓으면 토큰 rem 적용
+  &_demo-sizes {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: var(--container-max-width-xl);
+    margin-inline: auto;
+    box-sizing: border-box;
+
+    > .container {
+      width: 100%;
+      margin-inline: auto;
+    }
+
+    > .container_sm {
+      max-width: min(var(--container-max-width-sm), calc(100% * 36 / 80));
+    }
+
+    > .container_md {
+      max-width: min(var(--container-max-width-md), calc(100% * 48 / 80));
+    }
+
+    > .container_lg {
+      max-width: min(var(--container-max-width-lg), calc(100% * 64 / 80));
+    }
+
+    > .container_xl {
+      max-width: min(var(--container-max-width-xl), 100%);
+    }
+
+    gap: var(--demo-gap-stack, $space-2xl);
   }
 }
 

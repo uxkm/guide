@@ -99,7 +99,7 @@
               </div>
               <p class="empty_desc">등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.</p>
               <div class="empty_footer">
-                <button type="button" class="btn btn_filled color_primary btn_sm">
+                <button type="button" class="btn btn_filled color_primary btn_sm" data-ripple>
                   <span class="btn_label">프로젝트 만들기</span>
                 </button>
               </div>
@@ -125,7 +125,7 @@
   &lt;/div&gt;
   &lt;p class=&quot;empty_desc&quot;&gt;등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.&lt;/p&gt;
   &lt;div class=&quot;empty_footer&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary btn_sm&quot; data-ripple&gt;
       &lt;span class=&quot;btn_label&quot;&gt;프로젝트 만들기&lt;/span&gt;
     &lt;/button&gt;
   &lt;/div&gt;
@@ -421,7 +421,7 @@
   &lt;p class="empty_desc"&gt;등록된 프로젝트가 없습니다.&lt;/p&gt;
   &lt;div class="empty_footer"&gt;
     &lt;button type="button"
-      class="btn btn_filled color_primary btn_sm"&gt;
+      class="btn btn_filled color_primary btn_sm" data-ripple&gt;
       &lt;span class="btn_label"&gt;프로젝트 만들기&lt;/span&gt;
     &lt;/button&gt;
   &lt;/div&gt;
@@ -436,46 +436,51 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 빈 상태의 접근성 역할입니다. HTML에서는 안내 내용과 배치 영역에 맞게 아래 항목을 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">이름</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><code class="typo_code">empty · empty_image · empty_desc · empty_footer</code></td><td>루트·이미지·설명·푸터</td></tr>
-                  <tr><td><code class="typo_code">empty_sm · empty_lg · empty_simple · empty_block</code></td><td>크기·변형</td></tr>
-                  <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 시맨틱</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">empty</code></td><td>빈 상태 루트</td></tr>
+                <tr><td><code class="typo_code">empty_image · empty_desc · empty_footer</code></td><td>이미지·설명·하단 액션 영역</td></tr>
+                <tr><td><code class="typo_code">empty_sm · empty_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">empty_simple</code></td><td>이미지를 생략하는 간단한 빈 상태</td></tr>
+                <tr><td><code class="typo_code">empty_block</code></td><td>부모 너비 안에서 가운데 정렬하는 블록 변형</td></tr>
+                <tr><td><code class="typo_code">role="status"</code></td><td>빈 상태 안내를 방해 없이 전달하는 시맨틱 역할</td></tr>
+                <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 이미지·아이콘을 접근성 트리에서 제외</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><code class="typo_code">--empty-gap</code> · <code class="typo_code">--empty-padding-y</code> · <code class="typo_code">--empty-padding-x</code></td><td>—</td><td>간격·패딩</td></tr>
-                  <tr><td><code class="typo_code">--empty-image-size</code> · <code class="typo_code">--empty-image-size-sm</code> · <code class="typo_code">--empty-image-size-lg</code></td><td>4rem · 3rem · 5rem</td><td>아이콘 크기</td></tr>
-                  <tr><td><code class="typo_code">--empty-desc-size</code> · <code class="typo_code">--empty-desc-max-width</code></td><td><code class="typo_code">var(--text-size-sm)</code> · 20rem</td><td>설명 타이포</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--empty-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>이미지·설명·푸터 사이 기본 간격</td></tr>
+                <tr><td><code class="typo_code">--empty-padding-y · --empty-padding-x</code></td><td><code class="typo_code">var(--space-xl) · var(--space-md)</code></td><td>세로·가로 내부 여백</td></tr>
+                <tr><td><code class="typo_code">--empty-image-size · --empty-image-size-sm · --empty-image-size-lg</code></td><td><code class="typo_code">4rem · 3rem · 5rem</code></td><td>기본·작은·큰 이미지 크기</td></tr>
+                <tr><td><code class="typo_code">--empty-icon-color</code></td><td><code class="typo_code">var(--color-border)</code></td><td>기본 일러스트·아이콘 색상</td></tr>
+                <tr><td><code class="typo_code">--empty-desc-size · --empty-desc-color</code></td><td><code class="typo_code">var(--text-size-sm) · var(--color-text-muted)</code></td><td>설명 글자 크기와 색상</td></tr>
+                <tr><td><code class="typo_code">--empty-desc-max-width</code></td><td><code class="typo_code">20rem</code></td><td>설명 최대 너비</td></tr>
+                <tr><td><code class="typo_code">--empty-footer-gap · --empty-footer-offset</code></td><td><code class="typo_code">var(--space-sm) · var(--space-xs)</code></td><td>푸터 액션 간격과 위쪽 추가 여백</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

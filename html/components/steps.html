@@ -613,14 +613,15 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-start">
-            <ol class="steps steps_navigable" aria-label="설정 마법사 — 탐색 가능">
+            <ol class="steps steps_navigable" aria-label="설정 마법사 — 탐색 가능" data-steps-navigable>
               <li class="steps_item is-finished">
                 <button type="button" class="steps_trigger">
                   <span class="steps_head">
                     <span class="steps_indicator" aria-hidden="true">
-                      <svg class="steps_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <svg class="steps_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" data-steps-finished-icon>
                         <polyline points="20 6 9 17 4 12"/>
                       </svg>
+                      <span class="steps_index" data-steps-index hidden>1</span>
                     </span>
                     <span class="steps_tail" aria-hidden="true"></span>
                   </span>
@@ -634,7 +635,7 @@
                 <button type="button" class="steps_trigger" aria-current="step">
                   <span class="steps_head">
                     <span class="steps_indicator" aria-hidden="true">
-                      <span class="steps_index">2</span>
+                      <span class="steps_index" data-steps-index>2</span>
                     </span>
                     <span class="steps_tail" aria-hidden="true"></span>
                   </span>
@@ -648,7 +649,7 @@
                 <button type="button" class="steps_trigger" disabled>
                   <span class="steps_head">
                     <span class="steps_indicator" aria-hidden="true">
-                      <span class="steps_index">3</span>
+                      <span class="steps_index" data-steps-index>3</span>
                     </span>
                   </span>
                   <span class="steps_content">
@@ -668,14 +669,15 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;ol class=&quot;steps steps_navigable&quot; aria-label=&quot;설정 마법사 — 탐색 가능&quot;&gt;
+            <pre><code>&lt;ol class=&quot;steps steps_navigable&quot; aria-label=&quot;설정 마법사 — 탐색 가능&quot; data-steps-navigable&gt;
   &lt;li class=&quot;steps_item is-finished&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;steps_trigger&quot;&gt;
       &lt;span class=&quot;steps_head&quot;&gt;
         &lt;span class=&quot;steps_indicator&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;svg class=&quot;steps_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot;&gt;
+          &lt;svg class=&quot;steps_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot; data-steps-finished-icon&gt;
             &lt;polyline points=&quot;20 6 9 17 4 12&quot;/&gt;
           &lt;/svg&gt;
+          &lt;span class=&quot;steps_index&quot; data-steps-index hidden&gt;1&lt;/span&gt;
         &lt;/span&gt;
         &lt;span class=&quot;steps_tail&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;/span&gt;
@@ -690,7 +692,7 @@
     &lt;button type=&quot;button&quot; class=&quot;steps_trigger&quot; aria-current=&quot;step&quot;&gt;
       &lt;span class=&quot;steps_head&quot;&gt;
         &lt;span class=&quot;steps_indicator&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;span class=&quot;steps_index&quot;&gt;2&lt;/span&gt;
+          &lt;span class=&quot;steps_index&quot; data-steps-index&gt;2&lt;/span&gt;
         &lt;/span&gt;
         &lt;span class=&quot;steps_tail&quot; aria-hidden=&quot;true&quot;&gt;
         &lt;/span&gt;
@@ -705,7 +707,7 @@
     &lt;button type=&quot;button&quot; class=&quot;steps_trigger&quot; disabled&gt;
       &lt;span class=&quot;steps_head&quot;&gt;
         &lt;span class=&quot;steps_indicator&quot; aria-hidden=&quot;true&quot;&gt;
-          &lt;span class=&quot;steps_index&quot;&gt;3&lt;/span&gt;
+          &lt;span class=&quot;steps_index&quot; data-steps-index&gt;3&lt;/span&gt;
         &lt;/span&gt;
       &lt;/span&gt;
       &lt;span class=&quot;steps_content&quot;&gt;
@@ -1331,6 +1333,9 @@
                   <tr><td><code class="typo_code">steps_sm · steps_lg · steps_align-center</code></td><td>크기·정렬</td></tr>
                   <tr><td><code class="typo_code">is-finished · is-active · is-wait · is-error</code></td><td>단계 상태</td></tr>
                   <tr><td><code class="typo_code">aria-current="step"</code></td><td>현재 단계</td></tr>
+                  <tr><td><code class="typo_code">data-steps-navigable</code></td><td>완료 단계 탐색·현재 상태 JS</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>탐색 가능한 단계 버튼의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Steps 하위 전체 클릭 파장 비활성</td></tr>
                 </tbody>
               </table>
             </div>

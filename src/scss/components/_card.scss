@@ -88,7 +88,54 @@
     min-width: 0;
   }
 
-  &_horizontal {
+  &_webzine {
+    --card-media-ratio: var(--card-webzine-media-ratio);
+
+    .card_title {
+      font-size: size-token(xl);
+      line-height: 1.35;
+    }
+
+    .card_body {
+      font-size: size-token(lg);
+    }
+  }
+
+  &_news {
+    --card-padding: var(--card-padding-sm);
+    --card-horizontal-media-width: var(--card-news-media-width);
+
+    .card_title {
+      font-size: size-token(base);
+      line-height: 1.4;
+    }
+
+    .card_subtitle {
+      font-size: size-token(xs);
+    }
+
+    .card_body {
+      font-size: size-token(sm);
+    }
+  }
+
+  &_product {
+    --card-padding: var(--card-padding-sm);
+    --card-horizontal-media-width: var(--card-product-media-width);
+
+    .card_title {
+      font-size: size-token(base);
+      line-height: 1.4;
+    }
+
+    .card_body {
+      font-size: size-token(sm);
+    }
+  }
+
+  &_horizontal,
+  &.card_media-left,
+  &.card_media-right {
     flex-direction: row;
     align-items: stretch;
 
@@ -100,6 +147,14 @@
       align-self: stretch;
       flex-shrink: 0;
       border-right: var(--card-divider-width) solid var(--card-divider-color);
+    }
+
+    &.card_media-right {
+      > .card_media,
+      > .card_media-placeholder {
+        border-right: none;
+        border-left: var(--card-divider-width) solid var(--card-divider-color);
+      }
     }
 
     > .card_inner {
@@ -151,11 +206,16 @@
     @media (max-width: $breakpoint-md) {
       flex-direction: column;
 
+      &.card_media-right {
+        flex-direction: column-reverse;
+      }
+
       > .card_media,
       > .card_media-placeholder {
         width: 100%;
         min-width: 0;
         aspect-ratio: var(--card-media-ratio);
+        border-left: none;
         border-right: none;
         border-bottom: var(--card-divider-width) solid var(--card-divider-color);
       }
@@ -169,6 +229,20 @@
         }
       }
     }
+  }
+
+  &.card_media-no-divider {
+    > .card_media,
+    > .card_media-placeholder {
+      border: 0;
+    }
+  }
+
+  &_news-list,
+  &_product-list {
+    display: grid;
+    gap: $space-md;
+    width: 100%;
   }
 
   &_header {
@@ -234,6 +308,27 @@
     > :last-child {
       margin-bottom: 0;
     }
+
+    &-clamp {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      &-1 {
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+      }
+
+      &-2 {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+
+      &-3 {
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+      }
+    }
   }
 
   &_meta {
@@ -252,8 +347,51 @@
     background: var(--card-footer-bg);
     margin-top: auto;
 
+    &-start {
+      justify-content: flex-start;
+    }
+
+    &-center {
+      justify-content: center;
+    }
+
+    &-end {
+      justify-content: flex-end;
+    }
+
     &-between {
       justify-content: space-between;
+    }
+
+    &-flush {
+      padding: 0;
+    }
+
+    &-full > * {
+      flex: 1 1 100%;
+      width: 100%;
+      min-width: 0;
+    }
+
+    &-ratio {
+      display: grid;
+      width: 100%;
+
+      > * {
+        min-width: 0;
+      }
+
+      &-1-1 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      &-1-2 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      }
+
+      &-2-1 {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      }
     }
   }
 
@@ -318,6 +456,23 @@
     margin-top: $space-md;
   }
 
+  &_price {
+    display: flex;
+    align-items: baseline;
+    gap: $space-xs;
+    margin-top: $space-sm;
+    color: var(--color-text);
+    font-size: size-token(lg);
+    font-weight: 700;
+
+    &-original {
+      color: var(--color-text-muted);
+      font-size: size-token(xs);
+      font-weight: 400;
+      text-decoration: line-through;
+    }
+  }
+
   &_deck {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -354,4 +509,12 @@ button.card,
     border-color: var(--color-accent);
     box-shadow: var(--card-shadow);
   }
+}
+
+button.card {
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  appearance: none;
 }

@@ -192,7 +192,7 @@ pageTitle: Affix
         <div class="affix_target affix_bar">
           <span class="affix_bar-label" style="color: var(--color-accent-text)">신규 컴포넌트 가이드가 업데이트되었습니다</span>
           <div class="affix_bar-actions">
-            <a href="getting-started.html" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></a>
+            <a href="../getting-started.html" class="btn btn_filled color_primary btn_sm"><span class="btn_label">시작하기</span></a>
           </div>
         </div>
       </div>
@@ -221,21 +221,47 @@ pageTitle: Affix
 
 <section class="section" aria-labelledby="api-attrs-heading">
   <h2 id="api-attrs-heading">데이터 속성</h2>
+  <p>HTML에서는 루트 <code class="typo_code">.affix</code>에 다음 속성을 지정합니다. Nuxt와 Next의 <code class="typo_code">target</code>·<code class="typo_code">offsetTop</code>·<code class="typo_code">offsetBottom</code> prop과 대응합니다.</p>
 
   <div class="demo_section-preview demo_section-preview-start">
     <div class="table_wrap">
       <table class="table table_bordered table_compact">
         <thead>
           <tr>
-            <th scope="col">이름</th>
+            <th scope="col">속성</th>
+            <th scope="col">타입</th>
+            <th scope="col">기본값</th>
             <th scope="col">설명</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><code class="typo_code">data-affix</code></td><td>Affix 활성화. 루트 .affix 요소에 지정</td></tr>
-          <tr><td><code class="typo_code">data-target</code></td><td>스크롤 컨테이너 CSS 선택자. 생략 시 window</td></tr>
-          <tr><td><code class="typo_code">data-offset-top</code></td><td>상단 고정 시 상단 간격(px)</td></tr>
-          <tr><td><code class="typo_code">data-offset-bottom</code></td><td>하단 고정 시 하단 간격(px). 지정 시 하단 고정 모드</td></tr>
+          <tr><td><code class="typo_code">data-affix</code></td><td>boolean</td><td>—</td><td>Affix 활성화. 루트 .affix 요소에 지정</td></tr>
+          <tr><td><code class="typo_code">data-target</code></td><td>string</td><td>window</td><td>스크롤 컨테이너 CSS 선택자. 생략 시 window 스크롤 기준</td></tr>
+          <tr><td><code class="typo_code">data-offset-top</code></td><td>number</td><td>0</td><td>상단 고정 시 뷰포트·컨테이너 상단과의 간격(px)</td></tr>
+          <tr><td><code class="typo_code">data-offset-bottom</code></td><td>number</td><td>0</td><td>하단 고정 시 하단과의 간격(px). 속성을 지정하면 하단 고정 모드</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="api-markup-heading">
+  <h2 id="api-markup-heading">마크업 구조</h2>
+  <p>컴포넌트는 루트, 레이아웃 보존용 플레이스홀더, 실제 고정 대상의 세 요소로 구성됩니다.</p>
+
+  <div class="demo_section-preview demo_section-preview-start">
+    <div class="table_wrap">
+      <table class="table table_bordered table_compact">
+        <thead>
+          <tr>
+            <th scope="col">요소</th>
+            <th scope="col">설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="typo_code">.affix</code></td><td>루트 래퍼. <code class="typo_code">data-affix</code> · <code class="typo_code">data-target</code> · <code class="typo_code">data-offset-*</code> 속성을 지정</td></tr>
+          <tr><td><code class="typo_code">.affix_placeholder</code></td><td>고정 시 레이아웃 점프 방지용 플레이스홀더 (<code class="typo_code">aria-hidden="true"</code>, <code class="typo_code">hidden</code>)</td></tr>
+          <tr><td><code class="typo_code">.affix_target</code></td><td>실제 고정·해제되는 대상. <code class="typo_code">affix_bar</code> 또는 <code class="typo_code">affix_anchor</code> 스킨과 조합</td></tr>
         </tbody>
       </table>
     </div>
@@ -244,6 +270,7 @@ pageTitle: Affix
 
 <section class="section" aria-labelledby="api-heading">
   <h2 id="api-heading">클래스 · 스킨</h2>
+  <p>OOCSS 구조 클래스와 스킨 클래스입니다. <code class="typo_code">affix_bar-actions</code> 안의 버튼은 Button 컴포넌트로 조합합니다.</p>
 
   <div class="demo_section-preview demo_section-preview-start">
     <div class="table_wrap">

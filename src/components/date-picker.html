@@ -25,8 +25,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-type-custom">커스텀 — date_picker</label>
       <div class="date_picker date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-type-custom" value="" placeholder="날짜를 선택하세요" readonly aria-haspopup="dialog" aria-expanded="false" aria-label="날짜 선택">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-type-custom" value="" placeholder="날짜를 선택하세요" data-ripple readonly aria-haspopup="dialog" aria-expanded="false" aria-label="날짜 선택">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -50,8 +50,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-basic">예약 날짜</label>
       <div class="date_picker date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-basic" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-basic" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -75,8 +75,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-open">날짜</label>
       <div class="date_picker date_picker_fit is-open">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-open" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="true">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 닫기" aria-expanded="true">
+          <input type="text" class="date_picker_input" id="dp-open" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="true">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 닫기" aria-expanded="true">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -169,8 +169,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-footer">일정 날짜</label>
       <div class="date_picker date_picker_fit is-open">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-footer" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="true">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-footer" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="true">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -271,8 +271,8 @@ pageTitle: Date Picker
       <div class="date_picker_range" role="group" aria-labelledby="dp-range-label">
         <div class="date_picker">
           <div class="date_picker_trigger">
-            <input type="text" class="date_picker_input" value="2024-06-10" readonly aria-label="시작일" aria-haspopup="dialog" aria-expanded="false">
-            <button type="button" class="date_picker_btn" aria-label="시작일 선택">
+            <input type="text" class="date_picker_input" value="2024-06-10" data-ripple readonly aria-label="시작일" aria-haspopup="dialog" aria-expanded="false">
+            <button type="button" class="date_picker_btn" data-ripple aria-label="시작일 선택">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                 <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -283,8 +283,8 @@ pageTitle: Date Picker
         <span class="date_picker_sep" aria-hidden="true">~</span>
         <div class="date_picker">
           <div class="date_picker_trigger">
-            <input type="text" class="date_picker_input" value="2024-06-18" readonly aria-label="종료일" aria-haspopup="dialog" aria-expanded="false">
-            <button type="button" class="date_picker_btn" aria-label="종료일 선택">
+            <input type="text" class="date_picker_input" value="2024-06-18" data-ripple readonly aria-label="종료일" aria-haspopup="dialog" aria-expanded="false">
+            <button type="button" class="date_picker_btn" data-ripple aria-label="종료일 선택">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                 <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -309,8 +309,8 @@ pageTitle: Date Picker
       <span class="form_field-label" id="dp-range-panel-label">숙박 기간</span>
       <div class="date_picker date_picker_block is-open">
         <div class="date_picker_trigger" style="max-width: 20rem;">
-          <input type="text" class="date_picker_input" value="2024-06-10 ~ 2024-07-06" readonly aria-labelledby="dp-range-panel-label" aria-haspopup="dialog" aria-expanded="true">
-          <button type="button" class="date_picker_btn" aria-label="기간 선택">
+          <input type="text" class="date_picker_input" value="2024-06-10 ~ 2024-07-06" data-ripple readonly aria-labelledby="dp-range-panel-label" aria-haspopup="dialog" aria-expanded="true">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="기간 선택">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -538,8 +538,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-size-sm">Small</label>
       <div class="date_picker date_picker_sm date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-size-sm" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-size-sm" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -552,8 +552,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-size-md">Medium</label>
       <div class="date_picker date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-size-md" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-size-md" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -566,8 +566,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-size-lg">Large</label>
       <div class="date_picker date_picker_lg date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-size-lg" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-size-lg" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -590,13 +590,13 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-clear">필터 날짜</label>
       <div class="date_picker date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-clear" value="2024-06-18" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_clear" aria-label="날짜 지우기">
+          <input type="text" class="date_picker_input" id="dp-clear" value="2024-06-18" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_clear" data-ripple="surface" aria-label="날짜 지우기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
           </button>
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -619,8 +619,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-state-placeholder">플레이스홀더</label>
       <div class="date_picker date_picker_fit">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-state-placeholder" value="" placeholder="날짜를 선택하세요" readonly aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-state-placeholder" value="" placeholder="날짜를 선택하세요" data-ripple readonly aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -634,8 +634,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-state-disabled">비활성</label>
       <div class="date_picker date_picker_fit is-disabled">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-state-disabled" value="2024-06-18" readonly disabled aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" disabled aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-state-disabled" value="2024-06-18" data-ripple readonly disabled aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple disabled aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -650,8 +650,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-state-error">에러</label>
       <div class="date_picker date_picker_fit is-error">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-state-error" value="" placeholder="날짜를 선택하세요" readonly aria-invalid="true" aria-describedby="dp-state-error-msg" aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input date_picker_placeholder" id="dp-state-error" value="" placeholder="날짜를 선택하세요" data-ripple readonly aria-invalid="true" aria-describedby="dp-state-error-msg" aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -666,8 +666,8 @@ pageTitle: Date Picker
       <label class="form_field-label" for="dp-state-success">성공</label>
       <div class="date_picker date_picker_fit is-success">
         <div class="date_picker_trigger">
-          <input type="text" class="date_picker_input" id="dp-state-success" value="2024-06-18" readonly aria-invalid="false" aria-describedby="dp-state-success-msg" aria-haspopup="dialog" aria-expanded="false">
-          <button type="button" class="date_picker_btn" aria-label="캘린더 열기">
+          <input type="text" class="date_picker_input" id="dp-state-success" value="2024-06-18" data-ripple readonly aria-invalid="false" aria-describedby="dp-state-success-msg" aria-haspopup="dialog" aria-expanded="false">
+          <button type="button" class="date_picker_btn" data-ripple aria-label="캘린더 열기">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -697,8 +697,8 @@ pageTitle: Date Picker
         <div class="date_picker_range" role="group" aria-labelledby="dp-example-range-label">
           <div class="date_picker date_picker_sm" style="min-width: 9rem;">
             <div class="date_picker_trigger">
-              <input type="text" class="date_picker_input date_picker_placeholder" value="" placeholder="시작일" readonly aria-label="시작일" aria-haspopup="dialog" aria-expanded="false">
-              <button type="button" class="date_picker_btn" aria-label="시작일 선택">
+              <input type="text" class="date_picker_input date_picker_placeholder" value="" placeholder="시작일" data-ripple readonly aria-label="시작일" aria-haspopup="dialog" aria-expanded="false">
+              <button type="button" class="date_picker_btn" data-ripple aria-label="시작일 선택">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                   <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -709,8 +709,8 @@ pageTitle: Date Picker
           <span class="date_picker_sep" aria-hidden="true">~</span>
           <div class="date_picker" style="min-width: 9rem;">
             <div class="date_picker_trigger">
-              <input type="text" class="date_picker_input date_picker_placeholder" value="" placeholder="종료일" readonly aria-label="종료일" aria-haspopup="dialog" aria-expanded="false">
-              <button type="button" class="date_picker_btn" aria-label="종료일 선택">
+              <input type="text" class="date_picker_input date_picker_placeholder" value="" placeholder="종료일" data-ripple readonly aria-label="종료일" aria-haspopup="dialog" aria-expanded="false">
+              <button type="button" class="date_picker_btn" data-ripple aria-label="종료일 선택">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                   <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -725,5 +725,61 @@ pageTitle: Date Picker
         <button type="reset" class="btn btn_ghost"><span class="btn_label">초기화</span></button>
       </div>
     </form>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+  <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 날짜 선택 로직과 Calendar 패널을 연결하고 필요한 상태 클래스를 직접 조합합니다.</p>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">클래스 · 속성</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">date_picker</code></td><td>Date Picker 루트</td></tr>
+        <tr><td><code class="typo_code">date_picker_sm · date_picker_lg</code></td><td>작은·큰 트리거 크기. 기본은 md</td></tr>
+        <tr><td><code class="typo_code">date_picker_fit · date_picker_block</code></td><td>입력 최대 너비와 부모 너비 100% 변형</td></tr>
+        <tr><td><code class="typo_code">date_picker_inline</code></td><td>트리거를 숨기고 패널을 문서 흐름에 배치하는 인라인 변형</td></tr>
+        <tr><td><code class="typo_code">date_picker_trigger · date_picker_input · date_picker_btn</code></td><td>읽기 전용 입력과 캘린더 버튼으로 구성한 트리거</td></tr>
+        <tr><td><code class="typo_code">date_picker_clear · date_picker_placeholder</code></td><td>선택값 지우기 버튼과 미선택 입력 상태</td></tr>
+        <tr><td><code class="typo_code">date_picker_panel</code></td><td>Calendar를 배치하는 드롭다운 패널</td></tr>
+        <tr><td><code class="typo_code">date_picker_panel-end · date_picker_panel-wide</code></td><td>패널 끝 정렬과 이중 캘린더용 콘텐츠 너비 변형</td></tr>
+        <tr><td><code class="typo_code">date_picker_range · date_picker_sep</code></td><td>시작일·종료일 입력 묶음과 구분자</td></tr>
+        <tr><td><code class="typo_code">is-open · is-error · is-success · is-disabled</code></td><td>열림·오류·성공·비활성 상태</td></tr>
+        <tr><td><code class="typo_code">readonly · disabled</code></td><td>직접 텍스트 편집 방지와 입력·버튼 비활성</td></tr>
+        <tr><td><code class="typo_code">aria-haspopup="dialog" · aria-expanded="true|false"</code></td><td>입력이 캘린더 대화상자를 열며 현재 펼침 상태임을 전달</td></tr>
+        <tr><td><code class="typo_code">role="dialog" · aria-label</code></td><td>캘린더 패널의 역할과 접근 가능한 이름</td></tr>
+        <tr><td><code class="typo_code">aria-invalid · aria-describedby</code></td><td>오류 상태와 도움말·피드백 메시지 연결</td></tr>
+        <tr><td><code class="typo_code">data-ripple</code></td><td>입력·캘린더 버튼의 클릭 파장 활성</td></tr>
+        <tr><td><code class="typo_code">data-ripple="surface"</code></td><td>절대 위치를 유지하면서 지우기 버튼의 클릭 파장 활성</td></tr>
+        <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Date Picker 하위 전체의 클릭 파장 비활성</td></tr>
+        <tr><td><code class="typo_code">click</code></td><td>캘린더 열기·닫기, 날짜 선택과 값 초기화를 처리하는 이벤트</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">--date-picker-input-padding-y · --date-picker-input-padding-x</code></td><td><code class="typo_code">0.5rem · 0.75rem</code></td><td>기본 입력의 세로·가로 패딩</td></tr>
+        <tr><td><code class="typo_code">--date-picker-input-font-size</code></td><td><code class="typo_code">var(--text-size-base)</code></td><td>기본 입력 글자 크기</td></tr>
+        <tr><td><code class="typo_code">--date-picker-btn-size · --date-picker-icon-size</code></td><td><code class="typo_code">2.25rem · 1rem</code></td><td>캘린더 버튼 너비와 아이콘 크기</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>

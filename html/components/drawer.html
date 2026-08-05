@@ -184,6 +184,388 @@
         </div>
         </section>
 
+        <section class="section demo_section" aria-labelledby="footer-align-heading">
+          <div class="demo_section-header">
+            <h2 id="footer-align-heading">푸터 정렬</h2>
+            <p><code class="typo_code">drawer_footer-start</code> · <code class="typo_code">drawer_footer-center</code> · 기본 end · <code class="typo_code">drawer_footer-between</code> · <code class="typo_code">drawer_footer-even</code>으로 버튼을 정렬합니다. even은 1:1·1:2·2:1 비율과 하단 패딩 제거를 조합할 수 있습니다.</p>
+          </div>
+
+          <div class="demo_section-preview demo_section-preview-stack">
+            <div class="drawer_demo-stack">
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-start-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-start-title">좌측 정렬</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-start</code></p></div>
+                    <div class="drawer_footer drawer_footer-start">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-center-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-center-title">가운데 정렬</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-center</code></p></div>
+                    <div class="drawer_footer drawer_footer-center">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-end-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-end-title">우측 정렬</h3></div>
+                    <div class="drawer_body"><p>기본 end 정렬</p></div>
+                    <div class="drawer_footer drawer_footer-end">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-between-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-between-title">병합 정렬</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-group</code>으로 좌·우 버튼을 묶습니다.</p></div>
+                    <div class="drawer_footer drawer_footer-between">
+                      <div class="drawer_footer-group"><button type="button" class="btn btn_ghost color_danger"><span class="btn_label">삭제</span></button></div>
+                      <div class="drawer_footer-group">
+                        <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                        <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-between-2-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-between-2-title">병합 정렬</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">between</code> — 좌 2 / 우 1</p></div>
+                    <div class="drawer_footer drawer_footer-between">
+                      <div class="drawer_footer-group">
+                        <button type="button" class="btn btn_ghost"><span class="btn_label">도움말</span></button>
+                        <button type="button" class="btn btn_ghost color_danger"><span class="btn_label">삭제</span></button>
+                      </div>
+                      <div class="drawer_footer-group"><button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-even-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-even-title">균등 1:1</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-even</code></p></div>
+                    <div class="drawer_footer drawer_footer-even">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-even-12-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-even-12-title">균등 1:2</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-even-1-2</code></p></div>
+                    <div class="drawer_footer drawer_footer-even drawer_footer-even-1-2">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-even-21-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-even-21-title">균등 2:1</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-even-2-1</code></p></div>
+                    <div class="drawer_footer drawer_footer-even drawer_footer-even-2-1">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">이전</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">완료</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="drawer_demo-frame drawer_demo-frame-compact">
+                <div class="drawer drawer_demo-static" role="dialog" aria-modal="true" aria-labelledby="drawer-footer-no-pad-title">
+                  <div class="drawer_backdrop" aria-hidden="true"></div>
+                  <div class="drawer_panel drawer_placement-bottom">
+                    <div class="drawer_header"><h3 class="drawer_title" id="drawer-footer-no-pad-title">하단 패딩 없음</h3></div>
+                    <div class="drawer_body"><p><code class="typo_code">drawer_footer-even drawer_footer-no-pad-b</code></p></div>
+                    <div class="drawer_footer drawer_footer-even drawer_footer-no-pad-b">
+                      <button type="button" class="btn btn_ghost"><span class="btn_label">취소</span></button>
+                      <button type="button" class="btn btn_filled color_primary"><span class="btn_label">확인</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="demo_section-code">
+          <button type="button" class="demo_code-toggle" aria-expanded="false">
+            <span class="demo_code-toggle-label">코드 보기</span>
+            <svg class="demo_code-toggle-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="demo_section-code-panel" hidden>
+            <pre><code>&lt;div class=&quot;drawer_demo-stack&quot;&gt;
+  &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+    &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-start-title&quot;&gt;
+      &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+        &lt;div class=&quot;drawer_header&quot;&gt;
+          &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-start-title&quot;&gt;좌측 정렬&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_body&quot;&gt;
+          &lt;p&gt;
+            &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-start&lt;/code&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_footer drawer_footer-start&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+    &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-center-title&quot;&gt;
+      &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+        &lt;div class=&quot;drawer_header&quot;&gt;
+          &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-center-title&quot;&gt;가운데 정렬&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_body&quot;&gt;
+          &lt;p&gt;
+            &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-center&lt;/code&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_footer drawer_footer-center&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+    &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-end-title&quot;&gt;
+      &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+        &lt;div class=&quot;drawer_header&quot;&gt;
+          &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-end-title&quot;&gt;우측 정렬&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_body&quot;&gt;
+          &lt;p&gt;기본 end 정렬&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_footer drawer_footer-end&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+            &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+    &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-between-title&quot;&gt;
+      &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+        &lt;div class=&quot;drawer_header&quot;&gt;
+          &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-between-title&quot;&gt;병합 정렬&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_body&quot;&gt;
+          &lt;p&gt;
+            &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-group&lt;/code&gt;으로 좌·우 버튼을 묶습니다.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_footer drawer_footer-between&quot;&gt;
+            &lt;div class=&quot;drawer_footer-group&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost color_danger&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;삭제&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer-group&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+              &lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+      &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-between-2-title&quot;&gt;
+        &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+          &lt;div class=&quot;drawer_header&quot;&gt;
+            &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-between-2-title&quot;&gt;병합 정렬&lt;/h3&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_body&quot;&gt;
+            &lt;p&gt;
+              &lt;code class=&quot;typo_code&quot;&gt;between&lt;/code&gt; — 좌 2 / 우 1&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer drawer_footer-between&quot;&gt;
+              &lt;div class=&quot;drawer_footer-group&quot;&gt;
+                &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                  &lt;span class=&quot;btn_label&quot;&gt;도움말&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost color_danger&quot;&gt;
+                  &lt;span class=&quot;btn_label&quot;&gt;삭제&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;drawer_footer-group&quot;&gt;
+                &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                  &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+        &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-even-title&quot;&gt;
+          &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+            &lt;div class=&quot;drawer_header&quot;&gt;
+              &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-even-title&quot;&gt;균등 1:1&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_body&quot;&gt;
+              &lt;p&gt;
+                &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-even&lt;/code&gt;
+              &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer drawer_footer-even&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+              &lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+        &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-even-12-title&quot;&gt;
+          &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+            &lt;div class=&quot;drawer_header&quot;&gt;
+              &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-even-12-title&quot;&gt;균등 1:2&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_body&quot;&gt;
+              &lt;p&gt;
+                &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-even-1-2&lt;/code&gt;
+              &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer drawer_footer-even drawer_footer-even-1-2&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+              &lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+        &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-even-21-title&quot;&gt;
+          &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+            &lt;div class=&quot;drawer_header&quot;&gt;
+              &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-even-21-title&quot;&gt;균등 2:1&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_body&quot;&gt;
+              &lt;p&gt;
+                &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-even-2-1&lt;/code&gt;
+              &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer drawer_footer-even drawer_footer-even-2-1&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;이전&lt;/span&gt;
+              &lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;완료&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;drawer_demo-frame drawer_demo-frame-compact&quot;&gt;
+        &lt;div class=&quot;drawer drawer_demo-static&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;drawer-footer-no-pad-title&quot;&gt;
+          &lt;div class=&quot;drawer_backdrop&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;drawer_panel drawer_placement-bottom&quot;&gt;
+            &lt;div class=&quot;drawer_header&quot;&gt;
+              &lt;h3 class=&quot;drawer_title&quot; id=&quot;drawer-footer-no-pad-title&quot;&gt;하단 패딩 없음&lt;/h3&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_body&quot;&gt;
+              &lt;p&gt;
+                &lt;code class=&quot;typo_code&quot;&gt;drawer_footer-even drawer_footer-no-pad-b&lt;/code&gt;
+              &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;drawer_footer drawer_footer-even drawer_footer-no-pad-b&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_ghost&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;취소&lt;/span&gt;
+              &lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn_filled color_primary&quot;&gt;
+                &lt;span class=&quot;btn_label&quot;&gt;확인&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+          </div>
+        </div>
+        </section>
+
         <section class="section demo_section" aria-labelledby="extra-heading">
           <div class="demo_section-header">
             <h2 id="extra-heading">헤더 추가 영역</h2>
@@ -219,7 +601,7 @@
 
           <div class="demo_section-preview">
             <button type="button" class="btn btn_outline btn_icon-only" aria-label="메뉴 열기" data-drawer-trigger="#drawer-menu" aria-controls="drawer-menu" aria-expanded="false">
-              <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
             </button>
@@ -234,7 +616,7 @@
           </button>
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;button type=&quot;button&quot; class=&quot;btn btn_outline btn_icon-only&quot; aria-label=&quot;메뉴 열기&quot; data-drawer-trigger=&quot;#drawer-menu&quot; aria-controls=&quot;drawer-menu&quot; aria-expanded=&quot;false&quot;&gt;
-  &lt;svg class=&quot;btn_icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; aria-hidden=&quot;true&quot;&gt;
     &lt;path d=&quot;M4 6h16M4 12h16M4 18h16&quot;/&gt;
   &lt;/svg&gt;
 &lt;/button&gt;</code></pre>
@@ -249,7 +631,7 @@
           </div>
 
           <div class="demo_section-preview">
-            <p class="form_field-hint">아래 예시는 옵션 동작 확인용입니다.</p>
+            <p class="form_field-hint">페이지를 새로 열면 아래 Drawer가 자동으로 표시됩니다.</p>
           </div>
 
         <div class="demo_section-code">
@@ -260,7 +642,7 @@
             </svg>
           </button>
           <div class="demo_section-code-panel" hidden>
-            <pre><code>&lt;p class=&quot;form_field-hint&quot;&gt;아래 예시는 옵션 동작 확인용입니다.&lt;/p&gt;</code></pre>
+            <pre><code>&lt;p class=&quot;form_field-hint&quot;&gt;페이지를 새로 열면 아래 Drawer가 자동으로 표시됩니다.&lt;/p&gt;</code></pre>
           </div>
         </div>
         </section>
@@ -268,7 +650,7 @@
         <section class="section demo_section" aria-labelledby="nested-heading">
           <div class="demo_section-header">
             <h2 id="nested-heading">중첩 Drawer</h2>
-            <p>열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. <kbd>Esc</kbd>는 가장 위에 열린 패널부터 닫습니다.</p>
+            <p>열린 Drawer 안에서 다른 Drawer를 열 수 있습니다. 2단계가 열리면 1단계 백드롭은 숨겨지고, 2단계가 닫히면 다시 표시됩니다. <kbd>Esc</kbd>는 가장 위에 열린 패널부터 닫습니다.</p>
           </div>
 
           <div class="demo_section-preview">
@@ -352,8 +734,8 @@
           <div class="drawer_panel drawer_placement-right">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-basic-title">기본 Drawer</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -375,8 +757,8 @@
           <div class="drawer_panel drawer_placement-left">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-place-left-title">왼쪽 패널</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -393,8 +775,8 @@
           <div class="drawer_panel drawer_placement-right">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-place-right-title">오른쪽 패널</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -411,8 +793,8 @@
           <div class="drawer_panel drawer_placement-top">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-place-top-title">상단 패널</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -429,8 +811,8 @@
           <div class="drawer_panel drawer_placement-bottom">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-place-bottom-title">하단 패널</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -447,8 +829,8 @@
           <div class="drawer_panel drawer_placement-right drawer_sm">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-size-sm-title">Small</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -464,8 +846,8 @@
           <div class="drawer_panel drawer_placement-right">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-size-default-title">Default</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -481,8 +863,8 @@
           <div class="drawer_panel drawer_placement-right drawer_lg">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-size-lg-title">Large</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -499,8 +881,8 @@
           <div class="drawer_panel drawer_placement-right">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-footer-title">항목 편집</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -541,8 +923,8 @@
               <div class="drawer_extra">
                 <span class="tag tag_solid color_success">완료</span>
               </div>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -573,8 +955,8 @@
           <div class="drawer_panel drawer_placement-left">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-menu-title">앱 메뉴</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -627,15 +1009,15 @@
           <div class="drawer_panel drawer_placement-right drawer_sm">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-open-on-load-title">자동 열기 옵션</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
             </div>
             <div class="drawer_body">
-              <p>이 패널은 <code class="typo_code">data-drawer-open-on-load="true"</code> 예시입니다.</p>
-              <p>실서비스에서는 온보딩, 공지, 필수 확인 패널 등에 선택적으로 사용할 수 있습니다.</p>
+              <p>이 패널은 <code class="typo_code">data-drawer-open-on-load="true"</code>에 의해 자동으로 열렸습니다.</p>
+              <p>실서비스에서는 온보딩, 공지, 필수 확인 패널 등에 선택적으로 사용합니다.</p>
             </div>
           </div>
         </div>
@@ -646,8 +1028,8 @@
           <div class="drawer_panel drawer_placement-right">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-nested-1-title">1단계 Drawer</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -666,14 +1048,14 @@
           <div class="drawer_panel drawer_placement-right drawer_sm">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-nested-2-title">2단계 Drawer</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
             </div>
             <div class="drawer_body">
-              <p>중첩된 Drawer입니다. <kbd>Esc</kbd>를 누르면 이 패널부터 닫힙니다.</p>
+              <p>중첩된 Drawer입니다. 닫으면 1단계 백드롭이 다시 표시됩니다. <kbd>Esc</kbd>를 누르면 이 패널부터 닫힙니다.</p>
             </div>
             <div class="drawer_footer">
               <button type="button" class="btn btn_filled color_primary" data-drawer-close><span class="btn_label">완료</span></button>
@@ -690,8 +1072,8 @@
             </div>
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-drag-title">공유 · 액션</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -718,8 +1100,8 @@
           <div class="drawer_panel drawer_placement-right drawer_sm">
             <div class="drawer_header">
               <h2 class="drawer_title" id="drawer-no-backdrop-title">백드롭 없음</h2>
-              <button type="button" class="drawer_close" data-drawer-close aria-label="닫기">
-                <svg class="drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <button type="button" class="drawer_close" data-ripple data-drawer-close aria-label="닫기">
+                <svg class="icon drawer_close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M18 6 6 18M6 6l12 12"/>
                 </svg>
               </button>
@@ -759,6 +1141,14 @@
       &lt;button type="button" class="btn btn_filled color_primary" data-drawer-close&gt;저장&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 푸터 정렬: start · center · end · between · even --&gt;
+&lt;!-- 균등 비율: drawer_footer-even · drawer_footer-even-1-2 · drawer_footer-even-2-1 --&gt;
+&lt;!-- 하단 패딩 없음: drawer_footer-no-pad-b (+ even 권장) --&gt;
+&lt;div class="drawer_footer drawer_footer-even drawer_footer-no-pad-b"&gt;
+  &lt;button type="button" class="btn btn_ghost" data-drawer-close&gt;취소&lt;/button&gt;
+  &lt;button type="button" class="btn btn_filled color_primary" data-drawer-close&gt;확인&lt;/button&gt;
 &lt;/div&gt;
 
 &lt;!-- 옵션: 백드롭 없음 --&gt;
@@ -804,6 +1194,10 @@
                   <tr><td><code class="typo_code">drawer_close</code></td><td>닫기 버튼</td></tr>
                   <tr><td><code class="typo_code">drawer_body</code></td><td>스크롤 가능한 본문 영역</td></tr>
                   <tr><td><code class="typo_code">drawer_footer</code></td><td>하단 액션 영역 (선택)</td></tr>
+                  <tr><td><code class="typo_code">drawer_footer-start</code> · <code class="typo_code">drawer_footer-center</code> · <code class="typo_code">drawer_footer-end</code></td><td>푸터 버튼 정렬 (기본 end)</td></tr>
+                  <tr><td><code class="typo_code">drawer_footer-between</code> · <code class="typo_code">drawer_footer-group</code></td><td>좌·우 병합 정렬과 버튼 묶음</td></tr>
+                  <tr><td><code class="typo_code">drawer_footer-even</code> · <code class="typo_code">drawer_footer-even-1-2</code> · <code class="typo_code">drawer_footer-even-2-1</code></td><td>균등 정렬과 좌·우 비율</td></tr>
+                  <tr><td><code class="typo_code">drawer_footer-no-pad-b</code></td><td>푸터 하단 패딩 제거 (even 조합 시 좌우 패딩·간격도 제거)</td></tr>
                   <tr><td><code class="typo_code">drawer_placement-left</code></td><td>왼쪽에서 슬라이드</td></tr>
                   <tr><td><code class="typo_code">drawer_placement-right</code></td><td>오른쪽에서 슬라이드 (기본)</td></tr>
                   <tr><td><code class="typo_code">drawer_placement-top</code></td><td>위에서 슬라이드</td></tr>
@@ -816,11 +1210,14 @@
                   <tr><td><code class="typo_code">data-drawer-backdrop="false"</code></td><td>백드롭 숨김 · 본문 스크롤 잠금 비활성</td></tr>
                   <tr><td><code class="typo_code">data-drawer-open-on-load="true"</code></td><td>페이지 로드 후 자동 열기</td></tr>
                   <tr><td><code class="typo_code">data-drawer-draggable</code> · <code class="typo_code">data-drawer-drag-handle</code></td><td>하단 드래그 펼침/접힘</td></tr>
-                  <tr><td><code class="typo_code">is-open</code> · <code class="typo_code">is-opening</code> · <code class="typo_code">is-closing</code></td><td>열림·애니메이션 상태</td></tr>
+                  <tr><td><code class="typo_code">is-open</code> · <code class="typo_code">is-opening</code> · <code class="typo_code">is-closing</code> · <code class="typo_code">is-stack-covered</code></td><td>열림·애니메이션·중첩 하위(백드롭 숨김) 상태</td></tr>
                   <tr><td><code class="typo_code">is-expanded</code> · <code class="typo_code">is-dragging</code></td><td>하단 시트 펼침·드래그 중</td></tr>
                   <tr><td><code class="typo_code">hidden</code></td><td>닫힌 초기 상태 (접근성·표시 제어)</td></tr>
                   <tr><td><code class="typo_code">role="dialog"</code> · <code class="typo_code">aria-modal="true"</code></td><td>모달 대화상자 시맨틱 (권장)</td></tr>
                   <tr><td><code class="typo_code">aria-controls</code> · <code class="typo_code">aria-expanded</code></td><td>트리거 ↔ 패널 연결 (트리거에 지정)</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>닫기·트리거·푸터 버튼의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false"</code> · <code class="typo_code">data-no-ripple</code></td><td>해당 버튼 또는 Drawer 하위 전체의 클릭 파장 비활성</td></tr>
+                  <tr><td><code class="typo_code">click</code> · <code class="typo_code">keydown</code></td><td>열기·닫기와 최상위 Drawer의 <kbd>Esc</kbd> 닫기 처리</td></tr>
                 </tbody>
               </table>
             </div>

@@ -14,6 +14,14 @@
   vertical-align: -0.125em;
   @include square-size(var(--icon-size));
 
+  > img,
+  > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   @each $size in sm, lg, xl {
     &_#{$size} {
       @include square-size(var(--icon-size-#{$size}));
@@ -21,7 +29,7 @@
   }
 
   &_inline {
-    vertical-align: middle;
+    vertical-align: -0.2em;
   }
 
   &_spin {
@@ -32,6 +40,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     border-radius: 50%;
     background: var(--color-surface-raised);
     color: color-token(muted);
@@ -52,6 +61,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     border-radius: $radius-md;
     background: var(--color-surface-raised);
     color: color-token(muted);
@@ -64,6 +74,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
     margin: 0;
     padding: 0;
     border: none;
@@ -136,7 +147,9 @@
   }
 }
 
-.section > .icon_grid {
+.section > .icon_grid,
+.demo_section-preview .icon_grid,
+.sb-demo-layout .icon_grid {
   padding: var(--space-xl);
   background: var(--color-surface);
   border: 1px solid var(--color-border);

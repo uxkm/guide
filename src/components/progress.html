@@ -308,53 +308,52 @@ pageTitle: Progress
 
 <section class="section" aria-labelledby="api-heading">
   <h2 id="api-heading">클래스 · 속성</h2>
+  <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 진행 유형과 상태에 맞게 아래 항목을 직접 조합합니다.</p>
 
-  <div class="demo_section-preview demo_section-preview-start">
-    <div class="table_wrap">
-      <table class="table table_bordered table_compact">
-        <thead>
-          <tr>
-            <th scope="col">이름</th>
-            <th scope="col">설명</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code class="typo_code">progress · progress_track · progress_bar</code></td><td>선형 진행률</td></tr>
-          <tr><td><code class="typo_code">progress_circle · progress_circle-svg · progress_circle-value</code></td><td>원형 진행률</td></tr>
-          <tr><td><code class="typo_code">progress_header · progress_label · progress_value</code></td><td>헤더</td></tr>
-          <tr><td><code class="typo_code">progress_sm · progress_lg · progress_fit · progress_block</code></td><td>크기·너비</td></tr>
-          <tr><td><code class="typo_code">progress_striped · progress_animated · progress_inside</code></td><td>스타일</td></tr>
-          <tr><td><code class="typo_code">is-indeterminate</code></td><td>불확정 상태</td></tr>
-          <tr><td><code class="typo_code">color_primary · color_success · color_warning · color_danger</code></td><td>색상</td></tr>
-          <tr><td><code class="typo_code">--progress-percent</code></td><td>원형 채움 비율 (0–100)</td></tr>
-          <tr><td><code class="typo_code">role="progressbar"</code> · <code class="typo_code">aria-valuenow</code> · <code class="typo_code">aria-busy</code></td><td>접근성</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="form_field-hint" style="margin-top: var(--space-md);">진행률은 <code class="typo_code">progress_bar</code>의 <code class="typo_code">style="width: N%"</code> 또는 JS로 업데이트합니다. 시각적 <code class="typo_code">progress_value</code>와 <code class="typo_code">aria-valuenow</code>를 함께 맞춰 주세요.</p>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">클래스 · 속성</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">progress · progress_track · progress_bar</code></td><td>선형 진행률</td></tr>
+        <tr><td><code class="typo_code">progress_circle · progress_circle-svg · progress_circle-value</code></td><td>원형 진행률</td></tr>
+        <tr><td><code class="typo_code">progress_header · progress_label · progress_value</code></td><td>헤더</td></tr>
+        <tr><td><code class="typo_code">progress_sm · progress_lg · progress_fit · progress_block</code></td><td>크기·너비</td></tr>
+        <tr><td><code class="typo_code">progress_striped · progress_animated · progress_inside</code></td><td>스타일</td></tr>
+        <tr><td><code class="typo_code">is-indeterminate</code></td><td>불확정 상태</td></tr>
+        <tr><td><code class="typo_code">color_primary · color_success · color_warning · color_danger</code></td><td>색상</td></tr>
+        <tr><td><code class="typo_code">--progress-percent</code></td><td>원형 채움 비율 (0–100)</td></tr>
+        <tr><td><code class="typo_code">role="progressbar" · aria-valuenow · aria-valuemin · aria-valuemax</code></td><td>진행 상태의 역할과 현재·최소·최대 값</td></tr>
+        <tr><td><code class="typo_code">aria-busy="true"</code></td><td>불확정 상태에서 작업 진행 중임을 전달</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <p class="form_field-hint" style="margin-top: var(--space-md);">진행률은 <code class="typo_code">progress_bar</code>의 <code class="typo_code">style="width: N%"</code> 또는 JS로 업데이트합니다. 시각적 <code class="typo_code">progress_value</code>와 <code class="typo_code">aria-valuenow</code>를 함께 맞춰 주세요.</p>
 </section>
 
 <section class="section" aria-labelledby="tokens-heading">
   <h2 id="tokens-heading">디자인 토큰</h2>
 
-  <div class="demo_section-preview demo_section-preview-start">
-    <div class="table_wrap">
-      <table class="table table_bordered table_compact">
-        <thead>
-          <tr>
-            <th scope="col">토큰</th>
-            <th scope="col">기본값</th>
-            <th scope="col">설명</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code class="typo_code">--progress-height</code> · <code class="typo_code">--progress-height-sm</code> · <code class="typo_code">--progress-height-lg</code></td><td>8px · 4px · 12px</td><td>선형 트랙 높이</td></tr>
-          <tr><td><code class="typo_code">--progress-max-width</code></td><td><code class="typo_code">var(--input-max-width)</code></td><td><code class="typo_code">progress_fit</code> 최대 너비</td></tr>
-          <tr><td><code class="typo_code">--progress-circle-size</code> · <code class="typo_code">--progress-circle-stroke</code></td><td>7.5rem · 6</td><td>원형 크기·stroke</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">--progress-height · --progress-height-sm · --progress-height-lg</code></td><td><code class="typo_code">8px · 4px · 12px</code></td><td>선형 트랙 높이</td></tr>
+        <tr><td><code class="typo_code">--progress-inside-height · --progress-inside-height-sm · --progress-inside-height-lg</code></td><td><code class="typo_code">1.25rem · 1rem · 1.5rem</code></td><td>바 안 텍스트 트랙·막대 최소 높이</td></tr>
+        <tr><td><code class="typo_code">--progress-max-width</code></td><td><code class="typo_code">var(--input-max-width)</code></td><td><code class="typo_code">progress_fit</code> 최대 너비</td></tr>
+        <tr><td><code class="typo_code">--progress-circle-size · --progress-circle-stroke</code></td><td><code class="typo_code">7.5rem · 6</code></td><td>원형 크기·stroke</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>

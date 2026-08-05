@@ -62,15 +62,15 @@
             </div>
 
             <fieldset class="checkbox_group checkbox_group_horizontal">
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">버튼형</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">UI</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">UX</span>
               </label>
@@ -83,7 +83,7 @@
                     <h3 class="card_title" id="checkbox-type-card-title">카드형 — checkbox_card</h3>
                   </div>
                   <div class="card_extra">
-                    <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-type-card" checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc">
+                    <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-type-card" checked aria-labelledby="checkbox-type-card-title checkbox-type-card-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                   </div>
@@ -126,15 +126,15 @@
 &lt;!-- 예시 3 --&gt;
 
 &lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;버튼형&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;UI&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;UX&lt;/span&gt;
   &lt;/label&gt;
@@ -149,7 +149,7 @@
         &lt;h3 class=&quot;card_title&quot; id=&quot;checkbox-type-card-title&quot;&gt;카드형 — checkbox_card&lt;/h3&gt;
       &lt;/div&gt;
       &lt;div class=&quot;card_extra&quot;&gt;
-        &lt;label class=&quot;checkbox_control&quot;&gt;
+        &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
           &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-type-card&quot; checked aria-labelledby=&quot;checkbox-type-card-title checkbox-type-card-desc&quot;&gt;
           &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
           &lt;/span&gt;
@@ -410,13 +410,13 @@
           </div>
 
           <div class="demo_section-preview demo_section-preview-stack">
-            <label class="checkbox_control"><input aria-label="항목 선택" type="checkbox" class="checkbox_input">
+            <label class="checkbox_control" data-ripple><input aria-label="항목 선택" type="checkbox" class="checkbox_input">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
-            <label class="checkbox_control"><input type="checkbox" class="checkbox_input" checked aria-label="선택됨">
+            <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" checked aria-label="선택됨">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
-            <label class="checkbox_control"><input type="checkbox" class="checkbox_input" disabled aria-label="비활성">
+            <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" disabled aria-label="비활성">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
           </div>
@@ -431,7 +431,7 @@
           <div class="demo_section-code-panel" hidden>
             <pre><code>&lt;!-- 항목 선택 --&gt;
 
-&lt;label class=&quot;checkbox_control&quot;&gt;
+&lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
   &lt;input aria-label=&quot;항목 선택&quot; type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
   &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
   &lt;/span&gt;
@@ -439,7 +439,7 @@
 
 &lt;!-- 선택됨 --&gt;
 
-&lt;label class=&quot;checkbox_control&quot;&gt;
+&lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
   &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked aria-label=&quot;선택됨&quot;&gt;
   &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
   &lt;/span&gt;
@@ -447,7 +447,7 @@
 
 &lt;!-- 비활성 --&gt;
 
-&lt;label class=&quot;checkbox_control&quot;&gt;
+&lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
   &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; disabled aria-label=&quot;비활성&quot;&gt;
   &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
   &lt;/span&gt;
@@ -863,15 +863,15 @@
 
             <fieldset class="checkbox_group checkbox_group_horizontal">
               <legend class="checkbox_group-legend">언어 (가로)</legend>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">한국어</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">English</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">日本語</span>
               </label>
@@ -920,15 +920,15 @@
 
 &lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
   &lt;legend class=&quot;checkbox_group-legend&quot;&gt;언어 (가로)&lt;/legend&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;한국어&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;English&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;日本語&lt;/span&gt;
   &lt;/label&gt;
@@ -945,34 +945,34 @@
 
           <div class="demo_section-preview demo_section-preview-stack">
             <fieldset class="checkbox_group checkbox_group_horizontal">
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">전체</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">진행 중</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">완료</span>
               </label>
-              <label class="checkbox checkbox_button">
+              <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" disabled>
                 <span class="checkbox_label">보류 (비활성)</span>
               </label>
             </fieldset>
 
             <fieldset class="checkbox_group checkbox_group_horizontal">
-              <label class="checkbox checkbox_button checkbox_sm color_success">
+              <label class="checkbox checkbox_button checkbox_sm color_success" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">Small</span>
               </label>
-              <label class="checkbox checkbox_button color_success">
+              <label class="checkbox checkbox_button color_success" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">Medium</span>
               </label>
-              <label class="checkbox checkbox_button checkbox_lg color_success">
+              <label class="checkbox checkbox_button checkbox_lg color_success" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">Large</span>
               </label>
@@ -990,19 +990,19 @@
             <pre><code>&lt;!-- 예시 1 --&gt;
 
 &lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;전체&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;진행 중&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;완료&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; disabled&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;보류 (비활성)&lt;/span&gt;
   &lt;/label&gt;
@@ -1011,15 +1011,15 @@
 &lt;!-- 예시 2 --&gt;
 
 &lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot;&gt;
-  &lt;label class=&quot;checkbox checkbox_button checkbox_sm color_success&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button checkbox_sm color_success&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;Small&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button color_success&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button color_success&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;Medium&lt;/span&gt;
   &lt;/label&gt;
-  &lt;label class=&quot;checkbox checkbox_button checkbox_lg color_success&quot;&gt;
+  &lt;label class=&quot;checkbox checkbox_button checkbox_lg color_success&quot; data-ripple&gt;
     &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
     &lt;span class=&quot;checkbox_label&quot;&gt;Large&lt;/span&gt;
   &lt;/label&gt;
@@ -1046,7 +1046,7 @@
                         <p class="card_subtitle">월 9,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-plan-basic" name="plan" value="basic" checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-plan-basic" name="plan" value="basic" checked aria-labelledby="checkbox-plan-basic-title checkbox-plan-basic-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1062,7 +1062,7 @@
                         <p class="card_subtitle">월 29,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-plan-pro" name="plan" value="pro" aria-labelledby="checkbox-plan-pro-title checkbox-plan-pro-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-plan-pro" name="plan" value="pro" aria-labelledby="checkbox-plan-pro-title checkbox-plan-pro-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1078,7 +1078,7 @@
                         <p class="card_subtitle">별도 문의</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-plan-enterprise" name="plan" value="enterprise" disabled aria-labelledby="checkbox-plan-enterprise-title checkbox-plan-enterprise-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-plan-enterprise" name="plan" value="enterprise" disabled aria-labelledby="checkbox-plan-enterprise-title checkbox-plan-enterprise-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1099,7 +1099,7 @@
                         <h3 class="card_title" id="checkbox-perm-read-title">읽기</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-perm-read" checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-perm-read" checked aria-labelledby="checkbox-perm-read-title checkbox-perm-read-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1114,7 +1114,7 @@
                         <h3 class="card_title" id="checkbox-perm-write-title">쓰기</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-perm-write" checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-perm-write" checked aria-labelledby="checkbox-perm-write-title checkbox-perm-write-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1129,7 +1129,7 @@
                         <h3 class="card_title" id="checkbox-perm-delete-title">삭제</h3>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control"><input type="checkbox" class="checkbox_input" id="checkbox-perm-delete" aria-labelledby="checkbox-perm-delete-title checkbox-perm-delete-desc">
+                        <label class="checkbox_control" data-ripple><input type="checkbox" class="checkbox_input" id="checkbox-perm-delete" aria-labelledby="checkbox-perm-delete-title checkbox-perm-delete-desc">
                         <span class="checkbox_box" aria-hidden="true"></span>
                       </label>
                       </div>
@@ -1143,7 +1143,7 @@
             <fieldset class="checkbox_group">
               <legend class="checkbox_group-legend">요금제 선택 — 카드 전체 클릭 (checkbox_card-clickable)</legend>
               <div class="card_deck card_deck-2">
-                <div class="checkbox_card checkbox_card-clickable">
+                <div class="checkbox_card checkbox_card-clickable" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1151,7 +1151,7 @@
                         <p class="card_subtitle">월 9,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control">
+                        <label class="checkbox_control" data-ripple>
                           <input type="checkbox" class="checkbox_input" id="checkbox-plan-full-basic" name="plan-clickable" value="basic" checked aria-labelledby="checkbox-plan-full-basic-title checkbox-plan-full-basic-desc">
                           <span class="checkbox_box" aria-hidden="true"></span>
                         </label>
@@ -1160,7 +1160,7 @@
                     <div class="card_body" id="checkbox-plan-full-basic-desc">카드 어디를 눌러도 선택됩니다.</div>
                   </article>
                 </div>
-                <div class="checkbox_card checkbox_card-clickable color_primary">
+                <div class="checkbox_card checkbox_card-clickable color_primary" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1168,7 +1168,7 @@
                         <p class="card_subtitle">월 29,000원</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control">
+                        <label class="checkbox_control" data-ripple>
                           <input type="checkbox" class="checkbox_input" id="checkbox-plan-full-pro" name="plan-clickable" value="pro" aria-labelledby="checkbox-plan-full-pro-title checkbox-plan-full-pro-desc">
                           <span class="checkbox_box" aria-hidden="true"></span>
                         </label>
@@ -1177,7 +1177,7 @@
                     <div class="card_body" id="checkbox-plan-full-pro-desc">제목·설명·여백을 포함한 전체 영역이 클릭 대상입니다.</div>
                   </article>
                 </div>
-                <div class="checkbox_card checkbox_card-clickable">
+                <div class="checkbox_card checkbox_card-clickable" data-ripple>
                   <article class="card card_compact card_shadow">
                     <div class="card_header">
                       <div class="card_header-main">
@@ -1185,7 +1185,7 @@
                         <p class="card_subtitle">별도 문의</p>
                       </div>
                       <div class="card_extra">
-                        <label class="checkbox_control">
+                        <label class="checkbox_control" data-ripple>
                           <input type="checkbox" class="checkbox_input" id="checkbox-plan-full-enterprise" name="plan-clickable" value="enterprise" disabled aria-labelledby="checkbox-plan-full-enterprise-title checkbox-plan-full-enterprise-desc">
                           <span class="checkbox_box" aria-hidden="true"></span>
                         </label>
@@ -1219,7 +1219,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 9,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-basic&quot; name=&quot;plan&quot; value=&quot;basic&quot; checked aria-labelledby=&quot;checkbox-plan-basic-title checkbox-plan-basic-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1237,7 +1237,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 29,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-pro&quot; name=&quot;plan&quot; value=&quot;pro&quot; aria-labelledby=&quot;checkbox-plan-pro-title checkbox-plan-pro-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1255,7 +1255,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;별도 문의&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-enterprise&quot; name=&quot;plan&quot; value=&quot;enterprise&quot; disabled aria-labelledby=&quot;checkbox-plan-enterprise-title checkbox-plan-enterprise-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1280,7 +1280,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;checkbox-perm-read-title&quot;&gt;읽기&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-perm-read&quot; checked aria-labelledby=&quot;checkbox-perm-read-title checkbox-perm-read-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1297,7 +1297,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;checkbox-perm-write-title&quot;&gt;쓰기&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-perm-write&quot; checked aria-labelledby=&quot;checkbox-perm-write-title checkbox-perm-write-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1314,7 +1314,7 @@
             &lt;h3 class=&quot;card_title&quot; id=&quot;checkbox-perm-delete-title&quot;&gt;삭제&lt;/h3&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-perm-delete&quot; aria-labelledby=&quot;checkbox-perm-delete-title checkbox-perm-delete-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1332,7 +1332,7 @@
 &lt;fieldset class=&quot;checkbox_group&quot;&gt;
   &lt;legend class=&quot;checkbox_group-legend&quot;&gt;요금제 선택 — 카드 전체 클릭 (checkbox_card-clickable)&lt;/legend&gt;
   &lt;div class=&quot;card_deck card_deck-2&quot;&gt;
-    &lt;div class=&quot;checkbox_card checkbox_card-clickable&quot;&gt;
+    &lt;div class=&quot;checkbox_card checkbox_card-clickable&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1340,7 +1340,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 9,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-full-basic&quot; name=&quot;plan-clickable&quot; value=&quot;basic&quot; checked aria-labelledby=&quot;checkbox-plan-full-basic-title checkbox-plan-full-basic-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1350,7 +1350,7 @@
         &lt;div class=&quot;card_body&quot; id=&quot;checkbox-plan-full-basic-desc&quot;&gt;카드 어디를 눌러도 선택됩니다.&lt;/div&gt;
       &lt;/article&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;checkbox_card checkbox_card-clickable color_primary&quot;&gt;
+    &lt;div class=&quot;checkbox_card checkbox_card-clickable color_primary&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1358,7 +1358,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;월 29,000원&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-full-pro&quot; name=&quot;plan-clickable&quot; value=&quot;pro&quot; aria-labelledby=&quot;checkbox-plan-full-pro-title checkbox-plan-full-pro-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1368,7 +1368,7 @@
         &lt;div class=&quot;card_body&quot; id=&quot;checkbox-plan-full-pro-desc&quot;&gt;제목·설명·여백을 포함한 전체 영역이 클릭 대상입니다.&lt;/div&gt;
       &lt;/article&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;checkbox_card checkbox_card-clickable&quot;&gt;
+    &lt;div class=&quot;checkbox_card checkbox_card-clickable&quot; data-ripple&gt;
       &lt;article class=&quot;card card_compact card_shadow&quot;&gt;
         &lt;div class=&quot;card_header&quot;&gt;
           &lt;div class=&quot;card_header-main&quot;&gt;
@@ -1376,7 +1376,7 @@
             &lt;p class=&quot;card_subtitle&quot;&gt;별도 문의&lt;/p&gt;
           &lt;/div&gt;
           &lt;div class=&quot;card_extra&quot;&gt;
-            &lt;label class=&quot;checkbox_control&quot;&gt;
+            &lt;label class=&quot;checkbox_control&quot; data-ripple&gt;
               &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; id=&quot;checkbox-plan-full-enterprise&quot; name=&quot;plan-clickable&quot; value=&quot;enterprise&quot; disabled aria-labelledby=&quot;checkbox-plan-full-enterprise-title checkbox-plan-full-enterprise-desc&quot;&gt;
               &lt;span class=&quot;checkbox_box&quot; aria-hidden=&quot;true&quot;&gt;
               &lt;/span&gt;
@@ -1425,11 +1425,11 @@
               <div class="form_field">
                 <span class="form_field-label" id="checkbox-form-horizontal-label">권한</span>
                 <fieldset class="checkbox_group checkbox_group_horizontal" aria-labelledby="checkbox-form-horizontal-label">
-                  <label class="checkbox checkbox_button">
+                  <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input" checked>
                 <span class="checkbox_label">조회</span>
                   </label>
-                  <label class="checkbox checkbox_button">
+                  <label class="checkbox checkbox_button" data-ripple>
                 <input type="checkbox" class="checkbox_input">
                 <span class="checkbox_label">편집</span>
                   </label>
@@ -1489,11 +1489,11 @@
   &lt;div class=&quot;form_field&quot;&gt;
     &lt;span class=&quot;form_field-label&quot; id=&quot;checkbox-form-horizontal-label&quot;&gt;권한&lt;/span&gt;
     &lt;fieldset class=&quot;checkbox_group checkbox_group_horizontal&quot; aria-labelledby=&quot;checkbox-form-horizontal-label&quot;&gt;
-      &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+      &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
         &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot; checked&gt;
         &lt;span class=&quot;checkbox_label&quot;&gt;조회&lt;/span&gt;
       &lt;/label&gt;
-      &lt;label class=&quot;checkbox checkbox_button&quot;&gt;
+      &lt;label class=&quot;checkbox checkbox_button&quot; data-ripple&gt;
         &lt;input type=&quot;checkbox&quot; class=&quot;checkbox_input&quot;&gt;
         &lt;span class=&quot;checkbox_label&quot;&gt;편집&lt;/span&gt;
       &lt;/label&gt;
@@ -1502,6 +1502,68 @@
 &lt;/form&gt;</code></pre>
           </div>
         </div>
+        </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 네이티브 체크박스 속성입니다. HTML에서는 레이아웃과 상태에 맞게 직접 조합합니다.</p>
+
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">checkbox</code></td><td>레이블이 있는 체크박스 루트</td></tr>
+                <tr><td><code class="typo_code">checkbox_control · checkbox_input · checkbox_box</code></td><td>네이티브 입력과 커스텀 체크 박스를 묶는 구조</td></tr>
+                <tr><td><code class="typo_code">checkbox_label · checkbox_content · checkbox_hint</code></td><td>레이블, 복합 레이블 콘텐츠, 보조 설명</td></tr>
+                <tr><td><code class="typo_code">checkbox_sm · checkbox_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+                <tr><td><code class="typo_code">checkbox_block · checkbox_group_block</code></td><td>단일 체크박스와 그룹의 부모 너비 100% 변형</td></tr>
+                <tr><td><code class="typo_code">checkbox_label-end · checkbox_button</code></td><td>레이블을 앞에 배치하는 변형과 버튼형 토글</td></tr>
+                <tr><td><code class="typo_code">checkbox_group · checkbox_group_horizontal · checkbox_group_compact</code></td><td>세로·가로·조밀한 체크박스 그룹</td></tr>
+                <tr><td><code class="typo_code">checkbox_group-legend</code></td><td>fieldset 그룹의 범례</td></tr>
+                <tr><td><code class="typo_code">checkbox_card · checkbox_card-clickable</code></td><td>카드형 조합. clickable은 카드 전체 클릭을 JS로 위임</td></tr>
+                <tr><td><code class="typo_code">color_primary · color_success · color_danger · color_warning</code></td><td>선택 상태와 버튼·카드형 색상 변형</td></tr>
+                <tr><td><code class="typo_code">is-checked · is-disabled · is-error</code></td><td>CSS·JS 상태 클래스</td></tr>
+                <tr><td><code class="typo_code">type="checkbox" · checked · disabled</code></td><td>입력 유형과 네이티브 선택·비활성 상태</td></tr>
+                <tr><td><code class="typo_code">indeterminate</code></td><td>부분 선택 상태. JavaScript의 input 프로퍼티로 지정</td></tr>
+                <tr><td><code class="typo_code">id · for</code></td><td>네이티브 입력과 보이는 레이블의 명시적 연결</td></tr>
+                <tr><td><code class="typo_code">aria-label · aria-labelledby</code></td><td>단독 체크박스와 카드형 체크박스에 접근 가능한 이름 제공</td></tr>
+                <tr><td><code class="typo_code">data-ripple</code></td><td>단독·버튼형·클릭 가능한 카드의 클릭 파장 활성</td></tr>
+                <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 하위 전체의 클릭 파장 비활성</td></tr>
+                <tr><td><code class="typo_code">change</code></td><td>체크 상태 변경을 처리하는 네이티브 이벤트</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--checkbox-size · --checkbox-size-sm · --checkbox-size-lg</code></td><td><code class="typo_code">1rem · 0.875rem · 1.125rem</code></td><td>체크박스 박스 크기</td></tr>
+                <tr><td><code class="typo_code">--checkbox-border-width · --checkbox-radius</code></td><td><code class="typo_code">1px · 4px</code></td><td>테두리·모서리</td></tr>
+                <tr><td><code class="typo_code">--checkbox-gap · --checkbox-gap-sm · --checkbox-gap-lg</code></td><td><code class="typo_code">var(--space-sm) · 0.375rem · 0.625rem</code></td><td>라벨 간격</td></tr>
+                <tr><td><code class="typo_code">--checkbox-font-size · --checkbox-line-height</code></td><td><code class="typo_code">var(--text-size-base) · 1.5</code></td><td>기본(md) 레이블 타이포</td></tr>
+                <tr><td><code class="typo_code">--checkbox-font-size-sm · --checkbox-font-size-lg</code></td><td><code class="typo_code">var(--text-size-sm) · var(--text-size-lg)</code></td><td>sm·lg 레이블 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--checkbox-label-weight · --checkbox-hint-size</code></td><td><code class="typo_code">400 · var(--text-size-sm)</code></td><td>레이블 두께와 힌트 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--checkbox-control-offset</code></td><td><code class="typo_code">0.125rem</code></td><td>박스 수직 정렬</td></tr>
+                <tr><td><code class="typo_code">--checkbox-group-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>그룹 항목 간격</td></tr>
+                <tr><td><code class="typo_code">--checkbox-button-padding-y · --checkbox-button-padding-x</code></td><td><code class="typo_code">0.35rem · 0.75rem</code></td><td>버튼형 패딩</td></tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

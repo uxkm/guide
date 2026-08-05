@@ -743,6 +743,62 @@
           </div>
         </div>
         </section>
+
+        <section class="section" aria-labelledby="api-heading">
+          <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 네이티브 textarea 속성입니다. HTML에서는 크기·너비·리사이즈·상태를 목적에 맞게 직접 조합합니다.</p>
+
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">textarea</code></td><td>텍스트 영역의 기본 루트 클래스</td></tr>
+                <tr><td><code class="typo_code">textarea_sm · textarea_lg</code></td><td>작은·큰 텍스트 영역</td></tr>
+                <tr><td><code class="typo_code">textarea_fit · textarea_block</code></td><td>최대 너비 제한과 부모 너비 100% 변형</td></tr>
+                <tr><td><code class="typo_code">textarea_resize_none · textarea_resize_vertical</code></td><td>리사이즈 비활성·세로 방향 허용</td></tr>
+                <tr><td><code class="typo_code">textarea_resize_horizontal · textarea_resize_both</code></td><td>가로 방향·양방향 리사이즈 허용</td></tr>
+                <tr><td><code class="typo_code">textarea_wrap · textarea_wrap_fit</code></td><td>글자 수 카운터 래퍼와 최대 너비 제한</td></tr>
+                <tr><td><code class="typo_code">textarea_show-count · textarea_count</code></td><td>현재·최대 글자 수를 표시하는 카운터 구조</td></tr>
+                <tr><td><code class="typo_code">textarea_count_visual · textarea_count_announcer</code></td><td>화면 표시용 카운터와 스크린 리더 전용 안내</td></tr>
+                <tr><td><code class="typo_code">is-error · is-success · is-disabled</code></td><td>오류·성공·비활성 입력 상태</td></tr>
+                <tr><td><code class="typo_code">textarea_count.is-limit</code></td><td>최대 글자 수에 도달한 카운터 상태</td></tr>
+                <tr><td><code class="typo_code">rows · maxlength · placeholder</code></td><td>표시 행 수·최대 글자 수·입력 예시를 지정하는 네이티브 속성</td></tr>
+                <tr><td><code class="typo_code">disabled · readonly · required</code></td><td>편집 가능 여부와 필수 입력 상태</td></tr>
+                <tr><td><code class="typo_code">aria-invalid · aria-required</code></td><td>오류와 필수 상태를 보조 기술에 전달</td></tr>
+                <tr><td><code class="typo_code">aria-describedby</code></td><td>textarea와 도움말·오류·성공·글자 수 카운터 연결</td></tr>
+                <tr><td><code class="typo_code">role="status" · aria-live="polite" · aria-atomic="true"</code></td><td>글자 수 변화를 방해 없이 전체 문장으로 안내</td></tr>
+                <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>화면 표시용 글자 수를 접근성 트리에서 제외해 중복 안내 방지</td></tr>
+                <tr><td><code class="typo_code">input · change</code></td><td>값과 글자 수 갱신에 사용하는 입력 이벤트</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="tokens-heading">
+          <h2 id="tokens-heading">디자인 토큰</h2>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--textarea-min-height</code></td><td><code class="typo_code">5rem</code></td><td>기본 최소 높이</td></tr>
+                <tr><td><code class="typo_code">--textarea-count-inset-x</code></td><td><code class="typo_code">0.75rem</code></td><td>글자 수 카운터의 가로 안쪽 여백</td></tr>
+                <tr><td><code class="typo_code">--textarea-count-inset-y</code></td><td><code class="typo_code">0.5rem</code></td><td>글자 수 카운터의 아래쪽 여백</td></tr>
+                <tr><td><code class="typo_code">--input-max-width</code></td><td><code class="typo_code">320px</code></td><td>textarea_fit·textarea_wrap_fit의 최대 너비</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
   </div>

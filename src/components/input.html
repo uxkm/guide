@@ -19,7 +19,7 @@ pageTitle: Input
       <label class="form_field-label" for="input-name">이름</label>
       <div class="input_clearable">
         <input type="text" class="input" id="input-name" placeholder="이름을 입력하세요">
-        <button type="button" class="input_clear" aria-label="입력 지우기" hidden>
+        <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기" hidden>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -41,7 +41,7 @@ pageTitle: Input
       <label class="form_field-label" for="input-standalone-placeholder">검색어</label>
       <div class="input_clearable">
         <input type="text" class="input" id="input-standalone-placeholder" placeholder="플레이스홀더">
-        <button type="button" class="input_clear" aria-label="입력 지우기" hidden>
+        <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기" hidden>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -52,7 +52,7 @@ pageTitle: Input
       <label class="form_field-label" for="input-standalone-value">닉네임</label>
       <div class="input_clearable">
         <input type="text" class="input" id="input-standalone-value" value="입력된 값">
-        <button type="button" class="input_clear" aria-label="입력 지우기">
+        <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -420,7 +420,7 @@ pageTitle: Input
       <label class="form_field-label" for="input-clear-text">텍스트</label>
       <div class="input_clearable">
         <input type="text" class="input" id="input-clear-text" placeholder="입력 후 우측 X 버튼 확인">
-        <button type="button" class="input_clear" aria-label="입력 지우기" hidden>
+        <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기" hidden>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -438,7 +438,7 @@ pageTitle: Input
         </span>
         <span class="input_clearable">
           <input type="search" class="input" id="input-clear-search" placeholder="검색어 입력">
-          <button type="button" class="input_clear" aria-label="입력 지우기" hidden>
+          <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기" hidden>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6 6 18M6 6l12 12"/>
             </svg>
@@ -451,7 +451,7 @@ pageTitle: Input
       <label class="form_field-label" for="input-clear-readonly">읽기 전용 (삭제 버튼 없음)</label>
       <div class="input_clearable">
         <input type="text" class="input" id="input-clear-readonly" value="수정 불가" readonly>
-        <button type="button" class="input_clear" aria-label="입력 지우기" hidden>
+        <button type="button" class="input_clear" data-ripple="surface" aria-label="입력 지우기" hidden>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 6 6 18M6 6l12 12"/>
           </svg>
@@ -510,5 +510,66 @@ pageTitle: Input
         <button type="button" class="btn btn_ghost btn_sm"><span class="btn_label">취소</span></button>
       </div>
     </form>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+  <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 네이티브 입력 속성입니다. HTML에서는 입력 목적과 상태에 맞게 직접 조합합니다.</p>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">클래스 · 속성</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">input</code></td><td>텍스트 입력과 select의 기본 루트 클래스</td></tr>
+        <tr><td><code class="typo_code">input_sm · input_lg</code></td><td>작은·큰 입력 크기</td></tr>
+        <tr><td><code class="typo_code">input_fit · input_block</code></td><td>최대 너비 제한과 부모 너비 100% 변형</td></tr>
+        <tr><td><code class="typo_code">input_masked</code></td><td>값이 있는 비밀번호 등 마스킹 입력의 글리프·자간</td></tr>
+        <tr><td><code class="typo_code">input_field · input_field_fit</code></td><td>form_field 없이 레이블과 입력을 묶는 단독 필드</td></tr>
+        <tr><td><code class="typo_code">input_group · input_group-addon</code></td><td>앞·뒤 애드온을 포함하는 입력 묶음</td></tr>
+        <tr><td><code class="typo_code">input_group-label_hidden</code></td><td>아이콘 전용 입력 그룹의 화면 숨김 레이블</td></tr>
+        <tr><td><code class="typo_code">input_clearable · input_clear</code></td><td>값 삭제 기능의 래퍼와 지우기 버튼</td></tr>
+        <tr><td><code class="typo_code">input_split · input_split_sep</code></td><td>카드번호·사업자번호 등 분할 입력과 구분자</td></tr>
+        <tr><td><code class="typo_code">input_otp · input_row</code></td><td>OTP 입력과 여러 입력의 가로 배치</td></tr>
+        <tr><td><code class="typo_code">is-success · is-error · is-disabled · is-filled</code></td><td>성공·오류·비활성·값 있음 상태</td></tr>
+        <tr><td><code class="typo_code">type · inputmode · autocomplete · maxlength</code></td><td>입력 목적·키보드·자동 완성·최대 길이를 지정하는 네이티브 속성</td></tr>
+        <tr><td><code class="typo_code">disabled · readonly · required</code></td><td>편집 가능 여부와 필수 입력 상태</td></tr>
+        <tr><td><code class="typo_code">aria-invalid · aria-required</code></td><td>오류와 필수 상태를 보조 기술에 전달</td></tr>
+        <tr><td><code class="typo_code">aria-describedby</code></td><td>입력과 도움말·성공·오류 메시지 연결</td></tr>
+        <tr><td><code class="typo_code">role="group" · aria-label · aria-labelledby</code></td><td>분할 입력 묶음의 역할과 접근 가능한 이름</td></tr>
+        <tr><td><code class="typo_code">data-input-split · data-input-otp</code></td><td>자동 포커스 이동·붙여넣기 분배가 적용되는 분할 입력</td></tr>
+        <tr><td><code class="typo_code">data-input-numeric</code></td><td>분할 입력에 숫자만 허용</td></tr>
+        <tr><td><code class="typo_code">data-ripple="surface"</code></td><td>절대 위치를 유지하면서 지우기 버튼의 클릭 파장 활성</td></tr>
+        <tr><td><code class="typo_code">input · change · paste · keydown</code></td><td>값 변경, 붙여넣기 분배, Backspace·방향키 이동에 사용하는 이벤트</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">--input-max-width</code></td><td><code class="typo_code">320px</code></td><td>input_fit·form_fit의 최대 너비</td></tr>
+        <tr><td><code class="typo_code">--input-clear-size · --input-clear-icon-size</code></td><td><code class="typo_code">1.25rem · 0.875rem</code></td><td>지우기 버튼과 아이콘 크기</td></tr>
+        <tr><td><code class="typo_code">--input-clear-offset</code></td><td><code class="typo_code">0.75rem</code></td><td>지우기 버튼의 오른쪽 여백</td></tr>
+        <tr><td><code class="typo_code">--input-clear-color · --input-clear-hover-color</code></td><td><code class="typo_code">var(--color-text-muted) · var(--color-text)</code></td><td>지우기 버튼의 기본·상호작용 색상</td></tr>
+        <tr><td><code class="typo_code">--input-font-masked</code></td><td><code class="typo_code">Verdana, "Segoe UI", Arial, sans-serif</code></td><td>마스킹 입력 글꼴</td></tr>
+        <tr><td><code class="typo_code">--input-masked-letter-spacing</code></td><td><code class="typo_code">0.08em</code></td><td>마스킹 입력 문자 간격</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>

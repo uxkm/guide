@@ -2,6 +2,7 @@
 @use "../mixins" as *;
 
 // Table — OOCSS: 구조(.table) + 스킨(.table_striped · .table_bordered · .table_compact · .table_hover)
+// sticky: .table_wrap-scroll · .table_sticky-top · .table_sticky-left · .table_sticky-cols-n
 //
 //   <div class="table_wrap">
 //     <table class="table">…</table>
@@ -13,7 +14,7 @@
   border: 1px solid var(--color-border);
   border-radius: $radius-md;
 
-  &:has(.table):not(.table_wrap-api) {
+  &:has(.table):not(.table_wrap-api):not(.table_wrap-scroll) {
     border: none;
     overflow-x: visible;
 
@@ -21,6 +22,20 @@
       border: 1px solid var(--color-border);
       border-radius: $radius-md;
       overflow: hidden;
+    }
+  }
+
+  &.table_wrap-scroll {
+    overflow: auto;
+    max-height: var(--table-scroll-max-height);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-md;
+    -webkit-overflow-scrolling: touch;
+
+    .table {
+      border: none;
+      border-radius: 0;
+      overflow: visible;
     }
   }
 }
@@ -126,5 +141,75 @@
 
   &_col-nowrap {
     white-space: nowrap;
+  }
+
+  &_sticky-top {
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--color-surface-raised);
+    }
+  }
+
+  &_sticky-left {
+    th,
+    td {
+      background-clip: padding-box;
+    }
+  }
+
+  @for $cols from 1 through 4 {
+    &_sticky-cols-#{$cols} {
+      @for $i from 1 through $cols {
+        th:nth-child(#{$i}),
+        td:nth-child(#{$i}) {
+          position: sticky;
+          left: var(--table-sticky-left-#{$i}, 0);
+          z-index: 1;
+          background: var(--color-surface);
+        }
+
+        thead th:nth-child(#{$i}) {
+          z-index: 3;
+          background: var(--color-surface-raised);
+        }
+      }
+
+      th:nth-child(#{$cols}),
+      td:nth-child(#{$cols}) {
+        box-shadow: var(--table-sticky-shadow);
+      }
+    }
+  }
+
+  &_striped.table_sticky-left {
+    @for $cols from 1 through 4 {
+      &.table_sticky-cols-#{$cols} {
+        tbody tr:nth-child(even) {
+          @for $i from 1 through $cols {
+            th:nth-child(#{$i}),
+            td:nth-child(#{$i}) {
+              background: var(--color-surface-raised);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_hover.table_sticky-left {
+    @for $cols from 1 through 4 {
+      &.table_sticky-cols-#{$cols} {
+        tbody tr:hover {
+          @for $i from 1 through $cols {
+            th:nth-child(#{$i}),
+            td:nth-child(#{$i}) {
+              background: var(--color-accent-muted);
+            }
+          }
+        }
+      }
+    }
   }
 }

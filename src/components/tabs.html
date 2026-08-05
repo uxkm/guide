@@ -12,7 +12,7 @@ pageTitle: Tabs
 <section class="section demo_section" aria-labelledby="basic-heading">
   <div class="demo_section-header">
     <h2 id="basic-heading">기본 (라인)</h2>
-    <p><code class="typo_code">tabs_line</code>이 기본 스킨입니다. <code class="typo_code">role="tablist"</code> · <code class="typo_code">role="tab"</code> · <code class="typo_code">role="tabpanel"</code>과 <code class="typo_code">aria-selected</code>, <code class="typo_code">aria-controls</code>로 접근성을 보장합니다.</p>
+    <p><code class="typo_code">tabs_line</code>이 기본 스킨입니다. <code class="typo_code">role="tablist"</code> · <code class="typo_code">role="tab"</code> · <code class="typo_code">role="tabpanel"</code>과 <code class="typo_code">aria-selected</code>, <code class="typo_code">aria-controls</code>로 접근성을 보장하며 방향키·Home·End 키로 탭을 전환합니다.</p>
   </div>
 
   <div class="demo_section-preview demo_section-preview-start">
@@ -20,7 +20,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="프로젝트 정보">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="프로젝트 정보">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-basic-1" aria-selected="true" aria-controls="tabs-basic-panel-1">개요</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-basic-2" aria-selected="false" aria-controls="tabs-basic-panel-2" tabindex="-1">팀</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-basic-3" aria-selected="false" aria-controls="tabs-basic-panel-3" tabindex="-1">활동</button>
@@ -48,7 +48,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_dynamic" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="동적 탭 (키)">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="동적 탭 (키)">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-dyn-a-1" aria-selected="true" aria-controls="tabs-dyn-a-panel" data-tabs-key="overview">개요</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-dyn-a-2" aria-selected="false" aria-controls="tabs-dyn-a-panel" tabindex="-1" data-tabs-key="team">팀</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-dyn-a-3" aria-selected="false" aria-controls="tabs-dyn-a-panel" tabindex="-1" data-tabs-key="activity">활동</button>
@@ -67,7 +67,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_dynamic" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="동적 탭 (메뉴)">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="동적 탭 (메뉴)">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-dyn-b-1" aria-selected="true" aria-controls="tabs-dyn-b-panel" data-tabs-key="overview">개요</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-dyn-b-2" aria-selected="false" aria-controls="tabs-dyn-b-panel" tabindex="-1" data-tabs-key="team">팀</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-dyn-b-3" aria-selected="false" aria-controls="tabs-dyn-b-panel" tabindex="-1" data-tabs-key="activity">활동</button>
@@ -97,7 +97,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_indicator-slide" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="슬라이드 라인 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="슬라이드 라인 탭">
             <span class="tabs_indicator" aria-hidden="true"></span>
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-slide-1" aria-selected="true" aria-controls="tabs-slide-panel-1">개요</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-slide-2" aria-selected="false" aria-controls="tabs-slide-panel-2" tabindex="-1">팀</button>
@@ -115,7 +115,7 @@ pageTitle: Tabs
     <div class="tabs tabs_pill tabs_indicator-slide" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="슬라이드 필 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="슬라이드 필 탭">
             <span class="tabs_indicator" aria-hidden="true"></span>
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-slidepill-1" aria-selected="true" aria-controls="tabs-slidepill-panel-1">목록</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-slidepill-2" aria-selected="false" aria-controls="tabs-slidepill-panel-2" tabindex="-1">그리드</button>
@@ -144,7 +144,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_equal" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="균등 분할 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="균등 분할 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-eq-1" aria-selected="true" aria-controls="tabs-eq-panel-1">개요</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-eq-2" aria-selected="false" aria-controls="tabs-eq-panel-2" tabindex="-1">팀 구성</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-eq-3" aria-selected="false" aria-controls="tabs-eq-panel-3" tabindex="-1">활동 로그</button>
@@ -163,7 +163,7 @@ pageTitle: Tabs
     <div class="tabs tabs_pill tabs_equal tabs_indicator-slide" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="균등 분할 필 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="균등 분할 필 탭">
             <span class="tabs_indicator" aria-hidden="true"></span>
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-eqpill-1" aria-selected="true" aria-controls="tabs-eqpill-panel-1">일간</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-eqpill-2" aria-selected="false" aria-controls="tabs-eqpill-panel-2" tabindex="-1">주간</button>
@@ -197,7 +197,7 @@ pageTitle: Tabs
           <svg class="btn_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
         </button>
         <div class="tabs_list-wrap tabs_scroll-viewport">
-          <div class="tabs_list" role="tablist" aria-label="네비 스크롤 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="네비 스크롤 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-navscroll-1" aria-selected="true" aria-controls="tabs-navscroll-panel-1">홈</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-navscroll-2" aria-selected="false" aria-controls="tabs-navscroll-panel-2" tabindex="-1">제품 소개</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-navscroll-3" aria-selected="false" aria-controls="tabs-navscroll-panel-3" tabindex="-1">솔루션</button>
@@ -236,7 +236,7 @@ pageTitle: Tabs
     <div class="tabs tabs_card" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="계정 설정">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="계정 설정">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-card-1" aria-selected="true" aria-controls="tabs-card-panel-1">프로필</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-card-2" aria-selected="false" aria-controls="tabs-card-panel-2" tabindex="-1">보안</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-card-3" aria-selected="false" aria-controls="tabs-card-panel-3" tabindex="-1">알림</button>
@@ -264,7 +264,7 @@ pageTitle: Tabs
     <div class="tabs tabs_pill" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="보기 모드">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="보기 모드">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-pill-1" aria-selected="true" aria-controls="tabs-pill-panel-1">목록</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-pill-2" aria-selected="false" aria-controls="tabs-pill-panel-2" tabindex="-1">그리드</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-pill-3" aria-selected="false" aria-controls="tabs-pill-panel-3" tabindex="-1">보드</button>
@@ -292,7 +292,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_sm" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="Small 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="Small 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-sm-1" aria-selected="true" aria-controls="tabs-sm-panel-1">Small A</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-sm-2" aria-selected="false" aria-controls="tabs-sm-panel-2" tabindex="-1">Small B</button>
           </div>
@@ -307,7 +307,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_lg" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="Large 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="Large 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-lg-1" aria-selected="true" aria-controls="tabs-lg-panel-1">Large A</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-lg-2" aria-selected="false" aria-controls="tabs-lg-panel-2" tabindex="-1">Large B</button>
           </div>
@@ -333,7 +333,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="대시보드 섹션">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="대시보드 섹션">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-icon-1" aria-selected="true" aria-controls="tabs-icon-panel-1"><svg class="tabs_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
             </svg> <span class="tabs_label">대시보드</span></button>
@@ -367,7 +367,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="알림 센터">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="알림 센터">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-badge-1" aria-selected="true" aria-controls="tabs-badge-panel-1">전체</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-badge-2" aria-selected="false" aria-controls="tabs-badge-panel-2" tabindex="-1"><span class="tabs_label">읽지 않음</span> <span class="badge badge_count badge_sm color_danger tabs_badge" aria-label="읽지 않은 알림 12건">12</span></button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-badge-3" aria-selected="false" aria-controls="tabs-badge-panel-3" tabindex="-1"><span class="tabs_label">멘션</span> <span class="badge badge_count badge_sm color_primary tabs_badge">3</span></button>
@@ -395,7 +395,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="파일 관리">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="파일 관리">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-extra-1" aria-selected="true" aria-controls="tabs-extra-panel-1">내 파일</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-extra-2" aria-selected="false" aria-controls="tabs-extra-panel-2" tabindex="-1">공유됨</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-extra-3" aria-selected="false" aria-controls="tabs-extra-panel-3" tabindex="-1">최근</button>
@@ -426,7 +426,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_scrollable tabs_demo-narrow" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="긴 탭 목록">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="긴 탭 목록">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-scroll-1" aria-selected="true" aria-controls="tabs-scroll-panel-1">홈</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-2" aria-selected="false" aria-controls="tabs-scroll-panel-2" tabindex="-1">제품</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-scroll-3" aria-selected="false" aria-controls="tabs-scroll-panel-3" tabindex="-1">솔루션</button>
@@ -462,7 +462,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="권한별 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="권한별 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-disabled-1" aria-selected="true" aria-controls="tabs-disabled-panel-1">공개</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-disabled-2" aria-selected="false" aria-controls="tabs-disabled-panel-2" tabindex="-1">팀</button>
             <button type="button" class="tabs_tab is-disabled" role="tab" id="tabs-disabled-3" aria-selected="false" aria-controls="tabs-disabled-panel-3" tabindex="-1" disabled aria-disabled="true">관리자</button>
@@ -490,7 +490,7 @@ pageTitle: Tabs
     <div class="tabs tabs_line tabs_vertical" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="수직 라인 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="vertical" aria-label="수직 라인 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-vline-1" aria-selected="true" aria-controls="tabs-vline-panel-1">일반</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-vline-2" aria-selected="false" aria-controls="tabs-vline-panel-2" tabindex="-1">보안</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-vline-3" aria-selected="false" aria-controls="tabs-vline-panel-3" tabindex="-1">결제</button>
@@ -507,7 +507,7 @@ pageTitle: Tabs
     <div class="tabs tabs_card tabs_vertical" data-tabs>
       <div class="tabs_bar">
         <div class="tabs_list-wrap">
-          <div class="tabs_list" role="tablist" aria-label="수직 카드 탭">
+          <div class="tabs_list" role="tablist" aria-orientation="vertical" aria-label="수직 카드 탭">
             <button type="button" class="tabs_tab is-active" role="tab" id="tabs-vcard-1" aria-selected="true" aria-controls="tabs-vcard-panel-1">문서</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-vcard-2" aria-selected="false" aria-controls="tabs-vcard-panel-2" tabindex="-1">미디어</button>
             <button type="button" class="tabs_tab" role="tab" id="tabs-vcard-3" aria-selected="false" aria-controls="tabs-vcard-panel-3" tabindex="-1">아카이브</button>
@@ -532,7 +532,7 @@ pageTitle: Tabs
     <pre class="typo_pre"><code>&lt;div class="tabs tabs_line" data-tabs&gt;
   &lt;div class="tabs_bar"&gt;
     &lt;div class="tabs_list-wrap"&gt;
-      &lt;div class="tabs_list" role="tablist" aria-label="섹션"&gt;
+      &lt;div class="tabs_list" role="tablist" aria-orientation="horizontal" aria-label="섹션"&gt;
         &lt;button type="button" class="tabs_tab is-active" role="tab"
           id="tab-1" aria-selected="true" aria-controls="panel-1"&gt;개요&lt;/button&gt;
         &lt;button type="button" class="tabs_tab" role="tab"
@@ -570,8 +570,10 @@ pageTitle: Tabs
           <tr><td><code class="typo_code">tabs_list-wrap · tabs_scroll-viewport · tabs_nav</code></td><td>목록 래퍼·스크롤 뷰포트·좌우 네비</td></tr>
           <tr><td><code class="typo_code">tabs_sm · tabs_lg · tabs_vertical · tabs_scrollable</code></td><td>크기·레이아웃</td></tr>
           <tr><td><code class="typo_code">is-active · is-disabled</code></td><td>탭·패널 상태</td></tr>
-          <tr><td><code class="typo_code">data-tabs</code></td><td>키보드·포커스 JS</td></tr>
-          <tr><td><code class="typo_code">role="tablist" · role="tab" · role="tabpanel"</code></td><td>접근성</td></tr>
+          <tr><td><code class="typo_code">data-tabs</code></td><td>키보드·포커스 동작 식별자</td></tr>
+          <tr><td><code class="typo_code">role="tablist" · role="tab" · role="tabpanel" · aria-orientation</code></td><td>접근성 역할·방향</td></tr>
+          <tr><td><code class="typo_code">data-ripple</code></td><td>탭·스크롤 네비 버튼의 클릭 파장 활성</td></tr>
+          <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Tabs 하위 전체 클릭 파장 비활성</td></tr>
         </tbody>
       </table>
     </div>

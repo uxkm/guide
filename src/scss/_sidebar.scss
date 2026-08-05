@@ -59,6 +59,15 @@
   overflow-y: auto;
   padding: $space-md 0 $space-xl;
 
+  &-top {
+    margin-bottom: $space-sm;
+    padding: 0 $space-sm;
+  }
+
+  &-link-top {
+    font-weight: 600;
+  }
+
   &-group {
     & + & {
       margin-top: $space-xs;

@@ -18,10 +18,10 @@ pageTitle: Breadcrumb
     <nav class="breadcrumb" aria-label="경로">
       <ol class="breadcrumb_list">
         <li class="breadcrumb_item">
-          <a href="#" class="breadcrumb_link">홈</a>
+          <a href="../index.html" class="breadcrumb_link">홈</a>
         </li>
         <li class="breadcrumb_item">
-          <a href="#" class="breadcrumb_link">컴포넌트</a>
+          <a href="button.html" class="breadcrumb_link">컴포넌트</a>
         </li>
         <li class="breadcrumb_item is-current" aria-current="page">
           <span class="breadcrumb_current">Breadcrumb</span>
@@ -180,7 +180,7 @@ pageTitle: Breadcrumb
           </a>
         </li>
         <li class="breadcrumb_item">
-          <button type="button" class="breadcrumb_ellipsis" aria-label="숨겨진 경로 보기" aria-haspopup="menu" aria-expanded="false">…</button>
+          <button type="button" class="breadcrumb_ellipsis" data-ripple aria-label="숨겨진 경로 보기" aria-haspopup="menu" aria-expanded="false">…</button>
         </li>
         <li class="breadcrumb_item">
           <a href="#" class="breadcrumb_link">컴포넌트</a>
@@ -270,6 +270,8 @@ pageTitle: Breadcrumb
           <tr><td><code class="typo_code">breadcrumb_sep-slash · breadcrumb_sep-dot</code></td><td>구분자 스타일</td></tr>
           <tr><td><code class="typo_code">breadcrumb_sm · breadcrumb_lg</code></td><td>크기 변형</td></tr>
           <tr><td><code class="typo_code">is-current · is-disabled</code></td><td>현재·비활성</td></tr>
+          <tr><td><code class="typo_code">data-ripple</code></td><td>경로 링크·생략 버튼의 클릭 파장 활성</td></tr>
+          <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Breadcrumb 하위 전체 클릭 파장 비활성</td></tr>
         </tbody>
       </table>
     </div>

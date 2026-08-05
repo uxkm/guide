@@ -371,7 +371,7 @@
                 <div class="swiper-button-next" aria-label="다음 슬라이드"></div>
               </div>
               <div class="swiper-pagination"></div>
-                <button type="button" class="carousel_toggle" data-carousel-autoplay-toggle aria-label="슬라이드 정지" aria-pressed="true">
+                <button type="button" class="carousel_toggle" data-carousel-autoplay-toggle data-ripple aria-label="슬라이드 정지" aria-pressed="true">
                   <svg class="carousel_toggle-icon carousel_toggle-icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>
                   </svg>
@@ -445,7 +445,7 @@
   &lt;/div&gt;
   &lt;div class=&quot;swiper-pagination&quot;&gt;
   &lt;/div&gt;
-  &lt;button type=&quot;button&quot; class=&quot;carousel_toggle&quot; data-carousel-autoplay-toggle aria-label=&quot;슬라이드 정지&quot; aria-pressed=&quot;true&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;carousel_toggle&quot; data-carousel-autoplay-toggle data-ripple aria-label=&quot;슬라이드 정지&quot; aria-pressed=&quot;true&quot;&gt;
     &lt;svg class=&quot;carousel_toggle-icon carousel_toggle-icon-pause&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;rect x=&quot;6&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
       &lt;rect x=&quot;14&quot; y=&quot;5&quot; width=&quot;4&quot; height=&quot;14&quot; rx=&quot;1&quot;/&gt;
@@ -4040,6 +4040,7 @@
 
         <section class="section" aria-labelledby="api-attrs-heading">
           <h2 id="api-attrs-heading">데이터 속성</h2>
+          <p>Nuxt와 Next Carousel 컴포넌트가 렌더하는 Swiper 설정·상태·접근성 속성입니다. HTML에서는 아래 속성을 직접 조합하고 <code class="typo_code">data-swiper</code>로 동작을 연결합니다.</p>
 
           <div class="demo_section-preview demo_section-preview-start">
             <div class="table_wrap">
@@ -4066,6 +4067,9 @@
                   <tr><td><code class="typo_code">data-swiper-thumbs</code></td><td>썸네일 Swiper CSS 선택자</td></tr>
                   <tr><td><code class="typo_code">data-swiper-free-mode</code> · <code class="typo_code">data-swiper-watch-slides-progress</code></td><td>Free mode · 진행 감시</td></tr>
                   <tr><td><code class="typo_code">data-carousel-autoplay-toggle</code></td><td>재생·정지 토글 버튼</td></tr>
+                  <tr><td><code class="typo_code">role="region" · aria-roledescription="carousel" · aria-label</code></td><td>캐러셀 영역의 역할·유형·접근 가능한 이름</td></tr>
+                  <tr><td><code class="typo_code">aria-label</code></td><td>이전·다음 내비게이션 버튼의 접근 가능한 이름</td></tr>
+                  <tr><td><code class="typo_code">aria-pressed</code></td><td>자동 재생 토글의 현재 재생 상태</td></tr>
                 </tbody>
               </table>
             </div>
@@ -4092,6 +4096,9 @@
                   <tr><td><code class="typo_code">carousel_pagination-progress</code> · <code class="typo_code">carousel_pagination-custom</code></td><td>프로그레스 · 번호 페이지네이션</td></tr>
                   <tr><td><code class="typo_code">swiper</code> · <code class="typo_code">swiper-wrapper</code> · <code class="typo_code">swiper-slide</code></td><td>Swiper 표준 구조</td></tr>
                   <tr><td><code class="typo_code">is-autoplay-paused</code></td><td>사용자가 정지한 자동 재생 상태</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>재생·정지 토글의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false"</code></td><td>해당 요소의 클릭 파장 비활성</td></tr>
+                  <tr><td><code class="typo_code">data-no-ripple</code></td><td>Carousel 하위 전체 클릭 파장 비활성</td></tr>
                 </tbody>
               </table>
             </div>
@@ -4112,11 +4119,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><code class="typo_code">--carousel-height</code> · <code class="typo_code">--carousel-radius</code> · <code class="typo_code">--carousel-bg</code></td><td>16rem · radius-lg · surface-raised</td><td>슬라이드 영역(md)</td></tr>
-                  <tr><td><code class="typo_code">--carousel-nav-size</code> · <code class="typo_code">--carousel-nav-icon-size</code> · <code class="typo_code">--carousel-nav-offset</code></td><td>2.25rem · 0.875rem · space-md</td><td>이전/다음 버튼</td></tr>
+                  <tr><td><code class="typo_code">--carousel-height</code> · <code class="typo_code">--carousel-radius</code> · <code class="typo_code">--carousel-bg</code></td><td>16rem · var(--radius-lg) · var(--color-surface-raised)</td><td>슬라이드 영역(md)</td></tr>
+                  <tr><td><code class="typo_code">--carousel-font-size</code> · <code class="typo_code">--carousel-transition</code></td><td>var(--text-size-sm) · 0.35s ease</td><td>타이포·전환</td></tr>
+                  <tr><td><code class="typo_code">--carousel-nav-size</code> · <code class="typo_code">--carousel-nav-icon-size</code> · <code class="typo_code">--carousel-nav-offset</code></td><td>2.25rem · 0.875rem · var(--space-md)</td><td>이전/다음 버튼(md)</td></tr>
+                  <tr><td><code class="typo_code">--carousel-nav-bg</code> · <code class="typo_code">--carousel-nav-color</code></td><td>var(--color-surface) · var(--color-text)</td><td>네비게이션 색</td></tr>
                   <tr><td><code class="typo_code">--carousel-dot-gap</code> · <code class="typo_code">--carousel-dot-size</code> · <code class="typo_code">--carousel-dot-size-active</code></td><td>0.375rem · 0.5rem · 1.25rem</td><td>인디케이터 점</td></tr>
+                  <tr><td><code class="typo_code">--carousel-dot-bg</code> · <code class="typo_code">--carousel-dot-bg-active</code></td><td>var(--color-border) · var(--color-accent)</td><td>점 색상</td></tr>
+                  <tr><td><code class="typo_code">--carousel-dots-padding-y</code> · <code class="typo_code">--carousel-dots-padding-x</code></td><td>var(--space-md) · var(--space-md)</td><td>인디케이터 영역 패딩</td></tr>
                   <tr><td><code class="typo_code">--carousel-toggle-size</code> · <code class="typo_code">--carousel-toggle-icon-size</code></td><td>2rem · 1rem</td><td>재생/일시정지 토글</td></tr>
-                  <tr><td><code class="typo_code">--carousel-height-sm</code> · <code class="typo_code">--carousel-height-lg</code></td><td>11rem · 20rem</td><td>sm · lg 높이</td></tr>
+                  <tr><td><code class="typo_code">--carousel-height-sm</code> · <code class="typo_code">--carousel-nav-size-sm</code></td><td>11rem · 1.875rem</td><td>sm 크기</td></tr>
+                  <tr><td><code class="typo_code">--carousel-height-lg</code> · <code class="typo_code">--carousel-nav-size-lg</code></td><td>20rem · 2.75rem</td><td>lg 크기</td></tr>
                   <tr><td><code class="typo_code">--carousel-media-nav-top</code></td><td>calc(50cqi * 9 / 16)</td><td>미디어 카드 네비 수직 위치</td></tr>
                 </tbody>
               </table>

@@ -48,10 +48,10 @@
             <nav class="breadcrumb" aria-label="경로">
               <ol class="breadcrumb_list">
                 <li class="breadcrumb_item">
-                  <a href="#" class="breadcrumb_link">홈</a>
+                  <a href="../index.html" class="breadcrumb_link">홈</a>
                 </li>
                 <li class="breadcrumb_item">
-                  <a href="#" class="breadcrumb_link">컴포넌트</a>
+                  <a href="button.html" class="breadcrumb_link">컴포넌트</a>
                 </li>
                 <li class="breadcrumb_item is-current" aria-current="page">
                   <span class="breadcrumb_current">Breadcrumb</span>
@@ -71,10 +71,10 @@
             <pre><code>&lt;nav class=&quot;breadcrumb&quot; aria-label=&quot;경로&quot;&gt;
   &lt;ol class=&quot;breadcrumb_list&quot;&gt;
     &lt;li class=&quot;breadcrumb_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;breadcrumb_link&quot;&gt;홈&lt;/a&gt;
+      &lt;a href=&quot;../index.html&quot; class=&quot;breadcrumb_link&quot;&gt;홈&lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;breadcrumb_item&quot;&gt;
-      &lt;a href=&quot;#&quot; class=&quot;breadcrumb_link&quot;&gt;컴포넌트&lt;/a&gt;
+      &lt;a href=&quot;button.html&quot; class=&quot;breadcrumb_link&quot;&gt;컴포넌트&lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;breadcrumb_item is-current&quot; aria-current=&quot;page&quot;&gt;
       &lt;span class=&quot;breadcrumb_current&quot;&gt;Breadcrumb&lt;/span&gt;
@@ -381,7 +381,7 @@
                   </a>
                 </li>
                 <li class="breadcrumb_item">
-                  <button type="button" class="breadcrumb_ellipsis" aria-label="숨겨진 경로 보기" aria-haspopup="menu" aria-expanded="false">…</button>
+                  <button type="button" class="breadcrumb_ellipsis" data-ripple aria-label="숨겨진 경로 보기" aria-haspopup="menu" aria-expanded="false">…</button>
                 </li>
                 <li class="breadcrumb_item">
                   <a href="#" class="breadcrumb_link">컴포넌트</a>
@@ -411,7 +411,7 @@
       &lt;/a&gt;
     &lt;/li&gt;
     &lt;li class=&quot;breadcrumb_item&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;breadcrumb_ellipsis&quot; aria-label=&quot;숨겨진 경로 보기&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot;&gt;…&lt;/button&gt;
+      &lt;button type=&quot;button&quot; class=&quot;breadcrumb_ellipsis&quot; data-ripple aria-label=&quot;숨겨진 경로 보기&quot; aria-haspopup=&quot;menu&quot; aria-expanded=&quot;false&quot;&gt;…&lt;/button&gt;
     &lt;/li&gt;
     &lt;li class=&quot;breadcrumb_item&quot;&gt;
       &lt;a href=&quot;#&quot; class=&quot;breadcrumb_link&quot;&gt;컴포넌트&lt;/a&gt;
@@ -544,6 +544,8 @@
                   <tr><td><code class="typo_code">breadcrumb_sep-slash · breadcrumb_sep-dot</code></td><td>구분자 스타일</td></tr>
                   <tr><td><code class="typo_code">breadcrumb_sm · breadcrumb_lg</code></td><td>크기 변형</td></tr>
                   <tr><td><code class="typo_code">is-current · is-disabled</code></td><td>현재·비활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple</code></td><td>경로 링크·생략 버튼의 클릭 파장 활성</td></tr>
+                  <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 요소 또는 Breadcrumb 하위 전체 클릭 파장 비활성</td></tr>
                 </tbody>
               </table>
             </div>

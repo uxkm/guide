@@ -174,50 +174,57 @@ pageTitle: Skeleton
 
 <section class="section" aria-labelledby="api-heading">
   <h2 id="api-heading">클래스 · 속성</h2>
+  <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 로딩 상태 접근성 속성입니다. HTML에서는 실제 콘텐츠의 형태와 크기에 맞게 아래 항목을 직접 조합합니다.</p>
 
-  <div class="demo_section-preview demo_section-preview-start">
-    <div class="table_wrap">
-      <table class="table table_bordered table_compact">
-        <thead>
-          <tr>
-            <th scope="col">이름</th>
-            <th scope="col">설명</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code class="typo_code">skeleton · skeleton_text · skeleton_title · skeleton_circle</code></td><td>막대·제목·원형</td></tr>
-          <tr><td><code class="typo_code">skeleton_button · skeleton_image · skeleton_block</code></td><td>버튼·이미지·블록 형태</td></tr>
-          <tr><td><code class="typo_code">skeleton_w-sm · skeleton_w-md · skeleton_w-lg</code></td><td>줄 너비</td></tr>
-          <tr><td><code class="typo_code">skeleton_group · skeleton_row · skeleton_row-body</code></td><td>레이아웃</td></tr>
-          <tr><td><code class="typo_code">skeleton_static · skeleton_sm · skeleton_lg</code></td><td>애니메이션·크기</td></tr>
-          <tr><td><code class="typo_code">role="status"</code> · <code class="typo_code">aria-busy</code> · <code class="typo_code">aria-label</code></td><td>접근성</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="form_field-hint" style="margin-top: var(--space-md);">전체 영역 스피너·오버레이는 <a href="spin.html">Spin</a> 컴포넌트를, 빈 상태 UI는 Empty 컴포넌트를 사용하세요. Skeleton은 실제 콘텐츠 레이아웃을 미리 보여 줄 때 적합합니다.</p>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">클래스 · 속성</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">skeleton · skeleton_text · skeleton_title · skeleton_circle</code></td><td>기본 막대·텍스트·제목·원형 형태</td></tr>
+        <tr><td><code class="typo_code">skeleton_button · skeleton_image · skeleton_block</code></td><td>버튼·이미지·블록 형태</td></tr>
+        <tr><td><code class="typo_code">skeleton_w-sm · skeleton_w-md · skeleton_w-lg</code></td><td>짧은·중간·긴 줄 너비</td></tr>
+        <tr><td><code class="typo_code">skeleton_group · skeleton_row · skeleton_row-body</code></td><td>수직 그룹과 아바타·본문 행 레이아웃</td></tr>
+        <tr><td><code class="typo_code">skeleton_sm · skeleton_lg</code></td><td>작은·큰 크기 변형. 기본은 md</td></tr>
+        <tr><td><code class="typo_code">skeleton_static</code></td><td>쉬머 애니메이션을 제거한 정적 상태</td></tr>
+        <tr><td><code class="typo_code">role="status" · aria-live="polite"</code></td><td>로딩 상태를 방해 없이 스크린 리더에 전달</td></tr>
+        <tr><td><code class="typo_code">aria-busy="true" · aria-label</code></td><td>처리 중 상태와 접근 가능한 로딩 설명</td></tr>
+        <tr><td><code class="typo_code">aria-hidden="true"</code></td><td>장식용 Skeleton 막대를 접근성 트리에서 제외</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <p class="form_field-hint" style="margin-top: var(--space-md);">전체 영역 스피너·오버레이는 <a href="spin.html">Spin</a> 컴포넌트를, 빈 상태 UI는 <a href="empty.html">Empty</a> 컴포넌트를 사용하세요. Skeleton은 실제 콘텐츠 레이아웃을 미리 보여 줄 때 적합합니다.</p>
 </section>
 
 <section class="section" aria-labelledby="tokens-heading">
   <h2 id="tokens-heading">디자인 토큰</h2>
 
-  <div class="demo_section-preview demo_section-preview-start">
-    <div class="table_wrap">
-      <table class="table table_bordered table_compact">
-        <thead>
-          <tr>
-            <th scope="col">토큰</th>
-            <th scope="col">기본값</th>
-            <th scope="col">설명</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code class="typo_code">--skeleton-bg</code> · <code class="typo_code">--skeleton-shine</code></td><td>—</td><td>배경·쉬머</td></tr>
-          <tr><td><code class="typo_code">--skeleton-text-height</code> · <code class="typo_code">--skeleton-title-height</code></td><td>0.875rem · 1.125rem</td><td>줄 높이</td></tr>
-          <tr><td><code class="typo_code">--skeleton-avatar-size</code> · <code class="typo_code">--skeleton-gap</code> · <code class="typo_code">--skeleton-duration</code></td><td>—</td><td>아바타·간격·주기</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">--skeleton-bg · --skeleton-shine</code></td><td><code class="typo_code">var(--color-surface-raised) · color-mix(…)</code></td><td>기본 배경과 쉬머 하이라이트</td></tr>
+        <tr><td><code class="typo_code">--skeleton-radius · --skeleton-radius-round</code></td><td><code class="typo_code">var(--radius-sm) · 50%</code></td><td>기본·원형 모서리</td></tr>
+        <tr><td><code class="typo_code">--skeleton-text-height · --skeleton-text-height-sm · --skeleton-text-height-lg</code></td><td><code class="typo_code">0.875rem · 0.75rem · 1rem</code></td><td>텍스트 줄 높이</td></tr>
+        <tr><td><code class="typo_code">--skeleton-title-height · --skeleton-title-height-sm · --skeleton-title-height-lg</code></td><td><code class="typo_code">1.125rem · 1rem · 1.25rem</code></td><td>제목 줄 높이</td></tr>
+        <tr><td><code class="typo_code">--skeleton-title-width · --skeleton-avatar-size</code></td><td><code class="typo_code">40% · var(--avatar-size)</code></td><td>제목 너비와 기본 원형 크기</td></tr>
+        <tr><td><code class="typo_code">--skeleton-button-height · --skeleton-button-height-sm · --skeleton-button-height-lg</code></td><td><code class="typo_code">2rem · 1.75rem · 2.25rem</code></td><td>버튼 형태 높이</td></tr>
+        <tr><td><code class="typo_code">--skeleton-button-width · --skeleton-button-width-sm · --skeleton-button-width-lg</code></td><td><code class="typo_code">5rem · 4rem · 6rem</code></td><td>버튼 형태 너비</td></tr>
+        <tr><td><code class="typo_code">--skeleton-block-height · --skeleton-image-ratio</code></td><td><code class="typo_code">4rem · 16 / 9</code></td><td>블록 높이와 이미지 비율</td></tr>
+        <tr><td><code class="typo_code">--skeleton-width-sm · --skeleton-width-md · --skeleton-width-lg</code></td><td><code class="typo_code">35% · 65% · 85%</code></td><td>줄 너비 변형</td></tr>
+        <tr><td><code class="typo_code">--skeleton-gap · --skeleton-gap-sm · --skeleton-duration</code></td><td><code class="typo_code">var(--space-sm) · 0.375rem · 1.4s</code></td><td>그룹·행 간격과 쉬머 주기</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>

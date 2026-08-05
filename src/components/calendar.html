@@ -1510,3 +1510,70 @@ pageTitle: Calendar
     </div>
   </div>
 </section>
+
+<section class="section" aria-labelledby="api-heading">
+  <h2 id="api-heading">클래스 · 속성</h2>
+  <p>Nuxt와 Next 컴포넌트가 렌더하는 OOCSS 클래스와 접근성 속성입니다. HTML에서는 필요한 레이아웃·상태 클래스를 직접 조합합니다.</p>
+
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">클래스 · 속성</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">calendar</code></td><td>캘린더 루트. 기본 월간 레이아웃</td></tr>
+        <tr><td><code class="typo_code">calendar_sm · calendar_lg · calendar_compact</code></td><td>셀 크기·패딩 변형</td></tr>
+        <tr><td><code class="typo_code">calendar_borderless · calendar_shadow · calendar_ghost · calendar_minimal</code></td><td>테두리·그림자·배경·최소 스킨</td></tr>
+        <tr><td><code class="typo_code">calendar_no-header · calendar_week · calendar_weekends</code></td><td>헤더 없음·주간 뷰·주말 강조 변형</td></tr>
+        <tr><td><code class="typo_code">calendar_agenda · calendar_wheel</code></td><td>세로 일정·휠 피커 레이아웃</td></tr>
+        <tr><td><code class="typo_code">calendar_header · calendar_title · calendar_nav · calendar_nav-label</code></td><td>월간 헤더와 주간 네비게이션</td></tr>
+        <tr><td><code class="typo_code">calendar_weekdays · calendar_weekday</code></td><td>7열 요일 행과 요일 셀</td></tr>
+        <tr><td><code class="typo_code">calendar_grid · calendar_grid-week · calendar_day</code></td><td>날짜 그리드와 날짜 버튼</td></tr>
+        <tr><td><code class="typo_code">calendar_footer · calendar_footer-actions · calendar_group</code></td><td>하단 액션과 여러 캘린더 묶음</td></tr>
+        <tr><td><code class="typo_code">calendar_wheel-*</code></td><td>툴바·열·목록·항목·스텝·푸터 등 휠 피커 파트</td></tr>
+        <tr><td><code class="typo_code">calendar_agenda-*</code></td><td>날짜·이벤트·시간·제목·설명 등 세로 일정 파트</td></tr>
+        <tr><td><code class="typo_code">is-today · is-selected · is-in-range · is-range-start · is-range-end</code></td><td>오늘·선택·범위 날짜 상태</td></tr>
+        <tr><td><code class="typo_code">is-other-month · is-sunday · is-saturday · is-disabled · has-event</code></td><td>다른 달·주말·비활성·이벤트 상태</td></tr>
+        <tr><td><code class="typo_code">calendar_readonly · is-disabled</code></td><td>날짜 선택 제한·캘린더 전체 비활성 상태</td></tr>
+        <tr><td><code class="typo_code">role="application" · role="grid"</code></td><td>캘린더와 날짜 그리드의 접근성 역할</td></tr>
+        <tr><td><code class="typo_code">role="group" · role="listbox"</code></td><td>휠 피커와 각 선택 목록의 접근성 역할</td></tr>
+        <tr><td><code class="typo_code">aria-label</code></td><td>캘린더·휠·네비게이션 버튼의 접근 가능한 이름</td></tr>
+        <tr><td><code class="typo_code">aria-current="date" · aria-selected="true"</code></td><td>오늘 날짜와 현재 선택 상태</td></tr>
+        <tr><td><code class="typo_code">aria-disabled="true" · disabled · tabindex="-1"</code></td><td>전체·개별 비활성과 읽기 전용 날짜의 Tab 순서 제외</td></tr>
+        <tr><td><code class="typo_code">data-wheel</code></td><td>스크롤 위치와 선택 상태를 동기화할 휠 목록</td></tr>
+        <tr><td><code class="typo_code">data-ripple</code></td><td>날짜·휠 항목의 클릭 파장 활성</td></tr>
+        <tr><td><code class="typo_code">data-ripple="false" · data-no-ripple</code></td><td>해당 항목 또는 휠 열 전체의 클릭 파장 비활성</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="tokens-heading">
+  <h2 id="tokens-heading">디자인 토큰</h2>
+  <div class="table_wrap">
+    <table class="table table_bordered table_compact">
+      <thead>
+        <tr>
+          <th scope="col">토큰</th>
+          <th scope="col">기본값</th>
+          <th scope="col">설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code class="typo_code">--calendar-gap</code></td><td><code class="typo_code">2px</code></td><td>요일·날짜 셀 사이 간격</td></tr>
+        <tr><td><code class="typo_code">--calendar-cell-size</code></td><td><code class="typo_code">2.25rem</code></td><td>기본 날짜 셀 크기</td></tr>
+        <tr><td><code class="typo_code">--calendar-cell-size-sm · --calendar-cell-size-compact · --calendar-cell-size-lg</code></td><td><code class="typo_code">1.875rem · 1.75rem · 2.75rem</code></td><td>크기 변형별 날짜 셀 크기</td></tr>
+        <tr><td><code class="typo_code">--calendar-font-size · --calendar-header-size · --calendar-weekday-size</code></td><td><code class="typo_code">var(--text-size-sm) · var(--text-size-base) · var(--text-size-xs)</code></td><td>날짜·헤더·요일 글자 크기</td></tr>
+        <tr><td><code class="typo_code">--calendar-wheel-height · --calendar-wheel-step-height</code></td><td><code class="typo_code">13.75rem · 2rem</code></td><td>휠 전체와 이전·다음 버튼 높이</td></tr>
+        <tr><td><code class="typo_code">--calendar-wheel-list-height · --calendar-wheel-row-height</code></td><td><code class="typo_code">calc(13.75rem - 4rem) · 2.75rem</code></td><td>휠 목록과 각 선택 행 높이</td></tr>
+        <tr><td><code class="typo_code">--calendar-wheel-max-width · --calendar-wheel-slot-count</code></td><td><code class="typo_code">22rem · 3</code></td><td>휠 최대 너비와 기준 열 수</td></tr>
+        <tr><td><code class="typo_code">--calendar-wheel-font-size · --calendar-wheel-font-selected</code></td><td><code class="typo_code">var(--text-size-base) · var(--text-size-lg)</code></td><td>휠 항목과 선택 항목 글자 크기</td></tr>
+        <tr><td><code class="typo_code">--calendar-agenda-gap · --calendar-agenda-date-width</code></td><td><code class="typo_code">var(--space-md) · 3rem</code></td><td>세로 일정 간격과 날짜 열 너비</td></tr>
+        <tr><td><code class="typo_code">--calendar-agenda-event-gap · --calendar-agenda-daynum-size</code></td><td><code class="typo_code">var(--space-xs) · 1.5rem</code></td><td>이벤트 간격과 날짜 숫자 크기</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>

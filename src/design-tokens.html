@@ -12,14 +12,12 @@ pageTitle: 디자인 토큰
   <h2 id="concept-heading">디자인 토큰이란?</h2>
   <p>디자인 시스템에서 반복되는 값을 의미 있는 이름으로 정의한 것입니다. 컴포넌트·페이지 스타일은 하드코딩 대신 토큰을 참조해 일관성을 유지하고, 변경 시 한 곳만 수정하면 전체에 반영됩니다.</p>
 
-  <div class="demo_section-preview demo_section-preview-start" style="border-radius: var(--radius-lg);">
-    <ul class="list list_bullet" style="width: 100%;">
-      <li class="list_item"><strong>일관성</strong> — 같은 의미의 값은 항상 같은 토큰을 사용합니다.</li>
-      <li class="list_item"><strong>유지보수</strong> — 간격·색상 변경 시 <code class="typo_code">_tokens.scss</code> · <code class="typo_code">_themes.scss</code>만 수정합니다.</li>
-      <li class="list_item"><strong>테마</strong> — 색상 토큰을 테마별로 교체해 라이트/다크를 지원합니다.</li>
-      <li class="list_item"><strong>협업</strong> — 디자이너·개발자가 <code class="typo_code">--space-md</code> 같은 공통 언어로 소통합니다.</li>
-    </ul>
-  </div>
+  <ul class="list list_bullet">
+    <li class="list_item"><strong>일관성</strong> — 같은 의미의 값은 항상 같은 토큰을 사용합니다.</li>
+    <li class="list_item"><strong>유지보수</strong> — 간격·색상 변경 시 <code class="typo_code">_tokens.scss</code> · <code class="typo_code">_themes.scss</code>만 수정합니다.</li>
+    <li class="list_item"><strong>테마</strong> — 색상 토큰을 테마별로 교체해 라이트/다크를 지원합니다.</li>
+    <li class="list_item"><strong>협업</strong> — 디자이너·개발자가 <code class="typo_code">--space-md</code> 같은 공통 언어로 소통합니다.</li>
+  </ul>
 </section>
 
 <section class="section" aria-labelledby="structure-heading">
@@ -169,7 +167,7 @@ src/scss/
     </table>
   </div>
 
-  <p class="form_field-hint" style="margin-top: var(--space-md);">제목·본문 변형(<code class="typo_code">--typo-title-*</code>, <code class="typo_code">--typo-text-*</code>)은 <a href="components/typography.html">Typography</a> 컴포넌트 문서를 참고하세요.</p>
+  <p class="form_field-hint">제목·본문 변형(<code class="typo_code">--typo-title-*</code>, <code class="typo_code">--typo-text-*</code>)은 <a href="components/typography.html">Typography</a> 컴포넌트 문서를 참고하세요.</p>
 </section>
 
 <section class="section" aria-labelledby="motion-heading">
@@ -224,7 +222,7 @@ src/scss/
   <h2 id="color-heading">Color 토큰</h2>
   <p>UXKM Color Tokens처럼 Surface(배경·테두리·텍스트)와 Semantic(Primary·Success·Danger·Warning)으로 구분합니다. 실제 hex 값은 테마에 따라 달라집니다.</p>
 
-  <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">Surface</h3>
+  <h3 class="typo_title-4">Surface</h3>
   <div class="table_wrap">
     <table class="table table_bordered table_compact">
       <thead>
@@ -294,7 +292,7 @@ src/scss/
     </table>
   </div>
 
-  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">Semantic</h3>
+  <h3 class="typo_title-4">Semantic</h3>
   <div class="table_wrap">
     <table class="table table_bordered table_compact">
       <thead>
@@ -394,14 +392,14 @@ src/scss/
     </table>
   </div>
 
-  <p style="margin-top: var(--space-md);">테마 적용 방법은 <a href="getting-started.html#theme-heading">설치 및 사용 · 테마</a>를 참고하세요.</p>
+  <p>테마 적용 방법은 <a href="getting-started.html#theme-heading">설치 및 사용 · 테마</a>를 참고하세요.</p>
 </section>
 
 <section class="section" aria-labelledby="usage-heading">
   <h2 id="usage-heading">토큰 사용 방법</h2>
   <p>SCSS·CSS·HTML 어디서든 <code class="typo_code">var()</code>로 참조합니다. 컴포넌트 범위에서 CSS 변수를 재정의하면 해당 블록만 스케일을 바꿀 수 있습니다.</p>
 
-  <h3 class="typo_title-4" style="margin-bottom: var(--space-sm);">SCSS</h3>
+  <h3 class="typo_title-4">SCSS</h3>
   <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
     <pre class="typo_pre"><code>
 // 컴포넌트 SCSS에서 토큰 참조
@@ -417,7 +415,7 @@ src/scss/
 }</code></pre>
   </div>
 
-  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">CSS · 범위 재정의</h3>
+  <h3 class="typo_title-4">CSS · 범위 재정의</h3>
   <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
     <pre class="typo_pre"><code>
 /* HTML·인라인 스타일 */
@@ -432,7 +430,7 @@ src/scss/
 }</code></pre>
   </div>
 
-  <h3 class="typo_title-4" style="margin: var(--space-lg) 0 var(--space-sm);">테마</h3>
+  <h3 class="typo_title-4">테마</h3>
   <div class="demo_section-preview demo_section-preview-start demo_section-preview-code">
     <pre class="typo_pre"><code>
 &lt;!-- 테마 전환 — 색상 토큰이 함께 바뀝니다 --&gt;

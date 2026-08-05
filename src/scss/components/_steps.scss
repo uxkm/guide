@@ -215,12 +215,6 @@
       @include square-size(var(--steps-dot-size));
       border-width: 0;
       background: var(--color-border);
-      overflow: hidden;
-
-      .steps_index,
-      .steps_icon {
-        display: none;
-      }
     }
 
     .steps_item {

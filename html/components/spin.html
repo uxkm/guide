@@ -432,70 +432,60 @@
 
         <section class="section" aria-labelledby="api-heading">
           <h2 id="api-heading">클래스 · 속성</h2>
+          <p>Nuxt와 Next 컴포넌트가 공통으로 렌더하는 OOCSS 클래스와 로딩 상태 접근성 속성입니다. HTML에서는 표시 방식과 대상 영역에 맞게 아래 항목을 직접 조합합니다.</p>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">이름</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><code class="typo_code">spin</code></td><td>루트 래퍼 (인라인 flex)</td></tr>
-                  <tr><td><code class="typo_code">spin_indicator</code></td><td>회전하는 원형 스피너</td></tr>
-                  <tr><td><code class="typo_code">spin_tip</code></td><td>스피너 아래 설명 텍스트 (선택)</td></tr>
-                  <tr><td><code class="typo_code">spin_sm</code> · <code class="typo_code">spin_lg</code></td><td>크기 변형</td></tr>
-                  <tr><td><code class="typo_code">spin_inline</code></td><td>스피너·텍스트 가로 배치</td></tr>
-                  <tr><td><code class="typo_code">spin_block</code></td><td>부모 너비 안 가운데 정렬</td></tr>
-                  <tr><td><code class="typo_code">spin_wrap</code></td><td>오버레이용 상대 위치 컨테이너</td></tr>
-                  <tr><td><code class="typo_code">spin_wrap-body</code></td><td>오버레이 아래 실제 콘텐츠</td></tr>
-                  <tr><td><code class="typo_code">spin_overlay</code></td><td>컨테이너 전체를 덮는 스피너 레이어</td></tr>
-                  <tr><td><code class="typo_code">spin_wrap-block</code></td><td>데모·빈 상태용 최소 높이</td></tr>
-                  <tr><td><code class="typo_code">spin_wrap-blur</code></td><td>로딩 시 콘텐츠 블러</td></tr>
-                  <tr><td><code class="typo_code">is-loading</code></td><td><code class="typo_code">spin_wrap</code>에 지정 — 오버레이 표시</td></tr>
-                  <tr><td><code class="typo_code">color_primary</code> · <code class="typo_code">color_success</code> · <code class="typo_code">color_warning</code> · <code class="typo_code">color_danger</code></td><td>공통 색상 변형</td></tr>
-                  <tr><td><code class="typo_code">role="status"</code></td><td>로딩 상태 시맨틱 (권장)</td></tr>
-                  <tr><td><code class="typo_code">aria-busy="true"</code></td><td>처리 중 표시</td></tr>
-                  <tr><td><code class="typo_code">aria-live="polite"</code></td><td>스크린 리더에 상태 변경 알림</td></tr>
-                  <tr><td><code class="typo_code">aria-label</code></td><td>접근 가능한 로딩 설명</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p class="form_field-hint" style="margin-top: var(--space-md);">버튼 내부 로딩은 <code class="typo_code">.btn.is-loading</code> + <code class="typo_code">.btn_spinner</code>를 사용합니다. 독립 스피너·영역 오버레이는 이 Spin 컴포넌트를 사용하세요.</p>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">클래스 · 속성</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">spin</code></td><td>루트 래퍼 (인라인 flex)</td></tr>
+                <tr><td><code class="typo_code">spin_indicator</code></td><td>회전하는 원형 스피너</td></tr>
+                <tr><td><code class="typo_code">spin_tip</code></td><td>스피너 아래 설명 텍스트 (선택)</td></tr>
+                <tr><td><code class="typo_code">spin_sm · spin_lg</code></td><td>크기 변형</td></tr>
+                <tr><td><code class="typo_code">spin_inline</code></td><td>스피너·텍스트 가로 배치</td></tr>
+                <tr><td><code class="typo_code">spin_block</code></td><td>부모 너비 안 가운데 정렬</td></tr>
+                <tr><td><code class="typo_code">spin_wrap · spin_wrap-body</code></td><td>오버레이용 상대 위치 컨테이너와 실제 콘텐츠</td></tr>
+                <tr><td><code class="typo_code">spin_overlay</code></td><td>컨테이너 전체를 덮는 스피너 레이어</td></tr>
+                <tr><td><code class="typo_code">spin_wrap-block · spin_wrap-blur</code></td><td>최소 높이와 로딩 중 콘텐츠 블러 변형</td></tr>
+                <tr><td><code class="typo_code">is-loading</code></td><td><code class="typo_code">spin_wrap</code>에 지정 — 오버레이 표시</td></tr>
+                <tr><td><code class="typo_code">color_primary · color_success · color_warning · color_danger</code></td><td>공통 색상 변형</td></tr>
+                <tr><td><code class="typo_code">role="status"</code></td><td>로딩 상태 시맨틱 (권장)</td></tr>
+                <tr><td><code class="typo_code">aria-busy="true"</code></td><td>처리 중 표시</td></tr>
+                <tr><td><code class="typo_code">aria-live="polite"</code></td><td>스크린 리더에 상태 변경 알림</td></tr>
+                <tr><td><code class="typo_code">aria-label</code></td><td>접근 가능한 로딩 설명</td></tr>
+              </tbody>
+            </table>
           </div>
+
+          <p class="form_field-hint" style="margin-top: var(--space-md);">버튼 내부 로딩은 <code class="typo_code">.btn.is-loading</code> + <code class="typo_code">.btn_spinner</code>를 사용합니다. 독립 스피너·영역 오버레이는 이 Spin 컴포넌트를 사용하세요.</p>
         </section>
 
         <section class="section" aria-labelledby="tokens-heading">
           <h2 id="tokens-heading">디자인 토큰</h2>
 
-          <div class="demo_section-preview demo_section-preview-start">
-            <div class="table_wrap">
-              <table class="table table_bordered table_compact">
-                <thead>
-                  <tr>
-                    <th scope="col">토큰</th>
-                    <th scope="col">기본값</th>
-                    <th scope="col">설명</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><code class="typo_code">--spin-size</code></td><td>2rem</td><td>스피너 지름</td></tr>
-                  <tr><td><code class="typo_code">--spin-size-sm</code> · <code class="typo_code">--spin-size-lg</code></td><td>1.25rem · 3rem</td><td>크기 변형별 지름</td></tr>
-                  <tr><td><code class="typo_code">--spin-border</code></td><td>3px</td><td>스피너 테두리 두께</td></tr>
-                  <tr><td><code class="typo_code">--spin-border-sm</code> · <code class="typo_code">--spin-border-lg</code></td><td>2px · 4px</td><td>크기 변형별 테두리</td></tr>
-                  <tr><td><code class="typo_code">--spin-duration</code></td><td>0.8s</td><td>회전 애니메이션 주기</td></tr>
-                  <tr><td><code class="typo_code">--spin-gap</code></td><td><code class="typo_code">var(--space-sm)</code></td><td>스피너·텍스트 간격</td></tr>
-                  <tr><td><code class="typo_code">--spin-tip-size</code></td><td><code class="typo_code">var(--text-size-sm)</code></td><td>설명 텍스트 크기</td></tr>
-                  <tr><td><code class="typo_code">--spin-overlay-bg</code></td><td>rgba(15, 20, 25, 0.72)</td><td>오버레이 배경 (tip 명도 대비용 불투명도)</td></tr>
-                  <tr><td><code class="typo_code">--spin-overlay-tip-color</code></td><td>#ffffff</td><td>오버레이 위 tip 텍스트 색</td></tr>
-                  <tr><td><code class="typo_code">--spin-wrap-min-height</code></td><td>8rem</td><td><code class="typo_code">spin_wrap-block</code> 최소 높이</td></tr>
-                  <tr><td><code class="typo_code">--spin-wrap-content-opacity</code></td><td>0.45</td><td>로딩 시 콘텐츠 불투명도</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table_wrap">
+            <table class="table table_bordered table_compact">
+              <thead>
+                <tr>
+                  <th scope="col">토큰</th>
+                  <th scope="col">기본값</th>
+                  <th scope="col">설명</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code class="typo_code">--spin-size · --spin-size-sm · --spin-size-lg</code></td><td><code class="typo_code">2rem · 1.25rem · 3rem</code></td><td>기본·작은·큰 스피너 지름</td></tr>
+                <tr><td><code class="typo_code">--spin-border · --spin-border-sm · --spin-border-lg</code></td><td><code class="typo_code">3px · 2px · 4px</code></td><td>크기 변형별 테두리 두께</td></tr>
+                <tr><td><code class="typo_code">--spin-duration</code></td><td><code class="typo_code">0.8s</code></td><td>회전 애니메이션 주기</td></tr>
+                <tr><td><code class="typo_code">--spin-gap · --spin-tip-size</code></td><td><code class="typo_code">var(--space-sm) · var(--text-size-sm)</code></td><td>스피너·텍스트 간격과 설명 글자 크기</td></tr>
+                <tr><td><code class="typo_code">--spin-overlay-bg · --spin-overlay-tip-color</code></td><td><code class="typo_code">rgba(15, 20, 25, 0.72) · #ffffff</code></td><td>오버레이 배경과 설명 텍스트 색</td></tr>
+                <tr><td><code class="typo_code">--spin-wrap-min-height · --spin-wrap-content-opacity</code></td><td><code class="typo_code">8rem · 0.45</code></td><td>블록 최소 높이와 로딩 중 콘텐츠 불투명도</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
       </main>

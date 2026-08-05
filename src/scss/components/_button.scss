@@ -8,12 +8,12 @@
 // OOCSS 구조: .btn(구조) + 스킨 + 레이아웃/유형 클래스를 조합해 사용합니다.
 //
 // 네이밍 규칙
-//   블록_파트        → btn_filled, btn_icon, btn_group
+//   블록_파트        → btn_filled, btn_label, btn_group
 //   블록_파트-변형   → btn_group-align-start, btn_select-text
 //
 // 기본 조합 예시
 //   <button class="btn btn_filled color_primary btn_sm btn_round">
-//     <svg class="btn_icon">…</svg>
+//     <svg class="icon">…</svg>
 //     <span class="btn_label">저장</span>
 //   </button>
 //
@@ -46,11 +46,6 @@
 
   @include btn-transition;
   @include focus-ring;
-
-  &:disabled,
-  &.is-disabled {
-    @include disabled-state;
-  }
 
   &.is-loading {
     position: relative;
@@ -101,7 +96,7 @@
     white-space: normal;
     text-align: center;
 
-    .btn_icon {
+    .icon {
       @include btn-icon-size(var(--btn-icon-size-lg));
     }
 
@@ -115,7 +110,7 @@
       min-width: var(--btn-vertical-min-width-sm);
       padding: var(--btn-vertical-padding-y-sm) var(--btn-vertical-padding-x-sm);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-md));
       }
 
@@ -128,7 +123,7 @@
       min-width: var(--btn-vertical-min-width-lg);
       padding: var(--btn-vertical-padding-y-lg) var(--btn-vertical-padding-x-lg);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-xl));
       }
 
@@ -143,14 +138,14 @@
     padding: var(--btn-icon-only-padding);
     aspect-ratio: 1;
 
-    .btn_icon {
+    .icon {
       @include btn-icon-size(var(--btn-icon-size-md));
     }
 
     &.btn_sm {
       padding: var(--btn-icon-only-padding-sm);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size));
       }
     }
@@ -158,7 +153,7 @@
     &.btn_lg {
       padding: var(--btn-icon-only-padding-lg);
 
-      .btn_icon {
+      .icon {
         @include btn-icon-size(var(--btn-icon-size-lg));
       }
     }
@@ -400,15 +395,59 @@
     }
   }
 
+  // 비활성 — opacity 대신 테마 토큰으로 라이트/다크 명도대비 유지
+  &:disabled,
+  &.is-disabled {
+    @include disabled-state;
+
+    &.btn_filled {
+      &.color_default {
+        @include disabled-surface;
+      }
+
+      &.color_primary {
+        @include disabled-filled(var(--color-accent-disabled), var(--color-on-accent-disabled));
+      }
+
+      &.color_success {
+        @include disabled-filled(var(--color-success-disabled), var(--color-on-success-disabled));
+      }
+
+      &.color_danger {
+        @include disabled-filled(var(--color-danger-disabled), var(--color-on-danger-disabled));
+      }
+
+      &.color_warning {
+        @include disabled-filled(var(--color-warning-disabled), var(--color-on-warning-disabled));
+      }
+    }
+
+    &.btn_outline,
+    &.btn_select {
+      @include disabled-surface;
+    }
+
+    &.btn_outline {
+      background-color: transparent;
+    }
+
+    &.btn_text,
+    &.btn_ghost,
+    &.btn_select-text {
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+
   // -----------------------------------------------------------------------------
   // 5. 파트 — 버튼 내부 요소
   // -----------------------------------------------------------------------------
   //
-  //   .btn_icon     — SVG 아이콘
+  //   .icon         — SVG 아이콘 (Icon 컴포넌트 또는 class="icon")
   //   .btn_label    — 텍스트 (반드시 span으로 감쌈)
   //   .btn_spinner  — 로딩 스피너 (.is-loading과 함께)
 
-  &_icon {
+  .icon {
     @include square-size(var(--btn-icon-size));
     flex-shrink: 0;
     pointer-events: none;
