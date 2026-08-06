@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+.pnpm-store/
 
 # Framework build output
 apps/*/dist/
@@ -8,9 +9,11 @@ apps/nuxt/.output/
 apps/next/.next/
 apps/next/out/
 apps/storybook/storybook-static/
+packages/*/dist/
+apps/*/public/styles/uxkm.css
 
 # Collected deployment output
-build/frameworks/*/
+build/
 
 # Local environment
 .env

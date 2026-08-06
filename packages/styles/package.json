@@ -1,5 +1,13 @@
 {
   "name": "@uxkm/styles",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "style": "dist/uxkm.css",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node ../../scripts/build-styles.mjs"
+  }
 }

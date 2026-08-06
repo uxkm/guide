@@ -136,261 +136,30 @@ Framework
 ```text
 uxkm-framework-components/
 ├── apps/
-│   ├── frameworks/
-│   │   ├── html/
-│   │   │   ├── src/
-│   │   │   │   ├── introduction/
-│   │   │   │   │   ├── overview.html
-│   │   │   │   │   ├── getting-started.html
-│   │   │   │   │   └── design-tokens.html
-│   │   │   │   ├── pages/
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   │   ├── Container.html
-│   │   │   │   │   │   ├── Grid.html
-│   │   │   │   │   │   ├── Flex.html
-│   │   │   │   │   │   ├── Divider.html
-│   │   │   │   │   │   └── Space.html
-│   │   │   │   │   │
-│   │   │   │   │   ├── basic/
-│   │   │   │   │   │   ├── Button.html
-│   │   │   │   │   │   ├── Typography.html
-│   │   │   │   │   │   ├── Icon.html
-│   │   │   │   │   │   └── Link.html
-│   │   │   │   │   │
-│   │   │   │   │   ├── data-display/
-│   │   │   │   │   │   ├── Avatar.html
-│   │   │   │   │   │   ├── Badge.html
-│   │   │   │   │   │   ├── Tag.html
-│   │   │   │   │   │   ├── Card.html
-│   │   │   │   │   │   ├── Table.html
-│   │   │   │   │   │   ├── List.html
-│   │   │   │   │   │   ├── Stat.html
-│   │   │   │   │   │   ├── Calendar.html
-│   │   │   │   │   │   ├── Timeline.html
-│   │   │   │   │   │   └── Tree.html
-│   │   │   │   │   │
-│   │   │   │   │   ├── form/
-│   │   │   │   │   │   ├── FormLayout.html
-│   │   │   │   │   │   ├── Input.html
-│   │   │   │   │   │   ├── Textarea.html
-│   │   │   │   │   │   ├── Select.html
-│   │   │   │   │   │   ├── Checkbox.html
-│   │   │   │   │   │   ├── Radio.html
-│   │   │   │   │   │   ├── Switch.html
-│   │   │   │   │   │   ├── Slider.html
-│   │   │   │   │   │   ├── Rate.html
-│   │   │   │   │   │   ├── DatePicker.html
-│   │   │   │   │   │   └── Upload.html
-│   │   │   │   │   │
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   │   ├── Alert.html
-│   │   │   │   │   │   ├── Snackbar.html
-│   │   │   │   │   │   ├── Modal.html
-│   │   │   │   │   │   ├── Drawer.html
-│   │   │   │   │   │   ├── Popover.html
-│   │   │   │   │   │   ├── Tooltip.html
-│   │   │   │   │   │   ├── Progress.html
-│   │   │   │   │   │   ├── Spin.html
-│   │   │   │   │   │   ├── Skeleton.html
-│   │   │   │   │   │   └── Empty.html
-│   │   │   │   │   │
-│   │   │   │   │   ├── navigation/
-│   │   │   │   │   │   ├── Navbar.html
-│   │   │   │   │   │   ├── Menu.html
-│   │   │   │   │   │   ├── Tabs.html
-│   │   │   │   │   │   ├── Breadcrumb.html
-│   │   │   │   │   │   ├── Pagination.html
-│   │   │   │   │   │   ├── Steps.html
-│   │   │   │   │   │   └── Dropdown.html
-│   │   │   │   │   │
-│   │   │   │   │   └── miscellaneous/
-│   │   │   │   │       ├── Accordion.html
-│   │   │   │   │       ├── Collapse.html
-│   │   │   │   │       ├── Carousel.html
-│   │   │   │   │       ├── Affix.html
-│   │   │   │   │       └── BackTop.html
-│   │   │   │   └── scripts/
-│   │   │   ├── public/
-│   │   │   ├── dist/
-│   │   │   └── package.json
-│   │
-│   │   ├── gulp/
-│   │   │   ├── src/
-│   │   │   │   ├── introduction/
-│   │   │   │   ├── pages/
-│   │   │   │   ├── templates/
-│   │   │   │   │   ├── layouts/
-│   │   │   │   │   └── partials/
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   │   ├── Container.html
-│   │   │   │   │   │   ├── Grid.html
-│   │   │   │   │   │   ├── Flex.html
-│   │   │   │   │   │   ├── Divider.html
-│   │   │   │   │   │   └── Space.html
-│   │   │   │   │   ├── basic/
-│   │   │   │   │   ├── data-display/
-│   │   │   │   │   ├── form/
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   ├── navigation/
-│   │   │   │   │   └── miscellaneous/
-│   │   │   │   └── scripts/
-│   │   │   ├── gulpfile.js
-│   │   │   ├── dist/
-│   │   │   └── package.json
-│   │
-│   │   ├── vue/
-│   │   │   ├── src/
-│   │   │   │   ├── introduction/
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   │   ├── Container.vue
-│   │   │   │   │   │   ├── Grid.vue
-│   │   │   │   │   │   ├── Flex.vue
-│   │   │   │   │   │   ├── Divider.vue
-│   │   │   │   │   │   └── Space.vue
-│   │   │   │   │   ├── basic/
-│   │   │   │   │   ├── data-display/
-│   │   │   │   │   ├── form/
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   ├── navigation/
-│   │   │   │   │   └── miscellaneous/
-│   │   │   │   ├── views/
-│   │   │   │   ├── router/
-│   │   │   │   ├── composables/
-│   │   │   │   └── main.js
-│   │   │   ├── public/
-│   │   │   ├── vite.config.js
-│   │   │   ├── dist/
-│   │   │   └── package.json
-│   │
-│   │   ├── react/
-│   │   │   ├── src/
-│   │   │   │   ├── introduction/
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   │   ├── Container.jsx
-│   │   │   │   │   │   ├── Grid.jsx
-│   │   │   │   │   │   ├── Flex.jsx
-│   │   │   │   │   │   ├── Divider.jsx
-│   │   │   │   │   │   └── Space.jsx
-│   │   │   │   │   ├── basic/
-│   │   │   │   │   ├── data-display/
-│   │   │   │   │   ├── form/
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   ├── navigation/
-│   │   │   │   │   └── miscellaneous/
-│   │   │   │   ├── pages/
-│   │   │   │   ├── hooks/
-│   │   │   │   ├── router/
-│   │   │   │   └── main.jsx
-│   │   │   ├── public/
-│   │   │   ├── vite.config.js
-│   │   │   ├── dist/
-│   │   │   └── package.json
-│   │
-│   │   ├── nuxt/
-│   │   │   ├── app/
-│   │   │   │   ├── introduction/
-│   │   │   │   ├── components/
-│   │   │   │   │   ├── layout/
-│   │   │   │   │   ├── basic/
-│   │   │   │   │   ├── data-display/
-│   │   │   │   │   ├── form/
-│   │   │   │   │   ├── feedback/
-│   │   │   │   │   ├── navigation/
-│   │   │   │   │   └── miscellaneous/
-│   │   │   │   ├── pages/
-│   │   │   │   ├── composables/
-│   │   │   │   ├── layouts/
-│   │   │   │   └── app.vue
-│   │   │   ├── public/
-│   │   │   ├── nuxt.config.ts
-│   │   │   ├── .output/
-│   │   │   └── package.json
-│   │
-│   │   └── next/
-│   │       ├── app/
-│   │       ├── src/
-│   │       │   ├── introduction/
-│   │       │   ├── components/
-│   │       │   │   ├── layout/
-│   │       │   │   ├── basic/
-│   │       │   │   ├── data-display/
-│   │       │   │   ├── form/
-│   │       │   │   ├── feedback/
-│   │       │   │   ├── navigation/
-│   │       │   │   └── miscellaneous/
-│   │       │   ├── doc/
-│   │       │   ├── hooks/
-│   │       │   ├── layouts/
-│   │       │   └── utils/
-│   │       ├── public/
-│   │       ├── next.config.mjs
-│   │       ├── out/
-│   │       └── package.json
-│   │
-│   ├── guidebook/
-│   │   ├── vue/
-│   │   └── react/
-│   │
-│   └── storybook/
-│       ├── .storybook/
-│       ├── src/
-│       │   ├── docs/
-│       │   │   ├── introduction/
-│       │   │   │   ├── Overview.mdx
-│       │   │   │   ├── GettingStarted.mdx
-│       │   │   │   └── DesignTokens.mdx
-│       │   │   └── components/
-│       │   │       ├── layout/
-│       │   │       ├── basic/
-│       │   │       ├── data-display/
-│       │   │       ├── form/
-│       │   │       ├── feedback/
-│       │   │       ├── navigation/
-│       │   │       └── miscellaneous/
-│       │   ├── shared/
-│       │   ├── data/
-│       │   └── utils/
-│       ├── storybook-static/
-│       └── package.json
-│
-├── packages/
-│   ├── styles/
-│   ├── assets/
-│   ├── tokens/
-│   ├── content/
-│   ├── component-specs/
-│   ├── navigation/
-│   ├── guide-content/
-│   ├── guide-navigation/
-│   └── code-examples/
-│
-├── scripts/
-│   ├── dev.mjs
-│   ├── build-styles.mjs
-│   ├── copy-assets.mjs
-│   ├── collect-frameworks.mjs
-│   ├── collect-guidebook.mjs
-│   ├── validate-components.mjs
-│   ├── validate-guidebook.mjs
-│   └── deploy-main.mjs
-│
-├── build/
-│   ├── frameworks/
-│   │   ├── html/
-│   │   ├── gulp/
-│   │   ├── vue/
-│   │   ├── react/
-│   │   ├── nuxt/
-│   │   ├── next/
-│   │   └── storybook/
+│   ├── html/                 # HTML 컴포넌트 52개
+│   ├── gulp/                 # Nunjucks 컴포넌트 52개
+│   ├── vue/                  # Vue 컴포넌트 52개
+│   ├── react/                # React 컴포넌트 52개
+│   ├── nuxt/                 # Nuxt 전용 컴포넌트
+│   ├── next/                 # Next.js 전용 컴포넌트
+│   ├── storybook/            # 공통 문서와 프레임워크 Storybook 연결
 │   └── guidebook/
 │       ├── vue/
 │       └── react/
 │
+├── packages/
+│   ├── assets/
+│   ├── styles/
+│   ├── tokens/
+│   ├── component-specs/
+│   ├── content/
+│   ├── navigation/
+│   ├── code-examples/
+│   ├── guide-content/
+│   └── guide-navigation/
+│
+├── scripts/                  # 빌드·검증·수집 스크립트
+├── build/                    # 자동 생성되는 배포 수집 결과
 ├── package.json
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
@@ -398,7 +167,21 @@ uxkm-framework-components/
 └── README.md
 ```
 
-> Nuxt와 Next.js의 `components` 디렉터리도 HTML, Gulp, Vue, React와 동일하게 52개 컴포넌트를 포함합니다. 전체 트리의 중복이 과도하게 길어지는 것을 피하기 위해 상위 분류까지만 표시했지만 실제 생성 기준은 모든 프레임워크에서 동일합니다.
+HTML, Gulp, Vue, React는 동일한 카테고리와 52개 컴포넌트 이름을 사용합니다. 각 컴포넌트는 하나의 디렉터리에서 구현, Story, 스타일과 테스트 또는 예제를 함께 관리합니다.
+
+```text
+components/
+├── layout/
+├── basic/
+├── data-display/
+├── form/
+├── feedback/
+├── navigation/
+└── miscellaneous/
+```
+
+Nuxt와 Next.js에는 일반 Vue·React 컴포넌트를 다시 복제하지 않고 `AppLayout`, 링크, 이미지처럼 프레임워크에 종속된 구현만 둡니다.
+
 
 ---
 
@@ -416,7 +199,7 @@ Introduction
 ## HTML
 
 ```text
-apps/frameworks/html/src/introduction/
+apps/html/src/introduction/
 ├── overview.html
 ├── getting-started.html
 └── design-tokens.html
@@ -425,18 +208,18 @@ apps/frameworks/html/src/introduction/
 ## Gulp/Nunjucks
 
 ```text
-apps/frameworks/gulp/src/introduction/
-├── overview.html
-├── getting-started.html
-└── design-tokens.html
+apps/gulp/src/introduction/
+├── overview.njk
+├── getting-started.njk
+└── design-tokens.njk
 ```
 
-Nunjucks 문법을 사용하더라도 확장자는 `.html`로 유지할 수 있습니다.
+Gulp 앱의 소개와 템플릿은 Nunjucks 확장자 `.njk`를 사용합니다.
 
 ## Vue
 
 ```text
-apps/frameworks/vue/src/introduction/
+apps/vue/src/introduction/
 ├── Overview.vue
 ├── GettingStarted.vue
 └── DesignTokens.vue
@@ -445,7 +228,7 @@ apps/frameworks/vue/src/introduction/
 ## React
 
 ```text
-apps/frameworks/react/src/introduction/
+apps/react/src/introduction/
 ├── Overview.jsx
 ├── GettingStarted.jsx
 └── DesignTokens.jsx
@@ -454,7 +237,7 @@ apps/frameworks/react/src/introduction/
 ## Nuxt
 
 ```text
-apps/frameworks/nuxt/app/introduction/
+apps/nuxt/app/introduction/
 ├── Overview.vue
 ├── GettingStarted.vue
 └── DesignTokens.vue
@@ -463,7 +246,7 @@ apps/frameworks/nuxt/app/introduction/
 ## Next.js
 
 ```text
-apps/frameworks/next/src/introduction/
+apps/next/src/introduction/
 ├── Overview.jsx
 ├── GettingStarted.jsx
 └── DesignTokens.jsx
@@ -501,20 +284,19 @@ Storybook에서는 하나의 컴포넌트 문서에서 다음 코드를 비교�
 
 ```text
 apps/
-├── frameworks/
-│   ├── html
-│   ├── gulp
-│   ├── vue
-│   ├── react
-│   ├── nuxt
-│   └── next
+├── html
+├── gulp
+├── vue
+├── react
+├── nuxt
+├── next
 ├── guidebook/
 │   ├── vue
 │   └── react
 └── storybook
 ```
 
-`apps/frameworks`는 소개 문서와 전체 52개 컴포넌트의 실제 구현을 제공합니다.
+`apps/html`, `apps/gulp`, `apps/vue`, `apps/react`는 소개 문서와 공통 52개 컴포넌트 구현을 제공합니다. Nuxt와 Next.js는 프레임워크 전용 구현만 제공합니다.
 
 `apps/guidebook`은 프레임워크 학습 문서를 제공합니다.
 
@@ -532,12 +314,12 @@ React Guidebook
 
 | 앱 | 역할 | 빌드 결과 |
 | --- | --- | --- |
-| `apps/frameworks/html` | 소개 문서, 순수 HTML 컴포넌트 및 JavaScript 동작 | `dist` |
-| `apps/frameworks/gulp` | 소개 문서, Gulp/Nunjucks 기반 컴포넌트 | `dist` |
-| `apps/frameworks/vue` | 소개 문서와 Vue/Vite 컴포넌트 앱 | `dist` |
-| `apps/frameworks/react` | 소개 문서와 React/Vite 컴포넌트 앱 | `dist` |
-| `apps/frameworks/nuxt` | 소개 문서와 Nuxt 컴포넌트 앱 | `.output/public` |
-| `apps/frameworks/next` | 소개 문서와 Next.js App Router 컴포넌트 앱 | `out` |
+| `apps/html` | 소개 문서, 순수 HTML 컴포넌트 및 JavaScript 동작 | `dist` |
+| `apps/gulp` | 소개 문서, Gulp/Nunjucks 기반 컴포넌트 | `dist` |
+| `apps/vue` | 소개 문서와 Vue/Vite 컴포넌트 앱 | `dist` |
+| `apps/react` | 소개 문서와 React/Vite 컴포넌트 앱 | `dist` |
+| `apps/nuxt` | 소개 문서와 Nuxt 컴포넌트 앱 | `.output/public` |
+| `apps/next` | 소개 문서와 Next.js App Router 컴포넌트 앱 | `out` |
 | `apps/storybook` | 전체 컴포넌트 통합 문서와 코드 비교 | `storybook-static` |
 
 ---
@@ -608,6 +390,28 @@ React Guidebook
 | `packages/guide-navigation` | Vue·React 가이드북 목차와 노출 순서 |
 | `packages/code-examples` | Vue·Nuxt·React·Next.js 학습 코드 예제 |
 
+## 컴포넌트 스타일 빌드
+
+컴포넌트 스타일의 단일 원본은 `packages/styles/src/components`입니다. HTML, Gulp, Vue, React, Nuxt, Next.js 컴포넌트에는 동일한 `uxkm-*` 클래스명을 사용하고 로컬 컴포넌트 SCSS를 복제하지 않습니다.
+
+```bash
+pnpm build:styles
+```
+
+이 명령을 실행할 때만 공통 SCSS를 컴파일하여 다음 위치에 동일한 `uxkm.css`를 생성합니다.
+
+```text
+packages/styles/dist/uxkm.css
+apps/html/public/styles/uxkm.css
+apps/gulp/public/styles/uxkm.css
+apps/vue/public/styles/uxkm.css
+apps/react/public/styles/uxkm.css
+apps/nuxt/public/styles/uxkm.css
+apps/next/public/styles/uxkm.css
+```
+
+생성된 CSS는 직접 수정하거나 Git으로 관리하지 않습니다. 스타일 변경은 공통 SCSS에서만 수행한 뒤 `pnpm build:styles`로 각 프레임워크에 반영합니다.
+
 ---
 
 # 9. 프레임워크 내 공통 탐색 구조
@@ -668,7 +472,7 @@ Components
 
 ```yaml
 packages:
-  - 'apps/frameworks/*'
+  - 'apps/*'
   - 'apps/guidebook/*'
   - 'apps/storybook'
   - 'packages/*'
@@ -740,12 +544,12 @@ main 브랜치 반영
 
 | 원본 | 수집 경로 |
 | --- | --- |
-| `apps/frameworks/html/dist` | `build/frameworks/html` |
-| `apps/frameworks/gulp/dist` | `build/frameworks/gulp` |
-| `apps/frameworks/vue/dist` | `build/frameworks/vue` |
-| `apps/frameworks/react/dist` | `build/frameworks/react` |
-| `apps/frameworks/nuxt/.output/public` | `build/frameworks/nuxt` |
-| `apps/frameworks/next/out` | `build/frameworks/next` |
+| `apps/html/dist` | `build/frameworks/html` |
+| `apps/gulp/dist` | `build/frameworks/gulp` |
+| `apps/vue/dist` | `build/frameworks/vue` |
+| `apps/react/dist` | `build/frameworks/react` |
+| `apps/nuxt/.output/public` | `build/frameworks/nuxt` |
+| `apps/next/out` | `build/frameworks/next` |
 | `apps/storybook/storybook-static` | `build/frameworks/storybook` |
 
 ## Guidebook
