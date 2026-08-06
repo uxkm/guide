@@ -24,7 +24,7 @@ const workspaces = [
     path: 'apps/gulp',
     description: 'Gulp와 Nunjucks 템플릿 기반 정적 컴포넌트 가이드',
     badge: 'Gulp · Nunjucks',
-    color: 'gulp',
+    color: 'nunjucks',
     group: 'apps'
   },
   {
@@ -164,13 +164,35 @@ const logoAssets = new Map([
   ]
 ]);
 
+const icons = {
+  html: `<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M8 4h32l-3 34-13 6-13-6L8 4Z"/><path fill="#fff" d="M14.5 12h19l-.5 5H20l.4 5H32l-1.2 13L24 38l-6.8-3-.6-7h5l.3 3.5 2.1.9 2.2-.9.4-4.5H16L14.5 12Z"/></svg>`,
+  nunjucks: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M0 12v12h24V0H0v12Zm8.2-1.9V3h3v17.3h-3c-.7-2.5-1.4-5-2.2-7.5v7.5H3V3h3c.8 2.3 1.5 4.7 2.2 7.1ZM20.9 7v11.6c0 .2-.1.7-.5 1.1-.4.4-.8.5-.9.6h-5.1c-.2 0-.7-.1-1-.5-.4-.4-.5-.9-.6-1.2v-3.8c1-.2 2-.5 3-.7v3.1h2.1V7h3ZM0 24"/></svg>`,
+  vue: `<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M4 9h9l11 18L35 9h9L24 41 4 9Z"/><path fill="#fff" d="M13 9h6l5 8 5-8h6L24 27 13 9Z"/></svg>`,
+  react: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><ellipse cx="24" cy="24" rx="20" ry="8"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(120 24 24)"/><circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none"/></svg>`,
+  nuxt: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M5 37.5 19.5 12.4a2.6 2.6 0 0 1 4.5 0l14.5 25.1H5Z" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/><path d="m23.5 37.5 7.8-13.6a2.6 2.6 0 0 1 4.5 0l7.8 13.6H23.5Z" fill="#fff" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/></svg>`,
+  next: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2.5"/><path d="M16 33V15l17.5 22M32 15v14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  storybook: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-width="2" d="M12 6.8 35.8 5a2 2 0 0 1 2.2 2v34a2 2 0 0 1-2.1 2L12 40.8a2 2 0 0 1-1.8-2V8.8A2 2 0 0 1 12 6.8Z"/><path fill="currentColor" d="M29.8 9.8 33 7.3l.3 6-3.3-.2-.2-3.3ZM18 31.7c.9 2.3 3 3.7 5.8 3.7 3.8 0 6.2-2 6.2-5.2 0-3.5-2.8-4.7-5.5-5.8-2-.8-3.7-1.5-3.7-3.1 0-1.3 1-2.1 2.7-2.1 1.8 0 3 .9 3.7 2.6l2.4-1.5c-1.1-2.7-3.2-4.1-6.2-4.1-3.5 0-5.8 2.1-5.8 5.2 0 3.4 2.8 4.6 5.4 5.7 2 .8 3.7 1.5 3.7 3.2 0 1.4-1 2.2-2.9 2.2-1.7 0-2.9-.8-3.5-2.4L18 31.7Z"/></svg>`,
+  book: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 9.5A5.5 5.5 0 0 1 12.5 4H22a5 5 0 0 1 5 5v31a6 6 0 0 0-6-6h-9a5 5 0 0 0-5 5V9.5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M41 9.5A5.5 5.5 0 0 0 35.5 4H26v36a6 6 0 0 1 6-6h9V9.5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M12 12h9M12 19h9M32 12h5M32 19h5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+  styles: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M25 5C14 5 5 13 5 23s8 18 18 18h3a4 4 0 0 0 0-8h-2a3 3 0 0 1 0-6h7c7 0 12-4 12-10C43 10 35 5 25 5Z" stroke="currentColor" stroke-width="2.7"/><circle cx="14" cy="20" r="2.5" fill="currentColor"/><circle cx="20" cy="13" r="2.5" fill="currentColor"/><circle cx="29" cy="12" r="2.5" fill="currentColor"/><circle cx="36" cy="18" r="2.5" fill="currentColor"/></svg>`,
+  assets: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="7" width="38" height="34" rx="4" stroke="currentColor" stroke-width="2.7"/><circle cx="16" cy="17" r="4" fill="currentColor"/><path d="m8 36 10-10 7 7 5-5 10 8" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  tokens: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M9 12h30M9 24h30M9 36h30" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><circle cx="18" cy="12" r="5" fill="#fff" stroke="currentColor" stroke-width="2.7"/><circle cx="31" cy="24" r="5" fill="#fff" stroke="currentColor" stroke-width="2.7"/><circle cx="22" cy="36" r="5" fill="#fff" stroke="currentColor" stroke-width="2.7"/></svg>`,
+  content: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M12 5h18l8 8v30H12V5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M30 5v9h8M18 22h14M18 29h14M18 36h9" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  specs: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="m18 11-11 13 11 13M30 11l11 13-11 13M27 7l-6 34" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  navigation: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="2.7"/><path d="m30.5 17.5-4 9-9 4 4-9 9-4Z" fill="currentColor"/><circle cx="24" cy="24" r="2.5" fill="#fff"/></svg>`
+};
+
+function renderIcon(color) {
+  if (color === 'vue-guidebook' || color === 'react-guidebook') return icons.book;
+  return icons[color] ?? icons.content;
+}
+
 function renderCards(group) {
   return workspaceDetails
     .filter((workspace) => workspace.group === group)
     .map(
-      ({ label, shortLabel, path, name, description, badge, color }) => `
+      ({ label, path, name, description, badge, color }) => `
         <article class="card card--${color}${group === 'packages' ? ' card--compact' : ''}">
-          <span class="card-icon" aria-hidden="true">${shortLabel}</span>
+          <span class="card-icon">${renderIcon(color)}</span>
           <h3>${label}</h3>
           <p>${description}</p>
           <code class="package-name">${name}</code>
@@ -304,7 +326,7 @@ function renderPage() {
       }
 
       .card--html { --card-color: #d94f1d; --card-soft: rgba(217, 79, 29, 0.15); }
-      .card--gulp { --card-color: #cf4647; --card-soft: rgba(207, 70, 71, 0.14); }
+      .card--nunjucks { --card-color: #1c4913; --card-soft: rgba(28, 73, 19, 0.14); }
       .card--vue { --card-color: #2e8b63; --card-soft: rgba(46, 139, 99, 0.14); }
       .card--react { --card-color: #087ea4; --card-soft: rgba(8, 126, 164, 0.14); }
       .card--nuxt { --card-color: #00a86b; --card-soft: rgba(0, 168, 107, 0.14); }
@@ -330,10 +352,9 @@ function renderPage() {
         background: var(--card-soft);
         border: 1px solid color-mix(in srgb, var(--card-color) 30%, transparent);
         border-radius: 16px;
-        font-size: 0.86rem;
-        font-weight: 800;
-        letter-spacing: -0.025em;
       }
+
+      .card-icon svg { display: block; width: 34px; height: 34px; }
 
       .card h3 { margin-bottom: 0.45rem; font-size: 1.3rem; line-height: 1.35; letter-spacing: -0.025em; }
       .card p { color: var(--muted); font-size: 0.96rem; }
