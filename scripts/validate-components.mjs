@@ -14,10 +14,10 @@ const catalog = {
 };
 
 const conventions = {
-  html: (name) => [`${name}.html`, `${name}.stories.js`],
-  gulp: (name) => [`${name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}.njk`, `${name}.stories.js`],
-  vue: (name) => [`${name}.vue`, `${name}.stories.js`, `${name}.spec.js`, 'index.js'],
-  react: (name) => [`${name}.jsx`, `${name}.stories.jsx`, `${name}.test.jsx`, 'index.js']
+  html: (name) => [`${name}.html`],
+  gulp: (name) => [`${name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}.njk`],
+  vue: (name) => [`${name}.vue`, `${name}.spec.js`, 'index.js'],
+  react: (name) => [`${name}.jsx`, `${name}.test.jsx`, 'index.js']
 };
 
 const failures = [];
@@ -65,8 +65,12 @@ async function findFiles(directory) {
 
 const centralStories = (await findFiles(join(root, 'apps/storybook/src')))
   .filter((path) => /\.stories\.[cm]?[jt]sx?$/.test(path));
-if (centralStories.length > 0) {
-  failures.push(...centralStories.map((path) => path.replace(`${root}/`, '')));
+await requirePath('apps/storybook/src/Button.stories.tsx');
+
+for (const app of ['html', 'gulp', 'vue', 'react', 'nuxt', 'next']) {
+  const appStories = (await findFiles(join(root, `apps/${app}`)))
+    .filter((path) => /\.stories\.[cm]?[jt]sx?$/.test(path));
+  failures.push(...appStories.map((path) => path.replace(`${root}/`, '')));
 }
 
 for (const app of ['html', 'gulp', 'react']) {
@@ -80,5 +84,5 @@ if (failures.length > 0) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exitCode = 1;
 } else {
-  console.log('구조 검증 완료: 공통 컴포넌트 52개 × 4개 프레임워크, Nuxt/Next 전용 구현, 중앙 문서 Storybook');
+  console.log(`구조 검증 완료: 공통 컴포넌트 52개 × 4개 프레임워크, 중앙 Storybook ${centralStories.length}개 Story`);
 }

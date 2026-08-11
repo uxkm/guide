@@ -4,7 +4,7 @@ export const buttonExamples: FrameworkExample[] = [
   {
     id: 'html',
     label: 'HTML',
-    fileName: 'button.html',
+    fileName: 'apps/html/src/components/basic/Button/Button.html',
     code: `<button type="button" class="uxkm-button uxkm-button--primary">
   Button
 </button>`
@@ -12,91 +12,46 @@ export const buttonExamples: FrameworkExample[] = [
   {
     id: 'gulp',
     label: 'Gulp',
-    fileName: 'templates/components/button.njk',
-    code: `{% macro button(text, variant = 'primary') %}
-  <button type="button" class="uxkm-button uxkm-button--{{ variant }}">
-    {{ text }}
-  </button>
-{% endmacro %}
-
-{{ button('Button') }}`
+    fileName: 'apps/gulp/src/components/basic/Button/button.njk',
+    code: `<button type="button" class="uxkm-button uxkm-button--primary">
+  Button
+</button>`
   },
   {
     id: 'vue',
     label: 'Vue',
-    fileName: 'src/components/basic/UxkmButton.vue',
-    code: `<script setup lang="ts">
-withDefaults(
-  defineProps<{ variant?: 'primary' | 'secondary' }>(),
-  { variant: 'primary' }
-)
+    fileName: 'apps/vue/src/components/basic/Button/Button.vue',
+    code: `<script setup>
+defineProps({
+  disabled: { type: Boolean, default: false },
+  variant: { type: String, default: 'primary' }
+});
 </script>
 
 <template>
-  <button type="button" :class="['uxkm-button', \`uxkm-button--\${variant}\`]">
-    <slot />
+  <button
+    :class="['uxkm-button', \`uxkm-button--\${variant}\`]"
+    :disabled="disabled"
+    type="button"
+  >
+    <slot>Button</slot>
   </button>
 </template>`
   },
   {
     id: 'react',
     label: 'React',
-    fileName: 'src/components/basic/Button.tsx',
-    code: `import type { ButtonHTMLAttributes, ReactNode } from 'react';
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: 'primary' | 'secondary';
-}
-
-export function Button({ children, variant = 'primary', ...props }: ButtonProps) {
+    fileName: 'apps/react/src/components/basic/Button/Button.jsx',
+    code: `export function Button({ children = 'Button', variant = 'primary', ...props }) {
   return (
-    <button className={\`uxkm-button uxkm-button--\${variant}\`} {...props}>
+    <button
+      className={\`uxkm-button uxkm-button--\${variant}\`}
+      type="button"
+      {...props}
+    >
       {children}
     </button>
   );
 }`
-  },
-  {
-    id: 'nuxt',
-    label: 'Nuxt',
-    fileName: 'components/basic/UxkmButton.vue',
-    code: `<script setup lang="ts">
-withDefaults(
-  defineProps<{ variant?: 'primary' | 'secondary' }>(),
-  { variant: 'primary' }
-)
-</script>
-
-<template>
-  <button type="button" :class="['uxkm-button', \`uxkm-button--\${variant}\`]">
-    <slot />
-  </button>
-</template>
-
-<!-- Nuxt auto-import -->
-<UxkmButton variant="primary">Button</UxkmButton>`
-  },
-  {
-    id: 'next',
-    label: 'Next',
-    fileName: 'app/components/basic/Button.tsx',
-    code: `import type { ButtonHTMLAttributes, ReactNode } from 'react';
-
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode;
-  variant?: 'primary' | 'secondary';
-};
-
-export function Button({ children, variant = 'primary', ...props }: ButtonProps) {
-  return (
-    <button className={\`uxkm-button uxkm-button--\${variant}\`} {...props}>
-      {children}
-    </button>
-  );
-}
-
-// app/page.tsx (Server Component에서도 사용 가능)
-<Button variant="primary">Button</Button>`
   }
 ];

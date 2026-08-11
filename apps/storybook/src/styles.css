@@ -26,47 +26,6 @@ body {
   max-width: none !important;
 }
 
-.uxkm-button {
-  min-height: 40px;
-  padding: 0 18px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  font: inherit;
-  font-weight: 650;
-  cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-
-.uxkm-button--primary {
-  color: #fff;
-  background: #2563eb;
-}
-
-.uxkm-button--primary:hover:not(:disabled) {
-  background: #1d4ed8;
-}
-
-.uxkm-button--secondary {
-  color: #182131;
-  background: #fff;
-  border-color: #cbd5e1;
-}
-
-.uxkm-button--secondary:hover:not(:disabled) {
-  background: #f8fafc;
-  border-color: #94a3b8;
-}
-
-.uxkm-button:focus-visible {
-  outline: 3px solid rgb(37 99 235 / 35%);
-  outline-offset: 2px;
-}
-
-.uxkm-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-}
-
 .catalog-placeholder {
   min-height: 100vh;
   padding: 32px var(--content-inline);
@@ -219,6 +178,92 @@ body {
   tab-size: 2;
 }
 
+.framework-storybooks {
+  margin-top: 28px;
+}
+
+.framework-storybooks__code {
+  overflow: hidden;
+  border: 1px solid #dbe3ee;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.framework-storybooks__tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 8px 8px 0;
+  border-bottom: 1px solid #263246;
+  background: #101827;
+}
+
+.framework-storybooks__tabs button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 7px 7px 0 0;
+  color: #94a3b8;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.framework-storybooks__tabs button:hover,
+.framework-storybooks__tabs button[aria-selected="true"] {
+  color: #fff;
+  background: #263246;
+}
+
+.framework-storybooks__tabs button:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: -2px;
+}
+
+.framework-storybooks__filebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 0 14px;
+  border-bottom: 1px solid #263246;
+  gap: 16px;
+}
+
+.framework-storybooks__filebar code {
+  overflow: hidden;
+  color: #94a3b8;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.framework-storybooks__filebar button {
+  padding: 6px 9px;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  color: #cbd5e1;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.framework-storybooks__panel {
+  color: #dbeafe;
+  background: #101827;
+}
+
+.framework-storybooks__panel pre {
+  overflow: auto;
+  min-height: 280px;
+  max-height: 560px;
+  margin: 0;
+  padding: 16px;
+  font: 13px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  tab-size: 2;
+}
+
 @media (max-width: 640px) {
   :root {
     --content-inline: 8px;
@@ -241,4 +286,5 @@ body {
   .framework-code__panel pre {
     padding: 12px;
   }
+
 }

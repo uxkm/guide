@@ -6,7 +6,7 @@ import * as sass from 'sass';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const source = join(root, 'packages/styles/src/index.scss');
-const applicationTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next'].map(
+const applicationTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'storybook'].map(
   (app) => join(root, `apps/${app}/public/styles/uxkm.css`)
 );
 const packageTarget = join(root, 'packages/styles/dist/uxkm.css');

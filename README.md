@@ -167,7 +167,7 @@ uxkm-framework-components/
 └── README.md
 ```
 
-HTML, Gulp, Vue, React는 동일한 카테고리와 52개 컴포넌트 이름을 사용합니다. 각 컴포넌트는 하나의 디렉터리에서 구현, Story, 스타일과 테스트 또는 예제를 함께 관리합니다.
+HTML, Gulp, Vue, React는 동일한 카테고리와 52개 컴포넌트 이름을 사용합니다. 각 컴포넌트는 하나의 디렉터리에서 프레임워크별 구현과 테스트 또는 예제를 관리하고, Story는 `apps/storybook`에서 한 번만 제공합니다.
 
 ```text
 components/
@@ -408,6 +408,7 @@ apps/vue/public/styles/uxkm.css
 apps/react/public/styles/uxkm.css
 apps/nuxt/public/styles/uxkm.css
 apps/next/public/styles/uxkm.css
+apps/storybook/public/styles/uxkm.css
 ```
 
 생성된 CSS는 직접 수정하거나 Git으로 관리하지 않습니다. 스타일 변경은 공통 SCSS에서만 수행한 뒤 `pnpm build:styles`로 각 프레임워크에 반영합니다.

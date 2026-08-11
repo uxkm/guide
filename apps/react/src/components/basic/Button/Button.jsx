@@ -1,6 +1,6 @@
-export function Button({ children = 'Button', className = '', ...props }) {
-  const classes = ['uxkm-button', className].filter(Boolean).join(' ');
-  return <div className={classes} data-component="Button" {...props}>{children}</div>;
+export function Button({ children = 'Button', className = '', variant = 'primary', ...props }) {
+  const classes = ['uxkm-button', `uxkm-button--${variant}`, className].filter(Boolean).join(' ');
+  return <button className={classes} data-component="Button" type="button" {...props}>{children}</button>;
 }
 
 export default Button;

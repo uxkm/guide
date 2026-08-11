@@ -1,5 +1,29 @@
 // Button의 모든 프레임워크 공통 스타일
 .uxkm-button {
-  display: block;
+  display: inline-flex;
+  min-height: 40px;
+  padding: 0 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
   font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.uxkm-button--primary {
+  color: #fff;
+  background: #2563eb;
+}
+
+.uxkm-button--secondary {
+  color: #182131;
+  border-color: #cbd5e1;
+  background: #fff;
+}
+
+.uxkm-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
