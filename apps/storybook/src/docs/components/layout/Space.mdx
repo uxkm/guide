@@ -1,8 +1,65 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { spaceFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { spaceApiSections } from '../../../layoutApiSections.ts';
+import * as SpaceStories from '../../../Space.stories.tsx';
+
+<Meta of={SpaceStories} />
+
 # Space
 
-Layout 카테고리의 Space 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+자식 요소 사이 간격을 일관되게 맞추는 flex 기반 레이아웃 컴포넌트입니다. 간격·방향·정렬·줄바꿈을 조합합니다.
 
-- HTML: `apps/html/src/components/layout/Space`
-- Gulp: `apps/gulp/src/components/layout/Space`
-- Vue: `apps/vue/src/components/layout/Space`
-- React: `apps/react/src/components/layout/Space`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/space`, `@uxkm/react/space`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## Playground
+
+방향, 줄바꿈, block 너비, 간격과 정렬을 Controls에서 조정할 수 있습니다.
+
+<Canvas of={SpaceStories.Playground} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.playground} />
+
+## 기본
+
+Space는 가로 inline-flex이며 기본 간격은 `--space-gap`에 정의된 md입니다.
+
+<Canvas of={SpaceStories.Basic} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.basic} />
+
+## 세로
+
+`vertical` 또는 `space_vertical`로 자식을 위에서 아래로 배치합니다.
+
+<Canvas of={SpaceStories.Vertical} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.vertical} />
+
+## 간격
+
+`gap` 또는 `space_gap-xs`·`space_gap-sm`·`space_gap-lg`·`space_gap-xl`로 간격 크기를 변경합니다.
+
+<Canvas of={SpaceStories.Gap} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.gap} />
+
+## 줄바꿈
+
+`wrap`과 `block`을 함께 사용하면 너비가 부족할 때 자식이 다음 줄로 넘어갑니다.
+
+<Canvas of={SpaceStories.Wrap} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.wrap} />
+
+## 정렬
+
+`align`과 `justify`로 교차축·주축 정렬을 지정합니다.
+
+<Canvas of={SpaceStories.Align} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.align} />
+
+## 조합 예시
+
+버튼과 세로 Divider 등 실제 컴포넌트와 함께 사용하는 패턴입니다.
+
+<Canvas of={SpaceStories.Combo} sourceState="none" />
+<FrameworkTabs examples={spaceFrameworkExamples.combo} />
+
+<ComponentApiDocs sections={spaceApiSections} />

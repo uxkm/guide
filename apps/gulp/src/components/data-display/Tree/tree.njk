@@ -1,1 +1,10 @@
-<div class="uxkm-tree" data-component="Tree">Tree</div>
+<ul class="tree tree_bordered" data-component="Tree" role="tree" aria-label="파일 탐색기">
+  <li class="tree_item" data-component="TreeNode" role="treeitem" aria-expanded="true">
+    <div class="tree_row"><button type="button" class="tree_toggle" aria-expanded="true" aria-label="src 폴더 접기"></button><span class="tree_label">src</span></div>
+    <ul class="tree" role="group"><li class="tree_item" data-component="TreeNode" role="treeitem"><div class="tree_row is-selected"><span class="tree_toggle tree_toggle_placeholder" aria-hidden="true"></span><span class="tree_label">button.html</span></div></li></ul>
+  </li>
+  <li class="tree_item" data-component="TreeNode" role="treeitem" aria-expanded="false">
+    <div class="tree_row"><button type="button" class="tree_toggle" aria-expanded="false" aria-label="public 폴더 펼치기"></button><span class="tree_label">public</span></div>
+    <ul class="tree" role="group"><li class="tree_item" role="treeitem"><div class="tree_row"><span class="tree_toggle tree_toggle_placeholder"></span><span class="tree_label">favicon.ico</span></div></li></ul>
+  </li>
+</ul>

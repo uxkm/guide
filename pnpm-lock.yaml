@@ -24,9 +24,23 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(sass@1.102.0)
 
-  apps/next: {}
+  apps/next:
+    dependencies:
+      '@uxkm/react':
+        specifier: workspace:*
+        version: link:../react
+      react:
+        specifier: ^19.2.8
+        version: 19.2.8
 
-  apps/nuxt: {}
+  apps/nuxt:
+    dependencies:
+      '@uxkm/vue':
+        specifier: workspace:*
+        version: link:../vue
+      vue:
+        specifier: ^3.5.0
+        version: 3.5.41(typescript@6.0.3)
 
   apps/react:
     dependencies:
@@ -97,23 +111,7 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(sass@1.102.0)
 
-  packages/assets: {}
-
-  packages/code-examples: {}
-
-  packages/component-specs: {}
-
-  packages/content: {}
-
-  packages/guide-content: {}
-
-  packages/guide-navigation: {}
-
-  packages/navigation: {}
-
   packages/styles: {}
-
-  packages/tokens: {}
 
 packages:
 

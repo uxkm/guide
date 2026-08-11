@@ -1,8 +1,100 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { linkFrameworkExamples } from '../../../linkFrameworkExamples.ts';
+import { linkApiSections } from '../../../linkApiSections.ts';
+import * as LinkStories from '../../../Link.stories.tsx';
+
+<Meta of={LinkStories} />
+
 # Link
 
-Basic 카테고리의 Link 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+페이지 이동과 보조 액션에 사용하는 하이퍼링크 컴포넌트입니다. 본문 안 인라인 링크는 Typography의 `typo_link`를 사용합니다.
 
-- HTML: `apps/html/src/components/basic/Link`
-- Gulp: `apps/gulp/src/components/basic/Link`
-- Vue: `apps/vue/src/components/basic/Link`
-- React: `apps/react/src/components/basic/Link`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/link`, `@uxkm/react/link`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## 기본
+
+기본 색상은 primary이며 hover 시 밑줄이 표시됩니다.
+
+<Canvas of={LinkStories.Basic} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.basic} />
+
+## 이미지 · 아이콘 · 커스텀 요소
+
+children 또는 기본 슬롯에 이미지·아이콘·컴포넌트를 조합할 수 있으며, `as`로 루트 요소를 변경할 수 있습니다.
+
+<Canvas of={LinkStories.CustomContent} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.source} />
+
+## 색상
+
+공통 `color_*` 클래스를 조합합니다. 다른 컴포넌트와 동일한 색상 계약을 사용합니다.
+
+<Canvas of={LinkStories.Colors} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.colors} />
+
+## 크기
+
+공통 `size_*` 클래스로 텍스트 크기를 조절합니다.
+
+<Canvas of={LinkStories.Sizes} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.sizes} />
+
+## 스타일
+
+`underline` · `noUnderline` · `standalone`으로 밑줄과 터치 영역을 조절합니다.
+
+<Canvas of={LinkStories.Styles} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.styles} />
+
+## 내비게이션
+
+`nav` · `active`로 메뉴·탭 링크를 표현합니다. 현재 페이지에는 `aria-current="page"`가 적용됩니다.
+
+<Canvas of={LinkStories.Navigation} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.navigation} />
+
+## 블록 · 그룹
+
+`block`과 `link_group`으로 세로 링크 목록을 구성합니다.
+
+<Canvas of={LinkStories.BlockGroup} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.block} />
+
+## 아이콘 전용
+
+`iconOnly`로 텍스트 없는 링크를 만듭니다. 접근성을 위해 `aria-label`을 반드시 지정합니다.
+
+<Canvas of={LinkStories.IconOnly} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.iconOnly} />
+
+## 아이콘
+
+`icon` · `iconAfter` 또는 Vue의 `#icon` · `#icon-after` 슬롯으로 텍스트 앞뒤에 아이콘을 배치합니다. 장식용 아이콘은 접근성 트리에서 숨깁니다.
+
+<Canvas of={LinkStories.WithIcon} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.icons} />
+
+## 새 창 열기
+
+`target="_blank"`와 `rel="noopener noreferrer"`를 함께 지정합니다. 링크 텍스트에는 새 창 안내를 포함합니다.
+
+<Canvas of={LinkStories.External} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.external} />
+
+## 비활성
+
+`disabled`는 `is-disabled`, `aria-disabled`, `tabindex=-1`을 적용하고 클릭을 차단합니다. HTML에서는 필요에 따라 `href`를 제거하거나 `span`으로 대체합니다.
+
+<Canvas of={LinkStories.Disabled} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.disabled} />
+
+## 문맥 속 사용
+
+알림·카드·폼 등 다른 컴포넌트 안에서 보조 액션 링크로 활용합니다.
+
+<Canvas of={LinkStories.Context} sourceState="none" />
+<FrameworkTabs examples={linkFrameworkExamples.context} />
+
+<ComponentApiDocs sections={linkApiSections} />

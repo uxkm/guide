@@ -1,1 +1,1 @@
-export { default, Tag } from './Tag';
+export { default, Tag, TagGroup } from './Tag.jsx';

@@ -1,8 +1,121 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { typographyFrameworkExamples } from '../../../typographyFrameworkExamples.ts';
+import { typographyApiSections } from '../../../typographyApiSections.ts';
+import * as TypographyStories from '../../../Typography.stories.tsx';
+
+<Meta of={TypographyStories} />
+
 # Typography
 
-Basic 카테고리의 Typography 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+제목, 본문, 강조, 말줄임 등 텍스트 표현에 일관된 위계와 시맨틱 태그를 적용하는 컴포넌트입니다.
 
-- HTML: `apps/html/src/components/basic/Typography`
-- Gulp: `apps/gulp/src/components/basic/Typography`
-- Vue: `apps/vue/src/components/basic/Typography`
-- React: `apps/react/src/components/basic/Typography`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/typography`, `@uxkm/react/typography`의 `TypoTitle`·`TypoText`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## 제목
+
+`typo_title-1`부터 `typo_title-5`까지 5단계 제목 스케일을 제공합니다. 문서 구조에 맞는 동일 레벨의 시맨틱 heading 태그를 사용합니다.
+
+<Canvas of={TypographyStories.Titles} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.titles} />
+
+## 본문
+
+기본 본문은 별도 클래스 없이 `p`를 사용합니다. 단락 사이의 간격이 필요하면 `typo_paragraph`를 적용합니다.
+
+<Canvas of={TypographyStories.Body} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.body} />
+
+## 색상 타입
+
+`color_muted`, `color_success` 등 공통 색상 클래스를 사용합니다. 다른 컴포넌트에서도 같은 색상 계약을 공유합니다.
+
+<Canvas of={TypographyStories.Colors} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.colors} />
+
+## 크기
+
+base는 별도 클래스 없이 적용되며 xs, sm, lg, xl은 각각 공통 `size_*` 클래스를 사용합니다.
+
+<Canvas of={TypographyStories.Sizes} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.sizes} />
+
+## 텍스트 스타일
+
+강조, 기울임, 밑줄, 취소선, 형광펜, 인라인 코드 등 인라인 스타일을 의미에 맞는 태그와 조합합니다.
+
+<Canvas of={TypographyStories.InlineStyles} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.styles} />
+
+## 아래첨자 · 위첨자 · 소문자
+
+`sub` · `sup` · `small` 시맨틱 태그에 `typo_sub` · `typo_sup` · `typo_small`을 적용합니다.
+
+<Canvas of={TypographyStories.SubSupSmall} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.subSup} />
+
+## 말줄임
+
+`text_ellipsis`로 1줄, `text_ellipsis-2`·`text_ellipsis-3`으로 여러 줄 말줄임을 적용합니다. 부모에 너비 제한이 필요합니다.
+
+<Canvas of={TypographyStories.Ellipsis} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.ellipsis} />
+
+## 인용
+
+`blockquote` 태그와 `typo_blockquote`를 사용하고, 출처가 있다면 `cite`에 URL을 지정합니다.
+
+<Canvas of={TypographyStories.Quote} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.quote} />
+
+## 목록
+
+본문 목록은 `ul` · `ol`에 `typo_list` · `typo_list-ordered`를 적용합니다. 인터랙티브 UI 목록에는 List 컴포넌트를 사용합니다.
+
+<Canvas of={TypographyStories.Lists} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.lists} />
+
+## 링크
+
+본문 내 하이퍼링크에는 `typo_link`를 사용하고 실제 이동할 `href`를 함께 지정합니다.
+
+<Canvas of={TypographyStories.Links} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.links} />
+
+## 리드 · 캡션 · 레이블
+
+`typo_lead` · `typo_caption` · `typo_label` · `typo_overline`으로 보조 텍스트 위계를 표현합니다.
+
+<Canvas of={TypographyStories.SupportingText} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.supporting} />
+
+## 제목 색상
+
+제목에도 공통 `color_*` 클래스를 조합할 수 있습니다.
+
+<Canvas of={TypographyStories.TitleColors} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.titleColors} />
+
+## 키보드 · 코드 블록
+
+`typo_kbd` · `typo_pre` · `typo_code`로 단축키와 코드 콘텐츠를 표시합니다.
+
+<Canvas of={TypographyStories.KeyboardCode} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.keyboard} />
+
+## 중첩 목록
+
+`typo_list` · `typo_list-ordered` 안에 하위 `ul` · `ol`을 중첩할 수 있습니다.
+
+<Canvas of={TypographyStories.NestedLists} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.nestedLists} />
+
+## 제목 + 본문 조합
+
+`typo_stack`, `typo_stack-lg`로 제목과 본문을 묶어 일관된 수직 간격을 적용합니다.
+
+<Canvas of={TypographyStories.Stack} sourceState="none" />
+<FrameworkTabs examples={typographyFrameworkExamples.stack} />
+
+<ComponentApiDocs sections={typographyApiSections} />

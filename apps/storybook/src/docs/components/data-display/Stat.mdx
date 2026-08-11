@@ -1,8 +1,70 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { statFrameworkExamples } from '../../../statFrameworkExamples.ts';
+import { statApiSections } from '../../../dataDisplayAdvancedApiSections.ts';
+import * as StatStories from '../../../Stat.stories.tsx';
+
+<Meta of={StatStories} />
+
 # Stat
 
-Data Display 카테고리의 Stat 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+핵심 수치와 라벨, 설명, 추세를 강조해 표시합니다. 크기·접두·접미·아이콘·레이아웃·카드 스킨과 반응형 그룹을 제공합니다.
 
-- HTML: `apps/html/src/components/data-display/Stat`
-- Gulp: `apps/gulp/src/components/data-display/Stat`
-- Vue: `apps/vue/src/components/data-display/Stat`
-- React: `apps/react/src/components/data-display/Stat`
+Vue와 React 구현은 각각 `@uxkm/vue/stat`, `@uxkm/react/stat`으로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+<Canvas of={StatStories.Basic} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.basic} />
+
+## 접두·접미
+
+통화·백분율·단위 등을 값과 분리해 표현합니다.
+
+<Canvas of={StatStories.PrefixSuffix} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.prefixSuffix} />
+
+## 추세
+
+`trend`, `trendColor`, `trendIcon`으로 증감 정보를 표시합니다.
+
+<Canvas of={StatStories.Trend} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.trend} />
+
+## 크기
+
+small, medium, large 세 가지 수치 크기를 제공합니다.
+
+<Canvas of={StatStories.Sizes} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.sizes} />
+
+## 레이아웃
+
+horizontal, inline, row 클래스로 콘텐츠 관계에 맞는 배치를 선택합니다.
+
+<Canvas of={StatStories.Layouts} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.layouts} />
+
+## 아이콘
+
+기본 슬롯·자식 콘텐츠로 아이콘과 커스텀 본문을 조합합니다.
+
+<Canvas of={StatStories.WithIcon} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.icon} />
+
+## 카드 스킨
+
+기본, 그림자, 배경형, 좌측 강조 스킨을 조합합니다.
+
+<Canvas of={StatStories.Skins} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.skins} />
+
+## 그룹
+
+`stat_group-2`부터 `stat_group-4`, `stat_group-divider`까지 반응형 지표 묶음을 제공합니다.
+
+<Canvas of={StatStories.Group} sourceState="none" />
+<FrameworkTabs examples={statFrameworkExamples.group} />
+
+<ComponentApiDocs sections={statApiSections} />

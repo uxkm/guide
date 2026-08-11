@@ -1,8 +1,107 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { flexFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { flexApiSections } from '../../../layoutApiSections.ts';
+import * as FlexStories from '../../../Flex.stories.tsx';
+
+<Meta of={FlexStories} />
+
 # Flex
 
-Layout 카테고리의 Flex 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+CSS Flexbox 기반으로 방향·간격·정렬·반응형 항목 크기를 제어하는 레이아웃 컴포넌트입니다. 혼합 배치는 FlexItem으로 개별 자식을 제어합니다.
 
-- HTML: `apps/html/src/components/layout/Flex`
-- Gulp: `apps/gulp/src/components/layout/Flex`
-- Vue: `apps/vue/src/components/layout/Flex`
-- React: `apps/react/src/components/layout/Flex`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/flex`, `@uxkm/react/flex`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## Playground
+
+방향, 열 수, 간격, 정렬, 줄바꿈을 Controls에서 조정할 수 있습니다.
+
+<Canvas of={FlexStories.Playground} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.playground} />
+
+## 기본 페이지 레이아웃
+
+작은 화면에서는 한 열로 쌓고, md 이상에서 사이드바 3/12와 본문 9/12로 나눕니다.
+
+<Canvas of={FlexStories.PageLayout} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.pageLayout} />
+
+## 콘텐츠가 있는 페이지 레이아웃
+
+Main content 안에 제목·설명과 반응형 콘텐츠 섹션을 배치한 활용 예시입니다.
+
+<Canvas of={FlexStories.ContentLayout} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.contentLayout} />
+
+## 부모 클래스로 제어
+
+균등 항목 수·비율·자식 일괄 span을 부모 Flex에 지정합니다.
+
+<Canvas of={FlexStories.Parent} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.parent} />
+
+## 12열 전체 활용
+
+`itemSpan={1}`로 12개 항목이 한 행을 채웁니다.
+
+<Canvas of={FlexStories.TwelveColumns} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.twelveColumns} />
+
+## 균등 항목
+
+`cols`로 한 행에 들어갈 동일 너비 항목 수를 지정합니다.
+
+<Canvas of={FlexStories.Equal} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.equal} />
+
+## 비율 항목
+
+`ratio`로 1-2, 1-2-1 등 자주 쓰는 항목 비율을 지정합니다.
+
+<Canvas of={FlexStories.Ratio} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.ratio} />
+
+## 자식 일괄 span
+
+`itemSpan`으로 모든 직계 자식의 12단위 너비를 한 번에 지정합니다.
+
+<Canvas of={FlexStories.ItemSpan} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.itemSpan} />
+
+## 자식별 span
+
+혼합 레이아웃에서는 FlexItem의 `span`을 사용해 각 항목 너비를 지정합니다.
+
+<Canvas of={FlexStories.ChildSpan} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.childSpan} />
+
+## 간격
+
+`gap` 또는 `flex_gap-sm`·`flex_gap-lg`·`flex_gap-none`을 부모에 지정합니다.
+
+<Canvas of={FlexStories.Gap} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.gap} />
+
+## 반응형
+
+Flex와 FlexItem의 md·lg prop으로 반응형 배치를 제어합니다.
+
+<Canvas of={FlexStories.Responsive} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.responsive} />
+
+## 자동 배치
+
+`autoFit`은 `--flex-auto-min`을 기준으로 줄바꿈하고 남는 공간을 채웁니다.
+
+<Canvas of={FlexStories.Auto} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.auto} />
+
+## 정렬과 비율
+
+주축 정렬과 항목 비율을 각각 또는 함께 조합할 수 있습니다.
+
+<Canvas of={FlexStories.AlignmentAndRatio} sourceState="none" />
+<FrameworkTabs examples={flexFrameworkExamples.alignmentAndRatio} />
+
+<ComponentApiDocs sections={flexApiSections} />

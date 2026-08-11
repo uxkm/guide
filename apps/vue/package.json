@@ -3,6 +3,27 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./avatar": "./src/components/data-display/Avatar/index.js",
+    "./badge": "./src/components/data-display/Badge/index.js",
+    "./button": "./src/components/basic/Button/Button.vue",
+    "./card": "./src/components/data-display/Card/index.js",
+    "./calendar": "./src/components/data-display/Calendar/index.js",
+    "./container": "./src/components/layout/Container/Container.vue",
+    "./divider": "./src/components/layout/Divider/Divider.vue",
+    "./flex": "./src/components/layout/Flex/index.js",
+    "./grid": "./src/components/layout/Grid/index.js",
+    "./icon": "./src/components/basic/Icon/Icon.vue",
+    "./link": "./src/components/basic/Link/Link.vue",
+    "./list": "./src/components/data-display/List/index.js",
+    "./space": "./src/components/layout/Space/Space.vue",
+    "./stat": "./src/components/data-display/Stat/index.js",
+    "./tag": "./src/components/data-display/Tag/index.js",
+    "./table": "./src/components/data-display/Table/index.js",
+    "./timeline": "./src/components/data-display/Timeline/index.js",
+    "./tree": "./src/components/data-display/Tree/index.js",
+    "./typography": "./src/components/basic/Typography/index.js"
+  },
   "dependencies": {
     "vue": "^3.5.0"
   },

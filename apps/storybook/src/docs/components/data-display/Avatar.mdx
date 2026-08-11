@@ -1,8 +1,58 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { avatarFrameworkExamples } from '../../../dataDisplayFrameworkExamples.ts';
+import { avatarApiSections } from '../../../dataDisplayApiSections.ts';
+import * as AvatarStories from '../../../Avatar.stories.tsx';
+
+<Meta of={AvatarStories} />
+
 # Avatar
 
-Data Display 카테고리의 Avatar 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+사용자·조직을 이미지, 이니셜 또는 아이콘으로 표현합니다. 크기·형태·색상·상태 점과 겹침 그룹을 공통 API로 제공합니다.
 
-- HTML: `apps/html/src/components/data-display/Avatar`
-- Gulp: `apps/gulp/src/components/data-display/Avatar`
-- Vue: `apps/vue/src/components/data-display/Avatar`
-- React: `apps/react/src/components/data-display/Avatar`
+Vue와 React 구현은 각각 `@uxkm/vue/avatar`, `@uxkm/react/avatar`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+이미지가 있으면 `avatar_image`로 표시하고, 로드에 실패하거나 이미지가 없으면 아이콘·자식·이니셜 순서로 대체합니다.
+
+<Canvas of={AvatarStories.Basic} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.basic} />
+
+## 크기
+
+small, medium, large, extra large 네 가지 크기를 제공합니다.
+
+<Canvas of={AvatarStories.Sizes} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.sizes} />
+
+## 형태
+
+기본은 원형이며 `square` 또는 `avatar_square`로 사각형을 적용합니다.
+
+<Canvas of={AvatarStories.Shapes} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.shapes} />
+
+## 색상
+
+이니셜·아이콘형 아바타에 공통 `color_*` 색상을 적용합니다.
+
+<Canvas of={AvatarStories.Colors} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.colors} />
+
+## 상태 배지
+
+`badgeColor`와 `badgeLabel`로 온라인·자리 비움·오프라인 등의 상태를 표시합니다.
+
+<Canvas of={AvatarStories.StatusBadge} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.badge} />
+
+## 그룹
+
+`AvatarGroup`은 여러 아바타를 겹쳐 표시합니다. 그룹에는 인원이나 목적을 설명하는 접근성 이름을 지정합니다.
+
+<Canvas of={AvatarStories.Group} sourceState="none" />
+<FrameworkTabs examples={avatarFrameworkExamples.group} />
+
+<ComponentApiDocs sections={avatarApiSections} />

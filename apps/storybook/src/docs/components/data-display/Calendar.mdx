@@ -1,8 +1,107 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { calendarFrameworkExamples } from '../../../calendarFrameworkExamples.ts';
+import { calendarApiSections } from '../../../calendarApiSections.ts';
+import * as CalendarStories from '../../../Calendar.stories.tsx';
+
+<Meta of={CalendarStories} />
+
 # Calendar
 
-Data Display 카테고리의 Calendar 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+날짜를 월·주 단위 그리드, 세로 일정 목록, iOS 스타일 휠로 표시하는 캘린더 컴포넌트입니다.
 
-- HTML: `apps/html/src/components/data-display/Calendar`
-- Gulp: `apps/gulp/src/components/data-display/Calendar`
-- Vue: `apps/vue/src/components/data-display/Calendar`
-- React: `apps/react/src/components/data-display/Calendar`
+Vue와 React 구현은 각각 `@uxkm/vue/calendar`, `@uxkm/react/calendar`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+헤더·요일·날짜 그리드로 월간 뷰를 구성하고 날짜 상태를 표현합니다.
+
+<Canvas of={CalendarStories.Basic} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.basic} showFullCode />
+
+## 헤더 없음
+
+상위 UI에서 제목을 제공할 때 요일과 날짜 그리드만 표시합니다.
+
+<Canvas of={CalendarStories.NoHeader} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.noHeader} showFullCode />
+
+## 날짜만
+
+헤더와 요일 없이 날짜만 표시해 인라인 선택이나 좁은 공간에 사용합니다.
+
+<Canvas of={CalendarStories.Minimal} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.minimal} showFullCode />
+
+## 주간
+
+한 주만 표시하고 이전·다음 주 탐색을 제공합니다.
+
+<Canvas of={CalendarStories.Week} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.week} showFullCode />
+
+## 휠 (iOS 스타일)
+
+년·월·일 열과 이전·다음 단계 버튼으로 휠 선택기를 구성합니다.
+
+<Canvas of={CalendarStories.Wheel} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.wheel} showFullCode />
+
+## 범위 선택
+
+시작일·선택 구간·종료일 상태로 기간 선택을 표현합니다.
+
+<Canvas of={CalendarStories.Range} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.range} showFullCode />
+
+## 이벤트 마커
+
+일정이 있는 날짜에 점 표시를 추가합니다.
+
+<Canvas of={CalendarStories.Event} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.event} showFullCode />
+
+## 스킨
+
+borderless·ghost·shadow로 외형을 조절합니다.
+
+<Canvas of={CalendarStories.Skin} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.skin} showFullCode />
+
+## 크기
+
+small·compact·large로 셀 크기와 패딩을 조절합니다.
+
+<Canvas of={CalendarStories.Size} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.size} showFullCode />
+
+## 푸터
+
+오늘 이동·초기화·확인 같은 하단 액션을 배치합니다.
+
+<Canvas of={CalendarStories.Footer} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.footer} showFullCode />
+
+## 이중 패널
+
+두 달을 나란히 배치해 기간 선택·예약 UI를 구성합니다.
+
+<Canvas of={CalendarStories.Dual} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.dual} showFullCode />
+
+## 세로 일정
+
+날짜별 시간·제목·설명을 세로 일정 목록으로 표시합니다.
+
+<Canvas of={CalendarStories.Agenda} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.agenda} showFullCode />
+
+## 상태
+
+읽기 전용과 전체 비활성 상태를 제공합니다.
+
+<Canvas of={CalendarStories.State} sourceState="none" />
+<FrameworkTabs examples={calendarFrameworkExamples.state} showFullCode />
+
+<ComponentApiDocs sections={calendarApiSections} />

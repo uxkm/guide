@@ -1,4 +1,6 @@
 import { useId, useState, type KeyboardEvent, type ReactNode } from 'react';
+import FrameworkCodeBlock from './shared/FrameworkCodeBlock';
+import { formatCodeExample } from './shared/formatCodeExample';
 
 export interface FrameworkExample {
   code: string;
@@ -40,7 +42,7 @@ export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
 
   async function copyCode() {
     if (!activeExample) return;
-    await navigator.clipboard.writeText(activeExample.code);
+    await navigator.clipboard.writeText(formatCodeExample(activeExample.code));
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }
@@ -97,9 +99,11 @@ export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
               {copied ? '복사됨' : '코드 복사'}
             </button>
           </div>
-          <pre>
-            <code>{activeExample.code}</code>
-          </pre>
+          <FrameworkCodeBlock
+            className="framework-code__syntax"
+            code={activeExample.code}
+            frameworkId={activeExample.id}
+          />
         </div>
       </section>
     </main>

@@ -1,8 +1,74 @@
-# FormLayout
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { formLayoutFrameworkExamples } from '../../../formLayoutFrameworkExamples.ts';
+import { formLayoutApiSections } from '../../../formLayoutApiSections.ts';
+import * as FormLayoutStories from '../../../FormLayout.stories.tsx';
 
-Form 카테고리의 FormLayout 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+<Meta of={FormLayoutStories} />
 
-- HTML: `apps/html/src/components/form/FormLayout`
-- Gulp: `apps/gulp/src/components/form/FormLayout`
-- Vue: `apps/vue/src/components/form/FormLayout`
-- React: `apps/react/src/components/form/FormLayout`
+# Form Layout
+
+레이블, 입력 컨트롤, 상태 메시지와 액션을 일관된 간격과 정렬로 구성하는 폼 레이아웃 컴포넌트입니다.
+
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/form-layout`, `@uxkm/react/form-layout`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+필수 필드는 별표와 함께 스크린 리더용 “필수 항목” 텍스트를 제공합니다. `FormField`의 `required` 표시는 안내용이므로 실제 입력 컨트롤에도 네이티브 `required` 속성을 지정해야 합니다.
+
+## 세로
+
+기본 레이아웃입니다. 레이블과 컨트롤을 위아래로 배치하며, `fit`으로 입력 영역의 최대 너비를 제한할 수 있습니다.
+
+<Canvas of={FormLayoutStories.Vertical} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.vertical} />
+
+## 가로
+
+레이블 열과 컨트롤 열을 나란히 배치합니다. 레이블 너비와 정렬을 폼 단위로 통일할 수 있습니다.
+
+<Canvas of={FormLayoutStories.Horizontal} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.horizontal} />
+
+## 가로 — 레이블 정렬·너비
+
+`labelAlign="start"`로 레이블을 왼쪽 정렬하고, `sm`과 `lg` 너비로 레이블 열의 시작 위치를 조절합니다.
+
+<Canvas of={FormLayoutStories.HorizontalAlign} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.horizontalAlign} />
+
+## 인라인
+
+검색이나 필터처럼 짧은 필드와 실행 버튼을 한 행에 배치하고, 공간이 부족하면 자연스럽게 줄바꿈합니다.
+
+<Canvas of={FormLayoutStories.Inline} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.inline} />
+
+## 그리드
+
+Grid 안의 필드는 자체 세로 마진을 제거하므로 여러 필드를 열 단위로 조합할 수 있습니다.
+
+<Canvas of={FormLayoutStories.Grid} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.grid} />
+
+## 너비
+
+기본 너비, `fit`으로 제한한 너비, 가로 레이아웃의 남은 공간을 채우는 입력 너비를 비교합니다.
+
+<Canvas of={FormLayoutStories.Width} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.width} />
+
+## 액션 영역
+
+`FormActions`로 제출·취소 버튼을 그룹화합니다. 가로 레이아웃에서는 레이블 열만큼 자동으로 들여씁니다.
+
+<Canvas of={FormLayoutStories.Actions} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.actions} />
+
+## 전체 예시
+
+세로 레이아웃, 반응형 Grid, 컴팩트 간격, 필수 항목과 액션을 조합한 회원 정보 폼입니다.
+
+<Canvas of={FormLayoutStories.Example} sourceState="none" />
+<FrameworkTabs examples={formLayoutFrameworkExamples.example} />
+
+<ComponentApiDocs sections={formLayoutApiSections} />

@@ -1,8 +1,102 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { listFrameworkExamples } from '../../../listFrameworkExamples.ts';
+import { listApiSections } from '../../../dataDisplayAdvancedApiSections.ts';
+import * as ListStories from '../../../List.stories.tsx';
+
+<Meta of={ListStories} />
+
 # List
 
-Data Display 카테고리의 List 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+사람·설정·작업·정의 등 반복 항목을 시맨틱 목록으로 표현합니다. `ListItem`은 제목·설명·메타·앞 콘텐츠·보조 영역·액션을 일관되게 배치합니다.
 
-- HTML: `apps/html/src/components/data-display/List`
-- Gulp: `apps/gulp/src/components/data-display/List`
-- Vue: `apps/vue/src/components/data-display/List`
-- React: `apps/react/src/components/data-display/List`
+Vue와 React 구현은 각각 `@uxkm/vue/list`, `@uxkm/react/list`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+<Canvas of={ListStories.Basic} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.basic} />
+
+## 불릿
+
+`variant="bullet"`은 시맨틱 `ul`과 불릿 스킨을 함께 적용합니다.
+
+<Canvas of={ListStories.Bullet} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.bullet} />
+
+## 불릿 · 설명
+
+<Canvas of={ListStories.BulletRich} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.bulletRich} />
+
+## 불릿 변형
+
+원형·사각형 마커와 중첩 목록을 클래스 조합으로 표현합니다.
+
+<Canvas of={ListStories.BulletVariants} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.bulletVariants} />
+
+## 번호 목록
+
+<Canvas of={ListStories.Ordered} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.ordered} />
+
+## 번호 변형
+
+알파벳·로마 숫자·대문자 번호 형식을 제공합니다.
+
+<Canvas of={ListStories.OrderedVariants} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.orderedVariants} />
+
+## 계층 번호
+
+중첩 단계에 1.1 또는 1-1 형식의 계층 번호를 적용합니다.
+
+<Canvas of={ListStories.Hierarchical} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.hierarchical} />
+
+## 테두리
+
+<Canvas of={ListStories.Bordered} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.bordered} />
+
+## 링크 항목
+
+`li`는 구조를 유지하고 실제 인터랙션은 내부 `a.list_link`가 담당합니다.
+
+<Canvas of={ListStories.Links} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.links} />
+
+## 버튼 항목
+
+선택·실행 항목은 내부 `button.list_link`를 사용합니다.
+
+<Canvas of={ListStories.Buttons} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.buttons} />
+
+## 우측 액션
+
+<Canvas of={ListStories.Actions} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.actions} />
+
+## 정의 목록
+
+`variant="definition"`은 `dl`, `ListItem`의 제목·설명은 `dt`·`dd`로 렌더링합니다.
+
+<Canvas of={ListStories.Definition} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.definition} />
+
+## 정의 목록 · 인라인
+
+<Canvas of={ListStories.DefinitionInline} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.definitionInline} />
+
+## 정의 목록 · 우측 정렬
+
+주문 요약처럼 값 정렬이 필요한 경우 `descAlign="right"`를 사용합니다.
+
+<Canvas of={ListStories.DefinitionRight} sourceState="none" />
+<FrameworkTabs examples={listFrameworkExamples.definitionRight} />
+
+<ComponentApiDocs sections={listApiSections} />

@@ -1,8 +1,84 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { timelineFrameworkExamples } from '../../../timelineTreeFrameworkExamples.ts';
+import { timelineApiSections } from '../../../timelineTreeApiSections.ts';
+import * as TimelineStories from '../../../Timeline.stories.tsx';
+
+<Meta of={TimelineStories} />
+
 # Timeline
 
-Data Display 카테고리의 Timeline 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+시간순 이벤트와 프로세스 흐름을 표시합니다. `TimelineItem`은 시간·제목·설명·상태·메타 정보를 일관되게 배치합니다.
 
-- HTML: `apps/html/src/components/data-display/Timeline`
-- Gulp: `apps/gulp/src/components/data-display/Timeline`
-- Vue: `apps/vue/src/components/data-display/Timeline`
-- React: `apps/react/src/components/data-display/Timeline`
+Vue와 React 구현은 각각 `@uxkm/vue/timeline`, `@uxkm/react/timeline`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+<Canvas of={TimelineStories.Basic} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.basic} />
+
+## 간단
+
+제목과 시간만 표시하는 간결한 타임라인입니다.
+
+<Canvas of={TimelineStories.Simple} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.simple} />
+
+## 아웃라인 도트
+
+속이 빈 원형 마커로 밀도 높은 진행 목록을 표현합니다.
+
+<Canvas of={TimelineStories.Outline} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.outline} />
+
+## 아이콘 도트
+
+이벤트 유형을 아이콘 크기의 도트로 구분합니다.
+
+<Canvas of={TimelineStories.IconDot} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.icon} />
+
+## 카드형
+
+콘텐츠 영역에 카드 스킨과 태그·메타 정보를 배치합니다.
+
+<Canvas of={TimelineStories.Card} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.card} />
+
+## 날짜 레이블
+
+왼쪽에 기간·날짜 열을 분리합니다.
+
+<Canvas of={TimelineStories.Label} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.label} />
+
+## 좌우 교차
+
+넓은 화면에서 중앙 축을 기준으로 항목을 좌우로 교차 배치합니다.
+
+<Canvas of={TimelineStories.Alternate} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.alternate} />
+
+## 가로형
+
+단계와 프로세스 흐름을 가로로 표시하며 작은 화면에서는 세로로 전환됩니다.
+
+<Canvas of={TimelineStories.Horizontal} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.horizontal} />
+
+## 크기
+
+small·large로 간격과 텍스트 크기를 조절합니다.
+
+<Canvas of={TimelineStories.Size} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.size} />
+
+## 상태
+
+현재 진행 항목과 예정·미완료 항목을 구분합니다.
+
+<Canvas of={TimelineStories.State} sourceState="none" />
+<FrameworkTabs examples={timelineFrameworkExamples.state} />
+
+<ComponentApiDocs sections={timelineApiSections} />

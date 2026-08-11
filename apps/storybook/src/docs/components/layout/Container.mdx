@@ -1,8 +1,44 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { containerFrameworkExamples } from '../../../containerFrameworkExamples.ts';
+import { containerApiSections } from '../../../containerApiSections.ts';
+import * as ContainerStories from '../../../Container.stories.tsx';
+
+<Meta of={ContainerStories} />
+
 # Container
 
-Layout 카테고리의 Container 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+콘텐츠의 최대 너비와 좌우 여백을 일관되게 유지하고, 화면 안에서 콘텐츠를 가운데 정렬하는 레이아웃 컴포넌트입니다.
 
-- HTML: `apps/html/src/components/layout/Container`
-- Gulp: `apps/gulp/src/components/layout/Container`
-- Vue: `apps/vue/src/components/layout/Container`
-- React: `apps/react/src/components/layout/Container`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/container`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## 기본
+
+기본 Container는 부모 너비를 채우되 최대 72rem까지만 확장되며, 좌우에 공통 여백을 적용합니다.
+
+<Canvas of={ContainerStories.Basic} sourceState="none" />
+<FrameworkTabs examples={containerFrameworkExamples.basic} />
+
+## 최대 너비
+
+`sm`, `md`, `lg`, `xl` 크기로 콘텐츠의 최대 너비를 36rem, 48rem, 64rem, 80rem 중에서 선택합니다. 화면이 이보다 좁으면 부모 너비에 맞춰 줄어듭니다.
+
+<Canvas of={ContainerStories.Sizes} sourceState="none" />
+<FrameworkTabs examples={containerFrameworkExamples.sizes} />
+
+## Fluid
+
+`fluid` 또는 `container_fluid`는 최대 너비 제한을 해제합니다. 좌우 패딩과 중앙 정렬 계약은 그대로 유지합니다.
+
+<Canvas of={ContainerStories.Fluid} sourceState="none" />
+<FrameworkTabs examples={containerFrameworkExamples.fluid} />
+
+## 시맨틱 루트
+
+페이지의 주요 콘텐츠에는 `main`, 독립된 구획에는 `section`처럼 문서 구조에 맞는 루트 요소를 선택할 수 있습니다.
+
+<Canvas of={ContainerStories.SemanticRoot} sourceState="none" />
+<FrameworkTabs examples={containerFrameworkExamples.semantic} />
+
+<ComponentApiDocs sections={containerApiSections} />

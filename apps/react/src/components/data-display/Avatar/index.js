@@ -1,1 +1,1 @@
-export { default, Avatar } from './Avatar';
+export { default, Avatar, AvatarGroup } from './Avatar.jsx';

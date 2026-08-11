@@ -10,6 +10,37 @@
 
 body {
   margin: 0;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.btn-demo {
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+  min-width: 0;
+  padding: clamp(var(--space-md), 3vw, var(--space-xl));
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.card-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: clamp(var(--space-md), 3vw, var(--space-xl));
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.card-demo > * {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
 }
 
 #storybook-root {
@@ -51,6 +82,127 @@ body {
   margin: 16px 0 0;
   color: #64748b;
   font-size: 16px;
+}
+
+.introduction-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  margin: 12px 0 0;
+}
+
+.introduction-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  align-self: stretch;
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 75%, transparent);
+  border-radius: 12px;
+  background: var(--color-surface, #fff);
+  box-shadow: 0 10px 28px rgb(15 23 42 / 7%);
+  transition: border-color var(--transition-base, 0.2s ease),
+    box-shadow var(--transition-base, 0.2s ease),
+    transform var(--transition-base, 0.2s ease);
+}
+
+.introduction-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent, #3d66c4), transparent 85%);
+  content: '';
+}
+
+.introduction-card:hover {
+  border-color: var(--color-accent, #3d66c4);
+  box-shadow: 0 16px 38px rgb(15 23 42 / 12%);
+  transform: translateY(-2px);
+}
+
+.introduction-card__header {
+  padding: 14px 16px 7px;
+}
+
+.introduction-card__header span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 20px;
+  margin-bottom: 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: var(--color-accent-text, var(--color-accent, #3d66c4));
+  background: var(--color-accent-muted, #eef5ff);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.introduction-card__header h3 {
+  margin: 0 !important;
+  color: var(--color-text, #182131) !important;
+  font-size: 17px !important;
+  letter-spacing: -0.02em;
+  line-height: 1.3 !important;
+}
+
+.introduction-card__details {
+  display: grid;
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 0;
+  margin: 0 !important;
+  padding: 5px 16px 0;
+}
+
+.introduction-card__details > div {
+  display: grid;
+  grid-template-columns: minmax(72px, 0.28fr) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 9px;
+  border-block-start: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
+  border-block-end: 0;
+  border-inline: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--color-surface-raised, #f1f5f9) 65%, transparent);
+}
+
+.introduction-card__details > div:last-child {
+  padding-block-end: 0;
+  border-block-end: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
+}
+
+.introduction-card__details :is(dt, dd) {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.introduction-card__details dt {
+  margin-bottom: 0;
+  color: var(--color-text-muted, #64748b);
+  font-size: 10px;
+  font-style: normal !important;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.introduction-card__details dd {
+  min-width: 0;
+  color: var(--color-text, #182131);
+  font-size: 13px;
+  font-style: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.introduction-card__details code {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .framework-code {
@@ -175,25 +327,82 @@ body {
   margin: 0;
   padding: 14px;
   font: 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  overflow-wrap: anywhere;
   tab-size: 2;
+  white-space: pre-wrap;
+}
+
+.framework-code__panel pre > code {
+  display: block;
+  white-space: pre-wrap !important;
+}
+
+.framework-code__syntax pre.prismjs {
+  padding: 14px !important;
+  background: transparent !important;
 }
 
 .framework-storybooks {
   margin-top: 28px;
 }
 
+.sbdocs-preview:has(+ .framework-storybooks__code) {
+  margin-bottom: 0 !important;
+}
+
 .framework-storybooks__code {
+  --framework-code-inline: clamp(20px, 3vw, 32px);
+  margin: 4px 0 24px;
+}
+
+.framework-storybooks__togglebar {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.framework-storybooks__togglebar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 7px;
+  color: #075bc7;
+  background: #eef5ff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.framework-storybooks__togglebar button:hover {
+  background: #e1edff;
+}
+
+.framework-storybooks__togglebar button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.framework-storybooks__togglebar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.framework-storybooks__body {
   overflow: hidden;
+  margin-top: 4px;
   border: 1px solid #dbe3ee;
-  border-radius: 14px;
-  background: #fff;
+  border-radius: 12px;
+  background: #101827;
 }
 
 .framework-storybooks__tabs {
   display: flex;
   gap: 4px;
   overflow-x: auto;
-  padding: 8px 8px 0;
+  padding: 8px var(--framework-code-inline) 0;
   border-bottom: 1px solid #263246;
   background: #101827;
 }
@@ -226,7 +435,7 @@ body {
   align-items: center;
   justify-content: space-between;
   min-height: 46px;
-  padding: 0 14px;
+  padding: 0 var(--framework-code-inline);
   border-bottom: 1px solid #263246;
   gap: 16px;
 }
@@ -256,12 +465,174 @@ body {
 
 .framework-storybooks__panel pre {
   overflow: auto;
-  min-height: 280px;
   max-height: 560px;
   margin: 0;
-  padding: 16px;
-  font: 13px/1.7 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 0 !important;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  overflow-wrap: anywhere;
   tab-size: 2;
+  white-space: pre-wrap;
+}
+
+.framework-storybooks__code.show-full-code .framework-storybooks__panel pre {
+  max-height: none;
+}
+
+.framework-storybooks__panel pre > code {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 100%;
+  padding: 16px var(--framework-code-inline) 18px !important;
+  white-space: pre-wrap !important;
+}
+
+.framework-storybooks__syntax pre.prismjs {
+  padding: 16px var(--framework-code-inline) 18px !important;
+  background: transparent !important;
+}
+
+/* Prism token names such as `.tag` overlap with UXKM component classes. */
+:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs > div {
+  padding: 0 !important;
+  color: #dbe7f5;
+  font: inherit !important;
+  line-height: inherit !important;
+  white-space: pre-wrap !important;
+}
+
+.sbdocs pre.prismjs > div {
+  padding: 0 !important;
+  color: #1f2937 !important;
+  font: inherit !important;
+  line-height: inherit !important;
+  white-space: pre-wrap !important;
+}
+
+/* Docs의 코드 배경은 항상 밝으므로 UXKM 테마 변수와 분리한 고대비 팔레트를 사용합니다. */
+.sbdocs pre.prismjs {
+  color: #1f2937 !important;
+  background: #f8fafc !important;
+}
+
+.sbdocs pre.prismjs :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+  color: #475569 !important;
+}
+
+.sbdocs pre.prismjs .token.punctuation {
+  color: #334155 !important;
+}
+
+.sbdocs pre.prismjs :is(.token.tag, .token.selector, .token.keyword, .token.atrule) {
+  color: #9f1239 !important;
+}
+
+.sbdocs pre.prismjs :is(.token.attr-name, .token.property, .token.class-name) {
+  color: #5b21b6 !important;
+}
+
+.sbdocs pre.prismjs :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
+  color: #166534 !important;
+}
+
+.sbdocs pre.prismjs :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
+  color: #9a3412 !important;
+}
+
+.sbdocs pre.prismjs :is(.token.operator, .token.entity, .token.url) {
+  color: #854d0e !important;
+}
+
+.sbdocs pre.prismjs :is(.token.function, .token.regex, .token.variable, .token.builtin) {
+  color: #1d4ed8 !important;
+}
+
+.sbdocs pre.prismjs .token.deleted {
+  color: #b91c1c !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax, .sbdocs pre.prismjs) .token {
+  display: inline !important;
+  align-items: unset !important;
+  gap: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  letter-spacing: normal !important;
+  line-height: inherit !important;
+  text-decoration: none !important;
+  vertical-align: baseline !important;
+  white-space: inherit !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+  color: #94a3b8 !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) .token.punctuation {
+  color: #b8c5d6 !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.tag, .token.selector) {
+  color: #7dd3fc !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.attr-name, .token.property, .token.class-name) {
+  color: #c4b5fd !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
+  color: #a7f3d0 !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.keyword, .token.atrule) {
+  color: #f9a8d4 !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
+  color: #fdba74 !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.operator, .token.entity, .token.url) {
+  color: #fcd34d !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.function, .token.regex, .token.variable) {
+  color: #fde68a !important;
+}
+
+/* Storybook Docs API — framework branches use the native ArgsTable presentation. */
+.sbdocs .sb-api-docs {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgb(15 23 42 / 10%);
+}
+
+.sbdocs .sb-api-section {
+  margin-bottom: 2.5rem;
+}
+
+.sbdocs .sb-api-section > p {
+  margin-block: 0 var(--space-md);
+  color: var(--color-text-muted, #64748b);
+  line-height: 1.6;
+}
+
+.sbdocs .sb-api-section .docblock-argstable {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .sbdocs .sb-api-docs {
+  border-top-color: rgb(255 255 255 / 10%);
 }
 
 @media (max-width: 640px) {
@@ -285,6 +656,10 @@ body {
 
   .framework-code__panel pre {
     padding: 12px;
+  }
+
+  .framework-storybooks__code {
+    --framework-code-inline: 16px;
   }
 
 }

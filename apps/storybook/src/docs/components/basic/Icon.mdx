@@ -1,8 +1,104 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { iconFrameworkExamples } from '../../../iconFrameworkExamples.ts';
+import { iconApiSections } from '../../../iconApiSections.ts';
+import * as IconStories from '../../../Icon.stories.tsx';
+
+<Meta of={IconStories} />
+
 # Icon
 
-Basic 카테고리의 Icon 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+SVG 아이콘의 이름·크기·색상·정렬·상태를 일관된 규칙으로 제공하는 기본 요소입니다. stroke 아이콘은 `currentColor`로 부모 색상을 상속합니다.
 
-- HTML: `apps/html/src/components/basic/Icon`
-- Gulp: `apps/gulp/src/components/basic/Icon`
-- Vue: `apps/vue/src/components/basic/Icon`
-- React: `apps/react/src/components/basic/Icon`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/icon`, `@uxkm/react/icon`으로 제공합니다. Nuxt와 Next.js 예시는 같은 구현을 재사용하므로 코드 탭의 경로도 실제 공통 소스를 가리킵니다.
+
+## 기본
+
+`name`에 제공 아이콘 이름을 지정합니다. 별도 색상을 지정하지 않으면 주변 텍스트의 색상을 상속합니다.
+
+<Canvas of={IconStories.Basic} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.basic} />
+
+## 커스텀 SVG
+
+`path`, `circle` 등 SVG 도형을 자식으로 전달할 수 있습니다. 커스텀 도형은 `name`보다 우선합니다.
+
+<Canvas of={IconStories.CustomSvg} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.custom} />
+
+## 크기
+
+small, medium, large, extra large 네 가지 크기를 제공합니다. medium은 기본 `icon`, 나머지는 `icon_sm` · `icon_lg` · `icon_xl` 클래스를 사용합니다.
+
+<Canvas of={IconStories.Sizes} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.sizes} />
+
+## 색상
+
+공통 `color_*` 유틸리티로 default, primary, success, warning, danger, info, muted 색상을 적용합니다.
+
+<Canvas of={IconStories.Colors} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.colors} />
+
+## 텍스트 인라인
+
+`inline` 또는 `icon_inline`으로 텍스트 기준선에 맞춥니다. 의미가 있는 아이콘에는 `aria-label`을 지정합니다.
+
+<Canvas of={IconStories.Inline} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.inline} />
+
+## 원형 · 사각형 배경
+
+`circle` · `square` 또는 `icon_circle` · `icon_square`로 배경형 아이콘을 만듭니다. circle은 small, medium, large 크기를 지원합니다.
+
+<Canvas of={IconStories.Background} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.background} />
+
+## 아이콘 버튼
+
+`button` 또는 `icon_button`으로 클릭 가능한 아이콘 버튼을 만듭니다. 접근성을 위해 `aria-label`을 반드시 지정합니다.
+
+<Canvas of={IconStories.IconButton} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.button} />
+
+## 펄스
+
+`circle`과 `pulse`를 조합해 알림 등 주의가 필요한 상태를 반복 강조합니다.
+
+<Canvas of={IconStories.Pulse} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.pulse} />
+
+## 그룹
+
+`icon_group`으로 여러 아이콘을 같은 간격으로 나란히 배치합니다.
+
+<Canvas of={IconStories.Group} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.group} />
+
+## 회전
+
+`spin` 또는 `icon_spin`으로 회전 애니메이션을 적용합니다. 로딩 상태 표시에 사용합니다.
+
+<Canvas of={IconStories.Spin} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.spin} />
+
+## 아이콘 유형
+
+현재 공통 구현에서 제공하는 stroke SVG 아이콘입니다. 기본 좌표계는 `viewBox="0 0 24 24"`, 선 굵기는 `stroke-width="2"`입니다.
+
+<Canvas of={IconStories.Gallery} sourceState="none" />
+
+<FrameworkTabs examples={iconFrameworkExamples.gallery} />
+
+<ComponentApiDocs sections={iconApiSections} />

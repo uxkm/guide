@@ -148,15 +148,7 @@ uxkm-framework-components/
 │       └── react/
 │
 ├── packages/
-│   ├── assets/
-│   ├── styles/
-│   ├── tokens/
-│   ├── component-specs/
-│   ├── content/
-│   ├── navigation/
-│   ├── code-examples/
-│   ├── guide-content/
-│   └── guide-navigation/
+│   └── styles/               # 공통 스타일의 단일 원본과 빌드 결과
 │
 ├── scripts/                  # 빌드·검증·수집 스크립트
 ├── build/                    # 자동 생성되는 배포 수집 결과
@@ -376,23 +368,13 @@ React Guidebook
 
 ---
 
-# 8. 공통 패키지
+# 8. 공통 스타일 패키지
 
-| 패키지 | 역할 |
-| --- | --- |
-| `packages/styles` | 공통 SCSS, 프레임워크 스타일, 가이드북 스타일, Storybook 스타일 |
-| `packages/assets` | 공용 폰트, 이미지, 아이콘, 컴포넌트 및 가이드북 자산 |
-| `packages/tokens` | 색상, 간격, 타이포그래피, 모서리, 그림자 디자인 토큰 |
-| `packages/content` | 프레임워크 소개와 컴포넌트 설명의 공통 콘텐츠 |
-| `packages/component-specs` | 컴포넌트 API, 상태, 의미 구조, 접근성 기준 |
-| `packages/navigation` | 프레임워크와 Storybook의 소개·컴포넌트 메뉴 구조 |
-| `packages/guide-content` | Vue·React 가이드북의 공통 설명 |
-| `packages/guide-navigation` | Vue·React 가이드북 목차와 노출 순서 |
-| `packages/code-examples` | Vue·Nuxt·React·Next.js 학습 코드 예제 |
+`packages/styles`만 공통 패키지로 유지합니다. 비어 있던 토큰·콘텐츠·명세·탐색·자산 패키지는 실제 소비 코드가 생길 때 추가합니다.
 
 ## 컴포넌트 스타일 빌드
 
-컴포넌트 스타일의 단일 원본은 `packages/styles/src/components`입니다. HTML, Gulp, Vue, React, Nuxt, Next.js 컴포넌트에는 동일한 `uxkm-*` 클래스명을 사용하고 로컬 컴포넌트 SCSS를 복제하지 않습니다.
+스타일의 단일 빌드 진입점은 `packages/styles/src/index.scss`입니다. 기존 Storybook 브랜치의 토큰·테마·레이아웃·유틸리티와 전체 컴포넌트 SCSS는 `packages/styles/src`에서 유지하며, Storybook을 포함한 모든 앱은 빌드된 `uxkm.css`를 사용합니다.
 
 ```bash
 pnpm build:styles
@@ -452,7 +434,7 @@ Components
 
 # 10. 컴포넌트 동기화 기준
 
-`packages/component-specs`를 기준 명세로 사용합니다.
+컴포넌트 구현과 Storybook 문서를 함께 기준으로 관리합니다.
 
 모든 프레임워크 구현체는 다음 항목을 공유합니다.
 
@@ -660,17 +642,14 @@ Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실
 
 # 17. 컴포넌트 추가 절차
 
-1. `packages/component-specs`에 명세를 작성합니다.
-2. `packages/tokens`, `packages/styles`, `packages/assets`에 공통 자원을 추가합니다.
-3. `packages/content`에 공통 설명을 작성합니다.
-4. `packages/navigation`에 메뉴 순서를 등록합니다.
-5. HTML 기준 구현을 작성합니다.
-6. Gulp/Nunjucks 구현을 작성합니다.
-7. Vue와 React 구현을 작성합니다.
-8. Nuxt와 Next.js 구현을 작성합니다.
-9. Storybook에 프레임워크별 코드를 연결합니다.
-10. 52개 구성과 문서 누락 여부를 검사합니다.
-11. 전체 앱을 빌드하고 배포 결과를 검증합니다.
+1. HTML 기준 구현을 작성합니다.
+2. Gulp/Nunjucks 구현을 작성합니다.
+3. Vue와 React 구현을 작성합니다.
+4. Nuxt와 Next.js 구현을 작성합니다.
+5. 공통 스타일은 `packages/styles/src`에 추가합니다.
+6. Storybook에 API와 프레임워크별 예제를 연결합니다.
+7. 52개 구성과 문서 누락 여부를 검사합니다.
+8. 전체 앱을 빌드하고 배포 결과를 검증합니다.
 
 ---
 

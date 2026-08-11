@@ -2,5 +2,9 @@
   "name": "@uxkm/nuxt",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@uxkm/vue": "workspace:*",
+    "vue": "^3.5.0"
+  }
 }

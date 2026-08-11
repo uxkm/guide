@@ -1,8 +1,100 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { gridFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { gridApiSections } from '../../../layoutApiSections.ts';
+import * as GridStories from '../../../Grid.stories.tsx';
+
+<Meta of={GridStories} />
+
 # Grid
 
-Layout 카테고리의 Grid 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+12열 CSS Grid 기반 레이아웃 시스템입니다. 대부분의 배치는 부모 Grid에서 제어하고, 혼합 레이아웃만 GridCol로 개별 span을 지정합니다.
 
-- HTML: `apps/html/src/components/layout/Grid`
-- Gulp: `apps/gulp/src/components/layout/Grid`
-- Vue: `apps/vue/src/components/layout/Grid`
-- React: `apps/react/src/components/layout/Grid`
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/grid`, `@uxkm/react/grid`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+
+## Playground
+
+열 수, 간격, 자동 배치 prop을 Controls에서 조정할 수 있습니다.
+
+<Canvas of={GridStories.Playground} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.playground} />
+
+## 기본 페이지 레이아웃
+
+헤더와 푸터는 12열을 사용하고, md 이상에서 사이드바 3열과 콘텐츠 9열로 나눕니다.
+
+<Canvas of={GridStories.BasicLayout} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.basicLayout} />
+
+## 콘텐츠가 있는 페이지 레이아웃
+
+Main content 안에 반응형 콘텐츠 섹션을 중첩한 활용 예시입니다.
+
+<Canvas of={GridStories.ContentLayout} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.contentLayout} />
+
+## 12열 전체 활용
+
+`itemSpan={1}`을 부모에 지정하여 12개 항목이 한 행을 채웁니다.
+
+<Canvas of={GridStories.TwelveColumns} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.twelveColumns} />
+
+## 부모 클래스로 제어
+
+열 수·간격·비율·자식 일괄 span은 부모에만 지정합니다. 자식에 Grid 클래스가 필요 없습니다.
+
+<Canvas of={GridStories.Parent} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.parent} />
+
+## 균등 열
+
+`cols` 또는 `grid_cols-*`로 동일 너비 열을 지정합니다. 12열 span과 무관하게 fr 단위로 분할됩니다.
+
+<Canvas of={GridStories.Equal} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.equal} />
+
+## 비율 열
+
+`ratio` 또는 `grid_ratio-*`로 2~3열 비율 레이아웃을 부모에서 지정합니다.
+
+<Canvas of={GridStories.Ratio} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.ratio} />
+
+## 자식 일괄 span
+
+모든 자식이 같은 12열 비율일 때 `itemSpan`을 사용합니다. 6이면 한 행에 2개, 3이면 4개씩 배치됩니다.
+
+<Canvas of={GridStories.ItemSpan} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.itemSpan} />
+
+## 자식별 span
+
+8+4, 4+4+4처럼 행마다 열 비율이 다를 때 GridCol의 `span`을 사용합니다.
+
+<Canvas of={GridStories.Child} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.child} />
+
+## 간격
+
+`gap` 또는 `grid_gap-sm`·`grid_gap-lg`·`grid_gap-none`을 부모에 지정합니다.
+
+<Canvas of={GridStories.Gap} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.gap} />
+
+## 반응형
+
+Grid와 GridCol의 md·lg prop으로 균등 열, 자식 일괄 span, 자식별 span을 반응형으로 제어합니다.
+
+<Canvas of={GridStories.Responsive} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.responsive} />
+
+## 자동 배치
+
+`autoFit`과 `autoFill`은 `--grid-auto-min`을 최소 너비로 사용해 가능한 공간에 열을 자동 배치합니다.
+
+<Canvas of={GridStories.Auto} sourceState="none" />
+<FrameworkTabs examples={gridFrameworkExamples.auto} />
+
+<ComponentApiDocs sections={gridApiSections} />

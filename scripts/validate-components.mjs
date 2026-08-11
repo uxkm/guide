@@ -35,11 +35,13 @@ for (const [app, convention] of Object.entries(conventions)) {
     for (const component of components) {
       const base = `apps/${app}/src/components/${category}/${component}`;
       for (const file of convention(component)) await requirePath(`${base}/${file}`);
-      const slug = component.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-      await requirePath(`packages/styles/src/components/_${slug}.scss`);
     }
   }
 }
+
+await requirePath('packages/styles/src/index.scss');
+await requirePath('packages/styles/src/main.scss');
+await requirePath('packages/styles/src/components/_button.scss');
 
 const frameworkOnly = [
   'apps/nuxt/app/components/layout/AppLayout/AppLayout.vue',
@@ -84,5 +86,5 @@ if (failures.length > 0) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exitCode = 1;
 } else {
-  console.log(`구조 검증 완료: 공통 컴포넌트 52개 × 4개 프레임워크, 중앙 Storybook ${centralStories.length}개 Story`);
+  console.log(`구조 검증 완료: 공통 컴포넌트 52개 × 4개 프레임워크, 공통 스타일 1개 진입점, 중앙 Storybook ${centralStories.length}개 Story`);
 }

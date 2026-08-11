@@ -1,8 +1,77 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { treeFrameworkExamples } from '../../../timelineTreeFrameworkExamples.ts';
+import { treeApiSections } from '../../../timelineTreeApiSections.ts';
+import * as TreeStories from '../../../Tree.stories.tsx';
+
+<Meta of={TreeStories} />
+
 # Tree
 
-Data Display 카테고리의 Tree 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+파일·조직·메뉴처럼 계층이 있는 데이터를 탐색하고 선택합니다. `TreeNode`는 확장·선택·비활성·메타 상태를 제공합니다.
 
-- HTML: `apps/html/src/components/data-display/Tree`
-- Gulp: `apps/gulp/src/components/data-display/Tree`
-- Vue: `apps/vue/src/components/data-display/Tree`
-- React: `apps/react/src/components/data-display/Tree`
+Vue와 React 구현은 각각 `@uxkm/vue/tree`, `@uxkm/react/tree`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+## 기본
+
+<Canvas of={TreeStories.Basic} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.basic} />
+
+## 간단
+
+아이콘 없이 텍스트만 표시합니다.
+
+<Canvas of={TreeStories.Simple} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.simple} />
+
+## 연결선
+
+조직도·파일 탐색기에서 노드 간 계층 가이드라인을 표시합니다.
+
+<Canvas of={TreeStories.Lines} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.lines} />
+
+## 컴팩트
+
+행 높이와 간격을 줄여 밀도 높은 목록을 표시합니다.
+
+<Canvas of={TreeStories.Compact} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.compact} />
+
+## +/− 토글
+
+화살표 대신 +/− 아이콘으로 노드를 펼치고 접습니다.
+
+<Canvas of={TreeStories.PlusToggle} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.plusToggle} />
+
+## 체크박스
+
+부모·자식 노드에 체크박스를 배치해 다중 선택 트리를 구성합니다.
+
+<Canvas of={TreeStories.Checkbox} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.checkbox} />
+
+## 메타 · 배지
+
+파일 크기·항목 수·상태 같은 보조 정보를 표시합니다.
+
+<Canvas of={TreeStories.Meta} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.meta} />
+
+## 비활성
+
+선택하거나 확장할 수 없는 노드를 표현합니다.
+
+<Canvas of={TreeStories.Disabled} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.disabled} />
+
+## 선택 가능
+
+행 전체를 클릭 가능하게 만들고 현재 선택 항목을 강조합니다.
+
+<Canvas of={TreeStories.Selectable} sourceState="none" />
+<FrameworkTabs examples={treeFrameworkExamples.selectable} />
+
+<ComponentApiDocs sections={treeApiSections} />

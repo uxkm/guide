@@ -1,1 +1,1 @@
-export { default, Timeline } from './Timeline';
+export { default, Timeline, TimelineItem } from './Timeline.jsx';

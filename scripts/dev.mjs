@@ -98,51 +98,6 @@ const workspaces = [
     badge: 'Shared package',
     color: 'styles',
     group: 'packages'
-  },
-  {
-    label: 'Assets',
-    shortLabel: 'A',
-    path: 'packages/assets',
-    description: '공용 폰트, 이미지 및 아이콘 자산',
-    badge: 'Shared package',
-    color: 'assets',
-    group: 'packages'
-  },
-  {
-    label: 'Tokens',
-    shortLabel: 'T',
-    path: 'packages/tokens',
-    description: '색상, 간격, 타이포그래피 디자인 토큰',
-    badge: 'Shared package',
-    color: 'tokens',
-    group: 'packages'
-  },
-  {
-    label: 'Content',
-    shortLabel: 'C',
-    path: 'packages/content',
-    description: '프레임워크 독립 문서 및 컴포넌트 콘텐츠',
-    badge: 'Shared package',
-    color: 'content',
-    group: 'packages'
-  },
-  {
-    label: 'Component Specs',
-    shortLabel: 'API',
-    path: 'packages/component-specs',
-    description: '컴포넌트 API, 동작 및 접근성 기준 명세',
-    badge: 'Shared package',
-    color: 'specs',
-    group: 'packages'
-  },
-  {
-    label: 'Navigation',
-    shortLabel: 'NAV',
-    path: 'packages/navigation',
-    description: '문서 탐색 구조와 컴포넌트 노출 순서',
-    badge: 'Shared package',
-    color: 'navigation',
-    group: 'packages'
   }
 ];
 

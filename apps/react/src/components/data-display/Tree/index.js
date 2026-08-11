@@ -1,1 +1,1 @@
-export { default, Tree } from './Tree';
+export { default, Tree, TreeNode } from './Tree.jsx';
