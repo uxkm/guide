@@ -1,1 +1,17 @@
-<div class="uxkm-textarea" data-component="Textarea">Textarea</div>
+<div class="form_field">
+  <label class="form_field-label" for="textarea-message">메시지</label>
+  <textarea id="textarea-message" class="textarea textarea_resize_none" rows="4" placeholder="메시지를 입력하세요" data-component="Textarea"></textarea>
+  <p class="form_field-hint">문의 내용을 자세히 작성해 주세요.</p>
+</div>
+
+<div class="form_field form_field_fit">
+  <label class="form_field-label" for="textarea-introduction">자기소개</label>
+  <div class="textarea_wrap textarea_show-count">
+    <textarea id="textarea-introduction" class="textarea" rows="5" maxlength="200" aria-describedby="textarea-introduction-hint textarea-introduction-count" data-component="Textarea"></textarea>
+    <span id="textarea-introduction-count" class="textarea_count" role="status" aria-live="polite" aria-atomic="true">
+      <span class="textarea_count_visual" aria-hidden="true">0/200</span>
+      <span class="textarea_count_announcer">0자 입력, 최대 200자</span>
+    </span>
+  </div>
+  <p id="textarea-introduction-hint" class="form_field-hint">200자 이내로 작성해 주세요.</p>
+</div>

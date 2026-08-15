@@ -1,1 +1,11 @@
-<div class="uxkm-select" data-component="Select">Select</div>
+{% set selectId = selectId | default('select-example') %}
+{% set selectSize = selectSize | default('md') %}
+{% set selectClass = 'input' + (' input_' + selectSize if selectSize != 'md' else '') + (' input_fit' if fit else '') + (' is-error' if error else '') %}
+<div class="form_field{% if fit %} form_field_fit{% endif %}">
+  {% if label %}<label class="form_field-label" for="{{ selectId }}">{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</label>{% else %}<label class="input_group-label_hidden" for="{{ selectId }}">{{ ariaLabel | default('선택') }}</label>{% endif %}
+  <select id="{{ selectId }}" class="{{ selectClass }}"{% if multiple %} multiple{% endif %}{% if size %} size="{{ size }}"{% endif %}{% if disabled %} disabled{% endif %}{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}{% if hint or errorMessage %} aria-describedby="{{ selectId }}-message"{% endif %} data-component="Select">
+    {% if placeholder %}<option value="" disabled{% if not value %} selected{% endif %}>{{ placeholder }}</option>{% endif %}
+    {% for option in options %}<option value="{{ option.value }}"{% if option.value == value or option.selected %} selected{% endif %}{% if option.disabled %} disabled{% endif %}>{{ option.label }}</option>{% endfor %}
+  </select>
+  {% if errorMessage %}<p id="{{ selectId }}-message" class="form_field-error" role="alert">{{ errorMessage }}</p>{% elseif hint %}<p id="{{ selectId }}-message" class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>

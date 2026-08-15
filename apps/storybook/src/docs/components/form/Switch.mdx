@@ -1,8 +1,54 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { switchFrameworkExamples } from '../../../switchFrameworkExamples.ts';
+import { switchApiSections } from '../../../switchApiSections.ts';
+import * as SwitchStories from '../../../Switch.stories.tsx';
+
+<Meta of={SwitchStories} />
+
 # Switch
 
-Form 카테고리의 Switch 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+설정을 즉시 켜거나 끄는 Switch 컴포넌트입니다. `type="checkbox"`와 `role="switch"`를 함께 사용하며 현재 상태를 `checked`로 전달합니다.
 
-- HTML: `apps/html/src/components/form/Switch`
-- Gulp: `apps/gulp/src/components/form/Switch`
-- Vue: `apps/vue/src/components/form/Switch`
-- React: `apps/react/src/components/form/Switch`
+## 유형
+<Canvas of={SwitchStories.Type} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.type} />
+
+## 레이블 뒤
+<Canvas of={SwitchStories.LabelEnd} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.labelEnd} />
+
+## 기본
+<Canvas of={SwitchStories.Basic} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.basic} />
+
+## 단독 사용
+<Canvas of={SwitchStories.Standalone} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.standalone} />
+
+## 크기
+<Canvas of={SwitchStories.Size} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.size} />
+
+## 너비
+<Canvas of={SwitchStories.Width} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.width} />
+
+## 색상
+<Canvas of={SwitchStories.Color} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.color} />
+
+## 상태
+<Canvas of={SwitchStories.State} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.state} />
+
+## 그룹
+<Canvas of={SwitchStories.Group} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.group} />
+
+## 폼 레이아웃
+<Canvas of={SwitchStories.Form} sourceState="none" />
+<FrameworkTabs examples={switchFrameworkExamples.form} />
+
+<ComponentApiDocs sections={switchApiSections} />

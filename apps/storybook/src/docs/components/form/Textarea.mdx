@@ -1,8 +1,79 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { textareaFrameworkExamples } from '../../../textareaFrameworkExamples.ts';
+import { textareaApiSections } from '../../../textareaApiSections.ts';
+import * as TextareaStories from '../../../Textarea.stories.tsx';
+
+<Meta of={TextareaStories} />
+
 # Textarea
 
-Form 카테고리의 Textarea 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+여러 줄의 긴 텍스트를 입력하는 필드 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
 
-- HTML: `apps/html/src/components/form/Textarea`
-- Gulp: `apps/gulp/src/components/form/Textarea`
-- Vue: `apps/vue/src/components/form/Textarea`
-- React: `apps/react/src/components/form/Textarea`
+모든 textarea에는 접근 가능한 이름을 제공합니다. 일반 필드는 `label[for]`와 `id`를 연결하고, 보이는 label이 없는 단독 입력은 `input_group-label_hidden` 텍스트와 textarea를 하나의 `display_contents` label로 감싸 암묵적으로 연결합니다. 오류와 도움말은 `aria-describedby`로 연결하고, 글자 수 카운터는 시각 텍스트와 스크린 리더용 상태 문구를 함께 제공합니다.
+
+## 기본
+
+레이블과 힌트가 포함된 기본 여러 줄 입력입니다. 기본 상태에서는 우측 하단 크기 조절 핸들을 표시하지 않습니다.
+
+<Canvas of={TextareaStories.Basic} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.basic} />
+
+## 단독 사용
+
+`form_field` 없이 사용할 때도 보이는 label 또는 숨김 텍스트를 포함한 암묵적 label을 제공합니다.
+
+<Canvas of={TextareaStories.Standalone} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.standalone} />
+
+## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
+
+<Canvas of={TextareaStories.Size} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.size} />
+
+## 너비
+
+기본은 부모 너비 100%이며 `form_field_fit`, `textarea_fit`, `textarea_wrap_fit`으로 최대 320px까지 제한합니다.
+
+<Canvas of={TextareaStories.Width} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.width} />
+
+## 크기 조절
+
+사용자가 조절할 수 있는 방향을 none, vertical, horizontal, both 중에서 선택합니다. 긴 글 입력에는 보통 vertical을 권장합니다.
+
+<Canvas of={TextareaStories.Resize} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.resize} />
+
+## 필수 필드
+
+`required` 속성과 `form_field-required`로 필수 입력을 표시합니다.
+
+<Canvas of={TextareaStories.Required} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.required} />
+
+## 상태
+
+disabled, readonly, error, success 상태를 텍스트 메시지와 적절한 aria 속성으로 함께 전달합니다.
+
+<Canvas of={TextareaStories.State} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.state} />
+
+## 글자 수
+
+`showCount`와 `maxLength`를 함께 사용하면 현재 글자 수와 한도를 표시합니다. 카운터는 `role="status"`, `aria-live="polite"`로 변경 내용을 알립니다.
+
+<Canvas of={TextareaStories.Count} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.count} />
+
+## 조합 예시
+
+필수 입력, 유효성 오류, 글자 수 카운터를 함께 구성한 예시입니다. 기본값과 동일하게 크기 조절 핸들은 표시하지 않습니다.
+
+<Canvas of={TextareaStories.Example} sourceState="none" />
+<FrameworkTabs examples={textareaFrameworkExamples.example} />
+
+<ComponentApiDocs sections={textareaApiSections} />

@@ -1,1 +1,12 @@
-<div class="uxkm-slider" data-component="Slider">Slider</div>
+{% set sliderId = sliderId | default('slider-example') %}
+{% set sliderValue = sliderValue | default(50) %}
+{% set sliderMin = sliderMin | default(0) %}
+{% set sliderMax = sliderMax | default(100) %}
+{% set sliderStep = sliderStep | default(1) %}
+<div class="slider{% if size and size != 'md' %} slider_{{ size }}{% endif %}{% if fit %} slider_fit{% endif %}{% if block %} slider_block{% endif %}{% if stepper %} slider_stepper{% endif %}{% if stepperAlways %} slider_stepper_always{% endif %}{% if color %} color_{{ color }}{% endif %}" data-component="Slider" data-ripple="true">
+  {% if label or showValue %}<div class="slider_header">{% if label %}<label class="slider_label" for="{{ sliderId }}">{{ label }}</label>{% endif %}{% if showValue %}<output class="slider_value" for="{{ sliderId }}">{{ sliderValue }}{{ valueSuffix | default('') }}</output>{% endif %}</div>{% endif %}
+  {% if stepper %}<div class="slider_control"><button class="slider_step slider_step-decrease" type="button" data-ripple="true" aria-label="{{ decreaseLabel | default('값 줄이기') }}">−</button>{% endif %}
+  <input id="{{ sliderId }}" class="slider_input" type="range" min="{{ sliderMin }}" max="{{ sliderMax }}" step="{{ sliderStep }}" value="{{ sliderValue }}"{% if valueSuffix %} data-slider-suffix="{{ valueSuffix }}"{% endif %}{% if disabled %} disabled{% endif %}{% if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}>
+  {% if stepper %}<button class="slider_step slider_step-increase" type="button" data-ripple="true" aria-label="{{ increaseLabel | default('값 늘리기') }}">+</button></div>{% endif %}
+  {% if hint %}<p class="slider_hint">{{ hint }}</p>{% endif %}
+</div>

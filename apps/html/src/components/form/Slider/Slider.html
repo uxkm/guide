@@ -1,1 +1,11 @@
-<div class="uxkm-slider" data-component="Slider">Slider</div>
+<div class="slider slider_fit slider_stepper" data-component="Slider" data-ripple="true">
+  <div class="slider_header">
+    <label class="slider_label" for="slider-example">볼륨</label>
+    <output class="slider_value" for="slider-example">50%</output>
+  </div>
+  <div class="slider_control">
+    <button class="slider_step slider_step-decrease" type="button" data-ripple="true" aria-label="값 줄이기"><svg class="slider_step-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /></svg></button>
+    <input id="slider-example" class="slider_input" type="range" min="0" max="100" step="1" value="50" data-slider-suffix="%">
+    <button class="slider_step slider_step-increase" type="button" data-ripple="true" aria-label="값 늘리기"><svg class="slider_step-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /><path d="M12 5v14" /></svg></button>
+  </div>
+</div>

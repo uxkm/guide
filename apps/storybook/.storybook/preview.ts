@@ -1,10 +1,12 @@
 import type { Preview } from '@storybook/react-vite';
 import { initRipple } from '../../../packages/styles/src/ripple.js';
+import { initClickableCard } from '../../../packages/styles/src/clickable-card.js';
 
 import '../src/styles.css';
 import '../public/styles/uxkm.css';
 
 initRipple();
+initClickableCard();
 
 const preview: Preview = {
   globalTypes: {

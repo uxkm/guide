@@ -1,12 +1,56 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { datePickerFrameworkExamples } from '../../../datePickerFrameworkExamples.ts';
+import { datePickerApiSections } from '../../../datePickerApiSections.ts';
+import * as DatePickerStories from '../../../DatePicker.stories.tsx';
 
-<Meta title="Date Picker" />
+<Meta of={DatePickerStories} />
 
 # DatePicker
 
-Form 카테고리의 DatePicker 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+날짜 입력 트리거와 달력 패널을 결합한 폼 컴포넌트입니다. 값은 모든 프레임워크에서 `YYYY-MM-DD`로 주고받고 화면에는 locale 형식으로 표시합니다.
 
-- HTML: `apps/html/src/components/form/DatePicker`
-- Gulp: `apps/gulp/src/components/form/DatePicker`
-- Vue: `apps/vue/src/components/form/DatePicker`
-- React: `apps/react/src/components/form/DatePicker`
+## 기본
+
+입력 또는 달력 버튼으로 패널을 열고 날짜를 선택합니다. Escape와 바깥 영역 클릭으로 패널을 닫을 수 있습니다.
+
+<Canvas of={DatePickerStories.Basic} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.basic} />
+
+## 크기
+
+small, medium, large 세 가지 트리거 크기를 제공합니다.
+
+<Canvas of={DatePickerStories.Size} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.size} />
+
+## 너비
+
+`date_picker_fit`은 최대 너비를 제한하고 `date_picker_block`은 부모 너비를 채웁니다.
+
+<Canvas of={DatePickerStories.Width} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.width} />
+
+## 선택 범위
+
+`min`, `max` 범위 밖의 날짜는 비활성화합니다.
+
+<Canvas of={DatePickerStories.Limits} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.limits} />
+
+## 상태
+
+disabled, error, success 상태를 메시지와 적절한 aria 속성으로 함께 전달합니다.
+
+<Canvas of={DatePickerStories.State} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.state} />
+
+## 조합 예시
+
+제어 값, 필수 표시, 유효성 메시지를 예약 폼에 조합한 예시입니다.
+
+<Canvas of={DatePickerStories.Example} sourceState="none" />
+<FrameworkTabs examples={datePickerFrameworkExamples.example} />
+
+<ComponentApiDocs sections={datePickerApiSections} />

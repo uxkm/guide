@@ -1,3 +1,1 @@
-export function initAlert(root = document) {
-  return root.querySelectorAll('[data-component="Alert"]');
-}
+export { initAlert } from '../../../../../html/src/components/feedback/Alert/alert.js';

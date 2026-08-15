@@ -1,1 +1,14 @@
-<div class="uxkm-textarea" data-component="Textarea">Textarea</div>
+{% set textareaId = textareaId | default('textarea-example') %}
+{% set textareaSize = textareaSize | default('md') %}
+{% set textareaResize = textareaResize | default('none') %}
+{% set textareaClass = 'textarea' + (' textarea_' + textareaSize if textareaSize != 'md' else '') + ' textarea_resize_' + textareaResize + (' is-error' if error else '') %}
+{% set countId = textareaId + '-count' %}
+{% set hintId = textareaId + '-hint' %}
+{% set textareaValue = value | default('') %}
+<div class="form_field{% if fit %} form_field_fit{% endif %}">
+  {% if label %}<label class="form_field-label" for="{{ textareaId }}">{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</label>{% else %}<label class="input_group-label_hidden" for="{{ textareaId }}">{{ ariaLabel | default('여러 줄 입력') }}</label>{% endif %}
+  {% if showCount %}<div class="textarea_wrap textarea_show-count">{% endif %}
+  <textarea id="{{ textareaId }}" class="{{ textareaClass }}"{% if rows %} rows="{{ rows }}"{% endif %}{% if maxlength %} maxlength="{{ maxlength }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}{% if hint or errorMessage or showCount %} aria-describedby="{% if errorMessage or hint %}{{ hintId }}{% endif %}{% if showCount %}{% if errorMessage or hint %} {% endif %}{{ countId }}{% endif %}"{% endif %} data-component="Textarea">{{ textareaValue }}</textarea>
+  {% if showCount %}<span id="{{ countId }}" class="textarea_count" role="status" aria-live="polite" aria-atomic="true"><span class="textarea_count_visual" aria-hidden="true">{{ textareaValue | length }}{% if maxlength %}/{{ maxlength }}{% endif %}</span><span class="textarea_count_announcer">{{ textareaValue | length }}자 입력{% if maxlength %}, 최대 {{ maxlength }}자{% endif %}</span></span></div>{% endif %}
+  {% if errorMessage %}<p id="{{ hintId }}" class="form_field-error" role="alert">{{ errorMessage }}</p>{% elseif hint %}<p id="{{ hintId }}" class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>

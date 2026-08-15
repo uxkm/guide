@@ -1,3 +1,1 @@
-export function initUpload(root = document) {
-  return root.querySelectorAll('[data-component="Upload"]');
-}
+export { initUpload } from '../../../../../html/src/components/form/Upload/upload.js';

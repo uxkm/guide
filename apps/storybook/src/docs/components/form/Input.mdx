@@ -1,8 +1,93 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { inputFrameworkExamples } from '../../../inputFrameworkExamples.ts';
+import { inputApiSections } from '../../../inputApiSections.ts';
+import * as InputStories from '../../../Input.stories.tsx';
+
+<Meta of={InputStories} />
+
 # Input
 
-Form 카테고리의 Input 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+텍스트·숫자·검색 등 한 줄 입력을 위한 필드 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
 
-- HTML: `apps/html/src/components/form/Input`
-- Gulp: `apps/gulp/src/components/form/Input`
-- Vue: `apps/vue/src/components/form/Input`
-- React: `apps/react/src/components/form/Input`
+모든 input에는 연결된 label을 제공합니다. 일반 필드는 `label[for]`와 `id`를 연결하고, 카드번호·OTP처럼 여러 input이 하나의 그룹을 이루는 경우에는 그룹명을 `aria-labelledby`로 연결한 뒤 각 input을 `display_contents` label로 감싸 암묵적으로 연결합니다. 화면에 레이블을 표시하지 않는 검색·애드온 입력은 `input_group-label_hidden` 레이블을 사용합니다. 클리어 버튼이 있는 입력은 label 안에 다른 버튼을 중첩하지 않도록 숨김 label과 input을 명시적으로 연결합니다.
+
+## 기본
+
+레이블과 힌트 텍스트가 포함된 기본 폼 필드입니다.
+
+<Canvas of={InputStories.Basic} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.basic} />
+
+## 단독 사용
+
+`form_field` 없이 `input_field`로 레이블과 input을 묶을 수 있습니다. 보이는 레이블 또는 `aria-label`로 접근 가능한 이름을 제공합니다.
+
+<Canvas of={InputStories.Standalone} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.standalone} />
+
+## 입력 타입
+
+HTML input type에 따라 브라우저 기본 UI가 적용되며 `input` 클래스는 모든 타입에 공통으로 사용합니다.
+
+<Canvas of={InputStories.Type} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.type} />
+
+## 입력 종류
+
+결제·본인인증 등 도메인 입력은 `input_split`, `input_otp`, `input_group`, `input_row`를 조합합니다. `inputMode="numeric"` 입력은 숫자만 허용합니다.
+
+<Canvas of={InputStories.Kind} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.kind} />
+
+## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
+
+<Canvas of={InputStories.Size} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.size} />
+
+## 너비
+
+기본은 부모 너비 100%이며 `input_fit`, `input_field_fit`, `form_field_fit`, `form_fit`으로 최대 320px까지 제한합니다.
+
+<Canvas of={InputStories.Width} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.width} />
+
+## Input Group
+
+앞뒤에 텍스트나 아이콘 애드온을 붙일 수 있습니다.
+
+<Canvas of={InputStories.Group} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.group} />
+
+## 필수 필드
+
+`required` 속성과 `form_field-required`로 필수 입력을 표시합니다.
+
+<Canvas of={InputStories.Required} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.required} />
+
+## 상태
+
+disabled, readonly, error, success 상태를 텍스트 메시지와 적절한 aria 속성으로 함께 전달합니다.
+
+<Canvas of={InputStories.State} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.state} />
+
+## 입력 삭제
+
+`clearable`은 값이 있을 때 지우기 버튼을 표시하고, readonly와 disabled에서는 숨깁니다. 지운 뒤 입력으로 포커스를 돌려줍니다.
+
+<Canvas of={InputStories.Clearable} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.clearable} />
+
+## 조합 예시
+
+유효성 검사 결과는 색상만으로 전달하지 않고 `aria-invalid`, `aria-describedby`, `role="alert"`, `role="status"`를 함께 사용합니다.
+
+<Canvas of={InputStories.Example} sourceState="none" />
+<FrameworkTabs examples={inputFrameworkExamples.example} />
+
+<ComponentApiDocs sections={inputApiSections} />

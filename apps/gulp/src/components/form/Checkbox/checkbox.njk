@@ -1,1 +1,10 @@
-<div class="uxkm-checkbox" data-component="Checkbox">Checkbox</div>
+{% set checkboxId = checkboxId | default('checkbox-example') %}
+{% if button %}
+<label class="checkbox checkbox_button" data-ripple="{{ 'false' if ripple == false else 'true' }}"><input id="{{ checkboxId }}" class="checkbox_input" type="checkbox"{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %} data-component="Checkbox"><span class="checkbox_label">{{ label | default('체크박스') }}</span></label>
+{% else %}
+<div class="checkbox{% if labelEnd %} checkbox_label-end{% endif %}" data-ripple="{{ 'false' if ripple == false else 'true' }}">
+  {% if labelEnd %}<label class="checkbox_label" for="{{ checkboxId }}">{{ label | default('체크박스') }}</label>{% endif %}
+  <span class="checkbox_control"><input id="{{ checkboxId }}" class="checkbox_input" type="checkbox"{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %} data-component="Checkbox"><span class="checkbox_box" aria-hidden="true"></span></span>
+  {% if not labelEnd %}<label class="checkbox_label" for="{{ checkboxId }}">{{ label | default('체크박스') }}</label>{% endif %}
+</div>
+{% endif %}

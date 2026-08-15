@@ -1,8 +1,56 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { alertFrameworkExamples } from '../../../alertFrameworkExamples.ts';
+import { alertApiSections } from '../../../alertApiSections.ts';
+import * as AlertStories from '../../../Alert.stories.tsx';
+
+<Meta of={AlertStories} />
+
 # Alert
 
-Feedback 카테고리의 Alert 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+정보·성공·경고·오류 메시지를 전달하는 알림 컴포넌트입니다.
 
-- HTML: `apps/html/src/components/feedback/Alert`
-- Gulp: `apps/gulp/src/components/feedback/Alert`
-- Vue: `apps/vue/src/components/feedback/Alert`
-- React: `apps/react/src/components/feedback/Alert`
+## 기본
+
+<Canvas of={AlertStories.Basic} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.basic} />
+
+## 설명만
+
+<Canvas of={AlertStories.DescriptionOnly} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.descriptionOnly} />
+
+## 아이콘 없음
+
+<Canvas of={AlertStories.NoIcon} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.noIcon} />
+
+## 크기
+
+<Canvas of={AlertStories.Size} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.size} />
+
+## 닫기 가능
+
+닫기 버튼은 알림을 제거하고 `close`/`onClose` 이벤트를 발생시킵니다.
+
+<Canvas of={AlertStories.Closable} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.closable} />
+
+## 액션
+
+<Canvas of={AlertStories.Actions} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.actions} />
+
+## 배너
+
+<Canvas of={AlertStories.Banner} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.banner} />
+
+## 문맥 속 사용
+
+<Canvas of={AlertStories.Context} sourceState="none" />
+<FrameworkTabs examples={alertFrameworkExamples.context} />
+
+<ComponentApiDocs sections={alertApiSections} />

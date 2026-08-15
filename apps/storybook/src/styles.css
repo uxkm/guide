@@ -2,6 +2,47 @@
   font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #182131;
   --content-inline: 12px;
+  --docs-code-bg: #f8fafc;
+  --docs-code-text: #1f2937;
+  --docs-code-comment: #475569;
+  --docs-code-punctuation: #334155;
+  --docs-code-tag: #9f1239;
+  --docs-code-attribute: #5b21b6;
+  --docs-code-string: #166534;
+  --docs-code-number: #9a3412;
+  --docs-code-operator: #854d0e;
+  --docs-code-function: #1d4ed8;
+  --docs-code-deleted: #b91c1c;
+}
+
+[data-theme='dark'] {
+  --docs-code-bg: #101827;
+  --docs-code-text: #dbe7f5;
+  --docs-code-comment: #94a3b8;
+  --docs-code-punctuation: #b8c5d6;
+  --docs-code-tag: #7dd3fc;
+  --docs-code-attribute: #c4b5fd;
+  --docs-code-string: #a7f3d0;
+  --docs-code-number: #fdba74;
+  --docs-code-operator: #fcd34d;
+  --docs-code-function: #fde68a;
+  --docs-code-deleted: #fca5a5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --docs-code-bg: #101827;
+    --docs-code-text: #dbe7f5;
+    --docs-code-comment: #94a3b8;
+    --docs-code-punctuation: #b8c5d6;
+    --docs-code-tag: #7dd3fc;
+    --docs-code-attribute: #c4b5fd;
+    --docs-code-string: #a7f3d0;
+    --docs-code-number: #fdba74;
+    --docs-code-operator: #fcd34d;
+    --docs-code-function: #fde68a;
+    --docs-code-deleted: #fca5a5;
+  }
 }
 
 * {
@@ -43,6 +84,43 @@ body {
   max-width: 100%;
 }
 
+/* 폼 선택 컴포넌트 예시는 상태와 변형을 충분히 구분할 수 있도록 세로 간격을 확보합니다. */
+.demo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  width: 100%;
+  min-width: 0;
+}
+
+/* Alert 예시는 다른 프레임워크 가이드와 동일하게 가용 너비를 채웁니다. */
+.alert-demo > :is(.alert, .form) {
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+/* 카드형 선택 예시는 가용 너비를 채워 card_deck의 반응형 열 배치가 동작하게 합니다. */
+.demo-stack > :is(.checkbox_group, .radio_group):has(:is(.checkbox_card, .radio_card)) {
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+/* 기본 그룹은 항목 간 16px, compact 변형은 컴포넌트 토큰의 작은 간격을 유지합니다. */
+#storybook-root .checkbox_group:not(.checkbox_group_compact) {
+  --checkbox-group-gap: var(--space-md);
+}
+
+#storybook-root .radio_group:not(.radio_group_compact) {
+  --radio-group-gap: var(--space-md);
+}
+
+#storybook-root .switch_group:not(.switch_group_compact) {
+  --switch-group-gap: var(--space-md);
+}
+
 #storybook-root {
   width: 100%;
   min-height: 100vh;
@@ -55,6 +133,19 @@ body {
 
 .sbdocs-content {
   max-width: none !important;
+}
+
+/* Canvas 미리보기는 컴포넌트 테마와 같은 배경을 사용해야 label·hint 대비가 유지됩니다. */
+.sbdocs-preview {
+  border-color: var(--color-border-subtle) !important;
+}
+
+.sbdocs-preview .docs-story {
+  color: var(--color-text) !important;
+  background-color: var(--color-bg) !important;
+  transition:
+    color var(--transition-fast, 0.15s ease),
+    background-color var(--transition-fast, 0.15s ease);
 }
 
 .catalog-placeholder {
@@ -503,52 +594,52 @@ body {
 
 .sbdocs pre.prismjs > div {
   padding: 0 !important;
-  color: #1f2937 !important;
+  color: var(--docs-code-text) !important;
   font: inherit !important;
   line-height: inherit !important;
   white-space: pre-wrap !important;
 }
 
-/* Docs의 코드 배경은 항상 밝으므로 UXKM 테마 변수와 분리한 고대비 팔레트를 사용합니다. */
+/* Docs 코드도 UXKM 테마와 함께 전환되는 고대비 팔레트를 사용합니다. */
 .sbdocs pre.prismjs {
-  color: #1f2937 !important;
-  background: #f8fafc !important;
+  color: var(--docs-code-text) !important;
+  background: var(--docs-code-bg) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
-  color: #475569 !important;
+  color: var(--docs-code-comment) !important;
 }
 
 .sbdocs pre.prismjs .token.punctuation {
-  color: #334155 !important;
+  color: var(--docs-code-punctuation) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.tag, .token.selector, .token.keyword, .token.atrule) {
-  color: #9f1239 !important;
+  color: var(--docs-code-tag) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.attr-name, .token.property, .token.class-name) {
-  color: #5b21b6 !important;
+  color: var(--docs-code-attribute) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
-  color: #166534 !important;
+  color: var(--docs-code-string) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
-  color: #9a3412 !important;
+  color: var(--docs-code-number) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.operator, .token.entity, .token.url) {
-  color: #854d0e !important;
+  color: var(--docs-code-operator) !important;
 }
 
 .sbdocs pre.prismjs :is(.token.function, .token.regex, .token.variable, .token.builtin) {
-  color: #1d4ed8 !important;
+  color: var(--docs-code-function) !important;
 }
 
 .sbdocs pre.prismjs .token.deleted {
-  color: #b91c1c !important;
+  color: var(--docs-code-deleted) !important;
 }
 
 :is(.framework-code__syntax, .framework-storybooks__syntax, .sbdocs pre.prismjs) .token {

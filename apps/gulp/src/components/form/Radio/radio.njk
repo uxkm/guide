@@ -1,1 +1,9 @@
-<div class="uxkm-radio" data-component="Radio">Radio</div>
+<label class="radio{% if labelEnd %} radio_label-end{% endif %}{% if button %} radio_button{% endif %}" data-ripple="{{ 'false' if ripple == false else 'true' }}">
+  {% if button %}
+  <input class="radio_input" type="radio" name="{{ name | default('radio-example') }}"{% if value %} value="{{ value }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %} data-component="Radio"><span class="radio_label">{{ label | default('라디오') }}</span>
+  {% else %}
+  {% if labelEnd %}<span class="radio_label">{{ label | default('라디오') }}</span>{% endif %}
+  <span class="radio_control"><input class="radio_input" type="radio" name="{{ name | default('radio-example') }}"{% if value %} value="{{ value }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %} data-component="Radio"><span class="radio_box" aria-hidden="true"></span></span>
+  {% if not labelEnd %}<span class="radio_label">{{ label | default('라디오') }}</span>{% endif %}
+  {% endif %}
+</label>

@@ -1,1 +1,16 @@
-<div class="uxkm-input" data-component="Input">Input</div>
+<div class="form_field form_field_fit">
+  <label class="form_field-label" for="input-example">이름</label>
+  <span class="input_clearable">
+    <input id="input-example" class="input" type="text" placeholder="이름을 입력하세요" data-component="Input">
+    <button class="input_clear" type="button" data-ripple="surface" aria-label="입력 지우기" hidden>
+      <svg class="icon" data-component="Icon" data-icon="close" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+    </button>
+  </span>
+  <p class="form_field-hint">2~20자 이내로 입력해 주세요.</p>
+</div>
+
+<label class="input_group-label_hidden" for="input-domain">도메인</label>
+<div class="input_group input_fit" data-component="InputGroup">
+  <span class="input_group-addon" aria-hidden="true">https://</span>
+  <input id="input-domain" class="input" type="url" placeholder="example.com" data-component="Input">
+</div>

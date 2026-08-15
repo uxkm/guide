@@ -1,8 +1,77 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { uploadFrameworkExamples } from '../../../uploadFrameworkExamples.ts';
+import { uploadApiSections } from '../../../uploadApiSections.ts';
+import * as UploadStories from '../../../Upload.stories.tsx';
+
+<Meta of={UploadStories} />
+
 # Upload
 
-Form 카테고리의 Upload 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+파일 선택, 드래그앤드롭, 사진 카드 업로드를 제공하는 폼 컴포넌트입니다. 파일 형식·크기·개수를 클라이언트에서 검증하고 선택 목록을 개별 삭제할 수 있습니다.
 
-- HTML: `apps/html/src/components/form/Upload`
-- Gulp: `apps/gulp/src/components/form/Upload`
-- Vue: `apps/vue/src/components/form/Upload`
-- React: `apps/react/src/components/form/Upload`
+## 기본
+
+버튼으로 파일 선택기를 열고 선택된 파일명, 크기와 상태를 목록으로 표시합니다.
+
+<Canvas of={UploadStories.Basic} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.basic} />
+
+## 드래그 앤 드롭
+
+드롭존 전체를 파일 선택 레이블로 사용하며 드래그 상태와 검증 오류를 시각적으로 전달합니다.
+
+<Canvas of={UploadStories.Dropzone} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.dropzone} />
+
+## 파일 목록
+
+`upload_list`와 `upload_item`으로 업로드 중, 완료, 오류 상태와 진행률을 표시합니다.
+
+<Canvas of={UploadStories.List} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.list} />
+
+## 사진 카드
+
+이미지 파일은 미리보기 카드로 표시하고 카드별 삭제 동작을 제공합니다.
+
+<Canvas of={UploadStories.Cards} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.cards} />
+
+## 아바타 업로드
+
+`upload_avatar`를 Avatar 컴포넌트와 조합해 프로필 이미지 변경 UI를 제공합니다.
+
+<Canvas of={UploadStories.Avatar} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.avatar} />
+
+## 크기
+
+드롭존의 여백과 아이콘 크기를 small, medium, large로 조정합니다.
+
+<Canvas of={UploadStories.Size} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.size} />
+
+## 너비
+
+기본은 부모 너비를 사용하고 `upload_fit`은 입력 필드 최대 너비로 제한합니다.
+
+<Canvas of={UploadStories.Width} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.width} />
+
+## 상태
+
+disabled와 error 상태는 컨트롤과 오류 설명을 함께 제공합니다.
+
+<Canvas of={UploadStories.State} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.state} />
+
+## 조합 예시
+
+필수 첨부, 파일 형식, 크기와 개수 제한을 제출 폼에 조합합니다. 서버에서는 파일 내용과 형식을 다시 검증해야 합니다.
+
+<Canvas of={UploadStories.Example} sourceState="none" />
+<FrameworkTabs examples={uploadFrameworkExamples.example} />
+
+<ComponentApiDocs sections={uploadApiSections} />

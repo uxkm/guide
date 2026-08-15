@@ -1,3 +1,1 @@
-export function initDatePicker(root = document) {
-  return root.querySelectorAll('[data-component="DatePicker"]');
-}
+export { initDatePicker } from '../../../../../html/src/components/form/DatePicker/date-picker.js';

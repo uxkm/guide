@@ -15,6 +15,7 @@ function prefersReducedMotion() {
 function isRippleDisabled(element) {
   if (!element || element.closest('[data-no-ripple]')) return true;
   if (element.disabled) return true;
+  if (element.matches('label') && element.querySelector('input:disabled, button:disabled')) return true;
   if (element.classList.contains('is-disabled')) return true;
   if (element.getAttribute('aria-disabled') === 'true') return true;
   return Boolean(element.closest('.is-disabled, [aria-disabled="true"]'));

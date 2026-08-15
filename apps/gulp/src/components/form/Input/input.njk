@@ -1,1 +1,16 @@
-<div class="uxkm-input" data-component="Input">Input</div>
+{% from "../../basic/Icon/icon.njk" import icon %}
+{% set inputId = inputId | default('input-example') %}
+{% set inputType = inputType | default('text') %}
+{% set inputSize = inputSize | default('md') %}
+{% set inputClass = 'input' + (' input_' + inputSize if inputSize != 'md' else '') + (' is-error' if error else '') %}
+<div class="form_field{% if fit %} form_field_fit{% endif %}">
+  {% if label %}<label class="form_field-label" for="{{ inputId }}">{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</label>{% else %}<label class="input_group-label_hidden" for="{{ inputId }}">{{ ariaLabel | default('입력') }}</label>{% endif %}
+  {% if prefix or suffix %}<div class="input_group" data-component="InputGroup">{% endif %}
+  {% if prefix %}<span class="input_group-addon" aria-hidden="true">{{ prefix }}</span>{% endif %}
+  {% if clearable %}<span class="input_clearable">{% endif %}
+  <input id="{{ inputId }}" class="{{ inputClass }}" type="{{ inputType }}"{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %} data-component="Input">
+  {% if clearable %}<button class="input_clear" type="button" data-ripple="surface" aria-label="입력 지우기" hidden>{{ icon('close') }}</button></span>{% endif %}
+  {% if suffix %}<span class="input_group-addon">{{ suffix }}</span>{% endif %}
+  {% if prefix or suffix %}</div>{% endif %}
+  {% if errorMessage %}<p class="form_field-error" role="alert">{{ errorMessage }}</p>{% elseif hint %}<p class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>
