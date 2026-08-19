@@ -1,6 +1,3 @@
-import '/styles/uxkm.css';
-import { initRipple } from '../../../packages/styles/src/ripple.js';
-import { initClickableCard } from '../../../packages/styles/src/clickable-card.js';
+import { initInteractions } from '@uxkm/interactions';
 
-initRipple();
-initClickableCard();
+initInteractions();

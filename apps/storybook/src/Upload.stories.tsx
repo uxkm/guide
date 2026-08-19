@@ -5,7 +5,7 @@ import ActualUpload from '../../react/src/components/form/Upload/Upload.jsx';
 const Upload = ActualUpload as React.ComponentType<any>;
 const Demo = ({ children }: { children: React.ReactNode }) => <div className="demo-stack">{children}</div>;
 const sampleFile = { name: '제품소개서.pdf', size: 1843200, type: 'application/pdf', status: 'done' };
-const avatarSample = '/images/avatar-sample.svg';
+const avatarSample = '/images/samples/avatar/avatar-sample.svg';
 const sampleImage = (name: string) => ({
   name,
   size: 245760,

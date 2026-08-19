@@ -282,7 +282,7 @@ Nuxt와 Next.js는 공통 Vue·React 컴포넌트를 복제하지 않습니다. 
 
 ## 프레임워크별 스타일 적용
 
-스타일의 단일 원본은 `packages/styles/src/index.scss`입니다. `pnpm build:styles`를 실행하면 같은 내용과 소스 해시를 가진 CSS가 모든 앱과 Storybook에 배포됩니다.
+스타일의 단일 원본은 `packages/styles/index.scss`입니다. `pnpm build:styles`를 실행하면 같은 내용과 소스 해시를 가진 CSS가 모든 앱과 Storybook에 배포됩니다.
 
 <IntroductionCards
   columns={[
@@ -332,6 +332,6 @@ if (savedTheme === 'light' || savedTheme === 'dark') {
 1. HTML 마크업과 접근성 의미를 먼저 정의합니다.
 2. Gulp/Nunjucks, Vue, React 구현의 API와 상태 이름을 맞춥니다.
 3. Nuxt와 Next.js에서 프레임워크 전용 처리가 필요한지 확인합니다.
-4. `packages/styles/src/components`의 공통 스타일을 갱신합니다.
+4. `packages/styles/components`의 공통 스타일을 갱신합니다.
 5. Storybook 문서에 여섯 프레임워크 예시와 API를 추가합니다.
 6. `pnpm validate:structure`, 타입 검사, Storybook 빌드로 검증합니다.

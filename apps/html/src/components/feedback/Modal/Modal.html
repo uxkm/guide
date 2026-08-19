@@ -1,1 +1,9 @@
-<div class="uxkm-modal" data-component="Modal">Modal</div>
+<button type="button" class="btn btn_filled color_primary" data-modal-trigger="#modal-basic" aria-controls="modal-basic" aria-expanded="false">모달 열기</button>
+<div class="modal" id="modal-basic" data-component="Modal" data-modal role="dialog" aria-modal="true" aria-labelledby="modal-basic-title" tabindex="-1" hidden>
+  <div class="modal_backdrop" data-modal-close aria-hidden="true"></div>
+  <div class="modal_dialog">
+    <div class="modal_header"><h2 class="modal_title" id="modal-basic-title">알림</h2><button type="button" class="modal_close" data-modal-close aria-label="닫기">×</button></div>
+    <div class="modal_body"><p>Modal 대화상자 본문입니다.</p></div>
+    <div class="modal_footer"><button type="button" class="btn btn_ghost" data-modal-close>취소</button><button type="button" class="btn btn_filled color_primary" data-modal-close>확인</button></div>
+  </div>
+</div>

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@uxkm/interactions": "workspace:*"
+  },
   "devDependencies": {
     "vite": "^8.2.0"
   }

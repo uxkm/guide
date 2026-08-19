@@ -11,6 +11,7 @@ apps/next/out/
 apps/storybook/storybook-static/
 packages/*/dist/
 apps/*/public/styles/uxkm.css
+apps/*/public/images/
 
 # Collected deployment output
 build/

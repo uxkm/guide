@@ -1,8 +1,50 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { navbarFrameworkExamples as examples } from '../../../navbarFrameworkExamples.ts';
+import { navbarApiSections } from '../../../navbarApiSections.ts';
+import * as Stories from '../../../Navbar.stories.tsx';
+
+<Meta of={Stories} />
+
 # Navbar
 
-Navigation 카테고리의 Navbar 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+사이트와 앱의 브랜드, 주요 메뉴, 검색 및 액션을 상단 영역에 구성합니다.
 
-- HTML: `apps/html/src/components/navigation/Navbar`
-- Gulp: `apps/gulp/src/components/navigation/Navbar`
-- Vue: `apps/vue/src/components/navigation/Navbar`
-- React: `apps/react/src/components/navigation/Navbar`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 브랜드
+<Canvas of={Stories.Brand} sourceState="none" />
+<FrameworkTabs examples={examples.brand} />
+
+## 액션 영역
+<Canvas of={Stories.Actions} sourceState="none" />
+<FrameworkTabs examples={examples.actions} />
+
+## 검색
+<Canvas of={Stories.Search} sourceState="none" />
+<FrameworkTabs examples={examples.search} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 스타일 변형
+<Canvas of={Stories.Variant} sourceState="none" />
+<FrameworkTabs examples={examples.variant} />
+
+## 배지
+<Canvas of={Stories.BadgeDemo} sourceState="none" />
+<FrameworkTabs examples={examples.badge} />
+
+## 반응형
+<Canvas of={Stories.Responsive} sourceState="none" />
+<FrameworkTabs examples={examples.responsive} />
+
+## 접근성
+
+현재 메뉴는 `aria-current="page"`로 표시합니다. 반응형 토글은 `aria-expanded`, `aria-controls`, 상태에 맞는 접근 가능한 이름을 제공하며 버튼 클릭으로 메뉴를 열고 닫습니다.
+
+<ComponentApiDocs sections={navbarApiSections} />

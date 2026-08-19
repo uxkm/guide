@@ -1,1 +1,3 @@
-<div class="uxkm-menu" data-component="Menu">Menu</div>
+<nav class="menu menu_{{ mode | default('vertical') }}{% if bordered %} menu_bordered{% endif %}{% if compact %} menu_compact{% endif %}{% if dark %} menu_dark{% endif %}" data-component="Menu" data-menu-selectable aria-label="{{ ariaLabel | default('메뉴') }}">
+  <ul class="menu_list">{{ items | safe }}</ul>
+</nav>

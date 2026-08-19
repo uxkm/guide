@@ -1,8 +1,42 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { emptyFrameworkExamples as examples } from '../../../emptyFrameworkExamples.ts';
+import { emptyApiSections } from '../../../emptyApiSections.ts';
+import * as Stories from '../../../Empty.stories.tsx';
+
+<Meta of={Stories} />
+
 # Empty
 
-Feedback 카테고리의 Empty 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+데이터나 검색 결과가 없을 때 현재 상태와 다음 행동을 안내합니다.
 
-- HTML: `apps/html/src/components/feedback/Empty`
-- Gulp: `apps/gulp/src/components/feedback/Empty`
-- Vue: `apps/vue/src/components/feedback/Empty`
-- React: `apps/react/src/components/feedback/Empty`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 액션
+<Canvas of={Stories.Footer} sourceState="none" />
+<FrameworkTabs examples={examples.footer} />
+
+## 커스텀 슬롯
+<Canvas of={Stories.Custom} sourceState="none" />
+<FrameworkTabs examples={examples.custom} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 설명만
+<Canvas of={Stories.Simple} sourceState="none" />
+<FrameworkTabs examples={examples.simple} />
+
+## 블록 · 컨테이너
+<Canvas of={Stories.Block} sourceState="none" />
+<FrameworkTabs examples={examples.block} />
+
+## 접근성
+
+Empty 루트는 `role="status"`로 상태를 전달하고 장식용 이미지는 `aria-hidden="true"`로 보조 기술에서 제외합니다. 액션 버튼의 목적은 구체적인 문구로 제공합니다.
+
+<ComponentApiDocs sections={emptyApiSections} />

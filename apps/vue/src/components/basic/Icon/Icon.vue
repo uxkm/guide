@@ -56,8 +56,12 @@ const wrapperTag = computed(() => props.button ? 'button' : 'span');
         <path v-else-if="name === 'trash'" d="M4 7h16M9 7V4h6v3m-9 0 1 14h10l1-14M10 11v6m4-6v6" />
         <path v-else-if="name === 'check'" d="m5 12 4 4L19 6" />
         <path v-else-if="name === 'warning' || name === 'alert-triangle'" d="M12 3 2.5 20h19L12 3ZM12 9v4m0 3h.01" />
-        <path v-else-if="name === 'chevron'" d="m9 6 6 6-6 6" />
+        <path v-else-if="name === 'chevron' || name === 'chevron-right'" d="m9 6 6 6-6 6" />
+        <path v-else-if="name === 'chevron-left'" d="m15 6-6 6 6 6" />
+        <path v-else-if="name === 'chevron-down'" d="m6 9 6 6 6-6" />
         <path v-else-if="name === 'search'" d="M18 18 21 21M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
+        <path v-else-if="name === 'inbox'" d="M4 5h16l2 9v5H2v-5l2-9ZM2 14h5l2 3h6l2-3h5" />
+        <path v-else-if="name === 'menu'" d="M4 6h16M4 12h16M4 18h16" />
         <path v-else-if="name === 'edit'" d="M4 20h4L19 9l-4-4L4 16v4Zm9.5-13.5 4 4" />
         <path v-else-if="name === 'close'" d="m6 6 12 12M18 6 6 18" />
         <path v-else-if="name === 'home'" d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7" />
@@ -98,6 +102,11 @@ const wrapperTag = computed(() => props.button ? 'button' : 'span');
       <path v-else-if="name === 'check'" d="m5 12 4 4L19 6" />
       <path v-else-if="name === 'warning' || name === 'alert-triangle'" d="M12 3 2.5 20h19L12 3ZM12 9v4m0 3h.01" />
       <path v-else-if="name === 'search'" d="M18 18 21 21M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
+      <path v-else-if="name === 'chevron-down'" d="m6 9 6 6 6-6" />
+      <path v-else-if="name === 'chevron' || name === 'chevron-right'" d="m9 6 6 6-6 6" />
+      <path v-else-if="name === 'chevron-left'" d="m15 6-6 6 6 6" />
+      <path v-else-if="name === 'inbox'" d="M4 5h16l2 9v5H2v-5l2-9ZM2 14h5l2 3h6l2-3h5" />
+      <path v-else-if="name === 'menu'" d="M4 6h16M4 12h16M4 18h16" />
       <path v-else-if="name === 'edit'" d="M4 20h4L19 9l-4-4L4 16v4Zm9.5-13.5 4 4" />
       <path v-else-if="name === 'close'" d="m6 6 12 12M18 6 6 18" />
       <path v-else-if="name === 'star'" d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />

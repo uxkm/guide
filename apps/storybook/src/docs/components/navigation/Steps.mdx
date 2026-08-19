@@ -1,8 +1,58 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { stepsFrameworkExamples as examples } from '../../../stepsFrameworkExamples.ts';
+import { stepsApiSections } from '../../../stepsApiSections.ts';
+import * as Stories from '../../../Steps.stories.tsx';
+
+<Meta of={Stories} />
+
 # Steps
 
-Navigation 카테고리의 Steps 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+여러 단계로 구성된 작업의 완료, 현재, 대기 및 오류 상태를 순서대로 표시합니다.
 
-- HTML: `apps/html/src/components/navigation/Steps`
-- Gulp: `apps/gulp/src/components/navigation/Steps`
-- Vue: `apps/vue/src/components/navigation/Steps`
-- React: `apps/react/src/components/navigation/Steps`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 간단
+<Canvas of={Stories.Simple} sourceState="none" />
+<FrameworkTabs examples={examples.simple} />
+
+## 세로형
+<Canvas of={Stories.Vertical} sourceState="none" />
+<FrameworkTabs examples={examples.vertical} />
+
+## 도트
+<Canvas of={Stories.Dot} sourceState="none" />
+<FrameworkTabs examples={examples.dot} />
+
+## 아이콘
+<Canvas of={Stories.IconDemo} sourceState="none" />
+<FrameworkTabs examples={examples.icon} />
+
+## 탐색 가능
+<Canvas of={Stories.Navigable} sourceState="none" />
+<FrameworkTabs examples={examples.navigable} />
+
+## 오류
+<Canvas of={Stories.Error} sourceState="none" />
+<FrameworkTabs examples={examples.error} />
+
+## 가운데 정렬
+<Canvas of={Stories.Align} sourceState="none" />
+<FrameworkTabs examples={examples.align} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 상태 요약
+<Canvas of={Stories.State} sourceState="none" />
+<FrameworkTabs examples={examples.state} />
+
+## 접근성
+
+현재 단계는 `aria-current="step"`으로 표시합니다. 탐색형에서 대기 단계는 비활성화하며 완료된 단계만 이전 단계로 이동할 수 있습니다. 애니메이션은 `prefers-reduced-motion` 환경에서 제거됩니다.
+
+<ComponentApiDocs sections={stepsApiSections} />

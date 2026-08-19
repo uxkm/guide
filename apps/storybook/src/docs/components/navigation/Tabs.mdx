@@ -1,8 +1,74 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { tabsFrameworkExamples as examples } from '../../../tabsFrameworkExamples.ts';
+import { tabsApiSections } from '../../../tabsApiSections.ts';
+import * as Stories from '../../../Tabs.stories.tsx';
+
+<Meta of={Stories} />
+
 # Tabs
 
-Navigation 카테고리의 Tabs 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+관련 콘텐츠를 탭으로 분류하고 클릭 또는 키보드로 패널을 전환합니다.
 
-- HTML: `apps/html/src/components/navigation/Tabs`
-- Gulp: `apps/gulp/src/components/navigation/Tabs`
-- Vue: `apps/vue/src/components/navigation/Tabs`
-- React: `apps/react/src/components/navigation/Tabs`
+## 기본 (라인)
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 동적 패널
+<Canvas of={Stories.Dynamic} sourceState="none" />
+<FrameworkTabs examples={examples.dynamic} />
+
+## 슬라이드 인디케이터
+<Canvas of={Stories.IndicatorSlide} sourceState="none" />
+<FrameworkTabs examples={examples.indicator} />
+
+## 균등 분할
+<Canvas of={Stories.LayoutEqual} sourceState="none" />
+<FrameworkTabs examples={examples.equal} />
+
+## 네비 스크롤
+<Canvas of={Stories.LayoutScroll} sourceState="none" />
+<FrameworkTabs examples={examples.layoutScroll} />
+
+## 카드
+<Canvas of={Stories.Card} sourceState="none" />
+<FrameworkTabs examples={examples.card} />
+
+## 필
+<Canvas of={Stories.Pill} sourceState="none" />
+<FrameworkTabs examples={examples.pill} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 아이콘
+<Canvas of={Stories.IconDemo} sourceState="none" />
+<FrameworkTabs examples={examples.icon} />
+
+## 배지
+<Canvas of={Stories.BadgeDemo} sourceState="none" />
+<FrameworkTabs examples={examples.badge} />
+
+## 추가 액션
+<Canvas of={Stories.Extra} sourceState="none" />
+<FrameworkTabs examples={examples.extra} />
+
+## 스크롤바
+<Canvas of={Stories.Scroll} sourceState="none" />
+<FrameworkTabs examples={examples.scroll} />
+
+## 비활성
+<Canvas of={Stories.Disabled} sourceState="none" />
+<FrameworkTabs examples={examples.disabled} />
+
+## 수직
+<Canvas of={Stories.Vertical} sourceState="none" />
+<FrameworkTabs examples={examples.vertical} />
+
+## 접근성
+
+각 탭과 패널은 `role`, `aria-selected`, `aria-controls`, `aria-labelledby`로 연결됩니다. 방향키와 `Home`, `End` 키를 지원하며 비활성 탭은 탐색에서 제외합니다.
+
+<ComponentApiDocs sections={tabsApiSections} />

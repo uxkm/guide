@@ -1,8 +1,70 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { tooltipFrameworkExamples as examples } from '../../../tooltipFrameworkExamples.ts';
+import { tooltipApiSections } from '../../../tooltipApiSections.ts';
+import * as Stories from '../../../Tooltip.stories.tsx';
+
+<Meta of={Stories} />
+
 # Tooltip
 
-Feedback 카테고리의 Tooltip 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+호버·포커스 또는 클릭으로 짧은 도움말을 표시합니다. 말풍선은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다.
 
-- HTML: `apps/html/src/components/feedback/Tooltip`
-- Gulp: `apps/gulp/src/components/feedback/Tooltip`
-- Vue: `apps/vue/src/components/feedback/Tooltip`
-- React: `apps/react/src/components/feedback/Tooltip`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 슬롯
+<Canvas of={Stories.Slot} sourceState="none" />
+<FrameworkTabs examples={examples.slot} />
+
+## 열린 상태
+<Canvas of={Stories.Open} sourceState="none" />
+<FrameworkTabs examples={examples.open} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 간격
+<Canvas of={Stories.Offset} sourceState="none" />
+<FrameworkTabs examples={examples.offset} />
+
+## 인라인
+<Canvas of={Stories.Inline} sourceState="none" />
+<FrameworkTabs examples={examples.inline} />
+
+## 트리거 유형
+<Canvas of={Stories.Trigger} sourceState="none" />
+<FrameworkTabs examples={examples.trigger} />
+
+## 클릭 트리거
+<Canvas of={Stories.Click} sourceState="none" />
+<FrameworkTabs examples={examples.click} />
+
+## 배치
+<Canvas of={Stories.Placement} sourceState="none" />
+<FrameworkTabs examples={examples.placement} />
+
+## 역색
+<Canvas of={Stories.Inverse} sourceState="none" />
+<FrameworkTabs examples={examples.inverse} />
+
+## 비활성 트리거
+<Canvas of={Stories.Disabled} sourceState="none" />
+<FrameworkTabs examples={examples.disabled} />
+
+## 화살표 기준
+<Canvas of={Stories.ArrowAnchor} sourceState="none" />
+<FrameworkTabs examples={examples.arrowAnchor} />
+
+## 화살표 없음
+<Canvas of={Stories.NoArrow} sourceState="none" />
+<FrameworkTabs examples={examples.noArrow} />
+
+## 접근성
+
+트리거와 `role="tooltip"` 말풍선을 `aria-describedby`로 연결합니다. 포커스로 열 수 있고 Esc와 외부 클릭으로 닫을 수 있습니다.
+
+<ComponentApiDocs sections={tooltipApiSections} />

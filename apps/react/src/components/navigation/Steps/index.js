@@ -1,1 +1,2 @@
-export { default, Steps } from './Steps';
+export { default, Steps } from './Steps.jsx';
+export { default as StepsItem } from './StepsItem.jsx';

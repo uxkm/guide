@@ -94,15 +94,37 @@ const workspaces = [
     label: 'Styles',
     shortLabel: 'SCSS',
     path: 'packages/styles',
+    name: '공통 SCSS 원본',
     description: '공통 스타일, 테마 및 컴포넌트 SCSS',
+    badge: 'Shared source',
+    color: 'styles',
+    group: 'packages'
+  },
+  {
+    label: 'Interactions',
+    shortLabel: 'JS',
+    path: 'packages/interactions',
+    description: '프레임워크 공통 DOM 동작',
     badge: 'Shared package',
     color: 'styles',
+    group: 'packages'
+  },
+  {
+    label: 'Assets',
+    shortLabel: 'IMG',
+    path: 'packages/assets',
+    name: '공통 이미지 원본',
+    description: '공통 정적 이미지 원본',
+    badge: 'Shared source',
+    color: 'assets',
     group: 'packages'
   }
 ];
 
 const workspaceDetails = await Promise.all(
   workspaces.map(async (workspace) => {
+    if (workspace.name) return workspace;
+
     const packageJson = JSON.parse(
       await readFile(join(rootDirectory, workspace.path, 'package.json'), 'utf8')
     );
@@ -111,13 +133,14 @@ const workspaceDetails = await Promise.all(
   })
 );
 
-const logoAssets = new Map([
-  ['/assets/logo_184.gif', await readFile(join(scriptDirectory, 'assets/logo_184.gif'))],
-  [
-    '/assets/logo_140_desktop.gif',
-    await readFile(join(scriptDirectory, 'assets/logo_140_desktop.gif'))
-  ]
-]);
+const brandLogoUrl = '/images/brand/uxkm-logo.svg';
+const brandLogo = await readFile(
+  join(rootDirectory, 'packages/assets/public/images/brand/uxkm-logo.svg')
+);
+const faviconUrl = '/images/meta/favicon/favicon.ico';
+const favicon = await readFile(
+  join(rootDirectory, 'packages/assets/public/images/meta/favicon/favicon.ico')
+);
 
 const icons = {
   html: `<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M8 4h32l-3 34-13 6-13-6L8 4Z"/><path fill="#fff" d="M14.5 12h19l-.5 5H20l.4 5H32l-1.2 13L24 38l-6.8-3-.6-7h5l.3 3.5 2.1.9 2.2-.9.4-4.5H16L14.5 12Z"/></svg>`,
@@ -170,8 +193,11 @@ function renderPage() {
 <html lang="ko">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
     <meta name="theme-color" content="#f4f6f9">
+    <link rel="icon" href="${faviconUrl}" sizes="16x16 32x32">
     <title>UXKM Framework Components</title>
     <style>
       :root {
@@ -366,13 +392,10 @@ function renderPage() {
     <div class="container">
       <header class="page-header">
         <div class="brand">
-          <picture>
-            <source media="(max-width: 767px)" srcset="/assets/logo_140_desktop.gif">
-            <img src="/assets/logo_184.gif" width="184" height="78" alt="UXKM">
-          </picture>
+          <img src="${brandLogoUrl}" width="184" height="78" alt="UXKM">
           <span class="brand-title">Framework Components</span>
         </div>
-        <p>프레임워크 컴포넌트와 공통 패키지를 관리하는 모노레포</p>
+        <p>프레임워크 컴포넌트와 공통 원본·패키지를 관리하는 모노레포</p>
       </header>
 
       <main>
@@ -394,8 +417,8 @@ function renderPage() {
 
         <section class="section" aria-labelledby="packages-heading">
           <div class="section-header">
-            <h2 id="packages-heading">Shared Packages</h2>
-            <span class="section-count">${packageCount}개 Workspace</span>
+            <h2 id="packages-heading">Shared Sources &amp; Packages</h2>
+            <span class="section-count">${packageCount}개 항목</span>
           </div>
           <div class="grid">${renderCards('packages')}</div>
         </section>
@@ -408,12 +431,21 @@ function renderPage() {
 }
 
 const server = createServer((request, response) => {
-  if (logoAssets.has(request.url)) {
+  if (request.url === faviconUrl) {
     response.writeHead(200, {
-      'content-type': 'image/gif',
+      'content-type': 'image/x-icon',
       'cache-control': 'no-store'
     });
-    response.end(logoAssets.get(request.url));
+    response.end(favicon);
+    return;
+  }
+
+  if (request.url === brandLogoUrl) {
+    response.writeHead(200, {
+      'content-type': 'image/svg+xml; charset=utf-8',
+      'cache-control': 'no-store'
+    });
+    response.end(brandLogo);
     return;
   }
 

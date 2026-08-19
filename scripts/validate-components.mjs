@@ -39,9 +39,14 @@ for (const [app, convention] of Object.entries(conventions)) {
   }
 }
 
-await requirePath('packages/styles/src/index.scss');
-await requirePath('packages/styles/src/main.scss');
-await requirePath('packages/styles/src/components/_button.scss');
+await requirePath('packages/styles/index.scss');
+await requirePath('packages/styles/main.scss');
+await requirePath('packages/styles/components/_button.scss');
+await requirePath('packages/interactions/src/index.js');
+await requirePath('packages/interactions/src/behaviors/ripple.js');
+await requirePath('packages/assets/public/images/samples/avatar/avatar-sample.svg');
+await requirePath('packages/assets/public/images/meta/favicon/favicon.ico');
+await requirePath('packages/assets/public/images/meta/favicon/site.webmanifest');
 
 const frameworkOnly = [
   'apps/nuxt/app/components/layout/AppLayout/AppLayout.vue',

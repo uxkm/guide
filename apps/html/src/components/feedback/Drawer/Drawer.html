@@ -1,1 +1,9 @@
-<div class="uxkm-drawer" data-component="Drawer">Drawer</div>
+<button type="button" class="btn btn_filled color_primary" data-drawer-trigger="#drawer-basic" aria-controls="drawer-basic" aria-expanded="false">Drawer 열기</button>
+<div class="drawer" id="drawer-basic" data-component="Drawer" data-drawer role="dialog" aria-modal="true" aria-labelledby="drawer-basic-title" tabindex="-1" hidden>
+  <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  <div class="drawer_panel drawer_placement-right">
+    <div class="drawer_header"><h2 class="drawer_title" id="drawer-basic-title">상세 정보</h2><button type="button" class="drawer_close" data-drawer-close aria-label="닫기">×</button></div>
+    <div class="drawer_body"><p>Drawer 패널 본문입니다.</p></div>
+    <div class="drawer_footer"><button type="button" class="btn btn_ghost" data-drawer-close>취소</button><button type="button" class="btn btn_filled color_primary" data-drawer-close>확인</button></div>
+  </div>
+</div>

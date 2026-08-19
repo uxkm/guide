@@ -10,15 +10,15 @@ import IntroductionCards from '../../shared/IntroductionCards';
 ## 원본과 배포
 
 ```text
-packages/styles/src/
-├── _tokens.scss       # 간격·radius·motion·layout·text size
-├── _themes.scss       # light/dark 색상과 그림자
-├── _variables.scss    # SCSS 컴파일 타임 값
+packages/styles/
+├── foundations/       # 토큰·테마·폰트·reset
+├── layouts/           # 앱 셸·사이드바·콘텐츠
 ├── components/        # 컴포넌트 범위 토큰과 스타일
-└── index.scss         # 모든 프레임워크가 공유하는 진입점
+├── behaviors/         # 공통 동작의 시각 효과
+├── shared/            # SCSS 변수와 mixin 진입점
+└── index.scss         # 모든 프레임워크가 공유하는 빌드 진입점
         │
         └─ pnpm build:styles
-             ├─ packages/styles/dist/uxkm.css
              └─ apps/{html,gulp,vue,react,nuxt,next,storybook}/public/styles/uxkm.css
 ```
 

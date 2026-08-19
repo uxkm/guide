@@ -1,1 +1,1 @@
-export { default, Pagination } from './Pagination';
+export { default, Pagination, buildPaginationPages } from './Pagination.jsx';

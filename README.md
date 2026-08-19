@@ -368,13 +368,22 @@ React Guidebook
 
 ---
 
-# 8. 공통 스타일 패키지
+# 8. 공통 원본과 패키지
 
-`packages/styles`만 공통 패키지로 유지합니다. 비어 있던 토큰·콘텐츠·명세·탐색·자산 패키지는 실제 소비 코드가 생길 때 추가합니다.
+프레임워크와 관계없이 재사용하는 코드는 책임별 공통 디렉터리에서 관리합니다. 실제 모듈 import가 필요한 JavaScript만 워크스페이스 패키지로 제공합니다.
+
+```text
+packages/
+├── styles/        # SCSS와 생성 CSS (공통 원본)
+├── interactions/  # DOM 기반 공통 동작 JS (워크스페이스 패키지)
+└── assets/        # 공통 정적 이미지 원본
+```
+
+`styles` 안에는 JavaScript나 이미지 파일을 두지 않습니다. Ripple과 클릭 가능한 선택 카드는 앱 시작점에서 `@uxkm/interactions`의 `initInteractions()`로 함께 등록하고, 공통 이미지는 `packages/assets/public/images`에서 관리합니다.
 
 ## 컴포넌트 스타일 빌드
 
-스타일의 단일 빌드 진입점은 `packages/styles/src/index.scss`입니다. 기존 Storybook 브랜치의 토큰·테마·레이아웃·유틸리티와 전체 컴포넌트 SCSS는 `packages/styles/src`에서 유지하며, Storybook을 포함한 모든 앱은 빌드된 `uxkm.css`를 사용합니다.
+스타일의 단일 빌드 진입점은 `packages/styles/index.scss`입니다. 토큰·테마·레이아웃·유틸리티와 전체 컴포넌트 SCSS는 `packages/styles`에서 유지하며, Storybook을 포함한 모든 앱은 빌드된 `uxkm.css`를 사용합니다.
 
 ```bash
 pnpm build:styles
@@ -383,7 +392,6 @@ pnpm build:styles
 이 명령을 실행할 때만 공통 SCSS를 컴파일하여 다음 위치에 동일한 `uxkm.css`를 생성합니다.
 
 ```text
-packages/styles/dist/uxkm.css
 apps/html/public/styles/uxkm.css
 apps/gulp/public/styles/uxkm.css
 apps/vue/public/styles/uxkm.css
@@ -394,6 +402,10 @@ apps/storybook/public/styles/uxkm.css
 ```
 
 생성된 CSS는 직접 수정하거나 Git으로 관리하지 않습니다. 스타일 변경은 공통 SCSS에서만 수행한 뒤 `pnpm build:styles`로 각 프레임워크에 반영합니다.
+
+공통 이미지는 `pnpm build:assets`로 각 앱의 `public/images`에 배포합니다. 스타일과 이미지를 한 번에 반영하려면 `pnpm build:shared`를 사용합니다.
+
+favicon과 웹 앱 manifest는 `packages/assets/public/images/meta/favicon`에서 공통 관리하며, 각 앱과 Storybook은 `/images/meta/favicon` 경로로 사용합니다.
 
 ---
 
@@ -646,7 +658,7 @@ Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실
 2. Gulp/Nunjucks 구현을 작성합니다.
 3. Vue와 React 구현을 작성합니다.
 4. Nuxt와 Next.js 구현을 작성합니다.
-5. 공통 스타일은 `packages/styles/src`에 추가합니다.
+5. 공통 스타일은 `packages/styles`의 역할별 폴더에 추가합니다.
 6. Storybook에 API와 프레임워크별 예제를 연결합니다.
 7. 52개 구성과 문서 누락 여부를 검사합니다.
 8. 전체 앱을 빌드하고 배포 결과를 검증합니다.

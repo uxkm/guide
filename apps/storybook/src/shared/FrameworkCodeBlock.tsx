@@ -22,7 +22,7 @@ export default function FrameworkCodeBlock({ className, code, frameworkId }: Fra
       padded={false}
       wrapLongLines
     >
-      {formatCodeExample(code)}
+      {formatCodeExample(code, frameworkId)}
     </SyntaxHighlighter>
   );
 }

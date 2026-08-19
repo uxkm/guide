@@ -1,8 +1,70 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { popoverFrameworkExamples as examples } from '../../../popoverFrameworkExamples.ts';
+import { popoverApiSections } from '../../../popoverApiSections.ts';
+import * as Stories from '../../../Popover.stories.tsx';
+
+<Meta of={Stories} />
+
 # Popover
 
-Feedback 카테고리의 Popover 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+트리거 주변에 보조 정보나 짧은 작업 패널을 표시합니다. 패널은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다.
 
-- HTML: `apps/html/src/components/feedback/Popover`
-- Gulp: `apps/gulp/src/components/feedback/Popover`
-- Vue: `apps/vue/src/components/feedback/Popover`
-- React: `apps/react/src/components/feedback/Popover`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 라벨 없음
+<Canvas of={Stories.NoLabel} sourceState="none" />
+<FrameworkTabs examples={examples.noLabel} />
+
+## 열린 상태
+<Canvas of={Stories.Open} sourceState="none" />
+<FrameworkTabs examples={examples.open} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 간격
+<Canvas of={Stories.Offset} sourceState="none" />
+<FrameworkTabs examples={examples.offset} />
+
+## 제목
+<Canvas of={Stories.Title} sourceState="none" />
+<FrameworkTabs examples={examples.title} />
+
+## 푸터
+<Canvas of={Stories.Footer} sourceState="none" />
+<FrameworkTabs examples={examples.footer} />
+
+## 호버 트리거
+<Canvas of={Stories.Hover} sourceState="none" />
+<FrameworkTabs examples={examples.hover} />
+
+## 트리거 유형
+<Canvas of={Stories.Trigger} sourceState="none" />
+<FrameworkTabs examples={examples.trigger} />
+
+## 배치
+<Canvas of={Stories.Placement} sourceState="none" />
+<FrameworkTabs examples={examples.placement} />
+
+## 폼
+<Canvas of={Stories.Form} sourceState="none" />
+<FrameworkTabs examples={examples.form} />
+
+## 화살표 기준
+<Canvas of={Stories.ArrowAnchor} sourceState="none" />
+<FrameworkTabs examples={examples.arrowAnchor} />
+
+## 화살표 없음
+<Canvas of={Stories.NoArrow} sourceState="none" />
+<FrameworkTabs examples={examples.noArrow} />
+
+## 접근성
+
+트리거는 `aria-haspopup`, `aria-expanded`, `aria-controls`를 제공하며 Esc와 외부 클릭으로 닫을 수 있습니다.
+
+<ComponentApiDocs sections={popoverApiSections} />

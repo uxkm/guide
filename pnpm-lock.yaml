@@ -16,9 +16,17 @@ importers:
 
   apps/guidebook/vue: {}
 
-  apps/gulp: {}
+  apps/gulp:
+    dependencies:
+      '@uxkm/interactions':
+        specifier: workspace:*
+        version: link:../../packages/interactions
 
   apps/html:
+    dependencies:
+      '@uxkm/interactions':
+        specifier: workspace:*
+        version: link:../../packages/interactions
     devDependencies:
       vite:
         specifier: ^8.2.0
@@ -44,6 +52,9 @@ importers:
 
   apps/react:
     dependencies:
+      '@uxkm/interactions':
+        specifier: workspace:*
+        version: link:../../packages/interactions
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -60,6 +71,9 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@uxkm/interactions':
+        specifier: workspace:*
+        version: link:../../packages/interactions
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -100,6 +114,9 @@ importers:
 
   apps/vue:
     dependencies:
+      '@uxkm/interactions':
+        specifier: workspace:*
+        version: link:../../packages/interactions
       vue:
         specifier: ^3.5.0
         version: 3.5.41(typescript@6.0.3)
@@ -111,7 +128,7 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(sass@1.102.0)
 
-  packages/styles: {}
+  packages/interactions: {}
 
 packages:
 

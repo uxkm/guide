@@ -5,9 +5,11 @@
   "packageManager": "pnpm@10.15.0",
   "scripts": {
     "dev": "node scripts/dev.mjs",
+    "build:assets": "node scripts/build-assets.mjs",
     "build:styles": "node scripts/build-styles.mjs",
-    "storybook": "pnpm --filter @uxkm/storybook storybook",
-    "build:storybook": "pnpm --filter @uxkm/storybook build-storybook",
+    "build:shared": "pnpm build:styles && pnpm build:assets",
+    "storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook storybook",
+    "build:storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook build-storybook",
     "check:workspace": "pnpm --recursive list --depth -1",
     "validate:structure": "node scripts/validate-components.mjs"
   },

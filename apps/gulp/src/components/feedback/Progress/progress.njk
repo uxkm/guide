@@ -1,1 +1,12 @@
-<div class="uxkm-progress" data-component="Progress">Progress</div>
+{% set value = percent | default(0) %}
+{% set progressColor = 'success' if status == 'success' else ('danger' if status == 'exception' else color | default('primary')) %}
+{% if circle %}
+<div class="progress progress_circle color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}" data-component="ProgressCircle" data-percent="{{ value }}" role="progressbar" aria-valuenow="{{ value }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ ariaLabel | default('진행률') }}" style="--progress-percent: {{ value }}">
+  <svg class="progress_circle-svg" viewBox="0 0 100 100" aria-hidden="true"><circle class="progress_circle-track" cx="50" cy="50" r="45"></circle><circle class="progress_circle-bar" cx="50" cy="50" r="45"></circle></svg><span class="progress_circle-value">{{ value }}%</span>
+</div>
+{% else %}
+<div class="progress {{ 'progress_block' if block else 'progress_fit' }} color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}{% if striped %} progress_striped{% endif %}{% if animated %} progress_animated{% endif %}{% if indeterminate %} is-indeterminate{% endif %}{% if inside %} progress_inside{% endif %}" data-component="Progress" data-percent="{{ value }}">
+  {% if showInfo or label %}<div class="progress_header">{% if label %}<span class="progress_label">{{ label }}</span>{% endif %}{% if showInfo %}<span class="progress_value">{{ value }}%</span>{% endif %}</div>{% endif %}
+  <div class="progress_track" role="progressbar"{% if not indeterminate %} aria-valuenow="{{ value }}"{% endif %} aria-valuemin="0" aria-valuemax="100" aria-label="{{ ariaLabel | default('진행률') }}"{% if indeterminate %} aria-busy="true"{% endif %}><span class="progress_bar" style="width: {{ value }}%">{% if inside %}{{ value }}%{% endif %}</span></div>
+</div>
+{% endif %}

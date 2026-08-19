@@ -1,1 +1,1 @@
-export { default, Dropdown } from './Dropdown';
+export { default, Dropdown } from './Dropdown.jsx';

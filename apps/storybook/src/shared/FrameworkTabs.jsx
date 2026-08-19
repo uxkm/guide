@@ -25,7 +25,7 @@ export default function FrameworkTabs({ examples, showFullCode = false }) {
   }
 
   async function copyCode() {
-    await navigator.clipboard.writeText(formatCodeExample(activeExample.code));
+    await navigator.clipboard.writeText(formatCodeExample(activeExample.code, activeExample.id));
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }

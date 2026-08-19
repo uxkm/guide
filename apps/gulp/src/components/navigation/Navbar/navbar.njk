@@ -1,1 +1,8 @@
-<div class="uxkm-navbar" data-component="Navbar">Navbar</div>
+{% from "../../basic/Icon/icon.njk" import icon %}
+<header class="navbar{% if size == 'sm' or size == 'lg' %} navbar_{{ size }}{% endif %}{% if borderless %} navbar_borderless{% endif %}{% if dark %} navbar_dark{% endif %}{% if sticky %} navbar_sticky{% endif %}" data-component="Navbar"{% if responsive %} data-navbar{% endif %}>
+  <div class="navbar_container">
+    <a href="#" class="navbar_brand">{% if brandIcon %}{{ brandIcon | safe }}{% endif %}{{ brand | default('UXKM') }}</a>
+    {% if responsive %}<button type="button" class="btn btn_ghost btn_icon-only navbar_toggle" data-navbar-toggle aria-expanded="false" aria-controls="{{ collapseId | default('navbar-collapse') }}" aria-label="메뉴 열기">{{ icon('menu', 'icon_sm navbar_toggle-icon-open') }}{{ icon('close', 'icon_sm navbar_toggle-icon-close') }}</button>{% endif %}
+    <div class="navbar_collapse" id="{{ collapseId | default('navbar-collapse') }}"><nav class="navbar_nav" aria-label="주요 메뉴">{{ items | safe }}</nav>{% if search %}<div class="navbar_search">{{ search | safe }}</div>{% endif %}{% if actions %}<div class="navbar_actions">{{ actions | safe }}</div>{% endif %}</div>
+  </div>
+</header>

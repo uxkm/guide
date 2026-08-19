@@ -1,0 +1,5 @@
+// 여러 스타일 계층에서 함께 쓰는 SCSS API입니다.
+// 컴포넌트는 현재 호환 경로인 `variables`, `mixins`를 직접 사용하며,
+// 새 공통 코드는 이 진입점을 통해 필요한 멤버를 가져옵니다.
+@forward "variables";
+@forward "mixins";

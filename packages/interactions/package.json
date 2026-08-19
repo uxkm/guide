@@ -1,0 +1,14 @@
+{
+  "name": "@uxkm/interactions",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./ripple": "./src/behaviors/ripple.js",
+    "./clickable-card": "./src/behaviors/clickable-card.js"
+  },
+  "files": [
+    "src"
+  ]
+}

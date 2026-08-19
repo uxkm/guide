@@ -1,1 +1,8 @@
-<div class="uxkm-popover" data-component="Popover">Popover</div>
+<div class="popover" data-component="Popover" data-popover>
+  <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-basic">Popover 열기</button>
+  <div class="popover_panel" id="popover-basic" role="dialog" aria-labelledby="popover-basic-title" hidden>
+    <span class="popover_arrow" aria-hidden="true"></span>
+    <div class="popover_header"><div class="popover_title" id="popover-basic-title">안내</div><button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button></div>
+    <div class="popover_body"><p>Popover 본문입니다.</p></div>
+  </div>
+</div>

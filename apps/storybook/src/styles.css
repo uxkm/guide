@@ -101,6 +101,303 @@ body {
   min-width: 0;
 }
 
+.snackbar-demo > .snackbar {
+  max-width: 100%;
+}
+
+/* Popover 예시는 기준 브랜치처럼 Canvas의 가용 너비 전체를 사용합니다. */
+.popover-story-demo {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.popover-story-demo > .popover_demo-stage {
+  width: 100%;
+  max-width: none;
+}
+
+.tooltip-story-demo {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.tooltip-story-demo > .tooltip_demo-stage {
+  width: 100%;
+  max-width: none;
+}
+
+.progress-story-demo,
+.progress-demo-stack {
+  width: 100%;
+  min-width: 0;
+}
+
+.progress-circle-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+}
+
+.spin-story-demo,
+.spin-overlay-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.spin-demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xl);
+  width: 100%;
+}
+
+.spin-overlay-demo {
+  display: grid;
+  gap: var(--space-md);
+  max-width: var(--input-max-width);
+}
+
+.skeleton-story-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.skeleton-content-demo {
+  width: 100%;
+  max-width: var(--input-max-width);
+}
+
+.skeleton-shape-demo {
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.skeleton-card-demo {
+  width: 100%;
+  max-width: 360px;
+}
+
+.skeleton-card-actions {
+  margin-top: var(--space-xs);
+}
+
+.skeleton-card-button-short {
+  width: 4rem;
+}
+
+.empty-story-demo,
+.empty-size-demo,
+.empty-block-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.empty-size-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.empty-block-demo {
+  display: grid;
+  gap: var(--space-md);
+  max-width: var(--input-max-width);
+}
+
+.empty-block-demo > :is(.card, .table_wrap) {
+  width: 100%;
+  max-width: none;
+}
+
+.empty-table-cell {
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.navbar-story-demo,
+.navbar-stack-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.navbar-stack-demo {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.navbar-scroll-demo {
+  max-height: 12rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.navbar-scroll-content {
+  padding: var(--space-xl);
+  color: var(--color-text-muted);
+  font-size: var(--text-size-sm);
+}
+
+.navbar-scroll-content p {
+  margin: 0 0 var(--space-md);
+}
+
+.navbar-responsive-demo {
+  width: min(100%, 700px);
+}
+
+/* Docs에서도 viewport 조절 없이 모바일 토글 상호작용을 확인합니다. */
+.navbar-responsive-demo .navbar_toggle {
+  display: inline-flex;
+  margin-left: auto;
+}
+
+.navbar-responsive-demo .navbar_collapse {
+  display: none;
+  flex: 1 0 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-md);
+  padding: var(--space-md) 0 var(--space-sm);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.navbar-responsive-demo .navbar.is-open .navbar_collapse {
+  display: flex;
+}
+
+.navbar-responsive-demo :is(.navbar_list, .navbar_actions) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.navbar-responsive-demo :is(.navbar_link, .navbar_actions .btn) {
+  width: 100%;
+}
+
+.navbar-responsive-demo .navbar_actions {
+  margin-left: 0;
+}
+
+.menu-story-demo,
+.menu-horizontal-submenu-demo,
+.menu-layout-demo,
+.menu-variant-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.menu-horizontal-submenu-demo {
+  min-height: 13rem;
+}
+
+.menu-layout-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-xl);
+}
+
+.tabs-story-demo,
+.tabs-stack-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.tabs-stack-demo {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.tabs_demo-narrow {
+  width: min(100%, 32rem);
+}
+
+.breadcrumb-story-demo,
+.breadcrumb-stack-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.breadcrumb-stack-demo {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.pagination-story-demo,
+.pagination-stack-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.pagination-stack-demo {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.steps-story-demo,
+.steps-stack-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.steps-stack-demo {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.dropdown-story-demo,
+.dropdown-stack-demo,
+.dropdown-placement-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.dropdown-story-demo {
+  min-height: 14rem;
+  padding: var(--space-xl);
+  overflow: visible;
+}
+
+.dropdown-stack-demo,
+.dropdown-placement-demo {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.dropdown-placement-row {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dropdown-placement-top {
+  display: flex;
+  justify-content: center;
+  padding-top: 6rem;
+}
+
+.menu-layout-demo .menu_demo-content {
+  flex: 1 1 20rem;
+}
+
+.menu-layout-demo .menu_demo-content p {
+  margin: 0;
+}
+
+.menu-variant-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-xl);
+}
+
 /* 카드형 선택 예시는 가용 너비를 채워 card_deck의 반응형 열 배치가 동작하게 합니다. */
 .demo-stack > :is(.checkbox_group, .radio_group):has(:is(.checkbox_card, .radio_card)) {
   align-self: stretch;

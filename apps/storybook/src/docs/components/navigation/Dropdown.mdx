@@ -1,8 +1,54 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { dropdownFrameworkExamples as examples } from '../../../dropdownFrameworkExamples.ts';
+import { dropdownApiSections } from '../../../dropdownApiSections.ts';
+import * as Stories from '../../../Dropdown.stories.tsx';
+
+<Meta of={Stories} />
+
 # Dropdown
 
-Navigation 카테고리의 Dropdown 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+트리거를 눌러 작업, 선택 항목 또는 사용자 메뉴를 현재 화면 위에 표시합니다.
 
-- HTML: `apps/html/src/components/navigation/Dropdown`
-- Gulp: `apps/gulp/src/components/navigation/Dropdown`
-- Vue: `apps/vue/src/components/navigation/Dropdown`
-- React: `apps/react/src/components/navigation/Dropdown`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 열린 상태
+<Canvas of={Stories.Open} sourceState="none" />
+<FrameworkTabs examples={examples.open} />
+
+## 트리거 유형
+<Canvas of={Stories.TriggerDemo} sourceState="none" />
+<FrameworkTabs examples={examples.trigger} />
+
+## 셀렉트 트리거
+<Canvas of={Stories.SelectTrigger} sourceState="none" />
+<FrameworkTabs examples={examples.select} />
+
+## 정렬
+<Canvas of={Stories.Placement} sourceState="none" />
+<FrameworkTabs examples={examples.placement} />
+
+## 메뉴 구성
+<Canvas of={Stories.MenuDemo} sourceState="none" />
+<FrameworkTabs examples={examples.menu} />
+
+## 스크롤 · 너비
+<Canvas of={Stories.Scroll} sourceState="none" />
+<FrameworkTabs examples={examples.scroll} />
+
+## 비활성
+<Canvas of={Stories.Disabled} sourceState="none" />
+<FrameworkTabs examples={examples.disabled} />
+
+## 조합 예시
+<Canvas of={Stories.Example} sourceState="none" />
+<FrameworkTabs examples={examples.example} />
+
+## 접근성
+
+트리거와 메뉴는 `aria-expanded`, `aria-controls`, `aria-haspopup`으로 연결합니다. 방향키·Home·End로 항목을 이동하고 Escape, Tab, 외부 클릭으로 닫을 수 있습니다.
+
+<ComponentApiDocs sections={dropdownApiSections} />

@@ -1,8 +1,46 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { spinFrameworkExamples as examples } from '../../../spinFrameworkExamples.ts';
+import { spinApiSections } from '../../../spinApiSections.ts';
+import * as Stories from '../../../Spin.stories.tsx';
+
+<Meta of={Stories} />
+
 # Spin
 
-Feedback 카테고리의 Spin 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+작업이 진행 중임을 회전 표시기 또는 콘텐츠 오버레이로 안내합니다.
 
-- HTML: `apps/html/src/components/feedback/Spin`
-- Gulp: `apps/gulp/src/components/feedback/Spin`
-- Vue: `apps/vue/src/components/feedback/Spin`
-- React: `apps/react/src/components/feedback/Spin`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 색상
+<Canvas of={Stories.Color} sourceState="none" />
+<FrameworkTabs examples={examples.color} />
+
+## 설명 텍스트
+<Canvas of={Stories.Tip} sourceState="none" />
+<FrameworkTabs examples={examples.tip} />
+
+## 인라인
+<Canvas of={Stories.Inline} sourceState="none" />
+<FrameworkTabs examples={examples.inline} />
+
+## 블록 정렬
+<Canvas of={Stories.Block} sourceState="none" />
+<FrameworkTabs examples={examples.block} />
+
+## 컨테이너 오버레이
+<Canvas of={Stories.Overlay} sourceState="none" />
+<FrameworkTabs examples={examples.overlay} />
+
+## 접근성
+
+Spin은 `role="status"`, `aria-live="polite"`, `aria-busy="true"`를 제공하며 장식용 표시기는 보조 기술에서 제외합니다.
+
+<ComponentApiDocs sections={spinApiSections} />

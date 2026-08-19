@@ -1,8 +1,81 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { drawerFrameworkExamples } from '../../../drawerFrameworkExamples.ts';
+import { drawerApiSections } from '../../../drawerApiSections.ts';
+import * as DrawerStories from '../../../Drawer.stories.tsx';
+
+<Meta of={DrawerStories} />
+
 # Drawer
 
-Feedback 카테고리의 Drawer 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+보조 작업과 상세 정보를 전체 브라우저 가장자리에서 열리는 패널로 제공합니다.
 
-- HTML: `apps/html/src/components/feedback/Drawer`
-- Gulp: `apps/gulp/src/components/feedback/Drawer`
-- Vue: `apps/vue/src/components/feedback/Drawer`
-- React: `apps/react/src/components/feedback/Drawer`
+## 기본
+
+<Canvas of={DrawerStories.Basic} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.basic} />
+
+## 열린 상태
+
+`defaultOpen`, `openOnLoad` 또는 `open`으로 로드 시 열린 상태를 제공합니다.
+
+<Canvas of={DrawerStories.OpenOnLoad} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.open} />
+
+## 위치
+
+<Canvas of={DrawerStories.Placement} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.placement} />
+
+## 크기
+
+<Canvas of={DrawerStories.Size} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.size} />
+
+## 헤더·푸터
+
+<Canvas of={DrawerStories.Footer} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.footer} />
+
+## 푸터 정렬
+
+`start`, `center`, `end`, `between`, `even` 정렬을 제공합니다.
+
+<Canvas of={DrawerStories.FooterAlign} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.footerAlign} />
+
+## 헤더 추가 영역
+
+<Canvas of={DrawerStories.Extra} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.extra} />
+
+## 메뉴
+
+왼쪽 Drawer에 탐색 메뉴를 조합할 수 있습니다.
+
+<Canvas of={DrawerStories.Menu} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.menu} />
+
+## 중첩 Drawer
+
+<Canvas of={DrawerStories.Nested} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.nested} />
+
+## 하단 드래그 시트
+
+하단 배치와 드래그 핸들을 조합해 모바일 액션 시트 형태로 제공합니다.
+
+<Canvas of={DrawerStories.DragSheet} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.dragSheet} />
+
+## 백드롭 없음
+
+<Canvas of={DrawerStories.NoBackdrop} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.noBackdrop} />
+
+## 접근성
+
+Drawer는 대화상자 제목을 연결하고 열릴 때 내부로 포커스를 이동합니다. Tab 키는 패널 안에서 순환하며 Esc, 백드롭, 닫기 버튼으로 닫은 뒤 기존 포커스를 복원합니다.
+
+<ComponentApiDocs sections={drawerApiSections} />

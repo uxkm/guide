@@ -1,1 +1,9 @@
-<div class="uxkm-tooltip" data-component="Tooltip">Tooltip</div>
+{% set tooltipId = id | default('tooltip-basic') %}
+<span class="tooltip{% if size and size != 'md' %} tooltip_{{ size }}{% endif %}{% if placement %} tooltip_placement-{{ placement }}{% endif %}{% if offset and offset != 'md' %} tooltip_offset-{{ offset }}{% endif %}{% if offsetTop and offsetTop != 'md' %} tooltip_offset-top-{{ offsetTop }}{% endif %}{% if offsetRight and offsetRight != 'md' %} tooltip_offset-right-{{ offsetRight }}{% endif %}{% if offsetBottom and offsetBottom != 'md' %} tooltip_offset-bottom-{{ offsetBottom }}{% endif %}{% if offsetLeft and offsetLeft != 'md' %} tooltip_offset-left-{{ offsetLeft }}{% endif %}{% if inverse %} tooltip_inverse{% endif %}{% if noArrow %} tooltip_no-arrow{% endif %}{% if arrowAnchor and arrowAnchor != 'content' %} tooltip_arrow-anchor-{{ arrowAnchor }}{% endif %}{% if panelAlign and panelAlign != 'center' %} tooltip_panel-align-{{ panelAlign }}{% endif %}{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}" data-component="Tooltip" data-tooltip{% if trigger == 'click' %} data-tooltip-trigger="click"{% endif %}{% if arrowTargetAlign and arrowTargetAlign != 'center' %} data-arrow-target-align="{{ arrowTargetAlign }}"{% endif %}>
+  <button type="button" class="btn btn_outline tooltip_trigger" aria-describedby="{{ tooltipId }}"{% if trigger == 'click' %} aria-expanded="{{ 'true' if open else 'false' }}"{% endif %}>{{ triggerLabel | default('마우스 오버') }}</button>
+  <span class="tooltip_bubble{% if trigger == 'click' %} tooltip_bubble-closable{% endif %}" id="{{ tooltipId }}" role="tooltip"{% if not open %} hidden{% endif %}>
+    {% if not noArrow %}<span class="tooltip_arrow" aria-hidden="true"></span>{% endif %}
+    {% if trigger == 'click' %}<button type="button" class="tooltip_close tooltip_close-floating" data-tooltip-close aria-label="닫기">×</button>{% endif %}
+    {{ content | default('짧은 도움말 텍스트입니다.') }}
+  </span>
+</span>

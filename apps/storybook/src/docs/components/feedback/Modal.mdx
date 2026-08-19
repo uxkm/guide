@@ -1,8 +1,86 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { modalFrameworkExamples } from '../../../modalFrameworkExamples.ts';
+import { modalApiSections } from '../../../modalApiSections.ts';
+import * as ModalStories from '../../../Modal.stories.tsx';
+
+<Meta of={ModalStories} />
+
 # Modal
 
-Feedback 카테고리의 Modal 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+중요한 정보 확인이나 사용자 입력이 필요한 작업을 전체 브라우저 위의 대화상자로 제공합니다.
 
-- HTML: `apps/html/src/components/feedback/Modal`
-- Gulp: `apps/gulp/src/components/feedback/Modal`
-- Vue: `apps/vue/src/components/feedback/Modal`
-- React: `apps/react/src/components/feedback/Modal`
+## 기본
+
+백드롭, 닫기 버튼, Esc 키로 닫을 수 있으며 닫은 뒤 트리거로 포커스가 돌아갑니다.
+
+<Canvas of={ModalStories.Basic} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.basic} />
+
+## 열린 상태
+
+`defaultOpen` 또는 `open`으로 처음부터 열린 상태를 만들 수 있습니다.
+
+<Canvas of={ModalStories.Open} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.open} />
+
+## 크기
+
+`sm`, `md`, `lg`, `fullscreen` 크기를 제공합니다.
+
+<Canvas of={ModalStories.Size} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.size} />
+
+## 헤더·푸터
+
+제목과 닫기 버튼을 포함하는 헤더, 스크롤 가능한 본문, 액션 푸터로 구성합니다.
+
+<Canvas of={ModalStories.Footer} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.footer} />
+
+## 푸터 정렬
+
+`start`, `center`, `end`, `between`, `even` 정렬을 제공합니다.
+
+<Canvas of={ModalStories.FooterAlign} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.footerAlign} />
+
+## 확인 대화상자
+
+되돌릴 수 없는 작업 전에는 간결한 설명과 명확한 확인 액션을 제공합니다.
+
+<Canvas of={ModalStories.Confirm} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.confirm} />
+
+## 폼
+
+<Canvas of={ModalStories.Form} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.form} />
+
+## 스크롤 본문
+
+본문이 길면 헤더와 푸터는 유지하고 `modal_body` 안에서 스크롤합니다.
+
+<Canvas of={ModalStories.Scroll} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.scroll} />
+
+## 중첩 Modal
+
+중첩된 경우 최상위 대화상자만 조작하고 아래 Modal의 백드롭은 숨깁니다.
+
+<Canvas of={ModalStories.Nested} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.nested} />
+
+## 백드롭 없음
+
+배경 맥락을 유지해야 하는 제한적인 상황에서만 사용합니다.
+
+<Canvas of={ModalStories.NoBackdrop} sourceState="none" />
+<FrameworkTabs examples={modalFrameworkExamples.noBackdrop} />
+
+## 접근성
+
+Modal은 `role="dialog"`, `aria-modal="true"`, 제목 연결을 제공하고 열릴 때 내부로 포커스를 이동합니다. Tab 키는 Modal 안에서 순환하며 Esc로 닫은 뒤 기존 포커스를 복원합니다.
+
+<ComponentApiDocs sections={modalApiSections} />

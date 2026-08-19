@@ -1,1 +1,15 @@
-<div class="uxkm-skeleton" data-component="Skeleton">Skeleton</div>
+<div class="skeleton_group{% if active == false %} skeleton_static{% endif %}" data-component="Skeleton" role="status" aria-live="polite" aria-busy="true" aria-label="{{ ariaLabel | default('콘텐츠 로딩 중') }}">
+  {% if avatar %}
+  <div class="skeleton_row">
+    <span class="skeleton skeleton_circle{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+    {% if paragraph %}<div class="skeleton_row-body">{% for width in ['', 'skeleton_w-md', 'skeleton_w-sm'] %}<span class="skeleton skeleton_text {{ width }}{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>{% endfor %}</div>{% endif %}
+  </div>
+  {% elif round %}
+  <span class="skeleton skeleton_circle{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+  {% else %}
+  <span class="skeleton skeleton_title{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+  <span class="skeleton skeleton_text{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+  <span class="skeleton skeleton_text skeleton_w-md{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+  <span class="skeleton skeleton_text skeleton_w-sm{% if active == false %} skeleton_static{% endif %}" aria-hidden="true"></span>
+  {% endif %}
+</div>

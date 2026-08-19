@@ -1,3 +1,1 @@
-export function initModal(root = document) {
-  return root.querySelectorAll('[data-component="Modal"]');
-}
+export { initModal } from '../../../../../html/src/components/feedback/Modal/modal.js';

@@ -1,1 +1,6 @@
-<div class="uxkm-empty" data-component="Empty">Empty</div>
+{% from "../../basic/Icon/icon.njk" import icon %}
+<div class="empty{% if size == 'sm' or size == 'lg' %} empty_{{ size }}{% endif %}{% if simple %} empty_simple{% endif %}{% if block %} empty_block{% endif %}" data-component="Empty" role="status">
+  {% if not simple %}<div class="empty_image" data-slot="icon" aria-hidden="true">{% if iconSlot %}{{ iconSlot | safe }}{% elif image %}{{ image | safe }}{% else %}{{ icon(iconName | default('inbox')) }}{% endif %}</div>{% endif %}
+  {% if descriptionSlot or description %}<div class="empty_desc" data-slot="description">{% if descriptionSlot %}{{ descriptionSlot | safe }}{% else %}<p>{{ description }}</p>{% endif %}</div>{% endif %}
+  {% if footer %}<div class="empty_footer">{{ footer | safe }}</div>{% endif %}
+</div>

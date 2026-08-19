@@ -1,1 +1,6 @@
-<div class="uxkm-menu" data-component="Menu">Menu</div>
+<nav class="menu menu_vertical menu_bordered" data-component="Menu" data-menu-selectable aria-label="컴포넌트 메뉴">
+  <ul class="menu_list">
+    <li class="menu_item"><button type="button" class="menu_link is-active" aria-current="page"><span class="menu_label">홈</span></button></li>
+    <li class="menu_item menu_item-submenu" aria-expanded="true"><button type="button" class="menu_link" data-menu-submenu-toggle aria-expanded="true" aria-controls="menu-components"><span class="menu_label">컴포넌트</span><svg class="icon menu_arrow" data-component="Icon" data-icon="chevron-down" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg></button><ul id="menu-components" class="menu_submenu"><li class="menu_item"><button type="button" class="menu_link"><span class="menu_label">Button</span></button></li><li class="menu_item"><button type="button" class="menu_link"><span class="menu_label">Input</span></button></li><li class="menu_item"><button type="button" class="menu_link"><span class="menu_label">Card</span></button></li></ul></li>
+  </ul>
+</nav>

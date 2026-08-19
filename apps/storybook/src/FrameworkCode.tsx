@@ -42,7 +42,7 @@ export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
 
   async function copyCode() {
     if (!activeExample) return;
-    await navigator.clipboard.writeText(formatCodeExample(activeExample.code));
+    await navigator.clipboard.writeText(formatCodeExample(activeExample.code, activeExample.id));
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }

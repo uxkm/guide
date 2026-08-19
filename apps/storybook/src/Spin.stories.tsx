@@ -1,0 +1,22 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import ActualSpin from '../../react/src/components/feedback/Spin/Spin.jsx';
+import ActualSpinWrap from '../../react/src/components/feedback/Spin/SpinWrap.jsx';
+import ActualButton from '../../react/src/components/basic/Button/Button.jsx';
+
+const Spin = ActualSpin as React.ComponentType<any>;
+const SpinWrap = ActualSpinWrap as React.ComponentType<any>;
+const Button = ActualButton as React.ComponentType<any>;
+const Row = ({ children }: any) => <div className="spin-demo-row">{children}</div>;
+
+const meta = { title: '피드백/Spin', component: Spin, subcomponents: { SpinWrap }, decorators: [(Story) => <div className="spin-story-demo"><Story /></div>], parameters: { layout: 'padded' }, argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] }, color: { control: 'select', options: ['primary', 'success', 'warning', 'danger'] } } } satisfies Meta<typeof Spin>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Basic: Story = { name: '기본', render: () => <Row><Spin /></Row> };
+export const Size: Story = { name: '크기', render: () => <Row><Spin size="sm" /><Spin /><Spin size="lg" /></Row> };
+export const Color: Story = { name: '색상', render: () => <Row><Spin color="primary" ariaLabel="Primary 로딩" /><Spin color="success" ariaLabel="Success 로딩" /><Spin color="warning" ariaLabel="Warning 로딩" /><Spin color="danger" ariaLabel="Danger 로딩" /></Row> };
+export const Tip: Story = { name: '설명 텍스트', render: () => <Row><Spin tip="데이터를 불러오는 중…" ariaLabel="데이터를 불러오는 중" /><Spin size="lg" tip="파일 업로드 중…" ariaLabel="파일 업로드 중" /></Row> };
+export const Inline: Story = { name: '인라인', render: () => <div className="demo-stack"><p><Spin size="sm" inline color="primary" tip="저장 중…" ariaLabel="저장 중" /></p><Button variant="filled" color="primary" loading disabled aria-busy="true" label="제출 중…" /></div> };
+export const Block: Story = { name: '블록 정렬', render: () => <Spin block color="primary" tip="잠시만 기다려 주세요…" ariaLabel="로딩 중" /> };
+const Card = ({ title, children }: any) => <div className="card card_shadow"><div className="card_header"><h3 className="card_title">{title}</h3></div><div className="card_body">{children}</div></div>;
+export const Overlay: Story = { name: '컨테이너 오버레이', render: () => <div className="spin-overlay-demo"><SpinWrap block loading tip="데이터 로딩 중…" ariaLabel="데이터 로딩 중"><Card title="대시보드"><p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p></Card></SpinWrap><SpinWrap block blur loading ariaLabel="처리 중"><Card title="블러 효과"><p><code className="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p></Card></SpinWrap></div> };

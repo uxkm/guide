@@ -1,8 +1,77 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { snackbarFrameworkExamples } from '../../../snackbarFrameworkExamples.ts';
+import { snackbarApiSections } from '../../../snackbarApiSections.ts';
+import * as SnackbarStories from '../../../Snackbar.stories.tsx';
+
+<Meta of={SnackbarStories} />
+
 # Snackbar
 
-Feedback 카테고리의 Snackbar 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+작업 결과나 짧은 상태 메시지를 화면 흐름을 방해하지 않고 일시적으로 전달합니다.
 
-- HTML: `apps/html/src/components/feedback/Snackbar`
-- Gulp: `apps/gulp/src/components/feedback/Snackbar`
-- Vue: `apps/vue/src/components/feedback/Snackbar`
-- React: `apps/react/src/components/feedback/Snackbar`
+## 기본
+
+<Canvas of={SnackbarStories.Basic} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.basic} />
+
+## 간단한 메시지
+
+아이콘 없이 메시지만 전달할 수 있습니다.
+
+<Canvas of={SnackbarStories.Simple} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.simple} />
+
+## 형태
+
+기본 모서리와 높이 비율에 맞춘 캡슐형 `round`를 제공합니다.
+
+<Canvas of={SnackbarStories.Shape} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.shape} />
+
+## 호출 · 닫기 효과
+
+`fade`, 배치 방향을 따르는 `slide`, 전환이 없는 `none` 모션을 제공합니다.
+
+<Canvas of={SnackbarStories.Motion} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.motion} />
+
+## 크기
+
+<Canvas of={SnackbarStories.Size} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.size} />
+
+## 액션
+
+메시지와 직접 관련된 하나의 짧고 명확한 후속 동작을 배치합니다.
+
+<Canvas of={SnackbarStories.Action} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.action} />
+
+## 닫기 가능
+
+닫기 버튼과 내부 포커스 상태의 Esc 키로 닫을 수 있습니다.
+
+<Canvas of={SnackbarStories.Closable} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.closable} />
+
+## 자동 닫기
+
+`duration` 이후 닫히며, 호버하거나 내부 요소에 포커스하면 남은 시간이 일시정지됩니다.
+
+<Canvas of={SnackbarStories.Duration} sourceState="none" />
+<FrameworkTabs examples={snackbarFrameworkExamples.duration} />
+
+## 위치 · 여러 개 동작 테스트
+
+뷰포트 기준 8개 위치를 지원하며 같은 위치의 Snackbar는 세로로 쌓입니다.
+
+<Canvas of={SnackbarStories.Placement} sourceState="none" story={{ inline: true }} />
+<FrameworkTabs examples={snackbarFrameworkExamples.placement} />
+
+## 접근성
+
+일반적인 작업 결과는 `role="status"`로 알리고 즉시 확인해야 하는 오류에만 `role="alert"`를 사용합니다. 아이콘은 장식 요소로 숨기며, 자동 닫기를 사용할 때는 내용을 읽고 액션을 수행할 충분한 시간을 제공해야 합니다.
+
+<ComponentApiDocs sections={snackbarApiSections} />

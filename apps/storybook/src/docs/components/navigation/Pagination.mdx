@@ -1,8 +1,54 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { paginationFrameworkExamples as examples } from '../../../paginationFrameworkExamples.ts';
+import { paginationApiSections } from '../../../paginationApiSections.ts';
+import * as Stories from '../../../Pagination.stories.tsx';
+
+<Meta of={Stories} />
+
 # Pagination
 
-Navigation 카테고리의 Pagination 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+여러 페이지의 콘텐츠를 번호, 이전·다음 버튼 또는 간단한 현재/전체 표시로 탐색합니다.
 
-- HTML: `apps/html/src/components/navigation/Pagination`
-- Gulp: `apps/gulp/src/components/navigation/Pagination`
-- Vue: `apps/vue/src/components/navigation/Pagination`
-- React: `apps/react/src/components/navigation/Pagination`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 미니멀
+<Canvas of={Stories.Minimal} sourceState="none" />
+<FrameworkTabs examples={examples.minimal} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 둥근
+<Canvas of={Stories.Round} sourceState="none" />
+<FrameworkTabs examples={examples.round} />
+
+## 페이지 생략
+<Canvas of={Stories.Ellipsis} sourceState="none" />
+<FrameworkTabs examples={examples.ellipsis} />
+
+## 심플
+<Canvas of={Stories.Simple} sourceState="none" />
+<FrameworkTabs examples={examples.simple} />
+
+## 툴바 조합
+<Canvas of={Stories.Toolbar} sourceState="none" />
+<FrameworkTabs examples={examples.toolbar} />
+
+## 정렬
+<Canvas of={Stories.Align} sourceState="none" />
+<FrameworkTabs examples={examples.align} />
+
+## 상태
+<Canvas of={Stories.State} sourceState="none" />
+<FrameworkTabs examples={examples.state} />
+
+## 접근성
+
+현재 페이지는 `aria-current="page"`, 처음과 마지막의 이동 버튼은 `disabled`로 표시합니다. 모든 페이지 번호와 아이콘 버튼에 구체적인 접근 가능한 이름을 제공합니다.
+
+<ComponentApiDocs sections={paginationApiSections} />
