@@ -6,7 +6,8 @@
   "exports": {
     ".": "./src/index.js",
     "./ripple": "./src/behaviors/ripple.js",
-    "./clickable-card": "./src/behaviors/clickable-card.js"
+    "./clickable-card": "./src/behaviors/clickable-card.js",
+    "./slide-region": "./src/behaviors/slide-region.js"
   },
   "files": [
     "src"

@@ -1,3 +1,1 @@
-export function initAccordion(root = document) {
-  return root.querySelectorAll('[data-component="Accordion"]');
-}
+export { initAccordion } from '../../../../../html/src/components/miscellaneous/Accordion/accordion.js';

@@ -1,8 +1,54 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { accordionFrameworkExamples as examples } from '../../../accordionFrameworkExamples.ts';
+import { accordionApiSections } from '../../../accordionApiSections.ts';
+import * as Stories from '../../../Accordion.stories.tsx';
+
+<Meta of={Stories} />
+
 # Accordion
 
-Miscellaneous 카테고리의 Accordion 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+여러 섹션을 접었다 펼 수 있는 컴포넌트입니다. FAQ·설정·필터 패널 등에 사용하며 단일 또는 다중 열기와 키보드 탐색을 지원합니다.
 
-- HTML: `apps/html/src/components/miscellaneous/Accordion`
-- Gulp: `apps/gulp/src/components/miscellaneous/Accordion`
-- Vue: `apps/vue/src/components/miscellaneous/Accordion`
-- React: `apps/react/src/components/miscellaneous/Accordion`
+## 기본
+<Canvas of={Stories.Basic} sourceState="none" />
+<FrameworkTabs examples={examples.basic} />
+
+## 다중 열기
+<Canvas of={Stories.Multiple} sourceState="none" />
+<FrameworkTabs examples={examples.multiple} />
+
+## 플러시
+<Canvas of={Stories.Flush} sourceState="none" />
+<FrameworkTabs examples={examples.flush} />
+
+## 보더
+<Canvas of={Stories.Bordered} sourceState="none" />
+<FrameworkTabs examples={examples.bordered} />
+
+## 보조 정보
+<Canvas of={Stories.Extra} sourceState="none" />
+<FrameworkTabs examples={examples.extra} />
+
+## 슬롯 커스텀
+<Canvas of={Stories.CustomSlot} sourceState="none" />
+<FrameworkTabs examples={examples.custom} />
+
+## 비활성
+<Canvas of={Stories.Disabled} sourceState="none" />
+<FrameworkTabs examples={examples.disabled} />
+
+## 크기
+<Canvas of={Stories.Size} sourceState="none" />
+<FrameworkTabs examples={examples.size} />
+
+## 슬라이드
+<Canvas of={Stories.Slide} sourceState="none" />
+<FrameworkTabs examples={examples.slide} />
+
+## 접근성
+
+트리거와 패널은 `aria-expanded`, `aria-controls`, `aria-labelledby`로 연결됩니다. `ArrowUp`, `ArrowDown`, `Home`, `End` 키로 활성 트리거 사이를 이동하며 비활성 항목은 건너뜁니다.
+
+<ComponentApiDocs sections={accordionApiSections} />

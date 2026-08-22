@@ -259,6 +259,17 @@ body {
   margin-left: auto;
 }
 
+.accordion-story-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+.accordion-story-stack {
+  display: grid;
+  gap: var(--space-lg);
+  width: 100%;
+}
+
 .navbar-responsive-demo .navbar_collapse {
   display: none;
   flex: 1 0 100%;
