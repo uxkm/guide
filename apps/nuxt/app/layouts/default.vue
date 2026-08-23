@@ -1,3 +1,5 @@
 <template>
-  <section>Default</section>
+  <div class="uxkm-app-layout">
+    <slot />
+  </div>
 </template>

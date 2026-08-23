@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "vite --port 6101"
+  },
   "dependencies": {
     "@uxkm/interactions": "workspace:*",
     "swiper": "12.0.3"

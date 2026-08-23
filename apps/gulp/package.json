@@ -3,8 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "gulp dev"
+  },
   "dependencies": {
     "@uxkm/interactions": "workspace:*",
     "swiper": "12.0.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "gulp": "^5.0.1",
+    "gulp-nunjucks-render": "^2.2.3"
   }
 }

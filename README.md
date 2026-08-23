@@ -473,15 +473,25 @@ packages:
   - 'packages/*'
 ```
 
-예정된 기본 명령:
+개발 서버 명령:
 
 ```bash
 pnpm install
 
-pnpm dev
-pnpm dev:frameworks
-pnpm dev:guidebook
-pnpm dev:storybook
+pnpm dev              # Workspace 대시보드 (3000)
+pnpm dev:html         # HTML (6101)
+pnpm dev:gulp         # Gulp / Nunjucks (6102)
+pnpm dev:vue          # Vue (6103)
+pnpm dev:react        # React (6104)
+pnpm dev:nuxt         # Nuxt (6105)
+pnpm dev:next         # Next.js (6106)
+pnpm dev:storybook    # Storybook (6006)
+pnpm dev:all          # 위의 프레임워크 앱과 Storybook을 모두 실행
+```
+
+빌드 및 검증 명령:
+
+```bash
 
 pnpm build
 pnpm build:frameworks
@@ -494,7 +504,7 @@ pnpm validate
 pnpm deploy
 ```
 
-현재 초기 구조에서는 `pnpm dev`가 `http://127.0.0.1:3000`에 Workspace 확인용 개발 대시보드를 실행합니다. 각 프레임워크 앱을 구현하면 개별 앱 실행 명령을 루트 개발 명령에 순차적으로 연결합니다.
+`pnpm dev:all`은 공통 스타일과 이미지를 한 번 빌드한 뒤 프레임워크 앱과 Storybook 개발 서버를 병렬로 실행합니다. 실행 전과 서버 시작 후 터미널에 전체 접속 주소를 표시합니다. 개별 `dev:*` 명령도 실행 전에 공통 자산을 갱신합니다.
 
 ---
 

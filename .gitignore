@@ -6,6 +6,7 @@ node_modules/
 apps/*/dist/
 apps/guidebook/*/dist/
 apps/nuxt/.output/
+apps/nuxt/.nuxt/
 apps/next/.next/
 apps/next/out/
 apps/storybook/storybook-static/

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "vite --port 6104"
+  },
   "exports": {
     "./affix": "./src/components/miscellaneous/Affix/index.js",
     "./back-top": "./src/components/miscellaneous/BackTop/index.js",
