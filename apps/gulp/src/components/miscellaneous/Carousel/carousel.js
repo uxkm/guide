@@ -1,3 +1,1 @@
-export function initCarousel(root = document) {
-  return root.querySelectorAll('[data-component="Carousel"]');
-}
+export { initCarousel } from '../../../../../html/src/components/miscellaneous/Carousel/carousel.js';

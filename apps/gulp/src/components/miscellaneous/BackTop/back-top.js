@@ -1,3 +1,1 @@
-export function initBackTop(root = document) {
-  return root.querySelectorAll('[data-component="BackTop"]');
-}
+export { initBackTop, initBackTopAll } from '../../../../../html/src/components/miscellaneous/BackTop/back-top.js';

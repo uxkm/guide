@@ -55,6 +55,53 @@ body {
   background: var(--color-bg);
 }
 
+.collapse-story-demo,
+.collapse-story-stack {
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+  min-width: 0;
+  max-width: 28rem;
+}
+
+.collapse-story-lead {
+  margin: 0 0 var(--space-md);
+}
+
+.carousel-story-demo,
+.carousel-story-stack {
+  display: grid;
+  gap: var(--space-xl);
+  width: 100%;
+  min-width: 0;
+}
+
+.carousel-story-block {
+  display: grid;
+  gap: var(--space-sm);
+  width: 100%;
+  min-width: 0;
+}
+
+.carousel-story-block > :is(h3, p) {
+  margin: 0;
+}
+
+.affix-story-demo {
+  width: 100%;
+  min-width: 0;
+  max-width: 28rem;
+}
+
+.back-top-story-demo,
+.back-top-story-stack {
+  display: grid;
+  gap: var(--space-xl);
+  width: 100%;
+  min-width: 0;
+  max-width: 28rem;
+}
+
 .btn-demo {
   display: grid;
   gap: var(--space-md);

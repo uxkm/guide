@@ -1,8 +1,74 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
+import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
+import { carouselFrameworkExamples as examples } from '../../../carouselFrameworkExamples.ts';
+import { carouselApiSections } from '../../../carouselApiSections.ts';
+import * as Stories from '../../../Carousel.stories.tsx';
+
+<Meta of={Stories} />
+
 # Carousel
 
-Miscellaneous 카테고리의 Carousel 컴포넌트입니다. 실제 구현과 Story는 각 프레임워크 앱에서 관리합니다.
+여러 콘텐츠를 가로로 탐색하는 Swiper 기반 캐러셀입니다. 키보드·터치 탐색과 다양한 전환 효과, 페이지네이션, 자동 재생을 지원합니다.
 
-- HTML: `apps/html/src/components/miscellaneous/Carousel`
-- Gulp: `apps/gulp/src/components/miscellaneous/Carousel`
-- Vue: `apps/vue/src/components/miscellaneous/Carousel`
-- React: `apps/react/src/components/miscellaneous/Carousel`
+## 기본
+<Canvas of={Stories.Default} sourceState="none" />
+<FrameworkTabs examples={examples.default} />
+
+## 페이드
+<Canvas of={Stories.Fade} sourceState="none" />
+<FrameworkTabs examples={examples.fade} />
+
+## 자동 재생
+<Canvas of={Stories.Autoplay} sourceState="none" />
+<FrameworkTabs examples={examples.autoplay} />
+
+## 무한 루프
+<Canvas of={Stories.Loop} sourceState="none" />
+<FrameworkTabs examples={examples.loop} />
+
+## 슬라이드 per view
+<Canvas of={Stories.Multi} sourceState="none" />
+<FrameworkTabs examples={examples.multi} />
+
+## 슬라이드 간격
+<Canvas of={Stories.Space} sourceState="none" />
+<FrameworkTabs examples={examples.space} />
+
+## 페이지네이션
+<Canvas of={Stories.Pagination} sourceState="none" />
+<FrameworkTabs examples={examples.pagination} />
+
+## 분수 페이지네이션
+<Canvas of={Stories.Fraction} sourceState="none" />
+<FrameworkTabs examples={examples.fraction} />
+
+## 프로그레스 페이지네이션
+<Canvas of={Stories.Progress} sourceState="none" />
+<FrameworkTabs examples={examples.progress} />
+
+## 커스텀 페이지네이션
+<Canvas of={Stories.CustomPagination} sourceState="none" />
+<FrameworkTabs examples={examples.custom} />
+
+## 그리드
+<Canvas of={Stories.Grid} sourceState="none" />
+<FrameworkTabs examples={examples.grid} />
+
+## 커버플로우
+<Canvas of={Stories.Coverflow} sourceState="none" />
+<FrameworkTabs examples={examples.coverflow} />
+
+## 커버플로우 · 축소
+<Canvas of={Stories.CoverflowRise} sourceState="none" />
+<FrameworkTabs examples={examples.coverflowRise} />
+
+## 썸네일 갤러리
+<Canvas of={Stories.ThumbsGallery} sourceState="none" />
+<FrameworkTabs examples={examples.thumbs} />
+
+## 접근성
+
+루트 슬라이더는 `role="region"`, `aria-roledescription="carousel"`, `aria-label`을 제공합니다. 이전·다음 버튼, 페이지네이션, 자동 재생 토글은 키보드로 조작할 수 있습니다.
+
+<ComponentApiDocs sections={carouselApiSections} />

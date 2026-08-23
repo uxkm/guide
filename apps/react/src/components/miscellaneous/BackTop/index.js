@@ -1,1 +1,1 @@
-export { default, BackTop } from './BackTop';
+export { default, BackTop } from './BackTop.jsx';

@@ -94,6 +94,9 @@
   &_inner {
     padding: var(--collapse-content-padding-top) var(--collapse-content-padding-x)
       var(--collapse-content-padding-y);
+    border: 1px solid var(--color-border);
+    border-radius: $radius-md;
+    background: var(--color-surface-raised);
   }
 
   // ----- 패널 그룹

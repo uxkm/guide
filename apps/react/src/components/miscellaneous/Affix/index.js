@@ -1,1 +1,1 @@
-export { default, Affix } from './Affix';
+export { default, Affix } from './Affix.jsx';

@@ -1,1 +1,2 @@
-export { default, Carousel } from './Carousel';
+export { default, Carousel } from './Carousel.jsx';
+export { default as CarouselSlide } from './CarouselSlide.jsx';

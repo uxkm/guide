@@ -1,1 +1,6 @@
-<div class="uxkm-affix" data-component="Affix">Affix</div>
+<div class="affix{% if className %} {{ className }}{% endif %}" data-component="Affix"{% if interactive != false %} data-affix{% endif %}{% if target %} data-target="{{ target }}"{% endif %}{% if offsetTop %} data-offset-top="{{ offsetTop }}"{% endif %}{% if offsetBottom is defined %} data-offset-bottom="{{ offsetBottom }}"{% endif %}>
+  <div class="affix_placeholder" aria-hidden="true" hidden></div>
+  <div class="affix_target{% if skin == 'bar' %} affix_bar{% elif skin == 'anchor' %} affix_anchor{% endif %}">
+    {{ content | default('Affix') | safe }}
+  </div>
+</div>

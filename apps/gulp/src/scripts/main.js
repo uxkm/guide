@@ -5,6 +5,10 @@ import { initDatePicker } from '../components/form/DatePicker/date-picker.js';
 import { initUpload } from '../components/form/Upload/upload.js';
 import { initAlert } from '../components/feedback/Alert/alert.js';
 import { initAccordion } from '../components/miscellaneous/Accordion/accordion.js';
+import { initCollapse } from '../components/miscellaneous/Collapse/collapse.js';
+import { initCarousel } from '../components/miscellaneous/Carousel/carousel.js';
+import { initAffixAll } from '../components/miscellaneous/Affix/affix.js';
+import { initBackTopAll } from '../components/miscellaneous/BackTop/back-top.js';
 
 initInteractions();
 initSlider();
@@ -13,3 +17,7 @@ initDatePicker();
 initUpload();
 initAlert();
 initAccordion();
+initCollapse();
+initCarousel();
+initAffixAll();
+initBackTopAll();

@@ -3,15 +3,22 @@ function prefersReducedMotion() {
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function transitionValue(region) {
+function slideToken(region, suffix, fallback) {
   const styles = getComputedStyle(region);
-  const duration = styles.getPropertyValue('--accordion-slide-duration').trim() || '0.28s';
-  const easing = styles.getPropertyValue('--accordion-slide-easing').trim() || 'ease';
+  const prefix = region.matches('.collapse, .collapse_body') || region.closest('[data-collapse]')
+    ? 'collapse'
+    : 'accordion';
+  return styles.getPropertyValue(`--${prefix}-slide-${suffix}`).trim() || fallback;
+}
+
+function transitionValue(region) {
+  const duration = slideToken(region, 'duration', '0.28s');
+  const easing = slideToken(region, 'easing', 'ease');
   return `height ${duration} ${easing}`;
 }
 
 function durationMs(region) {
-  const raw = getComputedStyle(region).getPropertyValue('--accordion-slide-duration').trim() || '0.28s';
+  const raw = slideToken(region, 'duration', '0.28s');
   const value = Number.parseFloat(raw);
   if (!Number.isFinite(value)) return 280;
   return /ms$/i.test(raw) ? value : value * 1000;

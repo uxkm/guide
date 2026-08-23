@@ -1,3 +1,1 @@
-export function initAffix(root = document) {
-  return root.querySelectorAll('[data-component="Affix"]');
-}
+export { initAffix, initAffixAll } from '../../../../../html/src/components/miscellaneous/Affix/affix.js';

@@ -1,1 +1,35 @@
-<div class="uxkm-collapse" data-component="Collapse">Collapse</div>
+{% set collapseId = id | default('collapse') %}
+{% set collapseItems = items | default([
+  { label: '배송 정보', content: '평일 기준 2~3일 이내 출고됩니다.', open: true },
+  { label: '결제 수단', content: '신용카드, 계좌이체, 간편결제를 지원합니다.' },
+  { label: '교환·반품 안내', content: '수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.' }
+]) %}
+{% if external %}
+  {% set boxedPanel = boxed | default(true) %}
+  {% set externalId = collapseId + '-body' %}
+  {% if lead %}<div>{{ lead | safe }}</div>{% endif %}
+  <button type="button" class="btn btn_ghost btn_sm" data-collapse-trigger aria-expanded="{{ 'true' if open else 'false' }}" aria-controls="{{ externalId }}">
+    <span class="btn_label">{{ triggerLabel | default('상세 보기') }}</span>
+    <svg class="icon icon_sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+  </button>
+  <div class="collapse{% if open %} is-open{% endif %}" id="{{ externalId }}"{% if effect == 'slide' %} data-effect="slide"{% endif %}{% if not open %} hidden{% endif %}{% if boxedPanel %} style="margin-top: var(--space-sm)"{% endif %}>
+    <div{% if boxedPanel %} class="collapse_inner"{% endif %}>{{ content | safe }}</div>
+  </div>
+{% else %}
+  <div class="collapse_group collapse_{{ variant | default('bordered') }}{% if size == 'sm' or size == 'lg' %} collapse_{{ size }}{% endif %}" data-component="Collapse" data-collapse{% if accordion %} data-collapse-accordion{% endif %}{% if effect == 'slide' %} data-effect="slide"{% endif %}>
+    {% for item in collapseItems %}
+      <div class="collapse_panel{% if item.open %} is-open{% endif %}{% if item.disabled %} is-disabled{% endif %}">
+        <div class="collapse_header">
+          <button type="button" class="btn btn_text collapse_trigger" id="{{ collapseId }}-trigger-{{ loop.index }}" aria-expanded="{{ 'true' if item.open else 'false' }}" aria-controls="{{ collapseId }}-body-{{ loop.index }}"{% if item.disabled %} disabled{% endif %}>
+            <span class="collapse_label">{{ item.title | default(item.label) | safe }}</span>
+            {% if item.extra %}<span class="collapse_extra">{{ item.extra | safe }}</span>{% endif %}
+            <svg class="collapse_icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+        </div>
+        <div class="collapse_body" id="{{ collapseId }}-body-{{ loop.index }}" role="region" aria-labelledby="{{ collapseId }}-trigger-{{ loop.index }}"{% if not item.open %} hidden{% endif %}>
+          <div class="collapse_content">{{ item.content | safe }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

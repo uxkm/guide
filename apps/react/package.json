@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./affix": "./src/components/miscellaneous/Affix/index.js",
+    "./back-top": "./src/components/miscellaneous/BackTop/index.js",
     "./accordion": "./src/components/miscellaneous/Accordion/index.js",
     "./alert": "./src/components/feedback/Alert/index.js",
     "./avatar": "./src/components/data-display/Avatar/index.js",
@@ -11,7 +13,9 @@
     "./button": "./src/components/basic/Button/Button.jsx",
     "./card": "./src/components/data-display/Card/index.js",
     "./calendar": "./src/components/data-display/Calendar/index.js",
+    "./carousel": "./src/components/miscellaneous/Carousel/index.js",
     "./checkbox": "./src/components/form/Checkbox/index.js",
+    "./collapse": "./src/components/miscellaneous/Collapse/index.js",
     "./date-picker": "./src/components/form/DatePicker/index.js",
     "./container": "./src/components/layout/Container/Container.jsx",
     "./divider": "./src/components/layout/Divider/Divider.jsx",
@@ -57,7 +61,8 @@
   "dependencies": {
     "@uxkm/interactions": "workspace:*",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "swiper": "12.0.3"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.5",
