@@ -1,3 +1,36 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import DocsTable from '../../shared/DocsTable';
+
+<Meta title="Typography" />
+
 # Typography
 
-> 문서 콘텐츠를 작성할 예정입니다.
+타이포그래피는 정보의 위계와 읽기 흐름을 만듭니다. UXKM은 시스템 글꼴을 우선해 빠르게 렌더링하고 한국어와 영문이 함께 있을 때도 안정적으로 표시합니다.
+
+## 글꼴
+
+기본 스택은 `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, `Noto Sans KR`, `sans-serif`입니다. 코드에는 별도의 고정폭 글꼴 스택을 사용합니다.
+
+## 크기 토큰
+
+<DocsTable
+  columns={['토큰', '값', '용도']}
+  rows={[
+    ['--text-size-xs', '0.75rem', '캡션, 메타 정보'],
+    ['--text-size-sm', '0.8125rem', '보조 설명, 작은 컨트롤'],
+    ['--text-size-base', '0.875rem', '기본 본문과 컨트롤'],
+    ['--text-size-lg', '1rem', '강조 본문과 작은 제목'],
+    ['--text-size-xl', '1.125rem', '섹션 제목']
+  ]}
+  codeColumns={[0]}
+/>
+
+## 위계 원칙
+
+- 문서 제목은 `h1`부터 순서를 건너뛰지 않습니다.
+- 시각적 크기 때문에 제목 태그를 선택하지 않습니다.
+- 본문은 충분한 행간과 문단 간격을 유지합니다.
+- 보조 텍스트라도 핵심 정보에 필요한 대비를 낮추지 않습니다.
+- 버튼과 메뉴 레이블은 짧고 구체적인 동사 또는 명사로 작성합니다.
+
+실제 컴포넌트 변형과 말줄임 API는 **기본 요소 / Typography** 문서를 참고합니다.

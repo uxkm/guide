@@ -106,9 +106,13 @@ const preview: Preview = {
           '기타',
           ['Accordion', 'Collapse', 'Carousel', 'Affix', 'Back Top', '*'],
           '파운데이션',
+          ['Accessibility', 'Breakpoints', 'Colors', 'Iconography', 'Spacing', 'Typography', '*'],
           '패턴',
+          ['Empty State Pattern', 'Error Handling', 'Form Validation', 'Modal Pattern', 'Navigation Pattern', '*'],
           '가이드',
+          ['Accessibility Guide', 'Component Structure', 'Framework Comparison', 'Naming Convention', 'State Convention', '*'],
           '현황',
+          ['Component Status', 'Framework Support', '*'],
           '*'
         ]
       }
