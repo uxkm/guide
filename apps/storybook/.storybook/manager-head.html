@@ -7,3 +7,22 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/images/meta/favicon/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/meta/favicon/apple-touch-icon.png">
 <link rel="manifest" href="/images/meta/favicon/site.webmanifest">
+
+<style>
+  /* Keep Storybook's own mark and place the UXKM brand above it. */
+  a[title="Storybook"][href="./"] {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  a[title="Storybook"][href="./"]::before {
+    content: "";
+    display: block;
+    width: 110px;
+    height: 47px;
+    background: url("/images/brand/uxkm_logo_hand.svg") left center / contain no-repeat;
+  }
+</style>
