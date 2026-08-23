@@ -13,15 +13,15 @@ const options: Record<Name, Options> = {
   coverflowRise: { effect: 'coverflow', coverflowStyle: 'rise', coverflowSides: 2, spaceBetween: 12, loop: true, pagination: false }, thumbs: {},
 };
 
-const slideData = `const slides = Array.from({ length: 12 }, (_, index) => ({
-  id: index + 1,
-  overline: 'FEATURED',
-  title: \`콘텐츠 \${index + 1}\`,
-  body: \`캐러셀 예시 콘텐츠 \${index + 1}입니다.\`,
-  color: ['primary', 'success', 'warning', 'info'][index % 4],
-}));`;
-
 const slideCount = (name: Name) => name === 'grid' || name.startsWith('coverflow') || name === 'thumbs' ? 12 : name === 'multi' || name === 'custom' ? 4 : 3;
+
+const inlineSlidesJson = `[
+  { "id": 1, "overline": "이벤트", "title": "신규 가입 혜택", "body": "첫 주문 20% 할인 쿠폰을 드립니다.", "color": "primary" },
+  { "id": 2, "overline": "혜택", "title": "무료 배송", "body": "3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.", "color": "success" },
+  { "id": 3, "overline": "세일", "title": "시즌 세일", "body": "베스트셀러 상품을 최대 50% 할인합니다.", "color": "warning" }
+]`;
+
+const inlineSlidesScript = `const carouselSlides = ${inlineSlidesJson};`;
 
 function htmlAttrs(config: Options) {
   return [config.effect && `data-swiper-effect="${config.effect}"`, config.coverflowStyle && `data-swiper-coverflow-style="${config.coverflowStyle}"`, config.coverflowSides && `data-swiper-coverflow-sides="${config.coverflowSides}"`, config.autoplay && 'data-swiper-autoplay', config.delay && `data-swiper-delay="${config.delay}"`, config.loop && 'data-swiper-loop', config.initialSlide && `data-swiper-initial-slide="${config.initialSlide}"`, config.centered && 'data-swiper-centered', config.slidesPerView && `data-swiper-slides-per-view="${config.slidesPerView}"`, config.slidesPerGroup && `data-swiper-slides-per-group="${config.slidesPerGroup}"`, config.spaceBetween && `data-swiper-space-between="${config.spaceBetween}"`, typeof config.pagination === 'string' && `data-swiper-pagination="${config.pagination}"`, config.gridRows && `data-swiper-grid-rows="${config.gridRows}"`].filter(Boolean).join(' ');
@@ -31,10 +31,16 @@ function htmlClasses(config: Options) {
   return ['carousel', config.multi && 'carousel_multi', config.effect === 'coverflow' && 'carousel_coverflow', config.coverflowStyle === 'rise' && 'carousel_coverflow-rise', Number(config.gridRows) > 1 && 'carousel_grid', config.pagination === 'custom' && 'carousel_pagination-custom', config.pagination === 'progressbar' && 'carousel_pagination-progress'].filter(Boolean).join(' ');
 }
 
-function htmlShell(config: Options, id: string, swiperAttrs = '', extraClass = '') {
+const directHtmlSlides = `<div class="swiper-wrapper">
+      <div class="swiper-slide"><article class="card card_accent color_primary"><div class="card_body"><p class="typo_overline">이벤트</p><h3 class="card_title">신규 가입 혜택</h3><p class="typo_lead">첫 주문 20% 할인 쿠폰을 드립니다.</p></div></article></div>
+      <div class="swiper-slide"><article class="card card_accent color_success"><div class="card_body"><p class="typo_overline">혜택</p><h3 class="card_title">무료 배송</h3><p class="typo_lead">3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.</p></div></article></div>
+      <div class="swiper-slide"><article class="card card_accent color_warning"><div class="card_body"><p class="typo_overline">세일</p><h3 class="card_title">시즌 세일</h3><p class="typo_lead">베스트셀러 상품을 최대 50% 할인합니다.</p></div></article></div>
+    </div>`;
+
+function htmlShell(config: Options, id: string, swiperAttrs = '', extraClass = '', slidesMarkup = '<div class="swiper-wrapper" data-carousel-slides></div>') {
   return `<div id="${id}" class="${htmlClasses(config)}${extraClass}" data-component="Carousel">
   <div class="swiper" data-swiper ${htmlAttrs(config)}${swiperAttrs ? ` ${swiperAttrs}` : ''} role="region" aria-roledescription="carousel" aria-label="콘텐츠 슬라이드">
-    <div class="swiper-wrapper" data-carousel-slides></div>
+    ${slidesMarkup}
     ${config.navigation === false ? '' : '<div class="swiper-button-prev" aria-label="이전 슬라이드" data-ripple="surface"></div>\n    <div class="swiper-button-next" aria-label="다음 슬라이드" data-ripple="surface"></div>'}
     ${config.pagination === false ? '' : '<div class="swiper-pagination"></div>'}
   </div>
@@ -42,6 +48,7 @@ function htmlShell(config: Options, id: string, swiperAttrs = '', extraClass = '
 }
 
 function htmlExamples(name: Name, variants: Options[]) {
+  if (name === 'default') return htmlShell(options.default, 'carousel-default', '', '', directHtmlSlides);
   const shells = name === 'thumbs'
     ? `<div id="carousel-gallery" class="carousel_gallery">
   ${htmlShell({ pagination: false }, 'carousel-main', 'data-swiper-thumbs="#carousel-thumbs-swiper"')}
@@ -53,16 +60,19 @@ function htmlExamples(name: Name, variants: Options[]) {
     : `[${variants.map((_, index) => `'#carousel-${name}-${index + 1}'`).join(', ')}]`;
   return `${shells}
 
+${name === 'fade' ? `<script type="application/json" id="carousel-slides-data">
+${inlineSlidesJson}
+</script>` : ''}
+
 <script type="module">
 import { initCarousel } from './carousel.js';
-
-${slideData}
+${name === 'fade' ? "const carouselSlides = JSON.parse(document.querySelector('#carousel-slides-data').textContent);" : "import { carouselSlides } from './data/carousel-slides.js';"}
 
 for (const selector of ${selectors}) {
   const carousel = document.querySelector(selector);
   const wrapper = carousel.querySelector('[data-carousel-slides]');
 
-  for (const slide of slides.slice(0, ${slideCount(name)})) {
+  for (const slide of carouselSlides.slice(0, ${slideCount(name)})) {
     wrapper.insertAdjacentHTML('beforeend', \`
       <div class="swiper-slide">
         <article class="card card_accent color_\${slide.color}">
@@ -82,30 +92,29 @@ initCarousel(document);
 </script>`;
 }
 
-function gulpCarousel(config: Options, index: number) {
+function gulpCarousel(config: Options, index: number, limit: number) {
   const assignments = Object.entries(config).map(([key, value]) => `  ${key}: ${typeof value === 'string' ? `'${value}'` : value}`).join(',\n');
   return `{% include "components/miscellaneous/Carousel/carousel.njk" with {
   id: 'carousel-${index + 1}',
-  slides: slides${assignments ? `,\n${assignments}` : ''}
+  slides: carousel.slides,
+  slideLimit: ${limit}${assignments ? `,\n${assignments}` : ''}
 } %}`;
 }
 
 function gulpExamples(name: Name, variants: Options[]) {
-  const includes = name === 'thumbs'
-    ? `{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-main', slides: slides, thumbs: '#carousel-thumbs', pagination: false } %}
-{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-thumbs', slides: slides, slidesPerView: 4, spaceBetween: 8, pagination: false, navigation: false, thumbsControl: true, watchSlidesProgress: true } %}`
-    : variants.map(gulpCarousel).join('\n\n');
-  return `{% set slides = [] %}
-{% for index in range(0, ${slideCount(name)}) %}
-  {% set slides = (slides.push({
-    id: index + 1,
-    overline: 'FEATURED',
-    title: '콘텐츠 ' + (index + 1),
-    content: '캐러셀 예시 콘텐츠 ' + (index + 1) + '입니다.',
-    color: ['primary', 'success', 'warning', 'info'][index % 4]
-  }), slides) %}
-{% endfor %}
+  if (name === 'default') return htmlShell(options.default, 'carousel-default', '', '', directHtmlSlides);
+  if (name === 'fade') return `{% set slides = ${inlineSlidesJson} %}
 
+{% include "components/miscellaneous/Carousel/carousel.njk" with {
+  id: 'carousel-fade',
+  slides: slides,
+  effect: 'fade'
+} %}`;
+  const includes = name === 'thumbs'
+    ? `{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-main', slides: carousel.slides, slideLimit: 8, thumbs: '#carousel-thumbs', pagination: false } %}
+{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-thumbs', slides: carousel.slides, slideLimit: 8, slidesPerView: 4, spaceBetween: 8, pagination: false, navigation: false, thumbsControl: true, watchSlidesProgress: true } %}`
+    : variants.map((config, index) => gulpCarousel(config, index, slideCount(name))).join('\n\n');
+  return `{# apps/gulp/src/data/carousel.json 데이터를 호출합니다. #}
 ${includes}`;
 }
 
@@ -116,7 +125,7 @@ function propValue(key: string, value: string | number | boolean, vue = false) {
   return typeof value === 'number' ? (vue ? `:${prop}="${value}"` : `${prop}={${value}}`) : `${prop}="${value}"`;
 }
 
-const reactSlides = (count: number, compact = false) => `{slides.slice(0, ${count}).map((slide) => (
+const reactSlides = (count: number, compact = false) => `{carouselSlides.slice(0, ${count}).map((slide) => (
     <CarouselSlide key={slide.id}>
       <article className={\`card card_accent color_\${slide.color}\`}>
         <div className="card_body">
@@ -128,7 +137,7 @@ const reactSlides = (count: number, compact = false) => `{slides.slice(0, ${coun
     </CarouselSlide>
   ))}`;
 
-const vueSlides = (count: number, compact = false) => `<CarouselSlide v-for="slide in slides.slice(0, ${count})" :key="slide.id">
+const vueSlides = (count: number, compact = false) => `<CarouselSlide v-for="slide in carouselSlides.slice(0, ${count})" :key="slide.id">
     <article :class="['card', 'card_accent', \`color_\${slide.color}\`]">
       <div class="card_body">
         <p class="typo_overline">{{ slide.overline }}</p>
@@ -138,10 +147,30 @@ const vueSlides = (count: number, compact = false) => `<CarouselSlide v-for="sli
     </article>
   </CarouselSlide>`;
 
+const directReactSlides = `<CarouselSlide>
+    <article className="card card_accent color_primary"><div className="card_body"><p className="typo_overline">이벤트</p><h3 className="card_title">신규 가입 혜택</h3><p className="typo_lead">첫 주문 20% 할인 쿠폰을 드립니다.</p></div></article>
+  </CarouselSlide>
+  <CarouselSlide>
+    <article className="card card_accent color_success"><div className="card_body"><p className="typo_overline">혜택</p><h3 className="card_title">무료 배송</h3><p className="typo_lead">3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.</p></div></article>
+  </CarouselSlide>
+  <CarouselSlide>
+    <article className="card card_accent color_warning"><div className="card_body"><p className="typo_overline">세일</p><h3 className="card_title">시즌 세일</h3><p className="typo_lead">베스트셀러 상품을 최대 50% 할인합니다.</p></div></article>
+  </CarouselSlide>`;
+
+const directVueSlides = `<CarouselSlide>
+    <article class="card card_accent color_primary"><div class="card_body"><p class="typo_overline">이벤트</p><h3 class="card_title">신규 가입 혜택</h3><p class="typo_lead">첫 주문 20% 할인 쿠폰을 드립니다.</p></div></article>
+  </CarouselSlide>
+  <CarouselSlide>
+    <article class="card card_accent color_success"><div class="card_body"><p class="typo_overline">혜택</p><h3 class="card_title">무료 배송</h3><p class="typo_lead">3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.</p></div></article>
+  </CarouselSlide>
+  <CarouselSlide>
+    <article class="card card_accent color_warning"><div class="card_body"><p class="typo_overline">세일</p><h3 class="card_title">시즌 세일</h3><p class="typo_lead">베스트셀러 상품을 최대 50% 할인합니다.</p></div></article>
+  </CarouselSlide>`;
+
 function componentCarousel(name: Name, config: Options, vue = false) {
   const props = Object.entries(config).map(([key, value]) => propValue(key, value, vue)).join(' ');
   return `<Carousel ${vue ? 'aria-label' : 'ariaLabel'}="콘텐츠 슬라이드"${props ? ` ${props}` : ''}>
-  ${vue ? vueSlides(slideCount(name)) : reactSlides(slideCount(name))}
+  ${name === 'default' ? (vue ? directVueSlides : directReactSlides) : (vue ? vueSlides(slideCount(name)) : reactSlides(slideCount(name)))}
 </Carousel>`;
 }
 
@@ -166,17 +195,13 @@ function examples(name: Name): FrameworkExample[] {
     <Carousel aria-label="썸네일" :slides-per-view="4" :pagination="false" :navigation="false" thumbs-control watch-slides-progress @swiper="thumbs = $event">${vueSlides(8, true)}</Carousel>
   </div>`
     : vueMarkup;
-  const reactCode = `import { Carousel, CarouselSlide } from '@uxkm/react/carousel';${name === 'thumbs' ? "\nimport { useState } from 'react';" : ''}
-
-${slideData}
+  const reactCode = `import { Carousel, CarouselSlide } from '@uxkm/react/carousel';${name === 'thumbs' ? "\nimport { useState } from 'react';" : ''}${name === 'default' || name === 'fade' ? '' : "\nimport { carouselSlides } from './data/carousel-slides';"}${name === 'fade' ? `\n\n${inlineSlidesScript}` : ''}
 
 export function Example() {
   ${reactBody}
 }`;
   const vueCode = `<script setup>
-${name === 'thumbs' ? "import { ref } from 'vue';\nconst thumbs = ref(null);\n" : ''}import { Carousel, CarouselSlide } from '@uxkm/vue/carousel';
-
-${slideData}
+${name === 'thumbs' ? "import { ref } from 'vue';\nconst thumbs = ref(null);\n" : ''}import { Carousel, CarouselSlide } from '@uxkm/vue/carousel';${name === 'default' || name === 'fade' ? '' : "\nimport { carouselSlides } from './data/carousel-slides';"}${name === 'fade' ? `\n\n${inlineSlidesScript}` : ''}
 </script>
 
 <template>

@@ -2,24 +2,20 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import ActualCarousel from '../../react/src/components/miscellaneous/Carousel/Carousel.jsx';
 import ActualCarouselSlide from '../../react/src/components/miscellaneous/Carousel/CarouselSlide.jsx';
+import { carouselSlides, type CarouselSlideData } from './data/carouselSlides';
 
 const Carousel = ActualCarousel as React.ComponentType<any>;
 const CarouselSlide = ActualCarouselSlide as React.ComponentType<any>;
 
-type Slide = { title: string; body: string; color?: string; overline?: string };
-const slides: Slide[] = [
-  { title: '신규 가입 혜택', body: '첫 주문 20% 할인 쿠폰을 드립니다.', color: 'primary', overline: '이벤트' },
-  { title: '무료 배송', body: '3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.', color: 'success', overline: '혜택' },
-  { title: '시즌 세일', body: '베스트셀러 상품을 최대 50% 할인합니다.', color: 'warning', overline: '세일' },
-];
-const manySlides = Array.from({ length: 12 }, (_, index) => ({ title: `컬렉션 ${index + 1}`, body: `추천 콘텐츠 ${index + 1}`, color: ['primary', 'success', 'warning', 'info'][index % 4], overline: 'FEATURED' }));
+const slides = carouselSlides.slice(0, 3);
+const manySlides = carouselSlides;
 
-function SlideCard({ slide, compact = false }: { slide: Slide; compact?: boolean }) {
+function SlideCard({ slide, compact = false }: { slide: CarouselSlideData; compact?: boolean }) {
   return <article className={`card card_accent color_${slide.color ?? 'primary'} card_elevated`}><div className="card_body"><p className="typo_overline">{slide.overline ?? '슬라이드'}</p><h3 className="card_title">{slide.title}</h3><p className={compact ? 'card_subtitle' : 'typo_lead'}>{slide.body}</p></div></article>;
 }
 
-function Slides({ data = slides, compact = false }: { data?: Slide[]; compact?: boolean }) {
-  return <>{data.map((slide) => <CarouselSlide key={slide.title}><SlideCard slide={slide} compact={compact} /></CarouselSlide>)}</>;
+function Slides({ data = slides, compact = false }: { data?: CarouselSlideData[]; compact?: boolean }) {
+  return <>{data.map((slide) => <CarouselSlide key={slide.id}><SlideCard slide={slide} compact={compact} /></CarouselSlide>)}</>;
 }
 
 function ThumbsDemo() {
