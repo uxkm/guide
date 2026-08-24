@@ -1,121 +1,60 @@
 # UXKM Framework Components
 
-HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 동일한 UXKM UI 컴포넌트를 제공하고, Storybook과 단일 통합 가이드북으로 문서화하는 `pnpm` 기반 모노레포입니다.
+UXKM UI 컴포넌트를 HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js로 구현하고 Guidebook과 Storybook으로 문서화하는 `pnpm` 모노레포입니다.
 
-`dev` 브랜치에서 프레임워크 애플리케이션, 프레임워크별 소개 문서, 전체 UI 컴포넌트, 가이드북, 공통 패키지, Storybook 문서 및 빌드 스크립트를 관리합니다.
+현재 배포 대상은 Guidebook과 Storybook입니다. HTML부터 Next.js까지의 프레임워크 앱은 구현 확인과 비교를 위한 개별 개발 서버로 운영합니다.
 
-각 프레임워크와 가이드북의 정적 결과물은 `build` 디렉터리에 모아 검증한 뒤 배포 전용 `main` 브랜치에 반영합니다.
+## 시작하기
 
-> 현재 문서는 모노레포 구축을 위한 기준 구조입니다. 디렉터리와 설정은 구축 단계에 따라 순차적으로 생성합니다.
+저장소에 선언된 패키지 매니저는 `pnpm@10.15.0`입니다.
 
----
-
-## 핵심 구성
-
-```text
-dev 브랜치
-├── Frameworks
-│   ├── HTML
-│   ├── Gulp/Nunjucks
-│   ├── Vue
-│   ├── React
-│   ├── Nuxt
-│   └── Next.js
-├── Guidebook
-│   └── HTML → Gulp → Vue → React 통합 목차
-├── Storybook
-├── Packages
-└── Scripts
-
-main 브랜치
-├── frameworks
-├── guidebook
-├── .nojekyll
-└── CNAME
+```bash
+pnpm install
+pnpm dev
 ```
 
----
+`pnpm dev`는 공통 스타일과 이미지를 먼저 갱신한 뒤 다음 문서 서버를 함께 실행합니다.
 
-# 1. 프레임워크 공통 문서 구조
+| 문서 | 주소 |
+| --- | --- |
+| Storybook | `http://localhost:6006` |
+| Guidebook | `http://localhost:6107` |
 
-각 프레임워크 앱은 동일한 소개 문서와 동일한 컴포넌트 분류를 제공합니다.
+모든 프레임워크 앱까지 함께 실행하려면 다음 명령을 사용합니다.
 
-```text
-Framework
-├── Introduction
-│   ├── Overview
-│   ├── Getting Started
-│   └── Design Tokens
-│
-└── Components
-    ├── Layout
-    │   ├── Container
-    │   ├── Grid
-    │   ├── Flex
-    │   ├── Divider
-    │   └── Space
-    │
-    ├── Basic
-    │   ├── Button
-    │   ├── Typography
-    │   ├── Icon
-    │   └── Link
-    │
-    ├── Data Display
-    │   ├── Avatar
-    │   ├── Badge
-    │   ├── Tag
-    │   ├── Card
-    │   ├── Table
-    │   ├── List
-    │   ├── Stat
-    │   ├── Calendar
-    │   ├── Timeline
-    │   └── Tree
-    │
-    ├── Form
-    │   ├── Form Layout
-    │   ├── Input
-    │   ├── Textarea
-    │   ├── Select
-    │   ├── Checkbox
-    │   ├── Radio
-    │   ├── Switch
-    │   ├── Slider
-    │   ├── Rate
-    │   ├── Date Picker
-    │   └── Upload
-    │
-    ├── Feedback
-    │   ├── Alert
-    │   ├── Snackbar
-    │   ├── Modal
-    │   ├── Drawer
-    │   ├── Popover
-    │   ├── Tooltip
-    │   ├── Progress
-    │   ├── Spin
-    │   ├── Skeleton
-    │   └── Empty
-    │
-    ├── Navigation
-    │   ├── Navbar
-    │   ├── Menu
-    │   ├── Tabs
-    │   ├── Breadcrumb
-    │   ├── Pagination
-    │   ├── Steps
-    │   └── Dropdown
-    │
-    └── Miscellaneous
-        ├── Accordion
-        ├── Collapse
-        ├── Carousel
-        ├── Affix
-        └── Back Top
+```bash
+pnpm dev:all
 ```
 
-컴포넌트는 전체 52개입니다.
+## 현재 구조
+
+```text
+.
+├── apps/
+│   ├── html/          # 순수 HTML 컴포넌트 앱
+│   ├── gulp/          # Gulp/Nunjucks 컴포넌트 앱
+│   ├── vue/           # Vue/Vite 컴포넌트 앱과 워크스페이스 exports
+│   ├── react/         # React/Vite 컴포넌트 앱과 워크스페이스 exports
+│   ├── nuxt/          # Vue 컴포넌트를 사용하는 Nuxt 앱
+│   ├── next/          # React 컴포넌트를 사용하는 Next.js 앱
+│   ├── storybook/     # 컴포넌트 Story, API, 프레임워크 코드 비교 문서
+│   └── guidebook/     # Markdown 기반 정적 가이드북
+├── packages/
+│   ├── assets/        # 이미지, favicon, web manifest 원본
+│   ├── interactions/  # 프레임워크 비종속 DOM 인터랙션
+│   └── styles/        # 디자인 토큰과 공통 SCSS 원본
+├── scripts/           # 개발, 빌드, 검증, 수집, 배포 스크립트
+├── build/             # pnpm build로 생성되는 문서 배포 결과
+├── package.json
+├── pnpm-workspace.yaml
+└── README.md
+```
+
+워크스페이스 범위는 `apps/*`와 `packages/*`입니다.
+
+## 컴포넌트 구성
+
+HTML, Gulp/Nunjucks, Vue, React에는 같은 분류의 공통 컴포넌트 52개가 구현되어 있습니다.
 
 | 분류 | 개수 |
 | --- | ---: |
@@ -126,40 +65,12 @@ Framework
 | Feedback | 10 |
 | Navigation | 7 |
 | Miscellaneous | 5 |
-| 전체 | 52 |
+| 합계 | 52 |
 
----
-
-# 2. 전체 모노레포 구조
+각 앱의 기본 컴포넌트 경로는 다음과 같습니다.
 
 ```text
-uxkm-framework-components/
-├── apps/
-│   ├── html/                 # HTML 컴포넌트 52개
-│   ├── gulp/                 # Nunjucks 컴포넌트 52개
-│   ├── vue/                  # Vue 컴포넌트 52개
-│   ├── react/                # React 컴포넌트 52개
-│   ├── nuxt/                 # Nuxt 전용 컴포넌트
-│   ├── next/                 # Next.js 전용 컴포넌트
-│   ├── storybook/            # 공통 문서와 프레임워크 Storybook 연결
-│   └── guidebook/            # 기술별 목차를 제공하는 단일 가이드북 앱
-│
-├── packages/
-│   └── styles/               # 공통 스타일의 단일 원본과 빌드 결과
-│
-├── scripts/                  # 빌드·검증·수집 스크립트
-├── build/                    # 자동 생성되는 배포 수집 결과
-├── package.json
-├── pnpm-workspace.yaml
-├── pnpm-lock.yaml
-├── .gitignore
-└── README.md
-```
-
-HTML, Gulp, Vue, React는 동일한 카테고리와 52개 컴포넌트 이름을 사용합니다. 각 컴포넌트는 하나의 디렉터리에서 프레임워크별 구현과 테스트 또는 예제를 관리하고, Story는 `apps/storybook`에서 한 번만 제공합니다.
-
-```text
-components/
+apps/{html,gulp,vue,react}/src/components/
 ├── layout/
 ├── basic/
 ├── data-display/
@@ -169,540 +80,161 @@ components/
 └── miscellaneous/
 ```
 
-Nuxt와 Next.js에는 일반 Vue·React 컴포넌트를 다시 복제하지 않고 `AppLayout`, 링크, 이미지처럼 프레임워크에 종속된 구현만 둡니다.
+Vue와 React 구현은 각각 `@uxkm/vue`, `@uxkm/react`의 subpath export로도 제공합니다. Nuxt와 Next.js는 이를 재사용하며 `AppLayout`, 링크, 이미지처럼 프레임워크에 종속된 컴포넌트만 별도로 관리합니다.
 
+Story는 프레임워크 앱 안에 중복해서 두지 않고 `apps/storybook/src`에서 중앙 관리합니다.
 
----
+## 공통 패키지
 
-# 3. 프레임워크별 소개 구조
+### Styles
 
-각 프레임워크는 자체 소개 문서를 포함합니다.
+스타일의 단일 진입점은 `packages/styles/index.scss`입니다.
 
-```text
-Introduction
-├── Overview
-├── Getting Started
-└── Design Tokens
+```bash
+pnpm build:styles
 ```
 
-## HTML
+빌드 결과인 `uxkm.css`는 HTML, Gulp, Vue, React, Nuxt, Next.js, Storybook의 `public/styles`에 생성됩니다. 생성 CSS를 직접 수정하지 말고 `packages/styles`의 SCSS를 수정합니다.
 
-```text
-apps/html/src/introduction/
-├── overview.html
-├── getting-started.html
-└── design-tokens.html
+### Assets
+
+이미지 원본은 `packages/assets/public/images`에서 관리합니다.
+
+```bash
+pnpm build:assets
 ```
 
-## Gulp/Nunjucks
+이 명령은 이미지를 여섯 프레임워크 앱과 Storybook의 `public/images`로 복사합니다. Guidebook은 Vite의 `publicDir` 설정을 통해 공통 자산 원본을 직접 사용합니다.
 
-```text
-apps/gulp/src/introduction/
-├── overview.njk
-├── getting-started.njk
-└── design-tokens.njk
+스타일과 이미지를 한 번에 갱신하려면 다음 명령을 실행합니다.
+
+```bash
+pnpm build:shared
 ```
 
-Gulp 앱의 소개와 템플릿은 Nunjucks 확장자 `.njk`를 사용합니다.
+### Interactions
 
-## Vue
+`@uxkm/interactions`는 다음 DOM 기반 공통 동작을 제공합니다.
 
-```text
-apps/vue/src/introduction/
-├── Overview.vue
-├── GettingStarted.vue
-└── DesignTokens.vue
+- ripple
+- clickable card
+- slide region
+
+각 프레임워크 앱은 필요한 동작을 이 워크스페이스 패키지에서 가져옵니다.
+
+## Guidebook
+
+Guidebook 원문은 `apps/guidebook/content`의 Markdown 파일입니다. frontmatter의 `path`, `group`, `title`, `order` 등을 기준으로 `apps/guidebook/scripts/generate-pages.mjs`가 정적 페이지와 탐색 정보를 생성합니다.
+
+```bash
+pnpm dev:guidebook
+pnpm build:guidebook
 ```
 
-## React
+`dev`와 `build`는 페이지 생성 단계를 자동으로 실행합니다. 생성된 Guidebook 빌드는 `apps/guidebook/dist`에 저장됩니다.
+
+현재 문서 목차는 다음 영역으로 구성됩니다.
 
 ```text
-apps/react/src/introduction/
-├── Overview.jsx
-├── GettingStarted.jsx
-└── DesignTokens.jsx
-```
-
-## Nuxt
-
-```text
-apps/nuxt/app/introduction/
-├── Overview.vue
-├── GettingStarted.vue
-└── DesignTokens.vue
-```
-
-## Next.js
-
-```text
-apps/next/src/introduction/
-├── Overview.jsx
-├── GettingStarted.jsx
-└── DesignTokens.jsx
-```
-
----
-
-# 4. 컴포넌트 문서 구조
-
-각 컴포넌트 페이지는 동일한 문서 구조를 사용합니다.
-
-```text
-Component
-├── Overview
-├── Preview
-├── Examples
-├── API
-├── States
-├── Accessibility
-├── Design Tokens
-└── Related Components
-```
-
-프레임워크별 컴포넌트 앱에서는 해당 기술의 실제 구현 코드와 실행 결과를 제공합니다.
-
-Storybook에서는 하나의 컴포넌트 문서에서 다음 코드를 비교합니다.
-
-```text
-[ HTML ] [ Gulp/Nunjucks ] [ Vue ] [ React ] [ Nuxt ] [ Next.js ]
-```
-
----
-
-# 5. 프레임워크 구현과 가이드북 분리
-
-```text
-apps/
-├── html
-├── gulp
-├── vue
-├── react
-├── nuxt
-├── next
-├── guidebook
-└── storybook
-```
-
-`apps/html`, `apps/gulp`, `apps/vue`, `apps/react`는 소개 문서와 공통 52개 컴포넌트 구현을 제공합니다. Nuxt와 Next.js는 프레임워크 전용 구현만 제공합니다.
-
-`apps/guidebook`은 하나의 앱에서 프레임워크 학습 문서를 제공합니다. 왼쪽 목차의 각 항목은 독립된 하위 URL과 정적 HTML 페이지로 구분합니다.
-
-```text
-Guidebook
-├── HTML + CSS + JavaScript
-├── Gulp + Nunjucks
-├── Vue + Nuxt
-└── React + Next.js
-```
-
----
-
-# 6. 프레임워크별 독립 앱
-
-| 앱 | 역할 | 빌드 결과 |
-| --- | --- | --- |
-| `apps/html` | 소개 문서, 순수 HTML 컴포넌트 및 JavaScript 동작 | `dist` |
-| `apps/gulp` | 소개 문서, Gulp/Nunjucks 기반 컴포넌트 | `dist` |
-| `apps/vue` | 소개 문서와 Vue/Vite 컴포넌트 앱 | `dist` |
-| `apps/react` | 소개 문서와 React/Vite 컴포넌트 앱 | `dist` |
-| `apps/nuxt` | 소개 문서와 Nuxt 컴포넌트 앱 | `.output/public` |
-| `apps/next` | 소개 문서와 Next.js App Router 컴포넌트 앱 | `out` |
-| `apps/storybook` | 전체 컴포넌트 통합 문서와 코드 비교 | `storybook-static` |
-| `apps/guidebook` | HTML·Gulp·Vue·React 통합 학습 문서 | `dist` |
-
----
-
-# 7. 가이드북 구조
-
-가이드북 본문은 `apps/guidebook/content`의 Markdown 파일에서 관리합니다. 각 파일의 frontmatter로 URL, 메뉴 그룹, 제목과 순서를 정의하며 `pnpm generate`가 좌측 메뉴, 검색 결과, 페이지 목차, 이전·다음 링크를 포함한 정적 HTML을 생성합니다. `dev`와 `build` 명령은 이 생성 단계를 자동으로 먼저 실행합니다.
-
-```text
-apps/guidebook/
-├── content/                 # Markdown 문서 원본
-├── scripts/
-│   └── generate-pages.mjs   # Markdown → 정적 HTML 생성기
-├── src/
-│   ├── main.js              # 검색·모바일 메뉴 인터랙션
-│   └── style.css
-└── **/index.html            # 빌드 전에 생성되는 페이지
-```
-
-Markdown 문서 예:
-
-```md
----
-id: components-navigation
-group: 컴포넌트
-path: components/navigation/
-label: 네비게이션
-title: 네비게이션
-eyebrow: Components · 7
-lead: 화면과 콘텐츠 사이의 이동 원칙을 설명합니다.
-order: 7
----
-
-## 컴포넌트 목록
-
-| 컴포넌트 | 사용 목적 |
-| --- | --- |
-| Breadcrumb | 현재 페이지의 계층 경로 표현 |
-```
-
-가이드북 메뉴는 스토리북의 컴포넌트 분류와 같은 구조를 사용합니다.
-
-```text
-가이드북
-└── 소개
+소개
 기초
 ├── 디자인 토큰
 └── 접근성
 컴포넌트
-├── 기본 요소 (4)
-├── 레이아웃 (5)
-├── 폼 (11)
-├── 네비게이션 (7)
-├── 데이터 표시 (10)
-├── 피드백 (10)
-└── 기타 (5)
+├── 기본 요소
+├── 레이아웃
+├── 폼
+├── 네비게이션
+├── 데이터 표시
+├── 피드백
+└── 기타
 활용 가이드
 ├── UI 패턴
 ├── 작성 지침
 └── 프레임워크 구현
 ```
 
----
+## Storybook
 
-# 8. 공통 원본과 패키지
-
-프레임워크와 관계없이 재사용하는 코드는 책임별 공통 디렉터리에서 관리합니다. 실제 모듈 import가 필요한 JavaScript만 워크스페이스 패키지로 제공합니다.
-
-```text
-packages/
-├── styles/        # SCSS와 생성 CSS (공통 원본)
-├── interactions/  # DOM 기반 공통 동작 JS (워크스페이스 패키지)
-└── assets/        # 공통 정적 이미지 원본
-```
-
-`styles` 안에는 JavaScript나 이미지 파일을 두지 않습니다. Ripple과 클릭 가능한 선택 카드는 앱 시작점에서 `@uxkm/interactions`의 `initInteractions()`로 함께 등록하고, 공통 이미지는 `packages/assets/public/images`에서 관리합니다. 가이드북은 Vite의 `publicDir`를 공통 자산 디렉터리에 직접 연결하며, 나머지 앱은 `build-assets.mjs`로 이미지를 복사합니다.
-
-## 컴포넌트 스타일 빌드
-
-스타일의 단일 빌드 진입점은 `packages/styles/index.scss`입니다. 토큰·테마·레이아웃·유틸리티와 전체 컴포넌트 SCSS는 `packages/styles`에서 유지하며, Storybook을 포함한 모든 앱은 빌드된 `uxkm.css`를 사용합니다.
+Storybook은 52개 컴포넌트의 예제, API, 접근성 정보와 프레임워크별 코드 비교를 제공합니다.
 
 ```bash
-pnpm build:styles
-```
-
-이 명령을 실행할 때만 공통 SCSS를 컴파일하여 다음 위치에 동일한 `uxkm.css`를 생성합니다.
-
-```text
-apps/html/public/styles/uxkm.css
-apps/gulp/public/styles/uxkm.css
-apps/vue/public/styles/uxkm.css
-apps/react/public/styles/uxkm.css
-apps/nuxt/public/styles/uxkm.css
-apps/next/public/styles/uxkm.css
-apps/storybook/public/styles/uxkm.css
-```
-
-생성된 CSS는 직접 수정하거나 Git으로 관리하지 않습니다. 스타일 변경은 공통 SCSS에서만 수행한 뒤 `pnpm build:styles`로 각 프레임워크에 반영합니다.
-
-공통 이미지는 `pnpm build:assets`로 각 앱의 `public/images`에 배포합니다. 스타일과 이미지를 한 번에 반영하려면 `pnpm build:shared`를 사용합니다.
-
-favicon과 웹 앱 manifest는 `packages/assets/public/images/meta/favicon`에서 공통 관리하며, 각 앱과 Storybook은 `/images/meta/favicon` 경로로 사용합니다.
-
----
-
-# 9. 프레임워크 내 공통 탐색 구조
-
-각 프레임워크의 좌측 메뉴는 동일하게 구성합니다.
-
-```text
-Introduction
-├── Overview
-├── Getting Started
-└── Design Tokens
-
-Components
-├── Layout
-├── Basic
-├── Data Display
-├── Form
-├── Feedback
-├── Navigation
-└── Miscellaneous
-```
-
-예시 URL:
-
-```text
-/frameworks/html/introduction/overview/
-/frameworks/html/components/basic/button/
-
-/frameworks/vue/introduction/overview/
-/frameworks/vue/components/basic/button/
-
-/frameworks/react/introduction/overview/
-/frameworks/react/components/basic/button/
-```
-
----
-
-# 10. 컴포넌트 동기화 기준
-
-컴포넌트 구현과 Storybook 문서를 함께 기준으로 관리합니다.
-
-모든 프레임워크 구현체는 다음 항목을 공유합니다.
-
-1. 컴포넌트 이름과 목적
-2. Props 또는 HTML Attributes
-3. 기본값
-4. 상태와 사용자 인터랙션
-5. 의미에 맞는 HTML 구조
-6. 키보드 조작
-7. WAI-ARIA 요구사항
-8. 디자인 토큰
-9. Storybook 예제
-10. 프레임워크별 차이점
-
----
-
-# 11. pnpm Workspace
-
-```yaml
-packages:
-  - 'apps/*'
-  - 'packages/*'
-```
-
-개발 서버 명령:
-
-```bash
-pnpm install
-
-pnpm dev              # Guidebook (6107) + Storybook (6006)
-pnpm dev:dashboard    # Workspace 대시보드 (3000)
-pnpm dev:html         # HTML (6101)
-pnpm dev:gulp         # Gulp / Nunjucks (6102)
-pnpm dev:vue          # Vue (6103)
-pnpm dev:react        # React (6104)
-pnpm dev:nuxt         # Nuxt (6105)
-pnpm dev:next         # Next.js (6106)
-pnpm dev:storybook    # Storybook (6006)
-pnpm dev:guidebook    # 통합 Guidebook (6107)
-pnpm dev:all          # 위의 프레임워크 앱, Storybook, Guidebook을 모두 실행
-```
-
-빌드 및 검증 명령:
-
-```bash
-
-pnpm build
-pnpm build:frameworks
-pnpm build:guidebook
+pnpm dev:storybook
 pnpm build:storybook
+pnpm --filter @uxkm/storybook typecheck
+```
 
-pnpm lint
-pnpm test
-pnpm validate
+정적 빌드는 `apps/storybook/storybook-static`에 생성됩니다.
+
+## 개발 명령
+
+| 명령 | 주소 | 역할 |
+| --- | --- | --- |
+| `pnpm dev` | 6006, 6107 | Storybook과 Guidebook 실행 |
+| `pnpm dev:dashboard` | 3000 | 워크스페이스 개발 대시보드 실행 |
+| `pnpm dev:html` | 6101 | HTML 앱 실행 |
+| `pnpm dev:gulp` | 6102 | Gulp/Nunjucks 앱 실행 |
+| `pnpm dev:vue` | 6103 | Vue 앱 실행 |
+| `pnpm dev:react` | 6104 | React 앱 실행 |
+| `pnpm dev:nuxt` | 6105 | Nuxt 앱 실행 |
+| `pnpm dev:next` | 6106 | Next.js 앱 실행 |
+| `pnpm dev:storybook` | 6006 | Storybook 실행 |
+| `pnpm dev:guidebook` | 6107 | Guidebook 실행 |
+| `pnpm dev:all` | 6006, 6101~6107 | 모든 앱 실행 |
+
+프레임워크·Storybook·Guidebook의 개별 `dev:*` 명령과 `dev:all`은 서버 시작 전에 공통 스타일과 자산을 갱신합니다.
+
+## 빌드와 검증
+
+```bash
+pnpm build
+pnpm validate:structure
+pnpm check:workspace
+```
+
+- `pnpm build`: Guidebook과 Storybook을 빌드한 뒤 하나의 `build` 디렉터리로 수집합니다.
+- `pnpm validate:structure`: 4개 공통 구현의 52개 컴포넌트 파일, 공통 패키지, Nuxt/Next 전용 컴포넌트, Story 위치를 검사합니다.
+- `pnpm check:workspace`: 등록된 워크스페이스 패키지를 확인합니다.
+
+현재 `pnpm build`의 결과 구조는 다음과 같습니다.
+
+```text
+build/
+├── index.html       # Guidebook 진입점
+├── assets/
+├── components/
+├── foundations/
+├── guides/
+├── images/
+└── storybook/       # Storybook 정적 빌드
+```
+
+프레임워크 앱은 현재 개발 서버용이며 루트 `build` 명령의 정적 배포 대상에는 포함되지 않습니다.
+
+## 배포
+
+```bash
 pnpm deploy
+pnpm deploy:guidebook
+pnpm deploy:storybook
 ```
 
-`pnpm dev`는 공통 스타일과 이미지를 한 번 빌드한 뒤 Guidebook과 Storybook을 병렬로 실행합니다. `pnpm dev:all`은 같은 준비 과정을 거쳐 모든 프레임워크 앱, Guidebook, Storybook을 실행합니다. 실행 전과 서버 시작 후 터미널에 접속 주소를 표시하며, 개별 `dev:*` 명령도 실행 전에 공통 자산을 갱신합니다.
+배포 스크립트는 해당 문서를 빌드하고 임시 Git worktree에서 `main` 브랜치에 반영한 뒤 `origin/main`으로 push합니다.
 
----
+배포 전 조건:
 
-# 12. 자동화 스크립트
+- 현재 작업 트리에 미커밋 변경이 없어야 합니다.
+- 로컬 `main`에 `origin/main`에 없는 커밋이 없어야 합니다.
+- `origin` 원격 저장소에 접근하고 push할 권한이 있어야 합니다.
 
-| 스크립트 | 역할 |
-| --- | --- |
-| `dev.mjs` | Workspace 구성을 확인하는 로컬 개발 대시보드 실행 |
-| `dev-all.mjs` | 문서 서버 또는 전체 앱 개발 서버 병렬 실행 |
-| `build-styles.mjs` | 디자인 토큰과 SCSS 빌드 |
-| `copy-assets.mjs` | 공통 자산을 각 앱과 빌드 경로에 복사 |
-| `collect-frameworks.mjs` | 각 프레임워크와 Storybook 결과 수집 |
-| `collect-guidebook.mjs` | 통합 가이드북 결과 수집 |
-| `validate-components.mjs` | 52개 컴포넌트와 소개 문서 누락 검사 |
-| `validate-guidebook.mjs` | 가이드 문서와 코드 예제 연결 검사 |
-| `deploy-main.mjs` | 검증된 결과를 `main` 브랜치에 반영 |
+`dev` 브랜치는 소스와 설정을 관리하고, `main` 브랜치는 Guidebook과 `/storybook` 정적 결과를 관리합니다.
 
----
+## 컴포넌트 변경 순서
 
-# 13. 빌드 흐름
-
-```text
-packages 공통 소스 빌드
-        ↓
-HTML·Gulp·Vue·React·Nuxt·Next.js 빌드
-        ↓
-통합 가이드북 빌드
-        ↓
-Storybook 빌드
-        ↓
-build/frameworks 및 build/guidebook 수집
-        ↓
-소개·컴포넌트·링크·자산 검증
-        ↓
-main 브랜치 반영
-```
-
----
-
-# 14. 빌드 결과 수집
-
-## Frameworks
-
-| 원본 | 수집 경로 |
-| --- | --- |
-| `apps/html/dist` | `build/frameworks/html` |
-| `apps/gulp/dist` | `build/frameworks/gulp` |
-| `apps/vue/dist` | `build/frameworks/vue` |
-| `apps/react/dist` | `build/frameworks/react` |
-| `apps/nuxt/.output/public` | `build/frameworks/nuxt` |
-| `apps/next/out` | `build/frameworks/next` |
-| `apps/storybook/storybook-static` | `build/frameworks/storybook` |
-
-## Guidebook
-
-| 원본 | 수집 경로 |
-| --- | --- |
-| `apps/guidebook/dist` | `build/guidebook` |
-
----
-
-# 15. main 브랜치 배포 구조
-
-```text
-main/
-├── index.html
-├── frameworks/
-│   ├── index.html
-│   ├── html/
-│   │   ├── index.html
-│   │   ├── introduction/
-│   │   ├── components/
-│   │   └── assets/
-│   ├── gulp/
-│   │   ├── index.html
-│   │   ├── introduction/
-│   │   ├── components/
-│   │   └── assets/
-│   ├── vue/
-│   │   ├── index.html
-│   │   └── assets/
-│   ├── react/
-│   │   ├── index.html
-│   │   └── assets/
-│   ├── nuxt/
-│   │   ├── index.html
-│   │   ├── _nuxt/
-│   │   └── assets/
-│   ├── next/
-│   │   ├── index.html
-│   │   ├── _next/
-│   │   └── assets/
-│   └── storybook/
-│       ├── index.html
-│       ├── iframe.html
-│       └── assets/
-├── guidebook/
-│   ├── index.html
-│   └── assets/
-├── .nojekyll
-└── CNAME
-```
-
-Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실제 하위 문서 디렉터리가 빌드 결과에 생성됩니다.
-
----
-
-# 16. 배포 URL
-
-```text
-/frameworks/
-
-/frameworks/html/
-/frameworks/gulp/
-/frameworks/vue/
-/frameworks/react/
-/frameworks/nuxt/
-/frameworks/next/
-/frameworks/storybook/
-```
-
-프레임워크 소개와 컴포넌트 문서 예:
-
-```text
-/frameworks/html/introduction/overview/
-/frameworks/html/components/basic/button/
-
-/frameworks/vue/introduction/overview/
-/frameworks/vue/components/basic/button/
-
-/frameworks/next/introduction/overview/
-/frameworks/next/components/basic/button/
-```
-
-가이드북:
-
-```text
-/guidebook/
-```
-
-가이드북 목차 예:
-
-```text
-/guidebook/html/
-/guidebook/html/semantic/
-/guidebook/gulp/tasks/
-/guidebook/vue/reactivity/
-/guidebook/react/next/
-```
-
----
-
-# 17. 컴포넌트 추가 절차
-
-1. HTML 기준 구현을 작성합니다.
-2. Gulp/Nunjucks 구현을 작성합니다.
-3. Vue와 React 구현을 작성합니다.
-4. Nuxt와 Next.js 구현을 작성합니다.
-5. 공통 스타일은 `packages/styles`의 역할별 폴더에 추가합니다.
-6. Storybook에 API와 프레임워크별 예제를 연결합니다.
-7. 52개 구성과 문서 누락 여부를 검사합니다.
-8. 전체 앱을 빌드하고 배포 결과를 검증합니다.
-
----
-
-# 18. 브랜치 운영
-
-- 기능 단위 작업은 별도 브랜치에서 수행합니다.
-- 검토가 끝난 기능은 `dev` 브랜치에 통합합니다.
-- `dev`는 전체 모노레포 소스를 관리합니다.
-- `main`은 정적 배포 결과만 관리합니다.
-- `main`에서 프레임워크 개발이나 패키지 설치를 하지 않습니다.
-- 배포 시 `frameworks`와 `guidebook` 디렉터리를 검증된 빌드 결과로 교체합니다.
-
----
-
-# 19. 최종 역할 구분
-
-```text
-Frameworks
-= 각 프레임워크의 소개 문서와 전체 52개 UXKM 컴포넌트 구현
-
-Storybook
-= 하나의 컴포넌트에서 HTML·Gulp·Vue·React·Nuxt·Next.js 코드 비교
-
-Guidebook
-= HTML·Gulp·Vue·React 학습 문서를 하나의 목차로 제공
-
-Packages
-= 스타일, 자산, 토큰, 콘텐츠, 명세, 탐색 구조, 코드 예제
-
-dev
-= 전체 소스와 설정 관리
-
-main
-= 정적 빌드 결과 전용 배포
-```
+1. HTML과 Gulp/Nunjucks 구현을 갱신합니다.
+2. Vue와 React 구현 및 export를 갱신합니다.
+3. 필요할 때 Nuxt와 Next.js 전용 구현을 갱신합니다.
+4. 공통 스타일은 `packages/styles`, 공통 동작은 `packages/interactions`, 이미지는 `packages/assets`에서 수정합니다.
+5. `apps/storybook/src`의 Story, API, 프레임워크 예제를 갱신합니다.
+6. Guidebook 문서에 영향을 주면 `apps/guidebook/content`를 갱신합니다.
+7. `pnpm validate:structure`와 관련 빌드를 실행합니다.
