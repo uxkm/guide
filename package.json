@@ -12,11 +12,13 @@
     "dev:nuxt": "pnpm build:shared && pnpm --filter @uxkm/nuxt dev",
     "dev:next": "pnpm build:shared && pnpm --filter @uxkm/next dev",
     "dev:storybook": "pnpm storybook",
+    "dev:guidebook": "pnpm build:shared && pnpm --filter @uxkm/guidebook dev",
     "dev:all": "node scripts/dev-all.mjs",
     "build:assets": "node scripts/build-assets.mjs",
     "build:styles": "node scripts/build-styles.mjs",
     "build:shared": "pnpm build:styles && pnpm build:assets",
     "storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook storybook",
+    "build:guidebook": "pnpm --filter @uxkm/guidebook build",
     "build:storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook build-storybook",
     "check:workspace": "pnpm --recursive list --depth -1",
     "validate:structure": "node scripts/validate-components.mjs"

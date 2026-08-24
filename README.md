@@ -1,6 +1,6 @@
 # UXKM Framework Components
 
-HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 동일한 UXKM UI 컴포넌트를 제공하고, Storybook과 Vue·React 가이드북으로 통합 문서화하는 `pnpm` 기반 모노레포입니다.
+HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 동일한 UXKM UI 컴포넌트를 제공하고, Storybook과 단일 통합 가이드북으로 문서화하는 `pnpm` 기반 모노레포입니다.
 
 `dev` 브랜치에서 프레임워크 애플리케이션, 프레임워크별 소개 문서, 전체 UI 컴포넌트, 가이드북, 공통 패키지, Storybook 문서 및 빌드 스크립트를 관리합니다.
 
@@ -22,8 +22,7 @@ dev 브랜치
 │   ├── Nuxt
 │   └── Next.js
 ├── Guidebook
-│   ├── Vue + Nuxt 문법
-│   └── React + Next.js 문법
+│   └── HTML → Gulp → Vue → React 통합 목차
 ├── Storybook
 ├── Packages
 └── Scripts
@@ -143,9 +142,7 @@ uxkm-framework-components/
 │   ├── nuxt/                 # Nuxt 전용 컴포넌트
 │   ├── next/                 # Next.js 전용 컴포넌트
 │   ├── storybook/            # 공통 문서와 프레임워크 Storybook 연결
-│   └── guidebook/
-│       ├── vue/
-│       └── react/
+│   └── guidebook/            # 기술별 목차를 제공하는 단일 가이드북 앱
 │
 ├── packages/
 │   └── styles/               # 공통 스타일의 단일 원본과 빌드 결과
@@ -282,22 +279,20 @@ apps/
 ├── react
 ├── nuxt
 ├── next
-├── guidebook/
-│   ├── vue
-│   └── react
+├── guidebook
 └── storybook
 ```
 
 `apps/html`, `apps/gulp`, `apps/vue`, `apps/react`는 소개 문서와 공통 52개 컴포넌트 구현을 제공합니다. Nuxt와 Next.js는 프레임워크 전용 구현만 제공합니다.
 
-`apps/guidebook`은 프레임워크 학습 문서를 제공합니다.
+`apps/guidebook`은 하나의 앱에서 프레임워크 학습 문서를 제공합니다. 왼쪽 목차의 각 항목은 독립된 하위 URL과 정적 HTML 페이지로 구분합니다.
 
 ```text
-Vue Guidebook
-└── Vue + Nuxt 문법 비교
-
-React Guidebook
-└── React + Next.js 문법 비교
+Guidebook
+├── HTML + CSS + JavaScript
+├── Gulp + Nunjucks
+├── Vue + Nuxt
+└── React + Next.js
 ```
 
 ---
@@ -313,15 +308,24 @@ React Guidebook
 | `apps/nuxt` | 소개 문서와 Nuxt 컴포넌트 앱 | `.output/public` |
 | `apps/next` | 소개 문서와 Next.js App Router 컴포넌트 앱 | `out` |
 | `apps/storybook` | 전체 컴포넌트 통합 문서와 코드 비교 | `storybook-static` |
+| `apps/guidebook` | HTML·Gulp·Vue·React 통합 학습 문서 | `dist` |
 
 ---
 
 # 7. 가이드북 구조
 
-## Vue 가이드북
+## HTML 목차
+
+시맨틱 마크업과 순수 CSS·JavaScript 구현 방식을 설명합니다.
+
+## Gulp 목차
+
+Gulp 태스크와 Nunjucks 정적 템플릿 구현 방식을 설명합니다.
+
+## Vue 목차
 
 ```text
-Vue Guidebook
+Vue
 ├── Introduction
 ├── Start
 ├── Template
@@ -341,10 +345,10 @@ Vue Guidebook
 [ Vue ] [ Nuxt ]
 ```
 
-## React 가이드북
+## React 목차
 
 ```text
-React Guidebook
+React
 ├── Introduction
 ├── Start
 ├── JSX
@@ -468,8 +472,6 @@ Components
 ```yaml
 packages:
   - 'apps/*'
-  - 'apps/guidebook/*'
-  - 'apps/storybook'
   - 'packages/*'
 ```
 
@@ -486,7 +488,8 @@ pnpm dev:react        # React (6104)
 pnpm dev:nuxt         # Nuxt (6105)
 pnpm dev:next         # Next.js (6106)
 pnpm dev:storybook    # Storybook (6006)
-pnpm dev:all          # 위의 프레임워크 앱과 Storybook을 모두 실행
+pnpm dev:guidebook    # 통합 Guidebook (6107)
+pnpm dev:all          # 위의 프레임워크 앱, Storybook, Guidebook을 모두 실행
 ```
 
 빌드 및 검증 명령:
@@ -516,7 +519,7 @@ pnpm deploy
 | `build-styles.mjs` | 디자인 토큰과 SCSS 빌드 |
 | `copy-assets.mjs` | 공통 자산을 각 앱과 빌드 경로에 복사 |
 | `collect-frameworks.mjs` | 각 프레임워크와 Storybook 결과 수집 |
-| `collect-guidebook.mjs` | Vue·React 가이드북 결과 수집 |
+| `collect-guidebook.mjs` | 통합 가이드북 결과 수집 |
 | `validate-components.mjs` | 52개 컴포넌트와 소개 문서 누락 검사 |
 | `validate-guidebook.mjs` | 가이드 문서와 코드 예제 연결 검사 |
 | `deploy-main.mjs` | 검증된 결과를 `main` 브랜치에 반영 |
@@ -530,7 +533,7 @@ packages 공통 소스 빌드
         ↓
 HTML·Gulp·Vue·React·Nuxt·Next.js 빌드
         ↓
-Vue·React 가이드북 빌드
+통합 가이드북 빌드
         ↓
 Storybook 빌드
         ↓
@@ -561,8 +564,7 @@ main 브랜치 반영
 
 | 원본 | 수집 경로 |
 | --- | --- |
-| `apps/guidebook/vue/dist` | `build/guidebook/vue` |
-| `apps/guidebook/react/out` | `build/guidebook/react` |
+| `apps/guidebook/dist` | `build/guidebook` |
 
 ---
 
@@ -603,13 +605,7 @@ main/
 │       └── assets/
 ├── guidebook/
 │   ├── index.html
-│   ├── vue/
-│   │   ├── index.html
-│   │   └── assets/
-│   └── react/
-│       ├── index.html
-│       ├── _next/
-│       └── assets/
+│   └── assets/
 ├── .nojekyll
 └── CNAME
 ```
@@ -649,15 +645,17 @@ Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실
 
 ```text
 /guidebook/
-/guidebook/vue/
-/guidebook/react/
 ```
 
-가이드북 문서 예:
+가이드북 목차 예:
 
 ```text
-/guidebook/vue/components/props/
-/guidebook/react/components/props/
+/guidebook/quick-start/
+/guidebook/html/
+/guidebook/html/semantic/
+/guidebook/gulp/tasks/
+/guidebook/vue/reactivity/
+/guidebook/react/next/
 ```
 
 ---
@@ -695,11 +693,8 @@ Frameworks
 Storybook
 = 하나의 컴포넌트에서 HTML·Gulp·Vue·React·Nuxt·Next.js 코드 비교
 
-Guidebook/Vue
-= Vue 학습 문서와 Nuxt 문법 비교
-
-Guidebook/React
-= React 학습 문서와 Next.js 문법 비교
+Guidebook
+= HTML·Gulp·Vue·React 학습 문서를 하나의 목차로 제공
 
 Packages
 = 스타일, 자산, 토큰, 콘텐츠, 명세, 탐색 구조, 코드 예제

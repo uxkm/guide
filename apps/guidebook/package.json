@@ -1,0 +1,13 @@
+{
+  "name": "@uxkm/guidebook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 6107",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^8.2.0"
+  }
+}

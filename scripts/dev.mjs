@@ -73,21 +73,12 @@ const workspaces = [
     group: 'apps'
   },
   {
-    label: 'Vue Guidebook',
-    shortLabel: 'V · N',
-    path: 'apps/guidebook/vue',
-    description: 'Vue와 Nuxt의 문법 및 구현 방식을 비교하는 학습 가이드',
-    badge: 'Vue · Nuxt',
-    color: 'vue-guidebook',
-    group: 'guidebooks'
-  },
-  {
-    label: 'React Guidebook',
-    shortLabel: 'R · N',
-    path: 'apps/guidebook/react',
-    description: 'React와 Next.js의 문법 및 구현 방식을 비교하는 학습 가이드',
-    badge: 'React · Next.js',
-    color: 'react-guidebook',
+    label: 'Guidebook',
+    shortLabel: 'DOCS',
+    path: 'apps/guidebook',
+    description: 'HTML, Gulp, Vue, React 학습 문서를 하나의 목차로 제공하는 통합 가이드',
+    badge: 'HTML · Gulp · Vue · React',
+    color: 'guidebook',
     group: 'guidebooks'
   },
   {
@@ -160,7 +151,7 @@ const icons = {
 };
 
 function renderIcon(color) {
-  if (color === 'vue-guidebook' || color === 'react-guidebook') return icons.book;
+  if (color === 'guidebook') return icons.book;
   return icons[color] ?? icons.content;
 }
 
@@ -313,8 +304,7 @@ function renderPage() {
       .card--nuxt { --card-color: #00a86b; --card-soft: rgba(0, 168, 107, 0.14); }
       .card--next { --card-color: #202631; --card-soft: rgba(32, 38, 49, 0.1); }
       .card--storybook { --card-color: #d93472; --card-soft: rgba(217, 52, 114, 0.14); }
-      .card--vue-guidebook { --card-color: #2e8b63; --card-soft: rgba(46, 139, 99, 0.14); }
-      .card--react-guidebook { --card-color: #087ea4; --card-soft: rgba(8, 126, 164, 0.14); }
+      .card--guidebook { --card-color: #6f4ef2; --card-soft: rgba(111, 78, 242, 0.14); }
       .card--styles { --card-color: #bf4080; --card-soft: rgba(191, 64, 128, 0.13); }
       .card--assets { --card-color: #dc8b19; --card-soft: rgba(220, 139, 25, 0.14); }
       .card--tokens { --card-color: #7557c7; --card-soft: rgba(117, 87, 199, 0.13); }

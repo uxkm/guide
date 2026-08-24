@@ -10,7 +10,8 @@ const servers = [
   ['Vue', 'http://localhost:6103'],
   ['React', 'http://localhost:6104'],
   ['Nuxt', 'http://localhost:6105'],
-  ['Next.js', 'http://localhost:6106']
+  ['Next.js', 'http://localhost:6106'],
+  ['Guidebook', 'http://localhost:6107']
 ];
 
 const filters = [
@@ -20,7 +21,8 @@ const filters = [
   '@uxkm/react',
   '@uxkm/nuxt',
   '@uxkm/next',
-  '@uxkm/storybook'
+  '@uxkm/storybook',
+  '@uxkm/guidebook'
 ];
 
 function printAddresses(title) {

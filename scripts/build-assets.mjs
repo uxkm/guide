@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const source = join(root, 'packages/assets/public/images');
-const appTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'storybook'];
+const appTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'storybook', 'guidebook'];
 
 await readdir(source);
 
