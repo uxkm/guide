@@ -85,8 +85,13 @@ if (outlineItems.length) {
 }
 
 function openSearch() {
+  if (dialog.open) return;
   dialog.showModal();
   searchInput.focus();
+}
+
+function closeSearch() {
+  if (dialog.open) dialog.close();
 }
 
 function closeSidebar() {
@@ -96,7 +101,19 @@ function closeSidebar() {
 }
 
 document.querySelector('.search-trigger').addEventListener('click', openSearch);
-searchCloseButton.addEventListener('click', () => dialog.close());
+searchCloseButton.addEventListener('click', closeSearch);
+dialog.addEventListener('cancel', (event) => {
+  event.preventDefault();
+  closeSearch();
+});
+dialog.addEventListener('click', (event) => {
+  const bounds = dialog.getBoundingClientRect();
+  const clickedBackdrop = event.clientX < bounds.left
+    || event.clientX > bounds.right
+    || event.clientY < bounds.top
+    || event.clientY > bounds.bottom;
+  if (clickedBackdrop) closeSearch();
+});
 menuButton.addEventListener('click', () => {
   sidebar.classList.add('open');
   backdrop.classList.add('open');
@@ -109,8 +126,16 @@ document.addEventListener('keydown', (event) => {
     event.preventDefault();
     openSearch();
   }
-  if (event.key === 'Escape') closeSidebar();
-});
+  const isEscape = event.key === 'Escape' || event.key === 'Esc' || event.code === 'Escape';
+  if (isEscape) {
+    if (dialog.open) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeSearch();
+    }
+    closeSidebar();
+  }
+}, { capture: true });
 
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
