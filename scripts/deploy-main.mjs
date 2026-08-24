@@ -13,11 +13,12 @@ if (!supportedTargets.has(target)) {
 }
 
 function git(args, options = {}) {
-  return execFileSync('git', args, {
+  const output = execFileSync('git', args, {
     cwd: options.cwd || workspaceRoot,
     encoding: 'utf8',
     stdio: options.stdio || 'pipe'
-  }).trim();
+  });
+  return typeof output === 'string' ? output.trim() : '';
 }
 
 async function assertDirectory(path, label) {
