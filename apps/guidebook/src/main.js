@@ -20,6 +20,68 @@ const resultItems = [...dialog.querySelectorAll('.search-result')];
 const sidebar = document.querySelector('.docs-sidebar');
 const backdrop = document.querySelector('.sidebar-backdrop');
 const menuButton = document.querySelector('.menu-button');
+const outlineLinks = [...document.querySelectorAll('.page-outline a[href^="#"]')];
+
+function getOutlineTarget(link) {
+  try {
+    return document.getElementById(decodeURIComponent(link.hash.slice(1)));
+  } catch {
+    return null;
+  }
+}
+
+const outlineItems = outlineLinks
+  .map((link) => ({ link, target: getOutlineTarget(link) }))
+  .filter(({ target }) => target);
+
+function setActiveOutline(activeLink) {
+  outlineLinks.forEach((link) => {
+    const isActive = link === activeLink;
+    link.classList.toggle('active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+}
+
+function updateActiveOutline() {
+  if (!outlineItems.length) return;
+
+  const activationLine = 104;
+  const reachedPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
+  if (reachedPageEnd) {
+    setActiveOutline(outlineItems.at(-1).link);
+    return;
+  }
+
+  let activeItem = outlineItems[0];
+
+  for (const item of outlineItems) {
+    if (item.target.getBoundingClientRect().top > activationLine) break;
+    activeItem = item;
+  }
+
+  setActiveOutline(activeItem.link);
+}
+
+if (outlineItems.length) {
+  let scrollFrame;
+  const requestOutlineUpdate = () => {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = undefined;
+      updateActiveOutline();
+    });
+  };
+
+  outlineLinks.forEach((link) => {
+    link.addEventListener('click', () => setActiveOutline(link));
+  });
+
+  window.addEventListener('scroll', requestOutlineUpdate, { passive: true });
+  window.addEventListener('resize', requestOutlineUpdate);
+  window.addEventListener('hashchange', updateActiveOutline);
+  updateActiveOutline();
+}
 
 function openSearch() {
   dialog.showModal();
