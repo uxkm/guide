@@ -42,11 +42,31 @@ Guidebook의 Markdown 원본은 `apps/guidebook/content`에서 관리합니다. 
 
 ## 빌드와 배포
 
+### Guidebook 단독
+
 ```Terminal
-pnpm build
+pnpm deploy:guidebook
 ```
 
-명령을 실행하면 Guidebook과 Storybook을 정적 파일로 빌드하고 하나의 `build` 폴더에 배포 가능한 구조로 수집합니다.
+Guidebook을 빌드한 뒤 결과물을 `main` 브랜치의 웹 루트에 반영하고 원격 저장소에 푸시합니다.
+
+### Storybook 단독
+
+```Terminal
+pnpm deploy:storybook
+```
+
+Storybook을 빌드한 뒤 결과물을 `main` 브랜치의 `storybook` 디렉터리에 반영하고 원격 저장소에 푸시합니다.
+
+### 전체 문서
+
+```Terminal
+pnpm deploy
+```
+
+Guidebook과 Storybook을 함께 빌드한 뒤 전체 결과물을 `main` 브랜치에 반영하고 원격 저장소에 푸시합니다.
+
+배포 명령을 실행하기 전에 현재 `dev` 브랜치의 변경 사항을 먼저 커밋해야 합니다. 빌드만 필요할 때는 각각 `pnpm build:guidebook`, `pnpm build:storybook`, 전체는 `pnpm build`를 사용합니다.
 
 ```Text
 build/

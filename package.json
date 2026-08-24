@@ -23,6 +23,9 @@
     "storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook storybook",
     "build:guidebook": "pnpm --filter @uxkm/guidebook build",
     "build:storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook build-storybook",
+    "deploy": "pnpm build && node scripts/deploy-main.mjs all",
+    "deploy:guidebook": "pnpm build:guidebook && node scripts/deploy-main.mjs guidebook",
+    "deploy:storybook": "pnpm build:storybook && node scripts/deploy-main.mjs storybook",
     "check:workspace": "pnpm --recursive list --depth -1",
     "validate:structure": "node scripts/validate-components.mjs"
   },
