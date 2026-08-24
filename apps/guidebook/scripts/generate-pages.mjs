@@ -3,11 +3,30 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
+import { loadEnv } from 'vite';
 
 const appRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = join(appRoot, 'content');
-const siteUrl = 'https://guide.uxkm.io/';
-const socialImageUrl = 'https://uxkm.io/_assets/images/_common/og_image.png';
+const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const env = { ...loadEnv(mode, appRoot, 'VITE_'), ...process.env };
+
+function publicUrl(name, fallback, trailingSlash = false) {
+  const value = env[name]?.trim() || fallback;
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error(`${name}은 유효한 절대 URL이어야 합니다: ${value}`);
+  }
+  if (!['http:', 'https:'].includes(url.protocol)) {
+    throw new Error(`${name}은 HTTP 또는 HTTPS URL이어야 합니다: ${value}`);
+  }
+  if (trailingSlash && !url.pathname.endsWith('/')) url.pathname += '/';
+  return url.href;
+}
+
+const siteUrl = publicUrl('VITE_SITE_URL', 'https://guide.uxkm.io/', true);
+const socialImageUrl = publicUrl('VITE_SOCIAL_IMAGE_URL', 'https://uxkm.io/_assets/images/_common/og_image.png');
 
 async function collectMarkdown(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
