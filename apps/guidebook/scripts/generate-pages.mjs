@@ -181,14 +181,14 @@ function renderPage(page, index) {
     <header class="docs-header">
       <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="${prefix}images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="${prefix}" data-guide-path="index.html"${page.id === 'overview' ? ' aria-current="page"' : ''}>Guidebook</a></div>
-      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <button class="search-trigger" type="button" aria-label="가이드북 검색 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
       <a class="header-link" href="${prefix}storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
     </header>
     <aside class="docs-sidebar" aria-label="가이드북 목차">${sidebar}<p class="sidebar-footer">uxkm.io Guidebook</p></aside>
     <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
     <div class="docs-shell"><main class="docs-content"><p class="eyebrow">${escapeHtml(page.eyebrow)}</p><h1>${title}</h1><p class="lead">${escapeHtml(page.lead)}</p><div class="markdown-body">${page.html}</div>${pageNav}</main></div>
     <aside class="page-outline"><strong>이 페이지에서</strong>${outline}</aside>
-    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results">${searchResults}<p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"><button class="search-close" type="button" aria-label="검색 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="search-results">${searchResults}<p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>\n`;

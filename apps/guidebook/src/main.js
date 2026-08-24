@@ -16,6 +16,7 @@ document.querySelectorAll('[data-storybook-path]').forEach((link) => {
 
 const dialog = document.querySelector('.search-dialog');
 const searchInput = dialog.querySelector('input');
+const searchCloseButton = dialog.querySelector('.search-close');
 const resultItems = [...dialog.querySelectorAll('.search-result')];
 const sidebar = document.querySelector('.docs-sidebar');
 const backdrop = document.querySelector('.sidebar-backdrop');
@@ -95,6 +96,7 @@ function closeSidebar() {
 }
 
 document.querySelector('.search-trigger').addEventListener('click', openSearch);
+searchCloseButton.addEventListener('click', () => dialog.close());
 menuButton.addEventListener('click', () => {
   sidebar.classList.add('open');
   backdrop.classList.add('open');

@@ -5,7 +5,7 @@ path: ""
 label: 소개
 title: Guidebook
 titleLogo: true
-eyebrow: UXKM Design System
+eyebrow: UXKM Components
 lead: UXKM의 52개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.
 order: 1
 ---
