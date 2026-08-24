@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./images/meta/favicon/apple-touch-icon.png">
     <link rel="manifest" href="./images/meta/favicon/site.webmanifest">
     <title>소개 | UXKM Guidebook</title>
-    <script type="module" crossorigin src="./assets/main-CySJwr2d.js"></script>
+    <script type="module" crossorigin src="./assets/main-Cla9P230.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/main-C6tv5Q1E.css">
   </head>
   <body data-page="overview">
@@ -99,9 +99,24 @@
 <p>모든 프레임워크 앱까지 함께 실행하려면 <code>pnpm dev:all</code>을 사용합니다.</p>
 <p>Guidebook의 Markdown 원본은 <code>apps/guidebook/content</code>에서 관리합니다. 개발과 빌드 명령을 실행하면 Markdown이 페이지별 HTML로 생성되며, 메뉴와 이전·다음 이동도 함께 구성됩니다.</p>
 <h2 id="빌드와-배포">빌드와 배포</h2>
-<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm build
+<h3 id="guidebook-단독">Guidebook 단독</h3>
+<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm deploy:guidebook
 </code></pre>
-<p>명령을 실행하면 Guidebook과 Storybook을 정적 파일로 빌드하고 하나의 <code>build</code> 폴더에 배포 가능한 구조로 수집합니다.</p>
+<p>Guidebook을 빌드한 뒤 결과물을 <code>main</code> 브랜치의 웹 루트에 반영하고 원격 저장소에 푸시합니다.</p>
+<h3 id="storybook-단독">Storybook 단독</h3>
+<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm deploy:storybook
+</code></pre>
+<p>Storybook을 빌드한 뒤 결과물을 <code>main</code> 브랜치의 <code>storybook</code> 디렉터리에 반영하고 원격 저장소에 푸시합니다.</p>
+<h3 id="전체-문서">전체 문서</h3>
+<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm deploy
+</code></pre>
+<p>Guidebook과 Storybook을 함께 빌드한 뒤 전체 결과물을 <code>main</code> 브랜치에 반영하고 원격 저장소에 푸시합니다.</p>
+<p>배포 명령을 실행하기 전에 현재 <code>dev</code> 브랜치의 변경 사항을 먼저 커밋해야 합니다. 빌드만 필요할 때는 각각 <code>pnpm build:guidebook</code>, <code>pnpm build:storybook</code>, 전체는 <code>pnpm build</code>를 사용합니다.</p>
+<p>Guidebook의 사이트, Storybook과 공유 이미지 주소는 <code>apps/guidebook/.env</code>에서 설정할 수 있습니다. 새 환경을 구성할 때는 <code>.env.example</code>을 복사해 사용하며, 환경파일이 없으면 운영 URL을 기본값으로 사용합니다.</p>
+<pre class="code-block"><span class="code-label">Environment</span><code>VITE_SITE_URL=https://guide.uxkm.io/
+VITE_STORYBOOK_URL=https://guide.uxkm.io/storybook/
+VITE_SOCIAL_IMAGE_URL=https://uxkm.io/_assets/images/_common/og_image.png
+</code></pre>
 <pre class="code-block"><span class="code-label">Text</span><code>build/
 ├── index.html              # Guidebook
 ├── components/             # Guidebook 컴포넌트 문서
