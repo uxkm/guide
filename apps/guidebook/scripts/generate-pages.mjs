@@ -7,6 +7,7 @@ import MarkdownIt from 'markdown-it';
 const appRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = join(appRoot, 'content');
 const siteUrl = 'https://guide.uxkm.io/';
+const socialImageUrl = 'https://uxkm.io/_assets/images/_common/og_image.png';
 
 async function collectMarkdown(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -139,6 +140,7 @@ const groups = [...new Set(renderedPages.map((page) => page.group))];
 function renderPage(page, index) {
   const prefix = rootPrefix(page);
   const canonicalUrl = new URL(page.path, siteUrl).href;
+  const pageTitle = `${page.label} | UXKM Guidebook`;
   const sidebar = groups.map((group) => {
     const items = renderedPages.filter((item) => item.group === group);
     return `<p class="sidebar-label">${escapeHtml(group)}</p><ul class="nav-list${group === '가이드북' ? '' : ' nav-sub'}">${items.map((item) => `<li><a class="nav-link${item.id === page.id ? ' active' : ''}" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"${item.id === page.id ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a></li>`).join('')}</ul>`;
@@ -157,25 +159,37 @@ function renderPage(page, index) {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="title" content="${escapeHtml(pageTitle)}">
     <meta name="author" content="UXKM">
     <meta name="description" content="${escapeHtml(page.lead)}">
+    <meta name="keywords" content="uxkm, uxkm guide, guidebook, ui, component, storybook, accessibility">
+    <meta name="content-language" content="ko">
     <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light">
     <meta name="application-name" content="UXKM Guidebook">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ko_KR">
     <meta property="og:site_name" content="UXKM Guidebook">
-    <meta property="og:title" content="${escapeHtml(page.label)} | UXKM Guidebook">
+    <meta property="og:title" content="${escapeHtml(pageTitle)}">
     <meta property="og:description" content="${escapeHtml(page.lead)}">
     <meta property="og:url" content="${canonicalUrl}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="${socialImageUrl}">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="750">
+    <meta property="og:image:alt" content="UXKM Guide">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
+    <meta name="twitter:description" content="${escapeHtml(page.lead)}">
+    <meta name="twitter:image" content="${socialImageUrl}">
     <link rel="canonical" href="${canonicalUrl}">
     <link rel="icon" href="${prefix}images/meta/favicon/favicon.ico" sizes="16x16 32x32">
     <link rel="icon" type="image/png" sizes="32x32" href="${prefix}images/meta/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="${prefix}images/meta/favicon/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="${prefix}images/meta/favicon/apple-touch-icon.png">
     <link rel="manifest" href="${prefix}images/meta/favicon/site.webmanifest">
-    <title>${escapeHtml(page.label)} | UXKM Guidebook</title>
+    <title>${escapeHtml(pageTitle)}</title>
   </head>
   <body data-page="${escapeHtml(page.id)}">
     <header class="docs-header">
