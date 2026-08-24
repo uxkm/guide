@@ -3,11 +3,177 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HTML, Gulp, Vue, React를 단계별로 학습하는 UXKM Guidebook">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="UXKM의 52개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="소개 | UXKM Guidebook">
+    <meta property="og:description" content="UXKM의 52개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/">
+    <link rel="icon" href="./images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="./images/meta/favicon/site.webmanifest">
     <title>소개 | UXKM Guidebook</title>
   </head>
   <body data-page="overview">
-    <div id="app"></div>
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="./images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="./storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link active" href="./" data-guide-path="index.html" aria-current="page">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="./foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="./foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="./components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="./components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="./components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="./components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="./components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="./components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="./components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="./guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="./guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li><li><a class="nav-link" href="./guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">UXKM Design System</p><h1><span class="guide-title"><img src="./images/brand/uxkm_logo.svg" alt="UXKM"><span>Guidebook</span></span></h1><p class="lead">UXKM의 52개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.</p><div class="markdown-body"><div class="callout"><span class="callout-icon">i</span><p>가이드북에서 사용 원칙을 이해하고, 스토리북에서 실제 동작과 프레임워크별 구현 코드를 확인합니다.</p></div>
+<p>UXKM Guidebook은 컴포넌트의 모양을 보여주는 목록이 아니라 어떤 문제에 어떤 컴포넌트를 선택하고, 여러 상태와 접근성을 어떻게 구현할지 설명하는 문서입니다. 처음 사용하는 사람은 기초부터 순서대로 읽고, 익숙한 사용자는 왼쪽 메뉴에서 필요한 컴포넌트 분류나 활용 가이드로 바로 이동할 수 있습니다.</p>
+<h2 id="문서의-역할">문서의 역할</h2>
+<table>
+<thead>
+<tr>
+<th>문서</th>
+<th>주요 역할</th>
+<th>확인하는 질문</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guidebook</td>
+<td>컴포넌트 선택 기준, 접근성, 조합 패턴과 구현 원칙 설명</td>
+<td>왜 이 컴포넌트를 사용하며 어떤 상태와 예외를 고려해야 하는가?</td>
+</tr>
+<tr>
+<td>Storybook</td>
+<td>컴포넌트 API, 상태, 실제 동작과 프레임워크별 코드 제공</td>
+<td>실제로 어떻게 보이고 동작하며 코드에서 어떤 API를 사용하는가?</td>
+</tr>
+</tbody>
+</table>
+<p>가이드북과 스토리북은 같은 컴포넌트 분류를 사용합니다. 가이드북의 <code>컴포넌트</code> 메뉴에서 사용 시점과 주의사항을 확인한 뒤 각 컴포넌트 링크를 열어 Storybook의 상태, 조작 방법과 프레임워크별 구현 예제를 검증합니다. 디자인이나 개발 중 판단 기준이 바뀌면 코드만 수정하지 않고 두 문서의 설명과 예제를 함께 갱신합니다.</p>
+<h2 id="시작하기">시작하기</h2>
+<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm dev
+</code></pre>
+<p>명령을 실행하면 두 문서 서버가 함께 시작됩니다.</p>
+<table>
+<thead>
+<tr>
+<th>문서</th>
+<th>로컬 개발 주소</th>
+<th>운영 주소</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guidebook</td>
+<td><code>http://localhost:6107/</code></td>
+<td><code>https://guide.uxkm.io/</code></td>
+</tr>
+<tr>
+<td>Storybook</td>
+<td><code>http://localhost:6006/</code></td>
+<td><code>https://guide.uxkm.io/storybook/</code></td>
+</tr>
+</tbody>
+</table>
+<p>모든 프레임워크 앱까지 함께 실행하려면 <code>pnpm dev:all</code>을 사용합니다.</p>
+<p>Guidebook의 Markdown 원본은 <code>apps/guidebook/content</code>에서 관리합니다. 개발과 빌드 명령을 실행하면 Markdown이 페이지별 HTML로 생성되며, 메뉴와 이전·다음 이동도 함께 구성됩니다.</p>
+<h2 id="빌드와-배포">빌드와 배포</h2>
+<pre class="code-block"><span class="code-label">Terminal</span><code>pnpm build
+</code></pre>
+<p>명령을 실행하면 Guidebook과 Storybook을 정적 파일로 빌드하고 하나의 <code>build</code> 폴더에 배포 가능한 구조로 수집합니다.</p>
+<pre class="code-block"><span class="code-label">Text</span><code>build/
+├── index.html              # Guidebook
+├── components/             # Guidebook 컴포넌트 문서
+├── foundations/            # Guidebook 기초 문서
+├── guides/                 # Guidebook 활용 가이드
+├── assets/                 # Guidebook 빌드 자산
+├── images/                 # 공통 이미지
+└── storybook/
+    ├── index.html          # Storybook
+    ├── iframe.html
+    └── assets/
+</code></pre>
+<p>웹 서버에는 <code>build</code> 폴더의 <strong>내용 전체</strong>를 <code>guide.uxkm.io</code>의 웹 루트로 배포합니다. <code>https://guide.uxkm.io/</code>에서는 Guidebook이 열리고 Storybook은 <code>https://guide.uxkm.io/storybook/</code>에서 열립니다. Guidebook 상단과 컴포넌트 표의 Storybook 링크도 배포 환경에서는 이 주소를 사용합니다. 정적 호스팅은 하위 폴더와 쿼리 문자열을 그대로 제공할 수 있어야 합니다.</p>
+<h2 id="권장-사용-흐름">권장 사용 흐름</h2>
+<ol>
+<li><strong>문제 정의:</strong> 사용자가 완료하려는 작업, 표시할 데이터와 발생 가능한 오류를 먼저 정리합니다.</li>
+<li><strong>기초 확인:</strong> 디자인 토큰과 접근성 원칙에서 모든 구현에 공통으로 적용할 기준을 확인합니다.</li>
+<li><strong>컴포넌트 선택:</strong> 각 분류의 사용 시점과 주의사항을 비교해 문제에 맞는 컴포넌트를 선택합니다.</li>
+<li><strong>동작 검증:</strong> 컴포넌트 링크로 Storybook을 열어 상태, 크기, 변형과 실제 키보드 인터랙션을 검증합니다.</li>
+<li><strong>패턴 구성:</strong> 활용 가이드에서 여러 컴포넌트의 상태 전이, 오류 복구와 프레임워크별 구현 차이를 확인합니다.</li>
+<li><strong>완료 검수:</strong> 정상 상태뿐 아니라 로딩, 빈 상태, 오류, 작은 화면과 키보드 사용까지 확인합니다.</li>
+</ol>
+<h2 id="컴포넌트-구성">컴포넌트 구성</h2>
+<table>
+<thead>
+<tr>
+<th>분류</th>
+<th style="text-align:right">수</th>
+<th>주요 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 요소</td>
+<td style="text-align:right">4</td>
+<td><a href="./storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-button--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-button--docs" target="_blank" rel="noopener noreferrer">Button</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-icon--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-icon--docs" target="_blank" rel="noopener noreferrer">Icon</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-link--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-link--docs" target="_blank" rel="noopener noreferrer">Link</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-typography--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-typography--docs" target="_blank" rel="noopener noreferrer">Typography</a></td>
+</tr>
+<tr>
+<td>레이아웃</td>
+<td style="text-align:right">5</td>
+<td><a href="./storybook/?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-container--docs" data-storybook-path="?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-container--docs" target="_blank" rel="noopener noreferrer">Container</a>, <a href="./storybook/?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-flex--docs" data-storybook-path="?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-flex--docs" target="_blank" rel="noopener noreferrer">Flex</a>, <a href="./storybook/?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-grid--docs" data-storybook-path="?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-grid--docs" target="_blank" rel="noopener noreferrer">Grid</a>, <a href="./storybook/?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-space--docs" data-storybook-path="?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-space--docs" target="_blank" rel="noopener noreferrer">Space</a>, <a href="./storybook/?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-divider--docs" data-storybook-path="?path=/docs/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83-divider--docs" target="_blank" rel="noopener noreferrer">Divider</a></td>
+</tr>
+<tr>
+<td>폼</td>
+<td style="text-align:right">11</td>
+<td><a href="./storybook/?path=/docs/%ED%8F%BC-form-layout--docs" data-storybook-path="?path=/docs/%ED%8F%BC-form-layout--docs" target="_blank" rel="noopener noreferrer">Form Layout</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-input--docs" data-storybook-path="?path=/docs/%ED%8F%BC-input--docs" target="_blank" rel="noopener noreferrer">Input</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-textarea--docs" data-storybook-path="?path=/docs/%ED%8F%BC-textarea--docs" target="_blank" rel="noopener noreferrer">Textarea</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-select--docs" data-storybook-path="?path=/docs/%ED%8F%BC-select--docs" target="_blank" rel="noopener noreferrer">Select</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-checkbox--docs" data-storybook-path="?path=/docs/%ED%8F%BC-checkbox--docs" target="_blank" rel="noopener noreferrer">Checkbox</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-radio--docs" data-storybook-path="?path=/docs/%ED%8F%BC-radio--docs" target="_blank" rel="noopener noreferrer">Radio</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-switch--docs" data-storybook-path="?path=/docs/%ED%8F%BC-switch--docs" target="_blank" rel="noopener noreferrer">Switch</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-slider--docs" data-storybook-path="?path=/docs/%ED%8F%BC-slider--docs" target="_blank" rel="noopener noreferrer">Slider</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-date-picker--docs" data-storybook-path="?path=/docs/%ED%8F%BC-date-picker--docs" target="_blank" rel="noopener noreferrer">DatePicker</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-rate--docs" data-storybook-path="?path=/docs/%ED%8F%BC-rate--docs" target="_blank" rel="noopener noreferrer">Rate</a>, <a href="./storybook/?path=/docs/%ED%8F%BC-upload--docs" data-storybook-path="?path=/docs/%ED%8F%BC-upload--docs" target="_blank" rel="noopener noreferrer">Upload</a></td>
+</tr>
+<tr>
+<td>네비게이션</td>
+<td style="text-align:right">7</td>
+<td><a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-navbar--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-navbar--docs" target="_blank" rel="noopener noreferrer">Navbar</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-menu--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-menu--docs" target="_blank" rel="noopener noreferrer">Menu</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-breadcrumb--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-breadcrumb--docs" target="_blank" rel="noopener noreferrer">Breadcrumb</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-tabs--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-tabs--docs" target="_blank" rel="noopener noreferrer">Tabs</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-pagination--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-pagination--docs" target="_blank" rel="noopener noreferrer">Pagination</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-steps--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-steps--docs" target="_blank" rel="noopener noreferrer">Steps</a>, <a href="./storybook/?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-dropdown--docs" data-storybook-path="?path=/docs/%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-dropdown--docs" target="_blank" rel="noopener noreferrer">Dropdown</a></td>
+</tr>
+<tr>
+<td>데이터 표시</td>
+<td style="text-align:right">10</td>
+<td><a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-avatar--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-avatar--docs" target="_blank" rel="noopener noreferrer">Avatar</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-badge--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-badge--docs" target="_blank" rel="noopener noreferrer">Badge</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tag--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tag--docs" target="_blank" rel="noopener noreferrer">Tag</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-card--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-card--docs" target="_blank" rel="noopener noreferrer">Card</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-list--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-list--docs" target="_blank" rel="noopener noreferrer">List</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-table--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-table--docs" target="_blank" rel="noopener noreferrer">Table</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-stat--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-stat--docs" target="_blank" rel="noopener noreferrer">Stat</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-timeline--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-timeline--docs" target="_blank" rel="noopener noreferrer">Timeline</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tree--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tree--docs" target="_blank" rel="noopener noreferrer">Tree</a>, <a href="./storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-calendar--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-calendar--docs" target="_blank" rel="noopener noreferrer">Calendar</a></td>
+</tr>
+<tr>
+<td>피드백</td>
+<td style="text-align:right">10</td>
+<td><a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-alert--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-alert--docs" target="_blank" rel="noopener noreferrer">Alert</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-snackbar--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-snackbar--docs" target="_blank" rel="noopener noreferrer">Snackbar</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-modal--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-modal--docs" target="_blank" rel="noopener noreferrer">Modal</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-drawer--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-drawer--docs" target="_blank" rel="noopener noreferrer">Drawer</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-popover--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-popover--docs" target="_blank" rel="noopener noreferrer">Popover</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-tooltip--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-tooltip--docs" target="_blank" rel="noopener noreferrer">Tooltip</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-progress--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-progress--docs" target="_blank" rel="noopener noreferrer">Progress</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-spin--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-spin--docs" target="_blank" rel="noopener noreferrer">Spin</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-skeleton--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-skeleton--docs" target="_blank" rel="noopener noreferrer">Skeleton</a>, <a href="./storybook/?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-empty--docs" data-storybook-path="?path=/docs/%ED%94%BC%EB%93%9C%EB%B0%B1-empty--docs" target="_blank" rel="noopener noreferrer">Empty</a></td>
+</tr>
+<tr>
+<td>기타</td>
+<td style="text-align:right">5</td>
+<td><a href="./storybook/?path=/docs/%EA%B8%B0%ED%83%80-accordion--docs" data-storybook-path="?path=/docs/%EA%B8%B0%ED%83%80-accordion--docs" target="_blank" rel="noopener noreferrer">Accordion</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%ED%83%80-collapse--docs" data-storybook-path="?path=/docs/%EA%B8%B0%ED%83%80-collapse--docs" target="_blank" rel="noopener noreferrer">Collapse</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%ED%83%80-carousel--docs" data-storybook-path="?path=/docs/%EA%B8%B0%ED%83%80-carousel--docs" target="_blank" rel="noopener noreferrer">Carousel</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%ED%83%80-affix--docs" data-storybook-path="?path=/docs/%EA%B8%B0%ED%83%80-affix--docs" target="_blank" rel="noopener noreferrer">Affix</a>, <a href="./storybook/?path=/docs/%EA%B8%B0%ED%83%80-back-top--docs" data-storybook-path="?path=/docs/%EA%B8%B0%ED%83%80-back-top--docs" target="_blank" rel="noopener noreferrer">BackTop</a></td>
+</tr>
+</tbody>
+</table>
+<p>표의 컴포넌트명을 클릭하면 해당 Storybook 문서가 새 창에서 열립니다. 어떤 항목을 선택해야 할지 모호하면 먼저 데이터의 구조와 사용자의 행동을 기준으로 분류를 선택합니다. 예를 들어 값을 받는 기능은 <strong>폼</strong>, 현재 위치나 목적지 이동은 <strong>네비게이션</strong>, 처리 결과와 로딩은 <strong>피드백</strong>에서 확인합니다.</p>
+<h2 id="문서-구성">문서 구성</h2>
+<div class="feature-grid">
+  <a class="feature-card" href="foundations/design-tokens/index.html" data-guide-path="foundations/design-tokens/index.html"><strong>01 · 기초</strong><p>일관된 UI를 위한 공통 토큰과 접근성 기준</p></a>
+  <a class="feature-card" href="components/basic/index.html" data-guide-path="components/basic/index.html"><strong>02 · 컴포넌트</strong><p>52개 컴포넌트의 역할과 선택 기준</p></a>
+  <a class="feature-card" href="guides/patterns/index.html" data-guide-path="guides/patterns/index.html"><strong>03 · 활용 가이드</strong><p>컴포넌트 조합, 작성 지침과 구현 비교</p></a>
+</div>
+<h2 id="문서-활용-기준">문서 활용 기준</h2>
+<ul>
+<li>새 화면을 설계할 때는 개별 컴포넌트보다 사용자 흐름과 필요한 상태를 먼저 정의합니다.</li>
+<li>컴포넌트를 구현할 때는 Guidebook의 선택·접근성 기준과 Storybook의 API·동작을 함께 확인합니다.</li>
+<li>검수할 때는 예시 데이터만 보지 않고 긴 텍스트, 빈 값, 오류, 권한 제한과 작은 화면을 포함합니다.</li>
+<li>새로운 패턴이나 API가 추가되면 구현 코드와 함께 Markdown 설명과 Storybook 예제를 갱신합니다.</li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><span></span><a href="./foundations/design-tokens/index.html" data-guide-path="foundations/design-tokens/index.html"><small>다음</small><strong>디자인 토큰 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#문서의-역할">문서의 역할</a><a href="#시작하기">시작하기</a><a href="#빌드와-배포">빌드와 배포</a><a href="#권장-사용-흐름">권장 사용 흐름</a><a href="#컴포넌트-구성">컴포넌트 구성</a><a href="#문서-구성">문서 구성</a><a href="#문서-활용-기준">문서 활용 기준</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="./" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="./foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="./foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="./components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="./components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="./components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="./components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="./components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="./components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="./components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="./guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="./guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="./guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

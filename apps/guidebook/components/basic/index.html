@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="다른 컴포넌트와 패턴의 기반이 되는 가장 작은 표현 및 인터랙션 단위입니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="기본 요소 | UXKM Guidebook">
+    <meta property="og:description" content="다른 컴포넌트와 패턴의 기반이 되는 가장 작은 표현 및 인터랙션 단위입니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/components/basic/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/components/basic/">
+    <link rel="icon" href="../../images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../../images/meta/favicon/site.webmanifest">
+    <title>기본 요소 | UXKM Guidebook</title>
+  </head>
+  <body data-page="components-basic">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="../../images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link active" href="../../components/basic/" data-guide-path="components/basic/index.html" aria-current="page">기본 요소</a></li><li><a class="nav-link" href="../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li><li><a class="nav-link" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Components · 4</p><h1>기본 요소</h1><p class="lead">다른 컴포넌트와 패턴의 기반이 되는 가장 작은 표현 및 인터랙션 단위입니다.</p><div class="markdown-body"><p>기본 요소는 화면의 의미와 상호작용을 만드는 최소 단위입니다. 단순해 보여도 HTML 요소, 접근 가능한 이름, 상태 표현이 잘못되면 다른 모든 조합 컴포넌트의 품질에 영향을 줍니다.</p>
+<h2 id="컴포넌트-목록">컴포넌트 목록</h2>
+<table>
+<thead>
+<tr>
+<th>컴포넌트</th>
+<th>사용 목적</th>
+<th>사용 시점과 주의사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-button--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-button--docs" target="_blank" rel="noopener noreferrer">Button</a></td>
+<td>저장, 삭제, 제출처럼 현재 화면에서 동작 실행</td>
+<td>동사형 레이블을 사용하고 로딩 중 중복 실행을 방지합니다. 이동 용도로 사용하지 않습니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-icon--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-icon--docs" target="_blank" rel="noopener noreferrer">Icon</a></td>
+<td>기능, 상태, 콘텐츠 종류를 시각적으로 보조</td>
+<td>텍스트와 함께 사용하며 아이콘 단독 제어에는 <code>aria-label</code>을 제공합니다. 장식용 아이콘은 보조기술에서 숨깁니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-link--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-link--docs" target="_blank" rel="noopener noreferrer">Link</a></td>
+<td>다른 페이지, 문서 위치 또는 외부 리소스로 이동</td>
+<td>목적지를 예측할 수 있는 링크 텍스트를 사용합니다. 새 창을 열 때는 시각적·접근성 안내를 함께 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-typography--docs" data-storybook-path="?path=/docs/%EA%B8%B0%EB%B3%B8-%EC%9A%94%EC%86%8C-typography--docs" target="_blank" rel="noopener noreferrer">Typography</a></td>
+<td>제목, 본문, 캡션 등 정보 위계 표현</td>
+<td>시각적 크기만이 아니라 올바른 제목 순서와 의미 구조를 유지합니다. 임의의 글꼴 값을 추가하지 않습니다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="선택-기준">선택 기준</h2>
+<p>페이지나 URL이 바뀌면 Link, 현재 맥락에서 데이터나 상태가 바뀌면 Button을 사용합니다. 클릭 모양이 같다는 이유로 <code>div</code>나 <code>span</code>에 동작을 추가하지 않습니다. 제목은 Typography 스타일과 별개로 <code>h1</code>부터 <code>h6</code>까지 문서 구조가 건너뛰지 않도록 선택합니다.</p>
+<h2 id="상태와-접근성">상태와 접근성</h2>
+<ul>
+<li>Button은 기본, hover, focus, disabled, loading 상태를 구분하고 focus 표시를 제거하지 않습니다.</li>
+<li>Link는 방문 여부보다 현재 위치와 외부 이동 여부를 명확히 전달합니다.</li>
+<li>Icon의 색상만으로 성공·경고·오류를 구분하지 않고 텍스트나 접근 가능한 이름을 제공합니다.</li>
+<li>Typography는 확대와 반응형 환경에서도 내용이 잘리거나 겹치지 않는지 확인합니다.</li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../foundations/accessibility/index.html" data-guide-path="foundations/accessibility/index.html"><small>이전</small><strong>← 접근성</strong></a><a href="../../components/layout/index.html" data-guide-path="components/layout/index.html"><small>다음</small><strong>레이아웃 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#컴포넌트-목록">컴포넌트 목록</a><a href="#선택-기준">선택 기준</a><a href="#상태와-접근성">상태와 접근성</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

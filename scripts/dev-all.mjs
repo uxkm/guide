@@ -3,7 +3,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '..');
-const servers = [
+const docsOnly = process.argv.includes('--docs-only');
+const allServers = [
   ['Storybook', 'http://localhost:6006'],
   ['HTML', 'http://localhost:6101'],
   ['Gulp / Nunjucks', 'http://localhost:6102'],
@@ -14,7 +15,7 @@ const servers = [
   ['Guidebook', 'http://localhost:6107']
 ];
 
-const filters = [
+const allFilters = [
   '@uxkm/html',
   '@uxkm/gulp',
   '@uxkm/vue',
@@ -24,6 +25,12 @@ const filters = [
   '@uxkm/storybook',
   '@uxkm/guidebook'
 ];
+
+const docsFilters = ['@uxkm/storybook', '@uxkm/guidebook'];
+const filters = docsOnly ? docsFilters : allFilters;
+const servers = docsOnly
+  ? allServers.filter(([label]) => label === 'Storybook' || label === 'Guidebook')
+  : allServers;
 
 function printAddresses(title) {
   const labelWidth = Math.max(...servers.map(([label]) => label.length));
@@ -53,7 +60,7 @@ function run(command, args, options = {}) {
 const build = await run('pnpm', ['build:shared']);
 if (build.code !== 0) process.exit(build.code ?? 1);
 
-printAddresses('UXKM 개발 서버 주소');
+printAddresses(docsOnly ? 'UXKM 문서 개발 서버 주소' : 'UXKM 전체 개발 서버 주소');
 
 const child = spawn(
   'pnpm',
@@ -67,7 +74,7 @@ const child = spawn(
 );
 
 const addressReminder = setTimeout(() => {
-  printAddresses('UXKM 개발 서버가 실행되었습니다');
+  printAddresses(docsOnly ? 'UXKM 문서 개발 서버가 실행되었습니다' : 'UXKM 전체 개발 서버가 실행되었습니다');
 }, 5000);
 
 for (const signal of ['SIGINT', 'SIGTERM']) {

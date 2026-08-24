@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="정보의 구조, 상태, 관계를 읽기 쉬운 형태로 표현하는 컴포넌트입니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="데이터 표시 | UXKM Guidebook">
+    <meta property="og:description" content="정보의 구조, 상태, 관계를 읽기 쉬운 형태로 표현하는 컴포넌트입니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/components/data-display/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/components/data-display/">
+    <link rel="icon" href="../../images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../../images/meta/favicon/site.webmanifest">
+    <title>데이터 표시 | UXKM Guidebook</title>
+  </head>
+  <body data-page="components-data-display">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="../../images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link active" href="../../components/data-display/" data-guide-path="components/data-display/index.html" aria-current="page">데이터 표시</a></li><li><a class="nav-link" href="../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li><li><a class="nav-link" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Components · 10</p><h1>데이터 표시</h1><p class="lead">정보의 구조, 상태, 관계를 읽기 쉬운 형태로 표현하는 컴포넌트입니다.</p><div class="markdown-body"><p>데이터 표시 컴포넌트는 같은 정보를 장식하는 도구가 아니라 사용자가 비교하고 탐색하고 판단하는 방식을 결정합니다. 데이터의 관계, 양, 주요 작업과 빈·로딩·오류 상태를 함께 고려합니다.</p>
+<h2 id="컴포넌트-목록">컴포넌트 목록</h2>
+<table>
+<thead>
+<tr>
+<th>컴포넌트</th>
+<th>사용 목적</th>
+<th>사용 시점과 주의사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-avatar--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-avatar--docs" target="_blank" rel="noopener noreferrer">Avatar</a></td>
+<td>사용자, 조직 또는 개체 식별</td>
+<td>사진이나 이니셜로 빠른 식별을 도울 때 사용합니다. 이미지가 없거나 로드에 실패하는 대체 상태를 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-badge--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-badge--docs" target="_blank" rel="noopener noreferrer">Badge</a></td>
+<td>수량 또는 짧은 상태 강조</td>
+<td>읽지 않은 항목 수나 처리 상태처럼 짧은 정보를 보조적으로 표시합니다. 색상만으로 의미를 전달하지 않습니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tag--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tag--docs" target="_blank" rel="noopener noreferrer">Tag</a></td>
+<td>분류, 속성, 필터 값 표현</td>
+<td>여러 항목에 반복되는 메타데이터를 짧게 표시합니다. 제거 가능한 Tag는 버튼의 의미와 포커스 상태를 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-card--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-card--docs" target="_blank" rel="noopener noreferrer">Card</a></td>
+<td>연관된 정보와 액션을 하나의 단위로 그룹화</td>
+<td>서로 독립적인 항목을 탐색할 때 사용합니다. 카드 전체와 내부 링크의 클릭 영역이 충돌하지 않도록 합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-list--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-list--docs" target="_blank" rel="noopener noreferrer">List</a></td>
+<td>반복 항목을 한 방향으로 탐색</td>
+<td>항목별 정보 구조가 단순하고 열 비교가 필요 없을 때 사용합니다. 긴 목록에는 페이지 이동이나 점진적 로딩을 고려합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-table--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-table--docs" target="_blank" rel="noopener noreferrer">Table</a></td>
+<td>여러 항목의 동일한 속성을 열 단위로 비교</td>
+<td>정확한 값 비교와 정렬이 중요할 때 사용합니다. 열 제목, 행 관계와 좁은 화면 대응을 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-stat--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-stat--docs" target="_blank" rel="noopener noreferrer">Stat</a></td>
+<td>핵심 수치, 단위와 변화량 강조</td>
+<td>대시보드에서 중요한 지표를 빠르게 확인할 때 사용합니다. 비교 기준과 측정 기간을 함께 표시합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-timeline--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-timeline--docs" target="_blank" rel="noopener noreferrer">Timeline</a></td>
+<td>사건과 상태 변화를 시간 순서로 표현</td>
+<td>이력이나 진행 기록의 순서가 중요할 때 사용합니다. 날짜뿐 아니라 사건 설명과 현재 상태를 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tree--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-tree--docs" target="_blank" rel="noopener noreferrer">Tree</a></td>
+<td>상하위 관계가 있는 계층 데이터 탐색</td>
+<td>파일이나 조직 구조처럼 부모·자식 관계를 유지해야 할 때 사용합니다. 펼침 상태와 키보드 탐색을 지원합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-calendar--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-calendar--docs" target="_blank" rel="noopener noreferrer">Calendar</a></td>
+<td>날짜를 기준으로 일정과 정보를 표현</td>
+<td>날짜 간 관계와 일정 분포를 확인할 때 사용합니다. 목록 보기와 오늘·선택 날짜의 명확한 상태를 제공합니다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="선택-기준">선택 기준</h2>
+<p>행 단위로 읽으면 List, 열 간 정확한 비교가 필요하면 Table, 각 항목이 독립된 요약과 액션을 가지면 Card를 사용합니다. 시간의 순서는 Timeline, 계층 관계는 Tree, 날짜 위치 자체가 정보라면 Calendar를 선택합니다.</p>
+<h2 id="데이터-상태">데이터 상태</h2>
+<ul>
+<li>로딩, 일부 로딩, 빈 결과, 권한 없음, 오류 상태를 정상 데이터와 같은 수준으로 설계합니다.</li>
+<li>정렬과 필터 적용 여부, 전체 건수, 현재 표시 범위를 사용자가 확인할 수 있게 합니다.</li>
+<li>숫자는 단위와 기준 기간을 포함하고 날짜·통화 형식은 서비스 로케일에 맞춥니다.</li>
+<li>데이터가 갱신되어도 현재 포커스, 스크롤, 선택 상태가 불필요하게 초기화되지 않도록 합니다.</li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../components/navigation/index.html" data-guide-path="components/navigation/index.html"><small>이전</small><strong>← 네비게이션</strong></a><a href="../../components/feedback/index.html" data-guide-path="components/feedback/index.html"><small>다음</small><strong>피드백 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#컴포넌트-목록">컴포넌트 목록</a><a href="#선택-기준">선택 기준</a><a href="#데이터-상태">데이터 상태</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

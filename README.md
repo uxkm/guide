@@ -314,60 +314,60 @@ Guidebook
 
 # 7. 가이드북 구조
 
-## HTML 목차
-
-시맨틱 마크업과 순수 CSS·JavaScript 구현 방식을 설명합니다.
-
-## Gulp 목차
-
-Gulp 태스크와 Nunjucks 정적 템플릿 구현 방식을 설명합니다.
-
-## Vue 목차
+가이드북 본문은 `apps/guidebook/content`의 Markdown 파일에서 관리합니다. 각 파일의 frontmatter로 URL, 메뉴 그룹, 제목과 순서를 정의하며 `pnpm generate`가 좌측 메뉴, 검색 결과, 페이지 목차, 이전·다음 링크를 포함한 정적 HTML을 생성합니다. `dev`와 `build` 명령은 이 생성 단계를 자동으로 먼저 실행합니다.
 
 ```text
-Vue
-├── Introduction
-├── Start
-├── Template
-├── Reactivity
-├── Components
-├── Forms
-├── Routing
-├── Data Fetching
-├── Composition API
-├── Accessibility
-└── Deployment
+apps/guidebook/
+├── content/                 # Markdown 문서 원본
+├── scripts/
+│   └── generate-pages.mjs   # Markdown → 정적 HTML 생성기
+├── src/
+│   ├── main.js              # 검색·모바일 메뉴 인터랙션
+│   └── style.css
+└── **/index.html            # 빌드 전에 생성되는 페이지
 ```
 
-각 문서에서 다음 탭을 제공합니다.
+Markdown 문서 예:
 
-```text
-[ Vue ] [ Nuxt ]
+```md
+---
+id: components-navigation
+group: 컴포넌트
+path: components/navigation/
+label: 네비게이션
+title: 네비게이션
+eyebrow: Components · 7
+lead: 화면과 콘텐츠 사이의 이동 원칙을 설명합니다.
+order: 7
+---
+
+## 컴포넌트 목록
+
+| 컴포넌트 | 사용 목적 |
+| --- | --- |
+| Breadcrumb | 현재 페이지의 계층 경로 표현 |
 ```
 
-## React 목차
+가이드북 메뉴는 스토리북의 컴포넌트 분류와 같은 구조를 사용합니다.
 
 ```text
-React
-├── Introduction
-├── Start
-├── JSX
-├── Components
-├── State
-├── Events
-├── Forms
-├── Hooks
-├── Routing
-├── Data Fetching
-├── Rendering
-├── Accessibility
-└── Deployment
-```
-
-각 문서에서 다음 탭을 제공합니다.
-
-```text
-[ React ] [ Next.js ]
+가이드북
+└── 소개
+기초
+├── 디자인 토큰
+└── 접근성
+컴포넌트
+├── 기본 요소 (4)
+├── 레이아웃 (5)
+├── 폼 (11)
+├── 네비게이션 (7)
+├── 데이터 표시 (10)
+├── 피드백 (10)
+└── 기타 (5)
+활용 가이드
+├── UI 패턴
+├── 작성 지침
+└── 프레임워크 구현
 ```
 
 ---
@@ -383,7 +383,7 @@ packages/
 └── assets/        # 공통 정적 이미지 원본
 ```
 
-`styles` 안에는 JavaScript나 이미지 파일을 두지 않습니다. Ripple과 클릭 가능한 선택 카드는 앱 시작점에서 `@uxkm/interactions`의 `initInteractions()`로 함께 등록하고, 공통 이미지는 `packages/assets/public/images`에서 관리합니다.
+`styles` 안에는 JavaScript나 이미지 파일을 두지 않습니다. Ripple과 클릭 가능한 선택 카드는 앱 시작점에서 `@uxkm/interactions`의 `initInteractions()`로 함께 등록하고, 공통 이미지는 `packages/assets/public/images`에서 관리합니다. 가이드북은 Vite의 `publicDir`를 공통 자산 디렉터리에 직접 연결하며, 나머지 앱은 `build-assets.mjs`로 이미지를 복사합니다.
 
 ## 컴포넌트 스타일 빌드
 
@@ -480,7 +480,8 @@ packages:
 ```bash
 pnpm install
 
-pnpm dev              # Workspace 대시보드 (3000)
+pnpm dev              # Guidebook (6107) + Storybook (6006)
+pnpm dev:dashboard    # Workspace 대시보드 (3000)
 pnpm dev:html         # HTML (6101)
 pnpm dev:gulp         # Gulp / Nunjucks (6102)
 pnpm dev:vue          # Vue (6103)
@@ -507,7 +508,7 @@ pnpm validate
 pnpm deploy
 ```
 
-`pnpm dev:all`은 공통 스타일과 이미지를 한 번 빌드한 뒤 프레임워크 앱과 Storybook 개발 서버를 병렬로 실행합니다. 실행 전과 서버 시작 후 터미널에 전체 접속 주소를 표시합니다. 개별 `dev:*` 명령도 실행 전에 공통 자산을 갱신합니다.
+`pnpm dev`는 공통 스타일과 이미지를 한 번 빌드한 뒤 Guidebook과 Storybook을 병렬로 실행합니다. `pnpm dev:all`은 같은 준비 과정을 거쳐 모든 프레임워크 앱, Guidebook, Storybook을 실행합니다. 실행 전과 서버 시작 후 터미널에 접속 주소를 표시하며, 개별 `dev:*` 명령도 실행 전에 공통 자산을 갱신합니다.
 
 ---
 
@@ -515,7 +516,8 @@ pnpm deploy
 
 | 스크립트 | 역할 |
 | --- | --- |
-| `dev.mjs` | 초기 Workspace 구성을 확인하는 로컬 개발 대시보드 실행 |
+| `dev.mjs` | Workspace 구성을 확인하는 로컬 개발 대시보드 실행 |
+| `dev-all.mjs` | 문서 서버 또는 전체 앱 개발 서버 병렬 실행 |
 | `build-styles.mjs` | 디자인 토큰과 SCSS 빌드 |
 | `copy-assets.mjs` | 공통 자산을 각 앱과 빌드 경로에 복사 |
 | `collect-frameworks.mjs` | 각 프레임워크와 Storybook 결과 수집 |
@@ -650,7 +652,6 @@ Vue·React·Nuxt·Next.js는 라우터 또는 정적 export 방식에 따라 실
 가이드북 목차 예:
 
 ```text
-/guidebook/quick-start/
 /guidebook/html/
 /guidebook/html/semantic/
 /guidebook/gulp/tasks/

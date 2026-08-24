@@ -1,14 +1,23 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'node:path';
+import { readdirSync } from 'node:fs';
+import { join, relative, resolve } from 'node:path';
 
-const pagePaths = ['', 'quick-start', 'html', 'html/semantic', 'html/accessibility', 'gulp', 'gulp/tasks', 'gulp/templates', 'vue', 'vue/reactivity', 'vue/nuxt', 'react', 'react/state', 'react/next'];
+function collectInputs(directory, inputs = {}) {
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    if (entry.name === 'dist' || entry.name === 'node_modules') continue;
+    const target = join(directory, entry.name);
+    if (entry.isDirectory()) collectInputs(target, inputs);
+    else if (entry.name === 'index.html') inputs[relative(import.meta.dirname, target) || 'index'] = target;
+  }
+  return inputs;
+}
 
 export default defineConfig({
   base: './',
-  publicDir: 'public',
+  publicDir: resolve(import.meta.dirname, '../../packages/assets/public'),
   build: {
     rollupOptions: {
-      input: Object.fromEntries(pagePaths.map((pagePath) => [pagePath || 'index', resolve(import.meta.dirname, pagePath, 'index.html')]))
+      input: collectInputs(import.meta.dirname)
     }
   }
 });

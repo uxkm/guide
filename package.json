@@ -4,7 +4,10 @@
   "private": true,
   "packageManager": "pnpm@10.15.0",
   "scripts": {
-    "dev": "node scripts/dev.mjs",
+    "build": "pnpm build:docs",
+    "build:docs": "pnpm build:guidebook && pnpm build:storybook && node scripts/collect-docs.mjs",
+    "dev": "node scripts/dev-all.mjs --docs-only",
+    "dev:dashboard": "node scripts/dev.mjs",
     "dev:html": "pnpm build:shared && pnpm --filter @uxkm/html dev",
     "dev:gulp": "pnpm build:shared && pnpm --filter @uxkm/gulp dev",
     "dev:vue": "pnpm build:shared && pnpm --filter @uxkm/vue dev",
