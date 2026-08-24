@@ -74,7 +74,18 @@ const componentSlug = (name) => name
   .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
   .replace(/\s+/g, '-')
   .toLowerCase();
-const storybookHref = (category, name) => `http://localhost:6006/?path=/docs/${category}-${componentSlug(name)}--docs`;
+const storybookMetaIds = new Map([
+  ['Checkbox', 'components-checkbox'],
+  ['Radio', 'components-radio'],
+  ['Switch', 'components-switch'],
+  ['Slider', 'components-slider'],
+  ['DatePicker', '폼-datepicker'],
+  ['Rate', 'components-rate'],
+]);
+const storybookHref = (category, name) => {
+  const storyId = storybookMetaIds.get(name) || `${category}-${componentSlug(name)}`;
+  return `http://localhost:6006/?path=/docs/${storyId}--docs`;
+};
 
 const storybookComponents = new Map(pages
   .filter((page) => page.storybookCategory)
