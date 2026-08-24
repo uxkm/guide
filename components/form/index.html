@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="값을 입력하고 선택하며 유효성 상태를 전달하는 인터랙션 컴포넌트입니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="폼 | UXKM Guidebook">
+    <meta property="og:description" content="값을 입력하고 선택하며 유효성 상태를 전달하는 인터랙션 컴포넌트입니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/components/form/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/components/form/">
+    <link rel="icon" href="../../images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../../images/meta/favicon/site.webmanifest">
+    <title>폼 | UXKM Guidebook</title>
+    <script type="module" crossorigin src="../../assets/main-DcOFfbzZ.js"></script>
+    <link rel="stylesheet" crossorigin href="../../assets/main-DvwRslZM.css">
+  </head>
+  <body data-page="components-form">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="../../images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link active" href="../../components/form/" data-guide-path="components/form/index.html" aria-current="page">폼</a></li><li><a class="nav-link" href="../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li><li><a class="nav-link" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Components · 11</p><h1>폼</h1><p class="lead">값을 입력하고 선택하며 유효성 상태를 전달하는 인터랙션 컴포넌트입니다.</p><div class="markdown-body"><p>폼은 사용자가 값을 이해하고 입력하고 오류를 수정해 작업을 완료하도록 안내하는 흐름입니다. 필드 자체뿐 아니라 레이블, 도움말, 검증 시점, 제출 결과를 하나의 경험으로 설계합니다.</p>
+<h2 id="컴포넌트-목록">컴포넌트 목록</h2>
+<table>
+<thead>
+<tr>
+<th>컴포넌트</th>
+<th>사용 목적</th>
+<th>사용 시점과 주의사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-form-layout--docs" data-storybook-path="?path=/docs/%ED%8F%BC-form-layout--docs" target="_blank" rel="noopener noreferrer">Form Layout</a></td>
+<td>레이블, 필드, 도움말, 오류와 액션 배치</td>
+<td>여러 필드의 정렬과 읽기 순서를 통일할 때 사용합니다. 필수 여부와 그룹 관계를 일관되게 표시합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-input--docs" data-storybook-path="?path=/docs/%ED%8F%BC-input--docs" target="_blank" rel="noopener noreferrer">Input</a></td>
+<td>이름, 이메일, 검색어 등 한 줄 텍스트 입력</td>
+<td>자유로운 짧은 값을 받을 때 사용합니다. 입력 형식과 자동완성 속성을 실제 데이터 의미에 맞게 지정합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-textarea--docs" data-storybook-path="?path=/docs/%ED%8F%BC-textarea--docs" target="_blank" rel="noopener noreferrer">Textarea</a></td>
+<td>설명, 의견처럼 여러 줄 텍스트 입력</td>
+<td>길이가 가변적인 문장을 받을 때 사용합니다. 글자 수 제한이 있다면 현재 값과 제한을 함께 알립니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-select--docs" data-storybook-path="?path=/docs/%ED%8F%BC-select--docs" target="_blank" rel="noopener noreferrer">Select</a></td>
+<td>제한된 선택지 중 하나 선택</td>
+<td>선택지가 비교적 많고 공간이 제한될 때 사용합니다. 자주 비교해야 하는 소수 항목은 Radio가 더 적합합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-checkbox--docs" data-storybook-path="?path=/docs/%ED%8F%BC-checkbox--docs" target="_blank" rel="noopener noreferrer">Checkbox</a></td>
+<td>여러 독립 항목 선택 또는 약관 동의</td>
+<td>각 항목을 개별적으로 켜고 끌 수 있을 때 사용합니다. 상위 전체 선택은 일부 선택 상태를 명확히 표시합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-radio--docs" data-storybook-path="?path=/docs/%ED%8F%BC-radio--docs" target="_blank" rel="noopener noreferrer">Radio</a></td>
+<td>상호 배타적인 항목 중 하나 선택</td>
+<td>모든 선택지를 동시에 보고 비교해야 할 때 사용합니다. 기본값이 없다면 미선택 상태를 의도적으로 처리합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-switch--docs" data-storybook-path="?path=/docs/%ED%8F%BC-switch--docs" target="_blank" rel="noopener noreferrer">Switch</a></td>
+<td>저장 버튼 없이 즉시 적용되는 켜기·끄기 상태</td>
+<td>설정 변경이 즉시 반영되고 되돌리기 쉬울 때 사용합니다. 제출 시 반영되는 값에는 Checkbox가 적합합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-slider--docs" data-storybook-path="?path=/docs/%ED%8F%BC-slider--docs" target="_blank" rel="noopener noreferrer">Slider</a></td>
+<td>범위 안의 연속 값 또는 단계 값 선택</td>
+<td>정밀한 숫자 입력보다 상대적인 조절이 중요할 때 사용합니다. 현재 값과 키보드 조작을 함께 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-date-picker--docs" data-storybook-path="?path=/docs/%ED%8F%BC-date-picker--docs" target="_blank" rel="noopener noreferrer">DatePicker</a></td>
+<td>날짜, 시간 또는 기간 선택</td>
+<td>달력 확인이 입력을 돕는 경우 사용합니다. 키보드 직접 입력, 형식 안내, 허용 범위를 함께 지원합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-rate--docs" data-storybook-path="?path=/docs/%ED%8F%BC-rate--docs" target="_blank" rel="noopener noreferrer">Rate</a></td>
+<td>별점 등 단계형 평가 값 선택</td>
+<td>주관적인 등급을 빠르게 선택할 때 사용합니다. 아이콘의 의미와 현재 값을 텍스트로도 전달합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%ED%8F%BC-upload--docs" data-storybook-path="?path=/docs/%ED%8F%BC-upload--docs" target="_blank" rel="noopener noreferrer">Upload</a></td>
+<td>파일 선택, 전송 진행과 결과 표시</td>
+<td>파일 형식·용량 제한, 업로드 진행, 실패 원인과 재시도 방법을 선택 전에 안내합니다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="선택-기준">선택 기준</h2>
+<p>자유 입력은 Input·Textarea, 단일 선택은 Select·Radio, 복수 선택은 Checkbox를 기준으로 선택합니다. Switch는 폼 제출값이 아니라 즉시 바뀌는 설정에만 사용합니다. 날짜나 범위처럼 전용 UI가 입력 오류를 줄일 때 DatePicker와 Slider를 사용하되 직접 입력 경로도 고려합니다.</p>
+<h2 id="검증과-제출">검증과 제출</h2>
+<ul>
+<li>레이블은 placeholder로 대체하지 않고 각 필드와 프로그램 방식으로 연결합니다.</li>
+<li>오류는 제출 후 한꺼번에만 보여주지 말고 적절한 시점에 필드 가까이에서 원인과 해결 방법을 설명합니다.</li>
+<li>오류가 발생해도 사용자가 입력한 값을 보존하고 첫 오류로 포커스를 안내합니다.</li>
+<li>제출 버튼은 처리 중 상태를 알리고 중복 제출을 막으며 성공·실패 결과를 명확히 제공합니다.</li>
+<li>disabled와 readonly는 목적이 다릅니다. 수정만 막고 값을 전달해야 한다면 readonly 가능 여부를 우선 검토합니다.</li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../components/layout/index.html" data-guide-path="components/layout/index.html"><small>이전</small><strong>← 레이아웃</strong></a><a href="../../components/navigation/index.html" data-guide-path="components/navigation/index.html"><small>다음</small><strong>네비게이션 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#컴포넌트-목록">컴포넌트 목록</a><a href="#선택-기준">선택 기준</a><a href="#검증과-제출">검증과 제출</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+  </body>
+</html>

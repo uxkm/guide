@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="스토리북과 각 프레임워크 구현에서 동일한 컴포넌트 계약을 유지하기 위한 기준입니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="작성 지침 | UXKM Guidebook">
+    <meta property="og:description" content="스토리북과 각 프레임워크 구현에서 동일한 컴포넌트 계약을 유지하기 위한 기준입니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/guides/guidelines/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/guides/guidelines/">
+    <link rel="icon" href="../../images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../../images/meta/favicon/site.webmanifest">
+    <title>작성 지침 | UXKM Guidebook</title>
+    <script type="module" crossorigin src="../../assets/main-DcOFfbzZ.js"></script>
+    <link rel="stylesheet" crossorigin href="../../assets/main-DvwRslZM.css">
+  </head>
+  <body data-page="authoring-guidelines">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="../../images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link active" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html" aria-current="page">작성 지침</a></li><li><a class="nav-link" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Guides</p><h1>컴포넌트 작성 지침</h1><p class="lead">스토리북과 각 프레임워크 구현에서 동일한 컴포넌트 계약을 유지하기 위한 기준입니다.</p><div class="markdown-body"><p>컴포넌트 문서는 디자이너와 개발자가 같은 동작을 구현하고 검수하기 위한 명세입니다. 화면 모양만 설명하지 않고 사용 목적, 입력과 출력, 상태, 접근성, 제한 조건을 함께 기록해야 합니다.</p>
+<h2 id="구조와-이름">구조와 이름</h2>
+<p>컴포넌트 이름은 역할을 드러내고 프레임워크에 종속된 표현을 피합니다. 상태 클래스, props, events는 공통 명세의 동일한 의미를 유지합니다. DOM 구조는 스타일 편의를 위해 불필요하게 깊어지지 않도록 하고 사용 가능한 시맨틱 HTML 요소를 우선합니다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>문서에 포함할 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>목적</td>
+<td>컴포넌트가 해결하는 문제와 사용하지 않아야 하는 상황</td>
+</tr>
+<tr>
+<td>API</td>
+<td>속성, 타입, 기본값, 필수 여부와 값 사이의 제약</td>
+</tr>
+<tr>
+<td>상태</td>
+<td>기본, hover, focus, disabled, readonly, loading, error, empty</td>
+</tr>
+<tr>
+<td>이벤트</td>
+<td>발생 조건, 전달 값, 취소 가능 여부와 중복 실행 처리</td>
+</tr>
+<tr>
+<td>접근성</td>
+<td>역할, 접근 가능한 이름, 키보드 규칙, 포커스 이동과 상태 알림</td>
+</tr>
+<tr>
+<td>콘텐츠</td>
+<td>레이블 작성법, 길이 제한, 번역과 빈 값 처리</td>
+</tr>
+</tbody>
+</table>
+<h2 id="상태-문서화">상태 문서화</h2>
+<p>기본 상태뿐 아니라 hover, focus, disabled, readonly, loading, error, empty 상태를 스토리북에서 각각 확인할 수 있어야 합니다. 여러 상태가 동시에 적용될 때 우선순위도 정의합니다. 예를 들어 로딩 중 Button이 비활성화되는지, 오류가 있는 readonly 필드는 어떻게 읽히는지 문서에 명시합니다.</p>
+<h2 id="예제-작성">예제 작성</h2>
+<p>단일 기능을 보여주는 최소 예제와 실제 화면에 가까운 조합 예제를 분리합니다. 예제는 복사해 사용할 수 있어야 하며 접근성 레이블, 오류 처리와 키보드 동작을 생략하지 않습니다. <code>Example</code>, <code>Test</code> 같은 임시 문구 대신 실제 길이와 의미에 가까운 콘텐츠를 사용합니다.</p>
+<h2 id="변경과-검수">변경과 검수</h2>
+<ol>
+<li>변경 목적과 영향받는 프레임워크, 기존 사용처를 확인합니다.</li>
+<li>API나 DOM 구조가 바뀌면 이전 구현의 호환성과 마이그레이션 방법을 기록합니다.</li>
+<li>Storybook에서 모든 상태와 대표 조합을 시각·키보드·접근성 관점으로 확인합니다.</li>
+<li>HTML, Vue, React 등 각 구현의 속성 이름은 달라도 최종 DOM, 동작과 메시지가 같은지 비교합니다.</li>
+<li>문서, 디자인 토큰, 코드 예제와 배포 버전을 함께 갱신합니다.</li>
+</ol>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../guides/patterns/index.html" data-guide-path="guides/patterns/index.html"><small>이전</small><strong>← UI 패턴</strong></a><a href="../../guides/frameworks/index.html" data-guide-path="guides/frameworks/index.html"><small>다음</small><strong>프레임워크 구현 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#구조와-이름">구조와 이름</a><a href="#상태-문서화">상태 문서화</a><a href="#예제-작성">예제 작성</a><a href="#변경과-검수">변경과 검수</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="컴포넌트에 일관된 시각 언어를 제공하는 공통 값과 적용 기준을 정리합니다.">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="디자인 토큰 | UXKM Guidebook">
+    <meta property="og:description" content="컴포넌트에 일관된 시각 언어를 제공하는 공통 값과 적용 기준을 정리합니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/foundations/design-tokens/">
+    <meta name="twitter:card" content="summary">
+    <link rel="canonical" href="https://guide.uxkm.io/foundations/design-tokens/">
+    <link rel="icon" href="../../images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../../images/meta/favicon/site.webmanifest">
+    <title>디자인 토큰 | UXKM Guidebook</title>
+    <script type="module" crossorigin src="../../assets/main-DcOFfbzZ.js"></script>
+    <link rel="stylesheet" crossorigin href="../../assets/main-DvwRslZM.css">
+  </head>
+  <body data-page="design-tokens">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="../../images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="./" aria-current="page">Guidebook</a></div>
+      <button class="search-trigger" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link active" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html" aria-current="page">디자인 토큰</a></li><li><a class="nav-link" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li><li><a class="nav-link" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Foundations</p><h1>디자인 토큰</h1><p class="lead">컴포넌트에 일관된 시각 언어를 제공하는 공통 값과 적용 기준을 정리합니다.</p><div class="markdown-body"><p>디자인 토큰은 색상이나 간격 같은 값을 이름으로 관리하는 공통 계약입니다. 디자인과 여러 프레임워크가 같은 의미의 토큰을 사용하면 전체 화면을 일관되게 변경하고 브랜드, 테마, 접근성 요구에 대응하기 쉬워집니다.</p>
+<h2 id="토큰-분류">토큰 분류</h2>
+<table>
+<thead>
+<tr>
+<th>분류</th>
+<th>적용 범위</th>
+<th>확인 사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Colors</td>
+<td>배경, 텍스트, 테두리, 상호작용과 상태 색상</td>
+<td>색 이름보다 <code>text-primary</code>, <code>status-danger</code>처럼 역할을 표현하고 배경과의 대비를 확인합니다.</td>
+</tr>
+<tr>
+<td>Typography</td>
+<td>글꼴, 크기, 굵기, 행간과 자간</td>
+<td>제목·본문·캡션의 위계를 제한된 단계로 구성하고 확대 시 줄 겹침을 확인합니다.</td>
+</tr>
+<tr>
+<td>Spacing</td>
+<td>내부 여백, 요소 사이 간격과 화면 밀도</td>
+<td>공통 배수 체계를 사용하고 같은 관계에는 같은 간격을 적용합니다.</td>
+</tr>
+<tr>
+<td>Breakpoints</td>
+<td>화면 너비에 따른 레이아웃 전환점</td>
+<td>특정 기기명이 아니라 콘텐츠가 깨지는 지점을 기준으로 사용합니다.</td>
+</tr>
+<tr>
+<td>Iconography</td>
+<td>아이콘 크기, 선 굵기, 색상과 의미</td>
+<td>같은 동작에 같은 아이콘을 사용하고 장식용·정보용 역할을 구분합니다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="토큰-구조">토큰 구조</h2>
+<p>토큰은 보통 원시 값, 의미 값, 컴포넌트 값 순서로 구분합니다. 예를 들어 원시 색상 <code>blue-600</code>을 직접 사용하기보다 의미 토큰 <code>action-primary</code>에 연결하고 Button은 이를 <code>button-primary-background</code>로 참조합니다. 이렇게 하면 브랜드 색상이나 다크 테마가 바뀌어도 컴포넌트 코드를 개별 수정하지 않아도 됩니다.</p>
+<pre class="code-block"><span class="code-label">CSS</span><code>:root {
+  --color-blue-600: #2563eb;
+  --color-action-primary: var(--color-blue-600);
+  --button-primary-background: var(--color-action-primary);
+}
+</code></pre>
+<h2 id="사용-원칙">사용 원칙</h2>
+<ol>
+<li>기존 의미 토큰이 해결하려는 역할과 일치하는지 먼저 확인합니다.</li>
+<li>일회성 시안에 맞추기 위해 컴포넌트 내부에 임의의 색상이나 수치를 추가하지 않습니다.</li>
+<li>새 값이 필요하면 사용 맥락, 기존 토큰과의 차이, 여러 화면에서의 재사용 가능성을 검토합니다.</li>
+<li>토큰 이름은 현재 값이 아니라 목적을 설명해야 합니다. 값이 변경되어도 이름의 의미가 유지되어야 합니다.</li>
+<li>토큰 변경은 이를 사용하는 모든 컴포넌트의 기본·상호작용·비활성·오류 상태에서 확인합니다.</li>
+</ol>
+<h2 id="검수-체크리스트">검수 체크리스트</h2>
+<ul>
+<li>디자인 파일과 HTML, Vue, React 구현이 같은 의미의 값을 참조하는지 확인합니다.</li>
+<li>텍스트와 아이콘이 모든 배경 상태에서 필요한 명도 대비를 유지하는지 확인합니다.</li>
+<li>브라우저 확대, 긴 번역 문자열, 작은 화면에서 typography와 spacing이 레이아웃을 깨뜨리지 않는지 확인합니다.</li>
+<li>토큰을 삭제하거나 이름을 바꿀 때 사용처와 마이그레이션 범위를 함께 기록합니다.</li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../index.html" data-guide-path="index.html"><small>이전</small><strong>← 소개</strong></a><a href="../../foundations/accessibility/index.html" data-guide-path="foundations/accessibility/index.html"><small>다음</small><strong>접근성 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#토큰-분류">토큰 분류</a><a href="#토큰-구조">토큰 구조</a><a href="#사용-원칙">사용 원칙</a><a href="#검수-체크리스트">검수 체크리스트</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"></div><div class="search-results"><a class="search-result" href="../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{t}from"./jsx-runtime-DeHZSEgm.js";import{i as n,r}from"./react-DSvVgjCn.js";import{c as i,u as a}from"./blocks-CkHyEh4O.js";import{n as o,t as s}from"./IntroductionCards-DatdkIgS.js";function c(e){let t={code:`code`,h1:`h1`,h2:`h2`,li:`li`,ol:`ol`,p:`p`,pre:`pre`,...n(),...e.components};return(0,u.jsxs)(u.Fragment,{children:[(0,u.jsx)(i,{title:`설치 및 사용`}),`
+`,(0,u.jsx)(t.h1,{id:`설치-및-사용`,children:`설치 및 사용`}),`
+`,(0,u.jsxs)(t.p,{children:[`현재 저장소는 `,(0,u.jsx)(t.code,{children:`pnpm`}),` 워크스페이스에서 여섯 프레임워크 앱과 Storybook을 함께 관리합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.`]}),`
+`,(0,u.jsx)(t.h2,{id:`사전-요구사항`,children:`사전 요구사항`}),`
+`,(0,u.jsx)(s,{columns:[{label:`도구`},{label:`용도`}],rows:[[`Node.js`,`Vite, Storybook, Sass와 빌드 스크립트 실행`],[`pnpm 10`,`워크스페이스 의존성 설치 및 명령 실행`],[`Git`,`브랜치와 소스 관리`]]}),`
+`,(0,u.jsx)(t.h2,{id:`설치`,children:`설치`}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-bash`,children:`git clone <repository-url>
+cd guide
+pnpm install
+`})}),`
+`,(0,u.jsx)(t.h2,{id:`주요-명령`,children:`주요 명령`}),`
+`,(0,u.jsx)(s,{columns:[{label:`명령`},{label:`설명`}],rows:[[`pnpm dev`,`전체 워크스페이스를 안내하는 로컬 대시보드 실행`],[`pnpm storybook`,`통합 Storybook 개발 서버 실행`],[`pnpm build:styles`,`공통 SCSS를 각 앱의 public/styles/uxkm.css로 빌드`],[`pnpm build:storybook`,`apps/storybook/storybook-static에 정적 문서 생성`],[`pnpm validate:structure`,`프레임워크별 컴포넌트 구조와 구현 누락 검사`],[`pnpm check:workspace`,`워크스페이스 패키지 구성 확인`]],codeColumns:[0]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-bash`,children:`# 통합 Storybook 개발
+pnpm storybook
+
+# 공통 스타일과 정적 Storybook 빌드
+pnpm build:styles
+pnpm build:storybook
+`})}),`
+`,(0,u.jsx)(t.h2,{id:`컴포넌트-가져오기`,children:`컴포넌트 가져오기`}),`
+`,(0,u.jsx)(t.p,{children:`Vue와 React 구현은 컴포넌트별 서브패스 export를 제공합니다. Nuxt는 Vue 패키지를, Next.js는 React 패키지를 같은 방식으로 가져오며 프레임워크 전용 컴포넌트만 해당 앱 내부에서 사용합니다.`}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-vue`,children:`<script setup>
+import Button from '@uxkm/vue/button';
+import { Card, CardBody } from '@uxkm/vue/card';
+<\/script>
+
+<template>
+  <Card>
+    <CardBody>
+      <Button variant="filled" color="primary" label="저장" />
+    </CardBody>
+  </Card>
+</template>
+`})}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-jsx`,children:`import Button from '@uxkm/react/button';
+import { Card, CardBody } from '@uxkm/react/card';
+
+export function SaveCard() {
+  return (
+    <Card>
+      <CardBody>
+        <Button variant="filled" color="primary" label="저장" />
+      </CardBody>
+    </Card>
+  );
+}
+`})}),`
+`,(0,u.jsx)(t.p,{children:`현재 패키지는 이 모노레포 안에서 사용하는 private workspace 패키지입니다. 외부 프로젝트에서 패키지 이름으로 설치하는 공개 배포 방식은 별도 패키징 이후에 적용합니다.`}),`
+`,(0,u.jsx)(t.h2,{id:`html-마크업으로-사용`,children:`HTML 마크업으로 사용`}),`
+`,(0,u.jsxs)(t.p,{children:[`공통 CSS를 연결하면 Vue나 React 없이도 같은 클래스와 시맨틱 마크업을 사용할 수 있습니다. 각 컴포넌트 문서의 HTML 탭을 기준으로 구조, 상태 클래스와 `,(0,u.jsx)(t.code,{children:`aria-*`}),` 속성을 함께 적용합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-html`,children:`<link rel="stylesheet" href="/styles/uxkm.css" />
+
+<button type="button" class="btn btn_filled color_primary">
+  <span class="btn_label">저장</span>
+</button>
+
+<div class="alert color_info" role="alert">
+  <div class="alert_body">
+    <p class="alert_desc">변경 사항이 저장되었습니다.</p>
+  </div>
+</div>
+`})}),`
+`,(0,u.jsx)(t.p,{children:`Button처럼 네이티브 동작만 필요한 요소는 CSS와 마크업만으로 사용할 수 있습니다. Modal, Drawer, Accordion처럼 열림 상태·포커스 이동·키보드 조작이 필요한 컴포넌트는 해당 HTML/Gulp 스크립트 또는 Vue/React 구현도 함께 적용해야 합니다.`}),`
+`,(0,u.jsx)(t.h2,{id:`gulp--nunjucks-사용`,children:`Gulp / Nunjucks 사용`}),`
+`,(0,u.jsxs)(t.p,{children:[`Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `,(0,u.jsx)(t.code,{children:`.html`}),`로 변환하는 방식입니다. 소스 파일의 역할은 다음과 같습니다.`]}),`
+`,(0,u.jsx)(s,{columns:[{label:`경로`},{label:`확장자`},{label:`역할`}],rows:[[`apps/gulp/src/templates/layouts`,`.njk`,`전체 HTML 골격과 페이지 block 정의`],[`apps/gulp/src/templates/partials`,`.njk`,`헤더·푸터·네비게이션 공통 조각`],[`apps/gulp/src/components`,`.njk`,`컴포넌트별 재사용 마크업`],[`apps/gulp/src/introduction`,`.njk`,`소개·설치·디자인 토큰 템플릿`],[`apps/gulp/src/pages`,`.njk`,`정적 페이지 진입 템플릿`],[`apps/gulp/dist`,`.html`,`Gulp/Nunjucks 처리 후 브라우저에 배포할 결과`]],codeColumns:[0,1]}),`
+`,(0,u.jsxs)(t.p,{children:[`페이지는 공통 레이아웃을 상속하고 `,(0,u.jsx)(t.code,{children:`content`}),` block 안에서 partial이나 컴포넌트를 포함합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-nunjucks`,children:`{% extends "layouts/default.njk" %}
+
+{% block content %}
+  <main>
+    <h1>{{ pageTitle }}</h1>
+    {% include "components/basic/Button/button.njk" %}
+  </main>
+{% endblock %}
+`})}),`
+`,(0,u.jsx)(t.p,{children:`반복되는 목록이나 상태는 Nunjucks 데이터와 제어문으로 생성할 수 있습니다. 템플릿 문법은 빌드 시 사라지고 최종 결과에는 일반 HTML만 남습니다.`}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-nunjucks`,children:`{% set actions = [
+  { label: '저장', color: 'primary' },
+  { label: '삭제', color: 'danger' }
+] %}
+
+{% for action in actions %}
+  <button type="button" class="btn btn_filled color_{{ action.color }}">
+    <span class="btn_label">{{ action.label }}</span>
+  </button>
+{% endfor %}
+`})}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-html`,children:`<!-- 위 템플릿의 빌드 결과 예시 -->
+<button type="button" class="btn btn_filled color_primary">
+  <span class="btn_label">저장</span>
+</button>
+<button type="button" class="btn btn_filled color_danger">
+  <span class="btn_label">삭제</span>
+</button>
+`})}),`
+`,(0,u.jsxs)(t.p,{children:[`현재 `,(0,u.jsx)(t.code,{children:`apps/gulp`}),`에는 52개 컴포넌트의 `,(0,u.jsx)(t.code,{children:`.njk`}),` 소스와 레이아웃 구조가 준비되어 있지만, `,(0,u.jsx)(t.code,{children:`gulpfile.js`}),`, 페이지 템플릿, 패키지 실행 스크립트는 아직 스캐폴드 상태입니다. 따라서 현재는 `,(0,u.jsx)(t.code,{children:`pnpm dev`}),`가 Gulp 변환을 실행하지 않으며, 실제 `,(0,u.jsx)(t.code,{children:`.njk → .html`}),` 빌드 명령은 Gulp 태스크가 연결된 뒤 이 문서의 주요 명령 표에 추가합니다.`]}),`
+`,(0,u.jsx)(t.h2,{id:`vue-사용`,children:`Vue 사용`}),`
+`,(0,u.jsxs)(t.p,{children:[`Vue 구현은 `,(0,u.jsx)(t.code,{children:`.vue`}),` Single-File Component로 제공합니다. `,(0,u.jsx)(t.code,{children:`<script setup>`}),`에서 컴포넌트와 반응형 상태를 준비하고, `,(0,u.jsx)(t.code,{children:`<template>`}),`에서 prop·이벤트·slot을 Vue 문법으로 연결합니다.`]}),`
+`,(0,u.jsx)(s,{columns:[{label:`경로`},{label:`역할`}],rows:[[`apps/vue/src/components`,`재사용 Vue SFC와 컴포넌트별 index.js export`],[`apps/vue/src/main.js`,`공통 CSS와 리플 동작을 등록하는 Vue 앱 진입점`],[`@uxkm/vue/{component}`,`워크스페이스에서 사용하는 컴포넌트별 import 경로`],[`apps/nuxt`,`@uxkm/vue 컴포넌트를 재사용하고 Nuxt 전용 기능만 확장`]],codeColumns:[0]}),`
+`,(0,u.jsxs)(t.p,{children:[`복합어 prop은 템플릿에서 kebab-case로 작성하고 이벤트는 `,(0,u.jsx)(t.code,{children:`@이벤트명`}),`으로 받습니다. 기본 콘텐츠는 default slot, 아이콘처럼 위치가 정해진 콘텐츠는 named slot을 사용합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-vue`,children:`<script setup>
+import { ref } from 'vue';
+import Button from '@uxkm/vue/button';
+
+const saving = ref(false);
+
+function save() {
+  saving.value = true;
+}
+<\/script>
+
+<template>
+  <Button
+    variant="filled"
+    color="primary"
+    :loading="saving"
+    aria-label="변경 사항 저장"
+    @click="save"
+  >
+    저장
+  </Button>
+</template>
+`})}),`
+`,(0,u.jsxs)(t.p,{children:[`named slot은 `,(0,u.jsx)(t.code,{children:`#이름`}),`으로 전달합니다. 예를 들어 Button의 `,(0,u.jsx)(t.code,{children:`icon-before`}),` slot은 다음과 같이 사용합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-vue`,children:`<Button label="추가">
+  <template #icon-before>
+    <span aria-hidden="true">+</span>
+  </template>
+</Button>
+`})}),`
+`,(0,u.jsxs)(t.p,{children:[`Nuxt에서도 UI 컴포넌트의 prop·이벤트·slot 사용법은 같습니다. 페이지 라우팅이나 `,(0,u.jsx)(t.code,{children:`NuxtLink`}),`, `,(0,u.jsx)(t.code,{children:`NuxtImg`}),`가 필요한 부분만 Nuxt 전용 구현을 선택합니다.`]}),`
+`,(0,u.jsx)(t.h2,{id:`react-사용`,children:`React 사용`}),`
+`,(0,u.jsxs)(t.p,{children:[`React 구현은 `,(0,u.jsx)(t.code,{children:`.jsx`}),` 컴포넌트로 제공합니다. 컴포넌트를 import한 뒤 JSX prop, 이벤트 콜백, `,(0,u.jsx)(t.code,{children:`children`}),` 또는 React node prop으로 상태와 콘텐츠를 전달합니다.`]}),`
+`,(0,u.jsx)(s,{columns:[{label:`경로`},{label:`역할`}],rows:[[`apps/react/src/components`,`재사용 React JSX와 컴포넌트별 index.js export`],[`apps/react/src/main.jsx`,`공통 CSS와 리플 동작을 등록하는 React 앱 진입점`],[`@uxkm/react/{component}`,`워크스페이스에서 사용하는 컴포넌트별 import 경로`],[`apps/next`,`@uxkm/react 컴포넌트를 재사용하고 Next.js 전용 기능만 확장`]],codeColumns:[0]}),`
+`,(0,u.jsxs)(t.p,{children:[`JSX에서는 `,(0,u.jsx)(t.code,{children:`ariaLabel`}),`, `,(0,u.jsx)(t.code,{children:`iconBefore`}),`, `,(0,u.jsx)(t.code,{children:`onClick`}),`처럼 camelCase prop을 사용합니다. 본문 콘텐츠는 `,(0,u.jsx)(t.code,{children:`children`}),`으로 전달하며, 아이콘이나 추가 액션처럼 위치가 정해진 콘텐츠는 해당 React node prop을 사용합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-jsx`,children:`import { useState } from 'react';
+import Button from '@uxkm/react/button';
+
+export function SaveButton() {
+  const [saving, setSaving] = useState(false);
+
+  return (
+    <Button
+      variant="filled"
+      color="primary"
+      loading={saving}
+      ariaLabel="변경 사항 저장"
+      iconBefore={<span aria-hidden="true">✓</span>}
+      onClick={() => setSaving(true)}
+    >
+      저장
+    </Button>
+  );
+}
+`})}),`
+`,(0,u.jsxs)(t.p,{children:[`Next.js에서도 공통 UI의 prop·이벤트·children 사용법은 같습니다. App Router의 서버 컴포넌트에서 상태나 이벤트를 사용하는 컴포넌트는 `,(0,u.jsx)(t.code,{children:`'use client'`}),` 경계 안에 두고, 경로 이동이나 이미지 최적화가 필요한 부분만 Next.js 전용 구현을 사용합니다.`]}),`
+`,(0,u.jsx)(t.h2,{id:`프레임워크별-소스-위치`,children:`프레임워크별 소스 위치`}),`
+`,(0,u.jsx)(s,{columns:[{label:`프레임워크`},{label:`소개 문서`},{label:`컴포넌트`},{label:`빌드 결과 기준`}],rows:[[`HTML`,`apps/html/src/introduction`,`apps/html/src/components`,`apps/html/dist`],[`Gulp / Nunjucks`,`apps/gulp/src/introduction`,`apps/gulp/src/components`,`apps/gulp/dist`],[`Vue`,`apps/vue/src/introduction`,`apps/vue/src/components`,`apps/vue/dist`],[`React`,`apps/react/src/introduction`,`apps/react/src/components`,`apps/react/dist`],[`Nuxt`,`apps/nuxt/app/introduction`,`Vue 공통 + Nuxt 전용`,`apps/nuxt/.output/public`],[`Next.js`,`apps/next/src/introduction`,`React 공통 + Next 전용`,`apps/next/out`]],codeColumns:[1,3]}),`
+`,(0,u.jsx)(t.p,{children:`Nuxt와 Next.js는 공통 Vue·React 컴포넌트를 복제하지 않습니다. 라우팅, 링크, 이미지, App Layout처럼 메타 프레임워크에 종속된 부분만 해당 앱에서 확장합니다.`}),`
+`,(0,u.jsx)(t.h2,{id:`프레임워크별-스타일-적용`,children:`프레임워크별 스타일 적용`}),`
+`,(0,u.jsxs)(t.p,{children:[`스타일의 단일 원본은 `,(0,u.jsx)(t.code,{children:`packages/styles/index.scss`}),`입니다. `,(0,u.jsx)(t.code,{children:`pnpm build:styles`}),`를 실행하면 같은 내용과 소스 해시를 가진 CSS가 모든 앱과 Storybook에 배포됩니다.`]}),`
+`,(0,u.jsx)(s,{columns:[{label:`프레임워크`},{label:`적용 위치`},{label:`적용 방식`}],rows:[[`HTML`,`소개·페이지 HTML의 head`,`link로 /styles/uxkm.css 등록`],[`Gulp / Nunjucks`,`src/templates/layouts/default.njk`,`공통 레이아웃에서 link 선언`],[`Vue`,`src/main.js`,`import '/styles/uxkm.css'`],[`React`,`src/main.jsx`,`import '/styles/uxkm.css'`],[`Nuxt`,`nuxt.config.ts`,`app.head.link에 스타일시트 등록`],[`Next.js`,`app/layout.jsx`,`루트 레이아웃의 head에 link 선언`],[`Storybook`,`.storybook/preview.ts`,`Preview 전역에서 생성 CSS import`]],codeColumns:[1]}),`
+`,(0,u.jsx)(t.h2,{id:`테마`,children:`테마`}),`
+`,(0,u.jsxs)(t.p,{children:[`라이트/다크 테마는 루트 요소의 `,(0,u.jsx)(t.code,{children:`data-theme`}),`으로 전환합니다. 속성을 지정하지 않으면 시스템의 `,(0,u.jsx)(t.code,{children:`prefers-color-scheme`}),`을 따르고, Storybook에서는 상단 툴바의 테마 항목이 같은 속성을 설정합니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-html`,children:`<html lang="ko" data-theme="light">
+<html lang="ko" data-theme="dark">
+`})}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-js`,children:`document.documentElement.dataset.theme = 'dark';
+`})}),`
+`,(0,u.jsxs)(t.p,{children:[`사용자의 선택을 유지하려면 `,(0,u.jsx)(t.code,{children:`localStorage`}),` 등에 값을 저장하고, 첫 화면이 그려지기 전에 `,(0,u.jsx)(t.code,{children:`data-theme`}),`을 설정해 테마가 순간적으로 바뀌는 현상을 방지합니다. 저장 값이 없을 때는 속성을 제거하면 시스템 설정으로 돌아갑니다.`]}),`
+`,(0,u.jsx)(t.pre,{children:(0,u.jsx)(t.code,{className:`language-js`,children:`const savedTheme = localStorage.getItem('theme');
+
+if (savedTheme === 'light' || savedTheme === 'dark') {
+  document.documentElement.dataset.theme = savedTheme;
+} else {
+  document.documentElement.removeAttribute('data-theme');
+}
+`})}),`
+`,(0,u.jsx)(t.h2,{id:`새-컴포넌트-작업-순서`,children:`새 컴포넌트 작업 순서`}),`
+`,(0,u.jsxs)(t.ol,{children:[`
+`,(0,u.jsx)(t.li,{children:`HTML 마크업과 접근성 의미를 먼저 정의합니다.`}),`
+`,(0,u.jsx)(t.li,{children:`Gulp/Nunjucks, Vue, React 구현의 API와 상태 이름을 맞춥니다.`}),`
+`,(0,u.jsx)(t.li,{children:`Nuxt와 Next.js에서 프레임워크 전용 처리가 필요한지 확인합니다.`}),`
+`,(0,u.jsxs)(t.li,{children:[(0,u.jsx)(t.code,{children:`packages/styles/components`}),`의 공통 스타일을 갱신합니다.`]}),`
+`,(0,u.jsx)(t.li,{children:`Storybook 문서에 여섯 프레임워크 예시와 API를 추가합니다.`}),`
+`,(0,u.jsxs)(t.li,{children:[(0,u.jsx)(t.code,{children:`pnpm validate:structure`}),`, 타입 검사, Storybook 빌드로 검증합니다.`]}),`
+`]})]})}function l(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,u.jsx)(t,{...e,children:(0,u.jsx)(c,{...e})}):c(e)}var u;function d(){return(d=e((()=>{u=t(),r(),a(),o()})))()}d();export{l as default};
