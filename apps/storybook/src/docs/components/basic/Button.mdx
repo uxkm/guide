@@ -13,6 +13,18 @@ import * as ButtonStories from '../../../Button.stories.tsx';
 
 Vue와 React의 공통 구현은 각각 `@uxkm/vue/button`, `@uxkm/react/button`으로 제공합니다. Nuxt와 Next.js 예시는 같은 구현을 재사용하므로 코드 탭의 경로도 실제 공통 소스를 가리킵니다.
 
+WebSquare는 `xf:trigger`와 `xf:label`을 Button 구조로 사용하고 공통 `btn` 클래스를 적용합니다. 각 예시의 WebSquare 탭은 화면 XML 루트에서 `ev`, `w2`, `xf` 네임스페이스가 공통 선언되어 있다는 전제의 XML 조각입니다.
+
+## WebSquare 사용
+
+일반 액션은 `type="button"`, 이벤트 기반 링크 표현은 `type="anchor"`를 사용합니다. URL로 직접 이동할 때는 화면의 기본 XHTML 네임스페이스를 상속한 `a[href]`를 사용합니다. 클릭 로직은 `ev:onclick`으로 `scwin` 함수에 연결하고, 비활성 상태는 `disabled="true"` 또는 `setDisabled()`로 제어합니다. Trigger의 렌더링 구조는 HTML Button과 다르므로 아이콘은 프로젝트의 이미지·CSS 리소스 기준으로 연결하고, 텍스트 대체 설명은 `xf:label`과 `tooltip`에 유지합니다.
+
+```javascript
+scwin.button_onclick = function () {
+  // 프로젝트의 submission, 화면 이동 또는 상태 변경 로직을 호출합니다.
+};
+```
+
 ## 기본 유형
 
 `btn_filled` · `btn_outline` · `btn_ghost` · `btn_text` 네 가지 기본 스킨을 제공합니다.

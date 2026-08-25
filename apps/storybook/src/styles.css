@@ -482,6 +482,7 @@ body {
 }
 
 .sbdocs-wrapper {
+  padding-top: clamp(24px, 4vw, 40px) !important;
   padding-right: var(--content-inline) !important;
   padding-left: var(--content-inline) !important;
 }
@@ -786,6 +787,12 @@ body {
 .framework-code__syntax pre.prismjs {
   padding: 14px !important;
   background: transparent !important;
+}
+
+.framework-code__syntax--xml pre,
+.framework-code__syntax--xml pre > code {
+  overflow-wrap: normal;
+  white-space: pre !important;
 }
 
 .framework-storybooks {

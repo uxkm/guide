@@ -13,6 +13,12 @@ import * as TypographyStories from '../../../Typography.stories.tsx';
 
 Vue와 React의 공통 구현은 각각 `@uxkm/vue/typography`, `@uxkm/react/typography`의 `TypoTitle`·`TypoText`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
 
+WebSquare는 자식 요소가 없는 제목과 텍스트를 `w2:textbox`로 표현하고, `tagname`에 `h1`·`p`·`span`·`strong` 등의 시맨틱 태그를 지정합니다. Textbox는 자식 컴포넌트를 가질 수 없으므로 인라인 혼합 콘텐츠와 중첩 목록은 `w2:group` 또는 XML 호환 XHTML 구조를 유지합니다. 각 예시의 WebSquare 탭은 화면 루트의 공통 네임스페이스를 상속합니다.
+
+## WebSquare 사용
+
+고정 문구는 `label`, 동적 문구는 DataCollection `ref` 또는 `setValue()`로 연결합니다. 제목 단계는 화면의 시각적 크기가 아니라 문서 구조에 맞춰 `tagname="h1"`부터 `h5`까지 선택하고 같은 단계의 `typo_title-*` 클래스를 적용합니다.
+
 ## 제목
 
 `typo_title-1`부터 `typo_title-5`까지 5단계 제목 스케일을 제공합니다. 문서 구조에 맞는 동일 레벨의 시맨틱 heading 태그를 사용합니다.

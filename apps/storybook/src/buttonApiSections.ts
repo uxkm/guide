@@ -83,6 +83,22 @@ const htmlAttributes: ApiRow[] = [
   { name: 'aria-invalid', type: "'true' | 'false'", default: 'false', description: '폼 트리거의 오류 상태입니다.' },
 ];
 
+const webSquareRows: ApiRow[] = [
+  { name: 'xf:trigger', type: 'component', default: 'type="button"', description: 'Button의 WebSquare 루트입니다. 기본 키보드 활성화와 클릭 이벤트를 제공하는 Trigger를 사용합니다.' },
+  { name: 'xf:label', type: 'child', default: '—', description: 'Trigger에 표시할 텍스트입니다. 특수문자를 안전하게 유지하려면 CDATA로 작성합니다.' },
+  { name: 'id', type: 'string', default: '자동 생성', description: '화면 또는 WFrame Scope 안에서 중복되지 않는 컴포넌트 ID입니다.' },
+  { name: 'type', type: "'button' | 'image' | 'anchor'", default: 'button', description: 'Trigger 렌더링 유형입니다. 일반 액션은 button, 이벤트 기반 링크 표현은 anchor를 사용합니다.' },
+  { name: 'class', type: 'styleclass', default: '—', description: 'btn과 스킨·색상·크기·상태 클래스를 공백으로 구분해 적용합니다.' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: '입력, 포커스와 이벤트를 비활성화합니다. 동적 변경은 setDisabled()를 사용합니다.' },
+  { name: 'tooltip', type: 'string', default: '—', description: '아이콘 버튼 등 시각적 텍스트가 부족한 경우 기능 설명을 제공합니다.' },
+  { name: 'tabIndex', type: 'number', default: '자동', description: 'Tab 키 포커스 순서를 지정합니다. 기본 순서를 우선 사용합니다.' },
+  { name: 'ev:onclick', type: 'event', default: '—', description: 'scwin 클릭 핸들러를 연결합니다. 비활성 Trigger에서는 발생하지 않습니다.' },
+  { name: 'a[href]', type: 'XHTML', default: '—', description: 'URL로 직접 이동하는 링크형 Button은 화면의 기본 XHTML 네임스페이스를 상속한 a 요소를 사용합니다.' },
+  { name: 'setLabel(label)', type: 'method', default: '—', description: '실행 중 Trigger 텍스트를 변경합니다.' },
+  { name: 'setDisabled(disabled)', type: 'method', default: '—', description: '실행 중 비활성 상태를 변경합니다.' },
+  { name: 'addClass() · removeClass() · toggleClass()', type: 'method', default: '—', description: '열림·오류·로딩 같은 상태 클래스를 실행 중 갱신합니다.' },
+];
+
 const classRows: ApiRow[] = [
   { name: 'btn', description: '루트 구조 클래스' },
   { name: 'btn_filled · btn_outline · btn_ghost · btn_text', description: '버튼 스킨' },
@@ -134,6 +150,11 @@ export const buttonApiSections: ApiSectionData[] = [
     title: 'HTML · Gulp API · Markup',
     description: 'HTML과 Gulp 템플릿은 별도 Button props API를 제공하지 않습니다. 아래 네이티브 속성과 공통 OOCSS 클래스를 마크업에 직접 적용하고, 비네이티브 루트의 키보드·비활성 동작은 사용하는 쪽에서 구현합니다.',
     tables: [{ columns: standardColumns, rows: htmlAttributes }],
+  },
+  {
+    title: 'WebSquare API · XML',
+    description: 'WebSquare는 네이티브 button 마크업 대신 xf:trigger와 xf:label을 사용하고, 공통 Button 클래스와 scwin 이벤트를 연결합니다.',
+    tables: [{ columns: standardColumns, rows: webSquareRows }],
   },
   {
     title: '공통 API · 클래스',

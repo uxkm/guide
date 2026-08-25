@@ -13,6 +13,18 @@ import * as LinkStories from '../../../Link.stories.tsx';
 
 Vue와 React의 공통 구현은 각각 `@uxkm/vue/link`, `@uxkm/react/link`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
 
+WebSquare는 URL 이동에 `w2:anchor`, 버튼형 보조 액션에 `xf:trigger`를 사용합니다. Anchor의 표시 텍스트는 `label` 속성이 아니라 자식 `xf:label`에 작성하며, 각 예시의 WebSquare 탭은 화면 루트에서 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 XML 조각입니다.
+
+## WebSquare 사용
+
+`href`가 있는 링크는 브라우저의 기본 이동 의미를 유지하고, 화면 상태 변경이나 팝업 실행은 `ev:onclick`으로 `scwin` 함수에 연결합니다. 새 창은 `target="_blank"`를 사용하되 opener 제어 등 보안 정책은 WebSquare 프로젝트의 공통 창 열기 정책을 함께 확인합니다. 아이콘은 Icon과 동일하게 프로젝트 정적 리소스 또는 CSS 배경 이미지로 연결합니다.
+
+```javascript
+scwin.linkAction_onclick = function () {
+  // 팝업 열기 또는 화면 상태 변경 로직을 호출합니다.
+};
+```
+
 ## 기본
 
 기본 색상은 primary이며 hover 시 밑줄이 표시됩니다.

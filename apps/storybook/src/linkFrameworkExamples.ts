@@ -50,16 +50,20 @@ function htmlIcon(name: string) {
   return `<svg class="link_icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">${iconPaths[name] || iconPaths.external}</svg>`;
 }
 
-function htmlLink(source: string) {
-  const props = parseAttrs(source);
-  const tag = String(props.as || 'a');
-  const classes = [
+function linkClasses(props: Record<string, string | boolean>) {
+  return [
     'link', `color_${props.color || 'primary'}`, props.size && `size_${props.size}`,
     props.underline && 'link_underline', props['no-underline'] && 'link_no-underline',
     props.standalone && 'link_standalone', props.nav && 'link_nav', props.block && 'link_block',
     props.back && 'link_back', props['icon-only'] && 'link_icon-only', props.active && 'is-active',
     props.disabled && 'is-disabled'
   ].filter(Boolean).join(' ');
+}
+
+function htmlLink(source: string) {
+  const props = parseAttrs(source);
+  const tag = String(props.as || 'a');
+  const classes = linkClasses(props);
   const label = props['icon-only'] ? '' : String(props.label || '');
   const before = props.icon ? htmlIcon(String(props.icon)) : '';
   const after = props['icon-after'] ? htmlIcon(String(props['icon-after'])) : '';
@@ -102,6 +106,51 @@ function toVue(body: string) {
   });
 }
 
+function webSquareCode(body: string, key: ExampleKey) {
+  const name = `${key[0].toUpperCase()}${key.slice(1)}`;
+  let linkSequence = 0;
+  let groupSequence = 0;
+
+  let markup = body.replace(/<Link\s+([^>]*?)\s*\/>/g, (_, source: string) => {
+    const props = parseAttrs(source);
+    const id = `link${name}${++linkSequence}`;
+    const classes = linkClasses(props);
+    const label = String(props.label ?? props['aria-label'] ?? '링크');
+    const iconName = props.icon ?? props['icon-after'];
+    const iconNote = iconName
+      ? `<!-- 아이콘 ${iconName}: 프로젝트 이미지 또는 CSS 리소스에 연결 -->\n`
+      : '';
+
+    if (props.as === 'button') {
+      return `${iconNote}<xf:trigger\n  type="button"\n  id="${id}"\n  class="${classes}"${props.disabled ? '\n  disabled="true"' : '\n  ev:onclick="scwin.linkAction_onclick"'}>\n  <xf:label><![CDATA[${label}]]></xf:label>\n</xf:trigger>`;
+    }
+
+    const attributes = [
+      `id="${id}"`,
+      'outerDiv="false"',
+      `href="${props.href || '#'}"`,
+      props.target ? `target="${props.target}"` : '',
+      `class="${classes}"`,
+      props.disabled ? 'disabled="true"' : '',
+      props['aria-label'] ? `title="${props['aria-label']}"` : ''
+    ].filter(Boolean).join('\n  ');
+    const securityNote = props.target === '_blank' && props.rel
+      ? '<!-- 새 창 opener 정책은 WebSquare 프로젝트의 공통 보안 설정을 확인합니다. -->\n'
+      : '';
+    return `${iconNote}${securityNote}<w2:anchor\n  ${attributes}>\n  <xf:label><![CDATA[${label}]]></xf:label>\n</w2:anchor>`;
+  });
+
+  markup = markup.replace(/<(\/)?div\b([^>]*)>/g, (_tag, closing: string, source: string) => {
+    if (closing) return '</w2:group>';
+    const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+    return `<w2:group\n  id="link${name}Group${++groupSequence}"${className ? `\n  class="${className}"` : ''}>`;
+  });
+
+  return `<w2:group id="link${name}Example">
+${markup.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = toHtml(body);
@@ -113,7 +162,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'react', label: 'React', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` }
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
+    { id: 'websquare', label: 'WebSquare', fileName: `Link.xml · ${key}`, code: webSquareCode(body, key) }
   ];
 }
 

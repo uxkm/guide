@@ -11,7 +11,15 @@ import * as ContainerStories from '../../../Container.stories.tsx';
 
 콘텐츠의 최대 너비와 좌우 여백을 일관되게 유지하고, 화면 안에서 콘텐츠를 가운데 정렬하는 레이아웃 컴포넌트입니다.
 
-Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/container`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
+Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/container`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다. WebSquare는 `w2:group`에 공통 Container 클래스를 적용하며, 상태나 이벤트가 없는 구조 컴포넌트이므로 별도 `scwin` 로직이 필요하지 않습니다.
+
+## 사용 기준
+
+- 페이지나 큰 콘텐츠 구획의 수평 경계와 좌우 여백을 통일할 때 사용합니다.
+- 카드나 개별 컴포넌트 내부 정렬에는 Container보다 Grid, Flex, Space 또는 해당 컴포넌트의 내부 레이아웃을 사용합니다.
+- Container를 중첩하면 좌우 패딩이 누적되므로 독립된 최대 너비가 꼭 필요한 경우가 아니면 중첩하지 않습니다.
+- 배경은 화면 전체에 펼치고 콘텐츠만 제한하려면 전체 폭 section 안에 Container를 배치합니다.
+- `fluid`는 최대 너비만 해제하며 좌우 패딩은 유지합니다. 패딩까지 없는 전체 폭 영역과 구분해 사용합니다.
 
 ## 기본
 
@@ -40,5 +48,11 @@ Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/cont
 
 <Canvas of={ContainerStories.SemanticRoot} sourceState="none" />
 <FrameworkTabs examples={containerFrameworkExamples.semantic} />
+
+## 반응형과 접근성
+
+Container는 `width: 100%`와 최대 너비를 함께 사용하므로 별도 브레이크포인트 없이 좁은 화면에 맞춰 줄어듭니다. 좌우 패딩은 `--container-padding-x` 토큰으로 일관되게 유지합니다.
+
+Container 자체에는 별도 ARIA role이나 접근 가능한 이름이 필요하지 않습니다. `main`은 페이지의 대표 본문에 한 번만 사용하고, 반복 가능한 콘텐츠 구획은 제목과 연결된 `section` 등 문서 구조에 맞는 요소를 선택합니다. WebSquare에서도 `tagname`을 지정할 때 같은 랜드마크 규칙을 적용합니다.
 
 <ComponentApiDocs sections={containerApiSections} />

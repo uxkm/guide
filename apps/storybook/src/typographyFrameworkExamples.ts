@@ -136,6 +136,55 @@ function vueCode(body: string) {
   return `<script setup>\nimport { TypoText, TypoTitle } from '@uxkm/vue/typography';\n</script>\n\n<template>\n${body.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>`;
 }
 
+function xmlAttribute(value: string) {
+  return value
+    .replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[\da-f]+;)/gi, '&amp;')
+    .replace(/"/g, '&quot;');
+}
+
+function webSquareCode(html: string, key: ExampleKey) {
+  const name = `${key[0].toUpperCase()}${key.slice(1)}`;
+  let textboxSequence = 0;
+  let groupSequence = 0;
+  const leafTags = 'h[1-5]|p|span|strong|em|del|mark|sub|sup|small|code|kbd|pre|label|a';
+
+  const textboxes = html.split('\n').map((sourceLine) => sourceLine.replace(
+    new RegExp(`^(\\s*)<(${leafTags})([^>]*)>([^<]*)</\\2>\\s*$`),
+    (_, indent: string, tag: string, source: string, content: string) => {
+      const props = parseAttrs(source);
+      const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+      const id = `typo${name}${++textboxSequence}`;
+
+      if (tag === 'a') {
+        return `<w2:anchor\n  id="${id}"\n  outerDiv="false"\n  href="${xmlAttribute(props.href || '#')}"${className ? `\n  class="${className}"` : ''}>\n  <xf:label><![CDATA[${content}]]></xf:label>\n</w2:anchor>`
+          .split('\n').map((line) => `${indent}${line}`).join('\n');
+      }
+
+      const attributes = [
+        `id="${id}"`,
+        `tagname="${tag}"`,
+        className ? `class="${className}"` : '',
+        tag === 'label' && props.for ? `for="${props.for}"` : '',
+        `label="${xmlAttribute(content)}"`
+      ].filter(Boolean).join('\n  ');
+      return `<w2:textbox\n  ${attributes}></w2:textbox>`
+        .split('\n').map((line) => `${indent}${line}`).join('\n');
+    }
+  )).join('\n');
+
+  const groups = textboxes.replace(/<(\/)?div\b([^>]*)>/g, (_tag, closing: string, source: string) => {
+    if (closing) return '</w2:group>';
+    const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+    const style = source.match(/\sstyle="([^"]*)"/)?.[1] ?? '';
+    return `<w2:group\n  id="typo${name}Group${++groupSequence}"${className ? `\n  class="${className}"` : ''}${style ? `\n  style="${style}"` : ''}>`;
+  });
+
+  return `<w2:group
+  id="typography${name}Example">
+${groups.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = toHtml(body);
@@ -147,7 +196,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/typography → apps/vue/src/components/basic/Typography · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/typography → apps/vue/src/components/basic/Typography · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/typography → apps/react/src/components/basic/Typography · ${key}`, code: react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/typography → apps/react/src/components/basic/Typography · ${key}`, code: react }
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/typography → apps/react/src/components/basic/Typography · ${key}`, code: react },
+    { id: 'websquare', label: 'WebSquare', fileName: `Typography.xml · ${key}`, code: webSquareCode(html, key) }
   ];
 }
 

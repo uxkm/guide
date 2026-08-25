@@ -20,6 +20,41 @@ const bodies = {
 
 type ExampleKey = keyof typeof bodies;
 
+const webSquare: Record<ExampleKey, string> = {
+  basic: `<w2:group
+  id="containerBasic"
+  class="container">
+  <w2:textbox id="containerBasicContent" class="container_demo-fill" label="기본 Container"></w2:textbox>
+</w2:group>`,
+  sizes: `<w2:group
+  id="containerSizes"
+  class="container_demo-sizes">
+  <w2:group id="containerSmall" class="container container_sm">
+    <w2:textbox id="containerSmallContent" class="container_demo-fill" label="Small · 36rem"></w2:textbox>
+  </w2:group>
+  <w2:group id="containerMedium" class="container container_md">
+    <w2:textbox id="containerMediumContent" class="container_demo-fill" label="Medium · 48rem"></w2:textbox>
+  </w2:group>
+  <w2:group id="containerLarge" class="container container_lg">
+    <w2:textbox id="containerLargeContent" class="container_demo-fill" label="Large · 64rem"></w2:textbox>
+  </w2:group>
+  <w2:group id="containerExtraLarge" class="container container_xl">
+    <w2:textbox id="containerExtraLargeContent" class="container_demo-fill" label="Extra Large · 80rem"></w2:textbox>
+  </w2:group>
+</w2:group>`,
+  fluid: `<w2:group
+  id="containerFluid"
+  class="container container_fluid">
+  <w2:textbox id="containerFluidContent" class="container_demo-fill" label="Fluid · 최대 너비 제한 없음"></w2:textbox>
+</w2:group>`,
+  semantic: `<w2:group
+  id="containerMain"
+  tagname="main"
+  class="container container_lg">
+  <w2:textbox id="containerMainContent" class="container_demo-fill" label="main 요소로 렌더링"></w2:textbox>
+</w2:group>`
+};
+
 function parseAttrs(source: string) {
   const attrs: Record<string, string | boolean> = {};
   source.replace(/([\w-]+)(?:="([^"]*)")?/g, (_, key: string, value: string | undefined) => {
@@ -62,7 +97,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react }
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react },
+    { id: 'websquare', label: 'WebSquare', fileName: `Container.xml · ${key}`, code: webSquare[key] }
   ];
 }
 

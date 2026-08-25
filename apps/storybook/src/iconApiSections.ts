@@ -41,6 +41,17 @@ const htmlAttributes: ApiRow[] = [
   { name: 'data-ripple', type: "'true' | 'false'", default: 'true', description: 'icon_button 클릭 파장 효과입니다.' }
 ];
 
+const webSquareRows: ApiRow[] = [
+  { name: 'w2:image', type: 'component', default: '—', description: '프로젝트에 등록한 SVG·PNG 아이콘 파일을 표시합니다.' },
+  { name: 'src', type: 'URL', default: '—', description: 'WebSquare 프로젝트의 정적 아이콘 리소스 경로입니다.' },
+  { name: 'alt', type: 'string', default: "''", description: '장식용 아이콘은 빈 문자열, 의미 있는 이미지에는 대체 텍스트를 지정합니다.' },
+  { name: 'class', type: 'styleclass', default: 'icon', description: '크기·색상·회전·인라인 정렬 클래스를 적용합니다.' },
+  { name: 'w2:group', type: 'component', default: '—', description: '원형·사각형 배경과 여러 아이콘 묶음의 래퍼입니다.' },
+  { name: 'xf:trigger', type: 'component', default: '—', description: '클릭 가능한 아이콘 버튼에 사용하며 배경 이미지와 ev:onclick을 연결합니다.' },
+  { name: 'title · tooltip', type: 'string', default: '—', description: '텍스트가 없는 아이콘 버튼의 기능을 설명합니다.' },
+  { name: 'w2:generator', type: 'component', default: '—', description: 'DataList 기반 아이콘 갤러리처럼 동일 구조를 반복할 때 선택적으로 사용합니다.' }
+];
+
 const classes: ApiRow[] = [
   { name: 'icon', type: 'class', default: '—', description: 'SVG 루트 기본 구조와 중간 크기' },
   { name: 'icon_sm · icon_lg · icon_xl', type: 'class', default: '—', description: '크기 변형' },
@@ -68,6 +79,7 @@ export const iconApiSections: ApiSectionData[] = [
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/icon`을 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: vueSlots }] },
   { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 SVG와 래퍼에 네이티브 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlAttributes }] },
+  { title: 'WebSquare API · XML', description: 'WebSquare에서는 w2:image로 프로젝트 정적 아이콘 리소스를 표시하고, 클릭 가능한 아이콘은 xf:trigger로 구성합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }
 ];

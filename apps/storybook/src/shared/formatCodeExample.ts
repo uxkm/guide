@@ -49,7 +49,80 @@ function formatReactExample(code: string) {
   );
 }
 
+function hasTagEnd(value: string) {
+  let quote = '';
+
+  for (const character of value) {
+    if (quote) {
+      if (character === quote) quote = '';
+      continue;
+    }
+
+    if (character === '"' || character === "'") {
+      quote = character;
+    } else if (character === '>') {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function opensXmlChildren(value: string) {
+  const openingTag = value.match(/^<([A-Za-z][\w:.-]*)\b/);
+  if (!openingTag || /\/>\s*$/.test(value)) return false;
+
+  return !new RegExp(`</${escapeRegExp(openingTag[1])}>\\s*$`).test(value);
+}
+
+function formatWebSquareExample(code: string) {
+  const lines = code
+    .replace(/\r\n?/g, '\n')
+    .replace(/(?<!\]\])>\s*<(?!\!\[CDATA\[)/g, '>\n<')
+    .trim()
+    .split('\n');
+  const formatted: string[] = [];
+  let depth = 0;
+  let multilineTag = '';
+
+  for (const sourceLine of lines) {
+    const line = sourceLine.trim();
+    if (!line) {
+      if (formatted.at(-1) !== '') formatted.push('');
+      continue;
+    }
+
+    if (multilineTag) {
+      formatted.push(`${'  '.repeat(depth + 1)}${line}`);
+      multilineTag += ` ${line}`;
+
+      if (hasTagEnd(multilineTag)) {
+        if (opensXmlChildren(multilineTag)) depth += 1;
+        multilineTag = '';
+      }
+      continue;
+    }
+
+    if (/^<\//.test(line)) depth = Math.max(0, depth - 1);
+    formatted.push(`${'  '.repeat(depth)}${line}`);
+
+    if (/^<[A-Za-z][\w:.-]*\b/.test(line) && !hasTagEnd(line)) {
+      multilineTag = line;
+    } else if (opensXmlChildren(line)) {
+      depth += 1;
+    }
+  }
+
+  return formatted.join('\n').trim();
+}
+
 export function formatCodeExample(code: string, frameworkId = '') {
+  if (frameworkId === 'websquare') return formatWebSquareExample(code);
+
   const normalizedCode = frameworkId === 'react' || frameworkId === 'next'
     ? formatReactExample(code)
     : code;

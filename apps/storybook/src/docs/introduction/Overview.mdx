@@ -5,12 +5,12 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 # UXKM Framework Components
 
-HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 같은 디자인 언어와 컴포넌트 API를 제공하는 통합 UI 가이드입니다. 기존 `gulp-storybook`, `vue-storybook`, `react-storybook`의 소개 내용을 현재 모노레포 구조에 맞춰 한곳에 모았습니다.
+HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인 언어와 컴포넌트 API를 제공하는 통합 UI 가이드입니다. 기존 `gulp-storybook`, `vue-storybook`, `react-storybook`의 소개 내용을 현재 모노레포 구조에 맞춰 한곳에 모았습니다.
 
 ## 이 Storybook에서 제공하는 것
 
 - **52개 UI 컴포넌트** — 레이아웃, 기본 요소, 데이터 표시, 폼, 피드백, 네비게이션, 기타의 7개 카테고리로 구성합니다.
-- **프레임워크별 구현** — 각 컴포넌트 문서에서 여섯 프레임워크의 구현 방식을 비교할 수 있습니다.
+- **프레임워크별 구현** — 각 컴포넌트 문서에서 일곱 프레임워크의 구현 방식을 비교할 수 있습니다.
 - **단일 스타일 원본** — 모든 앱은 `packages/styles`에서 생성한 같은 CSS, 디자인 토큰, 테마를 사용합니다.
 - **일관된 접근성** — 시맨틱 HTML, `aria-*`, 키보드와 포커스 동작을 구현 방식과 관계없이 유지합니다.
 
@@ -29,10 +29,27 @@ HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js에서 같은 디자인 언어와 
     ['Vue', '@uxkm/vue', 'Vue 3 · Vite', 'Vue 컴포넌트 원본'],
     ['React', '@uxkm/react', 'React · Vite', 'React 컴포넌트 원본'],
     ['Nuxt', '@uxkm/nuxt', 'Vue · Nuxt', 'Vue 컴포넌트의 Nuxt 통합'],
-    ['Next.js', '@uxkm/next', 'React · App Router', 'React 컴포넌트의 Next.js 통합']
+    ['Next.js', '@uxkm/next', 'React · App Router', 'React 컴포넌트의 Next.js 통합'],
+    ['WebSquare', 'Storybook 코드 탭', 'WebSquare XML · XHTML', '공통 HTML과 CSS를 WebSquare 화면 XML에서 재사용']
   ]}
   codeColumns={[1]}
 />
+
+## WebSquare 예제 사용
+
+각 컴포넌트의 **Code → WebSquare** 탭은 HTML 기준 마크업을 WebSquare 화면에서 사용할 수 있는 XML fragment로 제공합니다. 공통 클래스와 접근성 속성, 닫는 void 태그와 값을 가진 XML 속성을 유지하며, 네임스페이스 선언은 화면 XML 루트에서 상속받습니다.
+
+```xml
+<w2:group
+  id="uxkmExample"
+  class="uxkm_example">
+  <button type="button" class="btn btn_filled color_primary">
+    <span class="btn_label">저장</span>
+  </button>
+</w2:group>
+```
+
+현재 WebSquare 지원은 별도 실행 앱이나 WebSquare 엔진을 포함하지 않는 **코드 예제 지원**입니다. 정적 표현은 공통 CSS와 마크업을 재사용하고, 데이터 바인딩·화면 전환·WebSquare 컴포넌트 이벤트가 필요한 예제는 프로젝트의 `scwin` 함수와 데이터 객체 규칙에 맞게 연결합니다. 자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언해 교체할 수 있습니다.
 
 ## HTML과 Gulp/Nunjucks의 차이
 
@@ -145,6 +162,7 @@ React는 사용자 인터페이스와 상태를 구성하는 라이브러리이�
 - **마크업** — HTML과 Nunjucks는 공통 마크업을 직접 사용하고 Vue·React 계열은 동일한 클래스와 접근성 속성을 컴포넌트가 생성합니다.
 - **스타일** — 모든 앱은 `packages/styles`에서 생성한 동일한 CSS와 디자인 토큰을 사용합니다.
 - **확장** — Nuxt는 Vue 컴포넌트를, Next.js는 React 컴포넌트를 재사용하며 프레임워크 전용 기능만 확장합니다.
+- **WebSquare** — HTML 기준 마크업을 XML 호환 XHTML로 제공하고 프로젝트별 데이터 바인딩과 이벤트는 화면 규칙에 맞게 연결합니다.
 
 ## 컴포넌트 카테고리
 
@@ -168,7 +186,7 @@ React는 사용자 인터페이스와 상태를 구성하는 라이브러리이�
 
 ## 프레임워크별 소개 문서
 
-각 앱은 **Overview → Getting Started → Design Tokens**의 동일한 소개 구조를 갖습니다. Storybook의 현재 소개 섹션은 이 여섯 문서를 통합해 공통 원칙과 프레임워크별 차이를 함께 보여 줍니다.
+각 프레임워크 앱은 **Overview → Getting Started → Design Tokens**의 동일한 소개 구조를 갖습니다. Storybook의 현재 소개 섹션은 여섯 앱의 문서와 WebSquare 코드 예제 사용법을 통합해 공통 원칙과 프레임워크별 차이를 함께 보여 줍니다.
 
 <IntroductionCards
   columns={[
@@ -182,7 +200,8 @@ React는 사용자 인터페이스와 상태를 구성하는 라이브러리이�
     ['Vue', 'apps/vue/src/introduction', '.vue'],
     ['React', 'apps/react/src/introduction', '.jsx'],
     ['Nuxt', 'apps/nuxt/app/introduction', '.vue'],
-    ['Next.js', 'apps/next/src/introduction', '.jsx']
+    ['Next.js', 'apps/next/src/introduction', '.jsx'],
+    ['WebSquare', 'apps/storybook/src/shared/webSquareExample.ts', '.xml 코드 생성']
   ]}
   codeColumns={[1, 2]}
 />

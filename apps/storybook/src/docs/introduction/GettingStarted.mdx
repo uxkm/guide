@@ -5,7 +5,7 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 # 설치 및 사용
 
-현재 저장소는 `pnpm` 워크스페이스에서 여섯 프레임워크 앱과 Storybook을 함께 관리합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.
+현재 저장소는 `pnpm` 워크스페이스에서 여섯 프레임워크 앱과 Storybook을 함께 관리하고, Storybook에서 WebSquare XML 코드 예제를 추가로 제공합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.
 
 ## 사전 요구사항
 
@@ -14,7 +14,8 @@ import IntroductionCards from '../../shared/IntroductionCards';
   rows={[
     ['Node.js', 'Vite, Storybook, Sass와 빌드 스크립트 실행'],
     ['pnpm 10', '워크스페이스 의존성 설치 및 명령 실행'],
-    ['Git', '브랜치와 소스 관리']
+    ['Git', '브랜치와 소스 관리'],
+    ['WebSquare 개발 환경', 'WebSquare 예제의 실제 실행과 데이터 바인딩 검증 — 코드 열람에는 필요하지 않음']
   ]}
 />
 
@@ -105,6 +106,48 @@ export function SaveCard() {
 ```
 
 Button처럼 네이티브 동작만 필요한 요소는 CSS와 마크업만으로 사용할 수 있습니다. Modal, Drawer, Accordion처럼 열림 상태·포커스 이동·키보드 조작이 필요한 컴포넌트는 해당 HTML/Gulp 스크립트 또는 Vue/React 구현도 함께 적용해야 합니다.
+
+## WebSquare 화면 XML에서 사용
+
+각 컴포넌트 문서의 WebSquare 탭에서 XML 호환 마크업을 복사할 수 있습니다. 예제는 공통 CSS 클래스와 접근성 속성을 유지한 fragment이며, WebSquare 화면 XML 루트 안에 배치하는 것을 전제로 합니다.
+
+`xmlns` 선언은 컴포넌트 속성이 아니라 XML 문서 범위의 선언입니다. 화면 루트에서 한 번 선언하고 내부 컴포넌트는 이를 상속합니다. 별도 화면 XML이나 WFrame처럼 독립적으로 파싱되는 파일은 각 파일의 루트에서 다시 선언하며, `ev`와 `xf`는 해당 접두사를 사용하는 화면에서 추가합니다.
+
+1. WebSquare 화면이 로드하는 스타일에 `uxkm.css`를 연결합니다.
+2. Storybook의 WebSquare 탭에서 XML 조각을 복사해 화면에 배치합니다.
+3. 정적 HTML 이벤트에 의존하는 컴포넌트는 `ev:onclick`, `scwin` 함수와 프로젝트 데이터 객체에 맞게 연결합니다.
+4. 실제 WebSquare 엔진에서 레이아웃, 포커스, 키보드와 데이터 바인딩을 검증합니다.
+
+화면 XML 루트에서 네임스페이스를 공통 선언하고, 정적 마크업을 WebSquare 컴포넌트와 이벤트로 연결할 때는 다음과 같이 적용할 수 있습니다.
+
+```xml
+<w2:group
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:w2="http://www.inswave.com/websquare"
+  xmlns:xf="http://www.w3.org/2002/xforms"
+  id="screenRoot">
+  <w2:group id="saveActions" class="form_actions">
+    <xf:trigger
+      id="btnSave"
+      type="button"
+      class="btn btn_filled color_primary"
+      ev:onclick="scwin.btnSave_onclick">
+      <xf:label><![CDATA[저장]]></xf:label>
+    </xf:trigger>
+  </w2:group>
+</w2:group>
+```
+
+```javascript
+scwin.btnSave_onclick = function () {
+  // 프로젝트의 submission 또는 저장 로직을 호출합니다.
+};
+```
+
+Storybook의 자동 예제는 CSS와 접근성 구조를 우선 보존합니다. `w2:trigger`, `xf:input`, DataList 바인딩처럼 WebSquare 전용 컴포넌트가 필요한 화면은 이 마크업을 기준으로 프로젝트 표준에 맞게 치환합니다.
+
+WebSquare 탭은 화면 XML 작성 기준을 제공하며 WebSquare 런타임, 라이선스 또는 별도 `apps/websquare` 실행 프로젝트를 포함하지 않습니다.
 
 ## Gulp / Nunjucks 사용
 
@@ -273,7 +316,8 @@ Next.js에서도 공통 UI의 prop·이벤트·children 사용법은 같습니�
     ['Vue', 'apps/vue/src/introduction', 'apps/vue/src/components', 'apps/vue/dist'],
     ['React', 'apps/react/src/introduction', 'apps/react/src/components', 'apps/react/dist'],
     ['Nuxt', 'apps/nuxt/app/introduction', 'Vue 공통 + Nuxt 전용', 'apps/nuxt/.output/public'],
-    ['Next.js', 'apps/next/src/introduction', 'React 공통 + Next 전용', 'apps/next/out']
+    ['Next.js', 'apps/next/src/introduction', 'React 공통 + Next 전용', 'apps/next/out'],
+    ['WebSquare', 'Storybook 소개와 컴포넌트 코드 탭', 'XML 호환 XHTML 예제', 'WebSquare 프로젝트에서 별도 실행']
   ]}
   codeColumns={[1, 3]}
 />

@@ -55,6 +55,18 @@ const htmlRows: ApiRow[] = [
   { name: 'aria-label', type: 'string', default: '—', description: '텍스트 없는 아이콘 링크의 접근성 이름입니다.' }
 ];
 
+const webSquareRows: ApiRow[] = [
+  { name: 'w2:anchor', type: 'component', default: '—', description: 'URL·페이지 위치 이동에 사용하는 WebSquare 링크 루트입니다.' },
+  { name: 'xf:label', type: 'child', default: '—', description: 'Anchor에 표시할 링크 텍스트입니다. label 속성만으로는 화면에 표시되지 않습니다.' },
+  { name: 'href', type: 'URL', default: 'javascript:void(null)', description: '상대 경로, 전체 URL, 페이지 내 앵커 등 이동 대상을 지정합니다.' },
+  { name: 'target', type: "'_self' | '_blank' | '_parent' | '_top'", default: '_self', description: '링크가 열릴 브라우징 컨텍스트입니다.' },
+  { name: 'outerDiv', type: 'boolean', default: 'true', description: 'false이면 불필요한 외부 div 없이 링크 구조를 렌더링합니다.' },
+  { name: 'class', type: 'styleclass', default: 'link color_primary', description: '공통 Link·색상·크기·상태 클래스를 적용합니다.' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: '링크 이동과 상호작용을 비활성화합니다.' },
+  { name: 'xf:trigger + ev:onclick', type: 'component / event', default: '—', description: 'URL 이동이 아닌 버튼형 보조 액션에 사용합니다.' },
+  { name: 'setHref(href)', type: 'method', default: '—', description: '실행 중 Anchor 이동 경로를 변경합니다.' }
+];
+
 const classes: ApiRow[] = [
   { name: 'link', type: 'class', default: '—', description: '하이퍼링크 루트' },
   { name: 'link_underline · link_no-underline · link_standalone', type: 'class', default: '—', description: '밑줄과 터치 영역 변형' },
@@ -80,6 +92,7 @@ export const linkApiSections: ApiSectionData[] = [
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/link`를 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: vueSlots }] },
   { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 네이티브 링크 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'WebSquare API · XML', description: 'URL 이동은 w2:anchor, 화면 로직을 실행하는 버튼형 링크는 xf:trigger와 scwin 이벤트로 구분합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }
 ];

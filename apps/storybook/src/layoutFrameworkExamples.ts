@@ -42,7 +42,7 @@ function componentHtml(body: string) {
     const props = attrs(source);
     const tag = typeof props.as === 'string' ? props.as : 'div';
     const classes: Array<string | boolean> = [];
-    if (name === 'Grid') classes.push('grid', props.cols && `grid_cols-${props.cols}`, props['cols-md'] && `grid_cols-md-${props['cols-md']}`, props['cols-lg'] && `grid_cols-lg-${props['cols-lg']}`, props.ratio && `grid_ratio-${props.ratio}`, props['item-span'] && `grid_item-span-${props['item-span']}`, props['item-span-md'] && `grid_item-span-md-${props['item-span-md']}`, props['item-span-lg'] && `grid_item-span-lg-${props['item-span-lg']}`, props.gap && `grid_gap-${props.gap}`, props['auto-fit'] && 'grid_auto-fit', props['auto-fill'] && 'grid_auto-fill');
+    if (name === 'Grid') classes.push('grid', props.cols && `grid_cols-${props.cols}`, props['cols-md'] && `grid_cols-md-${props['cols-md']}`, props['cols-lg'] && `grid_cols-lg-${props['cols-lg']}`, props.ratio && `grid_ratio-${props.ratio}`, props['item-span'] && `grid_item-span-${props['item-span']}`, props['item-span-md'] && `grid_item-span-md-${props['item-span-md']}`, props['item-span-lg'] && `grid_item-span-lg-${props['item-span-lg']}`, props.gap && `grid_gap-${props.gap}`, props['auto-fit'] && 'grid_auto-fit', props['auto-fill'] && 'grid_auto-fill', props['equal-columns'] && 'grid_equal-columns', props.align && `grid_align-${props.align}`);
     if (name === 'GridCol') classes.push(props.span && `grid_col-span-${props.span}`, props['span-md'] && `grid_col-span-md-${props['span-md']}`, props['span-lg'] && `grid_col-span-lg-${props['span-lg']}`);
     if (name === 'Flex') classes.push('flex', `flex_${props.direction === 'column' ? 'col' : props.direction || 'row'}`, props['direction-md'] && `flex_${props['direction-md'] === 'column' ? 'col' : props['direction-md']}-md`, props['direction-lg'] && `flex_${props['direction-lg'] === 'column' ? 'col' : props['direction-lg']}-lg`, props.wrap && 'flex_wrap', props.cols && `flex_cols-${props.cols}`, props['cols-md'] && `flex_cols-md-${props['cols-md']}`, props['cols-lg'] && `flex_cols-lg-${props['cols-lg']}`, props.ratio && `flex_ratio-${props.ratio}`, props['item-span'] && `flex_items-span-${props['item-span']}`, props['item-span-md'] && `flex_items-span-md-${props['item-span-md']}`, props['item-span-lg'] && `flex_items-span-lg-${props['item-span-lg']}`, props.gap && `flex_gap-${props.gap}`, `flex_align-${props.align || 'stretch'}`, props.justify && `flex_justify-${props.justify}`, props.equal && 'flex_equal', props['auto-fit'] && 'flex_auto-fit');
     if (name === 'FlexItem') classes.push(props.span && `flex_item-span-${props.span}`, props['span-md'] && `flex_item-span-md-${props['span-md']}`, props['span-lg'] && `flex_item-span-lg-${props['span-lg']}`, props.grow && (props['grow-factor'] === '2' ? 'flex_grow-2' : 'flex_grow'), props.fit && 'flex_fit', props.align && `flex_self-${props.align}`, props.order && `flex_order-${props.order}`);
@@ -51,6 +51,85 @@ function componentHtml(body: string) {
     return `<${tag} class="${classes.filter(Boolean).join(' ')}" data-component="${name}">`;
   });
 }
+
+function webSquareGroups(html: string, key: string, prefix: string, components: string[]) {
+  const elementStack: Array<{ name: string; component: boolean }> = [];
+  let sequence = 0;
+  const markup = html.replace(/<(\/)?([\w-]+)\b([^>]*)>/g, (tag, closing: string, name: string, source: string) => {
+    if (closing) {
+      const opened = elementStack.pop();
+      return opened?.component && opened.name === name ? '</w2:group>' : tag;
+    }
+    const componentName = source.match(/\sdata-component="([^"]+)"/)?.[1];
+    const component = Boolean(componentName && components.includes(componentName));
+    elementStack.push({ name, component });
+    if (!component) return tag;
+    sequence += 1;
+    const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+    const semanticTag = name === 'div' ? '' : `\n    tagname="${name}"`;
+    const extraAttributes = source
+      .replace(/\sclass="[^"]*"/, '')
+      .replace(/\sdata-component="[^"]*"/, '')
+      .trim();
+    const extras = extraAttributes ? `\n    ${extraAttributes}` : '';
+    return `<w2:group\n    id="${prefix}${key[0].toUpperCase()}${key.slice(1)}${sequence}"${semanticTag}\n    class="${className}"${extras}>`;
+  });
+  return `<w2:group
+  id="${prefix}${key[0].toUpperCase()}${key.slice(1)}Example">
+${markup.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
+const dividerWebSquare: Record<string, string> = {
+  playground: `<w2:group
+  id="dividerPlayground"
+  tagname="div"
+  class="divider">
+  <w2:textbox id="dividerPlaygroundLabel" label="라벨"></w2:textbox>
+</w2:group>`,
+  basic: `<w2:group
+  id="dividerBasicExample">
+  <p>위 콘텐츠</p>
+  <hr class="divider" />
+  <p>아래 콘텐츠</p>
+</w2:group>`,
+  dashed: `<w2:group
+  id="dividerDashedExample">
+  <p>위 콘텐츠</p>
+  <hr class="divider divider_dashed" />
+  <p>아래 콘텐츠</p>
+</w2:group>`,
+  text: `<w2:group
+  id="dividerTextExample">
+  <w2:group id="dividerTextTitle" tagname="div" class="divider">
+    <w2:textbox id="dividerTextTitleLabel" label="섹션 제목"></w2:textbox>
+  </w2:group>
+  <w2:group id="dividerTextDescription" tagname="div" class="divider divider_plain">
+    <w2:textbox id="dividerTextDescriptionLabel" label="보조 설명"></w2:textbox>
+  </w2:group>
+</w2:group>`,
+  orient: `<w2:group
+  id="dividerOrientExample">
+  <w2:group id="dividerOrientLeft" tagname="div" class="divider divider_orient-left">
+    <w2:textbox id="dividerOrientLeftLabel" label="왼쪽"></w2:textbox>
+  </w2:group>
+  <w2:group id="dividerOrientCenter" tagname="div" class="divider">
+    <w2:textbox id="dividerOrientCenterLabel" label="가운데"></w2:textbox>
+  </w2:group>
+  <w2:group id="dividerOrientRight" tagname="div" class="divider divider_orient-right">
+    <w2:textbox id="dividerOrientRightLabel" label="오른쪽"></w2:textbox>
+  </w2:group>
+</w2:group>`,
+  vertical: `<w2:group
+  id="dividerVerticalExample"
+  class="space">
+  <w2:textbox id="dividerVerticalItemA" label="항목 A"></w2:textbox>
+  <span class="divider divider_vertical" aria-hidden="true"></span>
+  <w2:textbox id="dividerVerticalItemB" label="항목 B"></w2:textbox>
+  <span class="divider divider_vertical divider_dashed" aria-hidden="true"></span>
+  <w2:textbox id="dividerVerticalItemC" label="항목 C"></w2:textbox>
+</w2:group>`
+};
 
 function makeExamples(component: string, key: string, definition: Definition): FrameworkExample[] {
   const lower = component.toLowerCase();
@@ -63,7 +142,7 @@ function makeExamples(component: string, key: string, definition: Definition): F
   const reactImports = [`import ${component}${usesChild ? `, { ${child} }` : ''} from '@uxkm/react/${lower}';`, ...auxiliaries.map((name) => `import ${name} from '@uxkm/react/${name.toLowerCase()}';`)].join('\n');
   const react = `${reactImports}\n\nexport function Example() {\n  return (\n    <>\n${reactMarkup.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}`;
   const html = definition.html ?? componentHtml(definition.body);
-  return [
+  const examples: FrameworkExample[] = [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/layout/${component}/${component}.html · ${key}`, code: html },
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/layout/${component}/${lower}.njk · ${key}`, code: `{# ${component} · ${key} #}\n${html}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/${lower} → apps/vue/src/components/layout/${component}/${component}.vue · ${key}`, code: vue },
@@ -71,6 +150,20 @@ function makeExamples(component: string, key: string, definition: Definition): F
     { id: 'react', label: 'React', fileName: `@uxkm/react/${lower} → apps/react/src/components/layout/${component}/${component}.jsx · ${key}`, code: react },
     { id: 'next', label: 'Next', fileName: `@uxkm/react/${lower} → apps/react/src/components/layout/${component}/${component}.jsx · ${key}`, code: react }
   ];
+  if (component === 'Grid') {
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Grid.xml · ${key}`, code: webSquareGroups(html, key, 'grid', ['Grid', 'GridCol']) });
+  }
+  if (component === 'Flex') {
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Flex.xml · ${key}`, code: webSquareGroups(html, key, 'flex', ['Flex', 'FlexItem']) });
+  }
+  if (component === 'Divider') {
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Divider.xml · ${key}`, code: dividerWebSquare[key] });
+  }
+  if (component === 'Space') {
+    const taggedHtml = html.replace(/<([a-z][\w-]*) class="(space(?:\s[^"]*)?)"/g, '<$1 class="$2" data-component="Space"');
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Space.xml · ${key}`, code: webSquareGroups(taggedHtml, key, 'space', ['Space']) });
+  }
+  return examples;
 }
 
 const grid = {
@@ -85,7 +178,7 @@ const grid = {
   child: { body: `<Grid>\n  <GridCol span="8"><div class="grid_demo-cell">span 8</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol>\n  <GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol>\n</Grid>` },
   gap: { body: `<Grid cols="3" gap="sm"><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div></Grid>\n<Grid cols="3" gap="lg"><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div></Grid>` },
   responsive: { body: `<Grid cols="1" cols-md="2" cols-lg="3"><div class="grid_demo-cell">1 → md 2 → lg 3열</div><div class="grid_demo-cell">1 → md 2 → lg 3열</div><div class="grid_demo-cell">1 → md 2 → lg 3열</div></Grid>\n<Grid item-span="12" item-span-md="6" item-span-lg="4"><div class="grid_demo-cell">span 12 → md 6 → lg 4</div><div class="grid_demo-cell">span 12 → md 6 → lg 4</div><div class="grid_demo-cell">span 12 → md 6 → lg 4</div></Grid>\n<Grid><GridCol span="12" span-md="8" span-lg="9"><div class="grid_demo-cell">개별 span 12 → md 8 → lg 9</div></GridCol><GridCol span="12" span-md="4" span-lg="3"><div class="grid_demo-cell">개별 span 12 → md 4 → lg 3</div></GridCol></Grid>` },
-  auto: { body: `<Grid auto-fit>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n</Grid>` }
+  auto: { body: `<Grid auto-fit>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n</Grid>\n<Grid auto-fill>\n  <div class="grid_demo-cell">auto-fill</div><div class="grid_demo-cell">auto-fill</div><div class="grid_demo-cell">auto-fill</div>\n</Grid>\n<Grid equal-columns>\n  <div class="grid_demo-cell">equal</div><div class="grid_demo-cell">equal</div><div class="grid_demo-cell">equal</div>\n</Grid>` }
 } satisfies Record<string, Definition>;
 
 const flex = {
@@ -98,6 +191,7 @@ const flex = {
   ratio: { body: `<Flex ratio="1-2"><div class="flex_demo-cell">1</div><div class="flex_demo-cell">2</div></Flex>\n<Flex ratio="1-2-1"><div class="flex_demo-cell">1</div><div class="flex_demo-cell">2</div><div class="flex_demo-cell">1</div></Flex>` },
   itemSpan: { body: `<Flex item-span="6"><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div></Flex>\n<Flex item-span="3"><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div></Flex>` },
   childSpan: { body: `<Flex wrap>\n  <FlexItem span="8" class="flex_demo-cell">span 8</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem>\n  <FlexItem span="4" class="flex_demo-cell">span 4</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem>\n</Flex>` },
+  itemSizing: { body: `<Flex gap="sm">\n  <FlexItem fit class="flex_demo-cell">fit</FlexItem>\n  <FlexItem grow class="flex_demo-cell">grow 1</FlexItem>\n  <FlexItem grow grow-factor="2" class="flex_demo-cell">grow 2</FlexItem>\n</Flex>` },
   gap: { body: `<Flex cols="3" gap="sm"><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div></Flex>\n<Flex cols="3" gap="lg"><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div></Flex>` },
   responsive: { body: `<Flex cols="1" cols-md="2" cols-lg="3" gap="sm"><div class="flex_demo-cell">1 → md 2 → lg 3개</div><div class="flex_demo-cell">1 → md 2 → lg 3개</div><div class="flex_demo-cell">1 → md 2 → lg 3개</div></Flex>\n<Flex item-span="12" item-span-md="6" item-span-lg="4"><div class="flex_demo-cell">span 12 → md 6 → lg 4</div><div class="flex_demo-cell">span 12 → md 6 → lg 4</div><div class="flex_demo-cell">span 12 → md 6 → lg 4</div></Flex>\n<Flex wrap><FlexItem span="12" span-md="8" span-lg="9" class="flex_demo-cell">개별 span 12 → md 8 → lg 9</FlexItem><FlexItem span="12" span-md="4" span-lg="3" class="flex_demo-cell">개별 span 12 → md 4 → lg 3</FlexItem></Flex>` },
   auto: { body: `<Flex auto-fit><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div></Flex>` },

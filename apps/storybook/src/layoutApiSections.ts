@@ -76,8 +76,17 @@ const gridColProps: ApiRow[] = [
   { name: 'spanLg', type: '1~12', default: '—', description: 'lg 이상 개별 열 span입니다.' },
   { name: 'children / default', type: 'ReactNode / slot', default: '—', description: 'GridCol 내부 콘텐츠입니다.' }
 ];
+const gridSections = sections('Grid', 'grid', gridProps, gridClasses, gridTokens);
+const gridWebSquareRows: ApiRow[] = [
+  { name: 'w2:group', type: 'component', default: '—', description: 'Grid와 GridCol의 WebSquare 레이아웃 루트입니다. 중첩 group으로 부모·자식 구조를 표현합니다.' },
+  { name: 'class', type: 'string', default: "'grid'", description: 'Grid에는 grid와 배치 변형을, GridCol에는 grid_col-span-* 변형을 조합합니다.' },
+  { name: 'tagname', type: 'string', default: "'div'", description: 'header, aside, main, footer 등 콘텐츠 의미에 맞는 HTML 태그를 지정합니다.' },
+  { name: 'id', type: 'string', default: '—', description: 'WebSquare 화면 안에서 중복되지 않는 Grid 또는 GridCol ID를 지정합니다.' }
+];
 export const gridApiSections = [
-  ...sections('Grid', 'grid', gridProps, gridClasses, gridTokens),
+  ...gridSections.slice(0, 4),
+  { title: 'WebSquare API · XML', description: 'Grid는 CSS 기반 구조 컴포넌트이므로 scwin 이벤트나 DataList 바인딩 없이 w2:group에 공통 클래스를 적용합니다.', tables: [{ columns, rows: gridWebSquareRows }] },
+  ...gridSections.slice(4),
   { title: 'React · Vue 공통 API · GridCol', description: '혼합 열 레이아웃에서 개별 자식의 span을 지정합니다.', tables: [{ columns, rows: gridColProps }] }
 ];
 
@@ -120,8 +129,17 @@ const flexItemProps: ApiRow[] = [
   { name: 'order', type: '1~12', default: '—', description: '항목 표시 순서입니다.' },
   { name: 'children / default', type: 'ReactNode / slot', default: '—', description: 'FlexItem 내부 콘텐츠입니다.' }
 ];
+const flexSections = sections('Flex', 'flex', flexProps, flexClasses, flexTokens);
+const flexWebSquareRows: ApiRow[] = [
+  { name: 'w2:group', type: 'component', default: '—', description: 'Flex와 FlexItem의 WebSquare 레이아웃 루트입니다. 중첩 group으로 부모·자식 구조를 표현합니다.' },
+  { name: 'class', type: 'string', default: "'flex flex_row'", description: 'Flex에는 방향·정렬·배치 클래스를, FlexItem에는 span·grow·fit·self 클래스를 조합합니다.' },
+  { name: 'tagname', type: 'string', default: "'div'", description: 'header, aside, main, footer 등 콘텐츠 의미에 맞는 HTML 태그를 지정합니다.' },
+  { name: 'id', type: 'string', default: '—', description: 'WebSquare 화면 안에서 중복되지 않는 Flex 또는 FlexItem ID를 지정합니다.' }
+];
 export const flexApiSections = [
-  ...sections('Flex', 'flex', flexProps, flexClasses, flexTokens),
+  ...flexSections.slice(0, 4),
+  { title: 'WebSquare API · XML', description: 'Flex는 CSS 기반 구조 컴포넌트이므로 scwin 이벤트나 DataList 바인딩 없이 w2:group에 공통 클래스를 적용합니다.', tables: [{ columns, rows: flexWebSquareRows }] },
+  ...flexSections.slice(4),
   { title: 'React · Vue 공통 API · FlexItem', description: '혼합 레이아웃에서 개별 항목의 span·확장·정렬·순서를 지정합니다.', tables: [{ columns, rows: flexItemProps }] }
 ];
 
@@ -145,7 +163,18 @@ const dividerTokens: ApiRow[] = [
   { name: '--divider-margin-y · --divider-margin-x', type: 'length', default: 'space-md · space-sm', description: '수평·세로 구분선 외부 간격입니다.' },
   { name: '--divider-text-gap · --divider-orient-inset', type: 'length', default: 'space-md · 5%', description: '레이블과 선 간격 및 좌우 inset입니다.' }
 ];
-export const dividerApiSections = sections('Divider', 'divider', dividerProps, dividerClasses, dividerTokens, [], '—');
+const dividerSections = sections('Divider', 'divider', dividerProps, dividerClasses, dividerTokens, [], '—');
+const dividerWebSquareRows: ApiRow[] = [
+  { name: 'hr', type: 'XHTML element', default: '—', description: '레이블 없는 의미 있는 수평 구분선입니다. divider 클래스를 직접 적용합니다.' },
+  { name: 'w2:group + w2:textbox', type: 'component', default: '—', description: '레이블형 Divider입니다. group에 divider 변형 클래스를, textbox의 label에 텍스트를 지정합니다.' },
+  { name: 'span[aria-hidden="true"]', type: 'XHTML element', default: '—', description: '장식용 세로 구분선입니다. divider_vertical 클래스를 적용하고 접근성 트리에서 숨깁니다.' },
+  { name: 'id', type: 'string', default: '—', description: 'w2:group과 w2:textbox에는 화면 안에서 중복되지 않는 ID를 지정합니다.' }
+];
+export const dividerApiSections = [
+  ...dividerSections.slice(0, 4),
+  { title: 'WebSquare API · XML', description: 'Divider의 의미와 렌더링 방식에 따라 XHTML hr·span과 WebSquare group·textbox를 구분해 사용합니다. 이벤트와 데이터 바인딩은 필요하지 않습니다.', tables: [{ columns, rows: dividerWebSquareRows }] },
+  ...dividerSections.slice(4)
+];
 
 const spaceProps: ApiRow[] = [
   sharedRoot,
@@ -166,4 +195,15 @@ const spaceTokens: ApiRow[] = [
   { name: '--space-gap', type: 'length', default: 'var(--space-md)', description: '기본 자식 간격입니다.' },
   { name: '--space-xs · --space-sm · --space-lg · --space-xl', type: 'length', default: '공통 spacing token', description: '크기별 간격에 사용하는 공통 토큰입니다.' }
 ];
-export const spaceApiSections = sections('Space', 'space', spaceProps, spaceClasses, spaceTokens);
+const spaceSections = sections('Space', 'space', spaceProps, spaceClasses, spaceTokens);
+const spaceWebSquareRows: ApiRow[] = [
+  { name: 'w2:group', type: 'component', default: '—', description: 'Space의 WebSquare 루트입니다. 자식 컴포넌트를 순서대로 배치하는 레이아웃 그룹으로 사용합니다.' },
+  { name: 'class', type: 'string', default: "'space'", description: 'space와 gap·vertical·wrap·block·align·justify 변형 클래스를 조합합니다.' },
+  { name: 'tagname', type: 'string', default: "'div'", description: '목록이나 도구 모음 등 콘텐츠 구조에 맞는 HTML 루트 태그가 필요할 때 지정합니다.' },
+  { name: 'id', type: 'string', default: '—', description: 'WebSquare 화면 안에서 중복되지 않는 Space ID를 지정합니다.' }
+];
+export const spaceApiSections = [
+  ...spaceSections.slice(0, 4),
+  { title: 'WebSquare API · XML', description: 'Space는 CSS 기반 구조 컴포넌트이므로 scwin 이벤트나 DataList 바인딩 없이 w2:group에 공통 클래스를 적용합니다.', tables: [{ columns, rows: spaceWebSquareRows }] },
+  ...spaceSections.slice(4)
+];

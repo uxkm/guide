@@ -156,7 +156,7 @@ pnpm build:guidebook
 
 ## Storybook
 
-Storybook은 52개 컴포넌트의 예제, API, 접근성 정보와 프레임워크별 코드 비교를 제공합니다.
+Storybook은 52개 컴포넌트의 예제, API, 접근성 정보와 HTML, Gulp/Nunjucks, Vue, Nuxt, React, Next.js, WebSquare 코드 비교를 제공합니다. WebSquare 탭은 기본적으로 HTML 예제를 XML 호환 마크업으로 변환하며, 필요한 Story에서는 `id: 'websquare'` 예제를 직접 선언해 대체할 수 있습니다.
 
 ```bash
 pnpm dev:storybook

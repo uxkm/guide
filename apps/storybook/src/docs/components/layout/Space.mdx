@@ -13,6 +13,19 @@ import * as SpaceStories from '../../../Space.stories.tsx';
 
 Vue와 React의 공통 구현은 각각 `@uxkm/vue/space`, `@uxkm/react/space`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
 
+WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `space` 클래스를 적용합니다. 아래 코드 탭에서 WebSquare XML을 함께 확인할 수 있습니다.
+
+## 사용 기준
+
+- 버튼 묶음, 태그, 아이콘과 텍스트처럼 형제 항목 사이의 일관된 간격에는 Space를 사용합니다.
+- 페이지의 행·열 구조는 Grid, 한 방향의 크기 분배와 복잡한 정렬은 Flex를 사용합니다. Space를 큰 화면 레이아웃 대신 사용하지 않습니다.
+- 부모 너비 전체에서 `justify`로 공간을 분배하거나 줄바꿈하려면 `block`을 함께 사용합니다.
+- 세로 배치에서 자식 너비를 동일하게 늘리려면 `vertical`과 `align="stretch"`를 조합합니다.
+
+## WebSquare 사용
+
+공통 스타일을 로드한 뒤 `w2:group`에 `space`와 필요한 변형 클래스를 조합합니다. `space`는 기본적으로 inline-flex이므로 전체 너비가 필요하면 `space_block`을 추가합니다. 단순 배치 컴포넌트이므로 `scwin` 이벤트와 DataList 바인딩은 필요하지 않습니다.
+
 ## Playground
 
 방향, 줄바꿈, block 너비, 간격과 정렬을 Controls에서 조정할 수 있습니다.
@@ -61,5 +74,12 @@ Space는 가로 inline-flex이며 기본 간격은 `--space-gap`에 정의된 md
 
 <Canvas of={SpaceStories.Combo} sourceState="none" />
 <FrameworkTabs examples={spaceFrameworkExamples.combo} />
+
+## 접근성
+
+- Space는 시각적 배치만 담당하므로 자식을 읽고 키보드로 조작해야 하는 순서대로 작성합니다.
+- 관련 버튼 묶음에 별도의 이름이 필요하면 Space 자체에 임의의 role을 추가하기보다 의미 있는 컨테이너와 `aria-label` 또는 `aria-labelledby`를 사용합니다.
+- 목록 콘텐츠에는 `as="ul"`과 `li`처럼 올바른 시맨틱 구조를 사용하고, WebSquare에서도 필요한 경우 `tagname`으로 구조를 유지합니다.
+- 줄바꿈이나 세로 전환 후에도 포커스 순서가 시각적 순서와 일치하는지 확인합니다.
 
 <ComponentApiDocs sections={spaceApiSections} />

@@ -140,6 +140,86 @@ function htmlCode(key: ExampleKey, body: string) {
   return body.replace(/<Icon\s+([^>]*?)\s*\/>/g, (_, attrs: string) => htmlIcon(attrs));
 }
 
+function webSquareIcon(source: string, id: string, customName = '') {
+  const props = parseAttrs(source);
+  const name = String(props.name ?? (customName || 'plus'));
+  const src = `/images/icons/${name}.svg`;
+  const sizeClass = props.size && props.size !== 'md' ? `icon_${props.size}` : '';
+  const colorClass = props.color ? `color_${props.color}` : '';
+  const imageClasses = ['icon', sizeClass, colorClass, props.inline && 'icon_inline', props.spin && 'icon_spin'].filter(Boolean).join(' ');
+  const accessibleName = String(props['aria-label'] ?? name);
+
+  if (props.button) {
+    return `<xf:trigger
+  type="button"
+  id="${id}"
+  class="icon_button ${colorClass}"
+  title="${accessibleName}"
+  tooltip="${accessibleName}"
+  style="background-image: url('${src}'); background-position: center; background-repeat: no-repeat; background-size: 1.25rem;"
+  ev:onclick="scwin.iconButton_onclick">
+  <xf:label><![CDATA[]]></xf:label>
+</xf:trigger>`;
+  }
+
+  const image = `<w2:image
+  id="${id}Image"
+  src="${src}"
+  alt="${props['aria-label'] ?? ''}"
+  class="${imageClasses}"></w2:image>`;
+  if (!props.circle && !props.square) return image;
+
+  const wrapperClasses = [
+    props.circle ? 'icon_circle' : 'icon_square',
+    colorClass,
+    props.pulse && 'icon_pulse',
+    props.circle && props.size === 'sm' && 'icon_circle-sm',
+    props.circle && props.size === 'lg' && 'icon_circle-lg'
+  ].filter(Boolean).join(' ');
+  return `<w2:group
+  id="${id}"
+  class="${wrapperClasses}">
+${image.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
+function webSquareCode(key: ExampleKey, body: string) {
+  const name = `${key[0].toUpperCase()}${key.slice(1)}`;
+  let iconSequence = 0;
+  let groupSequence = 0;
+
+  if (key === 'gallery') {
+    const items = ['search', 'plus', 'download'].map((iconName, index) => `  <w2:group id="iconGalleryItem${index + 1}" class="icon_grid-item">
+    <w2:image id="iconGalleryImage${index + 1}" src="/images/icons/${iconName}.svg" alt="" class="icon icon_lg"></w2:image>
+    <w2:textbox id="iconGalleryLabel${index + 1}" tagname="span" label="${iconName}"></w2:textbox>
+  </w2:group>`).join('\n');
+    return `<!-- 아이콘 경로는 프로젝트 정적 리소스 위치에 맞게 변경합니다. -->
+<w2:group id="iconGalleryExample" class="icon_grid">
+${items}
+  <!-- DataList와 w2:generator로 전체 아이콘 목록을 반복할 수 있습니다. -->
+</w2:group>`;
+  }
+
+  let markup = body.replace(/<Icon\s*([^>]*)>([\s\S]*?)<\/Icon>/g, (_, source: string) => {
+    const id = `icon${name}${++iconSequence}`;
+    return webSquareIcon(source, id, `custom-${iconSequence}`);
+  });
+  markup = markup.replace(/<Icon\s+([^>]*?)\s*\/>/g, (_, source: string) => {
+    const id = `icon${name}${++iconSequence}`;
+    return webSquareIcon(source, id);
+  });
+  markup = markup.replace(/<(\/)?div\b([^>]*)>/g, (_tag, closing: string, source: string) => {
+    if (closing) return '</w2:group>';
+    const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+    return `<w2:group\n  id="icon${name}Group${++groupSequence}"${className ? `\n  class="${className}"` : ''}>`;
+  });
+
+  return `<!-- 아이콘 경로는 프로젝트 정적 리소스 위치에 맞게 변경합니다. -->
+<w2:group id="icon${name}Example">
+${markup.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = htmlCode(key, body);
@@ -151,7 +231,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/icon → apps/vue/src/components/basic/Icon/Icon.vue · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/icon → apps/vue/src/components/basic/Icon/Icon.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/icon → apps/react/src/components/basic/Icon/Icon.jsx · ${key}`, code: react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/icon → apps/react/src/components/basic/Icon/Icon.jsx · ${key}`, code: react }
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/icon → apps/react/src/components/basic/Icon/Icon.jsx · ${key}`, code: react },
+    { id: 'websquare', label: 'WebSquare', fileName: `Icon.xml · ${key}`, code: webSquareCode(key, body) }
   ];
 }
 

@@ -345,8 +345,7 @@ ${paths}
 </svg>`;
 }
 
-function htmlButton(source: string) {
-  const props = parseAttrs(source);
+function buttonClasses(props: Record<string, string | boolean>) {
   const variant = String(props.variant ?? 'filled');
   const color = String(props.color ?? 'primary');
   const classes = ['btn', `btn_${variant}`];
@@ -354,6 +353,13 @@ function htmlButton(source: string) {
   for (const [prop, className] of [['size', `btn_${props.size}`], ['select-text', 'btn_select-text'], ['placeholder', 'btn_select-placeholder'], ['round', 'btn_round'], ['vertical', 'btn_vertical'], ['icon-only', 'btn_icon-only'], ['block', 'btn_block'], ['grow', props.grow === '2' ? 'btn_grow-2' : 'btn_grow'], ['fit', 'btn_fit'], ['aria-disabled', 'is-disabled'], ['loading', 'is-loading'], ['open', 'is-open'], ['error', 'is-error']] as const) {
     if (props[prop]) classes.push(className);
   }
+  return classes;
+}
+
+function htmlButton(source: string) {
+  const props = parseAttrs(source);
+  const variant = String(props.variant ?? 'filled');
+  const classes = buttonClasses(props);
   const tag = String(props.tag ?? 'button');
   const label = props['icon-only'] ? '' : `<span class="btn_label">${String(props.label ?? '')}</span>`;
   const before = props['icon-before'] ? htmlIcon(String(props['icon-before'])) : '';
@@ -423,6 +429,55 @@ function toVue(body: string) {
   });
 }
 
+function webSquareBody(body: string, key: ExampleKey) {
+  const name = `${key[0].toUpperCase()}${key.slice(1)}`;
+  let triggerSequence = 0;
+  let groupSequence = 0;
+
+  const triggers = body.replace(/<Button\s+([^>]*?)\s*\/>/g, (_, source: string) => {
+    const props = parseAttrs(source);
+    const inactive = Boolean(props.disabled || props['aria-disabled'] || props.loading);
+    const iconOnly = Boolean(props['icon-only']);
+    const label = String(props.label ?? props['aria-label'] ?? 'Button');
+    const id = `btn${name}${++triggerSequence}`;
+    const classes = buttonClasses(props).join(' ');
+    const iconName = props['icon-before'] ?? props['icon-after'];
+    const notes = [
+      iconName ? `아이콘 ${iconName}: 프로젝트 이미지 또는 CSS background-image 리소스에 연결` : '',
+      props.loading ? '로딩 표시: 프로젝트 Trigger 로딩 이미지 또는 CSS 상태 스타일에 연결' : ''
+    ].filter(Boolean);
+    const note = notes.length ? `<!-- ${notes.join(' · ')} -->\n` : '';
+
+    if (props.tag === 'a' && typeof props.href === 'string') {
+      return `${note}<a id="${id}" href="${props.href}" class="${classes}">${label}</a>`;
+    }
+
+    const type = props.tag === 'a' ? 'anchor' : 'button';
+    const attributes = [
+      `type="${type}"`,
+      `id="${id}"`,
+      `class="${classes}"`,
+      iconOnly && props['aria-label'] ? `tooltip="${props['aria-label']}"` : '',
+      inactive ? 'disabled="true"' : '',
+      inactive ? '' : 'ev:onclick="scwin.button_onclick"'
+    ].filter(Boolean).join('\n  ');
+
+    return `${note}<xf:trigger\n  ${attributes}>\n  <xf:label><![CDATA[${label}]]></xf:label>\n</xf:trigger>`;
+  });
+
+  const groups = triggers.replace(/<(\/)?div\b([^>]*)>/g, (tag, closing: string, source: string) => {
+    if (closing) return '</w2:group>';
+    const className = source.match(/\sclass="([^"]*)"/)?.[1] ?? '';
+    return `<w2:group\n  id="btn${name}Group${++groupSequence}"${className ? `\n  class="${className}"` : ''}>`;
+  });
+
+  return `<w2:group
+  id="button${name}Example"
+  class="btn-demo">
+${groups.split('\n').map((line) => `  ${line}`).join('\n')}
+</w2:group>`;
+}
+
 const vueHelpers = `<script setup>
 import Button from '@uxkm/vue/button';
 import Icon from '@uxkm/vue/icon';
@@ -439,7 +494,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'react', label: 'React', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` }
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
+    { id: 'websquare', label: 'WebSquare', fileName: `Button.xml · ${key}`, code: webSquareBody(body, key) }
   ];
 }
 

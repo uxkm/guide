@@ -1,6 +1,7 @@
-import { useId, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useId, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import FrameworkCodeBlock from './shared/FrameworkCodeBlock';
 import { formatCodeExample } from './shared/formatCodeExample';
+import { withWebSquareExample } from './shared/webSquareExample';
 
 export interface FrameworkExample {
   code: string;
@@ -15,18 +16,19 @@ interface FrameworkCodeProps {
 }
 
 export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
-  const [activeId, setActiveId] = useState(examples[0]?.id ?? '');
+  const frameworkExamples = useMemo(() => withWebSquareExample(examples), [examples]);
+  const [activeId, setActiveId] = useState(frameworkExamples[0]?.id ?? '');
   const [copied, setCopied] = useState(false);
   const instanceId = useId();
   const activeIndex = Math.max(
     0,
-    examples.findIndex(({ id }) => id === activeId)
+    frameworkExamples.findIndex(({ id }) => id === activeId)
   );
-  const activeExample = examples[activeIndex];
+  const activeExample = frameworkExamples[activeIndex];
 
   function selectTab(index: number) {
-    const nextIndex = (index + examples.length) % examples.length;
-    setActiveId(examples[nextIndex].id);
+    const nextIndex = (index + frameworkExamples.length) % frameworkExamples.length;
+    setActiveId(frameworkExamples[nextIndex].id);
     setCopied(false);
   }
 
@@ -36,7 +38,7 @@ export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
     const nextIndex = event.key === 'ArrowRight' ? index + 1 : index - 1;
     selectTab(nextIndex);
     requestAnimationFrame(() => {
-      document.getElementById(`${instanceId}-tab-${(nextIndex + examples.length) % examples.length}`)?.focus();
+      document.getElementById(`${instanceId}-tab-${(nextIndex + frameworkExamples.length) % frameworkExamples.length}`)?.focus();
     });
   }
 
@@ -65,7 +67,7 @@ export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
         </div>
 
         <div className="framework-code__tabs" role="tablist" aria-label="프레임워크 선택">
-          {examples.map((example, index) => {
+          {frameworkExamples.map((example, index) => {
             const isActive = example.id === activeExample.id;
             return (
               <button

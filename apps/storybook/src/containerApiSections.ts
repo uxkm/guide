@@ -54,11 +54,19 @@ const tokens: ApiRow[] = [
   { name: '--container-max-width-xl', type: 'length', default: '80rem', description: 'xl 최대 너비입니다.' }
 ];
 
+const webSquareRows: ApiRow[] = [
+  { name: 'w2:group', type: 'component', default: '—', description: 'Container의 WebSquare 루트입니다. 상태와 데이터 바인딩 없이 레이아웃 그룹으로 사용합니다.' },
+  { name: 'class', type: 'string', default: "'container'", description: 'container와 container_sm/md/lg/xl 또는 container_fluid 클래스를 조합합니다.' },
+  { name: 'tagname', type: 'string', default: "'div'", description: 'main, section 등 문서 구조에 맞는 HTML 루트 태그를 지정합니다.' },
+  { name: 'id', type: 'string', default: '—', description: 'WebSquare 화면 안에서 중복되지 않는 컴포넌트 ID를 지정합니다.' }
+];
+
 export const containerApiSections: ApiSectionData[] = [
   { title: 'React · Next.js API · Props', description: 'Next.js는 `@uxkm/react/container`를 재사용합니다.', tables: [{ columns, rows: reactProps }] },
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/container`를 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: slots }] },
   { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 공통 OOCSS 클래스를 마크업에 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'WebSquare API · XML', description: 'Container는 구조 전용 컴포넌트이므로 scwin 이벤트나 DataList 바인딩이 필요하지 않습니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }
 ];

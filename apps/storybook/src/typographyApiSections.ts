@@ -41,6 +41,17 @@ const htmlRows: ApiRow[] = [
   { name: 'href · for · cite', type: 'attribute', default: '—', description: '링크·레이블·인용문에 대응하는 네이티브 속성입니다.' }
 ];
 
+const webSquareRows: ApiRow[] = [
+  { name: 'w2:textbox', type: 'component', default: '—', description: '자식 요소가 없는 제목·본문·인라인 텍스트를 표시합니다.' },
+  { name: 'label', type: 'string', default: '—', description: '고정 텍스트를 지정합니다. 동적 데이터는 ref 또는 setValue()로 연결합니다.' },
+  { name: 'tagname', type: 'HTML tag', default: 'div', description: 'h1~h5, p, span, strong, em, code, kbd 등 텍스트의 시맨틱 태그를 지정합니다.' },
+  { name: 'class', type: 'styleclass', default: '—', description: '공통 Typography·색상·크기 클래스를 적용합니다.' },
+  { name: 'for', type: 'string', default: '—', description: '레이블과 입력 컴포넌트를 연결하며 렌더링 태그를 label로 설정합니다.' },
+  { name: 'w2:group / XHTML', type: 'structure', default: '—', description: 'Textbox가 자식을 가질 수 없으므로 인라인 혼합 콘텐츠와 중첩 목록은 group 또는 XML 호환 XHTML 구조로 작성합니다.' },
+  { name: 'w2:anchor + xf:label', type: 'component', default: '—', description: 'Typography의 link variant를 WebSquare 링크 컴포넌트로 표현합니다.' },
+  { name: 'setValue(value)', type: 'method', default: '—', description: '실행 중 Textbox 표시 텍스트를 변경합니다.' }
+];
+
 const classes: ApiRow[] = [
   { name: 'typo_title-1 ~ typo_title-5', type: 'class', default: '—', description: '제목 스케일' },
   { name: 'typo_paragraph · typo_lead · typo_caption · typo_label · typo_overline', type: 'class', default: '—', description: '본문·보조 텍스트' },
@@ -77,6 +88,7 @@ export const typographyApiSections: ApiSectionData[] = [
   { title: 'Vue · Nuxt API · TypoText Props', tables: [{ columns, rows: vueTextProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: [...titleContent, ...textContent] }] },
   { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 시맨틱 태그에 공통 OOCSS 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'WebSquare API · XML', description: '단일 텍스트는 w2:textbox와 tagname으로 시맨틱을 유지하고, 자식 구조가 필요한 콘텐츠는 w2:group 또는 XHTML을 사용합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }
 ];
