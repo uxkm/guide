@@ -44,7 +44,7 @@ function formatReactExample(code: string) {
         .replace(/;\s+(?=(?:const|let|var)\b)/g, ';\n');
       const setupBlock = statements ? `${indentLines(statements, 2)}\n` : '';
 
-      return `export function Example() {\n${setupBlock}  return (\n    <>\n${indentLines(markup.trim(), 6)}\n    </>\n  );\n}`;
+      return `export function Example() {\n${setupBlock}  return (\n  <>\n${indentLines(markup.trim(), 4)}\n  </>\n  );\n}`;
     }
   );
 }

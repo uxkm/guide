@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { cloneElement, isValidElement, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
@@ -7,11 +7,11 @@ const placements = new Set(['top', 'top-start', 'top-end', 'left', 'right', 'sta
 const sizes = new Set(['sm', 'md', 'lg']);
 const ownerId = Math.random().toString(36).slice(2, 10);
 
-function portalRoot() {
-  if (typeof document === 'undefined') return null;
-  let target = document;
-  try { if (window.top?.document?.body) target = window.top.document; } catch { /* 현재 문서를 사용합니다. */ }
-  if (target !== document) {
+export function getTooltipPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+  if (!currentDocument) return null;
+  let target = currentDocument;
+  try { if (currentWindow?.top?.document?.body) target = currentWindow.top.document; } catch { /* 현재 문서를 사용합니다. */ }
+  if (target !== currentDocument) {
     const url = new URL('styles/uxkm.css', target.baseURI); url.searchParams.set('v', 'tooltip-20260819');
     let link = target.getElementById('uxkm-tooltip-portal-styles');
     if (!link) { link = target.createElement('link'); link.id = 'uxkm-tooltip-portal-styles'; link.rel = 'stylesheet'; target.head.appendChild(link); }
@@ -20,15 +20,15 @@ function portalRoot() {
   const id = `uxkm-tooltip-portal-root-${ownerId}`;
   let root = target.getElementById(id);
   if (!root) { root = target.createElement('div'); root.id = id; root.className = 'uxkm-tooltip-portal-root'; target.body.appendChild(root); }
-  root.dataset.theme = document.documentElement.dataset.theme || 'light';
+  root.dataset.theme = currentDocument.documentElement.dataset.theme || 'light';
   return root;
 }
 
-function viewportRect(element) {
+export function viewportRect(element, currentWindow = window) {
   const rect = element.getBoundingClientRect();
   try {
-    if (element.ownerDocument === window.top?.document) return rect;
-    const frame = window.frameElement?.getBoundingClientRect();
+    if (element.ownerDocument === currentWindow.top?.document) return rect;
+    const frame = currentWindow.frameElement?.getBoundingClientRect();
     if (frame) return { top: frame.top + rect.top, left: frame.left + rect.left, width: rect.width, height: rect.height };
   } catch { /* 현재 뷰포트 좌표를 사용합니다. */ }
   return rect;
@@ -52,7 +52,7 @@ export function Tooltip({
   const visible = open ?? internalOpen;
   const resolvedPlacement = placements.has(placement) ? placement : '';
   const resolvedSize = sizes.has(size) ? size : 'md';
-  const root = visible ? portalRoot() : null;
+  const root = visible ? getTooltipPortalRoot() : null;
   const showClose = closable ?? trigger === 'click';
 
   const setVisible = (next, reason, event) => {
@@ -117,8 +117,11 @@ export function Tooltip({
         {children ?? content}
       </span>
     </span>, root) : null;
+  const accessibleTrigger = isValidElement(triggerContent)
+    ? cloneElement(triggerContent, { 'aria-describedby': visible ? bubbleId : undefined, 'aria-expanded': trigger === 'click' ? visible : undefined })
+    : triggerContent;
 
-  return <><span ref={triggerRef} className="tooltip_trigger" data-component="Tooltip" aria-describedby={bubbleId} aria-expanded={trigger === 'click' ? visible : undefined} onClick={trigger === 'click' ? (event) => visible ? setVisible(false, 'trigger', event) : openFromTrigger('trigger', event) : undefined} onMouseEnter={trigger === 'hover' ? (event) => { cancelClose(); openFromTrigger('hover', event); } : undefined} onMouseLeave={trigger === 'hover' ? scheduleClose : undefined} onFocus={trigger === 'hover' ? (event) => openFromTrigger('focus', event) : undefined} onBlur={trigger === 'hover' ? scheduleClose : undefined}>{triggerContent}</span>{bubble}</>;
+  return <><span ref={triggerRef} className="tooltip_trigger" data-component="Tooltip" onClick={trigger === 'click' ? (event) => visible ? setVisible(false, 'trigger', event) : openFromTrigger('trigger', event) : undefined} onMouseEnter={trigger === 'hover' ? (event) => { cancelClose(); openFromTrigger('hover', event); } : undefined} onMouseLeave={trigger === 'hover' ? scheduleClose : undefined} onFocus={trigger === 'hover' ? (event) => openFromTrigger('focus', event) : undefined} onBlur={trigger === 'hover' ? scheduleClose : undefined}>{accessibleTrigger}</span>{bubble}</>;
 }
 
 export default Tooltip;

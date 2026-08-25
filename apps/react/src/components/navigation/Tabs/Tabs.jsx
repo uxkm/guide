@@ -25,7 +25,7 @@ export function Tabs({ mode = 'panels', value, defaultValue, onChange, variant =
   const [scrollState, setScrollState] = useState({ overflow: false, prev: false, next: false });
   const updateVisualState = useCallback(() => {
     const list = listRef.current;
-    if (!list) return;
+    if (list) {
     if (resolvedIndicator === 'slide') {
       const activeTab = list.querySelector('.tabs_tab[aria-selected="true"]');
       if (activeTab) {
@@ -43,10 +43,11 @@ export function Tabs({ mode = 'panels', value, defaultValue, onChange, variant =
     } else setIndicatorStyle(null);
     const max = list.scrollWidth - list.clientWidth;
     setScrollState({ overflow: scrollNav && max > 1, prev: scrollNav && list.scrollLeft > 1, next: scrollNav && list.scrollLeft < max - 1 });
+    }
   }, [resolvedIndicator, resolvedVariant, scrollNav, vertical]);
   useEffect(() => {
     const list = listRef.current;
-    if (!list) return undefined;
+    if (list) {
     const schedule = () => requestAnimationFrame(updateVisualState);
     schedule();
     list.addEventListener('scroll', updateVisualState, { passive: true });
@@ -54,6 +55,7 @@ export function Tabs({ mode = 'panels', value, defaultValue, onChange, variant =
     observer?.observe(list);
     list.querySelectorAll('.tabs_tab').forEach((tab) => observer?.observe(tab));
     return () => { list.removeEventListener('scroll', updateVisualState); observer?.disconnect(); };
+    }
   }, [source, selected, updateVisualState]);
   const scrollTabIntoView = (key) => {
     const list = listRef.current;
@@ -66,7 +68,7 @@ export function Tabs({ mode = 'panels', value, defaultValue, onChange, variant =
     const max = list.scrollWidth - list.clientWidth;
     list.scrollTo({ left: Math.max(0, Math.min(tabLeft - (list.clientWidth - tabRect.width) / 2, max)), behavior: 'smooth' });
   };
-  const select = (key) => { const target = source.find((item) => item.key === key); if (!target || target.disabled) return; if (value == null) setInternal(key); onChange?.(key); requestAnimationFrame(() => { updateVisualState(); scrollTabIntoView(key); }); };
+  const select = (key) => { const target = source.find((item) => item.key === key); if (target && !target.disabled) { if (value == null) setInternal(key); onChange?.(key); requestAnimationFrame(() => { updateVisualState(); scrollTabIntoView(key); }); } };
   const keyDown = (event, index) => { const enabled = source.map((item, itemIndex) => ({ ...item, itemIndex })).filter((item) => !item.disabled); const current = enabled.findIndex((item) => item.itemIndex === index); let next = current; if (event.key === (vertical ? 'ArrowDown' : 'ArrowRight')) next = (current + 1) % enabled.length; else if (event.key === (vertical ? 'ArrowUp' : 'ArrowLeft')) next = (current - 1 + enabled.length) % enabled.length; else if (event.key === 'Home') next = 0; else if (event.key === 'End') next = enabled.length - 1; else return; event.preventDefault(); select(enabled[next].key); requestAnimationFrame(() => document.getElementById(`${uid}-tab-${enabled[next].itemIndex}`)?.focus()); };
   const activeIndex = Math.max(0, source.findIndex((item) => item.key === selected));
   const activeItem = source[activeIndex];

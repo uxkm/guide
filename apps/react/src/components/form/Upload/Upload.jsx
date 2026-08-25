@@ -7,6 +7,7 @@ const fileIcon = <svg className="icon" aria-hidden="true" viewBox="0 0 24 24" fi
 const plusIcon = <svg className="icon icon_lg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14" /></svg>;
 const userIcon = <svg className="avatar_icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></svg>;
 const accepts = (file, accept) => !accept || accept.split(',').some((rule) => { const value = rule.trim(); return value.startsWith('.') ? file.name.toLowerCase().endsWith(value.toLowerCase()) : value.endsWith('/*') ? file.type.startsWith(value.slice(0, -1)) : file.type === value; });
+export const revokeUploadObjectUrls = (urls) => urls.forEach((url) => URL.revokeObjectURL(url));
 
 export function Upload({
   id, inputId, variant = 'button', size = 'md', fit = false, disabled = false, error = false, dragover = false,
@@ -23,7 +24,7 @@ export function Upload({
   const [message, setMessage] = useState('');
   const [dragActive, setDragActive] = useState(false);
   const files = controlledFiles ?? innerFiles;
-  useEffect(() => () => createdUrls.current.forEach((url) => URL.revokeObjectURL(url)), []);
+  useEffect(() => () => revokeUploadObjectUrls(createdUrls.current), []);
   const update = (next) => { if (controlledFiles === undefined) setInnerFiles(next); onChange?.(next.map((item) => item.file ?? item)); };
   const addFiles = (list) => {
     if (disabled) return;

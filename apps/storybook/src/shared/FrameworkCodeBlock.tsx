@@ -22,7 +22,7 @@ export default function FrameworkCodeBlock({ className, code, frameworkId }: Fra
       format={false}
       language={syntaxLanguage(frameworkId)}
       padded={false}
-      wrapLongLines={!isWebSquare}
+      wrapLongLines={false}
     >
       {formatCodeExample(code, frameworkId)}
     </SyntaxHighlighter>

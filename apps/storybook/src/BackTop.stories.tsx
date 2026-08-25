@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import ActualBackTop from '../../react/src/components/miscellaneous/BackTop/BackTop.jsx';
 const BackTop = ActualBackTop as React.ComponentType<any>;
 const text = ['상품 상세 정보와 주요 사양을 확인하세요.', '리뷰 4.8점 · 무료 반품 30일', '배송 안내 · 교환 및 반품', '함께 보면 좋은 상품', '고객센터와 자주 묻는 질문', '이용 약관과 개인정보 처리방침'];
-function Demo({ id, children }: { id: string; children: React.ReactNode }) { return <div className="back_top_demo-wrap"><div id={id} className="back_top_demo-scroll"><div className="back_top_demo-content"><p>아래로 스크롤하면 버튼이 표시됩니다.</p>{text.map((item, i) => <p key={i}>{item}</p>)}</div></div>{children}</div>; }
+function Demo({ id, children }: { id: string; children: React.ReactNode }) { return <div className="back_top_demo-wrap"><div id={id} className="back_top_demo-scroll" tabIndex={0} aria-label="스크롤 예시 영역"><div className="back_top_demo-content"><p>아래로 스크롤하면 버튼이 표시됩니다.</p>{text.map((item, i) => <p key={i}>{item}</p>)}</div></div>{children}</div>; }
 const meta = { id: '기타-back-top', title: '기타/BackTop', component: BackTop, parameters: { layout: 'padded' }, decorators: [(Story) => <div className="back-top-story-demo"><Story /></div>], argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] }, color: { control: 'select', options: ['', 'primary', 'ghost'] }, visibilityHeight: { control: 'number' }, interactive: { control: 'boolean' } } } satisfies Meta<typeof BackTop>;
 export default meta; type Story = StoryObj<typeof meta>;
 export const Basic: Story = { name: '기본', render: () => <Demo id="back-top-basic"><BackTop target="#back-top-basic" visibilityHeight={80} /></Demo> };

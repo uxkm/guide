@@ -16,10 +16,27 @@ function coverflowLoopMinSlides(sides) {
   return 10;
 }
 
-function normalizeInitialSlide(value, count, loop) {
+export function normalizeInitialSlide(value, count, loop) {
   const index = Number.isFinite(Number(value)) ? Math.trunc(Number(value)) : 0;
   if (count < 1) return 0;
   return loop ? ((index % count) + count) % count : Math.min(Math.max(index, 0), count - 1);
+}
+
+export function updateCoverflowStyles(root, element, isCoverflow, spaceBetween, coverflowSideCount) {
+  if (!root || !element) return Number(spaceBetween) || 0;
+  if (!isCoverflow) {
+    root.style.removeProperty('--carousel-coverflow-gap');
+    root.style.removeProperty('--carousel-coverflow-slide-width');
+    return Number(spaceBetween) || 0;
+  }
+  const baseGap = Number(spaceBetween) || 0;
+  const width = element.clientWidth || root.clientWidth;
+  root.style.setProperty('--carousel-coverflow-gap', `${baseGap}px`);
+  if (!width) return baseGap;
+  const slideWidth = (width - baseGap * 2) / 3;
+  const effectiveGap = (width - slideWidth) / (2 * coverflowSideCount) - slideWidth;
+  root.style.setProperty('--carousel-coverflow-slide-width', `${Math.round(slideWidth * 100) / 100}px`);
+  return Math.round(effectiveGap * 100) / 100;
 }
 
 export function Carousel({
@@ -41,27 +58,10 @@ export function Carousel({
   const resolvedSlidesPerView = isCoverflow || multi || slidesPerView === 'auto' ? 'auto' : slidesPerView;
   const showPagination = pagination !== false;
   const showNavigation = navigation !== false;
-  const updateCoverflowLayout = useCallback(() => {
-    const root = rootRef.current;
-    const element = swiperRef.current;
-    if (!root || !element) return Number(spaceBetween) || 0;
-    if (!isCoverflow) {
-      root.style.removeProperty('--carousel-coverflow-gap');
-      root.style.removeProperty('--carousel-coverflow-slide-width');
-      return Number(spaceBetween) || 0;
-    }
-    const baseGap = Number(spaceBetween) || 0;
-    const width = element.clientWidth || root.clientWidth;
-    root.style.setProperty('--carousel-coverflow-gap', `${baseGap}px`);
-    if (!width) return baseGap;
-    const slideWidth = (width - baseGap * 2) / 3;
-    const effectiveGap = (width - slideWidth) / (2 * coverflowSideCount) - slideWidth;
-    root.style.setProperty('--carousel-coverflow-slide-width', `${Math.round(slideWidth * 100) / 100}px`);
-    return Math.round(effectiveGap * 100) / 100;
-  }, [coverflowSideCount, isCoverflow, spaceBetween]);
+  const updateCoverflowLayout = useCallback(() => updateCoverflowStyles(rootRef.current, swiperRef.current, isCoverflow, spaceBetween, coverflowSideCount), [coverflowSideCount, isCoverflow, spaceBetween]);
 
   useEffect(() => {
-    if (!swiperRef.current) return undefined;
+    if (swiperRef.current) {
     const slideCount = swiperRef.current.querySelectorAll(':scope > .swiper-wrapper > .swiper-slide').length;
     if (slideCount === 0) return undefined;
     const canLoop = (() => {
@@ -120,10 +120,11 @@ export function Carousel({
       instance.destroy(true, true);
       if (instanceRef.current === instance) instanceRef.current = null;
     };
+    }
   }, [autoplay, centered, coverflowEffect, coverflowSideCount, coverflowStyle, delay, effect, freeMode, gridFill, gridRows, initialSlide, isCoverflow, isGrid, loop, navigation, onSwiper, pagination, resolvedSlidesPerView, showNavigation, showPagination, slidesPerGroup, thumbs, thumbsControl, updateCoverflowLayout, watchSlidesProgress]);
 
   useEffect(() => {
-    if (!rootRef.current || typeof ResizeObserver === 'undefined') return undefined;
+    if (rootRef.current && typeof ResizeObserver !== 'undefined') {
     const observer = new ResizeObserver(() => {
       const gap = updateCoverflowLayout();
       const swiper = instanceRef.current;
@@ -133,6 +134,7 @@ export function Carousel({
     });
     observer.observe(rootRef.current);
     return () => observer.disconnect();
+    }
   }, [updateCoverflowLayout]);
 
   function toggleAutoplay() {

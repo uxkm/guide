@@ -7,15 +7,15 @@ const sizes = new Set(['sm', 'md', 'lg', 'fullscreen']);
 const documentModalCounts = new WeakMap();
 const portalOwnerId = Math.random().toString(36).slice(2, 10);
 
-function getPortalRoot() {
-  if (typeof document === 'undefined') return null;
-  let targetDocument = document;
+export function getModalPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+  if (!currentDocument) return null;
+  let targetDocument = currentDocument;
   try {
-    if (window.top?.document?.body) targetDocument = window.top.document;
+    if (currentWindow?.top?.document?.body) targetDocument = currentWindow.top.document;
   } catch {
     // 다른 출처의 iframe에서는 현재 문서를 사용합니다.
   }
-  if (targetDocument === document) return document.body;
+  if (targetDocument === currentDocument) return currentDocument.body;
   const stylesheetUrl = new URL('styles/uxkm.css', targetDocument.baseURI);
   stylesheetUrl.searchParams.set('v', 'modal-contrast-20260819-2');
   let stylesheet = targetDocument.getElementById('uxkm-modal-portal-styles');
@@ -35,9 +35,9 @@ function getPortalRoot() {
     root.id = rootId;
     root.className = 'uxkm-modal-portal-root';
     targetDocument.body.appendChild(root);
-    window.addEventListener('pagehide', () => root?.remove(), { once: true });
+    currentWindow?.addEventListener('pagehide', () => root?.remove(), { once: true });
   }
-  root.dataset.theme = document.documentElement.dataset.theme || 'light';
+  root.dataset.theme = currentDocument.documentElement.dataset.theme || 'light';
   return root;
 }
 
@@ -55,7 +55,7 @@ export function Modal({
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const visible = open ?? internalOpen;
   const resolvedSize = sizes.has(size) ? size : 'md';
-  const portalRoot = visible ? getPortalRoot() : null;
+  const portalRoot = visible ? getModalPortalRoot() : null;
   const classes = useMemo(() => [
     'modal', resolvedSize !== 'md' && `modal_${resolvedSize}`,
     scrollable && 'modal_scrollable', visible && 'is-open', className,

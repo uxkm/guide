@@ -10,7 +10,7 @@ HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인
 ## 이 Storybook에서 제공하는 것
 
 - **52개 UI 컴포넌트** — 레이아웃, 기본 요소, 데이터 표시, 폼, 피드백, 네비게이션, 기타의 7개 카테고리로 구성합니다.
-- **프레임워크별 구현** — 각 컴포넌트 문서에서 일곱 프레임워크의 구현 방식을 비교할 수 있습니다.
+- **프레임워크별 구현** — 각 컴포넌트 문서에서 여섯 프레임워크의 구현과 WebSquare 화면 XML 사용 방식을 비교할 수 있습니다.
 - **단일 스타일 원본** — 모든 앱은 `packages/styles`에서 생성한 같은 CSS, 디자인 토큰, 테마를 사용합니다.
 - **일관된 접근성** — 시맨틱 HTML, `aria-*`, 키보드와 포커스 동작을 구현 방식과 관계없이 유지합니다.
 
@@ -39,6 +39,8 @@ HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인
 
 각 컴포넌트의 **Code → WebSquare** 탭은 HTML 기준 마크업을 WebSquare 화면에서 사용할 수 있는 XML fragment로 제공합니다. 공통 클래스와 접근성 속성, 닫는 void 태그와 값을 가진 XML 속성을 유지하며, 네임스페이스 선언은 화면 XML 루트에서 상속받습니다.
 
+WebSquare 예제는 React나 Vue처럼 별도 컴포넌트를 import해 호출하는 코드가 아닙니다. Container, Grid, Flex 같은 구조 컴포넌트는 실제 화면의 `w2:group`에 공통 클래스를 직접 적용합니다. 별도 XML 화면 전체를 포함해야 할 때만 WFrame의 `src`를 사용하며, 호출 위치의 임의 콘텐츠를 감싸는 Container에는 사용하지 않습니다.
+
 ```xml
 <w2:group
   id="uxkmExample"
@@ -48,6 +50,8 @@ HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인
   </button>
 </w2:group>
 ```
+
+`xmlns`, `xmlns:w2`, `xmlns:ev`, `xmlns:xf`는 컴포넌트마다 작성하지 않습니다. 하나의 화면 XML 최상위 루트에서 한 번 선언하면 그 안의 모든 컴포넌트가 상속합니다. 별도 화면 XML이나 WFrame 소스처럼 독립적으로 파싱되는 문서만 각 문서의 루트에서 다시 선언합니다.
 
 현재 WebSquare 지원은 별도 실행 앱이나 WebSquare 엔진을 포함하지 않는 **코드 예제 지원**입니다. 정적 표현은 공통 CSS와 마크업을 재사용하고, 데이터 바인딩·화면 전환·WebSquare 컴포넌트 이벤트가 필요한 예제는 프로젝트의 `scwin` 함수와 데이터 객체 규칙에 맞게 연결합니다. 자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언해 교체할 수 있습니다.
 

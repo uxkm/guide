@@ -1,5 +1,77 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const reactComponent = `// Container가 지원하는 최대 너비 값만 허용합니다.
+const SIZES = new Set(['', 'sm', 'md', 'lg', 'xl']);
+
+export function Container({
+  as: Root = 'div', size = '', fluid = false, children = 'Container', className = '', ...props
+}) {
+  // 잘못된 size 값은 기본 크기로 처리합니다.
+  const resolvedSize = SIZES.has(size) ? size : '';
+
+  // 기본 클래스에 size, fluid, 사용자 정의 클래스를 조건에 따라 조합합니다.
+  const classes = [
+    'container', resolvedSize && \`container_\${resolvedSize}\`, fluid && 'container_fluid', className
+  ].filter(Boolean).join(' ');
+
+  // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
+  return <Root className={classes} data-component="Container" {...props}>{children}</Root>;
+}
+
+export default Container;`;
+
+const vueComponent = `<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 컴포넌트 이름을 지정하고 속성을 루트 요소에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmContainer', inheritAttrs: false });
+
+// as는 루트 요소, size는 최대 너비, fluid는 최대 너비 제한 해제를 제어합니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' },
+  size: { type: String, default: '' },
+  fluid: Boolean
+});
+
+// 선언하지 않은 class와 HTML 속성을 수집합니다.
+const attrs = useAttrs();
+
+// 지원하지 않는 size 값이 CSS 클래스로 전달되지 않도록 검증합니다.
+const sizes = new Set(['', 'sm', 'md', 'lg', 'xl']);
+const resolvedSize = computed(() => sizes.has(props.size) ? props.size : '');
+
+// 상태에 맞는 공통 클래스와 사용자 정의 class를 조합합니다.
+const classes = computed(() => [
+  'container',
+  resolvedSize.value && \`container_\${resolvedSize.value}\`,
+  props.fluid && 'container_fluid',
+  attrs.class
+].filter(Boolean));
+</script>
+
+<template>
+  <!-- as로 루트 요소를 결정하고 나머지 속성 및 계산된 클래스를 전달합니다. -->
+  <component :is="as" v-bind="attrs" :class="classes" data-component="Container">
+    <!-- 호출 위치의 콘텐츠를 기본 slot으로 렌더링합니다. -->
+    <slot>Container</slot>
+  </component>
+</template>`;
+
+const htmlComponent = `<!-- container 클래스가 최대 너비, 중앙 정렬, 좌우 여백을 적용합니다. -->
+<div class="container" data-component="Container">
+  <!-- 호출 위치에서 Container가 감쌀 콘텐츠를 배치합니다. -->
+  <!-- 콘텐츠 -->
+</div>`;
+
+export const containerComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/layout/Container/Container.html', code: htmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/layout/Container/container.njk', code: `{# Container #}\n${htmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/layout/Container/Container.vue', code: vueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue', code: vueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/layout/Container/Container.jsx', code: reactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx', code: reactComponent }
+];
+
 const bodies = {
   basic: `<Container>
   <div class="container_demo-fill">기본 Container</div>
@@ -98,7 +170,7 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react },
     { id: 'next', label: 'Next', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react },
-    { id: 'websquare', label: 'WebSquare', fileName: `Container.xml · ${key}`, code: webSquare[key] }
+    { id: 'websquare', label: 'WebSquare', fileName: `screen.xml · ${key}`, code: webSquare[key] }
   ];
 }
 

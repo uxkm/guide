@@ -56,7 +56,7 @@ export function Table({
   const wrapStyle = { ...style };
   if (scrollMaxHeight != null && scrollMaxHeight !== '') wrapStyle['--table-scroll-max-height'] = scrollMaxHeight;
   return (
-    <div {...props} className={['table_wrap', scroll && 'table_wrap-scroll', className].filter(Boolean).join(' ')} data-component="Table" style={wrapStyle}>
+    <div {...props} className={['table_wrap', scroll && 'table_wrap-scroll', className].filter(Boolean).join(' ')} data-component="Table" style={wrapStyle} tabIndex={scroll ? 0 : props.tabIndex}>
       <table className={tableClasses} style={tableStyle}>{colgroup}{children}</table>
     </div>
   );

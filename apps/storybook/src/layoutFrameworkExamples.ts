@@ -1,5 +1,472 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const gridHtmlComponent = `<!-- grid 클래스에 열 수, 간격, 비율 등의 부모 변형 클래스를 함께 적용합니다. -->
+<div class="grid grid_cols-3" data-component="Grid">
+  <!-- 모든 자식은 부모가 만든 Grid 트랙에 자동으로 배치됩니다. -->
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</div>
+
+<!-- 자식마다 폭이 다를 때만 grid_col-span-* 클래스를 지정합니다. -->
+<div class="grid" data-component="Grid">
+  <div class="grid_col-span-8" data-component="GridCol">8 columns</div>
+  <div class="grid_col-span-4" data-component="GridCol">4 columns</div>
+</div>`;
+
+const gridReactComponent = `// 12열 Grid에서 사용할 수 있도록 숫자를 1~12 범위로 제한합니다.
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+
+// 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
+const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
+const RATIOS = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 열 비율입니다.
+const ALIGNS = new Set(['', 'center', 'end']); // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+
+export function Grid({
+  as: Root = 'div', // Grid의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  cols, // 기본 화면의 균등 열 수를 1~12로 지정합니다.
+  colsMd, // md 이상에서 적용할 균등 열 수입니다.
+  colsLg, // lg 이상에서 적용할 균등 열 수입니다.
+  columns, // cols의 이전 호환 이름입니다.
+  columnsMd, // colsMd의 이전 호환 이름입니다.
+  columnsLg, // colsLg의 이전 호환 이름입니다.
+
+  gap = '', // Grid 항목 사이의 간격을 지정합니다.
+  ratio = '', // 미리 정의된 열 너비 비율을 선택합니다.
+  align = '', // 교차축에서 항목의 정렬 방식을 지정합니다.
+
+  itemSpan, // 모든 직계 자식에 적용할 기본 12열 span입니다.
+  itemSpanMd, // md 이상에서 모든 직계 자식에 적용할 span입니다.
+  itemSpanLg, // lg 이상에서 모든 직계 자식에 적용할 span입니다.
+
+  autoFit = false, // 빈 트랙을 접으며 가능한 수만큼 열을 자동 배치합니다.
+  autoFill = false, // 빈 트랙을 유지하며 가능한 수만큼 열을 자동 생성합니다.
+  equalColumns = false, // 자식 수만큼 동일한 너비의 열을 생성합니다.
+
+  children = 'Grid', // Grid 내부에 배치할 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
+  const resolvedCols = cols ?? columns; // 기본 구간의 최종 열 수입니다.
+  const resolvedColsMd = colsMd ?? columnsMd; // md 구간의 최종 열 수입니다.
+  const resolvedColsLg = colsLg ?? columnsLg; // lg 구간의 최종 열 수입니다.
+
+  // 기본·반응형 열, 간격, 비율, span, 자동 배치, 정렬 클래스를 조합합니다.
+  const classes = [
+    'grid', // CSS Grid 레이아웃을 활성화하는 필수 클래스입니다.
+    range(resolvedCols) && \`grid_cols-\${range(resolvedCols)}\`, // 기본 균등 열 수입니다.
+    range(resolvedColsMd) && \`grid_cols-md-\${range(resolvedColsMd)}\`, // md 이상 균등 열 수입니다.
+    range(resolvedColsLg) && \`grid_cols-lg-\${range(resolvedColsLg)}\`, // lg 이상 균등 열 수입니다.
+
+    GAPS.has(gap) && gap && \`grid_gap-\${gap}\`, // 검증된 간격 클래스입니다.
+    RATIOS.has(ratio) && ratio && \`grid_ratio-\${ratio}\`, // 검증된 열 비율 클래스입니다.
+
+    range(itemSpan) && \`grid_item-span-\${range(itemSpan)}\`, // 모든 자식의 기본 span입니다.
+    range(itemSpanMd) && \`grid_item-span-md-\${range(itemSpanMd)}\`, // 모든 자식의 md span입니다.
+    range(itemSpanLg) && \`grid_item-span-lg-\${range(itemSpanLg)}\`, // 모든 자식의 lg span입니다.
+
+    autoFit && 'grid_auto-fit', // 남는 빈 트랙을 접는 자동 열 모드입니다.
+    autoFill && 'grid_auto-fill', // 남는 빈 트랙을 유지하는 자동 열 모드입니다.
+    equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
+
+    ALIGNS.has(align) && align && \`grid_align-\${align}\`, // 검증된 항목 정렬 클래스입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
+  return <Root className={classes} data-component="Grid" {...props}>{children}</Root>;
+}
+
+export function GridCol({
+  as: Root = 'div', // GridCol의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  span, // 기본 화면에서 차지할 열 수를 1~12로 지정합니다.
+  spanMd, // md 이상에서 차지할 열 수입니다.
+  spanLg, // lg 이상에서 차지할 열 수입니다.
+
+  children, // GridCol 내부에 배치할 콘텐츠입니다.
+  className = '', // span 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // 기본·md·lg 구간의 개별 span 클래스와 사용자 클래스를 조합합니다.
+  const classes = [
+    range(span) && \`grid_col-span-\${range(span)}\`, // 기본 구간에서 차지할 열 수입니다.
+    range(spanMd) && \`grid_col-span-md-\${range(spanMd)}\`, // md 이상에서 차지할 열 수입니다.
+    range(spanLg) && \`grid_col-span-lg-\${range(spanLg)}\`, // lg 이상에서 차지할 열 수입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
+  return <Root className={classes} data-component="GridCol" {...props}>{children}</Root>;
+}`;
+
+const gridVueComponent = `<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 속성을 계산된 Grid 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmGrid', inheritAttrs: false });
+
+// 열, 간격, 비율, span, 자동 배치와 정렬 방식을 prop으로 받습니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // Grid의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  cols: [String, Number], // 기본 화면의 균등 열 수를 1~12로 지정합니다.
+  colsMd: [String, Number], // md 이상에서 적용할 균등 열 수입니다.
+  colsLg: [String, Number], // lg 이상에서 적용할 균등 열 수입니다.
+  columns: [String, Number], // cols의 이전 호환 이름입니다.
+  columnsMd: [String, Number], // colsMd의 이전 호환 이름입니다.
+  columnsLg: [String, Number], // colsLg의 이전 호환 이름입니다.
+
+  gap: { type: String, default: '' }, // Grid 항목 사이의 간격을 지정합니다.
+  ratio: { type: String, default: '' }, // 미리 정의된 열 너비 비율을 선택합니다.
+  align: { type: String, default: '' }, // 교차축에서 항목의 정렬 방식을 지정합니다.
+
+  itemSpan: [String, Number], // 모든 직계 자식에 적용할 기본 12열 span입니다.
+  itemSpanMd: [String, Number], // md 이상에서 모든 직계 자식에 적용할 span입니다.
+  itemSpanLg: [String, Number], // lg 이상에서 모든 직계 자식에 적용할 span입니다.
+
+  autoFit: Boolean, // 빈 트랙을 접으며 가능한 수만큼 열을 자동 배치합니다.
+  autoFill: Boolean, // 빈 트랙을 유지하며 가능한 수만큼 열을 자동 생성합니다.
+  equalColumns: Boolean // 자식 수만큼 동일한 너비의 열을 생성합니다.
+});
+
+// 선언하지 않은 class와 HTML 속성을 수집합니다.
+const attrs = useAttrs();
+
+// 숫자와 문자열 prop이 지원 범위를 벗어나 CSS 클래스로 전달되지 않도록 검증합니다.
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+const gaps = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
+const ratios = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 열 비율입니다.
+const aligns = new Set(['', 'center', 'end']); // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+
+// columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
+const resolvedCols = computed(() => props.cols ?? props.columns); // 기본 구간의 최종 열 수입니다.
+const resolvedColsMd = computed(() => props.colsMd ?? props.columnsMd); // md 구간의 최종 열 수입니다.
+const resolvedColsLg = computed(() => props.colsLg ?? props.columnsLg); // lg 구간의 최종 열 수입니다.
+
+// 상태에 맞는 기본·반응형 Grid 클래스와 사용자 정의 class를 조합합니다.
+const classes = computed(() => [
+  'grid', // CSS Grid 레이아웃을 활성화하는 필수 클래스입니다.
+  range(resolvedCols.value) && \`grid_cols-\${range(resolvedCols.value)}\`, // 기본 균등 열 수입니다.
+  range(resolvedColsMd.value) && \`grid_cols-md-\${range(resolvedColsMd.value)}\`, // md 이상 균등 열 수입니다.
+  range(resolvedColsLg.value) && \`grid_cols-lg-\${range(resolvedColsLg.value)}\`, // lg 이상 균등 열 수입니다.
+
+  gaps.has(props.gap) && props.gap && \`grid_gap-\${props.gap}\`, // 검증된 간격 클래스입니다.
+  ratios.has(props.ratio) && props.ratio && \`grid_ratio-\${props.ratio}\`, // 검증된 열 비율 클래스입니다.
+
+  range(props.itemSpan) && \`grid_item-span-\${range(props.itemSpan)}\`, // 모든 자식의 기본 span입니다.
+  range(props.itemSpanMd) && \`grid_item-span-md-\${range(props.itemSpanMd)}\`, // 모든 자식의 md span입니다.
+  range(props.itemSpanLg) && \`grid_item-span-lg-\${range(props.itemSpanLg)}\`, // 모든 자식의 lg span입니다.
+
+  props.autoFit && 'grid_auto-fit', // 남는 빈 트랙을 접는 자동 열 모드입니다.
+  props.autoFill && 'grid_auto-fill', // 남는 빈 트랙을 유지하는 자동 열 모드입니다.
+  props.equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
+
+  aligns.has(props.align) && props.align && \`grid_align-\${props.align}\`, // 검증된 항목 정렬 클래스입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean)); // false, 빈 문자열 등 적용되지 않는 항목을 제거합니다.
+</script>
+
+<template>
+  <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
+  <component :is="as" v-bind="attrs" :class="classes" data-component="Grid">
+    <!-- 콘텐츠가 없을 때는 컴포넌트 식별을 위한 기본 텍스트를 표시합니다. -->
+    <slot>Grid</slot>
+  </component>
+</template>
+
+<!-- GridCol.vue -->
+<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 속성을 계산된 GridCol 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmGridCol', inheritAttrs: false });
+
+// 루트 요소와 기본·md·lg 구간의 개별 span 값을 받습니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // GridCol의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  span: [String, Number], // 기본 화면에서 차지할 열 수를 1~12로 지정합니다.
+  spanMd: [String, Number], // md 이상에서 차지할 열 수입니다.
+  spanLg: [String, Number] // lg 이상에서 차지할 열 수입니다.
+});
+
+// 선언하지 않은 속성을 수집하고 span을 12열 범위로 제한합니다.
+const attrs = useAttrs();
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+
+// 반응형 span 클래스와 사용자 정의 class를 조합합니다.
+const classes = computed(() => [
+  range(props.span) && \`grid_col-span-\${range(props.span)}\`, // 기본 구간에서 차지할 열 수입니다.
+  range(props.spanMd) && \`grid_col-span-md-\${range(props.spanMd)}\`, // md 이상에서 차지할 열 수입니다.
+  range(props.spanLg) && \`grid_col-span-lg-\${range(props.spanLg)}\`, // lg 이상에서 차지할 열 수입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean)); // 적용되지 않는 빈 항목을 제거합니다.
+</script>
+
+<template>
+  <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
+  <component :is="as" v-bind="attrs" :class="classes" data-component="GridCol">
+    <!-- 호출 위치에서 전달한 GridCol 콘텐츠를 렌더링합니다. -->
+    <slot />
+  </component>
+</template>`;
+
+export const gridComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/layout/Grid/Grid.html', code: gridHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/layout/Grid/grid.njk', code: `{# Grid와 GridCol 구현 #}\n${gridHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/layout/Grid/Grid.vue · GridCol.vue', code: gridVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/grid → Grid.vue · GridCol.vue', code: gridVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/layout/Grid/Grid.jsx · GridCol.jsx', code: gridReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/grid → Grid.jsx · GridCol.jsx', code: gridReactComponent }
+];
+
+const flexHtmlComponent = `<!-- flex 클래스와 기본 행 방향 클래스를 루트에 적용합니다. -->
+<div class="flex flex_row" data-component="Flex">
+  <!-- 직계 자식은 Flex 항목으로 한 방향에 배치됩니다. -->
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</div>
+
+<!-- 자식마다 너비나 확장 방식이 다를 때만 FlexItem 클래스를 지정합니다. -->
+<div class="flex flex_wrap" data-component="Flex">
+  <div class="flex_item-span-8" data-component="FlexItem">8 / 12</div>
+  <div class="flex_item-span-4 flex_fit" data-component="FlexItem">4 / 12</div>
+</div>`;
+
+const flexReactComponent = `// 12단위 Flex 너비와 순서에 사용할 숫자를 1~12 범위로 제한합니다.
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+
+// 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
+const DIRECTIONS = new Set(['', 'row', 'col', 'column']); // 지원하는 배치 방향입니다.
+const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 항목 간격입니다.
+const RATIOS = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 항목 너비 비율입니다.
+const ALIGNS = new Set(['', 'start', 'center', 'end', 'stretch', 'baseline']); // 지원하는 교차축 정렬입니다.
+const JUSTIFIES = new Set(['', 'start', 'center', 'end', 'between', 'around', 'evenly']); // 지원하는 주축 정렬입니다.
+
+export function Flex({
+  as: Root = 'div', // Flex의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  direction = 'row', // 기본 화면의 배치 방향을 지정합니다.
+  directionMd = '', // md 이상에서 적용할 배치 방향입니다.
+  directionLg = '', // lg 이상에서 적용할 배치 방향입니다.
+  wrap = false, // 항목이 한 줄을 넘으면 다음 줄로 배치합니다.
+
+  cols, // 기본 화면에서 한 행에 배치할 균등 항목 수를 지정합니다.
+  colsMd, // md 이상에서 적용할 균등 항목 수입니다.
+  colsLg, // lg 이상에서 적용할 균등 항목 수입니다.
+  columns, // cols의 이전 호환 이름입니다.
+  columnsMd, // colsMd의 이전 호환 이름입니다.
+  columnsLg, // colsLg의 이전 호환 이름입니다.
+
+  gap = '', // Flex 항목 사이의 간격을 지정합니다.
+  ratio = '', // 미리 정의된 항목 너비 비율을 선택합니다.
+  align = 'stretch', // 교차축에서 항목의 정렬 방식을 지정합니다.
+  justify = '', // 주축에서 항목을 배치하는 방식을 지정합니다.
+
+  itemSpan, // 모든 직계 자식에 적용할 기본 12단위 span입니다.
+  itemSpanMd, // md 이상에서 모든 직계 자식에 적용할 span입니다.
+  itemSpanLg, // lg 이상에서 모든 직계 자식에 적용할 span입니다.
+
+  equal = false, // 모든 직계 자식을 동일한 너비로 확장합니다.
+  autoFit = false, // 최소 너비를 기준으로 가능한 수만큼 항목을 자동 배치합니다.
+
+  children = 'Flex', // Flex 내부에 배치할 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // column 이름을 CSS 클래스에서 사용하는 col로 변환하고 반응형 접미사를 붙입니다.
+  const directionClass = (value, breakpoint = '') => value && \`flex_\${value === 'column' ? 'col' : value}\${breakpoint}\`;
+
+  // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
+  const resolvedCols = cols ?? columns;
+  const resolvedColsMd = colsMd ?? columnsMd;
+  const resolvedColsLg = colsLg ?? columnsLg;
+
+  // 방향, 줄바꿈, 크기, 간격과 정렬 상태를 공통 CSS 클래스로 조합합니다.
+  const classes = [
+    'flex', // Flexbox 레이아웃을 활성화하는 필수 클래스입니다.
+    DIRECTIONS.has(direction) && directionClass(direction), // 기본 배치 방향입니다.
+    DIRECTIONS.has(directionMd) && directionClass(directionMd, '-md'), // md 이상 배치 방향입니다.
+    DIRECTIONS.has(directionLg) && directionClass(directionLg, '-lg'), // lg 이상 배치 방향입니다.
+    wrap && 'flex_wrap', // 여러 줄 배치를 허용합니다.
+
+    GAPS.has(gap) && gap && \`flex_gap-\${gap}\`, // 검증된 항목 간격입니다.
+    range(resolvedCols) && \`flex_cols-\${range(resolvedCols)}\`, // 기본 균등 항목 수입니다.
+    range(resolvedColsMd) && \`flex_cols-md-\${range(resolvedColsMd)}\`, // md 이상 균등 항목 수입니다.
+    range(resolvedColsLg) && \`flex_cols-lg-\${range(resolvedColsLg)}\`, // lg 이상 균등 항목 수입니다.
+    RATIOS.has(ratio) && ratio && \`flex_ratio-\${ratio}\`, // 검증된 항목 너비 비율입니다.
+
+    range(itemSpan) && \`flex_items-span-\${range(itemSpan)}\`, // 모든 자식의 기본 span입니다.
+    range(itemSpanMd) && \`flex_items-span-md-\${range(itemSpanMd)}\`, // 모든 자식의 md span입니다.
+    range(itemSpanLg) && \`flex_items-span-lg-\${range(itemSpanLg)}\`, // 모든 자식의 lg span입니다.
+    equal && 'flex_equal', // 모든 자식을 같은 너비로 확장합니다.
+    autoFit && 'flex_auto-fit', // 최소 너비 기반 자동 배치를 적용합니다.
+
+    ALIGNS.has(align) && align && \`flex_align-\${align}\`, // 검증된 교차축 정렬입니다.
+    JUSTIFIES.has(justify) && justify && \`flex_justify-\${justify}\`, // 검증된 주축 정렬입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' ');
+
+  return <Root className={classes} data-component="Flex" {...props}>{children}</Root>;
+}
+
+export function FlexItem({
+  as: Root = 'div', // FlexItem의 루트 요소 또는 컴포넌트를 지정합니다.
+  span, // 기본 화면에서 차지할 12단위 너비를 지정합니다.
+  spanMd, // md 이상에서 차지할 12단위 너비입니다.
+  spanLg, // lg 이상에서 차지할 12단위 너비입니다.
+  grow = false, // 남는 공간을 채우도록 항목을 확장합니다.
+  growFactor = 1, // grow 사용 시 1 또는 2의 확장 비율을 지정합니다.
+  fit = false, // 콘텐츠 너비를 유지하고 불필요한 확장을 막습니다.
+  align = '', // 이 항목만 적용할 교차축 정렬을 지정합니다.
+  order, // 화면에 표시할 순서를 1~12로 지정합니다.
+  children, // FlexItem 내부에 배치할 콘텐츠입니다.
+  className = '', // 상태 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // grow가 켜진 경우 growFactor가 2일 때만 두 배 확장 클래스를 사용합니다.
+  const resolvedGrow = grow && Number(growFactor) === 2 ? 'flex_grow-2' : grow ? 'flex_grow' : '';
+  const classes = [
+    range(span) && \`flex_item-span-\${range(span)}\`, // 기본 구간에서 차지할 너비입니다.
+    range(spanMd) && \`flex_item-span-md-\${range(spanMd)}\`, // md 이상에서 차지할 너비입니다.
+    range(spanLg) && \`flex_item-span-lg-\${range(spanLg)}\`, // lg 이상에서 차지할 너비입니다.
+    resolvedGrow, // 남는 공간을 1배 또는 2배 비율로 채웁니다.
+    fit && 'flex_fit', // 콘텐츠 기준 너비를 유지합니다.
+    ALIGNS.has(align) && align && \`flex_self-\${align}\`, // 검증된 개별 교차축 정렬입니다.
+    range(order) && \`flex_order-\${range(order)}\`, // 검증된 화면 표시 순서입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' ');
+
+  return <Root className={classes} data-component="FlexItem" {...props}>{children}</Root>;
+}`;
+
+const flexVueComponent = `<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 속성을 계산된 Flex 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmFlex', inheritAttrs: false });
+
+// 방향, 줄바꿈, 크기, 간격과 정렬 방식을 prop으로 받습니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // Flex의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  direction: { type: String, default: 'row' }, // 기본 화면의 배치 방향을 지정합니다.
+  directionMd: { type: String, default: '' }, // md 이상에서 적용할 배치 방향입니다.
+  directionLg: { type: String, default: '' }, // lg 이상에서 적용할 배치 방향입니다.
+  wrap: Boolean, // 항목이 한 줄을 넘으면 다음 줄로 배치합니다.
+
+  cols: [String, Number], // 기본 화면에서 한 행에 배치할 균등 항목 수를 지정합니다.
+  colsMd: [String, Number], // md 이상에서 적용할 균등 항목 수입니다.
+  colsLg: [String, Number], // lg 이상에서 적용할 균등 항목 수입니다.
+  columns: [String, Number], // cols의 이전 호환 이름입니다.
+  columnsMd: [String, Number], // colsMd의 이전 호환 이름입니다.
+  columnsLg: [String, Number], // colsLg의 이전 호환 이름입니다.
+
+  gap: { type: String, default: '' }, // Flex 항목 사이의 간격을 지정합니다.
+  ratio: { type: String, default: '' }, // 미리 정의된 항목 너비 비율을 선택합니다.
+  align: { type: String, default: 'stretch' }, // 교차축에서 항목의 정렬 방식을 지정합니다.
+  justify: { type: String, default: '' }, // 주축에서 항목을 배치하는 방식을 지정합니다.
+
+  itemSpan: [String, Number], // 모든 직계 자식에 적용할 기본 12단위 span입니다.
+  itemSpanMd: [String, Number], // md 이상에서 모든 직계 자식에 적용할 span입니다.
+  itemSpanLg: [String, Number], // lg 이상에서 모든 직계 자식에 적용할 span입니다.
+
+  equal: Boolean, // 모든 직계 자식을 동일한 너비로 확장합니다.
+  autoFit: Boolean // 최소 너비를 기준으로 가능한 수만큼 항목을 자동 배치합니다.
+});
+
+const attrs = useAttrs(); // 선언하지 않은 class와 HTML 속성을 수집합니다.
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+const directions = new Set(['', 'row', 'col', 'column']); // 지원하는 배치 방향입니다.
+const gaps = new Set(['', 'sm', 'lg', 'none']); // 지원하는 항목 간격입니다.
+const ratios = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 항목 너비 비율입니다.
+const aligns = new Set(['', 'start', 'center', 'end', 'stretch', 'baseline']); // 지원하는 교차축 정렬입니다.
+const justifies = new Set(['', 'start', 'center', 'end', 'between', 'around', 'evenly']); // 지원하는 주축 정렬입니다.
+const directionClass = (value, breakpoint = '') => value && \`flex_\${value === 'column' ? 'col' : value}\${breakpoint}\`;
+
+// columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
+const resolvedCols = computed(() => props.cols ?? props.columns);
+const resolvedColsMd = computed(() => props.colsMd ?? props.columnsMd);
+const resolvedColsLg = computed(() => props.colsLg ?? props.columnsLg);
+
+// 방향, 줄바꿈, 크기, 간격과 정렬 상태를 공통 CSS 클래스로 조합합니다.
+const classes = computed(() => [
+  'flex', // Flexbox 레이아웃을 활성화하는 필수 클래스입니다.
+  directions.has(props.direction) && directionClass(props.direction), // 기본 배치 방향입니다.
+  directions.has(props.directionMd) && directionClass(props.directionMd, '-md'), // md 이상 배치 방향입니다.
+  directions.has(props.directionLg) && directionClass(props.directionLg, '-lg'), // lg 이상 배치 방향입니다.
+  props.wrap && 'flex_wrap', // 여러 줄 배치를 허용합니다.
+  gaps.has(props.gap) && props.gap && \`flex_gap-\${props.gap}\`, // 검증된 항목 간격입니다.
+  range(resolvedCols.value) && \`flex_cols-\${range(resolvedCols.value)}\`, // 기본 균등 항목 수입니다.
+  range(resolvedColsMd.value) && \`flex_cols-md-\${range(resolvedColsMd.value)}\`, // md 이상 균등 항목 수입니다.
+  range(resolvedColsLg.value) && \`flex_cols-lg-\${range(resolvedColsLg.value)}\`, // lg 이상 균등 항목 수입니다.
+  ratios.has(props.ratio) && props.ratio && \`flex_ratio-\${props.ratio}\`, // 검증된 항목 너비 비율입니다.
+  range(props.itemSpan) && \`flex_items-span-\${range(props.itemSpan)}\`, // 모든 자식의 기본 span입니다.
+  range(props.itemSpanMd) && \`flex_items-span-md-\${range(props.itemSpanMd)}\`, // 모든 자식의 md span입니다.
+  range(props.itemSpanLg) && \`flex_items-span-lg-\${range(props.itemSpanLg)}\`, // 모든 자식의 lg span입니다.
+  props.equal && 'flex_equal', // 모든 자식을 같은 너비로 확장합니다.
+  props.autoFit && 'flex_auto-fit', // 최소 너비 기반 자동 배치를 적용합니다.
+  aligns.has(props.align) && props.align && \`flex_align-\${props.align}\`, // 검증된 교차축 정렬입니다.
+  justifies.has(props.justify) && props.justify && \`flex_justify-\${props.justify}\`, // 검증된 주축 정렬입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean));
+</script>
+
+<template>
+  <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
+  <component :is="as" v-bind="attrs" :class="classes" data-component="Flex"><slot>Flex</slot></component>
+</template>
+
+<!-- FlexItem.vue -->
+<script setup>
+import { computed, useAttrs } from 'vue';
+
+defineOptions({ name: 'UxkmFlexItem', inheritAttrs: false });
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // FlexItem의 루트 요소 또는 컴포넌트를 지정합니다.
+  span: [String, Number], // 기본 화면에서 차지할 12단위 너비를 지정합니다.
+  spanMd: [String, Number], // md 이상에서 차지할 12단위 너비입니다.
+  spanLg: [String, Number], // lg 이상에서 차지할 12단위 너비입니다.
+  grow: Boolean, // 남는 공간을 채우도록 항목을 확장합니다.
+  growFactor: { type: [String, Number], default: 1 }, // grow 사용 시 1 또는 2의 확장 비율을 지정합니다.
+  fit: Boolean, // 콘텐츠 너비를 유지하고 불필요한 확장을 막습니다.
+  align: { type: String, default: '' }, // 이 항목만 적용할 교차축 정렬을 지정합니다.
+  order: [String, Number] // 화면에 표시할 순서를 1~12로 지정합니다.
+});
+
+const attrs = useAttrs();
+const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+const aligns = new Set(['', 'auto', 'start', 'center', 'end', 'stretch', 'baseline']);
+const resolvedGrow = computed(() => props.grow && Number(props.growFactor) === 2 ? 'flex_grow-2' : props.grow ? 'flex_grow' : '');
+const classes = computed(() => [
+  range(props.span) && \`flex_item-span-\${range(props.span)}\`, // 기본 구간에서 차지할 너비입니다.
+  range(props.spanMd) && \`flex_item-span-md-\${range(props.spanMd)}\`, // md 이상에서 차지할 너비입니다.
+  range(props.spanLg) && \`flex_item-span-lg-\${range(props.spanLg)}\`, // lg 이상에서 차지할 너비입니다.
+  resolvedGrow.value, // 남는 공간을 1배 또는 2배 비율로 채웁니다.
+  props.fit && 'flex_fit', // 콘텐츠 기준 너비를 유지합니다.
+  aligns.has(props.align) && props.align && \`flex_self-\${props.align}\`, // 검증된 개별 교차축 정렬입니다.
+  range(props.order) && \`flex_order-\${range(props.order)}\`, // 검증된 화면 표시 순서입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean));
+</script>
+
+<template>
+  <component :is="as" v-bind="attrs" :class="classes" data-component="FlexItem"><slot /></component>
+</template>`;
+
+export const flexComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/layout/Flex/Flex.html', code: flexHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/layout/Flex/flex.njk', code: `{# Flex와 FlexItem 구현 #}\n${flexHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/layout/Flex/Flex.vue · FlexItem.vue', code: flexVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/flex → Flex.vue · FlexItem.vue', code: flexVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/layout/Flex/Flex.jsx · FlexItem.jsx', code: flexReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/flex → Flex.jsx · FlexItem.jsx', code: flexReactComponent }
+];
+
 type Definition = { body: string; html?: string };
 
 function reactBody(body: string) {
@@ -140,7 +607,8 @@ function makeExamples(component: string, key: string, definition: Definition): F
   const vue = `<script setup>\n${vueImports}\n</script>\n\n<template>\n${definition.body.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>`;
   const reactMarkup = reactBody(definition.body);
   const reactImports = [`import ${component}${usesChild ? `, { ${child} }` : ''} from '@uxkm/react/${lower}';`, ...auxiliaries.map((name) => `import ${name} from '@uxkm/react/${name.toLowerCase()}';`)].join('\n');
-  const react = `${reactImports}\n\nexport function Example() {\n  return (\n    <>\n${reactMarkup.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}`;
+  // Fragment의 여는 태그와 닫는 태그를 맞추고 내부 예시만 한 단계 들여씁니다.
+  const react = `${reactImports}\n\nexport function Example() {\n  return (\n  <>\n${reactMarkup.split('\n').map((line) => `    ${line}`).join('\n')}\n  </>\n  );\n}`;
   const html = definition.html ?? componentHtml(definition.body);
   const examples: FrameworkExample[] = [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/layout/${component}/${component}.html · ${key}`, code: html },
@@ -151,10 +619,10 @@ function makeExamples(component: string, key: string, definition: Definition): F
     { id: 'next', label: 'Next', fileName: `@uxkm/react/${lower} → apps/react/src/components/layout/${component}/${component}.jsx · ${key}`, code: react }
   ];
   if (component === 'Grid') {
-    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Grid.xml · ${key}`, code: webSquareGroups(html, key, 'grid', ['Grid', 'GridCol']) });
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `screen.xml · Grid ${key}`, code: webSquareGroups(html, key, 'grid', ['Grid', 'GridCol']) });
   }
   if (component === 'Flex') {
-    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Flex.xml · ${key}`, code: webSquareGroups(html, key, 'flex', ['Flex', 'FlexItem']) });
+    examples.push({ id: 'websquare', label: 'WebSquare', fileName: `screen.xml · Flex ${key}`, code: webSquareGroups(html, key, 'flex', ['Flex', 'FlexItem']) });
   }
   if (component === 'Divider') {
     examples.push({ id: 'websquare', label: 'WebSquare', fileName: `Divider.xml · ${key}`, code: dividerWebSquare[key] });

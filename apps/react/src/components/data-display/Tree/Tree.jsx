@@ -11,7 +11,6 @@ export function TreeNode({ label, expanded, selected = false, disabled = false, 
   const [isExpanded, setIsExpanded] = useState(expanded !== false);
   useEffect(() => { if (expanded !== undefined) setIsExpanded(expanded !== false); }, [expanded]);
   const toggle = () => {
-    if (disabled) return;
     setIsExpanded((current) => { const next = !current; onExpandedChange?.(next); return next; });
   };
   const labelContent = labelSlot ?? <span className="tree_label">{label}</span>;

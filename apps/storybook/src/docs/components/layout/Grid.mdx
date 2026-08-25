@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { gridFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { gridComponentExamples, gridFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
 import { gridApiSections } from '../../../layoutApiSections.ts';
 import * as GridStories from '../../../Grid.stories.tsx';
 
@@ -21,6 +21,19 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `grid`
 - `cols`, `ratio`, `autoFit`, `autoFill`, `equalColumns`는 모두 열 트랙을 정의하는 모드입니다. 한 Grid에서는 의도한 모드 하나만 선택합니다.
 - 모든 자식의 폭이 같으면 `itemSpan`, 자식마다 폭이 다르면 GridCol의 `span`을 사용합니다.
 - 반응형 값은 기본 → md → lg 순서의 mobile-first 방식으로 덮어씁니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `Grid`와 `GridCol` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+- `range`는 열 수와 span을 1~12 범위로 제한합니다.
+- `cols`·`colsMd`·`colsLg`는 구간별 열 트랙 수를, `itemSpan`은 모든 직계 자식의 span을 제어합니다.
+- `gap`·`ratio`·`align`은 허용된 문자열만 클래스에 반영합니다.
+- `autoFit`·`autoFill`·`equalColumns`는 콘텐츠 기반 자동 열 배치 클래스로 변환됩니다.
+- GridCol은 자식마다 다른 `span`·`spanMd`·`spanLg`가 필요한 혼합 레이아웃에서만 사용합니다.
+- `as`, 사용자 정의 클래스와 나머지 속성, React의 `children` 또는 Vue의 기본 slot은 루트 요소에 전달됩니다.
+
+<FrameworkTabs examples={gridComponentExamples} showFullCode />
 
 ## WebSquare 사용
 

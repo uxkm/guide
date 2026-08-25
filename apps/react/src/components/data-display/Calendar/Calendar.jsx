@@ -16,7 +16,8 @@ function monthDays({ partial, selected = 15, today = 12, events = [], rangeStart
 
 export function Calendar({ title, ariaLabel, header, weekdays, footer, children, noHeader = false, minimal = false, compact = false, borderless = false, shadow = false, ghost = false, week = false, readonly = false, disabled = false, weekends = false, agenda = false, wheel = false, size = '', className = '', role = 'application', ...props }) {
   const classes = cx('calendar', noHeader && 'calendar_no-header', minimal && 'calendar_minimal', compact && 'calendar_compact', borderless && 'calendar_borderless', shadow && 'calendar_shadow', ghost && 'calendar_ghost', week && 'calendar_week', readonly && 'calendar_readonly', disabled && 'is-disabled', weekends && 'calendar_weekends', agenda && 'calendar_agenda', wheel && 'calendar_wheel', size === 'sm' && 'calendar_sm', size === 'lg' && 'calendar_lg', className);
-  return <div className={classes} data-component="Calendar" role={role} aria-label={ariaLabel} aria-disabled={disabled || undefined} {...props}>{header ?? (title && !noHeader && !minimal ? <CalendarHeader title={title} showNav={false} /> : null)}{weekdays}{children}{footer}</div>;
+  const resolvedRole = role === 'feed' ? 'region' : role;
+  return <div className={classes} data-component="Calendar" role={resolvedRole} aria-label={ariaLabel} aria-disabled={disabled || undefined} {...props}>{header ?? (title && !noHeader && !minimal ? <CalendarHeader title={title} showNav={false} /> : null)}{weekdays}{children}{footer}</div>;
 }
 
 export function CalendarHeader({ title, prevLabel = '이전 달', nextLabel = '다음 달', showNav = true, showPrev, showNext, children, className = '', ...props }) {
@@ -35,7 +36,7 @@ export function CalendarWeekdays({ labels = WEEKDAYS, className = '' }) {
 
 export function CalendarDay({ day, otherMonth, today, selected, disabled, sunday, saturday, rangeStart, rangeEnd, inRange, event, readonly, className = '', ...props }) {
   const classes = cx('calendar_day', otherMonth && 'is-other-month', today && 'is-today', selected && 'is-selected', disabled && 'is-disabled', sunday && 'is-sunday', saturday && 'is-saturday', rangeStart && 'is-range-start', rangeEnd && 'is-range-end', inRange && 'is-in-range', event && 'has-event', className);
-  return <button type="button" className={classes} disabled={disabled || (otherMonth && !(selected || inRange)) || undefined} aria-current={today ? 'date' : undefined} aria-selected={selected || undefined} tabIndex={readonly ? -1 : undefined} {...props}>{day}</button>;
+  return <button type="button" className={classes} disabled={disabled || (otherMonth && !(selected || inRange)) || undefined} aria-current={today ? 'date' : undefined} aria-pressed={selected || undefined} tabIndex={readonly ? -1 : undefined} {...props}>{day}</button>;
 }
 
 export function CalendarGrid({ children, week = false, className = '' }) { return <div className={cx('calendar_grid', week && 'calendar_grid-week', className)}>{children}</div>; }
@@ -74,7 +75,7 @@ export function CalendarWheelColumn({ label, items = [], selected, showSteps = t
     return () => cancelAnimationFrame(frame);
   }, [index, items]);
 
-  return <div className="calendar_wheel-column">{showSteps ? <button type="button" className="btn btn_ghost btn_icon-only btn_sm calendar_wheel-step calendar_wheel-step-prev" aria-label={prevLabel} disabled={index <= 0} onClick={() => move(-1)}>⌃</button> : null}<ul ref={listRef} className="calendar_wheel-list" role="listbox" aria-label={label}>{items.map((item) => <li key={String(item)}><button type="button" className={cx('calendar_wheel-item', String(item) === String(active) && 'is-selected')} aria-selected={String(item) === String(active) || undefined} onClick={() => setActive(item)}>{String(item)}</button></li>)}</ul>{showSteps ? <button type="button" className="btn btn_ghost btn_icon-only btn_sm calendar_wheel-step calendar_wheel-step-next" aria-label={nextLabel} disabled={index >= items.length - 1} onClick={() => move(1)}>⌄</button> : null}</div>;
+  return <div className="calendar_wheel-column">{showSteps ? <button type="button" className="btn btn_ghost btn_icon-only btn_sm calendar_wheel-step calendar_wheel-step-prev" aria-label={prevLabel} disabled={index <= 0} onClick={() => move(-1)}>⌃</button> : null}<ul ref={listRef} className="calendar_wheel-list" role="listbox" aria-label={label}>{items.map((item) => <li key={String(item)} role="presentation"><button type="button" role="option" className={cx('calendar_wheel-item', String(item) === String(active) && 'is-selected')} aria-selected={String(item) === String(active) || undefined} onClick={() => setActive(item)}>{String(item)}</button></li>)}</ul>{showSteps ? <button type="button" className="btn btn_ghost btn_icon-only btn_sm calendar_wheel-step calendar_wheel-step-next" aria-label={nextLabel} disabled={index >= items.length - 1} onClick={() => move(1)}>⌄</button> : null}</div>;
 }
 
 export default Calendar;

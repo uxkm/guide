@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import ActualTabs from '../../react/src/components/navigation/Tabs/Tabs.jsx';
 import ActualTabPanel from '../../react/src/components/navigation/Tabs/TabPanel.jsx';
 import ActualTabMenu from '../../react/src/components/navigation/Tabs/TabMenu.jsx';
+import ActualTabsTab from '../../react/src/components/navigation/Tabs/TabsTab.jsx';
 import ActualButton from '../../react/src/components/basic/Button/Button.jsx';
 import ActualIcon from '../../react/src/components/basic/Icon/Icon.jsx';
 import ActualBadge from '../../react/src/components/data-display/Badge/Badge.jsx';
 const Tabs = ActualTabs as React.ComponentType<any>;
 const TabPanel = ActualTabPanel as React.ComponentType<any>;
 const TabMenu = ActualTabMenu as React.ComponentType<any>;
+const TabsTab = ActualTabsTab as React.ComponentType<any>;
 const Button = ActualButton as React.ComponentType<any>;
 const Icon = ActualIcon as React.ComponentType<any>;
 const Badge = ActualBadge as React.ComponentType<any>;
@@ -16,11 +18,12 @@ const Stack = ({ children }: any) => <div className="tabs-stack-demo">{children}
 const dynamicItems = [{ key: 'overview', label: '개요', active: true }, { key: 'team', label: '팀' }, { key: 'activity', label: '활동' }];
 const dynamicPanel = ({ value }: any) => <p>{value === 'overview' ? '프로젝트 개요와 목표를 설명하는 영역입니다.' : value === 'team' ? '팀 구성원과 역할을 표시합니다.' : '최근 활동 로그와 타임라인을 보여줍니다.'}</p>;
 
-const meta = { title: '네비게이션/Tabs', component: Tabs, subcomponents: { TabPanel, TabMenu }, decorators: [(Story) => <div className="tabs-story-demo"><Story /></div>], parameters: { layout: 'padded' }, argTypes: { mode: { control: 'select', options: ['panels', 'dynamic'] }, variant: { control: 'select', options: ['line', 'card', 'pill'] }, size: { control: 'select', options: ['sm', 'md', 'lg'] }, layout: { control: 'select', options: ['auto', 'equal', 'scroll'] }, indicator: { control: 'select', options: ['static', 'slide'] } } } satisfies Meta<typeof Tabs>;
+const meta = { title: '네비게이션/Tabs', component: Tabs, subcomponents: { TabPanel, TabMenu, TabsTab }, decorators: [(Story) => <div className="tabs-story-demo"><Story /></div>], parameters: { layout: 'padded' }, argTypes: { mode: { control: 'select', options: ['panels', 'dynamic'] }, variant: { control: 'select', options: ['line', 'card', 'pill'] }, size: { control: 'select', options: ['sm', 'md', 'lg'] }, layout: { control: 'select', options: ['auto', 'equal', 'scroll'] }, indicator: { control: 'select', options: ['static', 'slide'] } } } satisfies Meta<typeof Tabs>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = { name: '기본 (라인)', render: () => <Tabs ariaLabel="프로젝트 정보"><Panel label="개요" active><p>프로젝트 개요와 목표를 설명하는 영역입니다. 탭을 클릭하거나 화살표 키로 전환할 수 있습니다.</p></Panel><Panel label="팀"><p>팀 구성원과 역할을 표시합니다.</p></Panel><Panel label="활동"><p>최근 활동 로그와 타임라인을 보여줍니다.</p></Panel></Tabs> };
+export const PrimitiveTab: Story = { name: '탭 단위 요소', render: () => <div className="tabs_list" role="tablist" aria-label="탭 단위 요소"><TabsTab active>개요</TabsTab><TabsTab>팀</TabsTab><TabsTab disabled>관리자</TabsTab></div> };
 export const Dynamic: Story = { name: '동적 패널', render: () => <Stack><Tabs mode="dynamic" items={dynamicItems} ariaLabel="동적 탭 (items)" panel={dynamicPanel} /><Tabs mode="dynamic" ariaLabel="동적 탭 (TabMenu)" panel={dynamicPanel}><TabMenu label="개요" value="overview" active /><TabMenu label="팀" value="team" /><TabMenu label="활동" value="activity" /></Tabs></Stack> };
 export const IndicatorSlide: Story = { name: '슬라이드 인디케이터', render: () => <Stack><Tabs indicator="slide" layout="equal" ariaLabel="슬라이드 라인 탭"><Panel label="개요" active><p>라인 스킨에서 하단 인디케이터가 탭 전환 시 슬라이드됩니다.</p></Panel><Panel label="팀"><p>팀 구성원과 역할을 표시합니다.</p></Panel><Panel label="활동"><p>최근 활동 로그와 타임라인을 보여줍니다.</p></Panel></Tabs><Tabs variant="pill" indicator="slide" layout="equal" ariaLabel="슬라이드 필 탭"><Panel label="목록" active><p className="tabs_panel-placeholder">필 스킨에서 배경 인디케이터가 이동합니다.</p></Panel><Panel label="그리드"><p className="tabs_panel-placeholder">그리드 뷰 콘텐츠</p></Panel><Panel label="보드"><p className="tabs_panel-placeholder">보드 뷰 콘텐츠</p></Panel></Tabs></Stack> };
 export const LayoutEqual: Story = { name: '균등 분할', render: () => <Stack><Tabs layout="equal" ariaLabel="균등 분할 탭"><Panel label="개요" active>탭이 컨테이너 너비에 맞춰 균등하게 배치됩니다.</Panel><Panel label="팀 구성">팀 구성원과 역할을 표시합니다.</Panel><Panel label="활동 로그">최근 활동 로그와 타임라인을 보여줍니다.</Panel><Panel label="설정">프로젝트 설정을 관리합니다.</Panel></Tabs><Tabs layout="equal" variant="pill" indicator="slide" ariaLabel="균등 분할 필 탭"><Panel label="일간" active>일간 통계</Panel><Panel label="주간">주간 통계</Panel><Panel label="월간">월간 통계</Panel><Panel label="연간">연간 통계</Panel></Tabs></Stack> };

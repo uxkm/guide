@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { expect } from 'storybook/test';
 import FormLayout from '../../react/src/components/form/FormLayout/FormLayout.jsx';
 import Switch from '../../react/src/components/form/Switch/Switch.jsx';
 const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
@@ -30,6 +31,7 @@ export default {
     ariaLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
   },
   parameters: {
+    a11y: { test: 'error' },
     controls: { disable: false },
     layout: 'padded',
     docs: {
@@ -43,12 +45,14 @@ export default {
 export const Playground = {
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
-  render: (args, { updateArgs }) => (
-    <Switch
-      {...args}
-      onChange={(event) => updateArgs({ checked: event.target.checked })}
-    />
-  ),
+  render: (args) => <Switch {...args} />,
+  play: async ({ canvas, userEvent }) => {
+    const control = canvas.getByRole('switch', { name: '라벨' });
+
+    await expect(control).not.toBeChecked();
+    await userEvent.click(control);
+    await expect(control).toBeChecked();
+  },
 };
 
 export const Type = {

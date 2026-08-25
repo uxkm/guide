@@ -13,10 +13,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = { name: '기본', render: () => <DemoPagination current={1} total={50} pageSize={10} /> };
 export const Minimal: Story = { name: '미니멀', render: () => <DemoPagination current={4} total={50} pageSize={10} minimal /> };
-export const Size: Story = { name: '크기', render: () => <Stack><DemoPagination current={1} total={20} pageSize={10} size="sm" /><DemoPagination current={1} total={20} pageSize={10} /><DemoPagination current={1} total={20} pageSize={10} size="lg" /></Stack> };
+export const Size: Story = { name: '크기', render: () => <Stack><DemoPagination ariaLabel="작은 페이지 이동" current={1} total={20} pageSize={10} size="sm" /><DemoPagination ariaLabel="기본 페이지 이동" current={1} total={20} pageSize={10} /><DemoPagination ariaLabel="큰 페이지 이동" current={1} total={20} pageSize={10} size="lg" /></Stack> };
 export const Round: Story = { name: '둥근', render: () => <DemoPagination current={7} total={80} pageSize={10} round /> };
 export const Ellipsis: Story = { name: '페이지 생략', render: () => <DemoPagination current={10} total={500} pageSize={10} /> };
-export const Simple: Story = { name: '심플', render: () => <Stack><DemoPagination simple current={3} total={120} pageSize={10} /><DemoPagination simple minimal current={1} total={120} pageSize={10} /></Stack> };
+export const Simple: Story = { name: '심플', render: () => <Stack><DemoPagination ariaLabel="심플 페이지 이동" simple current={3} total={120} pageSize={10} /><DemoPagination ariaLabel="미니멀 심플 페이지 이동" simple minimal current={1} total={120} pageSize={10} /></Stack> };
 export const Toolbar: Story = { name: '툴바 조합', render: () => <ToolbarDemo /> };
-export const Align: Story = { name: '정렬', render: () => <Stack><DemoPagination current={1} total={20} pageSize={10} /><DemoPagination current={1} total={20} pageSize={10} className="pagination_align-center" /><DemoPagination current={1} total={20} pageSize={10} className="pagination_align-end" /></Stack> };
-export const State: Story = { name: '상태', render: () => <Stack><DemoPagination current={1} total={30} pageSize={10} /><DemoPagination current={10} total={100} pageSize={10} /></Stack> };
+export const Align: Story = { name: '정렬', render: () => <Stack><DemoPagination ariaLabel="왼쪽 페이지 이동" current={1} total={20} pageSize={10} /><DemoPagination ariaLabel="가운데 페이지 이동" current={1} total={20} pageSize={10} className="pagination_align-center" /><DemoPagination ariaLabel="오른쪽 페이지 이동" current={1} total={20} pageSize={10} className="pagination_align-end" /></Stack> };
+export const State: Story = { name: '상태', render: () => <Stack><DemoPagination ariaLabel="첫 페이지 상태" current={1} total={30} pageSize={10} /><DemoPagination ariaLabel="마지막 페이지 상태" current={10} total={100} pageSize={10} /></Stack> };

@@ -8,17 +8,17 @@ export const snackbarPlacements = [
 
 export const SnackbarPlacementContext = createContext('bottom-center');
 
-function getPortalRoot() {
-  if (typeof document === 'undefined') return null;
+export function getSnackbarPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+  if (!currentDocument) return null;
 
-  let targetDocument = document;
+  let targetDocument = currentDocument;
   try {
-    if (window.top?.document?.body) targetDocument = window.top.document;
+    if (currentWindow?.top?.document?.body) targetDocument = currentWindow.top.document;
   } catch {
     // 다른 출처의 iframe에서는 현재 문서를 사용합니다.
   }
 
-  if (targetDocument === document) return document.body;
+  if (targetDocument === currentDocument) return currentDocument.body;
 
   const stylesheetId = 'uxkm-snackbar-portal-styles';
   if (!targetDocument.getElementById(stylesheetId)) {
@@ -36,7 +36,7 @@ function getPortalRoot() {
     root.id = rootId;
     targetDocument.body.appendChild(root);
   }
-  root.dataset.theme = document.documentElement.dataset.theme || 'light';
+  root.dataset.theme = currentDocument.documentElement.dataset.theme || 'light';
   return root;
 }
 
@@ -53,7 +53,7 @@ export function SnackbarRegion({ placement = 'bottom-center', label, children, c
       </div>
     </SnackbarPlacementContext.Provider>
   );
-  const portalRoot = getPortalRoot();
+  const portalRoot = getSnackbarPortalRoot();
   return portalRoot ? createPortal(region, portalRoot) : region;
 }
 

@@ -488,6 +488,7 @@ body {
 }
 
 .sbdocs-content {
+  min-width: 0;
   max-width: none !important;
 }
 
@@ -497,11 +498,24 @@ body {
 }
 
 .sbdocs-preview .docs-story {
+  padding-right: clamp(12px, 1.5vw, 16px) !important;
+  padding-left: clamp(12px, 1.5vw, 16px) !important;
   color: var(--color-text) !important;
   background-color: var(--color-bg) !important;
   transition:
     color var(--transition-fast, 0.15s ease),
     background-color var(--transition-fast, 0.15s ease);
+}
+
+.sbdocs-preview .docs-story > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Canvas와 데모 래퍼의 패딩이 겹쳐 콘텐츠 폭이 과도하게 줄어들지 않도록 합니다. */
+.sbdocs-preview :is(.btn-demo, .card-demo) {
+  padding-right: clamp(var(--space-md), 2vw, var(--space-lg));
+  padding-left: clamp(var(--space-md), 2vw, var(--space-lg));
 }
 
 .catalog-placeholder {
@@ -736,6 +750,8 @@ body {
 }
 
 .framework-code__panel {
+  min-width: 0;
+  max-width: 100%;
   color: #dbeafe;
   background: #101827;
 }
@@ -774,14 +790,17 @@ body {
   margin: 0;
   padding: 14px;
   font: 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   tab-size: 2;
-  white-space: pre-wrap;
+  white-space: pre;
 }
 
 .framework-code__panel pre > code {
   display: block;
-  white-space: pre-wrap !important;
+  width: max-content;
+  min-width: 100%;
+  overflow-wrap: normal;
+  white-space: pre !important;
 }
 
 .framework-code__syntax pre.prismjs {
@@ -912,6 +931,8 @@ body {
 }
 
 .framework-storybooks__panel {
+  min-width: 0;
+  max-width: 100%;
   color: #dbeafe;
   background: #101827;
 }
@@ -922,9 +943,9 @@ body {
   margin: 0;
   padding: 0 !important;
   font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
   tab-size: 2;
-  white-space: pre-wrap;
+  white-space: pre;
 }
 
 .framework-storybooks__code.show-full-code .framework-storybooks__panel pre {
@@ -934,10 +955,11 @@ body {
 .framework-storybooks__panel pre > code {
   display: block;
   box-sizing: border-box;
-  width: 100%;
+  width: max-content;
   min-width: 100%;
   padding: 16px var(--framework-code-inline) 18px !important;
-  white-space: pre-wrap !important;
+  overflow-wrap: normal;
+  white-space: pre !important;
 }
 
 .framework-storybooks__syntax pre.prismjs {
@@ -947,23 +969,32 @@ body {
 
 /* Prism token names such as `.tag` overlap with UXKM component classes. */
 :is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs > div {
+  width: max-content;
+  min-width: 100%;
   padding: 0 !important;
   color: #dbe7f5;
   font: inherit !important;
   line-height: inherit !important;
-  white-space: pre-wrap !important;
+  overflow-wrap: normal;
+  white-space: pre !important;
 }
 
 .sbdocs pre.prismjs > div {
+  width: max-content;
+  min-width: 100%;
   padding: 0 !important;
   color: var(--docs-code-text) !important;
   font: inherit !important;
   line-height: inherit !important;
-  white-space: pre-wrap !important;
+  overflow-wrap: normal;
+  white-space: pre !important;
 }
 
 /* Docs 코드도 UXKM 테마와 함께 전환되는 고대비 팔레트를 사용합니다. */
 .sbdocs pre.prismjs {
+  overflow-x: auto;
+  overflow-wrap: normal;
+  white-space: pre;
   color: var(--docs-code-text) !important;
   background: var(--docs-code-bg) !important;
 }
@@ -1080,6 +1111,9 @@ body {
 }
 
 .sbdocs .sb-api-section .docblock-argstable {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 }

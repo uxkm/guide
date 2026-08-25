@@ -62,7 +62,6 @@ export function Input({
   function handleClear() {
     if (disabled || readOnly) return;
     const input = inputRef.current;
-    if (!input) return;
     const descriptor = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value');
     descriptor?.set?.call(input, '');
     input.dispatchEvent(new Event('input', { bubbles: true }));

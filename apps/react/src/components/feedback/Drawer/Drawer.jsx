@@ -8,15 +8,15 @@ const placements = new Set(['left', 'right', 'top', 'bottom']);
 const documentDrawerCounts = new WeakMap();
 const portalOwnerId = Math.random().toString(36).slice(2, 10);
 
-function getPortalRoot() {
-  if (typeof document === 'undefined') return null;
-  let targetDocument = document;
+export function getDrawerPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+  if (!currentDocument) return null;
+  let targetDocument = currentDocument;
   try {
-    if (window.top?.document?.body) targetDocument = window.top.document;
+    if (currentWindow?.top?.document?.body) targetDocument = currentWindow.top.document;
   } catch {
     // 다른 출처의 iframe에서는 현재 문서를 사용합니다.
   }
-  if (targetDocument === document) return document.body;
+  if (targetDocument === currentDocument) return currentDocument.body;
 
   const stylesheetUrl = new URL('styles/uxkm.css', targetDocument.baseURI);
   stylesheetUrl.searchParams.set('v', 'drawer-contrast-20260819');
@@ -37,9 +37,9 @@ function getPortalRoot() {
     root.id = rootId;
     root.className = 'uxkm-drawer-portal-root';
     targetDocument.body.appendChild(root);
-    window.addEventListener('pagehide', () => root?.remove(), { once: true });
+    currentWindow?.addEventListener('pagehide', () => root?.remove(), { once: true });
   }
-  root.dataset.theme = document.documentElement.dataset.theme || 'light';
+  root.dataset.theme = currentDocument.documentElement.dataset.theme || 'light';
   return root;
 }
 
@@ -62,7 +62,7 @@ export function Drawer({
   const resolvedSize = sizes.has(size) ? size : 'md';
   const resolvedPlacement = placements.has(placement) ? placement : 'right';
   const showDragHandle = draggable && resolvedPlacement === 'bottom';
-  const portalRoot = visible ? getPortalRoot() : null;
+  const portalRoot = visible ? getDrawerPortalRoot() : null;
   const rootClasses = useMemo(() => ['drawer', visible && 'is-open', className].filter(Boolean).join(' '), [className, visible]);
   const panelClasses = ['drawer_panel', `drawer_placement-${resolvedPlacement}`, resolvedSize !== 'md' && `drawer_${resolvedSize}`, showDragHandle && 'drawer_draggable'].filter(Boolean).join(' ');
   const footerClasses = ['drawer_footer', footerAlign !== 'end' && `drawer_footer-${footerAlign}`, footerAlign === 'even' && footerRatio !== '1-1' && `drawer_footer-even-${footerRatio}`, footerNoPadBottom && 'drawer_footer-no-pad-b'].filter(Boolean).join(' ');
@@ -76,7 +76,6 @@ export function Drawer({
     if (!showDragHandle || (event.button != null && event.button !== 0)) return;
     if (event.target.closest('.drawer_close, .drawer_extra, a, input, textarea, select')) return;
     const panel = panelRef.current;
-    if (!panel) return;
     const collapsed = panel.classList.contains('is-expanded')
       ? Number.parseFloat(panel.dataset.collapsedHeight || '')
       : panel.getBoundingClientRect().height;

@@ -42,7 +42,7 @@ export function Avatar({
         <img className="avatar_image" src={src} alt={alt} onError={() => setImageError(true)} />
       ) : fallback}
       {badgeColor ? (
-        <span className={`avatar_badge color_${badgeColor}`} aria-label={badgeLabel} />
+        <span className={`avatar_badge color_${badgeColor}`} role="img" aria-label={badgeLabel} />
       ) : null}
     </span>
   );
@@ -50,7 +50,7 @@ export function Avatar({
 
 export function AvatarGroup({ children, ariaLabel, className = '', ...props }) {
   const classes = ['avatar_group', className].filter(Boolean).join(' ');
-  return <div {...props} aria-label={ariaLabel} className={classes} data-component="AvatarGroup">{children}</div>;
+  return <div {...props} role="group" aria-label={ariaLabel} className={classes} data-component="AvatarGroup">{children}</div>;
 }
 
 export default Avatar;

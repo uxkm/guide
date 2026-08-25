@@ -21,6 +21,8 @@
     "build:styles": "node scripts/build-styles.mjs",
     "build:shared": "pnpm build:styles && pnpm build:assets",
     "storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook storybook",
+    "test:storybook": "pnpm --filter @uxkm/storybook test-storybook",
+    "test:storybook:coverage": "pnpm --filter @uxkm/storybook test-storybook:coverage",
     "build:guidebook": "pnpm --filter @uxkm/guidebook build",
     "build:storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook build-storybook",
     "deploy": "pnpm build && node scripts/deploy-main.mjs all",

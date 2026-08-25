@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { containerFrameworkExamples } from '../../../containerFrameworkExamples.ts';
+import { containerComponentExamples, containerFrameworkExamples } from '../../../containerFrameworkExamples.ts';
 import { containerApiSections } from '../../../containerApiSections.ts';
 import * as ContainerStories from '../../../Container.stories.tsx';
 
@@ -20,6 +20,20 @@ Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/cont
 - Container를 중첩하면 좌우 패딩이 누적되므로 독립된 최대 너비가 꼭 필요한 경우가 아니면 중첩하지 않습니다.
 - 배경은 화면 전체에 펼치고 콘텐츠만 제한하려면 전체 폭 section 안에 Container를 배치합니다.
 - `fluid`는 최대 너비만 해제하며 좌우 패딩은 유지합니다. 패딩까지 없는 전체 폭 영역과 구분해 사용합니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `Container` 컴포넌트 자체의 구현입니다. React와 Vue 구현은 전달받은 속성을 공통 CSS 클래스에 연결하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+WebSquare에는 별도의 `Container.xml` 구현 파일이 없습니다. Container는 호출 지점의 콘텐츠를 감싸는 구조이므로 WFrame으로 별도 화면을 불러오지 않고, 실제 화면 XML에서 `w2:group`에 `container` 클래스를 직접 적용합니다. 따라서 WebSquare 코드는 아래 사용 예제의 `screen.xml` 탭에서 기존 화면 루트 안에 붙이는 fragment로 제공합니다. 네임스페이스는 화면 XML 최상위 루트에서 한 번만 선언하며, 같은 화면의 Container와 다른 컴포넌트에서는 반복하지 않습니다. 별도 화면이나 WFrame처럼 독립적으로 파싱되는 XML 파일만 각 파일의 루트에서 다시 선언합니다.
+
+- `as`는 기본 `div` 대신 `main`, `section` 같은 시맨틱 요소나 다른 컴포넌트를 루트로 렌더링합니다.
+- `size`는 허용된 값만 받아 `container_sm`부터 `container_xl`까지의 최대 너비 클래스로 변환합니다.
+- `fluid`가 참이면 `container_fluid`를 추가해 최대 너비 제한을 해제합니다.
+- `className` 또는 `class`와 나머지 속성은 루트 요소에 전달하며, 내부 콘텐츠는 React의 `children` 또는 Vue의 기본 slot으로 렌더링합니다.
+- 실제 너비, 중앙 정렬, 좌우 여백은 모든 프레임워크가 공유하는 `.container` 스타일에서 처리합니다.
+
+<FrameworkTabs examples={containerComponentExamples} showFullCode />
 
 ## 기본
 

@@ -2,9 +2,36 @@ import type { Preview } from '@storybook/react-vite';
 import { initInteractions } from '@uxkm/interactions';
 
 import '../src/styles.css';
-import '../public/styles/uxkm.css';
 
 initInteractions();
+
+const uxkmViewports = {
+  mobileSmall: {
+    name: 'Mobile · 320px',
+    styles: { width: '320px', height: '568px' },
+    type: 'mobile'
+  },
+  mobile: {
+    name: 'Mobile · 375px',
+    styles: { width: '375px', height: '812px' },
+    type: 'mobile'
+  },
+  tablet: {
+    name: 'Tablet · 768px (md)',
+    styles: { width: '768px', height: '1024px' },
+    type: 'tablet'
+  },
+  desktop: {
+    name: 'Desktop · 1024px (lg)',
+    styles: { width: '1024px', height: '768px' },
+    type: 'desktop'
+  },
+  desktopWide: {
+    name: 'Desktop Wide · 1440px',
+    styles: { width: '1440px', height: '900px' },
+    type: 'desktop'
+  }
+} as const;
 
 const preview: Preview = {
   globalTypes: {
@@ -39,11 +66,17 @@ const preview: Preview = {
   ],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
+    a11y: {
+      test: 'error'
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i
       }
+    },
+    viewport: {
+      options: uxkmViewports
     },
     layout: 'centered',
     options: {

@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { flexFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { flexComponentExamples, flexFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
 import { flexApiSections } from '../../../layoutApiSections.ts';
 import * as FlexStories from '../../../Flex.stories.tsx';
 
@@ -21,6 +21,20 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `flex`
 - `cols`, `ratio`, `itemSpan`, `equal`, `autoFit`은 항목 너비를 정의하는 모드입니다. 한 Flex에서는 의도한 모드 하나를 우선 사용하고, 예외 항목만 FlexItem으로 조정합니다.
 - FlexItem의 개별 `span`으로 여러 행을 구성할 때는 부모 Flex에 `wrap`을 지정합니다.
 - 반응형 값은 기본 → md → lg 순서의 mobile-first 방식으로 덮어씁니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `Flex`와 `FlexItem` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+- `range`는 항목 수, span과 표시 순서를 1~12 범위로 제한합니다.
+- `direction`·`directionMd`·`directionLg`는 구간별 배치 방향을, `wrap`은 여러 줄 배치를 제어합니다.
+- `cols`·`ratio`·`itemSpan`은 부모에서 자식 너비를 일괄 제어하는 방식입니다.
+- `gap`·`align`·`justify`는 허용된 문자열만 클래스에 반영합니다.
+- `equal`·`autoFit`은 동일 너비 확장과 최소 너비 기반 자동 배치 클래스로 변환됩니다.
+- FlexItem은 자식마다 다른 `span`, `grow`, `fit`, `align`, `order`가 필요한 경우에 사용합니다.
+- `as`, 사용자 정의 클래스와 나머지 속성, React의 `children` 또는 Vue의 기본 slot은 루트 요소에 전달됩니다.
+
+<FrameworkTabs examples={flexComponentExamples} showFullCode />
 
 ## WebSquare 사용
 

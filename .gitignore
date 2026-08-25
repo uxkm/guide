@@ -4,6 +4,7 @@ node_modules/
 
 # Framework build output
 apps/*/dist/
+apps/*/coverage/
 apps/guidebook/*/dist/
 apps/nuxt/.output/
 apps/nuxt/.nuxt/
