@@ -53,8 +53,14 @@ function updateArrowPosition() {
   arrowPosition.value = `${value}px`;
 }
 function setVisible(next, reason, event) { if (props.disabled) return; if (props.open === undefined) internalOpen.value = next; emit('open-change', next, reason, event); }
+const triggerControlSelector = 'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
+function resolveTriggerAnchor(root) {
+  if (!root?.matches) return root;
+  if (root.matches(triggerControlSelector)) return root;
+  return root.querySelector(triggerControlSelector) || root;
+}
 function updatePosition() {
-  const element = triggerElement.value; if (!element) return;
+  const element = resolveTriggerAnchor(triggerElement.value); if (!element) return;
   const rect = element.getBoundingClientRect(); let frame = { top: 0, left: 0 };
   try { if (element.ownerDocument !== window.top?.document) frame = window.frameElement?.getBoundingClientRect() || frame; } catch { /* 현재 좌표 */ }
   anchor.value = { top: frame.top + rect.top, left: frame.left + rect.left, width: rect.width, height: rect.height };

@@ -24,6 +24,14 @@ export function getTooltipPortalRoot(currentDocument = typeof document === 'unde
   return root;
 }
 
+const triggerControlSelector = 'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
+
+export function resolveTriggerAnchor(root) {
+  if (!root?.matches) return root;
+  if (root.matches(triggerControlSelector)) return root;
+  return root.querySelector(triggerControlSelector) || root;
+}
+
 export function viewportRect(element, currentWindow = window) {
   const rect = element.getBoundingClientRect();
   try {
@@ -60,7 +68,10 @@ export function Tooltip({
     if (open === undefined) setInternalOpen(next);
     onOpenChange?.(next, reason, event);
   };
-  const updatePosition = () => { if (triggerRef.current) setAnchor(viewportRect(triggerRef.current)); };
+  const updatePosition = () => {
+    const element = resolveTriggerAnchor(triggerRef.current);
+    if (element) setAnchor(viewportRect(element));
+  };
   const cancelClose = () => { if (hoverTimer.current) clearTimeout(hoverTimer.current); hoverTimer.current = null; };
   const scheduleClose = (event) => { cancelClose(); hoverTimer.current = setTimeout(() => setVisible(false, 'hover', event), 100); };
   const openFromTrigger = (reason, event) => { updatePosition(); setVisible(true, reason, event); };

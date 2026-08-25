@@ -26,10 +26,10 @@ import CollapsePanel from '../../react/src/components/miscellaneous/Collapse/Col
 import Drawer, { getDrawerPortalRoot } from '../../react/src/components/feedback/Drawer/Drawer.jsx';
 import Input from '../../react/src/components/form/Input/Input.jsx';
 import Modal, { getModalPortalRoot } from '../../react/src/components/feedback/Modal/Modal.jsx';
-import Popover, { getPopoverPortalRoot, topViewportRect } from '../../react/src/components/feedback/Popover/Popover.jsx';
+import Popover, { getPopoverPortalRoot, resolveTriggerAnchor, topViewportRect } from '../../react/src/components/feedback/Popover/Popover.jsx';
 import Snackbar from '../../react/src/components/feedback/Snackbar/Snackbar.jsx';
 import SnackbarRegion, { getSnackbarPortalRoot } from '../../react/src/components/feedback/Snackbar/SnackbarRegion.jsx';
-import Tooltip, { getTooltipPortalRoot, viewportRect } from '../../react/src/components/feedback/Tooltip/Tooltip.jsx';
+import Tooltip, { getTooltipPortalRoot, resolveTriggerAnchor as resolveTooltipTriggerAnchor, viewportRect } from '../../react/src/components/feedback/Tooltip/Tooltip.jsx';
 import DatePicker from '../../react/src/components/form/DatePicker/DatePicker.jsx';
 import Rate from '../../react/src/components/form/Rate/Rate.jsx';
 import Slider from '../../react/src/components/form/Slider/Slider.jsx';
@@ -658,6 +658,14 @@ export const Remainders: Story = {
     viewportRect(element, { top: { document: doc } } as any);
     viewportRect(element, { top: { document: {} }, frameElement: { getBoundingClientRect: () => ({ top: 10, left: 20 }) } } as any);
     viewportRect(element, { top: { document: {} }, frameElement: null } as any);
+    const triggerWrap = doc.createElement('span');
+    const triggerButton = doc.createElement('button');
+    triggerButton.className = 'btn';
+    triggerWrap.appendChild(triggerButton);
+    resolveTriggerAnchor(null);
+    resolveTriggerAnchor(triggerButton);
+    resolveTriggerAnchor(triggerWrap);
+    resolveTooltipTriggerAnchor(triggerWrap);
     normalizeInitialSlide(0, 0, false);
     updateCoverflowStyles(null, null, false, 4, 1.5);
     const layoutRoot = doc.createElement('div'); const layoutSwiper = doc.createElement('div');

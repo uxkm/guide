@@ -161,6 +161,9 @@
 
   &_trigger {
     position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
   }
 
   &_panel {

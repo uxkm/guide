@@ -25,6 +25,14 @@ export function getPopoverPortalRoot(currentDocument = typeof document === 'unde
   return root;
 }
 
+const triggerControlSelector = 'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
+
+export function resolveTriggerAnchor(root) {
+  if (!root?.matches) return root;
+  if (root.matches(triggerControlSelector)) return root;
+  return root.querySelector(triggerControlSelector) || root;
+}
+
 export function topViewportRect(element, currentWindow = window) {
   const rect = element.getBoundingClientRect();
   try {
@@ -65,7 +73,10 @@ export function Popover({
   const openFromTrigger = (reason, event) => { updatePosition(); setVisible(true, reason, event); };
   const cancelHoverClose = () => { if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current); hoverTimerRef.current = null; };
   const scheduleHoverClose = (event) => { cancelHoverClose(); hoverTimerRef.current = setTimeout(() => setVisible(false, 'hover', event), 100); };
-  const updatePosition = () => { if (triggerRef.current) setAnchor(topViewportRect(triggerRef.current)); };
+  const updatePosition = () => {
+    const element = resolveTriggerAnchor(triggerRef.current);
+    if (element) setAnchor(topViewportRect(element));
+  };
   useEffect(() => {
     if (!visible) return undefined;
     updatePosition();

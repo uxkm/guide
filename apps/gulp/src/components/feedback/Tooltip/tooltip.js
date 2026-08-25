@@ -28,7 +28,9 @@ export function initTooltip(root = document) {
     if (tooltip.dataset.tooltipTrigger === 'click') bubble.style.pointerEvents = 'auto';
     let timer;
     const update = () => {
-      const rect = trigger.getBoundingClientRect(); let frame = { top: 0, left: 0 };
+      const selector = 'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
+      const element = trigger.matches(selector) ? trigger : (trigger.querySelector(selector) || trigger);
+      const rect = element.getBoundingClientRect(); let frame = { top: 0, left: 0 };
       try { if (trigger.ownerDocument !== window.top?.document) frame = window.frameElement?.getBoundingClientRect() || frame; } catch { /* 현재 좌표 */ }
       portal.style.top = `${frame.top + rect.top}px`; portal.style.left = `${frame.left + rect.left}px`; portal.style.width = `${rect.width}px`; portal.style.height = `${rect.height}px`;
       if (portal.matches('.tooltip_arrow-anchor-target, .tooltip_arrow-anchor-mixed')) {

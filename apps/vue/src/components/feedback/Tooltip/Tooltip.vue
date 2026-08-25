@@ -68,10 +68,17 @@ function updateArrowPosition() {
   const value = ['left', 'right'].includes(props.placement) ? anchor.value.top + anchor.value.height * ratio - rect.top : anchor.value.left + anchor.value.width * ratio - rect.left;
   arrowPosition.value = `${value}px`;
 }
+const triggerControlSelector = 'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
+function resolveTriggerAnchor(root) {
+  if (!root?.matches) return root;
+  if (root.matches(triggerControlSelector)) return root;
+  return root.querySelector(triggerControlSelector) || root;
+}
 function updatePosition() {
-  if (!triggerElement.value) return;
-  const rect = triggerElement.value.getBoundingClientRect(); let frame = { top: 0, left: 0 };
-  try { if (triggerElement.value.ownerDocument !== window.top?.document) frame = window.frameElement?.getBoundingClientRect() || frame; } catch { /* 현재 좌표 */ }
+  const element = resolveTriggerAnchor(triggerElement.value);
+  if (!element) return;
+  const rect = element.getBoundingClientRect(); let frame = { top: 0, left: 0 };
+  try { if (element.ownerDocument !== window.top?.document) frame = window.frameElement?.getBoundingClientRect() || frame; } catch { /* 현재 좌표 */ }
   anchor.value = { top: frame.top + rect.top, left: frame.left + rect.left, width: rect.width, height: rect.height };
   nextTick(updateArrowPosition);
 }
