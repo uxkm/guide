@@ -1,5 +1,196 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const typographyHtmlComponent = `<!-- 제목은 h1~h5와 typo_title-*를 같은 단계로 맞춥니다. -->
+<h1 class="typo_title-1" data-component="TypoTitle">제목 레벨 1</h1>
+<h3 class="typo_title-3" data-component="TypoTitle">제목 레벨 3</h3>
+
+<!-- 본문·강조·보조 텍스트는 시맨틱 태그와 typo_* 클래스를 조합합니다. -->
+<p data-component="TypoText">기본 본문 텍스트입니다.</p>
+<p class="typo_paragraph" data-component="TypoText">단락 간격이 있는 본문입니다.</p>
+<strong class="typo_strong" data-component="TypoText">강조 텍스트</strong>
+<span class="color_muted" data-component="TypoText">보조 설명</span>
+
+<!-- 말줄임은 text_ellipsis · text_ellipsis-2 · text_ellipsis-3를 사용합니다. -->
+<p class="text_ellipsis" data-component="TypoText">한 줄로 말줄임되는 긴 본문입니다.</p>`;
+
+const typographyReactComponent = `// TypoTitle이 허용하는 제목 단계입니다.
+const TITLE_LEVELS = new Set([1, 2, 3, 4, 5, '1', '2', '3', '4', '5']);
+
+// variant별 기본 시맨틱 태그와 typo_* 클래스 매핑입니다.
+const VARIANTS = {
+  text: { tag: 'p', className: '' },
+  paragraph: { tag: 'p', className: 'typo_paragraph' },
+  lead: { tag: 'p', className: 'typo_lead' },
+  caption: { tag: 'p', className: 'typo_caption' },
+  label: { tag: 'label', className: 'typo_label' },
+  overline: { tag: 'p', className: 'typo_overline' },
+  code: { tag: 'code', className: 'typo_code' },
+  kbd: { tag: 'kbd', className: 'typo_kbd' },
+  pre: { tag: 'pre', className: 'typo_pre' },
+  strong: { tag: 'strong', className: 'typo_strong' },
+  italic: { tag: 'em', className: 'typo_italic' },
+  underline: { tag: 'span', className: 'typo_underline' },
+  delete: { tag: 'del', className: 'typo_delete' },
+  mark: { tag: 'mark', className: 'typo_mark' },
+  sub: { tag: 'sub', className: 'typo_sub' },
+  sup: { tag: 'sup', className: 'typo_sup' },
+  small: { tag: 'small', className: 'typo_small' },
+  link: { tag: 'a', className: 'typo_link' },
+  blockquote: { tag: 'blockquote', className: 'typo_blockquote' }
+};
+
+export function TypoTitle({
+  level = 1, // 1~5 제목 단계입니다. 허용되지 않으면 1로 되돌립니다.
+  color, // color_* 공통 색상 클래스입니다.
+  label, // children이 없을 때 표시할 텍스트입니다.
+  children, // 제목 콘텐츠입니다.
+  className = '', // 추가 클래스입니다.
+  ...props // 나머지 속성을 루트 heading에 전달합니다.
+}) {
+  const resolvedLevel = TITLE_LEVELS.has(level) ? Number(level) : 1;
+  const Tag = \`h\${resolvedLevel}\`;
+  const classes = [\`typo_title-\${resolvedLevel}\`, color && \`color_\${color}\`, className].filter(Boolean).join(' ');
+  return <Tag className={classes} data-component="TypoTitle" {...props}>{children ?? label}</Tag>;
+}
+
+export function TypoText({
+  variant = 'text', // VARIANTS 키로 기본 태그와 클래스를 선택합니다.
+  tag, // variant 기본 태그 대신 사용할 루트 요소입니다.
+  color, // color_* 공통 색상 클래스입니다.
+  size = '', // xs · sm · lg · xl 본문 크기입니다.
+  ellipsis, // 1·2·3줄 말줄임입니다.
+  href, // variant가 link일 때 링크 주소입니다.
+  htmlFor, // variant가 label일 때 for 속성입니다.
+  cite, // variant가 blockquote일 때 cite 속성입니다.
+  label, // children이 없을 때 표시할 텍스트입니다.
+  children, // 본문 콘텐츠입니다.
+  className = '', // 추가 클래스입니다.
+  onClick, // 클릭 핸들러입니다. link이고 href가 없으면 기본 이동을 막습니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
+}) {
+  const config = VARIANTS[variant] ?? VARIANTS.text;
+  const Tag = tag || config.tag;
+  const lines = Number(ellipsis);
+  const ellipsisClass = lines === 1 ? 'text_ellipsis' : lines === 2 || lines === 3 ? \`text_ellipsis-\${lines}\` : '';
+  const sizeClass = ['xs', 'sm', 'lg', 'xl'].includes(size) ? \`size_\${size}\` : '';
+  const classes = [config.className, color && \`color_\${color}\`, sizeClass, ellipsisClass, className].filter(Boolean).join(' ');
+
+  function handleClick(event) {
+    if (variant === 'link' && !href) event.preventDefault();
+    onClick?.(event);
+  }
+
+  return (
+    <Tag
+      className={classes || undefined}
+      cite={variant === 'blockquote' ? cite : undefined}
+      data-component="TypoText"
+      href={variant === 'link' ? (href || '#') : undefined}
+      htmlFor={variant === 'label' ? htmlFor : undefined}
+      onClick={variant === 'link' ? handleClick : onClick}
+      {...props}
+    >
+      {children ?? label}
+    </Tag>
+  );
+}
+
+export const Typography = TypoText;
+export default TypoText;`;
+
+const typographyVueComponent = `<!-- TypoTitle.vue -->
+<script setup>
+import { computed } from 'vue';
+
+defineOptions({ name: 'UxkmTypoTitle' });
+
+const props = defineProps({
+  level: { type: [Number, String], default: 1, validator: (value) => [1, 2, 3, 4, 5, '1', '2', '3', '4', '5'].includes(value) },
+  color: String, // color_* 공통 색상 클래스입니다.
+  label: String // 기본 slot이 없을 때 표시할 텍스트입니다.
+});
+
+const resolvedLevel = computed(() => [1, 2, 3, 4, 5].includes(Number(props.level)) ? Number(props.level) : 1);
+const rootTag = computed(() => \`h\${resolvedLevel.value}\`);
+const classes = computed(() => [\`typo_title-\${resolvedLevel.value}\`, props.color && \`color_\${props.color}\`].filter(Boolean));
+</script>
+
+<template>
+  <component :is="rootTag" :class="classes" data-component="TypoTitle"><slot>{{ label }}</slot></component>
+</template>
+
+<!-- Typography.vue · TypoText -->
+<script setup>
+import { computed } from 'vue';
+
+defineOptions({ name: 'UxkmTypoText' });
+
+// variant별 기본 시맨틱 태그와 typo_* 클래스 매핑입니다.
+const VARIANTS = {
+  text: { tag: 'p', className: '' }, paragraph: { tag: 'p', className: 'typo_paragraph' },
+  lead: { tag: 'p', className: 'typo_lead' }, caption: { tag: 'p', className: 'typo_caption' },
+  label: { tag: 'label', className: 'typo_label' }, overline: { tag: 'p', className: 'typo_overline' },
+  code: { tag: 'code', className: 'typo_code' }, kbd: { tag: 'kbd', className: 'typo_kbd' },
+  pre: { tag: 'pre', className: 'typo_pre' }, strong: { tag: 'strong', className: 'typo_strong' },
+  italic: { tag: 'em', className: 'typo_italic' }, underline: { tag: 'span', className: 'typo_underline' },
+  delete: { tag: 'del', className: 'typo_delete' }, mark: { tag: 'mark', className: 'typo_mark' },
+  sub: { tag: 'sub', className: 'typo_sub' }, sup: { tag: 'sup', className: 'typo_sup' },
+  small: { tag: 'small', className: 'typo_small' }, link: { tag: 'a', className: 'typo_link' },
+  blockquote: { tag: 'blockquote', className: 'typo_blockquote' }
+};
+
+const props = defineProps({
+  variant: { type: String, default: 'text' }, // VARIANTS 키로 기본 태그와 클래스를 선택합니다.
+  tag: String, // variant 기본 태그 대신 사용할 루트 요소입니다.
+  color: String, // color_* 공통 색상 클래스입니다.
+  size: { type: String, default: '', validator: (value) => ['', 'xs', 'sm', 'lg', 'xl'].includes(value) },
+  ellipsis: { type: [Number, String], default: undefined }, // 1·2·3줄 말줄임입니다.
+  href: String, // variant가 link일 때 링크 주소입니다.
+  htmlFor: String, // variant가 label일 때 for 속성입니다.
+  cite: String, // variant가 blockquote일 때 cite 속성입니다.
+  label: String // 기본 slot이 없을 때 표시할 텍스트입니다.
+});
+
+const emit = defineEmits(['click']);
+const config = computed(() => VARIANTS[props.variant] ?? VARIANTS.text);
+const rootTag = computed(() => props.tag || config.value.tag);
+const classes = computed(() => {
+  const lines = Number(props.ellipsis);
+  return [
+    config.value.className, props.color && \`color_\${props.color}\`,
+    props.size && \`size_\${props.size}\`, lines === 1 ? 'text_ellipsis' : [2, 3].includes(lines) ? \`text_ellipsis-\${lines}\` : ''
+  ].filter(Boolean);
+});
+
+function handleClick(event) {
+  if (props.variant === 'link' && !props.href) event.preventDefault();
+  emit('click', event);
+}
+</script>
+
+<template>
+  <component
+    :is="rootTag"
+    :class="classes"
+    :cite="variant === 'blockquote' ? cite : undefined"
+    data-component="TypoText"
+    :for="variant === 'label' ? htmlFor : undefined"
+    :href="variant === 'link' ? (href || '#') : undefined"
+    @click="handleClick"
+  >
+    <slot>{{ label }}</slot>
+  </component>
+</template>`;
+
+export const typographyComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Typography/Typography.html', code: typographyHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Typography/typography.njk', code: `{# Typography 구현 #}\n${typographyHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Typography/TypoTitle.vue · Typography.vue', code: typographyVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/typography → TypoTitle.vue · Typography.vue', code: typographyVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Typography/Typography.jsx', code: typographyReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/typography → Typography.jsx', code: typographyReactComponent }
+];
+
 const bodies = {
   titles: `<div class="typo_stack-lg">
   <TypoTitle level="1">h1. 제목 레벨 1</TypoTitle>

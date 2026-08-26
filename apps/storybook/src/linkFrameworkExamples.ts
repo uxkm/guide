@@ -1,5 +1,197 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const linkHtmlComponent = `<!-- link와 color_*를 조합합니다. 기본은 hover 시 밑줄입니다. -->
+<a class="link color_primary" data-component="Link" data-ripple="true" href="#">더 보기</a>
+
+<!-- 밑줄·내비게이션·블록·뒤로가기 변형을 클래스로 조합합니다. -->
+<a class="link color_primary link_underline" data-component="Link" href="#">항상 밑줄</a>
+<a class="link color_primary link_nav is-active" data-component="Link" href="#" aria-current="page">개요</a>
+<a class="link color_muted link_back" data-component="Link" href="#">목록으로 돌아가기</a>
+
+<!-- 아이콘 전용 링크는 link_icon-only와 aria-label을 함께 지정합니다. -->
+<a class="link color_primary link_icon-only" data-component="Link" href="#" aria-label="검색">
+  <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </svg>
+</a>`;
+
+const linkReactComponent = `// 색상·크기 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
+const COLORS = new Set(['primary', 'muted', 'success', 'warning', 'danger', 'info']);
+const SIZES = new Set(['', 'sm', 'lg', 'xl']);
+
+export function Link({
+  as: Root = 'a', // 루트 요소 또는 컴포넌트입니다. 기본은 a입니다.
+  ripple = true, // 클릭 리플 효과를 켭니다.
+  color = 'primary', // color_* 공통 색상 클래스입니다.
+  size = '', // sm · lg · xl 크기입니다. 빈 값은 기본 크기입니다.
+  underline = false, // 항상 밑줄을 표시합니다.
+  noUnderline = false, // 밑줄을 제거합니다.
+  standalone = false, // 터치 영역을 확대합니다.
+  nav = false, // 내비게이션 링크 스타일입니다.
+  block = false, // 블록형 링크입니다.
+  back = false, // 뒤로가기 링크 스타일입니다.
+  iconOnly = false, // 텍스트 없이 아이콘만 표시합니다.
+  active = false, // 현재 페이지 활성 상태입니다.
+  disabled = false, // 비활성 상태입니다.
+
+  label, // children이 없을 때 표시할 텍스트입니다.
+  href, // a 또는 커스텀 루트에 전달할 주소입니다.
+  target, // 링크 target입니다.
+  rel, // 링크 rel입니다.
+  ariaLabel, // 아이콘 전용 링크 등의 접근성 이름입니다.
+  icon, // 텍스트 앞에 렌더링할 아이콘입니다.
+  iconAfter, // 텍스트 뒤에 렌더링할 아이콘입니다.
+  children, // 링크 콘텐츠입니다.
+  className = '', // 추가 클래스입니다.
+  onClick, // 클릭 핸들러입니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
+}) {
+  const resolvedColor = COLORS.has(color) ? color : 'primary';
+  const resolvedSize = SIZES.has(size) ? size : '';
+  const isAnchor = Root === 'a';
+  const isButton = Root === 'button';
+  // a이거나 컴포넌트 루트면 href를 전달합니다.
+  const acceptsHref = isAnchor || typeof Root !== 'string';
+  const content = children ?? label;
+
+  const classes = [
+    'link', \`color_\${resolvedColor}\`, resolvedSize && \`size_\${resolvedSize}\`,
+    underline && 'link_underline', noUnderline && 'link_no-underline',
+    standalone && 'link_standalone', nav && 'link_nav', block && 'link_block',
+    back && 'link_back', iconOnly && 'link_icon-only', active && 'is-active',
+    disabled && 'is-disabled', className
+  ].filter(Boolean).join(' ');
+
+  function handleClick(event) {
+    if (disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    // href가 없거나 #이면 페이지 점프를 막고 onClick만 실행합니다.
+    if (!href || href === '#') event.preventDefault();
+    onClick?.(event);
+  }
+
+  return (
+    <Root
+      {...props}
+      aria-current={active ? 'page' : undefined}
+      aria-disabled={disabled || undefined}
+      aria-label={ariaLabel}
+      className={classes}
+      data-component="Link"
+      data-ripple={ripple ? 'true' : 'false'}
+      disabled={isButton ? disabled : undefined}
+      href={acceptsHref ? (href || '#') : undefined}
+      onClick={handleClick}
+      rel={acceptsHref ? rel : undefined}
+      tabIndex={disabled ? -1 : props.tabIndex}
+      target={acceptsHref ? target : undefined}
+      type={isButton ? 'button' : undefined}
+    >
+      {icon}
+      {!iconOnly ? content : null}
+      {iconAfter}
+    </Root>
+  );
+}
+
+export default Link;`;
+
+const linkVueComponent = `<script setup>
+import { computed, useAttrs, useSlots } from 'vue';
+
+// 속성을 계산된 Link 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmLink', inheritAttrs: false });
+
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'a' }, // 루트 요소 또는 컴포넌트입니다.
+  ripple: { type: Boolean, default: true }, // 클릭 리플 효과를 켭니다.
+  color: { type: String, default: 'primary' }, // color_* 공통 색상 클래스입니다.
+  size: { type: String, default: '' }, // sm · lg · xl 크기입니다.
+  underline: Boolean, // 항상 밑줄을 표시합니다.
+  noUnderline: Boolean, // 밑줄을 제거합니다.
+  standalone: Boolean, // 터치 영역을 확대합니다.
+  nav: Boolean, // 내비게이션 링크 스타일입니다.
+  block: Boolean, // 블록형 링크입니다.
+  back: Boolean, // 뒤로가기 링크 스타일입니다.
+  iconOnly: Boolean, // 텍스트 없이 아이콘만 표시합니다.
+  active: Boolean, // 현재 페이지 활성 상태입니다.
+  disabled: Boolean, // 비활성 상태입니다.
+  label: String, // 기본 slot이 없을 때 표시할 텍스트입니다.
+  href: String, // a 또는 커스텀 루트에 전달할 주소입니다.
+  target: String, // 링크 target입니다.
+  rel: String, // 링크 rel입니다.
+  ariaLabel: String // 아이콘 전용 링크 등의 접근성 이름입니다.
+});
+
+const emit = defineEmits(['click']);
+const attrs = useAttrs();
+const slots = useSlots();
+const colors = new Set(['primary', 'muted', 'success', 'warning', 'danger', 'info']);
+const sizes = new Set(['', 'sm', 'lg', 'xl']);
+const resolvedColor = computed(() => colors.has(props.color) ? props.color : 'primary');
+const resolvedSize = computed(() => sizes.has(props.size) ? props.size : '');
+const rootTag = computed(() => props.as || 'a');
+const isAnchor = computed(() => rootTag.value === 'a');
+const isButton = computed(() => rootTag.value === 'button');
+const acceptsHref = computed(() => isAnchor.value || typeof rootTag.value !== 'string');
+const showLabel = computed(() => !props.iconOnly && (Boolean(slots.default) || Boolean(props.label)));
+
+const classes = computed(() => [
+  'link', \`color_\${resolvedColor.value}\`, resolvedSize.value && \`size_\${resolvedSize.value}\`,
+  props.underline && 'link_underline', props.noUnderline && 'link_no-underline',
+  props.standalone && 'link_standalone', props.nav && 'link_nav', props.block && 'link_block',
+  props.back && 'link_back', props.iconOnly && 'link_icon-only', props.active && 'is-active',
+  props.disabled && 'is-disabled', attrs.class
+].filter(Boolean));
+
+function handleClick(event) {
+  if (props.disabled) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  if (!props.href || props.href === '#') event.preventDefault();
+  emit('click', event);
+}
+</script>
+
+<template>
+  <component
+    :is="rootTag"
+    v-bind="attrs"
+    :aria-current="active ? 'page' : undefined"
+    :aria-disabled="disabled || undefined"
+    :aria-label="ariaLabel || attrs['aria-label']"
+    :class="classes"
+    data-component="Link"
+    :data-ripple="ripple ? 'true' : 'false'"
+    :disabled="isButton ? disabled : undefined"
+    :href="acceptsHref ? (href || '#') : undefined"
+    :rel="acceptsHref ? rel : undefined"
+    :tabindex="disabled ? -1 : attrs.tabindex"
+    :target="acceptsHref ? target : undefined"
+    :type="isButton ? 'button' : undefined"
+    @click="handleClick"
+  >
+    <slot name="icon" />
+    <slot v-if="showLabel">{{ label }}</slot>
+    <slot name="icon-after" />
+  </component>
+</template>`;
+
+export const linkComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Link/Link.html', code: linkHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Link/link.njk', code: `{# Link 구현 #}\n${linkHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Link/Link.vue', code: linkVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/link → Link.vue', code: linkVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Link/Link.jsx', code: linkReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/link → Link.jsx', code: linkReactComponent }
+];
+
 const avatar = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%236366f1%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2212%22%20r%3D%225%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M7%2029a9%209%200%200%201%2018%200%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E';
 
 const bodies = {

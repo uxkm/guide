@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { dividerFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
+import { dividerComponentExamples, dividerFrameworkExamples } from '../../../layoutFrameworkExamples.ts';
 import { dividerApiSections } from '../../../layoutApiSections.ts';
 import * as DividerStories from '../../../Divider.stories.tsx';
 
@@ -21,6 +21,19 @@ WebSquare는 Divider의 의미에 따라 XHTML `hr`·`span` 또는 `w2:group`을
 - 단순한 여백 확보가 목적이면 Divider 대신 spacing token이나 Space를 사용합니다.
 - 레이블형 Divider는 시각적인 구분과 짧은 보조 문구에 사용합니다. 실제 섹션 제목이라면 별도의 `h2`·`h3` 등 제목 요소를 함께 제공합니다.
 - 세로 Divider는 버튼이나 짧은 텍스트가 한 행에 배치된 경우에만 장식용으로 사용합니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `Divider` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+- `tag`가 `auto`이면 레이블 없는 선은 `hr`, 레이블형은 `div`, 세로선은 `span`으로 루트를 선택합니다.
+- `as`는 `tag`보다 우선하며, 허용된 `tag` 값만 루트 요소 선택에 반영됩니다.
+- `vertical`·`dashed`·`plain`·`orient`는 검증된 값만 `divider_*` 클래스로 변환됩니다.
+- `label`과 React `children`(또는 Vue 기본 slot)은 레이블 콘텐츠로 사용되며, `hr` 루트에는 자식을 두지 않습니다.
+- 세로 Divider는 장식이므로 `aria-hidden="true"`를 적용합니다.
+- 사용자 정의 클래스와 나머지 속성은 루트 요소에 전달됩니다.
+
+<FrameworkTabs examples={dividerComponentExamples} showFullCode />
 
 ## WebSquare 사용
 

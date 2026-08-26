@@ -1,5 +1,275 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const buttonHtmlComponent = `<!-- btn과 스킨·색상 클래스를 조합합니다. 텍스트는 btn_label로 감쌉니다. -->
+<button class="btn btn_filled color_primary" data-component="Button" data-ripple="true" type="button">
+  <span class="btn_label">Filled Primary</span>
+</button>
+
+<!-- 아이콘만 표시할 때는 btn_icon-only와 aria-label을 함께 지정합니다. -->
+<button class="btn btn_ghost btn_icon-only" data-component="Button" data-ripple="true" type="button" aria-label="검색">
+  <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </svg>
+</button>
+
+<!-- 셀렉트 트리거는 btn_select와 aria-haspopup을 사용합니다. -->
+<button class="btn btn_select color_primary" data-component="Button" type="button" aria-haspopup="listbox" aria-expanded="false">
+  <span class="btn_label">옵션 선택</span>
+</button>`;
+
+const buttonReactComponent = `// 셀렉트형 트리거에 붙는 캐럿 아이콘입니다.
+const SelectCaret = () => (
+  <svg aria-hidden="true" className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+    <path d="m9 6 6 6-6 6" />
+  </svg>
+);
+
+export function Button({
+  children, // 기본 슬롯 콘텐츠입니다. 없으면 label을 사용합니다.
+  label = 'Button', // children 대신 표시할 텍스트입니다.
+  ripple = true, // 클릭 리플 효과를 켭니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+
+  variant = 'filled', // filled · outline · ghost · text · select 스킨입니다.
+  color = 'primary', // ghost가 아닐 때 color_* 클래스로 적용됩니다.
+  size = 'md', // sm · md · lg 크기입니다. md는 기본이라 클래스를 붙이지 않습니다.
+
+  iconBefore, // 텍스트 앞에 렌더링할 아이콘입니다.
+  iconAfter, // 텍스트 뒤에 렌더링할 아이콘입니다.
+  iconOnly = false, // 텍스트 없이 아이콘만 표시합니다.
+  vertical = false, // 아이콘 위·텍스트 아래 세로 배치입니다.
+  round = false, // pill 형태 둥근 모서리입니다.
+  block = false, // 부모 너비를 채웁니다.
+  grow = false, // true면 btn_grow, '2'면 btn_grow-2입니다.
+  fit = false, // 콘텐츠 너비를 유지합니다.
+
+  loading = false, // 로딩 스피너를 표시하고 입력을 막습니다.
+  open = false, // 셀렉트·팝오버 열림 상태입니다.
+  error = false, // 오류 상태 클래스를 적용합니다.
+  placeholder = false, // 셀렉트 플레이스홀더 스타일입니다.
+  selectText = false, // 배경·테두리 없는 셀렉트 텍스트형입니다.
+  selectCaret = false, // select가 아니어도 캐럿을 강제 표시합니다.
+
+  disabled = false, // 네이티브 disabled입니다.
+  ariaDisabled = false, // is-disabled와 aria-disabled만 적용합니다.
+  ariaLabel, // 아이콘 전용 버튼 등의 접근성 이름입니다.
+  haspopup, // aria-haspopup 값입니다.
+  expanded, // aria-expanded 값입니다. 없으면 open을 사용합니다.
+  invalid = false, // aria-invalid를 켭니다.
+
+  tag: Tag = 'button', // button · a · div 루트 태그입니다.
+  href, // tag가 a일 때 링크 주소입니다.
+  role, // 명시적 role이 있으면 우선합니다.
+  tabIndex, // 명시적 tabindex가 있으면 우선합니다.
+  type = 'button', // button 루트의 type입니다.
+  onClick, // 클릭 핸들러입니다.
+  onKeyDown, // 키다운 핸들러입니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
+}) {
+  // disabled · aria-disabled · loading이면 상호작용을 막습니다.
+  const inactive = disabled || ariaDisabled || loading;
+  const isButton = Tag === 'button';
+  const isLink = Tag === 'a';
+  // div이거나 href 없는 a는 버튼 역할과 키보드 조작이 필요합니다.
+  const needsButtonSemantics = Tag === 'div' || (isLink && !href);
+
+  // 스킨·색상·크기·레이아웃·상태 클래스를 조합합니다.
+  const classes = [
+    'btn',
+    variant === 'select' ? 'btn_select' : \`btn_\${variant}\`,
+    variant !== 'ghost' ? \`color_\${color}\` : '',
+    size !== 'md' ? \`btn_\${size}\` : '',
+    selectText ? 'btn_select-text' : '',
+    placeholder ? 'btn_select-placeholder' : '',
+    iconOnly ? 'btn_icon-only' : '',
+    vertical ? 'btn_vertical' : '',
+    round ? 'btn_round' : '',
+    block ? 'btn_block' : '',
+    grow === true ? 'btn_grow' : '',
+    grow === '2' ? 'btn_grow-2' : '',
+    fit ? 'btn_fit' : '',
+    ariaDisabled ? 'is-disabled' : '',
+    loading ? 'is-loading' : '',
+    open ? 'is-open' : '',
+    error ? 'is-error' : '',
+    className
+  ].filter(Boolean).join(' ');
+
+  function handleClick(event) {
+    if (inactive) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    onClick?.(event);
+  }
+
+  function handleKeyDown(event) {
+    if (inactive) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    // 시맨틱이 필요한 루트에서는 Enter·Space로 클릭을 흉내 냅니다.
+    if (needsButtonSemantics && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+    onKeyDown?.(event);
+  }
+
+  return (
+    <Tag
+      {...props}
+      aria-busy={loading || undefined}
+      aria-disabled={ariaDisabled || (!isButton && disabled) || undefined}
+      aria-expanded={expanded ?? (open || undefined)}
+      aria-haspopup={haspopup}
+      aria-invalid={invalid || error || undefined}
+      aria-label={ariaLabel}
+      className={classes}
+      data-component="Button"
+      data-ripple={ripple ? 'true' : 'false'}
+      disabled={isButton ? disabled : undefined}
+      href={isLink ? href : undefined}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role={role ?? (needsButtonSemantics ? 'button' : undefined)}
+      tabIndex={inactive && !isButton ? -1 : (tabIndex ?? (needsButtonSemantics ? 0 : undefined))}
+      type={isButton ? type : undefined}
+    >
+      {loading ? <span aria-hidden="true" className="btn_spinner" /> : null}
+      {iconBefore}
+      {!iconOnly ? <span className="btn_label">{children ?? label}</span> : children}
+      {iconAfter}
+      {variant === 'select' || selectCaret ? <SelectCaret /> : null}
+    </Tag>
+  );
+}
+
+export default Button;`;
+
+const buttonVueComponent = `<script setup>
+import { computed } from 'vue';
+
+defineOptions({ name: 'UxkmButton' });
+
+// 스킨·색상·크기·레이아웃·상태와 루트 태그를 prop으로 받습니다.
+const props = defineProps({
+  label: { type: String, default: 'Button' }, // 기본 slot이 없을 때 표시할 텍스트입니다.
+  ripple: { type: Boolean, default: true }, // 클릭 리플 효과를 켭니다.
+  color: { type: String, default: 'primary' }, // ghost가 아닐 때 color_* 클래스로 적용됩니다.
+  disabled: { type: Boolean, default: false }, // 네이티브 disabled입니다.
+  variant: { type: String, default: 'filled' }, // filled · outline · ghost · text · select 스킨입니다.
+  size: { type: String, default: 'md' }, // sm · md · lg 크기입니다.
+  iconOnly: { type: Boolean, default: false }, // 텍스트 없이 아이콘만 표시합니다.
+  vertical: { type: Boolean, default: false }, // 아이콘 위·텍스트 아래 세로 배치입니다.
+  round: { type: Boolean, default: false }, // pill 형태 둥근 모서리입니다.
+  block: { type: Boolean, default: false }, // 부모 너비를 채웁니다.
+  grow: { type: [Boolean, String], default: false }, // true면 btn_grow, '2'면 btn_grow-2입니다.
+  fit: { type: Boolean, default: false }, // 콘텐츠 너비를 유지합니다.
+  loading: { type: Boolean, default: false }, // 로딩 스피너를 표시하고 입력을 막습니다.
+  open: { type: Boolean, default: false }, // 셀렉트·팝오버 열림 상태입니다.
+  error: { type: Boolean, default: false }, // 오류 상태 클래스를 적용합니다.
+  placeholder: { type: Boolean, default: false }, // 셀렉트 플레이스홀더 스타일입니다.
+  selectText: { type: Boolean, default: false }, // 배경·테두리 없는 셀렉트 텍스트형입니다.
+  selectCaret: { type: Boolean, default: false }, // select가 아니어도 캐럿을 강제 표시합니다.
+  ariaDisabled: { type: Boolean, default: false }, // is-disabled와 aria-disabled만 적용합니다.
+  ariaLabel: { type: String, default: undefined }, // 아이콘 전용 버튼 등의 접근성 이름입니다.
+  haspopup: { type: [Boolean, String], default: undefined }, // aria-haspopup 값입니다.
+  expanded: { type: Boolean, default: undefined }, // aria-expanded 값입니다.
+  invalid: { type: Boolean, default: false }, // aria-invalid를 켭니다.
+  tag: { type: String, default: 'button' }, // button · a · div 루트 태그입니다.
+  href: { type: String, default: undefined }, // tag가 a일 때 링크 주소입니다.
+  role: { type: String, default: undefined }, // 명시적 role이 있으면 우선합니다.
+  tabindex: { type: [Number, String], default: undefined }, // 명시적 tabindex가 있으면 우선합니다.
+  type: { type: String, default: 'button' } // button 루트의 type입니다.
+});
+
+const emit = defineEmits(['click', 'keydown']);
+// disabled · aria-disabled · loading이면 상호작용을 막습니다.
+const inactive = computed(() => props.disabled || props.ariaDisabled || props.loading);
+// div이거나 href 없는 a는 버튼 역할과 키보드 조작이 필요합니다.
+const needsButtonSemantics = computed(() => props.tag === 'div' || (props.tag === 'a' && !props.href));
+
+// 스킨·색상·크기·레이아웃·상태 클래스를 조합합니다.
+const classes = computed(() => [
+  'btn', props.variant === 'select' ? 'btn_select' : \`btn_\${props.variant}\`,
+  props.variant !== 'ghost' ? \`color_\${props.color}\` : '',
+  props.size !== 'md' ? \`btn_\${props.size}\` : '',
+  props.selectText ? 'btn_select-text' : '', props.placeholder ? 'btn_select-placeholder' : '',
+  props.iconOnly ? 'btn_icon-only' : '', props.vertical ? 'btn_vertical' : '',
+  props.round ? 'btn_round' : '', props.block ? 'btn_block' : '',
+  props.grow === true ? 'btn_grow' : '', props.grow === '2' ? 'btn_grow-2' : '',
+  props.fit ? 'btn_fit' : '', props.ariaDisabled ? 'is-disabled' : '',
+  props.loading ? 'is-loading' : '', props.open ? 'is-open' : '', props.error ? 'is-error' : ''
+].filter(Boolean));
+
+function handleClick(event) {
+  if (inactive.value) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  emit('click', event);
+}
+
+function handleKeydown(event) {
+  if (inactive.value) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  // 시맨틱이 필요한 루트에서는 Enter·Space로 클릭을 흉내 냅니다.
+  if (needsButtonSemantics.value && (event.key === 'Enter' || event.key === ' ')) {
+    event.preventDefault();
+    event.currentTarget.click();
+  }
+  emit('keydown', event);
+}
+</script>
+
+<template>
+  <component
+    :is="tag"
+    :aria-busy="loading || undefined"
+    :aria-disabled="ariaDisabled || (tag !== 'button' && disabled) || undefined"
+    :aria-expanded="expanded ?? (open || undefined)"
+    :aria-haspopup="haspopup"
+    :aria-invalid="invalid || error || undefined"
+    :aria-label="ariaLabel"
+    :class="classes"
+    data-component="Button"
+    :data-ripple="ripple ? 'true' : 'false'"
+    :disabled="tag === 'button' ? disabled : undefined"
+    :href="tag === 'a' ? href : undefined"
+    :role="role ?? (needsButtonSemantics ? 'button' : undefined)"
+    :tabindex="inactive && tag !== 'button' ? -1 : (tabindex ?? (needsButtonSemantics ? 0 : undefined))"
+    :type="tag === 'button' ? type : undefined"
+    @click="handleClick"
+    @keydown="handleKeydown"
+  >
+    <span v-if="loading" class="btn_spinner" aria-hidden="true" />
+    <slot name="icon-before" />
+    <template v-if="!iconOnly"><span class="btn_label"><slot>{{ label }}</slot></span></template>
+    <slot v-else />
+    <slot name="icon-after" />
+    <svg v-if="variant === 'select' || selectCaret" class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  </component>
+</template>`;
+
+export const buttonComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Button/Button.html', code: buttonHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Button/button.njk', code: `{# Button 구현 #}\n${buttonHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Button/Button.vue', code: buttonVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/button → Button.vue', code: buttonVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Button/Button.jsx', code: buttonReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/button → Button.jsx', code: buttonReactComponent }
+];
+
 const bodies = {
   basic: `<div class="btn_row btn_row-wrap">
   <Button variant="filled" color="primary" label="Filled Primary" />

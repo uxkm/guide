@@ -467,6 +467,255 @@ export const flexComponentExamples: FrameworkExample[] = [
   { id: 'next', label: 'Next', fileName: '@uxkm/react/flex → Flex.jsx · FlexItem.jsx', code: flexReactComponent }
 ];
 
+const dividerHtmlComponent = `<!-- 레이블이 없는 의미 있는 수평 구분선은 hr에 divider 클래스를 적용합니다. -->
+<hr class="divider" data-component="Divider" />
+
+<!-- 점선은 divider_dashed를 함께 지정합니다. -->
+<hr class="divider divider_dashed" data-component="Divider" />
+
+<!-- 레이블형 구분선은 div에 텍스트를 넣고 양쪽 선은 CSS로 그립니다. -->
+<div class="divider" data-component="Divider">섹션 제목</div>
+
+<!-- plain은 레이블 굵기를 낮추고, orient는 레이블 위치를 바꿉니다. -->
+<div class="divider divider_plain divider_orient-left" data-component="Divider">왼쪽 보조 설명</div>
+
+<!-- 세로 구분선은 장식용이므로 span에 aria-hidden을 지정합니다. -->
+<span class="divider divider_vertical" data-component="Divider" aria-hidden="true"></span>`;
+
+const dividerReactComponent = `// 레이블 정렬과 루트 태그로 허용하는 값만 CSS·요소 선택에 반영합니다.
+const ORIENTATIONS = new Set(['', 'left', 'right']); // 지원하는 레이블 수평 위치입니다.
+const TAGS = new Set(['auto', 'hr', 'div', 'span']); // 지원하는 루트 태그 이름입니다.
+
+export function Divider({
+  as, // tag보다 우선하는 루트 요소 또는 컴포넌트입니다.
+  tag = 'auto', // auto면 콘텐츠·방향에 따라 hr·div·span을 선택합니다.
+  vertical = false, // 세로 구분선으로 렌더링합니다.
+  dashed = false, // 점선 스타일을 적용합니다.
+  plain = false, // 레이블 굵기를 일반 두께로 낮춥니다.
+  orient, // 레이블의 수평 위치입니다.
+  orientation = '', // orient의 이전 호환 이름입니다.
+  label, // children 대신 사용할 레이블 텍스트입니다.
+
+  children, // 레이블로 사용할 내부 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // children이 있으면 우선하고, 없으면 label을 레이블로 사용합니다.
+  const content = children ?? label;
+  // orient가 있으면 우선하고, 없으면 orientation 별칭을 사용합니다.
+  const resolvedOrient = orient ?? orientation;
+  // 허용되지 않은 tag 값은 auto로 되돌립니다.
+  const resolvedTag = TAGS.has(tag) ? tag : 'auto';
+
+  // as > 명시적 tag > 세로면 span, 레이블이면 div, 그 외 hr 순으로 루트를 결정합니다.
+  const Root = as || (resolvedTag !== 'auto' ? resolvedTag : vertical ? 'span' : content ? 'div' : 'hr');
+
+  // 방향·점선·레이블 굵기·정렬 상태를 공통 CSS 클래스로 조합합니다.
+  const classes = [
+    'divider', // Divider 스타일을 활성화하는 필수 클래스입니다.
+    vertical && 'divider_vertical', // 세로 구분선 변형입니다.
+    dashed && 'divider_dashed', // 점선 변형입니다.
+    plain && 'divider_plain', // 레이블 굵기를 낮춥니다.
+    ORIENTATIONS.has(resolvedOrient) && resolvedOrient && \`divider_orient-\${resolvedOrient}\`, // 검증된 레이블 위치입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  // 세로선은 장식이므로 접근성 트리에서 제외합니다.
+  const accessibility = vertical ? { 'aria-hidden': 'true' } : {};
+
+  // hr는 자식을 두지 않고, 그 외 루트에는 레이블 콘텐츠를 전달합니다.
+  return <Root className={classes} data-component="Divider" {...accessibility} {...props}>{Root === 'hr' ? null : content}</Root>;
+}
+
+export default Divider;`;
+
+const dividerVueComponent = `<script setup>
+import { computed, useAttrs, useSlots } from 'vue';
+
+// 속성을 계산된 Divider 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmDivider', inheritAttrs: false });
+
+// 루트 태그, 방향, 점선, 레이블 굵기·위치와 텍스트를 prop으로 받습니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: undefined }, // tag보다 우선하는 루트 요소 또는 컴포넌트입니다.
+  tag: { type: String, default: 'auto' }, // auto면 콘텐츠·방향에 따라 hr·div·span을 선택합니다.
+  vertical: Boolean, // 세로 구분선으로 렌더링합니다.
+  dashed: Boolean, // 점선 스타일을 적용합니다.
+  plain: Boolean, // 레이블 굵기를 일반 두께로 낮춥니다.
+  orient: { type: String, default: undefined }, // 레이블의 수평 위치입니다.
+  orientation: { type: String, default: '' }, // orient의 이전 호환 이름입니다.
+  label: String // 기본 slot 대신 사용할 레이블 텍스트입니다.
+});
+
+// 선언하지 않은 class와 HTML 속성, 기본 slot 유무를 수집합니다.
+const attrs = useAttrs();
+const slots = useSlots();
+
+// 레이블 정렬과 루트 태그로 허용하는 값만 반영합니다.
+const orientations = new Set(['', 'left', 'right']); // 지원하는 레이블 수평 위치입니다.
+const tags = new Set(['auto', 'hr', 'div', 'span']); // 지원하는 루트 태그 이름입니다.
+
+// 기본 slot 또는 label이 있으면 레이블형으로 취급합니다.
+const hasContent = computed(() => Boolean(slots.default) || Boolean(props.label));
+// orient가 있으면 우선하고, 없으면 orientation 별칭을 사용합니다.
+const resolvedOrient = computed(() => props.orient ?? props.orientation);
+// 허용되지 않은 tag 값은 auto로 되돌립니다.
+const resolvedTag = computed(() => tags.has(props.tag) ? props.tag : 'auto');
+
+// as > 명시적 tag > 세로면 span, 레이블이면 div, 그 외 hr 순으로 루트를 결정합니다.
+const rootTag = computed(() => props.as || (resolvedTag.value !== 'auto' ? resolvedTag.value : props.vertical ? 'span' : hasContent.value ? 'div' : 'hr'));
+
+// 방향·점선·레이블 굵기·정렬 상태와 사용자 정의 class를 조합합니다.
+const classes = computed(() => [
+  'divider', // Divider 스타일을 활성화하는 필수 클래스입니다.
+  props.vertical && 'divider_vertical', // 세로 구분선 변형입니다.
+  props.dashed && 'divider_dashed', // 점선 변형입니다.
+  props.plain && 'divider_plain', // 레이블 굵기를 낮춥니다.
+  orientations.has(resolvedOrient.value) && resolvedOrient.value && \`divider_orient-\${resolvedOrient.value}\`, // 검증된 레이블 위치입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean)); // 적용되지 않는 빈 항목을 제거합니다.
+</script>
+
+<template>
+  <!-- 루트 태그를 결정하고 속성·클래스·세로선 aria-hidden을 전달합니다. -->
+  <component
+    :is="rootTag" v-bind="attrs" :class="classes" data-component="Divider"
+    :aria-hidden="vertical ? 'true' : undefined"
+  >
+    <!-- hr에는 자식을 두지 않고, 그 외에는 slot 또는 label을 렌더링합니다. -->
+    <slot v-if="rootTag !== 'hr'">{{ label }}</slot>
+  </component>
+</template>`;
+
+export const dividerComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/layout/Divider/Divider.html', code: dividerHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/layout/Divider/divider.njk', code: `{# Divider 구현 #}\n${dividerHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/layout/Divider/Divider.vue', code: dividerVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/divider → Divider.vue', code: dividerVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/layout/Divider/Divider.jsx', code: dividerReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/divider → Divider.jsx', code: dividerReactComponent }
+];
+
+const spaceHtmlComponent = `<!-- space 클래스로 기본 inline-flex 간격 컨테이너를 만듭니다. 기본 간격은 md입니다. -->
+<div class="space" data-component="Space">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</div>
+
+<!-- gap·방향·줄바꿈·너비·정렬 변형 클래스를 조합합니다. -->
+<div class="space space_gap-sm space_vertical space_align-stretch" data-component="Space">
+  <div>첫 번째</div>
+  <div>두 번째</div>
+</div>
+
+<!-- 부모 너비를 채우고 줄바꿈하려면 space_block과 space_wrap을 함께 지정합니다. -->
+<div class="space space_block space_wrap space_justify-between" data-component="Space">
+  <div>시작</div>
+  <div>끝</div>
+</div>`;
+
+const spaceReactComponent = `// 간격·정렬 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
+const SIZES = new Set(['', 'xs', 'sm', 'md', 'lg', 'xl']); // 지원하는 간격 크기입니다.
+const ALIGNS = new Set(['', 'start', 'center', 'end', 'baseline', 'stretch']); // 지원하는 교차축 정렬입니다.
+const JUSTIFIES = new Set(['', 'start', 'center', 'end', 'between']); // 지원하는 주축 정렬입니다.
+
+export function Space({
+  as: Root = 'div', // Space의 루트 요소 또는 컴포넌트를 지정합니다.
+
+  gap, // 자식 사이 간격을 지정합니다.
+  size = '', // gap의 이전 호환 이름입니다.
+  vertical = false, // 자식을 세로로 배치합니다.
+  wrap = false, // 자식 줄바꿈을 허용합니다.
+  block = false, // 부모 너비를 채우는 block flex로 표시합니다.
+
+  align = '', // 교차축에서 자식의 정렬 방식을 지정합니다.
+  justify = '', // 주축에서 자식을 배치하는 방식을 지정합니다.
+
+  children = 'Space', // Space 내부에 배치할 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
+  // gap이 있으면 우선하고, 없으면 size 별칭을 사용하며 최종 기본값은 md입니다.
+  const resolvedSize = (gap ?? size) || 'md';
+
+  // 간격·방향·줄바꿈·너비·정렬 상태를 공통 CSS 클래스로 조합합니다.
+  const classes = [
+    'space', // inline-flex 간격 컨테이너를 활성화하는 필수 클래스입니다.
+    SIZES.has(resolvedSize) && resolvedSize !== 'md' && \`space_gap-\${resolvedSize}\`, // md가 아닐 때만 간격 클래스를 붙입니다.
+    vertical && 'space_vertical', // 세로 배치 변형입니다.
+    wrap && 'space_wrap', // 줄바꿈 변형입니다.
+    block && 'space_block', // 전체 너비 block flex 변형입니다.
+    ALIGNS.has(align) && align && \`space_align-\${align}\`, // 검증된 교차축 정렬입니다.
+    JUSTIFIES.has(justify) && justify && \`space_justify-\${justify}\`, // 검증된 주축 정렬입니다.
+    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
+  return <Root className={classes} data-component="Space" {...props}>{children}</Root>;
+}
+
+export default Space;`;
+
+const spaceVueComponent = `<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 속성을 계산된 Space 루트에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmSpace', inheritAttrs: false });
+
+// 간격, 방향, 줄바꿈, 너비와 정렬 방식을 prop으로 받습니다.
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // Space의 루트 요소 또는 컴포넌트를 지정합니다.
+  gap: { type: String, default: undefined }, // 자식 사이 간격을 지정합니다.
+  size: { type: String, default: '' }, // gap의 이전 호환 이름입니다.
+  vertical: Boolean, // 자식을 세로로 배치합니다.
+  wrap: Boolean, // 자식 줄바꿈을 허용합니다.
+  block: Boolean, // 부모 너비를 채우는 block flex로 표시합니다.
+  align: { type: String, default: '' }, // 교차축에서 자식의 정렬 방식을 지정합니다.
+  justify: { type: String, default: '' } // 주축에서 자식을 배치하는 방식을 지정합니다.
+});
+
+// 선언하지 않은 class와 HTML 속성을 수집합니다.
+const attrs = useAttrs();
+
+// 간격·정렬 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
+const sizes = new Set(['', 'xs', 'sm', 'md', 'lg', 'xl']); // 지원하는 간격 크기입니다.
+const aligns = new Set(['', 'start', 'center', 'end', 'baseline', 'stretch']); // 지원하는 교차축 정렬입니다.
+const justifies = new Set(['', 'start', 'center', 'end', 'between']); // 지원하는 주축 정렬입니다.
+
+// gap이 있으면 우선하고, 없으면 size 별칭을 사용하며 최종 기본값은 md입니다.
+const resolvedSize = computed(() => (props.gap ?? props.size) || 'md');
+
+// 간격·방향·줄바꿈·너비·정렬 상태와 사용자 정의 class를 조합합니다.
+const classes = computed(() => [
+  'space', // inline-flex 간격 컨테이너를 활성화하는 필수 클래스입니다.
+  sizes.has(resolvedSize.value) && resolvedSize.value !== 'md' && \`space_gap-\${resolvedSize.value}\`, // md가 아닐 때만 간격 클래스를 붙입니다.
+  props.vertical && 'space_vertical', // 세로 배치 변형입니다.
+  props.wrap && 'space_wrap', // 줄바꿈 변형입니다.
+  props.block && 'space_block', // 전체 너비 block flex 변형입니다.
+  aligns.has(props.align) && props.align && \`space_align-\${props.align}\`, // 검증된 교차축 정렬입니다.
+  justifies.has(props.justify) && props.justify && \`space_justify-\${props.justify}\`, // 검증된 주축 정렬입니다.
+  attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+].filter(Boolean)); // 적용되지 않는 빈 항목을 제거합니다.
+</script>
+
+<template>
+  <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
+  <component :is="as" v-bind="attrs" :class="classes" data-component="Space">
+    <!-- 콘텐츠가 없을 때는 컴포넌트 식별을 위한 기본 텍스트를 표시합니다. -->
+    <slot>Space</slot>
+  </component>
+</template>`;
+
+export const spaceComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/layout/Space/Space.html', code: spaceHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/layout/Space/space.njk', code: `{# Space 구현 #}\n${spaceHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/layout/Space/Space.vue', code: spaceVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/space → Space.vue', code: spaceVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/layout/Space/Space.jsx', code: spaceReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/space → Space.jsx', code: spaceReactComponent }
+];
+
 type Definition = { body: string; html?: string };
 
 function reactBody(body: string) {

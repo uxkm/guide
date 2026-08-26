@@ -1,5 +1,192 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const iconHtmlComponent = `<!-- 장식용 아이콘은 aria-hidden, 의미 있는 아이콘은 aria-label을 사용합니다. -->
+<svg class="icon" data-component="Icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="11" cy="11" r="8"></circle>
+  <path d="m21 21-4.35-4.35"></path>
+</svg>
+
+<!-- 크기·색상은 icon_sm · icon_lg · color_primary 등으로 조합합니다. -->
+<svg class="icon icon_lg color_primary" data-component="Icon" aria-label="검색" role="img" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <circle cx="11" cy="11" r="7"></circle>
+  <path d="m20 20-4-4"></path>
+</svg>
+
+<!-- 원형·버튼형은 래퍼에 icon_circle · icon_button을 두고 내부 SVG는 aria-hidden입니다. -->
+<span class="icon_circle color_primary" role="img" aria-label="확인">
+  <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path d="m5 12 4 4L19 6"></path>
+  </svg>
+</span>`;
+
+const iconReactComponent = `// 아이콘 이름 → SVG path 맵입니다. 전체 목록은 소스의 paths를 참고합니다.
+const paths = {
+  plus: <><path d="M12 5v14M5 12h14" /></>,
+  search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
+  check: <path d="m5 12 4 4L19 6" />,
+  close: <path d="m6 6 12 12M18 6 6 18" />
+  // … trash, download, chevron, settings 등 등록된 이름
+};
+
+export const iconNames = Object.keys(paths);
+
+export function Icon({
+  name = 'plus', // paths에 등록된 아이콘 이름입니다.
+  children, // 커스텀 SVG 도형입니다. 있으면 name보다 우선합니다.
+  className = '', // 추가 클래스입니다.
+  title, // SVG title과 접근성 이름 후보입니다.
+  ariaLabel, // 명시적 접근성 이름입니다.
+  color, // color_* 공통 색상 클래스입니다.
+  size = 'md', // sm · md · lg · xl 크기입니다. md는 기본이라 클래스를 붙이지 않습니다.
+  inline = false, // 텍스트와 인라인 정렬합니다.
+  spin = false, // 회전 애니메이션입니다.
+  button = false, // button 래퍼로 감쌉니다.
+  circle = false, // 원형 배경 래퍼로 감쌉니다.
+  square = false, // 사각형 배경 래퍼로 감쌉니다.
+  pulse = false, // circle과 함께 펄스 효과를 켭니다.
+  ripple = true, // button일 때 리플 효과를 켭니다.
+  ...props // 나머지 속성을 최외곽 요소에 전달합니다.
+}) {
+  const label = ariaLabel ?? props['aria-label'] ?? title;
+  const sizeClass = size === 'md' ? '' : \`icon_\${size}\`;
+  const svgClasses = ['icon', sizeClass, spin && 'icon_spin'];
+  const outerClasses = [
+    button ? 'icon_button' : circle ? 'icon_circle' : square ? 'icon_square' : '',
+    color && \`color_\${color}\`, inline && 'icon_inline', pulse && circle && 'icon_pulse',
+    circle && size === 'sm' && 'icon_circle-sm', circle && size === 'lg' && 'icon_circle-lg',
+    className
+  ].filter(Boolean).join(' ');
+  const content = children ?? paths[name] ?? null;
+
+  const svg = (
+    <svg
+      aria-hidden={button || circle || square ? true : (label ? undefined : true)}
+      aria-label={!button ? label : undefined}
+      className={button || circle || square ? svgClasses.filter(Boolean).join(' ') : [svgClasses, outerClasses].flat().filter(Boolean).join(' ')}
+      data-component="Icon"
+      fill="none"
+      role={!button && label ? 'img' : undefined}
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      {...(!button && !circle && !square ? props : {})}
+    >
+      {title ? <title>{title}</title> : null}
+      {content}
+    </svg>
+  );
+
+  if (button) return <button aria-label={label} className={outerClasses} data-ripple={ripple ? 'true' : 'false'} type="button" {...props}>{svg}</button>;
+  if (circle || square) return <span aria-label={label} aria-hidden={label ? undefined : true} className={outerClasses} role={label ? 'img' : undefined} {...props}>{svg}</span>;
+  return svg;
+}
+
+export default Icon;`;
+
+const iconVueComponent = `<script setup>
+import { computed, useAttrs } from 'vue';
+
+// 속성을 최외곽 요소에 직접 전달하기 위해 자동 상속을 끕니다.
+defineOptions({ name: 'UxkmIcon', inheritAttrs: false });
+
+const props = defineProps({
+  name: { type: String, default: 'plus' }, // 등록된 아이콘 이름입니다. 기본 slot이 있으면 우선합니다.
+  color: String, // color_* 공통 색상 클래스입니다.
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value) },
+  inline: Boolean, // 텍스트와 인라인 정렬합니다.
+  spin: Boolean, // 회전 애니메이션입니다.
+  button: Boolean, // button 래퍼로 감쌉니다.
+  circle: Boolean, // 원형 배경 래퍼로 감쌉니다.
+  square: Boolean, // 사각형 배경 래퍼로 감쌉니다.
+  pulse: Boolean, // circle과 함께 펄스 효과를 켭니다.
+  ripple: { type: Boolean, default: true }, // button일 때 리플 효과를 켭니다.
+  ariaLabel: String, // 명시적 접근성 이름입니다.
+  title: String // SVG title과 접근성 이름 후보입니다.
+});
+
+const attrs = useAttrs();
+const label = computed(() => props.ariaLabel || attrs['aria-label'] || props.title);
+
+// 래퍼가 없을 때 SVG에 붙는 클래스입니다.
+const svgClass = computed(() => [
+  'icon', props.size !== 'md' && \`icon_\${props.size}\`, props.spin && 'icon_spin',
+  !props.button && !props.circle && !props.square && props.color && \`color_\${props.color}\`,
+  !props.button && !props.circle && !props.square && props.inline && 'icon_inline',
+  !props.button && !props.circle && !props.square && attrs.class
+].filter(Boolean));
+
+// button · circle · square 래퍼에 붙는 클래스입니다.
+const wrapperClass = computed(() => [
+  props.button ? 'icon_button' : props.circle ? 'icon_circle' : 'icon_square',
+  props.color && \`color_\${props.color}\`, props.inline && 'icon_inline',
+  props.circle && props.pulse && 'icon_pulse', props.circle && props.size === 'sm' && 'icon_circle-sm',
+  props.circle && props.size === 'lg' && 'icon_circle-lg', attrs.class
+].filter(Boolean));
+const wrapperTag = computed(() => props.button ? 'button' : 'span');
+</script>
+
+<template>
+  <!-- button · circle · square는 래퍼를 두고 내부 SVG는 aria-hidden입니다. -->
+  <component
+    v-if="button || circle || square"
+    :is="wrapperTag"
+    v-bind="attrs"
+    :class="wrapperClass"
+    :type="button ? 'button' : undefined"
+    :data-ripple="button ? (ripple ? 'true' : 'false') : undefined"
+    :aria-label="label"
+    :aria-hidden="!button && !label ? 'true' : undefined"
+    :role="!button && label ? 'img' : undefined"
+  >
+    <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <slot>
+        <!-- name별 path. 전체 목록은 Icon.vue 소스를 참고합니다. -->
+        <path v-if="name === 'plus'" d="M12 5v14M5 12h14" />
+        <path v-else-if="name === 'search'" d="M18 18 21 21M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
+        <path v-else-if="name === 'check'" d="m5 12 4 4L19 6" />
+        <path v-else-if="name === 'close'" d="m6 6 12 12M18 6 6 18" />
+        <path v-else d="M12 5v14M5 12h14" />
+      </slot>
+    </svg>
+  </component>
+
+  <!-- 기본은 SVG 루트에 클래스와 접근성 속성을 직접 적용합니다. -->
+  <svg
+    v-else
+    v-bind="attrs"
+    :class="svgClass"
+    :aria-hidden="label ? undefined : 'true'"
+    :aria-label="label"
+    :role="label ? 'img' : undefined"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <title v-if="title">{{ title }}</title>
+    <slot>
+      <path v-if="name === 'plus'" d="M12 5v14M5 12h14" />
+      <path v-else-if="name === 'search'" d="M18 18 21 21M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
+      <path v-else-if="name === 'check'" d="m5 12 4 4L19 6" />
+      <path v-else-if="name === 'close'" d="m6 6 12 12M18 6 6 18" />
+      <path v-else d="M12 5v14M5 12h14" />
+    </slot>
+  </svg>
+</template>`;
+
+export const iconComponentExamples: FrameworkExample[] = [
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Icon/Icon.html', code: iconHtmlComponent },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Icon/icon.njk', code: `{# Icon 구현 #}\n${iconHtmlComponent}` },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Icon/Icon.vue', code: iconVueComponent },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/icon → Icon.vue', code: iconVueComponent },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Icon/Icon.jsx', code: iconReactComponent },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/icon → Icon.jsx', code: iconReactComponent }
+];
+
 const bodies = {
   basic: `<div class="icon_group">
   <Icon name="search" />
