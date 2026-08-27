@@ -1,0 +1,25 @@
+import{n as e,r as t}from"./rolldown-runtime-DkW27tQK.js";import{t as n}from"./jsx-runtime-DeHZSEgm.js";import{n as r,t as i}from"./Affix-CBK8PVBo.js";var a=t({Anchor:()=>m,Basic:()=>f,Bottom:()=>h,Offset:()=>p,Playground:()=>_,WindowScroll:()=>g,__namedExportsOrder:()=>v,default:()=>d});function o({label:e=`주문 #ORD-2024-0815`}){return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(`span`,{className:`affix_bar-label`,children:e}),(0,c.jsxs)(`div`,{className:`affix_bar-actions`,children:[(0,c.jsx)(`button`,{type:`button`,className:`btn btn_outline btn_sm`,children:`취소`}),(0,c.jsx)(`button`,{type:`button`,className:`btn btn_filled color_primary btn_sm`,children:`확인`})]})]})}function s({id:e,children:t,bottom:n=!1}){return(0,c.jsx)(`div`,{className:`affix_demo-narrow`,children:(0,c.jsx)(`div`,{id:e,className:`affix_demo-scroll`,children:(0,c.jsxs)(`div`,{className:`affix_demo-content`,children:[(0,c.jsx)(`p`,{children:`아래 영역을 스크롤해 고정 동작을 확인하세요.`}),n?u.map((e,t)=>(0,c.jsx)(`p`,{children:e},t)):null,t,n?null:u.map((e,t)=>(0,c.jsx)(`p`,{children:e},t))]})})})}var c,l,u,d,f,p,m,h,g,_,v;function y(){return(y=e((()=>{r(),c=n(),l=i,u=[`배송지와 결제 정보를 확인하세요.`,`상품 정보 · 배송비 · 요청 사항`,`교환·반품 안내`,`고객센터 · FAQ`,`관련 상품 · 최근 본 상품`,`알림 설정 · 로그인 기록`],d={title:`기타/Affix`,component:l,parameters:{layout:`padded`},decorators:[e=>(0,c.jsx)(`div`,{className:`affix-story-demo`,children:(0,c.jsx)(e,{})})],argTypes:{skin:{control:`select`,options:[``,`bar`,`anchor`]},offsetTop:{control:`number`},offsetBottom:{control:`number`},interactive:{control:`boolean`}}},f={name:`기본`,render:()=>(0,c.jsx)(s,{id:`affix-basic`,children:(0,c.jsx)(l,{target:`#affix-basic`,skin:`bar`,children:(0,c.jsx)(o,{})})})},p={name:`상단 오프셋`,render:()=>(0,c.jsx)(s,{id:`affix-offset`,children:(0,c.jsx)(l,{target:`#affix-offset`,offsetTop:12,skin:`bar`,children:(0,c.jsx)(o,{label:`상단에서 12px 떨어진 툴바`})})})},m={name:`앵커 내비게이션`,render:()=>(0,c.jsx)(s,{id:`affix-anchor`,children:(0,c.jsx)(l,{target:`#affix-anchor`,skin:`anchor`,children:(0,c.jsxs)(`nav`,{"aria-label":`설정 섹션`,children:[(0,c.jsx)(`a`,{className:`link color_primary`,href:`#profile`,children:`프로필`}),(0,c.jsx)(`a`,{className:`link`,href:`#security`,children:`보안`}),(0,c.jsx)(`a`,{className:`link`,href:`#notice`,children:`알림`}),(0,c.jsx)(`a`,{className:`link`,href:`#billing`,children:`결제`})]})})})},h={name:`하단 고정`,render:()=>(0,c.jsx)(s,{id:`affix-bottom`,bottom:!0,children:(0,c.jsx)(l,{target:`#affix-bottom`,offsetBottom:0,skin:`bar`,children:(0,c.jsx)(o,{label:`합계 ₩78,000`})})})},g={name:`페이지 스크롤`,render:()=>(0,c.jsx)(s,{id:`affix-page`,children:(0,c.jsx)(l,{target:`#affix-page`,skin:`bar`,style:{"--affix-bar-bg":`color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))`},children:(0,c.jsx)(o,{label:`신규 컴포넌트 가이드가 업데이트되었습니다`})})})},_={args:{skin:`bar`,offsetTop:0,interactive:!0},render:e=>(0,c.jsx)(s,{id:`affix-playground`,children:(0,c.jsx)(l,{...e,target:`#affix-playground`,children:(0,c.jsx)(o,{})})})},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+  name: '기본',
+  render: () => <Demo id="affix-basic"><Affix target="#affix-basic" skin="bar"><Bar /></Affix></Demo>
+}`,...f.parameters?.docs?.source}}},p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`{
+  name: '상단 오프셋',
+  render: () => <Demo id="affix-offset"><Affix target="#affix-offset" offsetTop={12} skin="bar"><Bar label="상단에서 12px 떨어진 툴바" /></Affix></Demo>
+}`,...p.parameters?.docs?.source}}},m.parameters={...m.parameters,docs:{...m.parameters?.docs,source:{originalSource:`{
+  name: '앵커 내비게이션',
+  render: () => <Demo id="affix-anchor"><Affix target="#affix-anchor" skin="anchor"><nav aria-label="설정 섹션"><a className="link color_primary" href="#profile">프로필</a><a className="link" href="#security">보안</a><a className="link" href="#notice">알림</a><a className="link" href="#billing">결제</a></nav></Affix></Demo>
+}`,...m.parameters?.docs?.source}}},h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`{
+  name: '하단 고정',
+  render: () => <Demo id="affix-bottom" bottom><Affix target="#affix-bottom" offsetBottom={0} skin="bar"><Bar label="합계 ₩78,000" /></Affix></Demo>
+}`,...h.parameters?.docs?.source}}},g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+  name: '페이지 스크롤',
+  render: () => <Demo id="affix-page"><Affix target="#affix-page" skin="bar" style={{
+      '--affix-bar-bg': 'color-mix(in srgb, var(--color-accent) 10%, var(--color-surface))'
+    } as React.CSSProperties}><Bar label="신규 컴포넌트 가이드가 업데이트되었습니다" /></Affix></Demo>
+}`,...g.parameters?.docs?.source}}},_.parameters={..._.parameters,docs:{..._.parameters?.docs,source:{originalSource:`{
+  args: {
+    skin: 'bar',
+    offsetTop: 0,
+    interactive: true
+  },
+  render: args => <Demo id="affix-playground"><Affix {...args} target="#affix-playground"><Bar /></Affix></Demo>
+}`,..._.parameters?.docs?.source}}},v=[`Basic`,`Offset`,`Anchor`,`Bottom`,`WindowScroll`,`Playground`]})))()}export{p as a,h as i,m as n,g as o,f as r,y as s,a as t};

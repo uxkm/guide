@@ -1,0 +1,38 @@
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";function t(e,t,n,r){let i=`import { ${e}${e===`Badge`?`, BadgeWrap`:`, TagGroup`} } from '@uxkm/react/${t}';\n\nexport function Example() {\n  return (\n${r.react}\n  );\n}`,a=`<script setup>\nimport { ${e}${e===`Badge`?`, BadgeWrap`:`, TagGroup`} } from '@uxkm/vue/${t}';\n<\/script>\n\n<template>\n${r.vue}\n</template>`;return[{id:`html`,label:`HTML`,fileName:`apps/html/src/components/data-display/${e}/${e}.html · ${n}`,code:r.html},{id:`gulp`,label:`Gulp`,fileName:`apps/gulp/src/components/data-display/${e}/${t}.njk · ${n}`,code:`{# ${e} · ${n} #}\n${r.html}`},{id:`vue`,label:`Vue`,fileName:`@uxkm/vue/${t} · ${n}`,code:a},{id:`nuxt`,label:`Nuxt`,fileName:`@uxkm/vue/${t} · ${n}`,code:a},{id:`react`,label:`React`,fileName:`@uxkm/react/${t} · ${n}`,code:i},{id:`next`,label:`Next`,fileName:`@uxkm/react/${t} · ${n}`,code:i}]}var n,r,i,a,o,s,c;function l(){return(l=e((()=>{n=(e,n,r,i)=>t(`Badge`,`badge`,e,{html:n,react:r,vue:i}),r=(e,n,r,i)=>t(`Tag`,`tag`,e,{html:n,react:r,vue:i}),i={basic:n(`basic`,`<span class="badge color_default">Default</span>
+<span class="badge color_primary">Primary</span>
+<span class="badge color_success">Success</span>
+<span class="badge color_warning">Warning</span>
+<span class="badge color_danger">Danger</span>`,`    <>
+      {['default', 'primary', 'success', 'warning', 'danger'].map((color) => <Badge key={color} color={color} label={color} />)}
+    </>`,`  <Badge v-for="color in ['default', 'primary', 'success', 'warning', 'danger']" :key="color" :color="color" :label="color" />`),sizes:n(`sizes`,`<span class="badge badge_sm color_primary">Small</span>
+<span class="badge color_primary">Medium</span>
+<span class="badge badge_lg color_primary">Large</span>`,`    <>
+      <Badge size="sm" label="Small" /><Badge label="Medium" /><Badge size="lg" label="Large" />
+    </>`,`  <Badge size="sm" label="Small" /><Badge label="Medium" /><Badge size="lg" label="Large" />`),dot:n(`dot`,`<span class="badge badge_dot color_success">Active</span>
+<span class="badge badge_dot color_warning">Away</span>
+<span class="badge badge_dot color_danger">Offline</span>`,`    <>
+      <Badge dot color="success" label="Active" /><Badge dot color="warning" label="Away" /><Badge dot color="danger" label="Offline" />
+    </>`,`  <Badge dot color="success" label="Active" /><Badge dot color="warning" label="Away" /><Badge dot color="danger" label="Offline" />`),count:n(`count`,`<span class="badge badge_count color_danger">3</span>
+<span class="badge badge_count color_primary">12</span>
+<span class="badge badge_count color_success">99+</span>`,`    <>
+      <Badge count color="danger" label="3" /><Badge count label="12" /><Badge count color="success" label="99+" />
+    </>`,`  <Badge count color="danger" label="3" /><Badge count label="12" /><Badge count color="success" label="99+" />`),overlay:n(`overlay`,`<span class="badge_wrap">
+  <button class="btn btn_filled color_primary" type="button"><span class="btn_label">알림</span></button>
+  <span class="badge badge_count color_danger" aria-label="읽지 않은 알림 5건">5</span>
+</span>
+<span class="badge_wrap">
+  <span class="avatar color_primary" aria-hidden="true">홍</span>
+  <span class="badge_dot-only color_success" role="status" aria-label="온라인"></span>
+</span>`,`    <>
+      <BadgeWrap><button className="btn btn_filled color_primary">알림</button><Badge count color="danger" ariaLabel="읽지 않은 알림 5건" label="5" /></BadgeWrap>
+      <BadgeWrap><span className="avatar color_primary">홍</span><Badge dotOnly color="success" ariaLabel="온라인" /></BadgeWrap>
+    </>`,`  <BadgeWrap><button class="btn btn_filled color_primary">알림</button><Badge count color="danger" aria-label="읽지 않은 알림 5건" label="5" /></BadgeWrap>
+  <BadgeWrap><span class="avatar color_primary">홍</span><Badge dot-only color="success" aria-label="온라인" /></BadgeWrap>`)},a=(e=``)=>[`default`,`primary`,`success`,`warning`,`danger`,`info`].map(t=>`<span class="tag${e?` tag_${e}`:``} color_${t}">${t}</span>`).join(`
+`),o=(e=`filled`)=>`    <>\n      {['default', 'primary', 'success', 'warning', 'danger', 'info'].map((color) => <Tag key={color} variant="${e}" color={color} label={color} />)}\n    </>`,s=(e=`filled`)=>`  <Tag v-for="color in ['default', 'primary', 'success', 'warning', 'danger', 'info']" :key="color" variant="${e}" :color="color" :label="color" />`,c={basic:r(`basic`,a(),o(),s()),solid:r(`solid`,a(`solid`),o(`solid`),s(`solid`)),outline:r(`outline`,a(`outline`),o(`outline`),s(`outline`)),sizes:r(`sizes`,`<div class="tag_group tag_group-tight" role="group"><span class="tag tag_sm color_primary">Small</span><span class="tag color_primary">Medium</span><span class="tag tag_lg color_primary">Large</span></div>`,`    <TagGroup tight><Tag size="sm" label="Small" /><Tag label="Medium" /><Tag size="lg" label="Large" /></TagGroup>`,`  <TagGroup tight><Tag size="sm" label="Small" /><Tag label="Medium" /><Tag size="lg" label="Large" /></TagGroup>`),round:r(`round`,`<span class="tag tag_round color_primary">Filled</span>
+<span class="tag tag_round tag_outline color_primary">Outline</span>
+<span class="tag tag_round tag_solid color_primary">Solid</span>`,`    <>
+      <Tag round label="Filled" /><Tag round variant="outline" label="Outline" /><Tag round variant="solid" label="Solid" />
+    </>`,`  <Tag round label="Filled" /><Tag round variant="outline" label="Outline" /><Tag round variant="solid" label="Solid" />`),icon:r(`icon`,`<span class="tag color_primary"><span class="tag_icon" aria-hidden="true">★</span>Design</span>`,`    <Tag label="Design" icon={<span>★</span>} />`,`  <Tag label="Design"><template #icon>★</template></Tag>`),closable:r(`closable`,`<span class="tag color_primary">React<button class="tag_close" type="button" aria-label="React 태그 제거">×</button></span>`,`    <Tag closable label="React" closeLabel="React 태그 제거" />`,`  <Tag closable label="React" close-label="React 태그 제거" />`),checkable:r(`checkable`,`<div class="tag_group" role="group" aria-label="카테고리 필터"><button class="tag tag_checkable color_default is-selected" type="button" aria-pressed="true">전체</button><button class="tag tag_checkable color_default" type="button" aria-pressed="false">UI</button></div>`,`    <TagGroup ariaLabel="카테고리 필터"><Tag checkable selected color="default" label="전체" /><Tag checkable color="default" label="UI" /></TagGroup>`,`  <TagGroup aria-label="카테고리 필터"><Tag checkable selected color="default" label="전체" /><Tag checkable color="default" label="UI" /></TagGroup>`),add:r(`add`,`<button class="tag tag_add tag_round" type="button" data-ripple="true">+ 태그 추가</button>`,`    <Tag add round label="+ 태그 추가" />`,`  <Tag add round label="+ 태그 추가" />`),link:r(`link`,`<a class="tag tag_outline color_primary" href="#">가이드</a>`,`    <Tag href="#" variant="outline" label="가이드" />`,`  <Tag href="#" variant="outline" label="가이드" />`),disabled:r(`disabled`,`<span class="tag color_primary is-disabled" aria-disabled="true">Filled</span>
+<button class="tag tag_checkable color_default is-selected is-disabled" type="button" disabled>선택됨</button>`,`    <>
+      <Tag disabled label="Filled" /><Tag checkable selected disabled color="default" label="선택됨" />
+    </>`,`  <Tag disabled label="Filled" /><Tag checkable selected disabled color="default" label="선택됨" />`),group:r(`group`,`<div class="tag_group" role="group"><span class="tag color_primary">HTML</span><span class="tag color_primary">CSS</span><span class="tag color_success">SCSS</span></div>`,`    <TagGroup><Tag label="HTML" /><Tag label="CSS" /><Tag color="success" label="SCSS" /></TagGroup>`,`  <TagGroup><Tag label="HTML" /><Tag label="CSS" /><Tag color="success" label="SCSS" /></TagGroup>`)}})))()}export{l as n,c as r,i as t};

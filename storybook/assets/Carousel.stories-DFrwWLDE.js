@@ -1,0 +1,62 @@
+import{n as e,r as t}from"./rolldown-runtime-DkW27tQK.js";import{d as n}from"./iframe-BnaKUpFX.js";import{t as r}from"./jsx-runtime-DeHZSEgm.js";import{i,n as a,r as o,t as s}from"./CarouselSlide-e9p1JTLI.js";var c;function l(){return(l=e((()=>{c=[{id:1,overline:`이벤트`,title:`신규 가입 혜택`,body:`첫 주문 20% 할인 쿠폰을 드립니다.`,color:`primary`},{id:2,overline:`혜택`,title:`무료 배송`,body:`3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.`,color:`success`},{id:3,overline:`세일`,title:`시즌 세일`,body:`베스트셀러 상품을 최대 50% 할인합니다.`,color:`warning`},{id:4,overline:`FEATURED`,title:`봄 컬렉션`,body:`새로운 계절을 위한 추천 콘텐츠입니다.`,color:`info`},{id:5,overline:`FEATURED`,title:`여름 컬렉션`,body:`가볍게 즐기는 여름 추천 콘텐츠입니다.`,color:`primary`},{id:6,overline:`FEATURED`,title:`가을 컬렉션`,body:`차분한 분위기의 가을 추천 콘텐츠입니다.`,color:`success`},{id:7,overline:`FEATURED`,title:`겨울 컬렉션`,body:`따뜻한 겨울을 위한 추천 콘텐츠입니다.`,color:`warning`},{id:8,overline:`EDITOR PICK`,title:`에디터 추천`,body:`지금 주목할 만한 콘텐츠를 소개합니다.`,color:`info`},{id:9,overline:`POPULAR`,title:`인기 콘텐츠`,body:`사용자가 많이 찾은 콘텐츠입니다.`,color:`primary`},{id:10,overline:`NEW`,title:`새로운 소식`,body:`최근 업데이트된 콘텐츠를 확인하세요.`,color:`success`},{id:11,overline:`TREND`,title:`오늘의 트렌드`,body:`오늘 가장 주목받는 콘텐츠입니다.`,color:`warning`},{id:12,overline:`RECOMMEND`,title:`맞춤 추천`,body:`취향에 맞는 콘텐츠를 추천합니다.`,color:`info`}]})))()}var u=t({Autoplay:()=>C,Coverflow:()=>M,CoverflowRise:()=>N,CustomPagination:()=>A,Default:()=>x,Fade:()=>S,Fraction:()=>O,Grid:()=>j,Loop:()=>w,Multi:()=>T,Pagination:()=>D,Playground:()=>F,Progress:()=>k,Space:()=>E,ThumbsGallery:()=>P,__namedExportsOrder:()=>I,default:()=>b});function d({slide:e,compact:t=!1}){return(0,h.jsx)(`article`,{className:`card card_accent color_${e.color??`primary`} card_elevated`,children:(0,h.jsxs)(`div`,{className:`card_body`,children:[(0,h.jsx)(`p`,{className:`typo_overline`,children:e.overline??`슬라이드`}),(0,h.jsx)(`h3`,{className:`card_title`,children:e.title}),(0,h.jsx)(`p`,{className:t?`card_subtitle`:`typo_lead`,children:e.body})]})})}function f({data:e=v,compact:t=!1}){return(0,h.jsx)(h.Fragment,{children:e.map(e=>(0,h.jsx)(_,{children:(0,h.jsx)(d,{slide:e,compact:t})},e.id))})}function p(){let[e,t]=(0,m.useState)(null);return(0,h.jsxs)(`div`,{className:`carousel_gallery`,children:[(0,h.jsx)(g,{ariaLabel:`갤러리 메인`,thumbs:e,pagination:!1,children:(0,h.jsx)(f,{data:y.slice(0,8)})}),(0,h.jsx)(g,{ariaLabel:`갤러리 썸네일`,className:`carousel_thumbs`,slidesPerView:4,spaceBetween:8,pagination:!1,navigation:!1,thumbsControl:!0,watchSlidesProgress:!0,onSwiper:t,children:(0,h.jsx)(f,{data:y.slice(0,8),compact:!0})})]})}var m,h,g,_,v,y,b,x,S,C,w,T,E,D,O,k,A,j,M,N,P,F,I;function L(){return(L=e((()=>{m=n(),i(),a(),l(),h=r(),g=o,_=s,v=c.slice(0,3),y=c,b={title:`기타/Carousel`,component:g,subcomponents:{CarouselSlide:_},parameters:{layout:`padded`},decorators:[e=>(0,h.jsx)(`div`,{className:`carousel-story-demo`,children:(0,h.jsx)(e,{})})],argTypes:{effect:{control:`select`,options:[void 0,`fade`,`coverflow`]},pagination:{control:`select`,options:[!0,!1,`fraction`,`progressbar`,`custom`]},size:{control:`select`,options:[`sm`,`md`,`lg`]}}},x={name:`기본`,render:()=>(0,h.jsx)(g,{ariaLabel:`프로모션 슬라이드`,children:(0,h.jsx)(f,{})})},S={name:`페이드`,render:()=>(0,h.jsx)(g,{ariaLabel:`페이드 슬라이드`,effect:`fade`,children:(0,h.jsx)(f,{})})},C={name:`자동 재생`,render:()=>(0,h.jsx)(g,{ariaLabel:`자동 재생 슬라이드`,autoplay:!0,delay:4e3,loop:!0,dotsOutside:!0,children:(0,h.jsx)(f,{})})},w={name:`무한 루프`,render:()=>(0,h.jsx)(g,{ariaLabel:`루프 슬라이드`,loop:!0,children:(0,h.jsx)(f,{})})},T={name:`슬라이드 per view`,render:()=>(0,h.jsx)(g,{ariaLabel:`다중 슬라이드`,multi:!0,slidesPerView:`auto`,spaceBetween:16,centered:!0,navigation:!1,children:(0,h.jsx)(f,{data:y.slice(0,4),compact:!0})})},E={name:`슬라이드 간격`,render:()=>(0,h.jsx)(g,{ariaLabel:`간격이 있는 슬라이드`,spaceBetween:12,loop:!0,children:(0,h.jsx)(f,{})})},D={name:`페이지네이션`,render:()=>(0,h.jsx)(g,{ariaLabel:`페이지네이션 슬라이드`,loop:!0,navigation:!1,children:(0,h.jsx)(f,{})})},O={name:`분수 페이지네이션`,render:()=>(0,h.jsx)(g,{ariaLabel:`분수 페이지네이션`,pagination:`fraction`,children:(0,h.jsx)(f,{})})},k={name:`프로그레스 페이지네이션`,render:()=>(0,h.jsx)(g,{ariaLabel:`프로그레스 페이지네이션`,pagination:`progressbar`,loop:!0,children:(0,h.jsx)(f,{})})},A={name:`커스텀 페이지네이션`,render:()=>(0,h.jsx)(g,{ariaLabel:`번호 페이지네이션`,pagination:`custom`,loop:!0,navigation:!1,children:(0,h.jsx)(f,{data:y.slice(0,4)})})},j={name:`그리드`,render:()=>(0,h.jsxs)(`div`,{className:`carousel-story-stack`,children:[(0,h.jsxs)(`div`,{className:`carousel-story-block`,children:[(0,h.jsx)(`h3`,{className:`typo_overline`,children:`1장씩 이동`}),(0,h.jsx)(`p`,{className:`typo_caption`,children:`slidesPerGroup 생략(기본 1) — 화살표·스와이프 시 한 칸씩 이동합니다.`}),(0,h.jsx)(g,{ariaLabel:`그리드 1장씩`,slidesPerView:3,gridRows:2,spaceBetween:16,children:(0,h.jsx)(f,{data:y,compact:!0})})]}),(0,h.jsxs)(`div`,{className:`carousel-story-block`,children:[(0,h.jsx)(`h3`,{className:`typo_overline`,children:`그룹 이동`}),(0,h.jsx)(`p`,{className:`typo_caption`,children:`slidesPerGroup=6 — 한 화면(2행 × 3열) 단위로 이동합니다.`}),(0,h.jsx)(g,{ariaLabel:`그리드 그룹 이동`,slidesPerView:3,slidesPerGroup:6,gridRows:2,spaceBetween:16,children:(0,h.jsx)(f,{data:y,compact:!0})})]})]})},M={name:`커버플로우`,render:()=>(0,h.jsx)(g,{ariaLabel:`커버플로우 슬라이드`,effect:`coverflow`,coverflowSides:1,spaceBetween:16,loop:!0,pagination:!1,children:(0,h.jsx)(f,{data:y,compact:!0})})},N={name:`커버플로우 · 축소`,render:()=>(0,h.jsxs)(`div`,{className:`carousel-story-stack`,children:[(0,h.jsxs)(`div`,{className:`carousel-story-block`,children:[(0,h.jsx)(`h3`,{className:`typo_overline`,children:`좌우 1개씩`}),(0,h.jsx)(`p`,{className:`typo_caption`,children:`coverflowSides=1 — 슬라이드 크기 기준, 좌·우에 1개씩 표시합니다.`}),(0,h.jsx)(g,{ariaLabel:`커버플로우 축소 좌우 1`,effect:`coverflow`,coverflowStyle:`rise`,coverflowSides:1,spaceBetween:16,loop:!0,pagination:!1,children:(0,h.jsx)(f,{data:y,compact:!0})})]}),(0,h.jsxs)(`div`,{className:`carousel-story-block`,children:[(0,h.jsx)(`h3`,{className:`typo_overline`,children:`좌우 약 1.5개 (기본)`}),(0,h.jsx)(`p`,{className:`typo_caption`,children:`coverflowSides=1.5 — 크기는 동일하고 간격으로 좌·우 약 1.5개를 표시합니다.`}),(0,h.jsx)(g,{ariaLabel:`커버플로우 축소 좌우 1.5`,effect:`coverflow`,coverflowStyle:`rise`,coverflowSides:1.5,spaceBetween:16,loop:!0,pagination:!1,children:(0,h.jsx)(f,{data:y,compact:!0})})]}),(0,h.jsxs)(`div`,{className:`carousel-story-block`,children:[(0,h.jsx)(`h3`,{className:`typo_overline`,children:`좌우 2개씩`}),(0,h.jsx)(`p`,{className:`typo_caption`,children:`coverflowSides=2 — 크기는 동일하고 간격으로 좌·우 2개씩 표시합니다.`}),(0,h.jsx)(g,{ariaLabel:`커버플로우 축소 좌우 2`,effect:`coverflow`,coverflowStyle:`rise`,coverflowSides:2,spaceBetween:16,loop:!0,pagination:!1,children:(0,h.jsx)(f,{data:y,compact:!0})})]})]})},P={name:`썸네일 갤러리`,render:()=>(0,h.jsx)(p,{})},F={args:{ariaLabel:`플레이그라운드`,effect:void 0,autoplay:!1,loop:!1,slidesPerView:1,spaceBetween:0,pagination:!0,navigation:!0},render:e=>(0,h.jsx)(g,{...e,children:(0,h.jsx)(f,{})})},x.parameters={...x.parameters,docs:{...x.parameters?.docs,source:{originalSource:`{
+  name: '기본',
+  render: () => <Carousel ariaLabel="프로모션 슬라이드"><Slides /></Carousel>
+}`,...x.parameters?.docs?.source}}},S.parameters={...S.parameters,docs:{...S.parameters?.docs,source:{originalSource:`{
+  name: '페이드',
+  render: () => <Carousel ariaLabel="페이드 슬라이드" effect="fade"><Slides /></Carousel>
+}`,...S.parameters?.docs?.source}}},C.parameters={...C.parameters,docs:{...C.parameters?.docs,source:{originalSource:`{
+  name: '자동 재생',
+  render: () => <Carousel ariaLabel="자동 재생 슬라이드" autoplay delay={4000} loop dotsOutside><Slides /></Carousel>
+}`,...C.parameters?.docs?.source}}},w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`{
+  name: '무한 루프',
+  render: () => <Carousel ariaLabel="루프 슬라이드" loop><Slides /></Carousel>
+}`,...w.parameters?.docs?.source}}},T.parameters={...T.parameters,docs:{...T.parameters?.docs,source:{originalSource:`{
+  name: '슬라이드 per view',
+  render: () => <Carousel ariaLabel="다중 슬라이드" multi slidesPerView="auto" spaceBetween={16} centered navigation={false}><Slides data={manySlides.slice(0, 4)} compact /></Carousel>
+}`,...T.parameters?.docs?.source}}},E.parameters={...E.parameters,docs:{...E.parameters?.docs,source:{originalSource:`{
+  name: '슬라이드 간격',
+  render: () => <Carousel ariaLabel="간격이 있는 슬라이드" spaceBetween={12} loop><Slides /></Carousel>
+}`,...E.parameters?.docs?.source}}},D.parameters={...D.parameters,docs:{...D.parameters?.docs,source:{originalSource:`{
+  name: '페이지네이션',
+  render: () => <Carousel ariaLabel="페이지네이션 슬라이드" loop navigation={false}><Slides /></Carousel>
+}`,...D.parameters?.docs?.source}}},O.parameters={...O.parameters,docs:{...O.parameters?.docs,source:{originalSource:`{
+  name: '분수 페이지네이션',
+  render: () => <Carousel ariaLabel="분수 페이지네이션" pagination="fraction"><Slides /></Carousel>
+}`,...O.parameters?.docs?.source}}},k.parameters={...k.parameters,docs:{...k.parameters?.docs,source:{originalSource:`{
+  name: '프로그레스 페이지네이션',
+  render: () => <Carousel ariaLabel="프로그레스 페이지네이션" pagination="progressbar" loop><Slides /></Carousel>
+}`,...k.parameters?.docs?.source}}},A.parameters={...A.parameters,docs:{...A.parameters?.docs,source:{originalSource:`{
+  name: '커스텀 페이지네이션',
+  render: () => <Carousel ariaLabel="번호 페이지네이션" pagination="custom" loop navigation={false}><Slides data={manySlides.slice(0, 4)} /></Carousel>
+}`,...A.parameters?.docs?.source}}},j.parameters={...j.parameters,docs:{...j.parameters?.docs,source:{originalSource:`{
+  name: '그리드',
+  render: () => <div className="carousel-story-stack">
+  <div className="carousel-story-block"><h3 className="typo_overline">1장씩 이동</h3><p className="typo_caption">slidesPerGroup 생략(기본 1) — 화살표·스와이프 시 한 칸씩 이동합니다.</p><Carousel ariaLabel="그리드 1장씩" slidesPerView={3} gridRows={2} spaceBetween={16}><Slides data={manySlides} compact /></Carousel></div>
+  <div className="carousel-story-block"><h3 className="typo_overline">그룹 이동</h3><p className="typo_caption">slidesPerGroup=6 — 한 화면(2행 × 3열) 단위로 이동합니다.</p><Carousel ariaLabel="그리드 그룹 이동" slidesPerView={3} slidesPerGroup={6} gridRows={2} spaceBetween={16}><Slides data={manySlides} compact /></Carousel></div>
+</div>
+}`,...j.parameters?.docs?.source}}},M.parameters={...M.parameters,docs:{...M.parameters?.docs,source:{originalSource:`{
+  name: '커버플로우',
+  render: () => <Carousel ariaLabel="커버플로우 슬라이드" effect="coverflow" coverflowSides={1} spaceBetween={16} loop pagination={false}><Slides data={manySlides} compact /></Carousel>
+}`,...M.parameters?.docs?.source}}},N.parameters={...N.parameters,docs:{...N.parameters?.docs,source:{originalSource:`{
+  name: '커버플로우 · 축소',
+  render: () => <div className="carousel-story-stack">
+  <div className="carousel-story-block"><h3 className="typo_overline">좌우 1개씩</h3><p className="typo_caption">coverflowSides=1 — 슬라이드 크기 기준, 좌·우에 1개씩 표시합니다.</p><Carousel ariaLabel="커버플로우 축소 좌우 1" effect="coverflow" coverflowStyle="rise" coverflowSides={1} spaceBetween={16} loop pagination={false}><Slides data={manySlides} compact /></Carousel></div>
+  <div className="carousel-story-block"><h3 className="typo_overline">좌우 약 1.5개 (기본)</h3><p className="typo_caption">coverflowSides=1.5 — 크기는 동일하고 간격으로 좌·우 약 1.5개를 표시합니다.</p><Carousel ariaLabel="커버플로우 축소 좌우 1.5" effect="coverflow" coverflowStyle="rise" coverflowSides={1.5} spaceBetween={16} loop pagination={false}><Slides data={manySlides} compact /></Carousel></div>
+  <div className="carousel-story-block"><h3 className="typo_overline">좌우 2개씩</h3><p className="typo_caption">coverflowSides=2 — 크기는 동일하고 간격으로 좌·우 2개씩 표시합니다.</p><Carousel ariaLabel="커버플로우 축소 좌우 2" effect="coverflow" coverflowStyle="rise" coverflowSides={2} spaceBetween={16} loop pagination={false}><Slides data={manySlides} compact /></Carousel></div>
+</div>
+}`,...N.parameters?.docs?.source}}},P.parameters={...P.parameters,docs:{...P.parameters?.docs,source:{originalSource:`{
+  name: '썸네일 갤러리',
+  render: () => <ThumbsDemo />
+}`,...P.parameters?.docs?.source}}},F.parameters={...F.parameters,docs:{...F.parameters?.docs,source:{originalSource:`{
+  args: {
+    ariaLabel: '플레이그라운드',
+    effect: undefined,
+    autoplay: false,
+    loop: false,
+    slidesPerView: 1,
+    spaceBetween: 0,
+    pagination: true,
+    navigation: true
+  },
+  render: args => <Carousel {...args}><Slides /></Carousel>
+}`,...F.parameters?.docs?.source}}},I=[`Default`,`Fade`,`Autoplay`,`Loop`,`Multi`,`Space`,`Pagination`,`Fraction`,`Progress`,`CustomPagination`,`Grid`,`Coverflow`,`CoverflowRise`,`ThumbsGallery`,`Playground`]})))()}export{A as a,O as c,T as d,D as f,L as g,P as h,N as i,j as l,E as m,u as n,x as o,k as p,M as r,S as s,C as t,w as u};
