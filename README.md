@@ -104,7 +104,7 @@ pnpm build:styles
 pnpm build:assets
 ```
 
-이 명령은 이미지를 여섯 프레임워크 앱과 Storybook의 `public/images`로 복사합니다. Guidebook은 Vite의 `publicDir` 설정을 통해 공통 자산 원본을 직접 사용합니다.
+이 명령은 이미지를 여섯 프레임워크 앱과 Storybook의 `public/images`로 복사합니다. Guidebook은 Vite의 `publicDir` 설정을 통해 공통 자산 원본을 직접 사용합니다. 문서와 예제의 이미지 주소는 `VITE_ASSET_BASE`(없으면 `VITE_SITE_URL`)로 개발·배포 경로를 맞춥니다.
 
 스타일과 이미지를 한 번에 갱신하려면 다음 명령을 실행합니다.
 

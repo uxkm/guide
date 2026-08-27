@@ -59,7 +59,7 @@ const sources: Record<string, Source> = {
 const indent = (value: string, spaces: number) => value.split('\n').map((line) => `${' '.repeat(spaces)}${line}`).join('\n');
 function examples(key: string, source: Source): FrameworkExample[] {
   const stateful = key === 'example';
-  const react = `${stateful ? "import { useState } from 'react';\n" : ''}import Upload from '@uxkm/react/upload';\n\nexport function Example() {${stateful ? '\n  const [files, setFiles] = useState([]);' : ''}\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `${stateful ? "import { useState } from 'react';\n" : ''}import Upload from '@uxkm/react/upload';\n\nexport function Example() {${stateful ? '\n  const [files, setFiles] = useState([]);' : ''}\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${stateful ? "import { ref } from 'vue';\n" : ''}import Upload from '@uxkm/vue/upload';${stateful ? '\nconst files = ref([]);' : ''}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [{ id: 'html', label: 'HTML', fileName: `Upload.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `upload.njk · ${key}`, code: source.html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/upload · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/upload · ${key}`, code: react }];
 }

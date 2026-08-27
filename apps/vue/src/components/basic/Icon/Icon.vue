@@ -5,29 +5,31 @@
 <script setup>
 import { computed, useAttrs } from 'vue';
 
+// 속성을 최외곽 요소에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmIcon', inheritAttrs: false });
 
 const props = defineProps({
-  name: { type: String, default: 'plus' },
-  color: String,
+  name: { type: String, default: 'plus' }, // paths에 등록된 아이콘 이름입니다.
+  color: String, // color_* 공통 색상 클래스입니다.
   size: {
     type: String,
     default: 'md',
     validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
-  },
-  inline: Boolean,
-  spin: Boolean,
-  button: Boolean,
-  circle: Boolean,
-  square: Boolean,
-  pulse: Boolean,
-  ripple: { type: Boolean, default: true },
-  ariaLabel: String,
-  title: String,
+  }, // sm · md · lg · xl 크기입니다.
+  inline: Boolean, // 텍스트와 인라인 정렬합니다.
+  spin: Boolean, // 회전 애니메이션입니다.
+  button: Boolean, // button 래퍼로 감쌉니다.
+  circle: Boolean, // 원형 배경 래퍼로 감쌉니다.
+  square: Boolean, // 사각형 배경 래퍼로 감쌉니다.
+  pulse: Boolean, // circle과 함께 펄스 효과를 켭니다.
+  ripple: { type: Boolean, default: true }, // button일 때 리플 효과를 켭니다.
+  ariaLabel: String, // 명시적 접근성 이름입니다.
+  title: String, // SVG title과 접근성 이름 후보입니다.
 });
 
 const attrs = useAttrs();
 const label = computed(() => props.ariaLabel || attrs['aria-label'] || props.title);
+// 래퍼가 없을 때 SVG에 붙는 클래스입니다.
 const svgClass = computed(() =>
   [
     'icon',
@@ -38,6 +40,7 @@ const svgClass = computed(() =>
     !props.button && !props.circle && !props.square && attrs.class,
   ].filter(Boolean),
 );
+// button · circle · square 래퍼에 붙는 클래스입니다.
 const wrapperClass = computed(() =>
   [
     props.button ? 'icon_button' : props.circle ? 'icon_circle' : 'icon_square',
@@ -53,6 +56,7 @@ const wrapperTag = computed(() => (props.button ? 'button' : 'span'));
 </script>
 
 <template>
+  <!-- button · circle · square는 래퍼를 두고 내부 SVG는 aria-hidden입니다. -->
   <component
     v-if="button || circle || square"
     :is="wrapperTag"

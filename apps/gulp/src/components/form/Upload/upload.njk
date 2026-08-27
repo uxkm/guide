@@ -1,4 +1,5 @@
 {# Upload 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# data-max-size·data-max-files와 변형별 트리거 UI를 구성합니다. #}
 {% set uploadId = uploadId | default('upload-example') %}
 {% set uploadVariant = variant | default('button') %}
 <div
@@ -8,6 +9,7 @@
   data-max-files="{{ maxFiles }}"{% endif %}
 >
   {% if uploadVariant == 'drag' or uploadVariant == 'dropzone' %}
+  {# 드롭존 label이 숨김 file input과 안내 문구를 연결합니다. #}
   <label
     class="upload_dropzone{% if error %} is-error{% endif %}"
     for="{{ uploadId }}"{% if not disabled %}
@@ -36,6 +38,7 @@
     >{% endif %}</label
   >
   {% elseif uploadVariant == 'picture-card' or uploadVariant == 'cards' %}
+  {# 사진 카드형 트리거와 추가 카드 영역을 구성합니다. #}
   <div class="upload_cards">
     <label
       class="upload_card upload_card-trigger"

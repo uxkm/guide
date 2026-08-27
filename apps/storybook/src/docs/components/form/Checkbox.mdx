@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { checkboxFrameworkExamples } from '../../../checkboxFrameworkExamples.ts';
+import { checkboxComponentExamples, checkboxFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { checkboxApiSections } from '../../../checkboxApiSections.ts';
 import * as CheckboxStories from '../../../Checkbox.stories.tsx';
 
@@ -9,53 +9,110 @@ import * as CheckboxStories from '../../../Checkbox.stories.tsx';
 
 # Checkbox
 
-여러 항목을 독립적으로 선택하거나 해제하는 체크박스 컴포넌트입니다. 보이는 레이블은 input과 명시적 또는 암묵적으로 연결하고, 단독 사용 시 `aria-label`로 접근 가능한 이름을 제공합니다.
+여러 항목을 독립적으로 선택하거나 해제하는 체크박스 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+보이는 레이블은 input과 명시적 또는 암묵적으로 연결하고, 단독 사용 시 `aria-label`로 접근 가능한 이름을 제공합니다. 관련 항목은 `fieldset`과 `legend`(또는 `aria-labelledby`)로 그룹의 목적을 전달합니다.
+
+WebSquare는 체크 입력을 `xf:checkbox`, 레이블·그룹·카드 영역을 `w2:group`과 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Checkbox 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 체크 상태, 불확정(indeterminate), 레이블 배치, 버튼형 변형과 접근성 속성을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 레이블이 없으면 `checkbox_control` 단독 마크업과 `aria-label`을 사용합니다.
+- `indeterminate`는 DOM `indeterminate` 속성을 동기화해 부분 선택 상태를 표현합니다.
+- `labelEnd`·`button`은 루트 클래스로 레이아웃·버튼형 변형을 적용합니다.
+- `ripple`은 전체 Checkbox 영역을 기준으로 클릭 파장 효과를 표시합니다.
+
+<FrameworkTabs examples={checkboxComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:checkbox`의 `ref`를 DataMap 경로에 연결하고 `trueValue`·`falseValue`로 저장값을 정의합니다. 크기·색상·너비는 공통 `checkbox_*`, `color_*` 클래스로 표현합니다.
+
+그룹은 `w2:group`에 `checkbox_group`을 적용하고 `fieldset`/`legend` 역할을 `tagname`으로 맞춥니다. 상태 변경 후 연관 필드를 갱신할 때는 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 유형
+
+기본, 레이블 뒤, 버튼형, 카드형 변형을 한눈에 비교합니다.
+
 <Canvas of={CheckboxStories.Type} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.type} />
 
 ## 레이블 뒤
+
+`checkbox_label-end`는 레이블 → 컨트롤 순서로 배치하며 설정 화면에서 자주 사용합니다.
+
 <Canvas of={CheckboxStories.LabelEnd} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.labelEnd} />
 
 ## 기본
+
+폼 필드 레이블과 힌트가 포함된 기본 체크박스 그룹입니다.
+
 <Canvas of={CheckboxStories.Basic} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.basic} />
 
 ## 단독 사용
+
+보이는 레이블 없이 `aria-label`로 접근 가능한 이름을 제공합니다.
+
 <Canvas of={CheckboxStories.Standalone} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.standalone} />
 
 ## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
+
 <Canvas of={CheckboxStories.Size} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.size} />
 
 ## 너비
+
+기본은 인라인 너비이며 `checkbox_block`·`checkbox_group_block`으로 전체 너비를 사용합니다.
+
 <Canvas of={CheckboxStories.Width} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.width} />
 
 ## 색상
+
+semantic `color_*` 클래스로 선택 강조 색을 바꿉니다.
+
 <Canvas of={CheckboxStories.Color} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.color} />
 
 ## 상태
+
+미선택, 선택, 불확정, 비활성 상태를 함께 제공합니다.
+
 <Canvas of={CheckboxStories.State} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.state} />
 
 ## 그룹
+
+세로·가로 그룹과 범례로 관련 항목을 묶습니다.
+
 <Canvas of={CheckboxStories.Group} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.group} />
 
 ## 버튼형
+
+`checkbox_button`으로 필터·태그형 다중 선택을 구성합니다.
+
 <Canvas of={CheckboxStories.ButtonType} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.buttonType} />
 
 ## 카드형
+
+card 컴포넌트와 조합해 제목·설명을 포함한 선택 카드를 만듭니다.
+
 <Canvas of={CheckboxStories.CardType} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.cardType} />
 
 ## 폼 레이아웃
+
+FormLayout의 세로·가로 레이아웃 안에서 체크박스 그룹을 배치합니다.
+
 <Canvas of={CheckboxStories.Form} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.form} />
 

@@ -1,5 +1,7 @@
 <!-- Popover 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
+<!-- popover 루트가 트리거와 패널을 묶습니다. -->
 <div class="popover" data-component="Popover" data-popover>
+  <!-- 클릭으로 패널을 여는 트리거입니다. -->
   <button
     type="button"
     class="btn btn_outline popover_trigger"
@@ -9,6 +11,7 @@
   >
     Popover 열기
   </button>
+  <!-- 화살표·헤더·본문을 담는 패널입니다. -->
   <div
     class="popover_panel"
     id="popover-basic"

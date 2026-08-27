@@ -62,7 +62,7 @@ const sources: Record<string, Source> = {
 
 function indent(value: string, spaces: number) { const prefix = ' '.repeat(spaces); return value.split('\n').map((line) => `${prefix}${line}`).join('\n'); }
 function examples(key: string, source: Source): FrameworkExample[] {
-  const react = `import FormLayout, { FormActions, FormField } from '@uxkm/react/form-layout';\n\nexport function Example() {\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `import FormLayout, { FormActions, FormField } from '@uxkm/react/form-layout';\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport FormLayout, { FormActions, FormField } from '@uxkm/vue/form-layout';\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/FormLayout/FormLayout.html · ${key}`, code: source.html },

@@ -11,11 +11,11 @@ import Icon from '../../basic/Icon/Icon.vue';
 defineOptions({ name: 'UxkmCollapsePanel' });
 
 const props = defineProps({
-  label: { type: String, default: '' },
-  content: String,
-  open: Boolean,
-  disabled: Boolean,
-  ripple: { type: Boolean, default: true },
+  label: { type: String, default: '' }, // 트리거 레이블입니다.
+  content: String, // 본문 텍스트입니다.
+  open: Boolean, // 초기 열림 상태입니다.
+  disabled: Boolean, // 패널을 비활성화합니다.
+  ripple: { type: Boolean, default: true }, // 트리거 버튼 리플 효과입니다.
 });
 const collapse = inject('uxkmCollapse', null);
 const uid = useId().replaceAll(':', '');

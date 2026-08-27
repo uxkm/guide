@@ -5,7 +5,9 @@
 <script setup>
 defineOptions({ name: 'UxkmBadgeWrap' });
 
-defineProps({ ariaLabel: String });
+defineProps({
+  ariaLabel: String, // 겹침 영역의 접근성 이름입니다.
+});
 </script>
 
 <template>

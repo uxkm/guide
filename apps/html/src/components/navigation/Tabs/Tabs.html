@@ -1,7 +1,9 @@
 <!-- Tabs 원본 구현: 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다. -->
+<!-- tabs 클래스에 line 변형과 data-tabs를 두고 탭 목록·패널을 연결합니다. -->
 <div class="tabs tabs_line" data-component="Tabs" data-tabs>
   <div class="tabs_bar">
     <div class="tabs_list-wrap">
+      <!-- role=tablist 안에서 각 탭 버튼을 aria-controls로 패널과 연결합니다. -->
       <div class="tabs_list" role="tablist" aria-label="프로젝트 정보">
         <button
           type="button"
@@ -36,6 +38,7 @@
       </div>
     </div>
   </div>
+  <!-- 활성 패널만 is-active로 보이고 나머지는 hidden으로 숨깁니다. -->
   <div class="tabs_panels">
     <div
       class="tabs_panel is-active"

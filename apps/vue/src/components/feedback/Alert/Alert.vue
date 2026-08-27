@@ -5,49 +5,55 @@
 <script setup>
 import { computed, ref, useAttrs } from 'vue';
 
+// 선언하지 않은 속성을 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({
   name: 'UxkmAlert',
   inheritAttrs: false,
 });
 
+// 색상·콘텐츠·표시 옵션을 prop으로 받습니다.
 const props = defineProps({
-  color: { type: String, default: 'info' },
-  title: String,
-  description: String,
-  closable: Boolean,
-  showIcon: { type: Boolean, default: true },
-  size: { type: String, default: 'md' },
-  banner: Boolean,
-  role: { type: String, default: 'alert' },
-  closeLabel: { type: String, default: '알림 닫기' },
+  color: { type: String, default: 'info' }, // 의미 색상입니다. danger는 color_error를 사용합니다.
+  title: String, // 알림 제목입니다.
+  description: String, // 본문 설명입니다. default 슬롯이 있으면 우선합니다.
+  closable: Boolean, // 닫기 버튼 표시 여부입니다.
+  showIcon: { type: Boolean, default: true }, // 상태 아이콘 표시 여부입니다.
+  size: { type: String, default: 'md' }, // 알림 크기입니다.
+  banner: Boolean, // 배너형(전체 너비) 변형입니다.
+  role: { type: String, default: 'alert' }, // 접근성 역할입니다.
+  closeLabel: { type: String, default: '알림 닫기' }, // 닫기 버튼의 접근성 이름입니다.
 });
 
-const emit = defineEmits(['close']);
-const attrs = useAttrs();
-const visible = ref(true);
+const emit = defineEmits(['close']); // 닫기 이벤트입니다.
+const attrs = useAttrs(); // 선언하지 않은 HTML 속성입니다.
+const visible = ref(true); // 닫기 전까지 알림을 화면에 유지합니다.
 
+// 지원하지 않는 색상은 info로 되돌립니다.
 const resolvedColor = computed(() =>
   ['info', 'success', 'warning', 'danger'].includes(props.color) ? props.color : 'info',
 );
 
+// 루트·색상·크기·배너·사용자 클래스를 조합합니다.
 const classes = computed(() => {
   const colorClass =
     resolvedColor.value === 'danger' ? 'color_error' : `color_${resolvedColor.value}`;
 
   return [
-    'alert',
-    colorClass,
-    props.size !== 'md' && `alert_${props.size}`,
-    props.banner && 'alert_banner',
-    attrs.class,
+    'alert', // Alert 루트 클래스입니다.
+    colorClass, // 의미 색상 클래스입니다.
+    props.size !== 'md' && `alert_${props.size}`, // md가 아닐 때만 크기 변형입니다.
+    props.banner && 'alert_banner', // 배너형 레이아웃입니다.
+    attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean);
 });
 
+// class는 classes에 합쳤으므로 나머지 속성만 바인딩합니다.
 const restAttrs = computed(() => {
   const { class: _class, ...rest } = attrs;
   return rest;
 });
 
+// 내부 표시 상태를 끄고 close 이벤트를 알립니다.
 function handleClose(event) {
   visible.value = false;
   emit('close', event);
@@ -55,7 +61,9 @@ function handleClose(event) {
 </script>
 
 <template>
+  <!-- 닫힌 뒤에는 DOM에서 제거합니다. -->
   <div v-if="visible" v-bind="restAttrs" :class="classes" data-component="Alert" :role="role">
+    <!-- 아이콘 슬롯: 없으면 색상별 기본 SVG를 사용합니다. -->
     <slot v-if="showIcon" name="icon">
       <svg
         class="alert_icon"
@@ -86,6 +94,7 @@ function handleClose(event) {
       </svg>
     </slot>
 
+    <!-- 제목·본문·액션을 담는 본문 영역입니다. -->
     <div class="alert_body">
       <div v-if="title" class="alert_title">
         {{ title }}
@@ -96,6 +105,7 @@ function handleClose(event) {
       <slot name="actions" />
     </div>
 
+    <!-- closable일 때만 닫기 버튼을 렌더합니다. -->
     <button
       v-if="closable"
       type="button"

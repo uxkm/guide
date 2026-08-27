@@ -16,3 +16,14 @@ styles/
 
 - DOM 동작 패키지: `@uxkm/interactions`
 - 정적 이미지 원본: `packages/assets/public/images`
+- SCSS 에셋 URL: `asset-url('images/…')` (`shared/_cdn-url.scss`)
+  - 개발: `$cdn-url` 비움 → `url("/images/…")`
+  - 배포: `pnpm build:styles`가 `VITE_ASSET_BASE` / `VITE_SITE_URL`을 `$cdn-url`로 주입
+
+```scss
+@use "../shared/variables" as *;
+
+.example {
+  background-image: asset-url("images/brand/uxkm_logo.svg");
+}
+```

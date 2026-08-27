@@ -7,6 +7,7 @@
     "dev": "gulp dev"
   },
   "dependencies": {
+    "@uxkm/html": "workspace:*",
     "@uxkm/interactions": "workspace:*",
     "swiper": "12.0.3"
   },

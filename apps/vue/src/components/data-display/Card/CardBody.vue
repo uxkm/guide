@@ -14,5 +14,6 @@ const rootAttrs = computed(() => {
 </script>
 <!-- 본문 slot을 공통 card_body 영역에 렌더링합니다. -->
 <template>
+  <!-- 공통 클래스와 slot으로 구조를 구성합니다. -->
   <div v-bind="rootAttrs" class="card_body" :class="attrs.class"><slot /></div>
 </template>

@@ -3,6 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./affix": "./src/components/miscellaneous/Affix/affix.js",
+    "./back-top": "./src/components/miscellaneous/BackTop/back-top.js",
+    "./accordion": "./src/components/miscellaneous/Accordion/accordion.js",
+    "./collapse": "./src/components/miscellaneous/Collapse/collapse.js",
+    "./carousel": "./src/components/miscellaneous/Carousel/carousel.js",
+    "./alert": "./src/components/feedback/Alert/alert.js",
+    "./modal": "./src/components/feedback/Modal/modal.js",
+    "./upload": "./src/components/form/Upload/upload.js",
+    "./date-picker": "./src/components/form/DatePicker/date-picker.js"
+  },
   "scripts": {
     "dev": "vite --port 6101"
   },

@@ -5,19 +5,24 @@
 import { useEffect, useId, useState } from 'react';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
+
 export function MenuSubmenu({
-  label,
-  expanded = false,
-  submenuId,
-  icon,
-  children,
-  className = '',
-  ...props
+  label, // 서브메뉴 트리거에 표시할 텍스트입니다.
+  expanded = false, // 초기·제어용 펼침 상태입니다.
+  submenuId, // 서브메뉴 목록의 DOM id를 직접 지정합니다.
+  icon, // 트리거 앞에 표시할 아이콘입니다.
+  children, // 하위 MenuItem 등 서브메뉴 항목입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 li에 전달합니다.
 }) {
+  // React id의 콜론을 제거해 aria-controls 연결용 식별자를 만듭니다.
   const generatedId = useId().replaceAll(':', '');
-  const id = submenuId || `menu-sub-${generatedId}`;
-  const [open, setOpen] = useState(Boolean(expanded));
+  const id = submenuId || `menu-sub-${generatedId}`; // 서브메뉴 목록의 최종 id입니다.
+  const [open, setOpen] = useState(Boolean(expanded)); // 현재 펼침 상태입니다.
+
+  // 외부 expanded prop이 바뀌면 내부 열림 상태를 동기화합니다.
   useEffect(() => setOpen(Boolean(expanded)), [expanded]);
+
   return (
     <li
       {...props}

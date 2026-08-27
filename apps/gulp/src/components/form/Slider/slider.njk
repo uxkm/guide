@@ -1,4 +1,5 @@
 {# Slider 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# 크기·fit·스테퍼 클래스를 조합하고 헤더·range·증감 버튼을 구성합니다. #}
 {% set sliderId = sliderId | default('slider-example') %}
 {% set sliderValue = sliderValue | default(50) %}
 {% set sliderMin = sliderMin | default(0) %}
@@ -9,6 +10,7 @@
   data-component="Slider"
   data-ripple="true"
 >
+  {# 레이블과 현재 값을 헤더에 배치합니다. #}
   {% if label or showValue %}
   <div class="slider_header">
     {% if label %}<label class="slider_label" for="{{ sliderId }}"
@@ -20,6 +22,7 @@
     >{% endif %}
   </div>
   {% endif %}
+  {# 스테퍼가 있으면 감소·range·증가 버튼을 한 컨트롤로 묶습니다. #}
   {% if stepper %}
   <div class="slider_control">
     <button

@@ -5,7 +5,10 @@
 <script setup>
 import { computed, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmCardHeader', inheritAttrs: false });
-defineProps({ title: [String, Number], subtitle: [String, Number] });
+defineProps({
+  title: [String, Number], // 헤더 제목입니다.
+  subtitle: [String, Number], // 헤더 부제입니다.
+});
 const attrs = useAttrs();
 // class를 제외한 전달 속성은 header 루트에 적용하고 사용자 class는 별도로 병합합니다.
 const rootAttrs = computed(() => {
@@ -15,6 +18,7 @@ const rootAttrs = computed(() => {
 </script>
 <!-- 기본 slot이 제목·부제보다 우선하고 extra slot은 별도 액션 영역에 배치합니다. -->
 <template>
+  <!-- 공통 클래스와 slot으로 구조를 구성합니다. -->
   <div v-bind="rootAttrs" class="card_header" :class="attrs.class">
     <div class="card_header-main">
       <slot

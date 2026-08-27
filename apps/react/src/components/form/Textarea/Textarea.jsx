@@ -4,49 +4,49 @@
  */
 import { useId, useMemo, useState } from 'react';
 
-const VALID_SIZES = new Set(['sm', 'md', 'lg']);
-const VALID_RESIZE = new Set(['none', 'vertical', 'horizontal', 'both']);
+const VALID_SIZES = new Set(['sm', 'md', 'lg']); // 지원하는 크기 이름입니다.
+const VALID_RESIZE = new Set(['none', 'vertical', 'horizontal', 'both']); // 지원하는 크기 조절 방향입니다.
 
 export function Textarea({
-  size = 'md',
-  resize = 'none',
-  disabled = false,
-  error = false,
-  fit = false,
-  showCount = false,
-  value,
-  defaultValue = '',
-  className = '',
-  wrapperClassName = '',
-  onChange,
-  maxLength,
-  readOnly,
-  ...props
+  size = 'md', // 텍스트 영역 높이와 글자 크기입니다.
+  resize = 'none', // 사용자가 조절할 수 있는 방향입니다.
+  disabled = false, // 입력을 비활성으로 만들어 조작을 막습니다.
+  error = false, // 검증 오류 상태를 시각·접근성으로 표시합니다.
+  fit = false, // 공통 최대 너비로 너비를 제한합니다.
+  showCount = false, // 글자 수 카운터를 표시합니다.
+  value, // 제어 컴포넌트의 현재 값입니다.
+  defaultValue = '', // 비제어 컴포넌트의 초기 값입니다.
+  className = '', // textarea에 적용할 사용자 정의 클래스입니다.
+  wrapperClassName = '', // 카운터 래퍼에 적용할 사용자 정의 클래스입니다.
+  onChange, // 값 변경 콜백입니다.
+  maxLength, // 최대 입력 글자 수입니다.
+  readOnly, // 읽기 전용으로 만들어 편집을 막습니다.
+  ...props // id, name, rows 등 나머지 네이티브 textarea 속성을 전달합니다.
 }) {
   // 고유 카운터 id와 제어·비제어 현재 값을 계산합니다.
   const generatedId = useId().replace(/:/g, '');
-  const controlled = value !== undefined;
+  const controlled = value !== undefined; // 외부 value로 제어되는지 여부입니다.
   const [innerValue, setInnerValue] = useState(() => value ?? defaultValue ?? '');
-  const currentValue = controlled ? (value ?? '') : innerValue;
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
-  const resolvedResize = VALID_RESIZE.has(resize) ? resize : 'none';
-  const countId = `${props.id || `textarea-${generatedId}`}-count`;
+  const currentValue = controlled ? (value ?? '') : innerValue; // 화면에 표시할 최종 값입니다.
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
+  const resolvedResize = VALID_RESIZE.has(resize) ? resize : 'none'; // 지원 범위로 보정한 resize입니다.
+  const countId = `${props.id || `textarea-${generatedId}`}-count`; // 카운터 요소 id입니다.
   const describedBy =
-    [props['aria-describedby'], showCount && countId].filter(Boolean).join(' ') || undefined;
-  const count = String(currentValue).length;
-  const hasLimit = Number.isFinite(Number(maxLength)) && Number(maxLength) >= 0;
+    [props['aria-describedby'], showCount && countId].filter(Boolean).join(' ') || undefined; // 카운터를 보조 설명으로 연결합니다.
+  const count = String(currentValue).length; // 현재 글자 수입니다.
+  const hasLimit = Number.isFinite(Number(maxLength)) && Number(maxLength) >= 0; // 최대 길이 제한이 있는지 여부입니다.
 
   // 크기, resize 방향, 제한 너비와 오류 상태를 공통 클래스로 변환합니다.
   const classes = useMemo(
     () =>
       [
-        'textarea',
-        resolvedSize === 'sm' && 'textarea_sm',
-        resolvedSize === 'lg' && 'textarea_lg',
-        `textarea_resize_${resolvedResize}`,
-        !showCount && fit && 'textarea_fit',
-        error && 'is-error',
-        className,
+        'textarea', // 텍스트 영역 필수 클래스입니다.
+        resolvedSize === 'sm' && 'textarea_sm', // 작은 크기 변형입니다.
+        resolvedSize === 'lg' && 'textarea_lg', // 큰 크기 변형입니다.
+        `textarea_resize_${resolvedResize}`, // 크기 조절 방향 클래스입니다.
+        !showCount && fit && 'textarea_fit', // 카운터 없이 fit일 때 너비 제한입니다.
+        error && 'is-error', // 오류 상태 클래스입니다.
+        className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
       ]
         .filter(Boolean)
         .join(' '),
@@ -59,6 +59,7 @@ export function Textarea({
     onChange?.(event);
   }
 
+  // 공통 네이티브 textarea를 한 곳에서 정의합니다.
   const control = (
     <textarea
       {...props}
@@ -80,10 +81,10 @@ export function Textarea({
   return (
     <div
       className={[
-        'textarea_wrap',
-        'textarea_show-count',
-        fit && 'textarea_wrap_fit',
-        wrapperClassName,
+        'textarea_wrap', // 카운터와 함께 묶는 래퍼입니다.
+        'textarea_show-count', // 카운터 표시 모드입니다.
+        fit && 'textarea_wrap_fit', // 래퍼 단위 너비 제한입니다.
+        wrapperClassName, // 호출 위치에서 전달한 래퍼 클래스입니다.
       ]
         .filter(Boolean)
         .join(' ')}

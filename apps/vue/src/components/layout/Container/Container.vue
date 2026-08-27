@@ -10,9 +10,9 @@ defineOptions({ name: 'UxkmContainer', inheritAttrs: false });
 
 // as는 루트 요소, size는 최대 너비, fluid는 최대 너비 제한 해제를 제어합니다.
 const props = defineProps({
-  as: { type: [String, Object, Function], default: 'div' },
-  size: { type: String, default: '' },
-  fluid: Boolean,
+  as: { type: [String, Object, Function], default: 'div' }, // Container의 루트 요소 또는 컴포넌트를 지정합니다.
+  size: { type: String, default: '' }, // 최대 너비 단계(sm · md · lg · xl)입니다.
+  fluid: Boolean, // 최대 너비 제한을 해제합니다.
 });
 
 // 선언하지 않은 class와 HTML 속성을 수집합니다.

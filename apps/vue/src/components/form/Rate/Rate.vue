@@ -5,24 +5,29 @@
 <script setup>
 import { computed, ref, useAttrs, watch } from 'vue';
 
+// 속성을 계산된 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmRate', inheritAttrs: false });
+
+// 별점 값, 개수, 반별·초기화·읽기 전용 옵션을 하나의 Rate API로 제공합니다.
 const props = defineProps({
-  modelValue: Number,
-  value: Number,
-  count: { type: Number, default: 5 },
-  allowHalf: Boolean,
-  clearable: Boolean,
-  readonly: Boolean,
-  disabled: Boolean,
-  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
-  legend: String,
-  name: String,
-  ripple: { type: Boolean, default: true },
+  modelValue: Number, // v-model 현재 별점입니다.
+  value: Number, // modelValue의 이전 호환 이름입니다.
+  count: { type: Number, default: 5 }, // 표시할 별의 개수입니다.
+  allowHalf: Boolean, // 0.5점 단위 선택을 허용합니다.
+  clearable: Boolean, // 선택 초기화 버튼을 표시합니다.
+  readonly: Boolean, // 읽기 전용 표시 모드입니다.
+  disabled: Boolean, // 선택을 비활성으로 만들어 조작을 막습니다.
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // 별과 값 텍스트 크기입니다.
+  legend: String, // fieldset 범례 텍스트입니다.
+  name: String, // radio 그룹 이름입니다.
+  ripple: { type: Boolean, default: true }, // 클릭 파장 효과를 표시할지 여부입니다.
 });
 const emit = defineEmits(['update:modelValue', 'change']);
 const attrs = useAttrs();
 const groupName = props.name || `rate-${Math.random().toString(36).slice(2, 9)}`;
 const currentValue = ref(props.modelValue ?? props.value);
+
+// 외부 값이 바뀌면 내부 선택 값을 동기화합니다.
 watch(
   () => [props.modelValue, props.value],
   ([modelValue, value]) => {
@@ -32,29 +37,36 @@ watch(
 const stars = computed(() =>
   Array.from({ length: Math.max(1, Number(props.count)) }, (_, index) => index + 1),
 );
+
+// 크기·반별·초기화·읽기 전용 상태를 공통 클래스로 변환합니다.
 const classes = computed(() =>
   [
-    'rate',
-    props.size === 'sm' && 'rate_sm',
-    props.size === 'lg' && 'rate_lg',
-    props.allowHalf && 'rate_allow-half',
-    props.clearable && 'rate_clearable',
-    props.readonly && 'is-readonly',
-    attrs.class,
+    'rate', // 별점 루트 필수 클래스입니다.
+    props.size === 'sm' && 'rate_sm', // 작은 크기 변형입니다.
+    props.size === 'lg' && 'rate_lg', // 큰 크기 변형입니다.
+    props.allowHalf && 'rate_allow-half', // 반별 선택 변형입니다.
+    props.clearable && 'rate_clearable', // 초기화 버튼 표시 모드입니다.
+    props.readonly && 'is-readonly', // 읽기 전용 상태 클래스입니다.
+    attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean),
 );
+
+// class는 루트에만 두고 나머지 속성은 fieldset/div로 전달합니다.
 const rootAttrs = computed(() => {
   const { class: _class, ...rest } = attrs;
   return rest;
 });
 const starPath =
-  'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z';
+  'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'; // 별 아이콘 path입니다.
+
 function update(next) {
+  // 내부 상태와 v-model·change 이벤트를 함께 갱신합니다.
   currentValue.value = next;
   emit('update:modelValue', next);
   emit('change', next);
 }
 function readonlyState(star) {
+  // 읽기 전용 별의 채움·반별 상태를 계산합니다.
   return (currentValue.value ?? 0) >= star
     ? 'is-filled'
     : props.allowHalf && (currentValue.value ?? 0) >= star - 0.5
@@ -64,6 +76,7 @@ function readonlyState(star) {
 </script>
 
 <template>
+  <!-- 읽기 전용은 radio 없이 채움·반별 상태로만 표시합니다. -->
   <div
     v-if="readonly"
     v-bind="rootAttrs"
@@ -95,6 +108,7 @@ function readonlyState(star) {
     </div>
     <span v-if="currentValue != null" class="rate_value">{{ currentValue }}</span>
   </div>
+  <!-- 편집 가능 모드는 fieldset과 radio로 별점을 선택합니다. -->
   <fieldset
     v-else
     v-bind="rootAttrs"

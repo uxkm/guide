@@ -27,4 +27,40 @@ export const drawerApiSections: ApiSectionData[] = [
     { name: '--drawer-z-index · --drawer-width · --drawer-height', type: 'number · length', default: '250 · 24rem · 18rem', description: '레이어와 패널 크기입니다.' },
     { name: '--drawer-bg · --drawer-shadow', type: 'color · shadow', default: '테마별 값', description: '패널 표면과 그림자입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.drawer',
+        type: 'XML element · class',
+        default: "role='dialog'",
+        description: 'Drawer 루트입니다. drawer_placement-*와 is-open, aria-modal을 함께 사용합니다.',
+      },
+      {
+        name: 'drawer_backdrop · drawer_panel · drawer_header · drawer_body · drawer_footer',
+        type: 'class',
+        default: '—',
+        description: '백드롭과 패널 구조 영역입니다.',
+      },
+      {
+        name: 'drawer_sm · drawer_lg · drawer_draggable · drawer_handle',
+        type: 'class',
+        default: '—',
+        description: '크기와 하단 드래그 시트 변형입니다.',
+      },
+      {
+        name: 'xf:trigger.drawer_close · drawer_footer',
+        type: 'XML element · class',
+        default: '—',
+        description: '닫기·저장·취소 액션을 구성합니다.',
+      },
+      {
+        name: 'ev:onclick',
+        type: 'WebSquare event',
+        default: '—',
+        description: '열기·닫기·확인 동작을 화면 스크립트에 연결합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

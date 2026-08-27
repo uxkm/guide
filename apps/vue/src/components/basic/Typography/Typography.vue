@@ -30,19 +30,19 @@ const VARIANTS = {
 };
 
 const props = defineProps({
-  variant: { type: String, default: 'text' },
-  tag: String,
-  color: String,
-  size: {
+  variant: { type: String, default: 'text' }, // 텍스트 변형 키입니다.
+  tag: String, // 루트 태그입니다.
+  color: String, // color_* 공통 색상 클래스입니다.
+  size: { // 텍스트 크기입니다.
     type: String,
     default: '',
     validator: (value) => ['', 'xs', 'sm', 'lg', 'xl'].includes(value),
-  },
-  ellipsis: { type: [Number, String], default: undefined },
-  href: String,
-  htmlFor: String,
-  cite: String,
-  label: String,
+  }, // gap의 이전 호환 이름입니다.
+  ellipsis: { type: [Number, String], default: undefined }, // 말줄임 줄 수입니다.
+  href: String, // link 변형의 주소입니다.
+  htmlFor: String, // label 변형의 for입니다.
+  cite: String, // blockquote 인용 출처입니다.
+  label: String, // 기본 slot이 없을 때 표시할 텍스트입니다.
 });
 
 const emit = defineEmits(['click']);

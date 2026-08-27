@@ -7,16 +7,16 @@ import { computed, useAttrs, useSlots } from 'vue';
 
 defineOptions({ name: 'UxkmStat', inheritAttrs: false });
 const props = defineProps({
-  title: String,
-  value: [String, Number],
-  prefix: String,
-  suffix: String,
-  description: String,
-  trend: String,
-  trendColor: String,
-  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
-  card: Boolean,
-  shadow: Boolean,
+  title: String, // 통계 라벨입니다.
+  value: [String, Number], // 주요 수치입니다.
+  prefix: String, // 수치 앞 접두어입니다.
+  suffix: String, // 수치 뒤 접미어입니다.
+  description: String, // 보조 설명입니다.
+  trend: String, // 추세 텍스트입니다.
+  trendColor: String, // 추세 색상 클래스입니다.
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // sm · md · lg 크기입니다.
+  card: Boolean, // 카드형 외형입니다.
+  shadow: Boolean, // 그림자 카드입니다.
 });
 const attrs = useAttrs();
 const slots = useSlots();

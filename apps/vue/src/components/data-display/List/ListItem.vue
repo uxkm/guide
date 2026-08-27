@@ -7,14 +7,14 @@ import { computed, inject, useAttrs, useSlots } from 'vue';
 
 defineOptions({ name: 'UxkmListItem', inheritAttrs: false });
 const props = defineProps({
-  title: String,
-  description: String,
-  meta: String,
+  title: String, // 항목 제목입니다.
+  description: String, // 항목 설명입니다.
+  meta: String, // 메타 정보입니다.
   tag: {
     type: String,
     default: 'auto',
     validator: (value) => ['auto', 'li', 'dt', 'dd'].includes(value),
-  },
+  }, // auto면 부모 목록에 맞는 태그(li · dt · dd)입니다.
 });
 const attrs = useAttrs();
 const slots = useSlots();

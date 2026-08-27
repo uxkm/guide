@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { datePickerFrameworkExamples } from '../../../datePickerFrameworkExamples.ts';
+import { datePickerComponentExamples, datePickerFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { datePickerApiSections } from '../../../datePickerApiSections.ts';
 import * as DatePickerStories from '../../../DatePicker.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as DatePickerStories from '../../../DatePicker.stories.tsx';
 
 # DatePicker
 
-날짜 입력 트리거와 달력 패널을 결합한 폼 컴포넌트입니다. 값은 모든 프레임워크에서 `YYYY-MM-DD`로 주고받고 화면에는 locale 형식으로 표시합니다.
+날짜 입력 트리거와 달력 패널을 결합한 폼 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+값은 모든 프레임워크에서 `YYYY-MM-DD`로 주고받고 화면에는 locale 형식으로 표시합니다. 트리거 입력은 읽기 전용으로 두고 달력 버튼·패널로 선택을 완료합니다.
+
+WebSquare는 날짜 입력을 `w2:inputCalendar`, 달력 열기 동작을 `xf:trigger`, 필드 레이블·메시지를 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 DatePicker 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 날짜, 선택 범위, 크기·너비, 지우기와 패널 동작을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 `date_picker_sm`·`date_picker_lg` 클래스로 변환합니다.
+- `min`·`max` 범위 밖의 날짜는 비활성화합니다.
+- Escape와 바깥 영역 클릭으로 패널을 닫습니다.
+- `clearable`은 선택한 날짜를 지우고 트리거로 포커스를 복원합니다.
+
+<FrameworkTabs examples={datePickerComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:inputCalendar`의 `ref`를 DataMap 경로에 연결하고 `calendarValueType`, `placeholder`, `disabled` 등으로 입력 계약을 정의합니다. 크기·너비·검증 상태는 공통 `date_picker_*`, `is-error` 클래스로 표현합니다.
+
+선택 가능 연도·월 범위는 WebSquare 캘린더 속성으로 제한하고, 값 변경 후 연관 필드를 갱신할 때는 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 기본
 

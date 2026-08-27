@@ -10,19 +10,19 @@ defineOptions({ name: 'UxkmAvatar', inheritAttrs: false });
 
 // 이미지, fallback 이니셜, 크기·색상·상태 점을 공통 prop으로 받습니다.
 const props = defineProps({
-  src: String,
-  alt: { type: String, default: '' },
-  initials: String,
-  color: String,
-  size: {
+  src: String, // 아바타 이미지 주소입니다.
+  alt: { type: String, default: '' }, // 이미지 대체 텍스트입니다.
+  initials: String, // 이미지 없을 때 이니셜 텍스트입니다.
+  color: String, // color_* 배경 색상 클래스입니다.
+  size: { // sm · md · lg · xl 크기입니다.
     type: String,
     default: 'md',
     validator: (value) => ['sm', 'md', 'lg', 'xl'].includes(value),
-  },
-  square: Boolean,
-  badgeColor: String,
-  badgeLabel: String,
-  ariaHidden: Boolean,
+  }, // gap의 이전 호환 이름입니다.
+  square: Boolean, // 사각형 아바타로 표시합니다.
+  badgeColor: String, // 상태 점 색상입니다.
+  badgeLabel: String, // 상태 점의 접근성 이름입니다.
+  ariaHidden: Boolean, // 장식용으로 숨길 때 true입니다.
 });
 
 const attrs = useAttrs();

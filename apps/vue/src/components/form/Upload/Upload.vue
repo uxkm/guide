@@ -4,28 +4,31 @@
 -->
 <script setup>
 import { computed, onBeforeUnmount, ref, useAttrs, useId } from 'vue';
+// 속성을 계산된 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmUpload', inheritAttrs: false });
+
+// 변형, 파일 목록, 검증과 트리거 문구를 하나의 Upload API로 제공합니다.
 const props = defineProps({
-  modelValue: { type: Array, default: undefined },
-  defaultFiles: { type: Array, default: () => [] },
-  variant: { type: String, default: 'button' },
-  size: { type: String, default: 'md' },
-  fit: Boolean,
-  disabled: Boolean,
-  error: Boolean,
-  dragover: Boolean,
-  multiple: Boolean,
-  accept: String,
-  maxSize: Number,
-  maxFiles: Number,
-  inputId: String,
-  buttonLabel: { type: String, default: '파일 선택' },
-  title: { type: String, default: '파일을 끌어다 놓거나 선택하세요' },
-  description: String,
-  hint: String,
-  removeLabel: { type: String, default: '파일 삭제' },
-  avatarSrc: String,
-  avatarAlt: { type: String, default: '프로필 사진' },
+  modelValue: { type: Array, default: undefined }, // v-model 파일 목록입니다.
+  defaultFiles: { type: Array, default: () => [] }, // 비제어 초기 파일 목록입니다.
+  variant: { type: String, default: 'button' }, // button·drag·list·picture-card·avatar UI 유형입니다.
+  size: { type: String, default: 'md' }, // 업로드 영역 크기입니다.
+  fit: Boolean, // 공통 최대 너비로 너비를 제한합니다.
+  disabled: Boolean, // 파일 선택을 비활성으로 만듭니다.
+  error: Boolean, // 검증 오류 상태를 표시합니다.
+  dragover: Boolean, // 드롭존의 드래그 오버 상태를 강제로 표시합니다.
+  multiple: Boolean, // 여러 파일 선택을 허용합니다.
+  accept: String, // 허용할 파일 형식입니다.
+  maxSize: Number, // 바이트 단위 파일 크기 제한입니다.
+  maxFiles: Number, // 선택할 수 있는 최대 파일 개수입니다.
+  inputId: String, // 숨김 file input에 연결할 id입니다.
+  buttonLabel: { type: String, default: '파일 선택' }, // 기본 트리거 버튼 문구입니다.
+  title: { type: String, default: '파일을 끌어다 놓거나 선택하세요' }, // 드롭존 제목입니다.
+  description: String, // 드롭존 보조 설명입니다.
+  hint: String, // 버튼·드롭존 아래 도움말입니다.
+  removeLabel: { type: String, default: '파일 삭제' }, // 삭제 버튼의 접근 가능한 이름 접미사입니다.
+  avatarSrc: String, // avatar 변형의 미리보기 이미지 주소입니다.
+  avatarAlt: { type: String, default: '프로필 사진' }, // avatar 이미지 대체 텍스트입니다.
 });
 const emit = defineEmits(['update:modelValue', 'change', 'error']);
 const attrs = useAttrs();
@@ -33,22 +36,26 @@ const input = ref(null);
 const innerFiles = ref([...props.defaultFiles]);
 const message = ref('');
 const dragActive = ref(false);
-const urls = new Set();
+const urls = new Set(); // 생성한 미리보기 object URL입니다.
 const generatedId = useId().replace(/:/g, '');
 const resolvedInputId = computed(() => props.inputId || attrs.id || `upload-${generatedId}`);
 const resolvedVariant = computed(
   () => ({ dropzone: 'drag', cards: 'picture-card' })[props.variant] || props.variant,
-);
-const items = computed(() => props.modelValue ?? innerFiles.value);
+); // 이전 별칭을 정규화합니다.
+const items = computed(() => props.modelValue ?? innerFiles.value); // 최종 파일 목록입니다.
+
+// 너비·크기·비활성 클래스를 조합합니다.
 const classes = computed(() =>
   [
-    'upload',
-    props.fit && 'upload_fit',
-    props.size !== 'md' && `upload_${props.size}`,
-    props.disabled && 'is-disabled',
-    attrs.class,
+    'upload', // 업로드 루트 필수 클래스입니다.
+    props.fit && 'upload_fit', // 제한 너비 변형입니다.
+    props.size !== 'md' && `upload_${props.size}`, // sm·lg 크기 변형입니다.
+    props.disabled && 'is-disabled', // 비활성 상태 클래스입니다.
+    attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean),
 );
+
+// id·class는 루트/입력에만 쓰고 나머지 속성은 file input으로 전달합니다.
 const inputAttrs = computed(() => {
   const { id: _id, class: _class, ...rest } = attrs;
   return rest;
@@ -58,10 +65,11 @@ const formatSize = (bytes = 0) =>
     ? `${bytes} B`
     : bytes < 1048576
       ? `${(bytes / 1024).toFixed(1)} KB`
-      : `${(bytes / 1048576).toFixed(1)} MB`;
+      : `${(bytes / 1048576).toFixed(1)} MB`; // 파일 크기를 읽기 쉬운 단위로 표시합니다.
 const accepts = (file) =>
   !props.accept ||
   props.accept.split(',').some((rule) => {
+    // 확장자·MIME 와일드카드·정확한 MIME을 순서대로 검사합니다.
     const value = rule.trim();
     return value.startsWith('.')
       ? file.name.toLowerCase().endsWith(value.toLowerCase())
@@ -69,7 +77,9 @@ const accepts = (file) =>
         ? file.type.startsWith(value.slice(0, -1))
         : file.type === value;
   });
+
 function update(next) {
+  // 제어·비제어에 맞게 목록을 갱신하고 File 배열을 change로 전달합니다.
   if (props.modelValue === undefined) innerFiles.value = next;
   emit('update:modelValue', next);
   emit(
@@ -82,6 +92,7 @@ function fail(text) {
   emit('error', text);
 }
 function addFiles(list) {
+  // 형식·크기·개수를 검증한 뒤 미리보기 URL과 함께 목록에 추가합니다.
   if (props.disabled) return;
   const incoming = Array.from(list || []);
   const invalid = incoming.find(
@@ -111,6 +122,7 @@ function addFiles(list) {
   if (input.value) input.value.value = '';
 }
 function remove(index) {
+  // 해당 항목의 object URL을 정리한 뒤 목록에서 제거합니다.
   const item = items.value[index];
   if (item?.url && urls.has(item.url)) {
     URL.revokeObjectURL(item.url);
@@ -122,6 +134,7 @@ function leave(event) {
   if (!event.currentTarget.contains(event.relatedTarget)) dragActive.value = false;
 }
 function openWithKeyboard(event) {
+  // Enter·Space로 숨김 file input을 엽니다.
   if (!props.disabled && (event.key === 'Enter' || event.key === ' ')) {
     event.preventDefault();
     input.value?.click();
@@ -132,6 +145,7 @@ onBeforeUnmount(() => urls.forEach((url) => URL.revokeObjectURL(url)));
 
 <template>
   <div :class="classes" data-component="Upload">
+    <!-- 변형별 트리거: drag 드롭존 -->
     <label
       v-if="resolvedVariant === 'drag'"
       class="upload_dropzone"

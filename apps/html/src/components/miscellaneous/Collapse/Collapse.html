@@ -1,6 +1,8 @@
 <!-- Collapse 원본 구현: 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다. -->
-<div class="collapse_group collapse_bordered" data-component="Collapse" data-collapse>
-  <div class="collapse_panel is-open">
+<div class="collapse_group collapse_bordered" <!-- collapse_group 루트에 스킨과 data-collapse를 둡니다. -->
+data-component="Collapse" data-collapse>
+  <div class="<!-- 패널 헤더 트리거와 body region을 구성합니다. -->
+collapse_panel is-open">
     <div class="collapse_header">
       <button
         type="button"

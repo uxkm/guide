@@ -10,13 +10,13 @@ defineOptions({ name: 'UxkmBadge', inheritAttrs: false });
 
 // 텍스트, 크기, 상태 점, 카운트와 접근성 이름을 prop으로 받습니다.
 const props = defineProps({
-  label: String,
-  color: { type: String, default: 'primary' },
-  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
-  dot: Boolean,
-  count: Boolean,
-  dotOnly: Boolean,
-  ariaLabel: String,
+  label: String, // children 대신 표시할 텍스트입니다.
+  color: { type: String, default: 'primary' }, // color_* 공통 색상 클래스입니다.
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // sm · md · lg 크기입니다.
+  dot: Boolean, // 텍스트 옆 상태 점을 표시합니다.
+  count: Boolean, // 카운트형 배지 스타일입니다.
+  dotOnly: Boolean, // 텍스트 없는 독립 상태 점입니다.
+  ariaLabel: String, // 접근성 이름입니다. 상태 점에 권장합니다.
 });
 
 const attrs = useAttrs();

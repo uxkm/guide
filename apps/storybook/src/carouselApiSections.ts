@@ -1,7 +1,7 @@
 import type { ApiColumn, ApiRow, ApiSectionData } from './shared/ComponentApiDocs';
 
 const columns: ApiColumn[] = [{ key: 'name', label: '이름' }, { key: 'description', label: '설명' }, { key: 'default', label: '기본값' }, { key: 'type', label: '타입' }];
-const section = (title: string, rows: ApiRow[]): ApiSectionData => ({ title, tables: [{ columns, rows }] });
+const section = (title: string, rows: ApiRow[], description?: string): ApiSectionData => ({ title, description, tables: [{ columns, rows }] });
 
 export const carouselApiSections: ApiSectionData[] = [
   section('Carousel API · 기본', [
@@ -51,4 +51,15 @@ export const carouselApiSections: ApiSectionData[] = [
     { name: '--carousel-dot-size · --carousel-dot-size-active', type: 'length', default: '0.5rem · 1.25rem', description: '페이지네이션 점 크기입니다.' },
     { name: '--carousel-toggle-size', type: 'length', default: '2rem', description: '재생·정지 버튼 크기입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      { name: 'w2:group.carousel', type: 'XML element · class', default: "role='region'", description: 'Carousel 루트입니다. aria-roledescription="carousel"과 aria-label을 함께 사용합니다.' },
+      { name: 'swiper-wrapper · swiper-slide', type: 'class', default: '—', description: '슬라이드 래퍼와 개별 슬라이드입니다.' },
+      { name: 'data-swiper-effect · data-swiper-loop · data-swiper-autoplay', type: 'attribute', default: '—', description: '전환 효과, 루프, 자동 재생 설정입니다.' },
+      { name: 'xf:trigger.carousel_prev · carousel_next', type: 'XML element · class', default: '—', description: '이전·다음 내비게이션 버튼입니다.' },
+      { name: 'ev:onclick', type: 'WebSquare event', default: '—', description: '슬라이드 이동을 화면 스크립트에 연결합니다.' },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

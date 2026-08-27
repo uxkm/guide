@@ -1,5 +1,7 @@
 <!-- Progress 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
+<!-- progress 루트에 fit/block·색상·패턴 변형 클래스를 함께 적용합니다. -->
 <div class="progress progress_fit color_primary" data-component="Progress" data-percent="60">
+  <!-- 트랙이 progressbar 역할을 담당합니다. -->
   <div
     class="progress_track"
     role="progressbar"
@@ -8,6 +10,7 @@
     aria-valuemax="100"
     aria-label="진행률"
   >
+    <!-- 채움 막대 너비는 진행률(%)과 같습니다. -->
     <span class="progress_bar" style="width: 60%"></span>
   </div>
 </div>

@@ -8,10 +8,10 @@ import { computed, provide, ref, toRef, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmAccordion', inheritAttrs: false });
 
 const props = defineProps({
-  variant: { type: String, default: 'bordered' },
-  size: { type: String, default: 'md' },
-  multiple: Boolean,
-  effect: String,
+  variant: { type: String, default: 'bordered' }, // bordered · flush · card 스킨입니다.
+  size: { type: String, default: 'md' }, // sm · md · lg 크기입니다.
+  multiple: Boolean, // 여러 항목을 동시에 열 수 있습니다.
+  effect: String, // slide면 패널 높이 애니메이션을 사용합니다.
 });
 const attrs = useAttrs();
 const rootRef = ref(null);

@@ -8,15 +8,15 @@ import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
 export function CollapseExternal({
-  triggerLabel,
-  lead,
-  children,
-  open = false,
-  effect,
-  boxed = true,
-  className = '',
-  ripple = true,
-  ...props
+  triggerLabel, // 외부 트리거 버튼 텍스트입니다.
+  lead, // 트리거 위에 표시할 선행 콘텐츠입니다.
+  children, // 접히는 본문 콘텐츠입니다.
+  open = false, // 초기 열림 상태입니다.
+  effect, // slide면 높이 애니메이션을 사용합니다.
+  boxed = true, // 본문을 collapse_inner로 감쌉니다.
+  className = '', // 바깥 래퍼에 추가할 클래스입니다.
+  ripple = true, // 트리거 버튼 리플 효과입니다.
+  ...props // 나머지 속성을 바깥 래퍼에 전달합니다.
 }) {
   const uid = useId().replaceAll(':', '');
   const panelId = `collapse-external-${uid}`;

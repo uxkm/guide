@@ -18,21 +18,21 @@ export const ListContext = createContext({ tag: 'ul', variant: 'default' });
 
 // 목록 의미, 외형, 정의 목록 배치와 인라인 CSS 변수를 구성합니다.
 export function List({
-  children,
-  bordered = false,
-  split = false,
-  block = false,
-  size = 'md',
-  variant = 'default',
-  tag,
-  layout = 'block',
-  inlineLabelWidth,
-  inlineGap,
-  descAlign = 'left',
-  className = '',
-  style,
-  role,
-  ...props
+  children, // ListItem 자식들 또는 항목 콘텐츠입니다.
+  bordered = false, // 테두리 목록입니다.
+  split = false, // 항목 사이 구분선 표시 여부입니다.
+  block = false, // 블록형 목록입니다.
+  size = 'md', // compact면 조밀한 크기입니다.
+  variant = 'default', // default · bullet · ordered · definition입니다.
+  tag, // 명시적 루트 태그이거나 항목 태그입니다.
+  layout = 'block', // block · inline 레이아웃입니다.
+  inlineLabelWidth, // inline 레이아웃의 라벨 너비 CSS 값입니다.
+  inlineGap, // inline 레이아웃의 간격 CSS 값입니다.
+  descAlign = 'left', // 정의 목록 설명 정렬입니다.
+  className = '', // 추가 클래스입니다.
+  style, // 인라인 스타일입니다.
+  role, // 명시적 role입니다.
+  ...props // 나머지 속성을 전달합니다.
 }) {
   const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'default';
   const Root = VALID_TAGS.has(tag) ? tag : VARIANT_TAG[resolvedVariant];
@@ -72,17 +72,17 @@ export function List({
 }
 
 export function ListItem({
-  title,
-  description,
-  meta,
-  tag = 'auto',
-  prefix,
-  extra,
-  actions,
-  children,
-  className = '',
-  role,
-  ...props
+  title, // 항목 제목입니다.
+  description, // 항목 설명입니다.
+  meta, // 메타 정보입니다.
+  tag = 'auto', // auto면 부모 목록에 맞는 태그입니다.
+  prefix, // 앞쪽 부가 콘텐츠입니다.
+  extra, // 뒤쪽 부가 콘텐츠입니다.
+  actions, // 우측 액션 영역입니다.
+  children, // ListItem 자식들 또는 항목 콘텐츠입니다.
+  className = '', // 추가 클래스입니다.
+  role, // 명시적 role입니다.
+  ...props // 나머지 속성을 전달합니다.
 }) {
   const context = useContext(ListContext);
   // 정의 목록의 title+description 조합은 형제 dt·dd 쌍으로 렌더링합니다.

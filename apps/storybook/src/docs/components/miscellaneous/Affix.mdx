@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { affixFrameworkExamples as examples } from '../../../affixFrameworkExamples.ts';
+import { affixComponentExamples, affixFrameworkExamples as examples } from '../../../miscellaneousDocumentationExamples.ts';
 import { affixApiSections } from '../../../affixApiSections.ts';
 import * as Stories from '../../../Affix.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Affix.stories.tsx';
 
 # Affix
 
-스크롤 시 지정한 위치에 요소를 고정하는 컴포넌트입니다. 툴바, 앵커 내비게이션, 하단 액션 바에 사용할 수 있습니다.
+스크롤 시 지정한 위치에 요소를 고정하는 컴포넌트입니다. 툴바, 앵커 내비게이션, 하단 액션 바에 사용할 수 있습니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+앵커 스킨에는 목적을 설명하는 `aria-label`이 있는 `nav`를 사용합니다. 고정 상태에서도 키보드 포커스 순서와 버튼의 이름은 변하지 않습니다.
+
+WebSquare는 루트를 `w2:group.affix`, 고정 대상을 `w2:group.affix_target`, 액션을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Affix의 실제 원본 구현입니다. React와 Vue는 상단·하단 오프셋, 스크롤 컨테이너, 액션 바·앵커 스킨을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `target`으로 스크롤 컨테이너를 지정합니다.
+- `offsetTop`·`offsetBottom`으로 고정 방향과 간격을 설정합니다.
+- `skin`은 bar·anchor 외형을 전환합니다.
+
+<FrameworkTabs examples={affixComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.affix`에 `data-target`과 `data-offset-top`/`data-offset-bottom`을 적용합니다. 고정 대상은 `affix_target`이며 앵커는 `tagname="nav"`와 `aria-label`을 함께 사용합니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

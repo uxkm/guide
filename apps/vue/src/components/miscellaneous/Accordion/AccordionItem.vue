@@ -11,12 +11,12 @@ import Icon from '../../basic/Icon/Icon.vue';
 defineOptions({ name: 'UxkmAccordionItem' });
 
 const props = defineProps({
-  label: { type: String, default: '' },
-  content: String,
-  open: Boolean,
-  disabled: Boolean,
-  headingLevel: { type: Number, default: 3 },
-  ripple: { type: Boolean, default: true },
+  label: { type: String, default: '' }, // 트리거 레이블입니다.
+  content: String, // 본문 텍스트입니다.
+  open: Boolean, // 초기 열림 상태입니다.
+  disabled: Boolean, // 항목을 비활성화합니다.
+  headingLevel: { type: Number, default: 3 }, // heading의 aria-level입니다.
+  ripple: { type: Boolean, default: true }, // 트리거 버튼 리플 효과입니다.
 });
 const accordion = inject('uxkmAccordion', null);
 const uid = useId().replaceAll(':', '');

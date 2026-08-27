@@ -51,4 +51,40 @@ export const alertApiSections: ApiSectionData[] = [
     { name: '--alert-icon-size · --alert-close-size', type: 'length', default: '1.25rem', description: '아이콘과 닫기 버튼 크기입니다.' },
     { name: '--alert-title-weight · --alert-desc-opacity', type: 'number', default: '600 · 0.85', description: '제목과 설명 표현입니다.' },
   ]),
+  createTable(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.alert',
+        type: 'XML element · class',
+        default: "role='alert'",
+        description: '알림 루트입니다. color_info·color_success·color_warning·color_error와 함께 사용합니다.',
+      },
+      {
+        name: 'w2:textbox.alert_title · alert_desc',
+        type: 'XML element · class',
+        default: '—',
+        description: '제목과 본문 텍스트를 표시합니다.',
+      },
+      {
+        name: 'alert_sm · alert_lg · alert_banner',
+        type: 'class',
+        default: '—',
+        description: '크기와 배너 변형입니다.',
+      },
+      {
+        name: 'xf:trigger.alert_close · alert_actions',
+        type: 'XML element · class',
+        default: '—',
+        description: '닫기 버튼과 보조 액션 영역을 구성합니다.',
+      },
+      {
+        name: 'ev:onclick',
+        type: 'WebSquare event',
+        default: '—',
+        description: '닫기 또는 액션 버튼 클릭 시 화면 스크립트를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

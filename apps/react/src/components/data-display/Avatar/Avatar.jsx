@@ -9,19 +9,19 @@ const VALID_SIZES = new Set(['sm', 'md', 'lg', 'xl']);
 
 // 이미지와 fallback 콘텐츠, 크기·색상·상태 점을 하나의 Avatar API로 조합합니다.
 export function Avatar({
-  src,
-  alt = '',
-  initials,
-  icon,
-  children,
-  color,
-  size = 'md',
-  square = false,
-  badgeColor,
-  badgeLabel,
-  ariaHidden = false,
-  className = '',
-  ...props
+  src, // 아바타 이미지 주소입니다.
+  alt = '', // 이미지 대체 텍스트입니다.
+  initials, // 이미지 없을 때 이니셜 텍스트입니다.
+  icon, // 이미지 없을 때 표시할 아이콘입니다.
+  children, // fallback 콘텐츠입니다. icon·initials보다 우선할 수 있습니다.
+  color, // color_* 배경 색상 클래스입니다.
+  size = 'md', // sm · md · lg · xl 크기입니다.
+  square = false, // 사각형 변형 여부입니다.
+  badgeColor, // 상태 점 색상입니다.
+  badgeLabel, // 상태 점의 접근성 이름입니다.
+  ariaHidden = false, // 장식용으로 숨길 때 true입니다.
+  className = '', // 추가 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // 이미지 로드 실패 시 아이콘, children, initials 순서의 fallback으로 전환합니다.
   const [imageError, setImageError] = useState(false);
@@ -61,7 +61,12 @@ export function Avatar({
   );
 }
 
-export function AvatarGroup({ children, ariaLabel, className = '', ...props }) {
+export function AvatarGroup({
+  children, // 겹쳐 배치할 Avatar 자식들입니다.
+  ariaLabel, // 그룹의 접근성 이름입니다.
+  className = '', // 추가 클래스입니다.
+  ...props // 나머지 속성을 그룹 루트에 전달합니다.
+}) {
   // 관련 Avatar를 겹침 레이아웃과 접근 가능한 group으로 묶습니다.
   const classes = ['avatar_group', className].filter(Boolean).join(' ');
   return (

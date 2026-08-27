@@ -7,6 +7,7 @@
 ]) %}
 <div
   class="carousel carousel_demo{% if size == 'sm' or size == 'lg' %} carousel_{{ size }}{% endif %}{% if multi %} carousel_multi{% endif %}{% if dotsOutside %} carousel_dots-outside{% endif %}{% if effect == 'coverflow' %} carousel_coverflow{% if coverflowStyle == 'rise' %} carousel_coverflow-rise{% endif %}{% endif %}{% if gridRows and gridRows > 1 %} carousel_grid{% endif %}{% if pagination == 'custom' %} carousel_pagination-custom{% endif %}{% if pagination == 'progressbar' %} carousel_pagination-progress{% endif %}{% if thumbsControl %} carousel_thumbs{% endif %}"
+  {# Carousel 루트에 공통 클래스와 data-* 계약을 둡니다. #}
   data-component="Carousel"
 >
   <div
@@ -86,4 +87,5 @@
       <path d="M8 5v14l11-7z" />
     </svg></button
   >{% endif %}
+  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
 </div>

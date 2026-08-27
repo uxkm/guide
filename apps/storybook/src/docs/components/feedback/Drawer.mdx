@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { drawerFrameworkExamples } from '../../../drawerFrameworkExamples.ts';
+import { drawerComponentExamples, drawerFrameworkExamples } from '../../../feedbackDocumentationExamples.ts';
 import { drawerApiSections } from '../../../drawerApiSections.ts';
 import * as DrawerStories from '../../../Drawer.stories.tsx';
 
@@ -9,9 +9,32 @@ import * as DrawerStories from '../../../Drawer.stories.tsx';
 
 # Drawer
 
-보조 작업과 상세 정보를 전체 브라우저 가장자리에서 열리는 패널로 제공합니다.
+보조 작업과 상세 정보를 전체 브라우저 계층자리에서 열리는 패널로 제공합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+왼쪽·오른쪽·상단·하단 배치를 지원하며 Esc, 백드롭, 닫기 버튼으로 닫은 뒤 기존 포커스를 복원합니다. Drawer는 대화상자 제목을 연결하고 열릴 때 내부로 포커스를 이동합니다.
+
+WebSquare는 패널을 `w2:group.drawer`, 백드롭·헤더·본문·푸터를 `w2:group`, 열기·닫기를 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Drawer 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 열림 상태, 배치, 크기, 백드롭, 드래그 시트와 포커스 트랩을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `placement`는 `drawer_placement-*` 클래스로 변환합니다.
+- 지원하지 않는 크기는 `md`로 정규화하고 `drawer_sm`·`drawer_lg` 클래스로 변환합니다.
+- 하단 `draggable`은 핸들로 모바일 액션 시트 형태를 제공합니다.
+- 중첩 시 최상위 패널만 조작합니다.
+
+<FrameworkTabs examples={drawerComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `drawer`와 `drawer_placement-*`를 적용하고 `role="dialog"`·`aria-modal="true"`·`aria-labelledby`로 제목을 연결합니다. 백드롭과 닫기 버튼은 `ev:onclick`에서 `scwin.drawer_close`를 호출합니다.
+
+크기·푸터 정렬은 `drawer_sm`·`drawer_lg`·`drawer_footer-*` 클래스로 표현하고, 하단 드래그 시트는 `drawer_draggable`과 핸들 영역을 함께 구성합니다.
 
 ## 기본
+
+오른쪽에서 열리는 기본 Drawer입니다.
 
 <Canvas of={DrawerStories.Basic} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.basic} />
@@ -25,15 +48,21 @@ import * as DrawerStories from '../../../Drawer.stories.tsx';
 
 ## 위치
 
+왼쪽·오른쪽·상단·하단 배치를 제공합니다.
+
 <Canvas of={DrawerStories.Placement} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.placement} />
 
 ## 크기
 
+`sm`, `md`, `lg` 패널 크기를 제공합니다.
+
 <Canvas of={DrawerStories.Size} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.size} />
 
 ## 헤더·푸터
+
+제목, 본문, 액션 푸터로 구성합니다.
 
 <Canvas of={DrawerStories.Footer} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.footer} />
@@ -47,6 +76,8 @@ import * as DrawerStories from '../../../Drawer.stories.tsx';
 
 ## 헤더 추가 영역
 
+제목 옆에 상태 태그 등 추가 콘텐츠를 배치합니다.
+
 <Canvas of={DrawerStories.Extra} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.extra} />
 
@@ -59,6 +90,8 @@ import * as DrawerStories from '../../../Drawer.stories.tsx';
 
 ## 중첩 Drawer
 
+중첩된 경우 최상위 패널만 조작합니다.
+
 <Canvas of={DrawerStories.Nested} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.nested} />
 
@@ -70,6 +103,8 @@ import * as DrawerStories from '../../../Drawer.stories.tsx';
 <FrameworkTabs examples={drawerFrameworkExamples.dragSheet} />
 
 ## 백드롭 없음
+
+배경 맥락을 유지해야 하는 제한적인 상황에서만 사용합니다.
 
 <Canvas of={DrawerStories.NoBackdrop} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.noBackdrop} />

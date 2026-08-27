@@ -4,10 +4,11 @@
  */
 import { useEffect, useId, useMemo, useState } from 'react';
 
-const VALID_SIZES = new Set(['sm', 'md', 'lg']);
-const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value)));
+const VALID_SIZES = new Set(['sm', 'md', 'lg']); // 지원하는 크기 이름입니다.
+const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value))); // 값을 min~max 범위로 제한합니다.
 
 function StepIcon({ increase }) {
+  // 증감 버튼에 사용하는 +/- 아이콘입니다.
   return (
     <svg
       className="slider_step-icon"
@@ -24,30 +25,31 @@ function StepIcon({ increase }) {
 }
 
 export function Slider({
-  min = 0,
-  max = 100,
-  value,
-  defaultValue = 50,
-  step = 1,
-  disabled = false,
-  vertical = false,
-  label,
-  showValue = false,
-  stepper = false,
-  stepperAlways = false,
-  valueSuffix = '',
-  hint,
-  decreaseLabel = '값 줄이기',
-  increaseLabel = '값 늘리기',
-  size = 'md',
-  id,
-  className = '',
-  children,
-  ripple = true,
-  onChange,
-  style,
-  ...props
+  min = 0, // 선택 가능한 최솟값입니다.
+  max = 100, // 선택 가능한 최댓값입니다.
+  value, // 제어 컴포넌트의 현재 값입니다.
+  defaultValue = 50, // 비제어 컴포넌트의 초기 값입니다.
+  step = 1, // 값의 증감 단위입니다.
+  disabled = false, // 슬라이더를 비활성으로 만들어 조작을 막습니다.
+  vertical = false, // 세로 방향 슬라이더로 표시합니다.
+  label, // 슬라이더 위에 표시할 레이블입니다.
+  showValue = false, // 현재 값을 헤더에 표시합니다.
+  stepper = false, // 모바일에서 증감 버튼을 표시합니다.
+  stepperAlways = false, // 증감 버튼을 항상 표시합니다.
+  valueSuffix = '', // 현재 값 뒤에 붙는 단위입니다.
+  hint, // 하단에 표시할 보조 설명입니다.
+  decreaseLabel = '값 줄이기', // 감소 버튼의 접근 가능한 이름입니다.
+  increaseLabel = '값 늘리기', // 증가 버튼의 접근 가능한 이름입니다.
+  size = 'md', // 트랙·썸·값 텍스트 크기입니다.
+  id, // range 입력에 연결할 id입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  children, // 눈금 등 추가 콘텐츠입니다.
+  ripple = true, // 클릭 파장 효과를 표시할지 여부입니다.
+  onChange, // 값 변경 콜백입니다.
+  style, // CSS 변수 등을 포함한 인라인 스타일입니다.
+  ...props // aria-valuetext 등 나머지 range 속성을 전달합니다.
 }) {
+  // 식별자, 범위, 제어 상태와 진행률을 계산합니다.
   const generatedId = useId();
   const inputId = id || generatedId;
   const numericMin = Number(min);
@@ -55,31 +57,34 @@ export function Slider({
   const [innerValue, setInnerValue] = useState(() =>
     clamp(value ?? defaultValue, numericMin, numericMax),
   );
-  const currentValue = clamp(innerValue, numericMin, numericMax);
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const currentValue = clamp(innerValue, numericMin, numericMax); // 화면에 표시할 최종 값입니다.
+  const resolvedSize = VALID_SIZES.has(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
   const progress =
-    numericMax === numericMin ? 0 : ((currentValue - numericMin) / (numericMax - numericMin)) * 100;
+    numericMax === numericMin ? 0 : ((currentValue - numericMin) / (numericMax - numericMin)) * 100; // 트랙 채움 비율입니다.
 
+  // 외부 value가 바뀌면 내부 상태를 범위 안으로 동기화합니다.
   useEffect(() => {
     if (value !== undefined) setInnerValue(clamp(value, numericMin, numericMax));
   }, [value, numericMin, numericMax]);
 
+  // 크기·방향·스테퍼 변형을 공통 클래스로 변환합니다.
   const classes = useMemo(
     () =>
       [
-        'slider',
-        resolvedSize === 'sm' && 'slider_sm',
-        resolvedSize === 'lg' && 'slider_lg',
-        vertical && 'slider_vertical',
-        stepper && 'slider_stepper',
-        stepperAlways && 'slider_stepper_always',
-        className,
+        'slider', // 슬라이더 루트 필수 클래스입니다.
+        resolvedSize === 'sm' && 'slider_sm', // 작은 크기 변형입니다.
+        resolvedSize === 'lg' && 'slider_lg', // 큰 크기 변형입니다.
+        vertical && 'slider_vertical', // 세로 방향 변형입니다.
+        stepper && 'slider_stepper', // 증감 버튼 표시 모드입니다.
+        stepperAlways && 'slider_stepper_always', // 증감 버튼 상시 표시입니다.
+        className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
       ]
         .filter(Boolean)
         .join(' '),
     [resolvedSize, vertical, stepper, stepperAlways, className],
   );
 
+  // data 속성으로 전달된 값→문구 매핑을 파싱합니다.
   const valueMap = String(props['data-slider-valuetext-map'] ?? '')
     .split(',')
     .reduce((map, item) => {
@@ -91,14 +96,16 @@ export function Slider({
     valueMap[String(currentValue)] ??
     (props['data-slider-valuetext-suffix']
       ? `${currentValue} ${props['data-slider-valuetext-suffix']}`
-      : props['aria-valuetext']);
+      : props['aria-valuetext']); // 스크린 리더용 값 설명입니다.
 
   function update(next) {
+    // 범위를 보정한 뒤 내부 상태와 외부 콜백을 갱신합니다.
     const normalized = clamp(next, numericMin, numericMax);
     setInnerValue(normalized);
     onChange?.(normalized);
   }
 
+  // 공통 네이티브 range 입력을 한 곳에서 정의합니다.
   const input = (
     <input
       {...props}
@@ -122,6 +129,7 @@ export function Slider({
       data-ripple={ripple ? 'true' : undefined}
       style={{ '--slider-progress': `${progress}%`, ...style }}
     >
+      {/* 레이블과 현재 값을 헤더에 배치합니다. */}
       {(label || showValue) && (
         <div className="slider_header">
           {label && (
@@ -137,6 +145,7 @@ export function Slider({
           )}
         </div>
       )}
+      {/* 스테퍼가 있으면 감소·range·증가 버튼을 한 컨트롤로 묶습니다. */}
       {stepper ? (
         <div className="slider_control">
           <button

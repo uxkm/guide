@@ -9,29 +9,29 @@ import { computed, getCurrentInstance, useAttrs, useSlots } from 'vue';
 defineOptions({ name: 'UxkmCard', inheritAttrs: false });
 // 루트 의미, 내부 영역, 외형과 상호작용 상태를 prop으로 받습니다.
 const props = defineProps({
-  as: String,
-  tag: String,
-  title: [String, Number],
-  subtitle: [String, Number],
-  href: String,
-  size: {
+  as: String, // tag보다 우선하는 루트 요소입니다.
+  tag: String, // 루트 태그 이름입니다.
+  title: [String, Number], // 헤더 제목입니다.
+  subtitle: [String, Number], // 헤더 부제입니다.
+  href: String, // 있으면 a 루트로 렌더링합니다.
+  size: { // sm · md · lg · compact 크기입니다.
     type: String,
     default: 'md',
     validator: (value) => ['sm', 'md', 'lg', 'compact'].includes(value),
-  },
-  variant: {
+  }, // gap의 이전 호환 이름입니다.
+  variant: { // 카드 스킨 변형입니다.
     type: String,
     default: 'bordered',
     validator: (value) =>
       ['bordered', 'default', 'shadow', 'flat', 'borderless', 'elevated', 'ghost'].includes(value),
-  },
-  horizontal: Boolean,
-  compact: Boolean,
-  hoverable: Boolean,
-  accent: Boolean,
-  color: String,
-  disabled: Boolean,
-  ripple: { type: Boolean, default: undefined },
+  }, // 텍스트 변형 키입니다. VARIANTS 맵을 사용합니다.
+  horizontal: Boolean, // 가로 레이아웃입니다.
+  compact: Boolean, // 조밀한 패딩입니다.
+  hoverable: Boolean, // 호버 강조 스타일입니다.
+  accent: Boolean, // 액센트 강조 스타일입니다.
+  color: String, // color_* 공통 색상 클래스입니다.
+  disabled: Boolean, // 비활성 상태입니다.
+  ripple: { type: Boolean, default: undefined }, // 클릭 리플 효과입니다.
 });
 const attrs = useAttrs();
 const slots = useSlots();

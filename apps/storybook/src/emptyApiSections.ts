@@ -5,4 +5,34 @@ export const emptyApiSections: ApiSectionData[] = [
   section('Empty API', [{ name: 'description', type: 'string', default: '—', description: '간단한 빈 상태 안내 문구입니다.' }, { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '아이콘과 여백 크기입니다.' }, { name: 'simple · block', type: 'boolean', default: 'false', description: '아이콘 없는 간단형과 전체 너비 배치입니다.' }, { name: 'icon · #icon', type: 'ReactNode · slot', default: "<Icon name='inbox' />", description: '사용자가 교체할 수 있는 아이콘 영역입니다. 기존 image API도 호환됩니다.' }, { name: 'children · #description', type: 'ReactNode · slot', default: '—', description: '제목과 보조 문구 등 여러 텍스트 노드를 구성하는 설명 슬롯입니다.' }, { name: 'footer · #footer', type: 'ReactNode · slot', default: '—', description: '후속 액션 영역입니다.' }]),
   section('HTML · Gulp', [{ name: 'empty · empty_image · empty_desc', type: 'class', default: '—', description: '루트, 이미지, 설명 구조입니다.' }, { name: 'empty_footer', type: 'class', default: '—', description: '버튼이나 링크를 배치하는 영역입니다.' }, { name: 'empty_sm · empty_lg', type: 'class', default: '—', description: '크기 변형입니다.' }, { name: 'empty_simple · empty_block', type: 'class', default: '—', description: '설명 전용과 전체 너비 변형입니다.' }]),
   section('디자인 토큰', [{ name: '--empty-image-size · --empty-gap', type: 'length', default: '4rem · space-sm', description: '이미지 크기와 요소 간격입니다.' }, { name: '--empty-desc-color · --empty-desc-max-width', type: 'color · length', default: 'text-muted · 20rem', description: '설명 색상과 최대 너비입니다.' }, { name: '--empty-padding-y · --empty-padding-x', type: 'length', default: 'space-xl · space-md', description: '컴포넌트 안쪽 여백입니다.' }]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.empty',
+        type: 'XML element · class',
+        default: "role='status'",
+        description: 'Empty 루트입니다. empty_image와 empty_desc를 포함합니다.',
+      },
+      {
+        name: 'empty_desc · empty_footer',
+        type: 'class',
+        default: '—',
+        description: '안내 문구와 후속 액션 영역입니다.',
+      },
+      {
+        name: 'empty_sm · empty_lg · empty_simple · empty_block',
+        type: 'class',
+        default: '—',
+        description: '크기, 설명 전용, 전체 너비 변형입니다.',
+      },
+      {
+        name: 'xf:trigger',
+        type: 'XML element',
+        default: '—',
+        description: 'empty_footer 안의 후속 액션 버튼을 구성합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

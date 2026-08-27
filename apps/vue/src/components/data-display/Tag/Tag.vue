@@ -10,23 +10,23 @@ defineOptions({ name: 'UxkmTag', inheritAttrs: false });
 
 // 외형, 상호작용, 상태와 접근성 값을 prop으로 받습니다.
 const props = defineProps({
-  label: String,
-  color: { type: String, default: 'primary' },
-  variant: {
+  label: String, // children 대신 표시할 텍스트입니다.
+  color: { type: String, default: 'primary' }, // color_* 공통 색상 클래스입니다.
+  variant: { // filled · solid · outline · borderless 스킨입니다.
     type: String,
     default: 'filled',
     validator: (value) => ['filled', 'solid', 'outline', 'borderless'].includes(value),
-  },
-  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
-  round: Boolean,
-  checkable: Boolean,
-  add: Boolean,
-  closable: Boolean,
-  selected: Boolean,
-  disabled: Boolean,
-  ripple: { type: Boolean, default: undefined },
-  href: String,
-  closeLabel: String,
+  }, // 텍스트 변형 키입니다. VARIANTS 맵을 사용합니다.
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // sm · md · lg 크기입니다.
+  round: Boolean, // 둥근 pill 형태입니다.
+  checkable: Boolean, // 선택 가능한 태그입니다.
+  add: Boolean, // 추가(+) 트리거 태그입니다.
+  closable: Boolean, // 닫기 버튼을 표시합니다.
+  selected: Boolean, // 선택된 상태입니다.
+  disabled: Boolean, // 비활성 상태입니다.
+  ripple: { type: Boolean, default: undefined }, // 리플 효과입니다. 상호작용 태그에서 기본 켜짐입니다.
+  href: String, // 링크형 태그의 주소입니다.
+  closeLabel: String, // 닫기 버튼 접근성 이름입니다.
 });
 
 const attrs = useAttrs();

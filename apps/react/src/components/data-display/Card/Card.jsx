@@ -16,28 +16,28 @@ const VALID_VARIANTS = new Set([
 
 // 루트 의미, 내부 영역, 외형, 상호작용 상태를 하나의 Card API로 조합합니다.
 export function Card({
-  as,
-  tag,
-  children,
-  title,
-  subtitle,
-  header,
-  extra,
-  media,
-  href,
-  size = 'md',
-  variant = 'bordered',
-  horizontal = false,
-  compact = false,
-  hoverable = false,
-  accent = false,
-  color,
-  disabled = false,
-  ripple,
-  className = '',
-  onClick,
-  type = 'button',
-  ...props
+  as, // tag보다 우선하는 루트 요소입니다.
+  tag, // 루트 태그 이름입니다.
+  children, // 본문 영역에 배치할 콘텐츠입니다.
+  title, // 헤더 제목입니다.
+  subtitle, // 헤더 부제입니다.
+  header, // 내장 제목 대신 쓸 커스텀 헤더입니다.
+  extra, // 헤더 우측 보조 콘텐츠입니다.
+  media, // 상단 미디어 영역입니다.
+  href, // 링크로 동작할 때 이동할 주소입니다.
+  size = 'md', // 카드 크기입니다.
+  variant = 'bordered', // 카드 스킨 변형입니다.
+  horizontal = false, // 가로 레이아웃 여부입니다.
+  compact = false, // 조밀한 패딩 여부입니다.
+  hoverable = false, // 호버 강조 스타일 여부입니다.
+  accent = false, // 액센트 강조 스타일 여부입니다.
+  color, // color_* 공통 색상 클래스입니다.
+  disabled = false, // 비활성 상태입니다.
+  ripple, // 클릭 리플 효과 여부입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  onClick, // 클릭 시 호출되는 콜백입니다.
+  type = 'button', // button 루트의 type입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // href는 링크, onClick은 버튼, 나머지는 기본 article 루트를 선택합니다.
   const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
@@ -112,7 +112,14 @@ export function Card({
   );
 }
 
-export function CardHeader({ children, title, subtitle, extra, className = '', ...props }) {
+export function CardHeader({
+  children, // 제목·부제 대신 사용할 헤더 본문입니다.
+  title, // 헤더 제목입니다.
+  subtitle, // 헤더 부제입니다.
+  extra, // 헤더 우측 액션 영역입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
   // children이 있으면 제목·부제 조합보다 우선하고 extra는 별도 액션 영역에 둡니다.
   const classes = ['card_header', className].filter(Boolean).join(' ');
   return (
@@ -130,7 +137,11 @@ export function CardHeader({ children, title, subtitle, extra, className = '', .
   );
 }
 
-export function CardBody({ children, className = '', ...props }) {
+export function CardBody({
+  children, // 카드 본문 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
   // 본문 콘텐츠와 사용자 정의 속성을 card_body 영역에 전달합니다.
   const classes = ['card_body', className].filter(Boolean).join(' ');
   return (
@@ -140,7 +151,12 @@ export function CardBody({ children, className = '', ...props }) {
   );
 }
 
-export function CardFooter({ children, between = false, className = '', ...props }) {
+export function CardFooter({
+  children, // 푸터 콘텐츠입니다.
+  between = false, // 양끝 정렬 변형 여부입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
   // between은 푸터 콘텐츠를 양끝 정렬하는 변형 클래스입니다.
   const classes = ['card_footer', between && 'card_footer-between', className]
     .filter(Boolean)
@@ -152,7 +168,12 @@ export function CardFooter({ children, between = false, className = '', ...props
   );
 }
 
-export function CardDeck({ children, columns, className = '', ...props }) {
+export function CardDeck({
+  children, // 덱에 배치할 Card들입니다.
+  columns, // 고정 열 수(2 또는 3)입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
   // columns는 지원하는 2·3열만 고정하고 나머지는 자동 반응형 그리드를 사용합니다.
   const resolvedColumns = [2, 3].includes(Number(columns)) ? Number(columns) : null;
   const classes = ['card_deck', resolvedColumns && `card_deck-${resolvedColumns}`, className]

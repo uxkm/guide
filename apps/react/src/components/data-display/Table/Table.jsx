@@ -26,22 +26,22 @@ function columnVariables(columns) {
 
 // 표 스킨, 스크롤, 고정 행·열과 열 설정을 하나의 Table API로 조합합니다.
 export function Table({
-  children,
-  bordered = false,
-  striped = false,
-  compact = false,
-  hover = false,
-  wrap = true,
-  scroll = false,
-  scrollMaxHeight,
-  stickyTop = false,
-  stickyLeft = false,
-  stickyCols = 1,
-  stickyLeftOffsets = {},
-  columns = [],
-  className = '',
-  style,
-  ...props
+  children, // thead · tbody 등 표 콘텐츠입니다.
+  bordered = false, // 셀 테두리 표시 여부입니다.
+  striped = false, // 줄무늬 행 변형 여부입니다.
+  compact = false, // 조밀한 패딩입니다.
+  hover = false, // 행 호버 강조입니다.
+  wrap = true, // 스크롤용 wrapper로 감쌀지 여부입니다.
+  scroll = false, // wrapper에 스크롤을 켤지 여부입니다.
+  scrollMaxHeight, // 세로 스크롤 최대 높이입니다.
+  stickyTop = false, // 헤더 행 고정 여부입니다.
+  stickyLeft = false, // 왼쪽 열 고정 여부입니다.
+  stickyCols = 1, // 좌측 고정 열 개수(1~4)입니다.
+  stickyLeftOffsets = {}, // 고정 열별 left 오프셋 맵입니다.
+  columns = [], // 열 너비·패딩 설정 배열입니다.
+  className = '', // 추가 클래스입니다.
+  style, // 인라인 스타일입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   const hasColumns = Array.isArray(columns) && columns.length > 0;
   const resolvedStickyCols = VALID_STICKY_COLS.has(stickyCols) ? stickyCols : 1;

@@ -32,5 +32,41 @@ export const sliderApiSections: ApiSectionData[] = [
     { name: '--slider-track-height · --slider-thumb-size', type: 'length', default: '4px · 14px', description: '기본 트랙과 썸 크기입니다.' },
     { name: '--slider-max-width', type: 'length', default: 'var(--input-max-width)', description: 'slider_fit의 최대 너비입니다.' },
     { name: '--slider-step-size · --slider-step-gap', type: 'length', default: '2.25rem · var(--space-sm)', description: '증감 버튼 크기와 간격입니다.' }
-  ])
+  ]),
+  table(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'xf:input[type=range]',
+        type: 'XML element',
+        default: "type='range'",
+        description: '범위 입력 컴포넌트입니다. min, max, step, value, disabled 속성을 조합합니다.',
+      },
+      {
+        name: 'ref · data:*',
+        type: 'DataCollection binding',
+        default: '—',
+        description: '슬라이더 값을 DataMap 경로에 양방향 바인딩합니다.',
+      },
+      {
+        name: 'w2:group.slider · slider_control · slider_stepper',
+        type: 'XML element · class',
+        default: '—',
+        description: '슬라이더 루트와 증감 버튼 구조를 만듭니다.',
+      },
+      {
+        name: 'xf:trigger.slider_step',
+        type: 'XML element · event',
+        default: '—',
+        description: '값을 한 단계 줄이거나 늘리는 동작을 실행합니다.',
+      },
+      {
+        name: 'ev:onchange',
+        type: 'WebSquare event',
+        default: '—',
+        description: '값 변경 후 표시 갱신이나 연관 검증 함수를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-pages.mjs",
-    "dev": "pnpm generate && vite --port 6107",
-    "build": "pnpm generate && vite build"
+    "dev": "node scripts/generate-pages.mjs --mode=development && vite --port 6107",
+    "build": "node scripts/generate-pages.mjs --mode=production && vite build"
+  },
+  "dependencies": {
+    "@uxkm/assets": "workspace:*"
   },
   "devDependencies": {
     "gray-matter": "^4.0.3",

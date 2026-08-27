@@ -4,17 +4,17 @@
 -->
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs, watch } from 'vue';
-import { initBackTop } from '../../../../../html/src/components/miscellaneous/BackTop/back-top.js';
+import { initBackTop } from '@uxkm/html/back-top';
 defineOptions({ name: 'UxkmBackTop', inheritAttrs: false });
 const props = defineProps({
-  target: String,
-  visibilityHeight: { type: [Number, String], default: 400 },
-  size: { type: String, default: 'md' },
-  color: { type: String, default: '' },
-  label: String,
-  ariaLabel: { type: String, default: '맨 위로' },
-  interactive: { type: Boolean, default: true },
-  ripple: { type: Boolean, default: true },
+  target: String, // 스크롤 대상 컨테이너 선택자입니다.
+  visibilityHeight: { type: [Number, String], default: 400 }, // 버튼이 나타나기 시작하는 스크롤 높이입니다.
+  size: { type: String, default: 'md' }, // sm · md · lg 크기입니다.
+  color: { type: String, default: '' }, // primary · ghost 색상 변형입니다.
+  label: String, // 아이콘 아래 텍스트입니다.
+  ariaLabel: { type: String, default: '맨 위로' }, // 버튼 접근성 이름입니다.
+  interactive: { type: Boolean, default: true }, // 스크롤 감지·이동을 활성화합니다.
+  ripple: { type: Boolean, default: true }, // 버튼 리플 효과입니다.
 });
 const attrs = useAttrs();
 const rootRef = ref(null);

@@ -27,5 +27,41 @@ export const rateApiSections: ApiSectionData[] = [
     { name: '--rate-star-size · --rate-star-size-sm · --rate-star-size-lg', type: 'length', default: '1.25rem · 1rem · 1.5rem', description: '별 아이콘 크기입니다.' },
     { name: '--rate-star-gap · --rate-clear-size', type: 'length', default: '0.125rem · 1.5rem', description: '별 간격과 초기화 버튼 크기입니다.' },
     { name: '--rate-color-filled · --rate-color-empty', type: 'color', default: 'warning · border-subtle', description: '선택 및 미선택 별 색상입니다.' }
-  ])
+  ]),
+  table(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'xf:input[type=radio]',
+        type: 'XML element',
+        default: "type='radio'",
+        description: '별점 선택용 라디오 입력입니다. 같은 name으로 그룹을 만듭니다.',
+      },
+      {
+        name: 'ref · name · value · data:*',
+        type: 'DataCollection binding',
+        default: '—',
+        description: '별점 값을 DataMap 경로에 바인딩합니다.',
+      },
+      {
+        name: 'w2:group.rate · rate_stars · rate_star',
+        type: 'XML element · class',
+        default: '—',
+        description: '별점 루트와 별 선택 구조를 만듭니다.',
+      },
+      {
+        name: 'xf:trigger.rate_clear',
+        type: 'XML element · event',
+        default: '—',
+        description: '선택한 별점을 초기화하는 동작을 실행합니다.',
+      },
+      {
+        name: 'ev:onchange',
+        type: 'WebSquare event',
+        default: '—',
+        description: '별점 변경 후 연관 데이터 갱신이나 검증 함수를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

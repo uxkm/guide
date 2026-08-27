@@ -69,7 +69,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
   const usesImplicit = source.react.includes('<ImplicitSelect');
   const usesState = source.react.includes('setRegion');
   const helper = `function ImplicitSelect({ label, ...props }) {\n  return <label className="display_contents"><span className="input_group-label_hidden">{label}</span><Select {...props} /></label>;\n}`;
-  const react = `${usesState ? "import { useState } from 'react';\n" : ''}import Select from '@uxkm/react/select';${usesImplicit ? `\n\n${helper}` : ''}\n\nexport function Example() {${usesState ? "\n  const [region, setRegion] = useState('');" : ''}\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `${usesState ? "import { useState } from 'react';\n" : ''}import Select from '@uxkm/react/select';${usesImplicit ? `\n\n${helper}` : ''}\n\nexport function Example() {${usesState ? "\n  const [region, setRegion] = useState('');" : ''}\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${source.vue.includes('v-model') ? "import { ref } from 'vue';\n" : ''}import Select from '@uxkm/vue/select';${source.vue.includes('v-model') ? "\nconst region = ref('');" : ''}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   const html = source.html.replace(/<select(?![^>]*data-component=)/g, '<select data-component="Select"');
   return [

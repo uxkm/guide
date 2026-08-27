@@ -1,7 +1,9 @@
 {# Progress 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# circle이면 원형, 아니면 선형 진행률을 렌더합니다. #}
 {% set value = percent | default(0) %}
 {% set progressColor = 'success' if status == 'success' else ('danger' if status == 'exception' else color | default('primary')) %}
 {% if circle %}
+{# 원형 진행률: --progress-percent로 stroke를 제어합니다. #}
 <div
   class="progress progress_circle color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}"
   data-component="ProgressCircle"
@@ -19,6 +21,7 @@
   ><span class="progress_circle-value">{{ value }}%</span>
 </div>
 {% else %}
+{# 선형 진행률: 트랙이 progressbar 역할을 담당합니다. #}
 <div
   class="progress {{ 'progress_block' if block else 'progress_fit' }} color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}{% if striped %} progress_striped{% endif %}{% if animated %} progress_animated{% endif %}{% if indeterminate %} is-indeterminate{% endif %}{% if inside %} progress_inside{% endif %}"
   data-component="Progress"
@@ -32,6 +35,7 @@
     >{% endif %}
   </div>
   {% endif %}
+  {# 트랙과 채움 막대입니다. #}
   <div
     class="progress_track"
     role="progressbar"{% if not indeterminate %}

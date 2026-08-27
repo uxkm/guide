@@ -5,12 +5,22 @@
 <script setup>
 import { computed, useAttrs } from 'vue';
 
+// 속성을 계산된 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmFormActions', inheritAttrs: false });
+
 // 필요하면 div 대신 다른 시맨틱 루트로 액션 그룹을 렌더링할 수 있습니다.
-const props = defineProps({ as: { type: [String, Object, Function], default: 'div' } });
+const props = defineProps({
+  as: { type: [String, Object, Function], default: 'div' }, // FormActions의 루트 요소 또는 컴포넌트를 지정합니다.
+});
 const attrs = useAttrs();
+
 // 폼 레이아웃이 인식하는 액션 클래스와 외부 클래스를 함께 적용합니다.
-const classes = computed(() => ['form_actions', attrs.class].filter(Boolean));
+const classes = computed(() =>
+  [
+    'form_actions', // 제출·취소 등 액션 영역 클래스입니다.
+    attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean),
+);
 </script>
 
 <template>

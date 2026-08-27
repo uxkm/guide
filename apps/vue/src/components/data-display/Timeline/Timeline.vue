@@ -6,14 +6,14 @@
 import { computed, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmTimeline', inheritAttrs: false });
 const props = defineProps({
-  card: Boolean,
-  alternate: Boolean,
-  horizontal: Boolean,
-  labelCol: Boolean,
-  icon: Boolean,
-  iconSize: { type: String, default: 'md' },
-  size: { type: String, default: 'md' },
-  tag: { type: String, default: 'ol', validator: (value) => ['ol', 'ul'].includes(value) },
+  card: Boolean, // 카드형 타임라인입니다.
+  alternate: Boolean, // 좌우 교차 배치입니다.
+  horizontal: Boolean, // 가로 타임라인입니다.
+  labelCol: Boolean, // 라벨 열 레이아웃입니다.
+  icon: Boolean, // 아이콘 도트 모드입니다.
+  iconSize: { type: String, default: 'md' }, // 아이콘 도트 크기입니다.
+  size: { type: String, default: 'md' }, // sm · md · lg 크기입니다.
+  tag: { type: String, default: 'ol', validator: (value) => ['ol', 'ul'].includes(value) }, // ol · ul 루트 태그입니다.
 });
 const attrs = useAttrs();
 // 방향·크기·도트·카드 변형을 timeline_* 공통 클래스로 변환합니다.
@@ -38,6 +38,7 @@ const fallthroughAttrs = computed(() => {
 </script>
 <!-- 시간순 여부에 맞는 ol·ul 루트에 TimelineItem 목록을 렌더링합니다. -->
 <template>
+  <!-- 공통 클래스와 slot으로 구조를 구성합니다. -->
   <component :is="tag" v-bind="fallthroughAttrs" :class="classes" data-component="Timeline"
     ><slot
   /></component>

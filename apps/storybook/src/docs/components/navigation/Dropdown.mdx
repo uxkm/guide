@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { dropdownFrameworkExamples as examples } from '../../../dropdownFrameworkExamples.ts';
+import { dropdownComponentExamples, dropdownFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { dropdownApiSections } from '../../../dropdownApiSections.ts';
 import * as Stories from '../../../Dropdown.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Dropdown.stories.tsx';
 
 # Dropdown
 
-트리거를 눌러 작업, 선택 항목 또는 사용자 메뉴를 현재 화면 위에 표시합니다.
+트리거를 눌러 작업, 선택 항목 또는 사용자 메뉴를 현재 화면 위에 표시합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+트리거와 메뉴는 `aria-expanded`, `aria-controls`, `aria-haspopup`으로 연결합니다. 방향키·Home·End로 항목을 이동하고 Escape, Tab, 외부 클릭으로 닫을 수 있습니다.
+
+WebSquare는 루트를 `w2:group.dropdown`, 트리거를 `xf:trigger.dropdown_trigger`, 패널·항목을 `w2:group.dropdown_panel`/`menu_item`으로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Dropdown의 실제 원본 구현입니다. React와 Vue는 열림 상태, 트리거 유형, 배치, 메뉴 구성, 스크롤과 비활성을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `is-open`과 `aria-expanded`로 열린 상태를 동기화합니다.
+- 패널은 `role="menu"`, 항목은 `role="menuitem"`을 사용합니다.
+- Esc·외부 클릭으로 닫은 뒤 트리거 포커스를 복원합니다.
+
+<FrameworkTabs examples={dropdownComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.dropdown` 안에 트리거와 `dropdown_panel`을 배치하고 `aria-expanded`·`aria-controls`로 연결합니다. 열기·닫기는 `xf:trigger`의 `ev:onclick`에서 화면 스크립트로 처리합니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

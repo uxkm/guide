@@ -23,4 +23,28 @@ export const skeletonApiSections: ApiSectionData[] = [
     { name: '--skeleton-gap · --skeleton-duration', type: 'length · time', default: "space-sm · 1.4s", description: '항목 간격과 애니메이션 시간입니다.' },
     { name: '--skeleton-title-width · --skeleton-avatar-size', type: 'length', default: '40% · avatar-size', description: '제목 너비와 원형 크기입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.skeleton_group',
+        type: 'XML element · class',
+        default: "role='status'",
+        description: 'Skeleton 그룹 루트입니다. aria-busy와 aria-live를 함께 사용합니다.',
+      },
+      {
+        name: 'skeleton_text · skeleton_title · skeleton_circle · skeleton_image',
+        type: 'class',
+        default: '—',
+        description: '텍스트, 제목, 원형, 이미지 플레이스홀더입니다.',
+      },
+      {
+        name: 'skeleton_row · skeleton_static',
+        type: 'class',
+        default: '—',
+        description: '아바타 행 레이아웃과 쉬머 비활성 상태입니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

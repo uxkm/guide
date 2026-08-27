@@ -1,6 +1,7 @@
 {# BackTop 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 <div
   class="back_top{% if size == 'sm' or size == 'lg' %} back_top_{{ size }}{% endif %}{% if color == 'primary' or color == 'ghost' %} back_top_{{ color }}{% endif %}"
+  {# BackTop 루트에 공통 클래스와 data-* 계약을 둡니다. #}
   data-component="BackTop"{% if interactive != false %}
   data-back-top{% endif %}{% if target %}
   data-target="{{ target }}"{% endif %}{% if visibilityHeight and visibilityHeight != 400 %}
@@ -24,4 +25,5 @@
     >{% if label %}<span class="back_top_label">{{ label }}</span
     >{% endif %}
   </button>
+  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
 </div>

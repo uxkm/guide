@@ -8,38 +8,40 @@ import Button from '../../basic/Button/Button.vue';
 import Icon from '../../basic/Icon/Icon.vue';
 
 defineOptions({ name: 'UxkmTooltip' });
+// 내용·배치·트리거·화살표·열림 상태 옵션을 prop으로 받습니다.
 const props = defineProps({
-  id: String,
-  content: String,
-  placement: String,
-  size: { type: String, default: 'md' },
-  offset: { type: String, default: 'md' },
-  offsetTop: String,
-  offsetRight: String,
-  offsetBottom: String,
-  offsetLeft: String,
-  open: { type: Boolean, default: undefined },
-  defaultOpen: Boolean,
-  inverse: Boolean,
-  noArrow: Boolean,
-  arrowAnchor: { type: String, default: 'content' },
-  panelAlign: { type: String, default: 'center' },
-  arrowTargetAlign: { type: String, default: 'center' },
-  disabled: Boolean,
-  trigger: { type: String, default: 'hover' },
-  closable: { type: Boolean, default: undefined },
-  closeLabel: { type: String, default: '닫기' },
+  id: String, // 말풍선 DOM id입니다. 없으면 생성합니다.
+  content: String, // default 슬롯이 없을 때 쓸 말풍선 내용입니다.
+  placement: String, // 브라우저 뷰포트 기준 배치입니다.
+  size: { type: String, default: 'md' }, // 말풍선 크기입니다.
+  offset: { type: String, default: 'md' }, // 전체 방향 공통 간격입니다.
+  offsetTop: String, // 위쪽 간격 개별 지정입니다.
+  offsetRight: String, // 오른쪽 간격 개별 지정입니다.
+  offsetBottom: String, // 아래쪽 간격 개별 지정입니다.
+  offsetLeft: String, // 왼쪽 간격 개별 지정입니다.
+  open: { type: Boolean, default: undefined }, // 제어형 열림 상태입니다.
+  defaultOpen: Boolean, // 비제어형 초기 열림 상태입니다.
+  inverse: Boolean, // 역색(대비) 변형입니다.
+  noArrow: Boolean, // 화살표를 숨깁니다.
+  arrowAnchor: { type: String, default: 'content' }, // 화살표 기준(content · target · mixed)입니다.
+  panelAlign: { type: String, default: 'center' }, // 말풍선 정렬 기준입니다.
+  arrowTargetAlign: { type: String, default: 'center' }, // 타깃 기준 화살표 정렬입니다.
+  disabled: Boolean, // 열기·닫기를 비활성화합니다.
+  trigger: { type: String, default: 'hover' }, // hover 또는 click 작동 방식입니다.
+  closable: { type: Boolean, default: undefined }, // 닫기 버튼 표시입니다. 기본은 click일 때 켜집니다.
+  closeLabel: { type: String, default: '닫기' }, // 닫기 버튼의 접근성 이름입니다.
 });
-const emit = defineEmits(['open-change']);
-const internalOpen = ref(props.defaultOpen);
-const visible = computed(() => props.open ?? internalOpen.value);
-const triggerElement = ref(null);
-const bubble = ref(null);
-const anchor = ref(null);
-const arrowPosition = ref('50%');
-const bubbleId = props.id || `tooltip-${Math.random().toString(36).slice(2, 9)}`;
-let hoverTimer;
+const emit = defineEmits(['open-change']); // 열림 상태 변경 시 호출됩니다.
+const internalOpen = ref(props.defaultOpen); // 비제어 열림 상태입니다.
+const visible = computed(() => props.open ?? internalOpen.value); // 제어·비제어를 합친 최종 표시 상태입니다.
+const triggerElement = ref(null); // 트리거 래퍼 참조입니다.
+const bubble = ref(null); // 말풍선 참조입니다.
+const anchor = ref(null); // 트리거 뷰포트 좌표입니다.
+const arrowPosition = ref('50%'); // 화살표 CSS 위치입니다.
+const bubbleId = props.id || `tooltip-${Math.random().toString(36).slice(2, 9)}`; // 최종 말풍선 id입니다.
+let hoverTimer; // hover 닫기 지연 타이머입니다.
 
+// iframe에서도 최상위 문서에 Tooltip을 올리기 위한 포털 대상을 찾거나 만듭니다.
 function getPortalTarget() {
   if (typeof document === 'undefined') return 'body';
   let target = document;
@@ -73,7 +75,9 @@ function getPortalTarget() {
 const portalTarget = getPortalTarget();
 const portalTheme =
   typeof document === 'undefined' ? 'light' : document.documentElement.dataset.theme || 'light';
+// closable 미지정 시 click 트리거면 닫기 버튼을 켭니다.
 const showClose = computed(() => props.closable ?? props.trigger === 'click');
+// 배치·크기·간격·역색·화살표 클래스를 조합합니다.
 const classes = computed(() =>
   [
     'tooltip',
@@ -98,6 +102,7 @@ const classes = computed(() =>
   ].filter(Boolean),
 );
 
+// 제어·비제어 열림 상태를 갱신하고 open-change를 알립니다.
 function setVisible(next, reason, event) {
   if (props.disabled) return;
   if (props.open === undefined) internalOpen.value = next;
@@ -106,6 +111,7 @@ function setVisible(next, reason, event) {
 function cancelClose() {
   clearTimeout(hoverTimer);
 }
+// hover 이탈 후 잠시 뒤 닫아 말풍선 이동을 허용합니다.
 function scheduleClose(event) {
   cancelClose();
   hoverTimer = setTimeout(() => setVisible(false, 'hover', event), 100);
@@ -177,6 +183,7 @@ function resolveTriggerAnchor(root) {
   if (root.matches(triggerControlSelector)) return root;
   return root.querySelector(triggerControlSelector) || root;
 }
+// 트리거 좌표를 측정해 포털 말풍선 위치를 맞춥니다.
 function updatePosition() {
   const element = resolveTriggerAnchor(triggerElement.value);
   if (!element) return;
@@ -245,6 +252,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <!-- 트리거 래퍼와 포털 말풍선을 함께 렌더합니다. -->
   <span
     ref="triggerElement"
     class="tooltip_trigger"

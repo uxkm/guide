@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { switchFrameworkExamples } from '../../../switchFrameworkExamples.ts';
+import { switchComponentExamples, switchFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { switchApiSections } from '../../../switchApiSections.ts';
 import * as SwitchStories from '../../../Switch.stories.tsx';
 
@@ -9,45 +9,96 @@ import * as SwitchStories from '../../../Switch.stories.tsx';
 
 # Switch
 
-설정을 즉시 켜거나 끄는 Switch 컴포넌트입니다. `type="checkbox"`와 `role="switch"`를 함께 사용하며 현재 상태를 `checked`로 전달합니다.
+설정을 즉시 켜거나 끄는 Switch 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+`type="checkbox"`와 `role="switch"`를 함께 사용하며 현재 상태를 `checked`로 전달합니다. 보이는 레이블이 없는 단독 사용은 `aria-label`로 접근 가능한 이름을 제공합니다.
+
+WebSquare는 스위치 입력을 `xf:checkbox`(`role="switch"`), 트랙·손잡이·레이블 영역을 `w2:group`과 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Switch 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 켜짐 상태, 크기, 레이블 배치와 접근성 속성을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 `switch_sm`·`switch_lg` 클래스로 변환합니다.
+- `labelEnd`는 레이블 → 스위치 순서로 배치하며 설정 목록에서 자주 사용합니다.
+- 레이블이 없으면 루트 `label`에 `aria-label`을 적용합니다.
+- `ripple`은 전체 Switch 영역을 기준으로 클릭 파장 효과를 표시합니다.
+
+<FrameworkTabs examples={switchComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:checkbox`의 `ref`를 DataMap 경로에 연결하고 `trueValue`·`falseValue`로 저장값을 정의합니다. 스위치 역할은 `role="switch"`로 전달하고 트랙·손잡이는 `switch_track`·`switch_thumb` 구조로 맞춥니다.
+
+크기·색상·너비는 공통 `switch_*`, `color_*` 클래스로 표현합니다. 상태 변경 후 연관 설정을 갱신할 때는 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 유형
+
+기본과 레이블 뒤 배치를 한눈에 비교합니다.
+
 <Canvas of={SwitchStories.Type} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.type} />
 
 ## 레이블 뒤
+
+`switch_label-end`는 레이블 → 스위치 순서로 배치하며 설정 화면에서 자주 사용합니다.
+
 <Canvas of={SwitchStories.LabelEnd} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.labelEnd} />
 
 ## 기본
+
+레이블이 포함된 기본 스위치입니다.
+
 <Canvas of={SwitchStories.Basic} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.basic} />
 
 ## 단독 사용
+
+보이는 레이블 없이 `aria-label`로 접근 가능한 이름을 제공합니다.
+
 <Canvas of={SwitchStories.Standalone} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.standalone} />
 
 ## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
+
 <Canvas of={SwitchStories.Size} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.size} />
 
 ## 너비
+
+기본은 인라인 너비이며 `switch_block`·`switch_group_block`으로 전체 너비를 사용합니다.
+
 <Canvas of={SwitchStories.Width} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.width} />
 
 ## 색상
+
+semantic `color_*` 클래스로 켜짐 강조 색을 바꿉니다.
+
 <Canvas of={SwitchStories.Color} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.color} />
 
 ## 상태
+
+꺼짐, 켜짐, 비활성 상태를 함께 제공합니다.
+
 <Canvas of={SwitchStories.State} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.state} />
 
 ## 그룹
+
+설정 목록형 그룹과 컴팩트 간격을 제공합니다.
+
 <Canvas of={SwitchStories.Group} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.group} />
 
 ## 폼 레이아웃
+
+FormLayout의 세로·가로 레이아웃 안에서 스위치를 배치합니다.
+
 <Canvas of={SwitchStories.Form} sourceState="none" />
 <FrameworkTabs examples={switchFrameworkExamples.form} />
 

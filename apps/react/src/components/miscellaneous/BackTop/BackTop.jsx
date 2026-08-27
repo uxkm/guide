@@ -4,7 +4,7 @@
  */
 import { useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { initBackTop } from '../../../../../html/src/components/miscellaneous/BackTop/back-top.js';
+import { initBackTop } from '@uxkm/html/back-top';
 
 const arrow = (
   <svg
@@ -19,18 +19,18 @@ const arrow = (
   </svg>
 );
 export function BackTop({
-  target,
-  visibilityHeight = 400,
-  size = 'md',
-  color = '',
-  label,
-  ariaLabel = '맨 위로',
-  interactive = true,
-  ripple = true,
-  children,
-  className = '',
-  style,
-  ...props
+  target, // 스크롤을 올릴 컨테이너 선택자입니다. 없으면 body 포털입니다.
+  visibilityHeight = 400, // 버튼이 나타나기 시작하는 스크롤 높이입니다.
+  size = 'md', // sm · md · lg 크기입니다.
+  color = '', // primary · ghost 색상 변형입니다.
+  label, // 아이콘 아래 표시할 텍스트입니다.
+  ariaLabel = '맨 위로', // 버튼의 접근성 이름입니다.
+  interactive = true, // 스크롤 감지·이동을 활성화합니다.
+  ripple = true, // 버튼 리플 효과입니다.
+  children, // 기본 화살표·label 대신 쓸 커스텀 콘텐츠입니다.
+  className = '', // 루트에 추가할 클래스입니다.
+  style, // 루트 인라인 스타일입니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
 }) {
   const rootRef = useRef(null);
   const resolvedSize = ['sm', 'md', 'lg'].includes(size) ? size : 'md';

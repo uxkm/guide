@@ -1,5 +1,6 @@
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/+$/, '') || '';
-const faviconPath = `${basePath}/images/meta/favicon`;
+const assetBase = (process.env.NEXT_PUBLIC_ASSET_BASE || process.env.NEXT_PUBLIC_SITE_URL || basePath).replace(/\/+$/, '');
+const faviconPath = `${assetBase}/images/meta/favicon`;
 
 export const metadata = {
   title: 'UXKM Next',
@@ -26,7 +27,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <head><link rel="stylesheet" href="/styles/uxkm.css" /></head>
+      <head><link rel="stylesheet" href={`${assetBase}/styles/uxkm.css`} /></head>
       <body>{children}</body>
     </html>
   );

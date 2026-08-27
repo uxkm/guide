@@ -7,4 +7,34 @@ export const progressApiSections: ApiSectionData[] = [
   section('Vue · Nuxt API', [{ name: 'percent · status · size · color', type: 'number · string', default: "0 · '' · 'md' · 'primary'", description: '진행률과 표현 상태입니다.' }, { name: 'show-info · striped · animated · indeterminate · inside · block', type: 'boolean', default: 'false', description: '선형 진행률 표시 옵션입니다.' }], 'Nuxt는 @uxkm/vue/progress를 재사용합니다.'),
   section('HTML · Gulp', [{ name: 'progress · progress_track · progress_bar', type: 'class', default: '—', description: '루트, 트랙, 채움 막대입니다.' }, { name: 'role · aria-valuenow/min/max', type: 'attribute', default: '—', description: '진행률 접근성 속성입니다.' }]),
   section('디자인 토큰', [{ name: '--progress-height · --progress-max-width', type: 'length', default: '8px · input-max-width', description: '선형 진행률 높이와 최대 너비입니다.' }, { name: '--progress-circle-size · --progress-circle-stroke', type: 'length · number', default: '7.5rem · 6', description: '원형 진행률 크기와 선 두께입니다.' }]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.progress',
+        type: 'XML element · class',
+        default: "role='progressbar'",
+        description: '진행률 루트입니다. aria-valuenow/min/max를 함께 사용합니다.',
+      },
+      {
+        name: 'progress_track · progress_bar · progress_circle',
+        type: 'class',
+        default: '—',
+        description: '선형 트랙·채움 막대와 원형 진행률입니다.',
+      },
+      {
+        name: 'progress_striped · progress_animated · is-indeterminate',
+        type: 'class',
+        default: '—',
+        description: '줄무늬, 애니메이션, 불확정 상태입니다.',
+      },
+      {
+        name: 'progress_fit · progress_block · progress_inside',
+        type: 'class',
+        default: '—',
+        description: '너비와 바 안 텍스트 변형입니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

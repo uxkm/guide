@@ -1,8 +1,11 @@
 <!-- Checkbox 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
+<!-- checkbox 루트에 파장 효과를 켜고 컨트롤과 레이블을 나란히 배치합니다. -->
 <div class="checkbox" data-ripple="true">
+  <!-- 숨김 checkbox_input과 시각용 checkbox_box를 하나의 컨트롤로 묶습니다. -->
   <span class="checkbox_control">
     <input id="checkbox-example" class="checkbox_input" type="checkbox" data-component="Checkbox" />
     <span class="checkbox_box" aria-hidden="true"></span>
   </span>
+  <!-- label의 for로 입력 id를 연결합니다. -->
   <label class="checkbox_label" for="checkbox-example">체크박스</label>
 </div>

@@ -14,32 +14,32 @@ const VARIANT_CLASS = {
   definition: 'list_definition',
 };
 const props = defineProps({
-  bordered: Boolean,
-  split: Boolean,
-  block: Boolean,
-  size: { type: String, default: 'md', validator: (value) => ['md', 'compact'].includes(value) },
+  bordered: Boolean, // 테두리 목록입니다.
+  split: Boolean, // 항목 사이 구분선을 둡니다.
+  block: Boolean, // 블록형 목록입니다.
+  size: { type: String, default: 'md', validator: (value) => ['md', 'compact'].includes(value) }, // compact면 조밀한 크기입니다.
   variant: {
     type: String,
     default: 'default',
     validator: (value) => ['default', 'bullet', 'ordered', 'definition'].includes(value),
-  },
+  }, // default · bullet · ordered · definition 목록 변형입니다.
   tag: {
     type: String,
     default: undefined,
     validator: (value) => ['ul', 'ol', 'dl', 'div'].includes(value),
-  },
+  }, // 명시적 루트 태그(ul · ol · dl · div)입니다.
   layout: {
     type: String,
     default: 'block',
     validator: (value) => ['block', 'inline'].includes(value),
-  },
-  inlineLabelWidth: String,
-  inlineGap: String,
+  }, // block · inline 레이아웃입니다.
+  inlineLabelWidth: String, // inline 레이아웃의 라벨 너비 CSS 값입니다.
+  inlineGap: String, // inline 레이아웃의 간격 CSS 값입니다.
   descAlign: {
     type: String,
     default: 'left',
     validator: (value) => ['left', 'right'].includes(value),
-  },
+  }, // 정의 목록 설명 정렬입니다.
 });
 const attrs = useAttrs();
 const rootTag = computed(() => props.tag ?? VARIANT_TAG[props.variant]);

@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { menuFrameworkExamples as examples } from '../../../menuFrameworkExamples.ts';
+import { menuComponentExamples, menuFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { menuApiSections } from '../../../menuApiSections.ts';
 import * as Stories from '../../../Menu.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Menu.stories.tsx';
 
 # Menu
 
-내비게이션, 사이드바와 드롭다운에서 계층적인 이동 항목을 제공합니다.
+내비게이션, 사이드바와 드롭다운에서 계층적인 이동 항목을 제공합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+현재 항목은 `aria-current="page"`, 비활성 항목은 `aria-disabled="true"`를 사용합니다. 서브메뉴 버튼은 `aria-expanded`와 `aria-controls`를 상태에 맞춰 동기화합니다.
+
+WebSquare는 메뉴 루트를 `w2:group.menu`, 항목을 `w2:textbox`/`xf:trigger`, 서브메뉴 패널을 `w2:group.menu_submenu-panel`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Menu와 MenuItem·MenuSubmenu·MenuGroup·MenuDivider의 실제 원본 구현입니다. React와 Vue는 수직·수평 모드, 서브메뉴, 그룹, 비활성과 배지를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `mode`는 vertical·horizontal·inline 배치를 전환합니다.
+- 서브메뉴는 `aria-expanded`·`aria-controls`로 패널을 연결합니다.
+- 현재·비활성 항목은 `is-active`·`is-disabled`와 ARIA를 함께 사용합니다.
+
+<FrameworkTabs examples={menuComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.menu`에 `role="menu"`를 적용하고 항목을 배치합니다. 서브메뉴 토글은 `xf:trigger`의 `ev:onclick`에서 패널 표시와 `aria-expanded`를 동기화합니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

@@ -1,4 +1,10 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
+import { loadEnv, mergeConfig } from 'vite';
+
+const storybookRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const guidebookRoot = resolve(storybookRoot, '../guidebook');
 
 const config: StorybookConfig = {
   stories: [
@@ -70,6 +76,24 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/react-vite',
     options: {}
+  },
+  async viteFinal(viteConfig, { configType }) {
+    const mode = configType === 'PRODUCTION' ? 'production' : 'development';
+    const env = {
+      ...loadEnv(mode, guidebookRoot, 'VITE_'),
+      ...loadEnv(mode, storybookRoot, 'VITE_')
+    };
+    const assetBase = env.VITE_ASSET_BASE?.trim() || '';
+    const siteUrl = env.VITE_SITE_URL?.trim() || '';
+
+    return mergeConfig(viteConfig, {
+      envDir: storybookRoot,
+      base: mode === 'production' ? './' : viteConfig.base,
+      define: {
+        'import.meta.env.VITE_ASSET_BASE': JSON.stringify(assetBase),
+        'import.meta.env.VITE_SITE_URL': JSON.stringify(siteUrl)
+      }
+    });
   }
 };
 

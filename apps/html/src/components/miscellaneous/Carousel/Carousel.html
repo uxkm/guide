@@ -1,5 +1,6 @@
 <!-- Carousel 원본 구현: 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다. -->
-<div class="carousel carousel_demo" data-component="Carousel">
+<div class="carousel carousel_demo" <!-- carousel 루트 안에 swiper 트랙·내비·페이지네이션을 둡니다. -->
+data-component="Carousel">
   <div
     class="swiper"
     data-swiper
@@ -7,7 +8,8 @@
     aria-roledescription="carousel"
     aria-label="프로모션 슬라이드"
   >
-    <div class="swiper-wrapper">
+    <div class="<!-- swiper-slide 자식들이 트랙에 배치됩니다. -->
+swiper-wrapper">
       <div class="swiper-slide">
         <article class="card card_accent color_primary">
           <div class="card_body">

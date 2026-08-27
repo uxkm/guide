@@ -1,5 +1,10 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+import buttonHtml from '../../html/src/components/basic/Button/Button.html?raw';
+import buttonGulp from '../../gulp/src/components/basic/Button/button.njk?raw';
+import buttonReact from '../../react/src/components/basic/Button/Button.jsx?raw';
+import buttonVue from '../../vue/src/components/basic/Button/Button.vue?raw';
+
 const buttonHtmlComponent = `<!-- btn과 스킨·색상 클래스를 조합합니다. 텍스트는 btn_label로 감쌉니다. -->
 <button class="btn btn_filled color_primary" data-component="Button" data-ripple="true" type="button">
   <span class="btn_label">Filled Primary</span>
@@ -262,12 +267,12 @@ function handleKeydown(event) {
 </template>`;
 
 export const buttonComponentExamples: FrameworkExample[] = [
-  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Button/Button.html', code: buttonHtmlComponent },
-  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Button/button.njk', code: `{# Button 구현 #}\n${buttonHtmlComponent}` },
-  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Button/Button.vue', code: buttonVueComponent },
-  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/button → Button.vue', code: buttonVueComponent },
-  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Button/Button.jsx', code: buttonReactComponent },
-  { id: 'next', label: 'Next', fileName: '@uxkm/react/button → Button.jsx', code: buttonReactComponent }
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Button/Button.html', code: buttonHtml },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Button/button.njk', code: buttonGulp },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Button/Button.vue', code: buttonVue },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/button → Button.vue', code: buttonVue },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Button/Button.jsx', code: buttonReact },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/button → Button.jsx', code: buttonReact },
 ];
 
 const bodies = {
@@ -763,8 +768,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Button/button.njk · ${key}`, code: `{# Button · ${key} #}\n${html}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
-    { id: 'react', label: 'React', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
+    { id: 'react', label: 'React', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },
     { id: 'websquare', label: 'WebSquare', fileName: `Button.xml · ${key}`, code: webSquareBody(body, key) }
   ];
 }

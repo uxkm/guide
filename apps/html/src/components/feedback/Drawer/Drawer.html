@@ -1,4 +1,5 @@
 <!-- Drawer 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
+<!-- data-drawer-trigger로 대상 Drawer를 엽니다. -->
 <button
   type="button"
   class="btn btn_filled color_primary"
@@ -8,6 +9,7 @@
 >
   Drawer 열기
 </button>
+<!-- drawer 루트에 is-open과 방향·크기 변형 클래스를 함께 적용합니다. -->
 <div
   class="drawer"
   id="drawer-basic"
@@ -19,7 +21,9 @@
   tabindex="-1"
   hidden
 >
+  <!-- 백드롭 클릭으로 닫을 수 있습니다. -->
   <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  <!-- drawer_placement-*로 패널이 열리는 방향을 지정합니다. -->
   <div class="drawer_panel drawer_placement-right">
     <div class="drawer_header">
       <h2 class="drawer_title" id="drawer-basic-title">상세 정보</h2>

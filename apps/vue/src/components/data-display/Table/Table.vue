@@ -8,18 +8,18 @@ import { computed, useAttrs } from 'vue';
 // class와 style을 표·wrapper 계산에 사용하고 나머지 속성만 최외곽 루트에 전달합니다.
 defineOptions({ name: 'UxkmTable', inheritAttrs: false });
 const props = defineProps({
-  bordered: Boolean,
-  striped: Boolean,
-  compact: Boolean,
-  hover: Boolean,
-  wrap: { type: Boolean, default: true },
-  scroll: Boolean,
-  scrollMaxHeight: String,
-  stickyTop: Boolean,
-  stickyLeft: Boolean,
-  stickyCols: { type: Number, default: 1, validator: (value) => [1, 2, 3, 4].includes(value) },
-  stickyLeftOffsets: { type: Object, default: () => ({}) },
-  columns: { type: Array, default: () => [] },
+  bordered: Boolean, // 테두리 표를 켭니다.
+  striped: Boolean, // 줄무늬 행을 켭니다.
+  compact: Boolean, // 조밀한 패딩입니다.
+  hover: Boolean, // 행 호버 강조입니다.
+  wrap: { type: Boolean, default: true }, // false면 wrapper 없이 table만 반환합니다.
+  scroll: Boolean, // 가로 스크롤 wrapper를 켭니다.
+  scrollMaxHeight: String, // 세로 스크롤 최대 높이입니다.
+  stickyTop: Boolean, // 헤더 행을 상단에 고정합니다.
+  stickyLeft: Boolean, // 좌측 열을 고정합니다.
+  stickyCols: { type: Number, default: 1, validator: (value) => [1, 2, 3, 4].includes(value) }, // 좌측 고정 열 개수(1~4)입니다.
+  stickyLeftOffsets: { type: Object, default: () => ({}) }, // 고정 열별 left 오프셋 맵입니다.
+  columns: { type: Array, default: () => [] }, // 열 너비·패딩 설정 배열입니다.
 });
 const attrs = useAttrs();
 const hasColumns = computed(() => props.columns.length > 0);

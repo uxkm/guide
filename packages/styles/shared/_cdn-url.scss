@@ -1,2 +1,27 @@
-// CDN/정적 에셋 베이스 URL — url(#{$cdn-url}/…) 에서 사용
-$cdn-url: "https://guide.uxkm.io/react-storybook";
+@use "sass:string";
+
+// 정적 에셋 베이스 URL.
+// 로컬·동일 오리진: 빈 값 → url("/images/…")
+// 배포 CDN: VITE_ASSET_BASE / VITE_SITE_URL → build-styles.mjs가 with로 주입
+$cdn-url: "" !default;
+
+@function asset-url($path) {
+  $clean: "#{$path}";
+  @while string.index($clean, "/") == 1 {
+    $clean: string.slice($clean, 2);
+  }
+
+  $base: "#{$cdn-url}";
+  @if $base == "/" {
+    $base: "";
+  }
+  @if string.slice($base, -1) == "/" {
+    $base: string.slice($base, 1, -2);
+  }
+
+  @if $base == "" {
+    @return url("/#{$clean}");
+  }
+
+  @return url("#{$base}/#{$clean}");
+}

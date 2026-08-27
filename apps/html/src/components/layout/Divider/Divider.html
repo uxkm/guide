@@ -1,2 +1,15 @@
-<!-- Divider 원본 구현: 레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다. -->
+<!-- Divider 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. -->
+<!-- 레이블이 없는 의미 있는 수평 구분선은 hr에 divider 클래스를 적용합니다. -->
 <hr class="divider" data-component="Divider" />
+
+<!-- 점선은 divider_dashed를 함께 지정합니다. -->
+<hr class="divider divider_dashed" data-component="Divider" />
+
+<!-- 레이블형 구분선은 div에 텍스트를 넣고 양쪽 선은 CSS로 그립니다. -->
+<div class="divider" data-component="Divider">섹션 제목</div>
+
+<!-- plain은 레이블 굵기를 낮추고, orient는 레이블 위치를 바꿉니다. -->
+<div class="divider divider_plain divider_orient-left" data-component="Divider">왼쪽 보조 설명</div>
+
+<!-- 세로 구분선은 장식용이므로 span에 aria-hidden을 지정합니다. -->
+<span class="divider divider_vertical" data-component="Divider" aria-hidden="true"></span>

@@ -857,7 +857,7 @@ function makeExamples(component: string, key: string, definition: Definition): F
   const reactMarkup = reactBody(definition.body);
   const reactImports = [`import ${component}${usesChild ? `, { ${child} }` : ''} from '@uxkm/react/${lower}';`, ...auxiliaries.map((name) => `import ${name} from '@uxkm/react/${name.toLowerCase()}';`)].join('\n');
   // Fragment의 여는 태그와 닫는 태그를 맞추고 내부 예시만 한 단계 들여씁니다.
-  const react = `${reactImports}\n\nexport function Example() {\n  return (\n  <>\n${reactMarkup.split('\n').map((line) => `    ${line}`).join('\n')}\n  </>\n  );\n}`;
+  const react = `${reactImports}\n\nexport function Example() {\n  return (\n  <>\n${reactMarkup.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}`;
   const html = definition.html ?? componentHtml(definition.body);
   const examples: FrameworkExample[] = [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/layout/${component}/${component}.html · ${key}`, code: html },

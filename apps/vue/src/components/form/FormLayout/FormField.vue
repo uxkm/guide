@@ -5,22 +5,29 @@
 <script setup>
 import { computed, useAttrs } from 'vue';
 
+// 속성을 계산된 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmFormField', inheritAttrs: false });
+
 // 필드 루트, 레이블 연결, 필수 표시와 상태 메시지를 하나의 API로 제공합니다.
 const props = defineProps({
-  as: { type: [String, Object, Function], default: 'div' },
-  label: { type: String, default: '' },
-  for: { type: String, default: '' },
-  required: Boolean,
-  hint: { type: String, default: '' },
-  error: { type: String, default: '' },
-  success: { type: String, default: '' },
-  fit: Boolean,
+  as: { type: [String, Object, Function], default: 'div' }, // FormField의 루트 요소 또는 컴포넌트를 지정합니다.
+  label: { type: String, default: '' }, // 필드 레이블입니다.
+  for: { type: String, default: '' }, // 레이블과 연결할 입력 id입니다.
+  required: Boolean, // 필수 항목 표시를 추가합니다.
+  hint: { type: String, default: '' }, // 오류가 없을 때 보여줄 보조 설명입니다.
+  error: { type: String, default: '' }, // 검증 오류 메시지입니다.
+  success: { type: String, default: '' }, // 성공 안내 메시지입니다.
+  fit: Boolean, // 필드 너비를 공통 최대 너비로 제한합니다.
 });
 const attrs = useAttrs();
+
 // 개별 필드 너비 변형과 사용자가 전달한 클래스를 함께 유지합니다.
 const classes = computed(() =>
-  ['form_field', props.fit && 'form_field_fit', attrs.class].filter(Boolean),
+  [
+    'form_field', // 필드 단위 레이아웃 클래스입니다.
+    props.fit && 'form_field_fit', // 필드 너비 제한입니다.
+    attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean),
 );
 </script>
 

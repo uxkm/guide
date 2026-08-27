@@ -1,13 +1,15 @@
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createAssetUrl } from '@uxkm/assets/url';
 import matter from 'gray-matter';
 import MarkdownIt from 'markdown-it';
 import { loadEnv } from 'vite';
 
 const appRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = join(appRoot, 'content');
-const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+const cliMode = process.argv.find((arg) => arg.startsWith('--mode='))?.slice('--mode='.length);
+const mode = cliMode || (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 const env = { ...loadEnv(mode, appRoot, 'VITE_'), ...process.env };
 
 function publicUrl(name, fallback, trailingSlash = false) {
@@ -27,6 +29,11 @@ function publicUrl(name, fallback, trailingSlash = false) {
 
 const siteUrl = publicUrl('VITE_SITE_URL', 'https://guide.uxkm.io/', true);
 const socialImageUrl = publicUrl('VITE_SOCIAL_IMAGE_URL', 'https://uxkm.io/_assets/images/_common/og_image.png');
+const toAsset = createAssetUrl({
+  base: mode === 'development' ? '/' : env.VITE_ASSET_BASE,
+  siteUrl,
+  isDev: mode === 'development',
+});
 
 async function collectMarkdown(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -181,7 +188,7 @@ function renderPage(page, index) {
   const outline = page.outline.map(([id, label], outlineIndex) => `<a${outlineIndex === 0 ? ' class="active"' : ''} href="#${id}">${escapeHtml(label)}</a>`).join('');
   const searchResults = renderedPages.map((item) => `<a class="search-result" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.group)}</span></a>`).join('');
   const title = page.titleLogo
-    ? `<span class="guide-title"><img src="${prefix}images/brand/uxkm_logo.svg" alt="UXKM"><span>${escapeHtml(page.title)}</span></span>`
+    ? `<span class="guide-title"><img src="${toAsset('images/brand/uxkm_logo.svg')}" alt="UXKM"><span>${escapeHtml(page.title)}</span></span>`
     : escapeHtml(page.title);
 
   return `<!doctype html>
@@ -214,17 +221,17 @@ function renderPage(page, index) {
     <meta name="twitter:description" content="${escapeHtml(page.lead)}">
     <meta name="twitter:image" content="${socialImageUrl}">
     <link rel="canonical" href="${canonicalUrl}">
-    <link rel="icon" href="${prefix}images/meta/favicon/favicon.ico" sizes="16x16 32x32">
-    <link rel="icon" type="image/png" sizes="32x32" href="${prefix}images/meta/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="${prefix}images/meta/favicon/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="${prefix}images/meta/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="${prefix}images/meta/favicon/site.webmanifest">
+    <link rel="icon" href="${toAsset('images/meta/favicon/favicon.ico')}" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="${toAsset('images/meta/favicon/favicon-32x32.png')}">
+    <link rel="icon" type="image/png" sizes="16x16" href="${toAsset('images/meta/favicon/favicon-16x16.png')}">
+    <link rel="apple-touch-icon" sizes="180x180" href="${toAsset('images/meta/favicon/apple-touch-icon.png')}">
+    <link rel="manifest" href="${toAsset('images/meta/favicon/site.webmanifest')}">
     <title>${escapeHtml(pageTitle)}</title>
   </head>
   <body data-page="${escapeHtml(page.id)}">
     <header class="docs-header">
       <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="${prefix}images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="${prefix}" data-guide-path="index.html"${page.id === 'overview' ? ' aria-current="page"' : ''}>Guidebook</a></div>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="${toAsset('images/brand/uxkm_logo_hand.svg')}" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="${prefix}" data-guide-path="index.html"${page.id === 'overview' ? ' aria-current="page"' : ''}>Guidebook</a></div>
       <button class="search-trigger" type="button" aria-label="가이드북 검색 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
       <a class="header-link" href="${prefix}storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
     </header>

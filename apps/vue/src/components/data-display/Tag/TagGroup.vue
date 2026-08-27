@@ -6,7 +6,10 @@
 import { computed, useAttrs } from 'vue';
 
 defineOptions({ name: 'UxkmTagGroup', inheritAttrs: false });
-const props = defineProps({ tight: Boolean, ariaLabel: String });
+const props = defineProps({
+  tight: Boolean, // 태그 간격을 좁힙니다.
+  ariaLabel: String, // 그룹의 접근성 이름입니다.
+});
 const attrs = useAttrs();
 // tight과 사용자 정의 class를 그룹 클래스에 합칩니다.
 const classes = computed(() =>

@@ -29,4 +29,40 @@ export const modalApiSections: ApiSectionData[] = [
     { name: '--modal-width · --modal-width-sm · --modal-width-lg', type: 'length', default: '32rem · 24rem · 48rem', description: '대화상자 너비입니다.' },
     { name: '--modal-bg · --modal-radius · --modal-shadow', type: 'color · length · shadow', default: '테마별 값', description: '표면, 모서리, 그림자입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.modal',
+        type: 'XML element · class',
+        default: "role='dialog'",
+        description: 'Modal 루트입니다. is-open과 aria-modal, aria-labelledby를 함께 사용합니다.',
+      },
+      {
+        name: 'modal_backdrop · modal_dialog · modal_header · modal_body · modal_footer',
+        type: 'class',
+        default: '—',
+        description: '백드롭과 대화상자 구조 영역입니다.',
+      },
+      {
+        name: 'modal_sm · modal_lg · modal_fullscreen · modal_scrollable',
+        type: 'class',
+        default: '—',
+        description: '크기와 본문 스크롤 변형입니다.',
+      },
+      {
+        name: 'xf:trigger.modal_close · modal_footer',
+        type: 'XML element · class',
+        default: '—',
+        description: '닫기·확인·취소 액션을 구성합니다.',
+      },
+      {
+        name: 'ev:onclick',
+        type: 'WebSquare event',
+        default: '—',
+        description: '열기·닫기·확인 동작을 화면 스크립트에 연결합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

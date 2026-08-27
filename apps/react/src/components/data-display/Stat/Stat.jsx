@@ -11,20 +11,20 @@ const TrendIcon = () => (
 
 // 라벨, 값, 단위, 추세와 카드 외형을 하나의 Stat API로 조합합니다.
 export function Stat({
-  title,
-  value,
-  prefix,
-  suffix,
-  description,
-  trend,
-  trendColor,
-  trendIcon,
-  size = 'md',
-  card = false,
-  shadow = false,
-  children,
-  className = '',
-  ...props
+  title, // 통계 라벨입니다.
+  value, // 주요 수치입니다.
+  prefix, // 수치 앞 접두어입니다.
+  suffix, // 수치 뒤 접미어입니다.
+  description, // 보조 설명입니다.
+  trend, // 추세 텍스트입니다.
+  trendColor, // 추세 색상 클래스입니다.
+  trendIcon, // 추세 옆 아이콘입니다.
+  size = 'md', // sm · md · lg 크기입니다.
+  card = false, // 카드형 외형입니다.
+  shadow = false, // 그림자 카드입니다.
+  children, // 커스텀 본문입니다.
+  className = '', // 추가 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   const resolvedSize = ['sm', 'md', 'lg'].includes(size) ? size : 'md';
   // 크기·카드 스킨과 추세 색상을 각 영역의 공통 클래스로 변환합니다.

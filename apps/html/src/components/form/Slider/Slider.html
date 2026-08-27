@@ -1,9 +1,12 @@
 <!-- Slider 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
+<!-- slider_fit·slider_stepper로 너비 제한과 증감 버튼 모드를 켭니다. -->
 <div class="slider slider_fit slider_stepper" data-component="Slider" data-ripple="true">
+  <!-- 레이블과 현재 값을 헤더에 배치합니다. -->
   <div class="slider_header">
     <label class="slider_label" for="slider-example">볼륨</label>
     <output class="slider_value" for="slider-example">50%</output>
   </div>
+  <!-- 감소 버튼, 네이티브 range, 증가 버튼을 하나의 컨트롤로 묶습니다. -->
   <div class="slider_control">
     <button
       class="slider_step slider_step-decrease"

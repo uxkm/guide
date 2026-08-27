@@ -6,16 +6,16 @@
 import { computed, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmTimelineItem', inheritAttrs: false });
 const props = defineProps({
-  color: { type: String, default: 'primary' },
-  title: String,
-  description: String,
-  time: String,
-  datetime: String,
-  label: String,
-  labelDatetime: String,
-  active: Boolean,
-  pending: Boolean,
-  outline: Boolean,
+  color: { type: String, default: 'primary' }, // 도트 색상입니다.
+  title: String, // SVG title과 접근성 이름 후보입니다.
+  description: String, // 항목 설명입니다.
+  time: String, // 시간 텍스트입니다.
+  datetime: String, // time 요소의 datetime입니다.
+  label: String, // 시간·라벨 텍스트입니다.
+  labelDatetime: String, // 라벨 time의 datetime입니다.
+  active: Boolean, // 현재 페이지 활성 상태입니다.
+  pending: Boolean, // 대기·진행 중 항목입니다.
+  outline: Boolean, // 도트 외곽선 스타일입니다.
 });
 const attrs = useAttrs();
 // 진행 상태와 도트 외형을 item·dot 클래스에 분리해 적용합니다.

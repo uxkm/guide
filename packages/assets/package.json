@@ -1,0 +1,13 @@
+{
+  "name": "@uxkm/assets",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./url": "./src/url.js"
+  },
+  "files": [
+    "src",
+    "public"
+  ]
+}

@@ -1,7 +1,7 @@
 // SCSS 전용 — 컴파일 타임 값 (미디어쿼리·폰트 스택)
 // 수치·간격·반경 토큰 → _tokens.scss (:root CSS 변수)
 
-@use "cdn-url";
+@use "cdn-url" as *;
 @forward "cdn-url";
 
 $font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;

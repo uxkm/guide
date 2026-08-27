@@ -6,7 +6,9 @@
 import { computed, useAttrs } from 'vue';
 
 defineOptions({ name: 'UxkmCardDeck', inheritAttrs: false });
-const props = defineProps({ columns: { type: [String, Number], default: undefined } });
+const props = defineProps({
+  columns: { type: [String, Number], default: undefined }, // 고정 열 수(2 또는 3)입니다.
+});
 const attrs = useAttrs();
 // columns는 지원하는 2·3열만 고정하고 나머지는 자동 반응형 그리드를 사용합니다.
 const classes = computed(() =>

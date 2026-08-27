@@ -1,7 +1,10 @@
 <!-- Accordion 원본 구현: 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다. -->
+<!-- accordion 루트에 스킨 클래스와 data-accordion을 둡니다. -->
 <div class="accordion accordion_card" data-component="Accordion" data-accordion>
-  <div class="accordion_item">
-    <div class="accordion_heading" role="heading" aria-level="3">
+  <!-- 각 항목은 accordion_item이며 열림 시 is-open을 붙입니다. -->
+<div class="accordion_item">
+    <!-- 트리거 헤딩과 패널 region을 짝짓습니다. -->
+<div class="accordion_heading" role="heading" aria-level="3">
       <button
         type="button"
         class="btn btn_text accordion_trigger"

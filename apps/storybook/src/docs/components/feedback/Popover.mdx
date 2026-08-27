@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { popoverFrameworkExamples as examples } from '../../../popoverFrameworkExamples.ts';
+import { popoverComponentExamples, popoverFrameworkExamples as examples } from '../../../feedbackDocumentationExamples.ts';
 import { popoverApiSections } from '../../../popoverApiSections.ts';
 import * as Stories from '../../../Popover.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as Stories from '../../../Popover.stories.tsx';
 
 # Popover
 
-트리거 주변에 보조 정보나 짧은 작업 패널을 표시합니다. 패널은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다.
+트리거 주변에 보조 정보나 짧은 작업 패널을 표시합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+패널은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다. 트리거는 `aria-haspopup`, `aria-expanded`, `aria-controls`를 제공하며 Esc와 외부 클릭으로 닫을 수 있습니다.
+
+WebSquare는 루트를 `w2:group.popover`, 트리거·닫기를 `xf:trigger`, 패널·제목·본문을 `w2:group`/`w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Popover 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 열림 상태, 배치, 크기, 화살표, 푸터와 트리거 방식을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `trigger`는 click·hover 방식을 지원합니다.
+- `placement`와 `offset*`로 패널 위치·간격을 조절합니다.
+- `noArrow`는 화살표를 숨기고 `arrowAnchor`는 화살표 기준을 지정합니다.
+- Esc와 외부 클릭으로 닫힌 뒤 트리거 포커스를 복원합니다.
+
+<FrameworkTabs examples={popoverComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.popover` 안에 트리거와 `popover_panel`을 배치하고 `aria-expanded`·`aria-controls`로 연결합니다. 열기·닫기는 `xf:trigger`의 `ev:onclick`에서 화면 스크립트로 처리합니다.
+
+배치·크기는 `data-popover-placement`과 `popover_sm`·`popover_lg` 클래스로 표현합니다.
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

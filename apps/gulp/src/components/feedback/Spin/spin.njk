@@ -1,11 +1,14 @@
 {# Spin 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# wrap이면 SpinWrap 오버레이, 아니면 단독 Spin을 렌더합니다. #}
 {% if wrap %}
+{# 콘텐츠 위 오버레이 래퍼입니다. #}
 <div
   class="spin_wrap{% if block %} spin_wrap-block{% endif %}{% if blur %} spin_wrap-blur{% endif %}{% if loading %} is-loading{% endif %}"
   data-component="SpinWrap"
   data-loading="{{ 'true' if loading else 'false' }}"{% if loading %}
   aria-busy="true"{% endif %}
 >
+  {# 로딩 대상 콘텐츠 영역입니다. #}
   <div class="spin_wrap-body">{{ content | safe }}</div>
   {% if loading %}
   <div
@@ -16,7 +19,8 @@
     aria-busy="true"
     aria-label="{{ ariaLabel | default('로딩 중') }}"
   >
-    <span class="spin_indicator" aria-hidden="true"></span
+    {# 회전하는 시각 표시기입니다. #}
+  <span class="spin_indicator" aria-hidden="true"></span
     >{% if tip %}
     <p class="spin_tip">{{ tip }}</p>
     {% endif %}
@@ -24,6 +28,7 @@
   {% endif %}
 </div>
 {% else %}
+{# 단독 스피너 루트입니다. #}
 <div
   class="spin color_{{ color | default('primary') }}{% if size and size != 'md' %} spin_{{ size }}{% endif %}{% if inline %} spin_inline{% endif %}{% if block %} spin_block{% endif %}{% if overlay %} spin_overlay{% endif %}"
   data-component="Spin"

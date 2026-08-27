@@ -1,4 +1,5 @@
 {# Tooltip 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# tooltip 루트가 트리거와 말풍선을 묶습니다. #}
 {% set tooltipId = id | default('tooltip-basic') %}
 <span
   class="tooltip{% if size and size != 'md' %} tooltip_{{ size }}{% endif %}{% if placement %} tooltip_placement-{{ placement }}{% endif %}{% if offset and offset != 'md' %} tooltip_offset-{{ offset }}{% endif %}{% if offsetTop and offsetTop != 'md' %} tooltip_offset-top-{{ offsetTop }}{% endif %}{% if offsetRight and offsetRight != 'md' %} tooltip_offset-right-{{ offsetRight }}{% endif %}{% if offsetBottom and offsetBottom != 'md' %} tooltip_offset-bottom-{{ offsetBottom }}{% endif %}{% if offsetLeft and offsetLeft != 'md' %} tooltip_offset-left-{{ offsetLeft }}{% endif %}{% if inverse %} tooltip_inverse{% endif %}{% if noArrow %} tooltip_no-arrow{% endif %}{% if arrowAnchor and arrowAnchor != 'content' %} tooltip_arrow-anchor-{{ arrowAnchor }}{% endif %}{% if panelAlign and panelAlign != 'center' %} tooltip_panel-align-{{ panelAlign }}{% endif %}{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}"
@@ -7,6 +8,7 @@
   data-tooltip-trigger="click"{% endif %}{% if arrowTargetAlign and arrowTargetAlign != 'center' %}
   data-arrow-target-align="{{ arrowTargetAlign }}"{% endif %}
 >
+  {# 호버·클릭으로 말풍선을 여는 트리거입니다. #}
   <button
     type="button"
     class="btn btn_outline tooltip_trigger"
@@ -15,6 +17,7 @@
   >
     {{ triggerLabel | default('마우스 오버') }}
   </button>
+  {# role=tooltip 말풍선과 화살표입니다. #}
   <span
     class="tooltip_bubble{% if trigger == 'click' %} tooltip_bubble-closable{% endif %}"
     id="{{ tooltipId }}"

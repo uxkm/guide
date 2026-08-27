@@ -8,32 +8,34 @@ import Button from '../../basic/Button/Button.vue';
 import Icon from '../../basic/Icon/Icon.vue';
 
 defineOptions({ name: 'UxkmDrawer' });
+// 열림 상태·방향·크기·푸터 레이아웃 옵션을 prop으로 받습니다.
 const props = defineProps({
-  id: String,
-  title: String,
-  size: { type: String, default: 'md' },
-  placement: { type: String, default: 'right' },
-  backdrop: { type: Boolean, default: true },
-  noBackdrop: Boolean,
-  open: { type: Boolean, default: undefined },
-  defaultOpen: Boolean,
-  openOnLoad: Boolean,
-  draggable: Boolean,
-  footerAlign: { type: String, default: 'end' },
-  footerRatio: { type: String, default: '1-1' },
-  footerNoPadBottom: Boolean,
-  closeLabel: { type: String, default: '닫기' },
+  id: String, // 패널 DOM id입니다. 없으면 생성합니다.
+  title: String, // 기본 헤더 제목입니다.
+  size: { type: String, default: 'md' }, // 패널 크기입니다.
+  placement: { type: String, default: 'right' }, // 패널이 열리는 방향입니다.
+  backdrop: { type: Boolean, default: true }, // 백드롭 클릭으로 닫을지 여부입니다.
+  noBackdrop: Boolean, // 백드롭을 완전히 끄는 옵션입니다.
+  open: { type: Boolean, default: undefined }, // 제어형 열림 상태입니다.
+  defaultOpen: Boolean, // 비제어형 초기 열림 상태입니다.
+  openOnLoad: Boolean, // 마운트 시 자동으로 엽니다.
+  draggable: Boolean, // 하단 시트 드래그 핸들입니다.
+  footerAlign: { type: String, default: 'end' }, // 푸터 액션 정렬입니다.
+  footerRatio: { type: String, default: '1-1' }, // even 정렬일 때 균등 버튼 비율입니다.
+  footerNoPadBottom: Boolean, // 푸터 하단 패딩 제거입니다.
+  closeLabel: { type: String, default: '닫기' }, // 닫기 버튼의 접근성 이름입니다.
 });
-const emit = defineEmits(['close']);
-const internalOpen = ref(props.defaultOpen || props.openOnLoad);
-const visible = computed(() => props.open ?? internalOpen.value);
-const root = ref(null);
-const panel = ref(null);
-const drawerId = props.id || `drawer-${Math.random().toString(36).slice(2, 9)}`;
-const titleId = `${drawerId}-title`;
-let previousFocus;
-let dragState;
+const emit = defineEmits(['close']); // close · backdrop · escape · drag 사유로 호출됩니다.
+const internalOpen = ref(props.defaultOpen || props.openOnLoad); // 비제어 열림 상태입니다.
+const visible = computed(() => props.open ?? internalOpen.value); // 제어·비제어를 합친 최종 표시 상태입니다.
+const root = ref(null); // 포커스용 루트 참조입니다.
+const panel = ref(null); // 드래그 높이 조절용 패널 참조입니다.
+const drawerId = props.id || `drawer-${Math.random().toString(36).slice(2, 9)}`; // 최종 루트 id입니다.
+const titleId = `${drawerId}-title`; // aria-labelledby에 연결할 제목 id입니다.
+let previousFocus; // 닫힌 뒤 복원할 이전 포커스입니다.
+let dragState; // 진행 중인 드래그 상태입니다.
 
+// iframe에서도 최상위 문서에 Drawer를 올리기 위한 포털 대상을 찾거나 만듭니다.
 function getPortalTarget() {
   if (typeof document === 'undefined') return 'body';
   let targetDocument = document;
@@ -66,29 +68,32 @@ function getPortalTarget() {
 const portalTarget = getPortalTarget();
 const resolvedPlacement = computed(() =>
   ['left', 'right', 'top', 'bottom'].includes(props.placement) ? props.placement : 'right',
-);
-const resolvedSize = computed(() => (['sm', 'md', 'lg'].includes(props.size) ? props.size : 'md'));
+); // 검증된 열림 방향입니다.
+const resolvedSize = computed(() => (['sm', 'md', 'lg'].includes(props.size) ? props.size : 'md')); // 검증된 크기입니다.
+// 드래그 핸들은 bottom placement에서만 활성화합니다.
 const showDragHandle = computed(() => props.draggable && resolvedPlacement.value === 'bottom');
-const rootClasses = computed(() => ['drawer', visible.value && 'is-open'].filter(Boolean));
+const rootClasses = computed(() => ['drawer', visible.value && 'is-open'].filter(Boolean)); // 루트·열림 상태 클래스입니다.
+// 방향·크기·드래그 가능 패널 클래스를 조합합니다.
 const panelClasses = computed(() =>
   [
-    'drawer_panel',
-    `drawer_placement-${resolvedPlacement.value}`,
-    resolvedSize.value !== 'md' && `drawer_${resolvedSize.value}`,
-    showDragHandle.value && 'drawer_draggable',
+    'drawer_panel', // 패널 루트 클래스입니다.
+    `drawer_placement-${resolvedPlacement.value}`, // 열림 방향입니다.
+    resolvedSize.value !== 'md' && `drawer_${resolvedSize.value}`, // md가 아닐 때만 크기 변형입니다.
+    showDragHandle.value && 'drawer_draggable', // 드래그 시트 변형입니다.
   ].filter(Boolean),
 );
 const footerClasses = computed(() =>
   [
-    'drawer_footer',
-    props.footerAlign !== 'end' && `drawer_footer-${props.footerAlign}`,
+    'drawer_footer', // 푸터 루트 클래스입니다.
+    props.footerAlign !== 'end' && `drawer_footer-${props.footerAlign}`, // 정렬 변형입니다.
     props.footerAlign === 'even' &&
       props.footerRatio !== '1-1' &&
-      `drawer_footer-even-${props.footerRatio}`,
-    props.footerNoPadBottom && 'drawer_footer-no-pad-b',
+      `drawer_footer-even-${props.footerRatio}`, // even 비율입니다.
+    props.footerNoPadBottom && 'drawer_footer-no-pad-b', // 하단 패딩 제거입니다.
   ].filter(Boolean),
 );
 
+// 비제어면 내부 상태를 끄고 close 이벤트를 알립니다.
 function close(reason = 'close', event) {
   if (props.open === undefined) internalOpen.value = false;
   emit('close', reason, event);
@@ -96,6 +101,7 @@ function close(reason = 'close', event) {
 function keydown(event) {
   if (event.key === 'Escape') close('escape', event);
 }
+// 하단 시트 드래그를 시작합니다.
 function startDrag(event) {
   if (!showDragHandle.value || (event.button != null && event.button !== 0)) return;
   if (event.target.closest('.drawer_close, .drawer_extra, a, input, textarea, select')) return;
@@ -121,6 +127,7 @@ function startDrag(event) {
   event.currentTarget.setPointerCapture?.(event.pointerId);
   event.preventDefault();
 }
+// 드래그 중 패널 높이를 갱신합니다.
 function moveDrag(event) {
   const state = dragState;
   const element = panel.value;
@@ -131,6 +138,7 @@ function moveDrag(event) {
   element.style.transform = 'translateY(0)';
   event.preventDefault();
 }
+// 드래그 종료 시 닫기·확장·축소 중 하나로 스냅합니다.
 function endDrag(event) {
   const state = dragState;
   const element = panel.value;
@@ -159,6 +167,7 @@ function endDrag(event) {
     element.classList.remove('is-expanded');
   }
 }
+// 열림 시 스크롤 잠금·Escape·포커스를 연결합니다.
 watch(
   visible,
   async (isOpen) => {
@@ -183,6 +192,7 @@ onBeforeUnmount(() =>
 </script>
 
 <template>
+  <!-- 포털로 패널을 문서 최상위에 올립니다. -->
   <Teleport :to="portalTarget">
     <div
       v-if="visible"
@@ -198,12 +208,14 @@ onBeforeUnmount(() =>
       :aria-labelledby="title || $slots.header ? titleId : undefined"
       tabindex="-1"
     >
+      <!-- 백드롭 클릭으로 닫을 수 있습니다. -->
       <div
         class="drawer_backdrop"
         aria-hidden="true"
         @click="backdrop && !noBackdrop && close('backdrop', $event)"
       />
       <div ref="panel" :class="panelClasses">
+        <!-- 하단 시트용 드래그 핸들입니다. -->
         <div
           v-if="showDragHandle"
           class="drawer_handle"

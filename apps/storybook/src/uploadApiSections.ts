@@ -31,5 +31,41 @@ export const uploadApiSections: ApiSectionData[] = [
     { name: '--upload-dropzone-padding · --upload-dropzone-icon-size', type: 'length', default: '크기별 값', description: '드롭존의 여백과 아이콘 크기입니다.' },
     { name: '--upload-card-size', type: 'length', default: '6.5rem', description: '사진 카드 크기입니다.' },
     { name: '--upload-progress-height', type: 'length', default: '4px', description: '진행률 표시 높이입니다.' }
-  ])
+  ]),
+  table(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'xf:input[type=file]',
+        type: 'XML element',
+        default: "type='file'",
+        description: '파일 선택 입력입니다. accept, multiple, disabled 속성을 조합합니다.',
+      },
+      {
+        name: 'ref · data:*',
+        type: 'DataCollection binding',
+        default: '—',
+        description: '선택 파일 정보를 DataCollection 경로에 연결합니다.',
+      },
+      {
+        name: 'w2:group.upload · upload_dropzone · upload_cards · upload_avatar',
+        type: 'XML element · class',
+        default: '—',
+        description: '버튼, 드롭존, 사진 카드, 아바타 업로드 구조를 만듭니다.',
+      },
+      {
+        name: 'upload_list · upload_item',
+        type: 'class',
+        default: '—',
+        description: '업로드 목록과 진행·완료·오류 항목을 표시합니다.',
+      },
+      {
+        name: 'ev:onchange',
+        type: 'WebSquare event',
+        default: '—',
+        description: '파일 선택 후 검증, 목록 갱신, 업로드 처리를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

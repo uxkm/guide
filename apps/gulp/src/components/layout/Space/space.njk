@@ -1,6 +1,19 @@
-{# Space 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# Space 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. #}
+{# space 클래스로 기본 inline-flex 간격 컨테이너를 만듭니다. 기본 간격은 md입니다. #}
 <div class="space" data-component="Space">
-  <div class="space_demo-box">1</div>
-  <div class="space_demo-box">2</div>
-  <div class="space_demo-box">3</div>
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</div>
+
+{# gap·방향·줄바꿈·너비·정렬 변형 클래스를 조합합니다. #}
+<div class="space space_gap-sm space_vertical space_align-stretch" data-component="Space">
+  <div>첫 번째</div>
+  <div>두 번째</div>
+</div>
+
+{# 부모 너비를 채우고 줄바꿈하려면 space_block과 space_wrap을 함께 지정합니다. #}
+<div class="space space_block space_wrap space_justify-between" data-component="Space">
+  <div>시작</div>
+  <div>끝</div>
 </div>

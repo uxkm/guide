@@ -1,5 +1,10 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+import avatarHtml from '../../html/src/components/data-display/Avatar/Avatar.html?raw';
+import avatarGulp from '../../gulp/src/components/data-display/Avatar/avatar.njk?raw';
+import avatarReact from '../../react/src/components/data-display/Avatar/Avatar.jsx?raw';
+import avatarVue from '../../vue/src/components/data-display/Avatar/Avatar.vue?raw';
+
 const avatarHtmlComponent = `<!-- 이미지 아바타 -->
 <span class="avatar" data-component="Avatar">
   <img class="avatar_image" src="/images/samples/avatar/avatar-sample.svg" alt="홍길동">
@@ -126,12 +131,12 @@ watch(() => props.src, () => { imageError.value = false; });
 </template>`;
 
 export const avatarComponentExamples: FrameworkExample[] = [
-  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/data-display/Avatar/Avatar.html', code: avatarHtmlComponent },
-  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/data-display/Avatar/avatar.njk', code: `{# Avatar 구현 #}\n${avatarHtmlComponent}` },
-  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/data-display/Avatar/Avatar.vue', code: avatarVueComponent },
-  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/avatar → Avatar.vue', code: avatarVueComponent },
-  { id: 'react', label: 'React', fileName: 'apps/react/src/components/data-display/Avatar/Avatar.jsx', code: avatarReactComponent },
-  { id: 'next', label: 'Next', fileName: '@uxkm/react/avatar → Avatar.jsx', code: avatarReactComponent }
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/data-display/Avatar/Avatar.html', code: avatarHtml },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/data-display/Avatar/avatar.njk', code: avatarGulp },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/data-display/Avatar/Avatar.vue', code: avatarVue },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/avatar → Avatar.vue', code: avatarVue },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/data-display/Avatar/Avatar.jsx', code: avatarReact },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/avatar → Avatar.jsx', code: avatarReact },
 ];
 
 type Codes = { html: string; react: string; vue: string; websquare: string };

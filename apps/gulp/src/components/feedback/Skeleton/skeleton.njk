@@ -1,4 +1,5 @@
 {# Skeleton 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# skeleton_group이 제목·본문 줄 플레이스홀더를 세로로 묶습니다. #}
 <div
   class="skeleton_group{% if active == false %} skeleton_static{% endif %}"
   data-component="Skeleton"
@@ -7,6 +8,7 @@
   aria-busy="true"
   aria-label="{{ ariaLabel | default('콘텐츠 로딩 중') }}"
 >
+  {# 아바타 행 또는 원형·제목+본문 기본 형태입니다. #}
   {% if avatar %}
   <div class="skeleton_row">
     <span

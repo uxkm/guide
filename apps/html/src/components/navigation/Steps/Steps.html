@@ -1,5 +1,7 @@
 <!-- Steps 원본 구현: 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다. -->
+<!-- steps 클래스에 finished·active·wait 상태 클래스로 진행 단계를 표시합니다. -->
 <ol class="steps" aria-label="주문 진행 단계" data-component="Steps" data-steps>
+  <!-- 완료 단계는 체크 아이콘과 연결선(steps_tail)을 둡니다. -->
   <li class="steps_item is-finished" data-step-index="1">
     <div class="steps_head">
       <span class="steps_indicator" aria-hidden="true"
@@ -21,6 +23,7 @@
       <p class="steps_desc">상품 확인</p>
     </div>
   </li>
+  <!-- 현재 단계는 aria-current="step"과 is-active를 함께 둡니다. -->
   <li class="steps_item is-active" data-step-index="2" aria-current="step">
     <div class="steps_head">
       <span class="steps_indicator" aria-hidden="true"><span class="steps_index">2</span></span
@@ -31,6 +34,7 @@
       <p class="steps_desc">결제 수단 선택</p>
     </div>
   </li>
+  <!-- 대기 단계는 번호 인디케이터만 표시하고 연결선을 생략합니다. -->
   <li class="steps_item is-wait" data-step-index="3">
     <div class="steps_head">
       <span class="steps_indicator" aria-hidden="true"><span class="steps_index">3</span></span>

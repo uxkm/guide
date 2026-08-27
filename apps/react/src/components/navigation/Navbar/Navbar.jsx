@@ -6,43 +6,50 @@ import { useId, useState } from 'react';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const sizes = new Set(['sm', 'md', 'lg']);
+const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 Navbar 크기입니다.
 
 export function Navbar({
-  brand,
-  ariaLabel,
-  size = 'md',
-  borderless = false,
-  dark = false,
-  sticky = false,
-  responsive = false,
-  collapseId,
-  brandContent,
-  brandIcon,
-  items,
-  search,
-  actions,
-  children,
-  className = '',
-  ...props
+  brand, // 브랜드 영역에 표시할 기본 텍스트입니다.
+  ariaLabel, // 헤더의 접근 가능한 이름을 지정합니다.
+  size = 'md', // Navbar의 세로 크기를 지정합니다.
+  borderless = false, // 하단 테두리를 제거할지 여부입니다.
+  dark = false, // 어두운 배경 테마를 적용할지 여부입니다.
+  sticky = false, // 스크롤 시 상단에 고정할지 여부입니다.
+  responsive = false, // 좁은 화면에서 접힘 토글을 사용할지 여부입니다.
+  collapseId, // 접힘 영역의 DOM id를 직접 지정합니다.
+  brandContent, // 브랜드 영역을 완전히 대체할 사용자 정의 콘텐츠입니다.
+  brandIcon, // 브랜드 텍스트 앞에 표시할 아이콘입니다.
+  items, // 네비게이션 목록으로 렌더할 미리 구성한 항목입니다.
+  search, // 접힘 영역 안에 배치할 검색 UI입니다.
+  actions, // 접힘 영역 안에 배치할 액션 버튼 영역입니다.
+  children, // NavbarList/NavbarItem 등 자식 네비게이션 항목입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, role 등 나머지 속성을 헤더 요소에 전달합니다.
 }) {
+  // React id의 콜론을 제거해 CSS/aria 연결용 안전한 식별자를 만듭니다.
   const reactId = useId().replaceAll(':', '');
-  const targetId = collapseId || `navbar-collapse-${reactId}`;
-  const [open, setOpen] = useState(false);
-  const resolvedSize = sizes.has(size) ? size : 'md';
+  const targetId = collapseId || `navbar-collapse-${reactId}`; // 접힘 영역의 최종 id입니다.
+  const [open, setOpen] = useState(false); // 반응형 메뉴의 열림 상태입니다.
+  const resolvedSize = sizes.has(size) ? size : 'md'; // 검증된 크기 값입니다.
+
+  // 크기, 테마, 고정, 열림 상태 클래스를 조합합니다.
   const classes = [
-    'navbar',
-    resolvedSize !== 'md' && `navbar_${resolvedSize}`,
-    borderless && 'navbar_borderless',
-    dark && 'navbar_dark',
-    sticky && 'navbar_sticky',
-    open && 'is-open',
-    className,
+    'navbar', // Navbar 레이아웃을 활성화하는 필수 클래스입니다.
+    resolvedSize !== 'md' && `navbar_${resolvedSize}`, // 기본 md가 아닐 때 크기 변형입니다.
+    borderless && 'navbar_borderless', // 테두리 없는 변형입니다.
+    dark && 'navbar_dark', // 어두운 테마 변형입니다.
+    sticky && 'navbar_sticky', // 상단 고정 변형입니다.
+    open && 'is-open', // 반응형 메뉴가 열린 상태입니다.
+    className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  // items가 있으면 우선하고, 없으면 children을 목록으로 감쌉니다.
   const navItems = items ?? (children ? <ul className="navbar_list">{children}</ul> : null);
+  // ariaLabel, brand 문자열, 기본값을 순서로 접근 가능한 이름을 결정합니다.
   const accessibleName = ariaLabel || (typeof brand === 'string' && brand) || '사이트';
+
   return (
     <header
       {...props}

@@ -9,16 +9,16 @@ import Icon from '../../basic/Icon/Icon.jsx';
 import { CollapseContext } from './Collapse.jsx';
 
 export function CollapsePanel({
-  label,
-  title,
-  content,
-  children,
-  extra,
-  open = false,
-  disabled = false,
-  className = '',
-  ripple = true,
-  ...props
+  label, // 트리거 레이블입니다. title이 있으면 title을 우선합니다.
+  title, // 트리거 제목입니다. 있으면 label보다 우선합니다.
+  content, // children이 없을 때 본문으로 쓸 텍스트입니다.
+  children, // 패널 본문 콘텐츠입니다.
+  extra, // 트리거 오른쪽에 표시할 보조 텍스트입니다.
+  open = false, // 초기 열림 상태입니다.
+  disabled = false, // 패널을 비활성화합니다.
+  className = '', // 패널 루트에 추가할 클래스입니다.
+  ripple = true, // 트리거 버튼 리플 효과입니다.
+  ...props // 나머지 속성을 패널 루트에 전달합니다.
 }) {
   const collapse = useContext(CollapseContext);
   const uid = useId().replaceAll(':', '');

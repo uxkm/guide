@@ -30,5 +30,41 @@ export const datePickerApiSections: ApiSectionData[] = [
     { name: '--date-picker-input-padding-*', type: 'length', default: '크기별 값', description: '트리거 입력 영역의 안쪽 여백입니다.' },
     { name: '--date-picker-btn-size', type: 'length', default: '2.25rem', description: '달력 버튼 크기입니다.' },
     { name: '--date-picker-icon-size', type: 'length', default: '1rem', description: '달력 아이콘 크기입니다.' }
-  ])
+  ]),
+  table(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:inputCalendar',
+        type: 'XML element',
+        default: '—',
+        description: '날짜 입력·달력 컴포넌트입니다. placeholder, disabled, calendarValueType 속성을 조합합니다.',
+      },
+      {
+        name: 'ref · data:*',
+        type: 'DataCollection binding',
+        default: '—',
+        description: '선택 날짜를 DataMap 경로에 양방향 바인딩합니다.',
+      },
+      {
+        name: 'calendarValueType · minYear · maxYear',
+        type: 'WebSquare property',
+        default: 'yearMonthDate',
+        description: '값 형식과 선택 가능 연도 범위를 설정합니다.',
+      },
+      {
+        name: 'w2:group.date_picker · date_picker_trigger',
+        type: 'XML element · class',
+        default: '—',
+        description: '날짜 선택 트리거와 패널 래퍼 구조를 만듭니다.',
+      },
+      {
+        name: 'ev:onchange',
+        type: 'WebSquare event',
+        default: '—',
+        description: '날짜 변경 후 연관 데이터 갱신이나 검증 함수를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

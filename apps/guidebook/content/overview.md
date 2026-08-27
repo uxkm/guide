@@ -91,11 +91,14 @@ Guidebook과 Storybook을 함께 빌드한 뒤 전체 결과물을 `main` 브랜
 
 배포 명령을 실행하기 전에 현재 `dev` 브랜치의 변경 사항을 먼저 커밋해야 합니다. 빌드만 필요할 때는 각각 `pnpm build:guidebook`, `pnpm build:storybook`, 전체는 `pnpm build`를 사용합니다.
 
-Guidebook의 사이트, Storybook과 공유 이미지 주소는 `apps/guidebook/.env`에서 설정할 수 있습니다. 새 환경을 구성할 때는 `.env.example`을 복사해 사용하며, 환경파일이 없으면 운영 URL을 기본값으로 사용합니다.
+Guidebook의 사이트, Storybook과 이미지 주소는 `apps/guidebook/.env`에서 설정합니다. Storybook은 같은 변수를 `apps/guidebook/.env`와 `apps/storybook/.env`에서 읽습니다. 새 환경을 구성할 때는 `.env.example`을 복사해 사용하며, 환경파일이 없으면 운영 URL을 기본값으로 사용합니다.
+
+로컬 개발에서는 이미지·favicon이 `/images/...`로 열리고, 배포 빌드에서는 `VITE_ASSET_BASE` 또는 `VITE_SITE_URL`이 앞에 붙습니다.
 
 ```Environment
 VITE_SITE_URL=https://guide.uxkm.io/
 VITE_STORYBOOK_URL=https://guide.uxkm.io/storybook/
+VITE_ASSET_BASE=https://guide.uxkm.io/
 VITE_SOCIAL_IMAGE_URL=https://uxkm.io/_assets/images/_common/og_image.png
 ```
 

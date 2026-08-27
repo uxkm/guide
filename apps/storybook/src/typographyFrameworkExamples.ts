@@ -1,5 +1,10 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+import typographyHtml from '../../html/src/components/basic/Typography/Typography.html?raw';
+import typographyGulp from '../../gulp/src/components/basic/Typography/typography.njk?raw';
+import typographyReact from '../../react/src/components/basic/Typography/Typography.jsx?raw';
+import typographyVue from '../../vue/src/components/basic/Typography/Typography.vue?raw';
+
 const typographyHtmlComponent = `<!-- 제목은 h1~h5와 typo_title-*를 같은 단계로 맞춥니다. -->
 <h1 class="typo_title-1" data-component="TypoTitle">제목 레벨 1</h1>
 <h3 class="typo_title-3" data-component="TypoTitle">제목 레벨 3</h3>
@@ -183,12 +188,12 @@ function handleClick(event) {
 </template>`;
 
 export const typographyComponentExamples: FrameworkExample[] = [
-  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Typography/Typography.html', code: typographyHtmlComponent },
-  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Typography/typography.njk', code: `{# Typography 구현 #}\n${typographyHtmlComponent}` },
-  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Typography/TypoTitle.vue · Typography.vue', code: typographyVueComponent },
-  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/typography → TypoTitle.vue · Typography.vue', code: typographyVueComponent },
-  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Typography/Typography.jsx', code: typographyReactComponent },
-  { id: 'next', label: 'Next', fileName: '@uxkm/react/typography → Typography.jsx', code: typographyReactComponent }
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Typography/Typography.html', code: typographyHtml },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Typography/typography.njk', code: typographyGulp },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Typography/Typography.vue', code: typographyVue },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/typography → Typography.vue', code: typographyVue },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Typography/Typography.jsx', code: typographyReact },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/typography → Typography.jsx', code: typographyReact },
 ];
 
 const bodies = {
@@ -320,7 +325,7 @@ function toHtml(body: string) {
 
 function reactCode(body: string) {
   const jsx = body.replace(/class=/g, 'className=').replace(/html-for=/g, 'htmlFor=').replace(/style="max-width: 320px; width: 100%;"/g, "style={{ maxWidth: 320, width: '100%' }}");
-  return `import { TypoText, TypoTitle } from '@uxkm/react/typography';\n\nexport function Example() {\n  return (\n    <>\n${jsx.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}`;
+  return `import { TypoText, TypoTitle } from '@uxkm/react/typography';\n\nexport function Example() {\n  return (\n  <>\n${jsx.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}`;
 }
 
 function vueCode(body: string) {

@@ -7,30 +7,30 @@ import { computed, useSlots } from 'vue';
 
 defineOptions({ name: 'UxkmCalendar' });
 const props = defineProps({
-  title: String,
-  ariaLabel: String,
-  size: { type: String, default: '' },
-  noHeader: Boolean,
-  minimal: Boolean,
-  compact: Boolean,
-  borderless: Boolean,
-  shadow: Boolean,
-  ghost: Boolean,
-  week: Boolean,
-  readonly: Boolean,
-  disabled: Boolean,
-  weekends: Boolean,
-  agenda: Boolean,
-  wheel: Boolean,
-  footer: Boolean,
-  events: { type: Array, default: () => [] },
-  disabledDays: { type: Array, default: () => [] },
-  rangeStart: Number,
-  rangeEnd: Number,
-  selected: { type: Number, default: 15 },
-  today: { type: Number, default: 12 },
-  partial: Number,
-  role: { type: String, default: 'application' },
+  title: String, // 헤더 제목입니다.
+  ariaLabel: String, // 캘린더 접근성 이름입니다.
+  size: { type: String, default: '' }, // 크기 변형 클래스입니다.
+  noHeader: Boolean, // 헤더를 숨깁니다.
+  minimal: Boolean, // 미니멀 스킨입니다.
+  compact: Boolean, // 조밀한 캘린더입니다.
+  borderless: Boolean, // 테두리 없는 스킨입니다.
+  shadow: Boolean, // 그림자 스킨입니다.
+  ghost: Boolean, // 고스트 스킨입니다.
+  week: Boolean, // 주 단위 보기입니다.
+  readonly: Boolean, // 읽기 전용입니다.
+  disabled: Boolean, // 비활성 상태입니다.
+  weekends: Boolean, // 주말 강조입니다.
+  agenda: Boolean, // 아젠다 레이아웃입니다.
+  wheel: Boolean, // 휠 선택 모드입니다.
+  footer: Boolean, // 휠 푸터 영역 표시 여부입니다.
+  events: { type: Array, default: () => [] }, // 이벤트 표시 일자 배열입니다.
+  disabledDays: { type: Array, default: () => [] }, // 비활성 일자 배열입니다.
+  rangeStart: Number, // 범위 시작 일자입니다.
+  rangeEnd: Number, // 범위 종료 일자입니다.
+  selected: { type: Number, default: 15 }, // 선택된 상태입니다.
+  today: { type: Number, default: 12 }, // 오늘로 표시할 일자입니다.
+  partial: Number, // 부분 월(일자 수) 모드입니다.
+  role: { type: String, default: 'application' }, // 루트 role입니다.
 });
 const slots = useSlots();
 // 월·주·휠·일정 레이아웃과 스킨·상태를 calendar_* 공통 클래스로 변환합니다.

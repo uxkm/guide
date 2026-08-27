@@ -1,5 +1,10 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+import linkHtml from '../../html/src/components/basic/Link/Link.html?raw';
+import linkGulp from '../../gulp/src/components/basic/Link/link.njk?raw';
+import linkReact from '../../react/src/components/basic/Link/Link.jsx?raw';
+import linkVue from '../../vue/src/components/basic/Link/Link.vue?raw';
+
 const linkHtmlComponent = `<!-- link와 color_*를 조합합니다. 기본은 hover 시 밑줄입니다. -->
 <a class="link color_primary" data-component="Link" data-ripple="true" href="#">더 보기</a>
 
@@ -184,12 +189,12 @@ function handleClick(event) {
 </template>`;
 
 export const linkComponentExamples: FrameworkExample[] = [
-  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Link/Link.html', code: linkHtmlComponent },
-  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Link/link.njk', code: `{# Link 구현 #}\n${linkHtmlComponent}` },
-  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Link/Link.vue', code: linkVueComponent },
-  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/link → Link.vue', code: linkVueComponent },
-  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Link/Link.jsx', code: linkReactComponent },
-  { id: 'next', label: 'Next', fileName: '@uxkm/react/link → Link.jsx', code: linkReactComponent }
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Link/Link.html', code: linkHtml },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Link/link.njk', code: linkGulp },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Link/Link.vue', code: linkVue },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/link → Link.vue', code: linkVue },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Link/Link.jsx', code: linkReact },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/link → Link.jsx', code: linkReact },
 ];
 
 const avatar = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%236366f1%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2212%22%20r%3D%225%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M7%2029a9%209%200%200%201%2018%200%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E';
@@ -353,8 +358,8 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Link/link.njk · ${key}`, code: `{# Link · ${key} #}\n${html}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
-    { id: 'react', label: 'React', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${react.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}` },
+    { id: 'react', label: 'React', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },
     { id: 'websquare', label: 'WebSquare', fileName: `Link.xml · ${key}`, code: webSquareCode(body, key) }
   ];
 }

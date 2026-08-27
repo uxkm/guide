@@ -76,7 +76,7 @@ function createExamples(key: string, source: Source): FrameworkExample[] {
   const needsRegion = key === 'placement';
   const reactImports = ["import Snackbar from '@uxkm/react/snackbar';", needsButton && "import Button from '@uxkm/react/button';", needsRegion && "import SnackbarRegion from '@uxkm/react/snackbar-region';"].filter(Boolean).join('\n');
   const vueImports = ["import Snackbar from '@uxkm/vue/snackbar';", needsButton && "import Button from '@uxkm/vue/button';", needsRegion && "import SnackbarRegion from '@uxkm/vue/snackbar-region';"].filter(Boolean).join('\n');
-  const react = `${reactImports}\n\nexport function Example() {\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `${reactImports}\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${vueImports}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Snackbar.html · ${key}`, code: source.html },

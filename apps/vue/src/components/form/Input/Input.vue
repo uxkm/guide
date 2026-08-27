@@ -6,23 +6,26 @@
 import { computed, ref, useAttrs, useSlots, watch } from 'vue';
 import Icon from '../../basic/Icon/Icon.vue';
 
+// 속성을 계산된 입력에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmInput', inheritAttrs: false });
+
 // 크기, 입력 타입, 상태, 지우기와 애드온 옵션을 하나의 Input API로 제공합니다.
 const props = defineProps({
-  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
-  disabled: Boolean,
-  error: Boolean,
-  placeholder: String,
-  type: { type: String, default: 'text' },
-  block: Boolean,
-  clearable: Boolean,
-  modelValue: { type: [String, Number], default: '' },
+  size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // 입력 높이와 글자 크기입니다.
+  disabled: Boolean, // 입력을 비활성으로 만들어 조작을 막습니다.
+  error: Boolean, // 검증 오류 상태를 시각·접근성으로 표시합니다.
+  placeholder: String, // 값이 없을 때 표시할 안내입니다.
+  type: { type: String, default: 'text' }, // 텍스트·이메일·비밀번호 등 네이티브 입력 타입입니다.
+  block: Boolean, // 부모 너비에 맞게 전체 너비로 확장합니다.
+  clearable: Boolean, // 값이 있을 때 지우기 버튼을 표시합니다.
+  modelValue: { type: [String, Number], default: '' }, // v-model 현재 값입니다.
 });
 const emit = defineEmits(['update:modelValue', 'clear']);
 const attrs = useAttrs();
 const slots = useSlots();
 const inputElement = ref(null);
 const inputValue = ref(props.modelValue ?? '');
+
 // 외부 v-model 값이 바뀌면 내부 표시값을 동기화합니다.
 watch(
   () => props.modelValue,
@@ -31,7 +34,8 @@ watch(
   },
 );
 
-const hasAddon = computed(() => Boolean(slots.prefix || slots.suffix));
+const hasAddon = computed(() => Boolean(slots.prefix || slots.suffix)); // InputGroup이 필요한지 여부입니다.
+
 // readonly는 속성 표기 방식과 관계없이 동일한 boolean 상태로 계산합니다.
 const readonly = computed(
   () =>
@@ -40,23 +44,27 @@ const readonly = computed(
 const showClear = computed(
   () =>
     props.clearable && !props.disabled && !readonly.value && String(inputValue.value).length > 0,
-);
+); // 지우기 버튼을 보일지 여부입니다.
+
+// 크기·너비·오류·마스킹 상태를 공통 input 클래스로 변환합니다.
 const inputClasses = computed(() =>
   [
-    'input',
-    props.size === 'sm' && 'input_sm',
-    props.size === 'lg' && 'input_lg',
-    props.block && 'input_block',
-    props.error && 'is-error',
-    props.type === 'password' && String(inputValue.value).length > 0 && 'input_masked',
-    !hasAddon.value && !props.clearable && attrs.class,
+    'input', // 입력 필드 필수 클래스입니다.
+    props.size === 'sm' && 'input_sm', // 작은 크기 변형입니다.
+    props.size === 'lg' && 'input_lg', // 큰 크기 변형입니다.
+    props.block && 'input_block', // 전체 너비 변형입니다.
+    props.error && 'is-error', // 오류 상태 클래스입니다.
+    props.type === 'password' && String(inputValue.value).length > 0 && 'input_masked', // 비밀번호 마스킹 표시입니다.
+    !hasAddon.value && !props.clearable && attrs.class, // 단독 입력일 때만 루트에 사용자 클래스를 붙입니다.
   ].filter(Boolean),
 );
+
+// class는 루트에만 두고 나머지 속성은 input으로 전달합니다.
 const inputAttrs = computed(() => {
   const { class: _class, ...rest } = attrs;
   return rest;
 });
-const numericOnly = computed(() => attrs.inputmode === 'numeric' || attrs.inputMode === 'numeric');
+const numericOnly = computed(() => attrs.inputmode === 'numeric' || attrs.inputMode === 'numeric'); // 숫자만 허용하는지 여부입니다.
 
 // 숫자 전용·number 입력은 키보드와 붙여넣기 모두 동일한 정제 규칙을 사용합니다.
 function sanitize(value) {

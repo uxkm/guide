@@ -37,4 +37,40 @@ export const snackbarApiSections: ApiSectionData[] = [
     { name: '--snackbar-motion-duration · --snackbar-motion-distance', type: 'time · length', default: '200ms · 1rem', description: '모션 시간과 거리입니다.' },
     { name: '--snackbar-region-offset · --snackbar-region-gap · --snackbar-region-z-index', type: 'length · number', default: 'space-md · space-sm · 1200', description: '화면 여백, 스택 간격, 레이어입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.snackbar',
+        type: 'XML element · class',
+        default: "role='status'",
+        description: 'Snackbar 루트입니다. color_*와 snackbar_sm·snackbar_lg·snackbar_round를 조합합니다.',
+      },
+      {
+        name: 'w2:group.snackbar_region-*',
+        type: 'XML element · class',
+        default: '—',
+        description: '뷰포트 기준 배치 영역입니다. 같은 위치의 Snackbar를 세로로 쌓습니다.',
+      },
+      {
+        name: 'snackbar_motion-* · data-snackbar-duration',
+        type: 'class · attribute',
+        default: 'fade · 0',
+        description: '등장·퇴장 모션과 자동 닫기 시간(ms)입니다.',
+      },
+      {
+        name: 'xf:trigger.snackbar_close · snackbar_action',
+        type: 'XML element · class',
+        default: '—',
+        description: '닫기 버튼과 후속 액션을 구성합니다.',
+      },
+      {
+        name: 'ev:onclick',
+        type: 'WebSquare event',
+        default: '—',
+        description: '닫기·액션 클릭 시 화면 스크립트를 실행합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

@@ -53,37 +53,37 @@ export function updateCoverflowStyles(
 }
 
 export function Carousel({
-  ariaLabel = '콘텐츠 슬라이드',
-  children,
-  className = '',
-  style,
-  size = 'md',
-  multi = false,
-  dotsOutside = false,
-  autoplayToggle = false,
-  effect,
-  autoplay = false,
-  delay = 4000,
-  loop = false,
-  initialSlide = 0,
-  slidesPerView = 1,
-  slidesPerGroup = 1,
-  spaceBetween = 0,
-  centered = false,
-  pagination = true,
-  navigation = true,
-  gridRows = 1,
-  gridFill = 'row',
-  coverflowStyle = 'tilt',
-  coverflowSides = 1.5,
-  coverflowEffect,
-  thumbs = null,
-  thumbsControl = false,
-  watchSlidesProgress = false,
-  freeMode = false,
-  onSwiper,
-  ripple = true,
-  ...props
+  ariaLabel = '콘텐츠 슬라이드', // 캐러셀 영역의 접근성 이름입니다.
+  children, // CarouselSlide 자식들입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  style, // 루트 인라인 스타일입니다.
+  size = 'md', // sm · md · lg 높이·간격 크기입니다.
+  multi = false, // 다중 슬라이드 보기 클래스를 적용합니다.
+  dotsOutside = false, // 페이지네이션을 트랙 밖에 둡니다.
+  autoplayToggle = false, // 자동재생 토글 버튼을 표시합니다.
+  effect, // fade · coverflow 등 Swiper 효과입니다.
+  autoplay = false, // 자동재생을 켭니다.
+  delay = 4000, // 자동재생 간격(ms)입니다.
+  loop = false, // 끝에서 처음으로 순환합니다.
+  initialSlide = 0, // 처음 보여줄 슬라이드 인덱스입니다.
+  slidesPerView = 1, // 한 화면에 보일 슬라이드 수입니다.
+  slidesPerGroup = 1, // 한 번에 넘길 슬라이드 수입니다.
+  spaceBetween = 0, // 슬라이드 사이 간격(px)입니다.
+  centered = false, // 활성 슬라이드를 가운데 정렬합니다.
+  pagination = true, // 페이지네이션 표시 여부·유형입니다.
+  navigation = true, // 이전·다음 버튼을 표시합니다.
+  gridRows = 1, // 그리드 행 수입니다. 1보다 크면 그리드 모드입니다.
+  gridFill = 'row', // 그리드 채움 방향입니다.
+  coverflowStyle = 'tilt', // coverflow 시각 스타일(tilt · rise)입니다.
+  coverflowSides = 1.5, // coverflow 옆면 노출 수입니다.
+  coverflowEffect, // coverflowEffect Swiper 옵션을 덮어씁니다.
+  thumbs = null, // 썸네일 연동용 Swiper 인스턴스입니다.
+  thumbsControl = false, // 클릭 시 해당 슬라이드로 이동하는 썸네일 모드입니다.
+  watchSlidesProgress = false, // 슬라이드 진행도를 감시합니다.
+  freeMode = false, // 자유 스크롤 모드를 켭니다.
+  onSwiper, // Swiper 인스턴스 생성 콜백입니다.
+  ripple = true, // 내비·토글 버튼 리플 효과입니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
 }) {
   const rootRef = useRef(null);
   const swiperRef = useRef(null);

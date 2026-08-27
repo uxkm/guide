@@ -1,5 +1,7 @@
 <!-- Upload 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
+<!-- data-max-size·data-max-files로 크기·개수 제한을 스크립트에 전달합니다. -->
 <div class="upload upload_fit" data-component="Upload" data-max-size="5242880" data-max-files="3">
+  <!-- 드롭존 label이 숨김 file input과 안내 문구를 연결합니다. -->
   <label class="upload_dropzone" for="upload-example" tabindex="0">
     <input
       id="upload-example"
@@ -24,6 +26,7 @@
     <span class="upload_dropzone-desc">PNG, JPG, PDF · 파일당 최대 5MB</span>
   </label>
   <p class="upload_hint">최대 3개까지 첨부할 수 있습니다.</p>
+  <!-- 검증 오류와 선택 파일 목록을 위한 영역입니다. -->
   <p class="form_field-error" data-upload-error role="alert" hidden></p>
   <ul class="upload_list" data-upload-list></ul>
 </div>

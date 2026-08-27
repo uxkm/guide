@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { navbarFrameworkExamples as examples } from '../../../navbarFrameworkExamples.ts';
+import { navbarComponentExamples, navbarFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { navbarApiSections } from '../../../navbarApiSections.ts';
 import * as Stories from '../../../Navbar.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Navbar.stories.tsx';
 
 # Navbar
 
-사이트와 앱의 브랜드, 주요 메뉴, 검색 및 액션을 상단 영역에 구성합니다.
+사이트와 앱의 브랜드, 주요 메뉴, 검색 및 액션을 상단 영역에 구성합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+현재 메뉴는 `aria-current="page"`로 표시합니다. 반응형 토글은 `aria-expanded`, `aria-controls`, 상태에 맞는 접근 가능한 이름을 제공하며 버튼 클릭으로 메뉴를 열고 닫습니다.
+
+WebSquare는 헤더를 `w2:group.navbar`, 메뉴·검색·액션을 `w2:group`/`xf:input`/`xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Navbar와 NavbarList·NavbarItem의 실제 원본 구현입니다. React와 Vue는 브랜드, 메뉴, 검색, 액션, 크기·변형과 반응형 접기를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `size`는 `navbar_sm`·`navbar_lg` 클래스로 변환합니다.
+- `responsive`는 접이식 패널과 토글 버튼의 접근성 속성을 연결합니다.
+- 현재 항목은 `aria-current="page"`와 `is-active`를 함께 사용합니다.
+
+<FrameworkTabs examples={navbarComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `navbar`를 적용하고 브랜드·목록·검색·액션 영역을 배치합니다. 현재 메뉴는 `aria-current="page"`로 표시하고, 반응형 토글은 `aria-expanded`·`aria-controls`를 화면 스크립트와 동기화합니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

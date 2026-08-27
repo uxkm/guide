@@ -3,9 +3,11 @@
   <div class="affix_demo-content">
     <p>스크롤하면 주문 액션 바가 상단에 고정됩니다.</p>
     <p>배송지와 결제 정보를 확인하세요.</p>
-    <div class="affix" data-component="Affix" data-affix data-target="#affix-scroll-basic">
+    <div class="affix" <!-- affix 루트·placeholder·target 구조를 둡니다. -->
+data-component="Affix" data-affix data-target="#affix-scroll-basic">
       <div class="affix_placeholder" aria-hidden="true" hidden></div>
-      <div class="affix_target affix_bar">
+      <div class="<!-- 스크롤 시 고정될 콘텐츠 영역입니다. -->
+affix_target affix_bar">
         <span class="affix_bar-label">주문 #ORD-2024-0815</span>
         <div class="affix_bar-actions">
           <button type="button" class="btn btn_outline btn_sm">취소</button

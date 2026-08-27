@@ -1,6 +1,8 @@
 {# Checkbox 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# button이면 버튼형 label, 아니면 컨트롤·레이블을 나란히 배치합니다. #}
 {% set checkboxId = checkboxId | default('checkbox-example') %}
 {% if button %}
+{# 버튼형은 숨김 input과 레이블을 하나의 label로 감쌉니다. #}
 <label class="checkbox checkbox_button" data-ripple="{{ 'false' if ripple == false else 'true' }}"
   ><input
     id="{{ checkboxId }}"
@@ -12,6 +14,7 @@
   /><span class="checkbox_label">{{ label | default('체크박스') }}</span></label
 >
 {% else %}
+{# 기본형은 checkbox_control과 checkbox_label을 배치 옵션에 맞게 둡니다. #}
 <div
   class="checkbox{% if labelEnd %} checkbox_label-end{% endif %}"
   data-ripple="{{ 'false' if ripple == false else 'true' }}"

@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { tabsFrameworkExamples as examples } from '../../../tabsFrameworkExamples.ts';
+import { tabsComponentExamples, tabsFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { tabsApiSections } from '../../../tabsApiSections.ts';
 import * as Stories from '../../../Tabs.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Tabs.stories.tsx';
 
 # Tabs
 
-관련 콘텐츠를 탭으로 분류하고 클릭 또는 키보드로 패널을 전환합니다.
+관련 콘텐츠를 탭으로 분류하고 클릭 또는 키보드로 패널을 전환합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+각 탭과 패널은 `role`, `aria-selected`, `aria-controls`, `aria-labelledby`로 연결됩니다. 방향키와 `Home`, `End` 키를 지원하며 비활성 탭은 탐색에서 제외합니다.
+
+WebSquare는 루트를 `w2:group.tabs`, 탭 버튼을 `xf:trigger.tabs_tab`, 패널을 `w2:group.tabs_panel`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Tabs와 TabsTab·TabPanel·TabMenu의 실제 원본 구현입니다. React와 Vue는 라인·카드·필·수직 변형, 동적 패널, 스크롤과 키보드 탐색을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `variant`는 line·card·pill 스타일을 전환합니다.
+- 탭과 패널은 `aria-controls`·`aria-labelledby`로 연결합니다.
+- 비활성 탭은 포커스 순서에서 제외합니다.
+
+<FrameworkTabs examples={tabsComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.tabs` 안에 `tabs_list`와 패널을 배치합니다. 탭 선택은 `xf:trigger`의 `ev:onclick`에서 `aria-selected`와 패널 표시를 동기화합니다.
+
 
 ## 기본 (라인)
 <Canvas of={Stories.Basic} sourceState="none" />

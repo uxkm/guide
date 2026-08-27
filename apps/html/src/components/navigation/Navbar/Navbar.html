@@ -1,7 +1,10 @@
 <!-- Navbar 원본 구현: 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다. -->
+<!-- navbar 클래스에 반응형 접힘(data-navbar)과 브랜드·토글·메뉴 영역을 함께 둡니다. -->
 <header class="navbar" data-component="Navbar" data-navbar>
   <div class="navbar_container">
+    <!-- 브랜드 영역은 사이트 식별용 링크입니다. -->
     <a href="#" class="navbar_brand">UXKM</a>
+    <!-- 좁은 화면에서 접힘 메뉴를 열고 닫는 토글 버튼입니다. -->
     <button
       type="button"
       class="btn btn_ghost btn_icon-only navbar_toggle"
@@ -34,6 +37,7 @@
         <path d="m6 6 12 12M18 6 6 18"></path>
       </svg>
     </button>
+    <!-- 접힘 영역에 주요 내비게이션 목록을 배치합니다. -->
     <div class="navbar_collapse" id="navbar-demo-collapse">
       <nav class="navbar_nav" aria-label="주요 메뉴">
         <ul class="navbar_list">

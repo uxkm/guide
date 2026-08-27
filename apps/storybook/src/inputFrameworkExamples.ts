@@ -219,7 +219,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
     source.vue.includes('<Icon') ? `import Icon from '@uxkm/vue/icon';` : ''
   ].filter(Boolean).join('\n');
   const reactHelpers = [usesClearable ? reactClearableHelper : '', usesImplicitInput ? reactImplicitInputHelper : ''].filter(Boolean).join('\n\n');
-  const react = `${reactImports}${reactHelpers ? `\n\n${reactHelpers}` : ''}\n\nexport function Example() {\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `${reactImports}${reactHelpers ? `\n\n${reactHelpers}` : ''}\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${vueImports}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   const html = source.html.replace(/<input(?![^>]*data-component=)/g, '<input data-component="Input"');
   const gulp = `{% from "../../basic/Icon/icon.njk" import icon %}\n${html.replaceAll(closeIconHtml, "{{ icon('close') }}").replaceAll(searchIconHtml, "{{ icon('search') }}")}`;

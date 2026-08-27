@@ -7,10 +7,11 @@ import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const placements = new Set(['top', 'top-start', 'top-end', 'left', 'right', 'start', 'end']);
-const sizes = new Set(['sm', 'md', 'lg']);
-const ownerId = Math.random().toString(36).slice(2, 10);
+const placements = new Set(['top', 'top-start', 'top-end', 'left', 'right', 'start', 'end']); // 지원하는 배치입니다.
+const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 말풍선 크기입니다.
+const ownerId = Math.random().toString(36).slice(2, 10); // iframe 포털 소유자 ID입니다.
 
+// iframe에서도 최상위 문서에 Tooltip을 올리기 위한 포털 루트를 찾거나 만듭니다.
 export function getTooltipPortalRoot(
   currentDocument = typeof document === 'undefined' ? null : document,
   currentWindow = typeof window === 'undefined' ? null : window,
@@ -49,12 +50,14 @@ export function getTooltipPortalRoot(
 const triggerControlSelector =
   'button, a, [role="button"], [role="link"], input, textarea, select, .btn, .link';
 
+// 트리거 래퍼 안에서 실제 포커스 가능한 컨트롤을 찾습니다.
 export function resolveTriggerAnchor(root) {
   if (!root?.matches) return root;
   if (root.matches(triggerControlSelector)) return root;
   return root.querySelector(triggerControlSelector) || root;
 }
 
+// iframe이면 상위 뷰포트 좌표로 보정한 getBoundingClientRect입니다.
 export function viewportRect(element, currentWindow = window) {
   const rect = element.getBoundingClientRect();
   try {
@@ -74,40 +77,40 @@ export function viewportRect(element, currentWindow = window) {
 }
 
 export function Tooltip({
-  id,
-  content,
-  children,
-  placement,
-  size = 'md',
-  offset = 'md',
-  offsetTop,
-  offsetRight,
-  offsetBottom,
-  offsetLeft,
-  open,
-  defaultOpen = false,
-  inverse = false,
-  noArrow = false,
-  arrowAnchor = 'content',
-  panelAlign = 'center',
-  arrowTargetAlign = 'center',
-  disabled = false,
-  trigger = 'hover',
-  triggerContent,
-  closable,
-  closeLabel = '닫기',
-  className = '',
-  onOpenChange,
-  ...props
+  id, // 말풍선 DOM id입니다. 없으면 생성합니다.
+  content, // children이 없을 때 쓸 말풍선 내용입니다.
+  children, // 말풍선 내용입니다. content보다 우선합니다.
+  placement, // 브라우저 뷰포트 기준 배치입니다.
+  size = 'md', // 말풍선 크기입니다.
+  offset = 'md', // 전체 방향 공통 간격입니다.
+  offsetTop, // 위쪽 간격 개별 지정입니다.
+  offsetRight, // 오른쪽 간격 개별 지정입니다.
+  offsetBottom, // 아래쪽 간격 개별 지정입니다.
+  offsetLeft, // 왼쪽 간격 개별 지정입니다.
+  open, // 제어형 열림 상태입니다.
+  defaultOpen = false, // 비제어형 초기 열림 상태입니다.
+  inverse = false, // 역색(대비) 변형입니다.
+  noArrow = false, // 화살표를 숨깁니다.
+  arrowAnchor = 'content', // 화살표 기준(content · target · mixed)입니다.
+  panelAlign = 'center', // 말풍선 정렬 기준입니다.
+  arrowTargetAlign = 'center', // 타깃 기준 화살표 정렬입니다.
+  disabled = false, // 열기·닫기를 비활성화합니다.
+  trigger = 'hover', // hover 또는 click 작동 방식입니다.
+  triggerContent, // 트리거로 렌더할 콘텐츠입니다.
+  closable, // 닫기 버튼 표시입니다. 기본은 click일 때 켜집니다.
+  closeLabel = '닫기', // 닫기 버튼의 접근성 이름입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  onOpenChange, // 열림 상태 변경 시 호출됩니다.
+  ...props // 말풍선에 전달할 나머지 속성입니다.
 }) {
   const generatedId = useId().replace(/:/g, '');
   const bubbleId = id || `tooltip-${generatedId}`;
   const triggerRef = useRef(null);
   const bubbleRef = useRef(null);
-  const hoverTimer = useRef(null);
+  const hoverTimer = useRef(null); // hover 닫기 지연 타이머입니다.
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
-  const [anchor, setAnchor] = useState(null);
-  const [arrowPosition, setArrowPosition] = useState(null);
+  const [anchor, setAnchor] = useState(null); // 트리거 뷰포트 좌표입니다.
+  const [arrowPosition, setArrowPosition] = useState(null); // 측정된 화살표 위치입니다.
   const visible = open ?? internalOpen;
   const resolvedPlacement = placements.has(placement) ? placement : '';
   const resolvedSize = sizes.has(size) ? size : 'md';
@@ -136,6 +139,7 @@ export function Tooltip({
     setVisible(true, reason, event);
   };
 
+  // 열림 중 바깥 클릭·Escape·리사이즈·스크롤을 처리합니다.
   useEffect(() => {
     if (!visible) return undefined;
     updatePosition();
@@ -161,6 +165,7 @@ export function Tooltip({
     };
   }, [visible, root]);
   useEffect(() => () => cancelClose(), []);
+  // mixed/target 화살표 기준일 때 말풍선 위치와 화살표 좌표를 맞춥니다.
   useEffect(() => {
     if (!visible || !anchor || !bubbleRef.current || !['target', 'mixed'].includes(arrowAnchor))
       return;
@@ -235,18 +240,18 @@ export function Tooltip({
   const classes = useMemo(
     () =>
       [
-        'tooltip',
-        'tooltip_portal',
-        'is-open',
-        resolvedSize !== 'md' && `tooltip_${resolvedSize}`,
-        resolvedPlacement && `tooltip_placement-${resolvedPlacement}`,
-        offset !== 'md' && `tooltip_offset-${offset}`,
-        ...sideOffsets,
-        panelAlign !== 'center' && `tooltip_panel-align-${panelAlign}`,
-        inverse && 'tooltip_inverse',
-        noArrow && 'tooltip_no-arrow',
-        arrowAnchor !== 'content' && `tooltip_arrow-anchor-${arrowAnchor}`,
-        disabled && 'is-disabled',
+        'tooltip', // Tooltip 루트 클래스입니다.
+        'tooltip_portal', // 포털 배치 변형입니다.
+        'is-open', // 열림 상태입니다.
+        resolvedSize !== 'md' && `tooltip_${resolvedSize}`, // 크기 변형입니다.
+        resolvedPlacement && `tooltip_placement-${resolvedPlacement}`, // 배치 방향입니다.
+        offset !== 'md' && `tooltip_offset-${offset}`, // 공통 간격입니다.
+        ...sideOffsets, // 방향별 간격입니다.
+        panelAlign !== 'center' && `tooltip_panel-align-${panelAlign}`, // 말풍선 정렬입니다.
+        inverse && 'tooltip_inverse', // 역색 변형입니다.
+        noArrow && 'tooltip_no-arrow', // 화살표 숨김입니다.
+        arrowAnchor !== 'content' && `tooltip_arrow-anchor-${arrowAnchor}`, // 화살표 기준입니다.
+        disabled && 'is-disabled', // 비활성 상태입니다.
         className,
       ]
         .filter(Boolean)
@@ -267,6 +272,7 @@ export function Tooltip({
       resolvedSize,
     ],
   );
+  // 열림·좌표·포털이 준비되면 말풍선을 포털로 렌더합니다.
   const bubble =
     visible && root && anchor
       ? createPortal(
@@ -313,6 +319,7 @@ export function Tooltip({
           root,
         )
       : null;
+  // 트리거에 describedby·expanded 접근성 속성을 붙입니다.
   const accessibleTrigger = isValidElement(triggerContent)
     ? cloneElement(triggerContent, {
         'aria-describedby': visible ? bubbleId : undefined,

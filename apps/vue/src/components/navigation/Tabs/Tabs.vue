@@ -17,28 +17,36 @@ import {
 } from 'vue';
 import Button from '../../basic/Button/Button.vue';
 import Icon from '../../basic/Icon/Icon.vue';
+
+// 속성을 계산된 Tabs 루트에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmTabs', inheritAttrs: false });
+
+// 모드, 선택 값, 시각·레이아웃·인디케이터와 항목을 prop으로 받습니다.
 const props = defineProps({
-  mode: { type: String, default: 'panels' },
-  modelValue: [String, Number],
-  variant: { type: String, default: 'line' },
-  size: { type: String, default: 'md' },
-  layout: { type: String, default: 'auto' },
-  vertical: Boolean,
-  scrollable: Boolean,
-  ariaLabel: String,
-  items: { type: Array, default: () => [] },
-  indicator: { type: String, default: 'static' },
+  mode: { type: String, default: 'panels' }, // 패널 고정 또는 동적 콘텐츠 모드를 선택합니다.
+  modelValue: [String, Number], // 제어형으로 현재 선택된 탭 키입니다.
+  variant: { type: String, default: 'line' }, // 탭의 시각 스타일을 지정합니다.
+  size: { type: String, default: 'md' }, // 탭의 크기를 지정합니다.
+  layout: { type: String, default: 'auto' }, // 탭 목록의 너비·스크롤 배치를 지정합니다.
+  vertical: Boolean, // 세로 방향 탭 목록인지 여부입니다.
+  scrollable: Boolean, // auto 레이아웃에서 가로 스크롤을 허용할지 여부입니다.
+  ariaLabel: String, // 탭 목록의 접근 가능한 이름을 지정합니다.
+  items: { type: Array, default: () => [] }, // 선언형으로 전달할 탭 항목 배열입니다.
+  indicator: { type: String, default: 'static' }, // 활성 표시줄의 정적·슬라이드 동작을 선택합니다.
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']); // 선택 탭이 바뀔 때 부모로 전달합니다.
+
+// 선언하지 않은 class와 HTML 속성을 수집합니다.
 const attrs = useAttrs();
-const uid = useId().replaceAll(':', '');
-const listRef = ref(null);
-const indicatorStyle = ref(null);
-const scrollState = ref({ overflow: false, prev: false, next: false });
-const registered = ref([]);
-const internal = ref(undefined);
-const selected = computed(() => props.modelValue ?? internal.value);
+const uid = useId().replaceAll(':', ''); // aria id 연결에 쓰는 안전한 접두사입니다.
+const listRef = ref(null); // 탭 목록 DOM을 가리키는 참조입니다.
+const indicatorStyle = ref(null); // 슬라이드 인디케이터의 위치·크기입니다.
+const scrollState = ref({ overflow: false, prev: false, next: false }); // 스크롤 버튼 상태입니다.
+const registered = ref([]); // TabPanel/TabMenu가 등록한 탭 목록입니다.
+const internal = ref(undefined); // 비제어형 선택 상태입니다.
+const selected = computed(() => props.modelValue ?? internal.value); // 제어·비제어를 합친 최종 선택 키입니다.
+
+// items가 있으면 우선하고, 없으면 등록된 자식 탭을 사용합니다.
 const tabs = computed(() =>
   props.items.length
     ? props.items.map((item, index) => ({
@@ -49,32 +57,40 @@ const tabs = computed(() =>
       }))
     : registered.value,
 );
-const scrollNav = computed(() => props.layout === 'scroll' && !props.vertical);
+const scrollNav = computed(() => props.layout === 'scroll' && !props.vertical); // 가로 스크롤 내비게이션 사용 여부입니다.
+
+// 변형·크기·방향·스크롤·모드·인디케이터 클래스를 조합합니다.
 const classes = computed(() =>
   [
-    'tabs',
-    `tabs_${props.variant}`,
-    props.size !== 'md' && `tabs_${props.size}`,
-    props.vertical && 'tabs_vertical',
-    props.layout === 'equal' && 'tabs_equal',
-    scrollNav.value && 'tabs_scroll-nav',
-    props.scrollable && props.layout === 'auto' && 'tabs_scrollable',
-    props.mode === 'dynamic' && 'tabs_dynamic',
-    props.indicator === 'slide' && 'tabs_indicator-slide',
+    'tabs', // Tabs 레이아웃을 활성화하는 필수 클래스입니다.
+    `tabs_${props.variant}`, // line·card·pill 시각 변형입니다.
+    props.size !== 'md' && `tabs_${props.size}`, // 기본 md가 아닐 때 크기 변형입니다.
+    props.vertical && 'tabs_vertical', // 세로 방향 변형입니다.
+    props.layout === 'equal' && 'tabs_equal', // 동일 너비 탭 변형입니다.
+    scrollNav.value && 'tabs_scroll-nav', // 스크롤 내비게이션 변형입니다.
+    props.scrollable && props.layout === 'auto' && 'tabs_scrollable', // auto에서 가로 스크롤 허용입니다.
+    props.mode === 'dynamic' && 'tabs_dynamic', // 동적 패널 모드 변형입니다.
+    props.indicator === 'slide' && 'tabs_indicator-slide', // 슬라이드 인디케이터 변형입니다.
   ].filter(Boolean),
-);
+); // false 등 적용되지 않는 항목을 제거합니다.
+
 const activeIndex = computed(() =>
   Math.max(
     0,
     tabs.value.findIndex((tab) => tab.key === selected.value),
   ),
-);
+); // 현재 선택 탭의 인덱스입니다.
+
+// 자식 탭을 등록하거나 동일 id를 갱신합니다.
 function registerTab(tab) {
   registered.value = [...registered.value.filter((item) => item.id !== tab.id), tab];
 }
+// 언마운트된 자식 탭을 목록에서 제거합니다.
 function unregisterTab(id) {
   registered.value = registered.value.filter((item) => item.id !== id);
 }
+
+// 선택된 탭이 스크롤 뷰포트 중앙 근처에 오도록 이동합니다.
 function scrollTabIntoView(key) {
   const list = listRef.value;
   const tab = tabs.value.find((item) => item.key === key);
@@ -89,6 +105,8 @@ function scrollTabIntoView(key) {
     behavior: 'smooth',
   });
 }
+
+// 비활성 탭이 아니면 선택 상태를 갱신하고 시각·스크롤을 맞춥니다.
 function select(key) {
   const tab = tabs.value.find((item) => item.key === key);
   if (!tab || tab.disabled) return;
@@ -104,6 +122,8 @@ function select(key) {
 function isActive(key) {
   return selected.value === key;
 }
+
+// 현재 선택이 목록에서 사라지면 활성·첫 활성 가능 키로 되돌립니다.
 watchEffect(() => {
   if (!tabs.value.length) return;
   if (!tabs.value.some((tab) => tab.key === selected.value && !tab.disabled))
@@ -111,6 +131,8 @@ watchEffect(() => {
       tabs.value.find((tab) => tab.active && !tab.disabled)?.key ??
       tabs.value.find((tab) => !tab.disabled)?.key;
 });
+
+// 방향키·Home·End로 활성 가능 탭 사이를 이동합니다.
 function keydown(event, index) {
   const enabled = tabs.value
     .map((tab, itemIndex) => ({ ...tab, itemIndex }))
@@ -128,6 +150,8 @@ function keydown(event, index) {
   select(enabled[next].key);
   requestAnimationFrame(() => document.getElementById(enabled[next].id)?.focus());
 }
+
+// 활성 탭 위치와 스크롤 가능 여부를 측정해 시각 상태를 갱신합니다.
 function updateVisualState() {
   const list = listRef.value;
   if (!list) return;
@@ -168,6 +192,8 @@ function updateVisualState() {
 function scheduleVisualUpdate() {
   nextTick(() => requestAnimationFrame(updateVisualState));
 }
+
+// 스크롤 내비게이션 버튼을 눌러 목록을 좌우로 이동시킵니다.
 function scrollBy(direction) {
   const list = listRef.value;
   list?.scrollBy({
@@ -175,6 +201,7 @@ function scrollBy(direction) {
     behavior: 'smooth',
   });
 }
+
 let resizeObserver;
 onMounted(() => {
   resizeObserver =
@@ -186,17 +213,22 @@ onMounted(() => {
   scheduleVisualUpdate();
 });
 onBeforeUnmount(() => resizeObserver?.disconnect());
+
+// 선택·레이아웃 변화 후 인디케이터와 스크롤 상태를 다시 계산합니다.
 watch(
   [tabs, selected, () => props.indicator, () => props.variant, () => props.vertical, scrollNav],
   scheduleVisualUpdate,
   { flush: 'post' },
 );
-provide('tabsContext', { registerTab, unregisterTab, select, isActive });
+provide('tabsContext', { registerTab, unregisterTab, select, isActive }); // 자식 탭이 등록·선택에 쓰입니다.
+
+// 함수형 슬롯(아이콘·배지)을 렌더하기 위한 헬퍼입니다.
 const SlotRenderer = (slotProps) => slotProps.render?.();
 SlotRenderer.props = ['render'];
 </script>
 
 <template>
+  <!-- 탭 바와 패널 영역을 루트에 연결합니다. -->
   <div v-bind="attrs" :class="classes" data-component="Tabs" data-tabs>
     <div class="tabs_bar">
       <Button

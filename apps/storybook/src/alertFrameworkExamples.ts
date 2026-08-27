@@ -256,7 +256,7 @@ function createExamples(key: string, source: Source): FrameworkExample[] {
 
 export function Example() {
   return (
-${indent(source.react, 4)}
+${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}
   );
 }`;
   const vue = `<script setup>

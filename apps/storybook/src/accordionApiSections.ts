@@ -6,7 +6,7 @@ const columns: ApiColumn[] = [
   { key: 'default', label: '기본값' },
   { key: 'type', label: '타입' },
 ];
-const section = (title: string, rows: ApiRow[]): ApiSectionData => ({ title, tables: [{ columns, rows }] });
+const section = (title: string, rows: ApiRow[], description?: string): ApiSectionData => ({ title, description, tables: [{ columns, rows }] });
 
 export const accordionApiSections: ApiSectionData[] = [
   section('Accordion API', [
@@ -37,4 +37,14 @@ export const accordionApiSections: ApiSectionData[] = [
     { name: '--accordion-icon-size', type: 'length', default: '1rem', description: '펼침 아이콘 크기입니다.' },
     { name: '--accordion-slide-duration · --accordion-slide-easing', type: 'time · easing', default: '0.28s · ease', description: '슬라이드 전환 설정입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      { name: 'w2:group.accordion', type: 'XML element · class', default: '—', description: 'Accordion 루트입니다. accordion_card·accordion_flush·accordion_bordered를 조합합니다.' },
+      { name: 'accordion_item · accordion_trigger · accordion_panel', type: 'class', default: '—', description: '항목, 트리거, 패널 구조입니다.' },
+      { name: 'xf:trigger · aria-expanded · aria-controls', type: 'XML · ARIA', default: '—', description: '패널 토글과 트리거-패널 연결입니다.' },
+      { name: 'ev:onclick', type: 'WebSquare event', default: '—', description: '열기·닫기를 화면 스크립트에 연결합니다.' },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

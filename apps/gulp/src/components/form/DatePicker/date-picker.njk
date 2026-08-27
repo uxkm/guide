@@ -1,4 +1,5 @@
 {# DatePicker 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# data-value·min·max와 크기·상태 클래스를 루트에 두고 트리거·패널을 구성합니다. #}
 {% set datePickerId = datePickerId | default('date-picker-example') %}
 <div
   class="date_picker{% if size and size != 'md' %} date_picker_{{ size }}{% endif %}{% if fit %} date_picker_fit{% endif %}{% if block %} date_picker_block{% endif %}{% if disabled %} is-disabled{% endif %}{% if error %} is-error{% endif %}{% if success %} is-success{% endif %}"
@@ -7,6 +8,7 @@
   data-min="{{ min }}"{% endif %}{% if max %}
   data-max="{{ max }}"{% endif %}
 >
+  {# 읽기 전용 트리거 입력과 지우기·달력 버튼을 묶습니다. #}
   <div class="date_picker_trigger">
     <input
       id="{{ datePickerId }}"
@@ -58,6 +60,7 @@
       </svg>
     </button>
   </div>
+  {# 달력 패널은 dialog 역할로 열리며 스크립트가 내용을 채웁니다. #}
   <div
     id="{{ datePickerId }}-panel"
     class="date_picker_panel{% if panelAlign == 'end' %} date_picker_panel-end{% endif %}"

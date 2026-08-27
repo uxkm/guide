@@ -14,25 +14,25 @@ const CloseIcon = () => (
 
 // 외형, 상호작용, 상태, 접근성 값을 하나의 Tag API로 조합합니다.
 export function Tag({
-  children,
-  label,
-  icon,
-  color = 'primary',
-  variant = 'filled',
-  size = 'md',
-  round = false,
-  checkable = false,
-  add = false,
-  closable = false,
-  selected = false,
-  disabled = false,
-  ripple,
-  href,
-  closeLabel,
-  className = '',
-  onClick,
-  onClose,
-  ...props
+  children, // 태그 텍스트입니다. 없으면 label을 사용합니다.
+  label, // children 대신 표시할 텍스트입니다.
+  icon, // 텍스트 앞 아이콘입니다.
+  color = 'primary', // color_* 공통 색상 클래스입니다.
+  variant = 'filled', // filled · solid · outline · borderless 스킨입니다.
+  size = 'md', // sm · md · lg 크기입니다.
+  round = false, // 둥근 pill 형태입니다.
+  checkable = false, // 선택 가능한 태그입니다.
+  add = false, // 추가(+) 트리거 태그입니다.
+  closable = false, // 닫기 버튼 표시 여부입니다.
+  selected = false, // 선택된 상태입니다.
+  disabled = false, // 비활성 상태입니다.
+  ripple, // 리플 효과입니다. 상호작용 태그에서 기본 켜짐입니다.
+  href, // 링크형 태그의 주소입니다.
+  closeLabel, // 닫기 버튼 접근성 이름입니다.
+  className = '', // 추가 클래스입니다.
+  onClick, // 클릭 핸들러입니다.
+  onClose, // 닫기 버튼 클릭 핸들러입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // prop에 따라 루트 의미와 닫기 버튼 분리 여부를 결정합니다.
   const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'filled';
@@ -150,7 +150,13 @@ export function Tag({
   );
 }
 
-export function TagGroup({ children, tight = false, ariaLabel, className = '', ...props }) {
+export function TagGroup({
+  children, // 그룹에 배치할 Tag들입니다.
+  tight = false, // 좁은 간격 변형 여부입니다.
+  ariaLabel, // 그룹의 접근 가능한 이름입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
+}) {
   // 관련 Tag를 접근 가능한 그룹으로 묶고 tight 간격을 선택적으로 적용합니다.
   const classes = ['tag_group', tight && 'tag_group-tight', className].filter(Boolean).join(' ');
   return (

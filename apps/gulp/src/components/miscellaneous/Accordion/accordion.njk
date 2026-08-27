@@ -7,6 +7,7 @@
 ]) %}
 <div
   class="accordion accordion_{{ variant | default('bordered') }}{% if size == 'sm' or size == 'lg' %} accordion_{{ size }}{% endif %}"
+  {# Accordion 루트에 공통 클래스와 data-* 계약을 둡니다. #}
   data-component="Accordion"
   data-accordion{% if multiple %}
   data-accordion-multiple{% endif %}{% if effect == 'slide' %}
@@ -51,4 +52,5 @@
     </div>
   </div>
   {% endfor %}
+  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
 </div>

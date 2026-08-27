@@ -8,7 +8,14 @@ const cx = (...values) => values.filter(Boolean).join(' ');
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'];
 
 // 월간 그리드에 이전·현재·다음 달 셀과 선택·범위·이벤트 상태를 생성합니다.
-function monthDays({ partial, selected = 15, today = 12, events = [], rangeStart, rangeEnd } = {}) {
+function monthDays({
+  partial, // 현재 달만 일부 일로 채울 때 일 수입니다.
+  selected = 15, // 선택된 일입니다.
+  today = 12, // 오늘로 표시할 일입니다.
+  events = [], // 이벤트가 있는 일 목록입니다.
+  rangeStart, // 범위 선택 시작일입니다.
+  rangeEnd, // 범위 선택 종료일입니다.
+} = {}) {
   const cells = [];
   if (!partial) [26, 27, 28, 29, 30, 31].forEach((day) => cells.push({ day, otherMonth: true }));
   const count = partial || 30;
@@ -29,28 +36,28 @@ function monthDays({ partial, selected = 15, today = 12, events = [], rangeStart
 
 // 월·주·휠·일정 레이아웃과 스킨·상태를 Calendar 루트에 적용합니다.
 export function Calendar({
-  title,
-  ariaLabel,
-  header,
-  weekdays,
-  footer,
-  children,
-  noHeader = false,
-  minimal = false,
-  compact = false,
-  borderless = false,
-  shadow = false,
-  ghost = false,
-  week = false,
-  readonly = false,
-  disabled = false,
-  weekends = false,
-  agenda = false,
-  wheel = false,
-  size = '',
-  className = '',
-  role = 'application',
-  ...props
+  title, // 헤더 제목입니다.
+  ariaLabel, // 캘린더 접근성 이름입니다.
+  header, // 커스텀 헤더 콘텐츠입니다.
+  weekdays, // 요일 행 콘텐츠입니다.
+  footer, // 푸터 콘텐츠입니다.
+  children, // 날짜 그리드 콘텐츠입니다.
+  noHeader = false, // 헤더 숨김 여부입니다.
+  minimal = false, // 미니멀 스킨입니다.
+  compact = false, // 조밀한 캘린더입니다.
+  borderless = false, // 테두리 없는 스킨입니다.
+  shadow = false, // 그림자 스킨입니다.
+  ghost = false, // 고스트 스킨입니다.
+  week = false, // 주 단위 보기입니다.
+  readonly = false, // 읽기 전용입니다.
+  disabled = false, // 비활성 상태입니다.
+  weekends = false, // 주말 강조입니다.
+  agenda = false, // 아젠다 레이아웃입니다.
+  wheel = false, // 휠 선택 모드입니다.
+  size = '', // 크기 변형 클래스입니다.
+  className = '', // 추가 클래스입니다.
+  role = 'application', // 루트 role입니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
 }) {
   const classes = cx(
     'calendar',
@@ -90,15 +97,15 @@ export function Calendar({
 }
 
 export function CalendarHeader({
-  title,
-  prevLabel = '이전 달',
-  nextLabel = '다음 달',
-  showNav = true,
-  showPrev,
-  showNext,
-  children,
-  className = '',
-  ...props
+  title, // 헤더 제목입니다.
+  prevLabel = '이전 달', // 이전 이동 버튼의 접근성 이름입니다.
+  nextLabel = '다음 달', // 다음 이동 버튼의 접근성 이름입니다.
+  showNav = true, // 이전·다음 네비게이션 표시 여부입니다.
+  showPrev, // 이전 버튼 표시 여부입니다.
+  showNext, // 다음 버튼 표시 여부입니다.
+  children, // 제목 옆 추가 헤더 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   const prev = showPrev ?? showNav;
   const next = showNext ?? showNav;
@@ -121,10 +128,10 @@ export function CalendarHeader({
 }
 
 export function CalendarNav({
-  label,
-  prevLabel = '이전 주',
-  nextLabel = '다음 주',
-  className = '',
+  label, // 네비게이션 가운데 레이블입니다.
+  prevLabel = '이전 주', // 이전 버튼의 접근성 이름입니다.
+  nextLabel = '다음 주', // 다음 버튼의 접근성 이름입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
 }) {
   return (
     <div className={cx('calendar_nav', className)}>
@@ -139,7 +146,10 @@ export function CalendarNav({
   );
 }
 
-export function CalendarWeekdays({ labels = WEEKDAYS, className = '' }) {
+export function CalendarWeekdays({
+  labels = WEEKDAYS, // 요일 레이블 배열입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+}) {
   return (
     <div className={cx('calendar_weekdays', className)} aria-hidden="true">
       {labels.map((label) => (
@@ -152,20 +162,20 @@ export function CalendarWeekdays({ labels = WEEKDAYS, className = '' }) {
 }
 
 export function CalendarDay({
-  day,
-  otherMonth,
-  today,
-  selected,
-  disabled,
-  sunday,
-  saturday,
-  rangeStart,
-  rangeEnd,
-  inRange,
-  event,
-  readonly,
-  className = '',
-  ...props
+  day, // 날짜 숫자입니다.
+  otherMonth, // 이전·다음 달 날짜 여부입니다.
+  today, // 오늘 날짜 여부입니다.
+  selected, // 선택됨 여부입니다.
+  disabled, // 비활성 여부입니다.
+  sunday, // 일요일 스타일 여부입니다.
+  saturday, // 토요일 스타일 여부입니다.
+  rangeStart, // 범위 선택 시작일 여부입니다.
+  rangeEnd, // 범위 선택 종료일 여부입니다.
+  inRange, // 범위 안 날짜 여부입니다.
+  event, // 이벤트 표시 여부입니다.
+  readonly, // 읽기 전용으로 포커스를 막을지 여부입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // 날짜 상태를 is-* 클래스와 현재·선택·비활성 접근성 속성에 함께 연결합니다.
   const classes = cx(
@@ -197,24 +207,28 @@ export function CalendarDay({
   );
 }
 
-export function CalendarGrid({ children, week = false, className = '' }) {
+export function CalendarGrid({
+  children, // 날짜 그리드 콘텐츠입니다.
+  week = false, // 주 단위 보기입니다.
+  className = '', // 추가 클래스입니다.
+}) {
   return (
     <div className={cx('calendar_grid', week && 'calendar_grid-week', className)}>{children}</div>
   );
 }
 
 export function CalendarMonth({
-  days,
-  selected = 15,
-  today = 12,
-  disabled = [],
-  events = [],
-  rangeStart,
-  rangeEnd,
-  weekends = false,
-  partial,
-  week = false,
-  readonly = false,
+  days, // 직접 구성한 날짜 셀 배열입니다.
+  selected = 15, // 선택된 일자입니다.
+  today = 12, // 오늘로 표시할 일자입니다.
+  disabled = [], // 비활성 일자 배열입니다.
+  events = [], // 이벤트 표시 일자 배열입니다.
+  rangeStart, // 범위 시작 일자입니다.
+  rangeEnd, // 범위 종료 일자입니다.
+  weekends = false, // 주말 강조 여부입니다.
+  partial, // 부분 월(일자 수) 모드입니다.
+  week = false, // 주간 그리드로 렌더할지 여부입니다.
+  readonly = false, // 읽기 전용 여부입니다.
 }) {
   // 외부 days가 없으면 상태 prop으로 셀을 만들고 동일한 CalendarDay API로 반복합니다.
   const resolved = useMemo(
@@ -238,7 +252,10 @@ export function CalendarMonth({
   );
 }
 
-export function CalendarFooter({ children, className = '' }) {
+export function CalendarFooter({
+  children, // 기본 액션 대신 사용할 푸터 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+}) {
   return (
     <div className={cx('calendar_footer', className)}>
       <button type="button" className="btn btn_text color_primary btn_sm">
@@ -260,22 +277,25 @@ export function CalendarFooter({ children, className = '' }) {
   );
 }
 
-export function CalendarGroup({ children, className = '' }) {
+export function CalendarGroup({
+  children, // 그룹에 배치할 달력들입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+}) {
   return <div className={cx('calendar_group', className)}>{children}</div>;
 }
 
 export function CalendarWheel({
-  title,
-  shadow,
-  borderless,
-  footer = false,
-  toolbar = true,
-  cancelLabel,
-  confirmLabel,
-  ariaLabel,
-  toolbarContent,
-  footerContent,
-  children,
+  title, // 휠 툴바 제목입니다.
+  shadow, // 그림자 스킨 여부입니다.
+  borderless, // 테두리 없는 스킨 여부입니다.
+  footer = false, // 휠 푸터 영역 표시 여부입니다.
+  toolbar = true, // 툴바 표시 여부입니다.
+  cancelLabel, // 취소 버튼 레이블입니다.
+  confirmLabel, // 확인 버튼 레이블입니다.
+  ariaLabel, // 휠 달력의 접근 가능한 이름입니다.
+  toolbarContent, // 기본 툴바 대신 사용할 콘텐츠입니다.
+  footerContent, // 휠 푸터에 넣을 콘텐츠입니다.
+  children, // 휠 컬럼들입니다.
 }) {
   const showToolbar = toolbar && (toolbarContent || title || cancelLabel || confirmLabel);
   return (
@@ -312,12 +332,12 @@ export function CalendarWheel({
 }
 
 export function CalendarWheelColumn({
-  label,
-  items = [],
-  selected,
-  showSteps = true,
-  prevLabel = '이전',
-  nextLabel = '다음',
+  label, // 컬럼 listbox의 접근성 이름입니다.
+  items = [], // 선택 가능한 값 배열입니다.
+  selected, // 현재 선택된 값입니다.
+  showSteps = true, // 이전·다음 단계 버튼 표시 여부입니다.
+  prevLabel = '이전', // 이전 단계 버튼의 접근성 이름입니다.
+  nextLabel = '다음', // 다음 단계 버튼의 접근성 이름입니다.
 }) {
   // 휠의 선택값과 스크롤 위치를 동기화하고 이전·다음 단계 이동을 제한합니다.
   const [active, setActive] = useState(selected);

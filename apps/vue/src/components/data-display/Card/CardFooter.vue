@@ -5,7 +5,9 @@
 <script setup>
 import { computed, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmCardFooter', inheritAttrs: false });
-const props = defineProps({ between: Boolean });
+const props = defineProps({
+  between: Boolean, // 양끝 정렬 변형 여부입니다.
+});
 const attrs = useAttrs();
 // between과 사용자 class를 푸터 변형 클래스에 합칩니다.
 const classes = computed(() =>
@@ -18,5 +20,6 @@ const rootAttrs = computed(() => {
 </script>
 <!-- 푸터 slot을 기본 또는 양끝 정렬 레이아웃으로 렌더링합니다. -->
 <template>
+  <!-- 공통 클래스와 slot으로 구조를 구성합니다. -->
   <div v-bind="rootAttrs" :class="classes"><slot /></div>
 </template>

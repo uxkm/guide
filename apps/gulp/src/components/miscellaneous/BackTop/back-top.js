@@ -5,4 +5,4 @@
 export {
   initBackTop,
   initBackTopAll,
-} from '../../../../../html/src/components/miscellaneous/BackTop/back-top.js';
+} from '@uxkm/html/back-top';

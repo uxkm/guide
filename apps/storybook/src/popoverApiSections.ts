@@ -15,4 +15,40 @@ export const popoverApiSections: ApiSectionData[] = [
   section('Vue · Nuxt API', [{ name: 'open · default-open · trigger', type: 'boolean · string', default: "false · 'click'", description: '열림 상태와 트리거 방식입니다.' }, { name: 'offset-top · offset-right · offset-bottom · offset-left', type: 'string', default: "'md'", description: '방향별 간격을 개별 지정합니다.' }, { name: 'arrow-anchor · panel-align · arrow-target-align', type: 'string', default: "'content' · 'start' · 'center'", description: '패널과 화살표의 정렬 기준입니다.' }, { name: 'trigger · default · footer', type: 'slot', default: '—', description: '트리거, 본문, 푸터 슬롯입니다.' }], 'Nuxt는 @uxkm/vue/popover를 재사용합니다.'),
   section('HTML · Gulp', [{ name: 'popover · popover_trigger · popover_panel', type: 'class', default: '—', description: '루트, 트리거, 패널입니다.' }, { name: 'data-popover · data-popover-close', type: 'attribute', default: '—', description: '열기와 닫기 동작입니다.' }]),
   section('디자인 토큰', [{ name: '--popover-min-width · --popover-max-width', type: 'length', default: '10rem · 20rem', description: '패널 너비입니다.' }, { name: '--popover-offset · --z-popover', type: 'length · number', default: 'space-sm · 110', description: '간격과 레이어입니다.' }]),
+  section(
+    'WebSquare API · XML',
+    [
+      {
+        name: 'w2:group.popover',
+        type: 'XML element · class',
+        default: '—',
+        description: 'Popover 루트입니다. popover_trigger와 popover_panel을 포함합니다.',
+      },
+      {
+        name: 'popover_panel · popover_title · popover_body · popover_footer',
+        type: 'class',
+        default: '—',
+        description: '패널 구조와 제목·본문·푸터 영역입니다.',
+      },
+      {
+        name: 'xf:trigger.popover_trigger · data-popover-close',
+        type: 'XML element · attribute',
+        default: '—',
+        description: '열기 트리거와 닫기 동작을 구성합니다.',
+      },
+      {
+        name: 'aria-haspopup · aria-expanded · aria-controls',
+        type: 'ARIA attribute',
+        default: '—',
+        description: '트리거와 패널의 접근성 연결입니다.',
+      },
+      {
+        name: 'ev:onclick',
+        type: 'WebSquare event',
+        default: '—',
+        description: '열기·닫기·확인 동작을 화면 스크립트에 연결합니다.',
+      },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

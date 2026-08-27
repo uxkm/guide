@@ -25,7 +25,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
   const usesInput = key === 'footer' || key === 'form';
   const reactState = key === 'size' ? '  const [size, setSize] = useState(null);' : key === 'nested' ? '  const [parentOpen, setParentOpen] = useState(false);\n  const [childOpen, setChildOpen] = useState(false);' : `  const [open, setOpen] = useState(${key === 'open' ? 'true' : 'false'});`;
   const vueState = key === 'size' ? "const size = ref(null);" : key === 'nested' ? 'const parentOpen = ref(false);\nconst childOpen = ref(false);' : `const open = ref(${key === 'open' ? 'true' : 'false'});`;
-  const react = `import { useState } from 'react';\nimport Modal from '@uxkm/react/modal';\nimport Button from '@uxkm/react/button';${usesInput ? "\nimport Input from '@uxkm/react/input';" : ''}\n\nexport function Example() {\n${reactState}\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `import { useState } from 'react';\nimport Modal from '@uxkm/react/modal';\nimport Button from '@uxkm/react/button';${usesInput ? "\nimport Input from '@uxkm/react/input';" : ''}\n\nexport function Example() {\n${reactState}\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport { ref } from 'vue';\nimport Modal from '@uxkm/vue/modal';\nimport Button from '@uxkm/vue/button';${usesInput ? "\nimport Input from '@uxkm/vue/input';" : ''}\n${vueState}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Modal.html · ${key}`, code: source.html },

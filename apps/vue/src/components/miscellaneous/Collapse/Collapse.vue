@@ -8,10 +8,10 @@ import { computed, provide, ref, toRef, useAttrs } from 'vue';
 defineOptions({ name: 'UxkmCollapse', inheritAttrs: false });
 
 const props = defineProps({
-  variant: { type: String, default: 'bordered' },
-  size: { type: String, default: 'md' },
-  accordion: Boolean,
-  effect: String,
+  variant: { type: String, default: 'bordered' }, // bordered · ghost · card 스킨입니다.
+  size: { type: String, default: 'md' }, // sm · md · lg 크기입니다.
+  accordion: Boolean, // 한 번에 하나의 패널만 열리게 합니다.
+  effect: String, // slide면 패널 높이 애니메이션을 사용합니다.
 });
 const attrs = useAttrs();
 const rootRef = ref(null);

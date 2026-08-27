@@ -1,5 +1,10 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+import iconHtml from '../../html/src/components/basic/Icon/Icon.html?raw';
+import iconGulp from '../../gulp/src/components/basic/Icon/icon.njk?raw';
+import iconReact from '../../react/src/components/basic/Icon/Icon.jsx?raw';
+import iconVue from '../../vue/src/components/basic/Icon/Icon.vue?raw';
+
 const iconHtmlComponent = `<!-- 장식용 아이콘은 aria-hidden, 의미 있는 아이콘은 aria-label을 사용합니다. -->
 <svg class="icon" data-component="Icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="11" cy="11" r="8"></circle>
@@ -179,12 +184,12 @@ const wrapperTag = computed(() => props.button ? 'button' : 'span');
 </template>`;
 
 export const iconComponentExamples: FrameworkExample[] = [
-  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Icon/Icon.html', code: iconHtmlComponent },
-  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Icon/icon.njk', code: `{# Icon 구현 #}\n${iconHtmlComponent}` },
-  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Icon/Icon.vue', code: iconVueComponent },
-  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/icon → Icon.vue', code: iconVueComponent },
-  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Icon/Icon.jsx', code: iconReactComponent },
-  { id: 'next', label: 'Next', fileName: '@uxkm/react/icon → Icon.jsx', code: iconReactComponent }
+  { id: 'html', label: 'HTML', fileName: 'apps/html/src/components/basic/Icon/Icon.html', code: iconHtml },
+  { id: 'gulp', label: 'Gulp', fileName: 'apps/gulp/src/components/basic/Icon/icon.njk', code: iconGulp },
+  { id: 'vue', label: 'Vue', fileName: 'apps/vue/src/components/basic/Icon/Icon.vue', code: iconVue },
+  { id: 'nuxt', label: 'Nuxt', fileName: '@uxkm/vue/icon → Icon.vue', code: iconVue },
+  { id: 'react', label: 'React', fileName: 'apps/react/src/components/basic/Icon/Icon.jsx', code: iconReact },
+  { id: 'next', label: 'Next', fileName: '@uxkm/react/icon → Icon.jsx', code: iconReact },
 ];
 
 const bodies = {
@@ -264,7 +269,7 @@ function componentCode(body: string, framework: 'react' | 'vue') {
     .replace(/class=/g, 'className=')
     .replace(/aria-label=/g, 'ariaLabel=')
     .replace(/<Icon name=\{name\}/g, '<Icon name={name}');
-  return `import Icon${body.includes('iconNames.map') ? ', { iconNames }' : ''} from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n    <>\n${jsx.split('\n').map((line) => `      ${line}`).join('\n')}\n    </>\n  );\n}`;
+  return `import Icon${body.includes('iconNames.map') ? ', { iconNames }' : ''} from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${jsx.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}`;
 }
 
 const htmlPaths: Record<string, string> = {

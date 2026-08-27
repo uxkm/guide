@@ -8,13 +8,13 @@ import { computed } from 'vue';
 defineOptions({ name: 'UxkmTypoTitle' });
 
 const props = defineProps({
-  level: {
+  level: { // 1~5 제목 단계입니다.
     type: [Number, String],
     default: 1,
     validator: (value) => [1, 2, 3, 4, 5, '1', '2', '3', '4', '5'].includes(value),
-  },
-  color: String,
-  label: String,
+  }, // 1~5 제목 단계입니다. 허용되지 않으면 1로 되돌립니다.
+  color: String, // color_* 공통 색상 클래스입니다.
+  label: String, // 기본 slot이 없을 때 표시할 텍스트입니다.
 });
 
 const resolvedLevel = computed(() =>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { assetUrl } from '@uxkm/assets/url';
 
 import ActualAvatar, { AvatarGroup as ActualAvatarGroup } from '../../react/src/components/data-display/Avatar/Avatar.jsx';
 import ActualIcon from '../../react/src/components/basic/Icon/Icon.jsx';
@@ -6,7 +7,7 @@ import ActualIcon from '../../react/src/components/basic/Icon/Icon.jsx';
 const Avatar = ActualAvatar as React.ComponentType<any>;
 const AvatarGroup = ActualAvatarGroup as React.ComponentType<any>;
 const Icon = ActualIcon as React.ComponentType<any>;
-const sample = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"%3E%3Crect width="80" height="80" fill="%23dbeafe"/%3E%3Ccircle cx="40" cy="30" r="15" fill="%236b8ac9"/%3E%3Cpath d="M15 78c2-19 12-29 25-29s23 10 25 29" fill="%236b8ac9"/%3E%3C/svg%3E';
+const sample = assetUrl('images/samples/avatar/avatar-sample.svg');
 
 const meta = {
   title: '데이터 표시/Avatar', component: Avatar, parameters: { layout: 'fullscreen' },

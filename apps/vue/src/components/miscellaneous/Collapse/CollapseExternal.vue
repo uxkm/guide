@@ -11,11 +11,11 @@ import Icon from '../../basic/Icon/Icon.vue';
 defineOptions({ name: 'UxkmCollapseExternal', inheritAttrs: false });
 
 const props = defineProps({
-  triggerLabel: { type: String, default: '' },
-  open: Boolean,
-  effect: String,
-  boxed: { type: Boolean, default: true },
-  ripple: { type: Boolean, default: true },
+  triggerLabel: { type: String, default: '' }, // 외부 트리거 버튼 텍스트입니다.
+  open: Boolean, // 초기 열림 상태입니다.
+  effect: String, // slide면 높이 애니메이션을 사용합니다.
+  boxed: { type: Boolean, default: true }, // 본문을 collapse_inner로 감쌉니다.
+  ripple: { type: Boolean, default: true }, // 트리거 버튼 리플 효과입니다.
 });
 const attrs = useAttrs();
 const panelId = `collapse-external-${useId().replaceAll(':', '')}`;

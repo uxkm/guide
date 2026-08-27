@@ -73,7 +73,7 @@ function indent(value: string, spaces: number) { const prefix = ' '.repeat(space
 function examples(key: string, source: Source): FrameworkExample[] {
   const usesImplicitTextarea = source.react.includes('<ImplicitTextarea');
   const implicitTextareaHelper = `function ImplicitTextarea({ label, ...props }) {\n  return <label className="display_contents"><span className="input_group-label_hidden">{label}</span><Textarea {...props} /></label>;\n}`;
-  const react = `import Textarea from '@uxkm/react/textarea';${usesImplicitTextarea ? `\n\n${implicitTextareaHelper}` : ''}\n\nexport function Example() {\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `import Textarea from '@uxkm/react/textarea';${usesImplicitTextarea ? `\n\n${implicitTextareaHelper}` : ''}\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport Textarea from '@uxkm/vue/textarea';\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   const html = source.html.replace(/<textarea(?![^>]*data-component=)/g, '<textarea data-component="Textarea"');
   return [

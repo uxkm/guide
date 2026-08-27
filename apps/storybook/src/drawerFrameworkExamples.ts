@@ -20,7 +20,7 @@ const sources: Record<string, Source> = {
 };
 const indent = (value: string, spaces: number) => value.split('\n').map((line) => `${' '.repeat(spaces)}${line}`).join('\n');
 function examples(key: string, source: Source): FrameworkExample[] {
-  const react = `import { useState } from 'react';\nimport Drawer from '@uxkm/react/drawer';\nimport Button from '@uxkm/react/button';\n\nexport function Example() {\n  const [open, setOpen] = useState(${key === 'open' ? 'true' : 'false'});\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `import { useState } from 'react';\nimport Drawer from '@uxkm/react/drawer';\nimport Button from '@uxkm/react/button';\n\nexport function Example() {\n  const [open, setOpen] = useState(${key === 'open' ? 'true' : 'false'});\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport { ref } from 'vue';\nimport Drawer from '@uxkm/vue/drawer';\nimport Button from '@uxkm/vue/button';\nconst open = ref(${key === 'open' ? 'true' : 'false'});\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [{ id: 'html', label: 'HTML', fileName: `Drawer.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `drawer.njk · ${key}`, code: source.html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/drawer · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/drawer · ${key}`, code: react }];
 }

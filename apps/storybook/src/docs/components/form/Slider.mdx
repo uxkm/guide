@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { sliderFrameworkExamples } from '../../../sliderFrameworkExamples.ts';
+import { sliderComponentExamples, sliderFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { sliderApiSections } from '../../../sliderApiSections.ts';
 import * as SliderStories from '../../../Slider.stories.tsx';
 
@@ -9,45 +9,96 @@ import * as SliderStories from '../../../Slider.stories.tsx';
 
 # Slider
 
-범위 값을 선택하는 Slider 컴포넌트입니다. 네이티브 `input type="range"`를 기반으로 하며 레이블, 현재 값, 눈금과 증감 버튼을 조합할 수 있습니다.
+범위 값을 선택하는 Slider 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+네이티브 `input type="range"`를 기반으로 하며 레이블, 현재 값, 눈금과 증감 버튼을 조합할 수 있습니다. 보이는 레이블은 `label[for]`와 `id`로 연결합니다.
+
+WebSquare는 범위 입력을 `xf:input`(type=`range`), 증감 동작을 `xf:trigger`, 레이블·값 영역을 `w2:group`과 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Slider 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 값, 범위·간격, 크기, 스텝 버튼과 접근성 레이블을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 `slider_sm`·`slider_lg` 클래스로 변환합니다.
+- 값은 `min`·`max` 범위로 클램프하며 `step` 단위로 증감합니다.
+- `stepper`는 모바일에서, `stepperAlways`는 항상 증감 버튼을 표시합니다.
+- 증감 버튼은 `decreaseLabel`·`increaseLabel`로 접근 가능한 이름을 제공합니다.
+
+<FrameworkTabs examples={sliderComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:input`의 `type="range"`와 `ref`를 DataMap 경로에 연결하고 `min`·`max`·`step`·`value`로 값 계약을 정의합니다. 크기·너비는 공통 `slider_*` 클래스로 표현합니다.
+
+증감 버튼은 `xf:trigger`의 `ev:onclick`에서 값을 조정한 뒤 입력으로 포커스를 유지합니다. 값 표시 갱신과 연관 필드 반영은 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 유형
+
+기본 트랙과 스텝 버튼 변형을 한눈에 비교합니다.
+
 <Canvas of={SliderStories.Type} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.type} />
 
 ## 기본
+
+레이블과 현재 값이 포함된 기본 슬라이더입니다.
+
 <Canvas of={SliderStories.Basic} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.basic} />
 
 ## 레이블 · 값 표시
+
+`slider_header`로 레이블과 현재 값을 함께 표시합니다.
+
 <Canvas of={SliderStories.Label} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.label} />
 
 ## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
+
 <Canvas of={SliderStories.Size} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.size} />
 
 ## 너비
+
+`slider_fit`은 최대 너비를 제한하고 `slider_block`은 부모 너비를 채웁니다.
+
 <Canvas of={SliderStories.Width} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.width} />
 
 ## 간격 · 눈금
+
+`step`과 눈금으로 선택 단위를 안내합니다.
+
 <Canvas of={SliderStories.Step} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.step} />
 
 ## 스텝 버튼
+
+증감 버튼으로 값을 한 단계씩 조절합니다.
+
 <Canvas of={SliderStories.Stepper} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.stepper} />
 
 ## 색상
+
+semantic `color_*` 클래스로 트랙 강조 색을 바꿉니다.
+
 <Canvas of={SliderStories.Color} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.color} />
 
 ## 상태
+
+기본과 비활성 상태를 함께 제공합니다.
+
 <Canvas of={SliderStories.State} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.state} />
 
 ## 폼 레이아웃
+
+FormLayout 안에서 슬라이더를 배치합니다.
+
 <Canvas of={SliderStories.Form} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.form} />
 

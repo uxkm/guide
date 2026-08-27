@@ -7,11 +7,13 @@ import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const sizes = new Set(['sm', 'md', 'lg']);
-const placements = new Set(['left', 'right', 'top', 'bottom']);
+const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 패널 크기입니다.
+const placements = new Set(['left', 'right', 'top', 'bottom']); // 지원하는 열림 방향입니다.
+// 문서별 열린 Drawer 수를 추적해 body 스크롤 잠금을 공유합니다.
 const documentDrawerCounts = new WeakMap();
-const portalOwnerId = Math.random().toString(36).slice(2, 10);
+const portalOwnerId = Math.random().toString(36).slice(2, 10); // iframe 포털 소유자 ID입니다.
 
+// iframe에서도 최상위 문서에 Drawer를 올리기 위한 포털 루트를 찾거나 만듭니다.
 export function getDrawerPortalRoot(
   currentDocument = typeof document === 'undefined' ? null : document,
   currentWindow = typeof window === 'undefined' ? null : window,
@@ -51,50 +53,52 @@ export function getDrawerPortalRoot(
 }
 
 export function Drawer({
-  id,
-  title,
-  size = 'md',
-  placement = 'right',
-  backdrop = true,
-  noBackdrop = false,
-  open,
-  defaultOpen = false,
-  openOnLoad = false,
-  draggable = false,
-  footerAlign = 'end',
-  footerRatio = '1-1',
-  footerNoPadBottom = false,
-  header,
-  extra,
-  footer,
-  children = 'Drawer',
-  className = '',
-  closeLabel = '닫기',
-  onClose,
-  ...props
+  id, // 패널 DOM id입니다. 없으면 생성합니다.
+  title, // 기본 헤더 제목입니다.
+  size = 'md', // 패널 크기입니다.
+  placement = 'right', // 패널이 열리는 방향입니다.
+  backdrop = true, // 백드롭 클릭으로 닫을지 여부입니다.
+  noBackdrop = false, // 백드롭을 완전히 끄는 옵션입니다.
+  open, // 제어형 열림 상태입니다.
+  defaultOpen = false, // 비제어형 초기 열림 상태입니다.
+  openOnLoad = false, // 마운트 시 자동으로 엽니다.
+  draggable = false, // 하단 시트 드래그 핸들입니다.
+  footerAlign = 'end', // 푸터 액션 정렬입니다.
+  footerRatio = '1-1', // even 정렬일 때 균등 버튼 비율입니다.
+  footerNoPadBottom = false, // 푸터 하단 패딩 제거입니다.
+  header, // title 대신 사용할 커스텀 헤더입니다.
+  extra, // 헤더 오른쪽 추가 영역입니다.
+  footer, // 푸터 액션 콘텐츠입니다.
+  children = 'Drawer', // 본문 콘텐츠입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  closeLabel = '닫기', // 닫기 버튼의 접근성 이름입니다.
+  onClose, // close · backdrop · escape · drag 사유로 호출됩니다.
+  ...props // id 외 나머지 속성을 루트 요소에 전달합니다.
 }) {
   const generatedId = useId().replace(/:/g, '');
-  const drawerId = id || `drawer-${generatedId}`;
-  const titleId = `${drawerId}-title`;
-  const rootRef = useRef(null);
-  const panelRef = useRef(null);
-  const dragRef = useRef(null);
-  const previousFocusRef = useRef(null);
+  const drawerId = id || `drawer-${generatedId}`; // 최종 루트 id입니다.
+  const titleId = `${drawerId}-title`; // aria-labelledby에 연결할 제목 id입니다.
+  const rootRef = useRef(null); // 포커스 트랩용 루트 참조입니다.
+  const panelRef = useRef(null); // 드래그 높이 조절용 패널 참조입니다.
+  const dragRef = useRef(null); // 진행 중인 드래그 상태입니다.
+  const previousFocusRef = useRef(null); // 닫힌 뒤 복원할 이전 포커스입니다.
   const [internalOpen, setInternalOpen] = useState(defaultOpen || openOnLoad);
-  const visible = open ?? internalOpen;
+  const visible = open ?? internalOpen; // 제어·비제어를 합친 최종 표시 상태입니다.
   const resolvedSize = sizes.has(size) ? size : 'md';
   const resolvedPlacement = placements.has(placement) ? placement : 'right';
+  // 드래그 핸들은 bottom placement에서만 활성화합니다.
   const showDragHandle = draggable && resolvedPlacement === 'bottom';
   const portalRoot = visible ? getDrawerPortalRoot() : null;
   const rootClasses = useMemo(
     () => ['drawer', visible && 'is-open', className].filter(Boolean).join(' '),
     [className, visible],
   );
+  // 방향·크기·드래그 가능 패널 클래스를 조합합니다.
   const panelClasses = [
-    'drawer_panel',
-    `drawer_placement-${resolvedPlacement}`,
-    resolvedSize !== 'md' && `drawer_${resolvedSize}`,
-    showDragHandle && 'drawer_draggable',
+    'drawer_panel', // 패널 루트 클래스입니다.
+    `drawer_placement-${resolvedPlacement}`, // 열림 방향입니다.
+    resolvedSize !== 'md' && `drawer_${resolvedSize}`, // md가 아닐 때만 크기 변형입니다.
+    showDragHandle && 'drawer_draggable', // 드래그 시트 변형입니다.
   ]
     .filter(Boolean)
     .join(' ');
@@ -112,6 +116,7 @@ export function Drawer({
     onClose?.(reason, event);
   };
 
+  // 하단 시트 드래그를 시작합니다.
   const startDrag = (event) => {
     if (!showDragHandle || (event.button != null && event.button !== 0)) return;
     if (event.target.closest('.drawer_close, .drawer_extra, a, input, textarea, select')) return;
@@ -136,6 +141,7 @@ export function Drawer({
     event.preventDefault();
   };
 
+  // 드래그 중 패널 높이를 갱신합니다.
   const moveDrag = (event) => {
     const state = dragRef.current;
     const panel = panelRef.current;
@@ -148,6 +154,7 @@ export function Drawer({
     event.preventDefault();
   };
 
+  // 드래그 종료 시 닫기·확장·축소 중 하나로 스냅합니다.
   const endDrag = (event) => {
     const state = dragRef.current;
     const panel = panelRef.current;
@@ -178,6 +185,7 @@ export function Drawer({
     }
   };
 
+  // 열림 시 스크롤 잠금·포커스·Escape·Tab 트랩을 연결합니다.
   useEffect(() => {
     if (!visible || !portalRoot) return undefined;
     const targetDocument = portalRoot.ownerDocument;
@@ -239,12 +247,14 @@ export function Drawer({
       aria-labelledby={title || header ? titleId : undefined}
       tabIndex={-1}
     >
+      {/* 백드롭 클릭으로 닫을 수 있습니다. */}
       <div
         className="drawer_backdrop"
         aria-hidden="true"
         onClick={(event) => backdrop && !noBackdrop && requestClose('backdrop', event)}
       />
       <div ref={panelRef} className={panelClasses}>
+        {/* 하단 시트용 드래그 핸들입니다. */}
         {showDragHandle && (
           <div
             className="drawer_handle"

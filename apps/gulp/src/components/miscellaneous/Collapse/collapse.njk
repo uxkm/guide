@@ -44,6 +44,7 @@
 {% else %}
 <div
   class="collapse_group collapse_{{ variant | default('bordered') }}{% if size == 'sm' or size == 'lg' %} collapse_{{ size }}{% endif %}"
+  {# Collapse 루트에 공통 클래스와 data-* 계약을 둡니다. #}
   data-component="Collapse"
   data-collapse{% if accordion %}
   data-collapse-accordion{% endif %}{% if effect == 'slide' %}

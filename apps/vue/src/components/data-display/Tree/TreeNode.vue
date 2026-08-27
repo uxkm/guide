@@ -6,15 +6,15 @@
 import { computed, ref, useSlots, watch } from 'vue';
 defineOptions({ name: 'UxkmTreeNode' });
 const props = defineProps({
-  label: String,
-  expanded: { type: Boolean, default: undefined },
-  selected: Boolean,
-  disabled: Boolean,
-  expandable: Boolean,
-  plusToggle: Boolean,
-  toggleLabel: String,
-  link: Boolean,
-  meta: String,
+  label: String, // title 대신 쓸 레이블입니다.
+  expanded: { type: Boolean, default: undefined }, // 초기 펼침 상태입니다.
+  selected: Boolean, // 선택 상태입니다.
+  disabled: Boolean, // 비활성 상태입니다.
+  expandable: Boolean, // 자식이 없어도 토글을 표시합니다.
+  plusToggle: Boolean, // +/− 토글 스타일입니다.
+  toggleLabel: String, // 토글 버튼 접근성 이름입니다.
+  link: Boolean, // 레이블을 링크형으로 표시합니다.
+  meta: String, // 메타 영역 콘텐츠입니다.
 });
 const emit = defineEmits(['update:expanded']);
 const slots = useSlots();

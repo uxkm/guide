@@ -1,3 +1,6 @@
+const assetBase = (process.env.NUXT_PUBLIC_ASSET_BASE || process.env.NUXT_APP_BASE_URL || '').replace(/\/+$/, '');
+const asset = (path) => `${assetBase}/${String(path).replace(/^\/+/, '')}`;
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -9,12 +12,12 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#f4f6f9' }
       ],
       link: [
-        { rel: 'stylesheet', href: '/styles/uxkm.css' },
-        { rel: 'icon', href: '/images/meta/favicon/favicon.ico', sizes: '16x16 32x32' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/meta/favicon/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/images/meta/favicon/favicon-16x16.png' },
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/images/meta/favicon/apple-touch-icon.png' },
-        { rel: 'manifest', href: '/images/meta/favicon/site.webmanifest' }
+        { rel: 'stylesheet', href: asset('styles/uxkm.css') },
+        { rel: 'icon', href: asset('images/meta/favicon/favicon.ico'), sizes: '16x16 32x32' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: asset('images/meta/favicon/favicon-32x32.png') },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: asset('images/meta/favicon/favicon-16x16.png') },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: asset('images/meta/favicon/apple-touch-icon.png') },
+        { rel: 'manifest', href: asset('images/meta/favicon/site.webmanifest') }
       ]
     }
   }

@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { uploadFrameworkExamples } from '../../../uploadFrameworkExamples.ts';
+import { uploadComponentExamples, uploadFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { uploadApiSections } from '../../../uploadApiSections.ts';
 import * as UploadStories from '../../../Upload.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as UploadStories from '../../../Upload.stories.tsx';
 
 # Upload
 
-파일 선택, 드래그앤드롭, 사진 카드 업로드를 제공하는 폼 컴포넌트입니다. 파일 형식·크기·개수를 클라이언트에서 검증하고 선택 목록을 개별 삭제할 수 있습니다.
+파일 선택, 드래그앤드롭, 사진 카드 업로드를 제공하는 폼 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+파일 형식·크기·개수를 클라이언트에서 검증하고 선택 목록을 개별 삭제할 수 있습니다. 숨김 파일 input은 트리거·드롭존·카드 레이블과 `for`/`id`로 연결합니다.
+
+WebSquare는 파일 입력을 `xf:input`(type=`file`), 선택 트리거를 `xf:trigger`/`w2:group`, 목록·카드 영역을 `w2:group`과 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Upload 자체의 실제 원본 구현입니다. React와 Vue는 버튼·드래그·목록·사진 카드·아바타 변형, 파일 검증과 목록 갱신을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `variant`로 button, drag, list, picture-card, avatar UI를 전환합니다.
+- `accept`·`maxSize`·`maxFiles`로 클라이언트 검증을 적용하고 실패 시 `onError`를 호출합니다.
+- 선택·삭제 후 `onChange`로 파일 목록을 전달합니다.
+- 서버에서는 파일 내용과 형식을 다시 검증해야 합니다.
+
+<FrameworkTabs examples={uploadComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:input`의 `type="file"`과 `ref`를 업로드 데이터 경로에 연결하고 `accept`·`multiple`로 선택 계약을 정의합니다. 크기·너비·오류 상태는 공통 `upload_*`, `is-error` 클래스로 표현합니다.
+
+드롭존·카드·아바타는 `w2:group` 레이블 구조로 파일 input과 연결합니다. 선택 후 목록 갱신과 업로드 처리는 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 기본
 

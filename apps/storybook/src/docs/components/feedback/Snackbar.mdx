@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { snackbarFrameworkExamples } from '../../../snackbarFrameworkExamples.ts';
+import { snackbarComponentExamples, snackbarFrameworkExamples } from '../../../feedbackDocumentationExamples.ts';
 import { snackbarApiSections } from '../../../snackbarApiSections.ts';
 import * as SnackbarStories from '../../../Snackbar.stories.tsx';
 
@@ -9,9 +9,32 @@ import * as SnackbarStories from '../../../Snackbar.stories.tsx';
 
 # Snackbar
 
-작업 결과나 짧은 상태 메시지를 화면 흐름을 방해하지 않고 일시적으로 전달합니다.
+작업 결과나 짧은 상태 메시지를 화면 흐름을 방해하지 않고 일시적으로 전달합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+일반적인 작업 결과는 `role="status"`로 알리고 즉시 확인해야 하는 오류에만 `role="alert"`를 사용합니다. 같은 위치의 Snackbar는 `SnackbarRegion`에서 세로로 쌓입니다.
+
+WebSquare는 메시지를 `w2:group.snackbar`, 배치 영역을 `w2:group.snackbar_region-*`, 닫기·액션을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Snackbar와 SnackbarRegion의 실제 원본 구현입니다. React와 Vue는 색상, 크기, 모션, 배치, 자동 닫기와 접근성 역할을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `color`의 `danger`는 공통 `color_error` 클래스로 변환합니다.
+- `duration` 중 호버·내부 포커스가 있으면 남은 시간을 일시정지합니다.
+- `placement`는 뷰포트 기준 8개 위치와 Slide 방향을 결정합니다.
+- 아이콘은 장식 요소로 숨기며 메시지 텍스트로 의미를 전달합니다.
+
+<FrameworkTabs examples={snackbarComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `snackbar`와 의미 색상 클래스를 적용하고 기본 `role="status"`로 전달합니다. 화면 배치는 `snackbar_region-{placement}` 영역 안에 쌓습니다.
+
+닫기와 액션은 `xf:trigger`의 `ev:onclick`에 연결하고, 자동 닫기는 `data-snackbar-duration`과 화면 스크립트 타이머로 처리합니다.
 
 ## 기본
+
+정보·성공·경고·오류 색상의 기본 Snackbar입니다.
 
 <Canvas of={SnackbarStories.Basic} sourceState="none" />
 <FrameworkTabs examples={snackbarFrameworkExamples.basic} />
@@ -38,6 +61,8 @@ import * as SnackbarStories from '../../../Snackbar.stories.tsx';
 <FrameworkTabs examples={snackbarFrameworkExamples.motion} />
 
 ## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
 
 <Canvas of={SnackbarStories.Size} sourceState="none" />
 <FrameworkTabs examples={snackbarFrameworkExamples.size} />

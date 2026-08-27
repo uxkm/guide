@@ -5,7 +5,9 @@
 <script setup>
 defineOptions({ name: 'UxkmAvatarGroup' });
 
-defineProps({ ariaLabel: String });
+defineProps({
+  ariaLabel: String, // 그룹의 접근성 이름입니다.
+});
 </script>
 
 <template>

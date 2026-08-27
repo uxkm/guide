@@ -14,7 +14,7 @@ const sources: Record<string, Source> = {
 function indent(value: string, spaces: number) { const prefix = ' '.repeat(spaces); return value.split('\n').map((line) => `${prefix}${line}`).join('\n'); }
 function examples(key: string, source: Source): FrameworkExample[] {
   const stateful = key === 'example';
-  const react = `${stateful ? "import { useState } from 'react';\n" : ''}import DatePicker from '@uxkm/react/date-picker';\n\nexport function Example() {${stateful ? "\n  const [date, setDate] = useState('');" : ''}\n  return (\n${indent(source.react, 4)}\n  );\n}`;
+  const react = `${stateful ? "import { useState } from 'react';\n" : ''}import DatePicker from '@uxkm/react/date-picker';\n\nexport function Example() {${stateful ? "\n  const [date, setDate] = useState('');" : ''}\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${stateful ? "import { ref } from 'vue';\n" : ''}import DatePicker from '@uxkm/vue/date-picker';${stateful ? "\nconst date = ref('');" : ''}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [{ id: 'html', label: 'HTML', fileName: `DatePicker.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `date-picker.njk · ${key}`, code: source.html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/date-picker · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/date-picker · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/date-picker · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/date-picker · ${key}`, code: react }];
 }

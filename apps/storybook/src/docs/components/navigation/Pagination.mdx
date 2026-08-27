@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { paginationFrameworkExamples as examples } from '../../../paginationFrameworkExamples.ts';
+import { paginationComponentExamples, paginationFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { paginationApiSections } from '../../../paginationApiSections.ts';
 import * as Stories from '../../../Pagination.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Pagination.stories.tsx';
 
 # Pagination
 
-여러 페이지의 콘텐츠를 번호, 이전·다음 버튼 또는 간단한 현재/전체 표시로 탐색합니다.
+여러 페이지의 콘텐츠를 번호, 이전·다음 버튼 또는 간단한 현재/전체 표시로 탐색합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+현재 페이지는 `aria-current="page"`, 처음과 마지막의 이동 버튼은 `disabled`로 표시합니다. 모든 페이지 번호와 아이콘 버튼에 구체적인 접근 가능한 이름을 제공합니다.
+
+WebSquare는 페이지 탐색을 `w2:group.pagination`, 번호·이전·다음을 `xf:trigger.pagination_item`으로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Pagination의 실제 원본 구현입니다. React와 Vue는 기본·미니멀·심플 변형, 크기, 둥근 스타일, 생략과 정렬을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `simple`은 현재/전체와 이전·다음만 표시합니다.
+- 현재 페이지는 `aria-current="page"`와 `is-active`를 함께 사용합니다.
+- 경계에서는 이전·다음 버튼을 비활성화합니다.
+
+<FrameworkTabs examples={paginationComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.pagination`에 `role="navigation"`을 적용하고 페이지 버튼을 `xf:trigger`로 구성합니다. 이동은 `ev:onclick`에서 화면 스크립트에 연결합니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

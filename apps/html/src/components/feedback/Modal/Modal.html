@@ -1,4 +1,5 @@
 <!-- Modal 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
+<!-- data-modal-trigger로 대상 Modal을 엽니다. -->
 <button
   type="button"
   class="btn btn_filled color_primary"
@@ -8,6 +9,7 @@
 >
   모달 열기
 </button>
+<!-- modal 루트에 is-open·크기·스크롤 변형 클래스를 함께 적용합니다. -->
 <div
   class="modal"
   id="modal-basic"
@@ -19,13 +21,16 @@
   tabindex="-1"
   hidden
 >
+  <!-- 백드롭 클릭으로 닫을 수 있습니다. -->
   <div class="modal_backdrop" data-modal-close aria-hidden="true"></div>
   <div class="modal_dialog">
+    <!-- 제목과 닫기 버튼을 담는 헤더입니다. -->
     <div class="modal_header">
       <h2 class="modal_title" id="modal-basic-title">알림</h2>
       <button type="button" class="modal_close" data-modal-close aria-label="닫기">×</button>
     </div>
     <div class="modal_body"><p>Modal 대화상자 본문입니다.</p></div>
+    <!-- 확인·취소 등 푸터 액션 영역입니다. -->
     <div class="modal_footer">
       <button type="button" class="btn btn_ghost" data-modal-close>취소</button
       ><button type="button" class="btn btn_filled color_primary" data-modal-close>확인</button>

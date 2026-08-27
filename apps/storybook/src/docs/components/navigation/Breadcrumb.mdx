@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { breadcrumbFrameworkExamples as examples } from '../../../breadcrumbFrameworkExamples.ts';
+import { breadcrumbComponentExamples, breadcrumbFrameworkExamples as examples } from '../../../navigationDocumentationExamples.ts';
 import { breadcrumbApiSections } from '../../../breadcrumbApiSections.ts';
 import * as Stories from '../../../Breadcrumb.stories.tsx';
 
@@ -9,7 +9,26 @@ import * as Stories from '../../../Breadcrumb.stories.tsx';
 
 # Breadcrumb
 
-현재 페이지까지의 계층 경로를 링크, 현재 위치, 생략 상태로 표시합니다.
+현재 페이지까지의 계층 경로를 링크, 현재 위치, 생략 상태로 표시합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+경로 전체는 `nav`와 `ol`로 구성합니다. 현재 위치는 `aria-current="page"`, 비활성 항목은 `aria-disabled="true"`를 사용합니다. 아이콘 전용 링크와 생략 버튼에는 동작을 설명하는 이름을 제공합니다.
+
+WebSquare는 경로를 `w2:group.breadcrumb`, 항목·구분자를 `w2:textbox`, 생략을 `xf:trigger.breadcrumb_ellipsis`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Breadcrumb와 BreadcrumbItem·BreadcrumbEllipsis의 실제 원본 구현입니다. React와 Vue는 구분자, 크기, 홈 아이콘, 경로 생략과 현재·비활성 상태를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 현재 위치는 `aria-current="page"`와 `is-current`를 함께 사용합니다.
+- `BreadcrumbEllipsis`로 중간 경로를 접습니다.
+- 아이콘 전용 링크에는 접근 가능한 이름을 제공합니다.
+
+<FrameworkTabs examples={breadcrumbComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.breadcrumb`에 `tagname="nav"`와 `aria-label`을 적용합니다. 현재 위치는 `aria-current="page"`로 표시하고, 생략은 `xf:trigger`의 `ev:onclick`에서 펼칩니다.
+
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

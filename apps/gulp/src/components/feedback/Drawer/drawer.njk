@@ -1,4 +1,5 @@
 {# Drawer 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# drawer 루트에 is-open과 방향·크기 변형 클래스를 함께 적용합니다. #}
 {% set drawerId = id | default('drawer-basic') %}
 <div
   class="drawer{% if open %} is-open{% endif %}"
@@ -13,13 +14,17 @@
   tabindex="-1"{% if not open %}
   hidden{% endif %}
 >
+  {# 백드롭 클릭으로 닫을 수 있습니다. #}
   <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
+  {# drawer_placement-*로 패널이 열리는 방향을 지정합니다. #}
   <div
     class="drawer_panel drawer_placement-{{ placement | default('right') }}{% if size and size != 'md' %} drawer_{{ size }}{% endif %}{% if draggable and placement == 'bottom' %} drawer_draggable{% endif %}"
   >
+    {# 하단 시트용 드래그 핸들입니다. #}
     {% if draggable and placement == 'bottom' %}
     <div class="drawer_handle" aria-hidden="true"><span class="drawer_handle-bar"></span></div>
     {% endif %}
+    {# 제목·추가 영역·닫기 버튼을 담는 헤더입니다. #}
     <div class="drawer_header">
       <h2 class="drawer_title" id="{{ drawerId }}-title">{{ title | default('Drawer') }}</h2>
       {% if extra %}

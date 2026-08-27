@@ -1,5 +1,7 @@
 <!-- Radio 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
+<!-- radio 루트 label이 입력·커스텀 원·텍스트 레이블을 한 클릭 영역으로 묶습니다. -->
 <label class="radio" data-ripple="true">
+  <!-- 숨김 radio_input과 시각용 radio_box를 하나의 컨트롤로 묶습니다. -->
   <span class="radio_control">
     <input
       class="radio_input"
@@ -10,5 +12,6 @@
     />
     <span class="radio_box" aria-hidden="true"></span>
   </span>
+  <!-- 같은 name으로 그룹을 만들고 value는 제출 값입니다. -->
   <span class="radio_label">라디오</span>
 </label>

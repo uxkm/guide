@@ -2,6 +2,7 @@
  * Icon 원본 구현.
  * 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
  */
+// 아이콘 이름 → SVG path 맵입니다.
 const paths = {
   plus: (
     <>
@@ -172,21 +173,21 @@ const paths = {
 export const iconNames = Object.keys(paths);
 
 export function Icon({
-  name = 'plus',
-  children,
-  className = '',
-  title,
-  ariaLabel,
-  color,
-  size = 'md',
-  inline = false,
-  spin = false,
-  button = false,
-  circle = false,
-  square = false,
-  pulse = false,
-  ripple = true,
-  ...props
+  name = 'plus', // paths에 등록된 아이콘 이름입니다.
+  children, // 커스텀 SVG 도형입니다. 있으면 name보다 우선합니다.
+  className = '', // 추가 클래스입니다.
+  title, // SVG title과 접근성 이름 후보입니다.
+  ariaLabel, // 명시적 접근성 이름입니다.
+  color, // color_* 공통 색상 클래스입니다.
+  size = 'md', // sm · md · lg · xl 크기입니다. md는 기본이라 클래스를 붙이지 않습니다.
+  inline = false, // 텍스트와 인라인 정렬합니다.
+  spin = false, // 회전 애니메이션입니다.
+  button = false, // button 래퍼로 감쌉니다.
+  circle = false, // 원형 배경 래퍼로 감쌉니다.
+  square = false, // 사각형 배경 래퍼로 감쌉니다.
+  pulse = false, // circle과 함께 펄스 효과를 켭니다.
+  ripple = true, // button일 때 리플 효과를 켭니다.
+  ...props // 나머지 속성을 최외곽 요소에 전달합니다.
 }) {
   const label = ariaLabel ?? props['aria-label'] ?? title;
   const sizeClass = size === 'md' ? '' : `icon_${size}`;

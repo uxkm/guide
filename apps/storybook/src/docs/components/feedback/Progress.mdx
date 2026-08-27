@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { progressFrameworkExamples as examples } from '../../../progressFrameworkExamples.ts';
+import { progressComponentExamples, progressFrameworkExamples as examples } from '../../../feedbackDocumentationExamples.ts';
 import { progressApiSections } from '../../../progressApiSections.ts';
 import * as Stories from '../../../Progress.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as Stories from '../../../Progress.stories.tsx';
 
 # Progress
 
-작업의 진행 상태를 선형 또는 원형으로 표시합니다.
+작업의 진행 상태를 선형 또는 원형으로 표시합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+확정 진행률은 `aria-valuenow`, `aria-valuemin`, `aria-valuemax`를 제공하고, 불확정 진행률은 `aria-busy="true"`를 사용합니다. 원형은 `ProgressCircle`로 제공합니다.
+
+WebSquare는 선형·원형 진행률을 `w2:group.progress`, 채움 막대를 `progress_bar`, 값을 `w2:textbox`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Progress와 ProgressCircle의 실제 원본 구현입니다. React와 Vue는 진행률, 상태 색상, 줄무늬, 불확정, 내부 값 표시를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `percent`는 0~100으로 클램프합니다.
+- `striped`·`animated`·`indeterminate`로 패턴과 불확정 상태를 표현합니다.
+- `inside`는 바 안에 값을 표시하고 `block`은 전체 너비를 사용합니다.
+- `ProgressCircle`은 원형 진행률 UI를 제공합니다.
+
+<FrameworkTabs examples={progressComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `progress`와 `role="progressbar"`를 적용하고 `aria-valuenow`로 현재 값을 전달합니다. 채움 너비는 `progress_bar`의 `style="width:…%"`로 맞춥니다.
+
+불확정은 `is-indeterminate` 클래스를, 원형은 `progress_circle`을 사용합니다.
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

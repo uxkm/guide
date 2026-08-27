@@ -1,7 +1,7 @@
 import type { ApiColumn, ApiRow, ApiSectionData } from './shared/ComponentApiDocs';
 
 const columns: ApiColumn[] = [{ key: 'name', label: '이름' }, { key: 'description', label: '설명' }, { key: 'default', label: '기본값' }, { key: 'type', label: '타입' }];
-const section = (title: string, rows: ApiRow[]): ApiSectionData => ({ title, tables: [{ columns, rows }] });
+const section = (title: string, rows: ApiRow[], description?: string): ApiSectionData => ({ title, description, tables: [{ columns, rows }] });
 
 export const collapseApiSections: ApiSectionData[] = [
   section('Collapse API', [
@@ -39,4 +39,15 @@ export const collapseApiSections: ApiSectionData[] = [
     { name: '--collapse-icon-size', type: 'length', default: '1rem', description: '펼침 아이콘 크기입니다.' },
     { name: '--collapse-slide-duration · --collapse-slide-easing', type: 'time · easing', default: '0.28s · ease', description: '슬라이드 전환 설정입니다.' },
   ]),
+  section(
+    'WebSquare API · XML',
+    [
+      { name: 'w2:group.collapse_group', type: 'XML element · class', default: '—', description: 'Collapse 패널 그룹 루트입니다. collapse_bordered·collapse_ghost 등을 조합합니다.' },
+      { name: 'collapse_panel · collapse_trigger · collapse_body', type: 'class', default: '—', description: '패널, 트리거, 본문 구조입니다.' },
+      { name: 'xf:trigger · aria-expanded · aria-controls', type: 'XML · ARIA', default: '—', description: '외부·내부 트리거와 패널 연결입니다.' },
+      { name: 'data-collapse-accordion', type: 'attribute', default: '—', description: '단일 열기 모드를 표현합니다.' },
+      { name: 'ev:onclick', type: 'WebSquare event', default: '—', description: '열기·닫기를 화면 스크립트에 연결합니다.' },
+    ],
+    '화면 XML 루트에 w2, xf, ev 네임스페이스가 선언되어 있다는 전제의 fragment입니다.',
+  ),
 ];

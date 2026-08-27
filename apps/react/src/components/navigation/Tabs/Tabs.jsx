@@ -15,36 +15,39 @@ import {
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
+// 모드·변형·크기·레이아웃·인디케이터가 지원하는 값만 CSS 클래스로 전달합니다.
 const valid = {
-  mode: new Set(['panels', 'dynamic']),
-  variant: new Set(['line', 'card', 'pill']),
-  size: new Set(['sm', 'md', 'lg']),
-  layout: new Set(['auto', 'equal', 'scroll']),
-  indicator: new Set(['static', 'slide']),
+  mode: new Set(['panels', 'dynamic']), // 패널 고정·동적 콘텐츠 모드입니다.
+  variant: new Set(['line', 'card', 'pill']), // 탭 시각 스타일입니다.
+  size: new Set(['sm', 'md', 'lg']), // 탭 크기입니다.
+  layout: new Set(['auto', 'equal', 'scroll']), // 탭 목록 배치 방식입니다.
+  indicator: new Set(['static', 'slide']), // 활성 표시줄 동작입니다.
 };
-const EMPTY_ITEMS = [];
+const EMPTY_ITEMS = []; // items 기본값으로 공유하는 빈 배열입니다.
 
 export function Tabs({
-  mode = 'panels',
-  value,
-  defaultValue,
-  onChange,
-  variant = 'line',
-  size = 'md',
-  layout = 'auto',
-  vertical = false,
-  scrollable = false,
-  ariaLabel,
-  indicator = 'static',
-  items = EMPTY_ITEMS,
-  panel,
-  extra,
-  children,
-  className = '',
-  ...props
+  mode = 'panels', // 패널 고정 또는 동적 콘텐츠 모드를 선택합니다.
+  value, // 제어형으로 현재 선택된 탭 키입니다.
+  defaultValue, // 비제어형 초기 선택 탭 키입니다.
+  onChange, // 선택 탭이 바뀔 때 호출할 콜백입니다.
+  variant = 'line', // 탭의 시각 스타일을 지정합니다.
+  size = 'md', // 탭의 크기를 지정합니다.
+  layout = 'auto', // 탭 목록의 너비·스크롤 배치를 지정합니다.
+  vertical = false, // 세로 방향 탭 목록인지 여부입니다.
+  scrollable = false, // auto 레이아웃에서 가로 스크롤을 허용할지 여부입니다.
+  ariaLabel, // 탭 목록의 접근 가능한 이름을 지정합니다.
+  indicator = 'static', // 활성 표시줄의 정적·슬라이드 동작을 선택합니다.
+  items = EMPTY_ITEMS, // 선언형으로 전달할 탭 항목 배열입니다.
+  panel, // dynamic 모드에서 활성 탭 콘텐츠를 계산하는 렌더 함수입니다.
+  extra, // 탭 바 오른쪽에 배치할 보조 콘텐츠입니다.
+  children, // TabsTab/TabPanel 등 자식으로 구성한 탭입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  ...props // id, aria-* 등 나머지 속성을 루트에 전달합니다.
 }) {
-  const uid = useId().replaceAll(':', '');
-  const listRef = useRef(null);
+  const uid = useId().replaceAll(':', ''); // aria id 연결에 쓰는 안전한 접두사입니다.
+  const listRef = useRef(null); // 탭 목록 DOM을 가리키는 참조입니다.
+
+  // children에서 탭 메타데이터와 패널 콘텐츠를 추출합니다.
   const childItems = useMemo(
     () =>
       Children.toArray(children)
@@ -61,6 +64,8 @@ export function Tabs({
         })),
     [children],
   );
+
+  // items 배열이 있으면 우선하고, 없으면 children 기반 목록을 사용합니다.
   const source = useMemo(
     () =>
       items.length
@@ -72,37 +77,47 @@ export function Tabs({
         : childItems,
     [childItems, items],
   );
+
+  // 활성 표시된 항목을 우선하고, 없으면 첫 활성 가능 항목을 고릅니다.
   const firstKey =
     source.find((item) => item.active && !item.disabled)?.key ??
     source.find((item) => !item.disabled)?.key;
-  const [internal, setInternal] = useState(defaultValue ?? firstKey);
-  const selected = value ?? internal;
+  const [internal, setInternal] = useState(defaultValue ?? firstKey); // 비제어형 선택 상태입니다.
+  const selected = value ?? internal; // 제어·비제어를 합친 최종 선택 키입니다.
+
+  // 비제어형에서 현재 선택이 목록에서 사라지면 기본 키로 되돌립니다.
   useEffect(() => {
     if (value == null && !source.some((item) => item.key === internal && !item.disabled))
       setInternal(firstKey);
   }, [firstKey, internal, source, value]);
-  const resolvedMode = valid.mode.has(mode) ? mode : 'panels';
-  const resolvedVariant = valid.variant.has(variant) ? variant : 'line';
-  const resolvedSize = valid.size.has(size) ? size : 'md';
-  const resolvedLayout = valid.layout.has(layout) ? layout : 'auto';
-  const resolvedIndicator = valid.indicator.has(indicator) ? indicator : 'static';
-  const scrollNav = resolvedLayout === 'scroll' && !vertical;
+
+  const resolvedMode = valid.mode.has(mode) ? mode : 'panels'; // 검증된 모드입니다.
+  const resolvedVariant = valid.variant.has(variant) ? variant : 'line'; // 검증된 시각 스타일입니다.
+  const resolvedSize = valid.size.has(size) ? size : 'md'; // 검증된 크기입니다.
+  const resolvedLayout = valid.layout.has(layout) ? layout : 'auto'; // 검증된 레이아웃입니다.
+  const resolvedIndicator = valid.indicator.has(indicator) ? indicator : 'static'; // 검증된 인디케이터입니다.
+  const scrollNav = resolvedLayout === 'scroll' && !vertical; // 가로 스크롤 내비게이션 사용 여부입니다.
+
+  // 변형·크기·방향·스크롤·모드·인디케이터 클래스를 조합합니다.
   const classes = [
-    'tabs',
-    `tabs_${resolvedVariant}`,
-    resolvedSize !== 'md' && `tabs_${resolvedSize}`,
-    vertical && 'tabs_vertical',
-    resolvedLayout === 'equal' && 'tabs_equal',
-    scrollNav && 'tabs_scroll-nav',
-    scrollable && resolvedLayout === 'auto' && 'tabs_scrollable',
-    resolvedMode === 'dynamic' && 'tabs_dynamic',
-    resolvedIndicator === 'slide' && 'tabs_indicator-slide',
-    className,
+    'tabs', // Tabs 레이아웃을 활성화하는 필수 클래스입니다.
+    `tabs_${resolvedVariant}`, // line·card·pill 시각 변형입니다.
+    resolvedSize !== 'md' && `tabs_${resolvedSize}`, // 기본 md가 아닐 때 크기 변형입니다.
+    vertical && 'tabs_vertical', // 세로 방향 변형입니다.
+    resolvedLayout === 'equal' && 'tabs_equal', // 동일 너비 탭 변형입니다.
+    scrollNav && 'tabs_scroll-nav', // 스크롤 내비게이션 변형입니다.
+    scrollable && resolvedLayout === 'auto' && 'tabs_scrollable', // auto에서 가로 스크롤 허용입니다.
+    resolvedMode === 'dynamic' && 'tabs_dynamic', // 동적 패널 모드 변형입니다.
+    resolvedIndicator === 'slide' && 'tabs_indicator-slide', // 슬라이드 인디케이터 변형입니다.
+    className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ]
     .filter(Boolean)
-    .join(' ');
-  const [indicatorStyle, setIndicatorStyle] = useState(null);
-  const [scrollState, setScrollState] = useState({ overflow: false, prev: false, next: false });
+    .join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+
+  const [indicatorStyle, setIndicatorStyle] = useState(null); // 슬라이드 인디케이터의 위치·크기입니다.
+  const [scrollState, setScrollState] = useState({ overflow: false, prev: false, next: false }); // 스크롤 버튼 상태입니다.
+
+  // 활성 탭 위치와 스크롤 가능 여부를 측정해 시각 상태를 갱신합니다.
   const updateVisualState = useCallback(() => {
     const list = listRef.current;
     if (list) {
@@ -143,6 +158,8 @@ export function Tabs({
       });
     }
   }, [resolvedIndicator, resolvedVariant, scrollNav, vertical]);
+
+  // 선택·크기 변화 시 인디케이터와 스크롤 상태를 다시 계산합니다.
   useEffect(() => {
     const list = listRef.current;
     if (list) {
@@ -158,6 +175,8 @@ export function Tabs({
       };
     }
   }, [source, selected, updateVisualState]);
+
+  // 선택된 탭이 스크롤 뷰포트 중앙 근처에 오도록 이동합니다.
   const scrollTabIntoView = (key) => {
     const list = listRef.current;
     const index = source.findIndex((item) => item.key === key);
@@ -172,6 +191,8 @@ export function Tabs({
       behavior: 'smooth',
     });
   };
+
+  // 비활성 탭이 아니면 선택 상태를 갱신하고 시각·스크롤을 맞춥니다.
   const select = (key) => {
     const target = source.find((item) => item.key === key);
     if (target && !target.disabled) {
@@ -183,6 +204,8 @@ export function Tabs({
       });
     }
   };
+
+  // 방향키·Home·End로 활성 가능 탭 사이를 이동합니다.
   const keyDown = (event, index) => {
     const enabled = source
       .map((item, itemIndex) => ({ ...item, itemIndex }))
@@ -202,15 +225,18 @@ export function Tabs({
       document.getElementById(`${uid}-tab-${enabled[next].itemIndex}`)?.focus(),
     );
   };
+
   const activeIndex = Math.max(
     0,
     source.findIndex((item) => item.key === selected),
-  );
-  const activeItem = source[activeIndex];
+  ); // 현재 선택 탭의 인덱스입니다.
+  const activeItem = source[activeIndex]; // 현재 선택 탭 데이터입니다.
+  // dynamic 모드면 panel 함수 결과를, 아니면 항목 content를 사용합니다.
   const panelContent =
     resolvedMode === 'dynamic' && typeof panel === 'function'
       ? panel({ item: activeItem, value: selected })
       : activeItem?.content;
+
   const tabsList = (
     <div
       ref={listRef}
@@ -251,11 +277,14 @@ export function Tabs({
       })}
     </div>
   );
+
+  // 스크롤 내비게이션 버튼을 눌러 목록을 좌우로 이동시킵니다.
   const scrollBy = (direction) =>
     listRef.current?.scrollBy({
       left: direction * Math.max((listRef.current?.clientWidth ?? 160) * 0.75, 120),
       behavior: 'smooth',
     });
+
   return (
     <div {...props} className={classes} data-component="Tabs" data-tabs>
       <div className="tabs_bar">

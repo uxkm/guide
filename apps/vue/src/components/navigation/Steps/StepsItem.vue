@@ -5,31 +5,35 @@
 <script setup>
 import { computed, inject, onMounted, onUnmounted, useId, useSlots } from 'vue';
 import Icon from '../../basic/Icon/Icon.vue';
-defineOptions({ name: 'UxkmStepsItem' });
+
+defineOptions({ name: 'UxkmStepsItem' }); // 컴포넌트 표시 이름을 등록합니다.
+
+// 제목, 설명, 상태, 번호, 마지막 여부를 prop으로 받습니다.
 const props = defineProps({
-  title: { type: String, required: true },
-  description: String,
-  status: String,
-  index: Number,
-  isLast: Boolean,
+  title: { type: String, required: true }, // 단계 제목 텍스트입니다.
+  description: String, // 제목 아래 보조 설명입니다.
+  status: String, // finished·active·wait·error 중 명시 상태입니다.
+  index: Number, // 인디케이터에 표시할 단계 번호입니다.
+  isLast: Boolean, // 마지막 단계여서 연결선을 숨길지 여부입니다.
 });
-const slots = useSlots();
-const steps = inject('stepsContext', null);
-const id = useId().replaceAll(':', '');
-onMounted(() => steps?.register(id));
-onUnmounted(() => steps?.unregister(id));
-const stepIndex = computed(() => props.index ?? steps?.indexOf(id) ?? 0);
+const slots = useSlots(); // 아이콘·제목·설명 슬롯 존재 여부를 확인합니다.
+const steps = inject('stepsContext', null); // 부모 Steps의 등록·상태 API입니다.
+const id = useId().replaceAll(':', ''); // 등록에 쓰는 고유 id입니다.
+onMounted(() => steps?.register(id)); // 마운트 시 부모에 등록합니다.
+onUnmounted(() => steps?.unregister(id)); // 언마운트 시 등록을 해제합니다.
+const stepIndex = computed(() => props.index ?? steps?.indexOf(id) ?? 0); // 최종 단계 번호입니다.
 const resolvedStatus = computed(() => {
   const value = steps?.statusFor(stepIndex.value, props.status) ?? props.status ?? 'wait';
   return ['finished', 'active', 'wait', 'error'].includes(value) ? value : 'wait';
-});
-const last = computed(() => props.isLast ?? steps?.isLast(id) ?? false);
-const navigable = computed(() => steps?.navigable?.value ?? false);
+}); // 검증된 상태입니다.
+const last = computed(() => props.isLast ?? steps?.isLast(id) ?? false); // 마지막 단계 여부입니다.
+const navigable = computed(() => steps?.navigable?.value ?? false); // 클릭 탐색 가능 여부입니다.
 function select() {
-  steps?.select(stepIndex.value, resolvedStatus.value);
+  steps?.select(stepIndex.value, resolvedStatus.value); // 부모에 단계 이동을 요청합니다.
 }
 </script>
 <template>
+  <!-- 탐색 가능하면 버튼, 아니면 정적 머리·본문을 렌더합니다. -->
   <li
     :class="['steps_item', `is-${resolvedStatus}`]"
     :aria-current="!navigable && resolvedStatus === 'active' ? 'step' : undefined"

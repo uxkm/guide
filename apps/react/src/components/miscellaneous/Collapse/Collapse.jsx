@@ -7,13 +7,13 @@ import { createContext, useCallback, useMemo, useRef } from 'react';
 export const CollapseContext = createContext(null);
 
 export function Collapse({
-  children,
-  className = '',
-  variant = 'bordered',
-  size = 'md',
-  accordion = false,
-  effect,
-  ...props
+  children, // CollapsePanel 자식들입니다.
+  className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  variant = 'bordered', // bordered · ghost · card 스킨입니다.
+  size = 'md', // sm · md · lg 크기입니다.
+  accordion = false, // 한 번에 하나의 패널만 열리게 합니다.
+  effect, // slide면 패널 높이 애니메이션을 사용합니다.
+  ...props // 나머지 속성을 루트에 전달합니다.
 }) {
   const rootRef = useRef(null);
   const panelsRef = useRef(new Map());

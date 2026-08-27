@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { modalFrameworkExamples } from '../../../modalFrameworkExamples.ts';
+import { modalComponentExamples, modalFrameworkExamples } from '../../../feedbackDocumentationExamples.ts';
 import { modalApiSections } from '../../../modalApiSections.ts';
 import * as ModalStories from '../../../Modal.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as ModalStories from '../../../Modal.stories.tsx';
 
 # Modal
 
-중요한 정보 확인이나 사용자 입력이 필요한 작업을 전체 브라우저 위의 대화상자로 제공합니다.
+중요한 정보 확인이나 사용자 입력이 필요한 작업을 전체 브라우저 계층의 대화상자로 제공합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+백드롭, 닫기 버튼, Esc 키로 닫을 수 있으며 닫은 뒤 트리거로 포커스가 돌아갑니다. Modal은 `role="dialog"`, `aria-modal="true"`, 제목 연결을 제공합니다.
+
+WebSquare는 대화상자를 `w2:group.modal`, 백드롭·헤더·본문·푸터를 `w2:group`, 열기·닫기·확인을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Modal 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 열림 상태, 크기, 스크롤, 백드롭, 푸터 정렬과 포커스 트랩을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 `modal_sm`·`modal_lg`·`modal_fullscreen` 클래스로 변환합니다.
+- 열릴 때 내부로 포커스를 이동하고 Tab 키는 Modal 안에서 순환합니다.
+- 중첩 시 최상위 대화상자만 조작하고 아래 Modal의 백드롭은 숨깁니다.
+- Esc·백드롭·닫기 버튼 닫기 사유를 `onClose`로 전달합니다.
+
+<FrameworkTabs examples={modalComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `modal`과 `is-open`을 적용하고 `role="dialog"`·`aria-modal="true"`·`aria-labelledby`로 제목을 연결합니다. 백드롭 클릭과 닫기 버튼은 `xf:trigger`/`ev:onclick`에서 `scwin.modal_close`를 호출합니다.
+
+크기·스크롤은 `modal_sm`·`modal_lg`·`modal_fullscreen`·`modal_scrollable` 클래스로 표현하고, 푸터 정렬은 `modal_footer-*`로 맞춥니다.
 
 ## 기본
 
@@ -54,6 +75,8 @@ import * as ModalStories from '../../../Modal.stories.tsx';
 <FrameworkTabs examples={modalFrameworkExamples.confirm} />
 
 ## 폼
+
+입력 필드를 Modal 본문에 배치합니다.
 
 <Canvas of={ModalStories.Form} sourceState="none" />
 <FrameworkTabs examples={modalFrameworkExamples.form} />

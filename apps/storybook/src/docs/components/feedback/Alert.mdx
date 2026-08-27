@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { alertFrameworkExamples } from '../../../alertFrameworkExamples.ts';
+import { alertComponentExamples, alertFrameworkExamples } from '../../../feedbackDocumentationExamples.ts';
 import { alertApiSections } from '../../../alertApiSections.ts';
 import * as AlertStories from '../../../Alert.stories.tsx';
 
@@ -9,24 +9,53 @@ import * as AlertStories from '../../../Alert.stories.tsx';
 
 # Alert
 
-정보·성공·경고·오류 메시지를 전달하는 알림 컴포넌트입니다.
+정보·성공·경고·오류 메시지를 전달하는 알림 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+의미 색상은 `color_info`·`color_success`·`color_warning`·`color_error`로 표현하고, 기본 접근성 역할은 `role="alert"`입니다. 닫기 가능한 알림은 닫은 뒤 DOM에서 제거되고 `close`/`onClose` 이벤트를 발생시킵니다.
+
+WebSquare는 알림 루트를 `w2:group`(role=`alert`), 제목·본문을 `w2:textbox`, 닫기·액션을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Alert 자체의 실제 원본 구현입니다. React와 Vue는 색상, 크기, 아이콘, 닫기, 배너 변형과 접근성 역할을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- `color`의 `danger`는 공통 `color_error` 클래스로 변환합니다.
+- 지원하지 않는 크기는 `md`로 정규화하고 `alert_sm`·`alert_lg` 클래스로 변환합니다.
+- `closable`은 닫기 버튼을 표시하고 닫힌 뒤 컴포넌트를 언마운트합니다.
+- `banner`는 전체 너비 배너 레이아웃을 적용합니다.
+
+<FrameworkTabs examples={alertComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group`에 `alert`와 의미 색상 클래스를 적용하고 `role="alert"`로 즉시 알림을 전달합니다. 제목·설명은 `w2:textbox`의 `alert_title`·`alert_desc`로 구성합니다.
+
+닫기와 액션은 `xf:trigger`의 `ev:onclick`에서 알림을 숨기거나 후속 동작을 실행합니다. 배너는 `alert_banner` 클래스로 전체 너비 배치를 맞춥니다.
 
 ## 기본
+
+정보·성공·경고·오류 색상의 기본 알림입니다.
 
 <Canvas of={AlertStories.Basic} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.basic} />
 
 ## 설명만
 
+제목 없이 본문만 전달하는 알림입니다.
+
 <Canvas of={AlertStories.DescriptionOnly} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.descriptionOnly} />
 
 ## 아이콘 없음
 
+`showIcon={false}`로 상태 아이콘을 숨깁니다.
+
 <Canvas of={AlertStories.NoIcon} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.noIcon} />
 
 ## 크기
+
+small, medium, large 세 가지 크기를 제공합니다.
 
 <Canvas of={AlertStories.Size} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.size} />
@@ -40,15 +69,21 @@ import * as AlertStories from '../../../Alert.stories.tsx';
 
 ## 액션
 
+본문 아래 보조 액션 버튼을 배치합니다.
+
 <Canvas of={AlertStories.Actions} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.actions} />
 
 ## 배너
 
+`alert_banner`로 전체 너비 배너 형태를 제공합니다.
+
 <Canvas of={AlertStories.Banner} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.banner} />
 
 ## 문맥 속 사용
+
+폼·페이지 문맥에서 검증·안내 메시지를 표시합니다.
 
 <Canvas of={AlertStories.Context} sourceState="none" />
 <FrameworkTabs examples={alertFrameworkExamples.context} />

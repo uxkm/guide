@@ -1,4 +1,5 @@
 <!-- Spin 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
+<!-- spin 루트에 색상·크기·인라인/블록/오버레이 변형 클래스를 함께 적용합니다. -->
 <div
   class="spin color_primary"
   data-component="Spin"
@@ -7,5 +8,6 @@
   aria-busy="true"
   aria-label="로딩 중"
 >
+  <!-- 회전하는 시각 표시기입니다. -->
   <span class="spin_indicator" aria-hidden="true"></span>
 </div>

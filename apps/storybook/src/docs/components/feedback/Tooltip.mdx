@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { tooltipFrameworkExamples as examples } from '../../../tooltipFrameworkExamples.ts';
+import { tooltipComponentExamples, tooltipFrameworkExamples as examples } from '../../../feedbackDocumentationExamples.ts';
 import { tooltipApiSections } from '../../../tooltipApiSections.ts';
 import * as Stories from '../../../Tooltip.stories.tsx';
 
@@ -9,7 +9,28 @@ import * as Stories from '../../../Tooltip.stories.tsx';
 
 # Tooltip
 
-호버·포커스 또는 클릭으로 짧은 도움말을 표시합니다. 말풍선은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다.
+호버·포커스 또는 클릭으로 짧은 도움말을 표시합니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
+
+말풍선은 전체 브라우저 DOM에 렌더링되며 트리거 좌표를 유지합니다. 트리거와 `role="tooltip"` 말풍선을 `aria-describedby`로 연결합니다.
+
+WebSquare는 루트를 `w2:group.tooltip`, 트리거를 `xf:trigger`, 말풍선을 `w2:group.tooltip_bubble`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Tooltip 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 열림 상태, 배치, 크기, 역색, 화살표와 트리거 방식을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 기본 `trigger`는 hover이며 click으로 전환할 수 있습니다.
+- `inverse`는 어두운 배경 말풍선을 적용합니다.
+- `noArrow`와 `arrowAnchor`로 화살표 표시·기준을 조절합니다.
+- 포커스로 열 수 있고 Esc와 외부 클릭으로 닫을 수 있습니다.
+
+<FrameworkTabs examples={tooltipComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`w2:group.tooltip` 안에 트리거와 `tooltip_bubble`을 배치하고 `aria-describedby`로 연결합니다. 호버·클릭 열기는 `xf:trigger` 이벤트에서 화면 스크립트로 처리합니다.
+
+배치·역색·크기는 `data-tooltip-placement`과 `tooltip_inverse`·`tooltip_sm` 클래스로 표현합니다.
 
 ## 기본
 <Canvas of={Stories.Basic} sourceState="none" />

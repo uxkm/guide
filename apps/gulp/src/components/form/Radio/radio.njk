@@ -1,9 +1,11 @@
 {# Radio 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# radio 루트 label이 입력·커스텀 원·텍스트 레이블을 한 클릭 영역으로 묶습니다. #}
 <label
   class="radio{% if labelEnd %} radio_label-end{% endif %}{% if button %} radio_button{% endif %}"
   data-ripple="{{ 'false' if ripple == false else 'true' }}"
 >
   {% if button %}
+  {# 버튼형은 숨김 radio와 레이블만 사용합니다. #}
   <input
     class="radio_input"
     type="radio"
@@ -14,6 +16,7 @@
     data-component="Radio"
   /><span class="radio_label">{{ label | default('라디오') }}</span>
   {% else %}
+  {# 기본형은 radio_control과 radio_label을 배치 옵션에 맞게 둡니다. #}
   {% if labelEnd %}<span class="radio_label">{{ label | default('라디오') }}</span
   >{% endif %}
   <span class="radio_control"
