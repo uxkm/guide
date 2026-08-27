@@ -69,6 +69,70 @@
 </tbody>
 </table>
 <p>가이드북과 스토리북은 같은 컴포넌트 분류를 사용합니다. 가이드북의 <code>컴포넌트</code> 메뉴에서 사용 시점과 주의사항을 확인한 뒤 각 컴포넌트 링크를 열어 Storybook의 상태, 조작 방법과 프레임워크별 구현 예제를 검증합니다. 디자인이나 개발 중 판단 기준이 바뀌면 코드만 수정하지 않고 두 문서의 설명과 예제를 함께 갱신합니다.</p>
+<h2 id="storybook-프레임워크-지원">Storybook 프레임워크 지원</h2>
+<p>Storybook의 각 컴포넌트 문서는 Preview와 함께 <strong>HTML, Gulp, Vue, Nuxt, React, Next.js, WebSquare</strong> 코드 탭을 제공합니다. 문법은 달라도 최종 DOM 구조, CSS 클래스, 상태 이름과 접근성 속성은 같은 계약을 따릅니다. 프레임워크를 고를 때는 프로젝트 기술 스택에 맞는 탭을 열고, 다른 탭과 결과를 비교해 구현 차이를 확인합니다.</p>
+<table>
+<thead>
+<tr>
+<th>프레임워크</th>
+<th>앱 · 제공 방식</th>
+<th>구현 기준</th>
+<th>Storybook에서 확인하는 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td><code>@uxkm/html</code></td>
+<td>HTML · CSS · JavaScript</td>
+<td>프레임워크 없는 기준 마크업과 동작</td>
+</tr>
+<tr>
+<td>Gulp / Nunjucks</td>
+<td><code>@uxkm/gulp</code></td>
+<td>Nunjucks · Gulp</td>
+<td>같은 구조를 정적 템플릿으로 조립하는 방식</td>
+</tr>
+<tr>
+<td>Vue</td>
+<td><code>@uxkm/vue</code></td>
+<td>Vue 3 · Vite</td>
+<td>Vue 컴포넌트 원본의 props·슬롯·이벤트</td>
+</tr>
+<tr>
+<td>Nuxt</td>
+<td><code>@uxkm/nuxt</code></td>
+<td>Vue · Nuxt</td>
+<td>Vue 컴포넌트를 Nuxt 앱에 통합하는 방식</td>
+</tr>
+<tr>
+<td>React</td>
+<td><code>@uxkm/react</code></td>
+<td>React · Vite</td>
+<td>React 컴포넌트 원본의 props·children·이벤트</td>
+</tr>
+<tr>
+<td>Next.js</td>
+<td><code>@uxkm/next</code></td>
+<td>React · App Router</td>
+<td>React 컴포넌트를 Next.js 앱에 통합하는 방식</td>
+</tr>
+<tr>
+<td>WebSquare</td>
+<td>Code → WebSquare 탭</td>
+<td>WebSquare XML · XHTML</td>
+<td>공통 HTML·CSS를 화면 XML에서 재사용하는 fragment</td>
+</tr>
+</tbody>
+</table>
+<p>환경 간 관계는 대체보다 <strong>재사용</strong>에 가깝습니다.</p>
+<ul>
+<li><strong>HTML과 Gulp:</strong> <code>.html</code>은 브라우저가 읽는 기준 마크업이고, <code>.njk</code>는 같은 구조를 Nunjucks로 조립한 뒤 Gulp가 HTML로 변환합니다.</li>
+<li><strong>Vue와 Nuxt:</strong> Nuxt는 Vue UI를 다시 만들지 않고 <code>@uxkm/vue</code>를 재사용하며, 라우팅·렌더링·메타데이터 같은 Nuxt 전용 통합만 둡니다.</li>
+<li><strong>React와 Next.js:</strong> Next.js는 <code>@uxkm/react</code>를 재사용하며, App Router와 프레임워크 전용 링크·이미지·렌더링만 확장합니다.</li>
+<li><strong>WebSquare:</strong> 별도 실행 앱이 아니라 HTML 기준 마크업을 XML 호환 fragment로 제공합니다. 데이터 바인딩과 이벤트는 프로젝트의 <code>scwin</code>·화면 규칙에 맞게 연결합니다.</li>
+</ul>
+<p>구현 절차와 완료 기준은 <a href="guides/frameworks/index.html">프레임워크 구현</a>에서, Storybook 소개·비교 설명은 Storybook의 <strong>소개</strong> 문서에서 이어서 확인합니다.</p>
 <h2 id="시작하기">시작하기</h2>
 <pre class="code-block"><span class="code-label">Terminal</span><code>pnpm dev
 </code></pre>
@@ -199,7 +263,7 @@ VITE_SOCIAL_IMAGE_URL=https://uxkm.io/_assets/images/_common/og_image.png
 <li>새로운 패턴이나 API가 추가되면 구현 코드와 함께 Markdown 설명과 Storybook 예제를 갱신합니다.</li>
 </ul>
 </div><nav class="page-nav" aria-label="문서 페이지 이동"><span></span><a href="./foundations/design-tokens/index.html" data-guide-path="foundations/design-tokens/index.html"><small>다음</small><strong>디자인 토큰 →</strong></a></nav></main></div>
-    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#문서의-역할">문서의 역할</a><a href="#시작하기">시작하기</a><a href="#빌드와-배포">빌드와 배포</a><a href="#권장-사용-흐름">권장 사용 흐름</a><a href="#컴포넌트-구성">컴포넌트 구성</a><a href="#문서-구성">문서 구성</a><a href="#문서-활용-기준">문서 활용 기준</a></aside>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#문서의-역할">문서의 역할</a><a href="#storybook-프레임워크-지원">Storybook 프레임워크 지원</a><a href="#시작하기">시작하기</a><a href="#빌드와-배포">빌드와 배포</a><a href="#권장-사용-흐름">권장 사용 흐름</a><a href="#컴포넌트-구성">컴포넌트 구성</a><a href="#문서-구성">문서 구성</a><a href="#문서-활용-기준">문서 활용 기준</a></aside>
     <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"><button class="search-close" type="button" aria-label="검색 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="search-results"><a class="search-result" href="./" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="./foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="./foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="./components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="./components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="./components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="./components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="./components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="./components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="./components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="./guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="./guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="./guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>활용 가이드</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
     <script type="module" src="/src/main.js"></script>
   </body>

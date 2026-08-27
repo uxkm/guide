@@ -23,6 +23,29 @@ UXKM Guidebook은 컴포넌트의 모양을 보여주는 목록이 아니라 어
 
 가이드북과 스토리북은 같은 컴포넌트 분류를 사용합니다. 가이드북의 `컴포넌트` 메뉴에서 사용 시점과 주의사항을 확인한 뒤 각 컴포넌트 링크를 열어 Storybook의 상태, 조작 방법과 프레임워크별 구현 예제를 검증합니다. 디자인이나 개발 중 판단 기준이 바뀌면 코드만 수정하지 않고 두 문서의 설명과 예제를 함께 갱신합니다.
 
+## Storybook 프레임워크 지원
+
+Storybook의 각 컴포넌트 문서는 Preview와 함께 **HTML, Gulp, Vue, Nuxt, React, Next.js, WebSquare** 코드 탭을 제공합니다. 문법은 달라도 최종 DOM 구조, CSS 클래스, 상태 이름과 접근성 속성은 같은 계약을 따릅니다. 프레임워크를 고를 때는 프로젝트 기술 스택에 맞는 탭을 열고, 다른 탭과 결과를 비교해 구현 차이를 확인합니다.
+
+| 프레임워크 | 앱 · 제공 방식 | 구현 기준 | Storybook에서 확인하는 내용 |
+| --- | --- | --- | --- |
+| HTML | `@uxkm/html` | HTML · CSS · JavaScript | 프레임워크 없는 기준 마크업과 동작 |
+| Gulp / Nunjucks | `@uxkm/gulp` | Nunjucks · Gulp | 같은 구조를 정적 템플릿으로 조립하는 방식 |
+| Vue | `@uxkm/vue` | Vue 3 · Vite | Vue 컴포넌트 원본의 props·슬롯·이벤트 |
+| Nuxt | `@uxkm/nuxt` | Vue · Nuxt | Vue 컴포넌트를 Nuxt 앱에 통합하는 방식 |
+| React | `@uxkm/react` | React · Vite | React 컴포넌트 원본의 props·children·이벤트 |
+| Next.js | `@uxkm/next` | React · App Router | React 컴포넌트를 Next.js 앱에 통합하는 방식 |
+| WebSquare | Code → WebSquare 탭 | WebSquare XML · XHTML | 공통 HTML·CSS를 화면 XML에서 재사용하는 fragment |
+
+환경 간 관계는 대체보다 **재사용**에 가깝습니다.
+
+- **HTML과 Gulp:** `.html`은 브라우저가 읽는 기준 마크업이고, `.njk`는 같은 구조를 Nunjucks로 조립한 뒤 Gulp가 HTML로 변환합니다.
+- **Vue와 Nuxt:** Nuxt는 Vue UI를 다시 만들지 않고 `@uxkm/vue`를 재사용하며, 라우팅·렌더링·메타데이터 같은 Nuxt 전용 통합만 둡니다.
+- **React와 Next.js:** Next.js는 `@uxkm/react`를 재사용하며, App Router와 프레임워크 전용 링크·이미지·렌더링만 확장합니다.
+- **WebSquare:** 별도 실행 앱이 아니라 HTML 기준 마크업을 XML 호환 fragment로 제공합니다. 데이터 바인딩과 이벤트는 프로젝트의 `scwin`·화면 규칙에 맞게 연결합니다.
+
+구현 절차와 완료 기준은 [프레임워크 구현](guides/frameworks/index.html)에서, Storybook 소개·비교 설명은 Storybook의 **소개** 문서에서 이어서 확인합니다.
+
 ## 시작하기
 
 ```Terminal
