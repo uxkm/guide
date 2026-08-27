@@ -1,2 +1,38 @@
+{# Steps 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% from "../../basic/Icon/icon.njk" import icon %}
-<ol class="steps{% if direction == 'vertical' %} steps_vertical{% endif %}{% if size == 'sm' or size == 'lg' %} steps_{{ size }}{% endif %}{% if dot %} steps_dot{% endif %}{% if iconStyle %} steps_icon-style{% endif %}{% if navigable %} steps_navigable{% endif %}{% if align == 'center' %} steps_align-center{% endif %}" aria-label="{{ ariaLabel | default('진행 단계') }}" data-component="Steps" data-steps>{% for item in items %}{% set status = item.status | default('wait') %}<li class="steps_item is-{{ status }}" data-step-index="{{ loop.index }}"{% if status == 'error' %} data-step-fixed="error"{% endif %}{% if status == 'active' and not navigable %} aria-current="step"{% endif %}>{% if navigable %}<button type="button" class="steps_trigger"{% if status == 'wait' %} disabled{% endif %}{% if status == 'active' %} aria-current="step"{% endif %}>{% endif %}<span class="steps_head"><span class="steps_indicator" aria-hidden="true">{% if item.icon %}{{ icon(item.icon, 'steps_icon') }}{% elif status == 'finished' %}{{ icon('check', 'steps_icon') }}{% elif status == 'error' %}{{ icon('close', 'steps_icon') }}{% else %}<span class="steps_index">{{ loop.index }}</span>{% endif %}</span>{% if not loop.last %}<span class="steps_tail" aria-hidden="true"></span>{% endif %}</span><span class="steps_content"><span class="steps_title">{{ item.title }}</span>{% if item.description %}<span class="steps_desc">{{ item.description }}</span>{% endif %}</span>{% if navigable %}</button>{% endif %}</li>{% endfor %}</ol>
+<ol
+  class="steps{% if direction == 'vertical' %} steps_vertical{% endif %}{% if size == 'sm' or size == 'lg' %} steps_{{ size }}{% endif %}{% if dot %} steps_dot{% endif %}{% if iconStyle %} steps_icon-style{% endif %}{% if navigable %} steps_navigable{% endif %}{% if align == 'center' %} steps_align-center{% endif %}"
+  aria-label="{{ ariaLabel | default('진행 단계') }}"
+  data-component="Steps"
+  data-steps
+>
+  {% for item in items %}{% set status = item.status | default('wait') %}
+  <li
+    class="steps_item is-{{ status }}"
+    data-step-index="{{ loop.index }}"{% if status == 'error' %}
+    data-step-fixed="error"{% endif %}{% if status == 'active' and not navigable %}
+    aria-current="step"{% endif %}
+  >
+    {% if navigable %}<button
+      type="button"
+      class="steps_trigger"{% if status == 'wait' %}
+      disabled{% endif %}{% if status == 'active' %}
+      aria-current="step"{% endif %}
+    >
+      {% endif %}<span class="steps_head"
+        ><span class="steps_indicator" aria-hidden="true"
+          >{% if item.icon %}{{ icon(item.icon, 'steps_icon') }}{% elif status == 'finished' %}{{ icon('check', 'steps_icon') }}{% elif status == 'error' %}{{ icon('close', 'steps_icon') }}{% else %}<span
+            class="steps_index"
+            >{{ loop.index }}</span
+          >{% endif %}</span
+        >{% if not loop.last %}<span class="steps_tail" aria-hidden="true"></span
+        >{% endif %}</span
+      ><span class="steps_content"
+        ><span class="steps_title">{{ item.title }}</span
+        >{% if item.description %}<span class="steps_desc">{{ item.description }}</span
+        >{% endif %}</span
+      >{% if navigable %}</button
+    >{% endif %}
+  </li>
+  {% endfor %}
+</ol>

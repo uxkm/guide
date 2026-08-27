@@ -1,3 +1,7 @@
+/**
+ * Alert 원본 구현.
+ * 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+ */
 import { useState } from 'react';
 
 const iconPaths = {
@@ -50,9 +54,7 @@ export function Alert({
     return null;
   }
 
-  const resolvedColor = ['info', 'success', 'warning', 'danger'].includes(color)
-    ? color
-    : 'info';
+  const resolvedColor = ['info', 'success', 'warning', 'danger'].includes(color) ? color : 'info';
   const colorClass = resolvedColor === 'danger' ? 'color_error' : `color_${resolvedColor}`;
   const classes = [
     'alert',
@@ -71,14 +73,9 @@ export function Alert({
   };
 
   return (
-    <div
-      className={classes}
-      data-component="Alert"
-      role={role}
-      {...props}
-    >
-      {showIcon && (
-        icon ?? (
+    <div className={classes} data-component="Alert" role={role} {...props}>
+      {showIcon &&
+        (icon ?? (
           <svg
             className="alert_icon"
             aria-hidden="true"
@@ -89,8 +86,7 @@ export function Alert({
           >
             {iconPaths[resolvedColor]}
           </svg>
-        )
-      )}
+        ))}
 
       <div className="alert_body">
         {title && <div className="alert_title">{title}</div>}
@@ -99,12 +95,7 @@ export function Alert({
       </div>
 
       {closable && (
-        <button
-          type="button"
-          className="alert_close"
-          aria-label={closeLabel}
-          onClick={handleClose}
-        >
+        <button type="button" className="alert_close" aria-label={closeLabel} onClick={handleClose}>
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"

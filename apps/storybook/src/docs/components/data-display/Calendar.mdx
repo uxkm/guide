@@ -1,8 +1,8 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { calendarFrameworkExamples } from '../../../calendarFrameworkExamples.ts';
-import { calendarApiSections } from '../../../calendarApiSections.ts';
+import { calendarComponentExamples, calendarFrameworkExamples } from '../../../dataDisplayDocumentationExamples.ts';
+import { calendarApiSections } from '../../../dataDisplayDocumentationApiSections.ts';
 import * as CalendarStories from '../../../Calendar.stories.tsx';
 
 <Meta of={CalendarStories} />
@@ -12,6 +12,18 @@ import * as CalendarStories from '../../../Calendar.stories.tsx';
 날짜를 월·주 단위 그리드, 세로 일정 목록, iOS 스타일 휠로 표시하는 캘린더 컴포넌트입니다.
 
 Vue와 React 구현은 각각 `@uxkm/vue/calendar`, `@uxkm/react/calendar`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+WebSquare는 월·주·일 데이터를 DataList와 `w2:generator`로 렌더링하고 탐색·날짜 선택은 `xf:trigger`와 `scwin` 이벤트로 연결합니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 Calendar의 실제 HTML·Gulp·Vue·React 원본 구현입니다. 헤더·요일·날짜 그리드, 월·주·휠·일정 변형과 선택 상태가 구성되는 방식을 확인할 수 있습니다.
+
+<FrameworkTabs examples={calendarComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+날짜 셀은 generator 안의 `xf:trigger.calendar_day`로 만들고 날짜 값, 비활성 여부, `aria-selected`, 범위·오늘 상태 클래스를 같은 DataList 행에 연결합니다. 이전·다음 탐색은 별도 Trigger로 구성하며 읽기 전용·비활성 상태에서는 선택 이벤트를 연결하지 않습니다.
 
 ## 기본
 

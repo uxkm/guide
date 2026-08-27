@@ -1,10 +1,35 @@
+{# Tag 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 <div class="tag_group" data-component="TagGroup" role="group" aria-label="카테고리 필터">
-  <button class="tag tag_checkable color_default is-selected" data-component="Tag" data-ripple="true" type="button" aria-pressed="true">전체</button>
-  <button class="tag tag_checkable color_default" data-component="Tag" data-ripple="true" type="button" aria-pressed="false">UI</button>
+  <button
+    class="tag tag_checkable color_default is-selected"
+    data-component="Tag"
+    data-ripple="true"
+    type="button"
+    aria-pressed="true"
+  >
+    전체
+  </button>
+  <button
+    class="tag tag_checkable color_default"
+    data-component="Tag"
+    data-ripple="true"
+    type="button"
+    aria-pressed="false"
+  >
+    UI
+  </button>
   <span class="tag color_primary" data-component="Tag">
     React
     <button class="tag_close" type="button" aria-label="React 태그 제거">
-      <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="m6 6 12 12M18 6 6 18"></path>
+      </svg>
     </button>
   </span>
 </div>

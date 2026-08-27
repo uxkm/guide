@@ -24,6 +24,18 @@ const cardHeaderProps: ApiRow[] = [
   { name: 'children · default', type: 'ReactNode · slot', default: '—', description: 'title·subtitle를 대체하는 헤더 메인 콘텐츠' }
 ];
 
+const cardWebSquareRows: ApiRow[] = [
+  { name: 'w2:group', type: 'component', default: '—', description: 'Card와 header · body · footer · media · deck 내부 영역을 구성합니다.' },
+  { name: 'w2:textbox', type: 'component', default: '—', description: '제목·부제·본문·메타 텍스트를 label과 tagname으로 표시합니다.' },
+  { name: 'w2:image', type: 'component', default: '—', description: '카드 미디어와 아이콘의 프로젝트 정적 리소스를 표시합니다.' },
+  { name: 'w2:anchor', type: 'component', default: '—', description: 'URL로 이동하는 링크 Card 또는 카드 내부 링크를 구성합니다.' },
+  { name: 'xf:trigger + xf:label', type: 'component', default: '—', description: '화면 동작을 실행하는 카드 액션을 구성합니다.' },
+  { name: 'class', type: 'string', default: 'card', description: 'card_* · color_* · is-disabled 공통 클래스를 조합합니다.' },
+  { name: 'role · aria-label · aria-disabled · tabindex', type: 'state', default: '—', description: '인터랙티브 Card, 미디어, 비활성 상태의 접근성 의미를 지정합니다.' },
+  { name: 'ev:onclick', type: 'event', default: '—', description: '클릭 가능한 Card와 내부 액션을 scwin 함수에 연결합니다.' },
+  { name: 'DataList · w2:generator', type: 'binding', default: '선택', description: '반복 Card 목록과 카드 데이터를 화면 데이터에 연결합니다.' }
+];
+
 export const cardApiSections: ApiSectionData[] = [
   section('React · Next.js API · Card Props', cardProps, 'Next.js는 `@uxkm/react/card`를 재사용합니다.'),
   section('React · Next.js API · CardHeader Props', cardHeaderProps),
@@ -42,6 +54,7 @@ export const cardApiSections: ApiSectionData[] = [
     { name: 'card_hover · card_clickable · card_accent · is-disabled', type: 'class', default: '—', description: '동작과 상태' },
     { name: 'card_deck · card_deck-2 · card_deck-3', type: 'class', default: '—', description: '반응형 카드 그룹' }
   ]),
+  section('WebSquare API · XML', cardWebSquareRows, 'Card는 화면 XML의 group·textbox·image에 공통 구조 클래스를 적용하고 링크와 액션의 의미를 구분합니다.'),
   section('공통 API · 디자인 토큰', [
     { name: '--card-padding · --card-padding-sm · --card-padding-lg', type: 'length', default: 'var(--space-lg) · var(--space-md) · var(--space-xl)', description: '크기별 내부 여백' },
     { name: '--card-radius · --card-shadow · --card-shadow-md', type: 'length · shadow', default: '—', description: '모서리와 그림자' },

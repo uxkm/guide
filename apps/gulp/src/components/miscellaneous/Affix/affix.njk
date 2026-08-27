@@ -1,6 +1,16 @@
-<div class="affix{% if className %} {{ className }}{% endif %}" data-component="Affix"{% if interactive != false %} data-affix{% endif %}{% if target %} data-target="{{ target }}"{% endif %}{% if offsetTop %} data-offset-top="{{ offsetTop }}"{% endif %}{% if offsetBottom is defined %} data-offset-bottom="{{ offsetBottom }}"{% endif %}>
+{# Affix 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+<div
+  class="affix{% if className %} {{ className }}{% endif %}"
+  data-component="Affix"{% if interactive != false %}
+  data-affix{% endif %}{% if target %}
+  data-target="{{ target }}"{% endif %}{% if offsetTop %}
+  data-offset-top="{{ offsetTop }}"{% endif %}{% if offsetBottom is defined %}
+  data-offset-bottom="{{ offsetBottom }}"{% endif %}
+>
   <div class="affix_placeholder" aria-hidden="true" hidden></div>
-  <div class="affix_target{% if skin == 'bar' %} affix_bar{% elif skin == 'anchor' %} affix_anchor{% endif %}">
+  <div
+    class="affix_target{% if skin == 'bar' %} affix_bar{% elif skin == 'anchor' %} affix_anchor{% endif %}"
+  >
     {{ content | default('Affix') | safe }}
   </div>
 </div>

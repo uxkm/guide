@@ -20,6 +20,7 @@
     "build:assets": "node scripts/build-assets.mjs",
     "build:styles": "node scripts/build-styles.mjs",
     "build:shared": "pnpm build:styles && pnpm build:assets",
+    "format:components": "node scripts/format-component-sources.mjs",
     "storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook storybook",
     "test:storybook": "pnpm --filter @uxkm/storybook test-storybook",
     "test:storybook:coverage": "pnpm --filter @uxkm/storybook test-storybook:coverage",
@@ -32,6 +33,7 @@
     "validate:structure": "node scripts/validate-components.mjs"
   },
   "devDependencies": {
+    "prettier": "3.6.2",
     "sass": "^1.102.0"
   }
 }

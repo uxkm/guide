@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { formLayoutFrameworkExamples } from '../../../formLayoutFrameworkExamples.ts';
+import { formLayoutComponentExamples, formLayoutFrameworkExamples } from '../../../formLayoutDocumentationExamples.ts';
 import { formLayoutApiSections } from '../../../formLayoutApiSections.ts';
 import * as FormLayoutStories from '../../../FormLayout.stories.tsx';
 
@@ -14,6 +14,26 @@ import * as FormLayoutStories from '../../../FormLayout.stories.tsx';
 Vue와 React의 공통 구현은 각각 `@uxkm/vue/form-layout`, `@uxkm/react/form-layout`로 제공합니다. Nuxt와 Next.js는 같은 구현을 재사용합니다.
 
 필수 필드는 별표와 함께 스크린 리더용 “필수 항목” 텍스트를 제공합니다. `FormField`의 `required` 표시는 안내용이므로 실제 입력 컨트롤에도 네이티브 `required` 속성을 지정해야 합니다.
+
+WebSquare는 폼 루트와 필드 영역을 `w2:group`, 입력 컨트롤을 `xf:input`·`xf:select1`, 액션을 `xf:trigger`로 구성합니다. 각 WebSquare 탭의 코드는 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `FormLayout`, `FormField`, `FormActions` 자체의 실제 원본 구현입니다. React와 Vue는 배치·너비 옵션을 공통 클래스에 연결하고 레이블, 입력 영역, 상태 메시지, 액션 영역의 접근성 구조를 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+- `layout`은 `vertical`, `horizontal`, `inline` 배치 클래스로 변환됩니다.
+- `fit`·`compact`는 폼 또는 개별 필드의 너비와 간격을 조절합니다.
+- `labelAlign`·`labelWidth`는 가로 레이아웃의 레이블 열 정렬과 너비를 통일합니다.
+- `FormField`는 레이블과 입력 id를 연결하고 도움말보다 오류 메시지를 우선 표시합니다.
+- `FormActions`는 제출·취소 버튼을 세로·가로·인라인 레이아웃 규칙에 맞춰 배치합니다.
+
+<FrameworkTabs examples={formLayoutComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+Form Layout은 별도 WFrame을 불러오는 컴포넌트가 아니라 화면 XML에서 `w2:group`에 `form`과 배치 클래스를 적용하는 구조입니다. 각 `form_field` 안에는 `tagname="label"`을 사용하는 레이블 영역, `form_field-control` 입력 영역, 필요한 상태 메시지를 순서대로 배치합니다.
+
+레이블의 `for`는 `xf:input` 또는 `xf:select1`의 id와 연결하고 실제 값은 `ref`로 DataMap·DataList에 바인딩합니다. 시각적인 필수 표시에 더해 입력 컴포넌트의 필수 검증 설정도 함께 적용해야 합니다. 저장·검색·취소 동작은 `xf:trigger`의 `ev:onclick`으로 화면 스크립트와 연결합니다.
 
 ## 세로
 

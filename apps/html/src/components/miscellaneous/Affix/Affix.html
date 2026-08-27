@@ -1,11 +1,21 @@
+<!-- Affix 원본 구현: 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다. -->
 <div id="affix-scroll-basic" class="affix_demo-scroll">
   <div class="affix_demo-content">
     <p>스크롤하면 주문 액션 바가 상단에 고정됩니다.</p>
     <p>배송지와 결제 정보를 확인하세요.</p>
     <div class="affix" data-component="Affix" data-affix data-target="#affix-scroll-basic">
       <div class="affix_placeholder" aria-hidden="true" hidden></div>
-      <div class="affix_target affix_bar"><span class="affix_bar-label">주문 #ORD-2024-0815</span><div class="affix_bar-actions"><button type="button" class="btn btn_outline btn_sm">취소</button><button type="button" class="btn btn_filled color_primary btn_sm">결제</button></div></div>
+      <div class="affix_target affix_bar">
+        <span class="affix_bar-label">주문 #ORD-2024-0815</span>
+        <div class="affix_bar-actions">
+          <button type="button" class="btn btn_outline btn_sm">취소</button
+          ><button type="button" class="btn btn_filled color_primary btn_sm">결제</button>
+        </div>
+      </div>
     </div>
-    <p>상품 정보 · 배송비 · 요청 사항</p><p>교환·반품 안내</p><p>고객센터 · FAQ</p><p>관련 상품 · 최근 본 상품</p>
+    <p>상품 정보 · 배송비 · 요청 사항</p>
+    <p>교환·반품 안내</p>
+    <p>고객센터 · FAQ</p>
+    <p>관련 상품 · 최근 본 상품</p>
   </div>
 </div>

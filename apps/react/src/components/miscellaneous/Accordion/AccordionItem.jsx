@@ -1,3 +1,7 @@
+/**
+ * AccordionItem 원본 구현.
+ * 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+ */
 import { useContext, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { setSlideRegionOpen } from '@uxkm/interactions/slide-region';
 import Button from '../../basic/Button/Button.jsx';
@@ -29,12 +33,16 @@ export function AccordionItem({
   stateRef.current = isOpen;
   disabledRef.current = Boolean(disabled);
 
-  useEffect(() => accordion?.registerItem({
-    id: triggerId,
-    disabled: () => disabledRef.current,
-    isOpen: () => stateRef.current,
-    setOpen: setIsOpen,
-  }), [accordion, triggerId]);
+  useEffect(
+    () =>
+      accordion?.registerItem({
+        id: triggerId,
+        disabled: () => disabledRef.current,
+        isOpen: () => stateRef.current,
+        setOpen: setIsOpen,
+      }),
+    [accordion, triggerId],
+  );
 
   useLayoutEffect(() => {
     if (accordion?.effect !== 'slide') return;
@@ -46,7 +54,9 @@ export function AccordionItem({
     if (accordion?.focusAdjacent(triggerId, event.key)) event.preventDefault();
   }
 
-  const classes = ['accordion_item', isOpen && 'is-open', disabled && 'is-disabled', className].filter(Boolean).join(' ');
+  const classes = ['accordion_item', isOpen && 'is-open', disabled && 'is-disabled', className]
+    .filter(Boolean)
+    .join(' ');
   const slide = accordion?.effect === 'slide';
 
   return (

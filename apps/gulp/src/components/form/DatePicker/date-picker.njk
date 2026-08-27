@@ -1,9 +1,69 @@
+{# DatePicker 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% set datePickerId = datePickerId | default('date-picker-example') %}
-<div class="date_picker{% if size and size != 'md' %} date_picker_{{ size }}{% endif %}{% if fit %} date_picker_fit{% endif %}{% if block %} date_picker_block{% endif %}{% if disabled %} is-disabled{% endif %}{% if error %} is-error{% endif %}{% if success %} is-success{% endif %}" data-component="DatePicker"{% if value %} data-value="{{ value }}"{% endif %}{% if min %} data-min="{{ min }}"{% endif %}{% if max %} data-max="{{ max }}"{% endif %}>
+<div
+  class="date_picker{% if size and size != 'md' %} date_picker_{{ size }}{% endif %}{% if fit %} date_picker_fit{% endif %}{% if block %} date_picker_block{% endif %}{% if disabled %} is-disabled{% endif %}{% if error %} is-error{% endif %}{% if success %} is-success{% endif %}"
+  data-component="DatePicker"{% if value %}
+  data-value="{{ value }}"{% endif %}{% if min %}
+  data-min="{{ min }}"{% endif %}{% if max %}
+  data-max="{{ max }}"{% endif %}
+>
   <div class="date_picker_trigger">
-    <input id="{{ datePickerId }}" class="date_picker_input" placeholder="{{ placeholder | default('날짜를 선택하세요') }}" readonly aria-haspopup="dialog" aria-expanded="false" aria-controls="{{ datePickerId }}-panel"{% if disabled %} disabled{% endif %}{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}>
-    {% if clearable != false %}<button class="date_picker_clear" type="button" aria-label="날짜 지우기"{% if not value %} hidden{% endif %}><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"></path></svg></button>{% endif %}
-    <button class="date_picker_btn" type="button" aria-label="달력 열기" aria-controls="{{ datePickerId }}-panel" aria-expanded="false"{% if disabled %} disabled{% endif %}><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg></button>
+    <input
+      id="{{ datePickerId }}"
+      class="date_picker_input"
+      placeholder="{{ placeholder | default('날짜를 선택하세요') }}"
+      readonly
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="{{ datePickerId }}-panel"{% if disabled %}
+      disabled{% endif %}{% if required %}
+      required{% endif %}{% if error %}
+      aria-invalid="true"{% endif %}
+    />
+    {% if clearable != false %}<button
+      class="date_picker_clear"
+      type="button"
+      aria-label="날짜 지우기"{% if not value %}
+      hidden{% endif %}
+    >
+      <svg
+        class="icon"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="m6 6 12 12M18 6 6 18"></path>
+      </svg></button
+    >{% endif %}
+    <button
+      class="date_picker_btn"
+      type="button"
+      aria-label="달력 열기"
+      aria-controls="{{ datePickerId }}-panel"
+      aria-expanded="false"{% if disabled %}
+      disabled{% endif %}
+    >
+      <svg
+        class="icon"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+        <path d="M16 3v4M8 3v4M3 10h18"></path>
+      </svg>
+    </button>
   </div>
-  <div id="{{ datePickerId }}-panel" class="date_picker_panel{% if panelAlign == 'end' %} date_picker_panel-end{% endif %}" role="dialog" aria-modal="false" aria-label="날짜 선택" hidden></div>
+  <div
+    id="{{ datePickerId }}-panel"
+    class="date_picker_panel{% if panelAlign == 'end' %} date_picker_panel-end{% endif %}"
+    role="dialog"
+    aria-modal="false"
+    aria-label="날짜 선택"
+    hidden
+  ></div>
 </div>

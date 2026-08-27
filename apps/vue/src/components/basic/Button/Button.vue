@@ -1,3 +1,7 @@
+<!--
+  Button 원본 구현.
+  시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
+-->
 <script setup>
 import { computed } from 'vue';
 
@@ -31,23 +35,35 @@ const props = defineProps({
   href: { type: String, default: undefined },
   role: { type: String, default: undefined },
   tabindex: { type: [Number, String], default: undefined },
-  type: { type: String, default: 'button' }
+  type: { type: String, default: 'button' },
 });
 
 const emit = defineEmits(['click', 'keydown']);
 const inactive = computed(() => props.disabled || props.ariaDisabled || props.loading);
-const needsButtonSemantics = computed(() => props.tag === 'div' || (props.tag === 'a' && !props.href));
-const classes = computed(() => [
-  'btn', props.variant === 'select' ? 'btn_select' : `btn_${props.variant}`,
-  props.variant !== 'ghost' ? `color_${props.color}` : '',
-  props.size !== 'md' ? `btn_${props.size}` : '',
-  props.selectText ? 'btn_select-text' : '', props.placeholder ? 'btn_select-placeholder' : '',
-  props.iconOnly ? 'btn_icon-only' : '', props.vertical ? 'btn_vertical' : '',
-  props.round ? 'btn_round' : '', props.block ? 'btn_block' : '',
-  props.grow === true ? 'btn_grow' : '', props.grow === '2' ? 'btn_grow-2' : '',
-  props.fit ? 'btn_fit' : '', props.ariaDisabled ? 'is-disabled' : '',
-  props.loading ? 'is-loading' : '', props.open ? 'is-open' : '', props.error ? 'is-error' : ''
-].filter(Boolean));
+const needsButtonSemantics = computed(
+  () => props.tag === 'div' || (props.tag === 'a' && !props.href),
+);
+const classes = computed(() =>
+  [
+    'btn',
+    props.variant === 'select' ? 'btn_select' : `btn_${props.variant}`,
+    props.variant !== 'ghost' ? `color_${props.color}` : '',
+    props.size !== 'md' ? `btn_${props.size}` : '',
+    props.selectText ? 'btn_select-text' : '',
+    props.placeholder ? 'btn_select-placeholder' : '',
+    props.iconOnly ? 'btn_icon-only' : '',
+    props.vertical ? 'btn_vertical' : '',
+    props.round ? 'btn_round' : '',
+    props.block ? 'btn_block' : '',
+    props.grow === true ? 'btn_grow' : '',
+    props.grow === '2' ? 'btn_grow-2' : '',
+    props.fit ? 'btn_fit' : '',
+    props.ariaDisabled ? 'is-disabled' : '',
+    props.loading ? 'is-loading' : '',
+    props.open ? 'is-open' : '',
+    props.error ? 'is-error' : '',
+  ].filter(Boolean),
+);
 
 function handleClick(event) {
   if (inactive.value) {
@@ -87,17 +103,31 @@ function handleKeydown(event) {
     :disabled="tag === 'button' ? disabled : undefined"
     :href="tag === 'a' ? href : undefined"
     :role="role ?? (needsButtonSemantics ? 'button' : undefined)"
-    :tabindex="inactive && tag !== 'button' ? -1 : (tabindex ?? (needsButtonSemantics ? 0 : undefined))"
+    :tabindex="
+      inactive && tag !== 'button' ? -1 : (tabindex ?? (needsButtonSemantics ? 0 : undefined))
+    "
     :type="tag === 'button' ? type : undefined"
     @click="handleClick"
     @keydown="handleKeydown"
   >
     <span v-if="loading" class="btn_spinner" aria-hidden="true" />
     <slot name="icon-before" />
-    <template v-if="!iconOnly"><span class="btn_label"><slot>{{ label }}</slot></span></template>
+    <template v-if="!iconOnly"
+      ><span class="btn_label"
+        ><slot>{{ label }}</slot></span
+      ></template
+    >
     <slot v-else />
     <slot name="icon-after" />
-    <svg v-if="variant === 'select' || selectCaret" class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+    <svg
+      v-if="variant === 'select' || selectCaret"
+      class="icon"
+      aria-hidden="true"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="1.8"
+    >
       <path d="m9 6 6 6-6 6" />
     </svg>
   </component>

@@ -1,3 +1,27 @@
-<div class="back_top{% if size == 'sm' or size == 'lg' %} back_top_{{ size }}{% endif %}{% if color == 'primary' or color == 'ghost' %} back_top_{{ color }}{% endif %}" data-component="BackTop"{% if interactive != false %} data-back-top{% endif %}{% if target %} data-target="{{ target }}"{% endif %}{% if visibilityHeight and visibilityHeight != 400 %} data-visibility-height="{{ visibilityHeight }}"{% endif %}>
-  <button type="button" class="btn btn_ghost back_top_btn" aria-label="{{ ariaLabel | default('맨 위로') }}" data-ripple="surface"><svg class="back_top_icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>{% if label %}<span class="back_top_label">{{ label }}</span>{% endif %}</button>
+{# BackTop 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+<div
+  class="back_top{% if size == 'sm' or size == 'lg' %} back_top_{{ size }}{% endif %}{% if color == 'primary' or color == 'ghost' %} back_top_{{ color }}{% endif %}"
+  data-component="BackTop"{% if interactive != false %}
+  data-back-top{% endif %}{% if target %}
+  data-target="{{ target }}"{% endif %}{% if visibilityHeight and visibilityHeight != 400 %}
+  data-visibility-height="{{ visibilityHeight }}"{% endif %}
+>
+  <button
+    type="button"
+    class="btn btn_ghost back_top_btn"
+    aria-label="{{ ariaLabel | default('맨 위로') }}"
+    data-ripple="surface"
+  >
+    <svg
+      class="back_top_icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      aria-hidden="true"
+    >
+      <path d="m6 15 6-6 6 6" /></svg
+    >{% if label %}<span class="back_top_label">{{ label }}</span
+    >{% endif %}
+  </button>
 </div>

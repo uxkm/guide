@@ -1,13 +1,40 @@
+<!--
+  Breadcrumb 원본 구현.
+  현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다.
+-->
 <script setup>
 import { computed, useAttrs } from 'vue';
 import BreadcrumbItem from './BreadcrumbItem.vue';
 defineOptions({ name: 'UxkmBreadcrumb', inheritAttrs: false });
-const props = defineProps({ items: { type: Array, default: () => [] }, ariaLabel: { type: String, default: '경로' }, separator: { type: String, default: 'chevron' }, size: { type: String, default: 'md' } });
+const props = defineProps({
+  items: { type: Array, default: () => [] },
+  ariaLabel: { type: String, default: '경로' },
+  separator: { type: String, default: 'chevron' },
+  size: { type: String, default: 'md' },
+});
 const attrs = useAttrs();
-const separator = computed(() => ['chevron', 'slash', 'dot'].includes(props.separator) ? props.separator : 'chevron');
-const size = computed(() => ['sm', 'md', 'lg'].includes(props.size) ? props.size : 'md');
-const classes = computed(() => ['breadcrumb', separator.value !== 'chevron' && `breadcrumb_sep-${separator.value}`, size.value !== 'md' && `breadcrumb_${size.value}`].filter(Boolean));
+const separator = computed(() =>
+  ['chevron', 'slash', 'dot'].includes(props.separator) ? props.separator : 'chevron',
+);
+const size = computed(() => (['sm', 'md', 'lg'].includes(props.size) ? props.size : 'md'));
+const classes = computed(() =>
+  [
+    'breadcrumb',
+    separator.value !== 'chevron' && `breadcrumb_sep-${separator.value}`,
+    size.value !== 'md' && `breadcrumb_${size.value}`,
+  ].filter(Boolean),
+);
 </script>
 <template>
-  <nav v-bind="attrs" :class="classes" :aria-label="ariaLabel" data-component="Breadcrumb"><ol class="breadcrumb_list"><template v-if="items.length"><BreadcrumbItem v-for="(item, index) in items" :key="item.key ?? `${item.label}-${index}`" v-bind="item" :current="item.current ?? index === items.length - 1" /></template><slot v-else /></ol></nav>
+  <nav v-bind="attrs" :class="classes" :aria-label="ariaLabel" data-component="Breadcrumb">
+    <ol class="breadcrumb_list">
+      <template v-if="items.length"
+        ><BreadcrumbItem
+          v-for="(item, index) in items"
+          :key="item.key ?? `${item.label}-${index}`"
+          v-bind="item"
+          :current="item.current ?? index === items.length - 1" /></template
+      ><slot v-else />
+    </ol>
+  </nav>
 </template>

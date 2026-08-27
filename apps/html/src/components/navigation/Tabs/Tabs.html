@@ -1,4 +1,67 @@
+<!-- Tabs 원본 구현: 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다. -->
 <div class="tabs tabs_line" data-component="Tabs" data-tabs>
-  <div class="tabs_bar"><div class="tabs_list-wrap"><div class="tabs_list" role="tablist" aria-label="프로젝트 정보"><button type="button" class="tabs_tab is-active" role="tab" id="project-tab-1" aria-selected="true" aria-controls="project-panel-1"><span class="tabs_label">개요</span></button><button type="button" class="tabs_tab" role="tab" id="project-tab-2" aria-selected="false" aria-controls="project-panel-2" tabindex="-1"><span class="tabs_label">팀</span></button><button type="button" class="tabs_tab" role="tab" id="project-tab-3" aria-selected="false" aria-controls="project-panel-3" tabindex="-1"><span class="tabs_label">활동</span></button></div></div></div>
-  <div class="tabs_panels"><div class="tabs_panel is-active" role="tabpanel" id="project-panel-1" aria-labelledby="project-tab-1"><p>프로젝트 개요와 목표를 설명하는 영역입니다.</p></div><div class="tabs_panel" role="tabpanel" id="project-panel-2" aria-labelledby="project-tab-2" hidden><p>팀 구성원과 역할을 표시합니다.</p></div><div class="tabs_panel" role="tabpanel" id="project-panel-3" aria-labelledby="project-tab-3" hidden><p>최근 활동 로그와 타임라인을 보여줍니다.</p></div></div>
+  <div class="tabs_bar">
+    <div class="tabs_list-wrap">
+      <div class="tabs_list" role="tablist" aria-label="프로젝트 정보">
+        <button
+          type="button"
+          class="tabs_tab is-active"
+          role="tab"
+          id="project-tab-1"
+          aria-selected="true"
+          aria-controls="project-panel-1"
+        >
+          <span class="tabs_label">개요</span></button
+        ><button
+          type="button"
+          class="tabs_tab"
+          role="tab"
+          id="project-tab-2"
+          aria-selected="false"
+          aria-controls="project-panel-2"
+          tabindex="-1"
+        >
+          <span class="tabs_label">팀</span></button
+        ><button
+          type="button"
+          class="tabs_tab"
+          role="tab"
+          id="project-tab-3"
+          aria-selected="false"
+          aria-controls="project-panel-3"
+          tabindex="-1"
+        >
+          <span class="tabs_label">활동</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="tabs_panels">
+    <div
+      class="tabs_panel is-active"
+      role="tabpanel"
+      id="project-panel-1"
+      aria-labelledby="project-tab-1"
+    >
+      <p>프로젝트 개요와 목표를 설명하는 영역입니다.</p>
+    </div>
+    <div
+      class="tabs_panel"
+      role="tabpanel"
+      id="project-panel-2"
+      aria-labelledby="project-tab-2"
+      hidden
+    >
+      <p>팀 구성원과 역할을 표시합니다.</p>
+    </div>
+    <div
+      class="tabs_panel"
+      role="tabpanel"
+      id="project-panel-3"
+      aria-labelledby="project-tab-3"
+      hidden
+    >
+      <p>최근 활동 로그와 타임라인을 보여줍니다.</p>
+    </div>
+  </div>
 </div>

@@ -1,14 +1,125 @@
+{# Upload 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% set uploadId = uploadId | default('upload-example') %}
 {% set uploadVariant = variant | default('button') %}
-<div class="upload{% if fit %} upload_fit{% endif %}{% if size and size != 'md' %} upload_{{ size }}{% endif %}{% if disabled %} is-disabled{% endif %}" data-component="Upload"{% if maxSize %} data-max-size="{{ maxSize }}"{% endif %}{% if maxFiles %} data-max-files="{{ maxFiles }}"{% endif %}>
+<div
+  class="upload{% if fit %} upload_fit{% endif %}{% if size and size != 'md' %} upload_{{ size }}{% endif %}{% if disabled %} is-disabled{% endif %}"
+  data-component="Upload"{% if maxSize %}
+  data-max-size="{{ maxSize }}"{% endif %}{% if maxFiles %}
+  data-max-files="{{ maxFiles }}"{% endif %}
+>
   {% if uploadVariant == 'drag' or uploadVariant == 'dropzone' %}
-  <label class="upload_dropzone{% if error %} is-error{% endif %}" for="{{ uploadId }}"{% if not disabled %} tabindex="0"{% endif %}><input id="{{ uploadId }}" class="upload_input" type="file" tabindex="-1"{% if accept %} accept="{{ accept }}"{% endif %}{% if multiple %} multiple{% endif %}{% if disabled %} disabled{% endif %}><span class="upload_dropzone-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 16v5h14v-5M12 17V3m0 0-4 4m4-4 4 4"></path></svg></span><span class="upload_dropzone-title">{{ title | default('파일을 끌어다 놓거나 선택하세요') }}</span>{% if description %}<span class="upload_dropzone-desc">{{ description }}</span>{% endif %}</label>
+  <label
+    class="upload_dropzone{% if error %} is-error{% endif %}"
+    for="{{ uploadId }}"{% if not disabled %}
+    tabindex="0"{% endif %}
+    ><input
+      id="{{ uploadId }}"
+      class="upload_input"
+      type="file"
+      tabindex="-1"{% if accept %}
+      accept="{{ accept }}"{% endif %}{% if multiple %}
+      multiple{% endif %}{% if disabled %}
+      disabled{% endif %}
+    /><span class="upload_dropzone-icon"
+      ><svg
+        class="icon"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M5 16v5h14v-5M12 17V3m0 0-4 4m4-4 4 4"></path></svg></span
+    ><span class="upload_dropzone-title">{{ title | default('파일을 끌어다 놓거나 선택하세요') }}</span
+    >{% if description %}<span class="upload_dropzone-desc"
+      >{{ description }}</span
+    >{% endif %}</label
+  >
   {% elseif uploadVariant == 'picture-card' or uploadVariant == 'cards' %}
-  <div class="upload_cards"><label class="upload_card upload_card-trigger" for="{{ uploadId }}"{% if not disabled %} tabindex="0"{% endif %}><input id="{{ uploadId }}" class="upload_input" type="file" tabindex="-1" accept="{{ accept | default('image/*') }}"{% if multiple %} multiple{% endif %}{% if disabled %} disabled{% endif %}><svg class="icon icon_lg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg><span>{{ buttonLabel | default('업로드') }}</span></label></div>
+  <div class="upload_cards">
+    <label
+      class="upload_card upload_card-trigger"
+      for="{{ uploadId }}"{% if not disabled %}
+      tabindex="0"{% endif %}
+      ><input
+        id="{{ uploadId }}"
+        class="upload_input"
+        type="file"
+        tabindex="-1"
+        accept="{{ accept | default('image/*') }}"{% if multiple %}
+        multiple{% endif %}{% if disabled %}
+        disabled{% endif %}
+      /><svg
+        class="icon icon_lg"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M12 5v14M5 12h14"></path></svg
+      ><span>{{ buttonLabel | default('업로드') }}</span></label
+    >
+  </div>
   {% elseif uploadVariant == 'avatar' %}
-  <label class="upload_avatar" for="{{ uploadId }}"{% if not disabled %} tabindex="0"{% endif %}><input id="{{ uploadId }}" class="upload_input" type="file" tabindex="-1" accept="{{ accept | default('image/*') }}"{% if disabled %} disabled{% endif %}><span class="avatar avatar_xl">{% if avatarSrc %}<img class="avatar_image" src="{{ avatarSrc }}" alt="{{ avatarAlt | default('프로필 사진') }}">{% else %}<svg class="avatar_icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>{% endif %}</span><span class="upload_avatar-overlay" aria-hidden="true"><svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="m16 6-4-4-4 4M12 2v13"></path></svg></span></label>
+  <label
+    class="upload_avatar"
+    for="{{ uploadId }}"{% if not disabled %}
+    tabindex="0"{% endif %}
+    ><input
+      id="{{ uploadId }}"
+      class="upload_input"
+      type="file"
+      tabindex="-1"
+      accept="{{ accept | default('image/*') }}"{% if disabled %}
+      disabled{% endif %} /><span class="avatar avatar_xl"
+      >{% if avatarSrc %}<img
+        class="avatar_image"
+        src="{{ avatarSrc }}"
+        alt="{{ avatarAlt | default('프로필 사진') }}"
+      />{% else %}<svg
+        class="avatar_icon"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4 21a8 8 0 0 1 16 0"></path></svg
+      >{% endif %}</span
+    ><span class="upload_avatar-overlay" aria-hidden="true"
+      ><svg
+        class="icon icon_lg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+        <path d="m16 6-4-4-4 4M12 2v13"></path></svg></span
+  ></label>
   {% elseif uploadVariant != 'list' %}
-  <label class="upload_trigger" for="{{ uploadId }}"{% if not disabled %} tabindex="0"{% endif %}><input id="{{ uploadId }}" class="upload_input" type="file" tabindex="-1"{% if accept %} accept="{{ accept }}"{% endif %}{% if multiple %} multiple{% endif %}{% if disabled %} disabled{% endif %}><span class="btn btn_filled color_primary"><span class="btn_label">{{ buttonLabel | default('파일 선택') }}</span></span></label>
+  <label
+    class="upload_trigger"
+    for="{{ uploadId }}"{% if not disabled %}
+    tabindex="0"{% endif %}
+    ><input
+      id="{{ uploadId }}"
+      class="upload_input"
+      type="file"
+      tabindex="-1"{% if accept %}
+      accept="{{ accept }}"{% endif %}{% if multiple %}
+      multiple{% endif %}{% if disabled %}
+      disabled{% endif %}
+    /><span class="btn btn_filled color_primary"
+      ><span class="btn_label">{{ buttonLabel | default('파일 선택') }}</span></span
+    ></label
+  >
   {% endif %}
-  {% if hint %}<p class="upload_hint">{{ hint }}</p>{% endif %}<p class="form_field-error" data-upload-error role="alert" hidden></p><ul class="upload_list" data-upload-list></ul>
+  {% if hint %}
+  <p class="upload_hint">{{ hint }}</p>
+  {% endif %}
+  <p class="form_field-error" data-upload-error role="alert" hidden></p>
+  <ul class="upload_list" data-upload-list></ul>
 </div>

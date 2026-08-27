@@ -1,8 +1,23 @@
+<!--
+  SnackbarRegion 원본 구현.
+  피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+-->
 <script setup>
 import { computed, provide } from 'vue';
 const props = defineProps({ placement: { type: String, default: 'bottom-center' }, label: String });
-const placements = ['top-start', 'top-center', 'top-end', 'middle-start', 'middle-end', 'bottom-start', 'bottom-center', 'bottom-end'];
-const resolvedPlacement = computed(() => placements.includes(props.placement) ? props.placement : 'bottom-center');
+const placements = [
+  'top-start',
+  'top-center',
+  'top-end',
+  'middle-start',
+  'middle-end',
+  'bottom-start',
+  'bottom-center',
+  'bottom-end',
+];
+const resolvedPlacement = computed(() =>
+  placements.includes(props.placement) ? props.placement : 'bottom-center',
+);
 provide('snackbarPlacement', resolvedPlacement.value);
 
 function getPortalTarget() {
@@ -37,6 +52,8 @@ const portalTarget = getPortalTarget();
 
 <template>
   <Teleport :to="portalTarget">
-    <div :class="['snackbar_region', `snackbar_region-${resolvedPlacement}`]" :aria-label="label"><slot /></div>
+    <div :class="['snackbar_region', `snackbar_region-${resolvedPlacement}`]" :aria-label="label">
+      <slot />
+    </div>
   </Teleport>
 </template>

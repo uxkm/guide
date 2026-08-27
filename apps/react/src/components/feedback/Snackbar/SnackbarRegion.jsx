@@ -1,14 +1,27 @@
+/**
+ * SnackbarRegion 원본 구현.
+ * 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+ */
 import { createContext } from 'react';
 import { createPortal } from 'react-dom';
 
 export const snackbarPlacements = [
-  'top-start', 'top-center', 'top-end', 'middle-start',
-  'middle-end', 'bottom-start', 'bottom-center', 'bottom-end',
+  'top-start',
+  'top-center',
+  'top-end',
+  'middle-start',
+  'middle-end',
+  'bottom-start',
+  'bottom-center',
+  'bottom-end',
 ];
 
 export const SnackbarPlacementContext = createContext('bottom-center');
 
-export function getSnackbarPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+export function getSnackbarPortalRoot(
+  currentDocument = typeof document === 'undefined' ? null : document,
+  currentWindow = typeof window === 'undefined' ? null : window,
+) {
   if (!currentDocument) return null;
 
   let targetDocument = currentDocument;
@@ -40,13 +53,21 @@ export function getSnackbarPortalRoot(currentDocument = typeof document === 'und
   return root;
 }
 
-export function SnackbarRegion({ placement = 'bottom-center', label, children, className = '', ...props }) {
+export function SnackbarRegion({
+  placement = 'bottom-center',
+  label,
+  children,
+  className = '',
+  ...props
+}) {
   const resolvedPlacement = snackbarPlacements.includes(placement) ? placement : 'bottom-center';
   const region = (
     <SnackbarPlacementContext.Provider value={resolvedPlacement}>
       <div
         {...props}
-        className={['snackbar_region', `snackbar_region-${resolvedPlacement}`, className].filter(Boolean).join(' ')}
+        className={['snackbar_region', `snackbar_region-${resolvedPlacement}`, className]
+          .filter(Boolean)
+          .join(' ')}
         aria-label={label}
       >
         {children}

@@ -1,8 +1,26 @@
+<!-- Popover 원본 구현: 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다. -->
 <div class="popover" data-component="Popover" data-popover>
-  <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="popover-basic">Popover 열기</button>
-  <div class="popover_panel" id="popover-basic" role="dialog" aria-labelledby="popover-basic-title" hidden>
+  <button
+    type="button"
+    class="btn btn_outline popover_trigger"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="popover-basic"
+  >
+    Popover 열기
+  </button>
+  <div
+    class="popover_panel"
+    id="popover-basic"
+    role="dialog"
+    aria-labelledby="popover-basic-title"
+    hidden
+  >
     <span class="popover_arrow" aria-hidden="true"></span>
-    <div class="popover_header"><div class="popover_title" id="popover-basic-title">안내</div><button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button></div>
+    <div class="popover_header">
+      <div class="popover_title" id="popover-basic-title">안내</div>
+      <button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button>
+    </div>
     <div class="popover_body"><p>Popover 본문입니다.</p></div>
   </div>
 </div>

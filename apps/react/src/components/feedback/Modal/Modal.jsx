@@ -1,3 +1,7 @@
+/**
+ * Modal 원본 구현.
+ * 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+ */
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
@@ -7,7 +11,10 @@ const sizes = new Set(['sm', 'md', 'lg', 'fullscreen']);
 const documentModalCounts = new WeakMap();
 const portalOwnerId = Math.random().toString(36).slice(2, 10);
 
-export function getModalPortalRoot(currentDocument = typeof document === 'undefined' ? null : document, currentWindow = typeof window === 'undefined' ? null : window) {
+export function getModalPortalRoot(
+  currentDocument = typeof document === 'undefined' ? null : document,
+  currentWindow = typeof window === 'undefined' ? null : window,
+) {
   if (!currentDocument) return null;
   let targetDocument = currentDocument;
   try {
@@ -42,10 +49,23 @@ export function getModalPortalRoot(currentDocument = typeof document === 'undefi
 }
 
 export function Modal({
-  id, title, size = 'md', scrollable = false, backdrop = true, open,
-  defaultOpen = false, footerAlign = 'end', footerRatio = '1-1',
-  footerNoPadBottom = false, header, footer, children = 'Modal', className = '',
-  closeLabel = '닫기', onClose, ...props
+  id,
+  title,
+  size = 'md',
+  scrollable = false,
+  backdrop = true,
+  open,
+  defaultOpen = false,
+  footerAlign = 'end',
+  footerRatio = '1-1',
+  footerNoPadBottom = false,
+  header,
+  footer,
+  children = 'Modal',
+  className = '',
+  closeLabel = '닫기',
+  onClose,
+  ...props
 }) {
   const generatedId = useId().replace(/:/g, '');
   const modalId = id || `modal-${generatedId}`;
@@ -56,15 +76,27 @@ export function Modal({
   const visible = open ?? internalOpen;
   const resolvedSize = sizes.has(size) ? size : 'md';
   const portalRoot = visible ? getModalPortalRoot() : null;
-  const classes = useMemo(() => [
-    'modal', resolvedSize !== 'md' && `modal_${resolvedSize}`,
-    scrollable && 'modal_scrollable', visible && 'is-open', className,
-  ].filter(Boolean).join(' '), [className, resolvedSize, scrollable, visible]);
+  const classes = useMemo(
+    () =>
+      [
+        'modal',
+        resolvedSize !== 'md' && `modal_${resolvedSize}`,
+        scrollable && 'modal_scrollable',
+        visible && 'is-open',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' '),
+    [className, resolvedSize, scrollable, visible],
+  );
   const footerClasses = [
-    'modal_footer', footerAlign !== 'end' && `modal_footer-${footerAlign}`,
+    'modal_footer',
+    footerAlign !== 'end' && `modal_footer-${footerAlign}`,
     footerAlign === 'even' && footerRatio !== '1-1' && `modal_footer-even-${footerRatio}`,
     footerNoPadBottom && 'modal_footer-no-pad-b',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const requestClose = (reason, event) => {
     if (open === undefined) setInternalOpen(false);
@@ -77,18 +109,33 @@ export function Modal({
     previousFocusRef.current = targetDocument.activeElement;
     documentModalCounts.set(targetDocument, (documentModalCounts.get(targetDocument) || 0) + 1);
     targetDocument.body.classList.add('is-modal-open');
-    const focusId = targetDocument.defaultView?.requestAnimationFrame(() => rootRef.current?.focus());
+    const focusId = targetDocument.defaultView?.requestAnimationFrame(() =>
+      rootRef.current?.focus(),
+    );
     const handleKeyDown = (event) => {
       const openModals = portalRoot.querySelectorAll('.modal.is-open');
       if (openModals[openModals.length - 1] !== rootRef.current) return;
       if (event.key === 'Escape') requestClose('escape', event);
       if (event.key !== 'Tab' || !rootRef.current) return;
-      const focusable = [...rootRef.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter((element) => !element.disabled);
-      if (!focusable.length) { event.preventDefault(); rootRef.current.focus(); return; }
+      const focusable = [
+        ...rootRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter((element) => !element.disabled);
+      if (!focusable.length) {
+        event.preventDefault();
+        rootRef.current.focus();
+        return;
+      }
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (event.shiftKey && targetDocument.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && targetDocument.activeElement === last) { event.preventDefault(); first.focus(); }
+      if (event.shiftKey && targetDocument.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && targetDocument.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     targetDocument.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -104,10 +151,42 @@ export function Modal({
   if (!visible || !portalRoot) return null;
 
   return createPortal(
-    <div {...props} ref={rootRef} id={modalId} className={classes} data-component="Modal" data-modal="" data-modal-backdrop={backdrop ? undefined : 'false'} role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined} tabIndex={-1}>
-      <div className="modal_backdrop" aria-hidden="true" onClick={(event) => backdrop && requestClose('backdrop', event)} />
+    <div
+      {...props}
+      ref={rootRef}
+      id={modalId}
+      className={classes}
+      data-component="Modal"
+      data-modal=""
+      data-modal-backdrop={backdrop ? undefined : 'false'}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
+      tabIndex={-1}
+    >
+      <div
+        className="modal_backdrop"
+        aria-hidden="true"
+        onClick={(event) => backdrop && requestClose('backdrop', event)}
+      />
       <div className="modal_dialog">
-        {(title || header) && <div className="modal_header">{header ?? <h2 className="modal_title" id={titleId}>{title}</h2>}<Button variant="ghost" iconOnly className="modal_close" ariaLabel={closeLabel} iconBefore={<Icon name="close" size="sm" className="modal_close-icon" />} onClick={(event) => requestClose('close', event)} /></div>}
+        {(title || header) && (
+          <div className="modal_header">
+            {header ?? (
+              <h2 className="modal_title" id={titleId}>
+                {title}
+              </h2>
+            )}
+            <Button
+              variant="ghost"
+              iconOnly
+              className="modal_close"
+              ariaLabel={closeLabel}
+              iconBefore={<Icon name="close" size="sm" className="modal_close-icon" />}
+              onClick={(event) => requestClose('close', event)}
+            />
+          </div>
+        )}
         <div className="modal_body">{children}</div>
         {footer && <div className={footerClasses}>{footer}</div>}
       </div>

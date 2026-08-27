@@ -1,8 +1,20 @@
+/**
+ * Collapse 원본 구현.
+ * 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+ */
 import { createContext, useCallback, useMemo, useRef } from 'react';
 
 export const CollapseContext = createContext(null);
 
-export function Collapse({ children, className = '', variant = 'bordered', size = 'md', accordion = false, effect, ...props }) {
+export function Collapse({
+  children,
+  className = '',
+  variant = 'bordered',
+  size = 'md',
+  accordion = false,
+  effect,
+  ...props
+}) {
   const rootRef = useRef(null);
   const panelsRef = useRef(new Map());
   const accordionRef = useRef(accordion);
@@ -38,14 +50,32 @@ export function Collapse({ children, className = '', variant = 'bordered', size 
     return true;
   }, []);
 
-  const context = useMemo(() => ({ effect, focusAdjacent, registerPanel, togglePanel }), [effect, focusAdjacent, registerPanel, togglePanel]);
+  const context = useMemo(
+    () => ({ effect, focusAdjacent, registerPanel, togglePanel }),
+    [effect, focusAdjacent, registerPanel, togglePanel],
+  );
   const resolvedVariant = ['bordered', 'ghost', 'card'].includes(variant) ? variant : 'bordered';
   const resolvedSize = ['sm', 'md', 'lg'].includes(size) ? size : 'md';
-  const classes = ['collapse_group', `collapse_${resolvedVariant}`, resolvedSize !== 'md' && `collapse_${resolvedSize}`, className].filter(Boolean).join(' ');
+  const classes = [
+    'collapse_group',
+    `collapse_${resolvedVariant}`,
+    resolvedSize !== 'md' && `collapse_${resolvedSize}`,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <CollapseContext.Provider value={context}>
-      <div {...props} ref={rootRef} className={classes} data-collapse="" data-collapse-accordion={accordion ? '' : undefined} data-component="Collapse" data-effect={effect === 'slide' ? 'slide' : undefined}>
+      <div
+        {...props}
+        ref={rootRef}
+        className={classes}
+        data-collapse=""
+        data-collapse-accordion={accordion ? '' : undefined}
+        data-component="Collapse"
+        data-effect={effect === 'slide' ? 'slide' : undefined}
+      >
         {children}
       </div>
     </CollapseContext.Provider>

@@ -1,3 +1,7 @@
+/**
+ * Snackbar 원본 구현.
+ * 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+ */
 import { useContext, useEffect, useRef, useState } from 'react';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
@@ -7,14 +11,37 @@ const colors = new Set(['info', 'success', 'warning', 'danger']);
 const sizes = new Set(['sm', 'md', 'lg']);
 const motions = new Set(['fade', 'slide', 'none']);
 const placements = new Set(snackbarPlacements);
-const iconNames = { info: 'info', success: 'check-circle', warning: 'alert-triangle', danger: 'x-circle' };
+const iconNames = {
+  info: 'info',
+  success: 'check-circle',
+  warning: 'alert-triangle',
+  danger: 'x-circle',
+};
 
 export function Snackbar({
-  children, message, color = 'info', size = 'md', motion = 'fade', placement,
-  duration = 0, role = 'status', closable = false, closeLabel = '알림 닫기',
-  showIcon = true, round = false, icon, action, className = '', onClose,
-  onMouseEnter, onMouseLeave, onFocusCapture, onBlurCapture, onKeyDown,
-  onAnimationEnd, ...props
+  children,
+  message,
+  color = 'info',
+  size = 'md',
+  motion = 'fade',
+  placement,
+  duration = 0,
+  role = 'status',
+  closable = false,
+  closeLabel = '알림 닫기',
+  showIcon = true,
+  round = false,
+  icon,
+  action,
+  className = '',
+  onClose,
+  onMouseEnter,
+  onMouseLeave,
+  onFocusCapture,
+  onBlurCapture,
+  onKeyDown,
+  onAnimationEnd,
+  ...props
 }) {
   const regionPlacement = useContext(SnackbarPlacementContext);
   const timerRef = useRef(null);
@@ -49,7 +76,8 @@ export function Snackbar({
     else setPhase('leaving');
   };
   const startTimer = () => {
-    if (remainingRef.current <= 0 || timerRef.current !== null || pauseReasonsRef.current.size > 0) return;
+    if (remainingRef.current <= 0 || timerRef.current !== null || pauseReasonsRef.current.size > 0)
+      return;
     startedAtRef.current = Date.now();
     timerRef.current = window.setTimeout(() => dismiss('timeout'), remainingRef.current);
   };
@@ -89,10 +117,11 @@ export function Snackbar({
     `snackbar_placement-${resolvedPlacement}`,
     `is-${phase}`,
     className,
-  ].filter(Boolean).join(' ');
-  const actionContent = typeof action === 'function'
-    ? action({ close: (event) => dismiss('action', event) })
-    : action;
+  ]
+    .filter(Boolean)
+    .join(' ');
+  const actionContent =
+    typeof action === 'function' ? action({ close: (event) => dismiss('action', event) }) : action;
 
   return (
     <div
@@ -103,9 +132,18 @@ export function Snackbar({
       aria-live={role === 'alert' ? 'assertive' : 'polite'}
       aria-atomic="true"
       aria-relevant="additions text"
-      onMouseEnter={(event) => { pauseTimer('hover'); onMouseEnter?.(event); }}
-      onMouseLeave={(event) => { resumeTimer('hover'); onMouseLeave?.(event); }}
-      onFocusCapture={(event) => { pauseTimer('focus'); onFocusCapture?.(event); }}
+      onMouseEnter={(event) => {
+        pauseTimer('hover');
+        onMouseEnter?.(event);
+      }}
+      onMouseLeave={(event) => {
+        resumeTimer('hover');
+        onMouseLeave?.(event);
+      }}
+      onFocusCapture={(event) => {
+        pauseTimer('focus');
+        onFocusCapture?.(event);
+      }}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) resumeTimer('focus');
         onBlurCapture?.(event);

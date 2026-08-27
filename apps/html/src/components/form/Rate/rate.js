@@ -1,3 +1,7 @@
+/**
+ * Rate 원본 구현.
+ * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
+ */
 export function initRate(root = document) {
   const rates = root.querySelectorAll('.rate:not(.is-readonly)');
   rates.forEach((rate) => {
@@ -9,15 +13,33 @@ export function initRate(root = document) {
       rate.classList.toggle('is-rated', value != null);
       if (output) output.textContent = value == null ? '' : `${Number(value)}점`;
     };
-    rate.querySelectorAll('.rate_input').forEach((input) => input.addEventListener('change', update));
+    rate
+      .querySelectorAll('.rate_input')
+      .forEach((input) => input.addEventListener('change', update));
     rate.querySelectorAll('.rate_star').forEach((star) => {
       const half = star.querySelector('.rate_input-half');
       const full = star.querySelector('.rate_input:not(.rate_input-half)');
-      star.querySelector('.rate_star-half-left')?.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); if (!half?.disabled) { half.checked = true; half.dispatchEvent(new Event('change', { bubbles: true })); } });
-      star.querySelector('.rate_star-half-right')?.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); if (!full?.disabled) { full.checked = true; full.dispatchEvent(new Event('change', { bubbles: true })); } });
+      star.querySelector('.rate_star-half-left')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!half?.disabled) {
+          half.checked = true;
+          half.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+      star.querySelector('.rate_star-half-right')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!full?.disabled) {
+          full.checked = true;
+          full.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
     });
     rate.querySelector('.rate_clear')?.addEventListener('click', () => {
-      rate.querySelectorAll('.rate_input').forEach((input) => { input.checked = false; });
+      rate.querySelectorAll('.rate_input').forEach((input) => {
+        input.checked = false;
+      });
       update();
     });
     update();

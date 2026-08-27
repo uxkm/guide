@@ -1,20 +1,169 @@
+/**
+ * Dropdown 원본 구현.
+ * 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다.
+ */
 import { cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 const placements = new Set(['start', 'end', 'top']);
-const cssSize = (value) => typeof value === 'number' ? `${value}rem` : value;
+const cssSize = (value) => (typeof value === 'number' ? `${value}rem` : value);
 
-export function Dropdown({ open, defaultOpen = false, disabled = false, placement = 'start', fit = false, maxVisibleItems, menuWidth, menuMinWidth, triggerContent, triggerLabel = '메뉴', children, className = '', closeOnSelect = true, onOpenChange, onSelect, ...props }) {
-  const rootRef = useRef(null); const id = `dropdown-menu-${useId().replaceAll(':', '')}`; const [internal, setInternal] = useState(defaultOpen); const controlled = open !== undefined; const visible = controlled ? open : internal; const resolvedPlacement = placements.has(placement) ? placement : 'start';
-  const setOpen = (next) => { if (disabled) return; if (!controlled) setInternal(next); onOpenChange?.(next); };
-  const focusItem = (position = 0) => requestAnimationFrame(() => { const items = [...(rootRef.current?.querySelectorAll('.dropdown_menu .menu_link:not(.is-disabled):not([aria-disabled="true"])') ?? [])]; items.at(position)?.focus(); });
-  useEffect(() => { if (!visible) return undefined; const outside = (event) => { if (!rootRef.current?.contains(event.target)) setOpen(false); }; const escape = (event) => { if (event.key === 'Escape') { setOpen(false); rootRef.current?.querySelector('.dropdown_trigger')?.focus(); } }; document.addEventListener('pointerdown', outside); document.addEventListener('keydown', escape); return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); }; }, [visible]);
-  const triggerProps = { className: ['dropdown_trigger', triggerContent?.props?.className].filter(Boolean).join(' '), haspopup: triggerContent?.props?.haspopup ?? 'menu', expanded: visible, 'aria-controls': id, disabled: disabled || triggerContent?.props?.disabled, onClick: (event) => { triggerContent?.props?.onClick?.(event); setOpen(!visible); }, onKeyDown: (event) => { triggerContent?.props?.onKeyDown?.(event); if (event.key === 'ArrowDown') { event.preventDefault(); if (!visible) setOpen(true); focusItem(0); } } };
-  const trigger = isValidElement(triggerContent) ? cloneElement(triggerContent, triggerProps) : <Button {...triggerProps} variant="outline" label={triggerLabel} iconAfter={<Icon name="chevron-down" />} />;
-  const menuStyle = { ...(maxVisibleItems != null ? { '--dropdown-max-visible-items': maxVisibleItems } : {}), ...(menuWidth != null ? { width: cssSize(menuWidth) } : {}), ...(menuMinWidth != null ? { minWidth: cssSize(menuMinWidth) } : {}) };
-  const menuKeyDown = (event) => { const items = [...event.currentTarget.querySelectorAll('.menu_link:not(.is-disabled):not([aria-disabled="true"])')]; const current = items.indexOf(document.activeElement); let next = current; if (event.key === 'ArrowDown') next = (current + 1) % items.length; else if (event.key === 'ArrowUp') next = (current - 1 + items.length) % items.length; else if (event.key === 'Home') next = 0; else if (event.key === 'End') next = items.length - 1; else if (event.key === 'Tab') { setOpen(false); return; } else return; event.preventDefault(); items[next]?.focus(); };
-  const menuClick = (event) => { const item = event.target.closest('.menu_link'); if (!item || item.classList.contains('is-disabled') || item.getAttribute('aria-disabled') === 'true') return; onSelect?.(item.dataset.value ?? item.textContent?.trim(), event); if (closeOnSelect) { setOpen(false); requestAnimationFrame(() => rootRef.current?.querySelector('.dropdown_trigger')?.focus()); } };
-  return <div {...props} ref={rootRef} className={['dropdown', visible && 'is-open', disabled && 'is-disabled', resolvedPlacement === 'end' && 'dropdown_placement-end', resolvedPlacement === 'top' && 'dropdown_placement-top', fit && 'dropdown_fit', className].filter(Boolean).join(' ')} data-component="Dropdown" data-dropdown>{trigger}<div id={id} className={['dropdown_menu', maxVisibleItems != null && 'dropdown_menu-scrollable'].filter(Boolean).join(' ')} style={menuStyle} aria-hidden={!visible} onClick={menuClick} onKeyDown={menuKeyDown}>{children}</div></div>;
+export function Dropdown({
+  open,
+  defaultOpen = false,
+  disabled = false,
+  placement = 'start',
+  fit = false,
+  maxVisibleItems,
+  menuWidth,
+  menuMinWidth,
+  triggerContent,
+  triggerLabel = '메뉴',
+  children,
+  className = '',
+  closeOnSelect = true,
+  onOpenChange,
+  onSelect,
+  ...props
+}) {
+  const rootRef = useRef(null);
+  const id = `dropdown-menu-${useId().replaceAll(':', '')}`;
+  const [internal, setInternal] = useState(defaultOpen);
+  const controlled = open !== undefined;
+  const visible = controlled ? open : internal;
+  const resolvedPlacement = placements.has(placement) ? placement : 'start';
+  const setOpen = (next) => {
+    if (disabled) return;
+    if (!controlled) setInternal(next);
+    onOpenChange?.(next);
+  };
+  const focusItem = (position = 0) =>
+    requestAnimationFrame(() => {
+      const items = [
+        ...(rootRef.current?.querySelectorAll(
+          '.dropdown_menu .menu_link:not(.is-disabled):not([aria-disabled="true"])',
+        ) ?? []),
+      ];
+      items.at(position)?.focus();
+    });
+  useEffect(() => {
+    if (!visible) return undefined;
+    const outside = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+    const escape = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        rootRef.current?.querySelector('.dropdown_trigger')?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('keydown', escape);
+    };
+  }, [visible]);
+  const triggerProps = {
+    className: ['dropdown_trigger', triggerContent?.props?.className].filter(Boolean).join(' '),
+    haspopup: triggerContent?.props?.haspopup ?? 'menu',
+    expanded: visible,
+    'aria-controls': id,
+    disabled: disabled || triggerContent?.props?.disabled,
+    onClick: (event) => {
+      triggerContent?.props?.onClick?.(event);
+      setOpen(!visible);
+    },
+    onKeyDown: (event) => {
+      triggerContent?.props?.onKeyDown?.(event);
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (!visible) setOpen(true);
+        focusItem(0);
+      }
+    },
+  };
+  const trigger = isValidElement(triggerContent) ? (
+    cloneElement(triggerContent, triggerProps)
+  ) : (
+    <Button
+      {...triggerProps}
+      variant="outline"
+      label={triggerLabel}
+      iconAfter={<Icon name="chevron-down" />}
+    />
+  );
+  const menuStyle = {
+    ...(maxVisibleItems != null ? { '--dropdown-max-visible-items': maxVisibleItems } : {}),
+    ...(menuWidth != null ? { width: cssSize(menuWidth) } : {}),
+    ...(menuMinWidth != null ? { minWidth: cssSize(menuMinWidth) } : {}),
+  };
+  const menuKeyDown = (event) => {
+    const items = [
+      ...event.currentTarget.querySelectorAll(
+        '.menu_link:not(.is-disabled):not([aria-disabled="true"])',
+      ),
+    ];
+    const current = items.indexOf(document.activeElement);
+    let next = current;
+    if (event.key === 'ArrowDown') next = (current + 1) % items.length;
+    else if (event.key === 'ArrowUp') next = (current - 1 + items.length) % items.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = items.length - 1;
+    else if (event.key === 'Tab') {
+      setOpen(false);
+      return;
+    } else return;
+    event.preventDefault();
+    items[next]?.focus();
+  };
+  const menuClick = (event) => {
+    const item = event.target.closest('.menu_link');
+    if (
+      !item ||
+      item.classList.contains('is-disabled') ||
+      item.getAttribute('aria-disabled') === 'true'
+    )
+      return;
+    onSelect?.(item.dataset.value ?? item.textContent?.trim(), event);
+    if (closeOnSelect) {
+      setOpen(false);
+      requestAnimationFrame(() => rootRef.current?.querySelector('.dropdown_trigger')?.focus());
+    }
+  };
+  return (
+    <div
+      {...props}
+      ref={rootRef}
+      className={[
+        'dropdown',
+        visible && 'is-open',
+        disabled && 'is-disabled',
+        resolvedPlacement === 'end' && 'dropdown_placement-end',
+        resolvedPlacement === 'top' && 'dropdown_placement-top',
+        fit && 'dropdown_fit',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      data-component="Dropdown"
+      data-dropdown
+    >
+      {trigger}
+      <div
+        id={id}
+        className={['dropdown_menu', maxVisibleItems != null && 'dropdown_menu-scrollable']
+          .filter(Boolean)
+          .join(' ')}
+        style={menuStyle}
+        aria-hidden={!visible}
+        onClick={menuClick}
+        onKeyDown={menuKeyDown}
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export default Dropdown;

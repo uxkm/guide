@@ -1,5 +1,10 @@
+/**
+ * Flex 원본 구현.
+ * 레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다.
+ */
 // 12단위 Flex 너비와 순서에 사용할 숫자를 1~12 범위로 제한합니다.
-const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+const range = (value) =>
+  Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
 const DIRECTIONS = new Set(['', 'row', 'col', 'column']); // 지원하는 배치 방향입니다.
@@ -40,7 +45,8 @@ export function Flex({
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // column 이름을 CSS 클래스에서 사용하는 col로 변환하고 반응형 접미사를 붙입니다.
-  const directionClass = (value, breakpoint = '') => value && `flex_${value === 'column' ? 'col' : value}${breakpoint}`;
+  const directionClass = (value, breakpoint = '') =>
+    value && `flex_${value === 'column' ? 'col' : value}${breakpoint}`;
 
   // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
   const resolvedCols = cols ?? columns; // 기본 구간의 최종 항목 수입니다.
@@ -69,11 +75,17 @@ export function Flex({
 
     ALIGNS.has(align) && align && `flex_align-${align}`, // 검증된 교차축 정렬입니다.
     JUSTIFIES.has(justify) && justify && `flex_justify-${justify}`, // 검증된 주축 정렬입니다.
-    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
-  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+    className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ]
+    .filter(Boolean)
+    .join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
 
   // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
-  return <Root className={classes} data-component="Flex" {...props}>{children}</Root>;
+  return (
+    <Root className={classes} data-component="Flex" {...props}>
+      {children}
+    </Root>
+  );
 }
 
 export default Flex;

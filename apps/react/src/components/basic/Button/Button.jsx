@@ -1,5 +1,16 @@
+/**
+ * Button 원본 구현.
+ * 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
+ */
 const SelectCaret = () => (
-  <svg aria-hidden="true" className="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+  <svg
+    aria-hidden="true"
+    className="icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="1.8"
+  >
     <path d="m9 6 6 6-6 6" />
   </svg>
 );
@@ -63,8 +74,10 @@ export function Button({
     loading ? 'is-loading' : '',
     open ? 'is-open' : '',
     error ? 'is-error' : '',
-    className
-  ].filter(Boolean).join(' ');
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   function handleClick(event) {
     if (inactive) {

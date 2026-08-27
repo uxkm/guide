@@ -1,3 +1,7 @@
+/**
+ * Snackbar 원본 구현.
+ * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
+ */
 export function initSnackbar(root = document) {
   const snackbars = root.querySelectorAll('[data-component="Snackbar"]');
 
@@ -9,7 +13,9 @@ export function initSnackbar(root = document) {
 
     const finish = (reason, sourceEvent) => {
       snackbar.hidden = true;
-      snackbar.dispatchEvent(new CustomEvent('close', { bubbles: true, detail: { reason, sourceEvent } }));
+      snackbar.dispatchEvent(
+        new CustomEvent('close', { bubbles: true, detail: { reason, sourceEvent } }),
+      );
     };
     const close = (reason = 'close', sourceEvent) => {
       window.clearTimeout(timer);
@@ -27,9 +33,12 @@ export function initSnackbar(root = document) {
         snackbar.classList.replace('is-entering', 'is-open');
       } else if (snackbar.classList.contains('is-leaving')) finish('close');
     });
-    snackbar.querySelectorAll('[data-snackbar-close]').forEach((button) => button.addEventListener('click', (event) => close('close', event)));
+    snackbar
+      .querySelectorAll('[data-snackbar-close]')
+      .forEach((button) => button.addEventListener('click', (event) => close('close', event)));
     snackbar.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && snackbar.querySelector('[data-snackbar-close]')) close('close', event);
+      if (event.key === 'Escape' && snackbar.querySelector('[data-snackbar-close]'))
+        close('close', event);
     });
     const duration = Math.max(0, Number(snackbar.dataset.snackbarDuration) || 0);
     if (duration) timer = window.setTimeout(() => close('timeout'), duration);

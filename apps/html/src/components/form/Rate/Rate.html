@@ -1,14 +1,111 @@
+<!-- Rate 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
 <fieldset class="rate rate_clearable" data-component="Rate" data-ripple="true">
   <legend class="rate_legend">상품 만족도</legend>
   <div class="rate_control">
     <div class="rate_stars">
-      <label class="rate_star" data-ripple="true"><input class="rate_input" type="radio" name="rate-example" value="1"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">1점</span></label>
-      <label class="rate_star" data-ripple="true"><input class="rate_input" type="radio" name="rate-example" value="2"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">2점</span></label>
-      <label class="rate_star" data-ripple="true"><input class="rate_input" type="radio" name="rate-example" value="3" checked><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">3점</span></label>
-      <label class="rate_star" data-ripple="true"><input class="rate_input" type="radio" name="rate-example" value="4"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">4점</span></label>
-      <label class="rate_star" data-ripple="true"><input class="rate_input" type="radio" name="rate-example" value="5"><span class="rate_star-graphic" aria-hidden="true"><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="rate_star-label">5점</span></label>
+      <label class="rate_star" data-ripple="true"
+        ><input class="rate_input" type="radio" name="rate-example" value="1" /><span
+          class="rate_star-graphic"
+          aria-hidden="true"
+          ><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg
+          ><svg
+            class="rate_star-icon rate_star-icon-filled"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg></span
+        ><span class="rate_star-label">1점</span></label
+      >
+      <label class="rate_star" data-ripple="true"
+        ><input class="rate_input" type="radio" name="rate-example" value="2" /><span
+          class="rate_star-graphic"
+          aria-hidden="true"
+          ><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg
+          ><svg
+            class="rate_star-icon rate_star-icon-filled"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg></span
+        ><span class="rate_star-label">2점</span></label
+      >
+      <label class="rate_star" data-ripple="true"
+        ><input class="rate_input" type="radio" name="rate-example" value="3" checked /><span
+          class="rate_star-graphic"
+          aria-hidden="true"
+          ><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg
+          ><svg
+            class="rate_star-icon rate_star-icon-filled"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg></span
+        ><span class="rate_star-label">3점</span></label
+      >
+      <label class="rate_star" data-ripple="true"
+        ><input class="rate_input" type="radio" name="rate-example" value="4" /><span
+          class="rate_star-graphic"
+          aria-hidden="true"
+          ><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg
+          ><svg
+            class="rate_star-icon rate_star-icon-filled"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg></span
+        ><span class="rate_star-label">4점</span></label
+      >
+      <label class="rate_star" data-ripple="true"
+        ><input class="rate_input" type="radio" name="rate-example" value="5" /><span
+          class="rate_star-graphic"
+          aria-hidden="true"
+          ><svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg
+          ><svg
+            class="rate_star-icon rate_star-icon-filled"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            /></svg></span
+        ><span class="rate_star-label">5점</span></label
+      >
     </div>
-    <button class="rate_clear" type="button" data-ripple="true" aria-label="별점 초기화"><svg class="rate_clear-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <button class="rate_clear" type="button" data-ripple="true" aria-label="별점 초기화">
+      <svg
+        class="rate_clear-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
     <output class="rate_value">3점</output>
   </div>
 </fieldset>

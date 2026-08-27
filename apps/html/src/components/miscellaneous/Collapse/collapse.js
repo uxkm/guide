@@ -1,3 +1,7 @@
+/**
+ * Collapse 원본 구현.
+ * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
+ */
 import { setSlideRegionOpen } from '@uxkm/interactions/slide-region';
 
 function panelParts(panel) {
@@ -9,7 +13,11 @@ function panelParts(panel) {
 
 function isDisabled(panel) {
   const { trigger } = panelParts(panel);
-  return panel.classList.contains('is-disabled') || trigger?.disabled || trigger?.getAttribute('aria-disabled') === 'true';
+  return (
+    panel.classList.contains('is-disabled') ||
+    trigger?.disabled ||
+    trigger?.getAttribute('aria-disabled') === 'true'
+  );
 }
 
 function setPanelOpen(panel, open, slide, animate = true) {
@@ -39,21 +47,30 @@ function initGroup(group) {
       if (willOpen && accordion) {
         panels.forEach((other) => {
           const otherTrigger = panelParts(other).trigger;
-          if (other !== panel && !isDisabled(other) && otherTrigger?.getAttribute('aria-expanded') === 'true') {
+          if (
+            other !== panel &&
+            !isDisabled(other) &&
+            otherTrigger?.getAttribute('aria-expanded') === 'true'
+          ) {
             setPanelOpen(other, false, slide);
           }
         });
       }
       setPanelOpen(panel, willOpen, slide);
-      group.dispatchEvent(new CustomEvent('collapse:toggle', { bubbles: true, detail: { panel, open: willOpen } }));
+      group.dispatchEvent(
+        new CustomEvent('collapse:toggle', { bubbles: true, detail: { panel, open: willOpen } }),
+      );
     });
 
     trigger.addEventListener('keydown', (event) => {
-      const triggers = panels.filter((entry) => !isDisabled(entry)).map((entry) => panelParts(entry).trigger);
+      const triggers = panels
+        .filter((entry) => !isDisabled(entry))
+        .map((entry) => panelParts(entry).trigger);
       const index = triggers.indexOf(trigger);
       let next = null;
       if (event.key === 'ArrowDown') next = triggers[(index + 1) % triggers.length];
-      else if (event.key === 'ArrowUp') next = triggers[(index - 1 + triggers.length) % triggers.length];
+      else if (event.key === 'ArrowUp')
+        next = triggers[(index - 1 + triggers.length) % triggers.length];
       else if (event.key === 'Home') next = triggers[0];
       else if (event.key === 'End') next = triggers.at(-1);
       if (next) {
@@ -67,7 +84,9 @@ function initGroup(group) {
 function initExternal(trigger, root) {
   if (trigger.dataset.collapseTriggerReady === 'true') return;
   const targetId = trigger.getAttribute('aria-controls');
-  const target = targetId ? root.querySelector(`#${CSS.escape(targetId)}`) ?? document.getElementById(targetId) : null;
+  const target = targetId
+    ? (root.querySelector(`#${CSS.escape(targetId)}`) ?? document.getElementById(targetId))
+    : null;
   if (!target?.classList.contains('collapse')) return;
   trigger.dataset.collapseTriggerReady = 'true';
   const slide = target.dataset.effect === 'slide' || trigger.dataset.effect === 'slide';
@@ -81,11 +100,15 @@ function initExternal(trigger, root) {
   trigger.addEventListener('click', () => {
     const open = trigger.getAttribute('aria-expanded') !== 'true';
     setOpen(open);
-    trigger.dispatchEvent(new CustomEvent('collapse:toggle', { bubbles: true, detail: { target, open } }));
+    trigger.dispatchEvent(
+      new CustomEvent('collapse:toggle', { bubbles: true, detail: { target, open } }),
+    );
   });
 }
 
 export function initCollapse(root = document) {
   root.querySelectorAll('[data-collapse]').forEach(initGroup);
-  root.querySelectorAll('[data-collapse-trigger]').forEach((trigger) => initExternal(trigger, root));
+  root
+    .querySelectorAll('[data-collapse-trigger]')
+    .forEach((trigger) => initExternal(trigger, root));
 }

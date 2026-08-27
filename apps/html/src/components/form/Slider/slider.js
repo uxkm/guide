@@ -1,3 +1,7 @@
+/**
+ * Slider 원본 구현.
+ * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
+ */
 export function initSlider(root = document) {
   const sliders = root.querySelectorAll('.slider');
   sliders.forEach((slider) => {
@@ -9,15 +13,33 @@ export function initSlider(root = document) {
       const min = Number(input.min || 0);
       const max = Number(input.max || 100);
       const value = Number(input.value);
-      slider.style.setProperty('--slider-progress', `${max === min ? 0 : ((value - min) / (max - min)) * 100}%`);
+      slider.style.setProperty(
+        '--slider-progress',
+        `${max === min ? 0 : ((value - min) / (max - min)) * 100}%`,
+      );
       if (output) output.value = `${value}${input.dataset.sliderSuffix || ''}`;
-      const map = Object.fromEntries((input.dataset.sliderValuetextMap || '').split(',').filter(Boolean).map((item) => item.split(':')));
-      const valueText = map[input.value] || (input.dataset.sliderValuetextSuffix ? `${value} ${input.dataset.sliderValuetextSuffix}` : '');
+      const map = Object.fromEntries(
+        (input.dataset.sliderValuetextMap || '')
+          .split(',')
+          .filter(Boolean)
+          .map((item) => item.split(':')),
+      );
+      const valueText =
+        map[input.value] ||
+        (input.dataset.sliderValuetextSuffix
+          ? `${value} ${input.dataset.sliderValuetextSuffix}`
+          : '');
       if (valueText) input.setAttribute('aria-valuetext', valueText);
     };
     input.addEventListener('input', update);
-    slider.querySelector('.slider_step-decrease')?.addEventListener('click', () => { input.stepDown(); input.dispatchEvent(new Event('input', { bubbles: true })); });
-    slider.querySelector('.slider_step-increase')?.addEventListener('click', () => { input.stepUp(); input.dispatchEvent(new Event('input', { bubbles: true })); });
+    slider.querySelector('.slider_step-decrease')?.addEventListener('click', () => {
+      input.stepDown();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    slider.querySelector('.slider_step-increase')?.addEventListener('click', () => {
+      input.stepUp();
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
     update();
   });
   return sliders;

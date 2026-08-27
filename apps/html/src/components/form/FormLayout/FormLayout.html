@@ -1,13 +1,26 @@
+<!-- FormLayout 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
 <form class="form form_vertical form_fit" data-component="FormLayout">
+  <!-- 레이블, 입력 컨트롤, 상태 메시지는 하나의 form_field 블록으로 구성합니다. -->
   <div class="form_field">
-    <label class="form_field-label" for="form-layout-name">이름<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span></label>
-    <div class="form_field-control"><input id="form-layout-name" class="input" type="text" required></div>
+    <label class="form_field-label" for="form-layout-name">
+      이름
+      <span class="form_field-required">
+        <span aria-hidden="true">*</span>
+        <span class="form_field-required-text">필수 항목</span>
+      </span>
+    </label>
+    <div class="form_field-control">
+      <input id="form-layout-name" class="input" type="text" required />
+    </div>
     <p class="form_field-hint">실명을 입력해 주세요.</p>
   </div>
   <div class="form_field">
     <label class="form_field-label" for="form-layout-email">이메일</label>
-    <div class="form_field-control"><input id="form-layout-email" class="input" type="email"></div>
+    <div class="form_field-control">
+      <input id="form-layout-email" class="input" type="email" />
+    </div>
   </div>
+  <!-- form_actions는 제출·취소 버튼을 현재 레이아웃 규칙에 맞춰 정렬합니다. -->
   <div class="form_actions">
     <button class="btn btn_filled color_primary" type="submit">저장</button>
     <button class="btn btn_ghost" type="button">취소</button>

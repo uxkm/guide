@@ -29,6 +29,14 @@ const avatarClasses: ApiRow[] = [
   { name: 'avatar_sm · avatar_lg · avatar_xl · avatar_square', type: 'class', default: '—', description: '크기·형태 변형' },
   { name: 'avatar_group · color_*', type: 'class', default: '—', description: '겹침 그룹과 공통 색상' }
 ];
+const avatarWebSquareRows: ApiRow[] = [
+  { name: 'w2:group · w2:textbox', type: 'component', default: '—', description: '아바타 루트와 이니셜, 상태 점, 겹침 그룹을 구성합니다.' },
+  { name: 'w2:image', type: 'component', default: '—', description: 'avatar_image 클래스를 적용해 프로필 이미지 또는 fallback 아이콘을 표시합니다.' },
+  { name: 'class', type: 'string', default: 'avatar', description: 'avatar_* · avatar_group · color_* 공통 클래스를 조합합니다.' },
+  { name: 'label · src · alt', type: 'string', default: '—', description: '이니셜 텍스트, 이미지 경로, 이미지 대체 텍스트를 지정합니다.' },
+  { name: 'role · aria-label · aria-hidden', type: 'string', default: '—', description: '그룹·상태 점의 이름을 제공하거나 장식용 아바타를 접근성 트리에서 숨깁니다.' },
+  { name: 'DataList · w2:generator', type: 'binding', default: '선택', description: '사용자 목록을 반복 렌더링하고 이미지·이니셜·색상을 데이터에 연결합니다.' }
+];
 const avatarTokens: ApiRow[] = [
   { name: '--avatar-size-sm · --avatar-size · --avatar-size-lg · --avatar-size-xl', type: 'length', default: '1.5rem · 2rem · 2.5rem · 3.5rem', description: '아바타 지름' },
   { name: '--avatar-group-overlap', type: 'length', default: '-0.5rem', description: '그룹 겹침 오프셋' },
@@ -39,7 +47,9 @@ export const avatarApiSections: ApiSectionData[] = [
   section('React · Next.js API · AvatarGroup Props', [{ name: 'ariaLabel', type: 'string', default: '—', description: '그룹의 접근성 이름' }, { name: 'children', type: 'ReactNode', default: '—', description: 'Avatar 목록' }]),
   section('Vue · Nuxt API · Avatar Props', vueRows(avatarProps), 'Nuxt는 `@uxkm/vue/avatar`를 재사용합니다.'),
   section('Vue · Nuxt API · Slots', [{ name: 'default', type: 'slot', default: '—', description: '이니셜 대체 콘텐츠' }, { name: 'icon', type: 'slot', default: '—', description: '아이콘 콘텐츠' }]),
-  section('HTML · Gulp · 공통 클래스', avatarClasses), section('공통 API · 디자인 토큰', avatarTokens)
+  section('HTML · Gulp · 공통 클래스', avatarClasses),
+  section('WebSquare API · XML', avatarWebSquareRows, 'Avatar는 화면 XML의 WebSquare 컴포넌트에 공통 클래스를 적용하며 별도 scwin 이벤트는 필요하지 않습니다.'),
+  section('공통 API · 디자인 토큰', avatarTokens)
 ];
 
 const badgeProps: ApiRow[] = [
@@ -51,6 +61,13 @@ const badgeProps: ApiRow[] = [
   { name: 'label', type: 'string', default: '—', description: '배지 텍스트. 자식 콘텐츠가 우선함' },
   { name: 'ariaLabel', type: 'string', default: '—', description: '상태 점·카운트의 접근성 이름' }
 ];
+const badgeWebSquareRows: ApiRow[] = [
+  { name: 'w2:textbox', type: 'component', default: '—', description: '일반·상태 점·카운트 Badge의 텍스트 루트입니다.' },
+  { name: 'w2:group', type: 'component', default: '—', description: 'badge_wrap 겹침 기준과 텍스트 없는 상태 점을 구성합니다.' },
+  { name: 'label', type: 'string', default: '—', description: 'Badge 텍스트 또는 카운트 값을 지정합니다.' },
+  { name: 'class', type: 'string', default: 'badge color_primary', description: 'badge_* · badge_wrap · color_* 공통 클래스를 조합합니다.' },
+  { name: 'role · aria-label', type: 'string', default: '—', description: '텍스트 없는 상태 점과 문맥이 필요한 카운트에 접근성 의미를 제공합니다.' }
+];
 export const badgeApiSections: ApiSectionData[] = [
   section('React · Next.js API · Badge Props', badgeProps, 'Next.js는 `@uxkm/react/badge`를 재사용합니다.'),
   section('React · Next.js API · BadgeWrap Props', [{ name: 'ariaLabel', type: 'string', default: '—', description: '래퍼 접근성 이름' }, { name: 'children', type: 'ReactNode', default: '—', description: '기준 요소와 Badge' }]),
@@ -60,6 +77,7 @@ export const badgeApiSections: ApiSectionData[] = [
     { name: 'badge_dot · badge_count · badge_dot-only', type: 'class', default: '—', description: '형태 변형' },
     { name: 'badge_wrap · color_*', type: 'class', default: '—', description: '겹침 래퍼와 공통 색상' }
   ]),
+  section('WebSquare API · XML', badgeWebSquareRows, 'Badge는 화면 XML의 textbox·group에 공통 클래스를 적용하며, 겹침 대상의 이벤트와 Badge 표시를 분리합니다.'),
   section('공통 API · 디자인 토큰', [
     { name: '--badge-padding-* · --badge-font-size-*', type: 'length', default: '—', description: '크기별 패딩과 글자 크기' },
     { name: '--badge-dot-size-sm · --badge-dot-size · --badge-dot-size-lg', type: 'length', default: '5px · 6px · 7px', description: '상태 점 크기' },
@@ -82,6 +100,16 @@ const tagProps: ApiRow[] = [
   { name: 'closeLabel', type: 'string', default: '—', description: '닫기 버튼 접근성 이름' },
   { name: 'ripple', type: 'boolean', default: '자동', description: '선택·추가·링크 태그 클릭 파장 효과' }
 ];
+const tagWebSquareRows: ApiRow[] = [
+  { name: 'w2:textbox', type: 'component', default: '—', description: '상호작용이 없는 정적 Tag 루트입니다.' },
+  { name: 'xf:trigger + xf:label', type: 'component', default: '—', description: '선택·추가 Tag와 닫기 버튼의 루트입니다.' },
+  { name: 'w2:anchor + xf:label', type: 'component', default: '—', description: 'URL로 이동하는 링크 Tag 루트입니다.' },
+  { name: 'w2:group', type: 'component', default: '—', description: 'TagGroup 또는 닫기 버튼과 본문을 분리한 Tag 구조입니다.' },
+  { name: 'class', type: 'string', default: 'tag color_primary', description: 'tag_* · is-selected · is-disabled · color_* 클래스를 조합합니다.' },
+  { name: 'aria-pressed · disabled · aria-disabled', type: 'state', default: '—', description: '선택 여부와 비활성 상태를 화면 데이터에 맞춰 동기화합니다.' },
+  { name: 'ev:onclick', type: 'event', default: '—', description: '선택·추가·닫기 동작을 scwin 함수에 연결합니다.' },
+  { name: 'DataList · w2:generator', type: 'binding', default: '선택', description: '반복되는 Tag 목록과 선택 상태를 화면 데이터에 연결합니다.' }
+];
 export const tagApiSections: ApiSectionData[] = [
   section('React · Next.js API · Tag Props', tagProps, 'Next.js는 `@uxkm/react/tag`를 재사용합니다.'),
   section('React · Next.js API · Events', [{ name: 'onClick', type: '(event) => void', default: '—', description: '태그 본문 활성화' }, { name: 'onClose', type: '(event) => void', default: '—', description: '닫기 버튼 활성화' }]),
@@ -95,6 +123,7 @@ export const tagApiSections: ApiSectionData[] = [
     { name: 'tag_icon · tag_close · tag_control', type: 'class', default: '—', description: '내부 파트' },
     { name: 'tag_group · tag_group-tight · color_*', type: 'class', default: '—', description: '그룹과 공통 색상' }
   ]),
+  section('WebSquare API · XML', tagWebSquareRows, '정적·버튼·링크 의미에 따라 WebSquare 컴포넌트를 구분하고 선택 상태와 이벤트를 함께 관리합니다.'),
   section('공통 API · 디자인 토큰', [
     { name: '--tag-padding-* · --tag-font-size-*', type: 'length', default: '—', description: '크기별 패딩과 글자 크기' },
     { name: '--tag-gap', type: 'length', default: 'var(--space-xs)', description: '아이콘·텍스트·닫기 버튼 간격' },

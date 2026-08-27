@@ -1,3 +1,7 @@
+<!--
+  Container 원본 구현.
+  레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다.
+-->
 <script setup>
 import { computed, useAttrs } from 'vue';
 
@@ -8,7 +12,7 @@ defineOptions({ name: 'UxkmContainer', inheritAttrs: false });
 const props = defineProps({
   as: { type: [String, Object, Function], default: 'div' },
   size: { type: String, default: '' },
-  fluid: Boolean
+  fluid: Boolean,
 });
 
 // 선언하지 않은 class와 HTML 속성을 수집합니다.
@@ -16,15 +20,17 @@ const attrs = useAttrs();
 
 // 지원하지 않는 size 값이 CSS 클래스로 전달되지 않도록 검증합니다.
 const sizes = new Set(['', 'sm', 'md', 'lg', 'xl']);
-const resolvedSize = computed(() => sizes.has(props.size) ? props.size : '');
+const resolvedSize = computed(() => (sizes.has(props.size) ? props.size : ''));
 
 // 상태에 맞는 공통 클래스와 사용자 정의 class를 조합합니다.
-const classes = computed(() => [
-  'container',
-  resolvedSize.value && `container_${resolvedSize.value}`,
-  props.fluid && 'container_fluid',
-  attrs.class
-].filter(Boolean));
+const classes = computed(() =>
+  [
+    'container',
+    resolvedSize.value && `container_${resolvedSize.value}`,
+    props.fluid && 'container_fluid',
+    attrs.class,
+  ].filter(Boolean),
+);
 </script>
 
 <template>

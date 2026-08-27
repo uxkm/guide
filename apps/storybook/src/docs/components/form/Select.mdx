@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { selectFrameworkExamples } from '../../../selectFrameworkExamples.ts';
+import { selectComponentExamples, selectFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { selectApiSections } from '../../../selectApiSections.ts';
 import * as SelectStories from '../../../Select.stories.tsx';
 
@@ -14,6 +14,25 @@ import * as SelectStories from '../../../Select.stories.tsx';
 일반 필드는 `label[for]`와 `id`를 연결합니다. 보이는 label이 없는 단독 선택은 `input_group-label_hidden` 텍스트와 select를 하나의 `display_contents` label로 감싸 암묵적으로 연결합니다. placeholder는 선택할 수 없는 빈 option으로 제공하며 필수 선택과 함께 사용할 수 있습니다.
 
 다크 모드에서는 Select와 option 목록에 surface 배경과 고대비 텍스트 토큰을 사용합니다. 오류·성공 테두리는 어두운 surface에서 3:1 이상의 UI 대비를 확보하는 semantic text 색상을 적용합니다.
+
+WebSquare는 선택 입력을 `xf:select1`, 선택지 데이터 연결을 `w2:itemset`, `w2:label`, `w2:value`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Select 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 선택값, 크기, placeholder, 다중 선택, 오류 상태와 네이티브 이벤트를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 크기·너비·오류 옵션을 공통 클래스로 변환합니다.
+- placeholder는 빈 값을 가진 비활성 선택지로 렌더링합니다.
+- 제어 값이 없을 때는 placeholder 유무를 반영해 안전한 초기 선택값을 결정합니다.
+- Vue는 computed setter로 `v-model`을 연결하고 네이티브 change 이벤트도 별도로 전달합니다.
+
+<FrameworkTabs examples={selectComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:select1`의 `ref`는 선택값 경로에, `w2:itemset`의 `nodeset`은 선택지 DataList에 연결합니다. `w2:label`과 `w2:value`로 사용자에게 보이는 텍스트와 저장되는 값을 분리합니다.
+
+빈 선택 안내와 필수 선택은 `chooseOption`, `mandatory`로 구성하고 비활성·검증 상태는 속성과 공통 상태 클래스를 함께 적용합니다. 선택값 변경 후 연관 필드를 갱신할 때는 `ev:onchange`를 화면 스크립트에 연결합니다.
 
 ## 기본
 

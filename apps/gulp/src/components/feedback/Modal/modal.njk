@@ -1,9 +1,32 @@
+{# Modal 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% set modalId = id | default('modal-basic') %}
-<div class="modal{% if size and size != 'md' %} modal_{{ size }}{% endif %}{% if scrollable %} modal_scrollable{% endif %}{% if open %} is-open{% endif %}" id="{{ modalId }}" data-component="Modal" data-modal{% if backdrop == false %} data-modal-backdrop="false"{% endif %} role="dialog" aria-modal="true" aria-labelledby="{{ modalId }}-title" tabindex="-1"{% if not open %} hidden{% endif %}>
+<div
+  class="modal{% if size and size != 'md' %} modal_{{ size }}{% endif %}{% if scrollable %} modal_scrollable{% endif %}{% if open %} is-open{% endif %}"
+  id="{{ modalId }}"
+  data-component="Modal"
+  data-modal{% if backdrop == false %}
+  data-modal-backdrop="false"{% endif %}
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="{{ modalId }}-title"
+  tabindex="-1"{% if not open %}
+  hidden{% endif %}
+>
   <div class="modal_backdrop" data-modal-close aria-hidden="true"></div>
   <div class="modal_dialog">
-    <div class="modal_header"><h2 class="modal_title" id="{{ modalId }}-title">{{ title | default('Modal') }}</h2><button type="button" class="modal_close" data-modal-close aria-label="{{ closeLabel | default('닫기') }}">×</button></div>
+    <div class="modal_header">
+      <h2 class="modal_title" id="{{ modalId }}-title">{{ title | default('Modal') }}</h2>
+      <button type="button" class="modal_close" data-modal-close aria-label="{{ closeLabel | default('닫기') }}">
+        ×
+      </button>
+    </div>
     <div class="modal_body">{{ content | default('Modal 대화상자 본문입니다.') | safe }}</div>
-    {% if footer %}<div class="modal_footer{% if footerAlign and footerAlign != 'end' %} modal_footer-{{ footerAlign }}{% endif %}{% if footerAlign == 'even' and footerRatio and footerRatio != '1-1' %} modal_footer-even-{{ footerRatio }}{% endif %}{% if footerNoPadBottom %} modal_footer-no-pad-b{% endif %}">{{ footer | safe }}</div>{% endif %}
+    {% if footer %}
+    <div
+      class="modal_footer{% if footerAlign and footerAlign != 'end' %} modal_footer-{{ footerAlign }}{% endif %}{% if footerAlign == 'even' and footerRatio and footerRatio != '1-1' %} modal_footer-even-{{ footerRatio }}{% endif %}{% if footerNoPadBottom %} modal_footer-no-pad-b{% endif %}"
+    >
+      {{ footer | safe }}
+    </div>
+    {% endif %}
   </div>
 </div>

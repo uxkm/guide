@@ -1,3 +1,7 @@
+<!--
+  Accordion 원본 구현.
+  컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+-->
 <script setup>
 import { computed, provide, ref, toRef, useAttrs } from 'vue';
 
@@ -13,12 +17,14 @@ const attrs = useAttrs();
 const rootRef = ref(null);
 const items = new Map();
 const effect = toRef(props, 'effect');
-const classes = computed(() => [
-  'accordion',
-  `accordion_${['bordered', 'flush', 'card'].includes(props.variant) ? props.variant : 'bordered'}`,
-  props.size !== 'md' && ['sm', 'lg'].includes(props.size) && `accordion_${props.size}`,
-  attrs.class,
-].filter(Boolean));
+const classes = computed(() =>
+  [
+    'accordion',
+    `accordion_${['bordered', 'flush', 'card'].includes(props.variant) ? props.variant : 'bordered'}`,
+    props.size !== 'md' && ['sm', 'lg'].includes(props.size) && `accordion_${props.size}`,
+    attrs.class,
+  ].filter(Boolean),
+);
 const restAttrs = computed(() => {
   const { class: _class, ...rest } = attrs;
   return rest;

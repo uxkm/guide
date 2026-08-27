@@ -1,8 +1,8 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { listFrameworkExamples } from '../../../listFrameworkExamples.ts';
-import { listApiSections } from '../../../dataDisplayAdvancedApiSections.ts';
+import { listComponentExamples, listFrameworkExamples } from '../../../dataDisplayDocumentationExamples.ts';
+import { listApiSections } from '../../../dataDisplayDocumentationApiSections.ts';
 import * as ListStories from '../../../List.stories.tsx';
 
 <Meta of={ListStories} />
@@ -12,6 +12,18 @@ import * as ListStories from '../../../List.stories.tsx';
 사람·설정·작업·정의 등 반복 항목을 시맨틱 목록으로 표현합니다. `ListItem`은 제목·설명·메타·앞 콘텐츠·보조 영역·액션을 일관되게 배치합니다.
 
 Vue와 React 구현은 각각 `@uxkm/vue/list`, `@uxkm/react/list`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+WebSquare는 목록 종류에 따라 `w2:group`의 `tagname`을 `ul`, `ol`, `dl`, `li`로 구분하고 항목 텍스트를 `w2:textbox`로 구성합니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 List와 ListItem의 실제 HTML·Gulp·Vue·React 원본 구현입니다. 목록 의미, 항목 영역, 링크·버튼 루트, 공통 클래스와 접근성 상태를 확인할 수 있습니다.
+
+<FrameworkTabs examples={listComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+불릿·번호·정의 목록은 문서 의미에 맞는 `tagname`을 사용합니다. 반복 항목은 DataList와 generator에 연결하고, 링크 항목은 `w2:anchor`, 화면 액션 항목은 `xf:trigger`로 구분합니다. 선택·비활성 상태와 접근성 속성은 항목 데이터와 함께 갱신합니다.
 
 ## 기본
 

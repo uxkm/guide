@@ -1,7 +1,49 @@
+<!-- Navbar 원본 구현: 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다. -->
 <header class="navbar" data-component="Navbar" data-navbar>
   <div class="navbar_container">
     <a href="#" class="navbar_brand">UXKM</a>
-    <button type="button" class="btn btn_ghost btn_icon-only navbar_toggle" data-navbar-toggle aria-expanded="false" aria-controls="navbar-demo-collapse" aria-label="메뉴 열기"><svg class="icon icon_sm navbar_toggle-icon-open" data-component="Icon" data-icon="menu" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><svg class="icon icon_sm navbar_toggle-icon-close" data-component="Icon" data-icon="close" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"></path></svg></button>
-    <div class="navbar_collapse" id="navbar-demo-collapse"><nav class="navbar_nav" aria-label="주요 메뉴"><ul class="navbar_list"><li class="navbar_item"><a href="#" class="navbar_link is-active" aria-current="page">홈</a></li><li class="navbar_item"><a href="#" class="navbar_link">컴포넌트</a></li><li class="navbar_item"><a href="#" class="navbar_link">접근성</a></li></ul></nav></div>
+    <button
+      type="button"
+      class="btn btn_ghost btn_icon-only navbar_toggle"
+      data-navbar-toggle
+      aria-expanded="false"
+      aria-controls="navbar-demo-collapse"
+      aria-label="메뉴 열기"
+    >
+      <svg
+        class="icon icon_sm navbar_toggle-icon-open"
+        data-component="Icon"
+        data-icon="menu"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M4 6h16M4 12h16M4 18h16"></path></svg
+      ><svg
+        class="icon icon_sm navbar_toggle-icon-close"
+        data-component="Icon"
+        data-icon="close"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="m6 6 12 12M18 6 6 18"></path>
+      </svg>
+    </button>
+    <div class="navbar_collapse" id="navbar-demo-collapse">
+      <nav class="navbar_nav" aria-label="주요 메뉴">
+        <ul class="navbar_list">
+          <li class="navbar_item">
+            <a href="#" class="navbar_link is-active" aria-current="page">홈</a>
+          </li>
+          <li class="navbar_item"><a href="#" class="navbar_link">컴포넌트</a></li>
+          <li class="navbar_item"><a href="#" class="navbar_link">접근성</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </header>

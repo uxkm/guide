@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { tagFrameworkExamples } from '../../../dataDisplayFrameworkExamples.ts';
+import { tagComponentExamples, tagFrameworkExamples } from '../../../tagFrameworkExamples.ts';
 import { tagApiSections } from '../../../dataDisplayApiSections.ts';
 import * as TagStories from '../../../Tag.stories.tsx';
 
@@ -12,6 +12,26 @@ import * as TagStories from '../../../Tag.stories.tsx';
 카테고리, 필터, 선택 항목을 표시합니다. 스킨·크기·아이콘·닫기·선택·추가·링크·비활성 상태를 하나의 공통 API로 제공합니다.
 
 Vue와 React 구현은 각각 `@uxkm/vue/tag`, `@uxkm/react/tag`로 제공하며 Nuxt와 Next.js에서도 같은 구현을 재사용합니다.
+
+WebSquare는 정적 Tag에 `w2:textbox`, 선택·추가 Tag에 `xf:trigger`, 링크 Tag에 `w2:anchor`를 사용합니다. 각 WebSquare 탭의 코드는 화면 XML 루트에서 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 `Tag`와 `TagGroup` 컴포넌트 자체의 구현입니다. React와 Vue는 prop에 따라 루트 요소·상태·공통 클래스를 선택하고, HTML과 Gulp는 같은 구조를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+
+- `variant`·`color`·`size`·`round`는 `tag_*`·`color_*` 클래스로 변환됩니다.
+- `checkable`·`add`는 button, `href`는 anchor, 나머지는 정적 span 의미를 사용합니다.
+- `selected`는 `is-selected`와 `aria-pressed`, `disabled`는 네이티브 `disabled` 또는 `aria-disabled`를 적용합니다.
+- `closable`은 독립된 `tag_close` 버튼을 만들며, 링크·선택·추가 Tag와 조합하면 인터랙티브 요소가 중첩되지 않도록 `tag_control`을 분리합니다.
+- `TagGroup`은 관련 Tag를 `role="group"`으로 묶고 `tight`으로 간격을 줄입니다.
+
+<FrameworkTabs examples={tagComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+정적 레이블은 `w2:textbox`, 선택·추가 동작은 `xf:trigger`, URL 이동은 `w2:anchor`로 의미를 구분합니다. 선택 가능한 Tag는 `aria-pressed`를 화면 상태와 함께 갱신하고, `ev:onclick`에서 선택 데이터와 `is-selected` 클래스를 동기화합니다. 닫기 버튼은 별도의 `xf:trigger.tag_close`로 만들고 태그 제거 로직에 연결합니다.
+
+아이콘은 프로젝트의 정적 이미지나 CSS 배경 리소스에 연결합니다. 반복되는 Tag 목록은 DataList와 `w2:generator`를 사용할 수 있으며, 비활성 Trigger에는 이벤트를 연결하지 않습니다.
 
 ## 기본 (Filled)
 

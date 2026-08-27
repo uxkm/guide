@@ -1,3 +1,7 @@
+<!--
+  Link 원본 구현.
+  시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
+-->
 <script setup>
 import { computed, useAttrs, useSlots } from 'vue';
 
@@ -21,7 +25,7 @@ const props = defineProps({
   href: String,
   target: String,
   rel: String,
-  ariaLabel: String
+  ariaLabel: String,
 });
 
 const emit = defineEmits(['click']);
@@ -29,20 +33,32 @@ const attrs = useAttrs();
 const slots = useSlots();
 const colors = new Set(['primary', 'muted', 'success', 'warning', 'danger', 'info']);
 const sizes = new Set(['', 'sm', 'lg', 'xl']);
-const resolvedColor = computed(() => colors.has(props.color) ? props.color : 'primary');
-const resolvedSize = computed(() => sizes.has(props.size) ? props.size : '');
+const resolvedColor = computed(() => (colors.has(props.color) ? props.color : 'primary'));
+const resolvedSize = computed(() => (sizes.has(props.size) ? props.size : ''));
 const rootTag = computed(() => props.as || 'a');
 const isAnchor = computed(() => rootTag.value === 'a');
 const isButton = computed(() => rootTag.value === 'button');
 const acceptsHref = computed(() => isAnchor.value || typeof rootTag.value !== 'string');
-const showLabel = computed(() => !props.iconOnly && (Boolean(slots.default) || Boolean(props.label)));
-const classes = computed(() => [
-  'link', `color_${resolvedColor.value}`, resolvedSize.value && `size_${resolvedSize.value}`,
-  props.underline && 'link_underline', props.noUnderline && 'link_no-underline',
-  props.standalone && 'link_standalone', props.nav && 'link_nav', props.block && 'link_block',
-  props.back && 'link_back', props.iconOnly && 'link_icon-only', props.active && 'is-active',
-  props.disabled && 'is-disabled', attrs.class
-].filter(Boolean));
+const showLabel = computed(
+  () => !props.iconOnly && (Boolean(slots.default) || Boolean(props.label)),
+);
+const classes = computed(() =>
+  [
+    'link',
+    `color_${resolvedColor.value}`,
+    resolvedSize.value && `size_${resolvedSize.value}`,
+    props.underline && 'link_underline',
+    props.noUnderline && 'link_no-underline',
+    props.standalone && 'link_standalone',
+    props.nav && 'link_nav',
+    props.block && 'link_block',
+    props.back && 'link_back',
+    props.iconOnly && 'link_icon-only',
+    props.active && 'is-active',
+    props.disabled && 'is-disabled',
+    attrs.class,
+  ].filter(Boolean),
+);
 
 function handleClick(event) {
   if (props.disabled) {
@@ -66,7 +82,7 @@ function handleClick(event) {
     data-component="Link"
     :data-ripple="ripple ? 'true' : 'false'"
     :disabled="isButton ? disabled : undefined"
-    :href="acceptsHref ? (href || '#') : undefined"
+    :href="acceptsHref ? href || '#' : undefined"
     :rel="acceptsHref ? rel : undefined"
     :tabindex="disabled ? -1 : attrs.tabindex"
     :target="acceptsHref ? target : undefined"

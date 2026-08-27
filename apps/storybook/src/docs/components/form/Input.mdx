@@ -1,7 +1,7 @@
 import { Canvas, Meta } from '@storybook/addon-docs/blocks';
 import FrameworkTabs from '../../../shared/FrameworkTabs.jsx';
 import ComponentApiDocs from '../../../shared/ComponentApiDocs.tsx';
-import { inputFrameworkExamples } from '../../../inputFrameworkExamples.ts';
+import { inputComponentExamples, inputFrameworkExamples } from '../../../formControlDocumentationExamples.ts';
 import { inputApiSections } from '../../../inputApiSections.ts';
 import * as InputStories from '../../../Input.stories.tsx';
 
@@ -12,6 +12,25 @@ import * as InputStories from '../../../Input.stories.tsx';
 텍스트·숫자·검색 등 한 줄 입력을 위한 필드 컴포넌트입니다. React와 Vue 공통 패키지를 Next.js와 Nuxt에서도 재사용합니다.
 
 모든 input에는 연결된 label을 제공합니다. 일반 필드는 `label[for]`와 `id`를 연결하고, 카드번호·OTP처럼 여러 input이 하나의 그룹을 이루는 경우에는 그룹명을 `aria-labelledby`로 연결한 뒤 각 input을 `display_contents` label로 감싸 암묵적으로 연결합니다. 화면에 레이블을 표시하지 않는 검색·애드온 입력은 `input_group-label_hidden` 레이블을 사용합니다. 클리어 버튼이 있는 입력은 label 안에 다른 버튼을 중첩하지 않도록 숨김 label과 input을 명시적으로 연결합니다.
+
+WebSquare는 한 줄 입력을 `xf:input`, 레이블·애드온·지우기 영역을 `w2:group`과 `w2:textbox`, 입력 삭제 동작을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
+
+## 컴포넌트 구현 코드
+
+아래 코드는 사용 예제가 아니라 Input 자체의 실제 원본 구현입니다. React와 Vue는 제어·비제어 값, 숫자 입력 정제, 붙여넣기, 지우기, 애드온과 접근성 상태를 공통 Input API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.
+
+- 지원하지 않는 크기는 `md`로 정규화하고 상태·크기 옵션을 `input_*` 클래스로 변환합니다.
+- 숫자 전용 입력과 최대 길이는 키 입력뿐 아니라 붙여넣기 값에도 적용합니다.
+- `clearable`은 값이 있고 수정 가능한 경우에만 지우기 버튼을 노출하고 완료 후 포커스를 복원합니다.
+- `prefix`·`suffix`는 `input_group` 애드온으로 구성하며 장식용 prefix는 보조기술에서 제외합니다.
+
+<FrameworkTabs examples={inputComponentExamples} showFullCode />
+
+## WebSquare 사용
+
+`xf:input`의 `ref`를 DataMap·DataList 경로에 연결하고 `type`, `placeholder`, `maxlength`, `mandatory` 등의 속성으로 입력 계약을 정의합니다. 크기·너비·검증 상태는 공통 `input_*`, `is-error` 클래스로 표현합니다.
+
+접두·접미 콘텐츠는 `input_group` 안에 배치하고 지우기 기능은 `xf:trigger`의 `ev:onclick`에서 값을 비운 뒤 입력으로 포커스를 돌려줍니다. 숫자·OTP 입력은 `displayFormat`, `maxlength`와 입력 이벤트 검증을 함께 사용합니다.
 
 ## 기본
 

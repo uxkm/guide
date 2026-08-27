@@ -1,5 +1,10 @@
+/**
+ * Grid 원본 구현.
+ * 레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다.
+ */
 // 12열 Grid에서 사용할 수 있도록 숫자를 1~12 범위로 제한합니다.
-const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
+const range = (value) =>
+  Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
 const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
@@ -56,11 +61,17 @@ export function Grid({
     equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
 
     ALIGNS.has(align) && align && `grid_align-${align}`, // 검증된 항목 정렬 클래스입니다.
-    className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
-  ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
+    className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ]
+    .filter(Boolean)
+    .join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
 
   // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
-  return <Root className={classes} data-component="Grid" {...props}>{children}</Root>;
+  return (
+    <Root className={classes} data-component="Grid" {...props}>
+      {children}
+    </Root>
+  );
 }
 
 export default Grid;

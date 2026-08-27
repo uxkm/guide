@@ -1,3 +1,7 @@
+/**
+ * Accordion 원본 구현.
+ * 컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+ */
 import { createContext, useCallback, useMemo, useRef } from 'react';
 
 export const AccordionContext = createContext(null);
@@ -59,7 +63,9 @@ export function Accordion({
     `accordion_${resolvedVariant}`,
     resolvedSize !== 'md' && `accordion_${resolvedSize}`,
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <AccordionContext.Provider value={context}>

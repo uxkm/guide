@@ -1,2 +1,37 @@
+{# Breadcrumb 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% from "../../basic/Icon/icon.njk" import icon %}
-<nav class="breadcrumb{% if separator == 'slash' or separator == 'dot' %} breadcrumb_sep-{{ separator }}{% endif %}{% if size == 'sm' or size == 'lg' %} breadcrumb_{{ size }}{% endif %}" aria-label="{{ ariaLabel | default('경로') }}" data-component="Breadcrumb"><ol class="breadcrumb_list">{% for item in items %}<li class="breadcrumb_item{% if item.current or (loop.last and item.current != false) %} is-current{% endif %}"{% if item.current or (loop.last and item.current != false) %} aria-current="page"{% endif %}{% if item.hidden %} data-breadcrumb-hidden hidden{% endif %}>{% if item.ellipsis %}<button type="button" class="breadcrumb_ellipsis" data-breadcrumb-ellipsis aria-label="숨겨진 경로 보기" aria-expanded="false">…</button>{% elif item.current or (loop.last and item.current != false) %}<span class="breadcrumb_current">{{ item.label }}</span>{% elif item.disabled %}<span class="breadcrumb_link is-disabled" aria-disabled="true">{{ item.label }}</span>{% else %}<a class="breadcrumb_link{% if item.icon %} breadcrumb_link-icon{% endif %}" href="{{ item.href | default('#') }}"{% if item.ariaLabel %} aria-label="{{ item.ariaLabel }}"{% endif %}>{% if item.icon %}{{ icon(item.icon, 'breadcrumb_icon') }}{% else %}{{ item.label }}{% endif %}</a>{% endif %}</li>{% endfor %}</ol></nav>
+<nav
+  class="breadcrumb{% if separator == 'slash' or separator == 'dot' %} breadcrumb_sep-{{ separator }}{% endif %}{% if size == 'sm' or size == 'lg' %} breadcrumb_{{ size }}{% endif %}"
+  aria-label="{{ ariaLabel | default('경로') }}"
+  data-component="Breadcrumb"
+>
+  <ol class="breadcrumb_list">
+    {% for item in items %}
+    <li
+      class="breadcrumb_item{% if item.current or (loop.last and item.current != false) %} is-current{% endif %}"{% if item.current or (loop.last and item.current != false) %}
+      aria-current="page"{% endif %}{% if item.hidden %}
+      data-breadcrumb-hidden
+      hidden{% endif %}
+    >
+      {% if item.ellipsis %}<button
+        type="button"
+        class="breadcrumb_ellipsis"
+        data-breadcrumb-ellipsis
+        aria-label="숨겨진 경로 보기"
+        aria-expanded="false"
+      >
+        …</button
+      >{% elif item.current or (loop.last and item.current != false) %}<span class="breadcrumb_current"
+        >{{ item.label }}</span
+      >{% elif item.disabled %}<span class="breadcrumb_link is-disabled" aria-disabled="true"
+        >{{ item.label }}</span
+      >{% else %}<a
+        class="breadcrumb_link{% if item.icon %} breadcrumb_link-icon{% endif %}"
+        href="{{ item.href | default('#') }}"{% if item.ariaLabel %}
+        aria-label="{{ item.ariaLabel }}"{% endif %}
+        >{% if item.icon %}{{ icon(item.icon, 'breadcrumb_icon') }}{% else %}{{ item.label }}{% endif %}</a
+      >{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</nav>

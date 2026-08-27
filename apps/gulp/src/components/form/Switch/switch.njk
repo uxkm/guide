@@ -1,5 +1,20 @@
-<label class="switch{% if labelEnd %} switch_label-end{% endif %}{% if size and size != 'md' %} switch_{{ size }}{% endif %}" data-ripple="{{ 'false' if ripple == false else 'true' }}">
-  {% if labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span>{% endif %}
-  <span class="switch_control"><input class="switch_input" type="checkbox" role="switch"{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %} data-component="Switch"><span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span></span>
-  {% if not labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span>{% endif %}
+{# Switch 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+<label
+  class="switch{% if labelEnd %} switch_label-end{% endif %}{% if size and size != 'md' %} switch_{{ size }}{% endif %}"
+  data-ripple="{{ 'false' if ripple == false else 'true' }}"
+>
+  {% if labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span
+  >{% endif %}
+  <span class="switch_control"
+    ><input
+      class="switch_input"
+      type="checkbox"
+      role="switch"{% if checked %}
+      checked{% endif %}{% if disabled %}
+      disabled{% endif %}
+      data-component="Switch" /><span class="switch_track" aria-hidden="true"
+      ><span class="switch_thumb"></span></span
+  ></span>
+  {% if not labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span
+  >{% endif %}
 </label>

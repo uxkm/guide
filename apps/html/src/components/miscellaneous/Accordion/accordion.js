@@ -1,3 +1,7 @@
+/**
+ * Accordion 원본 구현.
+ * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
+ */
 import { setSlideRegionOpen } from '@uxkm/interactions/slide-region';
 
 function itemParts(item) {
@@ -9,7 +13,11 @@ function itemParts(item) {
 
 function isDisabled(item) {
   const { trigger } = itemParts(item);
-  return item.classList.contains('is-disabled') || trigger?.disabled || trigger?.getAttribute('aria-disabled') === 'true';
+  return (
+    item.classList.contains('is-disabled') ||
+    trigger?.disabled ||
+    trigger?.getAttribute('aria-disabled') === 'true'
+  );
 }
 
 function setItemOpen(item, open, slide, animate = true) {
@@ -43,24 +51,33 @@ export function initAccordion(root = document) {
         if (willOpen && !multiple) {
           items.forEach((other) => {
             const otherTrigger = itemParts(other).trigger;
-            if (other !== item && !isDisabled(other) && otherTrigger?.getAttribute('aria-expanded') === 'true') {
+            if (
+              other !== item &&
+              !isDisabled(other) &&
+              otherTrigger?.getAttribute('aria-expanded') === 'true'
+            ) {
               setItemOpen(other, false, slide);
             }
           });
         }
         setItemOpen(item, willOpen, slide);
-        accordion.dispatchEvent(new CustomEvent('accordion:toggle', {
-          bubbles: true,
-          detail: { item, open: willOpen },
-        }));
+        accordion.dispatchEvent(
+          new CustomEvent('accordion:toggle', {
+            bubbles: true,
+            detail: { item, open: willOpen },
+          }),
+        );
       });
 
       trigger.addEventListener('keydown', (event) => {
-        const triggers = items.filter((entry) => !isDisabled(entry)).map((entry) => itemParts(entry).trigger);
+        const triggers = items
+          .filter((entry) => !isDisabled(entry))
+          .map((entry) => itemParts(entry).trigger);
         const index = triggers.indexOf(trigger);
         let next = null;
         if (event.key === 'ArrowDown') next = triggers[(index + 1) % triggers.length];
-        else if (event.key === 'ArrowUp') next = triggers[(index - 1 + triggers.length) % triggers.length];
+        else if (event.key === 'ArrowUp')
+          next = triggers[(index - 1 + triggers.length) % triggers.length];
         else if (event.key === 'Home') next = triggers[0];
         else if (event.key === 'End') next = triggers.at(-1);
         if (next) {

@@ -1,12 +1,22 @@
+<!--
+  Tag 원본 구현.
+  데이터 표시 구조와 시각 상태를 공통 CSS 클래스 및 접근성 속성으로 표현합니다.
+-->
 <script setup>
 import { computed, useAttrs } from 'vue';
 
+// class를 포함한 전달 속성을 최외곽 요소에 직접 적용합니다.
 defineOptions({ name: 'UxkmTag', inheritAttrs: false });
 
+// 외형, 상호작용, 상태와 접근성 값을 prop으로 받습니다.
 const props = defineProps({
   label: String,
   color: { type: String, default: 'primary' },
-  variant: { type: String, default: 'filled', validator: (value) => ['filled', 'solid', 'outline', 'borderless'].includes(value) },
+  variant: {
+    type: String,
+    default: 'filled',
+    validator: (value) => ['filled', 'solid', 'outline', 'borderless'].includes(value),
+  },
   size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) },
   round: Boolean,
   checkable: Boolean,
@@ -16,26 +26,44 @@ const props = defineProps({
   disabled: Boolean,
   ripple: { type: Boolean, default: undefined },
   href: String,
-  closeLabel: String
+  closeLabel: String,
 });
 
 const attrs = useAttrs();
 const emit = defineEmits(['click', 'close']);
+// prop에 따라 루트 태그와 닫기 버튼 분리 여부를 계산합니다.
 const interactive = computed(() => props.checkable || props.add || Boolean(props.href));
 const splitControl = computed(() => props.closable && interactive.value);
-const rootTag = computed(() => splitControl.value ? 'span' : props.checkable || props.add ? 'button' : props.href ? 'a' : 'span');
-const controlTag = computed(() => props.checkable || props.add ? 'button' : 'a');
-const classes = computed(() => [
-  'tag', `color_${props.color}`, props.variant !== 'filled' && `tag_${props.variant}`,
-  props.size !== 'md' && `tag_${props.size}`, props.round && 'tag_round',
-  props.checkable && 'tag_checkable', props.add && 'tag_add', props.selected && 'is-selected',
-  props.disabled && 'is-disabled', attrs.class
-].filter(Boolean));
-const rippleAttrs = computed(() => props.ripple === false
-  ? { 'data-ripple': 'false' }
-  : (props.ripple === true || interactive.value ? { 'data-ripple': 'true' } : {}));
+const rootTag = computed(() =>
+  splitControl.value ? 'span' : props.checkable || props.add ? 'button' : props.href ? 'a' : 'span',
+);
+const controlTag = computed(() => (props.checkable || props.add ? 'button' : 'a'));
+// prop을 tag_* · color_* · is-* 공통 클래스로 변환합니다.
+const classes = computed(() =>
+  [
+    'tag',
+    `color_${props.color}`,
+    props.variant !== 'filled' && `tag_${props.variant}`,
+    props.size !== 'md' && `tag_${props.size}`,
+    props.round && 'tag_round',
+    props.checkable && 'tag_checkable',
+    props.add && 'tag_add',
+    props.selected && 'is-selected',
+    props.disabled && 'is-disabled',
+    attrs.class,
+  ].filter(Boolean),
+);
+// 클릭 가능한 Tag에만 기본 리플 효과를 적용합니다.
+const rippleAttrs = computed(() =>
+  props.ripple === false
+    ? { 'data-ripple': 'false' }
+    : props.ripple === true || interactive.value
+      ? { 'data-ripple': 'true' }
+      : {},
+);
 const rootAttrs = computed(() => ({ ...attrs, ...(splitControl.value ? {} : rippleAttrs.value) }));
 
+// 비활성 상태에서는 기본 동작과 사용자 이벤트를 차단합니다.
 function handleClick(event) {
   if (props.disabled) {
     event.preventDefault();
@@ -45,6 +73,7 @@ function handleClick(event) {
   emit('click', event);
 }
 
+// 닫기 이벤트는 Tag 본문 클릭으로 전파하지 않습니다.
 function handleClose(event) {
   event.stopPropagation();
   emit('close', event);
@@ -52,6 +81,7 @@ function handleClose(event) {
 </script>
 
 <template>
+  <!-- 정적·버튼·링크 의미에 맞는 동적 루트와 접근성 상태를 렌더링합니다. -->
   <component
     :is="rootTag"
     v-bind="rootAttrs"
@@ -65,6 +95,7 @@ function handleClose(event) {
     :tabindex="rootTag === 'a' && disabled ? -1 : undefined"
     @click="splitControl || handleClick($event)"
   >
+    <!-- 닫기 가능한 인터랙티브 Tag는 본문 컨트롤과 닫기 버튼을 분리합니다. -->
     <component
       :is="controlTag"
       v-if="splitControl"
@@ -93,7 +124,13 @@ function handleClose(event) {
       :disabled="disabled || undefined"
       @click="handleClose"
     >
-      <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <path d="m6 6 12 12M18 6 6 18" />
       </svg>
     </button>

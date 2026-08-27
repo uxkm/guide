@@ -1,10 +1,38 @@
+{# Popover 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% set popoverId = id | default('popover-basic') %}
-<div class="popover{% if size and size != 'md' %} popover_{{ size }}{% endif %}{% if placement %} popover_placement-{{ placement }}{% endif %}{% if noArrow %} popover_no-arrow{% endif %}{% if open %} is-open{% endif %}" data-component="Popover" data-popover{% if trigger == 'hover' %} data-popover-trigger="hover"{% endif %}>
-  <button type="button" class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="{{ 'true' if open else 'false' }}" aria-controls="{{ popoverId }}">{{ triggerLabel | default('Popover 열기') }}</button>
-  <div class="popover_panel" id="{{ popoverId }}" role="dialog" aria-labelledby="{{ popoverId }}-title"{% if not open %} hidden{% endif %}>
-    {% if not noArrow %}<span class="popover_arrow" aria-hidden="true"></span>{% endif %}
-    {% if title %}<div class="popover_header"><div class="popover_title" id="{{ popoverId }}-title">{{ title }}</div><button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button></div>{% endif %}
+<div
+  class="popover{% if size and size != 'md' %} popover_{{ size }}{% endif %}{% if placement %} popover_placement-{{ placement }}{% endif %}{% if noArrow %} popover_no-arrow{% endif %}{% if open %} is-open{% endif %}"
+  data-component="Popover"
+  data-popover{% if trigger == 'hover' %}
+  data-popover-trigger="hover"{% endif %}
+>
+  <button
+    type="button"
+    class="btn btn_outline popover_trigger"
+    aria-haspopup="dialog"
+    aria-expanded="{{ 'true' if open else 'false' }}"
+    aria-controls="{{ popoverId }}"
+  >
+    {{ triggerLabel | default('Popover 열기') }}
+  </button>
+  <div
+    class="popover_panel"
+    id="{{ popoverId }}"
+    role="dialog"
+    aria-labelledby="{{ popoverId }}-title"{% if not open %}
+    hidden{% endif %}
+  >
+    {% if not noArrow %}<span class="popover_arrow" aria-hidden="true"></span
+    >{% endif %}
+    {% if title %}
+    <div class="popover_header">
+      <div class="popover_title" id="{{ popoverId }}-title">{{ title }}</div>
+      <button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button>
+    </div>
+    {% endif %}
     <div class="popover_body">{{ content | default('Popover 본문입니다.') | safe }}</div>
-    {% if footer %}<div class="popover_footer">{{ footer | safe }}</div>{% endif %}
+    {% if footer %}
+    <div class="popover_footer">{{ footer | safe }}</div>
+    {% endif %}
   </div>
 </div>

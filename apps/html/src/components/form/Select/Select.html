@@ -1,4 +1,6 @@
+<!-- Select 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
 <div class="form_field form_field_fit">
+  <!-- label과 select id를 연결하고 placeholder는 비활성 빈 option으로 제공합니다. -->
   <label class="form_field-label" for="select-region">지역</label>
   <select id="select-region" class="input" required data-component="Select">
     <option value="" disabled selected>지역을 선택하세요</option>
@@ -10,6 +12,7 @@
 </div>
 
 <label class="display_contents">
+  <!-- 보이는 label이 없는 단독 선택도 숨김 텍스트로 접근 가능한 이름을 제공합니다. -->
   <span class="input_group-label_hidden">언어</span>
   <select class="input input_fit" data-component="Select">
     <option value="ko">한국어</option>

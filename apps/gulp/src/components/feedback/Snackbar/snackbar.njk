@@ -1,22 +1,51 @@
+{# Snackbar 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {% set snackbarColor = color | default('info') %}
 <div
   class="snackbar {{ 'color_error' if snackbarColor == 'danger' else 'color_' + snackbarColor }}{% if size and size != 'md' %} snackbar_{{ size }}{% endif %}{% if round %} snackbar_round{% endif %} snackbar_motion-{{ motion | default('fade') }} snackbar_placement-{{ placement | default('bottom-center') }}"
-  data-component="Snackbar"
-  {% if duration %}data-snackbar-duration="{{ duration }}"{% endif %}
+  data-component="Snackbar"{% if duration %}
+  data-snackbar-duration="{{ duration }}"{% endif %}
   role="{{ role | default('status') }}"
   aria-live="{{ 'assertive' if role == 'alert' else 'polite' }}"
   aria-atomic="true"
   aria-relevant="additions text"
 >
   {% if showIcon != false %}
-    <svg class="snackbar_icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      {% if snackbarColor == 'success' %}<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4 12 14.01l-3-3"></path>
-      {% elseif snackbarColor == 'warning' %}<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path d="M12 9v4M12 17h.01"></path>
-      {% elseif snackbarColor == 'danger' %}<circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6M9 9l6 6"></path>
-      {% else %}<circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path>{% endif %}
-    </svg>
+  <svg
+    class="snackbar_icon"
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    {% if snackbarColor == 'success' %}
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <path d="M22 4 12 14.01l-3-3"></path>
+    {% elseif snackbarColor == 'warning' %}
+    <path
+      d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+    ></path>
+    <path d="M12 9v4M12 17h.01"></path>
+    {% elseif snackbarColor == 'danger' %}
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="m15 9-6 6M9 9l6 6"></path>
+    {% else %}
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M12 16v-4M12 8h.01"></path>
+    {% endif %}
+  </svg>
   {% endif %}
   <span class="snackbar_message">{{ message | default('Snackbar') }}</span>
-  {% if action %}<span class="snackbar_action">{{ action | safe }}</span>{% endif %}
-  {% if closable %}<button type="button" class="btn btn_ghost btn_icon-only snackbar_close" data-snackbar-close aria-label="{{ closeLabel | default('알림 닫기') }}"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg></button>{% endif %}
+  {% if action %}<span class="snackbar_action">{{ action | safe }}</span
+  >{% endif %}
+  {% if closable %}<button
+    type="button"
+    class="btn btn_ghost btn_icon-only snackbar_close"
+    data-snackbar-close
+    aria-label="{{ closeLabel | default('알림 닫기') }}"
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 6L6 18M6 6l12 12"></path>
+    </svg></button
+  >{% endif %}
 </div>

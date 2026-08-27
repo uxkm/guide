@@ -1,3 +1,7 @@
+<!--
+  Alert 원본 구현.
+  피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
+-->
 <script setup>
 import { computed, ref, useAttrs } from 'vue';
 
@@ -22,14 +26,13 @@ const emit = defineEmits(['close']);
 const attrs = useAttrs();
 const visible = ref(true);
 
-const resolvedColor = computed(() => (
-  ['info', 'success', 'warning', 'danger'].includes(props.color) ? props.color : 'info'
-));
+const resolvedColor = computed(() =>
+  ['info', 'success', 'warning', 'danger'].includes(props.color) ? props.color : 'info',
+);
 
 const classes = computed(() => {
-  const colorClass = resolvedColor.value === 'danger'
-    ? 'color_error'
-    : `color_${resolvedColor.value}`;
+  const colorClass =
+    resolvedColor.value === 'danger' ? 'color_error' : `color_${resolvedColor.value}`;
 
   return [
     'alert',
@@ -52,13 +55,7 @@ function handleClose(event) {
 </script>
 
 <template>
-  <div
-    v-if="visible"
-    v-bind="restAttrs"
-    :class="classes"
-    data-component="Alert"
-    :role="role"
-  >
+  <div v-if="visible" v-bind="restAttrs" :class="classes" data-component="Alert" :role="role">
     <slot v-if="showIcon" name="icon">
       <svg
         class="alert_icon"
@@ -77,7 +74,9 @@ function handleClose(event) {
           <path d="M22 4 12 14.01l-3-3" />
         </template>
         <template v-else-if="resolvedColor === 'warning'">
-          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <path
+            d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+          />
           <path d="M12 9v4M12 17h.01" />
         </template>
         <template v-else>

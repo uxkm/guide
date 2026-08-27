@@ -1,3 +1,7 @@
+<!--
+  CollapseExternal 원본 구현.
+  컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+-->
 <script setup>
 import { computed, onMounted, ref, useAttrs, useId, watch } from 'vue';
 import { setSlideRegionOpen } from '@uxkm/interactions/slide-region';
@@ -24,11 +28,15 @@ const restAttrs = computed(() => {
 });
 let firstSlideSync = true;
 
-watch([isOpen, slide], ([open, hasSlide]) => {
-  if (!hasSlide) return;
-  setSlideRegionOpen(panelRef.value, open, !firstSlideSync);
-  firstSlideSync = false;
-}, { flush: 'post' });
+watch(
+  [isOpen, slide],
+  ([open, hasSlide]) => {
+    if (!hasSlide) return;
+    setSlideRegionOpen(panelRef.value, open, !firstSlideSync);
+    firstSlideSync = false;
+  },
+  { flush: 'post' },
+);
 
 onMounted(() => {
   if (slide.value) {

@@ -1,14 +1,36 @@
+<!-- Textarea 원본 구현: 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다. -->
 <div class="form_field">
+  <!-- label, 여러 줄 입력, 도움말을 하나의 form_field 블록으로 구성합니다. -->
   <label class="form_field-label" for="textarea-message">메시지</label>
-  <textarea id="textarea-message" class="textarea textarea_resize_none" rows="4" placeholder="메시지를 입력하세요" data-component="Textarea"></textarea>
+  <textarea
+    id="textarea-message"
+    class="textarea textarea_resize_none"
+    rows="4"
+    placeholder="메시지를 입력하세요"
+    data-component="Textarea"
+  ></textarea>
   <p class="form_field-hint">문의 내용을 자세히 작성해 주세요.</p>
 </div>
 
 <div class="form_field form_field_fit">
+  <!-- 글자 수 카운터는 textarea의 aria-describedby와 연결하고 상태 변경을 알립니다. -->
   <label class="form_field-label" for="textarea-introduction">자기소개</label>
   <div class="textarea_wrap textarea_show-count">
-    <textarea id="textarea-introduction" class="textarea" rows="5" maxlength="200" aria-describedby="textarea-introduction-hint textarea-introduction-count" data-component="Textarea"></textarea>
-    <span id="textarea-introduction-count" class="textarea_count" role="status" aria-live="polite" aria-atomic="true">
+    <textarea
+      id="textarea-introduction"
+      class="textarea"
+      rows="5"
+      maxlength="200"
+      aria-describedby="textarea-introduction-hint textarea-introduction-count"
+      data-component="Textarea"
+    ></textarea>
+    <span
+      id="textarea-introduction-count"
+      class="textarea_count"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <span class="textarea_count_visual" aria-hidden="true">0/200</span>
       <span class="textarea_count_announcer">0자 입력, 최대 200자</span>
     </span>

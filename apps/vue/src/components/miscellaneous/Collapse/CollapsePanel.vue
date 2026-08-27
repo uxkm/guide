@@ -1,3 +1,7 @@
+<!--
+  CollapsePanel 원본 구현.
+  컴포넌트 상태와 사용자 상호작용을 관리하고 공통 CSS 및 접근성 계약을 적용합니다.
+-->
 <script setup>
 import { computed, inject, onMounted, onUnmounted, ref, toRef, useId, watch } from 'vue';
 import { setSlideRegionOpen } from '@uxkm/interactions/slide-region';
@@ -21,7 +25,9 @@ const bodyRef = ref(null);
 const isOpen = ref(Boolean(props.open));
 const disabled = toRef(props, 'disabled');
 const slide = computed(() => collapse?.effect.value === 'slide');
-const classes = computed(() => ['collapse_panel', isOpen.value && 'is-open', props.disabled && 'is-disabled'].filter(Boolean));
+const classes = computed(() =>
+  ['collapse_panel', isOpen.value && 'is-open', props.disabled && 'is-disabled'].filter(Boolean),
+);
 let unregister;
 let firstSlideSync = true;
 
@@ -29,11 +35,15 @@ function handleKeydown(event) {
   if (collapse?.focusAdjacent(triggerId, event.key)) event.preventDefault();
 }
 
-watch([isOpen, slide], ([open, hasSlide]) => {
-  if (!hasSlide) return;
-  setSlideRegionOpen(bodyRef.value, open, !firstSlideSync);
-  firstSlideSync = false;
-}, { flush: 'post' });
+watch(
+  [isOpen, slide],
+  ([open, hasSlide]) => {
+    if (!hasSlide) return;
+    setSlideRegionOpen(bodyRef.value, open, !firstSlideSync);
+    firstSlideSync = false;
+  },
+  { flush: 'post' },
+);
 
 onMounted(() => {
   unregister = collapse?.registerPanel({ id: triggerId, open: isOpen, disabled });
@@ -60,7 +70,9 @@ onUnmounted(() => unregister?.());
         @click="collapse?.togglePanel(triggerId)"
         @keydown="handleKeydown"
       >
-        <span class="collapse_label"><slot name="title">{{ label }}</slot></span>
+        <span class="collapse_label"
+          ><slot name="title">{{ label }}</slot></span
+        >
         <span v-if="$slots.extra" class="collapse_extra"><slot name="extra" /></span>
         <template #icon-after><Icon name="chevron-down" class="collapse_icon" /></template>
       </Button>
@@ -73,7 +85,11 @@ onUnmounted(() => unregister?.());
       :aria-labelledby="triggerId"
       :hidden="slide ? undefined : !isOpen"
     >
-      <div class="collapse_content"><slot><p v-if="content">{{ content }}</p></slot></div>
+      <div class="collapse_content">
+        <slot
+          ><p v-if="content">{{ content }}</p></slot
+        >
+      </div>
     </div>
   </div>
 </template>
