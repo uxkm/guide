@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev --port 6106"
+    "dev": "next dev --port 6106 -H 0.0.0.0"
   },
   "dependencies": {
     "@uxkm/react": "workspace:*",

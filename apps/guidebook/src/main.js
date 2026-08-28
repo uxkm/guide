@@ -1,4 +1,4 @@
-import './style.css';
+import './styles/main.scss';
 
 const guideRoot = new URL(import.meta.url);
 guideRoot.pathname = guideRoot.pathname.replace(/\/(?:src|assets)\/[^/]+$/, '/');
@@ -6,10 +6,10 @@ document.querySelectorAll('[data-guide-path]').forEach((link) => {
   link.href = new URL(link.dataset.guidePath, guideRoot).href;
 });
 
-const storybookRoot = new URL(
-  import.meta.env.VITE_STORYBOOK_URL || (import.meta.env.DEV ? 'http://localhost:6006/' : 'storybook/'),
-  guideRoot
-);
+const storybookDevOrigin = import.meta.env.DEV
+  ? `${window.location.protocol}//${window.location.hostname}:6006/`
+  : (import.meta.env.VITE_STORYBOOK_URL || 'storybook/');
+const storybookRoot = new URL(storybookDevOrigin, guideRoot);
 document.querySelectorAll('[data-storybook-path]').forEach((link) => {
   link.href = new URL(link.dataset.storybookPath, storybookRoot).href;
 });
@@ -17,16 +17,16 @@ document.querySelectorAll('[data-storybook-path]').forEach((link) => {
 const dialog = document.querySelector('.search-dialog');
 const searchInput = dialog.querySelector('input');
 const searchCloseButton = dialog.querySelector('.search-close');
-const resultItems = [...dialog.querySelectorAll('.search-result')];
+const resultItems = Array.from(dialog.querySelectorAll('.search-result'));
 const sidebar = document.querySelector('.docs-sidebar');
 const backdrop = document.querySelector('.sidebar-backdrop');
 const menuButton = document.querySelector('.menu-button');
-const outlineLinks = [...document.querySelectorAll('.page-outline a[href^="#"]')];
+const outlineLinks = Array.from(document.querySelectorAll('.page-outline a[href^="#"]'));
 
 function getOutlineTarget(link) {
   try {
     return document.getElementById(decodeURIComponent(link.hash.slice(1)));
-  } catch {
+  } catch (_error) {
     return null;
   }
 }
@@ -38,9 +38,13 @@ const outlineItems = outlineLinks
 function setActiveOutline(activeLink) {
   outlineLinks.forEach((link) => {
     const isActive = link === activeLink;
-    link.classList.toggle('active', isActive);
-    if (isActive) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
+    if (isActive) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'location');
+    } else {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+    }
   });
 }
 
@@ -50,7 +54,7 @@ function updateActiveOutline() {
   const activationLine = 104;
   const reachedPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1;
   if (reachedPageEnd) {
-    setActiveOutline(outlineItems.at(-1).link);
+    setActiveOutline(outlineItems[outlineItems.length - 1].link);
     return;
   }
 
@@ -78,26 +82,50 @@ if (outlineItems.length) {
     link.addEventListener('click', () => setActiveOutline(link));
   });
 
-  window.addEventListener('scroll', requestOutlineUpdate, { passive: true });
+  window.addEventListener('scroll', requestOutlineUpdate, false);
   window.addEventListener('resize', requestOutlineUpdate);
   window.addEventListener('hashchange', updateActiveOutline);
   updateActiveOutline();
 }
 
+function isSearchOpen() {
+  return Boolean(dialog.open || dialog.hasAttribute('open'));
+}
+
 function openSearch() {
-  if (dialog.open) return;
-  dialog.showModal();
+  if (isSearchOpen()) return;
+  if (typeof dialog.showModal === 'function') {
+    try {
+      dialog.showModal();
+    } catch (_error) {
+      dialog.setAttribute('open', '');
+    }
+  } else {
+    dialog.setAttribute('open', '');
+  }
   searchInput.focus();
 }
 
 function closeSearch() {
-  if (dialog.open) dialog.close();
+  if (typeof dialog.close === 'function' && dialog.open) {
+    dialog.close();
+    return;
+  }
+  dialog.removeAttribute('open');
+}
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  backdrop.classList.add('open');
+  menuButton.setAttribute('aria-expanded', 'true');
+  document.body.classList.add('sidebar-open');
 }
 
 function closeSidebar() {
   sidebar.classList.remove('open');
   backdrop.classList.remove('open');
   menuButton.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('sidebar-open');
 }
 
 document.querySelector('.search-trigger').addEventListener('click', openSearch);
@@ -115,11 +143,13 @@ dialog.addEventListener('click', (event) => {
   if (clickedBackdrop) closeSearch();
 });
 menuButton.addEventListener('click', () => {
-  sidebar.classList.add('open');
-  backdrop.classList.add('open');
-  menuButton.setAttribute('aria-expanded', 'true');
+  if (sidebar.classList.contains('open')) closeSidebar();
+  else openSidebar();
 });
 backdrop.addEventListener('click', closeSidebar);
+sidebar.querySelectorAll('.nav-link').forEach((link) => {
+  link.addEventListener('click', closeSidebar);
+});
 
 document.addEventListener('keydown', (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -128,7 +158,7 @@ document.addEventListener('keydown', (event) => {
   }
   const isEscape = event.key === 'Escape' || event.key === 'Esc' || event.code === 'Escape';
   if (isEscape) {
-    if (dialog.open) {
+    if (isSearchOpen()) {
       event.preventDefault();
       event.stopPropagation();
       closeSearch();

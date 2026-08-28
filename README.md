@@ -13,12 +13,12 @@ pnpm install
 pnpm dev
 ```
 
-`pnpm dev`는 공통 스타일과 이미지를 먼저 갱신한 뒤 다음 문서 서버를 함께 실행합니다.
+`pnpm dev`는 공통 스타일과 이미지를 먼저 갱신한 뒤 다음 문서 서버를 함께 실행합니다. 서버는 `0.0.0.0`에 열려 있으므로 같은 Wi‑Fi의 다른 기기에서도 접속할 수 있습니다. 터미널에는 localhost와 LAN IP가 함께 출력되며, 네트워크 주소는 실행할 때마다 달라집니다.
 
-| 문서 | 주소 |
-| --- | --- |
-| Storybook | `http://localhost:6006` |
-| Guidebook | `http://localhost:6107` |
+| 문서 | 이 기기 | 같은 네트워크의 다른 기기 |
+| --- | --- | --- |
+| Storybook | `http://localhost:6006` | `http://<LAN-IP>:6006` |
+| Guidebook | `http://localhost:6107` | `http://<LAN-IP>:6107` |
 
 모든 프레임워크 앱까지 함께 실행하려면 다음 명령을 사용합니다.
 
@@ -150,8 +150,13 @@ pnpm build:guidebook
 └── 기타
 활용 가이드
 ├── UI 패턴
-├── 작성 지침
-└── 프레임워크 구현
+└── 작성 지침
+프레임워크
+├── 프레임워크 구현
+├── Gulp
+├── Vue
+├── React
+└── WebSquare
 ```
 
 ## Storybook

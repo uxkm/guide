@@ -29,7 +29,7 @@ function reload(done) {
 function serve(done) {
   browserSync.init({
     server: { baseDir: 'dist' },
-    host: '127.0.0.1',
+    host: process.env.HOST || '0.0.0.0',
     port: 6102,
     open: false,
     notify: false

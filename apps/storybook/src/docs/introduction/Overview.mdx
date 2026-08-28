@@ -53,7 +53,11 @@ WebSquare 예제는 React나 Vue처럼 별도 컴포넌트를 import해 호출�
 
 `xmlns`, `xmlns:w2`, `xmlns:ev`, `xmlns:xf`는 컴포넌트마다 작성하지 않습니다. 하나의 화면 XML 최상위 루트에서 한 번 선언하면 그 안의 모든 컴포넌트가 상속합니다. 별도 화면 XML이나 WFrame 소스처럼 독립적으로 파싱되는 문서만 각 문서의 루트에서 다시 선언합니다.
 
-현재 WebSquare 지원은 별도 실행 앱이나 WebSquare 엔진을 포함하지 않는 **코드 예제 지원**입니다. 정적 표현은 공통 CSS와 마크업을 재사용하고, 데이터 바인딩·화면 전환·WebSquare 컴포넌트 이벤트가 필요한 예제는 프로젝트의 `scwin` 함수와 데이터 객체 규칙에 맞게 연결합니다. 자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언해 교체할 수 있습니다.
+현재 WebSquare 지원은 별도 실행 앱이나 WebSquare 엔진을 포함하지 않는 **코드 예제 지원**입니다. 정적 표현은 공통 CSS와 마크업을 재사용하고, 데이터 바인딩·화면 전환·WebSquare 컴포넌트 이벤트가 필요한 예제는 프로젝트의 `scwin` 함수와 데이터 객체 규칙에 맞게 연결합니다.
+
+여기서 **화면**은 페이지 단위 WebSquare XML 문서이고, **scwin**은 WebSquare가 화면에 만들어 주는 기본 스크립트 객체명입니다. 클릭·변경 이벤트는 `ev:onclick="scwin.btnSave_onclick"`처럼 XML Events로 화면 스크립트에 연결하고, 입력값은 `ref="data:..."`로 DataMap·DataList 경로에 바인딩합니다. `scwin`은 `config.xml`의 SPA `variable`에서 바꿀 수 있으므로, 프로젝트가 다른 이름을 쓰면 예제를 그 이름에 맞춥니다. UXKM은 공통 화면 스크립트를 제공하지 않으므로 함수 이름, 데이터 객체, 화면 파일 구조는 프로젝트 규칙을 따릅니다. Container·Grid·Flex 같은 구조 컴포넌트는 화면 스크립트나 DataList가 필요하지 않습니다.
+
+자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언해 교체할 수 있습니다.
 
 ## HTML과 Gulp/Nunjucks의 차이
 

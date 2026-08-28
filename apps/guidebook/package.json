@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-pages.mjs",
-    "dev": "node scripts/generate-pages.mjs --mode=development && vite --port 6107",
+    "dev": "node scripts/generate-pages.mjs --mode=development && vite --port 6107 --host",
     "build": "node scripts/generate-pages.mjs --mode=production && vite build"
   },
   "dependencies": {
@@ -14,6 +14,7 @@
   "devDependencies": {
     "gray-matter": "^4.0.3",
     "markdown-it": "^15.0.0",
+    "sass": "^1.102.0",
     "vite": "^8.2.0"
   }
 }

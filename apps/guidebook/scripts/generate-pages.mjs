@@ -27,13 +27,20 @@ function publicUrl(name, fallback, trailingSlash = false) {
   return url.href;
 }
 
-const siteUrl = publicUrl('VITE_SITE_URL', 'https://guide.uxkm.io/', true);
-const socialImageUrl = publicUrl('VITE_SOCIAL_IMAGE_URL', 'https://uxkm.io/_assets/images/_common/og_image.png');
+const isDev = mode === 'development';
+const devPort = String(env.VITE_DEV_PORT || '6107').trim();
+const devSiteUrl = publicUrl('VITE_DEV_SITE_URL', `http://localhost:${devPort}/`, true);
+const siteUrl = isDev
+  ? devSiteUrl
+  : publicUrl('VITE_SITE_URL', 'https://guide.uxkm.io/', true);
 const toAsset = createAssetUrl({
-  base: mode === 'development' ? '/' : env.VITE_ASSET_BASE,
+  base: isDev ? '/' : env.VITE_ASSET_BASE,
   siteUrl,
-  isDev: mode === 'development',
+  isDev,
 });
+const socialImageUrl = isDev
+  ? new URL(toAsset('images/brand/uxkm_logo_apng.png'), siteUrl).href
+  : publicUrl('VITE_SOCIAL_IMAGE_URL', 'https://uxkm.io/_assets/images/_common/og_image.png');
 
 async function collectMarkdown(directory) {
   const entries = await readdir(directory, { withFileTypes: true });

@@ -16,6 +16,8 @@ export default defineConfig({
   base: './',
   publicDir: resolve(import.meta.dirname, '../../packages/assets/public'),
   build: {
+    target: 'es2015',
+    cssTarget: 'ios12',
     rollupOptions: {
       input: collectInputs(import.meta.dirname)
     }

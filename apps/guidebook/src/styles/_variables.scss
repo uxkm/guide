@@ -1,0 +1,27 @@
+$accent: #6f4ef2;
+$accent-soft: #f1edff;
+$border: #e7e7ea;
+$muted: #6b6f76;
+$sidebar-bg: #fafafa;
+$text: #24272e;
+$header-height: 64px;
+$header-height-mobile: 58px;
+$sidebar-width: 240px;
+$outline-width: 248px;
+$breakpoint-tablet: 1100px;
+$breakpoint-mobile: 760px;
+
+:root {
+  color: $text;
+  background: #fff;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  --accent: #{$accent};
+  --accent-soft: #{$accent-soft};
+  --border: #{$border};
+  --muted: #{$muted};
+  --sidebar: #{$sidebar-bg};
+  --code: #f7f7f8;
+  --sidebar-width: #{$sidebar-width};
+  --drawer-width: var(--sidebar-width);
+}

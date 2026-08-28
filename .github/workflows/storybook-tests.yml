@@ -37,13 +37,5 @@ jobs:
       - name: Build shared assets
         run: pnpm build:shared
 
-      - name: Run Storybook tests with coverage
-        run: pnpm test:storybook:coverage
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-coverage
-          path: apps/storybook/coverage/storybook
-          if-no-files-found: ignore
+      - name: Run Storybook tests
+        run: pnpm test:storybook

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev --port 6105"
+    "dev": "nuxt dev --port 6105 --host 0.0.0.0"
   },
   "dependencies": {
     "@uxkm/vue": "workspace:*",

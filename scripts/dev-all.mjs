@@ -1,18 +1,20 @@
 import { spawn } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { formatDevUrls, getNetworkAddress } from './network-address.mjs';
 
 const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '..');
 const docsOnly = process.argv.includes('--docs-only');
+const networkHost = getNetworkAddress();
 const allServers = [
-  ['Storybook', 'http://localhost:6006'],
-  ['HTML', 'http://localhost:6101'],
-  ['Gulp / Nunjucks', 'http://localhost:6102'],
-  ['Vue', 'http://localhost:6103'],
-  ['React', 'http://localhost:6104'],
-  ['Nuxt', 'http://localhost:6105'],
-  ['Next.js', 'http://localhost:6106'],
-  ['Guidebook', 'http://localhost:6107']
+  ['Storybook', 6006],
+  ['HTML', 6101],
+  ['Gulp / Nunjucks', 6102],
+  ['Vue', 6103],
+  ['React', 6104],
+  ['Nuxt', 6105],
+  ['Next.js', 6106],
+  ['Guidebook', 6107]
 ];
 
 const allFilters = [
@@ -36,11 +38,16 @@ function printAddresses(title) {
   const labelWidth = Math.max(...servers.map(([label]) => label.length));
 
   console.log(`\n${title}`);
-  console.log('='.repeat(56));
-  for (const [label, url] of servers) {
-    console.log(`${label.padEnd(labelWidth)}  ${url}`);
+  console.log('='.repeat(72));
+  for (const [label, port] of servers) {
+    console.log(`${label.padEnd(labelWidth)}  ${formatDevUrls(port, networkHost)}`);
   }
-  console.log('='.repeat(56));
+  console.log('='.repeat(72));
+  if (networkHost) {
+    console.log('같은 Wi‑Fi에 연결된 기기에서는 네트워크 주소로 접속할 수 있습니다.');
+  } else {
+    console.log('네트워크 주소를 찾지 못했습니다. localhost로만 접속 가능합니다.');
+  }
   console.log('종료: Ctrl+C\n');
 }
 
@@ -70,7 +77,11 @@ const child = spawn(
     ...filters.flatMap((filter) => ['--filter', filter]),
     'dev'
   ],
-  { cwd: rootDirectory, stdio: 'inherit' }
+  {
+    cwd: rootDirectory,
+    stdio: 'inherit',
+    env: { ...process.env, HOST: process.env.HOST ?? '0.0.0.0' }
+  }
 );
 
 const addressReminder = setTimeout(() => {

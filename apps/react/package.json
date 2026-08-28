@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 6104"
+    "dev": "vite --port 6104 --host"
   },
   "exports": {
     "./affix": "./src/components/miscellaneous/Affix/index.js",

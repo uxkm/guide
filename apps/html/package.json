@@ -15,7 +15,7 @@
     "./date-picker": "./src/components/form/DatePicker/date-picker.js"
   },
   "scripts": {
-    "dev": "vite --port 6101"
+    "dev": "vite --port 6101 --host"
   },
   "dependencies": {
     "@uxkm/interactions": "workspace:*",
