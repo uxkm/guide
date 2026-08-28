@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="title" content="React | UXKM Guidebook">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="React에서 UXKM 컴포넌트를 사용하는 props, 이벤트, children 문법을 정리합니다.">
+    <meta name="keywords" content="uxkm, uxkm guide, guidebook, ui, component, storybook, accessibility">
+    <meta name="content-language" content="ko">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="React | UXKM Guidebook">
+    <meta property="og:description" content="React에서 UXKM 컴포넌트를 사용하는 props, 이벤트, children 문법을 정리합니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/guides/frameworks/react/">
+    <meta property="og:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="750">
+    <meta property="og:image:alt" content="UXKM Guide">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="React | UXKM Guidebook">
+    <meta name="twitter:description" content="React에서 UXKM 컴포넌트를 사용하는 props, 이벤트, children 문법을 정리합니다.">
+    <meta name="twitter:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+    <link rel="canonical" href="https://guide.uxkm.io/guides/frameworks/react/">
+    <link rel="icon" href="https://guide.uxkm.io/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://guide.uxkm.io/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://guide.uxkm.io/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://guide.uxkm.io/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="https://guide.uxkm.io/images/meta/favicon/site.webmanifest">
+    <title>React | UXKM Guidebook</title>
+    <script type="module" crossorigin src="../../../assets/main-CPuR196k.js"></script>
+    <link rel="stylesheet" crossorigin href="../../../assets/main-BbAhcvXT.css">
+  </head>
+  <body data-page="framework-react">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="https://guide.uxkm.io/images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="../../../" data-guide-path="index.html">Guidebook</a></div>
+      <button class="search-trigger" type="button" aria-label="가이드북 검색 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li></ul><p class="sidebar-label">프레임워크</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li><li><a class="nav-link" href="../../../guides/frameworks/gulp/" data-guide-path="guides/frameworks/gulp/index.html">Gulp</a></li><li><a class="nav-link" href="../../../guides/frameworks/vue/" data-guide-path="guides/frameworks/vue/index.html">Vue</a></li><li><a class="nav-link active" href="../../../guides/frameworks/react/" data-guide-path="guides/frameworks/react/index.html" aria-current="page">React</a></li><li><a class="nav-link" href="../../../guides/frameworks/websquare/" data-guide-path="guides/frameworks/websquare/index.html">WebSquare</a></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Frameworks</p><h1>React</h1><p class="lead">React에서 UXKM 컴포넌트를 사용하는 props, 이벤트, children 문법을 정리합니다.</p><div class="markdown-body"><p>React 구현은 props와 상태 모델로 HTML 기준과 같은 DOM·접근성 계약을 유지합니다. Next.js는 React 컴포넌트를 재사용합니다. 공통 계약과 완료 기준은 <a href="../index.html">프레임워크 구현</a>에서 확인합니다.</p>
+<h2 id="이-문서에서-다룰-내용">이 문서에서 다룰 내용</h2>
+<ul>
+<li>props와 이벤트 계약</li>
+<li>controlled·uncontrolled 정책과 ref 전달</li>
+<li>Next.js에서 React 구현을 재사용하는 방식</li>
+</ul>
+<p>문법 예제와 컴포넌트별 사용법은 이 페이지에 이어서 추가합니다.</p>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../../guides/frameworks/vue/index.html" data-guide-path="guides/frameworks/vue/index.html"><small>이전</small><strong>← Vue</strong></a><a href="../../../guides/frameworks/websquare/index.html" data-guide-path="guides/frameworks/websquare/index.html"><small>다음</small><strong>WebSquare →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#이-문서에서-다룰-내용">이 문서에서 다룰 내용</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"><button class="search-close" type="button" aria-label="검색 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="search-results"><a class="search-result" href="../../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>프레임워크</span></a><a class="search-result" href="../../../guides/frameworks/gulp/" data-guide-path="guides/frameworks/gulp/index.html"><strong>Gulp</strong><span>프레임워크</span></a><a class="search-result" href="../../../guides/frameworks/vue/" data-guide-path="guides/frameworks/vue/index.html"><strong>Vue</strong><span>프레임워크</span></a><a class="search-result" href="../../../guides/frameworks/react/" data-guide-path="guides/frameworks/react/index.html"><strong>React</strong><span>프레임워크</span></a><a class="search-result" href="../../../guides/frameworks/websquare/" data-guide-path="guides/frameworks/websquare/index.html"><strong>WebSquare</strong><span>프레임워크</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+  </body>
+</html>
