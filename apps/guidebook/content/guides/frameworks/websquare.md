@@ -9,7 +9,7 @@ lead: WebSquare5 SP5 공식 개발 가이드에 따라 화면 XML과 UXKM 컴포
 order: 60
 ---
 
-WebSquare 구현은 별도 JavaScript 컴포넌트를 import하는 방식이 아니라 화면 XML에 UXKM 기준 마크업과 클래스를 배치하고 WebSquare의 이벤트·데이터 모델을 연결합니다.
+WebSquare 구현은 `apps/websquare/src/components`의 XML fragment를 화면 XML에 배치하고 UXKM 클래스와 WebSquare의 이벤트·데이터 모델을 연결합니다.
 
 ## WebSquare란?
 
@@ -25,7 +25,7 @@ WebSquare5는 업무용 web application 화면을 개발하기 위한 UI platfor
 
 ## UXKM에서의 역할
 
-UXKM WebSquare 구현은 Storybook의 XML fragment와 공통 CSS class를 실제 WebSquare 화면에 적용합니다. native WebSquare component의 event와 DataCollection binding은 유지하면서 variant, 상태 이름, focus와 접근성 결과를 다른 framework 구현과 일치시킵니다. 최종 결과는 프로젝트에서 사용하는 WebSquare engine version과 Studio에서 확인합니다.
+UXKM WebSquare 구현의 단일 원본은 `apps/websquare/src/components`입니다. Storybook은 이 XML을 직접 표시하고, 로컬 WebSquare 프로젝트에는 동기화 명령으로 XML과 공통 자산을 반영합니다. native WebSquare component의 event와 DataCollection binding은 유지하면서 variant, 상태 이름, focus와 접근성 결과를 다른 framework 구현과 일치시킵니다. 최종 결과는 프로젝트에서 사용하는 WebSquare engine version과 Studio에서 확인합니다.
 
 ## 문서 구성
 
@@ -42,7 +42,7 @@ UXKM WebSquare 구현은 Storybook의 XML fragment와 공통 CSS class를 실제
 
 ## 적용 범위
 
-UXKM은 WebSquare 런타임, 라이선스와 프로젝트 공통 스크립트를 포함하지 않습니다. Storybook WebSquare 탭의 fragment를 실제 화면 XML에 배치한 뒤, 사용하는 엔진 버전의 공개 API와 Studio에서 검증합니다.
+UXKM은 WebSquare 런타임, 라이선스와 프로젝트 공통 스크립트를 포함하지 않습니다. `pnpm sync:websquare -- --project /absolute/path/to/project`로 fragment와 공통 자산을 프로젝트의 UXKM 전용 경로에 반영한 뒤, 사용하는 엔진 버전의 공개 API와 Studio에서 검증합니다.
 
 ## 공식 문서
 

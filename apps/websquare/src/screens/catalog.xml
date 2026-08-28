@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:w2="http://www.inswave.com/websquare"
+      xmlns:xf="http://www.w3.org/2002/xforms">
+  <head>
+    <script type="javascript"><![CDATA[
+      scwin.btnCatalogSave_onclick = function () {
+        WebSquare.util.showMessageBox("alert", "UXKM WebSquare catalog");
+      };
+    ]]></script>
+  </head>
+  <body>
+    <w2:group id="catalogContainer" tagname="main" class="container container_lg">
+      <w2:textbox id="catalogTitle" tagname="h1" class="typography typography_h1" label="UXKM WebSquare"></w2:textbox>
+      <w2:group id="catalogActions" class="flex flex_align-center space_gap-sm">
+        <xf:input id="catalogName" class="input" title="이름"></xf:input>
+        <xf:trigger id="btnCatalogSave" class="btn btn_filled color_primary" ev:onclick="scwin.btnCatalogSave_onclick">
+          <xf:label><![CDATA[저장]]></xf:label>
+        </xf:trigger>
+      </w2:group>
+    </w2:group>
+  </body>
+</html>

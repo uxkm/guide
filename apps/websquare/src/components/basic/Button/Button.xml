@@ -1,0 +1,4 @@
+<!-- Button WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<xf:trigger id="buttonExample" class="btn btn_filled color_primary">
+  <xf:label><![CDATA[버튼]]></xf:label>
+</xf:trigger>

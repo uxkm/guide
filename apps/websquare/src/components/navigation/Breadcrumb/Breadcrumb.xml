@@ -1,0 +1,6 @@
+<!-- Breadcrumb WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="breadcrumbExample" tagname="nav" class="breadcrumb" aria-label="Breadcrumb">
+  <xf:trigger id="breadcrumbExampleAction" class="breadcrumb_item">
+    <xf:label><![CDATA[Breadcrumb 항목]]></xf:label>
+  </xf:trigger>
+</w2:group>

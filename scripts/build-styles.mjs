@@ -10,7 +10,10 @@ const stylesRoot = join(root, 'packages/styles');
 const applicationTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'storybook'].map(
   (app) => join(root, `apps/${app}/public/styles/uxkm.css`)
 );
-const targets = applicationTargets;
+const targets = [
+  ...applicationTargets,
+  join(root, 'apps/websquare/WebContent/cm/css/uxkm.css')
+];
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 async function loadViteEnv(directory) {

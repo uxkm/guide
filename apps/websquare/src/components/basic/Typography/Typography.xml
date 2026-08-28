@@ -1,0 +1,2 @@
+<!-- Typography WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:textbox id="typographyExample" tagname="p" class="typography typography_body" label="본문 텍스트"></w2:textbox>

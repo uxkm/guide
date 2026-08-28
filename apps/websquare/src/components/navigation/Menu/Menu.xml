@@ -1,0 +1,6 @@
+<!-- Menu WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="menuExample" tagname="nav" class="menu" aria-label="Menu">
+  <xf:trigger id="menuExampleAction" class="menu_item">
+    <xf:label><![CDATA[Menu 항목]]></xf:label>
+  </xf:trigger>
+</w2:group>

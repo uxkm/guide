@@ -27,6 +27,9 @@ importers:
       markdown-it:
         specifier: ^15.0.0
         version: 15.0.0
+      sass:
+        specifier: ^1.102.0
+        version: 1.102.0
       vite:
         specifier: ^8.2.0
         version: 8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.102.0)(terser@5.50.0)(yaml@2.9.0)
@@ -201,6 +204,8 @@ importers:
       vite:
         specifier: ^8.2.0
         version: 8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.102.0)(terser@5.50.0)(yaml@2.9.0)
+
+  apps/websquare: {}
 
   packages/assets: {}
 

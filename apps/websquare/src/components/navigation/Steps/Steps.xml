@@ -1,0 +1,6 @@
+<!-- Steps WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="stepsExample" tagname="nav" class="steps" aria-label="Steps">
+  <xf:trigger id="stepsExampleAction" class="steps_item">
+    <xf:label><![CDATA[Steps 항목]]></xf:label>
+  </xf:trigger>
+</w2:group>

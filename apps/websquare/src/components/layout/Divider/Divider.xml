@@ -1,0 +1,2 @@
+<!-- Divider WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="dividerExample" tagname="hr" class="divider divider_horizontal"></w2:group>

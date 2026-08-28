@@ -14,6 +14,8 @@ apps/storybook/storybook-static/
 packages/*/dist/
 apps/*/public/styles/uxkm.css
 apps/*/public/images/
+apps/websquare/WebContent/cm/css/uxkm.css
+apps/websquare/WebContent/images/
 
 # Collected deployment output
 build/

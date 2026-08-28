@@ -1,0 +1,9 @@
+<!-- Collapse WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="collapseExample" class="collapse">
+  <xf:trigger id="collapseExampleTrigger" class="collapse_trigger">
+    <xf:label><![CDATA[Collapse 열기]]></xf:label>
+  </xf:trigger>
+  <w2:group id="collapseExampleBody" class="collapse_body">
+    <w2:textbox id="collapseExampleContent" class="collapse_content" label="Collapse 콘텐츠"></w2:textbox>
+  </w2:group>
+</w2:group>

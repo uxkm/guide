@@ -1,0 +1,4 @@
+<!-- Tag WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="tagExample" class="tag">
+  <w2:textbox id="tagExampleLabel" class="tag_label" label="Tag"></w2:textbox>
+</w2:group>

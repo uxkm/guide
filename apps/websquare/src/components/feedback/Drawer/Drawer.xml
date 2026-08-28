@@ -1,0 +1,7 @@
+<!-- Drawer WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="drawerExample" class="drawer" role="status">
+  <w2:textbox id="drawerExampleMessage" class="drawer_message" label="Drawer 메시지"></w2:textbox>
+  <xf:trigger id="drawerExampleClose" class="drawer_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

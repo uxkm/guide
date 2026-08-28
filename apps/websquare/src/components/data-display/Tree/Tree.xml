@@ -1,0 +1,6 @@
+<!-- Tree WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="treeExample" tagname="ul" class="tree">
+  <w2:group id="treeExampleItem" tagname="li" class="tree_item">
+    <w2:textbox id="treeExampleLabel" class="tree_label" label="Tree 항목"></w2:textbox>
+  </w2:group>
+</w2:group>

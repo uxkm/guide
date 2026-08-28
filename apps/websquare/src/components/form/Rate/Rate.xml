@@ -1,0 +1,5 @@
+<!-- Rate WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="rateExample" class="rate" role="radiogroup" aria-label="평점">
+  <xf:input id="rateOneExample" type="radio" class="rate_input" value="1"></xf:input>
+  <w2:textbox id="rateOneLabelExample" class="rate_star" label="★"></w2:textbox>
+</w2:group>

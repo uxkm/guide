@@ -1,0 +1,4 @@
+<!-- Avatar WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="avatarExample" class="avatar">
+  <w2:textbox id="avatarExampleLabel" class="avatar_label" label="Avatar"></w2:textbox>
+</w2:group>

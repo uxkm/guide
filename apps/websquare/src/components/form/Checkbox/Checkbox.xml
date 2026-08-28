@@ -1,0 +1,6 @@
+<!-- Checkbox WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="checkboxExampleField" class="form_field">
+  <w2:textbox id="checkboxExampleLabel" tagname="label" class="form_field-label" label="Checkbox"></w2:textbox>
+  <xf:checkbox id="checkboxExample" class="checkbox" selected="false"></xf:checkbox>
+  <w2:textbox id="checkboxExampleHint" class="form_field-hint" label="도움말"></w2:textbox>
+</w2:group>

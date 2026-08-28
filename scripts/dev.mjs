@@ -64,6 +64,15 @@ const workspaces = [
     group: 'apps'
   },
   {
+    label: 'WebSquare',
+    shortLabel: 'W2',
+    path: 'apps/websquare',
+    description: 'WebSquare XML fragment 원본과 로컬 프로젝트 동기화 도구',
+    badge: 'WebSquare · XML',
+    color: 'websquare',
+    group: 'apps'
+  },
+  {
     label: 'Storybook',
     shortLabel: 'S',
     path: 'apps/storybook',
@@ -140,6 +149,7 @@ const icons = {
   react: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><ellipse cx="24" cy="24" rx="20" ry="8"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(120 24 24)"/><circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none"/></svg>`,
   nuxt: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M5 37.5 19.5 12.4a2.6 2.6 0 0 1 4.5 0l14.5 25.1H5Z" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/><path d="m23.5 37.5 7.8-13.6a2.6 2.6 0 0 1 4.5 0l7.8 13.6H23.5Z" fill="#fff" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/></svg>`,
   next: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2.5"/><path d="M16 33V15l17.5 22M32 15v14" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  websquare: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="5" y="7" width="38" height="34" rx="4" stroke="currentColor" stroke-width="2.7"/><path d="m13 17 5 15 6-15 6 15 5-15" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   storybook: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-width="2" d="M12 6.8 35.8 5a2 2 0 0 1 2.2 2v34a2 2 0 0 1-2.1 2L12 40.8a2 2 0 0 1-1.8-2V8.8A2 2 0 0 1 12 6.8Z"/><path fill="currentColor" d="M29.8 9.8 33 7.3l.3 6-3.3-.2-.2-3.3ZM18 31.7c.9 2.3 3 3.7 5.8 3.7 3.8 0 6.2-2 6.2-5.2 0-3.5-2.8-4.7-5.5-5.8-2-.8-3.7-1.5-3.7-3.1 0-1.3 1-2.1 2.7-2.1 1.8 0 3 .9 3.7 2.6l2.4-1.5c-1.1-2.7-3.2-4.1-6.2-4.1-3.5 0-5.8 2.1-5.8 5.2 0 3.4 2.8 4.6 5.4 5.7 2 .8 3.7 1.5 3.7 3.2 0 1.4-1 2.2-2.9 2.2-1.7 0-2.9-.8-3.5-2.4L18 31.7Z"/></svg>`,
   book: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 9.5A5.5 5.5 0 0 1 12.5 4H22a5 5 0 0 1 5 5v31a6 6 0 0 0-6-6h-9a5 5 0 0 0-5 5V9.5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M41 9.5A5.5 5.5 0 0 0 35.5 4H26v36a6 6 0 0 1 6-6h9V9.5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/><path d="M12 12h9M12 19h9M32 12h5M32 19h5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>`,
   styles: `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M25 5C14 5 5 13 5 23s8 18 18 18h3a4 4 0 0 0 0-8h-2a3 3 0 0 1 0-6h7c7 0 12-4 12-10C43 10 35 5 25 5Z" stroke="currentColor" stroke-width="2.7"/><circle cx="14" cy="20" r="2.5" fill="currentColor"/><circle cx="20" cy="13" r="2.5" fill="currentColor"/><circle cx="29" cy="12" r="2.5" fill="currentColor"/><circle cx="36" cy="18" r="2.5" fill="currentColor"/></svg>`,

@@ -1,0 +1,9 @@
+<!-- Carousel WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="carouselExample" class="carousel">
+  <xf:trigger id="carouselExampleTrigger" class="carousel_trigger">
+    <xf:label><![CDATA[Carousel 열기]]></xf:label>
+  </xf:trigger>
+  <w2:group id="carouselExampleBody" class="carousel_body">
+    <w2:textbox id="carouselExampleContent" class="carousel_content" label="Carousel 콘텐츠"></w2:textbox>
+  </w2:group>
+</w2:group>

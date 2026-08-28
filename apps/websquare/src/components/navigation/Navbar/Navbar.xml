@@ -1,0 +1,6 @@
+<!-- Navbar WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="navbarExample" tagname="nav" class="navbar" aria-label="Navbar">
+  <xf:trigger id="navbarExampleAction" class="navbar_item">
+    <xf:label><![CDATA[Navbar 항목]]></xf:label>
+  </xf:trigger>
+</w2:group>

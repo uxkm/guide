@@ -5,7 +5,7 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 # 설치 및 사용
 
-현재 저장소는 `pnpm` 워크스페이스에서 여섯 프레임워크 앱과 Storybook을 함께 관리하고, Storybook에서 WebSquare XML 코드 예제를 추가로 제공합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.
+현재 저장소는 `pnpm` 워크스페이스에서 여섯 브라우저 앱, WebSquare XML 소스 앱과 Storybook을 함께 관리합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.
 
 ## 사전 요구사항
 
@@ -383,5 +383,6 @@ if (savedTheme === 'light' || savedTheme === 'dark') {
 2. Gulp/Nunjucks, Vue, React 구현의 API와 상태 이름을 맞춥니다.
 3. Nuxt와 Next.js에서 프레임워크 전용 처리가 필요한지 확인합니다.
 4. `packages/styles/components`의 공통 스타일을 갱신합니다.
-5. Storybook 문서에 여섯 프레임워크 예시와 API를 추가합니다.
-6. `pnpm validate:structure`, 타입 검사, Storybook 빌드로 검증합니다.
+5. `apps/websquare/src/components`의 WebSquare XML과 실제 Engine 결과를 확인합니다.
+6. Storybook 문서에 일곱 구현 예시와 API를 추가합니다.
+7. `pnpm validate:structure`, 타입 검사, Storybook 빌드로 검증합니다.

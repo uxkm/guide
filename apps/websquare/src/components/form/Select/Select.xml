@@ -1,0 +1,7 @@
+<!-- Select WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<xf:select1 id="selectExample" class="select" appearance="minimal">
+  <w2:itemset nodeset="data:optionList">
+    <w2:label ref="label"></w2:label>
+    <w2:value ref="value"></w2:value>
+  </w2:itemset>
+</xf:select1>

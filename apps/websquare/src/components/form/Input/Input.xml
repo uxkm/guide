@@ -1,0 +1,6 @@
+<!-- Input WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="inputExampleField" class="form_field">
+  <w2:textbox id="inputExampleLabel" tagname="label" class="form_field-label" label="Input"></w2:textbox>
+  <xf:input id="inputExample" class="input"></xf:input>
+  <w2:textbox id="inputExampleHint" class="form_field-hint" label="도움말"></w2:textbox>
+</w2:group>

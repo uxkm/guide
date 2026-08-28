@@ -1,0 +1,7 @@
+<!-- Tooltip WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="tooltipExample" class="tooltip" role="status">
+  <w2:textbox id="tooltipExampleMessage" class="tooltip_message" label="Tooltip 메시지"></w2:textbox>
+  <xf:trigger id="tooltipExampleClose" class="tooltip_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

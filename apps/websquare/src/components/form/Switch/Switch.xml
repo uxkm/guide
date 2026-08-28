@@ -1,0 +1,6 @@
+<!-- Switch WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="switchExampleField" class="form_field">
+  <w2:textbox id="switchExampleLabel" tagname="label" class="form_field-label" label="Switch"></w2:textbox>
+  <xf:checkbox id="switchExample" class="switch" role="switch" selected="false"></xf:checkbox>
+  <w2:textbox id="switchExampleHint" class="form_field-hint" label="도움말"></w2:textbox>
+</w2:group>

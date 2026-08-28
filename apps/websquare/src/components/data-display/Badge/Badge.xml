@@ -1,0 +1,4 @@
+<!-- Badge WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="badgeExample" class="badge">
+  <w2:textbox id="badgeExampleLabel" class="badge_label" label="Badge"></w2:textbox>
+</w2:group>

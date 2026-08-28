@@ -1,0 +1,9 @@
+<!-- Table WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="tableExample" class="table_wrap">
+  <w2:group id="tableHeaderExample" class="table_row table_header" role="row">
+    <w2:textbox id="tableHeaderNameExample" class="table_cell" role="columnheader" label="이름"></w2:textbox>
+  </w2:group>
+  <w2:group id="tableRowExample" class="table_row" role="row">
+    <w2:textbox id="tableNameExample" class="table_cell" role="cell" label="홍길동"></w2:textbox>
+  </w2:group>
+</w2:group>

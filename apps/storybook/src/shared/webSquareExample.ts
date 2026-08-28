@@ -1,5 +1,10 @@
 import type { FrameworkExample } from '../FrameworkCode';
 
+const canonicalComponentSources = import.meta.glob(
+  '../../../websquare/src/components/*/*/*.xml',
+  { eager: true, import: 'default', query: '?raw' }
+) as Record<string, string>;
+
 const voidElements = [
   'area',
   'base',
@@ -80,12 +85,21 @@ function toWebSquareFileName(fileName: string) {
   return `${sourceName}.xml${detail ? ` · ${detail}` : ''}`;
 }
 
+function findCanonicalComponentSource(fileName: string) {
+  const sourceName = fileName.match(/([^/\\]+)\.(?:html?|njk)(?:\s|$|·)/i)?.[1];
+  if (!sourceName) return undefined;
+  return Object.entries(canonicalComponentSources).find(([path]) =>
+    path.endsWith(`/${sourceName}/${sourceName}.xml`)
+  )?.[1];
+}
+
 export function withWebSquareExample(examples: FrameworkExample[]) {
   if (examples.some(({ id }) => id === 'websquare')) return examples;
 
   const source = examples.find(({ id }) => id === 'html')
     ?? examples.find(({ id }) => id === 'gulp');
   if (!source) return examples;
+  const canonicalSource = findCanonicalComponentSource(source.fileName);
 
   return [
     ...examples,
@@ -93,7 +107,7 @@ export function withWebSquareExample(examples: FrameworkExample[]) {
       id: 'websquare',
       label: 'WebSquare',
       fileName: toWebSquareFileName(source.fileName),
-      code: toWebSquareXml(source.code)
+      code: canonicalSource ?? toWebSquareXml(source.code)
     }
   ];
 }

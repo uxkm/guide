@@ -1,0 +1,6 @@
+<!-- Pagination WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="paginationExample" tagname="nav" class="pagination" aria-label="Pagination">
+  <xf:trigger id="paginationExampleAction" class="pagination_item">
+    <xf:label><![CDATA[Pagination 항목]]></xf:label>
+  </xf:trigger>
+</w2:group>

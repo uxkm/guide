@@ -1,0 +1,6 @@
+<!-- Textarea WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="textareaExampleField" class="form_field">
+  <w2:textbox id="textareaExampleLabel" tagname="label" class="form_field-label" label="Textarea"></w2:textbox>
+  <xf:textarea id="textareaExample" class="textarea"></xf:textarea>
+  <w2:textbox id="textareaExampleHint" class="form_field-hint" label="도움말"></w2:textbox>
+</w2:group>

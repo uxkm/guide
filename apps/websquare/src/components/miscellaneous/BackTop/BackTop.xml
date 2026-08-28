@@ -1,0 +1,9 @@
+<!-- BackTop WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="backTopExample" class="back_top">
+  <xf:trigger id="backTopExampleTrigger" class="back_top_trigger">
+    <xf:label><![CDATA[BackTop 열기]]></xf:label>
+  </xf:trigger>
+  <w2:group id="backTopExampleBody" class="back_top_body">
+    <w2:textbox id="backTopExampleContent" class="back_top_content" label="BackTop 콘텐츠"></w2:textbox>
+  </w2:group>
+</w2:group>

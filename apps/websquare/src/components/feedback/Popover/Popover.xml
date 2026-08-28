@@ -1,0 +1,7 @@
+<!-- Popover WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="popoverExample" class="popover" role="status">
+  <w2:textbox id="popoverExampleMessage" class="popover_message" label="Popover 메시지"></w2:textbox>
+  <xf:trigger id="popoverExampleClose" class="popover_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

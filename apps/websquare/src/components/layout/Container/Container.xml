@@ -1,0 +1,4 @@
+<!-- Container WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="containerExample" class="container">
+  <w2:textbox id="containerExampleContent" class="container_item" label="Container 콘텐츠"></w2:textbox>
+</w2:group>

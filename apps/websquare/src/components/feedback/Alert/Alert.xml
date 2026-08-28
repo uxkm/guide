@@ -1,0 +1,7 @@
+<!-- Alert WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="alertExample" class="alert" role="status">
+  <w2:textbox id="alertExampleMessage" class="alert_message" label="Alert 메시지"></w2:textbox>
+  <xf:trigger id="alertExampleClose" class="alert_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

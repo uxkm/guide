@@ -1,0 +1,4 @@
+<!-- Flex WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="flexExample" class="flex">
+  <w2:textbox id="flexExampleContent" class="flex_item" label="Flex 콘텐츠"></w2:textbox>
+</w2:group>

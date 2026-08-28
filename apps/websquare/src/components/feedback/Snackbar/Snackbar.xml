@@ -1,0 +1,7 @@
+<!-- Snackbar WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="snackbarExample" class="snackbar" role="status">
+  <w2:textbox id="snackbarExampleMessage" class="snackbar_message" label="Snackbar 메시지"></w2:textbox>
+  <xf:trigger id="snackbarExampleClose" class="snackbar_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

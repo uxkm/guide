@@ -1,0 +1,7 @@
+<!-- Progress WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="progressExample" class="progress" role="status">
+  <w2:textbox id="progressExampleMessage" class="progress_message" label="Progress 메시지"></w2:textbox>
+  <xf:trigger id="progressExampleClose" class="progress_close">
+    <xf:label><![CDATA[닫기]]></xf:label>
+  </xf:trigger>
+</w2:group>

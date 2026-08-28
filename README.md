@@ -1,6 +1,6 @@
 # UXKM Framework Components
 
-UXKM UI 컴포넌트를 HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js로 구현하고 Guidebook과 Storybook으로 문서화하는 `pnpm` 모노레포입니다.
+UXKM UI 컴포넌트를 HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare로 구현하고 Guidebook과 Storybook으로 문서화하는 `pnpm` 모노레포입니다.
 
 현재 배포 대상은 Guidebook과 Storybook입니다. HTML부터 Next.js까지의 프레임워크 앱은 구현 확인과 비교를 위한 개별 개발 서버로 운영합니다.
 
@@ -37,6 +37,7 @@ pnpm dev:all
 │   ├── react/         # React/Vite 컴포넌트 앱과 워크스페이스 exports
 │   ├── nuxt/          # Vue 컴포넌트를 사용하는 Nuxt 앱
 │   ├── next/          # React 컴포넌트를 사용하는 Next.js 앱
+│   ├── websquare/     # WebSquare XML 원본과 로컬 프로젝트 동기화 도구
 │   ├── storybook/     # 컴포넌트 Story, API, 프레임워크 코드 비교 문서
 │   └── guidebook/     # Markdown 기반 정적 가이드북
 ├── packages/
@@ -54,7 +55,7 @@ pnpm dev:all
 
 ## 컴포넌트 구성
 
-HTML, Gulp/Nunjucks, Vue, React에는 같은 분류의 공통 컴포넌트 52개가 구현되어 있습니다.
+HTML, Gulp/Nunjucks, Vue, React, WebSquare에는 같은 분류의 공통 컴포넌트 52개가 구현되어 있습니다.
 
 | 분류 | 개수 |
 | --- | ---: |
@@ -70,7 +71,7 @@ HTML, Gulp/Nunjucks, Vue, React에는 같은 분류의 공통 컴포넌트 52개
 각 앱의 기본 컴포넌트 경로는 다음과 같습니다.
 
 ```text
-apps/{html,gulp,vue,react}/src/components/
+apps/{html,gulp,vue,react,websquare}/src/components/
 ├── layout/
 ├── basic/
 ├── data-display/
@@ -94,7 +95,7 @@ Story는 프레임워크 앱 안에 중복해서 두지 않고 `apps/storybook/s
 pnpm build:styles
 ```
 
-빌드 결과인 `uxkm.css`는 HTML, Gulp, Vue, React, Nuxt, Next.js, Storybook의 `public/styles`에 생성됩니다. 생성 CSS를 직접 수정하지 말고 `packages/styles`의 SCSS를 수정합니다.
+빌드 결과인 `uxkm.css`는 HTML, Gulp, Vue, React, Nuxt, Next.js, Storybook의 `public/styles`와 WebSquare의 `WebContent/cm/css`에 생성됩니다. 생성 CSS를 직접 수정하지 말고 `packages/styles`의 SCSS를 수정합니다.
 
 ### Assets
 
@@ -104,7 +105,7 @@ pnpm build:styles
 pnpm build:assets
 ```
 
-이 명령은 이미지를 여섯 프레임워크 앱과 Storybook의 `public/images`로 복사합니다. Guidebook은 Vite의 `publicDir` 설정을 통해 공통 자산 원본을 직접 사용합니다. 문서와 예제의 이미지 주소는 `VITE_ASSET_BASE`(없으면 `VITE_SITE_URL`)로 개발·배포 경로를 맞춥니다.
+이 명령은 이미지를 여섯 브라우저 앱과 Storybook의 `public/images`, WebSquare의 `WebContent/images`로 복사합니다. Guidebook은 Vite의 `publicDir` 설정을 통해 공통 자산 원본을 직접 사용합니다. 문서와 예제의 이미지 주소는 `VITE_ASSET_BASE`(없으면 `VITE_SITE_URL`)로 개발·배포 경로를 맞춥니다.
 
 스타일과 이미지를 한 번에 갱신하려면 다음 명령을 실행합니다.
 
@@ -199,7 +200,7 @@ pnpm build:guidebook
 
 ## Storybook
 
-Storybook은 52개 컴포넌트의 예제, API, 접근성 정보와 HTML, Gulp/Nunjucks, Vue, Nuxt, React, Next.js, WebSquare 코드 비교를 제공합니다. WebSquare 탭은 기본적으로 HTML 예제를 XML 호환 마크업으로 변환하며, 필요한 Story에서는 `id: 'websquare'` 예제를 직접 선언해 대체할 수 있습니다.
+Storybook은 52개 컴포넌트의 예제, API, 접근성 정보와 HTML, Gulp/Nunjucks, Vue, Nuxt, React, Next.js, WebSquare 코드 비교를 제공합니다. 컴포넌트 원본 탭은 `apps/websquare/src/components`의 XML을 직접 읽고, 상태별 예제는 필요한 Story에서 `id: 'websquare'` 전용 예제로 제공합니다. 원본이 없는 이전 예제에만 HTML의 XML 호환 변환을 fallback으로 사용합니다.
 
 ```bash
 pnpm dev:storybook
@@ -208,6 +209,18 @@ pnpm --filter @uxkm/storybook typecheck
 ```
 
 정적 빌드는 `apps/storybook/storybook-static`에 생성됩니다.
+
+## WebSquare
+
+WebSquare 원본은 `apps/websquare/src/components`에 있으며, 각 파일은 실제 화면 XML의 `<body>`에 붙이는 fragment입니다. Engine, Studio, 라이선스와 `_wpack_` 생성물은 저장소에 포함하지 않습니다.
+
+```bash
+pnpm dev:websquare
+pnpm build:websquare
+pnpm sync:websquare -- --project /absolute/path/to/project
+```
+
+`dev:websquare`와 `build:websquare`는 엔진 없이 52개 XML 구조를 검증합니다. `sync:websquare`는 공통 CSS·이미지를 만든 후 지정한 로컬 WebSquare 프로젝트의 UXKM 전용 경로에 소스와 자산을 복사합니다. 실제 실행과 W-Pack 변환은 해당 프로젝트의 라이선스가 있는 Studio 또는 WAS에서 수행합니다.
 
 ## 개발 명령
 
@@ -221,9 +234,10 @@ pnpm --filter @uxkm/storybook typecheck
 | `pnpm dev:react` | 6104 | React 앱 실행 |
 | `pnpm dev:nuxt` | 6105 | Nuxt 앱 실행 |
 | `pnpm dev:next` | 6106 | Next.js 앱 실행 |
+| `pnpm dev:websquare` | — | WebSquare XML 및 화면 구조 검증 |
 | `pnpm dev:storybook` | 6006 | Storybook 실행 |
 | `pnpm dev:guidebook` | 6107 | Guidebook 실행 |
-| `pnpm dev:all` | 6006, 6101~6107 | 모든 앱 실행 |
+| `pnpm dev:all` | 6006, 6101~6107 | 브라우저 앱과 문서 서버 실행 |
 
 프레임워크·Storybook·Guidebook의 개별 `dev:*` 명령과 `dev:all`은 서버 시작 전에 공통 스타일과 자산을 갱신합니다.
 
@@ -236,7 +250,7 @@ pnpm check:workspace
 ```
 
 - `pnpm build`: Guidebook과 Storybook을 빌드한 뒤 하나의 `build` 디렉터리로 수집합니다.
-- `pnpm validate:structure`: 4개 공통 구현의 52개 컴포넌트 파일, 공통 패키지, Nuxt/Next 전용 컴포넌트, Story 위치를 검사합니다.
+- `pnpm validate:structure`: 5개 공통 구현의 52개 컴포넌트 파일, 공통 패키지, Nuxt/Next 전용 컴포넌트, Story 위치를 검사합니다.
 - `pnpm check:workspace`: 등록된 워크스페이스 패키지를 확인합니다.
 
 현재 `pnpm build`의 결과 구조는 다음과 같습니다.
@@ -277,7 +291,8 @@ pnpm deploy:storybook
 1. HTML과 Gulp/Nunjucks 구현을 갱신합니다.
 2. Vue와 React 구현 및 export를 갱신합니다.
 3. 필요할 때 Nuxt와 Next.js 전용 구현을 갱신합니다.
-4. 공통 스타일은 `packages/styles`, 공통 동작은 `packages/interactions`, 이미지는 `packages/assets`에서 수정합니다.
-5. `apps/storybook/src`의 Story, API, 프레임워크 예제를 갱신합니다.
-6. Guidebook 문서에 영향을 주면 `apps/guidebook/content`를 갱신합니다.
-7. `pnpm validate:structure`와 관련 빌드를 실행합니다.
+4. `apps/websquare/src/components`의 XML과 실제 Engine 결과를 갱신합니다.
+5. 공통 스타일은 `packages/styles`, 공통 동작은 `packages/interactions`, 이미지는 `packages/assets`에서 수정합니다.
+6. `apps/storybook/src`의 Story, API, 프레임워크 예제를 갱신합니다.
+7. Guidebook 문서에 영향을 주면 `apps/guidebook/content`를 갱신합니다.
+8. `pnpm validate:structure`와 관련 빌드를 실행합니다.

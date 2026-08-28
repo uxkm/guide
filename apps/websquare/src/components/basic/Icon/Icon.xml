@@ -1,0 +1,2 @@
+<!-- Icon WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:image id="iconExample" class="icon" src="/images/icons/example.svg" alt=""></w2:image>

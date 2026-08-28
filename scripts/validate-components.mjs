@@ -17,7 +17,8 @@ const conventions = {
   html: (name) => [`${name}.html`],
   gulp: (name) => [`${name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}.njk`],
   vue: (name) => [`${name}.vue`, `${name}.spec.js`, 'index.js'],
-  react: (name) => [`${name}.jsx`, `${name}.test.jsx`, 'index.js']
+  react: (name) => [`${name}.jsx`, `${name}.test.jsx`, 'index.js'],
+  websquare: (name) => [`${name}.xml`]
 };
 
 const failures = [];
@@ -74,7 +75,7 @@ const centralStories = (await findFiles(join(root, 'apps/storybook/src')))
   .filter((path) => /\.stories\.[cm]?[jt]sx?$/.test(path));
 await requirePath('apps/storybook/src/Button.stories.tsx');
 
-for (const app of ['html', 'gulp', 'vue', 'react', 'nuxt', 'next']) {
+for (const app of ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'websquare']) {
   const appStories = (await findFiles(join(root, `apps/${app}`)))
     .filter((path) => /\.stories\.[cm]?[jt]sx?$/.test(path));
   failures.push(...appStories.map((path) => path.replace(`${root}/`, '')));
@@ -91,5 +92,5 @@ if (failures.length > 0) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exitCode = 1;
 } else {
-  console.log(`구조 검증 완료: 공통 컴포넌트 52개 × 4개 프레임워크, 공통 스타일 1개 진입점, 중앙 Storybook ${centralStories.length}개 Story`);
+  console.log(`구조 검증 완료: 공통 컴포넌트 52개 × 5개 프레임워크, 공통 스타일 1개 진입점, 중앙 Storybook ${centralStories.length}개 Story`);
 }

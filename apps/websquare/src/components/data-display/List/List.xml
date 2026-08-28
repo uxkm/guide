@@ -1,0 +1,6 @@
+<!-- List WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="listExample" tagname="ul" class="list">
+  <w2:group id="listExampleItem" tagname="li" class="list_item">
+    <w2:textbox id="listExampleLabel" class="list_label" label="List 항목"></w2:textbox>
+  </w2:group>
+</w2:group>

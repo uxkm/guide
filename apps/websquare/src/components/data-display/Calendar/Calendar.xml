@@ -1,0 +1,4 @@
+<!-- Calendar WebSquare fragment: 화면 XML 루트의 w2, xf, ev namespace를 상속합니다. -->
+<w2:group id="calendarExample" class="calendar">
+  <w2:textbox id="calendarExampleLabel" class="calendar_label" label="Calendar"></w2:textbox>
+</w2:group>
