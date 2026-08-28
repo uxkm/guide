@@ -35,6 +35,7 @@ React는 component를 조합해 사용자 interface를 만드는 JavaScript libr
 | [UI 표현](jsx-components/index.html) | JSX, component, props와 UI tree |
 | [조건과 목록](rendering/index.html) | 조건부 렌더링, 배열 렌더링과 key |
 | [상호작용](state-events/index.html) | 이벤트 처리, `useState`와 렌더링 과정 |
+| [페이지와 라우팅](pages-routing/index.html) | React Router 수동 연결과 Next.js App Router 자동 생성 |
 | [State 관리](managing-state/index.html) | state 구조, reducer, context와 보존 규칙 |
 | [탈출구](escape-hatches/index.html) | ref, effect와 외부 시스템 동기화 |
 | [React로 사고하기](thinking-in-react/index.html) | 화면 분해와 단방향 데이터 흐름 |

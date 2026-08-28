@@ -35,6 +35,7 @@ Vue는 웹 사용자 interface를 만들기 위한 progressive JavaScript framew
 | [핵심 기초](template-syntax/index.html) | 템플릿, 조건·목록, 이벤트와 폼 바인딩 |
 | [상태와 반응성](reactivity/index.html) | `ref`, `computed`, `watch`와 폼 상태 |
 | [컴포넌트 심화](components/index.html) | props, emits, `v-model`, slot과 UXKM 사용법 |
+| [페이지와 라우팅](pages-routing/index.html) | Vue Router 수동 연결과 Nuxt 파일 기반 route 생성 |
 | [재사용성](reusability/index.html) | composable, custom directive와 plugin |
 | [내장 컴포넌트](built-ins/index.html) | Transition, KeepAlive, Teleport와 Suspense |
 | [확장하기](scaling-up/index.html) | Router, 상태 관리, 테스트와 SSR |

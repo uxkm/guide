@@ -7,7 +7,7 @@ label: TypeScript
 title: Vue와 TypeScript
 eyebrow: Vue · TypeScript
 lead: Composition API에서 props, emits, ref와 template ref의 type을 명시합니다.
-order: 39
+order: 40
 ---
 
 ## Component 계약
@@ -48,4 +48,3 @@ public component prop, emit과 slot 계약은 package export type에 포함합�
 
 - [Vue TypeScript 개요](https://ko.vuejs.org/guide/typescript/overview.html)
 - [Composition API와 TypeScript](https://ko.vuejs.org/guide/typescript/composition-api.html)
-

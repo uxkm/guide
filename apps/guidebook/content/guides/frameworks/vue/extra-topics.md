@@ -7,7 +7,7 @@ label: 추가 주제
 title: Vue 추가 주제
 eyebrow: Vue · Extra Topics
 lead: Vue 사용 방식, 반응성 내부 구조, render function과 Web Components 통합 지점을 살펴봅니다.
-order: 40
+order: 41
 ---
 
 ## Vue를 적용하는 방식
@@ -32,4 +32,3 @@ Custom Element를 Vue app에서 사용할 때 property와 attribute 전달, even
 - [반응성 심화](https://ko.vuejs.org/guide/extras/reactivity-in-depth.html)
 - [렌더링 메커니즘](https://ko.vuejs.org/guide/extras/rendering-mechanism.html)
 - [Vue와 Web Components](https://ko.vuejs.org/guide/extras/web-components.html)
-

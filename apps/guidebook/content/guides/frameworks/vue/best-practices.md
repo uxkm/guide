@@ -7,7 +7,7 @@ label: 베스트 프랙티스
 title: Vue 베스트 프랙티스
 eyebrow: Vue · Best Practices
 lead: production 배포, 성능, 접근성과 보안 기준을 UXKM component에 적용합니다.
-order: 38
+order: 39
 ---
 
 ## Production 배포
@@ -36,4 +36,3 @@ Vue template의 text interpolation은 escape되지만 `v-html`은 신뢰할 수 
 ## 공식 문서
 
 - [Vue Best Practices](https://ko.vuejs.org/guide/best-practices/production-deployment.html)
-

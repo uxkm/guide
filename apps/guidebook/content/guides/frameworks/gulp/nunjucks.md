@@ -56,6 +56,30 @@ order: 18
 
 공통 골격은 `extends`와 `block`, 여러 페이지에서 반복되는 작은 조각은 `include`로 분리합니다.
 
+## 기본 요소와 레이아웃 페이지 생성
+
+Gulp에서는 `src/pages` 아래 Nunjucks 파일 하나가 build 결과의 HTML page 하나가 됩니다. 두 component 분류를 실제 page로 제공하려면 다음처럼 source를 만듭니다.
+
+```text
+apps/gulp/src/pages/components/
+├── basic.njk   → dist/components/basic.html
+└── layout.njk  → dist/components/layout.html
+```
+
+```nunjucks
+{# src/pages/components/basic.njk #}
+{% extends "templates/layouts/default.njk" %}
+
+{% block content %}
+  <main class="guide_content">
+    <h1>기본 요소</h1>
+    {% include "components/basic/Button/button.njk" %}
+  </main>
+{% endblock %}
+```
+
+현재 `gulpfile.js`의 `src('src/pages/**/*.njk')` glob이 하위 directory를 포함하므로 별도 route 배열은 필요하지 않습니다. BrowserSync의 root는 `dist`이므로 결과 page는 `/components/basic.html`, `/components/layout.html`에서 확인합니다. 확장자 없는 URL이 필요하면 hosting rewrite 또는 directory별 `index.njk` 정책을 정해 모든 page에 일관되게 적용합니다.
+
 ## 컴포넌트 macro
 
 ```nunjucks

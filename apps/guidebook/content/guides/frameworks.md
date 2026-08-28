@@ -37,6 +37,29 @@ UXKM 컴포넌트는 프레임워크별 문법을 통일하는 것이 아니라 
 4. 서버 렌더링 환경은 hydration 전후의 마크업과 ID가 일치하는지 확인합니다.
 5. Storybook의 프레임워크별 코드 탭과 실제 앱에서 동일한 입력으로 결과를 비교합니다.
 
+## 컴포넌트에서 실제 UI 페이지로
+
+Storybook 예제를 구현한 뒤에는 component를 page 문맥에 배치합니다. `기본 요소`와 `레이아웃` 분류를 예로 들면 모든 환경에서 같은 URL 의미를 사용하되 page를 발견하는 방식은 framework에 맞춥니다.
+
+| 환경 | 기본 요소 page | 레이아웃 page | Route 생성 방식 |
+| --- | --- | --- | --- |
+| HTML | `src/pages/components/basic.html` | `src/pages/components/layout.html` | 파일 주소를 직접 사용 |
+| Gulp | `src/pages/components/basic.njk` | `src/pages/components/layout.njk` | `src/pages/**/*.njk`가 `dist` HTML로 build |
+| Vue Vite | `src/pages/BasicPage.vue` | `src/pages/LayoutPage.vue` | Vue Router route 배열에 직접 등록 |
+| Nuxt 4 | `app/pages/components/basic.vue` | `app/pages/components/layout.vue` | `app/pages` 구조로 자동 생성 |
+| React Vite | `src/pages/BasicPage.jsx` | `src/pages/LayoutPage.jsx` | React Router route element로 직접 등록 |
+| Next.js | `app/components/basic/page.jsx` | `app/components/layout/page.jsx` | App Router folder 구조로 자동 생성 |
+| WebSquare | project의 `basic.xml` | project의 `layout.xml` | project menu·화면 이동 규칙에 등록 |
+
+Vue와 React는 Vite 자체가 application route를 만들어 주지 않습니다. 사용하는 client router에 URL과 page component를 명시적으로 연결하고, route 출력 위치도 `RouterView` 또는 `Routes`로 제공합니다. 반대로 Nuxt와 Next.js는 정해진 directory·file naming 규칙을 읽어 route를 생성하므로 같은 경로를 별도 설정 파일에 중복 선언하지 않습니다.
+
+- [기본 요소 실제 UI page](../../components/basic/index.html)
+- [레이아웃 실제 UI page](../../components/layout/index.html)
+- [Vue·Nuxt 페이지와 라우팅](vue/pages-routing/index.html)
+- [React·Next.js 페이지와 라우팅](react/pages-routing/index.html)
+
+page를 추가한 뒤에는 navigation link, 직접 URL 접근, 새로고침, 404, document title, route 이동 후 focus와 SSR hydration까지 확인합니다. component가 보이는 것과 page route가 운영 환경에서 정상 동작하는 것은 별도 완료 조건입니다.
+
 ## WebSquare 화면 구현
 
 WebSquare는 Vue·React처럼 컴포넌트를 import하는 앱이 아닙니다. **화면**은 페이지 단위 XML 문서이고, **scwin**은 WebSquare가 그 화면에 만들어 주는 기본 스크립트 객체명입니다. 이름은 `config.xml`의 SPA `variable`에서 바꿀 수 있습니다. Storybook WebSquare 탭의 fragment를 화면 XML에 배치한 뒤, 이벤트와 데이터는 프로젝트 화면 규칙에 맞게 연결합니다.

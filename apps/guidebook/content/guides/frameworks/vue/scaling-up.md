@@ -7,7 +7,7 @@ label: 확장하기
 title: Vue application 확장하기
 eyebrow: Vue · Scaling Up
 lead: Router, 상태 관리, 테스트와 SSR을 기준으로 큰 Vue application을 구성합니다.
-order: 37
+order: 38
 ---
 
 ## Single-File Component와 도구
@@ -33,4 +33,3 @@ server가 만든 초기 HTML과 client의 첫 render 결과가 같아야 hydrati
 
 - [Scaling Up](https://ko.vuejs.org/guide/scaling-up/sfc.html)
 - [Server-Side Rendering](https://ko.vuejs.org/guide/scaling-up/ssr.html)
-

@@ -7,7 +7,7 @@ label: React로 사고하기
 title: React로 사고하기
 eyebrow: React · Thinking in React
 lead: 화면을 component hierarchy로 나누고 최소 state와 단방향 data 흐름을 설계합니다.
-order: 57
+order: 58
 ---
 
 ## 1. 화면 분해
@@ -40,4 +40,3 @@ data는 parent에서 child로 내려가고 user event는 callback을 통해 owne
 ## 공식 문서
 
 - [React로 사고하기](https://ko.react.dev/learn/thinking-in-react)
-

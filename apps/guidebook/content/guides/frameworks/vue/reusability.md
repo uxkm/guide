@@ -7,7 +7,7 @@ label: 재사용성
 title: Vue 재사용성
 eyebrow: Vue · Reusability
 lead: composable, custom directive와 plugin의 책임을 구분해 공통 logic을 재사용합니다.
-order: 35
+order: 36
 ---
 
 ## Composable
@@ -50,4 +50,3 @@ DOM에 직접 접근해야 하는 낮은 수준 동작만 custom directive로 �
 - [Composables](https://ko.vuejs.org/guide/reusability/composables.html)
 - [Custom Directives](https://ko.vuejs.org/guide/reusability/custom-directives.html)
 - [Plugins](https://ko.vuejs.org/guide/reusability/plugins.html)
-

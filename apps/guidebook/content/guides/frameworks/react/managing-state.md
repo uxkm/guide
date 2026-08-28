@@ -7,7 +7,7 @@ label: State 관리
 title: React State 관리
 eyebrow: React · Managing State
 lead: state 구조, component 간 공유, reducer와 context를 사용해 예측 가능한 UI를 만듭니다.
-order: 55
+order: 56
 ---
 
 ## State 구조 선택
@@ -38,4 +38,3 @@ React는 tree의 같은 위치에 같은 component가 있으면 state를 보존�
 ## 공식 문서
 
 - [State 관리하기](https://ko.react.dev/learn/managing-state)
-

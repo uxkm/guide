@@ -7,7 +7,7 @@ label: 탈출구
 title: React 탈출구
 eyebrow: React · Escape Hatches
 lead: ref와 Effect를 필요한 경계에서만 사용해 DOM과 외부 시스템을 React에 연결합니다.
-order: 56
+order: 57
 ---
 
 ## Ref
@@ -45,4 +45,3 @@ dependency는 Effect가 읽는 reactive 값을 모두 포함하고 cleanup에서
 ## 공식 문서
 
 - [탈출구](https://ko.react.dev/learn/escape-hatches)
-

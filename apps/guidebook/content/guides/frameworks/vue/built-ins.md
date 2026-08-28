@@ -7,7 +7,7 @@ label: 내장 컴포넌트
 title: Vue 내장 컴포넌트
 eyebrow: Vue · Built-in Components
 lead: Transition, KeepAlive, Teleport와 Suspense를 UXKM UI에 적용할 때의 기준을 정리합니다.
-order: 36
+order: 37
 ---
 
 ## Transition과 TransitionGroup
@@ -37,4 +37,3 @@ modal, popover처럼 stacking context에서 분리할 UI는 `Teleport`로 body �
 ## 공식 문서
 
 - [Built-in Components](https://ko.vuejs.org/api/built-in-components.html)
-

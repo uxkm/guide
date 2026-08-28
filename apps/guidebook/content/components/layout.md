@@ -32,3 +32,50 @@ order: 5
 - CSS의 시각적 재배치가 키보드 탐색과 스크린 리더의 읽기 순서를 바꾸지 않도록 합니다.
 - 고정 높이는 가능한 한 피하고 긴 텍스트와 동적 콘텐츠를 수용합니다.
 - 간격과 열 너비는 디자인 토큰과 공통 breakpoint를 사용합니다.
+
+## 실제 UI 페이지 만들기
+
+`/components/layout` 화면은 개별 component 모양보다 중첩 관계와 breakpoint 동작이 보이도록 구성합니다. Container 안에 heading을 두고 Flex와 Grid의 차이, Divider와 Space의 역할을 한 화면에서 비교합니다.
+
+```vue
+<script setup>
+import Container from '@uxkm/vue/container';
+import Divider from '@uxkm/vue/divider';
+import Flex from '@uxkm/vue/flex';
+import Grid from '@uxkm/vue/grid';
+import Space from '@uxkm/vue/space';
+</script>
+
+<template>
+  <main class="guide_content">
+    <Container size="lg">
+      <h1>레이아웃</h1>
+      <Space vertical size="lg">
+        <Flex gap="lg" wrap>
+          <article class="category_card">기본 정보</article>
+          <article class="category_card">최근 활동</article>
+        </Flex>
+        <Divider />
+        <Grid :columns="3" gap="lg">
+          <article v-for="item in 3" :key="item" class="category_card">
+            카드 {{ item }}
+          </article>
+        </Grid>
+      </Space>
+    </Container>
+  </main>
+</template>
+```
+
+실제 component의 prop 이름은 Storybook API와 package source를 기준으로 확인합니다. 예제 페이지에서는 desktop 모양만 만들지 않고 좁은 화면의 열 축소, 긴 제목, keyboard 읽기 순서까지 함께 검증합니다.
+
+## 페이지와 메뉴 연결
+
+Basic 화면에서 `/components/layout`로 이동하는 링크를 제공하고, application의 공통 navigation에도 두 경로를 등록합니다. Vue·React Vite 앱은 route 설정 파일에 페이지 component를 명시적으로 연결합니다. Nuxt와 Next.js는 아래 위치에 파일을 추가하면 route가 자동 생성되므로 별도 route 배열을 만들지 않습니다.
+
+```text
+apps/nuxt/app/pages/components/layout.vue  → /components/layout
+apps/next/app/components/layout/page.jsx   → /components/layout
+```
+
+상세 설정과 navigation 예제는 [Vue 페이지와 라우팅](../../guides/frameworks/vue/pages-routing/index.html)과 [React 페이지와 라우팅](../../guides/frameworks/react/pages-routing/index.html)을 참고합니다.
