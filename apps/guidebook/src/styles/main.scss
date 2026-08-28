@@ -268,12 +268,15 @@ a {
 }
 
 .docs-shell {
+  min-width: 0;
   @include fill-height;
   padding: $header-height $outline-width 0 var(--sidebar-width);
 }
 
 .docs-content {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: 64px 56px 80px;
 
   h1 {
@@ -337,8 +340,9 @@ a {
 }
 
 .markdown-body {
-  overflow-x: auto;
-  @include touch-scroll;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 
   table {
     width: 100%;
@@ -509,12 +513,12 @@ a {
 .feature-grid {
   @include flex-row;
   @include flex-wrap;
-  margin: 24px -6px 0;
+  gap: 12px;
+  margin: 24px 0 0;
 }
 
 .feature-card {
-  width: calc(50% - 12px);
-  margin: 0 6px 12px;
+  width: calc(50% - 6px);
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -684,18 +688,29 @@ a {
   padding: 12px;
   border-radius: 8px;
 
+  &[hidden] {
+    display: none;
+  }
+
   &:hover {
     background: var(--accent-soft);
   }
 
   strong {
-    display: block;
+    color: $text;
     font-size: 14px;
   }
 
-  span {
+  &-path {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: var(--muted);
-    font-size: 12px;
+    font-size: 14px;
+  }
+
+  &-separator {
+    color: var(--muted);
   }
 }
 
@@ -824,7 +839,10 @@ a {
     }
   }
 
-  .feature-card,
+  .feature-card {
+    width: 100%;
+  }
+
   .page-nav > a,
   .page-nav > span {
     width: calc(100% - 12px);

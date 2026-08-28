@@ -209,7 +209,20 @@ function renderMarkdown(page) {
 }
 
 const renderedPages = pages.map((page) => ({ ...page, ...renderMarkdown(page) }));
+const renderedPagesById = new Map(renderedPages.map((page) => [page.id, page]));
 const groups = [...new Set(renderedPages.map((page) => page.group))];
+
+function renderSearchPath(page) {
+  const parent = page.parent ? renderedPagesById.get(page.parent) : undefined;
+  const labels = [page.group, parent?.label, page.label].filter(Boolean);
+  const path = labels.map((label, index) => {
+    const escapedLabel = escapeHtml(label);
+    return index === labels.length - 1
+      ? `<strong>${escapedLabel}</strong>`
+      : `<span>${escapedLabel}</span><span class="search-result-separator" aria-hidden="true">&gt;</span>`;
+  }).join('');
+  return `<span class="search-result-path" aria-label="${escapeHtml(labels.join(' > '))}">${path}</span>`;
+}
 
 function renderPage(page, index) {
   const prefix = rootPrefix(page);
@@ -237,7 +250,7 @@ function renderPage(page, index) {
   const next = renderedPages[index + 1];
   const pageNav = `<nav class="page-nav" aria-label="문서 페이지 이동">${previous ? `<a href="${pageFileHref(page, previous)}" data-guide-path="${previous.path}index.html"><small>이전</small><strong>← ${escapeHtml(previous.label)}</strong></a>` : '<span></span>'}${next ? `<a href="${pageFileHref(page, next)}" data-guide-path="${next.path}index.html"><small>다음</small><strong>${escapeHtml(next.label)} →</strong></a>` : '<span></span>'}</nav>`;
   const outline = page.outline.map(([id, label], outlineIndex) => `<a${outlineIndex === 0 ? ' class="active"' : ''} href="#${id}">${escapeHtml(label)}</a>`).join('');
-  const searchResults = renderedPages.map((item) => `<a class="search-result" href="${pageHref(page, item)}" data-guide-path="${item.path}"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.group)}</span></a>`).join('');
+  const searchResults = renderedPages.map((item) => `<a class="search-result" href="${pageHref(page, item)}" data-guide-path="${item.path}">${renderSearchPath(item)}</a>`).join('');
   const title = page.titleLogo
     ? `<span class="guide-title"><img src="${toAsset('images/brand/uxkm_logo.svg')}" alt="UXKM"><span>${escapeHtml(page.title)}</span></span>`
     : escapeHtml(page.title);
