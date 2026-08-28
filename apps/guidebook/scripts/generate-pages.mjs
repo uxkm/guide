@@ -75,6 +75,20 @@ for (const page of pages) {
   paths.add(page.path);
 }
 
+for (const page of pages) {
+  if (page.parent === undefined) continue;
+  if (typeof page.parent !== 'string' || !ids.has(page.parent)) {
+    throw new Error(`유효하지 않은 parent: ${page.id} -> ${page.parent}`);
+  }
+  const parent = pages.find((item) => item.id === page.parent);
+  if (parent.group !== page.group) {
+    throw new Error(`parent와 group이 일치하지 않습니다: ${page.id} -> ${page.parent}`);
+  }
+  if (parent.parent !== undefined) {
+    throw new Error(`2단계보다 깊은 메뉴는 지원하지 않습니다: ${page.id}`);
+  }
+}
+
 const escapeHtml = (value) => String(value)
   .replaceAll('&', '&amp;')
   .replaceAll('<', '&lt;')
@@ -136,18 +150,34 @@ function renderMarkdown(page) {
   const md = new MarkdownIt({ html: true, linkify: true });
   const defaultHeadingOpen = md.renderer.rules.heading_open || ((tokens, index, options, env, self) => self.renderToken(tokens, index, options));
   const defaultLinkOpen = md.renderer.rules.link_open || ((tokens, index, options, env, self) => self.renderToken(tokens, index, options));
+  const defaultLinkClose = md.renderer.rules.link_close || ((tokens, index, options, env, self) => self.renderToken(tokens, index, options));
+  const externalLinkStack = [];
 
   md.renderer.rules.link_open = (tokens, index, options, env, self) => {
     const token = tokens[index];
     const href = token.attrGet('href');
+    let externalDocument = false;
     if (href?.startsWith('http://localhost:6006/')) {
       const storybookPath = href.slice('http://localhost:6006/'.length);
       token.attrSet('href', `${rootPrefix(page)}storybook/${storybookPath}`);
       token.attrSet('data-storybook-path', storybookPath);
       token.attrSet('target', '_blank');
       token.attrSet('rel', 'noopener noreferrer');
+    } else if (page.group === '프레임워크' && /^https?:\/\//.test(href || '')) {
+      token.attrSet('target', '_blank');
+      token.attrSet('rel', 'noopener noreferrer');
+      token.attrJoin('class', 'external-document-link');
+      externalDocument = true;
     }
+    externalLinkStack.push(externalDocument);
     return defaultLinkOpen(tokens, index, options, env, self);
+  };
+
+  md.renderer.rules.link_close = (tokens, index, options, env, self) => {
+    const icon = externalLinkStack.pop()
+      ? '<svg class="external-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>'
+      : '';
+    return `${icon}${defaultLinkClose(tokens, index, options, env, self)}`;
   };
 
   md.renderer.rules.heading_open = (tokens, index, options, env, self) => {
@@ -187,7 +217,21 @@ function renderPage(page, index) {
   const pageTitle = `${page.label} | UXKM Guidebook`;
   const sidebar = groups.map((group) => {
     const items = renderedPages.filter((item) => item.group === group);
-    return `<p class="sidebar-label">${escapeHtml(group)}</p><ul class="nav-list${group === '가이드북' ? '' : ' nav-sub'}">${items.map((item) => `<li><a class="nav-link${item.id === page.id ? ' active' : ''}" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"${item.id === page.id ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a></li>`).join('')}</ul>`;
+    const roots = items.filter((item) => item.parent === undefined);
+    const renderLink = (item, className = 'nav-link', label = item.label) => `<a class="${className}${item.id === page.id ? ' active' : ''}" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"${item.id === page.id ? ' aria-current="page"' : ''}>${escapeHtml(label)}</a>`;
+    const list = roots.map((item) => {
+      const children = items.filter((child) => child.parent === item.id);
+      const containsActivePage = children.some((child) => child.id === page.id);
+      const frameworkSection = group === '프레임워크' && item.id.startsWith('framework-') && children.length;
+      const childList = children.length
+        ? `<ul class="nav-children">${frameworkSection ? `<li>${renderLink(item, 'nav-link nav-introduction', '소개')}</li>` : ''}${children.map((child) => `<li>${renderLink(child)}</li>`).join('')}</ul>`
+        : '';
+      const rootItem = frameworkSection
+        ? `<span class="nav-section-title${item.id === page.id || containsActivePage ? ' parent-active' : ''}">${escapeHtml(item.label)}</span>`
+        : renderLink(item, `nav-link${containsActivePage ? ' parent-active' : ''}`);
+      return `<li>${rootItem}${childList}</li>`;
+    }).join('');
+    return `<p class="sidebar-label">${escapeHtml(group)}</p><ul class="nav-list${group === '가이드북' ? '' : ' nav-sub'}">${list}</ul>`;
   }).join('');
   const previous = renderedPages[index - 1];
   const next = renderedPages[index + 1];
