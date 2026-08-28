@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow">
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
+    <meta name="title" content="페이지와 라우팅 | UXKM Guidebook">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="기본 요소와 레이아웃 UI 페이지를 만들고 Vue Router에 연결하거나 Nuxt 파일 기반 라우팅으로 자동 생성합니다.">
+    <meta name="keywords" content="uxkm, uxkm guide, guidebook, ui, component, storybook, accessibility">
+    <meta name="content-language" content="ko">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="application-name" content="UXKM Guidebook">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="UXKM Guidebook">
+    <meta property="og:title" content="페이지와 라우팅 | UXKM Guidebook">
+    <meta property="og:description" content="기본 요소와 레이아웃 UI 페이지를 만들고 Vue Router에 연결하거나 Nuxt 파일 기반 라우팅으로 자동 생성합니다.">
+    <meta property="og:url" content="https://guide.uxkm.io/guides/frameworks/vue/pages-routing/">
+    <meta property="og:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="750">
+    <meta property="og:image:alt" content="UXKM Guide">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="페이지와 라우팅 | UXKM Guidebook">
+    <meta name="twitter:description" content="기본 요소와 레이아웃 UI 페이지를 만들고 Vue Router에 연결하거나 Nuxt 파일 기반 라우팅으로 자동 생성합니다.">
+    <meta name="twitter:image" content="https://uxkm.io/_assets/images/_common/og_image.png">
+    <link rel="canonical" href="https://guide.uxkm.io/guides/frameworks/vue/pages-routing/">
+    <link rel="icon" href="https://guide.uxkm.io/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://guide.uxkm.io/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://guide.uxkm.io/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://guide.uxkm.io/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="https://guide.uxkm.io/images/meta/favicon/site.webmanifest">
+    <title>페이지와 라우팅 | UXKM Guidebook</title>
+    <script type="module" crossorigin src="../../../../assets/main-BGpYvsOJ.js"></script>
+    <link rel="stylesheet" crossorigin href="../../../../assets/main-CRzbwVBC.css">
+  </head>
+  <body data-page="vue-pages-routing">
+    <header class="docs-header">
+      <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="https://guide.uxkm.io/images/brand/uxkm_logo_hand.svg" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="../../../../" data-guide-path="index.html">Guidebook</a></div>
+      <button class="search-trigger" type="button" aria-label="가이드북 검색 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
+      <a class="header-link" href="../../../../storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+    </header>
+    <aside class="docs-sidebar" aria-label="가이드북 목차"><p class="sidebar-label">가이드북</p><ul class="nav-list"><li><a class="nav-link" href="../../../../" data-guide-path="index.html">소개</a></li></ul><p class="sidebar-label">기초</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html">디자인 토큰</a></li><li><a class="nav-link" href="../../../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html">접근성</a></li></ul><p class="sidebar-label">컴포넌트</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../../components/basic/" data-guide-path="components/basic/index.html">기본 요소</a></li><li><a class="nav-link" href="../../../../components/layout/" data-guide-path="components/layout/index.html">레이아웃</a></li><li><a class="nav-link" href="../../../../components/form/" data-guide-path="components/form/index.html">폼</a></li><li><a class="nav-link" href="../../../../components/navigation/" data-guide-path="components/navigation/index.html">네비게이션</a></li><li><a class="nav-link" href="../../../../components/data-display/" data-guide-path="components/data-display/index.html">데이터 표시</a></li><li><a class="nav-link" href="../../../../components/feedback/" data-guide-path="components/feedback/index.html">피드백</a></li><li><a class="nav-link" href="../../../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html">기타</a></li></ul><p class="sidebar-label">활용 가이드</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../../guides/patterns/" data-guide-path="guides/patterns/index.html">UI 패턴</a></li><li><a class="nav-link" href="../../../../guides/guidelines/" data-guide-path="guides/guidelines/index.html">작성 지침</a></li></ul><p class="sidebar-label">프레임워크</p><ul class="nav-list nav-sub"><li><a class="nav-link" href="../../../../guides/frameworks/" data-guide-path="guides/frameworks/index.html">프레임워크 구현</a></li><li><span class="nav-section-title">Gulp</span><ul class="nav-children"><li><a class="nav-link nav-introduction" href="../../../../guides/frameworks/gulp/" data-guide-path="guides/frameworks/gulp/index.html">소개</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/quick-start/" data-guide-path="guides/frameworks/gulp/quick-start/index.html">Gulp 시작</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/setup/" data-guide-path="guides/frameworks/gulp/setup/index.html">Gulp 기본 설정</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/tasks/" data-guide-path="guides/frameworks/gulp/tasks/index.html">Gulp 기본 API</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/nunjucks/" data-guide-path="guides/frameworks/gulp/nunjucks/index.html">HTML 편집 (Gulp NJK)</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/server-watch/" data-guide-path="guides/frameworks/gulp/server-watch/index.html">Web Server &amp; Watching Files</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/assets/" data-guide-path="guides/frameworks/gulp/assets/index.html">Assets 세팅</a></li><li><a class="nav-link" href="../../../../guides/frameworks/gulp/deploy/" data-guide-path="guides/frameworks/gulp/deploy/index.html">배포 (Deploying)</a></li></ul></li><li><span class="nav-section-title parent-active">Vue</span><ul class="nav-children"><li><a class="nav-link nav-introduction" href="../../../../guides/frameworks/vue/" data-guide-path="guides/frameworks/vue/index.html">소개</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/quick-start/" data-guide-path="guides/frameworks/vue/quick-start/index.html">빠른 시작</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/template-syntax/" data-guide-path="guides/frameworks/vue/template-syntax/index.html">핵심 기초</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/reactivity/" data-guide-path="guides/frameworks/vue/reactivity/index.html">상태와 반응성</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/components/" data-guide-path="guides/frameworks/vue/components/index.html">컴포넌트 심화</a></li><li><a class="nav-link active" href="../../../../guides/frameworks/vue/pages-routing/" data-guide-path="guides/frameworks/vue/pages-routing/index.html" aria-current="page">페이지와 라우팅</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/reusability/" data-guide-path="guides/frameworks/vue/reusability/index.html">재사용성</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/built-ins/" data-guide-path="guides/frameworks/vue/built-ins/index.html">내장 컴포넌트</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/scaling-up/" data-guide-path="guides/frameworks/vue/scaling-up/index.html">확장하기</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/best-practices/" data-guide-path="guides/frameworks/vue/best-practices/index.html">베스트 프랙티스</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/typescript/" data-guide-path="guides/frameworks/vue/typescript/index.html">TypeScript</a></li><li><a class="nav-link" href="../../../../guides/frameworks/vue/extra-topics/" data-guide-path="guides/frameworks/vue/extra-topics/index.html">추가 주제</a></li></ul></li><li><span class="nav-section-title">React</span><ul class="nav-children"><li><a class="nav-link nav-introduction" href="../../../../guides/frameworks/react/" data-guide-path="guides/frameworks/react/index.html">소개</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/quick-start/" data-guide-path="guides/frameworks/react/quick-start/index.html">빠르게 시작하기</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/jsx-components/" data-guide-path="guides/frameworks/react/jsx-components/index.html">UI 표현</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/rendering/" data-guide-path="guides/frameworks/react/rendering/index.html">조건과 목록</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/state-events/" data-guide-path="guides/frameworks/react/state-events/index.html">상호작용</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/pages-routing/" data-guide-path="guides/frameworks/react/pages-routing/index.html">페이지와 라우팅</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/managing-state/" data-guide-path="guides/frameworks/react/managing-state/index.html">State 관리</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/escape-hatches/" data-guide-path="guides/frameworks/react/escape-hatches/index.html">탈출구</a></li><li><a class="nav-link" href="../../../../guides/frameworks/react/thinking-in-react/" data-guide-path="guides/frameworks/react/thinking-in-react/index.html">React로 사고하기</a></li></ul></li><li><span class="nav-section-title">WebSquare</span><ul class="nav-children"><li><a class="nav-link nav-introduction" href="../../../../guides/frameworks/websquare/" data-guide-path="guides/frameworks/websquare/index.html">소개</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/studio/" data-guide-path="guides/frameworks/websquare/studio/index.html">스튜디오</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/screen-events/" data-guide-path="guides/frameworks/websquare/screen-events/index.html">화면과 이벤트</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/components/" data-guide-path="guides/frameworks/websquare/components/index.html">컴포넌트</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/data-collection/" data-guide-path="guides/frameworks/websquare/data-collection/index.html">DataCollection</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/binding-submission/" data-guide-path="guides/frameworks/websquare/binding-submission/index.html">Submission</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/usage/" data-guide-path="guides/frameworks/websquare/usage/index.html">사용하기</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/settings/" data-guide-path="guides/frameworks/websquare/settings/index.html">SP5 설정</a></li><li><a class="nav-link" href="../../../../guides/frameworks/websquare/advanced/" data-guide-path="guides/frameworks/websquare/advanced/index.html">심화 가이드</a></li></ul></li></ul><p class="sidebar-footer">uxkm.io Guidebook</p></aside>
+    <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Vue · Nuxt · Routing</p><h1>Vue와 Nuxt 페이지 라우팅</h1><p class="lead">기본 요소와 레이아웃 UI 페이지를 만들고 Vue Router에 연결하거나 Nuxt 파일 기반 라우팅으로 자동 생성합니다.</p><div class="markdown-body"><h2 id="만들-경로">만들 경로</h2>
+<table>
+<thead>
+<tr>
+<th>UI 페이지</th>
+<th>Vue·Nuxt 경로</th>
+<th>포함할 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 요소</td>
+<td><code>/components/basic</code></td>
+<td>Button, Icon, Link, Typography의 실제 조합과 상태</td>
+</tr>
+<tr>
+<td>레이아웃</td>
+<td><code>/components/layout</code></td>
+<td>Container, Divider, Flex, Grid, Space의 반응형 조합</td>
+</tr>
+</tbody>
+</table>
+<p>page component는 Storybook story를 복사하는 파일이 아닙니다. package component를 import하고 heading, navigation, loading·empty 상태를 포함한 실제 화면 문맥을 구성합니다.</p>
+<h2 id="vue-vite-페이지-파일-생성">Vue Vite: 페이지 파일 생성</h2>
+<pre class="code-block"><span class="code-label">text</span><code>apps/vue/src/
+├── pages/
+│   ├── BasicPage.vue
+│   └── LayoutPage.vue
+├── router/index.js
+├── App.vue
+└── main.js
+</code></pre>
+<p><code>BasicPage.vue</code>와 <code>LayoutPage.vue</code>는 <code>@uxkm/vue/*</code>에서 필요한 component를 import합니다. 페이지 최상위에는 <code>main</code>, 페이지 제목에는 <code>h1</code>을 사용하고 component별 예제 section은 <code>h2</code>로 구분합니다.</p>
+<h2 id="vue-vite-router-연결">Vue Vite: Router 연결</h2>
+<p>Vue Router를 사용하는 앱에서는 route 배열에 두 page component를 직접 연결합니다.</p>
+<pre class="code-block"><span class="code-label">javascript</span><code>// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
+import BasicPage from '../pages/BasicPage.vue';
+import LayoutPage from '../pages/LayoutPage.vue';
+
+export default createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    { path: '/components/basic', name: 'components-basic', component: BasicPage },
+    { path: '/components/layout', name: 'components-layout', component: LayoutPage },
+  ],
+});
+</code></pre>
+<p>router plugin은 mount 전에 application에 등록합니다.</p>
+<pre class="code-block"><span class="code-label">javascript</span><code>// src/main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+
+createApp(App).use(router).mount('#app');
+</code></pre>
+<p><code>App.vue</code>에는 현재 경로의 page가 표시될 <code>&lt;RouterView /&gt;</code>와 page 이동용 <code>&lt;RouterLink&gt;</code>를 둡니다.</p>
+<pre class="code-block"><span class="code-label">vue</span><code>&lt;template&gt;
+  &lt;nav aria-label=&quot;컴포넌트 분류&quot;&gt;
+    &lt;RouterLink to=&quot;/components/basic&quot;&gt;기본 요소&lt;/RouterLink&gt;
+    &lt;RouterLink to=&quot;/components/layout&quot;&gt;레이아웃&lt;/RouterLink&gt;
+  &lt;/nav&gt;
+  &lt;RouterView /&gt;
+&lt;/template&gt;
+</code></pre>
+<p>History mode를 사용하면 <code>/components/basic</code> 주소를 직접 새로고침했을 때 hosting server가 SPA entry를 반환하도록 fallback 설정이 필요합니다.</p>
+<h2 id="nuxt-파일로-route-자동-생성">Nuxt: 파일로 Route 자동 생성</h2>
+<p>Nuxt 4는 <code>app/pages</code> 아래 파일 경로를 기준으로 Vue Router route를 생성합니다. 별도 <code>router/index.js</code>와 route 배열을 만들지 않습니다.</p>
+<pre class="code-block"><span class="code-label">text</span><code>apps/nuxt/app/pages/
+└── components/
+    ├── basic.vue   → /components/basic
+    └── layout.vue  → /components/layout
+</code></pre>
+<p><code>app/app.vue</code>가 존재하면 <code>&lt;NuxtPage /&gt;</code>가 있어야 현재 page가 렌더링됩니다. 공통 navigation은 <code>&lt;NuxtLink&gt;</code>를 사용합니다.</p>
+<pre class="code-block"><span class="code-label">vue</span><code>&lt;template&gt;
+  &lt;nav aria-label=&quot;컴포넌트 분류&quot;&gt;
+    &lt;NuxtLink to=&quot;/components/basic&quot;&gt;기본 요소&lt;/NuxtLink&gt;
+    &lt;NuxtLink to=&quot;/components/layout&quot;&gt;레이아웃&lt;/NuxtLink&gt;
+  &lt;/nav&gt;
+  &lt;NuxtPage /&gt;
+&lt;/template&gt;
+</code></pre>
+<p>동적 경로는 <code>[id].vue</code>, 선택적 경로는 <code>[[slug]].vue</code> 같은 file naming 규칙을 사용합니다. 자동 생성 route를 임의의 수동 배열과 중복 선언하지 않습니다.</p>
+<h2 id="확인-순서">확인 순서</h2>
+<ol>
+<li>두 URL을 주소창에서 직접 열어 정상 응답을 확인합니다.</li>
+<li>RouterLink·NuxtLink 이동 시 전체 새로고침 없이 page가 바뀌는지 확인합니다.</li>
+<li>navigation의 현재 항목에 <code>aria-current=&quot;page&quot;</code>가 전달되는지 확인합니다.</li>
+<li>route 이동 뒤 document title과 <code>h1</code> focus 정책을 검토합니다.</li>
+<li>Nuxt는 server render 결과와 hydration 뒤 DOM이 같은지 확인합니다.</li>
+</ol>
+<h2 id="공식-문서">공식 문서</h2>
+<ul>
+<li><a href="https://router.vuejs.org/guide/" target="_blank" rel="noopener noreferrer" class="external-document-link">Vue Router 시작하기<svg class="external-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a></li>
+<li><a href="https://nuxt.com/docs/4.x/getting-started/routing" target="_blank" rel="noopener noreferrer" class="external-document-link">Nuxt 4 Routing<svg class="external-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a></li>
+<li><a href="https://nuxt.com/docs/4.x/directory-structure/app/pages" target="_blank" rel="noopener noreferrer" class="external-document-link">Nuxt 4 pages directory<svg class="external-link-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 3h6v6"></path><path d="m10 14 11-11"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a></li>
+</ul>
+</div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../../../guides/frameworks/vue/components/index.html" data-guide-path="guides/frameworks/vue/components/index.html"><small>이전</small><strong>← 컴포넌트 심화</strong></a><a href="../../../../guides/frameworks/vue/reusability/index.html" data-guide-path="guides/frameworks/vue/reusability/index.html"><small>다음</small><strong>재사용성 →</strong></a></nav></main></div>
+    <aside class="page-outline"><strong>이 페이지에서</strong><a class="active" href="#만들-경로">만들 경로</a><a href="#vue-vite-페이지-파일-생성">Vue Vite: 페이지 파일 생성</a><a href="#vue-vite-router-연결">Vue Vite: Router 연결</a><a href="#nuxt-파일로-route-자동-생성">Nuxt: 파일로 Route 자동 생성</a><a href="#확인-순서">확인 순서</a><a href="#공식-문서">공식 문서</a></aside>
+    <dialog class="search-dialog"><div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input aria-label="가이드북 검색" placeholder="목차 검색"><button class="search-close" type="button" aria-label="검색 닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div><div class="search-results"><a class="search-result" href="../../../../" data-guide-path="index.html"><strong>소개</strong><span>가이드북</span></a><a class="search-result" href="../../../../foundations/design-tokens/" data-guide-path="foundations/design-tokens/index.html"><strong>디자인 토큰</strong><span>기초</span></a><a class="search-result" href="../../../../foundations/accessibility/" data-guide-path="foundations/accessibility/index.html"><strong>접근성</strong><span>기초</span></a><a class="search-result" href="../../../../components/basic/" data-guide-path="components/basic/index.html"><strong>기본 요소</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/layout/" data-guide-path="components/layout/index.html"><strong>레이아웃</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/form/" data-guide-path="components/form/index.html"><strong>폼</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/navigation/" data-guide-path="components/navigation/index.html"><strong>네비게이션</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/data-display/" data-guide-path="components/data-display/index.html"><strong>데이터 표시</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/feedback/" data-guide-path="components/feedback/index.html"><strong>피드백</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../components/miscellaneous/" data-guide-path="components/miscellaneous/index.html"><strong>기타</strong><span>컴포넌트</span></a><a class="search-result" href="../../../../guides/patterns/" data-guide-path="guides/patterns/index.html"><strong>UI 패턴</strong><span>활용 가이드</span></a><a class="search-result" href="../../../../guides/guidelines/" data-guide-path="guides/guidelines/index.html"><strong>작성 지침</strong><span>활용 가이드</span></a><a class="search-result" href="../../../../guides/frameworks/" data-guide-path="guides/frameworks/index.html"><strong>프레임워크 구현</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/" data-guide-path="guides/frameworks/gulp/index.html"><strong>Gulp</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/quick-start/" data-guide-path="guides/frameworks/gulp/quick-start/index.html"><strong>Gulp 시작</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/setup/" data-guide-path="guides/frameworks/gulp/setup/index.html"><strong>Gulp 기본 설정</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/tasks/" data-guide-path="guides/frameworks/gulp/tasks/index.html"><strong>Gulp 기본 API</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/nunjucks/" data-guide-path="guides/frameworks/gulp/nunjucks/index.html"><strong>HTML 편집 (Gulp NJK)</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/server-watch/" data-guide-path="guides/frameworks/gulp/server-watch/index.html"><strong>Web Server &amp; Watching Files</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/assets/" data-guide-path="guides/frameworks/gulp/assets/index.html"><strong>Assets 세팅</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/gulp/deploy/" data-guide-path="guides/frameworks/gulp/deploy/index.html"><strong>배포 (Deploying)</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/" data-guide-path="guides/frameworks/vue/index.html"><strong>Vue</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/quick-start/" data-guide-path="guides/frameworks/vue/quick-start/index.html"><strong>빠른 시작</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/template-syntax/" data-guide-path="guides/frameworks/vue/template-syntax/index.html"><strong>핵심 기초</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/reactivity/" data-guide-path="guides/frameworks/vue/reactivity/index.html"><strong>상태와 반응성</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/components/" data-guide-path="guides/frameworks/vue/components/index.html"><strong>컴포넌트 심화</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/pages-routing/" data-guide-path="guides/frameworks/vue/pages-routing/index.html"><strong>페이지와 라우팅</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/reusability/" data-guide-path="guides/frameworks/vue/reusability/index.html"><strong>재사용성</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/built-ins/" data-guide-path="guides/frameworks/vue/built-ins/index.html"><strong>내장 컴포넌트</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/scaling-up/" data-guide-path="guides/frameworks/vue/scaling-up/index.html"><strong>확장하기</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/best-practices/" data-guide-path="guides/frameworks/vue/best-practices/index.html"><strong>베스트 프랙티스</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/typescript/" data-guide-path="guides/frameworks/vue/typescript/index.html"><strong>TypeScript</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/vue/extra-topics/" data-guide-path="guides/frameworks/vue/extra-topics/index.html"><strong>추가 주제</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/" data-guide-path="guides/frameworks/react/index.html"><strong>React</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/quick-start/" data-guide-path="guides/frameworks/react/quick-start/index.html"><strong>빠르게 시작하기</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/jsx-components/" data-guide-path="guides/frameworks/react/jsx-components/index.html"><strong>UI 표현</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/rendering/" data-guide-path="guides/frameworks/react/rendering/index.html"><strong>조건과 목록</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/state-events/" data-guide-path="guides/frameworks/react/state-events/index.html"><strong>상호작용</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/pages-routing/" data-guide-path="guides/frameworks/react/pages-routing/index.html"><strong>페이지와 라우팅</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/managing-state/" data-guide-path="guides/frameworks/react/managing-state/index.html"><strong>State 관리</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/escape-hatches/" data-guide-path="guides/frameworks/react/escape-hatches/index.html"><strong>탈출구</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/react/thinking-in-react/" data-guide-path="guides/frameworks/react/thinking-in-react/index.html"><strong>React로 사고하기</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/" data-guide-path="guides/frameworks/websquare/index.html"><strong>WebSquare</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/studio/" data-guide-path="guides/frameworks/websquare/studio/index.html"><strong>스튜디오</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/screen-events/" data-guide-path="guides/frameworks/websquare/screen-events/index.html"><strong>화면과 이벤트</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/components/" data-guide-path="guides/frameworks/websquare/components/index.html"><strong>컴포넌트</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/data-collection/" data-guide-path="guides/frameworks/websquare/data-collection/index.html"><strong>DataCollection</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/binding-submission/" data-guide-path="guides/frameworks/websquare/binding-submission/index.html"><strong>Submission</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/usage/" data-guide-path="guides/frameworks/websquare/usage/index.html"><strong>사용하기</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/settings/" data-guide-path="guides/frameworks/websquare/settings/index.html"><strong>SP5 설정</strong><span>프레임워크</span></a><a class="search-result" href="../../../../guides/frameworks/websquare/advanced/" data-guide-path="guides/frameworks/websquare/advanced/index.html"><strong>심화 가이드</strong><span>프레임워크</span></a><p class="search-empty" hidden>검색 결과가 없습니다.</p></div></dialog>
+  </body>
+</html>
