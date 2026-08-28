@@ -48,17 +48,17 @@ a {
   left: 0;
   height: $header-height;
   @include flex-row;
-  padding: 0 28px;
+  padding: 0 28px 0 16px;
   border-bottom: 1px solid var(--border);
   background: rgba(255, 255, 255, .98);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  @include child-gap(24px);
+  @include child-gap(8px);
 }
 
 .brand {
   @include flex-row;
-  min-width: 250px;
+  min-width: calc(var(--sidebar-width) - 32px);
   font-weight: 700;
   @include child-gap(10px);
 
@@ -75,6 +75,7 @@ a {
     width: 112px;
     height: 48px;
     object-fit: contain;
+    object-position: left center;
     @include invert-logo;
   }
 
@@ -782,8 +783,8 @@ a {
 @media (max-width: $breakpoint-mobile) {
   .docs-header {
     height: $header-height-mobile;
-    padding: 0 16px;
-    @include child-gap(12px);
+    padding: 0 12px 0 8px;
+    @include child-gap(8px);
   }
 
   .brand {
@@ -814,6 +815,8 @@ a {
 
   .menu-button {
     display: block;
+    margin-left: -2px;
+    padding: 4px;
   }
 
   .search-trigger {
