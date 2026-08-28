@@ -196,3 +196,6 @@ searchInput.addEventListener('input', () => {
   });
   dialog.querySelector('.search-empty').hidden = visibleCount > 0;
 });
+resultItems.forEach((item) => {
+  item.addEventListener('click', closeSearch);
+});

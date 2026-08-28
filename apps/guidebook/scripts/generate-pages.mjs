@@ -237,7 +237,7 @@ function renderPage(page, index) {
   const next = renderedPages[index + 1];
   const pageNav = `<nav class="page-nav" aria-label="문서 페이지 이동">${previous ? `<a href="${pageFileHref(page, previous)}" data-guide-path="${previous.path}index.html"><small>이전</small><strong>← ${escapeHtml(previous.label)}</strong></a>` : '<span></span>'}${next ? `<a href="${pageFileHref(page, next)}" data-guide-path="${next.path}index.html"><small>다음</small><strong>${escapeHtml(next.label)} →</strong></a>` : '<span></span>'}</nav>`;
   const outline = page.outline.map(([id, label], outlineIndex) => `<a${outlineIndex === 0 ? ' class="active"' : ''} href="#${id}">${escapeHtml(label)}</a>`).join('');
-  const searchResults = renderedPages.map((item) => `<a class="search-result" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.group)}</span></a>`).join('');
+  const searchResults = renderedPages.map((item) => `<a class="search-result" href="${pageHref(page, item)}" data-guide-path="${item.path}"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.group)}</span></a>`).join('');
   const title = page.titleLogo
     ? `<span class="guide-title"><img src="${toAsset('images/brand/uxkm_logo.svg')}" alt="UXKM"><span>${escapeHtml(page.title)}</span></span>`
     : escapeHtml(page.title);
