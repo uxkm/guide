@@ -188,21 +188,30 @@ a {
 
 .nav-link {
   @include flex-row;
+  width: 100%;
   padding: 8px 10px;
   color: #575b63;
   border-radius: 7px;
   font-size: 14px;
   @include child-gap(9px);
 
-  svg {
-    width: 16px;
+  .nav-link-icon {
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
+    margin-left: auto;
     color: #92959b;
+    stroke-width: 1.8;
+    transition: transform .18s ease;
   }
 
   &:hover {
     color: #24272e;
     background: #f0f0f2;
+
+    .nav-link-icon {
+      transform: translateX(2px);
+    }
   }
 
   &.active {
@@ -227,15 +236,51 @@ a {
   font-weight: 600;
 }
 
-.nav-section-title {
-  display: block;
-  padding: 8px 10px 4px;
+.nav-section-toggle {
+  @include flex-row;
+  width: 100%;
+  padding: 8px 10px;
   color: #575b63;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+  line-height: inherit;
+  text-align: left;
+
+  &:hover {
+    color: #24272e;
+    background: #f0f0f2;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 
   &.parent-active {
     color: #24272e;
+  }
+
+  .nav-toggle-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin-left: auto;
+    color: #92959b;
+    stroke-width: 1.8;
+    transition: transform .18s ease;
+  }
+
+  &[aria-expanded='false'] .nav-toggle-icon {
+    transform: rotate(0deg);
+  }
+
+  &[aria-expanded='true'] .nav-toggle-icon {
+    transform: rotate(180deg);
   }
 }
 

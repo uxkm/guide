@@ -22,6 +22,18 @@ const sidebar = document.querySelector('.docs-sidebar');
 const backdrop = document.querySelector('.sidebar-backdrop');
 const menuButton = document.querySelector('.menu-button');
 const outlineLinks = Array.from(document.querySelectorAll('.page-outline a[href^="#"]'));
+const navigationToggles = Array.from(sidebar.querySelectorAll('.nav-section-toggle'));
+
+navigationToggles.forEach((toggle) => {
+  const childList = document.getElementById(toggle.getAttribute('aria-controls'));
+  if (!childList) return;
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    childList.hidden = expanded;
+  });
+});
 
 function alignActiveSidebarLink() {
   const activeLink = sidebar.querySelector('.nav-link[aria-current="page"]');

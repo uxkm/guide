@@ -228,19 +228,23 @@ function renderPage(page, index) {
   const prefix = rootPrefix(page);
   const canonicalUrl = new URL(page.path, siteUrl).href;
   const pageTitle = `${page.label} | UXKM Guidebook`;
+  const linkIcon = '<svg class="nav-link-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m8 5 5 5-5 5"></path></svg>';
+  const toggleIcon = '<svg class="nav-toggle-icon" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor"><path d="m5 8 5 5 5-5"></path></svg>';
   const sidebar = groups.map((group) => {
     const items = renderedPages.filter((item) => item.group === group);
     const roots = items.filter((item) => item.parent === undefined);
-    const renderLink = (item, className = 'nav-link', label = item.label) => `<a class="${className}${item.id === page.id ? ' active' : ''}" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"${item.id === page.id ? ' aria-current="page"' : ''}>${escapeHtml(label)}</a>`;
+    const renderLink = (item, className = 'nav-link', label = item.label) => `<a class="${className}${item.id === page.id ? ' active' : ''}" href="${pageHref(page, item)}" data-guide-path="${item.path}index.html"${item.id === page.id ? ' aria-current="page"' : ''}><span>${escapeHtml(label)}</span>${linkIcon}</a>`;
     const list = roots.map((item) => {
       const children = items.filter((child) => child.parent === item.id);
       const containsActivePage = children.some((child) => child.id === page.id);
       const frameworkSection = group === '프레임워크' && item.id.startsWith('framework-') && children.length;
+      const sectionExpanded = item.id === page.id || containsActivePage;
+      const sectionId = `${item.id}-navigation`;
       const childList = children.length
-        ? `<ul class="nav-children">${frameworkSection ? `<li>${renderLink(item, 'nav-link nav-introduction', '소개')}</li>` : ''}${children.map((child) => `<li>${renderLink(child)}</li>`).join('')}</ul>`
+        ? `<ul class="nav-children"${frameworkSection ? ` id="${sectionId}"${sectionExpanded ? '' : ' hidden'}` : ''}>${frameworkSection ? `<li>${renderLink(item, 'nav-link nav-introduction', '소개')}</li>` : ''}${children.map((child) => `<li>${renderLink(child)}</li>`).join('')}</ul>`
         : '';
       const rootItem = frameworkSection
-        ? `<span class="nav-section-title${item.id === page.id || containsActivePage ? ' parent-active' : ''}">${escapeHtml(item.label)}</span>`
+        ? `<button class="nav-section-toggle${sectionExpanded ? ' parent-active' : ''}" type="button" aria-expanded="${sectionExpanded}" aria-controls="${sectionId}"><span>${escapeHtml(item.label)}</span>${toggleIcon}</button>`
         : renderLink(item, `nav-link${containsActivePage ? ' parent-active' : ''}`);
       return `<li>${rootItem}${childList}</li>`;
     }).join('');
