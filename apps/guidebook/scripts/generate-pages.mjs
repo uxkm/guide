@@ -29,10 +29,20 @@ function publicUrl(name, fallback, trailingSlash = false) {
 
 const isDev = mode === 'development';
 const devPort = String(env.VITE_DEV_PORT || '6107').trim();
+const devStorybookPort = String(env.VITE_DEV_STORYBOOK_PORT || '6006').trim();
 const devSiteUrl = publicUrl('VITE_DEV_SITE_URL', `http://localhost:${devPort}/`, true);
+const devStorybookUrl = publicUrl(
+  'VITE_DEV_STORYBOOK_URL',
+  `http://localhost:${devStorybookPort}/`,
+  true,
+);
 const siteUrl = isDev
   ? devSiteUrl
   : publicUrl('VITE_SITE_URL', 'https://guide.uxkm.io/', true);
+const storybookUrl = isDev
+  ? devStorybookUrl
+  : publicUrl('VITE_STORYBOOK_URL', 'https://guide.uxkm.io/storybook/', true);
+const STORYBOOK_LINK_PREFIX = 'storybook-link:';
 const toAsset = createAssetUrl({
   base: isDev ? '/' : env.VITE_ASSET_BASE,
   siteUrl,
@@ -112,7 +122,7 @@ const storybookMetaIds = new Map([
 ]);
 const storybookHref = (category, name) => {
   const storyId = storybookMetaIds.get(name) || `${category}-${componentSlug(name)}`;
-  return `http://localhost:6006/?path=/docs/${storyId}--docs`;
+  return `${STORYBOOK_LINK_PREFIX}?path=/docs/${storyId}--docs`;
 };
 
 const storybookComponents = new Map(pages
@@ -157,9 +167,12 @@ function renderMarkdown(page) {
     const token = tokens[index];
     const href = token.attrGet('href');
     let externalDocument = false;
-    if (href?.startsWith('http://localhost:6006/')) {
-      const storybookPath = href.slice('http://localhost:6006/'.length);
-      token.attrSet('href', `${rootPrefix(page)}storybook/${storybookPath}`);
+    if (href?.startsWith(STORYBOOK_LINK_PREFIX)) {
+      const storybookPath = href.slice(STORYBOOK_LINK_PREFIX.length).replace(/^\//, '');
+      const resolvedHref = isDev
+        ? `${rootPrefix(page)}storybook/${storybookPath}`
+        : new URL(storybookPath, storybookUrl).href;
+      token.attrSet('href', resolvedHref);
       token.attrSet('data-storybook-path', storybookPath);
       token.attrSet('target', '_blank');
       token.attrSet('rel', 'noopener noreferrer');
@@ -301,7 +314,7 @@ function renderPage(page, index) {
       <button class="menu-button" type="button" aria-label="목차 열기" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="brand"><a class="brand-home" href="https://uxkm.io/" target="_blank" rel="noopener noreferrer" aria-label="UXKM.IO 새 창에서 열기"><img class="brand-logo" src="${toAsset('images/brand/uxkm_logo_hand.svg')}" alt="UXKM"></a><span class="brand-divider" aria-hidden="true"></span><a class="brand-product" href="${prefix}" data-guide-path="index.html"${page.id === 'overview' ? ' aria-current="page"' : ''}>Guidebook</a></div>
       <button class="search-trigger" type="button" aria-label="가이드북 검색 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>가이드북 검색...</span><kbd>⌘ K</kbd></button>
-      <a class="header-link" href="${prefix}storybook/" data-storybook-path="" target="_blank" rel="noopener noreferrer">Storybook ↗</a>
+      <a class="header-link" href="${isDev ? `${prefix}storybook/` : storybookUrl}" data-storybook-path="" target="_blank" rel="noopener noreferrer" aria-label="Components Storybook 새 창에서 열기"><span class="header-link__label"><span>Components</span><span>Storybook</span></span><span class="header-link__icon" aria-hidden="true">↗</span></a>
     </header>
     <aside class="docs-sidebar" aria-label="가이드북 목차">${sidebar}<p class="sidebar-footer">uxkm.io Guidebook</p></aside>
     <button class="sidebar-backdrop" type="button" aria-label="목차 닫기"></button>

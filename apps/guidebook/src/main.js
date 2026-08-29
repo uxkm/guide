@@ -6,12 +6,22 @@ document.querySelectorAll('[data-guide-path]').forEach((link) => {
   link.href = new URL(link.dataset.guidePath, guideRoot).href;
 });
 
-const storybookDevOrigin = import.meta.env.DEV
-  ? `${window.location.protocol}//${window.location.hostname}:6006/`
-  : (import.meta.env.VITE_STORYBOOK_URL || 'storybook/');
-const storybookRoot = new URL(storybookDevOrigin, guideRoot);
+function resolveStorybookOrigin() {
+  if (import.meta.env.DEV) {
+    const configured = import.meta.env.VITE_DEV_STORYBOOK_URL?.trim();
+    if (configured) return configured.endsWith('/') ? configured : `${configured}/`;
+    const port = import.meta.env.VITE_DEV_STORYBOOK_PORT || '6006';
+    return `${window.location.protocol}//${window.location.hostname}:${port}/`;
+  }
+
+  const configured = import.meta.env.VITE_STORYBOOK_URL?.trim();
+  if (configured) return configured.endsWith('/') ? configured : `${configured}/`;
+  return new URL('storybook/', guideRoot).href;
+}
+
+const storybookRoot = resolveStorybookOrigin();
 document.querySelectorAll('[data-storybook-path]').forEach((link) => {
-  link.href = new URL(link.dataset.storybookPath, storybookRoot).href;
+  link.href = new URL(link.dataset.storybookPath ?? '', storybookRoot).href;
 });
 
 const dialog = document.querySelector('.search-dialog');
