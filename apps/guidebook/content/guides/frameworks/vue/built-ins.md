@@ -6,7 +6,7 @@ path: guides/frameworks/vue/built-ins/
 label: 내장 컴포넌트
 title: Vue 내장 컴포넌트
 eyebrow: Vue · Built-in Components
-lead: Transition, KeepAlive, Teleport와 Suspense를 UXKM UI에 적용할 때의 기준을 정리합니다.
+lead: Transition, KeepAlive, Teleport와 Suspense를 UI에 적용할 때의 기준을 정리합니다.
 order: 37
 ---
 
@@ -32,7 +32,7 @@ modal, popover처럼 stacking context에서 분리할 UI는 `Teleport`로 body �
 
 ## Suspense
 
-비동기 dependency가 있는 component tree의 pending·resolved 상태를 조정합니다. production 적용 전 현재 Vue version의 지원 상태를 확인하고, UXKM Skeleton이나 Spin으로 loading 상태를 명시합니다.
+비동기 dependency가 있는 component tree의 pending·resolved 상태를 조정합니다. production 적용 전 현재 Vue version의 지원 상태를 확인하고, Skeleton이나 Spin으로 loading 상태를 명시합니다.
 
 ## 공식 문서
 

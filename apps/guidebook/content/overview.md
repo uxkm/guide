@@ -98,7 +98,7 @@ Guidebook  http://localhost:6107  ·  http://<LAN-IP>:6107
 
 같은 Wi‑Fi에 연결된 휴대폰이나 다른 PC에서는 터미널에 출력된 네트워크 주소로 엽니다. 네트워크 주소를 찾지 못하면 localhost로만 접속할 수 있습니다.
 
-모든 프레임워크 앱까지 함께 실행하려면 `pnpm dev:all`을 사용합니다. HTML(`6101`)부터 Next.js(`6106`)까지 각 앱의 localhost와 네트워크 주소가 함께 출력됩니다.
+모든 프레임워크 앱까지 함께 실행하려면 `pnpm dev:all`을 사용합니다. HTML(`6101`)부터 Astro(`6113`)까지 각 앱의 localhost와 네트워크 주소가 함께 출력됩니다.
 
 Guidebook의 Markdown 원본은 `apps/guidebook/content`에서 관리합니다. 개발과 빌드 명령을 실행하면 Markdown이 페이지별 HTML로 생성되며, 메뉴와 이전·다음 이동도 함께 구성됩니다.
 
@@ -205,7 +205,7 @@ build/
 3. **컴포넌트 선택:** 각 분류의 사용 시점과 주의사항을 비교해 문제에 맞는 컴포넌트를 선택합니다.
 4. **동작 검증:** 컴포넌트 링크로 Storybook을 열어 상태, 크기, 변형과 실제 키보드 인터랙션을 검증합니다.
 5. **패턴 구성:** 활용 가이드에서 여러 컴포넌트의 상태 전이와 오류 복구를 확인합니다.
-6. **프레임워크 구현:** 공통 계약을 확인한 뒤 프로젝트 스택에 맞는 Gulp, Vue, React, WebSquare 문법을 확인합니다.
+6. **프레임워크 구현:** 공통 계약을 확인한 뒤 프로젝트 스택에 맞는 Gulp, Vue, React, Svelte, SolidJS, Qwik, Remix, Angular, Astro, WebSquare 문법을 확인합니다.
 7. **완료 검수:** 정상 상태뿐 아니라 로딩, 빈 상태, 오류, 작은 화면과 키보드 사용까지 확인합니다.
 
 ## 컴포넌트 구성
@@ -228,7 +228,7 @@ build/
   <a class="feature-card" href="foundations/design-tokens/index.html" data-guide-path="foundations/design-tokens/index.html"><strong>01 · 기초</strong><p>일관된 UI를 위한 공통 토큰과 접근성 기준</p></a>
   <a class="feature-card" href="components/basic/index.html" data-guide-path="components/basic/index.html"><strong>02 · 컴포넌트</strong><p>52개 컴포넌트의 역할과 선택 기준</p></a>
   <a class="feature-card" href="guides/patterns/index.html" data-guide-path="guides/patterns/index.html"><strong>03 · 활용 가이드</strong><p>컴포넌트 조합과 작성 지침</p></a>
-  <a class="feature-card" href="guides/frameworks/index.html" data-guide-path="guides/frameworks/index.html"><strong>04 · 프레임워크</strong><p>Gulp, Vue, React, WebSquare 문법</p></a>
+  <a class="feature-card" href="guides/frameworks/index.html" data-guide-path="guides/frameworks/index.html"><strong>04 · 프레임워크</strong><p>Gulp, Vue, React, Svelte, SolidJS, Qwik, Remix, Angular, Astro, WebSquare 문법</p></a>
 </div>
 
 ## 문서 활용 기준

@@ -10,6 +10,9 @@ const sourceGroups = [
   { directory: 'apps/gulp/src/components', extensions: new Set(['.njk', '.js']) },
   { directory: 'apps/react/src/components', extensions: new Set(['.jsx']) },
   { directory: 'apps/vue/src/components', extensions: new Set(['.vue']) },
+  { directory: 'apps/svelte/src/components', extensions: new Set(['.svelte']) },
+  { directory: 'apps/solid/src/components', extensions: new Set(['.jsx']) },
+  { directory: 'apps/qwik/src/components', extensions: new Set(['.tsx']) },
 ];
 
 async function collectFiles(directory) {

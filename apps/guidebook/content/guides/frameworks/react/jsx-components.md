@@ -51,7 +51,7 @@ function GuideCard({ title, active = false, onSelect, children }) {
 
 Props는 component가 받은 읽기 전용 입력입니다. 렌더링 중 prop을 바꾸지 않고, 사용자 동작은 callback prop으로 부모에 전달합니다. 중첩 JSX는 `children`으로 받습니다.
 
-## UXKM 컴포넌트
+## 컴포넌트
 
 ```jsx
 import Button from '@uxkm/react/button';
@@ -65,7 +65,7 @@ export default function Actions() {
 }
 ```
 
-DOM ref가 필요하면 해당 UXKM component가 ref를 노출하는지 API부터 확인하고 내부 DOM 구조에 직접 의존하지 않습니다.
+DOM ref가 필요하면 해당 component가 ref를 노출하는지 API부터 확인하고 내부 DOM 구조에 직접 의존하지 않습니다.
 
 ## 공식 문서
 

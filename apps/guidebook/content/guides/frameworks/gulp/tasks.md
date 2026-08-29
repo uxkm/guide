@@ -77,4 +77,4 @@ watch 대상과 해당 작업의 입력 glob을 일치시키고, 변경된 파�
 ## 문서 안내
 
 - [Nunjucks 시작하기](https://mozilla.github.io/nunjucks/getting-started.html)
-- [UXKM Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)
+- [Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)

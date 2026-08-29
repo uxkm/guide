@@ -1,0 +1,23 @@
+{
+  "name": "@uxkm/remix",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "remix vite:dev"
+  },
+  "dependencies": {
+    "@remix-run/node": "^2.17.4",
+    "@remix-run/react": "^2.17.4",
+    "@uxkm/interactions": "workspace:*",
+    "@uxkm/react": "workspace:*",
+    "isbot": "^5.1.35",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.17.4",
+    "vite": "^8.2.0"
+  }
+}

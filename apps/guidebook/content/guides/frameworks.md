@@ -5,11 +5,11 @@ path: guides/frameworks/
 label: 프레임워크 구현
 title: 프레임워크 구현
 eyebrow: Frameworks
-lead: 동일한 UXKM 컴포넌트를 HTML, 템플릿, Vue, React, WebSquare 환경에서 일관되게 구현합니다.
+lead: 동일한 컴포넌트를 HTML, 템플릿, Vue, React, Svelte, SolidJS, Qwik, Remix, Angular, Astro, WebSquare 환경에서 일관되게 구현합니다.
 order: 13
 ---
 
-UXKM 컴포넌트는 프레임워크별 문법을 통일하는 것이 아니라 사용자에게 전달되는 의미와 동작을 통일합니다. 구현체가 달라도 최종 DOM 구조, CSS 토큰, 상태 이름, 키보드 동작과 접근 가능한 이름은 같은 계약을 따라야 합니다.
+컴포넌트는 프레임워크별 문법을 통일하는 것이 아니라 사용자에게 전달되는 의미와 동작을 통일합니다. 구현체가 달라도 최종 DOM 구조, CSS 토큰, 상태 이름, 키보드 동작과 접근 가능한 이름은 같은 계약을 따라야 합니다.
 
 ## 구현 범위
 
@@ -19,6 +19,12 @@ UXKM 컴포넌트는 프레임워크별 문법을 통일하는 것이 아니라 
 | [Gulp · Nunjucks](gulp/index.html) | 정적 템플릿 재사용과 빌드 자동화 | 매크로 인자와 기본값, escape 정책, include 경로와 빌드 결과 HTML |
 | [Vue · Nuxt](vue/index.html) | 선언형 템플릿과 반응형 상태 구현 | props·emits 계약, `v-model` 규칙, slot 구조와 SSR hydration 일치 |
 | [React · Next.js](react/index.html) | 컴포넌트 합성과 상태 기반 구현 | controlled·uncontrolled 정책, ref 전달, 합성 이벤트와 Server/Client 경계 |
+| [Svelte · SvelteKit](svelte/index.html) | 컴파일 기반 반응형 markup 구현 | runes, `bind:`, snippet과 SSR hydration 일치 |
+| [SolidJS · SolidStart](solid/index.html) | signal 기반 fine-grained reactivity 구현 | getter props, memo·effect, JSX 합성과 SSR hydration |
+| [Qwik · Qwik City](qwik/index.html) | resumability 기반 lazy hydration 구현 | `component$`, signal·store, loader와 interaction 초기화 시점 |
+| [Remix](remix/index.html) | React component와 route data API 통합 | `@uxkm/react` 재사용, loader·action, form mutation |
+| [Angular](angular/index.html) | TypeScript component와 template 기반 구현 | `@Input`·`@Output`, signal, two-way binding과 SSR |
+| [Astro](astro/index.html) | 정적 site와 island 기반 통합 | `@uxkm/react`·`@uxkm/vue` 재사용, `client:*` hydration |
 | [WebSquare XML](websquare/index.html) | 공통 HTML·CSS를 화면 XML에서 재사용 | 화면 루트 네임스페이스, `scwin` 이벤트, DataMap·DataList 바인딩 |
 
 ## 공통 계약
@@ -49,6 +55,12 @@ Storybook 예제를 구현한 뒤에는 component를 page 문맥에 배치합니
 | Nuxt 4 | `app/pages/components/basic.vue` | `app/pages/components/layout.vue` | `app/pages` 구조로 자동 생성 |
 | React Vite | `src/pages/BasicPage.jsx` | `src/pages/LayoutPage.jsx` | React Router route element로 직접 등록 |
 | Next.js | `app/components/basic/page.jsx` | `app/components/layout/page.jsx` | App Router folder 구조로 자동 생성 |
+| SvelteKit | `src/routes/components/basic/+page.svelte` | `src/routes/components/layout/+page.svelte` | `src/routes` 구조로 자동 생성 |
+| SolidStart | `src/routes/components/basic.tsx` | `src/routes/components/layout.tsx` | `src/routes` 구조로 자동 생성 |
+| Qwik City | `src/routes/components/basic/index.tsx` | `src/routes/components/layout/index.tsx` | `src/routes` 구조로 자동 생성 |
+| Remix | `app/routes/components/basic.jsx` | `app/routes/components/layout.jsx` | `app/routes` 파일 규칙으로 생성 |
+| Angular | `src/app/pages/basic-page.component.ts` | `src/app/pages/layout-page.component.ts` | `app.routes.ts`에 route 등록 |
+| Astro | `src/pages/components/basic.astro` | `src/pages/components/layout.astro` | `src/pages` 구조로 자동 생성 |
 | WebSquare | project의 `basic.xml` | project의 `layout.xml` | project menu·화면 이동 규칙에 등록 |
 
 Vue와 React는 Vite 자체가 application route를 만들어 주지 않습니다. 사용하는 client router에 URL과 page component를 명시적으로 연결하고, route 출력 위치도 `RouterView` 또는 `Routes`로 제공합니다. 반대로 Nuxt와 Next.js는 정해진 directory·file naming 규칙을 읽어 route를 생성하므로 같은 경로를 별도 설정 파일에 중복 선언하지 않습니다.
@@ -57,6 +69,12 @@ Vue와 React는 Vite 자체가 application route를 만들어 주지 않습니�
 - [레이아웃 실제 UI page](../../components/layout/index.html)
 - [Vue·Nuxt 페이지와 라우팅](vue/pages-routing/index.html)
 - [React·Next.js 페이지와 라우팅](react/pages-routing/index.html)
+- [Svelte·SvelteKit 페이지와 라우팅](svelte/pages-routing/index.html)
+- [SolidJS·SolidStart 페이지와 라우팅](solid/pages-routing/index.html)
+- [Qwik City 페이지와 라우팅](qwik/pages-routing/index.html)
+- [Remix 페이지와 라우팅](remix/pages-routing/index.html)
+- [Angular 페이지와 라우팅](angular/pages-routing/index.html)
+- [Astro 페이지와 라우팅](astro/pages-routing/index.html)
 
 page를 추가한 뒤에는 navigation link, 직접 URL 접근, 새로고침, 404, document title, route 이동 후 focus와 SSR hydration까지 확인합니다. component가 보이는 것과 page route가 운영 환경에서 정상 동작하는 것은 별도 완료 조건입니다.
 
@@ -82,7 +100,7 @@ scwin.btnSave_onclick = function () {
 };
 ```
 
-UXKM은 WebSquare 런타임, 라이선스, 공통 화면 스크립트를 포함하지 않습니다. 레이아웃·포커스·키보드·데이터 바인딩은 실제 WebSquare 엔진과 프로젝트 화면에서 검증합니다.
+이 저장소는 WebSquare 런타임, 라이선스, 공통 화면 스크립트를 포함하지 않습니다. 레이아웃·포커스·키보드·데이터 바인딩은 실제 WebSquare 엔진과 프로젝트 화면에서 검증합니다.
 
 ## 완료 기준
 

@@ -6,7 +6,7 @@ path: guides/frameworks/vue/quick-start/
 label: 빠른 시작
 title: Vue 빠른 시작
 eyebrow: Vue · Quick Start
-lead: Vue application을 실행하고 Single-File Component에서 UXKM component를 사용합니다.
+lead: Vue application을 실행하고 Single-File Component에서 component를 사용합니다.
 order: 31
 ---
 
@@ -19,7 +19,7 @@ pnpm install
 pnpm dev:vue
 ```
 
-새 Vue project를 시작할 때는 Vue 공식 scaffolding 도구로 Router, TypeScript와 test 구성을 선택할 수 있습니다. 기존 UXKM workspace에서는 이미 정한 build 설정을 유지합니다.
+새 Vue project를 시작할 때는 Vue 공식 scaffolding 도구로 Router, TypeScript와 test 구성을 선택할 수 있습니다. 기존 workspace에서는 이미 정한 build 설정을 유지합니다.
 
 ## 첫 Single-File Component
 
@@ -37,7 +37,7 @@ const saved = ref(false);
 </template>
 ```
 
-`<script setup>`에서 상태와 import를 선언하고 `<template>`에서 사용합니다. component 이름은 PascalCase, DOM attribute와 UXKM prop은 각 component API를 따릅니다.
+`<script setup>`에서 상태와 import를 선언하고 `<template>`에서 사용합니다. component 이름은 PascalCase, DOM attribute와 component prop은 각 component API를 따릅니다.
 
 ## 다음 단계
 

@@ -10,7 +10,7 @@ lead: component, JSX, 조건·목록 rendering, event와 state의 전체 흐름�
 order: 51
 ---
 
-## UXKM React 실행
+## React 실행
 
 이 저장소는 React 19와 Vite를 사용합니다. root에서 다음 명령을 실행하면 6104 port에 개발 서버를 엽니다.
 
@@ -21,7 +21,7 @@ pnpm dev:react
 
 ## 첫 component
 
-React component는 대문자로 시작하는 JavaScript 함수이며 JSX를 반환합니다. UXKM component는 package subpath에서 가져옵니다.
+React component는 대문자로 시작하는 JavaScript 함수이며 JSX를 반환합니다. component는 package subpath에서 가져옵니다.
 
 ```jsx
 import { useState } from 'react';

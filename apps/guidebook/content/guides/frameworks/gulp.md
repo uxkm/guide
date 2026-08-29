@@ -5,7 +5,7 @@ path: guides/frameworks/gulp/
 label: Gulp
 title: Gulp · Nunjucks
 eyebrow: Frameworks
-lead: Gulp 5와 Nunjucks로 UXKM 정적 페이지를 구성하는 방법을 단계별로 확인합니다.
+lead: Gulp 5와 Nunjucks로 정적 페이지를 구성하는 방법을 단계별로 확인합니다.
 order: 14
 ---
 
@@ -25,9 +25,9 @@ Gulp 자체가 화면을 렌더링하는 UI framework는 아닙니다. 프로젝
 - 일반 JavaScript 함수와 module export를 사용하는 유연한 gulpfile
 - Nunjucks 같은 template engine, BrowserSync와 다양한 plugin 조합
 
-## UXKM에서의 역할
+## 역할
 
-UXKM Gulp 앱은 Nunjucks로 공통 layout과 component fragment를 조립해 정적 HTML을 만듭니다. `gulpfile.js`는 page 변환, script와 public asset 복사를 담당하고 BrowserSync로 결과를 확인합니다. 생성 결과는 HTML 구현 및 Storybook Gulp 예제와 동일한 DOM·접근성 계약을 유지해야 합니다.
+Gulp 앱은 Nunjucks로 공통 layout과 component fragment를 조립해 정적 HTML을 만듭니다. `gulpfile.js`는 page 변환, script와 public asset 복사를 담당하고 BrowserSync로 결과를 확인합니다. 생성 결과는 HTML 구현 및 Storybook Gulp 예제와 동일한 DOM·접근성 계약을 유지해야 합니다.
 
 ## 문서 구성
 
@@ -41,7 +41,7 @@ UXKM Gulp 앱은 Nunjucks로 공통 layout과 component fragment를 조립해 �
 | [Assets 세팅](assets/index.html) | SCSS, JavaScript와 image build pipeline |
 | [배포 (Deploying)](deploy/index.html) | production build 검증과 정적 hosting |
 
-## UXKM 구현 위치
+## 구현 위치
 
 ```text
 apps/gulp/
@@ -58,4 +58,4 @@ apps/gulp/
 ## 문서 안내
 
 - [Nunjucks 시작하기](https://mozilla.github.io/nunjucks/getting-started.html)
-- [UXKM Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)
+- [Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)

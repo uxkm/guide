@@ -52,7 +52,7 @@ scwin.btnSave_onclick = function (event) {
 
 ## WFrame scope
 
-WFrame 화면은 고유 scope 안에서 component ID와 script를 관리합니다. 별도 완성 화면을 포함할 때 WFrame의 `src`를 사용하고, 단순 UXKM layout fragment를 배치할 때는 현재 화면의 `w2:group`과 공통 class를 사용합니다.
+WFrame 화면은 고유 scope 안에서 component ID와 script를 관리합니다. 별도 완성 화면을 포함할 때 WFrame의 `src`를 사용하고, 단순 layout fragment를 배치할 때는 현재 화면의 `w2:group`과 공통 class를 사용합니다.
 
 ## 확인 기준
 

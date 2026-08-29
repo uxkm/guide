@@ -5,7 +5,7 @@ path: guides/frameworks/react/
 label: React
 title: React
 eyebrow: Frameworks
-lead: React 19 공식 학습 문서의 흐름에 따라 UXKM 컴포넌트 구현 문법을 확인합니다.
+lead: React 19 공식 학습 문서의 흐름에 따라 컴포넌트 구현 문법을 확인합니다.
 order: 50
 ---
 
@@ -23,9 +23,9 @@ React는 component를 조합해 사용자 interface를 만드는 JavaScript libr
 - JavaScript 조건문과 배열 method를 그대로 사용하는 rendering 문법
 - client application과 server framework에서 재사용할 수 있는 UI model
 
-## UXKM에서의 역할
+## 역할
 
-`@uxkm/react`는 UXKM component를 React props, callback event와 `children` API로 제공합니다. controlled·uncontrolled 입력 정책을 구분하면서 동일한 DOM과 접근성 결과를 유지합니다. Next.js에서는 표시 전용 component와 client 상호작용 경계를 나눠 같은 구현을 재사용합니다.
+`@uxkm/react`는 component를 React props, callback event와 `children` API로 제공합니다. controlled·uncontrolled 입력 정책을 구분하면서 동일한 DOM과 접근성 결과를 유지합니다. Next.js에서는 표시 전용 component와 client 상호작용 경계를 나눠 같은 구현을 재사용합니다.
 
 ## 문서 구성
 
@@ -40,7 +40,7 @@ React는 component를 조합해 사용자 interface를 만드는 JavaScript libr
 | [탈출구](escape-hatches/index.html) | ref, effect와 외부 시스템 동기화 |
 | [React로 사고하기](thinking-in-react/index.html) | 화면 분해와 단방향 데이터 흐름 |
 
-## UXKM 사용 시작
+## 사용 시작
 
 ```jsx
 import Button from '@uxkm/react/button';

@@ -6,7 +6,7 @@ path: guides/frameworks/gulp/quick-start/
 label: Gulp 시작
 title: Gulp 빠른 시작
 eyebrow: Gulp · Getting Started
-lead: Gulp CLI와 gulpfile의 기본 구조를 만들고 UXKM 정적 페이지를 빌드합니다.
+lead: Gulp CLI와 gulpfile의 기본 구조를 만들고 정적 페이지를 빌드합니다.
 order: 15
 ---
 
@@ -51,7 +51,7 @@ gulp
 
 - `src/pages/**/*.njk`: 최종 HTML로 출력할 페이지 진입점
 - `src/templates`: 공통 layout과 partial
-- `src/components`: UXKM 컴포넌트 fragment
+- `src/components`: 컴포넌트 fragment
 - `public`: 스타일, 이미지처럼 변환 없이 복사할 파일
 
 상대 경로는 명령을 실행한 현재 디렉터리를 기준으로 해석됩니다. 루트 script를 사용하면 workspace 위치를 자동으로 맞춥니다.
@@ -59,4 +59,4 @@ gulp
 ## 문서 안내
 
 - [Nunjucks 시작하기](https://mozilla.github.io/nunjucks/getting-started.html)
-- [UXKM Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)
+- [Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)

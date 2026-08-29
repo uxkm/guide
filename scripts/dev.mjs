@@ -64,6 +64,60 @@ const workspaces = [
     group: 'apps'
   },
   {
+    label: 'Svelte',
+    shortLabel: 'Sv',
+    path: 'apps/svelte',
+    description: 'Svelte 5와 Vite 기반 컴포넌트 애플리케이션',
+    badge: 'Svelte · Vite',
+    color: 'svelte',
+    group: 'apps'
+  },
+  {
+    label: 'SolidJS',
+    shortLabel: 'So',
+    path: 'apps/solid',
+    description: 'SolidJS와 Vite 기반 컴포넌트 애플리케이션',
+    badge: 'SolidJS · Vite',
+    color: 'solid',
+    group: 'apps'
+  },
+  {
+    label: 'Qwik',
+    shortLabel: 'Q',
+    path: 'apps/qwik',
+    description: 'Qwik와 Vite 기반 컴포넌트 애플리케이션',
+    badge: 'Qwik · Vite',
+    color: 'qwik',
+    group: 'apps'
+  },
+  {
+    label: 'Remix',
+    shortLabel: 'Rx',
+    path: 'apps/remix',
+    description: 'Remix 기반 React 컴포넌트 full-stack 가이드',
+    badge: 'React · Remix',
+    color: 'remix',
+    group: 'apps'
+  },
+  {
+    label: 'Angular',
+    shortLabel: 'Ng',
+    path: 'apps/angular',
+    description: 'Angular standalone component 기반 애플리케이션',
+    badge: 'Angular · Vite',
+    color: 'angular',
+    group: 'apps'
+  },
+  {
+    label: 'Astro',
+    shortLabel: 'As',
+    path: 'apps/astro',
+    description: 'Astro island 기반 React 컴포넌트 통합 가이드',
+    badge: 'Astro · React',
+    color: 'astro',
+    group: 'apps'
+  },
+  {
     label: 'WebSquare',
     shortLabel: 'W2',
     path: 'apps/websquare',
@@ -85,8 +139,8 @@ const workspaces = [
     label: 'Guidebook',
     shortLabel: 'DOCS',
     path: 'apps/guidebook',
-    description: 'HTML, Gulp, Vue, React 학습 문서를 하나의 목차로 제공하는 통합 가이드',
-    badge: 'HTML · Gulp · Vue · React',
+    description: 'HTML, Gulp, Vue, React, Svelte, SolidJS, Qwik, Remix, Angular, Astro 학습 문서를 하나의 목차로 제공하는 통합 가이드',
+    badge: 'Framework Guidebooks',
     color: 'guidebook',
     group: 'guidebooks'
   },
@@ -313,6 +367,13 @@ function renderPage() {
       .card--react { --card-color: #087ea4; --card-soft: rgba(8, 126, 164, 0.14); }
       .card--nuxt { --card-color: #00a86b; --card-soft: rgba(0, 168, 107, 0.14); }
       .card--next { --card-color: #202631; --card-soft: rgba(32, 38, 49, 0.1); }
+      .card--svelte { --card-color: #ff3e00; --card-soft: rgba(255, 62, 0, 0.12); }
+      .card--solid { --card-color: #2c4f7c; --card-soft: rgba(44, 79, 124, 0.12); }
+      .card--qwik { --card-color: #18b6f6; --card-soft: rgba(24, 182, 246, 0.12); }
+      .card--remix { --card-color: #121212; --card-soft: rgba(18, 18, 18, 0.1); }
+      .card--angular { --card-color: #dd0031; --card-soft: rgba(221, 0, 49, 0.12); }
+      .card--astro { --card-color: #bc52ee; --card-soft: rgba(188, 82, 238, 0.12); }
+      .card--websquare { --card-color: #3d5a80; --card-soft: rgba(61, 90, 128, 0.12); }
       .card--storybook { --card-color: #d93472; --card-soft: rgba(217, 52, 114, 0.14); }
       .card--guidebook { --card-color: #6f4ef2; --card-soft: rgba(111, 78, 242, 0.14); }
       .card--styles { --card-color: #bf4080; --card-soft: rgba(191, 64, 128, 0.13); }

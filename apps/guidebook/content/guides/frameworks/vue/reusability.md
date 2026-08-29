@@ -34,7 +34,7 @@ export function useMediaQuery(query) {
 
 ## Directive와 plugin
 
-DOM에 직접 접근해야 하는 낮은 수준 동작만 custom directive로 만듭니다. tooltip, focus trap처럼 UI 구조와 상태 계약이 있는 기능은 UXKM component가 우선입니다. app 전체에 설치하는 기능과 의존성 주입은 plugin으로 구성하되 전역 property를 과도하게 늘리지 않습니다.
+DOM에 직접 접근해야 하는 낮은 수준 동작만 custom directive로 만듭니다. tooltip, focus trap처럼 UI 구조와 상태 계약이 있는 기능은 component가 우선입니다. app 전체에 설치하는 기능과 의존성 주입은 plugin으로 구성하되 전역 property를 과도하게 늘리지 않습니다.
 
 ## 선택 기준
 
@@ -43,7 +43,7 @@ DOM에 직접 접근해야 하는 낮은 수준 동작만 custom directive로 �
 | 상태 logic 재사용 | composable |
 | 특정 element의 DOM 처리 | custom directive |
 | app 전체 기능 설치 | plugin |
-| 시각·접근성 계약이 있는 UI | UXKM component |
+| 시각·접근성 계약이 있는 UI | component |
 
 ## 공식 문서
 

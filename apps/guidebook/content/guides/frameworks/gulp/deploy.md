@@ -32,7 +32,7 @@ export const build = series(
 
 source와 생성물의 관리 정책을 먼저 정합니다. CI가 build하는 경우 일반적으로 source만 version control에 저장하고, workflow가 lockfile 기준으로 `dist`를 생성합니다. GitHub Pages처럼 별도 branch나 directory를 요구하면 build 결과만 해당 publish target으로 전달합니다.
 
-UXKM main 배포는 root deployment script를 사용합니다. framework app의 개발 결과를 Guidebook 배포 경로와 혼합하지 않습니다.
+root 배포는 root deployment script를 사용합니다. framework app의 개발 결과를 Guidebook 배포 경로와 혼합하지 않습니다.
 
 ## 원문 문서
 

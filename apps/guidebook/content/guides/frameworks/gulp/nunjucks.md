@@ -6,7 +6,7 @@ path: guides/frameworks/gulp/nunjucks/
 label: HTML 편집 (Gulp NJK)
 title: Nunjucks 템플릿 문법
 eyebrow: Gulp · Nunjucks
-lead: 출력과 제어문부터 layout, include, macro를 이용한 UXKM 재사용 구조까지 정리합니다.
+lead: 출력과 제어문부터 layout, include, macro를 이용한 component 재사용 구조까지 정리합니다.
 order: 18
 ---
 
@@ -15,7 +15,7 @@ order: 18
 `{{ }}`는 값을 출력하고 `{% %}`는 조건과 반복 같은 제어문을 실행합니다. `{# #}`는 결과 HTML에 남지 않는 주석입니다.
 
 ```nunjucks
-{% set pageTitle = title or 'UXKM Guide' %}
+{% set pageTitle = title or 'Guide' %}
 <h1>{{ pageTitle | escape }}</h1>
 
 {% if loading %}
@@ -46,7 +46,7 @@ order: 18
 ```nunjucks
 {# pages/index.njk #}
 {% extends "templates/layouts/default.njk" %}
-{% set title = "UXKM Gulp" %}
+{% set title = "Gulp" %}
 
 {% block content %}
   {% include "templates/partials/header.njk" %}
@@ -105,4 +105,4 @@ apps/gulp/src/pages/components/
 ## 문서 안내
 
 - [Nunjucks 시작하기](https://mozilla.github.io/nunjucks/getting-started.html)
-- [UXKM Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)
+- [Gulp 가이드](https://uxkm.io/buildSystem/gulp/01-gulp_start/01-intro)

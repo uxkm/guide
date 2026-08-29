@@ -16,7 +16,7 @@ design의 시각적 묶음과 data model의 책임을 함께 보며 component bo
 
 ## 2. 정적 화면 만들기
 
-먼저 data를 props로 전달해 interaction 없는 화면을 만듭니다. 이 단계에서 UXKM component를 선택하고 DOM, variant와 접근성 계약을 확인합니다.
+먼저 data를 props로 전달해 interaction 없는 화면을 만듭니다. 이 단계에서 component를 선택하고 DOM, variant와 접근성 계약을 확인합니다.
 
 ## 3. 최소 State 찾기
 
@@ -28,7 +28,7 @@ design의 시각적 묶음과 data model의 책임을 함께 보며 component bo
 
 ## 5. 역방향 event 연결
 
-data는 parent에서 child로 내려가고 user event는 callback을 통해 owner에게 올라갑니다. UXKM input의 `value`와 `onChange`, Vue의 `modelValue`와 `update:modelValue`도 같은 소유 원칙을 따릅니다.
+data는 parent에서 child로 내려가고 user event는 callback을 통해 owner에게 올라갑니다. Input의 `value`와 `onChange`, Vue의 `modelValue`와 `update:modelValue`도 같은 소유 원칙을 따릅니다.
 
 ## 검토 질문
 

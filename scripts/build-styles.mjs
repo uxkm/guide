@@ -7,7 +7,7 @@ import { resolveAssetBase } from '../packages/assets/src/url.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const stylesRoot = join(root, 'packages/styles');
-const applicationTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'storybook'].map(
+const applicationTargets = ['html', 'gulp', 'vue', 'react', 'nuxt', 'next', 'svelte', 'solid', 'qwik', 'remix', 'astro', 'angular', 'storybook'].map(
   (app) => join(root, `apps/${app}/public/styles/uxkm.css`)
 );
 const targets = [

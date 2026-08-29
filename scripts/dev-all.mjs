@@ -14,6 +14,12 @@ const allServers = [
   ['React', 6104],
   ['Nuxt', 6105],
   ['Next.js', 6106],
+  ['Svelte', 6108],
+  ['SolidJS', 6109],
+  ['Qwik', 6110],
+  ['Remix', 6111],
+  ['Angular', 6112],
+  ['Astro', 6113],
   ['Guidebook', 6107]
 ];
 
@@ -24,6 +30,12 @@ const allFilters = [
   '@uxkm/react',
   '@uxkm/nuxt',
   '@uxkm/next',
+  '@uxkm/svelte',
+  '@uxkm/solid',
+  '@uxkm/qwik',
+  '@uxkm/remix',
+  '@uxkm/angular',
+  '@uxkm/astro',
   '@uxkm/storybook',
   '@uxkm/guidebook'
 ];

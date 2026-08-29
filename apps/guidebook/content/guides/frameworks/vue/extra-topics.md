@@ -12,7 +12,7 @@ order: 41
 
 ## Vue를 적용하는 방식
 
-Vue는 build 없이 기존 HTML 일부를 강화하거나 SPA, SSR·SSG application 전체를 구성할 수 있습니다. UXKM workspace는 build 기반 SFC를 기본으로 하고 Nuxt에서 SSR 통합을 검증합니다.
+Vue는 build 없이 기존 HTML 일부를 강화하거나 SPA, SSR·SSG application 전체를 구성할 수 있습니다. workspace는 build 기반 SFC를 기본으로 하고 Nuxt에서 SSR 통합을 검증합니다.
 
 ## 반응성과 rendering
 
@@ -24,7 +24,7 @@ template으로 표현하기 어려운 동적 구조는 `h()`와 JSX를 사용할
 
 ## Web Components
 
-Custom Element를 Vue app에서 사용할 때 property와 attribute 전달, event 이름과 SSR 동작을 확인합니다. UXKM Vue package와 HTML custom element를 같은 component로 오인하지 않습니다.
+Custom Element를 Vue app에서 사용할 때 property와 attribute 전달, event 이름과 SSR 동작을 확인합니다. Vue package와 HTML custom element를 같은 component로 오인하지 않습니다.
 
 ## 더 읽기
 

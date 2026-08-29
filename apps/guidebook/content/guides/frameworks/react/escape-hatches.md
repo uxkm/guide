@@ -24,7 +24,7 @@ function focusSearch() {
 return <input ref={inputRef} aria-label="검색" />;
 ```
 
-UXKM component가 ref를 공개하면 focus 같은 명확한 imperative 작업에만 사용합니다. 내부 DOM 구조에 의존하는 selector를 app에서 만들지 않습니다.
+component가 ref를 공개하면 focus 같은 명확한 imperative 작업에만 사용합니다. 내부 DOM 구조에 의존하는 selector를 app에서 만들지 않습니다.
 
 ## Effect
 

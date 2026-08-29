@@ -24,7 +24,7 @@ server resource 경로, response와 운영 환경 연동 설정을 관리합니�
 
 ## Escape 정책
 
-화면에 표시되는 외부 data는 기본적으로 escape합니다. HTML 표시가 꼭 필요한 업무 요구는 허용 source, sanitization과 Content Security Policy를 함께 검토합니다. UXKM markup 사용을 이유로 user input의 escape를 해제하지 않습니다.
+화면에 표시되는 외부 data는 기본적으로 escape합니다. HTML 표시가 꼭 필요한 업무 요구는 허용 source, sanitization과 Content Security Policy를 함께 검토합니다. 공통 markup 사용을 이유로 user input의 escape를 해제하지 않습니다.
 
 ## 변경 확인
 

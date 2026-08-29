@@ -12,7 +12,7 @@ order: 38
 
 ## Single-File Component와 도구
 
-규모가 커지면 `.vue` SFC를 기본 단위로 사용하고 Vite가 template, style과 asset을 처리하게 합니다. component는 화면 역할보다 재사용 계약을 기준으로 나누고 UXKM package source를 app 내부에 복사하지 않습니다.
+규모가 커지면 `.vue` SFC를 기본 단위로 사용하고 Vite가 template, style과 asset을 처리하게 합니다. component는 화면 역할보다 재사용 계약을 기준으로 나누고 package source를 app 내부에 복사하지 않습니다.
 
 ## Routing과 상태 관리
 

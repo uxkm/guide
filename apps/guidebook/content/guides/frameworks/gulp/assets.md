@@ -12,7 +12,7 @@ order: 20
 
 ## SCSS 컴파일
 
-style task는 SCSS entry를 CSS로 변환하고 source map, prefix와 minify 정책을 환경에 맞게 적용합니다. UXKM에서는 공통 style package가 기준이므로 app 전용 SCSS가 공통 component 규칙을 덮어쓰지 않게 합니다.
+style task는 SCSS entry를 CSS로 변환하고 source map, prefix와 minify 정책을 환경에 맞게 적용합니다. 이 저장소에서는 공통 style package가 기준이므로 app 전용 SCSS가 공통 component 규칙을 덮어쓰지 않게 합니다.
 
 ```javascript
 export function styles() {
@@ -30,7 +30,7 @@ modern browser target과 legacy 지원 범위를 먼저 정합니다. Babel을 �
 
 원본 image는 lossless·lossy 정책을 구분해 처리합니다. SVG logo처럼 원본 품질과 접근성 정보가 중요한 asset은 무조건 raster 변환하지 않습니다.
 
-## UXKM pipeline
+## Asset pipeline
 
 이 repository의 공통 asset은 `packages/assets/public`에서 관리하고 app으로 복사합니다. URL은 배포 base path를 고려한 helper를 사용하며 HTML에 특정 host 주소를 직접 고정하지 않습니다.
 

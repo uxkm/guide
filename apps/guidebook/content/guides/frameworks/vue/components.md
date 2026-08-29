@@ -6,7 +6,7 @@ path: guides/frameworks/vue/components/
 label: 컴포넌트 심화
 title: Vue 컴포넌트 심화
 eyebrow: Vue · Components
-lead: props, emits, v-model과 slot으로 UXKM 컴포넌트의 입력과 출력 계약을 구성합니다.
+lead: props, emits, v-model과 slot으로 컴포넌트의 입력과 출력 계약을 구성합니다.
 order: 34
 ---
 
@@ -32,7 +32,7 @@ Props는 부모에서 자식으로 내려오는 읽기 전용 값입니다. 객�
 
 ## v-model
 
-UXKM Input은 `modelValue` prop과 `update:modelValue` event를 제공하므로 다음처럼 사용합니다.
+Input은 `modelValue` prop과 `update:modelValue` event를 제공하므로 다음처럼 사용합니다.
 
 ```vue
 <script setup>
@@ -61,7 +61,7 @@ Vue 3.4 이상에서 직접 양방향 component를 만들 때는 `defineModel()`
 
 default slot은 기본 콘텐츠, 이름 있는 slot은 `#이름`으로 전달합니다. slot의 시맨틱 구조와 접근 가능한 이름은 최종 DOM을 기준으로 확인합니다.
 
-## UXKM 폼 예제
+## 폼 예제
 
 ```vue
 <script setup>

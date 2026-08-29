@@ -6,7 +6,7 @@ path: guides/frameworks/websquare/binding-submission/
 label: Submission
 title: WebSquare 바인딩과 Submission
 eyebrow: WebSquare · Binding
-lead: UXKM 폼 fragment를 DataCollection에 바인딩하고 Submission으로 서버 요청과 응답을 연결합니다.
+lead: 폼 fragment를 DataCollection에 바인딩하고 Submission으로 서버 요청과 응답을 연결합니다.
 order: 65
 ---
 
@@ -28,7 +28,7 @@ order: 65
 
 label과 오류 메시지는 component가 생성하는 최종 DOM에서 입력과 연결되는지 확인합니다. 오류 상태를 class로만 표시하지 말고 프로젝트 WebSquare component가 제공하는 접근성 속성도 함께 설정합니다.
 
-## UXKM 버튼과 Submission
+## 버튼과 Submission
 
 ```xml
 <xf:trigger id="btnSave"

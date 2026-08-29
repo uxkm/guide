@@ -6,7 +6,7 @@ path: guides/frameworks/react/state-events/
 label: 상호작용
 title: React 상호작용
 eyebrow: React · Adding Interactivity
-lead: 이벤트 handler와 useState를 연결하고 UXKM 입력을 controlled 방식으로 관리합니다.
+lead: 이벤트 handler와 useState를 연결하고 입력을 controlled 방식으로 관리합니다.
 order: 54
 ---
 
@@ -74,7 +74,7 @@ export default function EmailForm() {
 }
 ```
 
-UXKM Input은 `value`와 `onChange`를 쓰는 controlled 방식과 `defaultValue`를 쓰는 uncontrolled 방식을 지원합니다. 한 instance의 생명주기 중 두 방식을 전환하지 않습니다.
+Input은 `value`와 `onChange`를 쓰는 controlled 방식과 `defaultValue`를 쓰는 uncontrolled 방식을 지원합니다. 한 instance의 생명주기 중 두 방식을 전환하지 않습니다.
 
 ## 공식 문서
 

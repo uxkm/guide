@@ -12,7 +12,7 @@ order: 16
 
 ## 프로젝트 준비
 
-Gulp는 Node.js 위에서 실행됩니다. 새 프로젝트에서는 먼저 `package.json`을 만들고 프로젝트 의존성으로 Gulp를 설치합니다. UXKM workspace에서는 루트 의존성과 script가 이미 준비되어 있으므로 다시 설치하지 않습니다.
+Gulp는 Node.js 위에서 실행됩니다. 새 프로젝트에서는 먼저 `package.json`을 만들고 프로젝트 의존성으로 Gulp를 설치합니다. workspace에서는 루트 의존성과 script가 이미 준비되어 있으므로 다시 설치하지 않습니다.
 
 ```bash
 mkdir gulp-project
@@ -40,7 +40,7 @@ project root의 `gulpfile.js`가 작업 진입점입니다. ESM 문법을 사용
 }
 ```
 
-## UXKM 기준
+## 기준
 
 - source는 `src`, 생성물은 `dist`에 둡니다.
 - page, template, component와 data를 역할별 directory로 나눕니다.

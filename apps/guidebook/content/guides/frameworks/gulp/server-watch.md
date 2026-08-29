@@ -44,7 +44,7 @@ export const dev = series(build, parallel(server, watcher));
 
 watch glob은 실제 task 입력과 일치시킵니다. build가 끝나기 전에 reload되지 않도록 `series()`로 순서를 보장하고, 새 파일과 삭제된 파일도 결과에 반영되는지 확인합니다.
 
-## UXKM 확인 항목
+## 확인 항목
 
 - 공통 style과 asset build 후 server를 시작합니다.
 - port 충돌 시 root 개발 명령의 안내를 따릅니다.

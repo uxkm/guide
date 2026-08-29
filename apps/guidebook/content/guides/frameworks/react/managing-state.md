@@ -16,7 +16,7 @@ order: 56
 
 ## State 끌어올리기
 
-두 component가 같은 값을 공유하면 가장 가까운 공통 parent로 state를 옮기고 props와 callback으로 연결합니다. UXKM controlled component는 값과 변경 callback을 parent가 소유합니다.
+두 component가 같은 값을 공유하면 가장 가까운 공통 parent로 state를 옮기고 props와 callback으로 연결합니다. controlled component는 값과 변경 callback을 parent가 소유합니다.
 
 ```jsx
 function SearchPanel() {

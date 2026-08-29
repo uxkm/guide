@@ -40,7 +40,7 @@ const selectedId = ref<string | null>(null);
 const trigger = ref<HTMLButtonElement | null>(null);
 ```
 
-## UXKM 기준
+## 기준
 
 public component prop, emit과 slot 계약은 package export type에 포함합니다. app에서 같은 type을 다시 선언하지 말고 package type을 가져와 사용합니다. template type check와 build를 CI에서 함께 실행합니다.
 

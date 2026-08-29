@@ -26,7 +26,7 @@ tab 순서는 시각적·업무적 순서와 같아야 합니다. tabindex를 �
 
 viewport에 따라 정보를 숨길 때 핵심 업무 기능과 접근 가능한 이름이 사라지지 않게 합니다. SPA에서는 화면 이동 후 title, focus, history와 WFrame scope 정리를 확인합니다.
 
-## UXKM 점검표
+## 점검표
 
 - Storybook WebSquare fragment의 class와 상태 이름을 사용합니다.
 - engine 내부 DOM을 직접 query하거나 수정하지 않습니다.
