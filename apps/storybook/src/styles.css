@@ -977,6 +977,12 @@ body {
   line-height: inherit !important;
   overflow-wrap: normal;
   white-space: pre !important;
+  tab-size: 2;
+}
+
+/* Prism JSX 줄 앞 공백(plain 토큰)이 줄바꿈 없이 유지되도록 합니다. */
+:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs .token.plain {
+  white-space: pre;
 }
 
 .sbdocs pre.prismjs > div {

@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import { SyntaxHighlighter, type SupportedLanguage } from 'storybook/internal/components';
+import { isReactFrameworkId } from './frameworkId';
 import { formatCodeExample } from './formatCodeExample';
 
 interface FrameworkCodeBlockProps {
@@ -8,10 +10,11 @@ interface FrameworkCodeBlockProps {
 }
 
 function syntaxLanguage(frameworkId: string): SupportedLanguage {
-  return frameworkId === 'react' || frameworkId === 'next' ? 'jsx' : 'html';
+  return isReactFrameworkId(frameworkId) ? 'jsx' : 'html';
 }
 
 export default function FrameworkCodeBlock({ className, code, frameworkId }: FrameworkCodeBlockProps) {
+  const formatted = useMemo(() => formatCodeExample(code, frameworkId), [code, frameworkId]);
   const isWebSquare = frameworkId === 'websquare';
 
   return (
@@ -24,7 +27,7 @@ export default function FrameworkCodeBlock({ className, code, frameworkId }: Fra
       padded={false}
       wrapLongLines={false}
     >
-      {formatCodeExample(code, frameworkId)}
+      {formatted}
     </SyntaxHighlighter>
   );
 }

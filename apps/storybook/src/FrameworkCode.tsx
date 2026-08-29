@@ -1,6 +1,7 @@
 import { useId, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import FrameworkCodeBlock from './shared/FrameworkCodeBlock';
 import { formatCodeExample } from './shared/formatCodeExample';
+import { mergeMatchingFrameworkExamples } from './shared/mergeFrameworkExamples';
 import { withWebSquareExample } from './shared/webSquareExample';
 
 export interface FrameworkExample {
@@ -16,7 +17,10 @@ interface FrameworkCodeProps {
 }
 
 export function FrameworkCode({ examples, preview }: FrameworkCodeProps) {
-  const frameworkExamples = useMemo(() => withWebSquareExample(examples), [examples]);
+  const frameworkExamples = useMemo(
+    () => withWebSquareExample(mergeMatchingFrameworkExamples(examples)),
+    [examples],
+  );
   const [activeId, setActiveId] = useState(frameworkExamples[0]?.id ?? '');
   const [copied, setCopied] = useState(false);
   const instanceId = useId();

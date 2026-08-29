@@ -1,23 +1,25 @@
-import { useId, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import FrameworkCodeBlock from './FrameworkCodeBlock';
 import { formatCodeExample } from './formatCodeExample';
+import { mergeMatchingFrameworkExamples } from './mergeFrameworkExamples';
 
 export default function FrameworkTabs({ examples, showFullCode = false }) {
   const instanceId = useId();
-  const [activeId, setActiveId] = useState(examples[0]?.id ?? '');
+  const mergedExamples = useMemo(() => mergeMatchingFrameworkExamples(examples), [examples]);
+  const [activeId, setActiveId] = useState(mergedExamples[0]?.id ?? '');
   const [copied, setCopied] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const activeIndex = Math.max(0, examples.findIndex(({ id }) => id === activeId));
-  const activeExample = examples[activeIndex];
+  const activeIndex = Math.max(0, mergedExamples.findIndex(({ id }) => id === activeId));
+  const activeExample = mergedExamples[activeIndex];
 
   function select(index) {
-    const nextIndex = (index + examples.length) % examples.length;
-    setActiveId(examples[nextIndex].id);
+    const nextIndex = (index + mergedExamples.length) % mergedExamples.length;
+    setActiveId(mergedExamples[nextIndex].id);
     setCopied(false);
   }
 
   function selectRelative(offset) {
-    const nextIndex = (activeIndex + offset + examples.length) % examples.length;
+    const nextIndex = (activeIndex + offset + mergedExamples.length) % mergedExamples.length;
     select(nextIndex);
     requestAnimationFrame(() => {
       document.getElementById(`${instanceId}-tab-${nextIndex}`)?.focus();
@@ -51,7 +53,7 @@ export default function FrameworkTabs({ examples, showFullCode = false }) {
       {expanded ? (
         <div className="framework-storybooks__body" id={`${instanceId}-code`}>
           <div className="framework-storybooks__tabs" role="tablist" aria-label="구현 코드 프레임워크 선택">
-            {examples.map((example, index) => {
+            {mergedExamples.map((example, index) => {
               const selected = example.id === activeExample.id;
               return (
                 <button

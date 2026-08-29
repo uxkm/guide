@@ -1,3 +1,5 @@
+import { isReactFrameworkId } from './frameworkId';
+
 const voidElements = new Set([
   'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
   'link', 'meta', 'param', 'source', 'track', 'wbr'
@@ -80,24 +82,56 @@ function normalizeJsxFragmentBlocks(code: string) {
   return formatted.join('\n');
 }
 
-/**
- * return ( … ) 안의 Fragment는 여는/닫는 태그를 같은 열에 두고,
- * 자식은 단일 루트와 같은 깊이(4칸)가 되도록 한 단계만 들여 씁니다.
- */
-function normalizeReturnFragments(code: string) {
-  return code.replace(
-    /(return\s*\(\n)([ \t]*)<>\n([\s\S]*?)\n\2<\/>\n([ \t]*\);)/g,
-    (_match, returnOpen: string, indent: string, body: string, returnClose: string) => {
-      const baseIndent = '  ';
-      const lines = body.split('\n');
-      const nonEmpty = lines.filter((line) => line.trim());
-      const minIndent = nonEmpty.length
-        ? Math.min(...nonEmpty.map(lineIndentLength))
-        : indent.length + 2;
-      const shift = baseIndent.length + 2 - minIndent;
+function formatJsxTree(body: string, baseIndent: number) {
+  const root = ' '.repeat(baseIndent);
+  const flattened = body
+    .replace(/\r\n?/g, '\n')
+    .split('\n')
+    .flatMap((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return [];
+      if (!trimmed.startsWith('<') || !/>\s*</.test(trimmed)) return [trimmed];
+      return trimmed
+        .replace(/>\s*</g, '>\n<')
+        .split('\n')
+        .map((piece) => piece.trim())
+        .filter(Boolean);
+    });
 
-      const adjusted = lines.map((line) => shiftLineIndent(line, shift)).join('\n');
-      return `${returnOpen}${baseIndent}<>\n${adjusted}\n${baseIndent}</>\n${returnClose}`;
+  let depth = 0;
+  const lines: string[] = [];
+
+  for (const piece of flattened) {
+    const isClosing = piece === '</>' || /^<\//.test(piece);
+    if (isClosing) depth = Math.max(0, depth - 1);
+
+    lines.push(`${root}${'  '.repeat(depth)}${piece}`);
+
+    if (isClosing) continue;
+
+    const isFragmentOpen = piece === '<>';
+    const isSelfClosing = /\/>$/.test(piece);
+    const isInlinePair = /^<[A-Za-z][\w:.-]*\b[^>]*>[\s\S]*<\/[A-Za-z][\w:.-]*>\s*$/.test(piece);
+    const isOpenTag = /^<[A-Za-z][\w:.-]*\b/.test(piece) && !isSelfClosing && !isInlinePair;
+
+    if (isFragmentOpen || isOpenTag) depth += 1;
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * return ( … ); 블록에서 return과 );를 같은 들여쓰기로 맞추고,
+ * JSX는 태그 깊이에 따라 들여 씁니다.
+ */
+function normalizeReturnParentheses(code: string) {
+  return code.replace(
+    /(^[ \t]*)return\s*\(\n([\s\S]*?)\n[ \t]*\);/gm,
+    (match, fnIndent: string, body: string) => {
+      if (!body.trim()) return match;
+
+      const formattedBody = formatJsxTree(body, fnIndent.length + 2);
+      return `${fnIndent}return (\n${formattedBody}\n${fnIndent});`;
     },
   );
 }
@@ -111,8 +145,8 @@ function formatReactExample(code: string) {
         .replace(/;\s+(?=(?:const|let|var)\b)/g, ';\n');
       const setupBlock = statements ? `${indentLines(statements, 2)}\n` : '';
 
-      return `export function Example() {\n${setupBlock}  return (\n  <>\n${indentLines(markup.trim(), 4)}\n  </>\n  );\n}`;
-    }
+      return `export function Example() {\n${setupBlock}  return (\n    <>\n${indentLines(markup.trim(), 6)}\n    </>\n  );\n}`;
+    },
   );
 }
 
@@ -190,15 +224,12 @@ function formatWebSquareExample(code: string) {
 export function formatCodeExample(code: string, frameworkId = '') {
   if (frameworkId === 'websquare') return formatWebSquareExample(code);
 
-  let normalizedCode = frameworkId === 'react' || frameworkId === 'next'
-    ? formatReactExample(code)
-    : code;
-
-  if (frameworkId === 'react' || frameworkId === 'next') {
-    normalizedCode = normalizeReturnFragments(normalizeJsxFragmentBlocks(normalizedCode));
+  if (isReactFrameworkId(frameworkId)) {
+    const normalizedCode = normalizeReturnParentheses(formatReactExample(code));
+    return normalizedCode.replace(/\r\n?/g, '\n').trim();
   }
 
-  return normalizedCode
+  return code
     .replace(/\r\n?/g, '\n')
     .split('\n')
     .flatMap(expandsInlineMarkup)
