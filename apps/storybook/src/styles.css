@@ -2,6 +2,11 @@
   font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #182131;
   --content-inline: 12px;
+  --framework-code-font-size: 12px;
+  --framework-code-line-height: 1.55;
+  --framework-code-inline: clamp(12px, 2vw, 20px);
+  --framework-code-ui-font-size: 12px;
+  --framework-code-copy-font-size: 11px;
   --docs-code-bg: #f8fafc;
   --docs-code-text: #1f2937;
   --docs-code-comment: #475569;
@@ -722,13 +727,13 @@ body {
 }
 
 .framework-code__tab {
-  padding: 10px 14px;
+  padding: 7px 12px;
   border: 0;
   border-radius: 7px 7px 0 0;
   color: #94a3b8;
   background: transparent;
-  font: inherit;
-  font-size: 13px;
+  font-family: inherit;
+  font-size: var(--framework-code-ui-font-size);
   font-weight: 650;
   white-space: nowrap;
   cursor: pointer;
@@ -760,21 +765,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 44px;
+  min-height: 36px;
   padding: 0 12px;
   border-bottom: 1px solid #263246;
   color: #94a3b8;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 12px;
+  font-size: var(--framework-code-copy-font-size);
 }
 
 .framework-code__filebar button {
-  padding: 6px 9px;
+  padding: 4px 8px;
   border: 1px solid #475569;
-  border-radius: 6px;
+  border-radius: 5px;
   color: #cbd5e1;
   background: transparent;
-  font: inherit;
+  font-family: inherit;
+  font-size: var(--framework-code-copy-font-size);
+  line-height: 1.4;
   cursor: pointer;
 }
 
@@ -788,8 +795,8 @@ body {
   min-height: 300px;
   max-height: 560px;
   margin: 0;
-  padding: 14px;
-  font: 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 12px;
+  font: var(--framework-code-font-size) / var(--framework-code-line-height) ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   overflow-wrap: normal;
   tab-size: 2;
   white-space: pre;
@@ -804,7 +811,9 @@ body {
 }
 
 .framework-code__syntax pre.prismjs {
-  padding: 14px !important;
+  padding: 12px !important;
+  font-size: var(--framework-code-font-size) !important;
+  line-height: var(--framework-code-line-height) !important;
   background: transparent !important;
 }
 
@@ -823,28 +832,28 @@ body {
 }
 
 .framework-storybooks__code {
-  --framework-code-inline: clamp(20px, 3vw, 32px);
   margin: 4px 0 24px;
 }
 
 .framework-storybooks__togglebar {
   display: flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 36px;
 }
 
 .framework-storybooks__togglebar button {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   border: 0;
-  border-radius: 7px;
+  border-radius: 6px;
   color: #075bc7;
   background: #eef5ff;
-  font: inherit;
-  font-size: 13px;
+  font-family: inherit;
+  font-size: var(--framework-code-ui-font-size);
   font-weight: 650;
+  line-height: 1.4;
   cursor: pointer;
 }
 
@@ -858,8 +867,8 @@ body {
 }
 
 .framework-storybooks__togglebar svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .framework-storybooks__body {
@@ -880,13 +889,13 @@ body {
 }
 
 .framework-storybooks__tabs button {
-  padding: 10px 16px;
+  padding: 7px 12px;
   border: 0;
   border-radius: 7px 7px 0 0;
   color: #94a3b8;
   background: transparent;
-  font: inherit;
-  font-size: 13px;
+  font-family: inherit;
+  font-size: var(--framework-code-ui-font-size);
   font-weight: 650;
   cursor: pointer;
 }
@@ -906,27 +915,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 46px;
+  min-height: 36px;
   padding: 0 var(--framework-code-inline);
   border-bottom: 1px solid #263246;
-  gap: 16px;
+  gap: 12px;
 }
 
 .framework-storybooks__filebar code {
   overflow: hidden;
   color: #94a3b8;
-  font-size: 12px;
+  font-size: var(--framework-code-copy-font-size);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .framework-storybooks__filebar button {
-  padding: 6px 9px;
+  flex-shrink: 0;
+  padding: 4px 8px;
   border: 1px solid #475569;
-  border-radius: 6px;
+  border-radius: 5px;
   color: #cbd5e1;
   background: transparent;
-  font: inherit;
+  font-family: inherit;
+  font-size: var(--framework-code-copy-font-size);
+  line-height: 1.4;
   cursor: pointer;
 }
 
@@ -942,7 +954,7 @@ body {
   max-height: 560px;
   margin: 0;
   padding: 0 !important;
-  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font: var(--framework-code-font-size) / var(--framework-code-line-height) ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   overflow-wrap: normal;
   tab-size: 2;
   white-space: pre;
@@ -957,13 +969,15 @@ body {
   box-sizing: border-box;
   width: max-content;
   min-width: 100%;
-  padding: 16px var(--framework-code-inline) 18px !important;
+  padding: 12px var(--framework-code-inline) 14px !important;
   overflow-wrap: normal;
   white-space: pre !important;
 }
 
 .framework-storybooks__syntax pre.prismjs {
-  padding: 16px var(--framework-code-inline) 18px !important;
+  padding: 12px var(--framework-code-inline) 14px !important;
+  font-size: var(--framework-code-font-size) !important;
+  line-height: var(--framework-code-line-height) !important;
   background: transparent !important;
 }
 
@@ -1152,7 +1166,7 @@ body {
   }
 
   .framework-storybooks__code {
-    --framework-code-inline: 16px;
+    --framework-code-inline: 12px;
   }
 
 }
