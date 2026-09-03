@@ -71,7 +71,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    margin-top: 16px;
+    margin-top: 0;
     margin-bottom: 8px;
   }
 
@@ -81,6 +81,27 @@
     width: 110px;
     height: 47px;
     background: url("./images/brand/uxkm_logo_hand.svg") left center / contain no-repeat;
+  }
+
+  /* Root (1-depth) hit area: stretch up to the expand/collapse-all icon.
+     Also injected from manager.ts so it survives manager rebuilds. */
+  .sidebar-subheading[data-nodetype="root"] {
+    display: flex !important;
+    align-items: center !important;
+    width: 100%;
+  }
+
+  .sidebar-subheading[data-nodetype="root"] > button[data-action="collapse-root"] {
+    flex: 1 1 auto !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .sidebar-subheading[data-nodetype="root"] > .sidebar-subheading-action {
+    flex: 0 0 auto !important;
+    position: relative;
+    z-index: 1;
   }
 </style>
 
