@@ -108,7 +108,7 @@ export function Upload({
   const resolvedInputId = inputId || id || `upload-${generatedId}`;
   const resolvedVariant = { dropzone: 'drag', cards: 'picture-card' }[variant] || variant; // 이전 별칭을 정규화합니다.
   const inputRef = useRef(null);
-  const createdUrls = useRef(new Set());
+  const createdUrls = useRef([]);
   const [innerFiles, setInnerFiles] = useState(defaultFiles);
   const [message, setMessage] = useState('');
   const [dragActive, setDragActive] = useState(false);
@@ -148,7 +148,7 @@ export function Upload({
     }
     const added = incoming.slice(0, available).map((file) => {
       const preview = file.type.startsWith('image/') ? URL.createObjectURL(file) : '';
-      if (preview) createdUrls.current.add(preview);
+      if (preview) createdUrls.current.push(preview);
       return {
         file,
         name: file.name,
@@ -166,9 +166,9 @@ export function Upload({
   const remove = (index) => {
     // 해당 항목의 object URL을 정리한 뒤 목록에서 제거합니다.
     const item = files[index];
-    if (item?.url && createdUrls.current.has(item.url)) {
+    if (item?.url && createdUrls.current.includes(item.url)) {
       URL.revokeObjectURL(item.url);
-      createdUrls.current.delete(item.url);
+      createdUrls.current = createdUrls.current.filter((url) => url !== item.url);
     }
     update(files.filter((_, itemIndex) => itemIndex !== index));
   };

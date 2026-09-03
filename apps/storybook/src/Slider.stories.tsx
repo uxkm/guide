@@ -1,9 +1,29 @@
 // @ts-nocheck
 import React from 'react';
 import { sliderApiSections as apiSections } from './sliderApiSections.ts';
+import { defaultValueNumberArg, hiddenArgTypes } from './shared/storyArgTypes';
 import FormLayout from '../../react/src/components/form/FormLayout/FormLayout.jsx';
 import Slider from '../../react/src/components/form/Slider/Slider.jsx';
-const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
+const withDocsCanvasRender = (content) => (args, { updateArgs }) => {
+  const patch = (node) => {
+    if (!React.isValidElement(node)) return node;
+    if (node.type === Slider) {
+      return React.cloneElement(node, {
+        ...node.props,
+        ...args,
+        onChange: (value) => {
+          node.props.onChange?.(value);
+          updateArgs?.({ value });
+        },
+      });
+    }
+    if (node.props?.children) {
+      return React.cloneElement(node, {}, React.Children.map(node.props.children, patch));
+    }
+    return node;
+  };
+  return <div className="demo-stack">{patch(content)}</div>;
+};
 const playgroundArgs = {
   min: 0,
   max: 100,
@@ -20,6 +40,8 @@ const playgroundArgs = {
   decreaseLabel: '',
   increaseLabel: '',
   size: 'md',
+  ripple: true,
+  className: '',
 };
 
 export default {
@@ -27,7 +49,9 @@ export default {
   id: 'components-slider',
   component: Slider,
   tags: ['autodocs'],
+  args: { ...playgroundArgs },
   argTypes: {
+    ...hiddenArgTypes,
     min: { control: 'number', type: { name: 'number', summary: 'number' } },
     max: { control: 'number', type: { name: 'number', summary: 'number' } },
     value: { control: 'number', type: { name: 'number', summary: 'number' } },
@@ -42,11 +66,16 @@ export default {
     hint: { control: 'text', type: { name: 'string', summary: 'string' } },
     decreaseLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
     increaseLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
+    ripple: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    className: { control: 'text', type: { name: 'string', summary: 'string' } },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
       type: { name: 'enum', summary: "'sm' | 'md' | 'lg'" },
     },
+    defaultValue: defaultValueNumberArg,
+    id: { control: 'text', type: { name: 'string', summary: 'string' } },
+    onChange: { table: { disable: true } },
   },
   parameters: {
     controls: { disable: false },
@@ -61,6 +90,7 @@ export default {
 };
 
 export const Playground = {
+  name: 'Playground',
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
   render: (args, { updateArgs }) => (

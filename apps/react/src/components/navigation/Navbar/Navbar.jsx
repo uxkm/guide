@@ -10,6 +10,9 @@ const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 Navbar 크기입니�
 
 export function Navbar({
   brand, // 브랜드 영역에 표시할 기본 텍스트입니다.
+  brandSrc, // 브랜드 로고 이미지 URL입니다.
+  brandAlt, // brandSrc 이미지의 대체 텍스트입니다.
+  brandBackground, // CSS background-image로 표시할 브랜드 이미지 URL입니다.
   ariaLabel, // 헤더의 접근 가능한 이름을 지정합니다.
   size = 'md', // Navbar의 세로 크기를 지정합니다.
   borderless = false, // 하단 테두리를 제거할지 여부입니다.
@@ -47,8 +50,27 @@ export function Navbar({
 
   // items가 있으면 우선하고, 없으면 children을 목록으로 감쌉니다.
   const navItems = items ?? (children ? <ul className="navbar_list">{children}</ul> : null);
-  // ariaLabel, brand 문자열, 기본값을 순서로 접근 가능한 이름을 결정합니다.
-  const accessibleName = ariaLabel || (typeof brand === 'string' && brand) || '사이트';
+  const brandLabel = typeof brand === 'string' ? brand : '';
+  // ariaLabel, brandAlt, brand 문자열, 기본값을 순서로 접근 가능한 이름을 결정합니다.
+  const accessibleName = ariaLabel || brandAlt || brandLabel || '사이트';
+  const brandLinkClass = ['navbar_brand', brandBackground && 'navbar_brand-bg'].filter(Boolean).join(' ');
+  const brandLinkStyle = brandBackground
+    ? { '--navbar-brand-bg-image': `url("${brandBackground}")` }
+    : undefined;
+  const brandLinkAriaLabel = brandBackground && !brandLabel ? accessibleName : undefined;
+
+  const defaultBrand = brandBackground ? (
+    brandLabel ? <span className="navbar_brand-sr">{brandLabel}</span> : null
+  ) : (
+    <>
+      {brandSrc ? (
+        <img className="navbar_brand-image" src={brandSrc} alt={brandAlt ?? brandLabel} />
+      ) : (
+        brandIcon
+      )}
+      {brandSrc ? (brandLabel ? <span className="navbar_brand-text">{brandLabel}</span> : null) : brand}
+    </>
+  );
 
   return (
     <header
@@ -59,13 +81,14 @@ export function Navbar({
       data-navbar={responsive || undefined}
     >
       <div className="navbar_container">
-        <a href="#" className="navbar_brand" onClick={(event) => event.preventDefault()}>
-          {brandContent ?? (
-            <>
-              {brandIcon}
-              {brand}
-            </>
-          )}
+        <a
+          href="#"
+          className={brandLinkClass}
+          style={brandLinkStyle}
+          aria-label={brandLinkAriaLabel}
+          onClick={(event) => event.preventDefault()}
+        >
+          {brandContent ?? defaultBrand}
         </a>
         {responsive && (
           <Button

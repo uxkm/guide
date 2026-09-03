@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import { initInteractions } from '@uxkm/interactions';
+import { storybookBaseArgTypes } from '../src/shared/storyArgTypes';
 
 import '../src/styles.css';
 
@@ -34,6 +35,7 @@ const uxkmViewports = {
 } as const;
 
 const preview: Preview = {
+  argTypes: storybookBaseArgTypes,
   globalTypes: {
     theme: {
       description: '컴포넌트 예시 테마',
@@ -86,6 +88,7 @@ const preview: Preview = {
           '설치 및 사용',
           '디자인 토큰',
           '아키텍처',
+          '가이드라인',
           '레이아웃',
           ['Container', 'Grid', 'Flex', 'Divider', 'Space', '*'],
           '기본 요소',
@@ -137,14 +140,6 @@ const preview: Preview = {
           ['Navbar', 'Menu', 'Tabs', 'Breadcrumb', 'Pagination', 'Steps', 'Dropdown', '*'],
           '기타',
           ['Accordion', 'Collapse', 'Carousel', 'Affix', 'Back Top', '*'],
-          '파운데이션',
-          ['Accessibility', 'Breakpoints', 'Colors', 'Iconography', 'Spacing', 'Typography', '*'],
-          '패턴',
-          ['Empty State Pattern', 'Error Handling', 'Form Validation', 'Modal Pattern', 'Navigation Pattern', '*'],
-          '가이드',
-          ['Accessibility Guide', 'Component Structure', 'Framework Comparison', 'Naming Convention', 'State Convention', '*'],
-          '현황',
-          ['Component Status', 'Framework Support', '*'],
           '*'
         ]
       }

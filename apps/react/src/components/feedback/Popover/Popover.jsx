@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const placements = new Set([
+const placements = [
   'top',
   'top-center',
   'bottom',
@@ -15,8 +15,8 @@ const placements = new Set([
   'left',
   'right',
   'end',
-]); // 지원하는 트리거 기준 배치입니다.
-const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 패널 크기입니다.
+]; // 지원하는 트리거 기준 배치입니다.
+const sizes = ['sm', 'md', 'lg']; // 지원하는 패널 크기입니다.
 const portalOwnerId = Math.random().toString(36).slice(2, 10); // iframe 포털 소유자 ID입니다.
 
 // iframe에서도 최상위 문서에 Popover를 올리기 위한 포털 루트를 찾거나 만듭니다.
@@ -122,8 +122,8 @@ export function Popover({
   const [anchor, setAnchor] = useState(null); // 트리거 뷰포트 좌표입니다.
   const [measuredArrowPosition, setMeasuredArrowPosition] = useState(null); // 측정된 화살표 위치입니다.
   const visible = open ?? internalOpen;
-  const resolvedPlacement = placements.has(placement) ? placement : 'bottom';
-  const resolvedSize = sizes.has(size) ? size : 'md';
+  const resolvedPlacement = placements.includes(placement) ? placement : 'bottom';
+  const resolvedSize = sizes.includes(size) ? size : 'md';
   const portalRoot = visible ? getPopoverPortalRoot() : null;
   // closable 미지정 시 click 트리거면 닫기 버튼을 켭니다.
   const showClose = closable ?? trigger === 'click';

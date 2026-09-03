@@ -2,7 +2,7 @@
  * Select 원본 구현.
  * 폼 값·검증·비활성 상태를 제어하고 레이블, 키보드 동작, 사용자 이벤트를 연결합니다.
  */
-const VALID_SIZES = new Set(['sm', 'md', 'lg']); // 지원하는 크기 이름입니다.
+const VALID_SIZES = ['sm', 'md', 'lg']; // 지원하는 크기 이름입니다.
 
 export function Select({
   size = 'md', // 선택 상자 높이와 글자 크기입니다.
@@ -19,7 +19,7 @@ export function Select({
   ...props // id, name 등 나머지 네이티브 select 속성을 전달합니다.
 }) {
   // 크기·너비·오류 상태를 네이티브 select에 적용할 공통 클래스로 변환합니다.
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
+  const resolvedSize = VALID_SIZES.includes(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
   const classes = [
     'input', // Select도 Input과 동일한 입력 계열 클래스를 사용합니다.
     resolvedSize === 'sm' && 'input_sm', // 작은 크기 변형입니다.

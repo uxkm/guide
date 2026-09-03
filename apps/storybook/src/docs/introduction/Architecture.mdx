@@ -5,7 +5,7 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 # 아키텍처
 
-UXKM은 일곱 프레임워크 앱, 두 문서 앱, 세 공통 패키지를 하나의 `pnpm` 모노레포에서 관리합니다. HTML·Gulp·Vue·React·WebSquare는 공통 컴포넌트의 구현 원본이고, Nuxt·Next.js는 각각 Vue·React 구현을 재사용합니다. WebSquare 앱은 엔진을 포함하지 않는 XML 원본과 검증·동기화 도구입니다.
+UXKM은 일곱 프레임워크 앱, 두 문서 앱, 세 공통 패키지를 하나의 `pnpm` 모노레포에서 관리합니다. HTML·Gulp·Vue·React·WebSquare는 공통 컴포넌트의 구현 원본이고, Nuxt·Next.js는 각각 Vue·React 구현을 재사용합니다. WebSquare 앱은 엔진을 포함하지 않는 XML 원본과 검증·동기화 도구입니다. 프레임워크 선택 기준은 **소개**, 설치·사용법은 **설치 및 사용**을 참고합니다.
 
 ## 전체 구조
 
@@ -60,7 +60,7 @@ React 컴포넌트 ── 실제 렌더링 ──▶ Storybook Preview
 
 ## WebSquare 문서 경계
 
-WebSquare 코드 예제에서 컴포넌트 fragment와 화면 XML 문서는 서로 다른 범위입니다.
+WebSquare 코드 예제에서 컴포넌트 fragment와 화면 XML 문서는 서로 다른 범위입니다. 화면에 붙이는 절차·예제 코드는 **설치 및 사용 › WebSquare**를 참고합니다.
 
 - 화면 XML 최상위 루트는 필요한 XHTML, WebSquare, XML Events, XForms 네임스페이스를 한 번 소유합니다.
 - 같은 문서 안의 모든 컴포넌트 fragment는 루트의 네임스페이스를 상속하므로 선언을 반복하지 않습니다.
@@ -68,7 +68,9 @@ WebSquare 코드 예제에서 컴포넌트 fragment와 화면 XML 문서는 서�
 - Container, Grid, Flex 같은 구조 컴포넌트는 별도 XML 호출 단위가 아니라 현재 화면의 `w2:group`과 공통 CSS 클래스 조합입니다.
 - WFrame은 임의 자식을 받는 UI 래퍼가 아니라 완성된 별도 WebSquare 화면 XML을 포함할 때 사용합니다.
 
-## 컴포넌트 소유권
+## 컴포넌트 소유권과 소스 위치
+
+관심사별 단일 원본과 프레임워크별 경로는 아래를 따릅니다. 파일·API 네이밍 규칙은 **가이드라인 › Naming Convention**을 참고합니다.
 
 <IntroductionCards
   columns={[{ label: '관심사' }, { label: '단일 원본' }, { label: '동기화 대상' }]}
@@ -87,6 +89,27 @@ WebSquare 코드 예제에서 컴포넌트 fragment와 화면 XML 문서는 서�
   ]}
   codeColumns={[1]}
 />
+
+<IntroductionCards
+  columns={[
+    { label: '프레임워크' },
+    { label: '소개 문서' },
+    { label: '컴포넌트' },
+    { label: '빌드 결과 기준' }
+  ]}
+  rows={[
+    ['HTML', 'apps/html/src/introduction', 'apps/html/src/components', 'apps/html/dist'],
+    ['Gulp / Nunjucks', 'apps/gulp/src/introduction', 'apps/gulp/src/components', 'apps/gulp/dist'],
+    ['Vue', 'apps/vue/src/introduction', 'apps/vue/src/components', 'apps/vue/dist'],
+    ['React', 'apps/react/src/introduction', 'apps/react/src/components', 'apps/react/dist'],
+    ['Nuxt', 'apps/nuxt/app/introduction', 'Vue 공통 + Nuxt 전용', 'apps/nuxt/.output/public'],
+    ['Next.js', 'apps/next/src/introduction', 'React 공통 + Next 전용', 'apps/next/out'],
+    ['WebSquare', 'Storybook 소개와 컴포넌트 코드 탭', 'XML 호환 XHTML 예제', 'WebSquare 프로젝트에서 별도 실행']
+  ]}
+  codeColumns={[1, 3]}
+/>
+
+기본 디렉터리 골격은 `Category/Component/` 아래 구현 파일·테스트·`index.js`입니다.
 
 ## 문서 빌드와 배포
 
@@ -119,6 +142,8 @@ apps/storybook/src         │                      └─ storybook/
 
 ## 변경 흐름
 
+새 컴포넌트나 공통 변경은 아래 순서를 따릅니다.
+
 ```text
 요구사항 정의
   → 공통 API·시맨틱 마크업 결정
@@ -130,6 +155,14 @@ apps/storybook/src         │                      └─ storybook/
   → 필요한 경우 Guidebook 원문 갱신
   → 구조 검사·타입 검사·정적 빌드
 ```
+
+1. HTML 마크업과 접근성 의미를 먼저 정의합니다.
+2. Gulp/Nunjucks, Vue, React 구현의 API와 상태 이름을 맞춥니다.
+3. Nuxt와 Next.js에서 프레임워크 전용 처리가 필요한지 확인합니다.
+4. `packages/styles/components`의 공통 스타일을 갱신합니다.
+5. `apps/websquare/src/components`의 WebSquare XML과 실제 Engine 결과를 확인합니다.
+6. Storybook 문서에 일곱 구현 예시와 API를 추가합니다.
+7. `pnpm validate:structure`, 타입 검사, Storybook 빌드로 검증합니다.
 
 ## 동기화 원칙
 

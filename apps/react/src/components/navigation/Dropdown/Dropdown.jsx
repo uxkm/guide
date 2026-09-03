@@ -1,12 +1,27 @@
 /**
  * Dropdown 원본 구현.
  * 현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다.
+ *
+ * @param {boolean} [open] 제어형으로 메뉴 열림 상태입니다.
+ * @param {boolean} [defaultOpen=false] 비제어형 초기 열림 상태입니다.
+ * @param {boolean} [disabled=false] 트리거와 메뉴 상호작용을 막을지 여부입니다.
+ * @param {'start'|'end'|'top'} [placement='start'] 메뉴가 트리거 기준으로 열리는 위치입니다.
+ * @param {boolean} [fit=false] 메뉴 너비를 트리거에 맞출지 여부입니다.
+ * @param {number} [maxVisibleItems] 스크롤 전에 보일 최대 항목 수입니다.
+ * @param {number} [menuWidth] 메뉴의 고정 너비입니다. 숫자는 rem입니다.
+ * @param {number} [menuMinWidth] 메뉴의 최소 너비입니다. 숫자는 rem입니다.
+ * @param {import('react').ReactNode} [triggerContent] 기본 버튼 대신 사용할 사용자 정의 트리거입니다.
+ * @param {string} [triggerLabel='메뉴'] 기본 트리거 버튼에 표시할 텍스트입니다.
+ * @param {import('react').ReactNode} [children] 메뉴 안에 배치할 Menu 등 콘텐츠입니다.
+ * @param {boolean} [closeOnSelect=true] 항목 선택 후 메뉴를 닫을지 여부입니다.
+ * @param {(open: boolean) => void} [onOpenChange] 열림 상태가 바뀔 때 호출할 콜백입니다.
+ * @param {(value: string, event: Event) => void} [onSelect] 메뉴 항목이 선택될 때 호출할 콜백입니다.
  */
 import { cloneElement, isValidElement, useEffect, useId, useRef, useState } from 'react';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const placements = new Set(['start', 'end', 'top']); // 지원하는 메뉴 배치입니다.
+const placements = ['start', 'end', 'top']; // 지원하는 메뉴 배치입니다.
 const cssSize = (value) => (typeof value === 'number' ? `${value}rem` : value); // 숫자면 rem 단위로 변환합니다.
 
 export function Dropdown({
@@ -32,7 +47,7 @@ export function Dropdown({
   const [internal, setInternal] = useState(defaultOpen); // 비제어형 열림 상태입니다.
   const controlled = open !== undefined; // 제어형 사용 여부입니다.
   const visible = controlled ? open : internal; // 최종 표시 상태입니다.
-  const resolvedPlacement = placements.has(placement) ? placement : 'start'; // 검증된 배치입니다.
+  const resolvedPlacement = placements.includes(placement) ? placement : 'start'; // 검증된 배치입니다.
 
   // 비활성 상태면 무시하고, 비제어형이면 내부 상태를 갱신한 뒤 콜백을 호출합니다.
   const setOpen = (next) => {

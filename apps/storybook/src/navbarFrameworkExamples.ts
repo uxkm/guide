@@ -1,18 +1,25 @@
 import type { FrameworkExample } from './FrameworkCode';
-const names = ['basic', 'brand', 'actions', 'search', 'size', 'variant', 'badge', 'responsive'] as const;
+const names = ['basic', 'brand', 'brandImage', 'brandBackground', 'actions', 'search', 'size', 'variant', 'badge', 'responsive'] as const;
 type Name = (typeof names)[number];
 
 const itemsHtml = (items: Array<[string, boolean?, string?]>) => `<ul class="navbar_list">${items.map(([label, active, badge]) => `<li class="navbar_item"><a href="#" class="navbar_link${active ? ' is-active' : ''}"${active ? ' aria-current="page"' : ''}>${label}${badge || ''}</a></li>`).join('')}</ul>`;
-const navbarHtml = (brand: string, items: string, options: { classes?: string; icon?: string; actions?: string; search?: string; responsive?: boolean; id?: string } = {}) => {
+const navbarHtml = (brand: string, items: string, options: { classes?: string; icon?: string; brandSrc?: string; brandAlt?: string; brandBackground?: string; actions?: string; search?: string; responsive?: boolean; id?: string } = {}) => {
   const id = options.id || 'navbar-collapse';
   const toggle = options.responsive ? `<button type="button" class="btn btn_ghost btn_icon-only navbar_toggle" data-navbar-toggle aria-expanded="false" aria-controls="${id}" aria-label="메뉴 열기"><svg class="icon icon_sm navbar_toggle-icon-open" data-component="Icon" data-icon="menu" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><svg class="icon icon_sm navbar_toggle-icon-close" data-component="Icon" data-icon="close" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg></button>` : '';
-  return `<header class="navbar${options.classes ? ` ${options.classes}` : ''}" data-component="Navbar"${options.responsive ? ' data-navbar' : ''}><div class="navbar_container"><a href="#" class="navbar_brand">${options.icon || ''}${brand}</a>${toggle}<div class="navbar_collapse" id="${id}"><nav class="navbar_nav" aria-label="주요 메뉴">${items}</nav>${options.search ? `<div class="navbar_search">${options.search}</div>` : ''}${options.actions ? `<div class="navbar_actions">${options.actions}</div>` : ''}</div></div></header>`;
+  const brandLink = options.brandBackground
+    ? `<a href="#" class="navbar_brand navbar_brand-bg" style="--navbar-brand-bg-image: url('${options.brandBackground}')" aria-label="${options.brandAlt || brand}"><span class="navbar_brand-sr">${brand}</span></a>`
+    : options.brandSrc
+      ? `<a href="#" class="navbar_brand"><img class="navbar_brand-image" src="${options.brandSrc}" alt="${options.brandAlt || brand}" />${brand ? `<span class="navbar_brand-text">${brand}</span>` : ''}</a>`
+      : `<a href="#" class="navbar_brand">${options.icon || ''}${brand}</a>`;
+  return `<header class="navbar${options.classes ? ` ${options.classes}` : ''}" data-component="Navbar"${options.responsive ? ' data-navbar' : ''}><div class="navbar_container">${brandLink}${toggle}<div class="navbar_collapse" id="${id}"><nav class="navbar_nav" aria-label="주요 메뉴">${items}</nav>${options.search ? `<div class="navbar_search">${options.search}</div>` : ''}${options.actions ? `<div class="navbar_actions">${options.actions}</div>` : ''}</div></div></header>`;
 };
 const buttonHtml = (label: string, variant = 'outline') => `<button type="button" class="btn btn_${variant}${variant === 'filled' ? ' color_primary' : ''} btn_sm"><span class="btn_label">${label}</span></button>`;
 const standard = itemsHtml([['홈', true], ['컴포넌트'], ['토큰'], ['접근성']]);
 const html: Record<Name, string> = {
   basic: navbarHtml('UXKM', standard),
   brand: navbarHtml('HTML Components', itemsHtml([['가이드', true], ['리소스']]), { icon: '<svg class="icon navbar_brand-icon" data-component="Icon" data-icon="grid" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="6" height="6"></rect><rect x="14" y="4" width="6" height="6"></rect><rect x="4" y="14" width="6" height="6"></rect><rect x="14" y="14" width="6" height="6"></rect></svg>' }),
+  brandImage: navbarHtml('', itemsHtml([['가이드', true], ['리소스']]), { brandSrc: '/images/brand/uxkm_logo_hand.svg', brandAlt: 'UXKM' }),
+  brandBackground: navbarHtml('UXKM', itemsHtml([['가이드', true], ['리소스']]), { brandBackground: '/images/brand/uxkm_logo_hand.svg', brandAlt: 'UXKM' }),
   actions: navbarHtml('Dashboard', itemsHtml([['개요', true], ['분석'], ['설정']]), { actions: `<button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="알림"><svg class="icon" data-component="Icon" data-icon="bell" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M14 21h-4"></path></svg></button>${buttonHtml('로그인')}${buttonHtml('가입', 'filled')}` }),
   search: navbarHtml('Docs', itemsHtml([['시작하기'], ['컴포넌트', true], ['패턴']]), { search: '<input class="input input_sm" type="search" id="navbar-search-demo" placeholder="문서 검색…" autocomplete="off" aria-label="문서 검색">', actions: buttonHtml('GitHub', 'filled') }),
   size: [navbarHtml('Small', itemsHtml([['메뉴', true]]), { classes: 'navbar_sm' }), navbarHtml('Default', itemsHtml([['메뉴', true]])), navbarHtml('Large', itemsHtml([['메뉴', true]]), { classes: 'navbar_lg' })].join('\n\n'),
@@ -25,6 +32,8 @@ const menuReact = (entries: Array<[string, boolean?]>) => `<NavbarList>${entries
 const react: Record<Name, string> = {
   basic: `<Navbar brand="UXKM" items={${menuReact([['홈', true], ['컴포넌트'], ['토큰'], ['접근성']])}} />`,
   brand: `<Navbar brand="HTML Components" brandIcon={<Icon name="grid" className="navbar_brand-icon" />} items={${menuReact([['가이드', true], ['리소스']])}} />`,
+  brandImage: `<Navbar brandSrc="/images/brand/uxkm_logo_hand.svg" brandAlt="UXKM" ariaLabel="UXKM" items={${menuReact([['가이드', true], ['리소스']])}} />`,
+  brandBackground: `<Navbar brandBackground="/images/brand/uxkm_logo_hand.svg" ariaLabel="UXKM" items={${menuReact([['가이드', true], ['리소스']])}} />`,
   actions: `<Navbar brand="Dashboard" items={${menuReact([['개요', true], ['분석'], ['설정']])}} actions={<><Button variant="ghost" size="sm" iconOnly ariaLabel="알림" iconBefore={<Icon name="bell" />} /><Button variant="outline" size="sm" label="로그인" /><Button variant="filled" color="primary" size="sm" label="가입" /></>} />`,
   search: `<Navbar brand="Docs" items={${menuReact([['시작하기'], ['컴포넌트', true], ['패턴']])}} search={<Input type="search" id="navbar-search-demo" size="sm" placeholder="문서 검색…" autoComplete="off" ariaLabel="문서 검색" />} actions={<Button variant="filled" color="primary" size="sm" label="GitHub" />} />`,
   size: `<Navbar brand="Small" size="sm" items={${menuReact([['메뉴', true]])}} />\n<Navbar brand="Default" items={${menuReact([['메뉴', true]])}} />\n<Navbar brand="Large" size="lg" items={${menuReact([['메뉴', true]])}} />`,
@@ -38,6 +47,8 @@ const vueNavbar = (attrs: string, menu: string, slots = '') => `<Navbar ${attrs}
 const vue: Record<Name, string> = {
   basic: vueNavbar('brand="UXKM"', menuVue([['홈', true], ['컴포넌트'], ['토큰'], ['접근성']])),
   brand: vueNavbar('brand="HTML Components"', menuVue([['가이드', true], ['리소스']]), '<template #brand-icon><Icon name="grid" class="navbar_brand-icon" /></template>'),
+  brandImage: vueNavbar('brand-src="/images/brand/uxkm_logo_hand.svg" brand-alt="UXKM" aria-label="UXKM"', menuVue([['가이드', true], ['리소스']])),
+  brandBackground: vueNavbar('brand-background="/images/brand/uxkm_logo_hand.svg" aria-label="UXKM"', menuVue([['가이드', true], ['리소스']])),
   actions: vueNavbar('brand="Dashboard"', menuVue([['개요', true], ['분석'], ['설정']]), '<template #actions><Button variant="ghost" size="sm" icon-only aria-label="알림"><template #icon-before><Icon name="bell" /></template></Button><Button variant="outline" size="sm" label="로그인" /><Button variant="filled" color="primary" size="sm" label="가입" /></template>'),
   search: vueNavbar('brand="Docs"', menuVue([['시작하기'], ['컴포넌트', true], ['패턴']]), '<template #search><Input type="search" id="navbar-search-demo" size="sm" placeholder="문서 검색…" autocomplete="off" aria-label="문서 검색" /></template><template #actions><Button variant="filled" color="primary" size="sm" label="GitHub" /></template>'),
   size: `${vueNavbar('brand="Small" size="sm"', menuVue([['메뉴', true]]))}\n${vueNavbar('brand="Default"', menuVue([['메뉴', true]]))}\n${vueNavbar('brand="Large" size="lg"', menuVue([['메뉴', true]]))}`,

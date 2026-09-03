@@ -18,9 +18,12 @@
   --pagination-bg: var(--color-surface);
   --pagination-bg-hover: var(--color-surface-raised);
   --pagination-bg-active: var(--color-accent);
+  --pagination-border-color-active: var(--color-accent);
   --pagination-color: var(--color-text);
   --pagination-color-muted: var(--color-text-muted);
   --pagination-color-active: var(--color-on-accent);
+  --pagination-bg-active-minimal: var(--color-accent-muted);
+  --pagination-color-active-minimal: var(--color-accent-text);
   --pagination-icon-size: 1rem;
   --pagination-total-gap: var(--space-md);
   --pagination-wrap-gap: var(--space-md);
@@ -85,6 +88,8 @@
     border-color $transition-fast;
   @include focus-ring;
 
+  appearance: none;
+
   &:hover:not(:disabled):not(.is-disabled):not(.is-active):not([aria-current="page"]) {
     color: color-token(primary);
     background: var(--pagination-bg-hover);
@@ -131,19 +136,34 @@
 
   &.pagination_minimal {
     .pagination_link,
-    .pagination_btn {
+    .pagination_btn,
+    .pagination_link.btn,
+    .pagination_btn.btn,
+    .pagination_btn.btn.btn_ghost {
       border-color: transparent;
       background: transparent;
+      background-color: transparent;
 
       &:hover:not(:disabled):not(.is-disabled):not(.is-active):not([aria-current="page"]) {
         background: var(--pagination-bg-hover);
+        background-color: var(--pagination-bg-hover);
       }
     }
 
     .pagination_link {
       &.is-active,
-      &[aria-current="page"] {
+      &[aria-current="page"],
+      &.btn.is-active,
+      &.btn[aria-current="page"] {
+        color: var(--pagination-color-active-minimal);
+        background: var(--pagination-bg-active-minimal);
+        background-color: var(--pagination-bg-active-minimal);
         border-color: transparent;
+        font-weight: var(--pagination-font-weight-active);
+
+        .btn_label {
+          color: inherit;
+        }
       }
     }
   }
@@ -201,18 +221,29 @@
 
       .btn_label {
         padding: 0;
+        color: inherit;
         font: inherit;
         font-weight: inherit;
       }
     }
 
     &.is-active,
-    &[aria-current="page"] {
+    &[aria-current="page"],
+    &.btn.btn_text.is-active,
+    &.btn.btn_text[aria-current="page"],
+    &.btn.color_default.is-active,
+    &.btn.color_default[aria-current="page"] {
       color: var(--pagination-color-active);
       background: var(--pagination-bg-active);
-      border-color: var(--color-accent);
+      background-color: var(--pagination-bg-active);
+      border-color: var(--pagination-border-color-active);
       font-weight: var(--pagination-font-weight-active);
       pointer-events: none;
+
+      .btn_label {
+        color: inherit;
+        font-weight: inherit;
+      }
     }
   }
 
@@ -294,5 +325,31 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--pagination-total-gap);
+  }
+}
+
+// utilities .color_default보다 나중에 적용되도록 현재 페이지를 한 번 더 고정합니다.
+.pagination:not(.pagination_minimal) .pagination_link.is-active,
+.pagination:not(.pagination_minimal) .pagination_link[aria-current="page"] {
+  color: var(--pagination-color-active) !important;
+  background-color: var(--pagination-bg-active) !important;
+  border-color: var(--pagination-border-color-active) !important;
+  font-weight: var(--pagination-font-weight-active);
+
+  &.color_default,
+  .btn_label {
+    color: var(--pagination-color-active) !important;
+  }
+}
+
+.pagination.pagination_minimal .pagination_link.is-active,
+.pagination.pagination_minimal .pagination_link[aria-current="page"] {
+  color: var(--pagination-color-active-minimal) !important;
+  background-color: var(--pagination-bg-active-minimal) !important;
+  border-color: transparent !important;
+
+  &.color_default,
+  .btn_label {
+    color: var(--pagination-color-active-minimal) !important;
   }
 }

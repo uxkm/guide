@@ -7,8 +7,21 @@ import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 패널 크기입니다.
-const placements = new Set(['left', 'right', 'top', 'bottom']); // 지원하는 열림 방향입니다.
+const sizes = ['sm', 'md', 'lg']; // 지원하는 패널 크기입니다.
+const placements = ['left', 'right', 'top', 'bottom']; // 지원하는 열림 방향입니다.
+const motions = ['slide', 'fade']; // 지원하는 열·닫힘 효과입니다.
+const speeds = ['fast', 'normal', 'slow']; // 지원하는 전환 속도 프리셋입니다.
+const speedScales = { fast: 0.65, normal: 1, slow: 1.5 };
+const panelDurationBase = { x: 320, y: 360 };
+const backdropCloseBase = 180;
+
+function getCloseTiming(placement, speed) {
+  const scale = speedScales[speeds.includes(speed) ? speed : 'normal'];
+  const isVertical = placement === 'top' || placement === 'bottom';
+  const panelMs = Math.round((isVertical ? panelDurationBase.y : panelDurationBase.x) * scale);
+  const backdropMs = Math.round(backdropCloseBase * scale);
+  return { panelMs, backdropMs, totalMs: backdropMs + panelMs };
+}
 // 문서별 열린 Drawer 수를 추적해 body 스크롤 잠금을 공유합니다.
 const documentDrawerCounts = new WeakMap();
 const portalOwnerId = Math.random().toString(36).slice(2, 10); // iframe 포털 소유자 ID입니다.
@@ -28,7 +41,7 @@ export function getDrawerPortalRoot(
   if (targetDocument === currentDocument) return currentDocument.body;
 
   const stylesheetUrl = new URL('styles/uxkm.css', targetDocument.baseURI);
-  stylesheetUrl.searchParams.set('v', 'drawer-contrast-20260819');
+  stylesheetUrl.searchParams.set('v', 'drawer-motion-20260903b');
   let stylesheet = targetDocument.getElementById('uxkm-drawer-portal-styles');
   if (!stylesheet) {
     stylesheet = targetDocument.createElement('link');
@@ -57,6 +70,8 @@ export function Drawer({
   title, // 기본 헤더 제목입니다.
   size = 'md', // 패널 크기입니다.
   placement = 'right', // 패널이 열리는 방향입니다.
+  motion = 'slide', // 열·닫힘 효과(slide | fade)입니다.
+  speed = 'normal', // 전환 속도 프리셋(fast | normal | slow)입니다.
   backdrop = true, // 백드롭 클릭으로 닫을지 여부입니다.
   noBackdrop = false, // 백드롭을 완전히 끄는 옵션입니다.
   open, // 제어형 열림 상태입니다.
@@ -72,6 +87,7 @@ export function Drawer({
   children = 'Drawer', // 본문 콘텐츠입니다.
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
   closeLabel = '닫기', // 닫기 버튼의 접근성 이름입니다.
+  style, // 루트 인라인 스타일입니다.
   onClose, // close · backdrop · escape · drag 사유로 호출됩니다.
   ...props // id 외 나머지 속성을 루트 요소에 전달합니다.
 }) {
@@ -81,17 +97,40 @@ export function Drawer({
   const rootRef = useRef(null); // 포커스 트랩용 루트 참조입니다.
   const panelRef = useRef(null); // 드래그 높이 조절용 패널 참조입니다.
   const dragRef = useRef(null); // 진행 중인 드래그 상태입니다.
+  const closeTimerRef = useRef(null); // 닫힘 애니메이션 fallback 타이머입니다.
+  const closeFinishedRef = useRef(false); // 닫힘 완료 중복 호출을 막습니다.
   const previousFocusRef = useRef(null); // 닫힌 뒤 복원할 이전 포커스입니다.
   const [internalOpen, setInternalOpen] = useState(defaultOpen || openOnLoad);
   const visible = open ?? internalOpen; // 제어·비제어를 합친 최종 표시 상태입니다.
-  const resolvedSize = sizes.has(size) ? size : 'md';
-  const resolvedPlacement = placements.has(placement) ? placement : 'right';
+  const [present, setPresent] = useState(Boolean(visible));
+  const isClosing = present && !visible;
+  const resolvedSize = sizes.includes(size) ? size : 'md';
+  const resolvedPlacement = placements.includes(placement) ? placement : 'right';
+  const resolvedMotion = motions.includes(motion) ? motion : 'slide';
+  const resolvedSpeed = speeds.includes(speed) ? speed : 'normal';
+  const motionScale = speedScales[resolvedSpeed];
   // 드래그 핸들은 bottom placement에서만 활성화합니다.
   const showDragHandle = draggable && resolvedPlacement === 'bottom';
-  const portalRoot = visible ? getDrawerPortalRoot() : null;
+  const portalRoot = present ? getDrawerPortalRoot() : null;
   const rootClasses = useMemo(
-    () => ['drawer', visible && 'is-open', className].filter(Boolean).join(' '),
-    [className, visible],
+    () =>
+      [
+        'drawer',
+        `drawer_motion-${resolvedMotion}`,
+        (visible || isClosing) && 'is-open',
+        isClosing && 'is-closing',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' '),
+    [className, visible, isClosing, resolvedMotion],
+  );
+  const rootStyle = useMemo(
+    () => ({
+      '--drawer-motion-scale': motionScale,
+      ...style,
+    }),
+    [motionScale, style],
   );
   // 방향·크기·드래그 가능 패널 클래스를 조합합니다.
   const panelClasses = [
@@ -112,9 +151,82 @@ export function Drawer({
     .join(' ');
 
   const requestClose = (reason, event) => {
+    if (isClosing) return;
     if (open === undefined) setInternalOpen(false);
     onClose?.(reason, event);
   };
+
+  const finishClose = () => {
+    if (closeFinishedRef.current) return;
+    closeFinishedRef.current = true;
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    const root = rootRef.current;
+    if (root) root.style.visibility = 'hidden';
+    setPresent(false);
+  };
+
+  useEffect(() => {
+    if (!visible) return;
+    closeFinishedRef.current = false;
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    if (rootRef.current) rootRef.current.style.removeProperty('visibility');
+    setPresent(true);
+  }, [visible]);
+
+  // 닫힘 애니메이션 완료 후 포커스를 복원합니다.
+  useEffect(() => {
+    if (present) return;
+    previousFocusRef.current?.focus?.();
+  }, [present]);
+
+  // 닫힘 슬라이드 — is-closing 동안 is-open을 유지해 패널이 열린 위치에서 slide-out 합니다.
+  useEffect(() => {
+    if (!isClosing) return undefined;
+    const panel = panelRef.current;
+    if (!panel) {
+      finishClose();
+      return undefined;
+    }
+
+    panel.classList.remove('is-expanded');
+    panel.style.removeProperty('height');
+
+    const view = panel.ownerDocument.defaultView;
+    const reducedMotion = view?.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) {
+      finishClose();
+      return undefined;
+    }
+
+    const { totalMs } = getCloseTiming(resolvedPlacement, resolvedSpeed);
+    const handleAnimationEnd = (event) => {
+      if (event.target !== panel) return;
+      if (
+        !event.animationName.startsWith('drawer-slide-out') &&
+        !event.animationName.startsWith('drawer-fade-out')
+      ) {
+        return;
+      }
+      finishClose();
+    };
+
+    panel.addEventListener('animationend', handleAnimationEnd);
+    closeTimerRef.current = view?.setTimeout(finishClose, totalMs + 80);
+
+    return () => {
+      panel.removeEventListener('animationend', handleAnimationEnd);
+      if (closeTimerRef.current) {
+        view?.clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+    };
+  }, [isClosing, resolvedPlacement, resolvedSpeed]);
 
   // 하단 시트 드래그를 시작합니다.
   const startDrag = (event) => {
@@ -187,7 +299,7 @@ export function Drawer({
 
   // 열림 시 스크롤 잠금·포커스·Escape·Tab 트랩을 연결합니다.
   useEffect(() => {
-    if (!visible || !portalRoot) return undefined;
+    if (!present || !portalRoot) return undefined;
     const targetDocument = portalRoot.ownerDocument;
     previousFocusRef.current = targetDocument.activeElement;
     documentDrawerCounts.set(targetDocument, (documentDrawerCounts.get(targetDocument) || 0) + 1);
@@ -198,7 +310,7 @@ export function Drawer({
     const handleKeyDown = (event) => {
       const openDrawers = portalRoot.querySelectorAll('.drawer.is-open');
       if (openDrawers[openDrawers.length - 1] !== rootRef.current) return;
-      if (event.key === 'Escape') requestClose('escape', event);
+      if (event.key === 'Escape' && visible && !isClosing) requestClose('escape', event);
       if (event.key !== 'Tab' || !rootRef.current) return;
       const focusable = [
         ...rootRef.current.querySelectorAll(
@@ -227,19 +339,21 @@ export function Drawer({
       const remaining = Math.max(0, (documentDrawerCounts.get(targetDocument) || 1) - 1);
       documentDrawerCounts.set(targetDocument, remaining);
       if (remaining === 0) targetDocument.body.classList.remove('is-drawer-open');
-      previousFocusRef.current?.focus?.();
     };
-  }, [visible, portalRoot]);
+  }, [present, portalRoot, visible, isClosing]);
 
-  if (!visible || !portalRoot) return null;
+  if (!present || !portalRoot) return null;
   return createPortal(
     <div
       {...props}
       ref={rootRef}
       id={drawerId}
       className={rootClasses}
+      style={rootStyle}
       data-component="Drawer"
       data-drawer=""
+      data-drawer-motion={resolvedMotion}
+      data-drawer-speed={resolvedSpeed}
       data-drawer-draggable={showDragHandle ? 'true' : undefined}
       data-drawer-backdrop={backdrop && !noBackdrop ? undefined : 'false'}
       role="dialog"

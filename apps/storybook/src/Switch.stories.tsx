@@ -1,15 +1,18 @@
 // @ts-nocheck
 import React from 'react';
 import { expect } from 'storybook/test';
+import { defaultCheckedArg, hiddenArgTypes } from './shared/storyArgTypes';
 import FormLayout from '../../react/src/components/form/FormLayout/FormLayout.jsx';
 import Switch from '../../react/src/components/form/Switch/Switch.jsx';
-const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
+const withDocsCanvasRender = (content) => (args) => <div className="demo-stack">{content}</div>;
 const playgroundArgs = {
   label: '라벨',
   checked: false,
   disabled: false,
   labelEnd: false,
   size: 'md',
+  ripple: true,
+  className: '',
   ariaLabel: '접근성 라벨',
 };
 
@@ -18,17 +21,30 @@ export default {
   id: 'components-switch',
   component: Switch,
   tags: ['autodocs'],
+  args: { ...playgroundArgs },
   argTypes: {
+    ...hiddenArgTypes,
     label: { control: 'text', type: { name: 'string', summary: 'string' } },
     checked: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     disabled: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     labelEnd: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    ripple: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
       type: { name: 'enum', summary: "'sm' | 'md' | 'lg'" },
     },
+    className: {
+      control: 'select',
+      options: ['', 'switch_block', 'color_primary', 'color_success', 'color_warning', 'color_danger'],
+      type: { name: 'string', summary: 'string' },
+    },
     ariaLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
+    name: { control: 'text' },
+    value: { control: 'text' },
+    id: { control: 'text', type: { name: 'string', summary: 'string' } },
+    defaultChecked: defaultCheckedArg,
+    onChange: { table: { disable: true } },
   },
   parameters: {
     a11y: { test: 'error' },
@@ -43,6 +59,7 @@ export default {
 };
 
 export const Playground = {
+  name: 'Playground',
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
   render: (args) => <Switch {...args} />,

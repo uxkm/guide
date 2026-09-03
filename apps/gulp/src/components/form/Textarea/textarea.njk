@@ -1,5 +1,6 @@
 {# Textarea 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
 {# form_field 안에서 레이블·여러 줄 입력·글자 수·상태 메시지를 구성합니다. #}
+{% from "../../basic/Icon/icon.njk" import icon %}
 {% set textareaId = textareaId | default('textarea-example') %}
 {% set textareaSize = textareaSize | default('md') %}
 {% set textareaResize = textareaResize | default('none') %}
@@ -7,6 +8,7 @@
 {% set countId = textareaId + '-count' %}
 {% set hintId = textareaId + '-hint' %}
 {% set textareaValue = value | default('') %}
+{% set wrapTextarea = showCount or clearable %}
 <div class="form_field{% if fit %} form_field_fit{% endif %}">
   {# 보이는 레이블이 있으면 textarea id와 연결하고, 없으면 접근 가능한 숨김 레이블을 제공합니다. #}
   {% if label %}
@@ -24,9 +26,9 @@
     {{ ariaLabel | default('여러 줄 입력') }}
   </label>
   {% endif %}
-  {# 글자 수가 필요할 때만 textarea와 접근 가능한 카운터를 wrapper로 묶습니다. #}
-  {% if showCount %}
-  <div class="textarea_wrap textarea_show-count">
+  {# 글자 수·지우기가 필요할 때만 textarea와 부가 UI를 wrapper로 묶습니다. #}
+  {% if wrapTextarea %}
+  <div class="textarea_wrap{% if showCount %} textarea_show-count{% endif %}{% if clearable %} textarea_clearable{% endif %}{% if clearable and textareaValue and not disabled and not readonly %} is-filled{% endif %}">
   {% endif %}
   <textarea
     id="{{ textareaId }}"
@@ -41,6 +43,17 @@
     aria-describedby="{% if errorMessage or hint %}{{ hintId }}{% endif %}{% if showCount %}{% if errorMessage or hint %} {% endif %}{{ countId }}{% endif %}"{% endif %}
     data-component="Textarea"
   >{{ textareaValue }}</textarea>
+  {% if clearable %}
+  <button
+    class="textarea_clear"
+    type="button"
+    data-ripple="surface"
+    aria-label="입력 지우기"
+    {% if not textareaValue or disabled or readonly %}hidden{% endif %}
+  >
+    {{ icon('close') }}
+  </button>
+  {% endif %}
   {% if showCount %}
   <span
       id="{{ countId }}"
@@ -56,6 +69,8 @@
       {{ textareaValue | length }}자 입력{% if maxlength %}, 최대 {{ maxlength }}자{% endif %}
     </span>
   </span>
+  {% endif %}
+  {% if wrapTextarea %}
   </div>
   {% endif %}
   {% if errorMessage %}

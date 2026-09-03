@@ -13,6 +13,9 @@ defineOptions({ name: 'UxkmNavbar', inheritAttrs: false });
 // 브랜드, 크기, 테마, 고정, 반응형 접힘 설정을 prop으로 받습니다.
 const props = defineProps({
   brand: String, // 브랜드 영역에 표시할 기본 텍스트입니다.
+  brandSrc: String, // 브랜드 로고 이미지 URL입니다.
+  brandAlt: String, // brandSrc 이미지의 대체 텍스트입니다.
+  brandBackground: String, // CSS background-image로 표시할 브랜드 이미지 URL입니다.
   size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // Navbar의 세로 크기를 지정합니다.
   borderless: Boolean, // 하단 테두리를 제거할지 여부입니다.
   dark: Boolean, // 어두운 배경 테마를 적용할지 여부입니다.
@@ -35,8 +38,18 @@ const classes = computed(() =>
     props.dark && 'navbar_dark', // 어두운 테마 변형입니다.
     props.sticky && 'navbar_sticky', // 상단 고정 변형입니다.
     open.value && 'is-open', // 반응형 메뉴가 열린 상태입니다.
-  ].filter(Boolean),
+    ].filter(Boolean),
 ); // false 등 적용되지 않는 항목을 제거합니다.
+
+const brandLinkClass = computed(() =>
+  ['navbar_brand', props.brandBackground && 'navbar_brand-bg'].filter(Boolean).join(' '),
+);
+const brandLinkStyle = computed(() =>
+  props.brandBackground ? { '--navbar-brand-bg-image': `url("${props.brandBackground}")` } : undefined,
+);
+const brandLinkAriaLabel = computed(() =>
+  props.brandBackground && !props.brand ? props.brandAlt || props.brand || '사이트' : undefined,
+);
 </script>
 
 <template>
@@ -49,9 +62,27 @@ const classes = computed(() =>
   >
     <div class="navbar_container">
       <!-- 브랜드 링크는 데모용으로 기본 이동을 막습니다. -->
-      <a href="#" class="navbar_brand" @click.prevent
-        ><slot name="brand"><slot name="brand-icon" />{{ brand }}</slot></a
+      <a
+        href="#"
+        :class="brandLinkClass"
+        :style="brandLinkStyle"
+        :aria-label="brandLinkAriaLabel"
+        @click.prevent
       >
+        <slot name="brand">
+          <template v-if="brandBackground">
+            <span v-if="brand" class="navbar_brand-sr">{{ brand }}</span>
+          </template>
+          <template v-else-if="brandSrc">
+            <img class="navbar_brand-image" :src="brandSrc" :alt="brandAlt ?? brand ?? ''" />
+            <span v-if="brand" class="navbar_brand-text">{{ brand }}</span>
+          </template>
+          <template v-else>
+            <slot name="brand-icon" />
+            {{ brand }}
+          </template>
+        </slot>
+      </a>
       <Button
         v-if="responsive"
         variant="ghost"

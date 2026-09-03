@@ -7,12 +7,7 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인 언어와 컴포넌트 API를 제공하는 통합 UI 가이드입니다. 기존 `gulp-storybook`, `vue-storybook`, `react-storybook`의 소개 내용을 현재 모노레포 구조에 맞춰 한곳에 모았습니다.
 
-## 이 Storybook에서 제공하는 것
-
-- **52개 UI 컴포넌트** — 레이아웃, 기본 요소, 데이터 표시, 폼, 피드백, 네비게이션, 기타의 7개 카테고리로 구성합니다.
-- **프레임워크별 구현** — 각 컴포넌트 문서에서 여섯 브라우저 구현과 WebSquare 화면 XML을 비교할 수 있습니다.
-- **단일 스타일 원본** — 모든 앱은 `packages/styles`에서 생성한 같은 CSS, 디자인 토큰, 테마를 사용합니다.
-- **일관된 접근성** — 시맨틱 HTML, `aria-*`, 키보드와 포커스 동작을 구현 방식과 관계없이 유지합니다.
+52개 컴포넌트는 레이아웃·기본 요소·데이터 표시·폼·피드백·네비게이션·기타 7개 카테고리로 나뉘며, 왼쪽 메뉴에서 Preview·프레임워크 코드·API를 바로 열 수 있습니다. 공통 CSS·토큰은 **디자인 토큰**, 접근성·패턴·현황은 **가이드라인**, 설치·사용법은 **설치 및 사용**에서 이어서 확인합니다.
 
 ## 지원 프레임워크
 
@@ -35,29 +30,7 @@ HTML, Gulp/Nunjucks, Vue, React, Nuxt, Next.js, WebSquare에서 같은 디자인
   codeColumns={[1]}
 />
 
-## WebSquare 예제 사용
-
-각 컴포넌트의 **Code → WebSquare** 탭은 HTML 기준 마크업을 WebSquare 화면에서 사용할 수 있는 XML fragment로 제공합니다. 공통 클래스와 접근성 속성, 닫는 void 태그와 값을 가진 XML 속성을 유지하며, 네임스페이스 선언은 화면 XML 루트에서 상속받습니다.
-
-WebSquare 예제는 React나 Vue처럼 별도 컴포넌트를 import해 호출하는 코드가 아닙니다. Container, Grid, Flex 같은 구조 컴포넌트는 실제 화면의 `w2:group`에 공통 클래스를 직접 적용합니다. 별도 XML 화면 전체를 포함해야 할 때만 WFrame의 `src`를 사용하며, 호출 위치의 임의 콘텐츠를 감싸는 Container에는 사용하지 않습니다.
-
-```xml
-<w2:group
-  id="uxkmExample"
-  class="uxkm_example">
-  <button type="button" class="btn btn_filled color_primary">
-    <span class="btn_label">저장</span>
-  </button>
-</w2:group>
-```
-
-`xmlns`, `xmlns:w2`, `xmlns:ev`, `xmlns:xf`는 컴포넌트마다 작성하지 않습니다. 하나의 화면 XML 최상위 루트에서 한 번 선언하면 그 안의 모든 컴포넌트가 상속합니다. 별도 화면 XML이나 WFrame 소스처럼 독립적으로 파싱되는 문서만 각 문서의 루트에서 다시 선언합니다.
-
-현재 WebSquare 지원은 별도 실행 앱이나 WebSquare 엔진을 포함하지 않는 **코드 예제 지원**입니다. 정적 표현은 공통 CSS와 마크업을 재사용하고, 데이터 바인딩·화면 전환·WebSquare 컴포넌트 이벤트가 필요한 예제는 프로젝트의 `scwin` 함수와 데이터 객체 규칙에 맞게 연결합니다.
-
-여기서 **화면**은 페이지 단위 WebSquare XML 문서이고, **scwin**은 WebSquare가 화면에 만들어 주는 기본 스크립트 객체명입니다. 클릭·변경 이벤트는 `ev:onclick="scwin.btnSave_onclick"`처럼 XML Events로 화면 스크립트에 연결하고, 입력값은 `ref="data:..."`로 DataMap·DataList 경로에 바인딩합니다. `scwin`은 `config.xml`의 SPA `variable`에서 바꿀 수 있으므로, 프로젝트가 다른 이름을 쓰면 예제를 그 이름에 맞춥니다. UXKM은 공통 화면 스크립트를 제공하지 않으므로 함수 이름, 데이터 객체, 화면 파일 구조는 프로젝트 규칙을 따릅니다. Container·Grid·Flex 같은 구조 컴포넌트는 화면 스크립트나 DataList가 필요하지 않습니다.
-
-자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언해 교체할 수 있습니다.
+앱·패키지 의존 관계와 소스 소유권은 **아키텍처**, 설치·import·WebSquare 화면 연결은 **설치 및 사용**을 참고합니다.
 
 ## HTML과 Gulp/Nunjucks의 차이
 
@@ -90,7 +63,7 @@ WebSquare 예제는 React나 Vue처럼 별도 컴포넌트를 import해 호출�
   codeColumns={[1]}
 />
 
-`apps/html/src/components`의 `.html`은 시맨틱 마크업의 기준이고, `apps/gulp/src/components`의 `.njk`는 같은 구조를 정적 사이트 템플릿에서 재사용하기 위한 구현입니다. `.njk` 파일을 `<script>`나 `<link>`로 브라우저에 직접 연결하지 않습니다.
+`apps/html/src/components`의 `.html`은 시맨틱 마크업의 기준이고, `apps/gulp/src/components`의 `.njk`는 같은 구조를 정적 사이트 템플릿에서 재사용하기 위한 구현입니다. `.njk` 파일을 `<script>`나 `<link>`로 브라우저에 직접 연결하지 않습니다. Nunjucks 사용법은 **설치 및 사용 › Gulp / Nunjucks**를 참고합니다.
 
 ## Vue와 Nuxt의 차이
 
@@ -164,59 +137,10 @@ React는 사용자 인터페이스와 상태를 구성하는 라이브러리이�
 
 이 저장소에서 `@uxkm/next`는 `@uxkm/react`의 UI 컴포넌트를 재사용합니다. 공통 컴포넌트와 상태 관리는 React가 담당하고, Next.js 앱에는 App Router 페이지와 프레임워크 전용 링크·이미지·렌더링 통합만 둡니다.
 
-## 공통 구현 원칙
-
-- **구조** — 블록(`.btn`), 파트(`.btn_label`), 변형(`.btn_filled`), 의미 색상(`.color_primary`), 상태(`.is-open`)를 조합합니다.
-- **마크업** — HTML과 Nunjucks는 공통 마크업을 직접 사용하고 Vue·React 계열은 동일한 클래스와 접근성 속성을 컴포넌트가 생성합니다.
-- **스타일** — 모든 앱은 `packages/styles`에서 생성한 동일한 CSS와 디자인 토큰을 사용합니다.
-- **확장** — Nuxt는 Vue 컴포넌트를, Next.js는 React 컴포넌트를 재사용하며 프레임워크 전용 기능만 확장합니다.
-- **WebSquare** — HTML 기준 마크업을 XML 호환 XHTML로 제공하고 프로젝트별 데이터 바인딩과 이벤트는 화면 규칙에 맞게 연결합니다.
-
-## 컴포넌트 카테고리
-
-<IntroductionCards
-  columns={[
-    { label: '카테고리' },
-    { label: '주요 컴포넌트' },
-    { label: '개수' }
-  ]}
-  rows={[
-    ['레이아웃', 'Container, Grid, Flex, Divider, Space', '5'],
-    ['기본 요소', 'Button, Typography, Icon, Link', '4'],
-    ['데이터 표시', 'Avatar, Badge, Tag, Card, Table, List 등', '10'],
-    ['폼', 'Form Layout, Input, Select, Checkbox, Date Picker 등', '11'],
-    ['피드백', 'Alert, Snackbar, Modal, Drawer, Tooltip 등', '10'],
-    ['네비게이션', 'Navbar, Menu, Tabs, Breadcrumb, Pagination 등', '7'],
-    ['기타', 'Accordion, Collapse, Carousel, Affix, Back Top', '5'],
-    ['전체', '', '52']
-  ]}
-/>
-
-## 프레임워크별 소개 문서
-
-각 프레임워크 앱은 **Overview → Getting Started → Design Tokens**의 동일한 소개 구조를 갖습니다. Storybook의 현재 소개 섹션은 여섯 앱의 문서와 WebSquare 코드 예제 사용법을 통합해 공통 원칙과 프레임워크별 차이를 함께 보여 줍니다.
-
-<IntroductionCards
-  columns={[
-    { label: '프레임워크' },
-    { label: '소개 문서 경로' },
-    { label: '파일 형식' }
-  ]}
-  rows={[
-    ['HTML', 'apps/html/src/introduction', '.html'],
-    ['Gulp / Nunjucks', 'apps/gulp/src/introduction', '.njk'],
-    ['Vue', 'apps/vue/src/introduction', '.vue'],
-    ['React', 'apps/react/src/introduction', '.jsx'],
-    ['Nuxt', 'apps/nuxt/app/introduction', '.vue'],
-    ['Next.js', 'apps/next/src/introduction', '.jsx'],
-    ['WebSquare', 'apps/storybook/src/shared/webSquareExample.ts', '.xml 코드 생성']
-  ]}
-  codeColumns={[1, 2]}
-/>
-
 ## 문서 읽는 순서
 
-1. **설치 및 사용**에서 워크스페이스와 공통 스타일 연결 방식을 확인합니다.
-2. **디자인 토큰**에서 색상, 간격, 타이포그래피, 테마의 기준을 확인합니다.
-3. **아키텍처**에서 앱과 공통 패키지의 의존 관계를 확인합니다.
-4. 왼쪽 메뉴에서 컴포넌트를 선택하고 Preview, 프레임워크별 코드, API, 접근성을 확인합니다.
+1. **설치 및 사용** — 워크스페이스 설치, import, HTML·Gulp·Vue·React·WebSquare 사용법
+2. **디자인 토큰** — 색상·간격·타이포·테마 CSS 변수
+3. **아키텍처** — 앱·패키지 구조, 소유권, 변경·배포 흐름
+4. **가이드라인** — 접근성·패턴·네이밍·상태·현황
+5. 왼쪽 메뉴에서 컴포넌트를 선택하고 Preview, 프레임워크별 코드, API, 접근성을 확인합니다.

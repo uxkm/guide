@@ -7,7 +7,7 @@ const range = (value) =>
   Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 개별 교차축 정렬만 CSS 클래스로 전달합니다.
-const ALIGNS = new Set(['', 'auto', 'start', 'center', 'end', 'stretch', 'baseline']);
+const ALIGNS = ['', 'auto', 'start', 'center', 'end', 'stretch', 'baseline'];
 
 export function FlexItem({
   as: Root = 'div', // FlexItem의 루트 요소 또는 컴포넌트를 지정합니다.
@@ -37,7 +37,7 @@ export function FlexItem({
 
     resolvedGrow, // 남는 공간을 1배 또는 2배 비율로 채웁니다.
     fit && 'flex_fit', // 콘텐츠 기준 너비를 유지합니다.
-    ALIGNS.has(align) && align && `flex_self-${align}`, // 검증된 개별 교차축 정렬입니다.
+    ALIGNS.includes(align) && align && `flex_self-${align}`, // 검증된 개별 교차축 정렬입니다.
     range(order) && `flex_order-${range(order)}`, // 검증된 화면 표시 순서입니다.
     className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ]

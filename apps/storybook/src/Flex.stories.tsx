@@ -1,30 +1,458 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import ActualFlex from '../../react/src/components/layout/Flex/Flex.jsx';
 import ActualFlexItem from '../../react/src/components/layout/Flex/FlexItem.jsx';
+import {
+  booleanControlArg,
+  hiddenArgTypes,
+} from './shared/storyArgTypes';
 
 const Flex = ActualFlex as React.ComponentType<any>;
 const FlexItem = ActualFlexItem as React.ComponentType<any>;
+
+type FlexStoryArgs = {
+  as?: string;
+  direction?: '' | 'row' | 'col' | 'column';
+  directionMd?: '' | 'row' | 'col' | 'column';
+  directionLg?: '' | 'row' | 'col' | 'column';
+  wrap?: boolean;
+  cols?: number;
+  colsMd?: number;
+  colsLg?: number;
+  gap?: '' | 'sm' | 'lg' | 'none';
+  gapRem?: number;
+  ratio?: '' | '1-1' | '2-1' | '1-2' | '3-1' | '1-1-1' | '1-2-1';
+  align?: '' | 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+  justify?: '' | 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
+  itemSpan?: number;
+  itemSpanMd?: number;
+  itemSpanLg?: number;
+  equal?: boolean;
+  autoFit?: boolean;
+};
+
+function optionalRange(value: unknown) {
+  return typeof value === 'number' && value >= 1 && value <= 12 ? value : undefined;
+}
+
+function resolveStoryGap(args: Record<string, unknown>) {
+  const gapRem = typeof args.gapRem === 'number' && args.gapRem > 0 ? args.gapRem : 0;
+  if (gapRem > 0) return gapRem;
+  return args.gap;
+}
+
+function flexPropsFromArgs(args: Record<string, unknown>) {
+  const cols = optionalRange(args.cols);
+  const colsMd = optionalRange(args.colsMd);
+  const colsLg = optionalRange(args.colsLg);
+  const itemSpan = optionalRange(args.itemSpan);
+  const itemSpanMd = optionalRange(args.itemSpanMd);
+  const itemSpanLg = optionalRange(args.itemSpanLg);
+
+  return {
+    as: typeof args.as === 'string' && args.as ? args.as : 'div',
+    direction: args.direction,
+    directionMd: args.directionMd,
+    directionLg: args.directionLg,
+    wrap: args.wrap === true,
+    gap: resolveStoryGap(args),
+    ratio: args.ratio,
+    align: args.align,
+    justify: args.justify,
+    equal: args.equal === true,
+    autoFit: args.autoFit === true,
+    ...(cols != null ? { cols } : {}),
+    ...(colsMd != null ? { colsMd } : {}),
+    ...(colsLg != null ? { colsLg } : {}),
+    ...(itemSpan != null ? { itemSpan } : {}),
+    ...(itemSpanMd != null ? { itemSpanMd } : {}),
+    ...(itemSpanLg != null ? { itemSpanLg } : {}),
+  };
+}
+
+const flexControlKeys = [
+  'as',
+  'direction',
+  'directionMd',
+  'directionLg',
+  'wrap',
+  'cols',
+  'colsMd',
+  'colsLg',
+  'gap',
+  'gapRem',
+  'ratio',
+  'align',
+  'justify',
+  'itemSpan',
+  'itemSpanMd',
+  'itemSpanLg',
+  'equal',
+  'autoFit',
+] as const;
+
 const meta = {
-  title: '레이아웃/Flex', component: Flex, parameters: { layout: 'fullscreen' },
-  args: { direction: 'row', cols: 3, gap: 'sm', align: 'stretch', wrap: false, equal: false, autoFit: false }
-} satisfies Meta<typeof Flex>;
+  title: '레이아웃/Flex',
+  component: Flex,
+  parameters: {
+    layout: 'fullscreen',
+    controls: { include: [...flexControlKeys] },
+    docs: { extractArgTypes: () => ({}) },
+  },
+  args: {
+    as: 'div',
+    direction: 'row',
+    directionMd: '',
+    directionLg: '',
+    wrap: false,
+    cols: 3,
+    colsMd: 0,
+    colsLg: 0,
+    gap: 'sm',
+    gapRem: 0,
+    ratio: '',
+    align: 'stretch',
+    justify: '',
+    itemSpan: 0,
+    itemSpanMd: 0,
+    itemSpanLg: 0,
+    equal: false,
+    autoFit: false,
+  },
+  argTypes: {
+    ...hiddenArgTypes,
+    as: {
+      control: 'select',
+      options: ['div', 'section', 'main', 'article', 'aside', 'header', 'footer', 'nav'],
+      type: 'string',
+      description: '루트 요소',
+    },
+    direction: {
+      control: 'select',
+      options: ['', 'row', 'col', 'column'],
+      labels: { '': '기본' },
+      type: 'string',
+      description: '기본 배치 방향',
+    },
+    directionMd: {
+      control: 'select',
+      options: ['', 'row', 'col', 'column'],
+      labels: { '': '미적용' },
+      type: 'string',
+      description: 'md 이상 배치 방향',
+    },
+    directionLg: {
+      control: 'select',
+      options: ['', 'row', 'col', 'column'],
+      labels: { '': '미적용' },
+      type: 'string',
+      description: 'lg 이상 배치 방향',
+    },
+    wrap: { ...booleanControlArg, description: '줄바꿈 허용' },
+    cols: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: '균등 항목 수 (1~12). 0이면 미적용',
+    },
+    colsMd: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: 'md 이상 균등 항목 수. 0이면 미적용',
+    },
+    colsLg: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: 'lg 이상 균등 항목 수. 0이면 미적용',
+    },
+    gap: {
+      control: 'select',
+      options: ['', 'sm', 'lg', 'none'],
+      labels: { '': '기본(md)', sm: 'sm', lg: 'lg', none: '없음' },
+      type: 'string',
+      description: '간격 프리셋 (gapRem이 0일 때)',
+    },
+    gapRem: {
+      control: { type: 'number', min: 0, max: 8, step: 0.25 },
+      type: 'number',
+      description: '간격 (rem). 0보다 크면 프리셋 대신 사용',
+    },
+    ratio: {
+      control: 'select',
+      options: ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1'],
+      labels: { '': '없음' },
+      type: 'string',
+      description: '항목 너비 비율',
+    },
+    align: {
+      control: 'select',
+      options: ['', 'start', 'center', 'end', 'stretch', 'baseline'],
+      labels: { '': '기본' },
+      type: 'string',
+      description: '교차축 정렬',
+    },
+    justify: {
+      control: 'select',
+      options: ['', 'start', 'center', 'end', 'between', 'around', 'evenly'],
+      labels: { '': '기본' },
+      type: 'string',
+      description: '주축 정렬',
+    },
+    itemSpan: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: '모든 직계 자식의 기본 span. 0이면 미적용',
+    },
+    itemSpanMd: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: 'md 이상 모든 직계 자식 span. 0이면 미적용',
+    },
+    itemSpanLg: {
+      control: { type: 'number', min: 0, max: 12 },
+      type: 'number',
+      description: 'lg 이상 모든 직계 자식 span. 0이면 미적용',
+    },
+    equal: { ...booleanControlArg, description: '모든 직계 자식을 동일 너비로 확장' },
+    autoFit: { ...booleanControlArg, description: '최소 너비 기준 자동 배치' },
+  },
+} satisfies Meta<FlexStoryArgs>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
-const Demo = ({ children }: { children: React.ReactNode }) => <div className="btn-demo">{children}</div>;
-const cells = (count: number, label: string | ((index: number) => string) = (index) => String(index + 1)) =>
-  Array.from({ length: count }, (_, index) => <div className="flex_demo-cell" key={index}>{typeof label === 'function' ? label(index) : label}</div>);
 
-export const Playground: Story = { name: 'Playground', render: (args) => <Demo><Flex {...args}>{cells(3)}</Flex></Demo> };
-export const PageLayout: Story = { name: '기본 페이지 레이아웃', render: () => <Demo><Flex wrap gap="sm"><FlexItem as="header" span={12} className="flex_demo-cell">Header</FlexItem><FlexItem as="aside" span={12} spanMd={3} className="flex_demo-cell">Sidebar</FlexItem><FlexItem as="main" span={12} spanMd={9} className="flex_demo-cell">Main content</FlexItem><FlexItem as="footer" span={12} className="flex_demo-cell">Footer</FlexItem></Flex></Demo> };
-export const ContentLayout: Story = { name: '콘텐츠가 있는 페이지 레이아웃', render: () => <Demo><Flex wrap gap="sm" align="stretch"><FlexItem as="header" span={12} className="flex_demo-cell">Header</FlexItem><FlexItem as="aside" span={12} spanMd={3} className="flex_demo-cell">Sidebar</FlexItem><FlexItem as="main" span={12} spanMd={9} className="flex_demo-cell"><h3>Main content</h3><p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p><Flex cols={1} colsLg={2} gap="sm"><article className="component_stub">Content section</article><article className="component_stub">Content section</article></Flex></FlexItem><FlexItem as="footer" span={12} className="flex_demo-cell">Footer</FlexItem></Flex></Demo> };
-export const Parent: Story = { name: '부모 클래스로 제어', render: () => <Demo><Flex cols={3}>{cells(3, 'flex_cols-3')}</Flex><Flex ratio="2-1">{cells(2, 'flex_ratio-2-1')}</Flex><Flex itemSpan={4}>{cells(6, 'flex_items-span-4')}</Flex></Demo> };
-export const TwelveColumns: Story = { name: '12열 전체 활용', render: () => <Demo><Flex itemSpan={1} gap="sm">{cells(12)}</Flex></Demo> };
-export const Equal: Story = { name: '균등 항목', render: () => <Demo><Flex cols={2}>{cells(2, 'cols 2')}</Flex><Flex cols={4}>{cells(4, 'cols 4')}</Flex></Demo> };
-export const Ratio: Story = { name: '비율 항목', render: () => <Demo><Flex ratio="1-2"><div className="flex_demo-cell">1</div><div className="flex_demo-cell">2</div></Flex><Flex ratio="1-2-1"><div className="flex_demo-cell">1</div><div className="flex_demo-cell">2</div><div className="flex_demo-cell">1</div></Flex></Demo> };
-export const ItemSpan: Story = { name: '자식 일괄 span (12단위)', render: () => <Demo><Flex itemSpan={6}>{cells(4, 'span 6')}</Flex><Flex itemSpan={3}>{cells(4, 'span 3')}</Flex></Demo> };
-export const ChildSpan: Story = { name: '자식별 span (혼합 레이아웃)', render: () => <Demo><Flex wrap><FlexItem span={8} className="flex_demo-cell">span 8</FlexItem><FlexItem span={4} className="flex_demo-cell">span 4</FlexItem>{Array.from({ length: 3 }, (_, index) => <FlexItem span={4} className="flex_demo-cell" key={index}>span 4</FlexItem>)}</Flex></Demo> };
-export const ItemSizing: Story = { name: '항목 확장과 고정', render: () => <Demo><Flex gap="sm"><FlexItem fit className="flex_demo-cell">fit</FlexItem><FlexItem grow className="flex_demo-cell">grow 1</FlexItem><FlexItem grow growFactor={2} className="flex_demo-cell">grow 2</FlexItem></Flex></Demo> };
-export const Gap: Story = { name: '간격', render: () => <Demo><Flex cols={3} gap="sm">{cells(3, 'gap sm')}</Flex><Flex cols={3} gap="lg">{cells(3, 'gap lg')}</Flex></Demo> };
-export const Responsive: Story = { name: '반응형', render: () => <Demo><Flex cols={1} colsMd={2} colsLg={3} gap="sm">{cells(3, '1 → md 2 → lg 3개')}</Flex><Flex itemSpan={12} itemSpanMd={6} itemSpanLg={4}>{cells(3, 'span 12 → md 6 → lg 4')}</Flex><Flex wrap><FlexItem span={12} spanMd={8} spanLg={9} className="flex_demo-cell">개별 span 12 → md 8 → lg 9</FlexItem><FlexItem span={12} spanMd={4} spanLg={3} className="flex_demo-cell">개별 span 12 → md 4 → lg 3</FlexItem></Flex></Demo> };
-export const Auto: Story = { name: '자동 배치', render: () => <Demo><Flex autoFit>{cells(6, 'auto-fit')}</Flex></Demo> };
-export const AlignmentAndRatio: Story = { name: '정렬과 비율', render: () => <Demo><Flex justify="between" gap="sm"><div className="flex_demo-cell">Start</div><div className="flex_demo-cell">End</div></Flex><Flex ratio="2-1" gap="sm"><div className="flex_demo-cell">2</div><div className="flex_demo-cell">1</div></Flex></Demo> };
+const Demo = ({ children }: { children: React.ReactNode }) => <div className="btn-demo">{children}</div>;
+
+const cells = (
+  count: number,
+  label: string | ((index: number) => string) = (index) => String(index + 1),
+) =>
+  Array.from({ length: count }, (_, index) => (
+    <div className="flex_demo-cell" key={index}>
+      {typeof label === 'function' ? label(index) : label}
+    </div>
+  ));
+
+export const Playground: Story = {
+  name: 'Playground',
+  render: (args) => {
+    const props = flexPropsFromArgs(args);
+    const count = props.cols ?? (props.ratio ? String(props.ratio).split('-').length : 3);
+    return (
+      <Demo>
+        <Flex {...props}>{cells(count)}</Flex>
+      </Demo>
+    );
+  },
+};
+
+export const PageLayout: Story = {
+  name: '기본 페이지 레이아웃',
+  render: () => (
+    <Demo>
+      <Flex wrap gap="sm">
+        <FlexItem as="header" span={12} className="flex_demo-cell">
+          Header
+        </FlexItem>
+        <FlexItem as="aside" span={12} spanMd={3} className="flex_demo-cell">
+          Sidebar
+        </FlexItem>
+        <FlexItem as="main" span={12} spanMd={9} className="flex_demo-cell">
+          Main content
+        </FlexItem>
+        <FlexItem as="footer" span={12} className="flex_demo-cell">
+          Footer
+        </FlexItem>
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const ContentLayout: Story = {
+  name: '콘텐츠가 있는 페이지 레이아웃',
+  render: () => (
+    <Demo>
+      <Flex wrap gap="sm" align="stretch">
+        <FlexItem as="header" span={12} className="flex_demo-cell">
+          Header
+        </FlexItem>
+        <FlexItem as="aside" span={12} spanMd={3} className="flex_demo-cell">
+          Sidebar
+        </FlexItem>
+        <FlexItem as="main" span={12} spanMd={9} className="flex_demo-cell">
+          <h3>Main content</h3>
+          <p>페이지 제목과 설명이 들어가는 기본 콘텐츠 영역입니다.</p>
+          <Flex cols={1} colsLg={2} gap="sm">
+            <article className="component_stub">Content section</article>
+            <article className="component_stub">Content section</article>
+          </Flex>
+        </FlexItem>
+        <FlexItem as="footer" span={12} className="flex_demo-cell">
+          Footer
+        </FlexItem>
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const Parent: Story = {
+  name: '부모 클래스로 제어',
+  render: () => (
+    <Demo>
+      <Flex cols={3}>{cells(3, 'flex_cols-3')}</Flex>
+      <Flex ratio="2-1">{cells(2, 'flex_ratio-2-1')}</Flex>
+      <Flex itemSpan={4}>{cells(6, 'flex_items-span-4')}</Flex>
+    </Demo>
+  ),
+};
+
+export const TwelveColumns: Story = {
+  name: '12열 전체 활용',
+  render: () => (
+    <Demo>
+      <Flex itemSpan={1} gap="sm">
+        {cells(12)}
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const Equal: Story = {
+  name: '균등 항목',
+  render: () => (
+    <Demo>
+      <Flex cols={2}>{cells(2, 'cols 2')}</Flex>
+      <Flex cols={4}>{cells(4, 'cols 4')}</Flex>
+    </Demo>
+  ),
+};
+
+export const Ratio: Story = {
+  name: '비율 항목',
+  render: () => (
+    <Demo>
+      <Flex ratio="1-2">
+        <div className="flex_demo-cell">1</div>
+        <div className="flex_demo-cell">2</div>
+      </Flex>
+      <Flex ratio="1-2-1">
+        <div className="flex_demo-cell">1</div>
+        <div className="flex_demo-cell">2</div>
+        <div className="flex_demo-cell">1</div>
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const ItemSpan: Story = {
+  name: '자식 일괄 span (12단위)',
+  render: () => (
+    <Demo>
+      <Flex itemSpan={6}>{cells(4, 'span 6')}</Flex>
+      <Flex itemSpan={3}>{cells(4, 'span 3')}</Flex>
+    </Demo>
+  ),
+};
+
+export const ChildSpan: Story = {
+  name: '자식별 span (혼합 레이아웃)',
+  render: () => (
+    <Demo>
+      <Flex wrap>
+        <FlexItem span={8} className="flex_demo-cell">
+          span 8
+        </FlexItem>
+        <FlexItem span={4} className="flex_demo-cell">
+          span 4
+        </FlexItem>
+        {Array.from({ length: 3 }, (_, index) => (
+          <FlexItem span={4} className="flex_demo-cell" key={index}>
+            span 4
+          </FlexItem>
+        ))}
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const ItemSizing: Story = {
+  name: '항목 확장과 고정',
+  render: () => (
+    <Demo>
+      <Flex gap="sm">
+        <FlexItem fit className="flex_demo-cell">
+          fit
+        </FlexItem>
+        <FlexItem grow className="flex_demo-cell">
+          grow 1
+        </FlexItem>
+        <FlexItem grow growFactor={2} className="flex_demo-cell">
+          grow 2
+        </FlexItem>
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const Gap: Story = {
+  name: '간격',
+  render: () => (
+    <Demo>
+      <Flex cols={3} gap="sm">
+        {cells(3, 'gap sm')}
+      </Flex>
+      <Flex cols={3} gap="lg">
+        {cells(3, 'gap lg')}
+      </Flex>
+      <Flex cols={3} gap={1.5}>
+        {cells(3, 'gap 1.5rem')}
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const Responsive: Story = {
+  name: '반응형',
+  render: () => (
+    <Demo>
+      <Flex cols={1} colsMd={2} colsLg={3} gap="sm">
+        {cells(3, '1 → md 2 → lg 3개')}
+      </Flex>
+      <Flex itemSpan={12} itemSpanMd={6} itemSpanLg={4}>
+        {cells(3, 'span 12 → md 6 → lg 4')}
+      </Flex>
+      <Flex wrap>
+        <FlexItem span={12} spanMd={8} spanLg={9} className="flex_demo-cell">
+          개별 span 12 → md 8 → lg 9
+        </FlexItem>
+        <FlexItem span={12} spanMd={4} spanLg={3} className="flex_demo-cell">
+          개별 span 12 → md 4 → lg 3
+        </FlexItem>
+      </Flex>
+    </Demo>
+  ),
+};
+
+export const Auto: Story = {
+  name: '자동 배치',
+  render: () => (
+    <Demo>
+      <Flex autoFit>{cells(6, 'auto-fit')}</Flex>
+    </Demo>
+  ),
+};
+
+export const AlignmentAndRatio: Story = {
+  name: '정렬과 비율',
+  render: () => (
+    <Demo>
+      <Flex justify="between" gap="sm">
+        <div className="flex_demo-cell">Start</div>
+        <div className="flex_demo-cell">End</div>
+      </Flex>
+      <Flex ratio="2-1" gap="sm">
+        <div className="flex_demo-cell">2</div>
+        <div className="flex_demo-cell">1</div>
+      </Flex>
+    </Demo>
+  ),
+};

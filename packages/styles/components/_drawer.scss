@@ -25,11 +25,6 @@
   --drawer-footer-gap: var(--space-sm);
   --drawer-footer-padding-y: var(--space-md);
   --drawer-footer-padding-x: var(--space-lg);
-  --drawer-panel-duration-x: 0.32s;
-  --drawer-panel-duration-y: 0.36s;
-  --drawer-panel-easing-x: cubic-bezier(0.32, 0.72, 0, 1);
-  --drawer-panel-easing-y: cubic-bezier(0.33, 1, 0.68, 1);
-  --drawer-backdrop-duration: 0.24s;
   --drawer-handle-width: 2.5rem;
   --drawer-handle-height: 0.25rem;
   --drawer-handle-hit: 2.75rem;
@@ -60,6 +55,8 @@
 //   data-drawer-close        — 닫기 (백드롭·닫기 버튼)
 //   data-drawer-backdrop="false" — 백드롭 비표시·백드롭 클릭 닫기 비활성
 //   data-drawer-open-on-load="true" — 페이지 로드 후 자동 열기
+//   data-drawer-motion="slide|fade" — 패널 전환 효과
+//   data-drawer-speed="fast|normal|slow" — 전환 속도 프리셋 (--drawer-motion-scale)
 //
 // 푸터 정렬 (.drawer_footer + 변형)
 //   .drawer_footer-start · .drawer_footer-center · .drawer_footer-end
@@ -75,6 +72,18 @@
 //   .is-stack-covered — 중첩 시 하위 레이어 (백드롭 숨김)
 
 .drawer {
+  --drawer-motion-scale: 1;
+  --drawer-panel-duration-x: calc(0.32s * var(--drawer-motion-scale));
+  --drawer-panel-duration-y: calc(0.36s * var(--drawer-motion-scale));
+  --drawer-panel-easing-x: cubic-bezier(0.32, 0.72, 0, 1);
+  --drawer-panel-easing-y: cubic-bezier(0.33, 1, 0.68, 1);
+  --drawer-panel-easing-x-out: cubic-bezier(0.4, 0, 1, 1);
+  --drawer-panel-easing-y-out: cubic-bezier(0.4, 0, 1, 1);
+  --drawer-backdrop-duration: calc(0.24s * var(--drawer-motion-scale));
+  --drawer-backdrop-duration-out: calc(0.18s * var(--drawer-motion-scale));
+  --drawer-panel-delay-out-x: var(--drawer-backdrop-duration-out);
+  --drawer-panel-delay-out-y: var(--drawer-backdrop-duration-out);
+
   position: fixed;
   inset: 0;
   z-index: calc(var(--drawer-z-index) + var(--drawer-stack-level, 0) * 10);
@@ -108,13 +117,13 @@
     opacity: 0;
     transition: opacity var(--drawer-backdrop-duration) ease;
 
-    .drawer.is-open & {
+    .drawer.is-open:not(.is-closing) & {
       opacity: 1;
       transition-delay: 0s;
       animation: drawer-backdrop-in var(--drawer-backdrop-duration) ease both;
     }
 
-    .drawer.is-open.is-stack-covered & {
+    .drawer.is-open.is-stack-covered:not(.is-closing) & {
       opacity: 0;
       pointer-events: none;
       transition-delay: 0s;
@@ -122,7 +131,9 @@
 
     .drawer.is-closing & {
       opacity: 0;
-      transition-delay: 0.08s;
+      animation: none;
+      transition: opacity var(--drawer-backdrop-duration-out) ease;
+      transition-delay: 0s;
     }
 
     .drawer[data-drawer-backdrop="false"] & {
@@ -149,6 +160,7 @@
     }
 
     .drawer.is-closing & {
+      transition: none;
       transition-delay: 0s;
     }
   }
@@ -318,9 +330,14 @@
     transform: translateX(-100%);
     border-right: 1px solid var(--color-border-subtle);
 
-    .drawer.is-open & {
+    .drawer.is-open:not(.is-closing) & {
       transform: translateX(0);
       animation: drawer-slide-in-left var(--drawer-panel-duration-x) var(--drawer-panel-easing-x) both;
+    }
+
+    .drawer.is-closing & {
+      animation: drawer-slide-out-left var(--drawer-panel-duration-x) var(--drawer-panel-easing-x-out) both;
+      animation-delay: var(--drawer-panel-delay-out-x);
     }
   }
 
@@ -331,9 +348,14 @@
     transform: translateX(100%);
     border-left: 1px solid var(--color-border-subtle);
 
-    .drawer.is-open & {
+    .drawer.is-open:not(.is-closing) & {
       transform: translateX(0);
       animation: drawer-slide-in-right var(--drawer-panel-duration-x) var(--drawer-panel-easing-x) both;
+    }
+
+    .drawer.is-closing & {
+      animation: drawer-slide-out-right var(--drawer-panel-duration-x) var(--drawer-panel-easing-x-out) both;
+      animation-delay: var(--drawer-panel-delay-out-x);
     }
   }
 
@@ -349,9 +371,14 @@
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     transition: transform var(--drawer-panel-duration-y) var(--drawer-panel-easing-y);
 
-    .drawer.is-open & {
+    .drawer.is-open:not(.is-closing) & {
       transform: translateY(0);
       animation: drawer-slide-in-top var(--drawer-panel-duration-y) var(--drawer-panel-easing-y) both;
+    }
+
+    .drawer.is-closing & {
+      animation: drawer-slide-out-top var(--drawer-panel-duration-y) var(--drawer-panel-easing-y-out) both;
+      animation-delay: var(--drawer-panel-delay-out-y);
     }
   }
 
@@ -389,9 +416,14 @@
       padding-top: calc(var(--drawer-header-padding-y) + var(--space-md));
     }
 
-    .drawer.is-open & {
+    .drawer.is-open:not(.is-closing) & {
       transform: translateY(0);
       animation: drawer-slide-in-bottom var(--drawer-panel-duration-y) var(--drawer-panel-easing-y) both;
+    }
+
+    .drawer.is-closing & {
+      animation: drawer-slide-out-bottom var(--drawer-panel-duration-y) var(--drawer-panel-easing-y-out) both;
+      animation-delay: var(--drawer-panel-delay-out-y);
     }
 
     &.is-expanded {
@@ -401,6 +433,48 @@
     &.is-dragging {
       transition: none;
       touch-action: none;
+    }
+  }
+
+  // ----- 전환 효과 — fade
+
+  &.drawer_motion-fade {
+    .drawer_panel {
+      will-change: opacity;
+    }
+
+    &.is-open:not(.is-closing) {
+      .drawer_placement-left,
+      .drawer_placement-right,
+      .drawer_placement-top,
+      .drawer_placement-bottom {
+        transform: none;
+        opacity: 1;
+        animation: drawer-fade-in var(--drawer-panel-duration-x) ease both;
+      }
+
+      .drawer_placement-top,
+      .drawer_placement-bottom {
+        animation-duration: var(--drawer-panel-duration-y);
+      }
+    }
+
+    &.is-closing {
+      .drawer_placement-left,
+      .drawer_placement-right,
+      .drawer_placement-top,
+      .drawer_placement-bottom {
+        transform: none;
+        opacity: 1;
+        animation: drawer-fade-out var(--drawer-panel-duration-x) ease both;
+        animation-delay: var(--drawer-panel-delay-out-x);
+      }
+
+      .drawer_placement-top,
+      .drawer_placement-bottom {
+        animation-duration: var(--drawer-panel-duration-y);
+        animation-delay: var(--drawer-panel-delay-out-y);
+      }
     }
   }
 
@@ -623,6 +697,16 @@ body.is-drawer-open {
   }
 }
 
+@keyframes drawer-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drawer-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @keyframes drawer-backdrop-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -646,6 +730,26 @@ body.is-drawer-open {
 @keyframes drawer-slide-in-bottom {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
+}
+
+@keyframes drawer-slide-out-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes drawer-slide-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes drawer-slide-out-top {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes drawer-slide-out-bottom {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

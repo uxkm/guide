@@ -44,7 +44,7 @@ const gridProps: ApiRow[] = [
   { name: 'cols', type: '1~12', default: '—', description: '기본 화면의 열 수입니다. columns 별칭도 지원합니다.' },
   { name: 'colsMd', type: '1~12', default: '—', description: 'md 이상 화면의 열 수입니다. columnsMd 별칭도 지원합니다.' },
   { name: 'colsLg', type: '1~12', default: '—', description: 'lg 이상 화면의 열 수입니다. columnsLg 별칭도 지원합니다.' },
-  { name: 'gap', type: "'' | 'sm' | 'lg' | 'none'", default: "''", description: '열과 행 사이 간격입니다.' },
+  { name: 'gap', type: "'' | 'sm' | 'lg' | 'none' | number | CSS length", default: "''", description: '열과 행 사이 간격입니다. 프리셋은 클래스, 숫자(rem)·CSS 길이는 --grid-current-gap으로 적용합니다.' },
   { name: 'ratio', type: "'1-1' | '2-1' | '1-2' | '3-1' | '1-1-1' | '1-2-1'", default: '—', description: '미리 정의된 열 비율입니다.' },
   { name: 'itemSpan', type: '1~12', default: '—', description: '모든 직계 자식에 적용할 12열 기준 span입니다.' },
   { name: 'itemSpanMd', type: '1~12', default: '—', description: 'md 이상에서 모든 자식에 적용할 span입니다.' },
@@ -67,6 +67,7 @@ const gridClasses: ApiRow[] = [
 const gridTokens: ApiRow[] = [
   { name: '--grid-columns', type: 'number', default: '12', description: '기본 열 수입니다.' },
   { name: '--grid-gap · --grid-gap-sm · --grid-gap-lg', type: 'length', default: 'space-md · space-sm · space-lg', description: '기본·크기별 간격입니다.' },
+  { name: '--grid-current-gap', type: 'length', default: 'var(--grid-gap)', description: '실제 적용 간격입니다. 수치·CSS 길이 gap이 이 변수를 덮어씁니다.' },
   { name: '--grid-auto-min', type: 'length', default: '10rem', description: '자동 배치 열의 최소 너비입니다.' }
 ];
 const gridColProps: ApiRow[] = [
@@ -96,7 +97,7 @@ const flexProps: ApiRow[] = [
   { name: 'directionMd', type: "'row' | 'column'", default: '—', description: 'md 이상 배치 방향입니다.' },
   { name: 'directionLg', type: "'row' | 'column'", default: '—', description: 'lg 이상 배치 방향입니다.' },
   { name: 'wrap', type: 'boolean', default: 'false', description: '자식 줄바꿈을 허용합니다.' },
-  { name: 'gap', type: "'' | 'sm' | 'lg' | 'none'", default: "''", description: '자식 간 간격입니다.' },
+  { name: 'gap', type: "'' | 'sm' | 'lg' | 'none' | number | CSS length", default: "''", description: '자식 간 간격입니다. 프리셋은 클래스, 숫자(rem)·CSS 길이는 --flex-current-gap으로 적용합니다.' },
   { name: 'cols · colsMd · colsLg', type: '1~12', default: '—', description: '기본·반응형 화면에서 한 행의 균등한 자식 수입니다. columns 계열 별칭도 지원합니다.' },
   { name: 'ratio', type: "'1-1' | '2-1' | '1-2' | '3-1' | '1-1-1' | '1-2-1'", default: '—', description: '직계 자식의 미리 정의된 flex 비율입니다.' },
   { name: 'itemSpan · itemSpanMd · itemSpanLg', type: '1~12', default: '—', description: '기본·반응형 화면에서 모든 직계 자식의 12단위 span입니다.' },
@@ -117,6 +118,7 @@ const flexClasses: ApiRow[] = [
 ];
 const flexTokens: ApiRow[] = [
   { name: '--flex-gap · --flex-gap-sm · --flex-gap-lg', type: 'length', default: 'space-md · space-sm · space-lg', description: '기본·크기별 간격입니다.' },
+  { name: '--flex-current-gap', type: 'length', default: 'var(--flex-gap)', description: '실제 적용 간격입니다. 수치·CSS 길이 gap이 이 변수를 덮어씁니다.' },
   { name: '--flex-auto-min', type: 'length', default: '10rem', description: '자동 배치 자식의 최소 너비입니다.' }
 ];
 const flexItemProps: ApiRow[] = [

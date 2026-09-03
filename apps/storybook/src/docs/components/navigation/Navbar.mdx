@@ -35,8 +35,25 @@ WebSquare는 헤더를 `w2:group.navbar`, 메뉴·검색·액션을 `w2:group`/`
 <FrameworkTabs examples={examples.basic} />
 
 ## 브랜드
+
+텍스트와 Icon을 함께 표시하는 기본 형태입니다.
+
 <Canvas of={Stories.Brand} sourceState="none" />
 <FrameworkTabs examples={examples.brand} />
+
+## 브랜드 이미지
+
+Storybook 좌측 상단과 동일한 UXKM 손글씨 로고(`uxkm_logo_hand.svg`)를 `<img>`(`brandSrc`)로 표시합니다. 흰색 SVG는 밝은 Navbar에서 `--navbar-brand-image-filter: invert(1)`로 반전되어 보입니다.
+
+<Canvas of={Stories.BrandImage} sourceState="none" />
+<FrameworkTabs examples={examples.brandImage} />
+
+## 브랜드 배경
+
+동일한 로고를 CSS `background-image`(`brandBackground`)로 표시합니다.
+
+<Canvas of={Stories.BrandBackground} sourceState="none" />
+<FrameworkTabs examples={examples.brandBackground} />
 
 ## 액션 영역
 <Canvas of={Stories.Actions} sourceState="none" />

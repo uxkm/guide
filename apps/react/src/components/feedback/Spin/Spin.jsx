@@ -2,8 +2,8 @@
  * Spin 원본 구현.
  * 피드백 상태와 노출 동작을 관리하고 필요한 접근성 역할과 사용자 이벤트를 연결합니다.
  */
-const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 스피너 크기입니다.
-const colors = new Set(['primary', 'success', 'warning', 'danger']); // 지원하는 의미 색상입니다.
+const sizes = ['sm', 'md', 'lg']; // 지원하는 스피너 크기입니다.
+const colors = ['primary', 'success', 'warning', 'danger']; // 지원하는 의미 색상입니다.
 
 export function Spin({
   size = 'md', // 스피너 크기입니다.
@@ -17,8 +17,8 @@ export function Spin({
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
-  const resolvedSize = sizes.has(size) ? size : 'md'; // 검증된 크기입니다.
-  const resolvedColor = colors.has(color) ? color : 'primary'; // 검증된 색상입니다.
+  const resolvedSize = sizes.includes(size) ? size : 'md'; // 검증된 크기입니다.
+  const resolvedColor = colors.includes(color) ? color : 'primary'; // 검증된 색상입니다.
   // 색상·크기·배치 클래스를 조합합니다.
   const classes = [
     'spin', // Spin 루트 클래스입니다.

@@ -1,46 +1,102 @@
 // @ts-nocheck
 import { rateApiSections as apiSections } from './rateApiSections.ts';
-import React from 'react';
+import {
+  booleanControlArg,
+  defaultValueNumberArg,
+  hiddenArgTypes,
+  numberControlArg,
+  stringControlArg,
+} from './shared/storyArgTypes';
 import FormLayout from '../../react/src/components/form/FormLayout/FormLayout.jsx';
 import Rate from '../../react/src/components/form/Rate/Rate.jsx';
+
 const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
-const playgroundArgs = {
-  value: 1,
-  count: 5,
-  allowHalf: false,
-  clearable: false,
-  readonly: false,
-  disabled: false,
-  size: 'md',
-  legend: '값',
-  name: 'search',
-};
+
+function ratePropsFromArgs(args) {
+  const count = typeof args.count === 'number' && args.count > 0 ? args.count : 5;
+  const value = typeof args.value === 'number' ? args.value : undefined;
+  return {
+    size: args.size,
+    count,
+    allowHalf: args.allowHalf === true,
+    clearable: args.clearable === true,
+    readOnly: args.readonly === true,
+    disabled: args.disabled === true,
+    ripple: args.ripple !== false,
+    legend: typeof args.legend === 'string' ? args.legend : undefined,
+    name: typeof args.name === 'string' && args.name ? args.name : 'rate-playground',
+    ...(value != null ? { value } : {}),
+  };
+}
+
+function RatePlayground({ args, updateArgs }) {
+  return (
+    <Rate
+      {...ratePropsFromArgs(args)}
+      onChange={(next) => updateArgs?.({ value: next ?? 0 })}
+    />
+  );
+}
+
+const rateControlKeys = [
+  'size',
+  'value',
+  'count',
+  'legend',
+  'name',
+  'allowHalf',
+  'clearable',
+  'readonly',
+  'disabled',
+  'ripple',
+] as const;
 
 export default {
   title: '폼/Rate',
   id: 'components-rate',
   component: Rate,
   tags: ['autodocs'],
+  args: {
+    value: 1,
+    count: 5,
+    allowHalf: false,
+    clearable: false,
+    readonly: false,
+    disabled: false,
+    size: 'md',
+    legend: '값',
+    name: 'rate-playground',
+    ripple: true,
+  },
   argTypes: {
-    value: { control: 'number', type: { name: 'number', summary: 'number' } },
-    count: { control: 'number', type: { name: 'number', summary: 'number' } },
-    allowHalf: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    clearable: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    readonly: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
-    disabled: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    ...hiddenArgTypes,
+    value: numberControlArg,
+    count: {
+      ...numberControlArg,
+      description: '표시할 별 개수',
+    },
+    allowHalf: booleanControlArg,
+    clearable: booleanControlArg,
+    readonly: booleanControlArg,
+    disabled: booleanControlArg,
+    ripple: booleanControlArg,
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
-      type: { name: 'enum', summary: "'sm' | 'md' | 'lg'" },
+      type: 'string',
     },
-    legend: { control: 'text', type: { name: 'string', summary: 'string' } },
-    name: { control: 'text', type: { name: 'string', summary: 'string' } },
+    legend: stringControlArg,
+    name: stringControlArg,
+    defaultValue: defaultValueNumberArg,
+    readOnly: { table: { disable: true } },
+    onChange: { table: { disable: true } },
   },
   parameters: {
-    controls: { disable: false },
     layout: 'padded',
+    controls: { include: [...rateControlKeys] },
     apiSections,
     docs: {
+      extractArgTypes: () => ({}),
       description: {
         component: '별점으로 평가·표시하는 Rate 컴포넌트입니다.',
       },
@@ -49,10 +105,9 @@ export default {
 };
 
 export const Playground = {
-  parameters: { controls: { disable: false } },
-  args: { ...playgroundArgs },
+  name: 'Playground',
   render: (args, { updateArgs }) => (
-    <Rate {...args} onChange={(next) => updateArgs({ value: next })} />
+    <RatePlayground args={args} updateArgs={updateArgs} />
   ),
 };
 

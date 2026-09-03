@@ -435,8 +435,9 @@ $spacing-sizes: xs, sm, md, lg, xl;
 //   </div>
 
 .grid {
+  --grid-current-gap: var(--grid-gap);
   display: grid;
-  gap: var(--grid-gap);
+  gap: var(--grid-current-gap);
   grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
   width: 100%;
 
@@ -476,7 +477,7 @@ $spacing-sizes: xs, sm, md, lg, xl;
 
   @each $name, $token in (sm: var(--grid-gap-sm), lg: var(--grid-gap-lg), none: 0) {
     &_gap-#{$name} {
-      gap: $token;
+      --grid-current-gap: #{$token};
     }
   }
 

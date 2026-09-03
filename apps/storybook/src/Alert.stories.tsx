@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import ActualAlert from '../../react/src/components/feedback/Alert/Alert.jsx';
 import ActualButton from '../../react/src/components/basic/Button/Button.jsx';
 import ActualLink from '../../react/src/components/basic/Link/Link.jsx';
+import {
+  booleanControlArg,
+  hiddenArgTypes,
+  stringControlArg,
+} from './shared/storyArgTypes';
 
 const Alert = ActualAlert as React.ComponentType<any>;
 const Button = ActualButton as React.ComponentType<any>;
@@ -11,30 +17,95 @@ function Demo({ children }: { children: React.ReactNode }) {
   return <div className="demo-stack alert-demo">{children}</div>;
 }
 
+type AlertStoryArgs = {
+  color?: 'info' | 'success' | 'warning' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  closable?: boolean;
+  showIcon?: boolean;
+  banner?: boolean;
+  title?: string;
+  description?: string;
+  role?: 'alert' | 'status';
+};
+
+function alertPropsFromArgs(args: Record<string, unknown>) {
+  return {
+    color: args.color,
+    size: args.size,
+    closable: args.closable === true,
+    showIcon: args.showIcon !== false,
+    banner: args.banner === true,
+    title: typeof args.title === 'string' && args.title ? args.title : undefined,
+    description: typeof args.description === 'string' ? args.description : undefined,
+    role: args.role === 'status' ? 'status' : 'alert',
+  };
+}
+
+const alertControlKeys = [
+  'color',
+  'size',
+  'title',
+  'description',
+  'role',
+  'closable',
+  'showIcon',
+  'banner',
+] as const;
+
 const meta = {
   title: '피드백/Alert',
   component: Alert,
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    controls: { include: [...alertControlKeys] },
+    docs: { extractArgTypes: () => ({}) },
+  },
   args: {
     color: 'info',
     size: 'md',
     closable: false,
     showIcon: true,
+    banner: false,
+    title: '알림',
+    description: 'Controls로 속성을 조절해 보세요.',
+    role: 'alert',
   },
   argTypes: {
+    ...hiddenArgTypes,
     color: {
       control: 'select',
       options: ['info', 'success', 'warning', 'danger'],
+      type: 'string',
     },
     size: {
       control: 'select',
       options: ['sm', 'md', 'lg'],
+      type: 'string',
     },
+    role: {
+      control: 'select',
+      options: ['alert', 'status'],
+      type: 'string',
+    },
+    closable: booleanControlArg,
+    showIcon: booleanControlArg,
+    banner: booleanControlArg,
+    title: stringControlArg,
+    description: stringControlArg,
+    closeLabel: { table: { disable: true } },
+    icon: { table: { disable: true } },
+    actions: { table: { disable: true } },
+    onClose: { table: { disable: true } },
   },
-} satisfies Meta<typeof Alert>;
+} satisfies Meta<AlertStoryArgs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Playground: Story = {
+  name: 'Playground',
+  render: (args) => <Alert {...alertPropsFromArgs(args)} />,
+};
 
 export const Basic: Story = {
   name: '기본',
@@ -68,11 +139,7 @@ export const NoIcon: Story = {
         title="점검 안내"
         description="오늘 02:00~04:00 서비스 점검이 예정되어 있습니다."
       />
-      <Alert
-        showIcon={false}
-        color="info"
-        description="이 페이지는 데모 목적으로만 사용됩니다."
-      />
+      <Alert showIcon={false} color="info" description="이 페이지는 데모 목적으로만 사용됩니다." />
     </Demo>
   ),
 };

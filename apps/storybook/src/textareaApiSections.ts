@@ -47,6 +47,12 @@ export const textareaApiSections: ApiSectionData[] = [
         description: '접근 가능한 실시간 글자 수를 표시합니다.',
       },
       {
+        name: 'clearable',
+        type: 'boolean',
+        default: 'false',
+        description: '값이 있을 때 접근 가능한 지우기 버튼을 표시합니다.',
+      },
+      {
         name: 'maxLength',
         type: 'number',
         default: '—',
@@ -69,10 +75,10 @@ export const textareaApiSections: ApiSectionData[] = [
   ),
   table('React · Next.js API · Events', [
     {
-      name: 'onChange',
-      type: 'ChangeEvent handler',
+      name: 'onChange · onClear',
+      type: 'event handler',
       default: '—',
-      description: '값이 바뀔 때 호출됩니다.',
+      description: '값 변경과 지우기 콜백입니다.',
     },
   ]),
   table(
@@ -91,10 +97,10 @@ export const textareaApiSections: ApiSectionData[] = [
         description: '크기와 크기 조절 방향입니다.',
       },
       {
-        name: 'fit · show-count',
+        name: 'fit · show-count · clearable',
         type: 'boolean',
         default: 'false',
-        description: '제한 너비와 글자 수 표시입니다.',
+        description: '제한 너비, 글자 수 표시, 지우기 버튼입니다.',
       },
       {
         name: 'max-length',
@@ -107,6 +113,12 @@ export const textareaApiSections: ApiSectionData[] = [
         type: 'boolean',
         default: 'false',
         description: '비활성 및 오류 상태입니다.',
+      },
+      {
+        name: '@clear',
+        type: 'event',
+        default: '—',
+        description: '지우기 버튼을 누를 때 발생합니다.',
       },
     ],
     'Nuxt는 @uxkm/vue/textarea를 재사용합니다.',
@@ -141,6 +153,12 @@ export const textareaApiSections: ApiSectionData[] = [
       type: 'class',
       default: '—',
       description: '글자 수 표시 래퍼입니다.',
+    },
+    {
+      name: 'textarea_clearable · textarea_clear',
+      type: 'class',
+      default: '—',
+      description: '입력 지우기 래퍼와 버튼입니다.',
     },
     {
       name: 'textarea_count · is-limit',
@@ -197,6 +215,12 @@ export const textareaApiSections: ApiSectionData[] = [
         type: 'XML element · class',
         default: '—',
         description: 'textarea와 실시간 글자 수 표시를 하나의 영역으로 묶습니다.',
+      },
+      {
+        name: 'w2:group.textarea_clearable · xf:trigger.textarea_clear',
+        type: 'XML element · class',
+        default: '—',
+        description: '값이 있을 때 지우기 버튼을 표시하고 입력으로 포커스를 되돌립니다.',
       },
       {
         name: 'w2:textbox.textarea_count',

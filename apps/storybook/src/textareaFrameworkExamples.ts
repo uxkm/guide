@@ -2,6 +2,7 @@ import type { FrameworkExample } from './FrameworkCode';
 
 type Source = { html: string; react: string; vue: string };
 
+const closeIconHtml = `<svg class="icon" data-component="Icon" data-icon="close" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg>`;
 const fieldHtml = (id: string, label: string, control: string, message = '') => `<div class="form_field"><label class="form_field-label" for="${id}">${label}</label>${control}${message}</div>`;
 const fieldReact = (id: string, label: string, control: string, message = '') => `<div className="form_field"><label className="form_field-label" htmlFor="${id}">${label}</label>${control}${message}</div>`;
 const fieldVue = (id: string, label: string, control: string, message = '') => `<div class="form_field"><label class="form_field-label" for="${id}">${label}</label>${control}${message}</div>`;
@@ -10,6 +11,18 @@ const htmlCount = (id: string, options: { value?: string; max?: number; size?: s
   const max = options.max ?? 200;
   const classes = ['textarea', options.size && options.size !== 'md' && `textarea_${options.size}`, options.resize && `textarea_resize_${options.resize}`, options.error && 'is-error'].filter(Boolean).join(' ');
   return `<div class="textarea_wrap textarea_show-count"><textarea id="${id}" class="${classes}" rows="${options.rows ?? 4}" maxlength="${max}" aria-describedby="${id}-count"${options.error ? ' aria-invalid="true"' : ''}>${value}</textarea><span id="${id}-count" class="textarea_count" role="status" aria-live="polite" aria-atomic="true"><span class="textarea_count_visual" aria-hidden="true">${value.length}/${max}</span><span class="textarea_count_announcer">${value.length}자 입력, 최대 ${max}자</span></span></div>`;
+};
+const htmlClearable = (id: string, options: { value?: string; max?: number; rows?: number; inactive?: boolean } = {}) => {
+  const value = options.value ?? '';
+  const filled = value && !options.inactive ? ' is-filled' : '';
+  const max = options.max;
+  const count = max != null
+    ? `<span id="${id}-count" class="textarea_count" role="status" aria-live="polite" aria-atomic="true"><span class="textarea_count_visual" aria-hidden="true">${value.length}/${max}</span><span class="textarea_count_announcer">${value.length}자 입력, 최대 ${max}자</span></span>`
+    : '';
+  const wrap = ['textarea_wrap', 'textarea_clearable', max != null && 'textarea_show-count', filled].filter(Boolean).join(' ');
+  const described = max != null ? ` aria-describedby="${id}-count"` : '';
+  const hidden = value && !options.inactive ? '' : ' hidden';
+  return `<div class="${wrap}"><textarea id="${id}" class="textarea" rows="${options.rows ?? 4}"${max != null ? ` maxlength="${max}"` : ''}${described}${options.inactive ? ' readonly' : ''}>${value}</textarea><button type="button" class="textarea_clear" data-ripple="surface" aria-label="입력 지우기"${hidden}>${closeIconHtml}</button>${count}</div>`;
 };
 
 const sources: Record<string, Source> = {
@@ -61,6 +74,15 @@ const sources: Record<string, Source> = {
     html: fieldHtml('textarea-count', '자기소개', htmlCount('textarea-count', { rows: 5 }), '<p class="form_field-hint">200자 이내로 작성해 주세요.</p>'),
     react: fieldReact('textarea-count', '자기소개', '<Textarea id="textarea-count" rows={5} maxLength={200} showCount />', '<p className="form_field-hint">200자 이내로 작성해 주세요.</p>'),
     vue: fieldVue('textarea-count', '자기소개', '<Textarea id="textarea-count" :rows="5" :max-length="200" show-count />', '<p class="form_field-hint">200자 이내로 작성해 주세요.</p>')
+  },
+  clearable: {
+    html: `${fieldHtml('textarea-clear', '메모', htmlClearable('textarea-clear', { value: '지울 수 있는 내용' }))}${fieldHtml('textarea-clear-count', '자기소개', htmlClearable('textarea-clear-count', { value: '글자 수와 지우기를 함께 사용합니다.', max: 200 }))}${fieldHtml('textarea-clear-readonly', '읽기 전용', htmlClearable('textarea-clear-readonly', { value: '수정 불가', inactive: true, rows: 3 }))}`,
+    react: `<>
+  ${fieldReact('textarea-clear', '메모', '<Textarea id="textarea-clear" rows={4} clearable defaultValue="지울 수 있는 내용" />')}
+  ${fieldReact('textarea-clear-count', '자기소개', '<Textarea id="textarea-clear-count" rows={4} clearable showCount maxLength={200} defaultValue="글자 수와 지우기를 함께 사용합니다." />')}
+  ${fieldReact('textarea-clear-readonly', '읽기 전용', '<Textarea id="textarea-clear-readonly" rows={3} clearable readOnly defaultValue="수정 불가" />')}
+</>`,
+    vue: `${fieldVue('textarea-clear', '메모', '<Textarea id="textarea-clear" :rows="4" clearable model-value="지울 수 있는 내용" />')}${fieldVue('textarea-clear-count', '자기소개', '<Textarea id="textarea-clear-count" :rows="4" clearable show-count :max-length="200" model-value="글자 수와 지우기를 함께 사용합니다." />')}${fieldVue('textarea-clear-readonly', '읽기 전용', '<Textarea id="textarea-clear-readonly" :rows="3" clearable model-value="수정 불가" readonly />')}`
   },
   example: {
     html: `<form class="form form_vertical form_fit form_compact">${fieldHtml('review', '후기', htmlCount('review', { value: '좋아요', max: 300, rows: 6, error: true }).replace('aria-describedby="review-count"', 'aria-describedby="review-error review-count"'), '<p id="review-error" class="form_field-error" role="alert">후기를 10자 이상 작성해 주세요.</p>')}<div class="form_actions"><button class="btn btn_filled color_primary" type="submit"><span class="btn_label">등록</span></button><button class="btn btn_ghost" type="button"><span class="btn_label">취소</span></button></div></form>`,

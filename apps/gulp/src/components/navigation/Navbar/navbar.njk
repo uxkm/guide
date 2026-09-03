@@ -8,8 +8,19 @@
 >
   <div class="navbar_container">
     {# 브랜드 영역은 사이트 식별용 링크입니다. #}
-    <a href="#" class="navbar_brand"
-      >{% if brandIcon %}{{ brandIcon | safe }}{% endif %}{{ brand | default('UXKM') }}</a
+    <a
+      href="#"
+      class="navbar_brand{% if brandBackground %} navbar_brand-bg{% endif %}"
+      {% if brandBackground %}
+      style="--navbar-brand-bg-image: url('{{ brandBackground }}')"
+      aria-label="{{ brandAlt | default(brand | default('UXKM')) }}"
+      {% endif %}
+      >{% if brandBackground %}<span class="navbar_brand-sr">{{ brand | default('UXKM') }}</span>{% elif brandSrc %}<img
+        class="navbar_brand-image"
+        src="{{ brandSrc }}"
+        alt="{{ brandAlt | default(brand | default('')) }}"
+      />{% if brand %}{{ brand }}{% endif %}{% else %}{% if brandIcon %}{{ brandIcon | safe }}{% endif %}{{ brand |
+      default('UXKM') }}{% endif %}</a
     >
     {# 반응형일 때만 접힘 메뉴 토글 버튼을 렌더합니다. #}
     {% if responsive %}<button

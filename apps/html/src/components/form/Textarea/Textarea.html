@@ -38,3 +38,30 @@
   </div>
   <p id="textarea-introduction-hint" class="form_field-hint">200자 이내로 작성해 주세요.</p>
 </div>
+
+<div class="form_field">
+  <!-- 값이 있을 때 우상단 지우기 버튼을 표시하고 클릭 후 포커스를 복원합니다. -->
+  <label class="form_field-label" for="textarea-clear">메모</label>
+  <div class="textarea_wrap textarea_clearable is-filled">
+    <textarea
+      id="textarea-clear"
+      class="textarea"
+      rows="4"
+      data-component="Textarea"
+    >지울 수 있는 내용</textarea>
+    <button class="textarea_clear" type="button" data-ripple="surface" aria-label="입력 지우기">
+      <svg
+        class="icon"
+        data-component="Icon"
+        data-icon="close"
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M18 6 6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</div>

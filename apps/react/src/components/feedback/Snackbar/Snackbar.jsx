@@ -7,10 +7,10 @@ import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 import { SnackbarPlacementContext, snackbarPlacements } from './SnackbarRegion.jsx';
 
-const colors = new Set(['info', 'success', 'warning', 'danger']); // 지원하는 의미 색상입니다.
-const sizes = new Set(['sm', 'md', 'lg']); // 지원하는 크기입니다.
-const motions = new Set(['fade', 'slide', 'none']); // 지원하는 등장·퇴장 효과입니다.
-const placements = new Set(snackbarPlacements); // 지원하는 배치 위치입니다.
+const colors = ['info', 'success', 'warning', 'danger']; // 지원하는 의미 색상입니다.
+const sizes = ['sm', 'md', 'lg']; // 지원하는 크기입니다.
+const motions = ['fade', 'slide', 'none']; // 지원하는 등장·퇴장 효과입니다.
+const placements = snackbarPlacements; // 지원하는 배치 위치입니다.
 // 색상별 기본 아이콘 이름입니다.
 const iconNames = {
   info: 'info',
@@ -50,15 +50,15 @@ export function Snackbar({
   const startedAtRef = useRef(0); // 타이머 시작 시각입니다.
   const remainingRef = useRef(0); // 남은 자동 닫기 시간(ms)입니다.
   const closeRef = useRef(null); // 퇴장 완료 후 전달할 닫기 사유·이벤트입니다.
-  const pauseReasonsRef = useRef(new Set()); // hover·focus 등 일시정지 사유입니다.
+  const pauseReasonsRef = useRef({ hover: false, focus: false }); // hover·focus 등 일시정지 사유입니다.
   const [visible, setVisible] = useState(true); // DOM 유지 여부입니다.
   // none이면 바로 open, 그 외에는 entering부터 시작합니다.
   const [phase, setPhase] = useState(motion === 'none' ? 'open' : 'entering');
-  const resolvedColor = colors.has(color) ? color : 'info'; // 검증된 색상입니다.
-  const resolvedSize = sizes.has(size) ? size : 'md'; // 검증된 크기입니다.
-  const resolvedMotion = motions.has(motion) ? motion : 'fade'; // 검증된 모션입니다.
+  const resolvedColor = colors.includes(color) ? color : 'info'; // 검증된 색상입니다.
+  const resolvedSize = sizes.includes(size) ? size : 'md'; // 검증된 크기입니다.
+  const resolvedMotion = motions.includes(motion) ? motion : 'fade'; // 검증된 모션입니다.
   // placement prop이 없으면 Region placement를 사용합니다.
-  const resolvedPlacement = placements.has(placement) ? placement : regionPlacement;
+  const resolvedPlacement = placements.includes(placement) ? placement : regionPlacement;
   // duration은 0 이상의 유한 숫자만 허용합니다.
   const resolvedDuration = Number.isFinite(Number(duration)) ? Math.max(0, Number(duration)) : 0;
 
@@ -85,21 +85,21 @@ export function Snackbar({
   };
   // 일시정지 사유가 없을 때만 남은 시간으로 타이머를 재개합니다.
   const startTimer = () => {
-    if (remainingRef.current <= 0 || timerRef.current !== null || pauseReasonsRef.current.size > 0)
+    if (remainingRef.current <= 0 || timerRef.current !== null || pauseReasonsRef.current.hover || pauseReasonsRef.current.focus)
       return;
     startedAtRef.current = Date.now();
     timerRef.current = window.setTimeout(() => dismiss('timeout'), remainingRef.current);
   };
   // 호버·포커스 중에는 남은 시간을 줄이고 타이머를 멈춥니다.
   const pauseTimer = (reason) => {
-    pauseReasonsRef.current.add(reason);
+    pauseReasonsRef.current[reason] = true;
     if (timerRef.current === null) return;
     remainingRef.current = Math.max(0, remainingRef.current - (Date.now() - startedAtRef.current));
     clearTimer();
   };
   // 일시정지 사유를 제거하고 타이머를 재개합니다.
   const resumeTimer = (reason) => {
-    pauseReasonsRef.current.delete(reason);
+    pauseReasonsRef.current[reason] = false;
     startTimer();
   };
 
@@ -113,7 +113,7 @@ export function Snackbar({
   useEffect(() => {
     if (phase !== 'open' || resolvedDuration === 0) return undefined;
     remainingRef.current = resolvedDuration;
-    pauseReasonsRef.current.clear();
+    pauseReasonsRef.current = { hover: false, focus: false };
     startTimer();
     return clearTimer;
   }, [phase, resolvedDuration]);

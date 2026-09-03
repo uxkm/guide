@@ -241,6 +241,11 @@ const textareaConfig: Record<string, { label: string; classes?: string; attribut
     classes: 'textarea_resize_none',
     attributes: 'rows="5" maxlength="200"',
   },
+  clearable: {
+    label: '메모',
+    classes: 'textarea_resize_none',
+    attributes: 'rows="4"',
+  },
   example: {
     label: '문의 내용',
     classes: 'textarea_resize_none is-error',
@@ -257,7 +262,14 @@ function textareaWebSquare(key: string) {
   ${textarea}
   <w2:textbox id="${key}Count" class="textarea_count" role="status" aria-live="polite" label="0/${key === 'count' ? '200' : '500'}"></w2:textbox>
 </w2:group>`
-      : textarea;
+      : key === 'clearable'
+        ? `<w2:group id="${key}Wrap" class="textarea_wrap textarea_clearable is-filled">
+  ${textarea}
+  <xf:trigger id="${key}Clear" type="button" class="textarea_clear" ev:onclick="scwin.textarea_clear">
+    <xf:label><![CDATA[입력 지우기]]></xf:label>
+  </xf:trigger>
+</w2:group>`
+        : textarea;
   return `<w2:group id="${key}Field" class="form_field form_field_fit">
   <w2:textbox id="${key}Label" class="form_field-label" tagname="label" for="${key}Textarea" label="${config.label}"></w2:textbox>
   <w2:group id="${key}Control" class="form_field-control">

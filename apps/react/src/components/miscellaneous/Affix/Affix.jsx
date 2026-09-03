@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { initAffix } from '@uxkm/html/affix';
 
-const skins = new Set(['', 'bar', 'anchor']);
+const skins = ['', 'bar', 'anchor'];
 
 export function Affix({
   target, // 고정 기준이 되는 스크롤 컨테이너 선택자입니다.
@@ -19,7 +19,7 @@ export function Affix({
   ...props // 나머지 속성을 루트에 전달합니다.
 }) {
   const rootRef = useRef(null);
-  const resolvedSkin = skins.has(skin) ? skin : '';
+  const resolvedSkin = skins.includes(skin) ? skin : '';
   const targetClass = useMemo(
     () => ['affix_target', resolvedSkin && `affix_${resolvedSkin}`].filter(Boolean).join(' '),
     [resolvedSkin],

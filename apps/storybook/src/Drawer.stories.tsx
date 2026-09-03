@@ -1,7 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import ActualDrawer from '../../react/src/components/feedback/Drawer/Drawer.jsx';
+
 import ActualButton from '../../react/src/components/basic/Button/Button.jsx';
+import ActualDrawer from '../../react/src/components/feedback/Drawer/Drawer.jsx';
+import {
+  booleanControlArg,
+  closeLabelArg,
+  defaultOpenArg,
+  hiddenArgTypes,
+  stringControlArg,
+} from './shared/storyArgTypes';
 
 const Drawer = ActualDrawer as React.ComponentType<any>;
 const Button = ActualButton as React.ComponentType<any>;
@@ -63,14 +71,225 @@ function NoBackdropDemo() {
   return <><Button variant="outline" label="백드롭 없이 열기" onClick={() => setOpen(true)} /><Drawer open={open} noBackdrop size="sm" title="백드롭 없음" onClose={() => setOpen(false)} footer={<Button label="닫기" onClick={() => setOpen(false)} />}><p>페이지 배경을 가리지 않고 패널만 표시합니다.</p></Drawer></>;
 }
 
-const meta = { title: '피드백/Drawer', component: Drawer, parameters: { layout: 'padded' }, argTypes: { size: { control: 'select', options: ['sm', 'md', 'lg'] }, placement: { control: 'select', options: ['left', 'right', 'top', 'bottom'] } } } satisfies Meta<typeof Drawer>;
+function MotionDemo() {
+  const [motion, setMotion] = useState<string | null>(null);
+  return (
+    <>
+      <div className="drawer_demo-row">
+        {['slide', 'fade'].map((value) => (
+          <Button key={value} variant="outline" label={value} onClick={() => setMotion(value)} />
+        ))}
+      </div>
+      {motion && (
+        <Drawer
+          open
+          motion={motion}
+          title={`${motion} 효과`}
+          onClose={() => setMotion(null)}
+          footer={<Button label="닫기" onClick={() => setMotion(null)} />}
+        >
+          <p>motion=&quot;{motion}&quot; 전환 효과입니다.</p>
+        </Drawer>
+      )}
+    </>
+  );
+}
+
+function SpeedDemo() {
+  const [speed, setSpeed] = useState<string | null>(null);
+  return (
+    <>
+      <div className="drawer_demo-row">
+        {['fast', 'normal', 'slow'].map((value) => (
+          <Button key={value} variant="outline" label={value} onClick={() => setSpeed(value)} />
+        ))}
+      </div>
+      {speed && (
+        <Drawer
+          open
+          speed={speed}
+          title={`${speed} 속도`}
+          onClose={() => setSpeed(null)}
+          footer={<Button label="닫기" onClick={() => setSpeed(null)} />}
+        >
+          <p>speed=&quot;{speed}&quot; 전환 속도입니다.</p>
+        </Drawer>
+      )}
+    </>
+  );
+}
+
+function DrawerPlayground({
+  args,
+  updateArgs,
+}: {
+  args: Record<string, unknown>;
+  updateArgs?: (patch: Record<string, unknown>) => void;
+}) {
+  const argsOpen = args.open === true;
+  const [open, setOpen] = useState(argsOpen);
+
+  useEffect(() => {
+    setOpen(argsOpen);
+  }, [argsOpen]);
+
+  const setOpenState = (next: boolean) => {
+    setOpen(next);
+    updateArgs?.({ open: next });
+  };
+
+  return (
+    <>
+      {!open && <Button label="Drawer 열기" onClick={() => setOpenState(true)} />}
+      <Drawer
+        {...drawerPropsFromArgs(args)}
+        open={open}
+        onClose={() => setOpenState(false)}
+        footer={
+          <>
+            <Button variant="ghost" label="취소" onClick={() => setOpenState(false)} />
+            <Button label="확인" onClick={() => setOpenState(false)} />
+          </>
+        }
+      >
+        <p>Controls에서 위치, 크기, motion, speed, 백드롭 옵션을 변경해 확인하세요.</p>
+      </Drawer>
+    </>
+  );
+}
+
+type DrawerStoryArgs = {
+  open?: boolean;
+  title?: string;
+  size?: 'sm' | 'md' | 'lg';
+  placement?: 'left' | 'right' | 'top' | 'bottom';
+  motion?: 'slide' | 'fade';
+  speed?: 'fast' | 'normal' | 'slow';
+  backdrop?: boolean;
+  noBackdrop?: boolean;
+  draggable?: boolean;
+  footerAlign?: 'start' | 'center' | 'end' | 'between' | 'even';
+  footerRatio?: '1-1' | '2-1' | '1-2';
+  footerNoPadBottom?: boolean;
+  closeLabel?: string;
+};
+
+function drawerPropsFromArgs(args: Record<string, unknown>) {
+  return {
+    title: typeof args.title === 'string' ? args.title : undefined,
+    size: args.size,
+    placement: args.placement,
+    motion: args.motion,
+    speed: args.speed,
+    backdrop: args.backdrop !== false,
+    noBackdrop: args.noBackdrop === true,
+    draggable: args.draggable === true,
+    footerAlign: args.footerAlign,
+    footerRatio: args.footerRatio,
+    footerNoPadBottom: args.footerNoPadBottom === true,
+    closeLabel: typeof args.closeLabel === 'string' ? args.closeLabel : undefined,
+  };
+}
+
+const drawerControlKeys = [
+  'open',
+  'title',
+  'size',
+  'placement',
+  'motion',
+  'speed',
+  'backdrop',
+  'noBackdrop',
+  'draggable',
+  'footerAlign',
+  'footerRatio',
+  'footerNoPadBottom',
+  'closeLabel',
+] as const;
+
+const meta = {
+  title: '피드백/Drawer',
+  component: Drawer,
+  parameters: {
+    layout: 'padded',
+    controls: { include: [...drawerControlKeys] },
+    docs: { extractArgTypes: () => ({}) },
+  },
+  args: {
+    open: true,
+    title: 'Drawer Playground',
+    placement: 'right',
+    size: 'md',
+    motion: 'slide',
+    speed: 'normal',
+    backdrop: true,
+    noBackdrop: false,
+    draggable: false,
+    footerAlign: 'end',
+    footerRatio: '1-1',
+    footerNoPadBottom: false,
+    closeLabel: '닫기',
+  },
+  argTypes: {
+    ...hiddenArgTypes,
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      type: 'string',
+    },
+    placement: {
+      control: 'select',
+      options: ['left', 'right', 'top', 'bottom'],
+      type: 'string',
+    },
+    motion: {
+      control: 'select',
+      options: ['slide', 'fade'],
+      type: 'string',
+    },
+    speed: {
+      control: 'select',
+      options: ['fast', 'normal', 'slow'],
+      type: 'string',
+    },
+    footerAlign: {
+      control: 'select',
+      options: ['start', 'center', 'end', 'between', 'even'],
+      type: 'string',
+    },
+    footerRatio: {
+      control: 'select',
+      options: ['1-1', '2-1', '1-2'],
+      type: 'string',
+    },
+    open: booleanControlArg,
+    backdrop: booleanControlArg,
+    noBackdrop: booleanControlArg,
+    draggable: booleanControlArg,
+    footerNoPadBottom: booleanControlArg,
+    title: stringControlArg,
+    closeLabel: closeLabelArg,
+    defaultOpen: defaultOpenArg,
+    openOnLoad: { table: { disable: true } },
+    footer: { table: { disable: true } },
+    header: { table: { disable: true } },
+    extra: { table: { disable: true } },
+    onClose: { table: { disable: true } },
+  },
+} satisfies Meta<DrawerStoryArgs>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = { name: 'Playground', args: { open: true, title: 'Drawer Playground', placement: 'right', size: 'md' }, render: (args) => <Drawer {...args}><p>Controls에서 위치, 크기, 백드롭 옵션을 변경해 확인하세요.</p></Drawer> };
+export const Playground: Story = {
+  name: 'Playground',
+  render: (args, { updateArgs }) => <DrawerPlayground args={args} updateArgs={updateArgs} />,
+};
 export const Basic: Story = { name: '기본', render: () => <BasicDemo /> };
 export const OpenOnLoad: Story = { name: '로드 시 자동 열기 (옵션)', render: () => <OpenDemo /> };
 export const Placement: Story = { name: '위치', render: () => <PlacementDemo /> };
+export const Motion: Story = { name: '전환 효과', render: () => <MotionDemo /> };
+export const Speed: Story = { name: '전환 속도', render: () => <SpeedDemo /> };
 export const Size: Story = { name: '크기', render: () => <SizeDemo /> };
 export const Footer: Story = { name: '헤더·푸터', render: () => <FooterDemo /> };
 export const FooterAlign: Story = { name: '푸터 정렬', render: () => <FooterAlignDemo /> };

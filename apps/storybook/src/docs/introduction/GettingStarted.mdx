@@ -5,7 +5,7 @@ import IntroductionCards from '../../shared/IntroductionCards';
 
 # 설치 및 사용
 
-현재 저장소는 `pnpm` 워크스페이스에서 여섯 브라우저 앱, WebSquare XML 소스 앱과 Storybook을 함께 관리합니다. 기존 프레임워크별 Storybook의 설치 안내를 통합 저장소의 실제 스크립트와 경로 기준으로 정리했습니다.
+`pnpm` 워크스페이스에서 여섯 브라우저 앱, WebSquare XML 소스 앱과 Storybook을 함께 관리합니다. 패키지 구조와 소유권은 **아키텍처**, 토큰·테마 값은 **디자인 토큰**을 참고합니다.
 
 ## 사전 요구사항
 
@@ -50,6 +50,8 @@ pnpm storybook
 pnpm build:styles
 pnpm build:storybook
 ```
+
+문서 배포 파이프라인(`build:guidebook`, `pnpm build`)은 **아키텍처 › 문서 빌드와 배포**를 참고합니다.
 
 ## 컴포넌트 가져오기
 
@@ -109,20 +111,18 @@ Button처럼 네이티브 동작만 필요한 요소는 CSS와 마크업만으�
 
 ## WebSquare 화면 XML에서 사용
 
-각 컴포넌트 문서의 WebSquare 탭에서 XML 호환 마크업을 복사할 수 있습니다. 예제는 공통 CSS 클래스와 접근성 속성을 유지한 fragment이며, WebSquare 화면 XML 루트 안에 배치하는 것을 전제로 합니다.
+각 컴포넌트 문서의 **Code → WebSquare** 탭은 HTML 기준 마크업을 WebSquare 화면에서 쓸 수 있는 XML fragment로 제공합니다. 공통 클래스와 접근성 속성, 닫는 void 태그·값을 가진 XML 속성을 유지하며, 네임스페이스는 화면 XML 루트에서 상속받습니다. React·Vue처럼 별도 컴포넌트를 import하는 코드가 아닙니다.
 
-**화면**은 페이지 단위 XML 문서이고, **scwin**은 WebSquare가 그 화면에 만들어 주는 기본 스크립트 객체명입니다. 버튼 클릭은 `ev:onclick="scwin...."`으로 화면 스크립트에 연결하고, 입력값은 `ref="data:..."`로 DataMap·DataList에 바인딩합니다. 객체명은 `config.xml`의 SPA `variable`에서 바꿀 수 있으므로, 프로젝트가 다른 이름을 쓰면 예제의 `scwin`을 치환합니다. UXKM은 WebSquare 엔진과 공통 화면 스크립트를 포함하지 않으므로, 함수 이름과 데이터 경로 규칙은 프로젝트 화면 표준을 따릅니다.
+문서 경계와 소유권은 **아키텍처 › WebSquare 문서 경계**를, 지원 범위는 **가이드라인 › Framework Support**를 참고합니다. 아래는 화면에 붙이는 절차입니다.
 
-`xmlns` 선언은 컴포넌트 속성이 아니라 XML 문서 범위의 선언입니다. 화면 루트에서 한 번 선언하고 내부 컴포넌트는 이를 상속합니다. 여러 컴포넌트를 같은 화면에 배치해도 선언을 반복하지 않습니다. 별도 화면 XML이나 WFrame의 `src`로 불러오는 파일처럼 독립적으로 파싱되는 문서는 각 파일의 루트에서 다시 선언하며, `ev`와 `xf`는 해당 접두사를 사용하는 화면에서 추가합니다.
+**화면**은 페이지 단위 XML 문서이고, **scwin**은 WebSquare가 그 화면에 만들어 주는 기본 스크립트 객체명입니다. 클릭·변경은 `ev:onclick="scwin...."`처럼 XML Events로 연결하고, 입력값은 `ref="data:..."`로 DataMap·DataList에 바인딩합니다. 객체명은 `config.xml`의 SPA `variable`에서 바꿀 수 있으므로 프로젝트가 다른 이름을 쓰면 예제의 `scwin`을 치환합니다. UXKM은 WebSquare 엔진·공통 화면 스크립트를 포함하지 않으므로 함수 이름과 데이터 경로 규칙은 프로젝트 표준을 따릅니다.
 
-1. WebSquare 화면이 로드하는 스타일에 `uxkm.css`를 연결합니다.
-2. Storybook의 WebSquare 탭에서 XML 조각을 복사해 화면에 배치합니다.
+1. 화면이 로드하는 스타일에 `uxkm.css`를 연결합니다.
+2. Storybook WebSquare 탭에서 XML 조각을 복사해 화면에 배치합니다. 기존 화면에 붙일 때는 `screenRoot`나 네임스페이스 선언을 함께 복사하지 않습니다.
 3. 정적 HTML 이벤트에 의존하는 컴포넌트는 `ev:onclick`, `scwin` 함수와 프로젝트 데이터 객체에 맞게 연결합니다.
 4. 실제 WebSquare 엔진에서 레이아웃, 포커스, 키보드와 데이터 바인딩을 검증합니다.
 
-컴포넌트 탭의 fragment를 기존 화면에 추가할 때는 아래의 `screenRoot`나 네임스페이스 선언을 함께 복사하지 않습니다. 화면 파일을 새로 만드는 경우에만 프로젝트의 기본 화면 템플릿에서 루트 선언을 한 번 작성합니다.
-
-화면 XML 루트에서 네임스페이스를 공통 선언하고, 정적 마크업을 WebSquare 컴포넌트와 이벤트로 연결할 때는 다음과 같이 적용할 수 있습니다.
+`xmlns` 선언은 컴포넌트 속성이 아니라 문서 범위 선언입니다. 화면 루트에서 한 번만 두고 내부 fragment는 상속합니다. 별도 화면 XML이나 WFrame `src`처럼 독립 파싱되는 문서만 각 파일 루트에서 다시 선언하며, `ev`·`xf`는 해당 접두사를 쓰는 화면에 추가합니다.
 
 ```xml
 <w2:group
@@ -149,15 +149,13 @@ scwin.btnSave_onclick = function () {
 };
 ```
 
-Storybook의 자동 예제는 CSS와 접근성 구조를 우선 보존합니다. `w2:trigger`, `xf:input`, DataList 바인딩처럼 WebSquare 전용 컴포넌트가 필요한 화면은 이 마크업을 기준으로 프로젝트 표준에 맞게 치환합니다.
+Container, Grid, Flex처럼 호출 위치의 자식을 감싸는 구조 컴포넌트는 WFrame으로 별도 XML을 부르지 않고 현재 화면의 `w2:group`에 공통 클래스를 직접 적용합니다. WFrame은 공통 메뉴처럼 완성된 별도 화면 XML을 `src`로 포함할 때 사용합니다.
 
-Container, Grid, Flex처럼 호출 위치의 자식 콘텐츠를 감싸는 구조 컴포넌트는 별도 XML 파일을 WFrame으로 호출하지 않고 현재 화면의 `w2:group`에 공통 클래스를 직접 적용합니다. WFrame은 공통 메뉴처럼 완성된 별도 화면 XML을 `src`로 포함해야 할 때 사용합니다.
-
-WebSquare 탭은 화면 XML 작성 기준을 제공하며 WebSquare 런타임, 라이선스 또는 별도 `apps/websquare` 실행 프로젝트를 포함하지 않습니다.
+자동 변환으로 표현하기 어려운 컴포넌트는 Story에서 `id: 'websquare'` 전용 예제를 선언할 수 있습니다. `w2:trigger`, `xf:input`, DataList 바인딩이 필요한 화면은 이 마크업을 기준으로 프로젝트 표준에 맞게 치환합니다.
 
 ## Gulp / Nunjucks 사용
 
-Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환하는 방식입니다. 소스 파일의 역할은 다음과 같습니다.
+Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환합니다. HTML과의 역할 차이는 **소개 › HTML과 Gulp/Nunjucks의 차이**를 참고합니다.
 
 <IntroductionCards
   columns={[{ label: '경로' }, { label: '확장자' }, { label: '역할' }]}
@@ -172,8 +170,6 @@ Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환하�
   codeColumns={[0, 1]}
 />
 
-페이지는 공통 레이아웃을 상속하고 `content` block 안에서 partial이나 컴포넌트를 포함합니다.
-
 ```nunjucks
 {% extends "layouts/default.njk" %}
 
@@ -184,8 +180,6 @@ Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환하�
   </main>
 {% endblock %}
 ```
-
-반복되는 목록이나 상태는 Nunjucks 데이터와 제어문으로 생성할 수 있습니다. 템플릿 문법은 빌드 시 사라지고 최종 결과에는 일반 HTML만 남습니다.
 
 ```nunjucks
 {% set actions = [
@@ -200,21 +194,11 @@ Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환하�
 {% endfor %}
 ```
 
-```html
-<!-- 위 템플릿의 빌드 결과 예시 -->
-<button type="button" class="btn btn_filled color_primary">
-  <span class="btn_label">저장</span>
-</button>
-<button type="button" class="btn btn_filled color_danger">
-  <span class="btn_label">삭제</span>
-</button>
-```
-
-현재 `apps/gulp`에는 52개 컴포넌트의 `.njk` 소스와 레이아웃 구조가 준비되어 있지만, `gulpfile.js`, 페이지 템플릿, 패키지 실행 스크립트는 아직 스캐폴드 상태입니다. 따라서 현재는 `pnpm dev`가 Gulp 변환을 실행하지 않으며, 실제 `.njk → .html` 빌드 명령은 Gulp 태스크가 연결된 뒤 이 문서의 주요 명령 표에 추가합니다.
+현재 `apps/gulp`에는 52개 컴포넌트의 `.njk` 소스와 레이아웃 구조가 준비되어 있지만, `gulpfile.js`, 페이지 템플릿, 패키지 실행 스크립트는 아직 스캐폴드 상태입니다. 따라서 `pnpm dev`가 Gulp 변환을 실행하지 않으며, `.njk → .html` 빌드 명령은 Gulp 태스크가 연결된 뒤 이 문서의 주요 명령 표에 추가합니다.
 
 ## Vue 사용
 
-Vue 구현은 `.vue` Single-File Component로 제공합니다. `<script setup>`에서 컴포넌트와 반응형 상태를 준비하고, `<template>`에서 prop·이벤트·slot을 Vue 문법으로 연결합니다.
+Vue 구현은 `.vue` Single-File Component로 제공합니다. Nuxt와의 역할 차이는 **소개 › Vue와 Nuxt의 차이**를 참고합니다.
 
 <IntroductionCards
   columns={[{ label: '경로' }, { label: '역할' }]}
@@ -227,7 +211,7 @@ Vue 구현은 `.vue` Single-File Component로 제공합니다. `<script setup>`�
   codeColumns={[0]}
 />
 
-복합어 prop은 템플릿에서 kebab-case로 작성하고 이벤트는 `@이벤트명`으로 받습니다. 기본 콘텐츠는 default slot, 아이콘처럼 위치가 정해진 콘텐츠는 named slot을 사용합니다.
+복합어 prop은 템플릿에서 kebab-case로 작성하고 이벤트는 `@이벤트명`으로 받습니다. 기본 콘텐츠는 default slot, 위치가 정해진 콘텐츠는 named slot을 사용합니다.
 
 ```vue
 <script setup>
@@ -254,8 +238,6 @@ function save() {
 </template>
 ```
 
-named slot은 `#이름`으로 전달합니다. 예를 들어 Button의 `icon-before` slot은 다음과 같이 사용합니다.
-
 ```vue
 <Button label="추가">
   <template #icon-before>
@@ -264,11 +246,11 @@ named slot은 `#이름`으로 전달합니다. 예를 들어 Button의 `icon-bef
 </Button>
 ```
 
-Nuxt에서도 UI 컴포넌트의 prop·이벤트·slot 사용법은 같습니다. 페이지 라우팅이나 `NuxtLink`, `NuxtImg`가 필요한 부분만 Nuxt 전용 구현을 선택합니다.
+Nuxt에서도 UI의 prop·이벤트·slot 사용법은 같습니다. 페이지 라우팅이나 `NuxtLink`, `NuxtImg`가 필요한 부분만 Nuxt 전용 구현을 선택합니다.
 
 ## React 사용
 
-React 구현은 `.jsx` 컴포넌트로 제공합니다. 컴포넌트를 import한 뒤 JSX prop, 이벤트 콜백, `children` 또는 React node prop으로 상태와 콘텐츠를 전달합니다.
+React 구현은 `.jsx` 컴포넌트로 제공합니다. Next.js와의 역할 차이는 **소개 › React와 Next.js의 차이**를 참고합니다.
 
 <IntroductionCards
   columns={[{ label: '경로' }, { label: '역할' }]}
@@ -281,7 +263,7 @@ React 구현은 `.jsx` 컴포넌트로 제공합니다. 컴포넌트를 import�
   codeColumns={[0]}
 />
 
-JSX에서는 `ariaLabel`, `iconBefore`, `onClick`처럼 camelCase prop을 사용합니다. 본문 콘텐츠는 `children`으로 전달하며, 아이콘이나 추가 액션처럼 위치가 정해진 콘텐츠는 해당 React node prop을 사용합니다.
+JSX에서는 `ariaLabel`, `iconBefore`, `onClick`처럼 camelCase prop을 사용합니다. 본문은 `children`, 위치가 정해진 콘텐츠는 해당 React node prop을 사용합니다.
 
 ```jsx
 import { useState } from 'react';
@@ -305,34 +287,11 @@ export function SaveButton() {
 }
 ```
 
-Next.js에서도 공통 UI의 prop·이벤트·children 사용법은 같습니다. App Router의 서버 컴포넌트에서 상태나 이벤트를 사용하는 컴포넌트는 `'use client'` 경계 안에 두고, 경로 이동이나 이미지 최적화가 필요한 부분만 Next.js 전용 구현을 사용합니다.
-
-## 프레임워크별 소스 위치
-
-<IntroductionCards
-  columns={[
-    { label: '프레임워크' },
-    { label: '소개 문서' },
-    { label: '컴포넌트' },
-    { label: '빌드 결과 기준' }
-  ]}
-  rows={[
-    ['HTML', 'apps/html/src/introduction', 'apps/html/src/components', 'apps/html/dist'],
-    ['Gulp / Nunjucks', 'apps/gulp/src/introduction', 'apps/gulp/src/components', 'apps/gulp/dist'],
-    ['Vue', 'apps/vue/src/introduction', 'apps/vue/src/components', 'apps/vue/dist'],
-    ['React', 'apps/react/src/introduction', 'apps/react/src/components', 'apps/react/dist'],
-    ['Nuxt', 'apps/nuxt/app/introduction', 'Vue 공통 + Nuxt 전용', 'apps/nuxt/.output/public'],
-    ['Next.js', 'apps/next/src/introduction', 'React 공통 + Next 전용', 'apps/next/out'],
-    ['WebSquare', 'Storybook 소개와 컴포넌트 코드 탭', 'XML 호환 XHTML 예제', 'WebSquare 프로젝트에서 별도 실행']
-  ]}
-  codeColumns={[1, 3]}
-/>
-
-Nuxt와 Next.js는 공통 Vue·React 컴포넌트를 복제하지 않습니다. 라우팅, 링크, 이미지, App Layout처럼 메타 프레임워크에 종속된 부분만 해당 앱에서 확장합니다.
+Next.js에서도 공통 UI의 prop·이벤트·children 사용법은 같습니다. App Router의 서버 컴포넌트에서 상태나 이벤트를 쓰는 컴포넌트는 `'use client'` 경계 안에 두고, 경로 이동·이미지 최적화만 Next.js 전용 구현을 사용합니다.
 
 ## 프레임워크별 스타일 적용
 
-스타일의 단일 원본은 `packages/styles/index.scss`입니다. `pnpm build:styles`를 실행하면 같은 내용과 소스 해시를 가진 CSS가 모든 앱과 Storybook에 배포됩니다.
+스타일 원본은 `packages/styles/index.scss`입니다. `pnpm build:styles`로 같은 CSS가 모든 앱과 Storybook에 배포됩니다. 토큰 목록과 테마 동작은 **디자인 토큰**을 참고합니다.
 
 <IntroductionCards
   columns={[
@@ -352,9 +311,7 @@ Nuxt와 Next.js는 공통 Vue·React 컴포넌트를 복제하지 않습니다. 
   codeColumns={[1]}
 />
 
-## 테마
-
-라이트/다크 테마는 루트 요소의 `data-theme`으로 전환합니다. 속성을 지정하지 않으면 시스템의 `prefers-color-scheme`을 따르고, Storybook에서는 상단 툴바의 테마 항목이 같은 속성을 설정합니다.
+라이트/다크 전환은 루트 요소의 `data-theme`으로 설정합니다. Storybook 툴바도 같은 속성을 사용합니다. 값·미디어 쿼리·대비 기준은 **디자인 토큰 › 테마 동작**을 참고합니다.
 
 ```html
 <html lang="ko" data-theme="light">
@@ -364,25 +321,3 @@ Nuxt와 Next.js는 공통 Vue·React 컴포넌트를 복제하지 않습니다. 
 ```js
 document.documentElement.dataset.theme = 'dark';
 ```
-
-사용자의 선택을 유지하려면 `localStorage` 등에 값을 저장하고, 첫 화면이 그려지기 전에 `data-theme`을 설정해 테마가 순간적으로 바뀌는 현상을 방지합니다. 저장 값이 없을 때는 속성을 제거하면 시스템 설정으로 돌아갑니다.
-
-```js
-const savedTheme = localStorage.getItem('theme');
-
-if (savedTheme === 'light' || savedTheme === 'dark') {
-  document.documentElement.dataset.theme = savedTheme;
-} else {
-  document.documentElement.removeAttribute('data-theme');
-}
-```
-
-## 새 컴포넌트 작업 순서
-
-1. HTML 마크업과 접근성 의미를 먼저 정의합니다.
-2. Gulp/Nunjucks, Vue, React 구현의 API와 상태 이름을 맞춥니다.
-3. Nuxt와 Next.js에서 프레임워크 전용 처리가 필요한지 확인합니다.
-4. `packages/styles/components`의 공통 스타일을 갱신합니다.
-5. `apps/websquare/src/components`의 WebSquare XML과 실제 Engine 결과를 확인합니다.
-6. Storybook 문서에 일곱 구현 예시와 API를 추가합니다.
-7. `pnpm validate:structure`, 타입 검사, Storybook 빌드로 검증합니다.

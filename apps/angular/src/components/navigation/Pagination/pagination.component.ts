@@ -83,17 +83,16 @@ export function buildPaginationPages(totalPages: number, current: number) {
               <li class="pagination_item pagination_ellipsis" aria-hidden="true">…</li>
             } @else {
               <li class="pagination_item">
-                <Button
-                  variant="ghost"
-                  color="default"
-                  size="sm"
-                  hostClass="pagination_btn"
-                  [ariaLabel]="page + '페이지'"
+                <button
+                  type="button"
+                  class="pagination_link"
+                  [class.is-active]="page === active()"
                   [attr.aria-current]="page === active() ? 'page' : null"
+                  [attr.aria-label]="page + '페이지' + (page === active() ? ', 현재 페이지' : '')"
                   (click)="goTo(page as number)"
                 >
                   {{ page }}
-                </Button>
+                </button>
               </li>
             }
           }

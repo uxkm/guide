@@ -1,7 +1,36 @@
 // @ts-nocheck
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { expect } from 'storybook/test';
+import { defaultCheckedArg, hiddenArgTypes } from './shared/storyArgTypes';
 import Checkbox from '../../react/src/components/form/Checkbox/Checkbox.jsx';
 const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
+
+function CheckboxPlayground({ args, updateArgs }) {
+  const { checked: argsChecked, indeterminate, onChange: _onChange, ariaLabel: _ariaLabel, ...rest } = args;
+  const [checked, setChecked] = useState(Boolean(argsChecked));
+
+  useEffect(() => {
+    setChecked(Boolean(argsChecked));
+  }, [argsChecked]);
+
+  return (
+    <Checkbox
+      {...rest}
+      id="checkbox-playground"
+      checked={checked}
+      indeterminate={indeterminate}
+      onChange={(event) => {
+        const next = event.target.checked;
+        setChecked(next);
+        updateArgs?.({
+          checked: next,
+          ...(next ? { indeterminate: false } : {}),
+        });
+      }}
+    />
+  );
+}
+
 const playgroundArgs = {
   label: '라벨',
   checked: false,
@@ -9,7 +38,8 @@ const playgroundArgs = {
   indeterminate: false,
   labelEnd: false,
   button: false,
-  ariaLabel: '접근성 라벨',
+  ripple: true,
+  className: '',
 };
 
 export default {
@@ -17,14 +47,25 @@ export default {
   id: 'components-checkbox',
   component: Checkbox,
   tags: ['autodocs'],
+  args: { ...playgroundArgs },
   argTypes: {
+    ...hiddenArgTypes,
     label: { control: 'text', type: { name: 'string', summary: 'string' } },
     checked: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     disabled: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     indeterminate: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     labelEnd: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     button: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    ripple: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    className: {
+      control: 'select',
+      options: ['', 'checkbox_sm', 'checkbox_lg', 'checkbox_block', 'color_primary', 'color_success', 'color_warning', 'color_danger'],
+      type: { name: 'string', summary: 'string' },
+    },
     ariaLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
+    id: { control: 'text', type: { name: 'string', summary: 'string' } },
+    defaultChecked: defaultCheckedArg,
+    onChange: { table: { disable: true } },
   },
   parameters: {
     controls: { disable: false },
@@ -38,20 +79,23 @@ export default {
 };
 
 export const Playground = {
+  name: 'Playground',
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
-  render: (args, { updateArgs }) => (
-    <Checkbox
-      {...args}
-      onChange={(event) => updateArgs({ checked: event.target.checked })}
-    />
-  ),
+  render: (args, { updateArgs }) => <CheckboxPlayground args={args} updateArgs={updateArgs} />,
+  play: async ({ canvas, userEvent }) => {
+    const control = canvas.getByLabelText('라벨');
+
+    await expect(control).not.toBeChecked();
+    await userEvent.click(control);
+    await expect(control).toBeChecked();
+  },
 };
 
 export const Type = {
   name: '유형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -136,7 +180,7 @@ export function TypeExample() {
 export const LabelEnd = {
   name: '레이블 뒤',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: false },
     docs: {
       description: {
@@ -201,7 +245,7 @@ export function LabelEndExample() {
 export const Basic = {
   name: '기본',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: false },
     docs: {
       description: {
@@ -263,7 +307,7 @@ export function BasicExample() {
 export const Standalone = {
   name: '단독 사용',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -298,7 +342,7 @@ export function StandaloneExample() {
 export const Size = {
   name: '크기',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -332,7 +376,7 @@ export function SizeExample() {
 export const Width = {
   name: '너비',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: false },
     docs: {
       description: {
@@ -381,7 +425,7 @@ export function WidthExample() {
 export const Color = {
   name: '색상',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -418,7 +462,7 @@ export function ColorExample() {
 export const State = {
   name: '상태',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -457,7 +501,7 @@ export function StateExample() {
 export const Group = {
   name: '그룹',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -510,7 +554,7 @@ export function GroupExample() {
 export const ButtonType = {
   name: '버튼형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -561,7 +605,7 @@ export function ButtonTypeExample() {
 export const CardType = {
   name: '카드형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -841,7 +885,7 @@ export function CardTypeExample() {
 export const Form = {
   name: '폼 레이아웃',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {

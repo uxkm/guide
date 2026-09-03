@@ -16,9 +16,24 @@ const SIZES = new Set(['sm', 'md', 'lg']);
       [attr.data-navbar]="responsive() || null"
     >
       <div class="navbar_container">
-        <a href="#" class="navbar_brand" (click)="$event.preventDefault()">
+        <a
+          href="#"
+          [class]="brandLinkClass()"
+          [style]="brandLinkStyle()"
+          [attr.aria-label]="brandLinkAriaLabel()"
+          (click)="$event.preventDefault()"
+        >
           @if (brandContent()) {
             <ng-container>{{ brandContent() }}</ng-container>
+          } @else if (brandBackground()) {
+            @if (brand()) {
+              <span class="navbar_brand-sr">{{ brand() }}</span>
+            }
+          } @else if (brandSrc()) {
+            <img class="navbar_brand-image" [src]="brandSrc()" [alt]="brandAlt() ?? brand() ?? ''" />
+            @if (brand()) {
+              <span class="navbar_brand-text">{{ brand() }}</span>
+            }
           } @else {
             <ng-content select="[brand-icon]" />
             {{ brand() }}
@@ -60,6 +75,9 @@ const SIZES = new Set(['sm', 'md', 'lg']);
 export class Navbar {
   readonly hostClass = input<string>('');
   readonly brand = input<string | undefined>(undefined);
+  readonly brandSrc = input<string | undefined>(undefined);
+  readonly brandAlt = input<string | undefined>(undefined);
+  readonly brandBackground = input<string | undefined>(undefined);
   readonly ariaLabel = input<string | undefined>(undefined);
   readonly size = input<string>('md');
   readonly borderless = input<boolean>(false);
@@ -79,7 +97,21 @@ export class Navbar {
   readonly targetId = computed(() => this.collapseId() || this.generatedId);
 
   readonly accessibleName = computed(
-    () => this.ariaLabel() || (typeof this.brand() === 'string' ? this.brand() : '') || '사이트',
+    () => this.ariaLabel() || this.brandAlt() || (typeof this.brand() === 'string' ? this.brand() : '') || '사이트',
+  );
+
+  readonly brandLinkClass = computed(() =>
+    ['navbar_brand', this.brandBackground() && 'navbar_brand-bg'].filter(Boolean).join(' '),
+  );
+
+  readonly brandLinkStyle = computed(() =>
+    this.brandBackground()
+      ? ({ '--navbar-brand-bg-image': `url("${this.brandBackground()}")` } as Record<string, string>)
+      : undefined,
+  );
+
+  readonly brandLinkAriaLabel = computed(() =>
+    this.brandBackground() && !this.brand() ? this.accessibleName() : undefined,
   );
 
   readonly classes = computed(() =>

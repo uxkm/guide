@@ -118,17 +118,16 @@ function goTo(page) {
       </li>
       <li v-for="(page, index) in pages" :key="`${page}-${index}`" class="pagination_item">
         <span v-if="typeof page === 'string'" class="pagination_ellipsis" aria-hidden="true">…</span
-        ><Button
+        ><button
           v-else
-          variant="text"
-          color="default"
-          :ripple="false"
+          type="button"
           :class="['pagination_link', page === active && 'is-active']"
           :aria-current="page === active ? 'page' : undefined"
           :aria-label="`${page}페이지${page === active ? ', 현재 페이지' : ''}`"
           @click="goTo(page)"
-          >{{ page }}</Button
         >
+          {{ page }}
+        </button>
       </li>
       <li class="pagination_item">
         <Button

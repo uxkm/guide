@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const VALID_SIZES = new Set(['sm', 'md', 'lg']); // 지원하는 크기 이름입니다.
+const VALID_SIZES = ['sm', 'md', 'lg']; // 지원하는 크기 이름입니다.
 
 export function Input({
   size = 'md', // 입력 높이와 글자 크기입니다.
@@ -27,12 +27,20 @@ export function Input({
   ...props // id, name, maxLength 등 나머지 네이티브 input 속성을 전달합니다.
 }) {
   const inputRef = useRef(null);
+  const { maxLength: maxLengthProp, maxlength, ...restProps } = props;
+  const resolvedMaxLength = Number(maxLengthProp ?? maxlength);
+  const nativeMaxLength =
+    Number.isFinite(resolvedMaxLength) && resolvedMaxLength > 0 ? resolvedMaxLength : undefined;
 
   // 크기와 제어 여부를 정규화하고 화면에 표시할 현재 값을 하나로 계산합니다.
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
+  const resolvedSize = VALID_SIZES.includes(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
   const controlled = value !== undefined; // 외부 value로 제어되는지 여부입니다.
   const [innerValue, setInnerValue] = useState(() => value ?? defaultValue ?? '');
-  const currentValue = controlled ? (value ?? '') : innerValue; // 화면에 표시할 최종 값입니다.
+  const currentValue = controlled
+    ? typeof value === 'string' || typeof value === 'number'
+      ? String(value)
+      : ''
+    : innerValue; // 화면에 표시할 최종 값입니다.
   const hasAddon = prefix != null || suffix != null; // InputGroup이 필요한지 여부입니다.
 
   useEffect(() => {
@@ -57,8 +65,8 @@ export function Input({
     [resolvedSize, block, error, type, currentValue, hasAddon, clearable, className],
   );
 
-  const numericOnly = props.inputMode === 'numeric' || props.inputmode === 'numeric'; // 숫자만 허용하는지 여부입니다.
-  const maxLength = Number(props.maxLength ?? props.maxlength ?? 0); // 최대 입력 길이입니다.
+  const numericOnly = restProps.inputMode === 'numeric' || restProps.inputmode === 'numeric'; // 숫자만 허용하는지 여부입니다.
+  const maxLength = nativeMaxLength ?? 0; // 최대 입력 길이입니다. 0이면 제한 없음.
 
   // 숫자 전용·number 입력은 키보드와 붙여넣기 모두 동일한 정제 규칙을 사용합니다.
   function sanitize(next) {
@@ -109,15 +117,16 @@ export function Input({
   // 공통 네이티브 input을 한 곳에서 정의합니다.
   const input = (
     <input
-      {...props}
+      {...restProps}
       ref={inputRef}
       type={type}
       className={inputClasses}
       placeholder={placeholder}
       disabled={disabled}
       readOnly={readOnly}
+      maxLength={nativeMaxLength}
       value={currentValue}
-      aria-invalid={error ? 'true' : props['aria-invalid']}
+      aria-invalid={error ? 'true' : restProps['aria-invalid']}
       data-component="Input"
       onChange={handleChange}
       onPaste={handlePaste}

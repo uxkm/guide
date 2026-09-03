@@ -11,8 +11,8 @@ const VARIANT_CLASS = {
   ordered: 'list_ordered',
   definition: 'list_definition',
 };
-const VALID_VARIANTS = new Set(Object.keys(VARIANT_TAG));
-const VALID_TAGS = new Set(['ul', 'ol', 'dl', 'div']);
+const VALID_VARIANTS = Object.keys(VARIANT_TAG);
+const VALID_TAGS = ['ul', 'ol', 'dl', 'div'];
 
 export const ListContext = createContext({ tag: 'ul', variant: 'default' });
 
@@ -34,8 +34,8 @@ export function List({
   role, // 명시적 role입니다.
   ...props // 나머지 속성을 전달합니다.
 }) {
-  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'default';
-  const Root = VALID_TAGS.has(tag) ? tag : VARIANT_TAG[resolvedVariant];
+  const resolvedVariant = VALID_VARIANTS.includes(variant) ? variant : 'default';
+  const Root = VALID_TAGS.includes(tag) ? tag : VARIANT_TAG[resolvedVariant];
   // variant와 layout prop을 list_* 공통 클래스로 변환합니다.
   const classes = [
     'list',

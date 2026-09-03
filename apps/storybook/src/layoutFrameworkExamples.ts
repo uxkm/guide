@@ -18,9 +18,21 @@ const gridReactComponent = `// 12열 Grid에서 사용할 수 있도록 숫자�
 const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
-const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
-const RATIOS = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 열 비율입니다.
-const ALIGNS = new Set(['', 'center', 'end']); // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+const GAPS = ['', 'sm', 'lg', 'none']; // 지원하는 간격 이름입니다.
+const RATIOS = ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']; // 지원하는 열 비율입니다.
+const ALIGNS = ['', 'center', 'end']; // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+
+/** 프리셋은 클래스, 숫자(rem)·CSS 길이는 --grid-current-gap으로 적용합니다. */
+function resolveGap(gap) {
+  if (GAPS.includes(gap)) {
+    return { className: gap ? \`grid_gap-\${gap}\` : '', style: undefined };
+  }
+  if (gap === '' || gap == null) return { className: '', style: undefined };
+  const value =
+    typeof gap === 'number' && Number.isFinite(gap) && gap >= 0 ? \`\${gap}rem\` : String(gap).trim();
+  if (!value) return { className: '', style: undefined };
+  return { className: '', style: { '--grid-current-gap': value } };
+}
 
 export function Grid({
   as: Root = 'div', // Grid의 루트 요소 또는 컴포넌트를 지정합니다.
@@ -32,7 +44,7 @@ export function Grid({
   columnsMd, // colsMd의 이전 호환 이름입니다.
   columnsLg, // colsLg의 이전 호환 이름입니다.
 
-  gap = '', // Grid 항목 사이의 간격을 지정합니다.
+  gap = '', // sm · lg · none 프리셋, rem 숫자, 또는 CSS 길이입니다.
   ratio = '', // 미리 정의된 열 너비 비율을 선택합니다.
   align = '', // 교차축에서 항목의 정렬 방식을 지정합니다.
 
@@ -46,12 +58,14 @@ export function Grid({
 
   children = 'Grid', // Grid 내부에 배치할 콘텐츠입니다.
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  style, // 인라인 스타일입니다. 수치 gap은 CSS 변수와 병합합니다.
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
   const resolvedCols = cols ?? columns; // 기본 구간의 최종 열 수입니다.
   const resolvedColsMd = colsMd ?? columnsMd; // md 구간의 최종 열 수입니다.
   const resolvedColsLg = colsLg ?? columnsLg; // lg 구간의 최종 열 수입니다.
+  const resolvedGap = resolveGap(gap); // 프리셋 클래스 또는 수치 CSS 변수입니다.
 
   // 기본·반응형 열, 간격, 비율, span, 자동 배치, 정렬 클래스를 조합합니다.
   const classes = [
@@ -60,8 +74,8 @@ export function Grid({
     range(resolvedColsMd) && \`grid_cols-md-\${range(resolvedColsMd)}\`, // md 이상 균등 열 수입니다.
     range(resolvedColsLg) && \`grid_cols-lg-\${range(resolvedColsLg)}\`, // lg 이상 균등 열 수입니다.
 
-    GAPS.has(gap) && gap && \`grid_gap-\${gap}\`, // 검증된 간격 클래스입니다.
-    RATIOS.has(ratio) && ratio && \`grid_ratio-\${ratio}\`, // 검증된 열 비율 클래스입니다.
+    resolvedGap.className, // 검증된 간격 프리셋 클래스입니다.
+    RATIOS.includes(ratio) && ratio && \`grid_ratio-\${ratio}\`, // 검증된 열 비율 클래스입니다.
 
     range(itemSpan) && \`grid_item-span-\${range(itemSpan)}\`, // 모든 자식의 기본 span입니다.
     range(itemSpanMd) && \`grid_item-span-md-\${range(itemSpanMd)}\`, // 모든 자식의 md span입니다.
@@ -71,12 +85,14 @@ export function Grid({
     autoFill && 'grid_auto-fill', // 남는 빈 트랙을 유지하는 자동 열 모드입니다.
     equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
 
-    ALIGNS.has(align) && align && \`grid_align-\${align}\`, // 검증된 항목 정렬 클래스입니다.
+    ALIGNS.includes(align) && align && \`grid_align-\${align}\`, // 검증된 항목 정렬 클래스입니다.
     className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean).join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
 
+  const rootStyle = resolvedGap.style ? { ...style, ...resolvedGap.style } : style;
+
   // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
-  return <Root className={classes} data-component="Grid" {...props}>{children}</Root>;
+  return <Root className={classes} data-component="Grid" style={rootStyle} {...props}>{children}</Root>;
 }
 
 export function GridCol({
@@ -119,7 +135,7 @@ const props = defineProps({
   columnsMd: [String, Number], // colsMd의 이전 호환 이름입니다.
   columnsLg: [String, Number], // colsLg의 이전 호환 이름입니다.
 
-  gap: { type: String, default: '' }, // Grid 항목 사이의 간격을 지정합니다.
+  gap: { type: [String, Number], default: '' }, // sm · lg · none 프리셋, rem 숫자, 또는 CSS 길이입니다.
   ratio: { type: String, default: '' }, // 미리 정의된 열 너비 비율을 선택합니다.
   align: { type: String, default: '' }, // 교차축에서 항목의 정렬 방식을 지정합니다.
 
@@ -137,14 +153,26 @@ const attrs = useAttrs();
 
 // 숫자와 문자열 prop이 지원 범위를 벗어나 CSS 클래스로 전달되지 않도록 검증합니다.
 const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
-const gaps = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
-const ratios = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 열 비율입니다.
-const aligns = new Set(['', 'center', 'end']); // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+const gaps = ['', 'sm', 'lg', 'none']; // 지원하는 간격 이름입니다.
+const ratios = ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']; // 지원하는 열 비율입니다.
+const aligns = ['', 'center', 'end']; // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+
+function resolveGap(gap) {
+  if (gaps.includes(gap)) {
+    return { className: gap ? \`grid_gap-\${gap}\` : '', style: undefined };
+  }
+  if (gap === '' || gap == null) return { className: '', style: undefined };
+  const value =
+    typeof gap === 'number' && Number.isFinite(gap) && gap >= 0 ? \`\${gap}rem\` : String(gap).trim();
+  if (!value) return { className: '', style: undefined };
+  return { className: '', style: { '--grid-current-gap': value } };
+}
 
 // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
 const resolvedCols = computed(() => props.cols ?? props.columns); // 기본 구간의 최종 열 수입니다.
 const resolvedColsMd = computed(() => props.colsMd ?? props.columnsMd); // md 구간의 최종 열 수입니다.
 const resolvedColsLg = computed(() => props.colsLg ?? props.columnsLg); // lg 구간의 최종 열 수입니다.
+const resolvedGap = computed(() => resolveGap(props.gap));
 
 // 상태에 맞는 기본·반응형 Grid 클래스와 사용자 정의 class를 조합합니다.
 const classes = computed(() => [
@@ -153,8 +181,8 @@ const classes = computed(() => [
   range(resolvedColsMd.value) && \`grid_cols-md-\${range(resolvedColsMd.value)}\`, // md 이상 균등 열 수입니다.
   range(resolvedColsLg.value) && \`grid_cols-lg-\${range(resolvedColsLg.value)}\`, // lg 이상 균등 열 수입니다.
 
-  gaps.has(props.gap) && props.gap && \`grid_gap-\${props.gap}\`, // 검증된 간격 클래스입니다.
-  ratios.has(props.ratio) && props.ratio && \`grid_ratio-\${props.ratio}\`, // 검증된 열 비율 클래스입니다.
+  resolvedGap.value.className, // 검증된 간격 프리셋 클래스입니다.
+  ratios.includes(props.ratio) && props.ratio && \`grid_ratio-\${props.ratio}\`, // 검증된 열 비율 클래스입니다.
 
   range(props.itemSpan) && \`grid_item-span-\${range(props.itemSpan)}\`, // 모든 자식의 기본 span입니다.
   range(props.itemSpanMd) && \`grid_item-span-md-\${range(props.itemSpanMd)}\`, // 모든 자식의 md span입니다.
@@ -164,14 +192,18 @@ const classes = computed(() => [
   props.autoFill && 'grid_auto-fill', // 남는 빈 트랙을 유지하는 자동 열 모드입니다.
   props.equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
 
-  aligns.has(props.align) && props.align && \`grid_align-\${props.align}\`, // 검증된 항목 정렬 클래스입니다.
+  aligns.includes(props.align) && props.align && \`grid_align-\${props.align}\`, // 검증된 항목 정렬 클래스입니다.
   attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
 ].filter(Boolean)); // false, 빈 문자열 등 적용되지 않는 항목을 제거합니다.
+
+const rootStyle = computed(() =>
+  resolvedGap.value.style ? { ...attrs.style, ...resolvedGap.value.style } : attrs.style
+);
 </script>
 
 <template>
   <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
-  <component :is="as" v-bind="attrs" :class="classes" data-component="Grid">
+  <component :is="as" v-bind="attrs" :class="classes" :style="rootStyle" data-component="Grid">
     <!-- 콘텐츠가 없을 때는 컴포넌트 식별을 위한 기본 텍스트를 표시합니다. -->
     <slot>Grid</slot>
   </component>
@@ -241,11 +273,23 @@ const flexReactComponent = `// 12단위 Flex 너비와 순서에 사용할 숫�
 const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
-const DIRECTIONS = new Set(['', 'row', 'col', 'column']); // 지원하는 배치 방향입니다.
-const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 항목 간격입니다.
-const RATIOS = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 항목 너비 비율입니다.
-const ALIGNS = new Set(['', 'start', 'center', 'end', 'stretch', 'baseline']); // 지원하는 교차축 정렬입니다.
-const JUSTIFIES = new Set(['', 'start', 'center', 'end', 'between', 'around', 'evenly']); // 지원하는 주축 정렬입니다.
+const DIRECTIONS = ['', 'row', 'col', 'column']; // 지원하는 배치 방향입니다.
+const GAPS = ['', 'sm', 'lg', 'none']; // 지원하는 항목 간격입니다.
+const RATIOS = ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']; // 지원하는 항목 너비 비율입니다.
+const ALIGNS = ['', 'start', 'center', 'end', 'stretch', 'baseline']; // 지원하는 교차축 정렬입니다.
+const JUSTIFIES = ['', 'start', 'center', 'end', 'between', 'around', 'evenly']; // 지원하는 주축 정렬입니다.
+
+/** 프리셋은 클래스, 숫자(rem)·CSS 길이는 --flex-current-gap으로 적용합니다. */
+function resolveGap(gap) {
+  if (GAPS.includes(gap)) {
+    return { className: gap ? \`flex_gap-\${gap}\` : '', style: undefined };
+  }
+  if (gap === '' || gap == null) return { className: '', style: undefined };
+  const value =
+    typeof gap === 'number' && Number.isFinite(gap) && gap >= 0 ? \`\${gap}rem\` : String(gap).trim();
+  if (!value) return { className: '', style: undefined };
+  return { className: '', style: { '--flex-current-gap': value } };
+}
 
 export function Flex({
   as: Root = 'div', // Flex의 루트 요소 또는 컴포넌트를 지정합니다.
@@ -262,7 +306,7 @@ export function Flex({
   columnsMd, // colsMd의 이전 호환 이름입니다.
   columnsLg, // colsLg의 이전 호환 이름입니다.
 
-  gap = '', // Flex 항목 사이의 간격을 지정합니다.
+  gap = '', // sm · lg · none 프리셋, rem 숫자, 또는 CSS 길이입니다.
   ratio = '', // 미리 정의된 항목 너비 비율을 선택합니다.
   align = 'stretch', // 교차축에서 항목의 정렬 방식을 지정합니다.
   justify = '', // 주축에서 항목을 배치하는 방식을 지정합니다.
@@ -276,6 +320,7 @@ export function Flex({
 
   children = 'Flex', // Flex 내부에 배치할 콘텐츠입니다.
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  style, // 인라인 스타일입니다. 수치 gap은 CSS 변수와 병합합니다.
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // column 이름을 CSS 클래스에서 사용하는 col로 변환하고 반응형 접미사를 붙입니다.
@@ -285,20 +330,21 @@ export function Flex({
   const resolvedCols = cols ?? columns;
   const resolvedColsMd = colsMd ?? columnsMd;
   const resolvedColsLg = colsLg ?? columnsLg;
+  const resolvedGap = resolveGap(gap);
 
   // 방향, 줄바꿈, 크기, 간격과 정렬 상태를 공통 CSS 클래스로 조합합니다.
   const classes = [
     'flex', // Flexbox 레이아웃을 활성화하는 필수 클래스입니다.
-    DIRECTIONS.has(direction) && directionClass(direction), // 기본 배치 방향입니다.
-    DIRECTIONS.has(directionMd) && directionClass(directionMd, '-md'), // md 이상 배치 방향입니다.
-    DIRECTIONS.has(directionLg) && directionClass(directionLg, '-lg'), // lg 이상 배치 방향입니다.
+    DIRECTIONS.includes(direction) && directionClass(direction), // 기본 배치 방향입니다.
+    DIRECTIONS.includes(directionMd) && directionClass(directionMd, '-md'), // md 이상 배치 방향입니다.
+    DIRECTIONS.includes(directionLg) && directionClass(directionLg, '-lg'), // lg 이상 배치 방향입니다.
     wrap && 'flex_wrap', // 여러 줄 배치를 허용합니다.
 
-    GAPS.has(gap) && gap && \`flex_gap-\${gap}\`, // 검증된 항목 간격입니다.
+    resolvedGap.className, // 검증된 항목 간격 프리셋입니다.
     range(resolvedCols) && \`flex_cols-\${range(resolvedCols)}\`, // 기본 균등 항목 수입니다.
     range(resolvedColsMd) && \`flex_cols-md-\${range(resolvedColsMd)}\`, // md 이상 균등 항목 수입니다.
     range(resolvedColsLg) && \`flex_cols-lg-\${range(resolvedColsLg)}\`, // lg 이상 균등 항목 수입니다.
-    RATIOS.has(ratio) && ratio && \`flex_ratio-\${ratio}\`, // 검증된 항목 너비 비율입니다.
+    RATIOS.includes(ratio) && ratio && \`flex_ratio-\${ratio}\`, // 검증된 항목 너비 비율입니다.
 
     range(itemSpan) && \`flex_items-span-\${range(itemSpan)}\`, // 모든 자식의 기본 span입니다.
     range(itemSpanMd) && \`flex_items-span-md-\${range(itemSpanMd)}\`, // 모든 자식의 md span입니다.
@@ -306,12 +352,14 @@ export function Flex({
     equal && 'flex_equal', // 모든 자식을 같은 너비로 확장합니다.
     autoFit && 'flex_auto-fit', // 최소 너비 기반 자동 배치를 적용합니다.
 
-    ALIGNS.has(align) && align && \`flex_align-\${align}\`, // 검증된 교차축 정렬입니다.
-    JUSTIFIES.has(justify) && justify && \`flex_justify-\${justify}\`, // 검증된 주축 정렬입니다.
+    ALIGNS.includes(align) && align && \`flex_align-\${align}\`, // 검증된 교차축 정렬입니다.
+    JUSTIFIES.includes(justify) && justify && \`flex_justify-\${justify}\`, // 검증된 주축 정렬입니다.
     className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean).join(' ');
 
-  return <Root className={classes} data-component="Flex" {...props}>{children}</Root>;
+  const rootStyle = resolvedGap.style ? { ...style, ...resolvedGap.style } : style;
+
+  return <Root className={classes} data-component="Flex" style={rootStyle} {...props}>{children}</Root>;
 }
 
 export function FlexItem({
@@ -336,7 +384,7 @@ export function FlexItem({
     range(spanLg) && \`flex_item-span-lg-\${range(spanLg)}\`, // lg 이상에서 차지할 너비입니다.
     resolvedGrow, // 남는 공간을 1배 또는 2배 비율로 채웁니다.
     fit && 'flex_fit', // 콘텐츠 기준 너비를 유지합니다.
-    ALIGNS.has(align) && align && \`flex_self-\${align}\`, // 검증된 개별 교차축 정렬입니다.
+    ALIGNS.includes(align) && align && \`flex_self-\${align}\`, // 검증된 개별 교차축 정렬입니다.
     range(order) && \`flex_order-\${range(order)}\`, // 검증된 화면 표시 순서입니다.
     className // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ].filter(Boolean).join(' ');
@@ -366,7 +414,7 @@ const props = defineProps({
   columnsMd: [String, Number], // colsMd의 이전 호환 이름입니다.
   columnsLg: [String, Number], // colsLg의 이전 호환 이름입니다.
 
-  gap: { type: String, default: '' }, // Flex 항목 사이의 간격을 지정합니다.
+  gap: { type: [String, Number], default: '' }, // sm · lg · none 프리셋, rem 숫자, 또는 CSS 길이입니다.
   ratio: { type: String, default: '' }, // 미리 정의된 항목 너비 비율을 선택합니다.
   align: { type: String, default: 'stretch' }, // 교차축에서 항목의 정렬 방식을 지정합니다.
   justify: { type: String, default: '' }, // 주축에서 항목을 배치하는 방식을 지정합니다.
@@ -381,44 +429,60 @@ const props = defineProps({
 
 const attrs = useAttrs(); // 선언하지 않은 class와 HTML 속성을 수집합니다.
 const range = (value) => Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
-const directions = new Set(['', 'row', 'col', 'column']); // 지원하는 배치 방향입니다.
-const gaps = new Set(['', 'sm', 'lg', 'none']); // 지원하는 항목 간격입니다.
-const ratios = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 항목 너비 비율입니다.
-const aligns = new Set(['', 'start', 'center', 'end', 'stretch', 'baseline']); // 지원하는 교차축 정렬입니다.
-const justifies = new Set(['', 'start', 'center', 'end', 'between', 'around', 'evenly']); // 지원하는 주축 정렬입니다.
+const directions = ['', 'row', 'col', 'column']; // 지원하는 배치 방향입니다.
+const gaps = ['', 'sm', 'lg', 'none']; // 지원하는 항목 간격입니다.
+const ratios = ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']; // 지원하는 항목 너비 비율입니다.
+const aligns = ['', 'start', 'center', 'end', 'stretch', 'baseline']; // 지원하는 교차축 정렬입니다.
+const justifies = ['', 'start', 'center', 'end', 'between', 'around', 'evenly']; // 지원하는 주축 정렬입니다.
 const directionClass = (value, breakpoint = '') => value && \`flex_\${value === 'column' ? 'col' : value}\${breakpoint}\`;
+
+function resolveGap(gap) {
+  if (gaps.includes(gap)) {
+    return { className: gap ? \`flex_gap-\${gap}\` : '', style: undefined };
+  }
+  if (gap === '' || gap == null) return { className: '', style: undefined };
+  const value =
+    typeof gap === 'number' && Number.isFinite(gap) && gap >= 0 ? \`\${gap}rem\` : String(gap).trim();
+  if (!value) return { className: '', style: undefined };
+  return { className: '', style: { '--flex-current-gap': value } };
+}
 
 // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
 const resolvedCols = computed(() => props.cols ?? props.columns);
 const resolvedColsMd = computed(() => props.colsMd ?? props.columnsMd);
 const resolvedColsLg = computed(() => props.colsLg ?? props.columnsLg);
+const resolvedGap = computed(() => resolveGap(props.gap));
 
 // 방향, 줄바꿈, 크기, 간격과 정렬 상태를 공통 CSS 클래스로 조합합니다.
 const classes = computed(() => [
   'flex', // Flexbox 레이아웃을 활성화하는 필수 클래스입니다.
-  directions.has(props.direction) && directionClass(props.direction), // 기본 배치 방향입니다.
-  directions.has(props.directionMd) && directionClass(props.directionMd, '-md'), // md 이상 배치 방향입니다.
-  directions.has(props.directionLg) && directionClass(props.directionLg, '-lg'), // lg 이상 배치 방향입니다.
+  directions.includes(props.direction) && directionClass(props.direction), // 기본 배치 방향입니다.
+  directions.includes(props.directionMd) && directionClass(props.directionMd, '-md'), // md 이상 배치 방향입니다.
+  directions.includes(props.directionLg) && directionClass(props.directionLg, '-lg'), // lg 이상 배치 방향입니다.
   props.wrap && 'flex_wrap', // 여러 줄 배치를 허용합니다.
-  gaps.has(props.gap) && props.gap && \`flex_gap-\${props.gap}\`, // 검증된 항목 간격입니다.
+  resolvedGap.value.className, // 검증된 항목 간격 프리셋입니다.
   range(resolvedCols.value) && \`flex_cols-\${range(resolvedCols.value)}\`, // 기본 균등 항목 수입니다.
   range(resolvedColsMd.value) && \`flex_cols-md-\${range(resolvedColsMd.value)}\`, // md 이상 균등 항목 수입니다.
   range(resolvedColsLg.value) && \`flex_cols-lg-\${range(resolvedColsLg.value)}\`, // lg 이상 균등 항목 수입니다.
-  ratios.has(props.ratio) && props.ratio && \`flex_ratio-\${props.ratio}\`, // 검증된 항목 너비 비율입니다.
+  ratios.includes(props.ratio) && props.ratio && \`flex_ratio-\${props.ratio}\`, // 검증된 항목 너비 비율입니다.
   range(props.itemSpan) && \`flex_items-span-\${range(props.itemSpan)}\`, // 모든 자식의 기본 span입니다.
   range(props.itemSpanMd) && \`flex_items-span-md-\${range(props.itemSpanMd)}\`, // 모든 자식의 md span입니다.
   range(props.itemSpanLg) && \`flex_items-span-lg-\${range(props.itemSpanLg)}\`, // 모든 자식의 lg span입니다.
   props.equal && 'flex_equal', // 모든 자식을 같은 너비로 확장합니다.
   props.autoFit && 'flex_auto-fit', // 최소 너비 기반 자동 배치를 적용합니다.
-  aligns.has(props.align) && props.align && \`flex_align-\${props.align}\`, // 검증된 교차축 정렬입니다.
-  justifies.has(props.justify) && props.justify && \`flex_justify-\${props.justify}\`, // 검증된 주축 정렬입니다.
+  aligns.includes(props.align) && props.align && \`flex_align-\${props.align}\`, // 검증된 교차축 정렬입니다.
+  justifies.includes(props.justify) && props.justify && \`flex_justify-\${props.justify}\`, // 검증된 주축 정렬입니다.
   attrs.class // 호출 위치에서 전달한 사용자 정의 클래스입니다.
 ].filter(Boolean));
+
+const rootStyle = computed(() =>
+  resolvedGap.value.style ? { ...attrs.style, ...resolvedGap.value.style } : attrs.style
+);
 </script>
 
 <template>
   <!-- as로 루트 요소를 결정하고 속성, 클래스, 기본 slot을 전달합니다. -->
-  <component :is="as" v-bind="attrs" :class="classes" data-component="Flex"><slot>Flex</slot></component>
+  <component :is="as" v-bind="attrs" :class="classes" :style="rootStyle" data-component="Flex"><slot>Flex</slot></component>
 </template>
 
 <!-- FlexItem.vue -->
@@ -893,7 +957,7 @@ const grid = {
   ratio: { body: `<Grid ratio="1-2"><div class="grid_demo-cell">1 : 2</div><div class="grid_demo-cell">1 : 2</div></Grid>\n<Grid ratio="1-2-1"><div class="grid_demo-cell">1</div><div class="grid_demo-cell">2</div><div class="grid_demo-cell">1</div></Grid>` },
   itemSpan: { body: `<Grid item-span="6"><div class="grid_demo-cell">span 6</div><div class="grid_demo-cell">span 6</div><div class="grid_demo-cell">span 6</div><div class="grid_demo-cell">span 6</div></Grid>\n<Grid item-span="3"><div class="grid_demo-cell">span 3</div><div class="grid_demo-cell">span 3</div><div class="grid_demo-cell">span 3</div><div class="grid_demo-cell">span 3</div></Grid>` },
   child: { body: `<Grid>\n  <GridCol span="8"><div class="grid_demo-cell">span 8</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol>\n  <GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol><GridCol span="4"><div class="grid_demo-cell">span 4</div></GridCol>\n</Grid>` },
-  gap: { body: `<Grid cols="3" gap="sm"><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div></Grid>\n<Grid cols="3" gap="lg"><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div></Grid>` },
+  gap: { body: `<Grid cols="3" gap="sm"><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div><div class="grid_demo-cell">gap sm</div></Grid>\n<Grid cols="3" gap="lg"><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div><div class="grid_demo-cell">gap lg</div></Grid>\n<Grid cols="3" :gap="1.5"><div class="grid_demo-cell">gap 1.5rem</div><div class="grid_demo-cell">gap 1.5rem</div><div class="grid_demo-cell">gap 1.5rem</div></Grid>` },
   responsive: { body: `<Grid cols="1" cols-md="2" cols-lg="3"><div class="grid_demo-cell">1 → md 2 → lg 3열</div><div class="grid_demo-cell">1 → md 2 → lg 3열</div><div class="grid_demo-cell">1 → md 2 → lg 3열</div></Grid>\n<Grid item-span="12" item-span-md="6" item-span-lg="4"><div class="grid_demo-cell">span 12 → md 6 → lg 4</div><div class="grid_demo-cell">span 12 → md 6 → lg 4</div><div class="grid_demo-cell">span 12 → md 6 → lg 4</div></Grid>\n<Grid><GridCol span="12" span-md="8" span-lg="9"><div class="grid_demo-cell">개별 span 12 → md 8 → lg 9</div></GridCol><GridCol span="12" span-md="4" span-lg="3"><div class="grid_demo-cell">개별 span 12 → md 4 → lg 3</div></GridCol></Grid>` },
   auto: { body: `<Grid auto-fit>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n  <div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div><div class="grid_demo-cell">auto-fit</div>\n</Grid>\n<Grid auto-fill>\n  <div class="grid_demo-cell">auto-fill</div><div class="grid_demo-cell">auto-fill</div><div class="grid_demo-cell">auto-fill</div>\n</Grid>\n<Grid equal-columns>\n  <div class="grid_demo-cell">equal</div><div class="grid_demo-cell">equal</div><div class="grid_demo-cell">equal</div>\n</Grid>` }
 } satisfies Record<string, Definition>;
@@ -909,7 +973,7 @@ const flex = {
   itemSpan: { body: `<Flex item-span="6"><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div><div class="flex_demo-cell">span 6</div></Flex>\n<Flex item-span="3"><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div><div class="flex_demo-cell">span 3</div></Flex>` },
   childSpan: { body: `<Flex wrap>\n  <FlexItem span="8" class="flex_demo-cell">span 8</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem>\n  <FlexItem span="4" class="flex_demo-cell">span 4</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem><FlexItem span="4" class="flex_demo-cell">span 4</FlexItem>\n</Flex>` },
   itemSizing: { body: `<Flex gap="sm">\n  <FlexItem fit class="flex_demo-cell">fit</FlexItem>\n  <FlexItem grow class="flex_demo-cell">grow 1</FlexItem>\n  <FlexItem grow grow-factor="2" class="flex_demo-cell">grow 2</FlexItem>\n</Flex>` },
-  gap: { body: `<Flex cols="3" gap="sm"><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div></Flex>\n<Flex cols="3" gap="lg"><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div></Flex>` },
+  gap: { body: `<Flex cols="3" gap="sm"><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div><div class="flex_demo-cell">gap sm</div></Flex>\n<Flex cols="3" gap="lg"><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div><div class="flex_demo-cell">gap lg</div></Flex>\n<Flex cols="3" :gap="1.5"><div class="flex_demo-cell">gap 1.5rem</div><div class="flex_demo-cell">gap 1.5rem</div><div class="flex_demo-cell">gap 1.5rem</div></Flex>` },
   responsive: { body: `<Flex cols="1" cols-md="2" cols-lg="3" gap="sm"><div class="flex_demo-cell">1 → md 2 → lg 3개</div><div class="flex_demo-cell">1 → md 2 → lg 3개</div><div class="flex_demo-cell">1 → md 2 → lg 3개</div></Flex>\n<Flex item-span="12" item-span-md="6" item-span-lg="4"><div class="flex_demo-cell">span 12 → md 6 → lg 4</div><div class="flex_demo-cell">span 12 → md 6 → lg 4</div><div class="flex_demo-cell">span 12 → md 6 → lg 4</div></Flex>\n<Flex wrap><FlexItem span="12" span-md="8" span-lg="9" class="flex_demo-cell">개별 span 12 → md 8 → lg 9</FlexItem><FlexItem span="12" span-md="4" span-lg="3" class="flex_demo-cell">개별 span 12 → md 4 → lg 3</FlexItem></Flex>` },
   auto: { body: `<Flex auto-fit><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div><div class="flex_demo-cell">auto-fit</div></Flex>` },
   alignmentAndRatio: { body: `<Flex justify="between" gap="sm"><div class="flex_demo-cell">Start</div><div class="flex_demo-cell">End</div></Flex>\n<Flex ratio="2-1" gap="sm"><div class="flex_demo-cell">2</div><div class="flex_demo-cell">1</div></Flex>` }

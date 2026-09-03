@@ -114,19 +114,17 @@ export const Pagination = component$(({
               </li>
             ) : (
               <li key={page} class="pagination_item">
-                <Button
-                  variant="text"
-                  color="default"
-                  ripple={false}
+                <button
+                  type="button"
                   class={['pagination_link', page === active && 'is-active']
                     .filter(Boolean)
                     .join(' ')}
                   aria-current={page === active ? 'page' : undefined}
-                  ariaLabel={`${page}페이지${page === active ? ', 현재 페이지' : ''}`}
+                  aria-label={`${page}페이지${page === active ? ', 현재 페이지' : ''}`}
                   onClick$={() => goTo(page)}
                 >
                   {page}
-                </Button>
+                </button>
               </li>
             ),
           )}

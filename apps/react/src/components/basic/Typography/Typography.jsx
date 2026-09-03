@@ -3,7 +3,7 @@
  * 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
  */
 // TypoTitle이 허용하는 제목 단계입니다.
-const TITLE_LEVELS = new Set([1, 2, 3, 4, 5, '1', '2', '3', '4', '5']);
+const TITLE_LEVELS = [1, 2, 3, 4, 5];
 
 // variant별 기본 시맨틱 태그와 typo_* 클래스 매핑입니다.
 const VARIANTS = {
@@ -36,7 +36,8 @@ export function TypoTitle({
   className = '', // 추가 클래스입니다.
   ...props // 나머지 속성을 루트에 전달합니다.
 }) {
-  const resolvedLevel = TITLE_LEVELS.has(level) ? Number(level) : 1;
+  const levelNumber = Number(level);
+  const resolvedLevel = TITLE_LEVELS.includes(levelNumber) ? levelNumber : 1;
   const Tag = `h${resolvedLevel}`;
   const classes = [`typo_title-${resolvedLevel}`, color && `color_${color}`, className]
     .filter(Boolean)

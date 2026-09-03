@@ -44,26 +44,6 @@ const config: StorybookConfig = {
       directory: '../src/docs/components/miscellaneous',
       files: '*.mdx',
       titlePrefix: '기타'
-    },
-    {
-      directory: '../src/docs/foundations',
-      files: '*.mdx',
-      titlePrefix: '파운데이션'
-    },
-    {
-      directory: '../src/docs/patterns',
-      files: '*.mdx',
-      titlePrefix: '패턴'
-    },
-    {
-      directory: '../src/docs/guidelines',
-      files: '*.mdx',
-      titlePrefix: '가이드'
-    },
-    {
-      directory: '../src/docs/status',
-      files: '*.mdx',
-      titlePrefix: '현황'
     }
   ],
   staticDirs: ['../public'],

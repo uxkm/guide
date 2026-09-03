@@ -15,6 +15,31 @@ function updateCount(textarea) {
   counter.classList.toggle('is-limit', limit != null && count >= limit);
 }
 
+function initClearable(wrap) {
+  const textarea = wrap.querySelector('.textarea');
+  const button = wrap.querySelector('.textarea_clear');
+  if (!textarea || !button) return;
+  const update = () => {
+    const visible = !textarea.disabled && !textarea.readOnly && textarea.value.length > 0;
+    button.hidden = !visible;
+    wrap.classList.toggle('is-filled', visible);
+  };
+  if (wrap.dataset.textareaClearInit) {
+    update();
+    return;
+  }
+  wrap.dataset.textareaClearInit = 'true';
+  textarea.addEventListener('input', update);
+  button.addEventListener('click', () => {
+    if (textarea.disabled || textarea.readOnly) return;
+    textarea.value = '';
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+  });
+  update();
+}
+
 export function initTextarea(root = document) {
   const textareas = root.querySelectorAll('[data-component="Textarea"]');
   textareas.forEach((textarea) => {
@@ -24,5 +49,6 @@ export function initTextarea(root = document) {
     }
     updateCount(textarea);
   });
+  root.querySelectorAll('.textarea_clearable').forEach(initClearable);
   return textareas;
 }

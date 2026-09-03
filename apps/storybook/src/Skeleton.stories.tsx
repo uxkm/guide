@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { hiddenArgTypes } from './shared/storyArgTypes';
 import ActualSkeleton from '../../react/src/components/feedback/Skeleton/Skeleton.jsx';
 
 const Skeleton = ActualSkeleton as React.ComponentType<any>;
@@ -8,7 +9,15 @@ const meta = {
   component: Skeleton,
   decorators: [(Story) => <div className="skeleton-story-demo"><Story /></div>],
   parameters: { layout: 'padded' },
+  args: {
+    active: true,
+    avatar: false,
+    paragraph: 3,
+    round: false,
+    ariaLabel: '콘텐츠 로딩 중',
+  },
   argTypes: {
+    ...hiddenArgTypes,
     active: { control: 'boolean' },
     avatar: { control: 'boolean' },
     paragraph: { control: 'number' },
@@ -20,22 +29,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Playground: Story = {
+  name: 'Playground',
+  render: (args) => <div className="skeleton-content-demo"><Skeleton {...args} /></div>,
+};
+
 export const Basic: Story = {
   name: '기본',
-  render: () => <div className="skeleton-content-demo"><Skeleton paragraph={3} /></div>,
+  render: (args) => <div className="skeleton-content-demo"><Skeleton {...args} paragraph={3} /></div>,
 };
 
 export const Shape: Story = {
   name: '형태',
-  render: () => <div className="skeleton-shape-demo"><Skeleton avatar paragraph={0} /><Skeleton round /></div>,
+  render: (args) => (
+    <div className="skeleton-shape-demo">
+      <Skeleton {...args} avatar paragraph={0} />
+      <Skeleton round />
+    </div>
+  ),
 };
 
 export const CardDemo: Story = {
   name: '카드',
-  render: () => (
+  render: (args) => (
     <div className="card card_shadow skeleton-card-demo" role="status" aria-live="polite" aria-busy="true" aria-label="카드 콘텐츠 로딩 중">
       <div className="card_body">
-        <Skeleton paragraph={0} ariaLabel="카드 콘텐츠 로딩 중">
+        <Skeleton {...args} paragraph={0} ariaLabel="카드 콘텐츠 로딩 중">
           <span className="skeleton skeleton_image" aria-hidden="true" />
           <span className="skeleton skeleton_title skeleton_w-md" aria-hidden="true" />
           <span className="skeleton skeleton_text" aria-hidden="true" />
@@ -52,5 +71,5 @@ export const CardDemo: Story = {
 
 export const Static: Story = {
   name: '정적',
-  render: () => <div className="skeleton-content-demo"><Skeleton active={false} paragraph={3} /></div>,
+  render: (args) => <div className="skeleton-content-demo"><Skeleton {...args} active={false} paragraph={3} /></div>,
 };

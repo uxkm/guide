@@ -1,8 +1,10 @@
 // @ts-nocheck
-import React from 'react';
+import { useState } from 'react';
+import { defaultCheckedArg, hiddenArgTypes } from './shared/storyArgTypes';
 import FormLayout from '../../react/src/components/form/FormLayout/FormLayout.jsx';
 import Radio from '../../react/src/components/form/Radio/Radio.jsx';
 const withDocsCanvasRender = (content) => () => <div className="demo-stack">{content}</div>;
+const playgroundStyleArgs = ({ checked: _c, label: _l, name: _n, value: _v, ...style }) => style;
 const playgroundArgs = {
   label: '라벨',
   name: 'playground',
@@ -11,6 +13,8 @@ const playgroundArgs = {
   value: '1',
   labelEnd: false,
   button: false,
+  ripple: true,
+  className: '',
   ariaLabel: '접근성 라벨',
 };
 
@@ -19,7 +23,9 @@ export default {
   id: 'components-radio',
   component: Radio,
   tags: ['autodocs'],
+  args: { ...playgroundArgs },
   argTypes: {
+    ...hiddenArgTypes,
     label: { control: 'text', type: { name: 'string', summary: 'string' } },
     name: { control: 'text', type: { name: 'string', summary: 'string' } },
     checked: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
@@ -27,7 +33,16 @@ export default {
     value: { control: 'text', type: { name: 'string', summary: 'string' } },
     labelEnd: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
     button: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    ripple: { control: 'boolean', type: { name: 'boolean', summary: 'boolean' } },
+    className: {
+      control: 'select',
+      options: ['', 'radio_sm', 'radio_lg', 'radio_block', 'color_primary', 'color_success', 'color_warning', 'color_danger'],
+      type: { name: 'string', summary: 'string' },
+    },
     ariaLabel: { control: 'text', type: { name: 'string', summary: 'string' } },
+    id: { control: 'text', type: { name: 'string', summary: 'string' } },
+    defaultChecked: defaultCheckedArg,
+    onChange: { table: { disable: true } },
   },
   parameters: {
     controls: { disable: false },
@@ -41,20 +56,55 @@ export default {
 };
 
 export const Playground = {
+  name: 'Playground',
   parameters: { controls: { disable: false } },
   args: { ...playgroundArgs },
-  render: (args, { updateArgs }) => (
-    <Radio
-      {...args}
-      onChange={(event) => updateArgs({ checked: event.target.checked })}
-    />
-  ),
+  argTypes: {
+    checked: { control: false, table: { disable: true } },
+    label: { control: false, table: { disable: true } },
+    name: { control: false, table: { disable: true } },
+    value: { control: false, table: { disable: true } },
+  },
+  render: function PlaygroundRender(args) {
+    const style = playgroundStyleArgs(args);
+    const groupName = 'playground-preview';
+    const [selected, setSelected] = useState('on');
+    const items = (
+      <>
+        <Radio
+          {...style}
+          name={groupName}
+          value="off"
+          label="미선택"
+          checked={selected === 'off'}
+          onChange={() => setSelected('off')}
+        />
+        <Radio
+          {...style}
+          name={groupName}
+          value="on"
+          label="선택됨"
+          checked={selected === 'on'}
+          onChange={() => setSelected('on')}
+        />
+      </>
+    );
+    return (
+      <div className="demo-stack">
+        {args.button ? (
+          <fieldset className="radio_group radio_group_horizontal">{items}</fieldset>
+        ) : (
+          items
+        )}
+      </div>
+    );
+  },
 };
 
 export const Type = {
   name: '유형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -97,7 +147,7 @@ export function TypeExample() {
 export const LabelEnd = {
   name: '레이블 뒤',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -150,7 +200,7 @@ export function LabelEndExample() {
 export const Basic = {
   name: '기본',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: false },
     docs: {
       description: {
@@ -212,7 +262,7 @@ export function BasicExample() {
 export const Standalone = {
   name: '단독 사용',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -247,7 +297,7 @@ export function StandaloneExample() {
 export const Size = {
   name: '크기',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -281,7 +331,7 @@ export function SizeExample() {
 export const Width = {
   name: '너비',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: false },
     docs: {
       description: {
@@ -322,7 +372,7 @@ export function WidthExample() {
 export const Color = {
   name: '색상',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -359,7 +409,7 @@ export function ColorExample() {
 export const State = {
   name: '상태',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -395,7 +445,7 @@ export function StateExample() {
 export const Group = {
   name: '그룹',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -448,7 +498,7 @@ export function GroupExample() {
 export const ButtonType = {
   name: '버튼형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -559,7 +609,7 @@ function cnCard(colorClass, clickable) {
 export const CardType = {
   name: '카드형',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {
@@ -1004,7 +1054,7 @@ export function CardTypeExample() {
 export const Form = {
   name: '폼 레이아웃',
   parameters: {
-    controls: { disable: false },
+    controls: { disable: true },
     demoPreview: { stack: true },
     docs: {
       description: {

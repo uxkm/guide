@@ -4,11 +4,12 @@
 -->
 <script setup>
 import { computed, ref, useAttrs, useId, watch } from 'vue';
+import Icon from '../../basic/Icon/Icon.vue';
 
 // 속성을 계산된 textarea에 직접 전달하기 위해 자동 상속을 끕니다.
 defineOptions({ name: 'UxkmTextarea', inheritAttrs: false });
 
-// 크기, resize, 상태와 글자 수 옵션을 하나의 Textarea API로 제공합니다.
+// 크기, resize, 상태, 글자 수와 지우기 옵션을 하나의 Textarea API로 제공합니다.
 const props = defineProps({
   size: { type: String, default: 'md', validator: (value) => ['sm', 'md', 'lg'].includes(value) }, // 텍스트 영역 높이와 글자 크기입니다.
   resize: {
@@ -20,12 +21,14 @@ const props = defineProps({
   error: Boolean, // 검증 오류 상태를 시각·접근성으로 표시합니다.
   fit: Boolean, // 공통 최대 너비로 너비를 제한합니다.
   showCount: Boolean, // 글자 수 카운터를 표시합니다.
+  clearable: Boolean, // 값이 있을 때 지우기 버튼을 표시합니다.
   modelValue: { type: [String, Number], default: '' }, // v-model 현재 값입니다.
   maxLength: { type: [String, Number], default: undefined }, // 최대 입력 글자 수입니다.
   wrapperClass: { type: String, default: '' }, // 카운터 래퍼에 적용할 사용자 정의 클래스입니다.
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'clear']);
 const attrs = useAttrs();
+const textareaElement = ref(null);
 const inputValue = ref(props.modelValue ?? '');
 
 // 외부 v-model 값이 바뀌면 내부 표시값을 동기화합니다.
@@ -46,12 +49,20 @@ const describedBy = computed(
     undefined,
 ); // 카운터를 보조 설명으로 연결합니다.
 const count = computed(() => String(inputValue.value).length); // 현재 글자 수입니다.
-const hasLimit = computed(
+const nativeMaxLength = computed(() => {
+  const max = Number(props.maxLength);
+  return Number.isFinite(max) && max > 0 ? max : undefined;
+}); // 0은 제한 없음으로 두고 네이티브 maxlength에 넘기지 않습니다.
+const hasLimit = computed(() => nativeMaxLength.value != null); // 최대 길이 제한이 있는지 여부입니다.
+const needsWrap = computed(() => props.showCount || props.clearable); // 카운터·지우기가 있으면 wrapper가 필요합니다.
+const readonly = computed(
   () =>
-    props.maxLength !== undefined &&
-    Number.isFinite(Number(props.maxLength)) &&
-    Number(props.maxLength) >= 0,
-); // 최대 길이 제한이 있는지 여부입니다.
+    ('readonly' in attrs || 'readOnly' in attrs) && (attrs.readonly ?? attrs.readOnly) !== false,
+);
+const showClear = computed(
+  () =>
+    props.clearable && !props.disabled && !readonly.value && String(inputValue.value).length > 0,
+); // 지우기 버튼을 보일지 여부입니다.
 
 // 크기, resize 방향, 제한 너비와 오류 상태를 공통 클래스로 변환합니다.
 const textareaClasses = computed(() =>
@@ -60,9 +71,19 @@ const textareaClasses = computed(() =>
     props.size === 'sm' && 'textarea_sm', // 작은 크기 변형입니다.
     props.size === 'lg' && 'textarea_lg', // 큰 크기 변형입니다.
     `textarea_resize_${props.resize}`, // 크기 조절 방향 클래스입니다.
-    !props.showCount && props.fit && 'textarea_fit', // 카운터 없이 fit일 때 너비 제한입니다.
+    !needsWrap.value && props.fit && 'textarea_fit', // wrapper 없이 fit일 때 너비 제한입니다.
     props.error && 'is-error', // 오류 상태 클래스입니다.
     attrs.class, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
+  ].filter(Boolean),
+);
+
+const wrapClasses = computed(() =>
+  [
+    props.showCount && 'textarea_show-count',
+    props.clearable && 'textarea_clearable',
+    showClear.value && 'is-filled',
+    props.fit && 'textarea_wrap_fit',
+    props.wrapperClass,
   ].filter(Boolean),
 );
 
@@ -77,50 +98,69 @@ function handleInput(event) {
   inputValue.value = event.target.value;
   emit('update:modelValue', event.target.value);
 }
+
+function clear() {
+  // 값을 비우고 clear 이벤트를 전달한 뒤 입력으로 포커스를 복원합니다.
+  if (props.disabled || readonly.value) return;
+  inputValue.value = '';
+  emit('update:modelValue', '');
+  emit('clear');
+  textareaElement.value?.focus();
+}
 </script>
 
 <template>
-  <!-- showCount일 때만 textarea와 접근 가능한 카운터를 wrapper로 묶습니다. -->
-  <div
-    v-if="showCount"
-    class="textarea_wrap textarea_show-count"
-    :class="[fit && 'textarea_wrap_fit', wrapperClass]"
-  >
+  <!-- 카운터·지우기가 있으면 textarea와 부가 UI를 wrapper로 묶습니다. -->
+  <div v-if="needsWrap" class="textarea_wrap" :class="wrapClasses">
     <textarea
+      ref="textareaElement"
       v-bind="textareaAttrs"
       :id="textareaId"
       :class="textareaClasses"
       :disabled="disabled"
-      :maxlength="maxLength"
+      :maxlength="nativeMaxLength"
       :value="inputValue"
       :aria-invalid="error ? 'true' : attrs['aria-invalid']"
       :aria-describedby="describedBy"
       data-component="Textarea"
       @input="handleInput"
     />
+    <button
+      v-if="clearable"
+      type="button"
+      class="textarea_clear"
+      data-ripple="surface"
+      aria-label="입력 지우기"
+      :hidden="!showClear"
+      @click="clear"
+    >
+      <Icon name="close" />
+    </button>
     <span
+      v-if="showCount"
       :id="countId"
       class="textarea_count"
-      :class="{ 'is-limit': hasLimit && count >= Number(maxLength) }"
+      :class="{ 'is-limit': hasLimit && count >= nativeMaxLength }"
       role="status"
       aria-live="polite"
       aria-atomic="true"
     >
       <span class="textarea_count_visual" aria-hidden="true">
-        {{ count }}{{ hasLimit ? `/${maxLength}` : '' }}
+        {{ count }}{{ hasLimit ? `/${nativeMaxLength}` : '' }}
       </span>
       <span class="textarea_count_announcer">
-        {{ count }}자 입력{{ hasLimit ? `, 최대 ${maxLength}자` : '' }}
+        {{ count }}자 입력{{ hasLimit ? `, 최대 ${nativeMaxLength}자` : '' }}
       </span>
     </span>
   </div>
-  <!-- 카운터가 없으면 불필요한 wrapper 없이 textarea를 직접 반환합니다. -->
+  <!-- 부가 UI가 없으면 불필요한 wrapper 없이 textarea를 직접 반환합니다. -->
   <textarea
     v-else
+    ref="textareaElement"
     v-bind="textareaAttrs"
     :class="textareaClasses"
     :disabled="disabled"
-    :maxlength="maxLength"
+    :maxlength="nativeMaxLength"
     :value="inputValue"
     :aria-invalid="error ? 'true' : attrs['aria-invalid']"
     data-component="Textarea"

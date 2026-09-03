@@ -54,14 +54,14 @@ export function initPagination(root = document) {
         else {
           const button = document.createElement('button');
           button.type = 'button';
-          button.className = `btn btn_text color_default pagination_link${page === current ? ' is-active' : ''}`;
+          button.className = `pagination_link${page === current ? ' is-active' : ''}`;
           button.dataset.page = String(page);
           button.setAttribute(
             'aria-label',
             `${page}페이지${page === current ? ', 현재 페이지' : ''}`,
           );
           if (page === current) button.setAttribute('aria-current', 'page');
-          button.innerHTML = `<span class="btn_label">${page}</span>`;
+          button.innerHTML = String(page);
           item.append(button);
         }
         list.insertBefore(item, nextItem);

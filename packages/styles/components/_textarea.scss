@@ -13,6 +13,7 @@
 // Textarea — OOCSS: 구조(.textarea) / 크기(.textarea_sm) / 리사이즈(.textarea_resize_*) 분리
 //   Input(.input)과 동일한 시각 스타일을 공유하되 textarea 전용 클래스명 사용
 //
+//   .textarea_wrap.textarea_clearable — 값이 있을 때 우상단 지우기 버튼
 //   .textarea_wrap.textarea_show-count — 우측 하단 글자 수 카운터 (0/200)
 //   <div class="textarea_wrap textarea_show-count">
 //     <textarea class="textarea" maxlength="200" aria-describedby="…-hint …-count"></textarea>
@@ -26,9 +27,21 @@
 .textarea_wrap {
   position: relative;
   width: 100%;
+  --textarea-clear-inset-y: 0.5rem;
+  --textarea-clear-inset-x: 0.75rem;
 
   &_fit {
     max-width: var(--input-max-width);
+  }
+
+  &:has(.textarea_sm) {
+    --textarea-clear-inset-y: 0.3rem;
+    --textarea-clear-inset-x: 0.6rem;
+  }
+
+  &:has(.textarea_lg) {
+    --textarea-clear-inset-y: 0.65rem;
+    --textarea-clear-inset-x: 0.9rem;
   }
 
   &.textarea_show-count {
@@ -97,6 +110,87 @@
       text-align: right;
       padding: 0 var(--textarea-count-inset-x) var(--textarea-count-inset-y);
     }
+  }
+
+  &.textarea_clearable.is-filled .textarea {
+    padding-right: calc(var(--input-clear-offset) + var(--input-clear-size) + var(--input-clear-offset));
+  }
+
+  &.textarea_clearable.is-filled:has(.textarea_sm) .textarea {
+    padding-right: calc(0.6rem + var(--input-clear-size) + var(--input-clear-offset));
+  }
+
+  &.textarea_clearable.is-filled:has(.textarea_lg) .textarea {
+    padding-right: calc(0.9rem + var(--input-clear-size) + var(--input-clear-offset));
+  }
+}
+
+.textarea_clearable:not(.textarea_wrap) {
+  position: relative;
+  display: block;
+  width: 100%;
+  --textarea-clear-inset-y: 0.5rem;
+  --textarea-clear-inset-x: 0.75rem;
+
+  &:has(> .textarea_sm) {
+    --textarea-clear-inset-y: 0.3rem;
+    --textarea-clear-inset-x: 0.6rem;
+  }
+
+  &:has(> .textarea_lg) {
+    --textarea-clear-inset-y: 0.65rem;
+    --textarea-clear-inset-x: 0.9rem;
+  }
+
+  &.is-filled .textarea {
+    padding-right: calc(var(--input-clear-offset) + var(--input-clear-size) + var(--input-clear-offset));
+  }
+
+  &.is-filled:has(> .textarea_sm) .textarea {
+    padding-right: calc(0.6rem + var(--input-clear-size) + var(--input-clear-offset));
+  }
+
+  &.is-filled:has(> .textarea_lg) .textarea {
+    padding-right: calc(0.9rem + var(--input-clear-size) + var(--input-clear-offset));
+  }
+}
+
+.textarea_clear {
+  position: absolute;
+  top: calc(var(--textarea-clear-inset-y, 0.5rem) + 0.75em);
+  right: var(--textarea-clear-inset-x, 0.75rem);
+  bottom: auto;
+  left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--input-clear-color);
+  cursor: pointer;
+  appearance: none;
+  line-height: 1;
+  transform: translateY(-50%);
+  @include focus-ring;
+  @include square-size(var(--input-clear-size));
+
+  &[hidden] {
+    display: none;
+  }
+
+  .icon {
+    width: var(--input-clear-icon-size);
+    height: var(--input-clear-icon-size);
+  }
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--input-clear-hover-color);
+    background: transparent;
+    border-color: transparent;
   }
 }
 

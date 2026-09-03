@@ -23,7 +23,7 @@ function onControlClick(event) {
   const control = event.target.closest('span.checkbox_control, span.radio_control');
   if (!control) return;
 
-  if (control.closest('label.checkbox, label.radio, label.checkbox_control, label.radio_control')) return;
+  if (control.closest('label.checkbox, label.radio, label.checkbox_control, label.radio_control, .checkbox, .radio')) return;
 
   const input = control.querySelector(INPUT_SELECTOR);
   if (!(input instanceof HTMLInputElement) || input.disabled || event.target === input) return;

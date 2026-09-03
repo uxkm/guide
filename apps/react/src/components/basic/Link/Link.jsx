@@ -3,8 +3,8 @@
  * 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다.
  */
 // 색상·크기 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
-const COLORS = new Set(['primary', 'muted', 'success', 'warning', 'danger', 'info']);
-const SIZES = new Set(['', 'sm', 'lg', 'xl']);
+const COLORS = ['primary', 'muted', 'success', 'warning', 'danger', 'info'];
+const SIZES = ['', 'sm', 'lg', 'xl'];
 
 export function Link({
   as: Root = 'a', // 루트 요소 또는 컴포넌트입니다. 기본은 a입니다.
@@ -32,8 +32,8 @@ export function Link({
   onClick, // 클릭 핸들러입니다.
   ...props // 나머지 속성을 루트에 전달합니다.
 }) {
-  const resolvedColor = COLORS.has(color) ? color : 'primary';
-  const resolvedSize = SIZES.has(size) ? size : '';
+  const resolvedColor = COLORS.includes(color) ? color : 'primary';
+  const resolvedSize = SIZES.includes(size) ? size : '';
   const isAnchor = Root === 'a';
   const isButton = Root === 'button';
   // a이거나 컴포넌트 루트면 href를 전달합니다.

@@ -73,14 +73,15 @@ export function DatePicker({
     if (date) setMonth(date);
   }, [selectedValue]);
 
-  // 바깥 클릭 시 패널을 닫습니다.
+  // 바깥 클릭 시 패널을 닫습니다. pointerdown은 날짜 click 전에 패널을 닫아 선택이 무시될 수 있어 click을 사용합니다.
   useEffect(() => {
+    if (!open) return;
     const close = (event) => {
       if (!rootRef.current?.contains(event.target)) setOpen(false);
     };
-    document.addEventListener('pointerdown', close);
-    return () => document.removeEventListener('pointerdown', close);
-  }, []);
+    document.addEventListener('click', close, true);
+    return () => document.removeEventListener('click', close, true);
+  }, [open]);
 
   // 패널이 열리면 선택일 또는 첫 가능 날짜로 포커스를 이동합니다.
   useEffect(() => {
@@ -196,7 +197,7 @@ export function DatePicker({
         role="dialog"
         aria-modal="false"
         aria-label={ariaLabel}
-        hidden={!open}
+        aria-hidden={!open}
       >
         <div className="calendar calendar_borderless">
           <div className="calendar_header">

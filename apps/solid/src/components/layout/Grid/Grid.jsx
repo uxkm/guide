@@ -7,9 +7,21 @@ const range = (value) =>
   Number.isInteger(Number(value)) && Number(value) >= 1 && Number(value) <= 12 ? Number(value) : '';
 
 // 문자열 prop이 지원하는 변형만 CSS 클래스로 전달합니다.
-const GAPS = new Set(['', 'sm', 'lg', 'none']); // 지원하는 간격 이름입니다.
-const RATIOS = new Set(['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']); // 지원하는 열 비율입니다.
-const ALIGNS = new Set(['', 'center', 'end']); // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+const GAPS = ['', 'sm', 'lg', 'none']; // 지원하는 간격 이름입니다.
+const RATIOS = ['', '1-1', '2-1', '1-2', '3-1', '1-1-1', '1-2-1']; // 지원하는 열 비율입니다.
+const ALIGNS = ['', 'center', 'end']; // 기본 stretch 외에 선택할 수 있는 정렬입니다.
+
+/** 프리셋은 클래스, 숫자(rem)·CSS 길이는 --grid-current-gap으로 적용합니다. */
+function resolveGap(gap) {
+  if (GAPS.includes(gap)) {
+    return { className: gap ? `grid_gap-${gap}` : '', style: undefined };
+  }
+  if (gap === '' || gap == null) return { className: '', style: undefined };
+  const value =
+    typeof gap === 'number' && Number.isFinite(gap) && gap >= 0 ? `${gap}rem` : String(gap).trim();
+  if (!value) return { className: '', style: undefined };
+  return { className: '', style: { '--grid-current-gap': value } };
+}
 
 export function Grid({
   as: Root = 'div', // Grid의 루트 요소 또는 컴포넌트를 지정합니다.
@@ -21,7 +33,7 @@ export function Grid({
   columnsMd, // colsMd의 이전 호환 이름입니다.
   columnsLg, // colsLg의 이전 호환 이름입니다.
 
-  gap = '', // Grid 항목 사이의 간격을 지정합니다.
+  gap = '', // sm · lg · none 프리셋, rem 숫자, 또는 CSS 길이입니다.
   ratio = '', // 미리 정의된 열 너비 비율을 선택합니다.
   align = '', // 교차축에서 항목의 정렬 방식을 지정합니다.
 
@@ -35,12 +47,14 @@ export function Grid({
 
   children = 'Grid', // Grid 내부에 배치할 콘텐츠입니다.
   class: className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
+  style, // 인라인 스타일입니다. 수치 gap은 CSS 변수와 병합합니다.
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // columns는 cols의 이전 이름으로 유지하며 cols가 있으면 우선합니다.
   const resolvedCols = cols ?? columns; // 기본 구간의 최종 열 수입니다.
   const resolvedColsMd = colsMd ?? columnsMd; // md 구간의 최종 열 수입니다.
   const resolvedColsLg = colsLg ?? columnsLg; // lg 구간의 최종 열 수입니다.
+  const resolvedGap = resolveGap(gap); // 프리셋 클래스 또는 수치 CSS 변수입니다.
 
   // 기본·반응형 열, 간격, 비율, span, 자동 배치, 정렬 클래스를 조합합니다.
   const classes = [
@@ -49,8 +63,8 @@ export function Grid({
     range(resolvedColsMd) && `grid_cols-md-${range(resolvedColsMd)}`, // md 이상 균등 열 수입니다.
     range(resolvedColsLg) && `grid_cols-lg-${range(resolvedColsLg)}`, // lg 이상 균등 열 수입니다.
 
-    GAPS.has(gap) && gap && `grid_gap-${gap}`, // 검증된 간격 클래스입니다.
-    RATIOS.has(ratio) && ratio && `grid_ratio-${ratio}`, // 검증된 열 비율 클래스입니다.
+    resolvedGap.className, // 검증된 간격 프리셋 클래스입니다.
+    RATIOS.includes(ratio) && ratio && `grid_ratio-${ratio}`, // 검증된 열 비율 클래스입니다.
 
     range(itemSpan) && `grid_item-span-${range(itemSpan)}`, // 모든 자식의 기본 span입니다.
     range(itemSpanMd) && `grid_item-span-md-${range(itemSpanMd)}`, // 모든 자식의 md span입니다.
@@ -60,15 +74,18 @@ export function Grid({
     autoFill && 'grid_auto-fill', // 남는 빈 트랙을 유지하는 자동 열 모드입니다.
     equalColumns && 'grid_equal-columns', // 자식 수 기준의 동일 너비 열 모드입니다.
 
-    ALIGNS.has(align) && align && `grid_align-${align}`, // 검증된 항목 정렬 클래스입니다.
+    ALIGNS.includes(align) && align && `grid_align-${align}`, // 검증된 항목 정렬 클래스입니다.
     className, // 호출 위치에서 전달한 사용자 정의 클래스입니다.
   ]
     .filter(Boolean)
     .join(' '); // 미적용 항목을 제거한 뒤 class 문자열로 만듭니다.
 
+  const rootStyle =
+    resolvedGap.style || style ? { ...style, ...resolvedGap.style } : undefined;
+
   // as로 루트 요소를 바꾸고 나머지 속성과 children을 그대로 전달합니다.
   return (
-    <Root class={classes} data-component="Grid" {...props}>
+    <Root class={classes} data-component="Grid" style={rootStyle} {...props}>
       {children}
     </Root>
   );

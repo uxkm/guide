@@ -4,7 +4,7 @@
  */
 import { useEffect, useId, useMemo, useState } from 'react';
 
-const VALID_SIZES = new Set(['sm', 'md', 'lg']); // 지원하는 크기 이름입니다.
+const VALID_SIZES = ['sm', 'md', 'lg']; // 지원하는 크기 이름입니다.
 const STAR_PATH =
   'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'; // 별 아이콘 path입니다.
 
@@ -50,7 +50,7 @@ export function Rate({
   const generatedName = useId();
   const groupName = name || generatedName;
   const resolvedCount = Number(count) > 0 ? Number(count) : 5; // 유효한 별 개수입니다.
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
+  const resolvedSize = VALID_SIZES.includes(size) ? size : 'md'; // 지원 범위로 보정한 크기입니다.
   const isReadonly = readOnly || readonly; // 최종 읽기 전용 여부입니다.
   const [currentValue, setCurrentValue] = useState(value ?? defaultValue);
   const stars = useMemo(

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { hiddenArgTypes, ariaLabelArg } from './shared/storyArgTypes';
 import ActualMenu from '../../react/src/components/navigation/Menu/Menu.jsx';
 import ActualMenuItem from '../../react/src/components/navigation/Menu/MenuItem.jsx';
 import ActualMenuDivider from '../../react/src/components/navigation/Menu/MenuDivider.jsx';
@@ -15,17 +16,44 @@ const Icon = ActualIcon as React.ComponentType<any>;
 const Badge = ActualBadge as React.ComponentType<any>;
 const I = ({ name }: any) => <Icon name={name} className="menu_icon" />;
 
-const meta = { title: '네비게이션/Menu', component: Menu, subcomponents: { MenuItem, MenuDivider, MenuGroup, MenuSubmenu }, decorators: [(Story) => <div className="menu-story-demo"><Story /></div>], parameters: { layout: 'padded' }, argTypes: { mode: { control: 'select', options: ['vertical', 'horizontal', 'inline'] }, bordered: { control: 'boolean' }, compact: { control: 'boolean' }, dark: { control: 'boolean' } } } satisfies Meta<typeof Menu>;
+const meta = {
+  title: '네비게이션/Menu',
+  component: Menu,
+  subcomponents: { MenuItem, MenuDivider, MenuGroup, MenuSubmenu },
+  decorators: [(Story) => <div className="menu-story-demo"><Story /></div>],
+  parameters: { layout: 'padded' },
+  args: { mode: 'vertical', bordered: true, compact: false, dark: false, ariaLabel: '주요 메뉴' },
+  argTypes: {
+    ...hiddenArgTypes,
+    mode: { control: 'select', options: ['vertical', 'horizontal', 'inline'] },
+    bordered: { control: 'boolean' },
+    compact: { control: 'boolean' },
+    dark: { control: 'boolean' },
+    ariaLabel: { ...ariaLabelArg, description: '내비게이션 영역의 접근 가능한 이름' },
+  },
+} satisfies Meta<typeof Menu>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Basic: Story = { name: '기본', render: () => <Menu mode="vertical" bordered ariaLabel="주요 메뉴"><MenuItem label="대시보드" active /><MenuItem label="분석" /><MenuItem label="사용자" /><MenuItem label="설정" /></Menu> };
-export const Horizontal: Story = { name: '수평', render: () => <Menu mode="horizontal" bordered ariaLabel="섹션 메뉴"><MenuItem label="개요" active /><MenuItem label="컴포넌트" /><MenuItem label="토큰" /><MenuItem label="접근성" /></Menu> };
-export const IconDemo: Story = { name: '아이콘', render: () => <Menu bordered ariaLabel="앱 메뉴"><MenuItem label="대시보드" active icon={<I name="grid" />} /><MenuItem label="사용자" icon={<I name="user" />} /><MenuItem label="문서" icon={<I name="book" />} /><MenuItem label="설정" icon={<I name="settings" />} /></Menu> };
-export const Submenu: Story = { name: '서브메뉴', render: () => <Menu bordered ariaLabel="컴포넌트 메뉴"><MenuItem label="홈" active icon={<I name="home" />} /><MenuSubmenu label="컴포넌트" expanded submenuId="menu-sub-components" icon={<I name="grid" />}><MenuItem label="Button" /><MenuItem label="Input" /><MenuItem label="Card" /></MenuSubmenu><MenuSubmenu label="패턴" submenuId="menu-sub-patterns" icon={<I name="book" />}><MenuItem label="폼 레이아웃" /><MenuItem label="데이터 테이블" /></MenuSubmenu></Menu> };
-export const Group: Story = { name: '구분선 · 그룹', render: () => <Menu bordered ariaLabel="설정 메뉴"><MenuGroup title="계정" /><MenuItem label="프로필" active /><MenuItem label="보안" /><MenuDivider /><MenuGroup title="앱" /><MenuItem label="알림" /><MenuItem label="언어" /><MenuDivider /><MenuItem label="로그아웃" /></Menu> };
-export const Disabled: Story = { name: '비활성', render: () => <Menu bordered ariaLabel="권한 메뉴"><MenuItem label="조회" active /><MenuItem label="편집" /><MenuItem label="삭제" disabled /><MenuItem label="관리자 설정" disabled /></Menu> };
-export const BadgeDemo: Story = { name: '배지', render: () => <Menu bordered ariaLabel="알림 메뉴"><MenuItem label="받은편지함" active icon={<I name="mail" />} extra={<Badge count color="primary" label="12" />} /><MenuItem label="알림" icon={<I name="bell" />} extra={<Badge dotOnly color="danger" ariaLabel="새 알림" />} /><MenuItem label="메시지" icon={<I name="mail" />} extra={<Badge color="default" label="Beta" />} /></Menu> };
-export const HorizontalSubmenu: Story = { name: '수평 · 서브메뉴', render: () => <div className="menu-horizontal-submenu-demo"><Menu mode="horizontal" bordered ariaLabel="상단 메뉴"><MenuItem label="홈" active /><MenuSubmenu label="컴포넌트" submenuId="menu-sub-h-components"><MenuItem label="Button" /><MenuItem label="Input" /><MenuItem label="Select" /></MenuSubmenu><MenuItem label="토큰" /><MenuItem label="접근성" /></Menu></div> };
-export const Layout: Story = { name: '사이드바 레이아웃', render: () => <div className="menu-layout-demo"><div className="menu_demo-sidebar"><Menu bordered compact ariaLabel="앱 사이드바"><MenuItem label="개요" active icon={<I name="grid" />} /><MenuSubmenu label="문서" expanded submenuId="menu-sub-sidebar" icon={<I name="book" />}><MenuItem label="시작하기" /><MenuItem label="컴포넌트" /></MenuSubmenu><MenuItem label="설정" icon={<I name="settings" />} /></Menu></div><div className="menu_demo-content"><p>선택한 메뉴에 해당하는 콘텐츠 영역입니다. 사이드바 메뉴와 함께 레이아웃을 구성할 때 사용합니다.</p></div></div> };
-export const Variant: Story = { name: '변형', render: () => <div className="menu-variant-demo"><Menu bordered compact ariaLabel="컴팩트 메뉴"><MenuItem label="항목 A" active /><MenuItem label="항목 B" /><MenuItem label="항목 C" /></Menu><Menu bordered dark ariaLabel="다크 서피스 메뉴"><MenuItem label="항목 A" active /><MenuItem label="항목 B" /><MenuItem label="항목 C" /></Menu></div> };
+export const Playground: Story = {
+  name: 'Playground',
+  render: (args) => (
+    <Menu {...args}>
+      <MenuItem label="대시보드" active />
+      <MenuItem label="분석" />
+      <MenuItem label="사용자" />
+      <MenuItem label="설정" />
+    </Menu>
+  ),
+};
+
+export const Basic: Story = { name: '기본', render: (args) => <Menu {...args} mode="vertical" bordered ariaLabel="주요 메뉴"><MenuItem label="대시보드" active /><MenuItem label="분석" /><MenuItem label="사용자" /><MenuItem label="설정" /></Menu> };
+export const Horizontal: Story = { name: '수평', render: (args) => <Menu mode="horizontal" bordered ariaLabel="섹션 메뉴"><MenuItem label="개요" active /><MenuItem label="컴포넌트" /><MenuItem label="토큰" /><MenuItem label="접근성" /></Menu> };
+export const IconDemo: Story = { name: '아이콘', render: (args) => <Menu bordered ariaLabel="앱 메뉴"><MenuItem label="대시보드" active icon={<I name="grid" />} /><MenuItem label="사용자" icon={<I name="user" />} /><MenuItem label="문서" icon={<I name="book" />} /><MenuItem label="설정" icon={<I name="settings" />} /></Menu> };
+export const Submenu: Story = { name: '서브메뉴', render: (args) => <Menu bordered ariaLabel="컴포넌트 메뉴"><MenuItem label="홈" active icon={<I name="home" />} /><MenuSubmenu label="컴포넌트" expanded submenuId="menu-sub-components" icon={<I name="grid" />}><MenuItem label="Button" /><MenuItem label="Input" /><MenuItem label="Card" /></MenuSubmenu><MenuSubmenu label="패턴" submenuId="menu-sub-patterns" icon={<I name="book" />}><MenuItem label="폼 레이아웃" /><MenuItem label="데이터 테이블" /></MenuSubmenu></Menu> };
+export const Group: Story = { name: '구분선 · 그룹', render: (args) => <Menu bordered ariaLabel="설정 메뉴"><MenuGroup title="계정" /><MenuItem label="프로필" active /><MenuItem label="보안" /><MenuDivider /><MenuGroup title="앱" /><MenuItem label="알림" /><MenuItem label="언어" /><MenuDivider /><MenuItem label="로그아웃" /></Menu> };
+export const Disabled: Story = { name: '비활성', render: (args) => <Menu bordered ariaLabel="권한 메뉴"><MenuItem label="조회" active /><MenuItem label="편집" /><MenuItem label="삭제" disabled /><MenuItem label="관리자 설정" disabled /></Menu> };
+export const BadgeDemo: Story = { name: '배지', render: (args) => <Menu bordered ariaLabel="알림 메뉴"><MenuItem label="받은편지함" active icon={<I name="mail" />} extra={<Badge count color="primary" label="12" />} /><MenuItem label="알림" icon={<I name="bell" />} extra={<Badge dotOnly color="danger" ariaLabel="새 알림" />} /><MenuItem label="메시지" icon={<I name="mail" />} extra={<Badge color="default" label="Beta" />} /></Menu> };
+export const HorizontalSubmenu: Story = { name: '수평 · 서브메뉴', render: (args) => <div className="menu-horizontal-submenu-demo"><Menu mode="horizontal" bordered ariaLabel="상단 메뉴"><MenuItem label="홈" active /><MenuSubmenu label="컴포넌트" submenuId="menu-sub-h-components"><MenuItem label="Button" /><MenuItem label="Input" /><MenuItem label="Select" /></MenuSubmenu><MenuItem label="토큰" /><MenuItem label="접근성" /></Menu></div> };
+export const Layout: Story = { name: '사이드바 레이아웃', render: (args) => <div className="menu-layout-demo"><div className="menu_demo-sidebar"><Menu bordered compact ariaLabel="앱 사이드바"><MenuItem label="개요" active icon={<I name="grid" />} /><MenuSubmenu label="문서" expanded submenuId="menu-sub-sidebar" icon={<I name="book" />}><MenuItem label="시작하기" /><MenuItem label="컴포넌트" /></MenuSubmenu><MenuItem label="설정" icon={<I name="settings" />} /></Menu></div><div className="menu_demo-content"><p>선택한 메뉴에 해당하는 콘텐츠 영역입니다. 사이드바 메뉴와 함께 레이아웃을 구성할 때 사용합니다.</p></div></div> };
+export const Variant: Story = { name: '변형', render: (args) => <div className="menu-variant-demo"><Menu bordered compact ariaLabel="컴팩트 메뉴"><MenuItem label="항목 A" active /><MenuItem label="항목 B" /><MenuItem label="항목 C" /></Menu><Menu bordered dark ariaLabel="다크 서피스 메뉴"><MenuItem label="항목 A" active /><MenuItem label="항목 B" /><MenuItem label="항목 C" /></Menu></div> };

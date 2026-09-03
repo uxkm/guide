@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import Button from '../../basic/Button/Button.jsx';
 import Icon from '../../basic/Icon/Icon.jsx';
 
-const sizes = new Set(['sm', 'md', 'lg', 'fullscreen']); // 지원하는 대화상자 크기입니다.
+const sizes = ['sm', 'md', 'lg', 'fullscreen']; // 지원하는 대화상자 크기입니다.
 // 문서별 열린 Modal 수를 추적해 body 스크롤 잠금을 공유합니다.
 const documentModalCounts = new WeakMap();
 // iframe 포털 루트를 인스턴스별로 구분하는 ID입니다.
@@ -79,7 +79,7 @@ export function Modal({
   const previousFocusRef = useRef(null); // 닫힌 뒤 복원할 이전 포커스입니다.
   const [internalOpen, setInternalOpen] = useState(defaultOpen); // 비제어 열림 상태입니다.
   const visible = open ?? internalOpen; // 제어·비제어를 합친 최종 표시 상태입니다.
-  const resolvedSize = sizes.has(size) ? size : 'md'; // 검증된 크기입니다.
+  const resolvedSize = sizes.includes(size) ? size : 'md'; // 검증된 크기입니다.
   const portalRoot = visible ? getModalPortalRoot() : null; // 열렸을 때만 포털 루트를 준비합니다.
   // 크기·스크롤·열림 상태 클래스를 조합합니다.
   const classes = useMemo(

@@ -3,8 +3,8 @@
  * 데이터 표시 구조와 시각 상태를 공통 CSS 클래스 및 접근성 속성으로 표현합니다.
  */
 // 지원하지 않는 variant와 size는 각각 filled와 md로 정규화합니다.
-const VALID_VARIANTS = new Set(['filled', 'solid', 'outline', 'borderless']);
-const VALID_SIZES = new Set(['sm', 'md', 'lg']);
+const VALID_VARIANTS = ['filled', 'solid', 'outline', 'borderless'];
+const VALID_SIZES = ['sm', 'md', 'lg'];
 
 const CloseIcon = () => (
   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -35,8 +35,8 @@ export function Tag({
   ...props // id, aria-* 등 나머지 속성을 루트 요소에 전달합니다.
 }) {
   // prop에 따라 루트 의미와 닫기 버튼 분리 여부를 결정합니다.
-  const resolvedVariant = VALID_VARIANTS.has(variant) ? variant : 'filled';
-  const resolvedSize = VALID_SIZES.has(size) ? size : 'md';
+  const resolvedVariant = VALID_VARIANTS.includes(variant) ? variant : 'filled';
+  const resolvedSize = VALID_SIZES.includes(size) ? size : 'md';
   const interactive = checkable || add || Boolean(href);
   const splitControl = closable && interactive;
   // 외형과 상태를 tag_* · color_* · is-* 공통 클래스로 변환합니다.
