@@ -1,3 +1,4 @@
+import SignupPage from './pages/SignupPage.jsx';
 import ThemeToggle from './demo/ThemeToggle.jsx';
 import { Router } from './router/index.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -12,6 +13,7 @@ import MiscellaneousPage from './pages/components/MiscellaneousPage.jsx';
 
 const routes = {
   '/': HomePage,
+  '/signup': SignupPage,
   '/components': ComponentsPage,
   '/components/basic': BasicPage,
   '/components/layout': LayoutPage,

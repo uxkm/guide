@@ -296,3 +296,17 @@ pnpm deploy:storybook
 6. `apps/storybook/src`의 Story, API, 프레임워크 예제를 갱신합니다.
 7. Guidebook 문서에 영향을 주면 `apps/guidebook/content`를 갱신합니다.
 8. `pnpm validate:structure`와 관련 빌드를 실행합니다.
+
+## 회원가입 통합 데모
+
+Gulp·Vue·React에서 공통 컴포넌트 **52종**을 같은 회원가입 UI로 확인할 수 있습니다. 각 앱 홈의 **회원가입 통합 데모** 카드에서도 열 수 있습니다.
+
+| 구현 | 실행 | 데모 주소 |
+| --- | --- | --- |
+| Gulp / Nunjucks | `pnpm dev:gulp` | http://localhost:6102/signup.html |
+| Vue | `pnpm dev:vue` | http://localhost:6103/signup |
+| React | `pnpm dev:react` | http://localhost:6104/signup |
+
+상단 헤더, 좌측 메뉴, 하단 푸터, 우측 스티키 TOC와 Top 버튼을 포함합니다. 모바일에서는 TOC가 상단 가로 목차로 전환됩니다. 기본 정보·프로필·관심 설정·멤버십·약관·가입 안내·상태 예시를 한 페이지에 배치하며, 필수 입력/이메일/비밀번호 확인/약관 검증과 가입 완료 안내가 동작합니다. 실제 계정 생성이나 서버 전송, 입력 정보 저장은 하지 않습니다.
+
+각 프레임워크의 원본 컴포넌트로 화면을 구성하고, `packages/demo/signup.css`와 `signup.js`로 스타일 및 페이지 동작을 공유합니다. Gulp는 기존 `@uxkm/html` 워크스페이스에 설치된 Vite를 빌드 도구로 사용해 컴포넌트 스크립트와 Swiper를 번들링합니다.

@@ -1,0 +1,657 @@
+{% extends "templates/layouts/default.njk" %}
+{% set title = "UXKM · 회원가입 데모" %}
+{% from "components/miscellaneous/Accordion/accordion.njk" import accordion %}
+{% from "components/miscellaneous/Accordion/accordion.njk" import accordionItem %}
+{% from "components/miscellaneous/Affix/affix.njk" import affix %}
+{% from "components/feedback/Alert/alert.njk" import alert %}
+{% from "components/data-display/Avatar/avatar.njk" import avatar %}
+{% from "components/miscellaneous/BackTop/back-top.njk" import backTop %}
+{% from "components/data-display/Badge/badge.njk" import badge %}
+{% from "components/navigation/Breadcrumb/breadcrumb.njk" import breadcrumb %}
+{% from "components/navigation/Breadcrumb/breadcrumb.njk" import breadcrumbItem %}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/data-display/Calendar/calendar.njk" import calendar %}
+{% from "components/data-display/Calendar/calendar.njk" import calendarHeader %}
+{% from "components/data-display/Calendar/calendar.njk" import calendarMonth %}
+{% from "components/data-display/Calendar/calendar.njk" import calendarWeekdays %}
+{% from "components/data-display/Card/card.njk" import card %}
+{% from "components/miscellaneous/Carousel/carousel.njk" import carousel %}
+{% from "components/miscellaneous/Carousel/carousel.njk" import carouselSlide %}
+{% from "components/form/Checkbox/checkbox.njk" import checkbox %}
+{% from "components/miscellaneous/Collapse/collapse.njk" import collapse %}
+{% from "components/miscellaneous/Collapse/collapse.njk" import collapsePanel %}
+{% from "components/form/DatePicker/date-picker.njk" import datePicker %}
+{% from "components/layout/Divider/divider.njk" import divider %}
+{% from "components/feedback/Drawer/drawer.njk" import drawer %}
+{% from "components/navigation/Dropdown/dropdown.njk" import dropdown %}
+{% from "components/feedback/Empty/empty.njk" import empty %}
+{% from "components/layout/Flex/flex.njk" import flex %}
+{% from "components/form/FormLayout/form-layout.njk" import formField %}
+{% from "components/form/FormLayout/form-layout.njk" import formLayout %}
+{% from "components/layout/Grid/grid.njk" import grid %}
+{% from "components/basic/Icon/icon.njk" import icon %}
+{% from "components/form/Input/input.njk" import input %}
+{% from "components/basic/Link/link.njk" import link %}
+{% from "components/data-display/List/list.njk" import list %}
+{% from "components/data-display/List/list.njk" import listItem %}
+{% from "components/navigation/Menu/menu.njk" import menu %}
+{% from "components/navigation/Menu/menu.njk" import menuItem %}
+{% from "components/feedback/Modal/modal.njk" import modal %}
+{% from "components/navigation/Navbar/navbar.njk" import navbar %}
+{% from "components/navigation/Navbar/navbar.njk" import navbarItem %}
+{% from "components/navigation/Navbar/navbar.njk" import navbarList %}
+{% from "components/navigation/Pagination/pagination.njk" import pagination %}
+{% from "components/feedback/Popover/popover.njk" import popover %}
+{% from "components/feedback/Progress/progress.njk" import progress %}
+{% from "components/form/Radio/radio.njk" import radio %}
+{% from "components/form/Rate/rate.njk" import rate %}
+{% from "components/form/Select/select.njk" import select %}
+{% from "components/feedback/Skeleton/skeleton.njk" import skeleton %}
+{% from "components/form/Slider/slider.njk" import slider %}
+{% from "components/feedback/Snackbar/snackbar.njk" import snackbar %}
+{% from "components/layout/Space/space.njk" import space %}
+{% from "components/feedback/Spin/spin.njk" import spin %}
+{% from "components/data-display/Stat/stat.njk" import stat %}
+{% from "components/navigation/Steps/steps.njk" import steps %}
+{% from "components/form/Switch/switch.njk" import switch %}
+{% from "components/navigation/Tabs/tabs.njk" import tab %}
+{% from "components/navigation/Tabs/tabs.njk" import tabPanel %}
+{% from "components/data-display/Table/table.njk" import table %}
+{% from "components/navigation/Tabs/tabs.njk" import tabs %}
+{% from "components/data-display/Tag/tag.njk" import tag %}
+{% from "components/form/Textarea/textarea.njk" import textarea %}
+{% from "components/data-display/Timeline/timeline.njk" import timeline %}
+{% from "components/data-display/Timeline/timeline.njk" import timelineItem %}
+{% from "components/feedback/Tooltip/tooltip.njk" import tooltip %}
+{% from "components/data-display/Tree/tree.njk" import tree %}
+{% from "components/data-display/Tree/tree.njk" import treeNode %}
+{% from "components/basic/Typography/typography.njk" import typoTitle %}
+{% from "components/form/Upload/upload.njk" import upload %}
+{% block content %}
+  <link rel="stylesheet" href="/scripts/signup.css">
+  <div class="join_demo">
+    <a href="#join-main" class="join_skip">본문 바로가기</a>
+    <header class="join_header">
+      {% set joinNavItems %}
+        {% call navbarList() %}
+          {{ navbarItem(label="회원가입", href="#account", active=true) }}
+          {{ navbarItem(label="멤버십", href="#benefits") }}
+          {{ navbarItem(label="도움말", href="#help") }}
+        {% endcall %}
+      {% endset %}
+      {{ navbar(
+        brand="",
+        brandSrc="/images/brand/uxkm_logo_hand.svg",
+        brandAlt="UXKM",
+        brandHref="/",
+        items=joinNavItems,
+        navLabel="주요 메뉴"
+      ) }}
+      <span class="join_framework">Gulp</span>
+    </header>
+    <div class="join_layout">
+      <aside class="join_sidebar">
+        <div>
+          <p class="join_eyebrow">MY UXKM</p>
+          <h2>함께 만드는 경험</h2>
+          <p>나만의 프로필로 시작해 보세요.</p>
+          {% call menu(ariaLabel="회원가입 메뉴") %}
+            {{ menuItem(label="기본 정보", href="#account") }}
+            {{ menuItem(label="프로필", href="#profile") }}
+            {{ menuItem(label="관심 설정", href="#preferences") }}
+            {{ menuItem(label="멤버십 혜택", href="#benefits") }}
+            {{ menuItem(label="약관 동의", href="#terms") }}
+            {{ menuItem(label="가입 안내", href="#help") }}
+          {% endcall %}
+          <div class="join_side-note">
+            {{ badge(label="WELCOME") }}
+            <p>새로운 연결, 더 나은 경험.</p>
+            {{ link(href="#benefits", label="멤버십 혜택 살펴보기 →") }}
+          </div>
+        </div>
+      </aside>
+      <main id="join-main" tabindex="-1">
+        <div class="join_hero">
+          {% call breadcrumb() %}
+            {{ breadcrumbItem(label="홈", href="/") }}
+            {{ breadcrumbItem(label="회원가입", current=true) }}
+          {% endcall %}
+          <p class="join_eyebrow">JOIN OUR COMMUNITY</p>
+          {{ icon(name="plus", ariaLabel="새로운 시작") }}
+          {{ typoTitle(level=1, label="반가워요, 함께 시작해요.") }}
+          <p class="join_lead">기본 정보를 입력하고 나에게 맞는 멤버십을 완성하세요.</p>
+          {{ steps(
+            items=[
+              {
+                "title": "정보 입력",
+                "description": "나를 소개해요",
+                "status": "active"
+              },
+              {
+                "title": "약관 동의",
+                "description": "함께할 준비",
+                "status": "wait"
+              },
+              {
+                "title": "가입 완료",
+                "description": "새로운 시작",
+                "status": "wait"
+              }
+            ],
+            ariaLabel="회원가입 단계"
+          ) }}
+          {{ alert(color="info", description="체험용 회원가입입니다. 입력한 정보는 서버에 전송되거나 저장되지 않습니다.") }}
+        </div>
+        {% call formLayout(id="join-form", novalidate=true) %}
+          <section id="account" class="join_section" tabindex="-1">
+            <div class="join_section-heading">
+              <span class="join_number">01</span>
+              <div>
+                <h2>기본 정보를 알려주세요</h2>
+                <p>별표(*)가 있는 항목은 필수입니다.</p>
+              </div>
+            </div>
+            {% call grid(cols=1, colsMd=2, gap="lg") %}
+              {% call formField(label="이름", required=true, id="join-name") %}
+                {{ input(
+                  id="join-name",
+                  name="join-name",
+                  type="text",
+                  required=true,
+                  block=true,
+                  placeholder="이름 입력"
+                ) }}
+              {% endcall %}
+              {% call formField(label="이메일", required=true, id="join-email") %}
+                {{ input(
+                  id="join-email",
+                  name="join-email",
+                  type="email",
+                  required=true,
+                  block=true,
+                  placeholder="you@example.com"
+                ) }}
+              {% endcall %}
+              {% call formField(label="비밀번호", required=true, id="join-password") %}
+                {{ input(
+                  id="join-password",
+                  name="join-password",
+                  type="password",
+                  required=true,
+                  block=true,
+                  placeholder="8자 이상 입력하세요"
+                ) }}
+              {% endcall %}
+              {% call formField(label="비밀번호 확인", required=true, id="join-confirm") %}
+                {{ input(
+                  id="join-confirm",
+                  name="join-confirm",
+                  type="password",
+                  required=true,
+                  block=true,
+                  placeholder="8자 이상 입력하세요"
+                ) }}
+              {% endcall %}
+            {% endcall %}
+            <p id="join-password-hint" class="join_hint">비밀번호는 8자 이상 입력해 주세요.</p>
+          </section>
+          <section id="profile" class="join_section" tabindex="-1">
+            <div class="join_section-heading">
+              <span class="join_number">02</span>
+              <div>
+                <h2>나를 소개해 주세요</h2>
+                <p>선택 정보는 나중에도 수정할 수 있어요.</p>
+              </div>
+            </div>
+            {% call flex(gap="lg", align="center") %}
+              {{ avatar(initials="ME", size="lg", color="primary") }}
+              <div>
+                <h3>프로필 사진</h3>
+                {{ upload(
+                  id="join-photo",
+                  name="photo",
+                  accept="image/*",
+                  buttonLabel="사진 선택",
+                  hint="이미지 파일을 선택해 주세요."
+                ) }}
+              </div>
+            {% endcall %}
+            {% call grid(cols=1, colsMd=2, gap="lg") %}
+              {% call formField(label="생년월일", id="join-birthday") %}
+                {{ datePicker(
+                  id="join-birthday",
+                  name="birthday",
+                  ariaLabel="생년월일",
+                  placeholder="날짜를 선택하세요"
+                ) }}
+              {% endcall %}
+              {% call formField(label="하는 일", id="join-role") %}
+                {{ select(
+                  id="join-role",
+                  name="role",
+                  placeholder="선택하세요",
+                  options=[
+                    {
+                      "value": "designer",
+                      "label": "디자이너"
+                    },
+                    {
+                      "value": "developer",
+                      "label": "개발자"
+                    },
+                    {
+                      "value": "planner",
+                      "label": "기획자"
+                    }
+                  ]
+                ) }}
+              {% endcall %}
+            {% endcall %}
+            {% call formField(label="자기소개", id="join-bio") %}
+              {{ textarea(
+                id="join-bio",
+                name="bio",
+                rows=3,
+                maxLength=200,
+                placeholder="관심사나 함께하고 싶은 일을 소개해 주세요."
+              ) }}
+            {% endcall %}
+          </section>
+          <section id="preferences" class="join_section" tabindex="-1">
+            <div class="join_section-heading">
+              <span class="join_number">03</span>
+              <div>
+                <h2>나에게 맞게 설정하세요</h2>
+                <p>관심사와 소식을 받는 방법을 선택해 주세요.</p>
+              </div>
+            </div>
+            <fieldset>
+              <legend>회원 유형</legend>
+              {% call space(gap="lg", wrap=true) %}
+                {{ radio(
+                  id="join-personal",
+                  name="memberType",
+                  value="personal",
+                  label="개인 회원",
+                  checked=true
+                ) }}
+                {{ radio(id="join-team", name="memberType", value="team", label="팀 회원") }}
+              {% endcall %}
+            </fieldset>
+            <fieldset>
+              <legend>관심 분야</legend>
+              {% call space(gap="lg", wrap=true) %}
+                {{ checkbox(id="join-interest-0", name="interests", value="UI 디자인", label="UI 디자인") }}
+                {{ checkbox(id="join-interest-1", name="interests", value="프론트엔드", label="프론트엔드") }}
+                {{ checkbox(id="join-interest-2", name="interests", value="접근성", label="접근성") }}
+              {% endcall %}
+            </fieldset>
+            {{ divider() }}
+            {{ switch(id="join-news", name="newsletter", label="새로운 콘텐츠 소식 받기") }}
+            {{ switch(id="join-events", name="events", label="이벤트 및 혜택 소식 받기") }}
+            <div>
+              <h3>주간 학습 목표</h3>
+              {{ slider(name="goal", min=1, max=7, showValue=true, ariaLabel="주간 학습 목표", value=3) }}
+            </div>
+            <div>
+              <h3>현재 관심도</h3>
+              {{ rate(name="interestLevel", ariaLabel="현재 관심도", value=3) }}
+            </div>
+          </section>
+          <section id="benefits" class="join_section" tabindex="-1">
+            <div class="join_section-heading">
+              <span class="join_number">04</span>
+              <div>
+                <h2>가입하면 이런 점이 좋아요</h2>
+                <p>배우고, 공유하고, 함께 성장하세요.</p>
+              </div>
+            </div>
+            {% call space(gap="sm") %}
+              {{ tag(label="무료 멤버십") }}
+              {{ badge(label="NEW") }}
+            {% endcall %}
+            {% call grid(cols=1, colsMd=2, gap="lg") %}
+              {{ stat(title="시작 비용", value="0", suffix="원", card=true) }}
+              {{ stat(title="관심 분야", value="3", suffix="가지", card=true) }}
+            {% endcall %}
+            {% set joinTabs %}
+              {{ tab(id="join-part-111-tab-0", panelId="join-part-111-panel-0", label="개인 혜택", active=true) }}
+              {{ tab(id="join-part-111-tab-1", panelId="join-part-111-panel-1", label="팀 혜택", active=false) }}
+            {% endset %}
+            {% set joinPanels %}
+              {% call tabPanel(id="join-part-111-panel-0", tabId="join-part-111-tab-0", active=true) %}
+                {% call list(bordered=true) %}
+                  {{ listItem(title="나만의 학습 공간", description="관심 있는 콘텐츠를 한곳에서 확인하세요.") }}
+                  {{ listItem(title="커뮤니티 참여", description="경험을 나누고 새로운 아이디어를 발견하세요.") }}
+                {% endcall %}
+              {% endcall %}
+              {% call tabPanel(id="join-part-111-panel-1", tabId="join-part-111-tab-1", active=false) %}
+                <p>팀원과 지식을 나누며 함께 성장하는 공간을 만들어 보세요.</p>
+              {% endcall %}
+            {% endset %}
+            {{ tabs(tabs=joinTabs, panels=joinPanels, ariaLabel="멤버십 혜택") }}
+            {% call card(title="우리의 이야기") %}
+              {% call carousel(pagination=true, navigation=true, ariaLabel="멤버십 이야기", id="join-part-117") %}
+                {% set joinSlide %}
+                  <div class="join_slide">
+                    <h3>작은 시작이 만드는 변화</h3>
+                    <p>오늘의 배움이 내일의 경험이 됩니다.</p>
+                  </div>
+                {% endset %}
+                {{ carouselSlide(html=joinSlide) }}
+                {% set joinSlide %}
+                  <div class="join_slide">
+                    <h3>함께라서 더 즐거운 성장</h3>
+                    <p>서로의 경험에서 새로운 가능성을 찾아보세요.</p>
+                  </div>
+                {% endset %}
+                {{ carouselSlide(html=joinSlide) }}
+              {% endcall %}
+            {% endcall %}
+            {% call table(bordered=true) %}
+              <caption>멤버십 제공 내용</caption>
+              <thead>
+                <tr>
+                  <th scope="col">제공 내용</th>
+                  <th scope="col">개인 회원</th>
+                  <th scope="col">팀 회원</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">프로필</th>
+                  <td>포함</td>
+                  <td>포함</td>
+                </tr>
+                <tr>
+                  <th scope="row">콘텐츠 소식</th>
+                  <td>선택</td>
+                  <td>선택</td>
+                </tr>
+              </tbody>
+            {% endcall %}
+          </section>
+          <section id="terms" class="join_section" tabindex="-1">
+            <div class="join_section-heading">
+              <span class="join_number">05</span>
+              <div>
+                <h2>함께하기 전 확인해 주세요</h2>
+                <p>필수 약관에 동의하면 가입을 완료할 수 있어요.</p>
+              </div>
+            </div>
+            {% call accordion(id="join-part-148") %}
+              {% call accordionItem(title="서비스 이용약관", open=true, id="join-part-149") %}
+                <p>커뮤니티에서는 서로 존중하며 콘텐츠를 공유해 주세요. 이 내용은 화면 체험을 위한 예시 약관입니다.</p>
+              {% endcall %}
+              {% call accordionItem(title="개인정보 수집 및 이용 안내", id="join-part-151") %}
+                <p>실제 가입 서비스에서는 개인정보 수집 목적과 보유 기간을 안내합니다. 이 데모에서는 입력 정보를 저장하지 않습니다.</p>
+              {% endcall %}
+            {% endcall %}
+            {{ checkbox(id="join-terms", name="terms", label="[필수] 서비스 이용약관에 동의합니다") }}
+            {{ checkbox(id="join-privacy", name="privacy", label="[필수] 개인정보 수집 및 이용에 동의합니다") }}
+            <div class="join_actions">
+              {{ button(label="약관 자세히 보기", variant="outline", className="join_terms-trigger") }}
+              {{ button(label="가입 도움말", variant="ghost", className="join_help-trigger") }}
+            </div>
+            <p id="join-status" role="status">입력 내용을 확인한 후 가입을 완료해 주세요.</p>
+            {{ button(type="submit", label="동의하고 가입 완료", size="lg", block=true) }}
+          </section>
+        {% endcall %}
+        <section id="help" class="join_section" tabindex="-1">
+          <div class="join_section-heading">
+            <span class="join_number">06</span>
+            <div>
+              <h2>첫 시작을 도와드려요</h2>
+              <p>가입 이후의 여정을 미리 확인하세요.</p>
+            </div>
+          </div>
+          {% call timeline() %}
+            {{ timelineItem(title="정보 입력", description="나만의 프로필을 작성해요.", active=true) }}
+            {{ timelineItem(title="약관 확인", description="서비스 이용 안내를 확인해요.") }}
+            {{ timelineItem(title="멤버십 시작", description="새로운 경험을 함께해요.") }}
+          {% endcall %}
+          {% call collapse(id="join-part-170") %}
+            {% call collapsePanel(title="모든 정보를 입력해야 하나요?", open=true, id="join-part-171") %}
+              <p>선택 정보는 비워 두어도 가입할 수 있습니다. 프로필에서 언제든 수정할 수 있어요.</p>
+            {% endcall %}
+            {% call collapsePanel(title="실제로 계정이 만들어지나요?", id="join-part-173") %}
+              <p>이 페이지는 UI 데모로 실제 계정을 만들지 않습니다.</p>
+            {% endcall %}
+          {% endcall %}
+          {% call space(gap="lg", wrap=true) %}
+            {{ tooltip(content="필수 항목과 약관 동의를 확인해 주세요.", triggerLabel="가입 전 확인") }}
+            {% call popover(title="가입 안내", triggerLabel="가입 절차 보기") %}
+              <p>회원 정보 입력과 약관 동의까지 한 페이지에서 진행합니다.</p>
+            {% endcall %}
+          {% endcall %}
+          {% call tree(ariaLabel="시작 가이드") %}
+            {% call treeNode(label="시작 가이드", expanded=true) %}
+              {{ treeNode(label="프로필 설정") }}
+              {{ treeNode(label="관심 분야 선택") }}
+            {% endcall %}
+          {% endcall %}
+          <div class="join_pagination">
+            <h3>콘텐츠 둘러보기</h3>
+            <p id="join-page-copy">페이지를 선택하면 안내 콘텐츠가 변경됩니다.</p>
+            {{ pagination(current=1, total=30, pageSize=10, ariaLabel="안내 콘텐츠 페이지") }}
+          </div>
+          {% call dropdown(triggerLabel="빠른 이동", id="join-part-187") %}
+            {% call menu(ariaLabel="빠른 이동") %}
+              {{ menuItem(label="기본 정보로 이동", href="#account") }}
+              {{ menuItem(label="약관으로 이동", href="#terms") }}
+            {% endcall %}
+          {% endcall %}
+          {% call card(title="멤버십 일정 예시") %}
+            {% call calendar(ariaLabel="멤버십 일정 예시", readonly=true) %}
+              {{ calendarHeader(title="2026년 9월", showNav=false) }}
+              {{ calendarWeekdays() }}
+              {{ calendarMonth(
+                days=[
+                  {
+                    "day": 30,
+                    "otherMonth": true
+                  },
+                  {
+                    "day": 31,
+                    "otherMonth": true
+                  },
+                  {
+                    "day": 1,
+                    "selected": false
+                  },
+                  {
+                    "day": 2,
+                    "selected": false
+                  },
+                  {
+                    "day": 3,
+                    "selected": false
+                  },
+                  {
+                    "day": 4,
+                    "selected": false
+                  },
+                  {
+                    "day": 5,
+                    "selected": true
+                  },
+                  {
+                    "day": 6,
+                    "selected": false
+                  },
+                  {
+                    "day": 7,
+                    "selected": false
+                  },
+                  {
+                    "day": 8,
+                    "selected": false
+                  },
+                  {
+                    "day": 9,
+                    "selected": false
+                  },
+                  {
+                    "day": 10,
+                    "selected": false
+                  },
+                  {
+                    "day": 11,
+                    "selected": false
+                  },
+                  {
+                    "day": 12,
+                    "selected": false
+                  },
+                  {
+                    "day": 13,
+                    "selected": false
+                  },
+                  {
+                    "day": 14,
+                    "selected": false
+                  },
+                  {
+                    "day": 15,
+                    "selected": false
+                  },
+                  {
+                    "day": 16,
+                    "selected": false
+                  },
+                  {
+                    "day": 17,
+                    "selected": false
+                  },
+                  {
+                    "day": 18,
+                    "selected": false
+                  },
+                  {
+                    "day": 19,
+                    "selected": false
+                  },
+                  {
+                    "day": 20,
+                    "selected": false
+                  },
+                  {
+                    "day": 21,
+                    "selected": false
+                  },
+                  {
+                    "day": 22,
+                    "selected": false
+                  },
+                  {
+                    "day": 23,
+                    "selected": false
+                  },
+                  {
+                    "day": 24,
+                    "selected": false
+                  },
+                  {
+                    "day": 25,
+                    "selected": false
+                  },
+                  {
+                    "day": 26,
+                    "selected": false
+                  },
+                  {
+                    "day": 27,
+                    "selected": false
+                  },
+                  {
+                    "day": 28,
+                    "selected": false
+                  },
+                  {
+                    "day": 29,
+                    "selected": false
+                  },
+                  {
+                    "day": 30,
+                    "selected": false
+                  },
+                  {
+                    "day": 1,
+                    "otherMonth": true
+                  },
+                  {
+                    "day": 2,
+                    "otherMonth": true
+                  },
+                  {
+                    "day": 3,
+                    "otherMonth": true
+                  }
+                ],
+                readonly=true
+              ) }}
+            {% endcall %}
+          {% endcall %}
+        </section>
+        <section id="states" class="join_section" tabindex="-1">
+          <div class="join_section-heading">
+            <span class="join_number">07</span>
+            <div>
+              <h2>화면 상태 미리보기</h2>
+              <p>서비스에서 만나는 대기·빈 화면·완료 알림의 예시입니다.</p>
+            </div>
+          </div>
+          {% call grid(cols=1, colsMd=2, gap="lg") %}
+            {% call card(title="저장한 콘텐츠") %}
+              {{ empty(description="아직 저장한 콘텐츠가 없어요.") }}
+            {% endcall %}
+            {% call card(title="불러오는 동안") %}
+              {{ skeleton(paragraph=true) }}
+              {{ spin(tip="콘텐츠를 불러오는 중") }}
+            {% endcall %}
+          {% endcall %}
+          {{ progress(percent=100, showInfo=true, block=true, ariaLabel="완료 상태 예시") }}
+          {{ snackbar(message="설정이 반영되었어요. (알림 예시)", motion="none") }}
+        </section>
+      </main>
+      <aside class="join_toc">
+        {% call affix(offsetTop=96, interactive=false) %}
+          <nav aria-label="페이지 목차">
+            <p class="join_eyebrow">이 페이지에서</p>
+            <a href="#account">01  기본 정보</a>
+            <a href="#profile">02  프로필</a>
+            <a href="#preferences">03  관심 설정</a>
+            <a href="#benefits">04  멤버십 혜택</a>
+            <a href="#terms">05  약관 동의</a>
+            <a href="#help">06  가입 안내</a>
+            <a href="#states">07  상태 미리보기</a>
+          </nav>
+        {% endcall %}
+      </aside>
+    </div>
+    <footer class="join_footer">
+      {% set content %}
+        {% call flex(justify="between", wrap=true, gap="lg") %}
+          <div>
+            <strong>UXKM</strong>
+            <p>좋은 경험을 함께 만듭니다.</p>
+          </div>
+          {% call space(gap="lg") %}
+            {{ link(href="#terms", label="이용약관") }}
+            {{ link(href="#help", label="도움말") }}
+          {% endcall %}
+        {% endcall %}
+      {% endset %}
+      {% include "components/layout/Container/container.njk" %}
+    </footer>
+    {{ backTop(label="TOP", color="primary", visibilityHeight=240, className="join_backtop") }}
+    {% call modal(id="join-terms-modal", title="서비스 이용약관") %}
+      <p>서로를 존중하는 커뮤니티를 함께 만들어 주세요. 본 약관은 회원가입 UI 체험을 위한 예시입니다.</p>
+    {% endcall %}
+    {% call drawer(id="join-help-drawer", title="회원가입 도움말") %}
+      <p>필수 기본 정보와 약관 동의를 확인하세요. 선택 항목은 비워 두어도 됩니다.</p>
+    {% endcall %}
+  </div>
+  <script type="module" src="/scripts/signup.js">
+  </script>
+{% endblock %}

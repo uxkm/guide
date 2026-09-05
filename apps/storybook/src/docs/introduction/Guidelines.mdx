@@ -7,6 +7,23 @@ import DocsTable from '../../shared/DocsTable';
 
 접근성·패턴·네이밍·상태·현황처럼 구현과 리뷰에서 따르는 기준입니다. 토큰 값·테마는 **디자인 토큰**, 앱 구조·소유권·변경 흐름은 **아키텍처**, 설치·사용법은 **설치 및 사용**을 참고합니다.
 
+## 회원가입 통합 데모
+
+공통 컴포넌트 52종을 활용한 회원가입 페이지입니다. Gulp·Vue·React에서 동일한 UI와 상단·좌측·하단 레이아웃, 우측 스티키 TOC, Top 버튼을 확인할 수 있습니다.
+
+각 데모는 **새 창**으로 열립니다. 로컬 데모이므로 해당 개발 서버를 실행한 후 이용하세요.
+
+<DocsTable
+  label="프레임워크별 회원가입 데모"
+  columns={['프레임워크', '실행 명령', '데모 페이지']}
+  rows={[
+    ['Gulp / Nunjucks', 'pnpm dev:gulp', <a href="http://localhost:6102/signup.html" target="_blank" rel="noopener noreferrer">Gulp 회원가입 데모 (새 창)</a>],
+    ['Vue', 'pnpm dev:vue', <a href="http://localhost:6103/signup" target="_blank" rel="noopener noreferrer">Vue 회원가입 데모 (새 창)</a>],
+    ['React', 'pnpm dev:react', <a href="http://localhost:6104/signup" target="_blank" rel="noopener noreferrer">React 회원가입 데모 (새 창)</a>]
+  ]}
+  codeColumns={[1]}
+/>
+
 ## 파운데이션
 
 토큰 목록은 **디자인 토큰**이 원본입니다. 여기에는 적용 원칙과 토큰 문서에 없는 기준만 둡니다.

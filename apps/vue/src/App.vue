@@ -4,6 +4,7 @@
 </template>
 
 <script setup>
+import SignupView from './views/SignupView.vue';
 import { computed } from 'vue';
 import ThemeToggle from './demo/ThemeToggle.vue';
 import { usePath } from './router/index.js';
@@ -21,6 +22,7 @@ const path = usePath();
 
 const routes = {
   '/': HomeView,
+  '/signup': SignupView,
   '/components': ComponentsView,
   '/components/basic': BasicView,
   '/components/layout': LayoutView,
