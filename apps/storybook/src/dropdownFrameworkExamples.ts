@@ -14,6 +14,74 @@ const html: Record<Name,string> = {
   disabled: `${htmlDropdown('비활성 드롭다운',menuHtml(['항목']),{classes:' is-disabled',disabled:true})}\n${htmlDropdown('일부 비활성','<nav class="menu menu_vertical menu_compact"><ul class="menu_list"><li class="menu_item"><button class="menu_link" type="button"><span class="menu_label">조회</span></button></li><li class="menu_item"><button class="menu_link" type="button"><span class="menu_label">편집</span></button></li><li class="menu_item is-disabled"><span class="menu_link is-disabled" aria-disabled="true"><span class="menu_label">삭제</span></span></li><li class="menu_item is-disabled"><span class="menu_link is-disabled" aria-disabled="true"><span class="menu_label">관리자 설정</span></span></li></ul></nav>',{classes:' is-open'})}`,
   example: `<div class="dropdown_demo-toolbar"><button type="button" class="btn btn_ghost color_default btn_sm"><span class="btn_label">알림 <span class="badge badge_count badge_sm color_danger" data-component="Badge">2</span></span></button>${htmlDropdown('김가이드',menuHtml(['내 프로필','내 문서','로그아웃']),{classes:' dropdown_placement-end',trigger:'btn_ghost color_default btn_sm'})}</div>`,
 };
+const gulpDropdownImports = `{% from "components/navigation/Dropdown/dropdown.njk" import dropdown, dropdownTrigger %}
+{% from "components/navigation/Menu/menu.njk" import menu, menuItem, menuGroup, menuDivider %}`;
+const gulpMenu = (labels:string[], active='') => `{% call menu(compact=true) %}
+${labels.map((label) => `    {{ menuItem(label='${label}'${label === active ? ', active=true' : ''}) }}`).join('\n')}
+  {% endcall %}`;
+type GulpDropdownOptions = { open?:boolean; disabled?:boolean; placement?:'end'|'top'; fit?:boolean; variant?:string; color?:string; selectText?:boolean; size?:string; iconOnly?:boolean; icon?:string; maxVisibleItems?:number; menuWidth?:string };
+const gulpDropdown = (id:string, label:string, menuCode:string, options:GulpDropdownOptions = {}) => {
+  const args = [`id='${id}'`, `triggerLabel='${label}'`, options.open && 'open=true', options.disabled && 'disabled=true', options.placement && `placement='${options.placement}'`, options.fit && 'fit=true', options.variant && `triggerVariant='${options.variant}'`, options.color && `triggerColor='${options.color}'`, options.selectText && 'triggerSelectText=true', options.size && `triggerSize='${options.size}'`, options.iconOnly && 'triggerIconOnly=true', options.icon && `triggerIcon='${options.icon}'`, options.maxVisibleItems && `maxVisibleItems=${options.maxVisibleItems}`, options.menuWidth && `menuWidth='${options.menuWidth}'`].filter(Boolean).join(', ');
+  return `${gulpDropdownImports}
+
+{% call dropdown(${args}) %}
+  ${menuCode}
+{% endcall %}`;
+};
+const gulp: Record<Name,string> = {
+  basic: gulpDropdown('actions-menu', '작업', gulpMenu(['복사','이동','공유'])),
+  open: gulpDropdown('category-menu', '카테고리', gulpMenu(['전체','디자인','개발','마케팅'],'전체'), { open:true, variant:'filled', color:'primary' }),
+  trigger: [
+    gulpDropdown('filled-menu', 'Filled', gulpMenu(['항목 1','항목 2']), { variant:'filled', color:'primary' }),
+    gulpDropdown('outline-menu', 'Outline', gulpMenu(['항목 1','항목 2'])),
+    gulpDropdown('ghost-menu', 'Ghost', gulpMenu(['항목 1','항목 2']), { variant:'ghost' }),
+    gulpDropdown('text-menu', 'Text', gulpMenu(['항목 1','항목 2']), { variant:'text', color:'primary' }),
+    gulpDropdown('more-menu', '더보기', gulpMenu(['편집','복제','삭제']), { variant:'ghost', iconOnly:true, icon:'menu' }),
+  ].join('\n\n'),
+  select: gulpDropdown('region-menu', '서울특별시', gulpMenu(['서울특별시','부산광역시','대구광역시'],'서울특별시'), { fit:true, variant:'select' }) + '\n\n' + gulpDropdown('sort-menu', '최신순', gulpMenu(['최신순','인기순','가격 낮은순'],'최신순'), { variant:'select', selectText:true }),
+  placement: gulpDropdown('start-menu', '왼쪽 정렬', gulpMenu(['항목 A','항목 B'])) + '\n\n' + gulpDropdown('end-menu', '오른쪽 정렬', gulpMenu(['항목 A','항목 B']), { placement:'end' }) + '\n\n' + gulpDropdown('top-menu', '위로 열기', gulpMenu(['위쪽 패널','항목 2']), { placement:'top' }),
+  menu: `${gulpDropdownImports}
+
+{% call dropdown(id='account-menu', triggerLabel='계정', open=true) %}
+  {% call menu(compact=true, ariaLabel='계정 메뉴') %}
+    {{ menuGroup(title='계정') }}
+    {{ menuItem(label='프로필', icon='user') }}
+    {{ menuItem(label='보안', icon='settings') }}
+    {{ menuDivider() }}
+    {{ menuItem(label='로그아웃', color='danger') }}
+  {% endcall %}
+{% endcall %}`,
+  scroll: gulpDropdown('city-menu', '도시 선택', gulpMenu(['서울특별시','부산광역시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시']), { open:true, maxVisibleItems:4 }) + '\n\n' + gulpDropdown('wide-menu', '넓은 패널', gulpMenu(['프로젝트 대시보드','팀 협업 워크스페이스','문서 보관함 및 템플릿','알림 및 활동 기록','계정 및 보안 설정']), { open:true, maxVisibleItems:4, menuWidth:'18rem' }),
+  disabled: gulpDropdown('disabled-menu', '비활성 드롭다운', gulpMenu(['항목']), { disabled:true }) + `\n\n${gulpDropdownImports}
+
+{% call dropdown(id='partial-menu', triggerLabel='일부 비활성', open=true) %}
+  {% call menu(compact=true) %}
+    {{ menuItem(label='조회') }}
+    {{ menuItem(label='편집') }}
+    {{ menuItem(label='삭제', disabled=true) }}
+    {{ menuItem(label='관리자 설정', disabled=true) }}
+  {% endcall %}
+{% endcall %}`,
+  example: `${gulpDropdownImports}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/data-display/Avatar/avatar.njk" import avatar %}
+{% from "components/data-display/Badge/badge.njk" import badge %}
+
+<div class="dropdown_demo-toolbar">
+  {% call button(variant='ghost', size='sm', iconBefore='bell') %}
+    알림 {{ badge(count=true, size='sm', color='danger', label='2') }}
+  {% endcall %}
+
+  {% set profileTrigger %}
+    {% call dropdownTrigger(id='profile-menu', variant='ghost', size='sm', open=false) %}
+      {{ avatar(size='sm', color='primary', initials='김', ariaHidden=true) }} 김가이드
+    {% endcall %}
+  {% endset %}
+  {% call dropdown(id='profile-menu', placement='end', trigger=profileTrigger) %}
+    ${gulpMenu(['내 프로필','내 문서','로그아웃'])}
+  {% endcall %}
+</div>`,
+};
 const menuReact = (labels:string[], active='') => `<Menu compact>${labels.map((label)=>`<MenuItem label="${label}"${label===active?' active':''} />`).join('')}</Menu>`;
 const ddReact = (label:string, menu:string, attrs='', trigger='variant="outline"') => `<Dropdown ${attrs} triggerContent={<Button ${trigger} label="${label}" iconAfter={<Icon name="chevron-down" />} />}>${menu}</Dropdown>`;
 const react: Record<Name,string> = {
@@ -38,5 +106,5 @@ const vue:Record<Name,string> = {
   disabled:`${ddVue('비활성 드롭다운',menuVue(['항목']),'disabled','variant="outline" disabled')}\n<Dropdown open><template #trigger="{ triggerProps }"><Button v-bind="triggerProps" variant="outline" label="일부 비활성" /></template><Menu compact><MenuItem label="조회" /><MenuItem label="편집" /><MenuItem label="삭제" disabled /><MenuItem label="관리자 설정" disabled /></Menu></Dropdown>`,
   example:`<div class="dropdown_demo-toolbar"><Button variant="ghost" size="sm"><template #icon-before><Icon name="bell" /></template>알림 <Badge count size="sm" color="danger" label="2" /></Button><Dropdown placement="end"><template #trigger="{ triggerProps }"><Button v-bind="triggerProps" variant="ghost" size="sm"><Avatar size="sm" color="primary" initials="김" aria-hidden /> 김가이드<template #icon-after><Icon name="chevron-down" /></template></Button></template>${menuVue(['내 프로필','내 문서','로그아웃'])}</Dropdown></div>`,
 };
-function examples(key:Name):FrameworkExample[]{ const needsState=key==='select'; const reactCode=`${needsState?"import { useState } from 'react';\n":''}import Dropdown from '@uxkm/react/dropdown';\nimport Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\nimport { Menu, MenuItem, MenuGroup, MenuDivider } from '@uxkm/react/menu';${key==='example'?"\nimport Avatar from '@uxkm/react/avatar';\nimport Badge from '@uxkm/react/badge';":''}\n\nexport function Example(){ ${needsState?"const [region,setRegion]=useState('서울특별시'); const [sort,setSort]=useState('최신순'); ":''}return <>${react[key]}</>; }`; const vueCode=`<script setup>\n${needsState?"import { ref } from 'vue';\n":''}import Dropdown from '@uxkm/vue/dropdown';\nimport Button from '@uxkm/vue/button';\nimport Icon from '@uxkm/vue/icon';\nimport { Menu, MenuItem, MenuGroup, MenuDivider } from '@uxkm/vue/menu';${key==='example'?"\nimport Avatar from '@uxkm/vue/avatar';\nimport Badge from '@uxkm/vue/badge';":''}${needsState?"\nconst region=ref('서울특별시'); const sort=ref('최신순');":''}\n</script>\n<template>\n${vue[key]}\n</template>`; return [{id:'html',label:'HTML',fileName:`Dropdown.html · ${key}`,code:html[key]},{id:'gulp',label:'Gulp',fileName:`dropdown.njk · ${key}`,code:html[key]},{id:'vue',label:'Vue',fileName:`@uxkm/vue/dropdown · ${key}`,code:vueCode},{id:'nuxt',label:'Nuxt',fileName:`@uxkm/vue/dropdown · ${key}`,code:vueCode},{id:'react',label:'React',fileName:`@uxkm/react/dropdown · ${key}`,code:reactCode},{id:'next',label:'Next',fileName:`@uxkm/react/dropdown · ${key}`,code:reactCode}]; }
+function examples(key:Name):FrameworkExample[]{ const needsState=key==='select'; const reactCode=`${needsState?"import { useState } from 'react';\n":''}import Dropdown from '@uxkm/react/dropdown';\nimport Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\nimport { Menu, MenuItem, MenuGroup, MenuDivider } from '@uxkm/react/menu';${key==='example'?"\nimport Avatar from '@uxkm/react/avatar';\nimport Badge from '@uxkm/react/badge';":''}\n\nexport function Example(){ ${needsState?"const [region,setRegion]=useState('서울특별시'); const [sort,setSort]=useState('최신순'); ":''}return <>${react[key]}</>; }`; const vueCode=`<script setup>\n${needsState?"import { ref } from 'vue';\n":''}import Dropdown from '@uxkm/vue/dropdown';\nimport Button from '@uxkm/vue/button';\nimport Icon from '@uxkm/vue/icon';\nimport { Menu, MenuItem, MenuGroup, MenuDivider } from '@uxkm/vue/menu';${key==='example'?"\nimport Avatar from '@uxkm/vue/avatar';\nimport Badge from '@uxkm/vue/badge';":''}${needsState?"\nconst region=ref('서울특별시'); const sort=ref('최신순');":''}\n</script>\n<template>\n${vue[key]}\n</template>`; return [{id:'html',label:'HTML',fileName:`Dropdown.html · ${key}`,code:html[key]},{id:'gulp',label:'Gulp',fileName:`dropdown.njk · ${key}`,code:gulp[key]},{id:'vue',label:'Vue',fileName:`@uxkm/vue/dropdown · ${key}`,code:vueCode},{id:'nuxt',label:'Nuxt',fileName:`@uxkm/vue/dropdown · ${key}`,code:vueCode},{id:'react',label:'React',fileName:`@uxkm/react/dropdown · ${key}`,code:reactCode},{id:'next',label:'Next',fileName:`@uxkm/react/dropdown · ${key}`,code:reactCode}]; }
 export const dropdownFrameworkExamples=Object.fromEntries(names.map((key)=>[key,examples(key)])) as Record<Name,FrameworkExample[]>;

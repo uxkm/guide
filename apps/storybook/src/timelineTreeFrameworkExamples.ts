@@ -1,12 +1,22 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const timelineImport = `{% from "components/data-display/Timeline/timeline.njk" import timeline, timelineItem %}`;
+const treeImport = `{% from "components/data-display/Tree/tree.njk" import tree, treeNode %}`;
+
 function tabs(component: 'Timeline' | 'Tree', slug: string, key: string, html: string, reactMarkup: string, vueMarkup: string): FrameworkExample[] {
   const child = component === 'Timeline' ? 'TimelineItem' : 'TreeNode';
   const react = `import { ${component}, ${child} } from '@uxkm/react/${slug}';\n\nexport function Example() {\n  return (\n${reactMarkup}\n  );\n}`;
   const vue = `<script setup>\nimport { ${component}, ${child} } from '@uxkm/vue/${slug}';\n</script>\n\n<template>\n${vueMarkup}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/data-display/${component}/${component}.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/${component}/${slug}.njk · ${key}`, code: `{# ${component} · ${key} #}\n${html}` },
+    {
+      id: 'gulp',
+      label: 'Gulp',
+      fileName: `apps/gulp/src/components/data-display/${component}/${slug}.njk · ${key}`,
+      code: component === 'Timeline'
+        ? `${timelineImport}\n\n${timelineGulpExamples[key]}`
+        : `${treeImport}\n\n${treeGulpExamples[key]}`
+    },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/${slug} · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/${slug} · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/${slug} · ${key}`, code: react },
@@ -21,6 +31,159 @@ const timeline = (key: string, rootClass: string, items: string, reactProps = ''
   `  <Timeline${vueProps ? ` ${vueProps}` : ''}>\n${items.replace(/<li class="timeline_item">[\s\S]*?<p class="timeline_title">([^<]+)<\/p>[\s\S]*?<\/li>/g, '    <TimelineItem title="$1" />')}\n  </Timeline>`
 );
 const item = (title: string, time = '', color = 'primary', extra = '') => `  <li class="timeline_item${extra.includes('active') ? ' is-active' : ''}${extra.includes('pending') ? ' is-pending' : ''}"><span class="timeline_dot${extra.includes('outline') ? ' timeline_dot-outline' : ''} color_${color}" aria-hidden="true"></span><div class="timeline_content">${time ? `<time class="timeline_time">${time}</time>` : ''}<p class="timeline_title">${title}</p></div></li>`;
+
+const timelineGulpExamples: Record<string, string> = {
+  basic: `{% set items = [
+  { color: 'primary', time: '2024-06-01 10:00', title: '프로젝트 킥오프' },
+  { color: 'success', time: '2024-06-10 14:30', title: '1차 릴리스 완료' },
+  { color: 'warning', time: '2024-06-15 09:00', title: '성능 이슈 발견' },
+  { color: 'danger', time: '2024-06-18 16:00', title: '긴급 패치 배포' }
+] %}
+
+{% call timeline() %}
+  {% for item in items %}
+    {{ timelineItem(color=item.color, time=item.time, title=item.title) }}
+  {% endfor %}
+{% endcall %}`,
+  simple: `{% set items = [
+  { color: 'primary', time: '오전 9:12', title: '주문 접수' },
+  { color: 'primary', time: '오전 11:45', title: '배송 준비 중' },
+  { color: 'success', time: '오후 2:30', title: '배송 완료' }
+] %}
+
+{% call timeline() %}
+  {% for item in items %}
+    {{ timelineItem(color=item.color, time=item.time, title=item.title) }}
+  {% endfor %}
+{% endcall %}`,
+  outline: `{% set items = [
+  { title: '기획 단계', active: false, pending: false },
+  { title: '디자인 단계', active: false, pending: false },
+  { title: '개발 단계', active: true, pending: false },
+  { title: '배포 단계', active: false, pending: true }
+] %}
+
+{% call timeline() %}
+  {% for item in items %}
+    {{ timelineItem(
+      title=item.title,
+      outline=true,
+      active=item.active,
+      pending=item.pending
+    ) }}
+  {% endfor %}
+{% endcall %}`,
+  icon: `{% set items = [
+  { color: 'primary', time: '2024-06-01', title: '팀원 합류' },
+  { color: 'success', time: '2024-06-10', title: 'QA 통과' },
+  { color: 'warning', time: '2024-06-15', title: '일정 지연 알림' },
+  { color: 'danger', time: '2024-06-18', title: '배포 롤백' }
+] %}
+
+{% call timeline(icon=true, iconSize='sm') %}
+  {% for item in items %}
+    {{ timelineItem(color=item.color, time=item.time, title=item.title) }}
+  {% endfor %}
+{% endcall %}`,
+  card: `{% from "components/data-display/Tag/tag.njk" import tag, tagGroup %}
+
+{% set items = [
+  { color: 'primary', time: '2024-06-20 09:00', title: '디자인 시스템 v2.0 릴리스', tags: ['Release', 'Design'] },
+  { color: 'success', time: '2024-06-22 14:00', title: '접근성 감사 완료', tags: ['Passed', 'A11y'] },
+  { color: 'info', time: '2024-06-25 11:30', title: '문서 업데이트 예정', tags: ['Docs'] }
+] %}
+
+{% call timeline(card=true) %}
+  {% for item in items %}
+    {% set meta %}
+      {% call tagGroup() %}
+        {% for label in item.tags %}
+          {{ tag(color=item.color if loop.first else 'default', label=label) }}
+        {% endfor %}
+      {% endcall %}
+    {% endset %}
+    {{ timelineItem(
+      color=item.color,
+      time=item.time,
+      title=item.title,
+      meta=meta
+    ) }}
+  {% endfor %}
+{% endcall %}`,
+  label: `{% set items = [
+  { label: '2024 Q1', datetime: '2024-01', color: 'primary', title: '알파 버전 출시' },
+  { label: '2024 Q3', datetime: '2024-07', color: 'success', title: '정식 출시' }
+] %}
+
+{% call timeline(labelCol=true) %}
+  {% for item in items %}
+    {{ timelineItem(
+      label=item.label,
+      labelDatetime=item.datetime,
+      color=item.color,
+      title=item.title
+    ) }}
+  {% endfor %}
+{% endcall %}`,
+  alternate: `{% set items = [
+  { color: 'primary', time: '2024년 3월', title: '회사 설립' },
+  { color: 'primary', time: '2024년 6월', title: '컴포넌트 가이드 오픈' },
+  { color: 'success', time: '2024년 9월', title: '1,000 스타 달성' },
+  { color: 'info', time: '2025년 1월', title: 'v2 로드맵 공개' }
+] %}
+
+{% call timeline(alternate=true) %}
+  {% for item in items %}
+    {{ timelineItem(color=item.color, time=item.time, title=item.title) }}
+  {% endfor %}
+{% endcall %}`,
+  horizontal: `{% set items = [
+  { color: 'success', time: '6/20', title: '신청', active: false, pending: false },
+  { color: 'success', time: '6/21', title: '심사', active: false, pending: false },
+  { color: 'primary', time: '진행 중', title: '승인', active: true, pending: false },
+  { color: 'primary', time: '예정', title: '완료', active: false, pending: true }
+] %}
+
+{% call timeline(horizontal=true) %}
+  {% for item in items %}
+    {{ timelineItem(
+      color=item.color,
+      time=item.time,
+      title=item.title,
+      active=item.active,
+      pending=item.pending
+    ) }}
+  {% endfor %}
+{% endcall %}`,
+  size: `{% set groups = [
+  { size: 'sm', title: '알림 발송', time: '10:30' },
+  { size: 'lg', title: '연간 컨퍼런스', time: '2024-11-15' }
+] %}
+
+{% for group in groups %}
+  {% call timeline(size=group.size) %}
+    {{ timelineItem(title=group.title, time=group.time) }}
+  {% endcall %}
+{% endfor %}`,
+  state: `{% set items = [
+  { color: 'success', time: '완료', title: '계정 생성', active: false, pending: false },
+  { color: 'success', time: '완료', title: '프로필 설정', active: false, pending: false },
+  { color: 'primary', time: '진행 중', title: '팀 초대', active: true, pending: false },
+  { color: 'primary', time: '대기', title: '첫 프로젝트 생성', active: false, pending: true }
+] %}
+
+{% call timeline() %}
+  {% for item in items %}
+    {{ timelineItem(
+      color=item.color,
+      time=item.time,
+      title=item.title,
+      active=item.active,
+      pending=item.pending
+    ) }}
+  {% endfor %}
+{% endcall %}`
+};
 
 export const timelineFrameworkExamples = {
   basic: timeline('basic', 'timeline', [item('프로젝트 킥오프', '2024-06-01 10:00'), item('1차 릴리스 완료', '2024-06-10 14:30', 'success'), item('성능 이슈 발견', '2024-06-15 09:00', 'warning'), item('긴급 패치 배포', '2024-06-18 16:00', 'danger')].join('\n')),
@@ -37,6 +200,71 @@ export const timelineFrameworkExamples = {
 
 const tree = (key: string, classes: string, htmlNodes: string, reactNodes: string, vueNodes = reactNodes) => tabs('Tree', 'tree', key, `<ul class="${classes}" role="tree">${htmlNodes}</ul>`, `    <Tree${classes.includes('tree_bordered') ? ' bordered' : ''}${classes.includes('tree_lines') ? ' lines' : ''}${classes.includes('tree_compact') ? ' compact' : ''} ariaLabel="예시">${reactNodes}</Tree>`, `  <Tree${classes.includes('tree_bordered') ? ' bordered' : ''}${classes.includes('tree_lines') ? ' lines' : ''}${classes.includes('tree_compact') ? ' compact' : ''} aria-label="예시">${vueNodes}</Tree>`);
 const node = (label: string, state = '') => `<li class="tree_item" role="treeitem"><div class="tree_row${state ? ` ${state}` : ''}"><span class="tree_toggle tree_toggle_placeholder"></span><span class="tree_label">${label}</span></div></li>`;
+
+const treeGulpExamples: Record<string, string> = {
+  basic: `{% call tree(bordered=true, ariaLabel='파일 탐색기') %}
+  {% call treeNode(label='src', expanded=true) %}
+    {% call treeNode(label='components', expanded=true) %}
+      {{ treeNode(label='button.html', selected=true) }}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+  simple: `{% call tree(ariaLabel='카테고리') %}
+  {% call treeNode(label='전자기기', expanded=true) %}
+    {{ treeNode(label='노트북') }}
+    {{ treeNode(label='스마트폰') }}
+  {% endcall %}
+  {{ treeNode(label='의류') }}
+{% endcall %}`,
+  lines: `{% call tree(bordered=true, lines=true, ariaLabel='조직도') %}
+  {% call treeNode(label='개발본부', expanded=true) %}
+    {% call treeNode(label='프론트엔드팀', expanded=true) %}
+      {{ treeNode(label='홍길동') }}
+      {{ treeNode(label='김철수') }}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+  compact: `{% call tree(bordered=true, compact=true, ariaLabel='권한 구조') %}
+  {% call treeNode(label='관리자', expanded=true) %}
+    {{ treeNode(label='사용자 관리') }}
+    {{ treeNode(label='설정 변경') }}
+  {% endcall %}
+  {{ treeNode(label='뷰어') }}
+{% endcall %}`,
+  plusToggle: `{% call tree(bordered=true, ariaLabel='가이드') %}
+  {% call treeNode(label='가이드', expanded=true, plusToggle=true) %}
+    {{ treeNode(label='시작하기', plusToggle=true) }}
+  {% endcall %}
+{% endcall %}`,
+  checkbox: `{% set checkbox %}
+  <label class="tree_check">
+    <input type="checkbox" checked aria-label="대시보드 선택">
+  </label>
+{% endset %}
+
+{% call tree(bordered=true, multiselectable=true, ariaLabel='권한 선택') %}
+  {{ treeNode(label='대시보드', prefix=checkbox) }}
+{% endcall %}`,
+  meta: `{% from "components/basic/Icon/icon.njk" import icon %}
+
+{% call tree(bordered=true, ariaLabel='파일 정보') %}
+  {{ treeNode(label='assets', meta='3개', icon=icon(name='grid')) }}
+{% endcall %}`,
+  disabled: `{% call tree(bordered=true, ariaLabel='기능 목록') %}
+  {% call treeNode(label='기본 기능', expanded=true) %}
+    {{ treeNode(label='대시보드') }}
+    {{ treeNode(label='고급 분석 (Pro)', disabled=true) }}
+    {{ treeNode(label='API 연동 (Enterprise)', disabled=true) }}
+  {% endcall %}
+{% endcall %}`,
+  selectable: `{% call tree(bordered=true, ariaLabel='문서 탐색') %}
+  {% call treeNode(label='문서', expanded=true, link=true) %}
+    {{ treeNode(label='시작하기', selected=true, link=true) }}
+    {{ treeNode(label='컴포넌트', link=true) }}
+  {% endcall %}
+{% endcall %}`
+};
+
 export const treeFrameworkExamples = {
   basic: tree('basic', 'tree tree_bordered', node('src') + node('components') + node('button.html', 'is-selected'), '<TreeNode label="src" expanded><TreeNode label="components" expanded><TreeNode label="button.html" selected /></TreeNode></TreeNode>'),
   simple: tree('simple', 'tree', node('전자기기') + node('노트북') + node('스마트폰') + node('의류'), '<TreeNode label="전자기기" expanded><TreeNode label="노트북" /><TreeNode label="스마트폰" /></TreeNode><TreeNode label="의류" />'),

@@ -1,18 +1,124 @@
 {# Button 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다. #}
-{# btn과 스킨·색상 클래스를 조합합니다. 텍스트는 btn_label로 감쌉니다. #}
-<button class="btn btn_filled color_primary" data-component="Button" data-ripple="true" type="button">
-  <span class="btn_label">Filled Primary</span>
-</button>
+{# button macro로 스킨·색상·크기·아이콘·상태를 조합합니다. #}
+{# import는 from과 달리 같은 파일의 macro 안에서도 Icon.icon을 호출할 수 있습니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
 
-{# 아이콘만 표시할 때는 btn_icon-only와 aria-label을 함께 지정합니다. #}
-<button class="btn btn_ghost btn_icon-only" data-component="Button" data-ripple="true" type="button" aria-label="검색">
-  <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-  </svg>
-</button>
+{% macro button(
+  tag = 'button',
+  type = 'button',
+  href = '',
+  variant = 'filled',
+  color = 'primary',
+  size = 'md',
+  label = 'Button',
+  ripple = true,
+  iconBefore = '',
+  iconAfter = '',
+  iconBeforeSlot = '',
+  iconAfterSlot = '',
+  iconOnly = false,
+  vertical = false,
+  round = false,
+  block = false,
+  grow = false,
+  fit = false,
+  loading = false,
+  open = false,
+  error = false,
+  placeholder = false,
+  selectText = false,
+  selectCaret = false,
+  hidden = false,
+  disabled = false,
+  ariaDisabled = false,
+  ariaLabel = '',
+  labelClassName = '',
+  dataAttributes = false,
+  haspopup = '',
+  expanded = '',
+  invalid = false,
+  role = '',
+  tabIndex = '',
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- set root = tag if tag else 'button' -%}
+{%- set isButton = root == 'button' -%}
+{%- set isLink = root == 'a' -%}
+{%- set inactive = disabled or ariaDisabled or loading -%}
+{%- set needsButtonSemantics = root == 'div' or (isLink and not href) -%}
+{%- set skinClass = 'btn_select' if variant == 'select' else ('btn_' + variant) -%}
+{%- set growClass = 'btn_grow-2' if grow == 2 or grow == '2' else ('btn_grow' if grow else '') -%}
+{%- set classes =
+  'btn'
+  + ' ' + skinClass
+  + ((' color_' + color) if variant != 'ghost' and color else '')
+  + ((' btn_' + size) if size and size != 'md' else '')
+  + (' btn_select-text' if selectText else '')
+  + (' btn_select-placeholder' if placeholder else '')
+  + (' btn_icon-only' if iconOnly else '')
+  + (' btn_vertical' if vertical else '')
+  + (' btn_round' if round else '')
+  + (' btn_block' if block else '')
+  + ((' ' + growClass) if growClass else '')
+  + (' btn_fit' if fit else '')
+  + (' is-disabled' if ariaDisabled else '')
+  + (' is-loading' if loading else '')
+  + (' is-open' if open else '')
+  + (' is-error' if error else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- set resolvedRole = role if role else ('button' if needsButtonSemantics else '') -%}
+{%- set resolvedTabIndex = tabIndex if tabIndex != '' else ((-1) if (not isButton and inactive) else (0 if needsButtonSemantics else '')) -%}
+{%- set resolvedExpanded = expanded if expanded != '' else (true if open else '') -%}
+{%- set showCaret = variant == 'select' or selectCaret -%}
+<{{ root }}
+  class="{{ classes }}"
+  data-component="Button"
+  data-ripple="{{ 'surface' if ripple == 'surface' else ('true' if ripple else 'false') }}"
+  {% if isButton %}type="{{ type }}"{% endif %}
+  {% if isLink and href %}href="{{ href }}"{% endif %}
+  {% if isButton and disabled %}disabled{% endif %}
+  {% if hidden %}hidden{% endif %}
+  {% if resolvedRole %}role="{{ resolvedRole }}"{% endif %}
+  {% if resolvedTabIndex != '' %}tabindex="{{ resolvedTabIndex }}"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% for attribute, attributeValue in dataAttributes %}{{ attribute }}{% if attributeValue != true %}="{{ attributeValue }}"{% endif %} {% endfor %}
+  {% if haspopup %}aria-haspopup="{{ haspopup }}"{% endif %}
+  {% if resolvedExpanded != '' %}aria-expanded="{{ 'true' if resolvedExpanded else 'false' }}"{% endif %}
+  {% if invalid or error %}aria-invalid="true"{% endif %}
+  {% if loading %}aria-busy="true"{% endif %}
+  {% if ariaDisabled or (not isButton and disabled) %}aria-disabled="true"{% endif %}
+>
+  {%- if loading -%}
+  <span class="btn_spinner" aria-hidden="true"></span>
+  {%- endif -%}
+  {%- if iconBeforeSlot -%}
+  {{ iconBeforeSlot | safe }}
+  {%- elif iconBefore -%}
+  {{ Icon.icon(iconBefore) }}
+  {%- endif -%}
+  {%- if iconOnly -%}
+  {%- if caller -%}{{ content | safe }}{%- endif -%}
+  {%- else -%}
+  <span class="btn_label{{ (' ' + labelClassName) if labelClassName else '' }}">{{ content }}</span>
+  {%- endif -%}
+  {%- if iconAfterSlot -%}
+  {{ iconAfterSlot | safe }}
+  {%- elif iconAfter -%}
+  {{ Icon.icon(iconAfter) }}
+  {%- endif -%}
+  {%- if showCaret -%}
+  {{ Icon.icon('chevron') }}
+  {%- endif -%}
+</{{ root }}>
+{% endmacro %}
 
-{# 셀렉트 트리거는 btn_select와 aria-haspopup을 사용합니다. #}
-<button class="btn btn_select color_primary" data-component="Button" type="button" aria-haspopup="listbox" aria-expanded="false">
-  <span class="btn_label">옵션 선택</span>
-</button>
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ button(variant='filled', color='primary', label='Filled Primary') }}
+{{ button(variant='ghost', iconOnly=true, iconBefore='search', ariaLabel='검색') }}
+{{ button(variant='select', label='옵션 선택', haspopup='listbox') }}

@@ -1,35 +1,102 @@
-{# Radio 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# radio 루트 label이 입력·커스텀 원·텍스트 레이블을 한 클릭 영역으로 묶습니다. #}
-<label
-  class="radio{% if labelEnd %} radio_label-end{% endif %}{% if button %} radio_button{% endif %}"
-  data-ripple="{{ 'false' if ripple == false else 'true' }}"
+{# Radio 원본 구현: 라디오·그룹·폼 필드를 macro 조합으로 구성합니다. #}
+
+{% macro radio(
+  id = '',
+  name = '',
+  value = '',
+  label = '',
+  checked = false,
+  disabled = false,
+  required = false,
+  labelEnd = false,
+  button = false,
+  ripple = true,
+  ariaLabel = '',
+  ariaLabelledby = '',
+  ariaDescribedby = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else label -%}
+{%- set standalone = not content -%}
+{%- set input -%}
+<input
+  {% if id %}id="{{ id }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  {% if value %}value="{{ value }}"{% endif %}
+  type="radio"
+  class="radio_input"
+  {% if checked %}checked{% endif %}
+  {% if disabled %}disabled{% endif %}
+  {% if required %}required aria-required="true"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if ariaLabelledby %}aria-labelledby="{{ ariaLabelledby }}"{% endif %}
+  {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+  data-component="Radio"
 >
-  {% if button %}
-  {# 버튼형은 숨김 radio와 레이블만 사용합니다. #}
-  <input
-    class="radio_input"
-    type="radio"
-    name="{{ name | default('radio-example') }}"{% if value %}
-    value="{{ value }}"{% endif %}{% if checked %}
-    checked{% endif %}{% if disabled %}
-    disabled{% endif %}
-    data-component="Radio"
-  /><span class="radio_label">{{ label | default('라디오') }}</span>
-  {% else %}
-  {# 기본형은 radio_control과 radio_label을 배치 옵션에 맞게 둡니다. #}
-  {% if labelEnd %}<span class="radio_label">{{ label | default('라디오') }}</span
-  >{% endif %}
-  <span class="radio_control"
-    ><input
-      class="radio_input"
-      type="radio"
-      name="{{ name | default('radio-example') }}"{% if value %}
-      value="{{ value }}"{% endif %}{% if checked %}
-      checked{% endif %}{% if disabled %}
-      disabled{% endif %}
-      data-component="Radio" /><span class="radio_box" aria-hidden="true"></span
-  ></span>
-  {% if not labelEnd %}<span class="radio_label">{{ label | default('라디오') }}</span
-  >{% endif %}
-  {% endif %}
+{%- endset -%}
+{%- if standalone -%}
+<label class="radio_control{{ (' ' + className) if className else '' }}" data-ripple="{{ 'true' if ripple else 'false' }}">
+  {{ input | safe }}
+  <span class="radio_box" aria-hidden="true"></span>
 </label>
+{%- elif button -%}
+<label class="radio radio_button{{ (' ' + className) if className else '' }}" data-ripple="{{ 'true' if ripple else 'false' }}">
+  {{ input | safe }}
+  <span class="radio_label">{{ content | safe }}</span>
+</label>
+{%- else -%}
+<label class="radio{{ ' radio_label-end' if labelEnd else '' }}{{ (' ' + className) if className else '' }}" data-ripple="{{ 'true' if ripple else 'false' }}">
+  {% if labelEnd %}<span class="radio_label">{{ content | safe }}</span>{% endif %}
+  <span class="radio_control">
+    {{ input | safe }}
+    <span class="radio_box" aria-hidden="true"></span>
+  </span>
+  {% if not labelEnd %}<span class="radio_label">{{ content | safe }}</span>{% endif %}
+</label>
+{%- endif -%}
+{% endmacro %}
+
+{% macro radioGroup(
+  legend = '',
+  horizontal = false,
+  block = false,
+  ariaLabelledby = '',
+  className = '',
+  style = ''
+) %}
+<fieldset
+  class="radio_group{{ ' radio_group_horizontal' if horizontal else '' }}{{ ' radio_group_block' if block else '' }}{{ (' ' + className) if className else '' }}"
+  {% if ariaLabelledby %}aria-labelledby="{{ ariaLabelledby }}"{% endif %}
+  {% if style %}style="{{ style }}"{% endif %}
+>
+  {% if legend %}<legend class="radio_group-legend">{{ legend }}</legend>{% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</fieldset>
+{% endmacro %}
+
+{% macro radioField(
+  label = '',
+  labelId = '',
+  hint = '',
+  errorMessage = '',
+  required = false,
+  className = ''
+) %}
+<div class="form_field{{ (' ' + className) if className else '' }}">
+  {% if label %}
+    <span class="form_field-label"{% if labelId %} id="{{ labelId }}"{% endif %}>
+      {{ label }}
+      {% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}
+    </span>
+  {% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
+  {% if errorMessage %}
+    <p class="form_field-error" role="alert">{{ errorMessage }}</p>
+  {% elif hint %}
+    <p class="form_field-hint">{{ hint }}</p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ radio(id='radio-example', name='radio-example', value='default', label='라디오') }}

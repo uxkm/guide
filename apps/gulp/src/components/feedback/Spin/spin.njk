@@ -1,45 +1,61 @@
-{# Spin 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# wrap이면 SpinWrap 오버레이, 아니면 단독 Spin을 렌더합니다. #}
-{% if wrap %}
-{# 콘텐츠 위 오버레이 래퍼입니다. #}
+{# Spin 원본 구현: 단독 로더와 콘텐츠 오버레이를 호출형 macro로 구성합니다. #}
+
+{% macro spinIndicator(className='') %}
+<span class="spin_indicator{{ (' ' + className) if className else '' }}" aria-hidden="true"></span>
+{% endmacro %}
+
+{% macro spin(
+  size='md',
+  tip='',
+  color='primary',
+  inline=false,
+  block=false,
+  overlay=false,
+  ariaLabel='로딩 중',
+  className=''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set resolvedColor = color if color in ['primary', 'success', 'warning', 'danger'] else 'primary' -%}
 <div
-  class="spin_wrap{% if block %} spin_wrap-block{% endif %}{% if blur %} spin_wrap-blur{% endif %}{% if loading %} is-loading{% endif %}"
-  data-component="SpinWrap"
-  data-loading="{{ 'true' if loading else 'false' }}"{% if loading %}
-  aria-busy="true"{% endif %}
->
-  {# 로딩 대상 콘텐츠 영역입니다. #}
-  <div class="spin_wrap-body">{{ content | safe }}</div>
-  {% if loading %}
-  <div
-    class="spin color_primary spin_overlay"
-    data-component="Spin"
-    role="status"
-    aria-live="polite"
-    aria-busy="true"
-    aria-label="{{ ariaLabel | default('로딩 중') }}"
-  >
-    {# 회전하는 시각 표시기입니다. #}
-  <span class="spin_indicator" aria-hidden="true"></span
-    >{% if tip %}
-    <p class="spin_tip">{{ tip }}</p>
-    {% endif %}
-  </div>
-  {% endif %}
-</div>
-{% else %}
-{# 단독 스피너 루트입니다. #}
-<div
-  class="spin color_{{ color | default('primary') }}{% if size and size != 'md' %} spin_{{ size }}{% endif %}{% if inline %} spin_inline{% endif %}{% if block %} spin_block{% endif %}{% if overlay %} spin_overlay{% endif %}"
+  class="spin color_{{ resolvedColor }}{% if resolvedSize != 'md' %} spin_{{ resolvedSize }}{% endif %}{% if inline %} spin_inline{% endif %}{% if block %} spin_block{% endif %}{% if overlay %} spin_overlay{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="Spin"
   role="status"
   aria-live="polite"
   aria-busy="true"
-  aria-label="{{ ariaLabel | default('로딩 중') }}"
+  aria-label="{{ ariaLabel }}"
 >
-  <span class="spin_indicator" aria-hidden="true"></span
-  >{% if tip %}
-  <p class="spin_tip">{{ tip }}</p>
+  {{ spinIndicator() }}
+  {% if tip %}<p class="spin_tip">{{ tip }}</p>{% endif %}
+  {% if content %}{{ content | safe }}{% endif %}
+</div>
+{% endmacro %}
+
+{% macro spinWrap(
+  loading=false,
+  block=false,
+  blur=false,
+  tip='',
+  color='primary',
+  size='md',
+  ariaLabel='로딩 중',
+  className=''
+) %}
+{%- set content = caller() if caller else '' -%}
+<div
+  class="spin_wrap{% if block %} spin_wrap-block{% endif %}{% if blur %} spin_wrap-blur{% endif %}{% if loading %} is-loading{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="SpinWrap"
+  data-loading="{{ 'true' if loading else 'false' }}"
+  {% if loading %}aria-busy="true"{% endif %}
+>
+  <div class="spin_wrap-body">
+    {{ content | safe }}
+  </div>
+  {% if loading %}
+    {{ spin(size=size, tip=tip, color=color, overlay=true, ariaLabel=ariaLabel) }}
   {% endif %}
 </div>
-{% endif %}
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ spin() }}

@@ -17,7 +17,7 @@ WebSquare는 `w2:group` 안에 label·value·prefix·suffix·description `w2:tex
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 Stat의 실제 HTML·Gulp·Vue·React 원본 구현입니다. 값 구성, 크기·배치·카드 스킨, 추세 색상과 그룹 클래스가 적용되는 방식을 확인할 수 있습니다.
+아래 코드는 `Stat` 컴포넌트 자체의 구현입니다. React와 Vue는 prop에 따라 구조·크기·카드 스킨·추세 색상을 선택하고, HTML은 같은 구조를 마크업에 직접 적용하며, Gulp는 `stat` Nunjucks macro로 동일한 계약을 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 <FrameworkTabs examples={statComponentExamples} showFullCode />
 

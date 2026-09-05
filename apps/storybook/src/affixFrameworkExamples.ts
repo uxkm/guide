@@ -23,12 +23,37 @@ function component(name: Name, vue = false) {
   const props = [item.target && `target="${item.target}"`, item.offsetTop && (vue ? `:offset-top="${item.offsetTop}"` : `offsetTop={${item.offsetTop}}`), item.offsetBottom !== undefined && (vue ? `:offset-bottom="${item.offsetBottom}"` : `offsetBottom={${item.offsetBottom}}`), `skin="${item.skin}"`].filter(Boolean).join(' ');
   return `<Affix ${props}>${content(name)}</Affix>`;
 }
+const gulpImports = `{% from "components/miscellaneous/Affix/affix.njk" import affix %}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/basic/Link/link.njk" import link %}`;
+function gulp(name: Name) {
+  const item = options[name];
+  const args = [item.target && `target='${item.target}'`, item.offsetTop !== undefined && `offsetTop=${item.offsetTop}`, item.offsetBottom !== undefined && `offsetBottom=${item.offsetBottom}`, `skin='${item.skin}'`].filter(Boolean).join(', ');
+  const body = name === 'anchor'
+    ? `<nav aria-label="설정 섹션">
+      {{ link(href='#profile', label='프로필') }}
+      {{ link(href='#security', color='muted', label='보안') }}
+    </nav>`
+    : `<span class="affix_bar-label">주문 액션</span>
+    <div class="affix_bar-actions">{{ button(size='sm', label='확인') }}</div>`;
+  return `${gulpImports}
+
+<div id="affix-scroll" class="affix_demo-scroll">
+  <div class="affix_demo-content">
+    <p>스크롤하여 고정 동작을 확인하세요.</p>
+    {% call affix(${args}) %}
+      ${body}
+    {% endcall %}
+    <p>긴 콘텐츠가 이어집니다.</p>
+  </div>
+</div>`;
+}
 function examples(name: Name): FrameworkExample[] {
   const react = `import { Affix } from '@uxkm/react/affix';\n\nexport function Example() {\n  return ${component(name)};\n}`;
   const vue = `<script setup>\nimport { Affix } from '@uxkm/vue/affix';\n</script>\n\n<template>\n  ${component(name, true)}\n</template>`;
   const markup = html(name);
   return [
-    { id: 'html', label: 'HTML', fileName: `Affix.html · ${name}`, code: markup }, { id: 'gulp', label: 'Gulp', fileName: `affix.njk · ${name}`, code: markup },
+    { id: 'html', label: 'HTML', fileName: `Affix.html · ${name}`, code: markup }, { id: 'gulp', label: 'Gulp', fileName: `affix.njk · ${name}`, code: gulp(name) },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/affix · ${name}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/affix · ${name}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/affix · ${name}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/affix · ${name}`, code: react },
   ];

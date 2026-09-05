@@ -92,30 +92,35 @@ initCarousel(document);
 </script>`;
 }
 
-function gulpCarousel(config: Options, index: number, limit: number) {
-  const assignments = Object.entries(config).map(([key, value]) => `  ${key}: ${typeof value === 'string' ? `'${value}'` : value}`).join(',\n');
-  return `{% include "components/miscellaneous/Carousel/carousel.njk" with {
-  id: 'carousel-${index + 1}',
-  slides: carousel.slides,
-  slideLimit: ${limit}${assignments ? `,\n${assignments}` : ''}
-} %}`;
+const gulpCarouselImport = `{% from "components/miscellaneous/Carousel/carousel.njk" import carousel, carouselSlide %}`;
+const gulpSlideData = [
+  { overline: '이벤트', title: '신규 가입 혜택', body: '첫 주문 20% 할인 쿠폰을 드립니다.', color: 'primary' },
+  { overline: '혜택', title: '무료 배송', body: '3만 원 이상 구매 시 전 상품 무료 배송이 적용됩니다.', color: 'success' },
+  { overline: '세일', title: '시즌 세일', body: '베스트셀러 상품을 최대 50% 할인합니다.', color: 'warning' },
+];
+function gulpSlides(count: number, compact = false) {
+  return Array.from({ length: count }, (_, index) => {
+    const slide = gulpSlideData[index % gulpSlideData.length];
+    return `  {{ carouselSlide(overline='${slide.overline}', title='${slide.title}', content='${slide.body}', color='${slide.color}'${compact ? ', compact=true' : ''}) }}`;
+  }).join('\n');
+}
+function gulpCarousel(config: Options, id: string, limit: number, compact = false, ariaLabel = '콘텐츠 슬라이드') {
+  const configArgs = Object.entries(config).map(([key, value]) => `${key}=${typeof value === 'string' ? `'${value}'` : value}`).join(', ');
+  const args = [`id='${id}'`, `ariaLabel='${ariaLabel}'`, configArgs].filter(Boolean).join(', ');
+  return `${gulpCarouselImport}
+
+{% call carousel(${args}) %}
+${gulpSlides(limit, compact)}
+{% endcall %}`;
 }
 
 function gulpExamples(name: Name, variants: Options[]) {
-  if (name === 'default') return htmlShell(options.default, 'carousel-default', '', '', directHtmlSlides);
-  if (name === 'fade') return `{% set slides = ${inlineSlidesJson} %}
+  if (name === 'thumbs') return `<div class="carousel_gallery">
+  ${gulpCarousel({ thumbs: '#carousel-thumbs-swiper', pagination: false }, 'carousel-main', 8, false, '갤러리 메인')}
 
-{% include "components/miscellaneous/Carousel/carousel.njk" with {
-  id: 'carousel-fade',
-  slides: slides,
-  effect: 'fade'
-} %}`;
-  const includes = name === 'thumbs'
-    ? `{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-main', slides: carousel.slides, slideLimit: 8, thumbs: '#carousel-thumbs', pagination: false } %}
-{% include "components/miscellaneous/Carousel/carousel.njk" with { id: 'carousel-thumbs', slides: carousel.slides, slideLimit: 8, slidesPerView: 4, spaceBetween: 8, pagination: false, navigation: false, thumbsControl: true, watchSlidesProgress: true } %}`
-    : variants.map((config, index) => gulpCarousel(config, index, slideCount(name))).join('\n\n');
-  return `{# apps/gulp/src/data/carousel.json 데이터를 호출합니다. #}
-${includes}`;
+  ${gulpCarousel({ slidesPerView: 4, spaceBetween: 8, pagination: false, navigation: false, thumbsControl: true, watchSlidesProgress: true }, 'carousel-thumbs-swiper', 8, true, '썸네일')}
+</div>`;
+  return variants.map((config, index) => gulpCarousel(config, `carousel-${name}-${index + 1}`, slideCount(name))).join('\n\n');
 }
 
 function propValue(key: string, value: string | number | boolean, vue = false) {

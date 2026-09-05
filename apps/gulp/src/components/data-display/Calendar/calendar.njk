@@ -1,182 +1,280 @@
-{# Calendar 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# Calendar는 HTML과 동일한 OOCSS 예시를 Nunjucks 데이터로 반복 구성할 수 있습니다. #}
-{% set weekdays = ['일', '월', '화', '수', '목', '금', '토'] %}
+{# Calendar 원본 구현: 달력 구조와 상태를 Calendar 계열 macro로 구성합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
 
-{# Calendar · 기본 #}
-<div class="calendar" role="application" aria-label="2024년 6월">
-  <div class="calendar_header">
-    <button class="btn btn_ghost btn_icon-only btn_sm" type="button" aria-label="이전 달">‹</button
-    ><span class="calendar_title">2024년 6월</span
-    ><button class="btn btn_ghost btn_icon-only btn_sm" type="button" aria-label="다음 달">
-      ›
-    </button>
-  </div>
-  <div class="calendar_weekdays" aria-hidden="true">
-    {% for label in weekdays %}<span class="calendar_weekday">{{ label }}</span
-    >{% endfor %}
-  </div>
-  <div class="calendar_grid">
-    {% for day in range(1, 31) %}<button
-      class="calendar_day{% if day == 12 %} is-today{% endif %}{% if day == 15 %} is-selected{% endif %}"
-      type="button"
-    >
-      {{ day }}</button
-    >{% endfor %}
+{% macro calendar(
+  title = '',
+  ariaLabel = '',
+  header = '',
+  weekdays = '',
+  footer = '',
+  noHeader = false,
+  minimal = false,
+  compact = false,
+  borderless = false,
+  shadow = false,
+  ghost = false,
+  week = false,
+  readonly = false,
+  disabled = false,
+  weekends = false,
+  agenda = false,
+  wheel = false,
+  size = '',
+  className = '',
+  role = 'application'
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set classes = 'calendar'
+  + (' calendar_no-header' if noHeader else '')
+  + (' calendar_minimal' if minimal else '')
+  + (' calendar_compact' if compact else '')
+  + (' calendar_borderless' if borderless else '')
+  + (' calendar_shadow' if shadow else '')
+  + (' calendar_ghost' if ghost else '')
+  + (' calendar_week' if week else '')
+  + (' calendar_readonly' if readonly else '')
+  + (' is-disabled' if disabled else '')
+  + (' calendar_weekends' if weekends else '')
+  + (' calendar_agenda' if agenda else '')
+  + (' calendar_wheel' if wheel else '')
+  + (' calendar_sm' if size == 'sm' else '')
+  + (' calendar_lg' if size == 'lg' else '')
+  + ((' ' + className) if className else '') -%}
+<div class="{{ classes }}" data-component="Calendar" role="{{ 'region' if role == 'feed' else role }}"{% if ariaLabel %} aria-label="{{ ariaLabel }}"{% endif %}{% if disabled %} aria-disabled="true"{% endif %}>
+  {%- if header %}{{ header | safe }}{% elif title and not noHeader and not minimal and not wheel %}{{ calendarHeader(title=title, showNav=false) }}{% endif -%}
+  {% if weekdays %}{{ weekdays | safe }}{% endif %}
+  {{ content | safe }}
+  {% if footer %}{{ footer | safe }}{% endif %}
+</div>
+{% endmacro %}
+
+{% macro calendarHeader(
+  title,
+  prevLabel = '이전 달',
+  nextLabel = '다음 달',
+  showNav = true,
+  showPrev = '',
+  showNext = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set prev = showNav if showPrev == '' else showPrev -%}
+{%- set next = showNav if showNext == '' else showNext -%}
+<div class="calendar_header{{ (' ' + className) if className else '' }}">
+  {% if prev %}
+    {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=prevLabel) %}‹{% endcall %}
+  {% endif %}
+  <span class="calendar_title">{{ title }}</span>
+  {% if next %}
+    {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=nextLabel) %}›{% endcall %}
+  {% endif %}
+  {{ content | safe }}
+</div>
+{% endmacro %}
+
+{% macro calendarNav(label, prevLabel='이전 주', nextLabel='다음 주', className='') %}
+<div class="calendar_nav{{ (' ' + className) if className else '' }}">
+  {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=prevLabel) %}‹{% endcall %}
+  <span class="calendar_nav-label">{{ label }}</span>
+  {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=nextLabel) %}›{% endcall %}
+</div>
+{% endmacro %}
+
+{% macro calendarWeekdays(labels=['일', '월', '화', '수', '목', '금', '토'], className='') %}
+<div class="calendar_weekdays{{ (' ' + className) if className else '' }}" aria-hidden="true">
+  {% for label in labels %}<span class="calendar_weekday">{{ label }}</span>{% endfor %}
+</div>
+{% endmacro %}
+
+{% macro calendarDay(
+  day,
+  otherMonth = false,
+  today = false,
+  selected = false,
+  disabled = false,
+  sunday = false,
+  saturday = false,
+  rangeStart = false,
+  rangeEnd = false,
+  inRange = false,
+  event = false,
+  readonly = false,
+  className = ''
+) %}
+{%- set classes = 'calendar_day'
+  + (' is-other-month' if otherMonth else '')
+  + (' is-today' if today else '')
+  + (' is-selected' if selected else '')
+  + (' is-disabled' if disabled else '')
+  + (' is-sunday' if sunday else '')
+  + (' is-saturday' if saturday else '')
+  + (' is-range-start' if rangeStart else '')
+  + (' is-range-end' if rangeEnd else '')
+  + (' is-in-range' if inRange else '')
+  + (' has-event' if event else '')
+  + ((' ' + className) if className else '') -%}
+<button class="{{ classes }}" data-component="CalendarDay" type="button"{% if disabled or (otherMonth and not selected and not inRange) %} disabled{% endif %}{% if today %} aria-current="date"{% endif %}{% if selected %} aria-pressed="true"{% endif %}{% if readonly %} tabindex="-1"{% endif %}>{{ day }}</button>
+{% endmacro %}
+
+{% macro calendarGrid(week=false, className='') %}
+<div class="calendar_grid{{ ' calendar_grid-week' if week else '' }}{{ (' ' + className) if className else '' }}">{{ caller() | safe if caller else '' }}</div>
+{% endmacro %}
+
+{% macro calendarMonth(
+  days = false,
+  selected = 15,
+  today = 12,
+  disabled = false,
+  events = false,
+  rangeStart = '',
+  rangeEnd = '',
+  weekends = false,
+  partial = '',
+  week = false,
+  readonly = false
+) %}
+{% call calendarGrid(week=week) %}
+  {% if not days and not partial and not week %}
+    {% for day in [26, 27, 28, 29, 30, 31] %}
+      {{ calendarDay(day=day, otherMonth=true) }}
+    {% endfor %}
+  {% endif %}
+  {% if days %}
+    {% for cell in days %}
+      {% set value = cell.day if cell.day is defined else cell %}
+      {{ calendarDay(
+        day=value,
+        otherMonth=cell.otherMonth if cell.otherMonth is defined else false,
+        today=cell.today if cell.today is defined else value == today,
+        selected=cell.selected if cell.selected is defined else value == selected,
+        disabled=(cell.disabled if cell.disabled is defined else false) or (disabled and value in disabled),
+        sunday=cell.sunday if cell.sunday is defined else weekends and loop.index0 % 7 == 0,
+        saturday=cell.saturday if cell.saturday is defined else weekends and loop.index0 % 7 == 6,
+        rangeStart=cell.rangeStart if cell.rangeStart is defined else value == rangeStart,
+        rangeEnd=cell.rangeEnd if cell.rangeEnd is defined else value == rangeEnd,
+        inRange=cell.inRange if cell.inRange is defined else rangeStart != '' and rangeEnd != '' and value > rangeStart and value < rangeEnd,
+        event=cell.event if cell.event is defined else events and value in events,
+        readonly=readonly
+      ) }}
+    {% endfor %}
+  {% else %}
+    {% set count = partial if partial else (7 if week else 30) %}
+    {% set start = 9 if week else 1 %}
+    {% for day in range(start, start + count) %}
+      {% set cellIndex = loop.index0 if week or partial else loop.index0 + 6 %}
+      {{ calendarDay(
+        day=day,
+        today=day == today,
+        selected=day == selected or day == rangeStart or day == rangeEnd,
+        disabled=disabled and day in disabled,
+        sunday=weekends and cellIndex % 7 == 0,
+        saturday=weekends and cellIndex % 7 == 6,
+        rangeStart=day == rangeStart,
+        rangeEnd=day == rangeEnd,
+        inRange=rangeStart != '' and rangeEnd != '' and day > rangeStart and day < rangeEnd,
+        event=events and day in events,
+        readonly=readonly
+      ) }}
+    {% endfor %}
+  {% endif %}
+  {% if not days and not partial and not week %}
+    {% for day in [1, 2, 3, 4, 5, 6] %}
+      {{ calendarDay(day=day, otherMonth=true) }}
+    {% endfor %}
+  {% endif %}
+{% endcall %}
+{% endmacro %}
+
+{% macro calendarFooter(
+  todayLabel = '오늘',
+  resetLabel = '초기화',
+  confirmLabel = '확인',
+  className = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+<div class="calendar_footer{{ (' ' + className) if className else '' }}">
+  {{ Button.button(variant='text', color='primary', size='sm', label=todayLabel) }}
+  <div class="calendar_footer-actions">
+    {% if content %}
+      {{ content | safe }}
+    {% else %}
+      {{ Button.button(variant='ghost', size='sm', label=resetLabel) }}
+      {{ Button.button(variant='filled', color='primary', size='sm', label=confirmLabel) }}
+    {% endif %}
   </div>
 </div>
+{% endmacro %}
 
-{# Calendar · 헤더 없음 #}
-<div class="calendar calendar_no-header" role="application" aria-label="2024년 6월">
-  <div class="calendar_weekdays" aria-hidden="true">
-    {% for label in weekdays %}<span class="calendar_weekday">{{ label }}</span
-    >{% endfor %}
-  </div>
-  <div class="calendar_grid">
-    <button class="calendar_day">1</button><button class="calendar_day is-selected">15</button>
-  </div>
+{% macro calendarGroup(className = '') %}
+<div class="calendar_group{{ (' ' + className) if className else '' }}">
+  {{ caller() | safe if caller else '' }}
 </div>
+{% endmacro %}
 
-{# Calendar · 날짜만 #}
-<div
-  class="calendar calendar_minimal calendar_compact calendar_borderless"
-  role="application"
-  aria-label="2024년 6월 날짜만"
->
-  <div class="calendar_grid">
-    <button class="calendar_day">1</button><button class="calendar_day is-today">12</button
-    ><button class="calendar_day is-selected">15</button>
-  </div>
-</div>
-
-{# Calendar · 주간 #}
-<div class="calendar calendar_week calendar_shadow" role="application" aria-label="6월 9일~15일">
-  <div class="calendar_nav">
-    <button type="button" aria-label="이전 주">‹</button
-    ><span class="calendar_nav-label">6월 9일 ~ 15일</span
-    ><button type="button" aria-label="다음 주">›</button>
-  </div>
-  <div class="calendar_grid calendar_grid-week">
-    {% for day in range(9, 16) %}<button class="calendar_day">{{ day }}</button
-    >{% endfor %}
-  </div>
-</div>
-
-{# Calendar · 휠 #}
-<div class="calendar calendar_wheel calendar_shadow" role="group" aria-label="날짜 휠 선택">
-  <div class="calendar_wheel-toolbar">
-    <button type="button">취소</button><span class="calendar_wheel-title">날짜 선택</span
-    ><button type="button">완료</button>
-  </div>
+{% macro calendarWheel(
+  title = '',
+  shadow = false,
+  borderless = false,
+  footer = false,
+  toolbar = true,
+  cancelLabel = '',
+  confirmLabel = '',
+  ariaLabel = '',
+  toolbarContent = '',
+  footerContent = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{% call calendar(wheel=true, shadow=shadow, borderless=borderless, role='group', ariaLabel=ariaLabel) %}
+  {% if toolbar and (toolbarContent or title or cancelLabel or confirmLabel) %}
+    <div class="calendar_wheel-toolbar">
+      {% if toolbarContent %}
+        {{ toolbarContent | safe }}
+      {% else %}
+        {% if cancelLabel %}{{ Button.button(variant='text', color='', size='sm', label=cancelLabel) }}{% endif %}
+        <span class="calendar_wheel-title">{{ title }}</span>
+        {% if confirmLabel %}{{ Button.button(variant='text', color='primary', size='sm', label=confirmLabel) }}{% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="calendar_wheel-body">
-    <div class="calendar_wheel-highlight"></div>
-    <div class="calendar_wheel-columns">
-      {% for item in ['2024년', '6월', '15일'] %}
-      <div class="calendar_wheel-column">
-        <ul class="calendar_wheel-list" role="listbox">
-          <li>
-            <button class="calendar_wheel-item is-selected" aria-selected="true">
-              {{ item }}
-            </button>
-          </li>
-        </ul>
-      </div>
-      {% endfor %}
-    </div>
+    <div class="calendar_wheel-highlight" aria-hidden="true"></div>
+    <div class="calendar_wheel-columns">{{ content | safe }}</div>
+    <div class="calendar_wheel-fade" aria-hidden="true"></div>
   </div>
-</div>
+  {% if footer or footerContent %}
+    <div class="calendar_wheel-footer">{{ footerContent | safe }}</div>
+  {% endif %}
+{% endcall %}
+{% endmacro %}
 
-{# Calendar · 범위 선택 #}
-<div class="calendar" aria-label="범위 선택">
-  <div class="calendar_grid">
-    <button class="calendar_day is-selected is-range-start">10</button
-    >{% for day in range(11, 18) %}<button class="calendar_day is-in-range">
-      {{ day }}</button
-    >{% endfor %}<button class="calendar_day is-selected is-range-end">18</button>
-  </div>
+{% macro calendarWheelColumn(
+  label,
+  items = [],
+  selected = '',
+  showSteps = true,
+  prevLabel = '이전',
+  nextLabel = '다음'
+) %}
+<div class="calendar_wheel-column">
+  {% if showSteps %}
+    {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=prevLabel, disabled=items[0] == selected, className='calendar_wheel-step calendar_wheel-step-prev') %}⌃{% endcall %}
+  {% endif %}
+  <ul class="calendar_wheel-list" role="listbox" aria-label="{{ label }}">
+    {% for item in items %}
+      <li role="presentation">
+        <button type="button" role="option" class="calendar_wheel-item{{ ' is-selected' if item == selected else '' }}"{% if item == selected %} aria-selected="true"{% endif %}>{{ item }}</button>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if showSteps %}
+    {% call Button.button(variant='ghost', size='sm', iconOnly=true, ariaLabel=nextLabel, disabled=items[items.length - 1] == selected, className='calendar_wheel-step calendar_wheel-step-next') %}⌄{% endcall %}
+  {% endif %}
 </div>
+{% endmacro %}
 
-{# Calendar · 이벤트 마커 #}
-<div class="calendar calendar_weekends" aria-label="이벤트">
-  <div class="calendar_grid">
-    <button class="calendar_day has-event">3</button
-    ><button class="calendar_day is-today has-event">12</button
-    ><button class="calendar_day is-selected has-event">15</button>
-  </div>
-</div>
-
-{# Calendar · 스킨 #}
-<div class="calendar_group">
-  {% for skin in ['borderless', 'ghost', 'shadow'] %}
-  <div class="calendar calendar_{{ skin }}" aria-label="{{ skin }}">
-    <div class="calendar_grid"><button class="calendar_day">8</button></div>
-  </div>
-  {% endfor %}
-</div>
-
-{# Calendar · 크기 #}
-<div class="calendar_group">
-  {% for size in ['sm', 'compact', 'lg'] %}
-  <div class="calendar calendar_{{ size }}" aria-label="{{ size }}">
-    <div class="calendar_grid"><button class="calendar_day">7</button></div>
-  </div>
-  {% endfor %}
-</div>
-
-{# Calendar · 푸터 #}
-<div class="calendar calendar_shadow" aria-label="푸터 포함">
-  <div class="calendar_grid"><button class="calendar_day is-selected">15</button></div>
-  <div class="calendar_footer">
-    <button type="button">오늘</button>
-    <div class="calendar_footer-actions">
-      <button type="button">초기화</button><button type="button">확인</button>
-    </div>
-  </div>
-</div>
-
-{# Calendar · 이중 패널 #}
-<div class="calendar_group">
-  {% for month in ['6월', '7월'] %}
-  <div class="calendar calendar_compact calendar_shadow" aria-label="2024년 {{ month }}">
-    <div class="calendar_header">
-      <span class="calendar_title"
-        >2024년
-        {{ month }}</span
-      >
-    </div>
-    <div class="calendar_grid"><button class="calendar_day is-selected">15</button></div>
-  </div>
-  {% endfor %}
-</div>
-
-{# Calendar · 세로 일정 #}
-<div class="calendar calendar_agenda calendar_shadow" role="feed" aria-label="2024년 6월 일정">
-  <div class="calendar_header"><span class="calendar_title">6월 14일 ~ 20일</span></div>
-  <ol class="calendar_agenda-list">
-    <li class="calendar_agenda-day is-today">
-      <div class="calendar_agenda-date">
-        <span class="calendar_agenda-weekday">토</span
-        ><span class="calendar_agenda-daynum">15</span>
-      </div>
-      <div class="calendar_agenda-body">
-        <ul class="calendar_agenda-events">
-          <li class="calendar_agenda-event color_primary">
-            <span class="calendar_agenda-event-time">09:00</span
-            ><span class="calendar_agenda-event-title">팀 스탠드업</span>
-          </li>
-        </ul>
-      </div>
-    </li>
-  </ol>
-</div>
-
-{# Calendar · 상태 #}
-<div class="calendar_group">
-  <div class="calendar calendar_readonly" aria-label="읽기 전용">
-    <div class="calendar_grid">
-      <button class="calendar_day is-selected" tabindex="-1">9</button>
-    </div>
-  </div>
-  <div class="calendar is-disabled" aria-label="비활성" aria-disabled="true">
-    <div class="calendar_grid"><button class="calendar_day is-disabled" disabled>9</button></div>
-  </div>
-</div>
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoHeader %}{{ calendarHeader(title='2024년 6월') }}{% endset %}
+{% set demoWeekdays %}{{ calendarWeekdays() }}{% endset %}
+{% call calendar(ariaLabel='2024년 6월', header=demoHeader, weekdays=demoWeekdays) %}
+  {{ calendarMonth() }}
+{% endcall %}

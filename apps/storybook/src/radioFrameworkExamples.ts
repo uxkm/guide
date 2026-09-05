@@ -65,17 +65,168 @@ const sources: Record<string, Source> = {
   }
 };
 
+const radioImport = `{% from "components/form/Radio/radio.njk" import radio, radioGroup, radioField %}`;
+const cardImport = `{% from "components/data-display/Card/card.njk" import card, cardBody, cardDeck %}`;
+
+const radioGulpExamples: Record<string, string> = {
+  type: `${radioImport}
+
+{{ radio(id='radio-default', name='radio-type-basic', label='기본 — radio', checked=true) }}
+{{ radio(id='radio-label-end', name='radio-type-label-end', label='레이블 뒤 — radio_label-end', labelEnd=true) }}
+
+{% call radioGroup(horizontal=true) %}
+  {{ radio(id='radio-button', name='radio-type-button', value='button', label='버튼형', button=true, checked=true) }}
+  {{ radio(id='radio-ui', name='radio-type-button', value='ui', label='UI', button=true) }}
+  {{ radio(id='radio-ux', name='radio-type-button', value='ux', label='UX', button=true) }}
+{% endcall %}`,
+  labelEnd: `${radioImport}
+
+{{ radio(id='radio-card-payment', name='radio-payment', value='card', label='신용카드', labelEnd=true, checked=true) }}
+{% call radio(id='radio-bank-payment', name='radio-payment', value='bank', labelEnd=true) %}
+  <span class="radio_content">
+    <span class="radio_label">계좌이체</span>
+    <span class="radio_hint">등록된 계좌로 결제합니다.</span>
+  </span>
+{% endcall %}
+
+{% call radioGroup(legend='배송 방법 — radio_group_block', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ radio(id='radio-standard', name='radio-shipping', value='standard', label='일반 배송', labelEnd=true, checked=true) }}
+  {{ radio(id='radio-express', name='radio-shipping', value='express', label='빠른 배송', labelEnd=true) }}
+{% endcall %}
+
+{{ radio(id='radio-small-end', name='radio-size-small', label='Small — radio_sm', labelEnd=true, checked=true, className='radio_sm') }}
+{{ radio(id='radio-large-end', name='radio-size-large', label='Large — radio_lg', labelEnd=true, checked=true, className='radio_lg') }}`,
+  basic: `${radioImport}
+
+{% call radioField(label='결제 수단', labelId='radio-pay-label') %}
+  {% call radioGroup(ariaLabelledby='radio-pay-label') %}
+    {% call radio(id='radio-pay-card', name='radio-pay', value='card', checked=true) %}
+      <span class="radio_content">
+        <span class="radio_label">신용카드</span>
+        <span class="radio_hint">Visa · Mastercard · 국내 카드</span>
+      </span>
+    {% endcall %}
+    {% call radio(id='radio-pay-bank', name='radio-pay', value='bank') %}
+      <span class="radio_content">
+        <span class="radio_label">계좌이체</span>
+        <span class="radio_hint">등록된 계좌로 결제합니다.</span>
+      </span>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+  standalone: `${radioImport}
+
+{% call radioGroup(horizontal=true) %}
+  {{ radio(id='radio-select', name='radio-standalone', ariaLabel='항목 선택') }}
+  {{ radio(id='radio-selected', name='radio-standalone', checked=true, ariaLabel='선택됨') }}
+  {{ radio(id='radio-disabled', name='radio-standalone-disabled', disabled=true, ariaLabel='비활성') }}
+{% endcall %}`,
+  size: `${radioImport}
+
+{% call radioGroup(horizontal=true) %}
+  {{ radio(id='radio-sm', name='radio-size', value='sm', label='Small — radio_sm', checked=true, className='radio_sm') }}
+  {{ radio(id='radio-md', name='radio-size', value='md', label='Medium — 기본') }}
+  {{ radio(id='radio-lg', name='radio-size', value='lg', label='Large — radio_lg', className='radio_lg') }}
+{% endcall %}`,
+  width: `${radioImport}
+
+{{ radio(id='radio-inline', name='radio-width-inline', label='기본 — 인라인 너비', checked=true) }}
+{{ radio(id='radio-block', name='radio-width-block', label='radio_block — 전체 너비', checked=true, className='radio_block') }}
+
+{% call radioGroup(legend='radio_group_block', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ radio(id='radio-block-1', name='radio-width-group', value='one', label='항목 1', checked=true) }}
+  {{ radio(id='radio-block-2', name='radio-width-group', value='two', label='항목 2') }}
+{% endcall %}`,
+  color: `${radioImport}
+
+{% set colors = ['primary', 'success', 'danger', 'warning'] %}
+{% for color in colors %}
+  {{ radio(id='radio-' + color, name='radio-color-' + color, label=color | capitalize, checked=true, className='color_' + color) }}
+{% endfor %}`,
+  state: `${radioImport}
+
+{{ radio(id='radio-unchecked', name='radio-state', label='미선택') }}
+{{ radio(id='radio-checked', name='radio-state', label='선택됨', checked=true) }}
+{{ radio(id='radio-state-disabled', name='radio-disabled-state', label='비활성', disabled=true) }}
+{{ radio(id='radio-checked-disabled', name='radio-disabled-state', label='선택됨 (비활성)', checked=true, disabled=true) }}`,
+  group: `${radioImport}
+
+{% call radioGroup(legend='배송 방법 (세로)') %}
+  {{ radio(id='radio-ship-standard', name='radio-shipping', value='standard', label='일반 배송', checked=true) }}
+  {{ radio(id='radio-ship-express', name='radio-shipping', value='express', label='빠른 배송') }}
+  {{ radio(id='radio-ship-pickup', name='radio-shipping', value='pickup', label='매장 픽업') }}
+{% endcall %}
+
+{% call radioGroup(legend='크기 (가로)', horizontal=true) %}
+  {{ radio(id='radio-size-s', name='radio-group-size', value='s', label='S', button=true, checked=true) }}
+  {{ radio(id='radio-size-m', name='radio-group-size', value='m', label='M', button=true) }}
+  {{ radio(id='radio-size-l', name='radio-group-size', value='l', label='L', button=true) }}
+{% endcall %}`,
+  buttonType: `${radioImport}
+
+{% call radioGroup(horizontal=true) %}
+  {{ radio(id='radio-all', name='radio-filter', value='all', label='전체', button=true, checked=true) }}
+  {{ radio(id='radio-progress', name='radio-filter', value='active', label='진행 중', button=true) }}
+  {{ radio(id='radio-complete', name='radio-filter', value='done', label='완료', button=true) }}
+  {{ radio(id='radio-pending', name='radio-filter', value='hold', label='보류 (비활성)', button=true, disabled=true) }}
+{% endcall %}
+
+{% call radioGroup(horizontal=true) %}
+  {{ radio(id='radio-button-sm', name='radio-button-size', value='sm', label='Small', button=true, checked=true, className='radio_sm color_success') }}
+  {{ radio(id='radio-button-md', name='radio-button-size', value='md', label='Medium', button=true, className='color_success') }}
+  {{ radio(id='radio-button-lg', name='radio-button-size', value='lg', label='Large', button=true, className='radio_lg color_success') }}
+{% endcall %}`,
+  cardType: `${radioImport}
+${cardImport}
+
+{% set plans = [
+  { id: 'basic', title: 'Basic', price: '월 9,000원', description: '개인 프로젝트에 적합합니다.', checked: true },
+  { id: 'pro', title: 'Pro', price: '월 29,000원', description: '팀 협업과 고급 기능을 제공합니다.', color: 'color_primary' },
+  { id: 'enterprise', title: 'Enterprise', price: '별도 문의', description: '대규모 조직용 맞춤 플랜입니다. (비활성)', disabled: true }
+] %}
+{% call radioGroup(legend='요금제 선택') %}
+  {% call cardDeck(columns=2) %}
+    {% for plan in plans %}
+      {% set control %}{{ radio(id='radio-plan-' + plan.id, name='radio-plan', value=plan.id, checked=plan.checked, disabled=plan.disabled, ariaLabel=plan.title + ' 선택') }}{% endset %}
+      <div class="radio_card{{ (' ' + plan.color) if plan.color else '' }}">
+        {% call card(title=plan.title, subtitle=plan.price, extra=control, compact=true, variant='shadow') %}
+          {% call cardBody() %}{{ plan.description }}{% endcall %}
+        {% endcall %}
+      </div>
+    {% endfor %}
+  {% endcall %}
+{% endcall %}`,
+  form: `${radioImport}
+
+<form class="form form_vertical form_fit">
+  {% call radioField(label='수신 채널', labelId='radio-form-vertical-label') %}
+    {% call radioGroup(ariaLabelledby='radio-form-vertical-label') %}
+      {{ radio(id='radio-channel-email', name='radio-form-channel', value='email', label='이메일', checked=true) }}
+      {{ radio(id='radio-channel-sms', name='radio-form-channel', value='sms', label='SMS') }}
+    {% endcall %}
+  {% endcall %}
+</form>
+
+<form class="form form_horizontal form_fit">
+  {% call radioField(label='역할', labelId='radio-form-horizontal-label') %}
+    {% call radioGroup(horizontal=true, ariaLabelledby='radio-form-horizontal-label') %}
+      {{ radio(id='radio-role-viewer', name='radio-form-role', value='viewer', label='뷰어', button=true, checked=true) }}
+      {{ radio(id='radio-role-editor', name='radio-form-role', value='editor', label='편집자', button=true) }}
+    {% endcall %}
+  {% endcall %}
+</form>`
+};
+
 function examples(key: string, source: Source): FrameworkExample[] {
-  const gulp = `{# apps/gulp/src/components/form/Radio/radio.njk #}\\n\${source.html}`;
+  const gulp = radioGulpExamples[key];
   return [
-    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Radio/Radio.html · \${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Radio/radio.njk · \${key}`, code: gulp },
-    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/radio · \${key}`, code: source.vue },
-    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/radio · \${key}`, code: source.vue },
-    { id: 'react', label: 'React', fileName: `@uxkm/react/radio · \${key}`, code: source.react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/radio · \${key}`, code: source.react }
+    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Radio/Radio.html · ${key}`, code: source.html },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Radio/radio.njk · ${key}`, code: gulp },
+    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/radio · ${key}`, code: source.vue },
+    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/radio · ${key}`, code: source.vue },
+    { id: 'react', label: 'React', fileName: `@uxkm/react/radio · ${key}`, code: source.react },
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/radio · ${key}`, code: source.react }
   ];
 }
 
 export const radioFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<string, FrameworkExample[]>;
-

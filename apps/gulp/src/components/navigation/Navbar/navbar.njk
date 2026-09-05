@@ -1,46 +1,146 @@
-{# Navbar 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# navbar 클래스에 크기·테마·고정·반응형 변형과 브랜드·토글·접힘 영역을 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
+{# Navbar 원본 구현: 브랜드·메뉴·검색·액션·반응형 토글을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro navbarBrand(
+  brand='UXKM',
+  href='#',
+  icon='',
+  iconSlot='',
+  src='',
+  alt='',
+  background='',
+  className=''
+) %}
+<a
+  href="{{ href }}"
+  class="navbar_brand{% if background %} navbar_brand-bg{% endif %}{{ (' ' + className) if className else '' }}"
+  {% if background %}style="--navbar-brand-bg-image: url('{{ background }}')" aria-label="{{ alt if alt else brand }}"{% endif %}
+>
+  {% if background %}
+    <span class="navbar_brand-sr">{{ brand }}</span>
+  {% elif src %}
+    <img class="navbar_brand-image" src="{{ src }}" alt="{{ alt if alt else brand }}">
+    {% if brand %}<span class="navbar_brand-text">{{ brand }}</span>{% endif %}
+  {% else %}
+    {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='navbar_brand-icon') }}{% endif %}
+    {{ brand }}
+  {% endif %}
+</a>
+{% endmacro %}
+
+{% macro navbarItem(
+  label='',
+  href='#',
+  active=false,
+  disabled=false,
+  icon='',
+  iconSlot='',
+  badge='',
+  className=''
+) %}
+<li class="navbar_item{{ (' ' + className) if className else '' }}">
+  <a
+    href="{{ href if not disabled else '#' }}"
+    class="navbar_link{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}"
+    {% if active %}aria-current="page"{% endif %}
+    {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+  >
+    {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='navbar_link-icon') }}{% endif %}
+    <span class="navbar_link-label">{{ label }}</span>
+    {% if badge %}{{ badge | safe }}{% endif %}
+  </a>
+</li>
+{% endmacro %}
+
+{% macro navbarList(className='') %}
+<ul class="navbar_list{{ (' ' + className) if className else '' }}">
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</ul>
+{% endmacro %}
+
+{% macro navbarSearch(content='', className='') %}
+{%- set search = caller() if caller else content -%}
+<div class="navbar_search{{ (' ' + className) if className else '' }}">{{ search | safe }}</div>
+{% endmacro %}
+
+{% macro navbarActions(content='', className='') %}
+{%- set actions = caller() if caller else content -%}
+<div class="navbar_actions{{ (' ' + className) if className else '' }}">{{ actions | safe }}</div>
+{% endmacro %}
+
+{% macro navbarToggle(collapseId='navbar-collapse', open=false, openLabel='메뉴 열기', className='') %}
+{% call Button.button(
+  variant='ghost',
+  color='',
+  iconOnly=true,
+  ripple=false,
+  open=open,
+  expanded=open,
+  ariaLabel=openLabel,
+  dataAttributes={'data-navbar-toggle': true, 'aria-controls': collapseId},
+  className='navbar_toggle' + ((' ' + className) if className else '')
+) %}
+  {{ Icon.icon(name='menu', className='icon_sm navbar_toggle-icon-open') }}
+  {{ Icon.icon(name='close', className='icon_sm navbar_toggle-icon-close') }}
+{% endcall %}
+{% endmacro %}
+
+{% macro navbar(
+  brand='UXKM',
+  brandHref='#',
+  brandIcon='',
+  brandIconName='',
+  brandSrc='',
+  brandAlt='',
+  brandBackground='',
+  items='',
+  search='',
+  actions='',
+  size='md',
+  borderless=false,
+  dark=false,
+  sticky=false,
+  responsive=false,
+  open=false,
+  collapseId='navbar-collapse',
+  navLabel='주요 메뉴',
+  className=''
+) %}
+{%- set navigation = caller() if caller else items -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
 <header
-  class="navbar{% if size == 'sm' or size == 'lg' %} navbar_{{ size }}{% endif %}{% if borderless %} navbar_borderless{% endif %}{% if dark %} navbar_dark{% endif %}{% if sticky %} navbar_sticky{% endif %}"
-  data-component="Navbar"{% if responsive %}
-  data-navbar{% endif %}
+  class="navbar{% if resolvedSize != 'md' %} navbar_{{ resolvedSize }}{% endif %}{% if borderless %} navbar_borderless{% endif %}{% if dark %} navbar_dark{% endif %}{% if sticky %} navbar_sticky{% endif %}{% if open %} is-open{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="Navbar"
+  {% if responsive %}data-navbar{% endif %}
 >
   <div class="navbar_container">
-    {# 브랜드 영역은 사이트 식별용 링크입니다. #}
-    <a
-      href="#"
-      class="navbar_brand{% if brandBackground %} navbar_brand-bg{% endif %}"
-      {% if brandBackground %}
-      style="--navbar-brand-bg-image: url('{{ brandBackground }}')"
-      aria-label="{{ brandAlt | default(brand | default('UXKM')) }}"
-      {% endif %}
-      >{% if brandBackground %}<span class="navbar_brand-sr">{{ brand | default('UXKM') }}</span>{% elif brandSrc %}<img
-        class="navbar_brand-image"
-        src="{{ brandSrc }}"
-        alt="{{ brandAlt | default(brand | default('')) }}"
-      />{% if brand %}{{ brand }}{% endif %}{% else %}{% if brandIcon %}{{ brandIcon | safe }}{% endif %}{{ brand |
-      default('UXKM') }}{% endif %}</a
-    >
-    {# 반응형일 때만 접힘 메뉴 토글 버튼을 렌더합니다. #}
-    {% if responsive %}<button
-      type="button"
-      class="btn btn_ghost btn_icon-only navbar_toggle"
-      data-navbar-toggle
-      aria-expanded="false"
-      aria-controls="{{ collapseId | default('navbar-collapse') }}"
-      aria-label="메뉴 열기"
-    >
-      {{ icon('menu', 'icon_sm navbar_toggle-icon-open') }}{{ icon('close', 'icon_sm navbar_toggle-icon-close') }}</button
-    >{% endif %}
-    {# 접힘 영역에 주요 메뉴, 검색, 액션을 배치합니다. #}
-    <div class="navbar_collapse" id="{{ collapseId | default('navbar-collapse') }}">
-      <nav class="navbar_nav" aria-label="주요 메뉴">{{ items | safe }}</nav>
-      {% if search %}
-      <div class="navbar_search">{{ search | safe }}</div>
-      {% endif %}{% if actions %}
-      <div class="navbar_actions">{{ actions | safe }}</div>
-      {% endif %}
+    {{ navbarBrand(
+      brand=brand,
+      href=brandHref,
+      icon=brandIconName,
+      iconSlot=brandIcon,
+      src=brandSrc,
+      alt=brandAlt,
+      background=brandBackground
+    ) }}
+    {% if responsive %}{{ navbarToggle(collapseId=collapseId, open=open) }}{% endif %}
+    <div class="navbar_collapse" id="{{ collapseId }}">
+      <nav class="navbar_nav" aria-label="{{ navLabel }}">
+        {{ navigation | safe }}
+      </nav>
+      {% if search %}{{ navbarSearch(content=search) }}{% endif %}
+      {% if actions %}{{ navbarActions(content=actions) }}{% endif %}
     </div>
   </div>
 </header>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoItems %}
+  {% call navbarList() %}
+    {{ navbarItem(label='홈', active=true) }}
+    {{ navbarItem(label='컴포넌트') }}
+  {% endcall %}
+{% endset %}
+{{ navbar(items=demoItems) }}

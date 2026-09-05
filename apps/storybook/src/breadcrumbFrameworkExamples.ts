@@ -14,6 +14,83 @@ const html: Record<Name, string> = {
   state: [htmlCrumb(itemHtml('홈') + itemHtml('삭제된 페이지', { disabled: true }) + itemHtml('현재 페이지', { current: true }), '', '경로 — 비활성'), htmlCrumb(itemHtml('홈') + itemHtml('프로젝트 관리 및 협업 도구 설정') + itemHtml('사용자 권한 및 역할 기반 접근 제어', { current: true }), ' breadcrumb_sep-slash', '경로 — 긴 레이블')].join('\n\n'),
 };
 
+const gulpImport = `{% from "components/navigation/Breadcrumb/breadcrumb.njk" import breadcrumb, breadcrumbItem, breadcrumbEllipsis %}`;
+const gulpStandard = (last: string) => `{% call breadcrumb() %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='가이드') }}
+  {{ breadcrumbItem(label='${last}', current=true) }}
+{% endcall %}`;
+const gulp: Record<Name, string> = {
+  basic: `${gulpImport}
+
+{% call breadcrumb() %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='컴포넌트') }}
+  {{ breadcrumbItem(label='Breadcrumb', current=true) }}
+{% endcall %}`,
+  separator: `${gulpImport}
+
+${gulpStandard('Chevron')}
+
+{% call breadcrumb(separator='slash', ariaLabel='경로 — slash') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='가이드') }}
+  {{ breadcrumbItem(label='Slash', current=true) }}
+{% endcall %}
+
+{% call breadcrumb(separator='dot', ariaLabel='경로 — dot') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='가이드') }}
+  {{ breadcrumbItem(label='Dot', current=true) }}
+{% endcall %}`,
+  icon: `${gulpImport}
+
+{% call breadcrumb() %}
+  {{ breadcrumbItem(icon='home', ariaLabel='홈') }}
+  {{ breadcrumbItem(label='설정') }}
+  {{ breadcrumbItem(label='계정') }}
+  {{ breadcrumbItem(label='프로필', current=true) }}
+{% endcall %}`,
+  size: `${gulpImport}
+
+{% call breadcrumb(size='sm', ariaLabel='경로 — small') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='가이드') }}
+  {{ breadcrumbItem(label='Small', current=true) }}
+{% endcall %}
+
+${gulpStandard('Medium')}
+
+{% call breadcrumb(size='lg', ariaLabel='경로 — large') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='가이드') }}
+  {{ breadcrumbItem(label='Large', current=true) }}
+{% endcall %}`,
+  ellipsis: `${gulpImport}
+
+{% call breadcrumb(ariaLabel='긴 경로') %}
+  {{ breadcrumbItem(icon='home', ariaLabel='홈') }}
+  {{ breadcrumbItem(label='제품', hidden=true) }}
+  {{ breadcrumbItem(label='디자인 시스템', hidden=true) }}
+  {{ breadcrumbEllipsis() }}
+  {{ breadcrumbItem(label='컴포넌트') }}
+  {{ breadcrumbItem(label='Breadcrumb', current=true) }}
+{% endcall %}`,
+  state: `${gulpImport}
+
+{% call breadcrumb(ariaLabel='경로 — 비활성') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='삭제된 페이지', disabled=true) }}
+  {{ breadcrumbItem(label='현재 페이지', current=true) }}
+{% endcall %}
+
+{% call breadcrumb(separator='slash', ariaLabel='경로 — 긴 레이블') %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='프로젝트 관리 및 협업 도구 설정') }}
+  {{ breadcrumbItem(label='사용자 권한 및 역할 기반 접근 제어', current=true) }}
+{% endcall %}`,
+};
+
 const react: Record<Name, string> = {
   basic: `<Breadcrumb items={[{ label: '홈', href: '#' }, { label: '컴포넌트', href: '#' }, { label: 'Breadcrumb', current: true }]} />`,
   separator: `<Breadcrumb ariaLabel="경로 — chevron" items={items('Chevron')} />\n<Breadcrumb separator="slash" ariaLabel="경로 — slash" items={items('Slash')} />\n<Breadcrumb separator="dot" ariaLabel="경로 — dot" items={items('Dot')} />`,
@@ -41,6 +118,6 @@ function examples(key: Name): FrameworkExample[] {
   const reactCode = needsEllipsis ? `${reactImports}\n\nexport function Example() { ${react[key]} }` : `${reactImports}${helpers}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueSetup = `${vueImports}${helpers}${needsEllipsis ? '\nconst expanded = ref(false);' : ''}`;
   const vueCode = `<script setup>\n${vueSetup}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Breadcrumb.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `breadcrumb.njk · ${key}`, code: html[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/breadcrumb · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/breadcrumb · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/breadcrumb · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/breadcrumb · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Breadcrumb.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `breadcrumb.njk · ${key}`, code: gulp[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/breadcrumb · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/breadcrumb · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/breadcrumb · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/breadcrumb · ${key}`, code: reactCode }];
 }
 export const breadcrumbFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

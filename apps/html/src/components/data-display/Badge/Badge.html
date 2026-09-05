@@ -1,7 +1,19 @@
 <!-- Badge 원본 구현: 데이터 표시 구조와 시각 상태를 공통 CSS 클래스 및 접근성 속성으로 표현합니다. -->
-<!-- Badge 루트에 공통 클래스를 적용합니다. -->
+<!-- badge와 color_*를 조합합니다. -->
 <span class="badge color_primary" data-component="Badge">Primary</span>
+
+<!-- 상태 점 · 카운트 변형 -->
 <span class="badge badge_dot color_success" data-component="Badge">Active</span>
-<span class="badge badge_count color_danger" data-component="Badge" aria-label="읽지 않은 알림 5건"
-  >5</span
->
+<span class="badge badge_count color_danger" data-component="Badge" aria-label="읽지 않은 알림 5건">5</span>
+
+<!-- 겹침: badge_wrap 안에 기준 요소와 Badge를 배치합니다. -->
+<span class="badge_wrap" data-component="BadgeWrap">
+  <button class="btn btn_filled color_primary" type="button">
+    <span class="btn_label">알림</span>
+  </button>
+  <span class="badge badge_count color_danger" data-component="Badge" aria-label="읽지 않은 알림 5건">5</span>
+</span>
+<span class="badge_wrap" data-component="BadgeWrap">
+  <span class="avatar color_primary" aria-hidden="true">홍</span>
+  <span class="badge_dot-only color_success" data-component="Badge" role="status" aria-label="온라인"></span>
+</span>

@@ -1,10 +1,23 @@
 <!-- Avatar 원본 구현: 데이터 표시 구조와 시각 상태를 공통 CSS 클래스 및 접근성 속성으로 표현합니다. -->
-<!-- Avatar 루트에 공통 클래스를 적용합니다. -->
-<div class="avatar_group" data-component="AvatarGroup" aria-label="팀 멤버 3명">
-  <!-- 내부에 데이터 표시 콘텐츠를 배치합니다. -->
-  <span class="avatar color_primary" data-component="Avatar" aria-hidden="true">김</span>
-  <span class="avatar color_success" data-component="Avatar" aria-hidden="true">이</span>
-  <span class="avatar color_warning" data-component="Avatar" aria-hidden="true">
-    박<span class="avatar_badge color_success" aria-label="온라인"></span>
+<!-- 이미지 아바타 -->
+<span class="avatar" data-component="Avatar">
+  <img class="avatar_image" src="/images/samples/avatar/avatar-sample.svg" alt="홍길동">
+</span>
+
+<!-- 이미지가 없으면 이니셜 또는 아이콘을 표시합니다. 장식용이면 aria-hidden을 지정합니다. -->
+<span class="avatar color_primary" data-component="Avatar" aria-hidden="true">홍</span>
+<span class="avatar color_default" data-component="Avatar" aria-hidden="true">
+  <svg class="avatar_icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="8" r="4"></circle>
+    <path d="M4 20a8 8 0 0 1 16 0"></path>
+  </svg>
+</span>
+
+<!-- 상태 점과 겹침 그룹 -->
+<div class="avatar_group" data-component="AvatarGroup" role="group" aria-label="팀 멤버 2명">
+  <span class="avatar color_primary" data-component="Avatar" aria-hidden="true">
+    김
+    <span class="avatar_badge color_success" role="img" aria-label="온라인"></span>
   </span>
+  <span class="avatar color_warning" data-component="Avatar" aria-hidden="true">이</span>
 </div>

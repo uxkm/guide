@@ -1,13 +1,108 @@
-{# Typography 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. #}
-{# 제목은 h1~h5와 typo_title-*를 같은 단계로 맞춥니다. #}
-<h1 class="typo_title-1" data-component="TypoTitle">제목 레벨 1</h1>
-<h3 class="typo_title-3" data-component="TypoTitle">제목 레벨 3</h3>
+{# Typography 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합합니다. #}
+{# typoTitle · typoText macro로 제목·본문·인라인 변형을 조합합니다. #}
 
-{# 본문·강조·보조 텍스트는 시맨틱 태그와 typo_* 클래스를 조합합니다. #}
-<p data-component="TypoText">기본 본문 텍스트입니다.</p>
-<p class="typo_paragraph" data-component="TypoText">단락 간격이 있는 본문입니다.</p>
-<strong class="typo_strong" data-component="TypoText">강조 텍스트</strong>
-<span class="color_muted" data-component="TypoText">보조 설명</span>
+{% macro typoTitle(level = 1, color = '', label = '', className = '') %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- set levelNumber = level | int -%}
+{%- set resolvedLevel = levelNumber if levelNumber in [1, 2, 3, 4, 5] else 1 -%}
+{%- set classes =
+  'typo_title-' + resolvedLevel
+  + ((' color_' + color) if color else '')
+  + ((' ' + className) if className else '')
+-%}
+<h{{ resolvedLevel }} class="{{ classes }}" data-component="TypoTitle">{{ content | safe }}</h{{ resolvedLevel }}>
+{% endmacro %}
 
-{# 말줄임은 text_ellipsis · text_ellipsis-2 · text_ellipsis-3를 사용합니다. #}
-<p class="text_ellipsis" data-component="TypoText">한 줄로 말줄임되는 긴 본문입니다.</p>
+{% macro typoText(
+  variant = 'text',
+  tag = '',
+  color = '',
+  size = '',
+  ellipsis = '',
+  href = '',
+  htmlFor = '',
+  cite = '',
+  label = '',
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- set variantTags = {
+  'text': 'p',
+  'paragraph': 'p',
+  'lead': 'p',
+  'caption': 'p',
+  'label': 'label',
+  'overline': 'p',
+  'code': 'code',
+  'kbd': 'kbd',
+  'pre': 'pre',
+  'strong': 'strong',
+  'italic': 'em',
+  'underline': 'span',
+  'delete': 'del',
+  'mark': 'mark',
+  'sub': 'sub',
+  'sup': 'sup',
+  'small': 'small',
+  'link': 'a',
+  'blockquote': 'blockquote'
+} -%}
+{%- set variantClasses = {
+  'text': '',
+  'paragraph': 'typo_paragraph',
+  'lead': 'typo_lead',
+  'caption': 'typo_caption',
+  'label': 'typo_label',
+  'overline': 'typo_overline',
+  'code': 'typo_code',
+  'kbd': 'typo_kbd',
+  'pre': 'typo_pre',
+  'strong': 'typo_strong',
+  'italic': 'typo_italic',
+  'underline': 'typo_underline',
+  'delete': 'typo_delete',
+  'mark': 'typo_mark',
+  'sub': 'typo_sub',
+  'sup': 'typo_sup',
+  'small': 'typo_small',
+  'link': 'typo_link',
+  'blockquote': 'typo_blockquote'
+} -%}
+{%- set resolvedVariant = variant if variant in variantTags else 'text' -%}
+{%- set root = tag if tag else variantTags[resolvedVariant] -%}
+{%- set lines = ellipsis | int if ellipsis != '' and ellipsis != none else 0 -%}
+{%- set ellipsisClass = 'text_ellipsis' if lines == 1 else (('text_ellipsis-' + lines) if lines in [2, 3] else '') -%}
+{%- set sizeClass = ('size_' + size) if size in ['xs', 'sm', 'lg', 'xl'] else '' -%}
+{%- set classes =
+  (variantClasses[resolvedVariant] if variantClasses[resolvedVariant] else '')
+  + ((' color_' + color) if color else '')
+  + ((' ' + sizeClass) if sizeClass else '')
+  + ((' ' + ellipsisClass) if ellipsisClass else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- set classes = classes | trim -%}
+<{{ root }}
+  {% if classes %}class="{{ classes }}"{% endif %}
+  data-component="TypoText"
+  {% if resolvedVariant == 'link' %}href="{{ href if href else '#' }}"{% endif %}
+  {% if resolvedVariant == 'label' and htmlFor %}for="{{ htmlFor }}"{% endif %}
+  {% if resolvedVariant == 'blockquote' and cite %}cite="{{ cite }}"{% endif %}
+>{{ content | safe }}</{{ root }}>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ typoTitle(level=1, label='제목 레벨 1') }}
+{{ typoTitle(level=3, label='제목 레벨 3') }}
+{{ typoText(label='기본 본문 텍스트입니다.') }}
+{{ typoText(variant='paragraph', label='단락 간격이 있는 본문입니다.') }}
+{{ typoText(variant='strong', label='강조 텍스트') }}
+{{ typoText(tag='span', color='muted', label='보조 설명') }}
+{{ typoText(ellipsis=1, label='한 줄로 말줄임되는 긴 본문입니다.') }}

@@ -3,8 +3,8 @@ import type { FrameworkExample } from './FrameworkCode';
 type Codes = { html: string; react: string; vue: string };
 
 function makeExamples(component: string, slug: string, key: string, codes: Codes): FrameworkExample[] {
-  const react = `import { ${component}${component === 'Badge' ? ', BadgeWrap' : ', TagGroup'} } from '@uxkm/react/${slug}';\n\nexport function Example() {\n  return (\n${codes.react}\n  );\n}`;
-  const vue = `<script setup>\nimport { ${component}${component === 'Badge' ? ', BadgeWrap' : ', TagGroup'} } from '@uxkm/vue/${slug}';\n</script>\n\n<template>\n${codes.vue}\n</template>`;
+  const react = `import { ${component}, TagGroup } from '@uxkm/react/${slug}';\n\nexport function Example() {\n  return (\n${codes.react}\n  );\n}`;
+  const vue = `<script setup>\nimport { ${component}, TagGroup } from '@uxkm/vue/${slug}';\n</script>\n\n<template>\n${codes.vue}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/data-display/${component}/${component}.html · ${key}`, code: codes.html },
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/${component}/${slug}.njk · ${key}`, code: `{# ${component} · ${key} #}\n${codes.html}` },
@@ -15,16 +15,7 @@ function makeExamples(component: string, slug: string, key: string, codes: Codes
   ];
 }
 
-const badge = (key: string, html: string, react: string, vue: string) => makeExamples('Badge', 'badge', key, { html, react, vue });
 const tag = (key: string, html: string, react: string, vue: string) => makeExamples('Tag', 'tag', key, { html, react, vue });
-
-export const badgeFrameworkExamples = {
-  basic: badge('basic', `<span class="badge color_default">Default</span>\n<span class="badge color_primary">Primary</span>\n<span class="badge color_success">Success</span>\n<span class="badge color_warning">Warning</span>\n<span class="badge color_danger">Danger</span>`, `    <>\n      {['default', 'primary', 'success', 'warning', 'danger'].map((color) => <Badge key={color} color={color} label={color} />)}\n    </>`, `  <Badge v-for="color in ['default', 'primary', 'success', 'warning', 'danger']" :key="color" :color="color" :label="color" />`),
-  sizes: badge('sizes', `<span class="badge badge_sm color_primary">Small</span>\n<span class="badge color_primary">Medium</span>\n<span class="badge badge_lg color_primary">Large</span>`, `    <>\n      <Badge size="sm" label="Small" /><Badge label="Medium" /><Badge size="lg" label="Large" />\n    </>`, `  <Badge size="sm" label="Small" /><Badge label="Medium" /><Badge size="lg" label="Large" />`),
-  dot: badge('dot', `<span class="badge badge_dot color_success">Active</span>\n<span class="badge badge_dot color_warning">Away</span>\n<span class="badge badge_dot color_danger">Offline</span>`, `    <>\n      <Badge dot color="success" label="Active" /><Badge dot color="warning" label="Away" /><Badge dot color="danger" label="Offline" />\n    </>`, `  <Badge dot color="success" label="Active" /><Badge dot color="warning" label="Away" /><Badge dot color="danger" label="Offline" />`),
-  count: badge('count', `<span class="badge badge_count color_danger">3</span>\n<span class="badge badge_count color_primary">12</span>\n<span class="badge badge_count color_success">99+</span>`, `    <>\n      <Badge count color="danger" label="3" /><Badge count label="12" /><Badge count color="success" label="99+" />\n    </>`, `  <Badge count color="danger" label="3" /><Badge count label="12" /><Badge count color="success" label="99+" />`),
-  overlay: badge('overlay', `<span class="badge_wrap">\n  <button class="btn btn_filled color_primary" type="button"><span class="btn_label">알림</span></button>\n  <span class="badge badge_count color_danger" aria-label="읽지 않은 알림 5건">5</span>\n</span>\n<span class="badge_wrap">\n  <span class="avatar color_primary" aria-hidden="true">홍</span>\n  <span class="badge_dot-only color_success" role="status" aria-label="온라인"></span>\n</span>`, `    <>\n      <BadgeWrap><button className="btn btn_filled color_primary">알림</button><Badge count color="danger" ariaLabel="읽지 않은 알림 5건" label="5" /></BadgeWrap>\n      <BadgeWrap><span className="avatar color_primary">홍</span><Badge dotOnly color="success" ariaLabel="온라인" /></BadgeWrap>\n    </>`, `  <BadgeWrap><button class="btn btn_filled color_primary">알림</button><Badge count color="danger" aria-label="읽지 않은 알림 5건" label="5" /></BadgeWrap>\n  <BadgeWrap><span class="avatar color_primary">홍</span><Badge dot-only color="success" aria-label="온라인" /></BadgeWrap>`)
-};
 
 const tagColorHtml = (variant = '') => ['default', 'primary', 'success', 'warning', 'danger', 'info'].map((color) => `<span class="tag${variant ? ` tag_${variant}` : ''} color_${color}">${color}</span>`).join('\n');
 const tagColorReact = (variant = 'filled') => `    <>\n      {['default', 'primary', 'success', 'warning', 'danger', 'info'].map((color) => <Tag key={color} variant="${variant}" color={color} label={color} />)}\n    </>`;

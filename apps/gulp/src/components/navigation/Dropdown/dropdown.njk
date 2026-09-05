@@ -1,33 +1,60 @@
-{# Dropdown 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# dropdown 클래스에 열림·비활성·배치·맞춤 변형과 트리거·메뉴를 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
-{% set menuId = id | default('dropdown-menu') %}
+{# Dropdown 원본 구현: 트리거와 메뉴 패널을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro dropdownTrigger(label='메뉴', id='dropdown-menu', variant='outline', color='default', size='md', iconOnly=false, iconBefore='', selectText=false, disabled=false, open=false, className='') %}
+{%- set content = caller() if caller else label -%}
+{% call Button.button(
+  variant=variant,
+  color=color,
+  size=size,
+  label=label,
+  iconOnly=iconOnly,
+  iconBefore=iconBefore,
+  iconAfter=('' if variant == 'select' or iconOnly else 'chevron-down'),
+  ripple=false,
+  selectText=selectText,
+  selectCaret=(variant == 'select'),
+  disabled=disabled,
+  ariaLabel=(label if iconOnly else ''),
+  haspopup='menu',
+  expanded=open,
+  className='dropdown_trigger' + ((' ' + className) if className else ''),
+  dataAttributes={ 'aria-controls': id }
+) %}{{ content | safe }}{% endcall %}
+{% endmacro %}
+
+{% macro dropdown(id='dropdown-menu', open=false, disabled=false, placement='start', fit=false, closeOnSelect=true, trigger='', triggerLabel='메뉴', triggerVariant='outline', triggerColor='default', triggerSize='md', triggerIconOnly=false, triggerIcon='', triggerSelectText=false, maxVisibleItems=false, menuWidth='', menuMinWidth='', ariaLabel='', className='') %}
+{%- set menuContent = caller() if caller else '' -%}
 <div
-  class="dropdown{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}{% if placement == 'end' or placement == 'top' %} dropdown_placement-{{ placement }}{% endif %}{% if fit %} dropdown_fit{% endif %}"
+  class="dropdown{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}{% if placement in ['end', 'top'] %} dropdown_placement-{{ placement }}{% endif %}{% if fit %} dropdown_fit{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="Dropdown"
-  data-dropdown{% if closeOnSelect == false %}
-  data-dropdown-close-on-select="false"{% endif %}
+  data-dropdown
+  {% if closeOnSelect == false %}data-dropdown-close-on-select="false"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
 >
-  {# 사용자 트리거가 없으면 기본 outline 버튼을 렌더합니다. #}
-  {% if trigger %}{{ trigger | safe }}{% else %}<button
-    type="button"
-    class="btn btn_{{ triggerVariant | default('outline') }} color_{{ triggerColor | default('default') }} dropdown_trigger"
-    aria-haspopup="{{ haspopup | default('menu') }}"
-    aria-expanded="{% if open %}true{% else %}false{% endif %}"
-    aria-controls="{{ menuId }}"{% if disabled %}
-    disabled{% endif %}
-  >
-    <span class="btn_label">{{ triggerLabel | default('메뉴') }}</span
-    >{{ icon('chevron-down') }}</button
-  >{% endif %}
-  {# 메뉴 패널은 aria-hidden과 선택적 스크롤·너비 스타일을 둡니다. #}
+  {% if trigger %}
+    {{ trigger | safe }}
+  {% else %}
+    {{ dropdownTrigger(label=triggerLabel, id=id, variant=triggerVariant, color=triggerColor, size=triggerSize, iconOnly=triggerIconOnly, iconBefore=triggerIcon, selectText=triggerSelectText, disabled=disabled, open=open) }}
+  {% endif %}
   <div
-    id="{{ menuId }}"
+    id="{{ id }}"
     class="dropdown_menu{% if maxVisibleItems %} dropdown_menu-scrollable{% endif %}"
     role="menu"
-    aria-hidden="{% if open %}false{% else %}true{% endif %}"{% if maxVisibleItems or menuWidth or menuMinWidth %}
-    style="{% if maxVisibleItems %}--dropdown-max-visible-items: {{ maxVisibleItems }};{% endif %}{% if menuWidth %} width: {{ menuWidth }};{% endif %}{% if menuMinWidth %} min-width: {{ menuMinWidth }};{% endif %}"{% endif %}
+    aria-hidden="{{ 'false' if open else 'true' }}"
+    {% if maxVisibleItems or menuWidth or menuMinWidth %}style="{% if maxVisibleItems %}--dropdown-max-visible-items: {{ maxVisibleItems }};{% endif %}{% if menuWidth %} width: {{ menuWidth }};{% endif %}{% if menuMinWidth %} min-width: {{ menuMinWidth }};{% endif %}"{% endif %}
   >
-    {{ menu | safe }}
+    {{ menuContent | safe }}
   </div>
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% from "components/navigation/Menu/menu.njk" import menu, menuItem %}
+{% call dropdown(triggerLabel='작업') %}
+  {% call menu(compact=true) %}
+    {{ menuItem(label='복사') }}
+    {{ menuItem(label='이동') }}
+    {{ menuItem(label='공유') }}
+  {% endcall %}
+{% endcall %}

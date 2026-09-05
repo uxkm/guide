@@ -1,128 +1,95 @@
-{# Upload 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# data-max-size·data-max-files와 변형별 트리거 UI를 구성합니다. #}
-{% set uploadId = uploadId | default('upload-example') %}
-{% set uploadVariant = variant | default('button') %}
-<div
-  class="upload{% if fit %} upload_fit{% endif %}{% if size and size != 'md' %} upload_{{ size }}{% endif %}{% if disabled %} is-disabled{% endif %}"
-  data-component="Upload"{% if maxSize %}
-  data-max-size="{{ maxSize }}"{% endif %}{% if maxFiles %}
-  data-max-files="{{ maxFiles }}"{% endif %}
+{# Upload 원본 구현: 업로드 변형·파일 목록·폼 필드를 macro 조합으로 구성합니다. #}
+
+{% macro uploadInput(id = '', name = '', accept = '', multiple = false, disabled = false, error = false) %}
+<input
+  {% if id %}id="{{ id }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  class="upload_input"
+  type="file"
+  tabindex="-1"
+  {% if accept %}accept="{{ accept }}"{% endif %}
+  {% if multiple %}multiple{% endif %}
+  {% if disabled %}disabled{% endif %}
+  {% if error %}aria-invalid="true"{% endif %}
 >
-  {% if uploadVariant == 'drag' or uploadVariant == 'dropzone' %}
-  {# 드롭존 label이 숨김 file input과 안내 문구를 연결합니다. #}
-  <label
-    class="upload_dropzone{% if error %} is-error{% endif %}"
-    for="{{ uploadId }}"{% if not disabled %}
-    tabindex="0"{% endif %}
-    ><input
-      id="{{ uploadId }}"
-      class="upload_input"
-      type="file"
-      tabindex="-1"{% if accept %}
-      accept="{{ accept }}"{% endif %}{% if multiple %}
-      multiple{% endif %}{% if disabled %}
-      disabled{% endif %}
-    /><span class="upload_dropzone-icon"
-      ><svg
-        class="icon"
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M5 16v5h14v-5M12 17V3m0 0-4 4m4-4 4 4"></path></svg></span
-    ><span class="upload_dropzone-title">{{ title | default('파일을 끌어다 놓거나 선택하세요') }}</span
-    >{% if description %}<span class="upload_dropzone-desc"
-      >{{ description }}</span
-    >{% endif %}</label
-  >
-  {% elseif uploadVariant == 'picture-card' or uploadVariant == 'cards' %}
-  {# 사진 카드형 트리거와 추가 카드 영역을 구성합니다. #}
-  <div class="upload_cards">
-    <label
-      class="upload_card upload_card-trigger"
-      for="{{ uploadId }}"{% if not disabled %}
-      tabindex="0"{% endif %}
-      ><input
-        id="{{ uploadId }}"
-        class="upload_input"
-        type="file"
-        tabindex="-1"
-        accept="{{ accept | default('image/*') }}"{% if multiple %}
-        multiple{% endif %}{% if disabled %}
-        disabled{% endif %}
-      /><svg
-        class="icon icon_lg"
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M12 5v14M5 12h14"></path></svg
-      ><span>{{ buttonLabel | default('업로드') }}</span></label
-    >
-  </div>
-  {% elseif uploadVariant == 'avatar' %}
-  <label
-    class="upload_avatar"
-    for="{{ uploadId }}"{% if not disabled %}
-    tabindex="0"{% endif %}
-    ><input
-      id="{{ uploadId }}"
-      class="upload_input"
-      type="file"
-      tabindex="-1"
-      accept="{{ accept | default('image/*') }}"{% if disabled %}
-      disabled{% endif %} /><span class="avatar avatar_xl"
-      >{% if avatarSrc %}<img
-        class="avatar_image"
-        src="{{ avatarSrc }}"
-        alt="{{ avatarAlt | default('프로필 사진') }}"
-      />{% else %}<svg
-        class="avatar_icon"
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <circle cx="12" cy="8" r="4"></circle>
-        <path d="M4 21a8 8 0 0 1 16 0"></path></svg
-      >{% endif %}</span
-    ><span class="upload_avatar-overlay" aria-hidden="true"
-      ><svg
-        class="icon icon_lg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-        <path d="m16 6-4-4-4 4M12 2v13"></path></svg></span
-  ></label>
-  {% elseif uploadVariant != 'list' %}
-  <label
-    class="upload_trigger"
-    for="{{ uploadId }}"{% if not disabled %}
-    tabindex="0"{% endif %}
-    ><input
-      id="{{ uploadId }}"
-      class="upload_input"
-      type="file"
-      tabindex="-1"{% if accept %}
-      accept="{{ accept }}"{% endif %}{% if multiple %}
-      multiple{% endif %}{% if disabled %}
-      disabled{% endif %}
-    /><span class="btn btn_filled color_primary"
-      ><span class="btn_label">{{ buttonLabel | default('파일 선택') }}</span></span
-    ></label
-  >
+{% endmacro %}
+
+{% macro uploadFile(file, index = 0, removeLabel = '파일 삭제') %}
+<li class="upload_item{{ (' is-' + file.status) if file.status else '' }}">
+  <span class="upload_item-body">
+    <span class="upload_item-name">{{ file.name }}</span>
+    {% if file.status == 'uploading' %}<span class="upload_progress" role="progressbar" aria-valuenow="{{ file.progress | default(0) }}"><span class="upload_progress-bar" style="width: {{ file.progress | default(0) }}%;"></span></span>{% endif %}
+    {% if file.meta %}<span class="upload_item-meta">{{ file.meta }}</span>{% endif %}
+  </span>
+  {% if file.removable != false %}<button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="{{ file.name }} {{ removeLabel }}" data-upload-remove="{{ index }}">×</button>{% endif %}
+</li>
+{% endmacro %}
+
+{% macro upload(
+  id = '', name = '', variant = 'button', size = 'md', fit = false,
+  disabled = false, error = false, dragover = false, multiple = false,
+  accept = '', maxSize = '', maxFiles = '', files = false,
+  buttonLabel = '파일 선택', title = '파일을 끌어다 놓거나 선택하세요',
+  description = '', hint = '', removeLabel = '파일 삭제',
+  avatarSrc = '', avatarAlt = '프로필 사진', className = ''
+) %}
+{% set resolvedVariant = 'drag' if variant == 'dropzone' else ('picture-card' if variant == 'cards' else variant) %}
+{% set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' %}
+{% set fileInput %}{{ uploadInput(id, name, accept if accept else ('image/*' if resolvedVariant in ['picture-card', 'avatar'] else ''), multiple, disabled, error) }}{% endset %}
+<div
+  class="upload{{ ' upload_fit' if fit else '' }}{{ (' upload_' + resolvedSize) if resolvedSize != 'md' else '' }}{{ ' is-disabled' if disabled else '' }}{{ (' ' + className) if className else '' }}"
+  data-component="Upload"
+  {% if maxSize %}data-max-size="{{ maxSize }}"{% endif %}
+  {% if maxFiles %}data-max-files="{{ maxFiles }}"{% endif %}
+>
+  {% if resolvedVariant == 'drag' %}
+    <label class="upload_dropzone{{ ' is-dragover' if dragover else '' }}{{ ' is-error' if error else '' }}"{% if id %} for="{{ id }}"{% endif %}{% if not disabled %} tabindex="0"{% endif %}>
+      {{ fileInput | safe }}
+      <span class="upload_dropzone-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 16v5h14v-5M12 17V3m0 0-4 4m4-4 4 4"></path></svg></span>
+      <span class="upload_dropzone-title">{{ title }}</span>
+      {% if description %}<span class="upload_dropzone-desc">{{ description }}</span>{% endif %}
+    </label>
+  {% elif resolvedVariant == 'picture-card' %}
+    <div class="upload_cards">
+      {% for file in files %}
+        <div class="upload_card{{ (' is-' + file.status) if file.status else '' }}">
+          {% if file.url %}<img class="upload_card-image" src="{{ file.url }}" alt="{{ file.name }}">{% else %}<span class="upload_item-name">{{ file.name }}</span>{% endif %}
+          {% if file.removable != false %}<div class="upload_card-actions"><button type="button" class="btn btn_ghost btn_icon-only btn_sm" aria-label="{{ file.name }} {{ removeLabel }}" data-upload-remove="{{ loop.index0 }}">×</button></div>{% endif %}
+        </div>
+      {% endfor %}
+      <label class="upload_card upload_card-trigger"{% if id %} for="{{ id }}"{% endif %}{% if not disabled %} tabindex="0"{% endif %}>
+        {{ fileInput | safe }}
+        <svg class="icon icon_lg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+        <span>{{ buttonLabel }}</span>
+      </label>
+    </div>
+  {% elif resolvedVariant == 'avatar' %}
+    <label class="upload_avatar"{% if id %} for="{{ id }}"{% endif %}{% if not disabled %} tabindex="0"{% endif %}>
+      {{ fileInput | safe }}
+      <span class="avatar avatar_xl">{% if avatarSrc %}<img class="avatar_image" src="{{ avatarSrc }}" alt="{{ avatarAlt }}">{% else %}<svg class="avatar_icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>{% endif %}</span>
+      <span class="upload_avatar-overlay" aria-hidden="true"><svg class="icon icon_lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="m16 6-4-4-4 4M12 2v13"></path></svg></span>
+    </label>
+  {% elif resolvedVariant != 'list' %}
+    <label class="upload_trigger"{% if id %} for="{{ id }}"{% endif %}{% if not disabled %} tabindex="0"{% endif %}>
+      {{ fileInput | safe }}
+      <span class="btn btn_filled color_primary"><span class="btn_label">{{ buttonLabel }}</span></span>
+    </label>
   {% endif %}
-  {% if hint %}
-  <p class="upload_hint">{{ hint }}</p>
-  {% endif %}
+  {% if hint %}<p class="upload_hint">{{ hint }}</p>{% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
   <p class="form_field-error" data-upload-error role="alert" hidden></p>
-  <ul class="upload_list" data-upload-list></ul>
+  <ul class="upload_list" data-upload-list>{% for file in files %}{% if resolvedVariant not in ['picture-card', 'avatar'] %}{{ uploadFile(file, loop.index0, removeLabel) }}{% endif %}{% endfor %}</ul>
 </div>
+{% endmacro %}
+
+{% macro uploadField(label = '', labelId = '', control = '', hint = '', errorMessage = '', required = false, className = '') %}
+{% set content = caller() if caller else control %}
+<div class="form_field{{ (' ' + className) if className else '' }}">
+  {% if label %}<p class="form_field-label"{% if labelId %} id="{{ labelId }}"{% endif %}>{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</p>{% endif %}
+  {{ content | safe }}
+  {% if errorMessage %}<p class="form_field-error" role="alert">{{ errorMessage }}</p>{% elif hint %}<p class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ upload(id='upload-example', hint='파일을 선택해 주세요.') }}

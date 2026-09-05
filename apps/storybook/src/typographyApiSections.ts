@@ -41,6 +41,15 @@ const htmlRows: ApiRow[] = [
   { name: 'href · for · cite', type: 'attribute', default: '—', description: '링크·레이블·인용문에 대응하는 네이티브 속성입니다.' }
 ];
 
+const gulpRows: ApiRow[] = [
+  { name: 'typoTitle · typoText', type: 'macro', default: '—', description: '`{% from "components/basic/Typography/typography.njk" import typoTitle, typoText %}`로 import한 뒤 `{{ }}` 또는 `{% call %}`로 인스턴스를 만듭니다.' },
+  { name: 'typoTitle · level', type: '1 | 2 | 3 | 4 | 5', default: '1', description: 'h1~h5와 typo_title-*를 같은 단계로 맞춥니다.' },
+  { name: 'typoText · variant', type: 'string', default: "'text'", description: '기본 시맨틱 태그와 typo_* 클래스를 선택합니다.' },
+  { name: 'tag · color · size · ellipsis', type: 'mixed', default: '—', description: '루트 태그 덮어쓰기와 공통 색상·크기·말줄임입니다.' },
+  { name: 'href · htmlFor · cite', type: 'string', default: "''", description: 'link · label · blockquote variant 전용 속성입니다.' },
+  { name: 'label · className', type: 'string', default: "''", description: '텍스트와 추가 클래스입니다. `{% call %}` 본문이 있으면 본문이 우선합니다.' }
+];
+
 const webSquareRows: ApiRow[] = [
   { name: 'w2:textbox', type: 'component', default: '—', description: '자식 요소가 없는 제목·본문·인라인 텍스트를 표시합니다.' },
   { name: 'label', type: 'string', default: '—', description: '고정 텍스트를 지정합니다. 동적 데이터는 ref 또는 setValue()로 연결합니다.' },
@@ -87,7 +96,8 @@ export const typographyApiSections: ApiSectionData[] = [
   { title: 'Vue · Nuxt API · TypoTitle Props', description: 'Nuxt는 `@uxkm/vue/typography`를 재사용합니다.', tables: [{ columns, rows: vueTitleProps }] },
   { title: 'Vue · Nuxt API · TypoText Props', tables: [{ columns, rows: vueTextProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: [...titleContent, ...textContent] }] },
-  { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 시맨틱 태그에 공통 OOCSS 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'HTML API · Markup', description: 'HTML은 시맨틱 태그에 공통 OOCSS 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'Gulp API · Nunjucks', description: '`typoTitle` · `typoText` macro를 import하고 `{{ typoTitle(...) }}` · `{{ typoText(...) }}`로 조합합니다.', tables: [{ columns, rows: gulpRows }] },
   { title: 'WebSquare API · XML', description: '단일 텍스트는 w2:textbox와 tagname으로 시맨틱을 유지하고, 자식 구조가 필요한 콘텐츠는 w2:group 또는 XHTML을 사용합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }

@@ -172,25 +172,26 @@ Gulp 구현은 Nunjucks 템플릿을 작성한 뒤 정적 `.html`로 변환합�
 
 ```nunjucks
 {% extends "layouts/default.njk" %}
+{% from "components/basic/Button/button.njk" import button %}
 
 {% block content %}
   <main>
     <h1>{{ pageTitle }}</h1>
-    {% include "components/basic/Button/button.njk" %}
+    {{ button(variant='filled', color='primary', label='저장') }}
   </main>
 {% endblock %}
 ```
 
 ```nunjucks
+{% from "components/basic/Button/button.njk" import button %}
+
 {% set actions = [
   { label: '저장', color: 'primary' },
   { label: '삭제', color: 'danger' }
 ] %}
 
 {% for action in actions %}
-  <button type="button" class="btn btn_filled color_{{ action.color }}">
-    <span class="btn_label">{{ action.label }}</span>
-  </button>
+  {{ button(variant='filled', color=action.color, label=action.label) }}
 {% endfor %}
 ```
 

@@ -1070,11 +1070,20 @@ body {
   background: transparent !important;
   box-shadow: none !important;
   font: inherit !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
   letter-spacing: normal !important;
   line-height: inherit !important;
   text-decoration: none !important;
   vertical-align: baseline !important;
   white-space: inherit !important;
+}
+
+:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs,
+:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs *,
+:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs .token {
+  font-size: var(--framework-code-font-size) !important;
+  line-height: var(--framework-code-line-height) !important;
 }
 
 :is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {

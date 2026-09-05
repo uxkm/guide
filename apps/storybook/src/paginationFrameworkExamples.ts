@@ -15,6 +15,24 @@ const html: Record<Name, string> = {
   state: [htmlPagination(1, 30, 10), htmlPagination(10, 100, 10)].join('\n\n'),
 };
 
+const gulpImport = `{% from "components/navigation/Pagination/pagination.njk" import pagination, paginationJumper, paginationToolbar %}`;
+const gulp: Record<Name, string> = {
+  basic: `${gulpImport}\n\n{{ pagination(current=1, total=50, pageSize=10) }}`,
+  minimal: `${gulpImport}\n\n{{ pagination(current=4, total=50, pageSize=10, minimal=true) }}`,
+  size: `${gulpImport}\n\n{{ pagination(current=1, total=20, pageSize=10, size='sm') }}\n\n{{ pagination(current=1, total=20, pageSize=10) }}\n\n{{ pagination(current=1, total=20, pageSize=10, size='lg') }}`,
+  round: `${gulpImport}\n\n{{ pagination(current=7, total=80, pageSize=10, round=true) }}`,
+  ellipsis: `${gulpImport}\n\n{{ pagination(current=10, total=500, pageSize=10) }}`,
+  simple: `${gulpImport}\n\n{{ pagination(current=3, total=120, pageSize=10, simple=true) }}\n\n{{ pagination(current=1, total=120, pageSize=10, simple=true, minimal=true) }}`,
+  toolbar: `${gulpImport}
+
+{% call paginationToolbar(totalLabel='총 128건') %}
+  {{ pagination(current=5, total=128, pageSize=10, minimal=true) }}
+  {{ paginationJumper(current=5, total=128, pageSize=10) }}
+{% endcall %}`,
+  align: `${gulpImport}\n\n{{ pagination(current=1, total=20, pageSize=10) }}\n\n{{ pagination(current=1, total=20, pageSize=10, align='center') }}\n\n{{ pagination(current=1, total=20, pageSize=10, align='end') }}`,
+  state: `${gulpImport}\n\n{{ pagination(current=1, total=30, pageSize=10) }}\n\n{{ pagination(current=10, total=100, pageSize=10) }}`,
+};
+
 const react: Record<Name, string> = {
   basic: `<Pagination current={current} total={50} pageSize={10} onChange={setCurrent} />`, minimal: `<Pagination current={current} total={50} pageSize={10} minimal onChange={setCurrent} />`,
   size: `<Pagination current={small} total={20} pageSize={10} size="sm" onChange={setSmall} />\n<Pagination current={medium} total={20} pageSize={10} onChange={setMedium} />\n<Pagination current={large} total={20} pageSize={10} size="lg" onChange={setLarge} />`,
@@ -42,6 +60,6 @@ const vueState = (key: Name) => key === 'size' ? `const small = ref(1); const me
 function examples(key: Name): FrameworkExample[] {
   const reactCode = `import { useState } from 'react';\nimport Pagination from '@uxkm/react/pagination';\n\nexport function Example() { ${reactState(key)} return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\nimport { ref } from 'vue';\nimport Pagination from '@uxkm/vue/pagination';\n${vueState(key)}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Pagination.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `pagination.njk · ${key}`, code: html[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/pagination · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/pagination · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/pagination · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/pagination · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Pagination.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `pagination.njk · ${key}`, code: gulp[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/pagination · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/pagination · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/pagination · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/pagination · ${key}`, code: reactCode }];
 }
 export const paginationFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

@@ -54,8 +54,60 @@ const sources: Record<string, Source> = {
   }
 };
 
+const sliderImport = `{% from "components/form/Slider/slider.njk" import slider, sliderField %}`;
+const sliderGulpExamples: Record<string, string> = {
+  type: `${sliderImport}
+
+{{ slider(id='slider-horizontal', value=40, ariaLabel='가로 슬라이더') }}
+{{ slider(id='slider-vertical', value=60, vertical=true, ariaLabel='세로 슬라이더', style='height: 180px;') }}`,
+  basic: `${sliderImport}
+
+{{ slider(id='slider-volume', label='볼륨', value=50, showValue=true, valueSuffix='%') }}`,
+  label: `${sliderImport}
+
+{{ slider(id='slider-brightness', label='밝기', value=70, showValue=true, valueSuffix='%') }}
+{{ slider(id='slider-temperature', label='온도', min=16, max=30, value=22, showValue=true, valueSuffix='°C', hint='16°C부터 30°C까지 설정할 수 있습니다.') }}`,
+  size: `${sliderImport}
+
+{{ slider(id='slider-sm', value=30, size='sm', ariaLabel='작은 슬라이더') }}
+{{ slider(id='slider-md', value=50, ariaLabel='중간 슬라이더') }}
+{{ slider(id='slider-lg', value=70, size='lg', ariaLabel='큰 슬라이더') }}`,
+  width: `${sliderImport}
+
+{{ slider(id='slider-fit', label='Fit', value=35, fit=true) }}
+{{ slider(id='slider-block', label='Block', value=65, block=true) }}`,
+  step: `${sliderImport}
+
+{% call slider(id='slider-step', label='단계 선택', min=0, max=100, value=50, step=25, showValue=true) %}
+  <div class="slider_marks" aria-hidden="true">
+    {% for mark in [0, 25, 50, 75, 100] %}<span class="slider_mark">{{ mark }}</span>{% endfor %}
+  </div>
+{% endcall %}`,
+  stepper: `${sliderImport}
+
+{{ slider(id='slider-quantity', label='수량', min=1, max=10, value=3, stepper=true, stepperAlways=true, showValue=true) }}
+{{ slider(id='slider-disabled-stepper', label='비활성', value=50, stepper=true, disabled=true) }}`,
+  color: `${sliderImport}
+
+{% for color in ['primary', 'success', 'danger', 'warning'] %}
+  {{ slider(id='slider-' + color, value=60, color=color, ariaLabel=color + ' 슬라이더') }}
+{% endfor %}`,
+  state: `${sliderImport}
+
+{{ slider(id='slider-default', label='기본', value=40, showValue=true) }}
+{{ slider(id='slider-min', label='최솟값', value=0, showValue=true) }}
+{{ slider(id='slider-max', label='최댓값', value=100, showValue=true) }}
+{{ slider(id='slider-disabled', label='비활성', value=50, disabled=true) }}`,
+  form: `${sliderImport}
+
+<form class="form form_vertical form_fit">
+  {% set volumeSlider %}{{ slider(id='slider-form-volume', name='volume', value=50, showValue=true, valueSuffix='%') }}{% endset %}
+  {{ sliderField(id='slider-form-volume', label='볼륨', control=volumeSlider, hint='원하는 음량을 설정해 주세요.') }}
+</form>`
+};
+
 function examples(key: string, source: Source): FrameworkExample[] {
-  const gulp = `{# apps/gulp/src/components/form/Slider/slider.njk #}\n${source.html}`;
+  const gulp = sliderGulpExamples[key];
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Slider/Slider.html · ${key}`, code: source.html },
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Slider/slider.njk · ${key}`, code: gulp },
@@ -67,6 +119,5 @@ function examples(key: string, source: Source): FrameworkExample[] {
 }
 
 export const sliderFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<string, FrameworkExample[]>;
-
 
 

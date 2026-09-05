@@ -1,39 +1,94 @@
-{# Breadcrumb 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# breadcrumb 클래스에 구분 기호·크기 변형과 경로 항목 목록을 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
+{# Breadcrumb 원본 구현: 경로·항목·말줄임을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro breadcrumbItem(
+  label='',
+  href='#',
+  current=false,
+  disabled=false,
+  icon='',
+  iconSlot='',
+  ariaLabel='',
+  hidden=false,
+  className=''
+) %}
+<li
+  class="breadcrumb_item{% if current %} is-current{% endif %}{{ (' ' + className) if className else '' }}"
+  {% if current %}aria-current="page"{% endif %}
+  {% if hidden %}data-breadcrumb-hidden hidden{% endif %}
+>
+  {% if current %}
+    <span class="breadcrumb_current">{{ label }}</span>
+  {% elif disabled %}
+    <span class="breadcrumb_link is-disabled" aria-disabled="true">{{ label }}</span>
+  {% else %}
+    <a
+      class="breadcrumb_link{% if icon or iconSlot %} breadcrumb_link-icon{% endif %}"
+      href="{{ href }}"
+      {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+    >
+      {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='breadcrumb_icon') }}{% else %}{{ label }}{% endif %}
+    </a>
+  {% endif %}
+</li>
+{% endmacro %}
+
+{% macro breadcrumbEllipsis(expanded=false, label='', className='') %}
+<li class="breadcrumb_item{{ (' ' + className) if className else '' }}">
+  <button
+    type="button"
+    class="breadcrumb_ellipsis"
+    data-breadcrumb-ellipsis
+    aria-label="{{ label if label else ('숨겨진 경로 접기' if expanded else '숨겨진 경로 보기') }}"
+    aria-expanded="{{ 'true' if expanded else 'false' }}"
+  >…</button>
+</li>
+{% endmacro %}
+
+{% macro breadcrumb(
+  items=[],
+  separator='chevron',
+  size='md',
+  ariaLabel='경로',
+  className=''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set resolvedSeparator = separator if separator in ['chevron', 'slash', 'dot'] else 'chevron' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
 <nav
-  class="breadcrumb{% if separator == 'slash' or separator == 'dot' %} breadcrumb_sep-{{ separator }}{% endif %}{% if size == 'sm' or size == 'lg' %} breadcrumb_{{ size }}{% endif %}"
-  aria-label="{{ ariaLabel | default('경로') }}"
+  class="breadcrumb{% if resolvedSeparator != 'chevron' %} breadcrumb_sep-{{ resolvedSeparator }}{% endif %}{% if resolvedSize != 'md' %} breadcrumb_{{ resolvedSize }}{% endif %}{{ (' ' + className) if className else '' }}"
+  aria-label="{{ ariaLabel }}"
   data-component="Breadcrumb"
 >
   <ol class="breadcrumb_list">
-    {# 항목은 링크·현재·비활성·말줄임 중 하나로 렌더합니다. #}
-    {% for item in items %}
-    <li
-      class="breadcrumb_item{% if item.current or (loop.last and item.current != false) %} is-current{% endif %}"{% if item.current or (loop.last and item.current != false) %}
-      aria-current="page"{% endif %}{% if item.hidden %}
-      data-breadcrumb-hidden
-      hidden{% endif %}
-    >
-      {% if item.ellipsis %}<button
-        type="button"
-        class="breadcrumb_ellipsis"
-        data-breadcrumb-ellipsis
-        aria-label="숨겨진 경로 보기"
-        aria-expanded="false"
-      >
-        …</button
-      >{% elif item.current or (loop.last and item.current != false) %}<span class="breadcrumb_current"
-        >{{ item.label }}</span
-      >{% elif item.disabled %}<span class="breadcrumb_link is-disabled" aria-disabled="true"
-        >{{ item.label }}</span
-      >{% else %}<a
-        class="breadcrumb_link{% if item.icon %} breadcrumb_link-icon{% endif %}"
-        href="{{ item.href | default('#') }}"{% if item.ariaLabel %}
-        aria-label="{{ item.ariaLabel }}"{% endif %}
-        >{% if item.icon %}{{ icon(item.icon, 'breadcrumb_icon') }}{% else %}{{ item.label }}{% endif %}</a
-      >{% endif %}
-    </li>
-    {% endfor %}
+    {% if content %}
+      {{ content | safe }}
+    {% else %}
+      {% for item in items %}
+        {% set itemCurrent = item.current or (loop.last and item.current != false) %}
+        {% if item.ellipsis %}
+          {{ breadcrumbEllipsis(expanded=item.expanded, label=item.ariaLabel) }}
+        {% else %}
+          {{ breadcrumbItem(
+            label=item.label,
+            href=item.href | default('#'),
+            current=itemCurrent,
+            disabled=item.disabled,
+            icon=item.icon,
+            iconSlot=item.iconSlot,
+            ariaLabel=item.ariaLabel,
+            hidden=item.hidden
+          ) }}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </ol>
 </nav>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call breadcrumb() %}
+  {{ breadcrumbItem(label='홈') }}
+  {{ breadcrumbItem(label='컴포넌트') }}
+  {{ breadcrumbItem(label='Breadcrumb', current=true) }}
+{% endcall %}

@@ -106,15 +106,6 @@ export const Playground: Story = {
   ),
 };
 
-export const Basic: Story = {
-  name: '기본',
-  render: (args) => (
-    <Demo>
-      <Space {...args}>{boxes()}</Space>
-    </Demo>
-  ),
-};
-
 export const Vertical: Story = {
   name: '세로',
   args: { vertical: true },

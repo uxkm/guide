@@ -1,81 +1,119 @@
-{# Textarea 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# form_field 안에서 레이블·여러 줄 입력·글자 수·상태 메시지를 구성합니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
-{% set textareaId = textareaId | default('textarea-example') %}
-{% set textareaSize = textareaSize | default('md') %}
-{% set textareaResize = textareaResize | default('none') %}
-{% set textareaClass = 'textarea' + (' textarea_' + textareaSize if textareaSize != 'md' else '') + ' textarea_resize_' + textareaResize + (' is-error' if error else '') %}
-{% set countId = textareaId + '-count' %}
-{% set hintId = textareaId + '-hint' %}
-{% set textareaValue = value | default('') %}
-{% set wrapTextarea = showCount or clearable %}
-<div class="form_field{% if fit %} form_field_fit{% endif %}">
-  {# 보이는 레이블이 있으면 textarea id와 연결하고, 없으면 접근 가능한 숨김 레이블을 제공합니다. #}
-  {% if label %}
-  <label class="form_field-label" for="{{ textareaId }}">
-    {{ label }}
-    {% if required %}
-    <span class="form_field-required">
-      <span aria-hidden="true">*</span>
-      <span class="form_field-required-text">필수 항목</span>
-    </span>
-    {% endif %}
-  </label>
-  {% else %}
-  <label class="input_group-label_hidden" for="{{ textareaId }}">
-    {{ ariaLabel | default('여러 줄 입력') }}
-  </label>
-  {% endif %}
-  {# 글자 수·지우기가 필요할 때만 textarea와 부가 UI를 wrapper로 묶습니다. #}
-  {% if wrapTextarea %}
-  <div class="textarea_wrap{% if showCount %} textarea_show-count{% endif %}{% if clearable %} textarea_clearable{% endif %}{% if clearable and textareaValue and not disabled and not readonly %} is-filled{% endif %}">
-  {% endif %}
-  <textarea
-    id="{{ textareaId }}"
-    class="{{ textareaClass }}"{% if rows %}
-    rows="{{ rows }}"{% endif %}{% if maxlength %}
-    maxlength="{{ maxlength }}"{% endif %}{% if placeholder %}
-    placeholder="{{ placeholder }}"{% endif %}{% if disabled %}
-    disabled{% endif %}{% if readonly %}
-    readonly{% endif %}{% if required %}
-    required{% endif %}{% if error %}
-    aria-invalid="true"{% endif %}{% if hint or errorMessage or showCount %}
-    aria-describedby="{% if errorMessage or hint %}{{ hintId }}{% endif %}{% if showCount %}{% if errorMessage or hint %} {% endif %}{{ countId }}{% endif %}"{% endif %}
-    data-component="Textarea"
-  >{{ textareaValue }}</textarea>
+{# Textarea 원본 구현: 여러 줄 입력, 글자 수와 상태 메시지를 Textarea 계열 macro로 구성합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro textarea(
+  id = '',
+  name = '',
+  rows = 4,
+  size = 'md',
+  resize = 'none',
+  placeholder = '',
+  value = '',
+  disabled = false,
+  readonly = false,
+  required = false,
+  error = false,
+  fit = false,
+  showCount = false,
+  clearable = false,
+  maxLength = '',
+  ariaLabel = '',
+  ariaDescribedby = '',
+  className = '',
+  wrapperClassName = ''
+) %}
+{%- set resolvedResize = resize if resize in ['none', 'vertical', 'horizontal', 'both'] else 'none' -%}
+{%- set countId = id + '-count' if id else 'textarea-count' -%}
+{%- set count = value | length -%}
+{%- set showClear = clearable and value and not disabled and not readonly -%}
+{%- set wrapTextarea = showCount or clearable -%}
+{%- set textareaClasses =
+  'textarea'
+  + (' textarea_sm' if size == 'sm' else '')
+  + (' textarea_lg' if size == 'lg' else '')
+  + (' textarea_resize_' + resolvedResize)
+  + (' textarea_fit' if fit and not wrapTextarea else '')
+  + (' is-error' if error else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- set describedBy = ariaDescribedby + ((' ' if ariaDescribedby else '') + countId if showCount else '') -%}
+{%- set control %}
+<textarea
+  {% if id %}id="{{ id }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  class="{{ textareaClasses }}"
+  rows="{{ rows }}"
+  {% if maxLength %}maxlength="{{ maxLength }}"{% endif %}
+  {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+  {% if disabled %}disabled{% endif %}
+  {% if readonly %}readonly{% endif %}
+  {% if required %}required aria-required="true"{% endif %}
+  {% if error %}aria-invalid="true"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if describedBy %}aria-describedby="{{ describedBy }}"{% endif %}
+  data-component="Textarea"
+>{{ value }}</textarea>
+{%- endset -%}
+{% if wrapTextarea %}
+<div class="textarea_wrap{{ ' textarea_show-count' if showCount else '' }}{{ ' textarea_clearable' if clearable else '' }}{{ ' is-filled' if showClear else '' }}{{ ' textarea_wrap_fit' if fit else '' }}{{ (' ' + wrapperClassName) if wrapperClassName else '' }}">
+  {{ control | safe }}
   {% if clearable %}
-  <button
-    class="textarea_clear"
-    type="button"
-    data-ripple="surface"
-    aria-label="입력 지우기"
-    {% if not textareaValue or disabled or readonly %}hidden{% endif %}
-  >
-    {{ icon('close') }}
-  </button>
+    {{ Button.button(
+      variant='text',
+      color='muted',
+      iconOnly=true,
+      iconBefore='close',
+      ripple=false,
+      ariaLabel='입력 지우기',
+      hidden=not showClear,
+      className='textarea_clear'
+    ) }}
   {% endif %}
   {% if showCount %}
-  <span
-      id="{{ countId }}"
-      class="textarea_count"
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
-    >
-    <span class="textarea_count_visual" aria-hidden="true">
-      {{ textareaValue | length }}{% if maxlength %}/{{ maxlength }}{% endif %}
+    <span id="{{ countId }}" class="textarea_count{{ ' is-limit' if maxLength and count >= maxLength else '' }}" role="status" aria-live="polite" aria-atomic="true">
+      <span class="textarea_count_visual" aria-hidden="true">{{ count }}{% if maxLength %}/{{ maxLength }}{% endif %}</span>
+      <span class="textarea_count_announcer">{{ count }}자 입력{% if maxLength %}, 최대 {{ maxLength }}자{% endif %}</span>
     </span>
-    <span class="textarea_count_announcer">
-      {{ textareaValue | length }}자 입력{% if maxlength %}, 최대 {{ maxlength }}자{% endif %}
-    </span>
-  </span>
-  {% endif %}
-  {% if wrapTextarea %}
-  </div>
-  {% endif %}
-  {% if errorMessage %}
-  <p id="{{ hintId }}" class="form_field-error" role="alert">{{ errorMessage }}</p>
-  {% elseif hint %}
-  <p id="{{ hintId }}" class="form_field-hint">{{ hint }}</p>
   {% endif %}
 </div>
+{% else %}
+{{ control | safe }}
+{% endif %}
+{% endmacro %}
+
+{% macro textareaField(
+  id = '',
+  label = '',
+  ariaLabel = '',
+  control = '',
+  hint = '',
+  errorMessage = '',
+  successMessage = '',
+  required = false,
+  fit = false,
+  className = ''
+) %}
+{%- set content = caller() if caller else control -%}
+<div class="form_field{{ ' form_field_fit' if fit else '' }}{{ (' ' + className) if className else '' }}">
+  {% if label %}
+    <label class="form_field-label" for="{{ id }}">
+      {{ label }}
+      {% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}
+    </label>
+  {% elif ariaLabel %}
+    <label class="input_group-label_hidden" for="{{ id }}">{{ ariaLabel }}</label>
+  {% endif %}
+  {{ content | safe }}
+  {% if errorMessage %}
+    <p id="{{ id }}-error" class="form_field-error" role="alert">{{ errorMessage }}</p>
+  {% elif successMessage %}
+    <p id="{{ id }}-success" class="form_field-success" role="status">{{ successMessage }}</p>
+  {% elif hint %}
+    <p id="{{ id }}-hint" class="form_field-hint">{{ hint }}</p>
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoTextarea %}{{ textarea(id='textarea-message', rows=4, placeholder='메시지를 입력하세요') }}{% endset %}
+{{ textareaField(id='textarea-message', label='메시지', control=demoTextarea, hint='문의 내용을 자세히 작성해 주세요.') }}

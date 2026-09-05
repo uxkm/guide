@@ -158,20 +158,47 @@ names.forEach((name) => {
   vue[name] = vueAccordion(items, options);
 });
 
-const gulpCustom = `{% set items = [{
-  title: '<strong>프로 요금제</strong> <span class="tag tag_outline color_primary tag_sm">추천</span>',
-  content: '<div><p>제목과 본문에 원하는 마크업을 자유롭게 배치할 수 있습니다.</p><ul><li>팀원 10명</li><li>프로젝트 무제한</li><li>우선 기술 지원</li></ul></div>',
-  open: true
-}] %}
-{% set variant = 'card' %}
-{% include 'components/miscellaneous/Accordion/accordion.njk' %}`;
+const gulpAccordionImport = `{% from "components/miscellaneous/Accordion/accordion.njk" import accordion, accordionItem %}`;
+function gulpAccordion(key: string, items: Item[], options: Options = {}) {
+  const hasBadge = items.some((item) => item.extra?.startsWith('<span'));
+  const imports = hasBadge ? `\n{% from "components/data-display/Badge/badge.njk" import badge %}` : '';
+  const prelude = hasBadge ? `\n\n{% set inquiryBadge %}{{ badge(count=true, color='danger', size='sm', label='3') }}{% endset %}` : '';
+  const args = [`id='accordion-${key}'`, options.variant && `variant='${options.variant}'`, options.size && `size='${options.size}'`, options.multiple && 'multiple=true', options.effect && `effect='${options.effect}'`].filter(Boolean).join(', ');
+  const itemCode = items.map((item, index) => `  {% call accordionItem(id='accordion-${key}-${index + 1}', label='${item.label}'${item.open ? ', open=true' : ''}${item.disabled ? ', disabled=true' : ''}${item.extra ? `, extra=${item.extra.startsWith('<span') ? 'inquiryBadge' : `'${item.extra}'`}` : ''}) %}<p>${item.content}</p>{% endcall %}`).join('\n');
+  return `${gulpAccordionImport}${imports}${prelude}
+
+{% call accordion(${args}) %}
+${itemCode}
+{% endcall %}`;
+}
+const gulp: Record<Name, string> = {} as Record<Name, string>;
+names.forEach((name) => {
+  if (name === 'custom') {
+    gulp.custom = `${gulpAccordionImport}
+{% from "components/data-display/Tag/tag.njk" import tag %}
+
+{% set customTitle %}<strong>프로 요금제</strong> {{ tag(variant='outline', color='primary', size='sm', label='추천') }}{% endset %}
+{% call accordion(id='accordion-custom', variant='card') %}
+  {% call accordionItem(id='accordion-custom-1', title=customTitle, open=true) %}
+    <div><p>제목과 본문에 원하는 컴포넌트를 자유롭게 배치할 수 있습니다.</p><ul><li>팀원 10명</li><li>프로젝트 무제한</li><li>우선 기술 지원</li></ul></div>
+  {% endcall %}
+{% endcall %}`;
+    return;
+  }
+  if (name === 'size') {
+    gulp.size = gulpAccordion('size-sm', [{ label: 'Small', open: true, content: '작은 아코디언 — 좁은 패딩.' }], { size: 'sm' }) + '\n\n' + gulpAccordion('size-lg', [{ label: 'Large', open: true, content: '큰 아코디언 — 넓은 패딩과 큰 글자.' }], { size: 'lg' });
+    return;
+  }
+  const { items, options } = sets[name];
+  gulp[name] = gulpAccordion(name, items, options);
+});
 
 function examples(name: Name): FrameworkExample[] {
   const reactCode = `import { Accordion, AccordionItem } from '@uxkm/react/accordion';\n\nexport function Example() {\n  return (\n    <>\n      ${react[name]}\n    </>\n  );\n}`;
   const vueCode = `<script setup>\nimport { Accordion, AccordionItem } from '@uxkm/vue/accordion';\n</script>\n\n<template>\n  ${vue[name]}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Accordion.html · ${name}`, code: html[name] },
-    { id: 'gulp', label: 'Gulp', fileName: `accordion.njk · ${name}`, code: name === 'custom' ? gulpCustom : html[name] },
+    { id: 'gulp', label: 'Gulp', fileName: `accordion.njk · ${name}`, code: gulp[name] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/accordion · ${name}`, code: vueCode },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/accordion · ${name}`, code: vueCode },
     { id: 'react', label: 'React', fileName: `@uxkm/react/accordion · ${name}`, code: reactCode },

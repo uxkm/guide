@@ -1,46 +1,69 @@
-{# Tabs 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# tabs 클래스에 변형·크기·레이아웃·인디케이터와 탭 목록·패널을 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
+{# Tabs 원본 구현: 탭·패널·스크롤 제어를 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro tab(id, panelId, label='', active=false, disabled=false, icon='', iconSlot='', badge='', className='') %}
+<button
+  type="button"
+  class="tabs_tab{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}"
+  role="tab"
+  id="{{ id }}"
+  aria-selected="{{ 'true' if active else 'false' }}"
+  aria-controls="{{ panelId }}"
+  {% if not active %}tabindex="-1"{% endif %}
+  {% if disabled %}aria-disabled="true" disabled{% endif %}
+>
+  {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='tabs_icon') }}{% endif %}
+  <span class="tabs_label">{{ label }}</span>
+  {% if badge %}<span class="tabs_badge">{{ badge | safe }}</span>{% endif %}
+</button>
+{% endmacro %}
+
+{% macro tabPanel(id, tabId, active=false, content='', className='') %}
+{%- set panelContent = caller() if caller else content -%}
 <div
-  class="tabs tabs_{{ variant | default('line') }}{% if size == 'sm' or size == 'lg' %} tabs_{{ size }}{% endif %}{% if layout == 'equal' %} tabs_equal{% endif %}{% if layout == 'scroll' and not vertical %} tabs_scroll-nav{% endif %}{% if vertical %} tabs_vertical{% endif %}{% if scrollable and layout != 'scroll' %} tabs_scrollable{% endif %}{% if indicator == 'slide' %} tabs_indicator-slide{% endif %}"
+  class="tabs_panel{% if active %} is-active{% endif %}{{ (' ' + className) if className else '' }}"
+  role="tabpanel"
+  id="{{ id }}"
+  aria-labelledby="{{ tabId }}"
+  {% if not active %}hidden{% endif %}
+>{{ panelContent | safe }}</div>
+{% endmacro %}
+
+{% macro tabs(tabs='', panels='', variant='line', size='md', layout='default', vertical=false, scrollable=false, indicator='', ariaLabel='탭', extra='', mode='', className='') %}
+{%- set resolvedVariant = variant if variant in ['line', 'card', 'pill'] else 'line' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+<div
+  class="tabs tabs_{{ resolvedVariant }}{% if resolvedSize != 'md' %} tabs_{{ resolvedSize }}{% endif %}{% if mode == 'dynamic' %} tabs_dynamic{% endif %}{% if layout == 'equal' %} tabs_equal{% endif %}{% if layout == 'scroll' and not vertical %} tabs_scroll-nav{% endif %}{% if vertical %} tabs_vertical{% endif %}{% if scrollable and layout != 'scroll' %} tabs_scrollable{% endif %}{% if indicator == 'slide' %} tabs_indicator-slide{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="Tabs"
   data-tabs
 >
   <div class="tabs_bar">
-    {# 스크롤 레이아웃일 때만 이전·다음 내비게이션 버튼을 둡니다. #}
-    {% if layout == 'scroll' and not vertical %}<button
-      type="button"
-      class="btn btn_outline color_default btn_sm btn_icon-only tabs_nav tabs_nav_prev"
-      data-tabs-scroll="prev"
-      aria-label="이전 탭"
-      hidden
-    >
-      {{ icon('arrow-left') }}</button
-    >{% endif %}
+    {% if layout == 'scroll' and not vertical %}
+      {{ Button.button(variant='outline', color='default', size='sm', iconOnly=true, iconBefore='arrow-left', ripple=false, hidden=true, ariaLabel='이전 탭', className='tabs_nav tabs_nav_prev', dataAttributes={ 'data-tabs-scroll': 'prev' }) }}
+    {% endif %}
     <div class="tabs_list-wrap{% if layout == 'scroll' and not vertical %} tabs_scroll-viewport{% endif %}">
-      {# role=tablist 안에 탭 버튼과 선택적 슬라이드 인디케이터를 둡니다. #}
-      <div
-        class="tabs_list"
-        role="tablist"
-        aria-label="{{ ariaLabel | default('탭') }}"
-        aria-orientation="{% if vertical %}vertical{% else %}horizontal{% endif %}"
-      >
-        {% if indicator == 'slide' %}<span class="tabs_indicator" aria-hidden="true"></span
-        >{% endif %}{{ tabs | safe }}
+      <div class="tabs_list" role="tablist" aria-label="{{ ariaLabel }}" aria-orientation="{{ 'vertical' if vertical else 'horizontal' }}">
+        {% if indicator == 'slide' %}<span class="tabs_indicator" aria-hidden="true"></span>{% endif %}
+        {{ tabs | safe }}
       </div>
     </div>
-    {% if layout == 'scroll' and not vertical %}<button
-      type="button"
-      class="btn btn_outline color_default btn_sm btn_icon-only tabs_nav tabs_nav_next"
-      data-tabs-scroll="next"
-      aria-label="다음 탭"
-      hidden
-    >
-      {{ icon('chevron') }}</button
-    >{% endif %}{% if extra %}
-    <div class="tabs_extra">{{ extra | safe }}</div>
+    {% if layout == 'scroll' and not vertical %}
+      {{ Button.button(variant='outline', color='default', size='sm', iconOnly=true, iconBefore='chevron', ripple=false, hidden=true, ariaLabel='다음 탭', className='tabs_nav tabs_nav_next', dataAttributes={ 'data-tabs-scroll': 'next' }) }}
     {% endif %}
+    {% if extra %}<div class="tabs_extra">{{ extra | safe }}</div>{% endif %}
   </div>
-  {# 각 탭에 대응하는 패널 콘텐츠를 배치합니다. #}
   <div class="tabs_panels">{{ panels | safe }}</div>
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoTabs %}
+  {{ tab(id='demo-tab-1', panelId='demo-panel-1', label='개요', active=true) }}
+  {{ tab(id='demo-tab-2', panelId='demo-panel-2', label='활동') }}
+{% endset %}
+{% set demoPanels %}
+  {% call tabPanel(id='demo-panel-1', tabId='demo-tab-1', active=true) %}개요 패널{% endcall %}
+  {% call tabPanel(id='demo-panel-2', tabId='demo-tab-2') %}활동 패널{% endcall %}
+{% endset %}
+{{ tabs(tabs=demoTabs, panels=demoPanels) }}

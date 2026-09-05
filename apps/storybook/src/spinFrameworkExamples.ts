@@ -12,6 +12,50 @@ const react: Record<Name, string> = {
 };
 const vue: Record<Name, string> = Object.fromEntries(Object.entries(react).map(([key, value]) => [key, value.replaceAll('ariaLabel', 'aria-label').replaceAll('className=', 'class=')])) as Record<Name, string>;
 
+const gulpImport = `{% from "components/feedback/Spin/spin.njk" import spin, spinWrap %}`;
+const gulpCalls: Record<Name, string> = {
+  basic: `{{ spin() }}`,
+  size: `{{ spin(size='sm') }}
+{{ spin() }}
+{{ spin(size='lg') }}`,
+  color: `{{ spin(color='primary', ariaLabel='Primary 로딩') }}
+{{ spin(color='success', ariaLabel='Success 로딩') }}
+{{ spin(color='warning', ariaLabel='Warning 로딩') }}
+{{ spin(color='danger', ariaLabel='Danger 로딩') }}`,
+  tip: `{{ spin(tip='데이터를 불러오는 중…', ariaLabel='데이터를 불러오는 중') }}
+{{ spin(size='lg', tip='파일 업로드 중…', ariaLabel='파일 업로드 중') }}`,
+  inline: `{% from "components/basic/Button/button.njk" import button %}
+
+<p>
+  {{ spin(size='sm', inline=true, tip='저장 중…', ariaLabel='저장 중') }}
+</p>
+{{ button(label='제출 중…', loading=true, disabled=true) }}`,
+  block: `{{ spin(block=true, tip='잠시만 기다려 주세요…') }}`,
+  overlay: `{% from "components/data-display/Card/card.njk" import card, cardHeader, cardBody %}
+
+{% call spinWrap(block=true, loading=true, tip='데이터 로딩 중…', ariaLabel='데이터 로딩 중') %}
+  {% call card(variant='shadow') %}
+    {{ cardHeader(title='대시보드') }}
+    {% call cardBody() %}
+      <p>차트와 통계가 이 영역에 표시됩니다. 데이터를 불러오는 동안 오버레이가 콘텐츠를 덮습니다.</p>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}
+
+{% call spinWrap(block=true, blur=true, loading=true, ariaLabel='처리 중') %}
+  {% call card(variant='shadow') %}
+    {{ cardHeader(title='블러 효과') }}
+    {% call cardBody() %}
+      <p><code class="typo_code">spin_wrap-blur</code>를 함께 사용하면 콘텐츠에 블러가 적용됩니다.</p>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+};
+
+const gulpCode = (key: Name) => `${gulpImport}
+
+${gulpCalls[key]}`;
+
 function htmlSpin(classes = 'color_primary', tip = '', label = '로딩 중') { return `<div class="spin ${classes}" role="status" aria-live="polite" aria-busy="true" aria-label="${label}"><span class="spin_indicator" aria-hidden="true"></span>${tip ? `<p class="spin_tip">${tip}</p>` : ''}</div>`; }
 function htmlCode(key: Name) {
   const groups: Record<Name, string[]> = {
@@ -31,6 +75,6 @@ function examples(key: Name): FrameworkExample[] {
   const vueImports = `import { ${component} } from '@uxkm/vue/spin';${key === 'inline' ? "\nimport Button from '@uxkm/vue/button';" : ''}`;
   const reactCode = `${reactImports}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\n${vueImports}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Spin.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `spin.njk · ${key}`, code: html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/spin · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/spin · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/spin · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/spin · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Spin.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `spin.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/spin · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/spin · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/spin · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/spin · ${key}`, code: reactCode }];
 }
 export const spinFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

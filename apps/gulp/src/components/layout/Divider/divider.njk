@@ -1,15 +1,79 @@
 {# Divider 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. #}
-{# 레이블이 없는 의미 있는 수평 구분선은 hr에 divider 클래스를 적용합니다. #}
-<hr class="divider" data-component="Divider" />
+{# divider macro로 선·점선·레이블·세로·간격·두께·길이를 조합합니다. #}
 
-{# 점선은 divider_dashed를 함께 지정합니다. #}
-<hr class="divider divider_dashed" data-component="Divider" />
+{% macro divider(
+  as = '',
+  tag = 'auto',
+  vertical = false,
+  dashed = false,
+  plain = false,
+  orient = '',
+  orientation = '',
+  marginY = '',
+  thickness = '',
+  height = '',
+  label = '',
+  className = '',
+  style = ''
+) %}
+{%- set resolvedOrient = orient if orient else orientation -%}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- if as -%}
+  {%- set root = as -%}
+{%- elif tag != 'auto' -%}
+  {%- set root = tag -%}
+{%- elif vertical -%}
+  {%- set root = 'span' -%}
+{%- elif content -%}
+  {%- set root = 'div' -%}
+{%- else -%}
+  {%- set root = 'hr' -%}
+{%- endif -%}
+{%- set marginPresets = ['xs', 'sm', 'md', 'lg', 'xl', 'none'] -%}
+{%- set thicknessPresets = ['xs', 'sm', 'lg', 'xl', 'none'] -%}
+{%- set heightPresets = ['xs', 'sm', 'md', 'lg', 'xl'] -%}
+{%- set marginClass = (' divider_margin-' + marginY) if marginY in marginPresets else '' -%}
+{%- set thicknessClass = (' divider_thickness-' + thickness) if thickness in thicknessPresets else '' -%}
+{%- set heightClass = (' divider_height-' + height) if vertical and height in heightPresets else '' -%}
+{%- set rootStyle = style -%}
+{%- if marginY and marginY not in marginPresets -%}
+  {%- set marginValue = (marginY ~ 'rem') if marginY is number else marginY -%}
+  {%- set marginVar = '--divider-current-margin-x' if vertical else '--divider-current-margin-y' -%}
+  {%- set rootStyle = ((rootStyle + '; ') if rootStyle else '') + marginVar + ': ' + marginValue -%}
+{%- endif -%}
+{%- if thickness and thickness not in ['', 'md'] and thickness not in thicknessPresets -%}
+  {%- set thicknessValue = (thickness ~ 'rem') if thickness is number else thickness -%}
+  {%- set rootStyle = ((rootStyle + '; ') if rootStyle else '') + '--divider-current-thickness: ' + thicknessValue -%}
+{%- endif -%}
+{%- if vertical and height and height not in heightPresets -%}
+  {%- set heightValue = (height ~ 'rem') if height is number else height -%}
+  {%- set rootStyle = ((rootStyle + '; ') if rootStyle else '') + '--divider-current-height: ' + heightValue -%}
+{%- endif -%}
+{%- set classes =
+  'divider'
+  + (' divider_vertical' if vertical else '')
+  + (' divider_dashed' if dashed else '')
+  + (' divider_plain' if plain else '')
+  + ((' divider_orient-' + resolvedOrient) if resolvedOrient else '')
+  + marginClass
+  + thicknessClass
+  + heightClass
+  + ((' ' + className) if className else '')
+-%}
+{%- if root == 'hr' -%}
+<hr class="{{ classes }}" data-component="Divider"{% if rootStyle %} style="{{ rootStyle }}"{% endif %} />
+{%- else -%}
+<{{ root }} class="{{ classes }}" data-component="Divider"{% if vertical %} aria-hidden="true"{% endif %}{% if rootStyle %} style="{{ rootStyle }}"{% endif %}>{% if not vertical %}{{ content | safe }}{% endif %}</{{ root }}>
+{%- endif -%}
+{% endmacro %}
 
-{# 레이블형 구분선은 div에 텍스트를 넣고 양쪽 선은 CSS로 그립니다. #}
-<div class="divider" data-component="Divider">섹션 제목</div>
-
-{# plain은 레이블 굵기를 낮추고, orient는 레이블 위치를 바꿉니다. #}
-<div class="divider divider_plain divider_orient-left" data-component="Divider">왼쪽 보조 설명</div>
-
-{# 세로 구분선은 장식용이므로 span에 aria-hidden을 지정합니다. #}
-<span class="divider divider_vertical" data-component="Divider" aria-hidden="true"></span>
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ divider() }}
+{{ divider(dashed=true) }}
+{{ divider(label='섹션 제목') }}
+{{ divider(plain=true, orient='left', label='왼쪽 보조 설명') }}
+{{ divider(vertical=true) }}

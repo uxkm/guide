@@ -74,6 +74,35 @@ const html: Record<Name, string> = {
   slide: htmlGroup('slide', basicItems.slice(0, 2), { effect: 'slide' }),
 };
 
+const gulpCollapseImport = `{% from "components/miscellaneous/Collapse/collapse.njk" import collapse, collapsePanel, collapseExternal %}`;
+function gulpCollapse(key: string, items: Item[], options: Options = {}) {
+  const args = [`id='collapse-${key}'`, options.variant && `variant='${options.variant}'`, options.size && `size='${options.size}'`, options.accordion && 'accordion=true', options.effect && `effect='${options.effect}'`].filter(Boolean).join(', ');
+  const panels = items.map((item, index) => `  {% call collapsePanel(id='collapse-${key}-${index + 1}', label='${item.label}'${item.open ? ', open=true' : ''}${item.disabled ? ', disabled=true' : ''}${item.extra ? `, extra='${item.extra}'` : ''}) %}<p>${item.content}</p>{% endcall %}`).join('\n');
+  return `${gulpCollapseImport}
+
+{% call collapse(${args}) %}
+${panels}
+{% endcall %}`;
+}
+const gulp: Record<Name, string> = {
+  standalone: `${gulpCollapseImport}
+
+{% call collapseExternal(id='collapse-order', triggerLabel='주문 상세 보기', lead='<p>주문이 접수되었습니다. 배송 전까지 아래에서 상세 내역을 확인할 수 있습니다.</p>') %}
+  <p>주문번호 ORD-2024-0815 · 결제금액 ₩42,000</p>
+{% endcall %}`,
+  basic: gulpCollapse('basic', basicItems),
+  accordion: gulpCollapse('accordion', accordionItems, { accordion: true }),
+  skin: gulpCollapse('ghost', [{ label: 'Ghost', open: true, content: '배경만 강조하는 고스트 스킨입니다.' }], { variant: 'ghost' }) + '\n\n' + gulpCollapse('card', [{ label: 'Card', open: true, content: '패널마다 카드 형태로 분리됩니다.' }, { label: '두 번째 패널', content: '카드 스킨의 두 번째 패널입니다.' }], { variant: 'card' }),
+  extra: gulpCollapse('extra', [{ label: '진행 중', open: true, content: '현재 처리 중인 요청 3건입니다.', extra: '3건' }, { label: '처리 완료', content: '최근 일주일간 완료된 요청 12건입니다.', extra: '지난 7일' }]),
+  disabled: gulpCollapse('disabled', [{ label: '공개 문서', open: true, content: '누구나 열람할 수 있는 가이드 문서입니다.' }, { label: '팀 전용 (권한 없음)', disabled: true, content: '팀 멤버만 접근할 수 있는 내부 문서입니다.' }]),
+  size: gulpCollapse('small', [{ label: 'Small', open: true, content: '작은 콜랩스 — 좁은 패딩.' }], { size: 'sm' }) + '\n\n' + gulpCollapse('large', [{ label: 'Large', open: true, content: '큰 콜랩스 — 넓은 패딩과 큰 글자.' }], { size: 'lg' }),
+  slide: gulpCollapse('slide', basicItems.slice(0, 2), { effect: 'slide' }) + `\n\n${gulpCollapseImport}
+
+{% call collapseExternal(id='collapse-slide-external', triggerLabel='상세 보기', effect='slide') %}
+  <p>외부 영역도 슬라이드됩니다.</p>
+{% endcall %}`,
+};
+
 const react: Record<Name, string> = {
   standalone: `<CollapseExternal triggerLabel="주문 상세 보기" lead={<p>주문이 접수되었습니다.</p>}>
   <p>주문번호 ORD-2024-0815 · 결제금액 ₩42,000</p>
@@ -106,7 +135,7 @@ function examples(name: Name): FrameworkExample[] {
   const vueCode = `<script setup>\nimport { Collapse, CollapseExternal, CollapsePanel } from '@uxkm/vue/collapse';\n</script>\n\n<template>\n  ${vue[name]}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Collapse.html · ${name}`, code: html[name] },
-    { id: 'gulp', label: 'Gulp', fileName: `collapse.njk · ${name}`, code: html[name] },
+    { id: 'gulp', label: 'Gulp', fileName: `collapse.njk · ${name}`, code: gulp[name] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/collapse · ${name}`, code: vueCode },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/collapse · ${name}`, code: vueCode },
     { id: 'react', label: 'React', fileName: `@uxkm/react/collapse · ${name}`, code: reactCode },

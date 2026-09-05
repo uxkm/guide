@@ -1,42 +1,115 @@
-{# Icon 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{% macro icon(name = 'search', className = '') %}
-{# Icon 루트에 공통 클래스를 적용합니다. #}
+{# Icon 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 접근성 의미를 연결합니다. #}
+{# icon macro로 이름·크기·색상·래퍼·상태를 조합합니다. #}
+
+{% macro icon(
+  name = 'plus',
+  size = 'md',
+  color = '',
+  inline = false,
+  spin = false,
+  button = false,
+  circle = false,
+  square = false,
+  pulse = false,
+  ripple = true,
+  ariaLabel = '',
+  title = '',
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = '' -%}
+{%- endif -%}
+{%- set label = ariaLabel if ariaLabel else title -%}
+{%- set wrapped = button or circle or square -%}
+{%- set sizeClass = ('icon_' + size) if size and size != 'md' else '' -%}
+{%- set svgClasses =
+  'icon'
+  + ((' ' + sizeClass) if sizeClass and not wrapped else '')
+  + (' icon_spin' if spin else '')
+-%}
+{%- if not wrapped -%}
+  {%- set svgClasses =
+    svgClasses
+    + ((' color_' + color) if color else '')
+    + (' icon_inline' if inline else '')
+    + ((' ' + className) if className else '')
+  -%}
+{%- elif sizeClass -%}
+  {%- set svgClasses = svgClasses + ' ' + sizeClass -%}
+{%- endif -%}
+{%- set outerClasses =
+  ('icon_button' if button else ('icon_circle' if circle else ('icon_square' if square else '')))
+  + ((' color_' + color) if color else '')
+  + (' icon_inline' if inline else '')
+  + (' icon_pulse' if pulse and circle else '')
+  + (' icon_circle-sm' if circle and size == 'sm' else '')
+  + (' icon_circle-lg' if circle and size == 'lg' else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- if button -%}
+<button
+  class="{{ outerClasses | trim }}"
+  type="button"
+  data-ripple="{{ 'true' if ripple else 'false' }}"
+  {% if label %}aria-label="{{ label }}"{% endif %}
+>
+  <svg
+    class="{{ svgClasses | trim }}"
+    data-component="Icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    {% if title %}<title>{{ title }}</title>{% endif %}
+    {%- if content -%}{{ content | safe }}{%- else -%}{% include "components/basic/Icon/_paths.njk" %}{%- endif -%}
+  </svg>
+</button>
+{%- elif circle or square -%}
+<span
+  class="{{ outerClasses | trim }}"
+  {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true"{% endif %}
+>
+  <svg
+    class="{{ svgClasses | trim }}"
+    data-component="Icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    {% if title %}<title>{{ title }}</title>{% endif %}
+    {%- if content -%}{{ content | safe }}{%- else -%}{% include "components/basic/Icon/_paths.njk" %}{%- endif -%}
+  </svg>
+</span>
+{%- else -%}
 <svg
-  class="icon{% if className %} {{ className }}{% endif %}"
+  class="{{ svgClasses | trim }}"
   data-component="Icon"
-  data-icon="{{ name }}"
-  aria-hidden="true"
+  {% if name and not content %}data-icon="{{ name }}"{% endif %}
   fill="none"
   viewBox="0 0 24 24"
   stroke="currentColor"
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
+  {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true"{% endif %}
 >
-  {# 내부에 콘텐츠를 배치합니다. #}
-  {% if name == 'close' %}
-  <path d="m6 6 12 12M18 6 6 18"></path>
-  {% elif name == 'inbox' %}
-  <path d="M4 5h16l2 9v5H2v-5l2-9ZM2 14h5l2 3h6l2-3h5"></path>
-  {% elif name == 'menu' %}
-  <path d="M4 6h16M4 12h16M4 18h16"></path>
-  {% elif name == 'chevron-down' %}
-  <path d="m6 9 6 6 6-6"></path>
-  {% elif name == 'chevron' %}
-  <path d="m9 6 6 6-6 6"></path>
-  {% elif name == 'chevron-right' %}
-  <path d="m9 6 6 6-6 6"></path>
-  {% elif name == 'chevron-left' %}
-  <path d="m15 6-6 6 6 6"></path>
-  {% elif name == 'arrow-left' %}
-  <path d="M19 12H5m7 7-7-7 7-7"></path>
-  {% elif name == 'home' %}
-  <path d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7"></path>
-  {% else %}
-  <circle cx="11" cy="11" r="8"></circle>
-  <path d="m21 21-4.35-4.35"></path>
-  {% endif %}
+  {% if title %}<title>{{ title }}</title>{% endif %}
+  {%- if content -%}{{ content | safe }}{%- else -%}{% include "components/basic/Icon/_paths.njk" %}{%- endif -%}
 </svg>
+{%- endif -%}
 {% endmacro %}
 
-{{ icon(iconName | default('search'), iconClass | default('')) }}
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ icon(name='search') }}
+{{ icon(name='check', color='success', size='lg') }}
+{{ icon(name='plus', circle=true, color='primary', size='sm') }}

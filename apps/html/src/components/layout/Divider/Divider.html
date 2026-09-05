@@ -5,11 +5,15 @@
 <!-- 점선은 divider_dashed를 함께 지정합니다. -->
 <hr class="divider divider_dashed" data-component="Divider" />
 
+<!-- 간격·두께는 divider_margin-* · divider_thickness-* 또는 CSS 변수로 조절합니다. -->
+<hr class="divider divider_margin-sm divider_thickness-lg" data-component="Divider" />
+<hr class="divider" data-component="Divider" style="--divider-current-margin-y: 1.5rem; --divider-current-thickness: 3px;" />
+
 <!-- 레이블형 구분선은 div에 텍스트를 넣고 양쪽 선은 CSS로 그립니다. -->
 <div class="divider" data-component="Divider">섹션 제목</div>
 
 <!-- plain은 레이블 굵기를 낮추고, orient는 레이블 위치를 바꿉니다. -->
 <div class="divider divider_plain divider_orient-left" data-component="Divider">왼쪽 보조 설명</div>
 
-<!-- 세로 구분선은 장식용이므로 span에 aria-hidden을 지정합니다. -->
-<span class="divider divider_vertical" data-component="Divider" aria-hidden="true"></span>
+<!-- 세로 구분선은 좌·우 간격·두께·길이를 함께 지정할 수 있습니다. -->
+<span class="divider divider_vertical divider_margin-lg divider_thickness-sm divider_height-md" data-component="Divider" aria-hidden="true"></span>

@@ -65,17 +65,174 @@ const sources: Record<string, Source> = {
   }
 };
 
+const checkboxImport = `{% from "components/form/Checkbox/checkbox.njk" import checkbox, checkboxGroup, checkboxField %}`;
+const cardImport = `{% from "components/data-display/Card/card.njk" import card, cardBody, cardDeck %}`;
+
+const checkboxGulpExamples: Record<string, string> = {
+  type: `${checkboxImport}
+${cardImport}
+
+{{ checkbox(id='checkbox-default', label='기본 — checkbox', checked=true) }}
+{{ checkbox(id='checkbox-label-end', label='레이블 뒤 — checkbox_label-end', labelEnd=true) }}
+
+{% call checkboxGroup(horizontal=true) %}
+  {{ checkbox(id='checkbox-button', label='버튼형', button=true, checked=true) }}
+  {{ checkbox(id='checkbox-ui', label='UI', button=true) }}
+  {{ checkbox(id='checkbox-ux', label='UX', button=true) }}
+{% endcall %}
+
+{% set cardCheckbox %}{{ checkbox(id='checkbox-card', checked=true, ariaLabel='카드 선택') }}{% endset %}
+<div class="checkbox_card" style="max-width: 360px;">
+  {% call card(title='카드형 — checkbox_card', extra=cardCheckbox, compact=true) %}
+    {% call cardBody() %}Card 컴포넌트와 조합해 제목·설명을 표시합니다.{% endcall %}
+  {% endcall %}
+</div>`,
+  labelEnd: `${checkboxImport}
+
+{{ checkbox(id='checkbox-push', label='푸시 알림 받기', labelEnd=true, checked=true) }}
+{% call checkbox(id='checkbox-marketing', labelEnd=true) %}
+  <span class="checkbox_content">
+    <span class="checkbox_label">마케팅 정보 수신</span>
+    <span class="checkbox_hint">이벤트·할인 소식을 이메일로 받습니다.</span>
+  </span>
+{% endcall %}
+
+{% call checkboxGroup(legend='알림 설정 — checkbox_group_block', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ checkbox(id='checkbox-email', label='이메일 알림', labelEnd=true, checked=true) }}
+  {{ checkbox(id='checkbox-push-group', label='푸시 알림', labelEnd=true, checked=true) }}
+  {{ checkbox(id='checkbox-sms', label='SMS 알림', labelEnd=true) }}
+{% endcall %}
+
+{{ checkbox(id='checkbox-small-end', label='Small — checkbox_sm', labelEnd=true, checked=true, className='checkbox_sm') }}
+{{ checkbox(id='checkbox-large-end', label='Large — checkbox_lg', labelEnd=true, checked=true, className='checkbox_lg') }}`,
+  basic: `${checkboxImport}
+
+{% call checkboxField(label='알림 설정', labelId='checkbox-notify-label') %}
+  {% call checkboxGroup(ariaLabelledby='checkbox-notify-label') %}
+    {% call checkbox(id='checkbox-notify-email', checked=true) %}
+      <span class="checkbox_content">
+        <span class="checkbox_label">이메일 알림</span>
+        <span class="checkbox_hint">중요 공지와 계정 관련 메일을 받습니다.</span>
+      </span>
+    {% endcall %}
+    {% call checkbox(id='checkbox-notify-push') %}
+      <span class="checkbox_content">
+        <span class="checkbox_label">푸시 알림</span>
+        <span class="checkbox_hint">모바일·브라우저 푸시를 허용합니다.</span>
+      </span>
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+  standalone: `${checkboxImport}
+
+{{ checkbox(id='checkbox-select', ariaLabel='항목 선택') }}
+{{ checkbox(id='checkbox-selected', checked=true, ariaLabel='선택됨') }}
+{{ checkbox(id='checkbox-disabled', disabled=true, ariaLabel='비활성') }}`,
+  size: `${checkboxImport}
+
+{{ checkbox(id='checkbox-sm', label='Small — checkbox_sm', checked=true, className='checkbox_sm') }}
+{{ checkbox(id='checkbox-md', label='Medium — 기본', checked=true) }}
+{{ checkbox(id='checkbox-lg', label='Large — checkbox_lg', checked=true, className='checkbox_lg') }}`,
+  width: `${checkboxImport}
+
+{{ checkbox(id='checkbox-inline', label='기본 — 인라인 너비', checked=true) }}
+{{ checkbox(id='checkbox-block', label='checkbox_block — 전체 너비', checked=true, className='checkbox_block') }}
+
+{% call checkboxGroup(legend='checkbox_group_block', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ checkbox(id='checkbox-block-1', label='항목 1', checked=true) }}
+  {{ checkbox(id='checkbox-block-2', label='항목 2') }}
+{% endcall %}`,
+  color: `${checkboxImport}
+
+{% set colors = ['primary', 'success', 'danger', 'warning'] %}
+{% for color in colors %}
+  {{ checkbox(id='checkbox-' + color, label=color | capitalize, checked=true, className='color_' + color) }}
+{% endfor %}`,
+  state: `${checkboxImport}
+
+{{ checkbox(id='checkbox-unchecked', label='미선택') }}
+{{ checkbox(id='checkbox-checked', label='선택됨', checked=true) }}
+{{ checkbox(id='checkbox-indeterminate', label='불확정', checked=true, indeterminate=true) }}
+{{ checkbox(id='checkbox-state-disabled', label='비활성', disabled=true) }}
+{{ checkbox(id='checkbox-checked-disabled', label='선택됨 (비활성)', checked=true, disabled=true) }}`,
+  group: `${checkboxImport}
+
+{% call checkboxGroup(legend='관심 분야 (세로)') %}
+  {{ checkbox(id='checkbox-design', label='디자인', checked=true) }}
+  {{ checkbox(id='checkbox-development', label='개발') }}
+  {{ checkbox(id='checkbox-planning', label='기획') }}
+{% endcall %}
+
+{% call checkboxGroup(legend='언어 (가로)', horizontal=true) %}
+  {{ checkbox(id='checkbox-ko', label='한국어', button=true, checked=true) }}
+  {{ checkbox(id='checkbox-en', label='English', button=true, checked=true) }}
+  {{ checkbox(id='checkbox-ja', label='日本語', button=true) }}
+{% endcall %}`,
+  buttonType: `${checkboxImport}
+
+{% call checkboxGroup(horizontal=true) %}
+  {{ checkbox(id='checkbox-all', label='전체', button=true, checked=true) }}
+  {{ checkbox(id='checkbox-progress', label='진행 중', button=true) }}
+  {{ checkbox(id='checkbox-complete', label='완료', button=true) }}
+  {{ checkbox(id='checkbox-pending', label='보류 (비활성)', button=true, disabled=true) }}
+{% endcall %}
+
+{% call checkboxGroup(horizontal=true) %}
+  {{ checkbox(id='checkbox-button-sm', label='Small', button=true, checked=true, className='checkbox_sm color_success') }}
+  {{ checkbox(id='checkbox-button-md', label='Medium', button=true, checked=true, className='color_success') }}
+  {{ checkbox(id='checkbox-button-lg', label='Large', button=true, checked=true, className='checkbox_lg color_success') }}
+{% endcall %}`,
+  cardType: `${checkboxImport}
+${cardImport}
+
+{% set plans = [
+  { id: 'basic', title: 'Basic', price: '월 9,000원', description: '개인 프로젝트에 적합합니다.', checked: true },
+  { id: 'pro', title: 'Pro', price: '월 29,000원', description: '팀 협업과 고급 기능을 제공합니다.', color: 'color_primary' },
+  { id: 'enterprise', title: 'Enterprise', price: '별도 문의', description: '대규모 조직용 맞춤 플랜입니다. (비활성)', disabled: true }
+] %}
+{% call checkboxGroup(legend='요금제 선택 (다중)') %}
+  {% call cardDeck(columns=2) %}
+    {% for plan in plans %}
+      {% set control %}{{ checkbox(id='checkbox-plan-' + plan.id, name='plan', value=plan.id, checked=plan.checked, disabled=plan.disabled, ariaLabel=plan.title + ' 선택') }}{% endset %}
+      <div class="checkbox_card{{ (' ' + plan.color) if plan.color else '' }}">
+        {% call card(title=plan.title, subtitle=plan.price, extra=control, compact=true, variant='shadow') %}
+          {% call cardBody() %}{{ plan.description }}{% endcall %}
+        {% endcall %}
+      </div>
+    {% endfor %}
+  {% endcall %}
+{% endcall %}`,
+  form: `${checkboxImport}
+
+<form class="form form_vertical form_fit">
+  {% call checkboxField(label='수신 동의', labelId='checkbox-form-vertical-label') %}
+    {% call checkboxGroup(ariaLabelledby='checkbox-form-vertical-label') %}
+      {{ checkbox(id='checkbox-marketing-form', label='마케팅 정보 수신', checked=true) }}
+      {{ checkbox(id='checkbox-newsletter', label='뉴스레터 구독') }}
+    {% endcall %}
+  {% endcall %}
+</form>
+
+<form class="form form_horizontal form_fit">
+  {% call checkboxField(label='권한', labelId='checkbox-form-horizontal-label') %}
+    {% call checkboxGroup(horizontal=true, ariaLabelledby='checkbox-form-horizontal-label') %}
+      {{ checkbox(id='checkbox-read', label='조회', button=true, checked=true) }}
+      {{ checkbox(id='checkbox-edit', label='편집', button=true) }}
+    {% endcall %}
+  {% endcall %}
+</form>`
+};
+
 function examples(key: string, source: Source): FrameworkExample[] {
-  const gulp = `{# apps/gulp/src/components/form/Checkbox/checkbox.njk #}\\n\${source.html}`;
+  const gulp = checkboxGulpExamples[key];
   return [
-    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Checkbox/Checkbox.html · \${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Checkbox/checkbox.njk · \${key}`, code: gulp },
-    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/checkbox · \${key}`, code: source.vue },
-    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/checkbox · \${key}`, code: source.vue },
-    { id: 'react', label: 'React', fileName: `@uxkm/react/checkbox · \${key}`, code: source.react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/checkbox · \${key}`, code: source.react }
+    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Checkbox/Checkbox.html · ${key}`, code: source.html },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Checkbox/checkbox.njk · ${key}`, code: gulp },
+    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/checkbox · ${key}`, code: source.vue },
+    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/checkbox · ${key}`, code: source.vue },
+    { id: 'react', label: 'React', fileName: `@uxkm/react/checkbox · ${key}`, code: source.react },
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/checkbox · ${key}`, code: source.react }
   ];
 }
 
 export const checkboxFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<string, FrameworkExample[]>;
-

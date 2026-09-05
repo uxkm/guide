@@ -1,0 +1,74 @@
+{% extends "templates/layouts/default.njk" %}
+{% from "templates/partials/component-demo.njk" import componentDemo %}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/basic/Icon/icon.njk" import icon %}
+{% from "components/basic/Link/link.njk" import link %}
+{% from "components/basic/Typography/typography.njk" import typoTitle, typoText %}
+
+{% set title = "UXKM Gulp · Basic" %}
+
+{% block content %}
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/components.html">컴포넌트</a> · Basic</p>
+      <h1>Basic</h1>
+      <p class="lead">기본 요소 컴포넌트를 Nunjucks macro로 렌더합니다.</p>
+    </header>
+
+    {% call componentDemo('Button', 'components/basic/Button/button.njk', 'button') %}
+      <div class="btn_row btn_row-wrap">
+        {{ button(variant='filled', color='primary', label='Filled Primary') }}
+        {{ button(variant='outline', color='primary', label='Outline') }}
+        {{ button(variant='ghost', label='Ghost') }}
+        {{ button(variant='text', color='primary', label='Text') }}
+        {{ button(variant='select', label='옵션 선택', haspopup='listbox') }}
+        {{ button(variant='ghost', iconOnly=true, iconBefore='search', ariaLabel='검색') }}
+        {{ button(variant='filled', color='primary', loading=true, label='저장 중') }}
+      </div>
+    {% endcall %}
+
+    {% call componentDemo('Icon', 'components/basic/Icon/icon.njk', 'icon') %}
+      <div class="icon_group">
+        {{ icon(name='search') }}
+        {{ icon(name='edit') }}
+        {{ icon(name='trash') }}
+        {{ icon(name='plus', size='lg', color='primary') }}
+        {{ icon(name='check', circle=true, color='success', size='sm') }}
+        {{ icon(name='settings', button=true, color='muted', ariaLabel='설정') }}
+        {{ icon(name='loader', spin=true, color='primary') }}
+      </div>
+    {% endcall %}
+
+    {% call componentDemo('Link', 'components/basic/Link/link.njk', 'link') %}
+      <div class="link_row">
+        {{ link(label='더 보기') }}
+        {{ link(underline=true, label='항상 밑줄') }}
+        {{ link(nav=true, active=true, label='개요') }}
+        {{ link(color='muted', back=true, icon='arrow-left', label='목록으로 돌아가기') }}
+        {{ link(iconOnly=true, icon='search', ariaLabel='검색') }}
+        {{ link(icon='download', label='다운로드') }}
+        {{ link(disabled=true, label='비활성 링크') }}
+      </div>
+    {% endcall %}
+
+    {% call componentDemo('Typography', 'components/basic/Typography/typography.njk', 'typography') %}
+      <div class="typo_stack-lg">
+        {{ typoTitle(level=1, label='제목 레벨 1') }}
+        {{ typoTitle(level=3, label='제목 레벨 3') }}
+        {{ typoText(label='기본 본문 텍스트입니다.') }}
+        {{ typoText(variant='paragraph', label='단락 간격이 있는 본문입니다.') }}
+        <p>
+          {{ typoText(variant='strong', label='강조 텍스트') }}와
+          {{ typoText(tag='span', color='muted', label='보조 설명') }}
+        </p>
+        <div style="max-width: 320px; width: 100%;">
+          {{ typoText(ellipsis=1, label='한 줄로 말줄임되는 긴 본문입니다. Lorem ipsum dolor sit amet.') }}
+        </div>
+      </div>
+    {% endcall %}
+
+    <p><a class="link color_primary" href="/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+{% endblock %}

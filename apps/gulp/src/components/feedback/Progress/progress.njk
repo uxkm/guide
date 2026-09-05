@@ -1,53 +1,90 @@
-{# Progress 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# circle이면 원형, 아니면 선형 진행률을 렌더합니다. #}
-{% set value = percent | default(0) %}
-{% set progressColor = 'success' if status == 'success' else ('danger' if status == 'exception' else color | default('primary')) %}
-{% if circle %}
-{# 원형 진행률: --progress-percent로 stroke를 제어합니다. #}
+{# Progress 원본 구현: 선형·원형 진행률을 호출형 macro로 구성합니다. #}
+
+{% macro progressHeader(label='', percent=0, showInfo=false, className='') %}
+<div class="progress_header{{ (' ' + className) if className else '' }}">
+  {% if label %}<span class="progress_label">{{ label }}</span>{% endif %}
+  {% if showInfo %}<span class="progress_value">{{ percent }}%</span>{% endif %}
+</div>
+{% endmacro %}
+
+{% macro progressTrack(percent=0, indeterminate=false, inside=false, ariaLabel='진행률', className='') %}
 <div
-  class="progress progress_circle color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}"
+  class="progress_track{{ (' ' + className) if className else '' }}"
+  role="progressbar"
+  {% if not indeterminate %}aria-valuenow="{{ percent }}"{% endif %}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-label="{{ ariaLabel }}"
+  {% if indeterminate %}aria-busy="true"{% endif %}
+>
+  <span class="progress_bar" style="width: {{ percent }}%">{% if inside %}{{ percent }}%{% endif %}</span>
+</div>
+{% endmacro %}
+
+{% macro progressCircle(
+  percent=0,
+  status='',
+  color='primary',
+  size='md',
+  ariaLabel='진행률',
+  className=''
+) %}
+{%- set value = 0 if percent < 0 else (100 if percent > 100 else percent) -%}
+{%- set resolvedColor = 'success' if status == 'success' else ('danger' if status == 'exception' else (color if color in ['primary', 'success', 'warning', 'danger'] else 'primary')) -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+<div
+  class="progress progress_circle color_{{ resolvedColor }}{% if resolvedSize != 'md' %} progress_{{ resolvedSize }}{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="ProgressCircle"
   data-percent="{{ value }}"
   role="progressbar"
   aria-valuenow="{{ value }}"
   aria-valuemin="0"
   aria-valuemax="100"
-  aria-label="{{ ariaLabel | default('진행률') }}"
+  aria-label="{{ ariaLabel }}"
   style="--progress-percent: {{ value }}"
 >
   <svg class="progress_circle-svg" viewBox="0 0 100 100" aria-hidden="true">
     <circle class="progress_circle-track" cx="50" cy="50" r="45"></circle>
-    <circle class="progress_circle-bar" cx="50" cy="50" r="45"></circle></svg
-  ><span class="progress_circle-value">{{ value }}%</span>
+    <circle class="progress_circle-bar" cx="50" cy="50" r="45"></circle>
+  </svg>
+  <span class="progress_circle-value">{{ value }}%</span>
 </div>
+{% endmacro %}
+
+{% macro progress(
+  percent=0,
+  status='',
+  color='primary',
+  size='md',
+  showInfo=false,
+  label='',
+  striped=false,
+  animated=false,
+  indeterminate=false,
+  inside=false,
+  block=false,
+  circle=false,
+  ariaLabel='진행률',
+  className=''
+) %}
+{%- set value = 0 if percent < 0 else (100 if percent > 100 else percent) -%}
+{%- set resolvedColor = 'success' if status == 'success' else ('danger' if status == 'exception' else (color if color in ['primary', 'success', 'warning', 'danger'] else 'primary')) -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{% if circle %}
+  {{ progressCircle(percent=value, status=status, color=resolvedColor, size=resolvedSize, ariaLabel=ariaLabel, className=className) }}
 {% else %}
-{# 선형 진행률: 트랙이 progressbar 역할을 담당합니다. #}
 <div
-  class="progress {{ 'progress_block' if block else 'progress_fit' }} color_{{ progressColor }}{% if size and size != 'md' %} progress_{{ size }}{% endif %}{% if striped %} progress_striped{% endif %}{% if animated %} progress_animated{% endif %}{% if indeterminate %} is-indeterminate{% endif %}{% if inside %} progress_inside{% endif %}"
+  class="progress {{ 'progress_block' if block else 'progress_fit' }} color_{{ resolvedColor }}{% if resolvedSize != 'md' %} progress_{{ resolvedSize }}{% endif %}{% if striped %} progress_striped{% endif %}{% if animated %} progress_animated{% endif %}{% if indeterminate %} is-indeterminate{% endif %}{% if inside %} progress_inside{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="Progress"
   data-percent="{{ value }}"
 >
   {% if showInfo or label %}
-  <div class="progress_header">
-    {% if label %}<span class="progress_label">{{ label }}</span
-    >{% endif %}{% if showInfo %}<span class="progress_value"
-      >{{ value }}%</span
-    >{% endif %}
-  </div>
+    {{ progressHeader(label=label, percent=value, showInfo=showInfo) }}
   {% endif %}
-  {# 트랙과 채움 막대입니다. #}
-  <div
-    class="progress_track"
-    role="progressbar"{% if not indeterminate %}
-    aria-valuenow="{{ value }}"{% endif %}
-    aria-valuemin="0"
-    aria-valuemax="100"
-    aria-label="{{ ariaLabel | default('진행률') }}"{% if indeterminate %}
-    aria-busy="true"{% endif %}
-  >
-    <span class="progress_bar" style="width: {{ value }}%"
-      >{% if inside %}{{ value }}%{% endif %}</span
-    >
-  </div>
+  {{ progressTrack(percent=value, indeterminate=indeterminate, inside=inside, ariaLabel=ariaLabel) }}
 </div>
 {% endif %}
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ progress(percent=64, showInfo=true, label='진행률') }}

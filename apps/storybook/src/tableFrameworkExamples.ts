@@ -1,6 +1,6 @@
 import type { FrameworkExample } from './FrameworkCode';
 
-type Code = { html: string; react: string; vue: string };
+type Code = { html: string; gulp: string; react: string; vue: string };
 
 function makeTableExamples(key: string, code: Code): FrameworkExample[] {
   const react = `import { Table } from '@uxkm/react/table';
@@ -13,7 +13,7 @@ ${code.react}`;
   );
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/data-display/Table/Table.html · ${key}`, code: code.html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Table/table.njk · ${key}`, code: `{# Table · ${key} #}\n${code.html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Table/table.njk · ${key}`, code: code.gulp },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/table · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/table · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/table · ${key}`, code: react },
@@ -28,6 +28,75 @@ const wideRows = longRows.slice(0, 6).map((row, index) => [row[0], row[1], Strin
 const columns = [{ width: '9rem', nowrap: true }, { minWidth: '10rem' }, { width: '7rem', nowrap: true }];
 const wideColumns = [{ width: '8rem', nowrap: true }, { width: '10rem', nowrap: true }, { width: '10rem' }, { width: '10rem' }, { width: '10rem' }];
 
+type TableOptions = {
+  classes?: string;
+  badge?: boolean;
+  scroll?: boolean;
+  maxHeight?: string;
+  columns?: Array<Record<string, unknown>>;
+  wide?: boolean;
+  stickyLeftOffsets?: Record<string, string>;
+};
+
+const njkQuote = (value: string) => `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
+const njkRows = (data: string[][]) => `[\n${data.map((row) => `  [${row.map(njkQuote).join(', ')}]`).join(',\n')}\n]`;
+const njkObjects = (items: Array<Record<string, unknown>>) => `[\n${items.map((item) => {
+  const entries = Object.entries(item).map(([key, value]) => `${key}: ${typeof value === 'string' ? njkQuote(value) : value}`);
+  return `  { ${entries.join(', ')} }`;
+}).join(',\n')}\n]`;
+
+function gulpTable(data: string[][], options: TableOptions = {}) {
+  const classes = new Set((options.classes ?? 'table').split(/\s+/));
+  const headers = options.wide ? ['이름', '부서', '1월', '2월', '3월'] : ['이름', '구분', '상태'];
+  const stickyCols = [...classes].find((className) => /^table_sticky-cols-[1-4]$/.test(className))?.slice(-1);
+  const args = [
+    classes.has('table_bordered') ? 'bordered=true' : '',
+    classes.has('table_striped') ? 'striped=true' : '',
+    classes.has('table_compact') ? 'compact=true' : '',
+    classes.has('table_hover') ? 'hover=true' : '',
+    options.scroll ? 'scroll=true' : '',
+    options.maxHeight ? `scrollMaxHeight='${options.maxHeight}'` : '',
+    classes.has('table_sticky-top') ? 'stickyTop=true' : '',
+    classes.has('table_sticky-left') ? 'stickyLeft=true' : '',
+    stickyCols && stickyCols !== '1' ? `stickyCols=${stickyCols}` : '',
+    options.stickyLeftOffsets ? 'stickyLeftOffsets=stickyLeftOffsets' : '',
+    options.columns?.length ? 'columns=columns' : '',
+    options.wide ? "style='min-width: 48rem'" : ''
+  ].filter(Boolean);
+  const imports = [
+    `{% from "components/data-display/Table/table.njk" import table %}`,
+    options.badge ? `{% from "components/data-display/Badge/badge.njk" import badge %}` : ''
+  ].filter(Boolean).join('\n');
+  const columns = options.columns?.length ? `\n{% set columns = ${njkObjects(options.columns)} %}` : '';
+  const offsets = options.stickyLeftOffsets
+    ? `\n{% set stickyLeftOffsets = { ${Object.entries(options.stickyLeftOffsets).map(([position, offset]) => `${njkQuote(position)}: ${njkQuote(offset)}`).join(', ')} } %}`
+    : '';
+  const cells = options.badge
+    ? `          {% if loop.index == 3 %}\n            <td>{{ badge(color='success' if cell == '활성' else 'warning', label=cell) }}</td>\n          {% else %}\n            <td>{{ cell }}</td>\n          {% endif %}`
+    : '          <td>{{ cell }}</td>';
+
+  return `${imports}
+
+{% set rows = ${njkRows(data)} %}${columns}${offsets}
+
+{% call table(${args.join(', ')}) %}
+  <thead>
+    <tr>
+${headers.map((header) => `      <th scope="col">${header}</th>`).join('\n')}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+      <tr>
+        {% for cell in row %}
+${cells}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+{% endcall %}`;
+}
+
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const htmlCols = (items?: Array<Record<string, unknown>>) => items?.length
   ? `<colgroup>${items.map((column) => {
@@ -39,7 +108,7 @@ const htmlRows = (data: string[][], badge = false) => data.map((row) => `      <
   if (badge && index === 2) return `<td><span class="badge color_${cell === '활성' ? 'success' : 'warning'}">${escapeHtml(cell)}</span></td>`;
   return `<td>${escapeHtml(cell)}</td>`;
 }).join('')}</tr>`).join('\n');
-function htmlTable(data: string[][], options: { classes?: string; badge?: boolean; scroll?: boolean; maxHeight?: string; columns?: Array<Record<string, unknown>>; wide?: boolean } = {}) {
+function htmlTable(data: string[][], options: TableOptions = {}) {
   const headers = options.wide ? ['이름', '부서', '1월', '2월', '3월'] : ['이름', '구분', '상태'];
   const wrapper = ['table_wrap', options.scroll && 'table_wrap-scroll'].filter(Boolean).join(' ');
   const style = [options.maxHeight && `--table-scroll-max-height: ${options.maxHeight}`, options.wide && 'min-width: 48rem'].filter(Boolean).join('; ');
@@ -126,8 +195,10 @@ const columns = ${columnsSource.trimStart()};
 
 const standard = (key: string, data: string[][], options: { props?: string; vueProps?: string; classes?: string; badge?: boolean; columns?: boolean; scroll?: boolean; maxHeight?: string }) => {
   const code = standardCode(data, options.props ?? '', options.vueProps ?? options.props ?? '', options.badge, options.columns);
+  const tableOptions = { classes: options.classes, badge: options.badge, columns: options.columns ? columns : undefined, scroll: options.scroll, maxHeight: options.maxHeight };
   return makeTableExamples(key, {
-    html: htmlTable(data, { classes: options.classes, badge: options.badge, columns: options.columns ? columns : undefined, scroll: options.scroll, maxHeight: options.maxHeight }),
+    html: htmlTable(data, tableOptions),
+    gulp: gulpTable(data, tableOptions),
     ...code
   });
 };
@@ -140,7 +211,7 @@ export const tableFrameworkExamples = {
   hover: standard('hover', members, { props: 'hover columns={columns}', vueProps: 'hover :columns="columns"', classes: 'table table_hover table_columns', badge: true, columns: true }),
   combined: standard('combined', members, { props: 'bordered compact hover', classes: 'table table_bordered table_compact table_hover' }),
   stickyTop: standard('stickyTop', longRows, { props: 'scroll scrollMaxHeight="14rem" stickyTop bordered compact', vueProps: 'scroll scroll-max-height="14rem" sticky-top bordered compact', classes: 'table table_sticky-top table_bordered table_compact', scroll: true, maxHeight: '14rem' }),
-  stickyLeft: (() => { const code = wideCode('scroll stickyLeft', 'scroll sticky-left'); return makeTableExamples('stickyLeft', { html: htmlTable(wideRows, { classes: 'table table_columns table_sticky-left table_sticky-cols-1', columns: wideColumns, scroll: true, wide: true }), ...code }); })(),
-  stickyColumns: (() => { const code = wideCode("scroll stickyLeft stickyCols={2} stickyLeftOffsets={{ 2: '8rem' }}", `scroll sticky-left :sticky-cols="2" :sticky-left-offsets="{ 2: '8rem' }"`); return makeTableExamples('stickyColumns', { html: htmlTable(wideRows, { classes: 'table table_columns table_sticky-left table_sticky-cols-2', columns: wideColumns, scroll: true, wide: true }).replace('style="', 'style="--table-sticky-left-2: 8rem; '), ...code }); })(),
-  stickyBoth: (() => { const code = wideCode("scroll scrollMaxHeight=\"14rem\" stickyTop stickyLeft stickyCols={2} stickyLeftOffsets={{ 2: '8rem' }} bordered compact", `scroll scroll-max-height="14rem" sticky-top sticky-left :sticky-cols="2" :sticky-left-offsets="{ 2: '8rem' }" bordered compact`); return makeTableExamples('stickyBoth', { html: htmlTable(wideRows, { classes: 'table table_columns table_bordered table_compact table_sticky-top table_sticky-left table_sticky-cols-2', columns: wideColumns, scroll: true, maxHeight: '14rem', wide: true }).replace('style="', 'style="--table-sticky-left-2: 8rem; '), ...code }); })()
+  stickyLeft: (() => { const code = wideCode('scroll stickyLeft', 'scroll sticky-left'); const options = { classes: 'table table_columns table_sticky-left table_sticky-cols-1', columns: wideColumns, scroll: true, wide: true }; return makeTableExamples('stickyLeft', { html: htmlTable(wideRows, options), gulp: gulpTable(wideRows, options), ...code }); })(),
+  stickyColumns: (() => { const code = wideCode("scroll stickyLeft stickyCols={2} stickyLeftOffsets={{ 2: '8rem' }}", `scroll sticky-left :sticky-cols="2" :sticky-left-offsets="{ 2: '8rem' }"`); const options = { classes: 'table table_columns table_sticky-left table_sticky-cols-2', columns: wideColumns, scroll: true, wide: true, stickyLeftOffsets: { '2': '8rem' } }; return makeTableExamples('stickyColumns', { html: htmlTable(wideRows, options).replace('style="', 'style="--table-sticky-left-2: 8rem; '), gulp: gulpTable(wideRows, options), ...code }); })(),
+  stickyBoth: (() => { const code = wideCode("scroll scrollMaxHeight=\"14rem\" stickyTop stickyLeft stickyCols={2} stickyLeftOffsets={{ 2: '8rem' }} bordered compact", `scroll scroll-max-height="14rem" sticky-top sticky-left :sticky-cols="2" :sticky-left-offsets="{ 2: '8rem' }" bordered compact`); const options = { classes: 'table table_columns table_bordered table_compact table_sticky-top table_sticky-left table_sticky-cols-2', columns: wideColumns, scroll: true, maxHeight: '14rem', wide: true, stickyLeftOffsets: { '2': '8rem' } }; return makeTableExamples('stickyBoth', { html: htmlTable(wideRows, options).replace('style="', 'style="--table-sticky-left-2: 8rem; '), gulp: gulpTable(wideRows, options), ...code }); })()
 };

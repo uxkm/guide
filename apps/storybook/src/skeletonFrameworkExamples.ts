@@ -73,12 +73,50 @@ const html: Record<Name, string> = {
 </div>`,
 };
 
+const gulp: Record<Name, string> = {
+  basic: `{% from "components/feedback/Skeleton/skeleton.njk" import skeleton %}
+
+<div style="max-width: var(--input-max-width); width: 100%;">
+  {{ skeleton(paragraph=3) }}
+</div>`,
+  shape: `{% from "components/feedback/Skeleton/skeleton.njk" import skeleton %}
+
+{{ skeleton(avatar=true, paragraph=0, ariaLabel='아바타 로딩 중') }}
+{{ skeleton(round=true, ariaLabel='원형 콘텐츠 로딩 중', style='margin-top: var(--space-md)') }}`,
+  card: `{% from "components/feedback/Skeleton/skeleton.njk" import skeleton, skeletonItem, skeletonRow %}
+{% from "components/data-display/Card/card.njk" import card, cardBody %}
+
+{% call card(
+  variant='shadow',
+  role='status',
+  style='max-width: 360px; width: 100%'
+) %}
+  {% call cardBody() %}
+    {% call skeleton(paragraph=0, ariaLabel='카드 콘텐츠 로딩 중') %}
+      {{ skeletonItem(type='image') }}
+      {{ skeletonItem(type='title', width='md') }}
+      {{ skeletonItem(type='text') }}
+      {{ skeletonItem(type='text', width='lg') }}
+      {% call skeletonRow(style='margin-top: var(--space-xs)') %}
+        {{ skeletonItem(type='button') }}
+        {{ skeletonItem(type='button', style='width: 4rem') }}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+{% endcall %}`,
+  static: `{% from "components/feedback/Skeleton/skeleton.njk" import skeleton %}
+
+<div style="max-width: var(--input-max-width); width: 100%;">
+  {{ skeleton(active=false, paragraph=3) }}
+</div>`,
+};
+
 function examples(key: Name): FrameworkExample[] {
   const reactCode = `import Skeleton from '@uxkm/react/skeleton';\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\nimport Skeleton from '@uxkm/vue/skeleton';\n</script>\n<template>\n${vue[key]}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Skeleton.html · ${key}`, code: html[key] },
-    { id: 'gulp', label: 'Gulp', fileName: `skeleton.njk · ${key}`, code: html[key] },
+    { id: 'gulp', label: 'Gulp', fileName: `skeleton.njk · ${key}`, code: gulp[key] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/skeleton · ${key}`, code: vueCode },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/skeleton · ${key}`, code: vueCode },
     { id: 'react', label: 'React', fileName: `@uxkm/react/skeleton · ${key}`, code: reactCode },

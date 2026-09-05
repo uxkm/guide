@@ -69,6 +69,74 @@ const sources: Record<string, Source> = {
   },
 };
 
+const snackbarImport = `{% from "components/feedback/Snackbar/snackbar.njk" import snackbar, snackbarRegion %}`;
+const buttonImport = `{% from "components/basic/Button/button.njk" import button %}`;
+const snackbarGulpExamples: Record<string, string> = {
+  basic: `${snackbarImport}
+
+{% set messages = [
+  { color: 'info', message: '새로운 업데이트가 있습니다.' },
+  { color: 'success', message: '변경 사항을 저장했습니다.' },
+  { color: 'warning', message: '세션이 곧 만료됩니다.' },
+  { color: 'danger', role: 'alert', message: '저장하지 못했습니다.' }
+] %}
+{% for item in messages %}
+  {{ snackbar(color=item.color, role=item.role | default('status'), message=item.message, motion='none') }}
+{% endfor %}`,
+  simple: `${snackbarImport}
+
+{{ snackbar(message='인터넷 연결이 복구되었습니다.', showIcon=false, motion='none') }}`,
+  shape: `${snackbarImport}
+
+{{ snackbar(message='기본 스퀘어 라운드', motion='none') }}
+{{ snackbar(message='비율형 캡슐 라운드', color='success', round=true, motion='none') }}`,
+  motion: `${snackbarImport}
+
+{{ snackbar(message='Fade 효과', motion='fade') }}
+{{ snackbar(message='우측 Slide 효과', color='success', motion='slide', placement='middle-end') }}
+{{ snackbar(message='전환 효과 없음', color='warning', motion='none') }}`,
+  size: `${snackbarImport}
+
+{{ snackbar(message='Small Snackbar', size='sm', motion='none') }}
+{{ snackbar(message='Medium Snackbar', motion='none') }}
+{{ snackbar(message='Large Snackbar', size='lg', motion='none') }}`,
+  action: `${snackbarImport}
+${buttonImport}
+
+{% set undoAction %}
+  {{ button(variant='ghost', color='', size='sm', label='실행 취소') }}
+{% endset %}
+{{ snackbar(color='success', message='항목을 삭제했습니다.', action=undoAction, motion='none') }}`,
+  closable: `${snackbarImport}
+
+{{ snackbar(
+  color='warning',
+  message='브라우저를 최신 버전으로 업데이트해 주세요.',
+  closable=true,
+  motion='none'
+) }}`,
+  duration: `${snackbarImport}
+
+{{ snackbar(
+  color='success',
+  message='4초 후 자동으로 닫힙니다.',
+  duration=4000,
+  motion='fade'
+) }}`,
+  placement: `${snackbarImport}
+
+{% call snackbarRegion(placement='bottom-center', label='알림 영역') %}
+  {{ snackbar(
+    id='saved-snackbar',
+    color='success',
+    message='변경 사항을 저장했습니다.',
+    motion='slide',
+    placement='bottom-center',
+    closable=true
+  ) }}
+{% endcall %}`
+};
+
 const indent = (value: string, spaces: number) => value.split('\n').map((line) => `${' '.repeat(spaces)}${line}`).join('\n');
 
 function createExamples(key: string, source: Source): FrameworkExample[] {
@@ -80,7 +148,7 @@ function createExamples(key: string, source: Source): FrameworkExample[] {
   const vue = `<script setup>\n${vueImports}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `Snackbar.html · ${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `snackbar.njk · ${key}`, code: source.html },
+    { id: 'gulp', label: 'Gulp', fileName: `snackbar.njk · ${key}`, code: snackbarGulpExamples[key] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/snackbar · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/snackbar · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/snackbar · ${key}`, code: react },

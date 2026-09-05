@@ -1,37 +1,97 @@
-{# Tag 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-<div class="tag_group" {# Tag 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="TagGroup" role="group" aria-label="카테고리 필터">
-  {# 내부에 데이터 표시 콘텐츠를 배치합니다. #}
-  <button
-    class="tag tag_checkable color_default is-selected"
-    data-component="Tag"
-    data-ripple="true"
-    type="button"
-    aria-pressed="true"
+{# Tag 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 접근성 의미를 연결합니다. #}
+{# tag · tagGroup macro로 스킨·상태·닫기·선택·링크·그룹을 조합합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro tag(
+  label = '',
+  icon = '',
+  color = 'primary',
+  variant = 'filled',
+  size = 'md',
+  round = false,
+  checkable = false,
+  add = false,
+  closable = false,
+  selected = false,
+  disabled = false,
+  href = '',
+  ripple = '',
+  closeLabel = '',
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- set resolvedVariant = variant if variant in ['filled', 'solid', 'outline', 'borderless'] else 'filled' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set interactive = checkable or add or href -%}
+{%- set splitControl = closable and interactive -%}
+{%- set classes =
+  'tag'
+  + ' color_' + color
+  + ((' tag_' + resolvedVariant) if resolvedVariant != 'filled' else '')
+  + ((' tag_' + resolvedSize) if resolvedSize != 'md' else '')
+  + (' tag_round' if round else '')
+  + (' tag_checkable' if checkable else '')
+  + (' tag_add' if add else '')
+  + (' is-selected' if selected else '')
+  + (' is-disabled' if disabled else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- set rippleValue = 'false' if ripple == false else ('true' if ripple == true or interactive else '') -%}
+{%- set closeText = closeLabel if closeLabel else ((label + ' 태그 제거') if label else '태그 제거') -%}
+{%- if splitControl -%}
+<span class="{{ classes }}" data-component="Tag" {% if disabled %}aria-disabled="true"{% endif %}>
+  <{{ 'button' if checkable or add else 'a' }}
+    class="tag_control"
+    {% if rippleValue %}data-ripple="{{ rippleValue }}"{% endif %}
+    {% if checkable %}aria-pressed="{{ 'true' if selected else 'false' }}"{% endif %}
+    {% if checkable or add %}type="button"{% endif %}
+    {% if checkable or add %}{% if disabled %}disabled{% endif %}{% else %}href="{{ href if href and not disabled else '#' }}"{% if disabled %} aria-disabled="true" tabindex="-1"{% endif %}{% endif %}
   >
-    전체
+    {%- if icon -%}<span class="tag_icon" aria-hidden="true">{{ Icon.icon(name=icon) }}</span>{%- endif -%}
+    {{ content | safe }}
+  </{{ 'button' if checkable or add else 'a' }}>
+  <button class="tag_close" type="button" aria-label="{{ closeText }}" {% if disabled %}disabled{% endif %}>
+    {{ Icon.icon(name='close') }}
   </button>
-  <button
-    class="tag tag_checkable color_default"
-    data-component="Tag"
-    data-ripple="true"
-    type="button"
-    aria-pressed="false"
-  >
-    UI
+</span>
+{%- else -%}
+<{{ 'button' if checkable or add else ('a' if href else 'span') }}
+  class="{{ classes }}"
+  data-component="Tag"
+  {% if rippleValue %}data-ripple="{{ rippleValue }}"{% endif %}
+  {% if checkable %}aria-pressed="{{ 'true' if selected else 'false' }}"{% endif %}
+  {% if checkable or add %}type="button"{% endif %}
+  {% if checkable or add %}{% if disabled %}disabled{% endif %}{% endif %}
+  {% if href and not (checkable or add) %}href="{{ href if not disabled else '#' }}"{% endif %}
+  {% if href and disabled and not (checkable or add) %}aria-disabled="true" tabindex="-1"{% endif %}
+  {% if not (checkable or add) and disabled and not href %}aria-disabled="true"{% endif %}
+>
+  {%- if icon -%}<span class="tag_icon" aria-hidden="true">{{ Icon.icon(name=icon) }}</span>{%- endif -%}
+  {{ content | safe }}
+  {%- if closable -%}
+  <button class="tag_close" type="button" aria-label="{{ closeText }}" {% if disabled %}disabled{% endif %}>
+    {{ Icon.icon(name='close') }}
   </button>
-  <span class="tag color_primary" data-component="Tag">
-    React
-    <button class="tag_close" type="button" aria-label="React 태그 제거">
-      <svg
-        aria-hidden="true"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="m6 6 12 12M18 6 6 18"></path>
-      </svg>
-    </button>
-  </span>
+  {%- endif -%}
+</{{ 'button' if checkable or add else ('a' if href else 'span') }}>
+{%- endif -%}
+{% endmacro %}
+
+{% macro tagGroup(tight = false, ariaLabel = '', className = '') %}
+{%- set content = caller() if caller else '' -%}
+{%- set classes = 'tag_group' + (' tag_group-tight' if tight else '') + ((' ' + className) if className else '') -%}
+<div class="{{ classes }}" data-component="TagGroup" role="group" {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}>
+  {{ content | safe }}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call tagGroup(ariaLabel='카테고리 필터') %}
+  {{ tag(checkable=true, selected=true, color='default', label='전체') }}
+  {{ tag(checkable=true, color='default', label='UI') }}
+  {{ tag(closable=true, label='React', closeLabel='React 태그 제거') }}
+{% endcall %}

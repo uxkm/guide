@@ -1,0 +1,76 @@
+{% extends "templates/layouts/default.njk" %}
+{% from "templates/partials/component-demo.njk" import componentDemo %}
+{% from "components/feedback/Alert/alert.njk" import alert %}
+{% from "components/feedback/Snackbar/snackbar.njk" import snackbar %}
+{% from "components/feedback/Modal/modal.njk" import modal %}
+{% from "components/feedback/Drawer/drawer.njk" import drawer %}
+{% from "components/feedback/Popover/popover.njk" import popover %}
+{% from "components/feedback/Tooltip/tooltip.njk" import tooltip %}
+{% from "components/feedback/Progress/progress.njk" import progress %}
+{% from "components/feedback/Spin/spin.njk" import spin %}
+{% from "components/feedback/Skeleton/skeleton.njk" import skeleton %}
+{% from "components/feedback/Empty/empty.njk" import empty %}
+
+{% set title = "UXKM Gulp · Feedback" %}
+
+{% block content %}
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/components.html">컴포넌트</a> · Feedback</p>
+      <h1>Feedback</h1>
+      <p class="lead">Empty·Skeleton·Progress·Spin·Tooltip·Popover·Modal·Drawer는 매크로로 렌더합니다.</p>
+    </header>
+
+    {% call componentDemo('Alert', 'components/feedback/Alert/alert.njk', 'alert') %}
+      {{ alert(color='info', description='알림 메시지 데모입니다.') }}
+    {% endcall %}
+
+    {% call componentDemo('Snackbar', 'components/feedback/Snackbar/snackbar.njk', 'snackbar') %}
+      {{ snackbar(color='success', message='저장되었습니다.', motion='none') }}
+    {% endcall %}
+
+    {% call componentDemo('Empty', 'components/feedback/Empty/empty.njk', 'empty') %}
+      {{ empty(description='표시할 데이터가 없습니다.') }}
+    {% endcall %}
+
+    {% call componentDemo('Spin', 'components/feedback/Spin/spin.njk', 'spin') %}
+      {{ spin(tip='데이터를 불러오는 중…') }}
+    {% endcall %}
+
+    {% call componentDemo('Skeleton', 'components/feedback/Skeleton/skeleton.njk', 'skeleton') %}
+      {{ skeleton(paragraph=3) }}
+    {% endcall %}
+
+    {% call componentDemo('Progress', 'components/feedback/Progress/progress.njk', 'progress') %}
+      {{ progress(percent=64, showInfo=true, label='진행률') }}
+    {% endcall %}
+
+    {% call componentDemo('Tooltip', 'components/feedback/Tooltip/tooltip.njk', 'tooltip') %}
+      {% call tooltip(id='tooltip-demo', triggerLabel='툴팁 데모', open=true) %}
+        짧은 도움말입니다.
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Popover', 'components/feedback/Popover/popover.njk', 'popover') %}
+      {% call popover(id='popover-demo', title='Popover 데모', triggerLabel='Popover 데모', open=true) %}
+        <p>Popover 본문 데모입니다.</p>
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Modal', 'components/feedback/Modal/modal.njk', 'modal') %}
+      {% call modal(id='modal-demo', title='Modal 데모', open=true) %}
+        <p>Modal을 매크로로 호출한 상태입니다.</p>
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Drawer', 'components/feedback/Drawer/drawer.njk', 'drawer') %}
+      {% call drawer(id='drawer-demo', title='Drawer 데모', placement='right', open=true) %}
+        <p>Drawer를 매크로로 호출한 상태입니다.</p>
+      {% endcall %}
+    {% endcall %}
+
+    <p><a class="link color_primary" href="/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+{% endblock %}

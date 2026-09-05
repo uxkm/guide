@@ -36,6 +36,13 @@ const htmlRows: ApiRow[] = [
   { name: 'div · main · section', type: 'element', default: 'div', description: '콘텐츠 구조에 알맞은 시맨틱 루트 요소를 선택합니다.' }
 ];
 
+const gulpRows: ApiRow[] = [
+  { name: 'as', type: 'string', default: "'div'", description: '루트 태그 이름입니다. main · section 등 시맨틱 요소를 지정할 수 있습니다.' },
+  { name: 'size', type: "'' | 'sm' | 'md' | 'lg' | 'xl'", default: "''", description: 'container_sm ~ container_xl 최대 너비 클래스를 붙입니다.' },
+  { name: 'fluid', type: 'boolean', default: 'false', description: 'true면 container_fluid를 추가해 최대 너비 제한을 해제합니다.' },
+  { name: 'content', type: 'string | HTML', default: '데모 fill 마크업', description: 'Container 본문입니다. include 전에 {% set content %}…{% endset %}으로 전달합니다.' }
+];
+
 const classes: ApiRow[] = [
   { name: 'container', type: 'class', default: '—', description: '기본 72rem 최대 너비, 중앙 정렬, 좌우 패딩을 적용합니다.' },
   { name: 'container_sm', type: 'class', default: '—', description: '최대 너비를 36rem으로 제한합니다.' },
@@ -65,7 +72,8 @@ export const containerApiSections: ApiSectionData[] = [
   { title: 'React · Next.js API · Props', description: 'Next.js는 `@uxkm/react/container`를 재사용합니다.', tables: [{ columns, rows: reactProps }] },
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/container`를 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: slots }] },
-  { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 공통 OOCSS 클래스를 마크업에 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'HTML API · Markup', description: 'HTML은 공통 OOCSS 클래스를 마크업에 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'Gulp API · Nunjucks', description: '`container.njk`를 include하고 as · size · fluid · content 변수로 변형합니다.', tables: [{ columns, rows: gulpRows }] },
   { title: 'WebSquare API · XML', description: 'Container는 구조 전용 컴포넌트이므로 scwin 이벤트나 DataList 바인딩이 필요하지 않습니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }

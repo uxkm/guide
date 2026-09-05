@@ -1,56 +1,47 @@
-{# Alert 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# alert 루트에 의미 색상(color_*)과 크기·배너 변형 클래스를 함께 적용합니다. #}
-{% set alertColor = color | default('info') %}
-<div
-  class="alert {{ 'color_error' if alertColor == 'danger' else 'color_' + alertColor }}{% if size and size != 'md' %} alert_{{ size }}{% endif %}{% if banner %} alert_banner{% endif %}"
-  data-component="Alert"
-  role="{{ role | default('alert') }}"
->
-  {# 상태 아이콘 영역입니다. #}
-  {% if showIcon != false %}
-  <svg
-    class="alert_icon"
-    aria-hidden="true"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-  >
-    {% if alertColor == 'success' %}
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <path d="M22 4 12 14.01l-3-3"></path>
-    {% elseif alertColor == 'warning' %}
-    <path
-      d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-    ></path>
-    <path d="M12 9v4M12 17h.01"></path>
-    {% elseif alertColor == 'danger' %}
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="m15 9-6 6M9 9l6 6"></path>
-    {% else %}
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M12 16v-4M12 8h.01"></path>
-    {% endif %}
-  </svg>
+{# Alert 원본 구현: 상태 메시지와 액션을 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro alert(
+  color = 'info',
+  title = '',
+  description = '',
+  size = 'md',
+  banner = false,
+  closable = false,
+  showIcon = true,
+  role = 'alert',
+  icon = '',
+  actions = '',
+  closeLabel = '알림 닫기',
+  className = '',
+  id = ''
+) %}
+{%- set content = caller() if caller else description -%}
+{%- set resolvedColor = color if color in ['info', 'success', 'warning', 'danger'] else 'info' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set iconName = 'check-circle' if resolvedColor == 'success' else ('warning' if resolvedColor == 'warning' else ('x-circle' if resolvedColor == 'danger' else 'info')) -%}
+{%- set classes =
+  'alert ' + ('color_error' if resolvedColor == 'danger' else 'color_' + resolvedColor)
+  + ((' alert_' + resolvedSize) if resolvedSize != 'md' else '')
+  + (' alert_banner' if banner else '')
+  + ((' ' + className) if className else '')
+-%}
+<div{% if id %} id="{{ id }}"{% endif %} class="{{ classes }}" data-component="Alert" role="{{ role }}">
+  {% if showIcon %}
+    {% if icon %}{{ icon | safe }}{% else %}{{ Icon.icon(name=iconName, className='alert_icon') }}{% endif %}
   {% endif %}
-
-  {# 제목·본문·액션을 담는 본문 영역입니다. #}
   <div class="alert_body">
-    {% if title %}
-    <div class="alert_title">{{ title }}</div>
-    {% endif %}
-    <p class="alert_desc">{{ description | default('알림 메시지입니다.') }}</p>
-    {% if actions %}
-    <div class="alert_actions">{{ actions | safe }}</div>
-    {% endif %}
+    {% if title %}<div class="alert_title">{{ title }}</div>{% endif %}
+    {% if content %}<p class="alert_desc">{{ content | safe }}</p>{% endif %}
+    {% if actions %}<div class="alert_actions">{{ actions | safe }}</div>{% endif %}
   </div>
-
-  {# closable일 때 닫기 버튼입니다. #}
   {% if closable %}
-  <button type="button" class="alert_close" aria-label="알림 닫기">
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M18 6L6 18M6 6l12 12"></path>
-    </svg>
-  </button>
+    <button type="button" class="alert_close" aria-label="{{ closeLabel }}">
+      {{ Icon.icon(name='close') }}
+    </button>
   {% endif %}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ alert(description='알림 메시지입니다.') }}

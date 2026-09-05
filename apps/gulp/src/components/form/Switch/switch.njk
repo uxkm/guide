@@ -1,22 +1,66 @@
-{# Switch 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# switch 루트 label에 role="switch" 입력과 트랙·손잡이·레이블을 함께 둡니다. #}
-<label
-  class="switch{% if labelEnd %} switch_label-end{% endif %}{% if size and size != 'md' %} switch_{{ size }}{% endif %}"
-  data-ripple="{{ 'false' if ripple == false else 'true' }}"
->
-  {% if labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span
-  >{% endif %}
-  {# checkbox 입력을 스위치 역할로 쓰고 트랙·thumb는 장식용입니다. #}
-  <span class="switch_control"
-    ><input
+{# Switch 원본 구현: 스위치·그룹·폼 필드를 macro 조합으로 구성합니다. #}
+
+{% macro switch(
+  id = '',
+  name = '',
+  value = '',
+  label = '',
+  checked = false,
+  disabled = false,
+  required = false,
+  labelEnd = false,
+  size = 'md',
+  ripple = true,
+  ariaLabel = '',
+  ariaLabelledby = '',
+  ariaDescribedby = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else label -%}
+{%- set hasLabel = content | length > 0 -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+<label class="switch{{ ' switch_label-end' if labelEnd else '' }}{{ (' switch_' + resolvedSize) if resolvedSize != 'md' else '' }}{{ (' ' + className) if className else '' }}" data-ripple="{{ 'true' if ripple else 'false' }}">
+  {% if hasLabel and labelEnd %}<span class="switch_label">{{ content | safe }}</span>{% endif %}
+  <span class="switch_control">
+    <input
+      {% if id %}id="{{ id }}"{% endif %}
+      {% if name %}name="{{ name }}"{% endif %}
+      {% if value %}value="{{ value }}"{% endif %}
       class="switch_input"
       type="checkbox"
-      role="switch"{% if checked %}
-      checked{% endif %}{% if disabled %}
-      disabled{% endif %}
-      data-component="Switch" /><span class="switch_track" aria-hidden="true"
-      ><span class="switch_thumb"></span></span
-  ></span>
-  {% if not labelEnd %}<span class="switch_label">{{ label | default('스위치') }}</span
-  >{% endif %}
+      role="switch"
+      {% if checked %}checked{% endif %}
+      {% if disabled %}disabled{% endif %}
+      {% if required %}required aria-required="true"{% endif %}
+      {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+      {% if ariaLabelledby %}aria-labelledby="{{ ariaLabelledby }}"{% endif %}
+      {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+      data-component="Switch"
+    >
+    <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
+  </span>
+  {% if hasLabel and not labelEnd %}<span class="switch_label">{{ content | safe }}</span>{% endif %}
 </label>
+{% endmacro %}
+
+{% macro switchGroup(legend = '', horizontal = false, block = false, ariaLabelledby = '', className = '', style = '') %}
+<fieldset
+  class="switch_group{{ ' switch_group_horizontal' if horizontal else '' }}{{ ' switch_group_block' if block else '' }}{{ (' ' + className) if className else '' }}"
+  {% if ariaLabelledby %}aria-labelledby="{{ ariaLabelledby }}"{% endif %}
+  {% if style %}style="{{ style }}"{% endif %}
+>
+  {% if legend %}<legend class="switch_group-legend">{{ legend }}</legend>{% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</fieldset>
+{% endmacro %}
+
+{% macro switchField(label = '', labelId = '', hint = '', errorMessage = '', required = false, className = '') %}
+<div class="form_field{{ (' ' + className) if className else '' }}">
+  {% if label %}<span class="form_field-label"{% if labelId %} id="{{ labelId }}"{% endif %}>{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</span>{% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
+  {% if errorMessage %}<p class="form_field-error" role="alert">{{ errorMessage }}</p>{% elif hint %}<p class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ switch(id='switch-example', label='스위치') }}

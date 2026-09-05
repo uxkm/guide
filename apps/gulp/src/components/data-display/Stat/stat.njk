@@ -1,23 +1,73 @@
-{# Stat 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# Stat 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 접근성 의미를 연결합니다. #}
+{# stat macro로 라벨·값·접두접미·추세·카드 스킨·크기를 조합합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro stat(
+  title = '',
+  value = '',
+  prefix = '',
+  suffix = '',
+  description = '',
+  trend = '',
+  trendColor = '',
+  trendIcon = '',
+  size = 'md',
+  card = false,
+  shadow = false,
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = '' -%}
+{%- endif -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set classes =
+  'stat'
+  + ((' stat_' + resolvedSize) if resolvedSize != 'md' else '')
+  + (' stat_card' if card else '')
+  + (' stat_shadow' if shadow else '')
+  + ((' ' + className) if className else '')
+-%}
+{%- set showHeader = title and trend -%}
+{%- set trendClasses = 'stat_trend' + ((' color_' + trendColor) if trendColor else '') -%}
+{%- set descClasses = 'stat_desc' + ((' color_' + trendColor) if description and trendColor else '') -%}
+<div class="{{ classes }}" data-component="Stat">
+  {%- if showHeader -%}
+  <div class="stat_header">
+    <span class="stat_label">{{ title }}</span>
+    <span class="{{ trendClasses }}">
+      {%- if trendIcon -%}{{ Icon.icon(name=trendIcon) }}{%- else -%}{{ Icon.icon(name='chevron-up') }}{%- endif -%}
+      {{ trend }}
+    </span>
+  </div>
+  {%- elif title -%}
+  <span class="stat_label">{{ title }}</span>
+  {%- endif -%}
+  {%- if prefix or suffix -%}
+  <div class="stat_value-row">
+    {%- if prefix -%}<span class="stat_prefix">{{ prefix }}</span>{%- endif -%}
+    {%- if value -%}<span class="stat_value">{{ value }}</span>{%- endif -%}
+    {%- if suffix -%}<span class="stat_suffix">{{ suffix }}</span>{%- endif -%}
+  </div>
+  {%- elif value -%}
+  <span class="stat_value">{{ value }}</span>
+  {%- endif -%}
+  {%- if description -%}
+  <span class="{{ descClasses }}">{{ description }}</span>
+  {%- elif trend and not showHeader -%}
+  <span class="{{ trendClasses }}">
+    {%- if trendIcon -%}{{ Icon.icon(name=trendIcon) }}{%- else -%}{{ Icon.icon(name='chevron-up') }}{%- endif -%}
+    {{ trend }}
+  </span>
+  {%- endif -%}
+  {{ content | safe }}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
 <div class="stat_group stat_group-3">
-  <div class="stat stat_card stat_shadow" {# Stat 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="Stat">
-  {# 내부에 데이터 표시 콘텐츠를 배치합니다. #}
-    <span class="stat_label">총 매출</span>
-    <div class="stat_value-row">
-      <span class="stat_prefix">₩</span><span class="stat_value">4.2M</span>
-    </div>
-    <span class="stat_desc color_success">+8.2%</span>
-  </div>
-  <div class="stat stat_card stat_shadow" data-component="Stat">
-    <span class="stat_label">신규 가입</span><span class="stat_value">1,234</span
-    ><span class="stat_desc color_success">+15.3%</span>
-  </div>
-  <div class="stat stat_card stat_shadow" data-component="Stat">
-    <span class="stat_label">이탈률</span>
-    <div class="stat_value-row">
-      <span class="stat_value">2.4</span><span class="stat_suffix">%</span>
-    </div>
-    <span class="stat_desc color_danger">+0.3%p</span>
-  </div>
+  {{ stat(title='총 매출', prefix='₩', value='4.2M', description='+8.2%', trendColor='success', card=true, shadow=true) }}
+  {{ stat(title='신규 가입', value='1,234', description='+15.3%', trendColor='success', card=true, shadow=true) }}
+  {{ stat(title='이탈률', value='2.4', suffix='%', description='+0.3%p', trendColor='danger', card=true, shadow=true) }}
 </div>

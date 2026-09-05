@@ -24,11 +24,14 @@ WebSquare는 Divider의 의미에 따라 XHTML `hr`·`span` 또는 `w2:group`을
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Divider` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Divider` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용합니다. Gulp는 `divider` Nunjucks macro와 `{{ divider(...) }}` / `{% call %}`로 같은 계약을 재사용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `tag`가 `auto`이면 레이블 없는 선은 `hr`, 레이블형은 `div`, 세로선은 `span`으로 루트를 선택합니다.
 - `as`는 `tag`보다 우선하며, 허용된 `tag` 값만 루트 요소 선택에 반영됩니다.
 - `vertical`·`dashed`·`plain`·`orient`는 검증된 값만 `divider_*` 클래스로 변환됩니다.
+- `marginY`는 가로에서 상·하, 세로에서 좌·우 간격으로 적용됩니다. 프리셋은 `divider_margin-*`, 숫자(rem)·CSS 길이는 방향에 맞는 `--divider-current-margin-*` 변수를 사용합니다.
+- `thickness`는 선 두께입니다. 프리셋은 `divider_thickness-*`, 숫자(rem)·CSS 길이는 `--divider-current-thickness`로 적용합니다.
+- `height`는 세로 구분선 길이입니다. 프리셋은 `divider_height-*`, 숫자(rem)·CSS 길이는 `--divider-current-height`로 적용합니다.
 - `label`과 React `children`(또는 Vue 기본 slot)은 레이블 콘텐츠로 사용되며, `hr` 루트에는 자식을 두지 않습니다.
 - 세로 Divider는 장식이므로 `aria-hidden="true"`를 적용합니다.
 - 사용자 정의 클래스와 나머지 속성은 루트 요소에 전달됩니다.
@@ -41,17 +44,10 @@ WebSquare는 Divider의 의미에 따라 XHTML `hr`·`span` 또는 `w2:group`을
 
 ## Playground
 
-점선, 레이블 굵기, 세로 방향, 레이블 정렬과 루트 태그를 Controls에서 조정할 수 있습니다.
+`divider` 클래스로 가로 구분선을 그립니다. 레이블이 없는 컴포넌트는 기본적으로 `hr`로 렌더링됩니다. 점선, 레이블, 세로 방향 등은 Controls에서 조정할 수 있습니다.
 
 <Canvas of={DividerStories.Playground} sourceState="none" />
 <FrameworkTabs examples={dividerFrameworkExamples.playground} />
-
-## 기본
-
-`divider` 클래스로 가로 구분선을 그립니다. 레이블이 없는 컴포넌트는 기본적으로 `hr`로 렌더링됩니다.
-
-<Canvas of={DividerStories.Basic} sourceState="none" />
-<FrameworkTabs examples={dividerFrameworkExamples.basic} />
 
 ## 점선
 
@@ -59,6 +55,20 @@ WebSquare는 Divider의 의미에 따라 XHTML `hr`·`span` 또는 `w2:group`을
 
 <Canvas of={DividerStories.Dashed} sourceState="none" />
 <FrameworkTabs examples={dividerFrameworkExamples.dashed} />
+
+## 간격
+
+`marginY` 또는 `divider_margin-*`로 간격을 조절합니다. **가로**에서는 상·하, **세로**에서는 좌·우에 적용됩니다. 프리셋은 `xs`·`sm`·`md`·`lg`·`xl`·`none`이고, 숫자(rem)·CSS 길이도 사용할 수 있습니다.
+
+<Canvas of={DividerStories.MarginY} sourceState="none" />
+<FrameworkTabs examples={dividerFrameworkExamples.marginY} />
+
+## 두께
+
+`thickness` 또는 `divider_thickness-*`로 선 두께를 조절합니다. 프리셋은 `xs`(1px)·`sm`(2px)·`lg`(3px)·`xl`(4px)·`none`이고, 숫자(rem)·CSS 길이도 사용할 수 있습니다. 기본값은 1px입니다.
+
+<Canvas of={DividerStories.Thickness} sourceState="none" />
+<FrameworkTabs examples={dividerFrameworkExamples.thickness} />
 
 ## 텍스트 레이블
 
@@ -76,7 +86,7 @@ WebSquare는 Divider의 의미에 따라 XHTML `hr`·`span` 또는 `w2:group`을
 
 ## 세로
 
-`vertical` 또는 `divider_vertical`은 인라인·flex 행 안에서 장식용 세로 구분선으로 사용합니다.
+`vertical` 또는 `divider_vertical`은 인라인·flex 행 안에서 장식용 세로 구분선으로 사용합니다. `height` 또는 `divider_height-*`로 세로 길이를 지정할 수 있으며, 비우면 부모 stretch와 `min-height: 1em`을 유지합니다.
 
 <Canvas of={DividerStories.Vertical} sourceState="none" />
 <FrameworkTabs examples={dividerFrameworkExamples.vertical} />

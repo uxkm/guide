@@ -200,23 +200,71 @@ export const linkComponentExamples: FrameworkExample[] = [
 const avatar = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%236366f1%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2212%22%20r%3D%225%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M7%2029a9%209%200%200%201%2018%200%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E';
 
 const bodies = {
-  basic: `<div class="link_row"><Link label="더 보기" /><Link label="가이드 문서" /><Link underline label="항상 밑줄" /></div>`,
+  basic: `<div class="link_row">
+  <Link label="더 보기" />
+  <Link label="가이드 문서" />
+  <Link underline label="항상 밑줄" />
+</div>`,
   source: `<div class="link_row">
   <Link icon="user" label="프로필" />
-  <a class="link color_primary" href="#"><img class="link_media" src="${avatar}" alt="" /> 사용자 정보</a>
+  <a class="link color_primary" href="#">
+    <img class="link_media" src="${avatar}" alt="" />
+    사용자 정보
+  </a>
   <Link as="button" icon="settings" label="설정 열기" />
 </div>`,
-  colors: `<div class="link_row"><Link color="primary" label="Primary" /><Link color="muted" label="Muted" /><Link color="success" label="Success" /><Link color="warning" label="Warning" /><Link color="danger" label="Danger" /><Link color="info" label="Info" /></div>`,
-  sizes: `<div class="link_row"><Link size="sm" label="Small" /><Link label="Base" /><Link size="lg" label="Large" /><Link size="xl" label="Extra Large" /></div>`,
-  styles: `<div class="link_row"><Link label="기본 (hover 밑줄)" /><Link underline label="항상 밑줄" /><Link no-underline label="밑줄 없음" /><Link standalone label="터치 영역 확대" /></div>`,
-  navigation: `<nav class="link_group-inline" aria-label="섹션 내비게이션"><Link nav active label="개요" /><Link nav label="컴포넌트" /><Link nav label="토큰" /><Link nav label="접근성" /></nav>
+  colors: `<div class="link_row">
+  <Link color="primary" label="Primary" />
+  <Link color="muted" label="Muted" />
+  <Link color="success" label="Success" />
+  <Link color="warning" label="Warning" />
+  <Link color="danger" label="Danger" />
+  <Link color="info" label="Info" />
+</div>`,
+  sizes: `<div class="link_row">
+  <Link size="sm" label="Small" />
+  <Link label="Base" />
+  <Link size="lg" label="Large" />
+  <Link size="xl" label="Extra Large" />
+</div>`,
+  styles: `<div class="link_row">
+  <Link label="기본 (hover 밑줄)" />
+  <Link underline label="항상 밑줄" />
+  <Link no-underline label="밑줄 없음" />
+  <Link standalone label="터치 영역 확대" />
+</div>`,
+  navigation: `<nav class="link_group-inline" aria-label="섹션 내비게이션">
+  <Link nav active label="개요" />
+  <Link nav label="컴포넌트" />
+  <Link nav label="토큰" />
+  <Link nav label="접근성" />
+</nav>
 <Link back icon="arrow-left" label="목록으로 돌아가기" />`,
-  block: `<div class="link_group"><Link block icon="book" label="가이드 시작하기" /><Link block icon="download" label="파일 다운로드" /><Link block color="muted" icon="settings" label="환경 설정" /></div>`,
-  iconOnly: `<div class="link_row"><Link icon-only icon="search" aria-label="검색" /><Link icon-only icon="edit" aria-label="편집" /><Link icon-only color="muted" icon="settings" aria-label="더 보기" /></div>`,
-  icons: `<div class="link_row"><Link icon="download" label="다운로드" /><Link icon-after="external" label="외부 링크" /><Link back icon="arrow-left" label="이전 페이지" /></div>`,
+  block: `<div class="link_group">
+  <Link block icon="book" label="가이드 시작하기" />
+  <Link block icon="download" label="파일 다운로드" />
+  <Link block color="muted" icon="settings" label="환경 설정" />
+</div>`,
+  iconOnly: `<div class="link_row">
+  <Link icon-only icon="search" aria-label="검색" />
+  <Link icon-only icon="edit" aria-label="편집" />
+  <Link icon-only color="muted" icon="settings" aria-label="더 보기" />
+</div>`,
+  icons: `<div class="link_row">
+  <Link icon="download" label="다운로드" />
+  <Link icon-after="external" label="외부 링크" />
+  <Link back icon="arrow-left" label="이전 페이지" />
+</div>`,
   external: `<Link href="https://example.com" target="_blank" rel="noopener noreferrer" icon-after="external" label="외부 사이트 열기 (새 창)" />`,
-  disabled: `<div class="link_row"><Link disabled label="비활성 링크" /><Link as="button" disabled label="비활성 버튼형 링크" /></div>`,
-  context: `<div class="alert color_info" role="status"><strong>업데이트 안내</strong><p>새 버전의 변경 사항을 확인하세요.</p><Link size="sm" label="릴리스 노트 보기" /></div>
+  disabled: `<div class="link_row">
+  <Link disabled label="비활성 링크" />
+  <Link as="button" disabled label="비활성 버튼형 링크" />
+</div>`,
+  context: `<div class="alert color_info" role="status">
+  <strong>업데이트 안내</strong>
+  <p>새 버전의 변경 사항을 확인하세요.</p>
+  <Link size="sm" label="릴리스 노트 보기" />
+</div>
 <p>아직 계정이 없나요? <Link label="회원가입" /></p>`
 } as const;
 
@@ -275,6 +323,49 @@ function htmlLink(source: string) {
 
 function toHtml(body: string) {
   return body.replace(/<Link\s+([^>]*?)\s*\/>/g, (_, source: string) => htmlLink(source));
+}
+
+const LINK_ATTR_MAP: Record<string, string> = {
+  'no-underline': 'noUnderline',
+  'icon-only': 'iconOnly',
+  'icon-after': 'iconAfter',
+  'aria-label': 'ariaLabel',
+  class: 'className',
+};
+
+function gulpLinkArgs(source: string) {
+  const props: string[] = [];
+  const token = /:([\w-]+)="([^"]*)"|([\w-]+)(?:="([^"]*)")?/g;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    if (match[1]) {
+      const key = LINK_ATTR_MAP[match[1]] ?? match[1];
+      props.push(`${key}=${match[2]}`);
+      continue;
+    }
+    const raw = match[3];
+    const value = match[4];
+    const key = LINK_ATTR_MAP[raw] ?? raw;
+    if (value == null) props.push(`${key}=true`);
+    else if (/^-?\d+(\.\d+)?$/.test(value)) props.push(`${key}=${value}`);
+    else props.push(`${key}='${value}'`);
+  }
+  return props.join(', ');
+}
+
+/** Link JSX-like body를 Nunjucks `link` macro 호출로 변환합니다. */
+function toGulp(body: string) {
+  let result = body.replace(/<Link\s+([^>]*?)\s*\/>/g, (_: string, source: string) => {
+    const args = gulpLinkArgs(source.trim());
+    return args ? `{{ link(${args}) }}` : '{{ link() }}';
+  });
+  // 한 줄에 붙은 블록 컨테이너·macro 호출만 펼칩니다. 인라인 <p>…{{ link }}</p>는 유지합니다.
+  result = result
+    .replace(/(<(?:div|nav|section|ul|ol|aside|header|main|footer)\b[^>]*)>\{\{/gi, '$1>\n  {{')
+    .replace(/\}\}\{\{/g, '}}\n  {{')
+    .replace(/\}\}\s*(<\/(?:div|nav|section|ul|ol|aside|header|main|footer)>)/gi, '}}\n$1')
+    .replace(/\n{3,}/g, '\n\n');
+  return `{% from "components/basic/Link/link.njk" import link %}\n\n${result.trim()}`;
 }
 
 function toReact(body: string) {
@@ -351,11 +442,12 @@ ${markup.split('\n').map((line) => `  ${line}`).join('\n')}
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = toHtml(body);
+  const gulp = toGulp(body);
   const react = toReact(body);
   const vue = toVue(body);
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/basic/Link/Link.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Link/link.njk · ${key}`, code: `{# Link · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Link/link.njk · ${key}`, code: `{# Link · ${key} #}\n${gulp}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/link → apps/vue/src/components/basic/Link/Link.vue · ${key}`, code: `<script setup>\nimport Link from '@uxkm/vue/link';\nimport Icon from '@uxkm/vue/icon';\n</script>\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'react', label: 'React', fileName: `@uxkm/react/link → apps/react/src/components/basic/Link/Link.jsx · ${key}`, code: `import Link from '@uxkm/react/link';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },

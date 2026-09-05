@@ -1,41 +1,152 @@
-{# Popover 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# popover 루트가 트리거와 패널을 묶습니다. #}
-{% set popoverId = id | default('popover-basic') %}
-<div
-  class="popover{% if size and size != 'md' %} popover_{{ size }}{% endif %}{% if placement %} popover_placement-{{ placement }}{% endif %}{% if noArrow %} popover_no-arrow{% endif %}{% if open %} is-open{% endif %}"
-  data-component="Popover"
-  data-popover{% if trigger == 'hover' %}
-  data-popover-trigger="hover"{% endif %}
+{# Popover 원본 구현: 트리거·패널·헤더·본문·푸터를 macro로 조합합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro popoverTrigger(
+  id='popover-basic',
+  label='Popover 열기',
+  content='',
+  open=false,
+  variant='outline',
+  color='primary',
+  size='md',
+  disabled=false,
+  className=''
+) %}
+{% if content %}
+<span
+  class="popover_trigger{{ (' ' + className) if className else '' }}"
+  aria-haspopup="dialog"
+  aria-expanded="{{ 'true' if open else 'false' }}"
+  aria-controls="{{ id }}"
 >
-  {# 클릭 또는 hover로 패널을 여는 트리거입니다. #}
-  <button
-    type="button"
-    class="btn btn_outline popover_trigger"
-    aria-haspopup="dialog"
-    aria-expanded="{{ 'true' if open else 'false' }}"
-    aria-controls="{{ popoverId }}"
-  >
-    {{ triggerLabel | default('Popover 열기') }}
-  </button>
-  {# 화살표·헤더·본문을 담는 패널입니다. #}
+  {{ content | safe }}
+</span>
+{% else %}
+{{ Button.button(
+  variant=variant,
+  color=color,
+  size=size,
+  label=label,
+  disabled=disabled,
+  haspopup='dialog',
+  expanded=open,
+  dataAttributes={'aria-controls': id},
+  className='popover_trigger' + ((' ' + className) if className else '')
+) }}
+{% endif %}
+{% endmacro %}
+
+{% macro popoverHeader(id='popover-basic', title='', closeLabel='닫기', closable=true, className='') %}
+<div class="popover_header{{ (' ' + className) if className else '' }}">
+  <div class="popover_title" id="{{ id }}-title">{{ title }}</div>
+  {% if closable %}
+    {{ Button.button(
+      variant='ghost',
+      color='',
+      iconOnly=true,
+      iconBefore='close',
+      ripple=false,
+      ariaLabel=closeLabel,
+      dataAttributes={'data-popover-close': true},
+      className='popover_close'
+    ) }}
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro popoverBody(content='', className='') %}
+{%- set body = caller() if caller else content -%}
+<div class="popover_body{{ (' ' + className) if className else '' }}">
+  {{ body | safe }}
+</div>
+{% endmacro %}
+
+{% macro popoverFooter(content='', className='') %}
+{%- set footer = caller() if caller else content -%}
+<div class="popover_footer{{ (' ' + className) if className else '' }}">
+  {{ footer | safe }}
+</div>
+{% endmacro %}
+
+{% macro popover(
+  id='popover-basic',
+  title='',
+  panelLabel='',
+  triggerLabel='Popover 열기',
+  triggerContent='',
+  trigger='click',
+  triggerVariant='outline',
+  triggerColor='primary',
+  triggerSize='md',
+  placement='bottom',
+  size='md',
+  offset='md',
+  offsetTop='',
+  offsetRight='',
+  offsetBottom='',
+  offsetLeft='',
+  panelAlign='start',
+  arrowAnchor='content',
+  arrowTargetAlign='center',
+  noArrow=false,
+  closable=true,
+  disabled=false,
+  open=false,
+  footer='',
+  closeLabel='닫기',
+  className=''
+) %}
+{%- set content = caller() if caller else 'Popover 본문입니다.' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set resolvedPlacement = placement if placement in ['top', 'top-center', 'bottom', 'bottom-center', 'left', 'right', 'end'] else 'bottom' -%}
+{%- set resolvedTrigger = trigger if trigger in ['click', 'hover'] else 'click' -%}
+{%- set showClose = closable and resolvedTrigger == 'click' -%}
+<div
+  class="popover{% if resolvedSize != 'md' %} popover_{{ resolvedSize }}{% endif %} popover_placement-{{ resolvedPlacement }}{% if offset and offset != 'md' %} popover_offset-{{ offset }}{% endif %}{% if offsetTop and offsetTop != 'md' %} popover_offset-top-{{ offsetTop }}{% endif %}{% if offsetRight and offsetRight != 'md' %} popover_offset-right-{{ offsetRight }}{% endif %}{% if offsetBottom and offsetBottom != 'md' %} popover_offset-bottom-{{ offsetBottom }}{% endif %}{% if offsetLeft and offsetLeft != 'md' %} popover_offset-left-{{ offsetLeft }}{% endif %}{% if panelAlign != 'start' %} popover_panel-align-{{ panelAlign }}{% endif %}{% if arrowAnchor != 'content' %} popover_arrow-anchor-{{ arrowAnchor }}{% endif %}{% if noArrow %} popover_no-arrow{% endif %}{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="Popover"
+  data-popover
+  {% if resolvedTrigger == 'hover' %}data-popover-trigger="hover"{% endif %}
+  {% if arrowTargetAlign != 'center' %}data-arrow-target-align="{{ arrowTargetAlign }}"{% endif %}
+>
+  {{ popoverTrigger(
+    id=id,
+    label=triggerLabel,
+    content=triggerContent,
+    open=open,
+    variant=triggerVariant,
+    color=triggerColor,
+    size=triggerSize,
+    disabled=disabled
+  ) }}
   <div
-    class="popover_panel"
-    id="{{ popoverId }}"
+    class="popover_panel{% if showClose and not title %} popover_panel-closable{% endif %}"
+    id="{{ id }}"
     role="dialog"
-    aria-labelledby="{{ popoverId }}-title"{% if not open %}
-    hidden{% endif %}
+    {% if title %}aria-labelledby="{{ id }}-title"{% else %}aria-label="{{ panelLabel if panelLabel else 'Popover' }}"{% endif %}
+    {% if not open %}hidden{% endif %}
   >
-    {% if not noArrow %}<span class="popover_arrow" aria-hidden="true"></span
-    >{% endif %}
+    {% if not noArrow %}<span class="popover_arrow" aria-hidden="true"></span>{% endif %}
     {% if title %}
-    <div class="popover_header">
-      <div class="popover_title" id="{{ popoverId }}-title">{{ title }}</div>
-      <button type="button" class="popover_close" data-popover-close aria-label="닫기">×</button>
-    </div>
+      {{ popoverHeader(id=id, title=title, closeLabel=closeLabel, closable=showClose) }}
+    {% elif showClose %}
+      {{ Button.button(
+        variant='ghost',
+        color='',
+        iconOnly=true,
+        iconBefore='close',
+        ripple=false,
+        ariaLabel=closeLabel,
+        dataAttributes={'data-popover-close': true},
+        className='popover_close popover_close-floating'
+      ) }}
     {% endif %}
-    <div class="popover_body">{{ content | default('Popover 본문입니다.') | safe }}</div>
-    {% if footer %}
-    <div class="popover_footer">{{ footer | safe }}</div>
-    {% endif %}
+    {{ popoverBody(content=content) }}
+    {% if footer %}{{ popoverFooter(content=footer) }}{% endif %}
   </div>
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call popover(title='안내') %}
+  <p>Popover 본문입니다.</p>
+{% endcall %}

@@ -1,55 +1,58 @@
-{# Pagination 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# pagination 클래스에 단순·최소·크기·둥근 변형과 data-current·data-total을 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
+{# Pagination 원본 구현: 페이지 이동·툴바·점프 입력을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro paginationButton(direction='prev', disabled=false) %}
+{%- set isPrevious = direction == 'prev' -%}
+{% if isPrevious %}
+  {{ Button.button(variant='ghost', color='default', size='sm', iconOnly=true, iconBefore='chevron-left', ripple=false, disabled=disabled, ariaLabel='이전 페이지', className='pagination_btn pagination_prev', dataAttributes={ 'data-pagination-prev': true }) }}
+{% else %}
+  {{ Button.button(variant='ghost', color='default', size='sm', iconOnly=true, iconBefore='chevron-right', ripple=false, disabled=disabled, ariaLabel='다음 페이지', className='pagination_btn pagination_next', dataAttributes={ 'data-pagination-next': true }) }}
+{% endif %}
+{% endmacro %}
+
+{% macro pagination(current=1, total=1, pageSize=10, simple=false, minimal=false, size='md', round=false, align='start', ariaLabel='페이지 이동', className='') %}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set totalPages = (total / pageSize) | round(0, 'ceil') -%}
 <nav
-  class="pagination{% if simple %} pagination_simple{% endif %}{% if minimal %} pagination_minimal{% endif %}{% if size == 'sm' or size == 'lg' %} pagination_{{ size }}{% endif %}{% if round %} pagination_round{% endif %}{% if align == 'center' or align == 'end' %} pagination_align-{{ align }}{% endif %}"
-  aria-label="{{ ariaLabel | default('페이지 이동') }}"
+  class="pagination{% if simple %} pagination_simple{% endif %}{% if minimal %} pagination_minimal{% endif %}{% if resolvedSize != 'md' %} pagination_{{ resolvedSize }}{% endif %}{% if round %} pagination_round{% endif %}{% if align in ['center', 'end'] %} pagination_align-{{ align }}{% endif %}{{ (' ' + className) if className else '' }}"
+  aria-label="{{ ariaLabel }}"
   data-component="Pagination"
   data-pagination
-  data-current="{{ current | default(1) }}"
-  data-total="{{ total | default(1) }}"
-  data-page-size="{{ pageSize | default(10) }}"
+  data-current="{{ current }}"
+  data-total="{{ total }}"
+  data-page-size="{{ pageSize }}"
 >
-  {# 단순형은 이전/다음·현재/전체 텍스트만, 아니면 번호 목록을 둡니다. #}
-  {% if simple %}<button
-    type="button"
-    class="btn btn_ghost color_default btn_sm btn_icon-only pagination_btn pagination_prev"
-    data-pagination-prev
-    aria-label="이전 페이지"
-  >
-    {{ icon('chevron-left', 'pagination_icon') }}</button
-  ><span class="pagination_simple-text" aria-live="polite"
-    ><span class="pagination_simple-current">{{ current | default(1) }}</span> /
-    <span class="pagination_simple-total"></span></span
-  ><button
-    type="button"
-    class="btn btn_ghost color_default btn_sm btn_icon-only pagination_btn pagination_next"
-    data-pagination-next
-    aria-label="다음 페이지"
-  >
-    {{ icon('chevron-right', 'pagination_icon') }}</button
-  >{% else %}
-  <ul class="pagination_list" data-pagination-list>
-    <li class="pagination_item">
-      <button
-        type="button"
-        class="btn btn_ghost color_default btn_sm btn_icon-only pagination_btn pagination_prev"
-        data-pagination-prev
-        aria-label="이전 페이지"
-      >
-        {{ icon('chevron-left', 'pagination_icon') }}
-      </button>
-    </li>
-    <li class="pagination_item" data-pagination-next-item>
-      <button
-        type="button"
-        class="btn btn_ghost color_default btn_sm btn_icon-only pagination_btn pagination_next"
-        data-pagination-next
-        aria-label="다음 페이지"
-      >
-        {{ icon('chevron-right', 'pagination_icon') }}
-      </button>
-    </li>
-  </ul>
+  {% if simple %}
+    {{ paginationButton(direction='prev', disabled=current <= 1) }}
+    <span class="pagination_simple-text" aria-live="polite">
+      <span class="pagination_simple-current">{{ current }}</span> /
+      <span class="pagination_simple-total">{{ totalPages }}</span>
+    </span>
+    {{ paginationButton(direction='next', disabled=current >= totalPages) }}
+  {% else %}
+    <ul class="pagination_list" data-pagination-list>
+      <li class="pagination_item">{{ paginationButton(direction='prev', disabled=current <= 1) }}</li>
+      <li class="pagination_item" data-pagination-next-item>{{ paginationButton(direction='next', disabled=current >= totalPages) }}</li>
+    </ul>
   {% endif %}
 </nav>
+{% endmacro %}
+
+{% macro paginationJumper(current=1, total=1, pageSize=10, label='이동', ariaLabel='이동할 페이지') %}
+{%- set totalPages = (total / pageSize) | round(0, 'ceil') -%}
+<label class="pagination_jumper">
+  {{ label }}
+  <input type="number" class="pagination_jumper-input" value="{{ current }}" min="1" max="{{ totalPages }}" aria-label="{{ ariaLabel }}">
+  페이지
+</label>
+{% endmacro %}
+
+{% macro paginationToolbar(totalLabel='', className='') %}
+<div class="pagination_wrap{{ (' ' + className) if className else '' }}">
+  {% if totalLabel %}<span class="pagination_total">{{ totalLabel }}</span>{% endif %}
+  <div class="pagination_wrap-end">{{ caller() | safe }}</div>
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ pagination(current=1, total=50, pageSize=10) }}

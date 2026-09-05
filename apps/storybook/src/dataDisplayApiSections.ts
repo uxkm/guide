@@ -47,6 +47,19 @@ export const avatarApiSections: ApiSectionData[] = [
   section('React · Next.js API · AvatarGroup Props', [{ name: 'ariaLabel', type: 'string', default: '—', description: '그룹의 접근성 이름' }, { name: 'children', type: 'ReactNode', default: '—', description: 'Avatar 목록' }]),
   section('Vue · Nuxt API · Avatar Props', vueRows(avatarProps), 'Nuxt는 `@uxkm/vue/avatar`를 재사용합니다.'),
   section('Vue · Nuxt API · Slots', [{ name: 'default', type: 'slot', default: '—', description: '이니셜 대체 콘텐츠' }, { name: 'icon', type: 'slot', default: '—', description: '아이콘 콘텐츠' }]),
+  section('Vue · Nuxt API · AvatarGroup Props', [{ name: 'aria-label', type: 'string', default: '—', description: '그룹의 접근성 이름' }, { name: 'default', type: 'slot', default: '—', description: 'Avatar 목록' }]),
+  section('HTML API · Markup', [
+    { name: 'src · alt', type: 'attribute', default: '—', description: 'img.avatar_image의 이미지 경로와 대체 텍스트입니다.' },
+    { name: 'aria-hidden', type: 'attribute', default: '—', description: '장식용 아바타를 접근성 트리에서 숨깁니다.' },
+    { name: 'role="img" · aria-label', type: 'attribute', default: '—', description: '상태 점(avatar_badge)의 접근성 이름입니다.' }
+  ], 'HTML은 공통 클래스와 네이티브 속성을 마크업에 직접 적용합니다.'),
+  section('Gulp API · Nunjucks', [
+    { name: 'avatar · avatarGroup', type: 'macro', default: '—', description: '`{% from "components/data-display/Avatar/avatar.njk" import avatar, avatarGroup %}`로 import한 뒤 `{{ avatar(...) }}` · `{% call avatarGroup %}`로 인스턴스를 만듭니다.' },
+    { name: 'src · alt · initials · icon', type: 'string', default: '—', description: '이미지·대체 텍스트·이니셜·Icon 이름입니다. `{% call avatar %}` 본문이 있으면 본문이 우선합니다.' },
+    { name: 'color · size · square', type: 'mixed', default: "'' · 'md' · false", description: 'color_* · avatar_* 크기·사각형 변형입니다.' },
+    { name: 'badgeColor · badgeLabel · ariaHidden · className', type: 'mixed', default: '—', description: '상태 점·접근성·추가 클래스입니다.' },
+    { name: 'avatarGroup · ariaLabel', type: 'string', default: '—', description: '겹침 그룹의 접근성 이름입니다. 본문은 `{% call %}`로 전달합니다.' }
+  ], '`avatar` · `avatarGroup` macro로 React · Vue와 같은 계약을 조합합니다. 아이콘은 `icon` 이름 문자열로 Icon macro를 호출합니다.'),
   section('HTML · Gulp · 공통 클래스', avatarClasses),
   section('WebSquare API · XML', avatarWebSquareRows, 'Avatar는 화면 XML의 WebSquare 컴포넌트에 공통 클래스를 적용하며 별도 scwin 이벤트는 필요하지 않습니다.'),
   section('공통 API · 디자인 토큰', avatarTokens)
@@ -72,6 +85,18 @@ export const badgeApiSections: ApiSectionData[] = [
   section('React · Next.js API · Badge Props', badgeProps, 'Next.js는 `@uxkm/react/badge`를 재사용합니다.'),
   section('React · Next.js API · BadgeWrap Props', [{ name: 'ariaLabel', type: 'string', default: '—', description: '래퍼 접근성 이름' }, { name: 'children', type: 'ReactNode', default: '—', description: '기준 요소와 Badge' }]),
   section('Vue · Nuxt API · Badge Props', vueRows(badgeProps), 'Nuxt는 `@uxkm/vue/badge`를 재사용합니다.'),
+  section('Vue · Nuxt API · BadgeWrap Props', [{ name: 'aria-label', type: 'string', default: '—', description: '래퍼 접근성 이름' }, { name: 'default', type: 'slot', default: '—', description: '기준 요소와 Badge' }]),
+  section('HTML API · Markup', [
+    { name: 'aria-label', type: 'attribute', default: '—', description: '카운트·상태 점의 접근성 이름입니다.' },
+    { name: 'role="status"', type: 'attribute', default: '—', description: '텍스트 없는 상태 점(badge_dot-only)에 사용합니다.' }
+  ], 'HTML은 공통 클래스와 네이티브 속성을 마크업에 직접 적용합니다.'),
+  section('Gulp API · Nunjucks', [
+    { name: 'badge · badgeWrap', type: 'macro', default: '—', description: '`{% from "components/data-display/Badge/badge.njk" import badge, badgeWrap %}`로 import한 뒤 `{{ badge(...) }}` · `{% call badgeWrap %}`로 인스턴스를 만듭니다.' },
+    { name: 'color · size · label', type: 'mixed', default: "'primary' · 'md' · ''", description: '공통 color_* · badge_* 크기와 표시 텍스트입니다. `{% call badge %}` 본문이 있으면 본문이 우선합니다.' },
+    { name: 'dot · count · dotOnly', type: 'boolean', default: 'false', description: '상태 점·카운트·텍스트 없는 상태 점 변형입니다.' },
+    { name: 'ariaLabel · className', type: 'string', default: '—', description: '접근성 이름과 추가 클래스입니다.' },
+    { name: 'badgeWrap · ariaLabel', type: 'string', default: '—', description: '겹침 래퍼의 접근성 이름입니다. 본문은 `{% call %}`로 전달합니다.' }
+  ], '`badge` · `badgeWrap` macro로 React · Vue와 같은 계약을 조합합니다.'),
   section('HTML · Gulp · 공통 클래스', [
     { name: 'badge · badge_sm · badge_lg', type: 'class', default: '—', description: '배지 루트와 크기 변형' },
     { name: 'badge_dot · badge_count · badge_dot-only', type: 'class', default: '—', description: '형태 변형' },
@@ -116,6 +141,19 @@ export const tagApiSections: ApiSectionData[] = [
   section('Vue · Nuxt API · Tag Props', vueRows(tagProps), 'Nuxt는 `@uxkm/vue/tag`를 재사용합니다.'),
   section('Vue · Nuxt API · Slots / Events', [{ name: 'default', type: 'slot', default: '—', description: '태그 본문' }, { name: 'icon', type: 'slot', default: '—', description: '앞 아이콘' }, { name: 'click · close', type: 'event', default: '—', description: '본문·닫기 버튼 이벤트' }]),
   section('공통 API · TagGroup', [{ name: 'tight', type: 'boolean', default: 'false', description: '좁은 그룹 간격' }, { name: 'ariaLabel', type: 'string', default: '—', description: '그룹 접근성 이름' }]),
+  section('HTML API · Markup', [
+    { name: 'button · a · span', type: 'element', default: '상황별 선택', description: '선택·추가는 button, 링크는 a, 정적 라벨은 span을 사용합니다.' },
+    { name: 'aria-pressed', type: 'attribute', default: '—', description: 'checkable 태그의 선택 상태를 전달합니다.' },
+    { name: 'aria-disabled · disabled', type: 'attribute', default: '—', description: '태그 의미에 맞춰 비활성 상태를 반영합니다.' },
+    { name: 'tag_close', type: 'class / child', default: '선택', description: 'closable 태그의 닫기 버튼입니다.' }
+  ], 'HTML은 공통 클래스와 네이티브 속성을 마크업에 직접 적용합니다.'),
+  section('Gulp API · Nunjucks', [
+    { name: 'tag · tagGroup', type: 'macro', default: '—', description: '`{% from "components/data-display/Tag/tag.njk" import tag, tagGroup %}`로 import한 뒤 `{{ tag(...) }}` · `{% call tagGroup %}`로 인스턴스를 만듭니다.' },
+    { name: 'label · icon · closeLabel', type: 'string', default: "''", description: '표시 텍스트·Icon 이름·닫기 버튼 접근성 이름입니다. `{% call tag %}` 본문이 있으면 본문이 우선합니다.' },
+    { name: 'variant · color · size · round', type: 'mixed', default: "'filled' · 'primary' · 'md' · false", description: '스킨·색상·크기·pill 형태를 조합합니다.' },
+    { name: 'checkable · add · closable · selected · disabled', type: 'boolean', default: 'false', description: '동작·상태를 제어합니다.' },
+    { name: 'href · ripple · className', type: 'mixed', default: "'' · 자동 · ''", description: '링크 주소·리플·추가 클래스입니다.' }
+  ], '`tag` · `tagGroup` macro로 React · Vue와 같은 계약을 조합합니다.'),
   section('HTML · Gulp · 공통 클래스', [
     { name: 'tag · tag_solid · tag_outline · tag_borderless', type: 'class', default: '—', description: '태그 루트와 스킨' },
     { name: 'tag_sm · tag_lg · tag_round', type: 'class', default: '—', description: '크기·형태' },

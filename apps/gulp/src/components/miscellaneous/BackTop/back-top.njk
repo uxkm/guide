@@ -1,29 +1,29 @@
-{# BackTop 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# BackTop 원본 구현: 상단 이동 제어를 Button·Icon 컴포넌트로 구성합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro backTop(target='', visibilityHeight=400, size='md', color='', label='', ariaLabel='맨 위로', interactive=true, className='') %}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set resolvedColor = color if color in ['primary', 'ghost'] else '' -%}
+{% set backTopIcon %}
+  {% call Icon.icon(className='back_top_icon') %}<path d="m6 15 6-6 6 6" />{% endcall %}
+{% endset %}
 <div
-  class="back_top{% if size == 'sm' or size == 'lg' %} back_top_{{ size }}{% endif %}{% if color == 'primary' or color == 'ghost' %} back_top_{{ color }}{% endif %}"
-  {# BackTop 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="BackTop"{% if interactive != false %}
-  data-back-top{% endif %}{% if target %}
-  data-target="{{ target }}"{% endif %}{% if visibilityHeight and visibilityHeight != 400 %}
-  data-visibility-height="{{ visibilityHeight }}"{% endif %}
+  class="back_top{% if resolvedSize != 'md' %} back_top_{{ resolvedSize }}{% endif %}{% if resolvedColor %} back_top_{{ resolvedColor }}{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="BackTop"
+  {% if interactive %}data-back-top{% endif %}
+  {% if target %}data-target="{{ target }}"{% endif %}
+  {% if visibilityHeight != 400 %}data-visibility-height="{{ visibilityHeight }}"{% endif %}
 >
-  <button
-    type="button"
-    class="btn btn_ghost back_top_btn"
-    aria-label="{{ ariaLabel | default('맨 위로') }}"
-    data-ripple="surface"
-  >
-    <svg
-      class="back_top_icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      aria-hidden="true"
-    >
-      <path d="m6 15 6-6 6 6" /></svg
-    >{% if label %}<span class="back_top_label">{{ label }}</span
-    >{% endif %}
-  </button>
-  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
+  {{ Button.button(
+    variant='ghost', color='default', label=label,
+    iconOnly=(not label), iconBeforeSlot=backTopIcon,
+    ripple='surface', ariaLabel=ariaLabel,
+    labelClassName='back_top_label',
+    className='back_top_btn'
+  ) }}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ backTop(interactive=false) }}

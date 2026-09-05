@@ -24,7 +24,7 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `grid`
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Grid`와 `GridCol` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Grid`와 `GridCol` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용합니다. Gulp는 `grid` · `gridCol` Nunjucks macro와 `{% call %}`로 같은 계약을 재사용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `range`는 열 수와 span을 1~12 범위로 제한합니다.
 - `cols`·`colsMd`·`colsLg`는 구간별 열 트랙 수를, `itemSpan`은 모든 직계 자식의 span을 제어합니다.

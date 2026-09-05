@@ -1,3 +1,4 @@
 export default {
-  agentRules: false
+  agentRules: false,
+  transpilePackages: ['@uxkm/react', '@uxkm/html', '@uxkm/interactions'],
 };

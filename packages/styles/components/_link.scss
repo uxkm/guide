@@ -33,14 +33,40 @@
   display: inline-flex;
   align-items: center;
   gap: var(--link-gap);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  background-color: transparent;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font: inherit;
   font-weight: var(--link-font-weight);
   font-size: inherit;
   line-height: inherit;
+  text-align: inherit;
   text-decoration: none;
+  color: inherit;
   cursor: pointer;
   transition: color var(--transition-fast);
 
-  @include focus-ring(var(--color-accent));
+  // button 루트(as="button")의 UA 기본 테두리를 제거합니다.
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  // button 루트에서도 a와 동일하게 보이도록 UA outline을 끄고, 키보드 포커스에서만 링을 표시합니다.
+  outline: none;
+
+  &:focus-visible {
+    outline: var(--focus-outline-width) solid var(--color-accent);
+    outline-offset: var(--focus-outline-offset);
+  }
+
   @include link-skin(color-token(primary), var(--color-accent-text-hover));
 
   &:hover:not(.is-disabled):not([aria-disabled="true"]):not(.link_no-underline) {

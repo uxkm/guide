@@ -35,6 +35,67 @@ const vue: Record<Name, string> = {
   block: react.block.replaceAll('className=', 'class=').replace('colSpan={3}', 'colspan="3"').replaceAll("style={{ maxWidth: 'var(--input-max-width)', width: '100%' }}", 'style="max-width: var(--input-max-width); width: 100%;"').replace("style={{ maxWidth: 'var(--input-max-width)', width: '100%', marginTop: 'var(--space-md)' }}", 'style="max-width: var(--input-max-width); width: 100%; margin-top: var(--space-md);"').replace("style={{ padding: 0, border: 'none' }}", 'style="padding: 0; border: none;"'),
 };
 
+const gulp: Record<Name, string> = {
+  basic: `{% from "components/feedback/Empty/empty.njk" import empty %}
+
+{{ empty(description='데이터가 없습니다') }}`,
+  footer: `{% from "components/feedback/Empty/empty.njk" import empty %}
+{% from "components/basic/Button/button.njk" import button %}
+
+{% set footer %}
+  {{ button(size='sm', label='프로젝트 만들기') }}
+{% endset %}
+
+{{ empty(
+  description='등록된 프로젝트가 없습니다. 새 프로젝트를 만들어 시작해 보세요.',
+  footer=footer
+) }}`,
+  custom: `{% from "components/feedback/Empty/empty.njk" import empty %}
+
+{% call empty(iconName='search') %}
+  <strong>검색 결과가 없습니다</strong>
+  <span>다른 키워드로 다시 검색해 보세요.</span>
+{% endcall %}`,
+  size: `{% from "components/feedback/Empty/empty.njk" import empty %}
+
+{{ empty(size='sm', description='Small') }}
+{{ empty(description='Medium (기본)') }}
+{{ empty(size='lg', description='Large') }}`,
+  simple: `{% from "components/feedback/Empty/empty.njk" import empty %}
+
+{{ empty(simple=true, size='sm', description='일정 없음') }}`,
+  block: `{% from "components/feedback/Empty/empty.njk" import empty %}
+{% from "components/data-display/Card/card.njk" import card, cardHeader, cardBody %}
+{% from "components/data-display/Table/table.njk" import table %}
+
+{% call card(variant='shadow', style='max-width: var(--input-max-width); width: 100%') %}
+  {{ cardHeader(title='알림 목록') }}
+  {% call cardBody() %}
+    {{ empty(block=true, description='새 알림이 없습니다') }}
+  {% endcall %}
+{% endcall %}
+
+{% call table(
+  bordered=true,
+  style='max-width: var(--input-max-width); width: 100%; margin-top: var(--space-md)'
+) %}
+  <thead>
+    <tr>
+      <th scope="col">이름</th>
+      <th scope="col">상태</th>
+      <th scope="col">날짜</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3" style="padding: 0; border: none;">
+        {{ empty(block=true, simple=true, size='sm', description='표시할 항목이 없습니다') }}
+      </td>
+    </tr>
+  </tbody>
+{% endcall %}`,
+};
+
 function examples(key: Name): FrameworkExample[] {
   const buttonReact = key === 'footer' ? "\nimport Button from '@uxkm/react/button';" : '';
   const buttonVue = key === 'footer' ? "\nimport Button from '@uxkm/vue/button';" : '';
@@ -44,7 +105,6 @@ function examples(key: Name): FrameworkExample[] {
   const cardVue = key === 'block' ? "\nimport { Card, CardBody } from '@uxkm/vue/card';" : '';
   const reactCode = `import Empty from '@uxkm/react/empty';${buttonReact}${iconReact}${cardReact}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\nimport Empty from '@uxkm/vue/empty';${buttonVue}${iconVue}${cardVue}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  const gulpCode = `{% from "../../basic/Icon/icon.njk" import icon %}\n${html[key].replaceAll(defaultImage, '<div class="empty_image" data-slot="icon" aria-hidden="true">{{ icon(\'inbox\') }}</div>').replaceAll(searchImage, '<div class="empty_image" data-slot="icon" aria-hidden="true">{{ icon(\'search\') }}</div>')}`;
-  return [{ id: 'html', label: 'HTML', fileName: `Empty.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `empty.njk · ${key}`, code: gulpCode }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/empty · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/empty · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/empty · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/empty · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Empty.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `empty.njk · ${key}`, code: gulp[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/empty · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/empty · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/empty · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/empty · ${key}`, code: reactCode }];
 }
 export const emptyFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

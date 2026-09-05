@@ -1,19 +1,43 @@
 {# Space 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. #}
-{# space 클래스로 기본 inline-flex 간격 컨테이너를 만듭니다. 기본 간격은 md입니다. #}
-<div class="space" data-component="Space">
-  <div>1</div>
-  <div>2</div>
-  <div>3</div>
-</div>
+{# space macro로 간격·방향·줄바꿈·정렬을 조합합니다. #}
 
-{# gap·방향·줄바꿈·너비·정렬 변형 클래스를 조합합니다. #}
-<div class="space space_gap-sm space_vertical space_align-stretch" data-component="Space">
-  <div>첫 번째</div>
-  <div>두 번째</div>
-</div>
+{% macro space(
+  as = 'div',
+  gap = '',
+  size = '',
+  vertical = false,
+  wrap = false,
+  block = false,
+  align = '',
+  justify = '',
+  className = '',
+  style = ''
+) %}
+{%- set tag = as -%}
+{%- set resolved = gap if gap else (size if size else 'md') -%}
+{%- set gapClass = (' space_gap-' + resolved) if resolved and resolved != 'md' else '' -%}
+{%- set classes =
+  'space'
+  + gapClass
+  + (' space_vertical' if vertical else '')
+  + (' space_wrap' if wrap else '')
+  + (' space_block' if block else '')
+  + ((' space_align-' + align) if align else '')
+  + ((' space_justify-' + justify) if justify else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ tag }} class="{{ classes }}" data-component="Space"{% if style %} style="{{ style }}"{% endif %}>
+  {%- if caller -%}
+  {{ caller() }}
+  {%- else -%}
+  {{ content | default('') | safe }}
+  {%- endif -%}
+</{{ tag }}>
+{% endmacro %}
 
-{# 부모 너비를 채우고 줄바꿈하려면 space_block과 space_wrap을 함께 지정합니다. #}
-<div class="space space_block space_wrap space_justify-between" data-component="Space">
-  <div>시작</div>
-  <div>끝</div>
-</div>
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call space() %}
+  <div class="space_demo-box">1</div>
+  <div class="space_demo-box">2</div>
+  <div class="space_demo-box">3</div>
+{% endcall %}

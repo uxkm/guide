@@ -5,6 +5,126 @@ const drawer = (id: string, title: string, body: string, panel = 'drawer_placeme
   <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
   <div class="drawer_panel ${panel}"><div class="drawer_header"><h2 id="${id}-title" class="drawer_title">${title}</h2><button class="drawer_close" data-drawer-close aria-label="닫기">×</button></div><div class="drawer_body">${body}</div><div class="drawer_footer"><button class="btn btn_ghost" data-drawer-close>취소</button><button class="btn btn_filled color_primary" data-drawer-close>확인</button></div></div>
 </div>`;
+
+const gulpImports = `{% from "components/feedback/Drawer/drawer.njk" import drawer %}
+{% from "components/basic/Button/button.njk" import button %}`;
+const gulpInputImports = `{% from "components/form/Input/input.njk" import input, inputField %}`;
+const gulpTagImports = `{% from "components/data-display/Tag/tag.njk" import tag %}`;
+const gulpTrigger = (id: string, label: string) => `{{ button(
+  label='${label}',
+  dataAttributes={
+    'data-drawer-trigger': '#${id}',
+    'aria-controls': '${id}',
+    'aria-expanded': 'false'
+  }
+) }}`;
+const gulpFooter = (primaryLabel = '확인') => `{% set footer %}
+  {{ button(
+    variant='ghost',
+    color='',
+    label='취소',
+    dataAttributes={'data-drawer-close': true}
+  ) }}
+  {{ button(
+    label='${primaryLabel}',
+    dataAttributes={'data-drawer-close': true}
+  ) }}
+{% endset %}`;
+const gulpDrawer = (id: string, title: string, body: string, options = '') => `{% call drawer(id='${id}', title='${title}'${options}) %}
+  ${body}
+{% endcall %}`;
+
+function gulpExample(key: string): string {
+  switch (key) {
+    case 'basic':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-basic', 'Drawer 열기')}
+
+${gulpFooter()}
+${gulpDrawer('drawer-basic', '상세 정보', '<p>Drawer 패널 본문입니다.</p>', ', footer=footer')}`;
+    case 'open':
+      return `${gulpImports}
+
+${gulpFooter()}
+${gulpDrawer('drawer-open', '알림', '<p>로드 시 열린 Drawer입니다.</p>', ', open=true, openOnLoad=true, footer=footer')}`;
+    case 'placement':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-left', '왼쪽')}
+
+${gulpDrawer('drawer-left', '왼쪽 패널', '<p>왼쪽에서 열립니다.</p>', ", placement='left'")}`;
+    case 'size':
+      return `${gulpImports}
+
+${gulpDrawer('drawer-lg', 'Large', '<p>넓은 패널</p>', ", size='lg', open=true")}`;
+    case 'footer':
+      return `${gulpImports}
+${gulpInputImports}
+
+${gulpTrigger('drawer-footer', '항목 편집')}
+
+{% set nameInput %}
+  {{ input(id='drawer-footer-name', name='name') }}
+{% endset %}
+${gulpFooter('저장')}
+{% call drawer(id='drawer-footer', title='항목 편집', footer=footer) %}
+  {{ inputField(id='drawer-footer-name', label='이름', control=nameInput) }}
+{% endcall %}`;
+    case 'footerAlign':
+      return `${gulpImports}
+
+${gulpFooter()}
+${gulpDrawer('drawer-align', '푸터 정렬', '<p>균등 정렬</p>', ", placement='bottom', open=true, footer=footer, footerAlign='even'")}`;
+    case 'extra':
+      return `${gulpImports}
+${gulpTagImports}
+
+{% set status %}
+  {{ tag(label='완료', color='success') }}
+{% endset %}
+${gulpDrawer('drawer-extra', '주문 #1042', '<p>주문 상세 정보</p>', ', open=true, extra=status')}`;
+    case 'menu':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-menu', '메뉴 열기')}
+
+{% call drawer(id='drawer-menu', title='앱 메뉴', placement='left') %}
+  <nav class="menu" aria-label="앱 메뉴">
+    <a class="menu_link" href="#dashboard">대시보드</a>
+  </nav>
+{% endcall %}`;
+    case 'nested':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-parent', '첫 번째 Drawer 열기')}
+
+{% call drawer(id='drawer-parent', title='첫 번째 Drawer') %}
+  {{ button(
+    label='두 번째 열기',
+    dataAttributes={
+      'data-drawer-trigger': '#drawer-child',
+      'aria-controls': 'drawer-child',
+      'aria-expanded': 'false'
+    }
+  ) }}
+{% endcall %}
+
+${gulpDrawer('drawer-child', '두 번째 Drawer', '<p>최상위 패널</p>', ", size='sm', style='--drawer-stack-level: 1'")}`;
+    case 'dragSheet':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-drag', '드래그 시트 열기')}
+
+${gulpDrawer('drawer-drag', '공유 · 액션', '<p>하단 액션 시트입니다.</p>', ", placement='bottom', draggable=true")}`;
+    case 'noBackdrop':
+      return `${gulpImports}
+
+${gulpDrawer('drawer-plain', '백드롭 없음', '<p>패널만 표시합니다.</p>', ", size='sm', noBackdrop=true, open=true")}`;
+    default:
+      return gulpImports;
+  }
+}
 const sources: Record<string, Source> = {
   basic: { html: `${trigger('drawer-basic', 'Drawer 열기')}\n${drawer('drawer-basic', '상세 정보', '<p>Drawer 패널 본문입니다.</p>')}`, react: '<><Button label="Drawer 열기" onClick={() => setOpen(true)} /><Drawer open={open} title="상세 정보" onClose={() => setOpen(false)}><p>Drawer 패널 본문입니다.</p></Drawer></>', vue: '<Button label="Drawer 열기" @click="open = true" /><Drawer :open="open" title="상세 정보" @close="open = false"><p>Drawer 패널 본문입니다.</p></Drawer>' },
   open: { html: drawer('drawer-open', '알림', '<p>로드 시 열린 Drawer입니다.</p>').replace('class="drawer"', 'class="drawer is-open"').replace(' hidden', ''), react: '<Drawer defaultOpen title="알림"><p>로드 시 열린 Drawer입니다.</p></Drawer>', vue: '<Drawer default-open title="알림"><p>로드 시 열린 Drawer입니다.</p></Drawer>' },
@@ -22,6 +142,6 @@ const indent = (value: string, spaces: number) => value.split('\n').map((line) =
 function examples(key: string, source: Source): FrameworkExample[] {
   const react = `import { useState } from 'react';\nimport Drawer from '@uxkm/react/drawer';\nimport Button from '@uxkm/react/button';\n\nexport function Example() {\n  const [open, setOpen] = useState(${key === 'open' ? 'true' : 'false'});\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport { ref } from 'vue';\nimport Drawer from '@uxkm/vue/drawer';\nimport Button from '@uxkm/vue/button';\nconst open = ref(${key === 'open' ? 'true' : 'false'});\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Drawer.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `drawer.njk · ${key}`, code: source.html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/drawer · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/drawer · ${key}`, code: react }];
+  return [{ id: 'html', label: 'HTML', fileName: `Drawer.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `drawer.njk · ${key}`, code: gulpExample(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/drawer · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/drawer · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/drawer · ${key}`, code: react }];
 }
 export const drawerFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<keyof typeof sources, FrameworkExample[]>;

@@ -1,8 +1,83 @@
-{# Grid 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# grid 클래스에 열 수, 간격, 비율 등의 부모 변형 클래스를 함께 적용합니다. #}
-<div class="grid grid_cols-3" data-component="Grid">
-  {# 모든 자식은 부모가 만든 Grid 트랙에 자동으로 배치됩니다. #}
+{# Grid 원본 구현: 레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다. #}
+{# grid · gridCol macro로 열·간격·span·자동 배치를 조합합니다. #}
+
+{% macro grid(
+  as = 'div',
+  cols = '',
+  colsMd = '',
+  colsLg = '',
+  gap = '',
+  ratio = '',
+  align = '',
+  itemSpan = '',
+  itemSpanMd = '',
+  itemSpanLg = '',
+  autoFit = false,
+  autoFill = false,
+  equalColumns = false,
+  className = '',
+  style = ''
+) %}
+{%- set tag = as -%}
+{%- set gapPresets = ['sm', 'lg', 'none'] -%}
+{%- set gapClass = (' grid_gap-' + gap) if gap in gapPresets else '' -%}
+{%- set gapStyle = style -%}
+{%- if gap and gap not in gapPresets -%}
+  {%- set gapValue = (gap ~ 'rem') if gap is number else gap -%}
+  {%- set gapStyle = ((style + '; ') if style else '') + '--grid-current-gap: ' + gapValue -%}
+{%- endif -%}
+{%- set classes =
+  'grid'
+  + ((' grid_cols-' + cols) if cols else '')
+  + ((' grid_cols-md-' + colsMd) if colsMd else '')
+  + ((' grid_cols-lg-' + colsLg) if colsLg else '')
+  + gapClass
+  + ((' grid_ratio-' + ratio) if ratio else '')
+  + ((' grid_item-span-' + itemSpan) if itemSpan else '')
+  + ((' grid_item-span-md-' + itemSpanMd) if itemSpanMd else '')
+  + ((' grid_item-span-lg-' + itemSpanLg) if itemSpanLg else '')
+  + (' grid_auto-fit' if autoFit else '')
+  + (' grid_auto-fill' if autoFill else '')
+  + (' grid_equal-columns' if equalColumns else '')
+  + ((' grid_align-' + align) if align else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ tag }} class="{{ classes }}" data-component="Grid"{% if gapStyle %} style="{{ gapStyle }}"{% endif %}>
+  {%- if caller -%}
+  {{ caller() }}
+  {%- else -%}
+  {{ content | default('') | safe }}
+  {%- endif -%}
+</{{ tag }}>
+{% endmacro %}
+
+{% macro gridCol(
+  as = 'div',
+  span = '',
+  spanMd = '',
+  spanLg = '',
+  className = '',
+  style = ''
+) %}
+{%- set tag = as -%}
+{%- set classes =
+  (('grid_col-span-' + span) if span else '')
+  + ((' grid_col-span-md-' + spanMd) if spanMd else '')
+  + ((' grid_col-span-lg-' + spanLg) if spanLg else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ tag }} class="{{ classes | trim }}" data-component="GridCol"{% if style %} style="{{ style }}"{% endif %}>
+  {%- if caller -%}
+  {{ caller() }}
+  {%- else -%}
+  {{ content | default('') | safe }}
+  {%- endif -%}
+</{{ tag }}>
+{% endmacro %}
+
+{# include 시 기본 데모 한 번 렌더 (from import 시에는 실행되지 않음) #}
+{% call grid(cols=3) %}
   <div class="grid_demo-cell">1</div>
   <div class="grid_demo-cell">2</div>
   <div class="grid_demo-cell">3</div>
-</div>
+{% endcall %}

@@ -1,37 +1,90 @@
-{# Modal 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# modal 루트에 is-open·크기·스크롤 변형 클래스를 함께 적용합니다. #}
-{% set modalId = id | default('modal-basic') %}
+{# Modal 원본 구현: 대화상자의 루트·헤더·본문·푸터를 macro로 조합합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro modalHeader(id='modal-basic', title='Modal', header='', closeLabel='닫기', className='') %}
+<div class="modal_header{{ (' ' + className) if className else '' }}">
+  {% if header %}
+    {{ header | safe }}
+  {% else %}
+    <h2 class="modal_title" id="{{ id }}-title">{{ title }}</h2>
+  {% endif %}
+  {{ Button.button(
+    variant='ghost',
+    color='',
+    iconOnly=true,
+    iconBefore='close',
+    ripple=false,
+    ariaLabel=closeLabel,
+    dataAttributes={'data-modal-close': true},
+    className='modal_close'
+  ) }}
+</div>
+{% endmacro %}
+
+{% macro modalBody(content='', className='') %}
+{%- set body = caller() if caller else content -%}
+<div class="modal_body{{ (' ' + className) if className else '' }}">
+  {{ body | safe }}
+</div>
+{% endmacro %}
+
+{% macro modalFooter(content='', align='end', ratio='1-1', noPadBottom=false, className='') %}
+{%- set footer = caller() if caller else content -%}
+{%- set resolvedAlign = align if align in ['start', 'center', 'end', 'between', 'even'] else 'end' -%}
+{%- set resolvedRatio = ratio if ratio in ['1-1', '1-2', '2-1'] else '1-1' -%}
+<div class="modal_footer{% if resolvedAlign != 'end' %} modal_footer-{{ resolvedAlign }}{% endif %}{% if resolvedAlign == 'even' and resolvedRatio != '1-1' %} modal_footer-even-{{ resolvedRatio }}{% endif %}{% if noPadBottom %} modal_footer-no-pad-b{% endif %}{{ (' ' + className) if className else '' }}">
+  {{ footer | safe }}
+</div>
+{% endmacro %}
+
+{% macro modal(
+  id='modal-basic',
+  title='Modal',
+  size='md',
+  scrollable=false,
+  open=false,
+  backdrop=true,
+  header='',
+  footer='',
+  footerAlign='end',
+  footerRatio='1-1',
+  footerNoPadBottom=false,
+  closeLabel='닫기',
+  ariaLabel='',
+  className='',
+  style=''
+) %}
+{%- set content = caller() if caller else 'Modal 대화상자 본문입니다.' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg', 'fullscreen'] else 'md' -%}
 <div
-  class="modal{% if size and size != 'md' %} modal_{{ size }}{% endif %}{% if scrollable %} modal_scrollable{% endif %}{% if open %} is-open{% endif %}"
-  id="{{ modalId }}"
+  class="modal{% if resolvedSize != 'md' %} modal_{{ resolvedSize }}{% endif %}{% if scrollable %} modal_scrollable{% endif %}{% if open %} is-open{% endif %}{{ (' ' + className) if className else '' }}"
+  id="{{ id }}"
   data-component="Modal"
-  data-modal{% if backdrop == false %}
-  data-modal-backdrop="false"{% endif %}
+  data-modal
+  {% if not backdrop %}data-modal-backdrop="false"{% endif %}
   role="dialog"
   aria-modal="true"
-  aria-labelledby="{{ modalId }}-title"
-  tabindex="-1"{% if not open %}
-  hidden{% endif %}
+  {% if ariaLabel or header %}aria-label="{{ ariaLabel if ariaLabel else title }}"{% else %}aria-labelledby="{{ id }}-title"{% endif %}
+  tabindex="-1"
+  {% if style %}style="{{ style }}"{% endif %}
+  {% if not open %}hidden{% endif %}
 >
-  {# 백드롭 클릭으로 닫을 수 있습니다. #}
-  <div class="modal_backdrop" data-modal-close aria-hidden="true"></div>
+  <div class="modal_backdrop"{% if backdrop %} data-modal-close{% endif %} aria-hidden="true"></div>
   <div class="modal_dialog">
-    {# 제목과 닫기 버튼을 담는 헤더입니다. #}
-    <div class="modal_header">
-      <h2 class="modal_title" id="{{ modalId }}-title">{{ title | default('Modal') }}</h2>
-      <button type="button" class="modal_close" data-modal-close aria-label="{{ closeLabel | default('닫기') }}">
-        ×
-      </button>
-    </div>
-    {# 대화상자 본문입니다. #}
-    <div class="modal_body">{{ content | default('Modal 대화상자 본문입니다.') | safe }}</div>
-    {# 확인·취소 등 푸터 액션 영역입니다. #}
+    {{ modalHeader(id=id, title=title, header=header, closeLabel=closeLabel) }}
+    {{ modalBody(content=content) }}
     {% if footer %}
-    <div
-      class="modal_footer{% if footerAlign and footerAlign != 'end' %} modal_footer-{{ footerAlign }}{% endif %}{% if footerAlign == 'even' and footerRatio and footerRatio != '1-1' %} modal_footer-even-{{ footerRatio }}{% endif %}{% if footerNoPadBottom %} modal_footer-no-pad-b{% endif %}"
-    >
-      {{ footer | safe }}
-    </div>
+      {{ modalFooter(content=footer, align=footerAlign, ratio=footerRatio, noPadBottom=footerNoPadBottom) }}
     {% endif %}
   </div>
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoFooter %}
+  {{ Button.button(variant='ghost', color='', label='취소', dataAttributes={'data-modal-close': true}) }}
+  {{ Button.button(label='확인', dataAttributes={'data-modal-close': true}) }}
+{% endset %}
+{% call modal(footer=demoFooter) %}
+  <p>Modal 대화상자 본문입니다.</p>
+{% endcall %}

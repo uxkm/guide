@@ -49,8 +49,53 @@ const sources: Record<string, Source> = {
   }
 };
 
+const rateImport = `{% from "components/form/Rate/rate.njk" import rate, rateField %}`;
+const rateGulpExamples: Record<string, string> = {
+  type: `${rateImport}
+
+{{ rate(name='rate-default', value=3, legend='기본 별점') }}
+{{ rate(name='rate-half-type', value=3.5, allowHalf=true, legend='반별 별점') }}
+{{ rate(value=4, readOnly=true, ariaLabel='5점 만점 중 4점') }}`,
+  basic: `${rateImport}
+
+{{ rate(name='rate-basic', value=3, legend='만족도') }}`,
+  size: `${rateImport}
+
+{{ rate(name='rate-sm', value=3, size='sm', legend='Small') }}
+{{ rate(name='rate-md', value=3, legend='Medium') }}
+{{ rate(name='rate-lg', value=3, size='lg', legend='Large') }}`,
+  color: `${rateImport}
+
+{% for color in ['primary', 'success', 'danger', 'warning'] %}
+  {{ rate(name='rate-' + color, value=4, color=color, legend=color | capitalize) }}
+{% endfor %}`,
+  half: `${rateImport}
+
+{{ rate(name='rate-half', value=3.5, allowHalf=true, legend='0.5점 단위 평가') }}`,
+  clear: `${rateImport}
+
+{{ rate(name='rate-clearable', value=4, clearable=true, legend='초기화 가능한 별점') }}`,
+  readonly: `${rateImport}
+
+{{ rate(value=4, readOnly=true) }}
+{{ rate(value=3.5, allowHalf=true, readOnly=true) }}
+{{ rate(value=2, count=3, readOnly=true, ariaLabel='3점 만점 중 2점') }}`,
+  state: `${rateImport}
+
+{{ rate(name='rate-empty', legend='미선택') }}
+{{ rate(name='rate-selected', value=4, legend='선택됨') }}
+{{ rate(name='rate-disabled', value=3, disabled=true, legend='비활성') }}`,
+  form: `${rateImport}
+
+<form class="form form_vertical form_fit">
+  {% call rateField(label='상품 만족도', labelId='rate-form-label', hint='1~5점 사이로 평가해 주세요.') %}
+    {{ rate(name='rate-form', ariaLabel='상품 만족도') }}
+  {% endcall %}
+</form>`
+};
+
 function examples(key: string, source: Source): FrameworkExample[] {
-  const gulp = `{# apps/gulp/src/components/form/Rate/rate.njk #}\n${source.html}`;
+  const gulp = rateGulpExamples[key];
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Rate/Rate.html · ${key}`, code: source.html },
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Rate/rate.njk · ${key}`, code: gulp },
@@ -62,4 +107,3 @@ function examples(key: string, source: Source): FrameworkExample[] {
 }
 
 export const rateFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<string, FrameworkExample[]>;
-

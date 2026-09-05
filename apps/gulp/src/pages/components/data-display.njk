@@ -1,0 +1,181 @@
+{% extends "templates/layouts/default.njk" %}
+{% from "templates/partials/component-demo.njk" import componentDemo %}
+{% import "components/basic/Button/button.njk" as Button %}
+{% import "components/data-display/Badge/badge.njk" as Badge %}
+{% import "components/data-display/Avatar/avatar.njk" as Avatar %}
+{% from "components/data-display/Card/card.njk" import card, cardHeader, cardBody, cardFooter %}
+{% from "components/data-display/List/list.njk" import list, listItem %}
+{% from "components/data-display/Table/table.njk" import table %}
+{% from "components/data-display/Calendar/calendar.njk" import calendar, calendarHeader, calendarWeekdays, calendarMonth %}
+{% from "components/data-display/Timeline/timeline.njk" import timeline, timelineItem %}
+{% from "components/data-display/Tree/tree.njk" import tree, treeNode %}
+
+{% set title = "UXKM Gulp · Data Display" %}
+
+{% block content %}
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/components.html">컴포넌트</a> · Data Display</p>
+      <h1>Data Display</h1>
+      <p class="lead">데이터 표시 컴포넌트를 include로 렌더합니다.</p>
+    </header>
+
+    {% call componentDemo('Avatar', 'components/data-display/Avatar/avatar.njk', 'avatar') %}
+      {% from "components/data-display/Avatar/avatar.njk" import avatar, avatarGroup %}
+      <div class="icon_group">
+        {{ avatar(src='/images/samples/avatar/avatar-sample.svg', alt='홍길동') }}
+        {{ avatar(color='primary', initials='홍', ariaHidden=true) }}
+        {{ avatar(color='default', icon='user', ariaHidden=true) }}
+      </div>
+      {% call avatarGroup(ariaLabel='팀 멤버 3명') %}
+        {{ avatar(color='primary', initials='김', ariaHidden=true) }}
+        {{ avatar(color='success', initials='이', ariaHidden=true) }}
+        {{ avatar(color='warning', initials='박', ariaHidden=true, badgeColor='success', badgeLabel='온라인') }}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Badge', 'components/data-display/Badge/badge.njk', 'badge') %}
+      {% from "components/data-display/Badge/badge.njk" import badge, badgeWrap %}
+      <div class="icon_group">
+        {{ badge(color='default', label='Default') }}
+        {{ badge(color='primary', label='Primary') }}
+        {{ badge(dot=true, color='success', label='Active') }}
+        {{ badge(count=true, color='danger', label='5', ariaLabel='읽지 않은 알림 5건') }}
+      </div>
+      {% call badgeWrap() %}
+        <button class="btn btn_filled color_primary" type="button"><span class="btn_label">알림</span></button>
+        {{ badge(count=true, color='danger', label='5', ariaLabel='읽지 않은 알림 5건') }}
+      {% endcall %}
+      {% call badgeWrap() %}
+        <span class="avatar color_primary" aria-hidden="true">홍</span>
+        {{ badge(dotOnly=true, color='success', ariaLabel='온라인') }}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Tag', 'components/data-display/Tag/tag.njk', 'tag') %}
+      {% from "components/data-display/Tag/tag.njk" import tag, tagGroup %}
+      <div class="icon_group">
+        {{ tag(color='primary', label='Primary') }}
+        {{ tag(variant='outline', color='success', label='Outline') }}
+        {{ tag(icon='star', label='Design') }}
+        {{ tag(closable=true, label='React', closeLabel='React 태그 제거') }}
+      </div>
+      {% call tagGroup(ariaLabel='카테고리 필터') %}
+        {{ tag(checkable=true, selected=true, color='default', label='전체') }}
+        {{ tag(checkable=true, color='default', label='UI') }}
+        {{ tag(add=true, round=true, label='+ 태그 추가') }}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Stat', 'components/data-display/Stat/stat.njk', 'stat') %}
+      {% from "components/data-display/Stat/stat.njk" import stat %}
+      <div class="stat_group stat_group-3">
+        {{ stat(title='총 매출', prefix='₩', value='4.2M', description='+8.2%', trendColor='success', card=true, shadow=true) }}
+        {{ stat(title='신규 가입', value='1,234', description='+15.3%', trendColor='success', card=true, shadow=true) }}
+        {{ stat(title='이탈률', value='2.4', suffix='%', description='+0.3%p', trendColor='danger', card=true, shadow=true) }}
+      </div>
+    {% endcall %}
+
+    {% call componentDemo('Card', 'components/data-display/Card/card.njk', 'card') %}
+      {% call card(style='max-width: 360px; width: 100%') %}
+        {{ cardHeader(title='카드 제목', subtitle='부제목 또는 메타 정보') }}
+        {% call cardBody() %}카드 본문 영역입니다. 관련 콘텐츠, 설명, 데이터를 담을 수 있습니다.{% endcall %}
+        {% call cardFooter() %}
+          {{ Button.button(variant='filled', color='primary', size='sm', label='확인') }}
+          {{ Button.button(variant='ghost', size='sm', label='취소') }}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('List', 'components/data-display/List/list.njk', 'list') %}
+      {% set users = [
+        { name: '홍길동', role: '프론트엔드 개발자', initial: '홍', color: 'primary' },
+        { name: '김철수', role: '백엔드 개발자', initial: '김', color: 'success' }
+      ] %}
+      {% call list(bordered=true) %}
+        {% for user in users %}
+          {{ listItem(title=user.name, meta=user.role, prefix=Avatar.avatar(color=user.color, initials=user.initial, ariaHidden=true)) }}
+        {% endfor %}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Table', 'components/data-display/Table/table.njk', 'table') %}
+      {% set rows = [
+        ['홍길동', 'Frontend', '활성'],
+        ['김철수', 'Backend', '활성'],
+        ['이영희', 'Design', '휴가']
+      ] %}
+      {% call table(bordered=true, hover=true) %}
+        <thead>
+          <tr><th scope="col">이름</th><th scope="col">직군</th><th scope="col">상태</th></tr>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ Badge.badge(color='success' if row[2] == '활성' else 'warning', label=row[2]) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Timeline', 'components/data-display/Timeline/timeline.njk', 'timeline') %}
+      {% set timelineItems = [
+        {
+          color: 'primary',
+          time: '2024-06-01 10:00',
+          datetime: '2024-06-01',
+          title: '프로젝트 킥오프',
+          description: '팀 미팅을 통해 프로젝트 범위와 일정을 확정했습니다.'
+        },
+        {
+          color: 'success',
+          time: '2024-06-10 14:30',
+          datetime: '2024-06-10',
+          title: '1차 릴리스 완료',
+          description: 'MVP 기능이 프로덕션에 배포되었습니다.'
+        }
+      ] %}
+      {% call timeline() %}
+        {% for item in timelineItems %}
+          {{ timelineItem(
+            color=item.color,
+            time=item.time,
+            datetime=item.datetime,
+            title=item.title,
+            description=item.description
+          ) }}
+        {% endfor %}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Calendar', 'components/data-display/Calendar/calendar.njk', 'calendar') %}
+      {% call calendar(
+        ariaLabel='2024년 6월',
+        header=calendarHeader(title='2024년 6월'),
+        weekdays=calendarWeekdays()
+      ) %}
+        {{ calendarMonth() }}
+      {% endcall %}
+    {% endcall %}
+
+    {% call componentDemo('Tree', 'components/data-display/Tree/tree.njk', 'tree') %}
+      {% call tree(bordered=true, ariaLabel='파일 탐색기') %}
+        {% call treeNode(label='src', expanded=true) %}
+          {% call treeNode(label='components', expanded=true) %}
+            {{ treeNode(label='button.html', selected=true) }}
+          {% endcall %}
+        {% endcall %}
+        {% call treeNode(label='public', expanded=false) %}
+          {{ treeNode(label='favicon.ico') }}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+
+    <p><a class="link color_primary" href="/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+{% endblock %}

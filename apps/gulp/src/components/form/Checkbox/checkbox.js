@@ -3,5 +3,11 @@
  * 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다.
  */
 export function initCheckbox(root = document) {
-  return root.querySelectorAll('[data-component="Checkbox"]');
+  const checkboxes = root.querySelectorAll('[data-component="Checkbox"]');
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.dataset.indeterminate === 'true') checkbox.indeterminate = true;
+  });
+
+  return checkboxes;
 }

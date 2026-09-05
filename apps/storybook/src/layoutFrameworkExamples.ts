@@ -782,6 +782,269 @@ export const spaceComponentExamples: FrameworkExample[] = [
 
 type Definition = { body: string; html?: string };
 
+const LAYOUT_ATTR_MAP: Record<string, string> = {
+  'cols-md': 'colsMd',
+  'cols-lg': 'colsLg',
+  'item-span': 'itemSpan',
+  'item-span-md': 'itemSpanMd',
+  'item-span-lg': 'itemSpanLg',
+  'span-md': 'spanMd',
+  'span-lg': 'spanLg',
+  'auto-fit': 'autoFit',
+  'auto-fill': 'autoFill',
+  'equal-columns': 'equalColumns',
+  'direction-md': 'directionMd',
+  'direction-lg': 'directionLg',
+  'grow-factor': 'growFactor',
+  'margin-y': 'marginY',
+  'icon-before': 'iconBefore',
+  'icon-after': 'iconAfter',
+  'icon-only': 'iconOnly',
+  'select-text': 'selectText',
+  'select-caret': 'selectCaret',
+  'aria-disabled': 'ariaDisabled',
+  'aria-label': 'ariaLabel',
+  class: 'className',
+};
+
+function gulpMacroArgs(source: string) {
+  const props: string[] = [];
+  // 원본 속성 순서를 유지하면서 Vue 바인딩·리터럴을 함께 파싱합니다.
+  const token = /:([\w-]+)="([^"]*)"|([\w-]+)(?:="([^"]*)")?/g;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    if (match[1]) {
+      const key = LAYOUT_ATTR_MAP[match[1]] ?? match[1];
+      props.push(`${key}=${match[2]}`);
+      continue;
+    }
+    const raw = match[3];
+    const value = match[4];
+    const key = LAYOUT_ATTR_MAP[raw] ?? raw;
+    if (value == null) props.push(`${key}=true`);
+    else if (/^-?\d+(\.\d+)?$/.test(value)) props.push(`${key}=${value}`);
+    else props.push(`${key}='${value}'`);
+  }
+
+  return props.join(', ');
+}
+
+/** 연속 numbered demo cell을 for 루프로 접어 include/call 반복을 줄입니다. */
+function collapseNumberedDemoCells(inner: string, cellClass: string) {
+  const pattern = new RegExp(`<div class="${cellClass}">(\\d+)<\\/div>`, 'g');
+  const matches = [...inner.matchAll(pattern)];
+  if (matches.length < 4) return inner;
+
+  const numbers = matches.map((match) => Number(match[1]));
+  const expected = Array.from({ length: numbers.length }, (_, index) => index + 1);
+  if (numbers.join(',') !== expected.join(',')) return inner;
+
+  const list = numbers.join(', ');
+  return `{% for n in [${list}] %}\n  <div class="${cellClass}">{{ n }}</div>\n{% endfor %}`;
+}
+
+function indentGulpLines(value: string, spaces: number) {
+  const indent = ' '.repeat(spaces);
+  return value
+    .split('\n')
+    .map((line) => (line.trim() ? `${indent}${line}` : ''))
+    .join('\n');
+}
+
+/** HTML 태그와 `{{ macro() }}` 사이를 한 줄씩 맞추고 들여쓰기를 제거합니다. */
+function normalizeGulpInner(value: string) {
+  return value
+    .replace(/>\s*</g, '>\n<')
+    .replace(/(<\/[\w:-]+>)\s*(\{\{)/g, '$1\n$2')
+    .replace(/(\}\})\s*(<\/?[A-Za-z])/g, '$1\n$2')
+    .replace(/(\}\})\s*(\{\{)/g, '$1\n$2')
+    .split('\n')
+    .map((line) => line.trim())
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+type GulpCallConfig = {
+  fromPath: string;
+  importNames: string;
+  tags: Array<{ tag: string; macro: string }>;
+  cellClass: string;
+};
+
+/**
+ * JSX-like body를 Nunjucks macro call로 변환합니다.
+ * `{% from ... import %}`는 한 번만 두고 call로 인스턴스를 만듭니다.
+ */
+function toGulpCalls(body: string, config: GulpCallConfig) {
+  return `{% from "${config.fromPath}" import ${config.importNames} %}\n\n${convertCallFragment(body, config)
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()}`;
+}
+
+function convertCallFragment(body: string, config: GulpCallConfig): string {
+  const tagAlt = config.tags.map((entry) => entry.tag).join('|');
+  const macroOf = Object.fromEntries(config.tags.map((entry) => [entry.tag, entry.macro]));
+  const openRe = new RegExp(`^<(${tagAlt})\\b([^>]*)>`);
+  const searchRe = new RegExp(`<(${tagAlt})\\b`);
+  let result = '';
+  let index = 0;
+
+  while (index < body.length) {
+    const remaining = body.slice(index);
+    const open = remaining.match(openRe);
+
+    if (open) {
+      const name = open[1];
+      const macro = macroOf[name];
+      const args = gulpMacroArgs(open[2].trim());
+      const innerStart = index + open[0].length;
+
+      let depth = 1;
+      const scanner = new RegExp(`</?${name}\\b[^>]*>`, 'g');
+      scanner.lastIndex = innerStart;
+      let end = body.length;
+      let scan: RegExpExecArray | null;
+      while ((scan = scanner.exec(body))) {
+        if (scan[0].startsWith(`</${name}`)) depth -= 1;
+        else depth += 1;
+        if (depth === 0) {
+          end = scan.index;
+          break;
+        }
+      }
+
+      const inner = convertCallFragment(body.slice(innerStart, end), config);
+      const collapsed = collapseNumberedDemoCells(inner.trim(), config.cellClass);
+      const content = indentGulpLines(collapsed, 2);
+      const call = args
+        ? `{% call ${macro}(${args}) %}\n${content}\n{% endcall %}`
+        : `{% call ${macro}() %}\n${content}\n{% endcall %}`;
+      if (result && !result.endsWith('\n')) result += '\n';
+      result += call;
+      index = end + `</${name}>`.length;
+      continue;
+    }
+
+    const next = remaining.search(searchRe);
+    const chunk = next < 0 ? remaining : remaining.slice(0, next);
+    if (/^\s*$/.test(chunk)) {
+      if (result && next >= 0 && !result.endsWith('\n')) result += '\n';
+    } else {
+      const text = normalizeGulpInner(chunk);
+      if (text) {
+        if (result && !result.endsWith('\n')) result += '\n';
+        result += text;
+        if (next >= 0) result += '\n';
+      } else if (result && next >= 0 && !result.endsWith('\n')) {
+        result += '\n';
+      }
+    }
+    index = next < 0 ? body.length : index + next;
+  }
+
+  return result;
+}
+
+function toGulpGrid(body: string) {
+  return toGulpCalls(body, {
+    fromPath: 'components/layout/Grid/grid.njk',
+    importNames: 'grid, gridCol',
+    tags: [
+      { tag: 'Grid', macro: 'grid' },
+      { tag: 'GridCol', macro: 'gridCol' },
+    ],
+    cellClass: 'grid_demo-cell',
+  });
+}
+
+function toGulpFlex(body: string) {
+  return toGulpCalls(body, {
+    fromPath: 'components/layout/Flex/flex.njk',
+    importNames: 'flex, flexItem',
+    tags: [
+      { tag: 'Flex', macro: 'flex' },
+      { tag: 'FlexItem', macro: 'flexItem' },
+    ],
+    cellClass: 'flex_demo-cell',
+  });
+}
+
+/**
+ * Divider JSX-like body를 Nunjucks macro 호출로 변환합니다.
+ * 자기 닫힘 태그는 `{{ divider(...) }}`, 본문이 있으면 `{% call %}`을 사용합니다.
+ * 감싸는 Space가 있으면 `space` macro call로 함께 변환합니다.
+ */
+function toGulpDivider(body: string) {
+  let result = replaceGulpDividers(body.replace(/\r\n?/g, '\n'));
+  const imports = ['{% from "components/layout/Divider/divider.njk" import divider %}'];
+
+  if (/<Space\b/.test(result)) {
+    result = convertCallFragment(result, SPACE_GULP_CONFIG);
+    imports.unshift('{% from "components/layout/Space/space.njk" import space %}');
+  } else {
+    result = result
+      .replace(/>\s*</g, '>\n<')
+      .replace(/\}\}\s*</g, '}}\n<')
+      .replace(/>\s*\{\{/g, '>\n{{')
+      .replace(/\}\}\s*\{\{/g, '}}\n{{');
+  }
+
+  return `${imports.join('\n')}\n\n${result.replace(/\n{3,}/g, '\n\n').trim()}`;
+}
+
+const SPACE_GULP_CONFIG: GulpCallConfig = {
+  fromPath: 'components/layout/Space/space.njk',
+  importNames: 'space',
+  tags: [{ tag: 'Space', macro: 'space' }],
+  cellClass: 'space_demo-box',
+};
+
+function replaceGulpDividers(body: string) {
+  let result = body.replace(/<Divider\b([^>]*)\/>/g, (_, source: string) => {
+    const args = gulpMacroArgs(source.trim());
+    return args ? `{{ divider(${args}) }}` : '{{ divider() }}';
+  });
+
+  result = result.replace(/<Divider\b([^>]*)>([\s\S]*?)<\/Divider>/g, (_, source: string, inner: string) => {
+    const args = gulpMacroArgs(source.trim());
+    const content = inner.trim();
+    if (!content) {
+      return args ? `{{ divider(${args}) }}` : '{{ divider() }}';
+    }
+    const indented = indentGulpLines(content, 2);
+    return args
+      ? `{% call divider(${args}) %}\n${indented}\n{% endcall %}`
+      : `{% call divider() %}\n${indented}\n{% endcall %}`;
+  });
+
+  return result;
+}
+
+function replaceGulpButtons(body: string) {
+  return body.replace(/<Button\b([^>]*)\/>/g, (_, source: string) => {
+    const args = gulpMacroArgs(source.trim());
+    return args ? `{{ button(${args}) }}` : '{{ button() }}';
+  });
+}
+
+/**
+ * Space JSX-like body를 Nunjucks macro call로 변환합니다.
+ * 내부 Divider·Button은 각각 divider·button macro 호출로 바꿉니다.
+ */
+function toGulpSpace(body: string) {
+  let result = replaceGulpButtons(replaceGulpDividers(body.replace(/\r\n?/g, '\n')));
+  const imports = ['{% from "components/layout/Space/space.njk" import space %}'];
+  if (result.includes('{{ divider(') || result.includes('{% call divider')) {
+    imports.push('{% from "components/layout/Divider/divider.njk" import divider %}');
+  }
+  if (result.includes('{{ button(')) {
+    imports.push('{% from "components/basic/Button/button.njk" import button %}');
+  }
+  result = convertCallFragment(result, SPACE_GULP_CONFIG);
+  return `${imports.join('\n')}\n\n${result.replace(/\n{3,}/g, '\n\n').trim()}`;
+}
+
 function reactBody(body: string) {
   return body
     .replace(/class=/g, 'className=')
@@ -795,6 +1058,10 @@ function reactBody(body: string) {
     .replace(/span-md=/g, 'spanMd=')
     .replace(/span-lg=/g, 'spanLg=')
     .replace(/grow-factor=/g, 'growFactor=')
+    .replace(/margin-y=/g, 'marginY=')
+    .replace(/:([\w]+)="([^"]*)"/g, (_, key: string, value: string) =>
+      /^-?\d+(\.\d+)?$/.test(value) ? `${key}={${value}}` : `${key}="${value}"`,
+    )
     .replace(/style="min-width: 8rem;"/g, "style={{ minWidth: '8rem' }}")
     .replace(/style="min-height: 5rem; padding: 1rem;"/g, "style={{ minHeight: '5rem', padding: '1rem' }}")
     .replace(/style="padding-block: 2rem;"/g, "style={{ paddingBlock: '2rem' }}")
@@ -862,13 +1129,7 @@ ${markup.split('\n').map((line) => `  ${line}`).join('\n')}
 
 const dividerWebSquare: Record<string, string> = {
   playground: `<w2:group
-  id="dividerPlayground"
-  tagname="div"
-  class="divider">
-  <w2:textbox id="dividerPlaygroundLabel" label="라벨"></w2:textbox>
-</w2:group>`,
-  basic: `<w2:group
-  id="dividerBasicExample">
+  id="dividerPlaygroundExample">
   <p>위 콘텐츠</p>
   <hr class="divider" />
   <p>아래 콘텐츠</p>
@@ -878,6 +1139,27 @@ const dividerWebSquare: Record<string, string> = {
   <p>위 콘텐츠</p>
   <hr class="divider divider_dashed" />
   <p>아래 콘텐츠</p>
+</w2:group>`,
+  marginY: `<w2:group
+  id="dividerMarginYExample">
+  <p>marginY sm</p>
+  <hr class="divider divider_margin-sm" />
+  <p>아래 콘텐츠</p>
+  <p>marginY 1.5rem</p>
+  <hr class="divider" style="--divider-current-margin-y: 1.5rem;" />
+  <p>아래 콘텐츠</p>
+  <w2:group id="dividerMarginYVertical" class="space">
+    <w2:textbox id="dividerMarginYItemA" label="A"></w2:textbox>
+    <span class="divider divider_vertical divider_margin-lg divider_height-md" aria-hidden="true"></span>
+    <w2:textbox id="dividerMarginYItemB" label="B"></w2:textbox>
+  </w2:group>
+</w2:group>`,
+  thickness: `<w2:group
+  id="dividerThicknessExample">
+  <p>thickness lg</p>
+  <hr class="divider divider_thickness-lg" />
+  <p>thickness 3px</p>
+  <hr class="divider" style="--divider-current-thickness: 3px;" />
 </w2:group>`,
   text: `<w2:group
   id="dividerTextExample">
@@ -904,9 +1186,9 @@ const dividerWebSquare: Record<string, string> = {
   id="dividerVerticalExample"
   class="space">
   <w2:textbox id="dividerVerticalItemA" label="항목 A"></w2:textbox>
-  <span class="divider divider_vertical" aria-hidden="true"></span>
+  <span class="divider divider_vertical divider_height-md" aria-hidden="true"></span>
   <w2:textbox id="dividerVerticalItemB" label="항목 B"></w2:textbox>
-  <span class="divider divider_vertical divider_dashed" aria-hidden="true"></span>
+  <span class="divider divider_vertical divider_dashed divider_height-lg" aria-hidden="true"></span>
   <w2:textbox id="dividerVerticalItemC" label="항목 C"></w2:textbox>
 </w2:group>`
 };
@@ -923,9 +1205,19 @@ function makeExamples(component: string, key: string, definition: Definition): F
   // Fragment의 여는 태그와 닫는 태그를 맞추고 내부 예시만 한 단계 들여씁니다.
   const react = `${reactImports}\n\nexport function Example() {\n  return (\n  <>\n${reactMarkup.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}`;
   const html = definition.html ?? componentHtml(definition.body);
+  const gulp =
+    component === 'Grid'
+      ? toGulpGrid(definition.body)
+      : component === 'Flex'
+        ? toGulpFlex(definition.body)
+        : component === 'Divider'
+          ? toGulpDivider(definition.body)
+          : component === 'Space'
+            ? toGulpSpace(definition.body)
+            : `{# ${component} · ${key} #}\n${html}`;
   const examples: FrameworkExample[] = [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/layout/${component}/${component}.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/layout/${component}/${lower}.njk · ${key}`, code: `{# ${component} · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/layout/${component}/${lower}.njk · ${key}`, code: gulp },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/${lower} → apps/vue/src/components/layout/${component}/${component}.vue · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/${lower} → apps/vue/src/components/layout/${component}/${component}.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/${lower} → apps/react/src/components/layout/${component}/${component}.jsx · ${key}`, code: react },
@@ -980,17 +1272,26 @@ const flex = {
 } satisfies Record<string, Definition>;
 
 const divider = {
-  playground: { body: `<Divider label="라벨" />`, html: `<div class="divider">라벨</div>` },
-  basic: { body: `<p>위 콘텐츠</p>\n<Divider />\n<p>아래 콘텐츠</p>`, html: `<p>위 콘텐츠</p>\n<hr class="divider" />\n<p>아래 콘텐츠</p>` },
+  playground: { body: `<p>위 콘텐츠</p>\n<Divider />\n<p>아래 콘텐츠</p>`, html: `<p>위 콘텐츠</p>\n<hr class="divider" />\n<p>아래 콘텐츠</p>` },
   dashed: { body: `<p>위 콘텐츠</p>\n<Divider dashed />\n<p>아래 콘텐츠</p>`, html: `<p>위 콘텐츠</p>\n<hr class="divider divider_dashed" />\n<p>아래 콘텐츠</p>` },
+  marginY: {
+    body: `<p>가로 · 상·하</p>\n<p>marginY sm</p>\n<Divider margin-y="sm" />\n<p>아래 콘텐츠</p>\n<p>세로 · 좌·우</p>\n<Space>\n  <span>A</span><Divider vertical margin-y="lg" height="md" /><span>B</span>\n</Space>`,
+    html: `<p>가로 · 상·하</p>\n<p>marginY sm</p>\n<hr class="divider divider_margin-sm" />\n<p>아래 콘텐츠</p>\n<p>세로 · 좌·우</p>\n<div class="space">\n  <span>A</span><span class="divider divider_vertical divider_margin-lg divider_height-md" aria-hidden="true"></span><span>B</span>\n</div>`,
+  },
+  thickness: {
+    body: `<p>thickness lg</p>\n<Divider thickness="lg" />\n<p>thickness 3px</p>\n<Divider thickness="3px" />`,
+    html: `<p>thickness lg</p>\n<hr class="divider divider_thickness-lg" />\n<p>thickness 3px</p>\n<hr class="divider" style="--divider-current-thickness: 3px;" />`,
+  },
   text: { body: `<Divider label="섹션 제목" />\n<Divider plain label="보조 설명" />`, html: `<div class="divider">섹션 제목</div>\n<div class="divider divider_plain">보조 설명</div>` },
   orient: { body: `<Divider orient="left" label="왼쪽" />\n<Divider label="가운데" />\n<Divider orient="right" label="오른쪽" />`, html: `<div class="divider divider_orient-left">왼쪽</div>\n<div class="divider">가운데</div>\n<div class="divider divider_orient-right">오른쪽</div>` },
-  vertical: { body: `<Space>\n  <span>항목 A</span><Divider vertical /><span>항목 B</span><Divider vertical dashed /><span>항목 C</span>\n</Space>`, html: `<div class="space">\n  <span>항목 A</span><span class="divider divider_vertical" aria-hidden="true"></span>\n  <span>항목 B</span><span class="divider divider_vertical divider_dashed" aria-hidden="true"></span><span>항목 C</span>\n</div>` }
+  vertical: {
+    body: `<Space>\n  <span>항목 A</span><Divider vertical height="md" /><span>항목 B</span><Divider vertical dashed height="lg" /><span>항목 C</span>\n</Space>`,
+    html: `<div class="space">\n  <span>항목 A</span><span class="divider divider_vertical divider_height-md" aria-hidden="true"></span>\n  <span>항목 B</span><span class="divider divider_vertical divider_dashed divider_height-lg" aria-hidden="true"></span><span>항목 C</span>\n</div>`,
+  }
 } satisfies Record<string, Definition>;
 
 const space = {
-  playground: { body: `<Space gap="md"><div class="space_demo-box">항목 1</div><div class="space_demo-box">항목 2</div><div class="space_demo-box">항목 3</div></Space>`, html: `<div class="space"><div>항목 1</div><div>항목 2</div><div>항목 3</div></div>` },
-  basic: { body: `<Space><div class="space_demo-box">항목 1</div><div class="space_demo-box">항목 2</div><div class="space_demo-box">항목 3</div></Space>`, html: `<div class="space"><div>항목 1</div><div>항목 2</div><div>항목 3</div></div>` },
+  playground: { body: `<Space><div class="space_demo-box">항목 1</div><div class="space_demo-box">항목 2</div><div class="space_demo-box">항목 3</div></Space>`, html: `<div class="space"><div>항목 1</div><div>항목 2</div><div>항목 3</div></div>` },
   vertical: { body: `<Space vertical align="stretch">\n  <div class="space_demo-box">첫 번째</div><div class="space_demo-box">두 번째</div><div class="space_demo-box">세 번째</div>\n</Space>`, html: `<div class="space space_vertical space_align-stretch">\n  <div>첫 번째</div><div>두 번째</div><div>세 번째</div>\n</div>` },
   gap: { body: `<Space gap="xs"><div class="space_demo-box">xs</div><div class="space_demo-box">xs</div><div class="space_demo-box">xs</div></Space>\n<Space gap="sm"><div class="space_demo-box">sm</div><div class="space_demo-box">sm</div><div class="space_demo-box">sm</div></Space>\n<Space><div class="space_demo-box">md</div><div class="space_demo-box">md</div><div class="space_demo-box">md</div></Space>\n<Space gap="lg"><div class="space_demo-box">lg</div><div class="space_demo-box">lg</div><div class="space_demo-box">lg</div></Space>\n<Space gap="xl"><div class="space_demo-box">xl</div><div class="space_demo-box">xl</div><div class="space_demo-box">xl</div></Space>`, html: `<div class="space space_gap-xs"><div>xs</div><div>xs</div><div>xs</div></div>\n<div class="space space_gap-sm"><div>sm</div><div>sm</div><div>sm</div></div>\n<div class="space"><div>md</div><div>md</div><div>md</div></div>\n<div class="space space_gap-lg"><div>lg</div><div>lg</div><div>lg</div></div>\n<div class="space space_gap-xl"><div>xl</div><div>xl</div><div>xl</div></div>` },
   wrap: { body: `<Space block wrap>\n  <div class="space_demo-box" style="min-width: 8rem;">항목 1</div><div class="space_demo-box" style="min-width: 8rem;">항목 2</div><div class="space_demo-box" style="min-width: 8rem;">항목 3</div><div class="space_demo-box" style="min-width: 8rem;">항목 4</div><div class="space_demo-box" style="min-width: 8rem;">항목 5</div>\n</Space>`, html: `<div class="space space_block space_wrap">\n  <div style="min-width: 8rem;">항목 1</div><div style="min-width: 8rem;">항목 2</div><div style="min-width: 8rem;">항목 3</div><div style="min-width: 8rem;">항목 4</div><div style="min-width: 8rem;">항목 5</div>\n</div>` },

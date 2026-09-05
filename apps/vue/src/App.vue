@@ -1,15 +1,35 @@
 <template>
-  <main class="guide_content">
-    <div class="container container_lg">
-      <header class="page_intro"><p class="color_accent size_sm">Vue 3 · Vite</p><h1>UXKM Vue</h1><p class="lead">Vue 컴포넌트 원본과 UXKM의 공통 디자인 시스템을 확인합니다.</p></header>
-      <section class="section" aria-labelledby="vue-start-title">
-        <h2 id="vue-start-title">개발 서버가 정상적으로 실행되었습니다</h2>
-        <div class="card_grid">
-          <article class="category_card"><h3>실행 명령</h3><p><code class="typo_code">pnpm dev:vue</code></p><span class="count">Port 6103</span></article>
-          <article class="category_card"><h3>구현 기준</h3><p>Vue 3 · Vite</p><span class="count">@uxkm/vue</span></article>
-          <a class="category_card" href="http://localhost:6006"><h3>Storybook</h3><p>전체 컴포넌트 문서와 예제를 확인합니다.</p><span class="count">문서 열기 →</span></a>
-        </div>
-      </section>
-    </div>
-  </main>
+  <ThemeToggle />
+  <component :is="view" />
 </template>
+
+<script setup>
+import { computed } from 'vue';
+import ThemeToggle from './demo/ThemeToggle.vue';
+import { usePath } from './router/index.js';
+import HomeView from './views/HomeView.vue';
+import ComponentsView from './views/ComponentsView.vue';
+import BasicView from './views/components/BasicView.vue';
+import LayoutView from './views/components/LayoutView.vue';
+import FormView from './views/components/FormView.vue';
+import NavigationView from './views/components/NavigationView.vue';
+import DataDisplayView from './views/components/DataDisplayView.vue';
+import FeedbackView from './views/components/FeedbackView.vue';
+import MiscellaneousView from './views/components/MiscellaneousView.vue';
+
+const path = usePath();
+
+const routes = {
+  '/': HomeView,
+  '/components': ComponentsView,
+  '/components/basic': BasicView,
+  '/components/layout': LayoutView,
+  '/components/form': FormView,
+  '/components/navigation': NavigationView,
+  '/components/data-display': DataDisplayView,
+  '/components/feedback': FeedbackView,
+  '/components/miscellaneous': MiscellaneousView,
+};
+
+const view = computed(() => routes[path.value] ?? HomeView);
+</script>

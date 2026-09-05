@@ -17,7 +17,7 @@ WebSquare는 `w2:textbox`에 공통 Badge 클래스를 적용하고, 다른 컨�
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Badge`와 `BadgeWrap` 컴포넌트 자체의 구현입니다. React와 Vue는 prop을 공통 클래스와 접근성 속성으로 변환하고, HTML과 Gulp는 같은 구조와 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Badge`와 `BadgeWrap` 컴포넌트 자체의 구현입니다. React와 Vue는 prop을 공통 클래스와 접근성 속성으로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용하며, Gulp는 `badge` · `badgeWrap` Nunjucks macro로 동일한 계약을 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `color`·`size`는 `color_*`·`badge_*` 클래스로 변환되며 `md`는 기본 크기입니다.
 - `dot`은 텍스트 앞 상태 점, `count`는 안정적인 숫자 폭, `dotOnly`는 텍스트 없는 상태 표시를 만듭니다.

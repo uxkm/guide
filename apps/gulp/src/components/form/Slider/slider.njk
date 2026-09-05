@@ -1,61 +1,56 @@
-{# Slider 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# 크기·fit·스테퍼 클래스를 조합하고 헤더·range·증감 버튼을 구성합니다. #}
-{% set sliderId = sliderId | default('slider-example') %}
-{% set sliderValue = sliderValue | default(50) %}
-{% set sliderMin = sliderMin | default(0) %}
-{% set sliderMax = sliderMax | default(100) %}
-{% set sliderStep = sliderStep | default(1) %}
+{# Slider 원본 구현: 범위 입력과 폼 필드를 macro 조합으로 구성합니다. #}
+{% macro slider(
+  id = '', name = '', min = 0, max = 100, value = 50, step = 1,
+  disabled = false, vertical = false, label = '', showValue = false,
+  stepper = false, stepperAlways = false, valueSuffix = '', hint = '',
+  decreaseLabel = '값 줄이기', increaseLabel = '값 늘리기', size = 'md',
+  fit = false, block = false, color = '', ripple = true,
+  ariaLabel = '', ariaValuetext = '', className = '', style = ''
+) %}
+{% set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' %}
+{% set progress = 0 if max == min else ((value - min) / (max - min) * 100) %}
 <div
-  class="slider{% if size and size != 'md' %} slider_{{ size }}{% endif %}{% if fit %} slider_fit{% endif %}{% if block %} slider_block{% endif %}{% if stepper %} slider_stepper{% endif %}{% if stepperAlways %} slider_stepper_always{% endif %}{% if color %} color_{{ color }}{% endif %}"
+  class="slider{{ (' slider_' + resolvedSize) if resolvedSize != 'md' else '' }}{{ ' slider_vertical' if vertical else '' }}{{ ' slider_fit' if fit else '' }}{{ ' slider_block' if block else '' }}{{ ' slider_stepper' if stepper else '' }}{{ ' slider_stepper_always' if stepperAlways else '' }}{{ (' color_' + color) if color else '' }}{{ (' ' + className) if className else '' }}"
   data-component="Slider"
-  data-ripple="true"
+  {% if ripple %}data-ripple="true"{% endif %}
+  style="--slider-progress: {{ progress }}%;{{ (' ' + style) if style else '' }}"
 >
-  {# 레이블과 현재 값을 헤더에 배치합니다. #}
   {% if label or showValue %}
   <div class="slider_header">
-    {% if label %}<label class="slider_label" for="{{ sliderId }}"
-      >{{ label }}</label
-    >{% endif %}{% if showValue %}<output
-      class="slider_value"
-      for="{{ sliderId }}"
-      >{{ sliderValue }}{{ valueSuffix | default('') }}</output
-    >{% endif %}
+    {% if label %}<label class="slider_label"{% if id %} for="{{ id }}"{% endif %}>{{ label }}</label>{% endif %}
+    {% if showValue %}<output class="slider_value"{% if id %} for="{{ id }}"{% endif %}>{{ value }}{{ valueSuffix }}</output>{% endif %}
   </div>
   {% endif %}
-  {# 스테퍼가 있으면 감소·range·증가 버튼을 한 컨트롤로 묶습니다. #}
-  {% if stepper %}
-  <div class="slider_control">
-    <button
-      class="slider_step slider_step-decrease"
-      type="button"
-      data-ripple="true"
-      aria-label="{{ decreaseLabel | default('값 줄이기') }}"
-    >
-      −</button
-    >{% endif %}
+  {% if stepper %}<div class="slider_control">
+    <button class="slider_step slider_step-decrease" type="button" data-ripple="true" aria-label="{{ decreaseLabel }}"{% if disabled or value <= min %} disabled{% endif %}>−</button>
+  {% endif %}
     <input
-      id="{{ sliderId }}"
+      {% if id %}id="{{ id }}"{% endif %}
+      {% if name %}name="{{ name }}"{% endif %}
       class="slider_input"
       type="range"
-      min="{{ sliderMin }}"
-      max="{{ sliderMax }}"
-      step="{{ sliderStep }}"
-      value="{{ sliderValue }}"{% if valueSuffix %}
-      data-slider-suffix="{{ valueSuffix }}"{% endif %}{% if disabled %}
-      disabled{% endif %}{% if ariaLabel %}
-      aria-label="{{ ariaLabel }}"{% endif %}
-    />
-    {% if stepper %}<button
-      class="slider_step slider_step-increase"
-      type="button"
-      data-ripple="true"
-      aria-label="{{ increaseLabel | default('값 늘리기') }}"
+      min="{{ min }}" max="{{ max }}" step="{{ step }}" value="{{ value }}"
+      {% if valueSuffix %}data-slider-suffix="{{ valueSuffix }}"{% endif %}
+      {% if disabled %}disabled{% endif %}
+      {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+      {% if ariaValuetext %}aria-valuetext="{{ ariaValuetext }}"{% endif %}
     >
-      +
-    </button>
-  </div>
-  {% endif %}
-  {% if hint %}
-  <p class="slider_hint">{{ hint }}</p>
-  {% endif %}
+  {% if stepper %}
+    <button class="slider_step slider_step-increase" type="button" data-ripple="true" aria-label="{{ increaseLabel }}"{% if disabled or value >= max %} disabled{% endif %}>+</button>
+  </div>{% endif %}
+  {% if hint %}<p class="slider_hint">{{ hint }}</p>{% endif %}
+  {% if caller %}{{ caller() | safe }}{% endif %}
 </div>
+{% endmacro %}
+
+{% macro sliderField(id = '', label = '', control = '', hint = '', errorMessage = '', required = false, className = '') %}
+{% set content = caller() if caller else control %}
+<div class="form_field{{ (' ' + className) if className else '' }}">
+  {% if label %}<label class="form_field-label"{% if id %} for="{{ id }}"{% endif %}>{{ label }}{% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}</label>{% endif %}
+  {{ content | safe }}
+  {% if errorMessage %}<p class="form_field-error" role="alert">{{ errorMessage }}</p>{% elif hint %}<p class="form_field-hint">{{ hint }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ slider(id='slider-example', label='범위', showValue=true) }}

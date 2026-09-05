@@ -50,6 +50,110 @@ const vue: Record<Name, string> = {
   variant: vm(vi('항목 A', 'active') + vi('항목 B') + vi('항목 C'), 'bordered compact aria-label="컴팩트 메뉴"') + vm(vi('항목 A', 'active') + vi('항목 B') + vi('항목 C'), 'bordered dark aria-label="다크 서피스 메뉴"'),
 };
 
+const gulpImports = `{% from "components/navigation/Menu/menu.njk" import menu, menuItem, menuSubmenu, menuGroup, menuDivider %}`;
+const gulpItem = (label: string, options = '') => `{{ menuItem(label='${label}'${options ? `, ${options}` : ''}) }}`;
+const gulpMenu = (content: string, options: string) => `{% call menu(${options}) %}
+  ${content.replaceAll('\n', '\n  ')}
+{% endcall %}`;
+const gulpSubmenu = (label: string, id: string, content: string, options = '') => `{% call menuSubmenu(label='${label}', id='${id}'${options ? `, ${options}` : ''}) %}
+  ${content.replaceAll('\n', '\n  ')}
+{% endcall %}`;
+
+function gulpCode(key: Name) {
+  const simpleItems = (labels: string[]) => labels.map((label, index) => gulpItem(label, index === 0 ? 'active=true' : '')).join('\n');
+  if (key === 'basic') return `${gulpImports}
+
+${gulpMenu(simpleItems(['대시보드', '분석', '사용자', '설정']), "bordered=true, ariaLabel='주요 메뉴'")}`;
+  if (key === 'horizontal') return `${gulpImports}
+
+${gulpMenu(simpleItems(['개요', '컴포넌트', '토큰', '접근성']), "mode='horizontal', bordered=true, ariaLabel='섹션 메뉴'")}`;
+  if (key === 'icon') return `${gulpImports}
+
+${gulpMenu([
+  gulpItem('대시보드', "active=true, icon='grid'"),
+  gulpItem('사용자', "icon='user'"),
+  gulpItem('문서', "icon='book'"),
+  gulpItem('설정', "icon='settings'"),
+].join('\n'), "bordered=true, ariaLabel='앱 메뉴'")}`;
+  if (key === 'submenu') {
+    const components = ['Button', 'Input', 'Card'].map((label) => gulpItem(label)).join('\n');
+    const patterns = ['폼 레이아웃', '데이터 테이블'].map((label) => gulpItem(label)).join('\n');
+    return `${gulpImports}
+
+${gulpMenu([
+  gulpItem('홈', "active=true, icon='home'"),
+  gulpSubmenu('컴포넌트', 'menu-sub-components', components, "expanded=true, icon='grid'"),
+  gulpSubmenu('패턴', 'menu-sub-patterns', patterns, "icon='book'"),
+].join('\n'), "bordered=true, ariaLabel='컴포넌트 메뉴'")}`;
+  }
+  if (key === 'group') return `${gulpImports}
+
+{% call menu(bordered=true, ariaLabel='설정 메뉴') %}
+  {{ menuGroup(title='계정') }}
+  {{ menuItem(label='프로필', active=true) }}
+  {{ menuItem(label='보안') }}
+  {{ menuDivider() }}
+  {{ menuGroup(title='앱') }}
+  {{ menuItem(label='알림') }}
+  {{ menuItem(label='언어') }}
+  {{ menuDivider() }}
+  {{ menuItem(label='로그아웃') }}
+{% endcall %}`;
+  if (key === 'disabled') return `${gulpImports}
+
+${gulpMenu([
+  gulpItem('조회', 'active=true'),
+  gulpItem('편집'),
+  gulpItem('삭제', 'disabled=true'),
+  gulpItem('관리자 설정', 'disabled=true'),
+].join('\n'), "bordered=true, ariaLabel='권한 메뉴'")}`;
+  if (key === 'badge') return `${gulpImports}
+{% from "components/data-display/Badge/badge.njk" import badge %}
+
+{% set inboxBadge %}{{ badge(count=true, color='primary', label='12') }}{% endset %}
+{% set noticeBadge %}{{ badge(dotOnly=true, color='danger', ariaLabel='새 알림') }}{% endset %}
+{% set betaBadge %}{{ badge(color='default', label='Beta') }}{% endset %}
+
+{% call menu(bordered=true, ariaLabel='알림 메뉴') %}
+  {{ menuItem(label='받은편지함', active=true, icon='mail', extra=inboxBadge) }}
+  {{ menuItem(label='알림', icon='bell', extra=noticeBadge) }}
+  {{ menuItem(label='메시지', icon='mail', extra=betaBadge) }}
+{% endcall %}`;
+  if (key === 'horizontalSubmenu') {
+    const children = ['Button', 'Input', 'Select'].map((label) => gulpItem(label)).join('\n');
+    return `${gulpImports}
+
+{% call menu(mode='horizontal', bordered=true, ariaLabel='상단 메뉴') %}
+  {{ menuItem(label='홈', active=true) }}
+  ${gulpSubmenu('컴포넌트', 'menu-sub-h-components', children).replaceAll('\n', '\n  ')}
+  {{ menuItem(label='토큰') }}
+  {{ menuItem(label='접근성') }}
+{% endcall %}`;
+  }
+  if (key === 'layout') {
+    const documents = ['시작하기', '컴포넌트'].map((label) => gulpItem(label)).join('\n');
+    return `${gulpImports}
+
+<div class="menu_demo-row">
+  <div class="menu_demo-sidebar">
+    {% call menu(bordered=true, compact=true, ariaLabel='앱 사이드바') %}
+      {{ menuItem(label='개요', active=true, icon='grid') }}
+      ${gulpSubmenu('문서', 'menu-sub-sidebar', documents, "expanded=true, icon='book'").replaceAll('\n', '\n      ')}
+      {{ menuItem(label='설정', icon='settings') }}
+    {% endcall %}
+  </div>
+  <div class="menu_demo-content">
+    <p>선택한 메뉴에 해당하는 콘텐츠 영역입니다. 사이드바 메뉴와 함께 레이아웃을 구성할 때 사용합니다.</p>
+  </div>
+</div>`;
+  }
+  return `${gulpImports}
+
+${gulpMenu(simpleItems(['항목 A', '항목 B', '항목 C']), "bordered=true, compact=true, ariaLabel='컴팩트 메뉴'")}
+
+${gulpMenu(simpleItems(['항목 A', '항목 B', '항목 C']), "bordered=true, dark=true, ariaLabel='다크 서피스 메뉴'")}`;
+}
+
 function examples(key: Name): FrameworkExample[] {
   const allImports = `Menu, MenuItem, MenuDivider, MenuGroup, MenuSubmenu`;
   const needsIcon = ['icon', 'submenu', 'badge', 'layout'].includes(key);
@@ -58,6 +162,6 @@ function examples(key: Name): FrameworkExample[] {
   const vueImports = [`import { ${allImports} } from '@uxkm/vue/menu';`, needsIcon && `import Icon from '@uxkm/vue/icon';`, needsBadge && `import Badge from '@uxkm/vue/badge';`].filter(Boolean).join('\n');
   const reactCode = `${reactImports}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\n${vueImports}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Menu.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `menu.njk · ${key}`, code: html[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/menu · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/menu · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/menu · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/menu · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Menu.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `menu.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/menu · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/menu · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/menu · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/menu · ${key}`, code: reactCode }];
 }
 export const menuFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

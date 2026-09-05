@@ -91,6 +91,19 @@ export const statApiSections: ApiSectionData[] = [
   section('React · Next.js API · Props', statProps, 'Next.js는 `@uxkm/react/stat`을 재사용합니다.'),
   section('Vue · Nuxt API · Props', vueRows(statProps), 'Nuxt는 `@uxkm/vue/stat`을 재사용합니다.'),
   section('Vue · Nuxt API · Slots', [{ name: 'value', type: 'slot', default: '—', description: '수치 커스텀 콘텐츠' }, { name: 'trend-icon', type: 'slot', default: '기본 상승 아이콘', description: '증감 아이콘' }, { name: 'default', type: 'slot', default: '—', description: '아이콘·커스텀 레이아웃' }]),
+  section('HTML API · Markup', [
+    { name: 'div.stat', type: 'element', default: '—', description: '지표 루트 요소입니다.' },
+    { name: 'stat_header', type: 'class', default: '선택', description: '라벨과 추세를 한 행에 배치합니다.' },
+    { name: 'stat_value-row', type: 'class', default: '선택', description: '접두·접미가 있을 때 값 행을 감쌉니다.' },
+    { name: 'stat_prefix · stat_suffix', type: 'class', default: '—', description: '값 앞뒤 접두·접미 요소입니다.' },
+    { name: 'stat_desc · stat_trend', type: 'class', default: '—', description: '보조 설명과 추세 텍스트입니다.' }
+  ], 'HTML은 공통 클래스와 네이티브 속성을 마크업에 직접 적용합니다.'),
+  section('Gulp API · Nunjucks', [
+    { name: 'stat', type: 'macro', default: '—', description: '`{% from "components/data-display/Stat/stat.njk" import stat %}`로 import한 뒤 `{{ stat(...) }}`로 인스턴스를 만듭니다.' },
+    { name: 'title · value · prefix · suffix', type: 'string', default: "''", description: '라벨·수치·접두·접미 텍스트입니다.' },
+    { name: 'description · trend · trendColor · trendIcon', type: 'mixed', default: "''", description: '보조 설명·추세 텍스트·색상·아이콘입니다.' },
+    { name: 'size · card · shadow · className', type: 'mixed', default: "'md' · false · false · ''", description: '크기·카드 스킨·그림자·추가 클래스입니다.' }
+  ], '`stat` macro로 React · Vue와 같은 계약을 조합합니다. `{% call stat(...) %}` 블록 본문으로 커스텀 콘텐츠도 추가할 수 있습니다.'),
   section('HTML · Gulp · 공통 클래스', [
     { name: 'stat · stat_header · stat_label · stat_value-row · stat_value', type: 'class', default: '—', description: '지표 기본 구조' },
     { name: 'stat_prefix · stat_suffix · stat_desc · stat_trend', type: 'class', default: '—', description: '값과 보조 정보' },

@@ -1,11 +1,13 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const calendarImport = `{% from "components/data-display/Calendar/calendar.njk" import calendar, calendarHeader, calendarNav, calendarWeekdays, calendarMonth, calendarFooter, calendarGroup, calendarWheel, calendarWheelColumn %}`;
+
 function examples(key: string, html: string, reactBody: string, vueBody: string): FrameworkExample[] {
   const react = `import { Calendar, CalendarFooter, CalendarGroup, CalendarHeader, CalendarMonth, CalendarNav, CalendarWeekdays, CalendarWheel, CalendarWheelColumn } from '@uxkm/react/calendar';\n\nexport function Example() {\n  return (\n${reactBody}\n  );\n}`;
   const vue = `<script setup>\nimport Calendar from '@uxkm/vue/calendar';\n</script>\n\n<template>\n${vueBody}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/data-display/Calendar/Calendar.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Calendar/calendar.njk · ${key}`, code: `{# Calendar · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Calendar/calendar.njk · ${key}`, code: `${calendarImport}\n\n${calendarGulpExamples[key]}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/calendar · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/calendar · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/calendar · ${key}`, code: react },
@@ -29,6 +31,196 @@ const eventGrid = calendarGrid({ events: [3, 7, 12, 15, 21, 28] });
 const weekdays = `<div class="calendar_weekdays" aria-hidden="true"><span class="calendar_weekday">일</span><span class="calendar_weekday">월</span><span class="calendar_weekday">화</span><span class="calendar_weekday">수</span><span class="calendar_weekday">목</span><span class="calendar_weekday">금</span><span class="calendar_weekday">토</span></div>`;
 const header = (title = '2024년 6월') => `<div class="calendar_header"><button class="btn btn_ghost btn_icon-only btn_sm" type="button" aria-label="이전 달">‹</button><span class="calendar_title">${title}</span><button class="btn btn_ghost btn_icon-only btn_sm" type="button" aria-label="다음 달">›</button></div>`;
 const month = (classes = 'calendar') => `<div class="${classes}" role="application" aria-label="2024년 6월">\n  ${header()}\n  ${weekdays}\n  ${days}\n</div>`;
+
+const calendarGulpExamples: Record<string, string> = {
+  basic: `{% call calendar(
+  ariaLabel='2024년 6월',
+  header=calendarHeader(title='2024년 6월'),
+  weekdays=calendarWeekdays()
+) %}
+  {{ calendarMonth() }}
+{% endcall %}`,
+  noHeader: `{% call calendar(
+  noHeader=true,
+  ariaLabel='2024년 6월',
+  weekdays=calendarWeekdays()
+) %}
+  {{ calendarMonth() }}
+{% endcall %}`,
+  minimal: `{% call calendar(
+  minimal=true,
+  compact=true,
+  borderless=true,
+  ariaLabel='2024년 6월 날짜만'
+) %}
+  {{ calendarMonth() }}
+{% endcall %}`,
+  week: `{% set weekDays = [
+  { day: 9, sunday: true },
+  { day: 10 },
+  { day: 11 },
+  { day: 12, today: true },
+  { day: 13 },
+  { day: 14, selected: true },
+  { day: 15, saturday: true }
+] %}
+
+{% call calendar(week=true, shadow=true, ariaLabel='2024년 6월 9일~15일') %}
+  {{ calendarNav(label='6월 9일 ~ 15일') }}
+  {{ calendarWeekdays() }}
+  {{ calendarMonth(days=weekDays, week=true) }}
+{% endcall %}`,
+  wheel: `{% set years = ['2023년', '2024년', '2025년'] %}
+{% set months = ['5월', '6월', '7월'] %}
+{% set days = ['14일', '15일', '16일'] %}
+
+{% call calendarWheel(
+  shadow=true,
+  title='날짜 선택',
+  cancelLabel='취소',
+  confirmLabel='완료',
+  ariaLabel='날짜 휠 선택'
+) %}
+  {{ calendarWheelColumn(label='년', items=years, selected='2024년') }}
+  {{ calendarWheelColumn(label='월', items=months, selected='6월') }}
+  {{ calendarWheelColumn(label='일', items=days, selected='15일') }}
+{% endcall %}`,
+  range: `{% call calendar(
+  ariaLabel='2024년 6월 범위 선택',
+  header=calendarHeader(title='2024년 6월'),
+  weekdays=calendarWeekdays()
+) %}
+  {{ calendarMonth(rangeStart=10, rangeEnd=18) }}
+{% endcall %}`,
+  event: `{% call calendar(
+  weekends=true,
+  ariaLabel='2024년 6월 이벤트',
+  header=calendarHeader(title='2024년 6월', showNav=false),
+  weekdays=calendarWeekdays()
+) %}
+  {{ calendarMonth(events=[3, 7, 12, 15, 21, 28], weekends=true) }}
+{% endcall %}`,
+  skin: `{% set skins = [
+  { label: 'Borderless', name: 'borderless' },
+  { label: 'Ghost', name: 'ghost' },
+  { label: 'Shadow', name: 'shadow' }
+] %}
+
+{% call calendarGroup() %}
+  {% for skin in skins %}
+    {% call calendar(
+      borderless=skin.name == 'borderless',
+      ghost=skin.name == 'ghost',
+      shadow=skin.name == 'shadow',
+      ariaLabel=skin.label,
+      header=calendarHeader(title=skin.label, showNav=false),
+      weekdays=calendarWeekdays()
+    ) %}
+      {{ calendarMonth(partial=14, today=8, selected=10) }}
+    {% endcall %}
+  {% endfor %}
+{% endcall %}`,
+  size: `{% set sizes = [
+  { label: 'Small', size: 'sm', compact: false },
+  { label: 'Compact', size: '', compact: true },
+  { label: 'Large', size: 'lg', compact: false }
+] %}
+
+{% call calendarGroup() %}
+  {% for item in sizes %}
+    {% call calendar(
+      size=item.size,
+      compact=item.compact,
+      ariaLabel=item.label,
+      header=calendarHeader(title=item.label, showNav=false),
+      weekdays=calendarWeekdays()
+    ) %}
+      {{ calendarMonth(partial=14, today=7, selected=9) }}
+    {% endcall %}
+  {% endfor %}
+{% endcall %}`,
+  footer: `{% call calendar(
+  shadow=true,
+  ariaLabel='2024년 6월 푸터 포함',
+  header=calendarHeader(title='2024년 6월'),
+  weekdays=calendarWeekdays(),
+  footer=calendarFooter()
+) %}
+  {{ calendarMonth() }}
+{% endcall %}`,
+  dual: `{% set months = [
+  { title: '2024년 6월', rangeStart: 24, rangeEnd: 30 },
+  { title: '2024년 7월', rangeStart: 1, rangeEnd: 5 }
+] %}
+
+{% call calendarGroup() %}
+  {% for month in months %}
+    {% call calendar(
+      compact=true,
+      shadow=true,
+      weekends=true,
+      ariaLabel=month.title,
+      header=calendarHeader(title=month.title),
+      weekdays=calendarWeekdays()
+    ) %}
+      {{ calendarMonth(weekends=true, rangeStart=month.rangeStart, rangeEnd=month.rangeEnd) }}
+    {% endcall %}
+  {% endfor %}
+{% endcall %}`,
+  agenda: `{% set events = [
+  { time: '09:00', title: '팀 스탠드업', description: '주간 진행 상황 공유', color: 'primary' },
+  { time: '15:30', title: 'QA 일정 점검', description: '캘린더 컴포넌트 데모 확인', color: 'warning' }
+] %}
+
+{% call calendar(
+  agenda=true,
+  shadow=true,
+  role='feed',
+  ariaLabel='2024년 6월 일정',
+  header=calendarHeader(title='6월 14일 ~ 20일')
+) %}
+  <ol class="calendar_agenda-list">
+    <li class="calendar_agenda-day is-today" aria-current="date">
+      <div class="calendar_agenda-date">
+        <span class="calendar_agenda-weekday">토</span>
+        <span class="calendar_agenda-daynum">15</span>
+      </div>
+      <div class="calendar_agenda-body">
+        <ul class="calendar_agenda-events">
+          {% for event in events %}
+            <li class="calendar_agenda-event color_{{ event.color }}">
+              <span class="calendar_agenda-event-time">{{ event.time }}</span>
+              <div class="calendar_agenda-event-main">
+                <span class="calendar_agenda-event-title">{{ event.title }}</span>
+                <span class="calendar_agenda-event-desc">{{ event.description }}</span>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </li>
+  </ol>
+{% endcall %}`,
+  state: `{% call calendarGroup() %}
+  {% call calendar(
+    readonly=true,
+    ariaLabel='읽기 전용 캘린더',
+    header=calendarHeader(title='읽기 전용', showNav=false),
+    weekdays=calendarWeekdays()
+  ) %}
+    {{ calendarMonth(partial=14, today=7, selected=9, readonly=true) }}
+  {% endcall %}
+
+  {% call calendar(
+    disabled=true,
+    ariaLabel='비활성 캘린더',
+    header=calendarHeader(title='비활성', showNav=false),
+    weekdays=calendarWeekdays()
+  ) %}
+    {{ calendarMonth(partial=14, today=7, selected=9, disabled=[2, 3, 4, 5]) }}
+  {% endcall %}
+{% endcall %}`
+};
 
 export const calendarFrameworkExamples = {
   basic: examples('basic', month(), `    <Calendar ariaLabel="2024년 6월" header={<CalendarHeader title="2024년 6월" />} weekdays={<CalendarWeekdays />}><CalendarMonth /></Calendar>`, `  <Calendar aria-label="2024년 6월" title="2024년 6월" />`),

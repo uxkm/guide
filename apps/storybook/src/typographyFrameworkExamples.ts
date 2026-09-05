@@ -323,6 +323,82 @@ function toHtml(body: string) {
   return html;
 }
 
+const TYPO_ATTR_MAP: Record<string, string> = {
+  'html-for': 'htmlFor',
+  class: 'className',
+};
+
+function gulpTypoArgs(source: string) {
+  const props: string[] = [];
+  const token = /:([\w-]+)="([^"]*)"|([\w-]+)(?:="([^"]*)")?/g;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    if (match[1]) {
+      const key = TYPO_ATTR_MAP[match[1]] ?? match[1];
+      props.push(`${key}=${match[2]}`);
+      continue;
+    }
+    const raw = match[3];
+    const value = match[4];
+    const key = TYPO_ATTR_MAP[raw] ?? raw;
+    if (value == null) props.push(`${key}=true`);
+    else if (/^-?\d+(\.\d+)?$/.test(value)) props.push(`${key}=${value}`);
+    else props.push(`${key}='${value}'`);
+  }
+  return props.join(', ');
+}
+
+function indentGulpLines(text: string, spaces: number) {
+  const pad = ' '.repeat(spaces);
+  return text.split('\n').map((line) => (line.trim() ? `${pad}${line}` : line)).join('\n');
+}
+
+function canUseLabel(content: string) {
+  const trimmed = content.trim();
+  return Boolean(trimmed)
+    && !trimmed.includes('\n')
+    && !trimmed.includes("'")
+    && !/<\/?[A-Za-z]|[{%]/.test(trimmed);
+}
+
+function replaceTypoMacro(
+  body: string,
+  tag: 'TypoTitle' | 'TypoText',
+  macro: 'typoTitle' | 'typoText'
+) {
+  const pattern = new RegExp(
+    `<${tag}\\b([^>]*)>((?:(?!<\\/?Typo(?:Title|Text)\\b)[\\s\\S])*?)<\\/${tag}>`,
+    'g'
+  );
+  return body.replace(pattern, (_full, source: string, inner: string) => {
+    const args = gulpTypoArgs(source.trim());
+    const content = inner.trim();
+    if (canUseLabel(content)) {
+      const withLabel = args ? `${args}, label='${content}'` : `label='${content}'`;
+      return `{{ ${macro}(${withLabel}) }}`;
+    }
+    if (!content) {
+      return args ? `{{ ${macro}(${args}) }}` : `{{ ${macro}() }}`;
+    }
+    const indented = indentGulpLines(content, 2);
+    return args
+      ? `{% call ${macro}(${args}) %}\n${indented}\n{% endcall %}`
+      : `{% call ${macro}() %}\n${indented}\n{% endcall %}`;
+  });
+}
+
+/** Typography JSX-like body를 Nunjucks typoTitle · typoText macro 호출로 변환합니다. */
+function toGulp(body: string) {
+  let result = body.replace(/\r\n?/g, '\n');
+  let previous = '';
+  while (previous !== result) {
+    previous = result;
+    result = replaceTypoMacro(result, 'TypoTitle', 'typoTitle');
+    result = replaceTypoMacro(result, 'TypoText', 'typoText');
+  }
+  return `{% from "components/basic/Typography/typography.njk" import typoTitle, typoText %}\n\n${result.trim()}`;
+}
+
 function reactCode(body: string) {
   const jsx = body.replace(/class=/g, 'className=').replace(/html-for=/g, 'htmlFor=').replace(/style="max-width: 320px; width: 100%;"/g, "style={{ maxWidth: 320, width: '100%' }}");
   return `import { TypoText, TypoTitle } from '@uxkm/react/typography';\n\nexport function Example() {\n  return (\n  <>\n${jsx.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}`;
@@ -384,11 +460,12 @@ ${groups.split('\n').map((line) => `  ${line}`).join('\n')}
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = toHtml(body);
+  const gulp = toGulp(body);
   const react = reactCode(body);
   const vue = vueCode(body);
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/basic/Typography/Typography.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Typography/typography.njk · ${key}`, code: `{# Typography · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Typography/typography.njk · ${key}`, code: `{# Typography · ${key} #}\n${gulp}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/typography → apps/vue/src/components/basic/Typography · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/typography → apps/vue/src/components/basic/Typography · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/typography → apps/react/src/components/basic/Typography · ${key}`, code: react },

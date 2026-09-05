@@ -3,6 +3,7 @@ import type { FrameworkExample } from './FrameworkCode';
 type Source = { html: string; react: string; vue: string };
 
 const closeIconHtml = `<svg class="icon" data-component="Icon" data-icon="close" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg>`;
+const textareaImport = `{% from "components/form/Textarea/textarea.njk" import textarea, textareaField %}`;
 const fieldHtml = (id: string, label: string, control: string, message = '') => `<div class="form_field"><label class="form_field-label" for="${id}">${label}</label>${control}${message}</div>`;
 const fieldReact = (id: string, label: string, control: string, message = '') => `<div className="form_field"><label className="form_field-label" htmlFor="${id}">${label}</label>${control}${message}</div>`;
 const fieldVue = (id: string, label: string, control: string, message = '') => `<div class="form_field"><label class="form_field-label" for="${id}">${label}</label>${control}${message}</div>`;
@@ -11,6 +12,71 @@ const htmlCount = (id: string, options: { value?: string; max?: number; size?: s
   const max = options.max ?? 200;
   const classes = ['textarea', options.size && options.size !== 'md' && `textarea_${options.size}`, options.resize && `textarea_resize_${options.resize}`, options.error && 'is-error'].filter(Boolean).join(' ');
   return `<div class="textarea_wrap textarea_show-count"><textarea id="${id}" class="${classes}" rows="${options.rows ?? 4}" maxlength="${max}" aria-describedby="${id}-count"${options.error ? ' aria-invalid="true"' : ''}>${value}</textarea><span id="${id}-count" class="textarea_count" role="status" aria-live="polite" aria-atomic="true"><span class="textarea_count_visual" aria-hidden="true">${value.length}/${max}</span><span class="textarea_count_announcer">${value.length}자 입력, 최대 ${max}자</span></span></div>`;
+};
+
+const textareaGulpExamples: Record<string, string> = {
+  basic: `{% set control %}{{ textarea(id='textarea-message', rows=4, placeholder='메시지를 입력하세요') }}{% endset %}
+{{ textareaField(id='textarea-message', label='메시지', control=control, hint='문의 내용을 자세히 작성해 주세요.') }}`,
+  standalone: `{% set note %}{{ textarea(id='textarea-note', rows=3, placeholder='메모를 입력하세요') }}{% endset %}
+{{ textareaField(id='textarea-note', label='메모', control=note, fit=true) }}
+
+{% set request %}{{ textarea(id='textarea-request', rows=3, placeholder='추가 요청사항') }}{% endset %}
+{{ textareaField(id='textarea-request', ariaLabel='추가 요청사항', control=request) }}`,
+  size: `{% set sizes = ['sm', 'md', 'lg'] %}
+{% for size in sizes %}
+  {% set id = 'textarea-' + size %}
+  {% set control %}{{ textarea(id=id, size=size, rows=3) }}{% endset %}
+  {{ textareaField(id=id, label=size | upper, control=control) }}
+{% endfor %}`,
+  width: `{% set full %}{{ textarea(id='textarea-full', rows=3) }}{% endset %}
+{{ textareaField(id='textarea-full', label='전체 너비', control=full) }}
+
+{% set limited %}{{ textarea(id='textarea-fit', rows=3, fit=true) }}{% endset %}
+{{ textareaField(id='textarea-fit', label='제한 너비', control=limited, fit=true) }}`,
+  resize: `{% set directions = ['none', 'vertical', 'horizontal', 'both'] %}
+{% for direction in directions %}
+  {% set id = 'textarea-resize-' + direction %}
+  {% set control %}{{ textarea(id=id, resize=direction, rows=3) }}{% endset %}
+  {{ textareaField(id=id, label=direction, control=control) }}
+{% endfor %}`,
+  required: `{% set control %}{{ textarea(id='textarea-required', rows=4, required=true) }}{% endset %}
+{{ textareaField(
+  id='textarea-required',
+  label='문의 내용',
+  control=control,
+  required=true,
+  fit=true,
+  hint='답변에 필요한 내용을 작성해 주세요.'
+) }}`,
+  state: `{% set states = [
+  { id: 'textarea-disabled', label: '비활성', value: '수정할 수 없음', disabled: true, readonly: false, error: false, message: '' },
+  { id: 'textarea-readonly', label: '읽기 전용', value: '읽기만 가능', disabled: false, readonly: true, error: false, message: '' },
+  { id: 'textarea-error', label: '에러', value: '너무 짧은 내용', disabled: false, readonly: false, error: true, message: '10자 이상 입력해 주세요.' }
+] %}
+{% for state in states %}
+  {% set control %}{{ textarea(id=state.id, rows=3, value=state.value, disabled=state.disabled, readonly=state.readonly, error=state.error, ariaDescribedby=state.id + '-error' if state.error else '') }}{% endset %}
+  {{ textareaField(id=state.id, label=state.label, control=control, errorMessage=state.message) }}
+{% endfor %}`,
+  count: `{% set control %}{{ textarea(id='textarea-count', rows=5, maxLength=200, showCount=true, ariaDescribedby='textarea-count-hint') }}{% endset %}
+{{ textareaField(id='textarea-count', label='자기소개', control=control, hint='200자 이내로 작성해 주세요.') }}`,
+  clearable: `{% set fields = [
+  { id: 'textarea-clear', label: '메모', value: '지울 수 있는 내용', rows: 4, maxLength: '', showCount: false, readonly: false },
+  { id: 'textarea-clear-count', label: '자기소개', value: '글자 수와 지우기를 함께 사용합니다.', rows: 4, maxLength: 200, showCount: true, readonly: false },
+  { id: 'textarea-clear-readonly', label: '읽기 전용', value: '수정 불가', rows: 3, maxLength: '', showCount: false, readonly: true }
+] %}
+{% for field in fields %}
+  {% set control %}{{ textarea(id=field.id, rows=field.rows, value=field.value, maxLength=field.maxLength, showCount=field.showCount, clearable=true, readonly=field.readonly) }}{% endset %}
+  {{ textareaField(id=field.id, label=field.label, control=control) }}
+{% endfor %}`,
+  example: `{% from "components/basic/Button/button.njk" import button %}
+<form class="form form_vertical form_fit form_compact">
+  {% set review %}{{ textarea(id='review', rows=6, value='좋아요', maxLength=300, showCount=true, error=true, required=true, ariaDescribedby='review-error') }}{% endset %}
+  {{ textareaField(id='review', label='후기', control=review, errorMessage='후기를 10자 이상 작성해 주세요.') }}
+  <div class="form_actions">
+    {{ button(type='submit', variant='filled', color='primary', label='등록') }}
+    {{ button(variant='ghost', label='취소') }}
+  </div>
+</form>`
 };
 const htmlClearable = (id: string, options: { value?: string; max?: number; rows?: number; inactive?: boolean } = {}) => {
   const value = options.value ?? '';
@@ -100,7 +166,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
   const html = source.html.replace(/<textarea(?![^>]*data-component=)/g, '<textarea data-component="Textarea"');
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Textarea/Textarea.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Textarea/textarea.njk · ${key}`, code: html },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Textarea/textarea.njk · ${key}`, code: `${textareaImport}\n\n${textareaGulpExamples[key]}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/textarea · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/textarea · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/textarea · ${key}`, code: react },

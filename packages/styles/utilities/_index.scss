@@ -30,8 +30,17 @@
   // ----- Divider
   --divider-color: var(--color-border-subtle);
   --divider-thickness: 1px;
+  --divider-thickness-xs: 1px;
+  --divider-thickness-sm: 2px;
+  --divider-thickness-lg: 3px;
+  --divider-thickness-xl: 4px;
   --divider-margin-y: var(--space-md);
   --divider-margin-x: var(--space-sm);
+  --divider-height-xs: 1rem;
+  --divider-height-sm: 1.5rem;
+  --divider-height-md: 2rem;
+  --divider-height-lg: 3rem;
+  --divider-height-xl: 4rem;
   --divider-text-gap: var(--space-md);
   --divider-orient-inset: 5%;
 
@@ -541,18 +550,25 @@ $spacing-sizes: xs, sm, md, lg, xl;
 //
 //   <hr class="divider" />
 //   <hr class="divider divider_dashed" />
+//   <hr class="divider divider_margin-sm divider_thickness-lg" />
 //   <div class="divider">섹션 제목</div>
 //   <div class="divider divider_orient-left">왼쪽 정렬</div>
-//   <span class="divider divider_vertical" aria-hidden="true"></span>
+//   <span class="divider divider_vertical divider_height-md" aria-hidden="true"></span>
 //
 // 텍스트가 있으면 가운데 레이블·양쪽 선으로 자동 전환됩니다.
+// marginY는 가로에서 상·하, 세로에서 좌·우 간격으로 적용됩니다.
+// thickness는 선 두께, height는 세로 구분선의 길이를 조절합니다.
 
 .divider {
+  --divider-current-margin-y: var(--divider-margin-y);
+  --divider-current-margin-x: var(--divider-margin-x);
+  --divider-current-thickness: var(--divider-thickness);
+  --divider-current-height: auto;
   box-sizing: border-box;
-  margin: var(--divider-margin-y) 0;
+  margin: var(--divider-current-margin-y) 0;
   padding: 0;
   border: none;
-  border-top: var(--divider-thickness) solid var(--divider-color);
+  border-top: var(--divider-current-thickness) solid var(--divider-color);
   width: 100%;
   height: 0;
   clear: both;
@@ -573,7 +589,7 @@ $spacing-sizes: xs, sm, md, lg, xl;
     &::after {
       content: "";
       flex: 1;
-      border-top: var(--divider-thickness) solid var(--divider-color);
+      border-top: var(--divider-current-thickness) solid var(--divider-color);
     }
 
     &::before {
@@ -606,14 +622,42 @@ $spacing-sizes: xs, sm, md, lg, xl;
     flex: 0 0 var(--divider-orient-inset);
   }
 
+  @each $size in xs, sm, md, lg, xl {
+    &_margin-#{$size} {
+      --divider-current-margin-y: var(--space-#{$size});
+      --divider-current-margin-x: var(--space-#{$size});
+    }
+  }
+
+  &_margin-none {
+    --divider-current-margin-y: 0;
+    --divider-current-margin-x: 0;
+  }
+
+  @each $size in xs, sm, lg, xl {
+    &_thickness-#{$size} {
+      --divider-current-thickness: var(--divider-thickness-#{$size});
+    }
+  }
+
+  &_thickness-none {
+    --divider-current-thickness: 0;
+  }
+
+  @each $size in xs, sm, md, lg, xl {
+    &_height-#{$size} {
+      --divider-current-height: var(--divider-height-#{$size});
+    }
+  }
+
   &_vertical {
     display: inline-block;
     width: 0;
-    height: auto;
+    height: var(--divider-current-height);
     min-height: 1em;
-    margin: 0 var(--divider-margin-x);
+    margin: 0 var(--divider-current-margin-x);
     border: none;
-    border-left: var(--divider-thickness) solid var(--divider-color);
+    border-left: var(--divider-current-thickness) solid var(--divider-color);
     vertical-align: middle;
     align-self: stretch;
 
@@ -621,9 +665,9 @@ $spacing-sizes: xs, sm, md, lg, xl;
       display: inline-flex;
       flex-direction: column;
       width: auto;
-      height: auto;
+      height: var(--divider-current-height);
       min-height: 1em;
-      margin: var(--divider-margin-x) 0;
+      margin: var(--divider-current-margin-x) 0;
       border-left: none;
 
       &::before,
@@ -632,7 +676,7 @@ $spacing-sizes: xs, sm, md, lg, xl;
         width: 0;
         margin: 0;
         border-top: none;
-        border-left: var(--divider-thickness) solid var(--divider-color);
+        border-left: var(--divider-current-thickness) solid var(--divider-color);
       }
 
       &::before {

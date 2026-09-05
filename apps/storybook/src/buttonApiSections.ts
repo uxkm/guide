@@ -83,6 +83,19 @@ const htmlAttributes: ApiRow[] = [
   { name: 'aria-invalid', type: "'true' | 'false'", default: 'false', description: '폼 트리거의 오류 상태입니다.' },
 ];
 
+const gulpRows: ApiRow[] = [
+  { name: 'button', type: 'macro', default: '—', description: '`{% from "components/basic/Button/button.njk" import button %}`로 import한 뒤 `{{ button(...) }}` 또는 `{% call %}`로 인스턴스를 만듭니다.' },
+  { name: 'tag · type · href', type: 'string', default: "'button' · 'button' · ''", description: '루트 태그와 button type, a일 때 href입니다.' },
+  { name: 'variant · color · size', type: 'string', default: "'filled' · 'primary' · 'md'", description: '스킨·색상·크기입니다. ghost는 color 클래스를 붙이지 않고, md는 크기 클래스를 생략합니다.' },
+  { name: 'label', type: 'string', default: "'Button'", description: '버튼 텍스트입니다. `{% call %}` 본문이 있으면 본문이 우선합니다.' },
+  { name: 'iconBefore · iconAfter', type: 'string', default: "''", description: 'Icon macro에 전달할 아이콘 이름입니다.' },
+  { name: 'iconOnly · vertical · round · block · fit', type: 'boolean', default: 'false', description: '아이콘 전용·세로·라운드·블록·핏 레이아웃입니다.' },
+  { name: 'grow', type: 'boolean | 2', default: 'false', description: 'flex grow입니다. 2는 btn_grow-2입니다.' },
+  { name: 'loading · open · error · placeholder · selectText · selectCaret', type: 'boolean', default: 'false', description: '상태·셀렉트 변형 플래그입니다. select 스킨은 캐럿을 자동 표시합니다.' },
+  { name: 'disabled · ariaDisabled · ariaLabel · haspopup · expanded · invalid', type: 'mixed', default: '—', description: '비활성·접근성·팝업 속성입니다.' },
+  { name: 'ripple · className · role · tabIndex', type: 'mixed', default: 'true · \'\' · 자동 · 자동', description: '파장·추가 클래스·역할·탭 순서입니다.' },
+];
+
 const webSquareRows: ApiRow[] = [
   { name: 'xf:trigger', type: 'component', default: 'type="button"', description: 'Button의 WebSquare 루트입니다. 기본 키보드 활성화와 클릭 이벤트를 제공하는 Trigger를 사용합니다.' },
   { name: 'xf:label', type: 'child', default: '—', description: 'Trigger에 표시할 텍스트입니다. 특수문자를 안전하게 유지하려면 CDATA로 작성합니다.' },
@@ -147,9 +160,14 @@ export const buttonApiSections: ApiSectionData[] = [
     tables: [{ columns: standardColumns, rows: vueEvents }],
   },
   {
-    title: 'HTML · Gulp API · Markup',
-    description: 'HTML과 Gulp 템플릿은 별도 Button props API를 제공하지 않습니다. 아래 네이티브 속성과 공통 OOCSS 클래스를 마크업에 직접 적용하고, 비네이티브 루트의 키보드·비활성 동작은 사용하는 쪽에서 구현합니다.',
+    title: 'HTML API · Markup',
+    description: 'HTML은 별도 Button props API를 제공하지 않습니다. 아래 네이티브 속성과 공통 OOCSS 클래스를 마크업에 직접 적용하고, 비네이티브 루트의 키보드·비활성 동작은 사용하는 쪽에서 구현합니다.',
     tables: [{ columns: standardColumns, rows: htmlAttributes }],
+  },
+  {
+    title: 'Gulp API · Nunjucks',
+    description: '`button` macro를 import하고 `{{ button(...) }}` 또는 `{% call button(...) %}`로 인스턴스를 만듭니다. 아이콘은 `iconBefore`·`iconAfter` 이름 문자열로 `Icon` macro를 호출합니다.',
+    tables: [{ columns: standardColumns, rows: gulpRows }],
   },
   {
     title: 'WebSquare API · XML',

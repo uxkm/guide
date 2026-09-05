@@ -23,7 +23,7 @@ Vue와 React의 공통 구현은 각각 `@uxkm/vue/container`, `@uxkm/react/cont
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Container` 컴포넌트 자체의 구현입니다. React와 Vue 구현은 전달받은 속성을 공통 CSS 클래스에 연결하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Container` 컴포넌트 자체의 구현입니다. React와 Vue 구현은 전달받은 속성을 공통 CSS 클래스에 연결하고, HTML은 같은 클래스를 마크업에 직접 적용합니다. Gulp는 Nunjucks 변수(`as` · `size` · `fluid` · `content`)로 같은 계약을 include에서 재사용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 WebSquare에는 별도의 `Container.xml` 구현 파일이 없습니다. Container는 호출 지점의 콘텐츠를 감싸는 구조이므로 WFrame으로 별도 화면을 불러오지 않고, 실제 화면 XML에서 `w2:group`에 `container` 클래스를 직접 적용합니다. 따라서 WebSquare 코드는 아래 사용 예제의 `screen.xml` 탭에서 기존 화면 루트 안에 붙이는 fragment로 제공합니다. 네임스페이스는 화면 XML 최상위 루트에서 한 번만 선언하며, 같은 화면의 Container와 다른 컴포넌트에서는 반복하지 않습니다. 별도 화면이나 WFrame처럼 독립적으로 파싱되는 XML 파일만 각 파일의 루트에서 다시 선언합니다.
 

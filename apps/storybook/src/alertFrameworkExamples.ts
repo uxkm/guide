@@ -234,6 +234,93 @@ ${alertMarkup({ color: 'danger', title: '입력 내용을 확인해 주세요', 
   },
 };
 
+const alertImport = `{% from "components/feedback/Alert/alert.njk" import alert %}`;
+const buttonImport = `{% from "components/basic/Button/button.njk" import button %}`;
+const linkImport = `{% from "components/basic/Link/link.njk" import link %}`;
+const formImports = `{% from "components/form/FormLayout/form-layout.njk" import formLayout, formField %}
+{% from "components/form/Input/input.njk" import input %}`;
+
+const alertGulpExamples: Record<string, string> = {
+  basic: `${alertImport}
+
+{% set alerts = [
+  { color: 'info', title: '정보', description: '변경 사항이 저장되었습니다.' },
+  { color: 'success', title: '성공', description: '요청이 성공적으로 처리되었습니다.' },
+  { color: 'warning', title: '주의', description: '세션이 곧 만료됩니다. 저장해 주세요.' },
+  { color: 'danger', title: '오류', description: '네트워크 연결을 확인해 주세요.' }
+] %}
+{% for item in alerts %}
+  {{ alert(color=item.color, title=item.title, description=item.description) }}
+{% endfor %}`,
+  descriptionOnly: `${alertImport}
+
+{{ alert(description='새 기능이 추가되었습니다. 설정에서 확인해 보세요.') }}
+{{ alert(color='success', role='status', description='프로필이 업데이트되었습니다.') }}`,
+  noIcon: `${alertImport}
+
+{{ alert(color='warning', title='점검 안내', description='오늘 02:00~04:00 서비스 점검이 예정되어 있습니다.', showIcon=false) }}
+{{ alert(description='이 페이지는 데모 목적으로만 사용됩니다.', showIcon=false) }}`,
+  size: `${alertImport}
+
+{{ alert(size='sm', title='Small', description='폼 필드 아래 등 좁은 영역에 사용합니다.') }}
+{{ alert(title='Medium', description='기본 크기입니다.') }}
+{{ alert(size='lg', title='Large', description='페이지 상단 등 눈에 띄는 안내에 사용합니다.') }}`,
+  closable: `${alertImport}
+
+{{ alert(title='새 소식', description='대시보드가 새롭게 개편되었습니다.', closable=true) }}
+{{ alert(color='warning', description='브라우저가 오래되었습니다. 최신 버전으로 업데이트해 주세요.', closable=true) }}`,
+  actions: `${alertImport}
+${buttonImport}
+${linkImport}
+
+{% set retryActions %}
+  {{ button(variant='filled', color='danger', size='sm', label='다시 시도') }}
+  {{ button(variant='ghost', color='', size='sm', label='취소') }}
+{% endset %}
+{{ alert(
+  color='danger',
+  title='저장 실패',
+  description='변경 사항을 저장하지 못했습니다. 다시 시도해 주세요.',
+  actions=retryActions
+) }}
+
+{% set termsActions %}
+  {{ link(href='#', size='sm', label='약관 보기') }}
+  {{ button(variant='text', color='primary', size='sm', label='동의하기') }}
+{% endset %}
+{{ alert(
+  title='이용 약관 변경',
+  description='2026년 3월 1일부터 새 약관이 적용됩니다.',
+  actions=termsActions
+) }}`,
+  banner: `${alertImport}
+
+{{ alert(
+  color='warning',
+  description='시스템 점검으로 일부 기능이 제한될 수 있습니다.',
+  banner=true,
+  closable=true
+) }}`,
+  context: `${alertImport}
+${linkImport}
+${formImports}
+
+{% call alert(title='업데이트 안내') %}
+  새 버전이 출시되었습니다. {{ link(href='#', size='sm', label='릴리스 노트 보기') }}
+{% endcall %}
+
+{% call formLayout(fit=true, novalidate=true) %}
+  {{ alert(
+    color='danger',
+    title='입력 내용을 확인해 주세요',
+    description='이메일 형식과 비밀번호 조건을 수정한 뒤 다시 시도해 주세요.'
+  ) }}
+  {% call formField(id='alert-email', label='이메일', error='올바른 이메일 형식을 입력해 주세요.') %}
+    {{ input(id='alert-email', name='email', type='email', value='invalid-email', error=true, ariaDescribedby='alert-email-error') }}
+  {% endcall %}
+{% endcall %}`
+};
+
 const indent = (value: string, spaces: number) => value
   .split('\n')
   .map((line) => `${' '.repeat(spaces)}${line}`)
@@ -269,7 +356,7 @@ ${indent(source.vue, 2)}
 
   return [
     { id: 'html', label: 'HTML', fileName: `Alert.html · ${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `alert.njk · ${key}`, code: source.html },
+    { id: 'gulp', label: 'Gulp', fileName: `alert.njk · ${key}`, code: alertGulpExamples[key] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/alert · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/alert · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/alert · ${key}`, code: react },

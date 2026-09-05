@@ -1,18 +1,21 @@
-{# Affix 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
+{# Affix 원본 구현: 고정 대상 콘텐츠를 호출형 macro로 구성합니다. #}
+{% macro affix(content='', target='', offsetTop='unset', offsetBottom='unset', skin='', interactive=true, className='') %}
+{%- set affixContent = caller() if caller else content -%}
+{%- set resolvedSkin = skin if skin in ['bar', 'anchor'] else '' -%}
 <div
-  class="affix{% if className %} {{ className }}{% endif %}"
-  {# Affix 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="Affix"{% if interactive != false %}
-  data-affix{% endif %}{% if target %}
-  data-target="{{ target }}"{% endif %}{% if offsetTop %}
-  data-offset-top="{{ offsetTop }}"{% endif %}{% if offsetBottom is defined %}
-  data-offset-bottom="{{ offsetBottom }}"{% endif %}
+  class="affix{{ (' ' + className) if className else '' }}"
+  data-component="Affix"
+  {% if interactive %}data-affix{% endif %}
+  {% if target %}data-target="{{ target }}"{% endif %}
+  {% if offsetTop != 'unset' %}data-offset-top="{{ offsetTop }}"{% endif %}
+  {% if offsetBottom != 'unset' %}data-offset-bottom="{{ offsetBottom }}"{% endif %}
 >
   <div class="affix_placeholder" aria-hidden="true" hidden></div>
-  <div
-    class="affix_target{% if skin == 'bar' %} affix_bar{% elif skin == 'anchor' %} affix_anchor{% endif %}"
-  >
-    {{ content | default('Affix') | safe }}
+  <div class="affix_target{% if resolvedSkin %} affix_{{ resolvedSkin }}{% endif %}">
+    {{ affixContent | safe }}
   </div>
-  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call affix(skin='bar') %}<span class="affix_bar-label">고정 영역</span>{% endcall %}

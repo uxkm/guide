@@ -30,6 +30,53 @@ const html: Record<Name, string> = {
   vertical: htmlTabs('vertical-line', [{ label: '일반', content: '일반 설정 패널' }, { label: '보안', content: '보안 설정 패널' }, { label: '결제', content: '결제 설정 패널' }], { classes: 'tabs_line tabs_vertical', label: '수직 라인 탭' }) + '\n\n' + htmlTabs('vertical-card', [{ label: '문서', content: '문서 관리 패널' }, { label: '미디어', content: '미디어 관리 패널' }, { label: '아카이브', content: '아카이브 패널' }], { classes: 'tabs_card tabs_vertical', label: '수직 카드 탭' }),
 };
 
+type GulpTabsOptions = {
+  variant?: 'line' | 'card' | 'pill'; size?: 'sm' | 'lg'; layout?: 'equal' | 'scroll';
+  vertical?: boolean; scrollable?: boolean; indicator?: 'slide'; mode?: 'dynamic';
+  ariaLabel?: string; className?: string; imports?: string; prelude?: string; extra?: string;
+};
+const gulpTabsImport = `{% from "components/navigation/Tabs/tabs.njk" import tabs, tab, tabPanel %}`;
+function gulpTabs(key: string, items: Item[], options: GulpTabsOptions = {}) {
+  const tabsCode = items.map((item, index) => {
+    const badge = item.badge ? `, badge=${item.label === '읽지 않음' ? 'unreadBadge' : 'importantBadge'}` : '';
+    return `  {{ tab(id='${key}-tab-${index}', panelId='${key}-panel-${index}', label='${item.label}'${index === 0 ? ', active=true' : ''}${item.disabled ? ', disabled=true' : ''}${item.icon ? `, icon='${item.icon}'` : ''}${badge}) }}`;
+  }).join('\n');
+  const panelsCode = items.map((item, index) => `  {% call tabPanel(id='${key}-panel-${index}', tabId='${key}-tab-${index}'${index === 0 ? ', active=true' : ''}) %}${item.content}{% endcall %}`).join('\n');
+  const args = [
+    `tabs=tabItems`, `panels=tabPanels`,
+    options.variant && `variant='${options.variant}'`, options.size && `size='${options.size}'`,
+    options.layout && `layout='${options.layout}'`, options.vertical && 'vertical=true',
+    options.scrollable && 'scrollable=true', options.indicator && `indicator='${options.indicator}'`,
+    options.mode && `mode='${options.mode}'`, options.ariaLabel && `ariaLabel='${options.ariaLabel}'`,
+    options.className && `className='${options.className}'`, options.extra && `extra=${options.extra}`,
+  ].filter(Boolean).join(', ');
+  return `${gulpTabsImport}${options.imports ? `\n${options.imports}` : ''}${options.prelude ? `\n\n${options.prelude}` : ''}
+
+{% set tabItems %}
+${tabsCode}
+{% endset %}
+{% set tabPanels %}
+${panelsCode}
+{% endset %}
+{{ tabs(${args}) }}`;
+}
+const gulp: Record<Name, string> = {
+  basic: gulpTabs('basic', basicItems, { ariaLabel: '프로젝트 정보' }),
+  dynamic: gulpTabs('dynamic', basicItems, { mode: 'dynamic', ariaLabel: '동적 탭' }),
+  indicator: gulpTabs('slide-line', basicItems, { layout: 'equal', indicator: 'slide', ariaLabel: '슬라이드 라인 탭' }) + '\n\n' + gulpTabs('slide-pill', [{ label: '목록', content: '필 스킨에서 배경 인디케이터가 이동합니다.' }, { label: '그리드', content: '그리드 뷰 콘텐츠' }, { label: '보드', content: '보드 뷰 콘텐츠' }], { variant: 'pill', layout: 'equal', indicator: 'slide', ariaLabel: '슬라이드 필 탭' }),
+  equal: gulpTabs('equal-line', [...basicItems, { label: '설정', content: '프로젝트 설정을 관리합니다.' }], { layout: 'equal', ariaLabel: '균등 분할 탭' }) + '\n\n' + gulpTabs('equal-pill', ['일간', '주간', '월간', '연간'].map((label) => ({ label, content: `${label} 통계` })), { variant: 'pill', layout: 'equal', indicator: 'slide', ariaLabel: '균등 분할 필 탭' }),
+  layoutScroll: gulpTabs('nav-scroll', longItems, { layout: 'scroll', className: 'tabs_demo-narrow', ariaLabel: '네비 스크롤 탭' }),
+  card: gulpTabs('card', [{ label: '프로필', content: '<p>이름, 아바타, 소개 문구를 수정합니다.</p>' }, { label: '보안', content: '<p>비밀번호 변경과 2단계 인증을 설정합니다.</p>' }, { label: '알림', content: '<p>이메일·푸시 알림 수신 여부를 관리합니다.</p>' }], { variant: 'card', ariaLabel: '계정 설정' }),
+  pill: gulpTabs('pill', [{ label: '목록', content: '목록 뷰 콘텐츠' }, { label: '그리드', content: '그리드 뷰 콘텐츠' }, { label: '보드', content: '보드 뷰 콘텐츠' }], { variant: 'pill', ariaLabel: '보기 모드' }),
+  size: gulpTabs('small', [{ label: 'Small A', content: 'Small 탭 패널' }, { label: 'Small B', content: 'Small 탭 패널 B' }], { size: 'sm', ariaLabel: 'Small 탭' }) + '\n\n' + gulpTabs('large', [{ label: 'Large A', content: 'Large 탭 패널' }, { label: 'Large B', content: 'Large 탭 패널 B' }], { size: 'lg', ariaLabel: 'Large 탭' }),
+  icon: gulpTabs('icon', [{ label: '대시보드', content: '대시보드 콘텐츠', icon: 'grid' }, { label: '사용자', content: '사용자 콘텐츠', icon: 'user' }, { label: '문서', content: '문서 콘텐츠', icon: 'book' }], { ariaLabel: '대시보드 섹션' }),
+  badge: gulpTabs('badge', [{ label: '전체', content: '전체 알림 목록' }, { label: '읽지 않음', content: '읽지 않은 알림', badge: 'badge' }, { label: '중요', content: '중요 알림', badge: 'badge' }], { ariaLabel: '알림 센터', imports: `{% from "components/data-display/Badge/badge.njk" import badge %}`, prelude: `{% set unreadBadge %}{{ badge(count=true, color='primary', label='12') }}{% endset %}\n{% set importantBadge %}{{ badge(dotOnly=true, color='danger', ariaLabel='새 중요 알림') }}{% endset %}` }),
+  extra: gulpTabs('extra', [{ label: '내 파일', content: '내 파일 목록' }, { label: '공유됨', content: '공유된 파일 목록' }, { label: '최근', content: '최근 파일 목록' }], { ariaLabel: '파일 보기', imports: `{% from "components/basic/Button/button.njk" import button %}`, prelude: `{% set tabsExtra %}{{ button(variant='filled', color='primary', size='sm', label='새 파일') }}{% endset %}`, extra: 'tabsExtra' }),
+  scroll: gulpTabs('scroll', longItems.map((item) => ({ ...item, label: item.label.replace(' 소개', '').replace(' 정책', '').replace(' 센터', '').replace('기술 ', '') })), { scrollable: true, className: 'tabs_demo-narrow', ariaLabel: '긴 탭 목록' }),
+  disabled: gulpTabs('disabled', [{ label: '공개', content: '공개 콘텐츠' }, { label: '팀', content: '팀 전용 콘텐츠' }, { label: '관리자', content: '관리자 전용 콘텐츠', disabled: true }], { ariaLabel: '권한별 탭' }),
+  vertical: gulpTabs('vertical-line', [{ label: '일반', content: '일반 설정 패널' }, { label: '보안', content: '보안 설정 패널' }, { label: '결제', content: '결제 설정 패널' }], { vertical: true, ariaLabel: '수직 라인 탭' }) + '\n\n' + gulpTabs('vertical-card', [{ label: '문서', content: '문서 관리 패널' }, { label: '미디어', content: '미디어 관리 패널' }, { label: '아카이브', content: '아카이브 패널' }], { variant: 'card', vertical: true, ariaLabel: '수직 카드 탭' }),
+};
+
 const p = (label: string, content: string, attrs = '') => `<TabPanel label="${label}"${attrs ? ` ${attrs}` : ''}>${content}</TabPanel>`;
 const basicReact = p('개요', '<p>프로젝트 개요와 목표를 설명하는 영역입니다.</p>', 'active') + p('팀', '<p>팀 구성원과 역할을 표시합니다.</p>') + p('활동', '<p>최근 활동 로그와 타임라인을 보여줍니다.</p>');
 const react: Record<Name, string> = {
@@ -62,6 +109,6 @@ function examples(key: Name): FrameworkExample[] {
   const vImports = [`import { Tabs, TabPanel, TabMenu } from '@uxkm/vue/tabs';`, needsIcon && `import Icon from '@uxkm/vue/icon';`, needsBadge && `import Badge from '@uxkm/vue/badge';`, needsButton && `import Button from '@uxkm/vue/button';`, key === 'dynamic' && `const items = [{ key: 'overview', label: '개요', active: true }, { key: 'team', label: '팀' }, { key: 'activity', label: '활동' }];`].filter(Boolean).join('\n');
   const rCode = `${rImports}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vCode = `<script setup>\n${vImports}\n</script>\n<template>\n${vueCodeFor(key)}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Tabs.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `tabs.njk · ${key}`, code: html[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/tabs · ${key}`, code: vCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/tabs · ${key}`, code: vCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/tabs · ${key}`, code: rCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/tabs · ${key}`, code: rCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Tabs.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `tabs.njk · ${key}`, code: gulp[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/tabs · ${key}`, code: vCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/tabs · ${key}`, code: vCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/tabs · ${key}`, code: rCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/tabs · ${key}`, code: rCode }];
 }
 export const tabsFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

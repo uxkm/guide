@@ -1,1 +1,61 @@
-{# 템플릿을 작성할 예정입니다. #}
+{% extends "templates/layouts/default.njk" %}
+
+{% set title = "UXKM Gulp · 컴포넌트" %}
+
+{% block content %}
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm">Gulp · Nunjucks</p>
+      <h1>컴포넌트 데모</h1>
+      <p class="lead">
+        <code class="typo_code">src/components</code> fragment를
+        Nunjucks include로 불러온 실행 화면입니다.
+      </p>
+    </header>
+
+    <section class="section" aria-labelledby="component-categories-title">
+      <h2 id="component-categories-title">카테고리</h2>
+      <div class="card_grid">
+        <a class="category_card" href="/components/basic.html">
+          <h3>Basic</h3>
+          <p>Button, Icon, Link, Typography</p>
+          <span class="count">4 →</span>
+        </a>
+        <a class="category_card" href="/components/layout.html">
+          <h3>Layout</h3>
+          <p>Container, Divider, Flex, Grid, Space</p>
+          <span class="count">5 →</span>
+        </a>
+        <a class="category_card" href="/components/form.html">
+          <h3>Form</h3>
+          <p>Input, Select, Checkbox, Upload 등</p>
+          <span class="count">11 →</span>
+        </a>
+        <a class="category_card" href="/components/navigation.html">
+          <h3>Navigation</h3>
+          <p>Tabs, Menu, Navbar, Pagination 등</p>
+          <span class="count">7 →</span>
+        </a>
+        <a class="category_card" href="/components/data-display.html">
+          <h3>Data Display</h3>
+          <p>Avatar, Card, Table, Badge 등</p>
+          <span class="count">10 →</span>
+        </a>
+        <a class="category_card" href="/components/feedback.html">
+          <h3>Feedback</h3>
+          <p>Alert, Modal, Drawer, Tooltip 등</p>
+          <span class="count">10 →</span>
+        </a>
+        <a class="category_card" href="/components/miscellaneous.html">
+          <h3>Miscellaneous</h3>
+          <p>Accordion, Carousel, Collapse 등</p>
+          <span class="count">5 →</span>
+        </a>
+      </div>
+    </section>
+
+    <p><a class="link color_primary" href="/">← 홈으로</a></p>
+  </div>
+</main>
+{% endblock %}

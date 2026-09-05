@@ -1,29 +1,87 @@
-{# FormLayout 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# form_vertical·form_fit으로 세로 배치와 입력 최대 너비를 적용합니다. #}
-<form class="form form_vertical form_fit" data-component="FormLayout">
-  {# 레이블, 입력 컨트롤, 상태 메시지는 하나의 form_field 블록으로 구성합니다. #}
-  <div class="form_field">
-    <label class="form_field-label" for="form-layout-name">
-      이름
-      <span class="form_field-required">
-        <span aria-hidden="true">*</span>
-        <span class="form_field-required-text">필수 항목</span>
-      </span>
-    </label>
-    <div class="form_field-control">
-      <input id="form-layout-name" class="input" type="text" required />
-    </div>
-    <p class="form_field-hint">실명을 입력해 주세요.</p>
-  </div>
-  <div class="form_field">
-    <label class="form_field-label" for="form-layout-email">이메일</label>
-    <div class="form_field-control">
-      <input id="form-layout-email" class="input" type="email" />
-    </div>
-  </div>
-  {# form_actions는 제출·취소 버튼을 현재 레이아웃 규칙에 맞춰 정렬합니다. #}
-  <div class="form_actions">
-    <button class="btn btn_filled color_primary" type="submit">저장</button>
-    <button class="btn btn_ghost" type="button">취소</button>
-  </div>
-</form>
+{# FormLayout 원본 구현: 폼·필드·액션 영역을 macro 조합으로 구성합니다. #}
+{% import "components/form/Input/input.njk" as Input %}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro formLayout(
+  tag = 'form',
+  id = '',
+  layout = 'vertical',
+  fit = false,
+  compact = false,
+  labelAlign = 'end',
+  labelWidth = '',
+  action = '',
+  method = '',
+  autocomplete = '',
+  novalidate = false,
+  ariaLabel = '',
+  className = ''
+) %}
+{%- set root = tag if tag in ['form', 'div', 'section'] else 'form' -%}
+{%- set resolvedLayout = layout if layout in ['vertical', 'horizontal', 'inline'] else 'vertical' -%}
+{%- set resolvedLabelWidth = labelWidth if labelWidth in ['sm', 'lg'] else '' -%}
+{%- set classes =
+  'form form_' + resolvedLayout
+  + (' form_fit' if fit else '')
+  + (' form_compact' if compact else '')
+  + (' form_label-align-start' if resolvedLayout == 'horizontal' and labelAlign == 'start' else '')
+  + ((' form_label-width-' + resolvedLabelWidth) if resolvedLayout == 'horizontal' and resolvedLabelWidth else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ root }}
+  {% if id %}id="{{ id }}"{% endif %}
+  class="{{ classes }}"
+  {% if root == 'form' and action %}action="{{ action }}"{% endif %}
+  {% if root == 'form' and method %}method="{{ method }}"{% endif %}
+  {% if root == 'form' and autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+  {% if root == 'form' and novalidate %}novalidate{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  data-component="FormLayout"
+>
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</{{ root }}>
+{% endmacro %}
+
+{% macro formField(
+  tag = 'div',
+  id = '',
+  label = '',
+  control = '',
+  hint = '',
+  error = '',
+  success = '',
+  required = false,
+  fit = false,
+  className = ''
+) %}
+{%- set root = tag if tag in ['div', 'fieldset', 'section'] else 'div' -%}
+{%- set content = caller() if caller else control -%}
+<{{ root }} class="form_field{{ ' form_field_fit' if fit else '' }}{{ (' ' + className) if className else '' }}">
+  {% if label %}
+    {% if root == 'fieldset' %}<legend class="form_field-label">{% else %}<label class="form_field-label"{% if id %} for="{{ id }}"{% endif %}>{% endif %}
+      {{ label }}
+      {% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}
+    {% if root == 'fieldset' %}</legend>{% else %}</label>{% endif %}
+  {% endif %}
+  <div class="form_field-control">{{ content | safe }}</div>
+  {% if error %}<p{% if id %} id="{{ id }}-error"{% endif %} class="form_field-error" role="alert">{{ error }}</p>{% elif hint %}<p{% if id %} id="{{ id }}-hint"{% endif %} class="form_field-hint">{{ hint }}</p>{% endif %}
+  {% if success %}<p{% if id %} id="{{ id }}-success"{% endif %} class="form_field-success">{{ success }}</p>{% endif %}
+</{{ root }}>
+{% endmacro %}
+
+{% macro formActions(tag = 'div', className = '') %}
+{%- set root = tag if tag in ['div', 'footer'] else 'div' -%}
+<{{ root }} class="form_actions{{ (' ' + className) if className else '' }}">{% if caller %}{{ caller() | safe }}{% endif %}</{{ root }}>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoName %}{{ Input.input(id='form-layout-name', name='name', required=true) }}{% endset %}
+{% set demoEmail %}{{ Input.input(id='form-layout-email', name='email', type='email') }}{% endset %}
+{% call formLayout(fit=true) %}
+  {{ formField(id='form-layout-name', label='이름', control=demoName, required=true, hint='실명을 입력해 주세요.') }}
+  {{ formField(id='form-layout-email', label='이메일', control=demoEmail) }}
+  {% call formActions() %}
+    {{ Button.button(type='submit', label='저장') }}
+    {{ Button.button(variant='ghost', color='', label='취소') }}
+  {% endcall %}
+{% endcall %}

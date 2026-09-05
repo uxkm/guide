@@ -1,0 +1,11 @@
+{# 컴포넌트 데모 섹션 래퍼 #}
+{% macro componentDemo(name, path, anchor) %}
+{% set sectionId = anchor or name %}
+<section class="section" id="{{ sectionId }}" aria-labelledby="{{ sectionId }}-title">
+  <h2 id="{{ sectionId }}-title">{{ name }}</h2>
+  <p><code class="typo_code">{{ path }}</code></p>
+  <div class="component_demo">
+    {{ caller() }}
+  </div>
+</section>
+{% endmacro %}

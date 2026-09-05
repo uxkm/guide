@@ -1,8 +1,104 @@
-{# Flex 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# flex 클래스와 기본 행 방향 클래스를 루트에 적용합니다. #}
-<div class="flex flex_row" data-component="Flex">
-  {# 직계 자식은 Flex 항목으로 한 방향에 배치됩니다. #}
+{# Flex 원본 구현: 레이아웃 속성과 자식 콘텐츠를 공통 CSS 클래스 및 시맨틱 루트에 연결합니다. #}
+{# flex · flexItem macro로 방향·간격·span·정렬을 조합합니다. #}
+
+{% macro flex(
+  as = 'div',
+  direction = 'row',
+  directionMd = '',
+  directionLg = '',
+  wrap = false,
+  cols = '',
+  colsMd = '',
+  colsLg = '',
+  gap = '',
+  ratio = '',
+  align = 'stretch',
+  justify = '',
+  itemSpan = '',
+  itemSpanMd = '',
+  itemSpanLg = '',
+  equal = false,
+  autoFit = false,
+  className = '',
+  style = ''
+) %}
+{%- set tag = as -%}
+{%- set gapPresets = ['sm', 'lg', 'none'] -%}
+{%- set gapClass = (' flex_gap-' + gap) if gap in gapPresets else '' -%}
+{%- set gapStyle = style -%}
+{%- if gap and gap not in gapPresets -%}
+  {%- set gapValue = (gap ~ 'rem') if gap is number else gap -%}
+  {%- set gapStyle = ((style + '; ') if style else '') + '--flex-current-gap: ' + gapValue -%}
+{%- endif -%}
+{%- set dirBase = 'col' if direction in ['column', 'col'] else direction -%}
+{%- set dirMd = 'col' if directionMd in ['column', 'col'] else directionMd -%}
+{%- set dirLg = 'col' if directionLg in ['column', 'col'] else directionLg -%}
+{%- set classes =
+  'flex'
+  + ((' flex_' + dirBase) if dirBase else '')
+  + ((' flex_' + dirMd + '-md') if dirMd else '')
+  + ((' flex_' + dirLg + '-lg') if dirLg else '')
+  + (' flex_wrap' if wrap else '')
+  + gapClass
+  + ((' flex_cols-' + cols) if cols else '')
+  + ((' flex_cols-md-' + colsMd) if colsMd else '')
+  + ((' flex_cols-lg-' + colsLg) if colsLg else '')
+  + ((' flex_ratio-' + ratio) if ratio else '')
+  + ((' flex_items-span-' + itemSpan) if itemSpan else '')
+  + ((' flex_items-span-md-' + itemSpanMd) if itemSpanMd else '')
+  + ((' flex_items-span-lg-' + itemSpanLg) if itemSpanLg else '')
+  + (' flex_equal' if equal else '')
+  + (' flex_auto-fit' if autoFit else '')
+  + ((' flex_align-' + align) if align else '')
+  + ((' flex_justify-' + justify) if justify else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ tag }} class="{{ classes }}" data-component="Flex"{% if gapStyle %} style="{{ gapStyle }}"{% endif %}>
+  {%- if caller -%}
+  {{ caller() }}
+  {%- else -%}
+  {{ content | default('') | safe }}
+  {%- endif -%}
+</{{ tag }}>
+{% endmacro %}
+
+{% macro flexItem(
+  as = 'div',
+  span = '',
+  spanMd = '',
+  spanLg = '',
+  grow = false,
+  growFactor = 1,
+  fit = false,
+  align = '',
+  order = '',
+  className = '',
+  style = ''
+) %}
+{%- set tag = as -%}
+{%- set growClass = 'flex_grow-2' if grow and growFactor == 2 else ('flex_grow' if grow else '') -%}
+{%- set classes =
+  (('flex_item-span-' + span) if span else '')
+  + ((' flex_item-span-md-' + spanMd) if spanMd else '')
+  + ((' flex_item-span-lg-' + spanLg) if spanLg else '')
+  + ((' ' + growClass) if growClass else '')
+  + (' flex_fit' if fit else '')
+  + ((' flex_self-' + align) if align else '')
+  + ((' flex_order-' + order) if order else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ tag }} class="{{ classes | trim }}" data-component="FlexItem"{% if style %} style="{{ style }}"{% endif %}>
+  {%- if caller -%}
+  {{ caller() }}
+  {%- else -%}
+  {{ content | default('') | safe }}
+  {%- endif -%}
+</{{ tag }}>
+{% endmacro %}
+
+{# include 시 기본 데모 한 번 렌더 (from import 시에는 실행되지 않음) #}
+{% call flex(cols=3, gap='sm') %}
   <div class="flex_demo-cell">1</div>
   <div class="flex_demo-cell">2</div>
   <div class="flex_demo-cell">3</div>
-</div>
+{% endcall %}

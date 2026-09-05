@@ -1,10 +1,77 @@
-{# Avatar 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-<div class="avatar_group" {# Avatar 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="AvatarGroup" aria-label="팀 멤버 3명">
-  {# 내부에 데이터 표시 콘텐츠를 배치합니다. #}
-  <span class="avatar color_primary" data-component="Avatar" aria-hidden="true">김</span>
-  <span class="avatar color_success" data-component="Avatar" aria-hidden="true">이</span>
-  <span class="avatar color_warning" data-component="Avatar" aria-hidden="true">
-    박<span class="avatar_badge color_success" aria-label="온라인"></span>
-  </span>
+{# Avatar 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 접근성 의미를 연결합니다. #}
+{# avatar · avatarGroup macro로 이미지·이니셜·아이콘·상태 점·겹침 그룹을 조합합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro avatar(
+  src = '',
+  alt = '',
+  initials = '',
+  icon = '',
+  color = '',
+  size = 'md',
+  square = false,
+  badgeColor = '',
+  badgeLabel = '',
+  ariaHidden = false,
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = initials -%}
+{%- endif -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg', 'xl'] else 'md' -%}
+{%- set classes =
+  'avatar'
+  + ((' color_' + color) if color else '')
+  + ((' avatar_' + resolvedSize) if resolvedSize != 'md' else '')
+  + (' avatar_square' if square else '')
+  + ((' ' + className) if className else '')
+-%}
+<span
+  class="{{ classes }}"
+  data-component="Avatar"
+  {% if ariaHidden %}aria-hidden="true"{% endif %}
+>
+  {%- if src -%}
+  <img class="avatar_image" src="{{ src }}" alt="{{ alt }}">
+  {%- elif icon -%}
+  {{ Icon.icon(name=icon, className='avatar_icon') }}
+  {%- else -%}
+  {{ content | safe }}
+  {%- endif -%}
+  {%- if badgeColor -%}
+  <span
+    class="avatar_badge color_{{ badgeColor }}"
+    role="img"
+    {% if badgeLabel %}aria-label="{{ badgeLabel }}"{% endif %}
+  ></span>
+  {%- endif -%}
+</span>
+{% endmacro %}
+
+{% macro avatarGroup(
+  ariaLabel = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set classes =
+  'avatar_group'
+  + ((' ' + className) if className else '')
+-%}
+<div
+  class="{{ classes }}"
+  data-component="AvatarGroup"
+  role="group"
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+>
+  {{ content | safe }}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call avatarGroup(ariaLabel='팀 멤버 3명') %}
+  {{ avatar(color='primary', initials='김', ariaHidden=true) }}
+  {{ avatar(color='success', initials='이', ariaHidden=true) }}
+  {{ avatar(color='warning', initials='박', ariaHidden=true, badgeColor='success', badgeLabel='온라인') }}
+{% endcall %}

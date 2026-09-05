@@ -18,6 +18,39 @@ const react: Record<Name, string> = {
 const vueSource = { ...react, inside: `${react.inside}\n<Progress percent={100} inside />` };
 const vue: Record<Name, string> = Object.fromEntries(Object.entries(vueSource).map(([key, value]) => [key, value.replaceAll('percent={', ':percent="').replaceAll('} ', '" ').replaceAll('} />', '" />').replaceAll('showInfo', 'show-info').replaceAll('ariaLabel', 'aria-label')])) as Record<Name, string>;
 
+const gulpImport = `{% from "components/feedback/Progress/progress.njk" import progress, progressCircle %}`;
+const gulpCalls: Record<Name, string> = {
+  basic: `{{ progress(percent=0) }}
+{{ progress(percent=30) }}
+{{ progress(percent=60) }}
+{{ progress(percent=100, status='success') }}`,
+  label: `{{ progress(percent=42, showInfo=true, label='파일 업로드', ariaLabel='파일 업로드 진행률') }}
+{{ progress(percent=67, showInfo=true, label='데이터 동기화', ariaLabel='데이터 동기화 진행률') }}`,
+  color: `{{ progress(percent=50, color='primary', ariaLabel='Primary 진행률') }}
+{{ progress(percent=100, color='success', ariaLabel='Success 진행률') }}
+{{ progress(percent=75, color='warning', ariaLabel='Warning 진행률') }}
+{{ progress(percent=35, color='danger', ariaLabel='Danger 진행률') }}`,
+  size: `{{ progress(percent=40, size='sm') }}
+{{ progress(percent=55) }}
+{{ progress(percent=70, size='lg') }}`,
+  striped: `{{ progress(percent=45, striped=true, ariaLabel='줄무늬 진행률') }}
+{{ progress(percent=65, striped=true, animated=true, ariaLabel='애니메이션 진행률') }}`,
+  indeterminate: `{{ progress(indeterminate=true, ariaLabel='처리 중') }}
+{{ progress(indeterminate=true, color='success', label='동기화 중…', ariaLabel='동기화 중') }}`,
+  inside: `{{ progress(percent=25, inside=true) }}
+{{ progress(percent=80, inside=true, size='lg', color='success') }}`,
+  circle: `{{ progressCircle(percent=25) }}
+{{ progressCircle(percent=68, color='success') }}
+{{ progressCircle(percent=50, size='sm', color='warning') }}
+{{ progressCircle(percent=90, size='lg', color='danger') }}`,
+  width: `{{ progress(percent=50, showInfo=true, label='progress_fit') }}
+{{ progress(percent=72, block=true, showInfo=true, label='progress_block — 전체 너비') }}`,
+};
+
+const gulpCode = (key: Name) => `${gulpImport}
+
+${gulpCalls[key]}`;
+
 function htmlCode(key: Name) {
   const linear = (percent: number, classes = 'progress_fit color_primary', header = '', ariaLabel = '진행률') => `<div class="progress ${classes}" data-percent="${percent}">${header}<div class="progress_track" role="progressbar"${classes.includes('is-indeterminate') ? ' aria-busy="true"' : ` aria-valuenow="${percent}"`} aria-valuemin="0" aria-valuemax="100" aria-label="${ariaLabel}"><span class="progress_bar" style="width: ${percent}%">${classes.includes('progress_inside') ? `${percent}%` : ''}</span></div></div>`;
   const header = (label: string, percent?: number) => `<div class="progress_header"><span class="progress_label">${label}</span>${percent === undefined ? '' : `<span class="progress_value">${percent}%</span>`}</div>`;
@@ -40,7 +73,7 @@ function examples(key: Name): FrameworkExample[] {
   const html = htmlCode(key); const component = key === 'circle' ? 'ProgressCircle' : 'Progress';
   const reactCode = `import { ${component} } from '@uxkm/react/progress';\n\nexport function Example() {\n  return <>${react[key]}</>;\n}`;
   const vueCode = `<script setup>\nimport { ${component} } from '@uxkm/vue/progress';\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Progress.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `progress.njk · ${key}`, code: html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/progress · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/progress · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/progress · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/progress · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Progress.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `progress.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/progress · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/progress · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/progress · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/progress · ${key}`, code: reactCode }];
 }
 
 export const progressFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

@@ -17,13 +17,13 @@ WebSquare는 `xf:trigger`와 `xf:label`을 Button 구조로 사용하고 공통 
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Button` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 공통 CSS 클래스와 ARIA 속성으로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Button` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 공통 CSS 클래스와 ARIA 속성으로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용하며, Gulp는 `button` Nunjucks macro로 동일한 계약을 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `variant`는 `btn_filled`·`btn_outline`·`btn_ghost`·`btn_text`·`btn_select` 스킨으로 변환됩니다. `ghost`를 제외하면 `color_*`가 함께 적용됩니다.
 - `size`·`iconOnly`·`vertical`·`round`·`block`·`grow`·`fit`은 레이아웃·형태 클래스로 변환됩니다. `md` 크기는 기본값이라 별도 클래스를 붙이지 않습니다.
 - `loading`·`open`·`error`·`ariaDisabled`는 `is-*` 상태 클래스와 대응 ARIA를 설정합니다.
 - `tag`로 `button`·`a`·`div`를 선택합니다. `div`와 `href` 없는 `a`에는 `role="button"`과 `tabindex="0"`을 자동 적용하고 Enter·Space로 클릭을 흉내 냅니다.
-- 텍스트는 `btn_label`로 감싸며, React는 `iconBefore`·`iconAfter`, Vue는 `icon-before`·`icon-after` 슬롯으로 아이콘을 배치합니다.
+- 텍스트는 `btn_label`로 감싸며, React는 `iconBefore`·`iconAfter`, Vue는 `icon-before`·`icon-after` 슬롯, Gulp는 `iconBefore`·`iconAfter` 이름 문자열로 Icon macro를 호출합니다.
 
 <FrameworkTabs examples={buttonComponentExamples} showFullCode />
 

@@ -56,11 +56,72 @@ const sources: Record<string, Source> = {
   state: { html: `<div class="upload is-disabled" data-component="Upload"><label class="upload_trigger">${input('upload-disabled', ' disabled')}<span class="btn">파일 선택</span></label></div>\n<div class="upload" data-component="Upload"><label class="upload_dropzone is-error">업로드 오류</label></div>`, react: '<><Upload disabled /><Upload variant="drag" error title="업로드 오류" /></>', vue: '<Upload disabled />\n<Upload variant="drag" error title="업로드 오류" />' },
   example: { html: `<form class="form form_vertical form_fit"><div class="form_field"><p class="form_field-label">첨부 파일</p><div class="upload" data-component="Upload" data-max-size="10485760" data-max-files="3">${input('attachments', ' accept=".pdf,.doc,.docx" multiple')}<ul class="upload_list" data-upload-list></ul></div></div></form>`, react: '<Upload files={files} onChange={setFiles} multiple accept=".pdf,.doc,.docx" maxSize={10 * 1024 * 1024} maxFiles={3} />', vue: '<Upload v-model="files" multiple accept=".pdf,.doc,.docx" :max-size="10 * 1024 * 1024" :max-files="3" />' }
 };
+const uploadImport = `{% from "components/form/Upload/upload.njk" import upload, uploadField %}`;
+const uploadGulpExamples: Record<string, string> = {
+  basic: `${uploadImport}
+
+{{ upload(id='upload-basic', buttonLabel='파일 선택', hint='PDF 또는 문서 파일을 첨부해 주세요.') }}`,
+  dropzone: `${uploadImport}
+
+{{ upload(
+  id='upload-drop',
+  variant='drag',
+  fit=true,
+  multiple=true,
+  accept='image/png,image/jpeg,.pdf',
+  maxSize=5242880,
+  maxFiles=3,
+  description='PNG, JPG, PDF · 파일당 최대 5MB'
+) }}`,
+  list: `${uploadImport}
+
+{% set files = [
+  { name: '프로젝트_제안서_v2.pdf', status: 'uploading', progress: 60, meta: '2.4 MB · 60%' },
+  { name: '완료된_문서.pdf', status: 'done', meta: '1.2 MB · 업로드 완료' },
+  { name: '오류_문서.pdf', status: 'error', meta: '업로드 오류' }
+] %}
+{{ upload(variant='list', fit=true, files=files) }}`,
+  cards: `${uploadImport}
+
+{% set files = [
+  { name: '프로필 미리보기 1', url: '/images/samples/avatar/avatar-sample.svg', status: 'done' },
+  { name: '프로필 미리보기 2', url: '/images/samples/avatar/avatar-sample.svg', status: 'done' }
+] %}
+{{ upload(id='upload-cards', variant='picture-card', multiple=true, accept='image/*', maxFiles=5, files=files, buttonLabel='업로드') }}`,
+  avatar: `${uploadImport}
+
+{{ upload(
+  id='upload-avatar',
+  variant='avatar',
+  accept='image/*',
+  avatarSrc='/images/samples/avatar/avatar-sample.svg',
+  avatarAlt='프로필 사진'
+) }}`,
+  size: `${uploadImport}
+
+{% for size in ['sm', 'md', 'lg'] %}
+  {{ upload(id='upload-' + size, variant='drag', size=size, title=(size | upper) + ' 업로드') }}
+{% endfor %}`,
+  width: `${uploadImport}
+
+{{ upload(id='upload-default-width', variant='drag', title='기본 너비 업로드', description='파일을 끌어다 놓거나 선택하세요.') }}
+{{ upload(id='upload-fit-width', variant='drag', fit=true, title='전체 너비 업로드', description='파일을 끌어다 놓거나 선택하세요.') }}`,
+  state: `${uploadImport}
+
+{{ upload(id='upload-disabled', disabled=true) }}
+{{ upload(id='upload-error', variant='drag', error=true, title='업로드 오류') }}`,
+  example: `${uploadImport}
+
+<form class="form form_vertical form_fit">
+  {% set attachmentUpload %}{{ upload(id='attachments', name='attachments', multiple=true, accept='.pdf,.doc,.docx', maxSize=10485760, maxFiles=3) }}{% endset %}
+  {{ uploadField(label='첨부 파일', control=attachmentUpload, hint='파일은 최대 3개, 각 10MB까지 첨부할 수 있습니다.') }}
+</form>`
+};
 const indent = (value: string, spaces: number) => value.split('\n').map((line) => `${' '.repeat(spaces)}${line}`).join('\n');
 function examples(key: string, source: Source): FrameworkExample[] {
   const stateful = key === 'example';
   const react = `${stateful ? "import { useState } from 'react';\n" : ''}import Upload from '@uxkm/react/upload';\n\nexport function Example() {${stateful ? '\n  const [files, setFiles] = useState([]);' : ''}\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${stateful ? "import { ref } from 'vue';\n" : ''}import Upload from '@uxkm/vue/upload';${stateful ? '\nconst files = ref([]);' : ''}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Upload.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `upload.njk · ${key}`, code: source.html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/upload · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/upload · ${key}`, code: react }];
+  return [{ id: 'html', label: 'HTML', fileName: `Upload.html · ${key}`, code: source.html }, { id: 'gulp', label: 'Gulp', fileName: `upload.njk · ${key}`, code: uploadGulpExamples[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/upload · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/upload · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/upload · ${key}`, code: react }];
 }
 export const uploadFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<keyof typeof sources, FrameworkExample[]>;

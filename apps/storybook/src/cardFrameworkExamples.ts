@@ -1,11 +1,259 @@
 import type { FrameworkExample } from './FrameworkCode';
 
+const gulpImport = `{% from "components/data-display/Card/card.njk" import card, cardHeader, cardBody, cardFooter, cardDeck %}`;
+const gulpButtonImport = `{% from "components/basic/Button/button.njk" import button %}`;
+const gulpAvatarImport = `{% from "components/data-display/Avatar/avatar.njk" import avatar %}`;
+const gulpTagImport = `{% from "components/data-display/Tag/tag.njk" import tag, tagGroup %}`;
+
+function attribute(source: string, name: string) {
+  return source.match(new RegExp(`\\b${name}="([^"]*)"`))?.[1] ?? '';
+}
+
+function quote(value: string) {
+  return `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
+}
+
+function cardGulpArgs(tag: string, source: string, classes: string[]) {
+  const args: string[] = [];
+  const remaining = new Set(classes.filter((className) => className !== 'card'));
+  const take = (className: string) => remaining.delete(className);
+
+  if (take('card_shadow')) args.push("variant='shadow'");
+  else if (take('card_elevated')) args.push("variant='elevated'");
+  else if (take('card_ghost')) args.push("variant='flat'");
+  else if (take('card_borderless')) args.push("variant='borderless'");
+
+  for (const size of ['sm', 'lg', 'compact']) {
+    if (take(`card_${size}`)) args.push(`size='${size}'`);
+  }
+  if (take('card_horizontal')) args.push('horizontal=true');
+  if (take('card_hover')) args.push('hoverable=true');
+  if (take('card_accent')) args.push('accent=true');
+  if (take('is-disabled')) args.push('disabled=true');
+
+  const colorClass = [...remaining].find((className) => className.startsWith('color_'));
+  if (colorClass) {
+    remaining.delete(colorClass);
+    args.push(`color='${colorClass.slice('color_'.length)}'`);
+  }
+
+  const href = attribute(source, 'href');
+  const role = attribute(source, 'role');
+  const tabIndex = attribute(source, 'tabindex');
+  const style = attribute(source, 'style');
+  if (tag === 'a' && !href) args.push("tag='a'");
+  if (href) args.push(`href=${quote(href)}`);
+  if (role) args.push(`role=${quote(role)}`);
+  if (tabIndex) args.push(`tabIndex=${quote(tabIndex)}`);
+  if (style) args.push(`style=${quote(style)}`);
+
+  // card_clickable은 링크·role에서 자동 생성되므로 그 외의 경우에만 사용자 클래스로 남깁니다.
+  if ((href || role === 'link' || role === 'button') && remaining.has('card_clickable')) {
+    remaining.delete('card_clickable');
+  }
+  if (remaining.size) args.push(`className=${quote([...remaining].join(' '))}`);
+  return args.join(', ');
+}
+
+function buttonGulpArgs(source: string, label = '') {
+  const args: string[] = [];
+  const remaining = new Set(attribute(source, 'class').split(/\s+/).filter(Boolean));
+  remaining.delete('btn');
+
+  const variant = ['filled', 'outline', 'ghost', 'text', 'select'].find((name) => remaining.delete(`btn_${name}`));
+  const colorClass = [...remaining].find((className) => className.startsWith('color_'));
+  const size = ['sm', 'lg'].find((name) => remaining.delete(`btn_${name}`));
+  if (variant) args.push(`variant='${variant}'`);
+  if (colorClass) {
+    remaining.delete(colorClass);
+    args.push(`color='${colorClass.slice('color_'.length)}'`);
+  }
+  if (size) args.push(`size='${size}'`);
+
+  const booleanClasses: Record<string, string> = {
+    'btn_icon-only': 'iconOnly',
+    btn_round: 'round',
+    btn_block: 'block',
+    btn_fit: 'fit'
+  };
+  for (const [className, argument] of Object.entries(booleanClasses)) {
+    if (remaining.delete(className)) args.push(`${argument}=true`);
+  }
+
+  const ariaLabel = attribute(source, 'aria-label');
+  if (ariaLabel) args.push(`ariaLabel=${quote(ariaLabel)}`);
+  if (/\bdisabled(?:\s|$)/.test(source)) args.push('disabled=true');
+  if (remaining.size) args.push(`className=${quote([...remaining].join(' '))}`);
+  if (label) args.push(`label=${quote(label)}`);
+  return args.join(', ');
+}
+
+function convertButtons(source: string) {
+  return source
+    .replace(
+      /<button\b([^>]*)>\s*<span class="btn_label">([^<]*)<\/span>\s*<\/button>/g,
+      (_match, attrs: string, label: string) => `{{ button(${buttonGulpArgs(attrs, label)}) }}`
+    )
+    .replace(/<button\b([^>]*)>([\s\S]*?)<\/button>/g, (_match, attrs: string, content: string) => {
+      const args = buttonGulpArgs(attrs);
+      if (/<circle cx="12" cy="12" r="1"\/>/.test(content) && /<circle cx="19" cy="12" r="1"\/>/.test(content)) {
+        return `{{ button(${args}${args ? ', ' : ''}iconBefore='more') }}`;
+      }
+      return `{% call button(${args}) %}${content.trim()}{% endcall %}`;
+    });
+}
+
+function matchingDivEnd(source: string, start: number) {
+  const tags = /<\/?div\b[^>]*>/g;
+  tags.lastIndex = start;
+  let depth = 0;
+  let match: RegExpExecArray | null;
+  while ((match = tags.exec(source))) {
+    depth += match[0].startsWith('</div') ? -1 : 1;
+    if (depth === 0) return tags.lastIndex;
+  }
+  return -1;
+}
+
+function convertProfileHeader(source: string) {
+  const headerOpen = '<div class="card_header">';
+  const mainOpen = '<div class="card_header-main">';
+  const extraOpen = '<div class="card_extra">';
+  const headerStart = source.indexOf(headerOpen);
+  if (headerStart < 0) return source;
+  const headerEnd = matchingDivEnd(source, headerStart);
+  if (headerEnd < 0) return source;
+  const header = source.slice(headerStart, headerEnd);
+  if (!header.includes('class="avatar ')) return source;
+
+  const mainStart = header.indexOf(mainOpen);
+  const mainEnd = matchingDivEnd(header, mainStart);
+  const extraStart = header.indexOf(extraOpen, mainEnd);
+  const extraEnd = matchingDivEnd(header, extraStart);
+  if (mainStart < 0 || mainEnd < 0 || extraStart < 0 || extraEnd < 0) return source;
+
+  const mainContent = header.slice(mainStart + mainOpen.length, mainEnd - '</div>'.length);
+  const extraContent = header.slice(extraStart + extraOpen.length, extraEnd - '</div>'.length);
+  const replacement = `{% set cardHeaderExtra %}${extraContent}{% endset %}{% call cardHeader(extra=cardHeaderExtra) %}${mainContent}{% endcall %}`;
+  return source.slice(0, headerStart) + replacement + source.slice(headerEnd);
+}
+
+function convertProfileComponents(source: string) {
+  return source
+    .replace(
+      /<span class="avatar(?:\s+color_(\w+))?"(?:\s+aria-hidden="true")?>([^<]*)<\/span>/g,
+      (_match, color: string | undefined, initials: string) =>
+        `{{ avatar(${color ? `color='${color}', ` : ''}initials=${quote(initials)}, ariaHidden=true) }}`
+    )
+    .replace(
+      /<span class="tag(?:\s+tag_(sm|lg))?(?:\s+color_(\w+))?">([^<]*)<\/span>/g,
+      (_match, size: string | undefined, color: string | undefined, label: string) => {
+        const args = [size ? `size='${size}'` : '', color ? `color='${color}'` : '', `label=${quote(label)}`].filter(Boolean);
+        return `{{ tag(${args.join(', ')}) }}`;
+      }
+    );
+}
+
+function formatGulpBlocks(source: string) {
+  const lines = source
+    .replace(/\s*(\{%\s*call\b[^%]*%\})\s*/g, '\n$1\n')
+    .replace(/\s*(\{%\s*endcall\s*%\})\s*/g, '\n$1\n')
+    .replace(/\s*(\{%\s*set\s+\w+\s*%\})\s*/g, '\n$1\n')
+    .replace(/\s*(\{%\s*endset\s*%\})\s*/g, '\n$1\n')
+    .replace(/\s*(\{\{\s*(?:cardHeader|button|avatar|tag)\([^)]*\)\s*\}\})\s*/g, '\n$1\n')
+    .replace(/>\s*</g, '>\n<')
+    .replace(/(<\/[A-Za-z][\w:-]*>)\s*(?=[^<{\s])/g, '$1\n')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const formatted: string[] = [];
+  let depth = 0;
+
+  for (const line of lines) {
+    const closesCall = /^\{%\s*endcall\s*%\}$/.test(line);
+    const closesSet = /^\{%\s*endset\s*%\}$/.test(line);
+    const closesTag = /^<\//.test(line);
+    if (closesCall || closesSet || closesTag) depth = Math.max(0, depth - 1);
+
+    formatted.push(`${'  '.repeat(depth)}${line}`);
+
+    if (/^\{%\s*(?:call\b|set\s+\w+\s*%\})/.test(line)) {
+      depth += 1;
+      continue;
+    }
+    const tagName = line.match(/^<([A-Za-z][\w:-]*)\b/)?.[1]?.toLowerCase();
+    const voidTag = tagName && ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'].includes(tagName);
+    const inlinePair = /^<([A-Za-z][\w:-]*)\b[^>]*>.*<\/\1>$/.test(line);
+    if (tagName && !voidTag && !inlinePair && !/\/>$/.test(line)) depth += 1;
+  }
+
+  return formatted.join('\n');
+}
+
+function toGulp(html: string) {
+  const stack: Array<{ tag: string; macro: boolean }> = [];
+  const withSimpleHeaders = convertProfileComponents(convertProfileHeader(convertButtons(html)))
+    .replace(
+      /<div class="card_header"><div class="card_header-main"><h3 class="card_title">([^<]*)<\/h3>(?:<p class="card_subtitle">([^<]*)<\/p>)?<\/div><\/div>/g,
+      (_source, title: string, subtitle: string | undefined) =>
+        `{{ cardHeader(title=${quote(title)}${subtitle ? `, subtitle=${quote(subtitle)}` : ''}) }}`
+    )
+    .replace(
+      /<div class="card_header"><h3 class="card_title">([^<]*)<\/h3><\/div>/g,
+      (_source, title: string) => `{{ cardHeader(title=${quote(title)}) }}`
+    );
+  const converted = withSimpleHeaders.replace(/<(\/)?(article|a|div)\b([^>]*)>/g, (source, closing: string, tag: string, attrs: string) => {
+    if (closing) {
+      const opened = stack.pop();
+      return opened?.macro ? '{% endcall %}' : source;
+    }
+
+    const classes = attribute(attrs, 'class').split(/\s+/).filter(Boolean);
+    if (classes.includes('card') && (tag === 'article' || tag === 'a')) {
+      const args = cardGulpArgs(tag, attrs, classes);
+      stack.push({ tag, macro: true });
+      return `{% call card(${args}) %}`;
+    }
+    if (tag === 'div' && classes.includes('card_deck')) {
+      const columnsClass = classes.find((className) => /^card_deck-[23]$/.test(className));
+      const args = columnsClass ? `columns=${columnsClass.slice(-1)}` : '';
+      stack.push({ tag, macro: true });
+      return `{% call cardDeck(${args}) %}`;
+    }
+    if (tag === 'div' && classes.length === 1 && classes[0] === 'card_body') {
+      stack.push({ tag, macro: true });
+      return '{% call cardBody() %}';
+    }
+    if (tag === 'div' && classes.includes('card_footer')) {
+      const between = classes.includes('card_footer-between');
+      stack.push({ tag, macro: true });
+      return `{% call cardFooter(${between ? 'between=true' : ''}) %}`;
+    }
+    if (tag === 'div' && classes.includes('tag_group')) {
+      const tight = classes.includes('tag_group-tight');
+      stack.push({ tag, macro: true });
+      return `{% call tagGroup(${tight ? 'tight=true' : ''}) %}`;
+    }
+
+    stack.push({ tag, macro: false });
+    return source;
+  });
+
+  const imports = [
+    gulpImport,
+    converted.includes('button(') ? gulpButtonImport : '',
+    converted.includes('avatar(') ? gulpAvatarImport : '',
+    converted.includes('tag(') || converted.includes('tagGroup(') ? gulpTagImport : ''
+  ].filter(Boolean);
+  return `${imports.join('\n')}\n\n${formatGulpBlocks(converted)}`;
+}
+
 function cardExample(key: string, html: string, reactBody: string, vueBody: string): FrameworkExample[] {
   const react = `import { Card, CardBody, CardFooter, CardHeader } from '@uxkm/react/card';\nimport Avatar from '@uxkm/react/avatar';\nimport Button from '@uxkm/react/button';\nimport Stat from '@uxkm/react/stat';\nimport { Tag, TagGroup } from '@uxkm/react/tag';\n\nexport function Example() {\n  return (\n${reactBody}\n  );\n}`;
   const vue = `<script setup>\nimport { Card, CardBody, CardFooter, CardHeader } from '@uxkm/vue/card';\nimport Avatar from '@uxkm/vue/avatar';\nimport Button from '@uxkm/vue/button';\nimport Stat from '@uxkm/vue/stat';\nimport { Tag, TagGroup } from '@uxkm/vue/tag';\n</script>\n\n<template>\n${vueBody}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/data-display/Card/Card.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Card/card.njk · ${key}`, code: `{# Card · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/data-display/Card/card.njk · ${key}`, code: toGulp(html) },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/card · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/card · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/card · ${key}`, code: react },

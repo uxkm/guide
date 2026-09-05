@@ -1,13 +1,104 @@
-{# Menu 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# menu 클래스에 배치·테두리·밀집·어두운 변형과 선택 가능 속성(data-menu-selectable)을 함께 둡니다. #}
-<nav
-  class="menu menu_{{ mode | default('vertical') }}{% if bordered %} menu_bordered{% endif %}{% if compact %} menu_compact{% endif %}{% if dark %} menu_dark{% endif %}"
-  data-component="Menu"
-  data-menu-selectable
-  aria-label="{{ ariaLabel | default('메뉴') }}"
+{# Menu 원본 구현: 메뉴·항목·서브메뉴·그룹·구분선을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro menuItem(
+  label='',
+  href='',
+  active=false,
+  disabled=false,
+  icon='',
+  iconSlot='',
+  extra='',
+  color='',
+  value='',
+  className=''
+) %}
+{%- set root = 'a' if href else 'button' -%}
+<li class="menu_item{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}">
+  <{{ root }}
+    class="menu_link{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}{% if color %} color_{{ color }}{% endif %}"
+    {% if root == 'button' %}type="button"{% if disabled %} disabled{% endif %}{% else %}href="{{ href if not disabled else '#' }}"{% endif %}
+    {% if active %}aria-current="page"{% endif %}
+    {% if value %}data-value="{{ value }}"{% endif %}
+    {% if disabled %}aria-disabled="true"{% if root == 'a' %} tabindex="-1"{% endif %}{% endif %}
+  >
+    {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='menu_icon') }}{% endif %}
+    <span class="menu_label">{{ label }}</span>
+    {% if extra %}<span class="menu_extra">{{ extra | safe }}</span>{% endif %}
+  </{{ root }}>
+</li>
+{% endmacro %}
+
+{% macro menuSubmenu(
+  label='',
+  id='menu-submenu',
+  expanded=false,
+  icon='',
+  iconSlot='',
+  disabled=false,
+  className=''
+) %}
+{%- set content = caller() if caller else '' -%}
+<li
+  class="menu_item menu_item-submenu{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}"
+  aria-expanded="{{ 'true' if expanded else 'false' }}"
 >
-  {# 메뉴 항목·서브메뉴·구분선 HTML을 목록에 주입합니다. #}
+  {% call Button.button(
+    variant='text',
+    color='',
+    ripple=false,
+    expanded=expanded,
+    disabled=disabled,
+    dataAttributes={'data-menu-submenu-toggle': true, 'aria-controls': id},
+    className='menu_link' + (' is-disabled' if disabled else '')
+  ) %}
+    {% if iconSlot %}{{ iconSlot | safe }}{% elif icon %}{{ Icon.icon(name=icon, className='menu_icon') }}{% endif %}
+    <span class="menu_label">{{ label }}</span>
+    {{ Icon.icon(name='chevron-down', className='menu_arrow') }}
+  {% endcall %}
+  <ul id="{{ id }}" class="menu_submenu">
+    {{ content | safe }}
+  </ul>
+</li>
+{% endmacro %}
+
+{% macro menuGroup(title='', className='') %}
+<li class="menu_group{{ (' ' + className) if className else '' }}" role="presentation">
+  <span class="menu_group-title">{{ title }}</span>
+</li>
+{% endmacro %}
+
+{% macro menuDivider(className='') %}
+<li class="menu_divider{{ (' ' + className) if className else '' }}" role="separator"></li>
+{% endmacro %}
+
+{% macro menu(
+  mode='vertical',
+  bordered=false,
+  compact=false,
+  dark=false,
+  selectable=true,
+  ariaLabel='메뉴',
+  className=''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set resolvedMode = mode if mode in ['vertical', 'horizontal'] else 'vertical' -%}
+<nav
+  class="menu menu_{{ resolvedMode }}{% if bordered %} menu_bordered{% endif %}{% if compact %} menu_compact{% endif %}{% if dark %} menu_dark{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="Menu"
+  {% if selectable %}data-menu-selectable{% endif %}
+  aria-label="{{ ariaLabel }}"
+>
   <ul class="menu_list">
-    {{ items | safe }}
+    {{ content | safe }}
   </ul>
 </nav>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call menu(bordered=true, ariaLabel='주요 메뉴') %}
+  {{ menuItem(label='대시보드', active=true) }}
+  {{ menuItem(label='분석') }}
+  {{ menuItem(label='설정') }}
+{% endcall %}

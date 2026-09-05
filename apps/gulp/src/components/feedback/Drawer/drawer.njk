@@ -1,50 +1,111 @@
-{# Drawer 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# drawer 루트에 is-open과 방향·크기 변형 클래스를 함께 적용합니다. #}
-{% set drawerId = id | default('drawer-basic') %}
+{# Drawer 원본 구현: 패널의 루트·헤더·본문·푸터를 macro로 조합합니다. #}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro drawerHeader(id='drawer-basic', title='Drawer', header='', extra='', closeLabel='닫기', className='') %}
+<div class="drawer_header{{ (' ' + className) if className else '' }}">
+  {% if header %}
+    {{ header | safe }}
+  {% else %}
+    <h2 class="drawer_title" id="{{ id }}-title">{{ title }}</h2>
+  {% endif %}
+  {% if extra %}
+    <div class="drawer_extra">{{ extra | safe }}</div>
+  {% endif %}
+  {{ Button.button(
+    variant='ghost',
+    color='',
+    iconOnly=true,
+    iconBefore='close',
+    ripple=false,
+    ariaLabel=closeLabel,
+    dataAttributes={'data-drawer-close': true},
+    className='drawer_close'
+  ) }}
+</div>
+{% endmacro %}
+
+{% macro drawerBody(content='', className='') %}
+{%- set body = caller() if caller else content -%}
+<div class="drawer_body{{ (' ' + className) if className else '' }}">
+  {{ body | safe }}
+</div>
+{% endmacro %}
+
+{% macro drawerFooter(content='', align='end', ratio='1-1', noPadBottom=false, className='') %}
+{%- set footer = caller() if caller else content -%}
+{%- set resolvedAlign = align if align in ['start', 'center', 'end', 'between', 'even'] else 'end' -%}
+{%- set resolvedRatio = ratio if ratio in ['1-1', '1-2', '2-1'] else '1-1' -%}
+<div class="drawer_footer{% if resolvedAlign != 'end' %} drawer_footer-{{ resolvedAlign }}{% endif %}{% if resolvedAlign == 'even' and resolvedRatio != '1-1' %} drawer_footer-even-{{ resolvedRatio }}{% endif %}{% if noPadBottom %} drawer_footer-no-pad-b{% endif %}{{ (' ' + className) if className else '' }}">
+  {{ footer | safe }}
+</div>
+{% endmacro %}
+
+{% macro drawer(
+  id='drawer-basic',
+  title='Drawer',
+  size='md',
+  placement='right',
+  motion='slide',
+  speed='normal',
+  open=false,
+  openOnLoad=false,
+  backdrop=true,
+  noBackdrop=false,
+  draggable=false,
+  header='',
+  extra='',
+  footer='',
+  footerAlign='end',
+  footerRatio='1-1',
+  footerNoPadBottom=false,
+  closeLabel='닫기',
+  ariaLabel='',
+  className='',
+  style=''
+) %}
+{%- set content = caller() if caller else 'Drawer 패널 본문입니다.' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set resolvedPlacement = placement if placement in ['left', 'right', 'top', 'bottom'] else 'right' -%}
+{%- set resolvedMotion = motion if motion in ['slide', 'fade'] else 'slide' -%}
+{%- set motionScale = '.65' if speed == 'fast' else ('1.5' if speed == 'slow' else '1') -%}
+{%- set backdropEnabled = backdrop and not noBackdrop -%}
+{%- set canDrag = draggable and resolvedPlacement == 'bottom' -%}
 <div
-  class="drawer{% if open %} is-open{% endif %}"
-  id="{{ drawerId }}"
+  class="drawer{% if resolvedMotion == 'fade' %} drawer_motion-fade{% endif %}{% if open %} is-open{% endif %}{{ (' ' + className) if className else '' }}"
+  id="{{ id }}"
   data-component="Drawer"
-  data-drawer{% if openOnLoad %}
-  data-drawer-open-on-load="true"{% endif %}{% if backdrop == false %}
-  data-drawer-backdrop="false"{% endif %}
+  data-drawer
+  {% if openOnLoad %}data-drawer-open-on-load="true"{% endif %}
+  {% if not backdropEnabled %}data-drawer-backdrop="false"{% endif %}
+  {% if canDrag %}data-drawer-draggable="true"{% endif %}
   role="dialog"
   aria-modal="true"
-  aria-labelledby="{{ drawerId }}-title"
-  tabindex="-1"{% if not open %}
-  hidden{% endif %}
+  {% if ariaLabel or header %}aria-label="{{ ariaLabel if ariaLabel else title }}"{% else %}aria-labelledby="{{ id }}-title"{% endif %}
+  tabindex="-1"
+  style="--drawer-motion-scale: {{ motionScale }};{% if style %} {{ style }}{% endif %}"
+  {% if not open %}hidden{% endif %}
 >
-  {# 백드롭 클릭으로 닫을 수 있습니다. #}
-  <div class="drawer_backdrop" data-drawer-close aria-hidden="true"></div>
-  {# drawer_placement-*로 패널이 열리는 방향을 지정합니다. #}
-  <div
-    class="drawer_panel drawer_placement-{{ placement | default('right') }}{% if size and size != 'md' %} drawer_{{ size }}{% endif %}{% if draggable and placement == 'bottom' %} drawer_draggable{% endif %}"
-  >
-    {# 하단 시트용 드래그 핸들입니다. #}
-    {% if draggable and placement == 'bottom' %}
-    <div class="drawer_handle" aria-hidden="true"><span class="drawer_handle-bar"></span></div>
+  <div class="drawer_backdrop"{% if backdropEnabled %} data-drawer-close{% endif %} aria-hidden="true"></div>
+  <div class="drawer_panel drawer_placement-{{ resolvedPlacement }}{% if resolvedSize != 'md' %} drawer_{{ resolvedSize }}{% endif %}{% if canDrag %} drawer_draggable{% endif %}">
+    {% if canDrag %}
+      <div class="drawer_handle" data-drawer-drag-handle aria-hidden="true">
+        <span class="drawer_handle-bar"></span>
+      </div>
     {% endif %}
-    {# 제목·추가 영역·닫기 버튼을 담는 헤더입니다. #}
-    <div class="drawer_header">
-      <h2 class="drawer_title" id="{{ drawerId }}-title">{{ title | default('Drawer') }}</h2>
-      {% if extra %}
-      <div class="drawer_extra">{{ extra | safe }}</div>
-      {% endif %}<button
-        type="button"
-        class="drawer_close"
-        data-drawer-close
-        aria-label="{{ closeLabel | default('닫기') }}"
-      >
-        ×
-      </button>
-    </div>
-    <div class="drawer_body">{{ content | default('Drawer 패널 본문입니다.') | safe }}</div>
+    {{ drawerHeader(id=id, title=title, header=header, extra=extra, closeLabel=closeLabel) }}
+    {{ drawerBody(content=content) }}
     {% if footer %}
-    <div
-      class="drawer_footer{% if footerAlign and footerAlign != 'end' %} drawer_footer-{{ footerAlign }}{% endif %}{% if footerAlign == 'even' and footerRatio and footerRatio != '1-1' %} drawer_footer-even-{{ footerRatio }}{% endif %}{% if footerNoPadBottom %} drawer_footer-no-pad-b{% endif %}"
-    >
-      {{ footer | safe }}
-    </div>
+      {{ drawerFooter(content=footer, align=footerAlign, ratio=footerRatio, noPadBottom=footerNoPadBottom) }}
     {% endif %}
   </div>
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoFooter %}
+  {{ Button.button(variant='ghost', color='', label='취소', dataAttributes={'data-drawer-close': true}) }}
+  {{ Button.button(label='확인', dataAttributes={'data-drawer-close': true}) }}
+{% endset %}
+{% call drawer(footer=demoFooter) %}
+  <p>Drawer 패널 본문입니다.</p>
+{% endcall %}

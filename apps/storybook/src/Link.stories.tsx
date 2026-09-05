@@ -193,7 +193,8 @@ export const CustomContent: Story = {
           프로필
         </Link>
         <Link href="#">
-          <img alt="" className="link_media" src={avatar} /> 사용자 정보
+          <img alt="" className="link_media" src={avatar} />
+          사용자 정보
         </Link>
         <Link as="button" icon={icon('settings')}>
           설정 열기

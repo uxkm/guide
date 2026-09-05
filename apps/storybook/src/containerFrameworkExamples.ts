@@ -34,6 +34,66 @@ const bodies = {
 
 type ExampleKey = keyof typeof bodies;
 
+const INCLUDE = '{% include "components/layout/Container/container.njk" %}';
+
+function indentBlock(value: string, spaces: number) {
+  const indent = ' '.repeat(spaces);
+  return value
+    .split('\n')
+    .map((line) => (line.trim() ? `${indent}${line.trim()}` : ''))
+    .join('\n');
+}
+
+function gulpInclude(options: {
+  as?: string;
+  size?: string;
+  fluid?: boolean;
+  content: string;
+  indent?: number;
+}) {
+  const base = options.indent ?? 0;
+  const lines: string[] = [];
+  if (options.as) lines.push(`{% set as = '${options.as}' %}`);
+  if (options.size) lines.push(`{% set size = '${options.size}' %}`);
+  if (options.fluid) lines.push('{% set fluid = true %}');
+  lines.push('{% set content %}');
+  lines.push(indentBlock(options.content, 2));
+  lines.push('{% endset %}');
+  lines.push(INCLUDE);
+  return indentBlock(lines.join('\n'), base);
+}
+
+const gulpBodies: Record<ExampleKey, string> = {
+  basic: gulpInclude({
+    content: '<div class="container_demo-fill">기본 Container</div>',
+  }),
+  // 여러 Container는 include를 복사하지 않고 for로 한 번만 호출합니다.
+  sizes: `<div class="container_demo-sizes">
+{% set items = [
+  { size: 'sm', label: 'Small · 36rem' },
+  { size: 'md', label: 'Medium · 48rem' },
+  { size: 'lg', label: 'Large · 64rem' },
+  { size: 'xl', label: 'Extra Large · 80rem' }
+] %}
+{% for item in items %}
+  {% set size = item.size %}
+  {% set content %}
+    <div class="container_demo-fill">{{ item.label }}</div>
+  {% endset %}
+  {% include "components/layout/Container/container.njk" %}
+{% endfor %}
+</div>`,
+  fluid: gulpInclude({
+    fluid: true,
+    content: '<div class="container_demo-fill">Fluid · 최대 너비 제한 없음</div>',
+  }),
+  semantic: gulpInclude({
+    as: 'main',
+    size: 'lg',
+    content: '<div class="container_demo-fill">main 요소로 렌더링</div>',
+  }),
+};
+
 const webSquare: Record<ExampleKey, string> = {
   basic: `<w2:group
   id="containerBasic"
@@ -107,7 +167,7 @@ function makeExamples(key: ExampleKey): FrameworkExample[] {
   const vue = vueCode(body);
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/layout/Container/Container.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/layout/Container/container.njk · ${key}`, code: `{# Container · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/layout/Container/container.njk · ${key}`, code: gulpBodies[key] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/container → apps/vue/src/components/layout/Container/Container.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/container → apps/react/src/components/layout/Container/Container.jsx · ${key}`, code: react },

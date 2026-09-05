@@ -1,55 +1,73 @@
-{# Snackbar 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# snackbar 루트에 색상·모션·배치 클래스를 함께 적용합니다. #}
-{% set snackbarColor = color | default('info') %}
+{# Snackbar 원본 구현: 메시지·액션·배치 영역을 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+{% import "components/basic/Button/button.njk" as Button %}
+
+{% macro snackbar(
+  id = '',
+  message = 'Snackbar',
+  color = 'info',
+  size = 'md',
+  motion = 'fade',
+  placement = 'bottom-center',
+  duration = 0,
+  role = 'status',
+  closable = false,
+  closeLabel = '알림 닫기',
+  showIcon = true,
+  round = false,
+  icon = '',
+  action = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else message -%}
+{%- set resolvedColor = color if color in ['info', 'success', 'warning', 'danger'] else 'info' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+{%- set resolvedMotion = motion if motion in ['fade', 'slide', 'none'] else 'fade' -%}
+{%- set placements = ['top-start', 'top-center', 'top-end', 'middle-start', 'middle-end', 'bottom-start', 'bottom-center', 'bottom-end'] -%}
+{%- set resolvedPlacement = placement if placement in placements else 'bottom-center' -%}
+{%- set iconName = 'check-circle' if resolvedColor == 'success' else ('warning' if resolvedColor == 'warning' else ('x-circle' if resolvedColor == 'danger' else 'info')) -%}
+{%- set classes =
+  'snackbar ' + ('color_error' if resolvedColor == 'danger' else 'color_' + resolvedColor)
+  + ((' snackbar_' + resolvedSize) if resolvedSize != 'md' else '')
+  + (' snackbar_round' if round else '')
+  + ' snackbar_motion-' + resolvedMotion
+  + ' snackbar_placement-' + resolvedPlacement
+  + ((' ' + className) if className else '')
+-%}
 <div
-  class="snackbar {{ 'color_error' if snackbarColor == 'danger' else 'color_' + snackbarColor }}{% if size and size != 'md' %} snackbar_{{ size }}{% endif %}{% if round %} snackbar_round{% endif %} snackbar_motion-{{ motion | default('fade') }} snackbar_placement-{{ placement | default('bottom-center') }}"
-  data-component="Snackbar"{% if duration %}
-  data-snackbar-duration="{{ duration }}"{% endif %}
-  role="{{ role | default('status') }}"
+  {% if id %}id="{{ id }}"{% endif %}
+  class="{{ classes }}"
+  data-component="Snackbar"
+  {% if duration %}data-snackbar-duration="{{ duration }}"{% endif %}
+  role="{{ role }}"
   aria-live="{{ 'assertive' if role == 'alert' else 'polite' }}"
   aria-atomic="true"
   aria-relevant="additions text"
 >
-  {# 상태 아이콘 영역입니다. #}
-  {% if showIcon != false %}
-  <svg
-    class="snackbar_icon"
-    aria-hidden="true"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-  >
-    {% if snackbarColor == 'success' %}
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <path d="M22 4 12 14.01l-3-3"></path>
-    {% elseif snackbarColor == 'warning' %}
-    <path
-      d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-    ></path>
-    <path d="M12 9v4M12 17h.01"></path>
-    {% elseif snackbarColor == 'danger' %}
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="m15 9-6 6M9 9l6 6"></path>
-    {% else %}
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M12 16v-4M12 8h.01"></path>
-    {% endif %}
-  </svg>
+  {% if showIcon %}<span class="snackbar_icon-wrap" aria-hidden="true">{% if icon %}{{ icon | safe }}{% else %}{{ Icon.icon(name=iconName, className='snackbar_icon') }}{% endif %}</span>{% endif %}
+  <div class="snackbar_message">{{ content | safe }}</div>
+  {% if action %}<div class="snackbar_action">{{ action | safe }}</div>{% endif %}
+  {% if closable %}
+    {{ Button.button(
+      variant='ghost',
+      color='',
+      iconOnly=true,
+      iconBefore='close',
+      ariaLabel=closeLabel,
+      className='snackbar_close',
+      dataAttributes={ 'data-snackbar-close': true }
+    ) }}
   {% endif %}
-  {# 메시지 텍스트 영역입니다. #}
-  <span class="snackbar_message">{{ message | default('Snackbar') }}</span>
-  {% if action %}<span class="snackbar_action">{{ action | safe }}</span
-  >{% endif %}
-  {# data-snackbar-close로 닫기 동작을 연결합니다. #}
-  {% if closable %}<button
-    type="button"
-    class="btn btn_ghost btn_icon-only snackbar_close"
-    data-snackbar-close
-    aria-label="{{ closeLabel | default('알림 닫기') }}"
-  >
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M18 6L6 18M6 6l12 12"></path>
-    </svg></button
-  >{% endif %}
 </div>
+{% endmacro %}
+
+{% macro snackbarRegion(placement = 'bottom-center', label = '', className = '') %}
+{%- set placements = ['top-start', 'top-center', 'top-end', 'middle-start', 'middle-end', 'bottom-start', 'bottom-center', 'bottom-end'] -%}
+{%- set resolvedPlacement = placement if placement in placements else 'bottom-center' -%}
+<div class="snackbar_region snackbar_region-{{ resolvedPlacement }}{{ (' ' + className) if className else '' }}"{% if label %} aria-label="{{ label }}"{% endif %}>
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ snackbar(message='저장되었습니다.', color='success', motion='none') }}

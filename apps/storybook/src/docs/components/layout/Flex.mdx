@@ -24,7 +24,7 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `flex`
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Flex`와 `FlexItem` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Flex`와 `FlexItem` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용합니다. Gulp는 `flex` · `flexItem` Nunjucks macro와 `{% call %}`로 같은 계약을 재사용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `range`는 항목 수, span과 표시 순서를 1~12 범위로 제한합니다.
 - `direction`·`directionMd`·`directionLg`는 구간별 배치 방향을, `wrap`은 여러 줄 배치를 제어합니다.

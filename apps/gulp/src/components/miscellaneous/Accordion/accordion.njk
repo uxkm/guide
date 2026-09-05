@@ -1,56 +1,58 @@
-{# Accordion 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{% set accordionId = id | default('accordion') %}
-{% set accordionItems = items | default([
-  { label: '배송은 얼마나 걸리나요?', content: '평일 기준 2~3일 이내 출고됩니다.' },
-  { label: '교환·반품은 어떻게 하나요?', content: '수령 후 7일 이내 마이페이지에서 신청할 수 있습니다.', open: true },
-  { label: '해외 배송이 가능한가요?', content: '현재 국내 배송만 지원합니다.' }
-]) %}
-<div
-  class="accordion accordion_{{ variant | default('bordered') }}{% if size == 'sm' or size == 'lg' %} accordion_{{ size }}{% endif %}"
-  {# Accordion 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="Accordion"
-  data-accordion{% if multiple %}
-  data-accordion-multiple{% endif %}{% if effect == 'slide' %}
-  data-effect="slide"{% endif %}
->
-  {% for item in accordionItems %}
-  <div
-    class="accordion_item{% if item.open %} is-open{% endif %}{% if item.disabled %} is-disabled{% endif %}"
-  >
-    <div class="accordion_heading" role="heading" aria-level="{{ ariaLevel | default(3) }}">
-      <button
-        type="button"
-        class="btn btn_text accordion_trigger"
-        id="{{ accordionId }}-trigger-{{ loop.index }}"
-        aria-expanded="{{ 'true' if item.open else 'false' }}"
-        aria-controls="{{ accordionId }}-panel-{{ loop.index }}"{% if item.disabled %}
-        disabled{% endif %}
-      >
-        <span class="accordion_label">{{ item.title | default(item.label) | safe }}</span>
-        {% if item.extra %}<span class="accordion_extra">{{ item.extra | safe }}</span
-        >{% endif %}
-        <svg
-          class="accordion_icon"
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="m6 9 6 6 6-6"></path>
-        </svg>
-      </button>
-    </div>
-    <div
-      class="accordion_panel"
-      id="{{ accordionId }}-panel-{{ loop.index }}"
-      role="region"
-      aria-labelledby="{{ accordionId }}-trigger-{{ loop.index }}"{% if not item.open %}
-      hidden{% endif %}
+{# Accordion 원본 구현: 아코디언과 개별 항목을 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro accordionItem(id, label='', title='', content='', open=false, disabled=false, extra='', ariaLevel=3, className='') %}
+{%- set panelContent = caller() if caller else content -%}
+<div class="accordion_item{% if open %} is-open{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}">
+  <div class="accordion_heading" role="heading" aria-level="{{ ariaLevel }}">
+    <button
+      type="button"
+      class="btn btn_text accordion_trigger"
+      id="{{ id }}-trigger"
+      aria-expanded="{{ 'true' if open else 'false' }}"
+      aria-controls="{{ id }}-panel"
+      {% if disabled %}disabled{% endif %}
     >
-      <div class="accordion_content">{{ item.content | safe }}</div>
-    </div>
+      <span class="accordion_label">{% if title %}{{ title | safe }}{% else %}{{ label }}{% endif %}</span>
+      {% if extra %}<span class="accordion_extra">{{ extra | safe }}</span>{% endif %}
+      {{ Icon.icon(name='chevron-down', className='accordion_icon') }}
+    </button>
   </div>
-  {% endfor %}
-  {# 내부 트리거·패널·콘텐츠 구조를 유지합니다. #}
+  <div
+    class="accordion_panel"
+    id="{{ id }}-panel"
+    role="region"
+    aria-labelledby="{{ id }}-trigger"
+    {% if not open %}hidden{% endif %}
+  >
+    <div class="accordion_content">{{ panelContent | safe }}</div>
+  </div>
 </div>
+{% endmacro %}
+
+{% macro accordion(items=[], id='accordion', variant='bordered', size='md', multiple=false, effect='', ariaLevel=3, className='') %}
+{%- set content = caller() if caller else '' -%}
+{%- set resolvedVariant = variant if variant in ['bordered', 'card', 'flush'] else 'bordered' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
+<div
+  class="accordion accordion_{{ resolvedVariant }}{% if resolvedSize != 'md' %} accordion_{{ resolvedSize }}{% endif %}{{ (' ' + className) if className else '' }}"
+  data-component="Accordion"
+  data-accordion
+  {% if multiple %}data-accordion-multiple{% endif %}
+  {% if effect == 'slide' %}data-effect="slide"{% endif %}
+>
+  {% if content %}
+    {{ content | safe }}
+  {% else %}
+    {% for item in items %}
+      {{ accordionItem(id=id + '-item-' + loop.index, label=item.label, title=item.title, content=item.content, open=item.open, disabled=item.disabled, extra=item.extra, ariaLevel=ariaLevel) }}
+    {% endfor %}
+  {% endif %}
+</div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call accordion() %}
+  {% call accordionItem(id='accordion-demo-1', label='배송은 얼마나 걸리나요?') %}평일 기준 2~3일 이내 출고됩니다.{% endcall %}
+  {% call accordionItem(id='accordion-demo-2', label='교환·반품은 어떻게 하나요?', open=true) %}수령 후 7일 이내 신청할 수 있습니다.{% endcall %}
+{% endcall %}

@@ -221,6 +221,33 @@ function formatWebSquareExample(code: string) {
   return formatted.join('\n').trim();
 }
 
+/** Nunjucks `{% set name %}…{% endset %}` 본문을 블록으로 펼치고 HTML을 들여 씁니다. */
+function formatGulpExample(code: string) {
+  const withSetBlocks = code.replace(/\r\n?/g, '\n').replace(
+    /\{%\s*set\s+(\w+)\s*%\}([\s\S]*?)\{%\s*endset\s*%\}/g,
+    (_match, name: string, body: string) => {
+      const trimmed = body.trim();
+      if (!trimmed) return `{% set ${name} %}\n{% endset %}`;
+
+      const inner = trimmed
+        .split('\n')
+        .flatMap(expandsInlineMarkup)
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => `  ${line}`)
+        .join('\n');
+
+      return `{% set ${name} %}\n${inner}\n{% endset %}`;
+    },
+  );
+
+  return withSetBlocks
+    .split('\n')
+    .flatMap(expandsInlineMarkup)
+    .join('\n')
+    .trim();
+}
+
 export function formatCodeExample(code: string, frameworkId = '') {
   if (frameworkId === 'websquare') return formatWebSquareExample(code);
 
@@ -228,6 +255,8 @@ export function formatCodeExample(code: string, frameworkId = '') {
     const normalizedCode = normalizeReturnParentheses(formatReactExample(code));
     return normalizedCode.replace(/\r\n?/g, '\n').trim();
   }
+
+  if (frameworkId === 'gulp') return formatGulpExample(code);
 
   return code
     .replace(/\r\n?/g, '\n')

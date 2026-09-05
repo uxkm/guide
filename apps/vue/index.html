@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,17 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/meta/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/images/meta/favicon/site.webmanifest">
     <link rel="stylesheet" href="/styles/uxkm.css">
+    <link rel="stylesheet" href="/styles/demo.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('uxkm-demo-theme');
+          document.documentElement.dataset.theme = t === 'dark' || t === 'light' ? t : 'light';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <title>UXKM Vue</title>
   </head>
   <body>

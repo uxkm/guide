@@ -1,51 +1,76 @@
-{# Skeleton 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# skeleton_group이 제목·본문 줄 플레이스홀더를 세로로 묶습니다. #}
+{# Skeleton 원본 구현: 그룹·행·개별 플레이스홀더를 호출형 macro로 구성합니다. #}
+
+{% macro skeletonItem(type='text', width='', active=true, className='', style='') %}
+{%- set resolvedType = type if type in ['text', 'title', 'circle', 'image', 'button'] else 'text' -%}
+{%- set resolvedWidth = width if width in ['sm', 'md', 'lg'] else '' -%}
+<span
+  class="skeleton skeleton_{{ resolvedType }}{% if resolvedWidth %} skeleton_w-{{ resolvedWidth }}{% endif %}{% if not active %} skeleton_static{% endif %}{{ (' ' + className) if className else '' }}"
+  aria-hidden="true"
+  {% if style %}style="{{ style }}"{% endif %}
+></span>
+{% endmacro %}
+
+{% macro skeletonRow(className='', style='') %}
 <div
-  class="skeleton_group{% if active == false %} skeleton_static{% endif %}"
+  class="skeleton_row{{ (' ' + className) if className else '' }}"
+  {% if style %}style="{{ style }}"{% endif %}
+>
+  {% if caller %}{{ caller() | safe }}{% endif %}
+</div>
+{% endmacro %}
+
+{% macro skeleton(
+  active=true,
+  avatar=false,
+  paragraph=false,
+  round=false,
+  ariaLabel='콘텐츠 로딩 중',
+  className='',
+  style=''
+) %}
+{%- set customContent = caller() if caller else '' -%}
+{%- set count = 3 if paragraph == true else (paragraph if paragraph is number and paragraph > 0 else 0) -%}
+{%- set defaultCount = 3 if paragraph == false else count -%}
+<div
+  class="skeleton_group{% if not active %} skeleton_static{% endif %}{{ (' ' + className) if className else '' }}"
   data-component="Skeleton"
   role="status"
   aria-live="polite"
   aria-busy="true"
-  aria-label="{{ ariaLabel | default('콘텐츠 로딩 중') }}"
+  aria-label="{{ ariaLabel }}"
+  {% if style %}style="{{ style }}"{% endif %}
 >
-  {# 아바타 행 또는 원형·제목+본문 기본 형태입니다. #}
   {% if avatar %}
-  <div class="skeleton_row">
-    <span
-      class="skeleton skeleton_circle{% if active == false %} skeleton_static{% endif %}"
-      aria-hidden="true"
-    ></span>
-    {% if paragraph %}
-    <div class="skeleton_row-body">
-      {% for width in ['', 'skeleton_w-md', 'skeleton_w-sm'] %}<span
-        class="skeleton skeleton_text {{ width }}{% if active == false %} skeleton_static{% endif %}"
-        aria-hidden="true"
-      ></span
-      >{% endfor %}
+    <div class="skeleton_row">
+      {{ skeletonItem(type='circle', active=active) }}
+      {% if count > 0 %}
+        <div class="skeleton_row-body">
+          {% for index in range(0, count) %}
+            {{ skeletonItem(
+              type='text',
+              width=('md' if index == 1 else ('sm' if index == 2 else ('lg' if index > 2 else ''))),
+              active=active
+            ) }}
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
-    {% endif %}
-  </div>
   {% elif round %}
-  <span
-    class="skeleton skeleton_circle{% if active == false %} skeleton_static{% endif %}"
-    aria-hidden="true"
-  ></span>
+    {{ skeletonItem(type='circle', active=active) }}
+  {% elif customContent %}
+    {{ customContent | safe }}
   {% else %}
-  <span
-    class="skeleton skeleton_title{% if active == false %} skeleton_static{% endif %}"
-    aria-hidden="true"
-  ></span>
-  <span
-    class="skeleton skeleton_text{% if active == false %} skeleton_static{% endif %}"
-    aria-hidden="true"
-  ></span>
-  <span
-    class="skeleton skeleton_text skeleton_w-md{% if active == false %} skeleton_static{% endif %}"
-    aria-hidden="true"
-  ></span>
-  <span
-    class="skeleton skeleton_text skeleton_w-sm{% if active == false %} skeleton_static{% endif %}"
-    aria-hidden="true"
-  ></span>
+    {{ skeletonItem(type='title', active=active) }}
+    {% for index in range(0, defaultCount) %}
+      {{ skeletonItem(
+        type='text',
+        width=('md' if index == 1 else ('sm' if index == 2 else ('lg' if index > 2 else ''))),
+        active=active
+      ) }}
+    {% endfor %}
   {% endif %}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ skeleton(paragraph=3) }}

@@ -13,6 +13,16 @@ const ORIENT_LABELS: Record<string, string> = {
   right: '오른쪽',
 };
 
+const PRESET_LABELS: Record<string, string> = {
+  none: 'none',
+  xs: 'xs',
+  sm: 'sm',
+  '': '기본',
+  md: 'md',
+  lg: 'lg',
+  xl: 'xl',
+};
+
 const meta = {
   title: '레이아웃/Divider',
   component: Divider,
@@ -23,6 +33,9 @@ const meta = {
     dashed: false,
     plain: false,
     orient: '',
+    marginY: '',
+    thickness: '',
+    height: '',
     label: '',
     className: '',
   },
@@ -59,6 +72,18 @@ const meta = {
       options: ['', 'left', 'right'],
       description: 'orient의 이전 호환 이름',
     },
+    marginY: {
+      control: 'text',
+      description: '가로=상·하 / 세로=좌·우 간격 (xs·sm·md·lg·xl·none / rem 숫자 / CSS 길이)',
+    },
+    thickness: {
+      control: 'text',
+      description: '선 두께 (xs·sm·md·lg·xl·none / rem 숫자 / CSS 길이)',
+    },
+    height: {
+      control: 'text',
+      description: '세로 구분선 길이 (xs·sm·md·lg·xl / rem 숫자 / CSS 길이)',
+    },
     label: {
       control: 'text',
       description: 'children이 없을 때 표시할 레이블',
@@ -81,21 +106,21 @@ const Demo = ({ children }: { children: React.ReactNode }) => <div className="bt
 
 export const Playground: Story = {
   name: 'Playground',
-  args: { label: 'Controls로 속성을 조절해 보세요.' },
   render: (args) => (
     <Demo>
-      <Divider {...args} />
-    </Demo>
-  ),
-};
-
-export const Basic: Story = {
-  name: '기본',
-  render: (args) => (
-    <Demo>
-      <p>위 콘텐츠</p>
-      <Divider {...args} />
-      <p>아래 콘텐츠</p>
+      {args.vertical ? (
+        <Space>
+          <span>항목 A</span>
+          <Divider {...args} />
+          <span>항목 B</span>
+        </Space>
+      ) : (
+        <>
+          <p>위 콘텐츠</p>
+          <Divider {...args} />
+          <p>아래 콘텐츠</p>
+        </>
+      )}
     </Demo>
   ),
 };
@@ -108,6 +133,65 @@ export const Dashed: Story = {
       <p>위 콘텐츠</p>
       <Divider {...args} dashed />
       <p>아래 콘텐츠{args.dashed ? ' · Controls 적용 중' : ''}</p>
+    </Demo>
+  ),
+};
+
+export const MarginY: Story = {
+  name: '간격',
+  args: { marginY: 'sm' },
+  render: (args) => (
+    <Demo>
+      <p>가로 · 상·하 간격</p>
+      {(['none', 'xs', 'sm', 'md', 'lg', 'xl'] as const).map((marginY) => (
+        <div key={marginY}>
+          <p>
+            marginY {PRESET_LABELS[marginY]}
+            {!args.vertical && String(args.marginY ?? '') === marginY ? ' · Controls 적용 중' : ''}
+          </p>
+          <Divider {...args} vertical={false} marginY={marginY} />
+          <p>아래 콘텐츠</p>
+        </div>
+      ))}
+      <p>세로 · 좌·우 간격</p>
+      <Space>
+        {(['none', 'xs', 'sm', 'md', 'lg', 'xl'] as const).map((marginY) => (
+          <span key={marginY} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>{PRESET_LABELS[marginY]}</span>
+            <Divider
+              {...args}
+              vertical
+              marginY={marginY}
+              height="md"
+            />
+          </span>
+        ))}
+      </Space>
+    </Demo>
+  ),
+};
+
+export const Thickness: Story = {
+  name: '두께',
+  args: { thickness: 'lg' },
+  render: (args) => (
+    <Demo>
+      {(['none', 'xs', 'sm', '', 'lg', 'xl'] as const).map((thickness) => (
+        <div key={thickness || 'md'}>
+          <p>
+            thickness {PRESET_LABELS[thickness]}
+            {String(args.thickness ?? '') === String(thickness) ? ' · Controls 적용 중' : ''}
+          </p>
+          <Divider {...args} thickness={thickness || undefined} />
+        </div>
+      ))}
+      <div>
+        <p>
+          thickness 3px
+          {String(args.thickness) === '3px' ? ' · Controls 적용 중' : ''}
+        </p>
+        <Divider {...args} thickness="3px" />
+      </div>
     </Demo>
   ),
 };
@@ -155,7 +239,7 @@ export const Orient: Story = {
 
 export const Vertical: Story = {
   name: '세로',
-  args: { vertical: true },
+  args: { vertical: true, height: 'md' },
   render: (args) => (
     <Demo>
       <Space>
@@ -169,6 +253,24 @@ export const Vertical: Story = {
         <span>
           항목 C
           {args.vertical && args.dashed ? ' · Controls 적용 중' : ''}
+        </span>
+      </Space>
+      <p>세로 길이</p>
+      <Space align="end">
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((height) => (
+          <span key={height} style={{ display: 'inline-flex', alignItems: 'flex-end', gap: '0.35rem' }}>
+            <span>{height}</span>
+            <Divider
+              {...args}
+              vertical
+              height={height}
+              marginY="sm"
+            />
+          </span>
+        ))}
+        <span style={{ display: 'inline-flex', alignItems: 'flex-end', gap: '0.35rem' }}>
+          <span>3rem</span>
+          <Divider {...args} vertical height="3rem" marginY="sm" />
         </span>
       </Space>
     </Demo>

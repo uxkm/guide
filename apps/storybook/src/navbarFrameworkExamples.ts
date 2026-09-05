@@ -57,6 +57,111 @@ const vue: Record<Name, string> = {
   responsive: vueNavbar('brand="Mobile" responsive collapse-id="navbar-responsive-demo"', menuVue([['홈', true], ['제품'], ['가격'], ['문의']]), '<template #actions><Button variant="outline" size="sm" label="로그인" /><Button variant="filled" color="primary" size="sm" label="시작하기" /></template>'),
 };
 
+const gulpImports = `{% from "components/navigation/Navbar/navbar.njk" import navbar, navbarList, navbarItem %}`;
+const gulpItems = (items: Array<[string, boolean?, string?]>) => `{% call navbarList() %}
+${items.map(([label, active, badge]) => `  {{ navbarItem(label='${label}'${active ? ', active=true' : ''}${badge ? `, badge=${badge}` : ''}) }}`).join('\n')}
+{% endcall %}`;
+const gulpNavbar = (brand: string, items: Array<[string, boolean?, string?]>, options = '') => `{% set items %}
+  ${gulpItems(items).replaceAll('\n', '\n  ')}
+{% endset %}
+{{ navbar(brand='${brand}', items=items${options ? `, ${options}` : ''}) }}`;
+
+function gulpCode(key: Name) {
+  if (key === 'basic') return `${gulpImports}
+
+${gulpNavbar('UXKM', [['홈', true], ['컴포넌트'], ['토큰'], ['접근성']])}`;
+  if (key === 'brand') return `${gulpImports}
+
+${gulpNavbar('HTML Components', [['가이드', true], ['리소스']], "brandIconName='grid'")}`;
+  if (key === 'brandImage') return `${gulpImports}
+
+${gulpNavbar('', [['가이드', true], ['리소스']], "brandSrc='/images/brand/uxkm_logo_hand.svg', brandAlt='UXKM'")}`;
+  if (key === 'brandBackground') return `${gulpImports}
+
+${gulpNavbar('UXKM', [['가이드', true], ['리소스']], "brandBackground='/images/brand/uxkm_logo_hand.svg', brandAlt='UXKM'")}`;
+  if (key === 'actions') return `${gulpImports}
+{% from "components/basic/Button/button.njk" import button %}
+
+{% set items %}
+  ${gulpItems([['개요', true], ['분석'], ['설정']]).replaceAll('\n', '\n  ')}
+{% endset %}
+{% set actions %}
+  {{ button(variant='ghost', color='', size='sm', iconOnly=true, iconBefore='bell', ariaLabel='알림') }}
+  {{ button(variant='outline', size='sm', label='로그인') }}
+  {{ button(size='sm', label='가입') }}
+{% endset %}
+{{ navbar(brand='Dashboard', items=items, actions=actions) }}`;
+  if (key === 'search') return `${gulpImports}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/form/Input/input.njk" import input %}
+
+{% set items %}
+  ${gulpItems([['시작하기'], ['컴포넌트', true], ['패턴']]).replaceAll('\n', '\n  ')}
+{% endset %}
+{% set search %}
+  {{ input(
+    id='navbar-search-demo',
+    type='search',
+    size='sm',
+    placeholder='문서 검색…',
+    ariaLabel='문서 검색'
+  ) }}
+{% endset %}
+{% set actions %}{{ button(size='sm', label='GitHub') }}{% endset %}
+{{ navbar(brand='Docs', items=items, search=search, actions=actions) }}`;
+  if (key === 'size') return `${gulpImports}
+
+{% set items %}${gulpItems([['메뉴', true]])}{% endset %}
+{{ navbar(brand='Small', size='sm', items=items) }}
+{{ navbar(brand='Default', items=items) }}
+{{ navbar(brand='Large', size='lg', items=items) }}`;
+  if (key === 'variant') return `${gulpImports}
+
+{% set standardItems %}${gulpItems([['홈', true], ['소개']])}{% endset %}
+{{ navbar(brand='Borderless', borderless=true, items=standardItems) }}
+{{ navbar(brand='Dark Surface', dark=true, items=standardItems) }}
+
+<div class="navbar_demo-scroll">
+  {% set stickyItems %}${gulpItems([['고정', true]])}{% endset %}
+  {{ navbar(brand='Sticky', sticky=true, items=stickyItems) }}
+  <div class="navbar-scroll-content">
+    <p>스크롤해 보세요. navbar_sticky는 상단에 고정됩니다.</p>
+    <p>콘텐츠 영역 예시입니다.</p>
+    <p>추가 콘텐츠…</p>
+    <p>추가 콘텐츠…</p>
+  </div>
+</div>`;
+  if (key === 'badge') return `${gulpImports}
+{% from "components/data-display/Badge/badge.njk" import badge %}
+
+{% set noticeBadge %}{{ badge(color='danger', label='3') }}{% endset %}
+{% set items %}
+  {% call navbarList() %}
+    {{ navbarItem(label='받은편지함', active=true) }}
+    {{ navbarItem(label='알림', badge=noticeBadge) }}
+    {{ navbarItem(label='보관함') }}
+  {% endcall %}
+{% endset %}
+{{ navbar(brand='Inbox', items=items) }}`;
+  return `${gulpImports}
+{% from "components/basic/Button/button.njk" import button %}
+
+{% set items %}
+  ${gulpItems([['홈', true], ['제품'], ['가격'], ['문의']]).replaceAll('\n', '\n  ')}
+{% endset %}
+{% set actions %}
+  {{ button(variant='outline', size='sm', label='로그인') }}
+  {{ button(size='sm', label='시작하기') }}
+{% endset %}
+{{ navbar(
+  brand='Mobile',
+  responsive=true,
+  collapseId='navbar-responsive-demo',
+  items=items,
+  actions=actions
+) }}`;
+}
+
 function examples(key: Name): FrameworkExample[] {
   const needsButton = ['actions', 'search', 'responsive'].includes(key);
   const needsIcon = ['brand', 'actions'].includes(key);
@@ -66,6 +171,6 @@ function examples(key: Name): FrameworkExample[] {
   const vueImports = [`import { Navbar, NavbarItem, NavbarList } from '@uxkm/vue/navbar';`, needsButton && `import Button from '@uxkm/vue/button';`, needsIcon && `import Icon from '@uxkm/vue/icon';`, needsInput && `import Input from '@uxkm/vue/input';`, needsBadge && `import Badge from '@uxkm/vue/badge';`].filter(Boolean).join('\n');
   const reactCode = `${reactImports}\n\nexport function Example() { return <>${react[key]}</>; }`;
   const vueCode = `<script setup>\n${vueImports}\n</script>\n<template>\n${vue[key]}\n</template>`;
-  return [{ id: 'html', label: 'HTML', fileName: `Navbar.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `navbar.njk · ${key}`, code: html[key] }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/navbar · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/navbar · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/navbar · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/navbar · ${key}`, code: reactCode }];
+  return [{ id: 'html', label: 'HTML', fileName: `Navbar.html · ${key}`, code: html[key] }, { id: 'gulp', label: 'Gulp', fileName: `navbar.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/navbar · ${key}`, code: vueCode }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/navbar · ${key}`, code: vueCode }, { id: 'react', label: 'React', fileName: `@uxkm/react/navbar · ${key}`, code: reactCode }, { id: 'next', label: 'Next', fileName: `@uxkm/react/navbar · ${key}`, code: reactCode }];
 }
 export const navbarFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

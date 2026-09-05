@@ -1,0 +1,105 @@
+{% extends "templates/layouts/default.njk" %}
+{% from "templates/partials/component-demo.njk" import componentDemo %}
+{% from "components/form/Input/input.njk" import input, inputField %}
+{% from "components/form/Textarea/textarea.njk" import textarea, textareaField %}
+{% from "components/form/Select/select.njk" import select, selectField %}
+{% from "components/form/Checkbox/checkbox.njk" import checkbox %}
+{% from "components/form/Radio/radio.njk" import radio %}
+{% from "components/form/Switch/switch.njk" import switch %}
+{% from "components/form/Slider/slider.njk" import slider %}
+{% from "components/form/Rate/rate.njk" import rate %}
+{% from "components/form/DatePicker/date-picker.njk" import datePicker %}
+{% from "components/form/Upload/upload.njk" import upload %}
+{% from "components/form/FormLayout/form-layout.njk" import formLayout, formField, formActions %}
+{% from "components/basic/Button/button.njk" import button %}
+
+{% set title = "UXKM Gulp · Form" %}
+
+{% block content %}
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/components.html">컴포넌트</a> · Form</p>
+      <h1>Form</h1>
+      <p class="lead">폼 컴포넌트를 include로 렌더합니다.</p>
+    </header>
+
+    {% call componentDemo('Input', 'components/form/Input/input.njk', 'input') %}
+      {% set nameInput %}
+        {{ input(id='input-name', placeholder='이름을 입력하세요', clearable=true) }}
+      {% endset %}
+      {{ inputField(
+        id='input-name',
+        label='이름',
+        control=nameInput,
+        hint='2~20자 이내로 입력해 주세요.'
+      ) }}
+    {% endcall %}
+
+    {% call componentDemo('Textarea', 'components/form/Textarea/textarea.njk', 'textarea') %}
+      {% set messageTextarea %}
+        {{ textarea(id='textarea-message', rows=4, placeholder='내용을 입력하세요') }}
+      {% endset %}
+      {{ textareaField(
+        id='textarea-message',
+        label='메모',
+        control=messageTextarea,
+        hint='문의 내용을 자세히 작성해 주세요.'
+      ) }}
+    {% endcall %}
+
+    {% call componentDemo('Select', 'components/form/Select/select.njk', 'select') %}
+      {% set options = [
+        { value: 'a', label: '옵션 A' },
+        { value: 'b', label: '옵션 B' },
+        { value: 'c', label: '옵션 C' }
+      ] %}
+      {% set optionSelect %}
+        {{ select(id='select-option', options=options, placeholder='선택하세요') }}
+      {% endset %}
+      {{ selectField(id='select-option', label='옵션', control=optionSelect) }}
+    {% endcall %}
+
+    {% call componentDemo('Checkbox', 'components/form/Checkbox/checkbox.njk', 'checkbox') %}
+      {{ checkbox(id='checkbox-terms', label='이용약관에 동의합니다') }}
+    {% endcall %}
+
+    {% call componentDemo('Radio', 'components/form/Radio/radio.njk', 'radio') %}
+      {{ radio(id='radio-option-a', name='radio-options', value='a', label='옵션 A') }}
+    {% endcall %}
+
+    {% call componentDemo('Switch', 'components/form/Switch/switch.njk', 'switch') %}
+      {{ switch(id='switch-notification', label='알림 받기') }}
+    {% endcall %}
+
+    {% call componentDemo('Slider', 'components/form/Slider/slider.njk', 'slider') %}
+      {{ slider(id='slider-volume', label='볼륨', value=50, showValue=true) }}
+    {% endcall %}
+
+    {% call componentDemo('Rate', 'components/form/Rate/rate.njk', 'rate') %}
+      {{ rate(name='rate-satisfaction', value=3, legend='만족도') }}
+    {% endcall %}
+
+    {% call componentDemo('DatePicker', 'components/form/DatePicker/date-picker.njk', 'date-picker') %}
+      {{ datePicker(id='date-picker-visit', name='visitDate', ariaLabel='방문일 선택') }}
+    {% endcall %}
+
+    {% call componentDemo('Upload', 'components/form/Upload/upload.njk', 'upload') %}
+      {{ upload(id='upload-attachment', name='attachment', hint='파일을 선택해 주세요.') }}
+    {% endcall %}
+
+    {% call componentDemo('FormLayout', 'components/form/FormLayout/form-layout.njk', 'form-layout') %}
+      {% set formNameInput %}{{ input(id='form-layout-demo-name', name='name', required=true) }}{% endset %}
+      {% call formLayout(fit=true) %}
+        {{ formField(id='form-layout-demo-name', label='이름', control=formNameInput, required=true, hint='실명을 입력해 주세요.') }}
+        {% call formActions() %}
+          {{ button(type='submit', label='저장') }}
+          {{ button(variant='ghost', color='', label='취소') }}
+        {% endcall %}
+      {% endcall %}
+    {% endcall %}
+
+    <p><a class="link color_primary" href="/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+{% endblock %}

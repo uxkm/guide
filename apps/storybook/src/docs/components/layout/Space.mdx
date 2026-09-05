@@ -24,7 +24,7 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `space
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `Space` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `Space` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 검증해 공통 CSS 클래스로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용합니다. Gulp는 `space` Nunjucks macro와 `{% call %}`로 같은 계약을 재사용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `gap`과 `size` 별칭으로 간격을 지정하며, 값이 없으면 기본 `md`를 사용합니다. `md`일 때는 별도 `space_gap-*` 클래스를 붙이지 않습니다.
 - `vertical`·`wrap`·`block`은 각각 세로 배치, 줄바꿈, 전체 너비 block flex 클래스로 변환됩니다.
@@ -39,17 +39,10 @@ WebSquare는 별도 런타임 컴포넌트 없이 `w2:group`에 동일한 `space
 
 ## Playground
 
-방향, 줄바꿈, block 너비, 간격과 정렬을 Controls에서 조정할 수 있습니다.
+Space는 가로 inline-flex이며 기본 간격은 `--space-gap`에 정의된 md입니다. 방향, 줄바꿈, block 너비, 간격과 정렬을 Controls에서 조정할 수 있습니다.
 
 <Canvas of={SpaceStories.Playground} sourceState="none" />
 <FrameworkTabs examples={spaceFrameworkExamples.playground} />
-
-## 기본
-
-Space는 가로 inline-flex이며 기본 간격은 `--space-gap`에 정의된 md입니다.
-
-<Canvas of={SpaceStories.Basic} sourceState="none" />
-<FrameworkTabs examples={spaceFrameworkExamples.basic} />
 
 ## 세로
 

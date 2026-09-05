@@ -55,6 +55,15 @@ const htmlRows: ApiRow[] = [
   { name: 'aria-label', type: 'string', default: '—', description: '텍스트 없는 아이콘 링크의 접근성 이름입니다.' }
 ];
 
+const gulpRows: ApiRow[] = [
+  { name: 'link', type: 'macro', default: '—', description: '`{% from "components/basic/Link/link.njk" import link %}`로 import한 뒤 `{{ link(...) }}` 또는 `{% call %}`로 인스턴스를 만듭니다.' },
+  { name: 'as · href · target · rel', type: 'string', default: "'a' · '#' · '' · ''", description: '루트 태그와 a 전용 이동·창·rel 속성입니다. as가 button이면 type="button"을 씁니다.' },
+  { name: 'color · size', type: 'string', default: "'primary' · ''", description: '공통 color_* · size_* 클래스입니다.' },
+  { name: 'underline · noUnderline · standalone · nav · block · back · iconOnly', type: 'boolean', default: 'false', description: '밑줄·터치·내비게이션·블록·뒤로가기·아이콘 전용 변형입니다.' },
+  { name: 'active · disabled', type: 'boolean', default: 'false', description: '현재 페이지·비활성 상태입니다.' },
+  { name: 'label · icon · iconAfter · ariaLabel · ripple · className', type: 'mixed', default: '—', description: '텍스트·Icon 이름·접근성·파장·추가 클래스입니다. `{% call %}` 본문이 있으면 본문이 우선합니다.' }
+];
+
 const webSquareRows: ApiRow[] = [
   { name: 'w2:anchor', type: 'component', default: '—', description: 'URL·페이지 위치 이동에 사용하는 WebSquare 링크 루트입니다.' },
   { name: 'xf:label', type: 'child', default: '—', description: 'Anchor에 표시할 링크 텍스트입니다. label 속성만으로는 화면에 표시되지 않습니다.' },
@@ -91,7 +100,8 @@ export const linkApiSections: ApiSectionData[] = [
   { title: 'React · Next.js API · Children', tables: [{ columns, rows: reactChildren }] },
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/link`를 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: vueSlots }] },
-  { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 네이티브 링크 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'HTML API · Markup', description: 'HTML은 네이티브 링크 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlRows }] },
+  { title: 'Gulp API · Nunjucks', description: '`link` macro를 import하고 `{{ link(...) }}`로 조합합니다. 아이콘은 `icon` · `iconAfter` 이름 문자열로 Icon macro를 호출합니다.', tables: [{ columns, rows: gulpRows }] },
   { title: 'WebSquare API · XML', description: 'URL 이동은 w2:anchor, 화면 로직을 실행하는 버튼형 링크는 xf:trigger와 scwin 이벤트로 구분합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }

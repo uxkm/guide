@@ -1,57 +1,98 @@
-{# Select 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# form_field 안에서 레이블·select·상태 메시지를 하나의 필드로 구성합니다. #}
-{% set selectId = selectId | default('select-example') %}
-{% set selectSize = selectSize | default('md') %}
-{% set selectClass = 'input' + (' input_' + selectSize if selectSize != 'md' else '') + (' input_fit' if fit else '') + (' is-error' if error else '') %}
-<div class="form_field{% if fit %} form_field_fit{% endif %}">
-  {# 보이는 레이블이 있으면 select id와 연결하고, 없으면 접근 가능한 숨김 레이블을 제공합니다. #}
-  {% if label %}
-  <label class="form_field-label" for="{{ selectId }}">
-    {{ label }}
-    {% if required %}
-    <span class="form_field-required">
-      <span aria-hidden="true">*</span>
-      <span class="form_field-required-text">필수 항목</span>
-    </span>
-    {% endif %}
-  </label>
+{# Select 원본 구현: 선택 옵션과 필드 상태를 Select 계열 macro로 구성합니다. #}
+
+{% macro select(
+  id = '',
+  name = '',
+  options = false,
+  value = '',
+  placeholder = '',
+  size = 'md',
+  nativeSize = '',
+  multiple = false,
+  disabled = false,
+  required = false,
+  error = false,
+  fit = false,
+  ariaLabel = '',
+  ariaDescribedby = '',
+  className = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set classes =
+  'input'
+  + (' input_sm' if size == 'sm' else '')
+  + (' input_lg' if size == 'lg' else '')
+  + (' input_fit' if fit else '')
+  + (' is-error' if error else '')
+  + ((' ' + className) if className else '')
+-%}
+<select
+  {% if id %}id="{{ id }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  class="{{ classes }}"
+  {% if multiple %}multiple{% endif %}
+  {% if nativeSize %}size="{{ nativeSize }}"{% endif %}
+  {% if disabled %}disabled{% endif %}
+  {% if required %}required aria-required="true"{% endif %}
+  {% if error %}aria-invalid="true"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if ariaDescribedby %}aria-describedby="{{ ariaDescribedby }}"{% endif %}
+  data-component="Select"
+>
+  {% if placeholder %}<option value="" disabled{% if not value %} selected{% endif %}>{{ placeholder }}</option>{% endif %}
+  {% if content %}
+    {{ content | safe }}
   {% else %}
-  <label class="input_group-label_hidden" for="{{ selectId }}">
-    {{ ariaLabel | default('선택') }}
-  </label>
-  {% endif %}
-  {# 선택값, placeholder, 다중 선택과 상태 속성을 네이티브 select에 전달합니다. #}
-  <select
-    id="{{ selectId }}"
-    class="{{ selectClass }}"{% if multiple %}
-    multiple{% endif %}{% if size %}
-    size="{{ size }}"{% endif %}{% if disabled %}
-    disabled{% endif %}{% if required %}
-    required{% endif %}{% if error %}
-    aria-invalid="true"{% endif %}{% if hint or errorMessage %}
-    aria-describedby="{{ selectId }}-message"{% endif %}
-    data-component="Select"
-  >
-    {% if placeholder %}
-    <option value="" disabled{% if not value %} selected{% endif %}>
-      {{ placeholder }}
-    </option>
-    {% endif %}
     {% for option in options %}
-    <option
-      value="{{ option.value }}"{% if option.value == value or option.selected %}
-      selected{% endif %}{% if option.disabled %}
-      disabled{% endif %}
-    >
-      {{ option.label }}
-    </option>
+      {% if option.options %}
+        <optgroup label="{{ option.label }}"{% if option.disabled %} disabled{% endif %}>
+          {% for child in option.options %}
+            <option value="{{ child.value }}"{% if child.value == value or child.selected or (multiple and value and child.value in value) %} selected{% endif %}{% if child.disabled %} disabled{% endif %}>{{ child.label }}</option>
+          {% endfor %}
+        </optgroup>
+      {% else %}
+        <option value="{{ option.value }}"{% if option.value == value or option.selected or (multiple and value and option.value in value) %} selected{% endif %}{% if option.disabled %} disabled{% endif %}>{{ option.label }}</option>
+      {% endif %}
     {% endfor %}
-  </select>
+  {% endif %}
+</select>
+{% endmacro %}
+
+{% macro selectField(
+  id = '',
+  label = '',
+  ariaLabel = '',
+  control = '',
+  hint = '',
+  errorMessage = '',
+  required = false,
+  fit = false,
+  className = ''
+) %}
+{%- set content = caller() if caller else control -%}
+<div class="form_field{{ ' form_field_fit' if fit else '' }}{{ (' ' + className) if className else '' }}">
+  {% if label %}
+    <label class="form_field-label" for="{{ id }}">
+      {{ label }}
+      {% if required %}<span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>{% endif %}
+    </label>
+  {% elif ariaLabel %}
+    <label class="input_group-label_hidden" for="{{ id }}">{{ ariaLabel }}</label>
+  {% endif %}
+  {{ content | safe }}
   {% if errorMessage %}
-  <p id="{{ selectId }}-message" class="form_field-error" role="alert">
-    {{ errorMessage }}
-  </p>
-  {% elseif hint %}
-  <p id="{{ selectId }}-message" class="form_field-hint">{{ hint }}</p>
+    <p id="{{ id }}-error" class="form_field-error" role="alert">{{ errorMessage }}</p>
+  {% elif hint %}
+    <p id="{{ id }}-hint" class="form_field-hint">{{ hint }}</p>
   {% endif %}
 </div>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set demoOptions = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+{% set demoSelect %}{{ select(id='select-region', options=demoOptions, placeholder='지역을 선택하세요', required=true, fit=true) }}{% endset %}
+{{ selectField(id='select-region', label='지역', control=demoSelect, hint='거주 지역을 선택해 주세요.') }}

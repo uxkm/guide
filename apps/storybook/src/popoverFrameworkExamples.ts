@@ -46,9 +46,107 @@ function htmlCode(key: Name) {
   return `<div class="${classes}" data-popover${key === 'hover' ? ' data-popover-trigger="hover"' : ''}>\n  <button class="btn btn_outline popover_trigger" aria-haspopup="dialog" aria-expanded="${key === 'open'}">${item.label}</button>\n  <div class="popover_panel" role="dialog"${item.heading ? ` aria-label="${item.heading}"` : ''}>\n    ${key === 'noArrow' ? '' : '<span class="popover_arrow" aria-hidden="true"></span>'}\n    ${item.heading ? `<div class="popover_title">${item.heading}</div>` : ''}\n    <div class="popover_body">${body}</div>${footer}\n  </div>\n</div>`;
 }
 
+const gulpImports = `{% from "components/feedback/Popover/popover.njk" import popover %}
+{% from "components/basic/Button/button.njk" import button %}`;
+
+function gulpCode(key: Name) {
+  const item = examplesByName[key];
+  if (key === 'footer') return `${gulpImports}
+
+{% set footer %}
+  {{ button(
+    variant='ghost',
+    color='',
+    size='sm',
+    label='취소',
+    dataAttributes={'data-popover-close': true}
+  ) }}
+  {{ button(
+    color='danger',
+    size='sm',
+    label='삭제',
+    dataAttributes={'data-popover-close': true}
+  ) }}
+{% endset %}
+
+{% call popover(
+  id='popover-footer',
+  title='항목 삭제',
+  triggerLabel='삭제 확인',
+  footer=footer
+) %}
+  <p>이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</p>
+{% endcall %}`;
+  if (key === 'form') return `${gulpImports}
+{% from "components/form/Textarea/textarea.njk" import textarea, textareaField %}
+
+{% set memo %}
+  {{ textarea(
+    id='popover-memo-input',
+    name='memo',
+    rows=3,
+    placeholder='메모를 입력하세요'
+  ) }}
+{% endset %}
+{% set footer %}
+  {{ button(variant='ghost', color='', size='sm', label='취소', dataAttributes={'data-popover-close': true}) }}
+  {{ button(size='sm', label='저장', dataAttributes={'data-popover-close': true}) }}
+{% endset %}
+
+{% call popover(
+  id='popover-form',
+  title='빠른 메모',
+  triggerLabel='메모 추가',
+  footer=footer
+) %}
+  {{ textareaField(id='popover-memo-input', label='내용', control=memo) }}
+{% endcall %}`;
+  if (key === 'hover') return `{% from "components/feedback/Popover/popover.njk" import popover %}
+{% from "components/basic/Link/link.njk" import link %}
+
+{% set escrowLink %}
+  {{ link(label='에스크로') }}
+{% endset %}
+
+<p>
+  결제 시
+  {% call popover(
+    id='popover-hover',
+    title='에스크로 설명',
+    trigger='hover',
+    triggerContent=escrowLink
+  ) %}
+    <p>구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.</p>
+  {% endcall %}
+  서비스를 이용할 수 있습니다.
+</p>`;
+
+  const options = [
+    `id='popover-${key}'`,
+    item.heading ? `title='${item.heading}'` : `panelLabel='Popover 안내'`,
+    `triggerLabel='${item.label}'`,
+    key === 'open' && 'open=true',
+    key === 'size' && "size='sm'",
+    key === 'offset' && "offset='lg'",
+    key === 'placement' && "placement='top-center'",
+    key === 'arrowAnchor' && "arrowAnchor='target'",
+    key === 'noArrow' && 'noArrow=true',
+    key === 'open' || key === 'trigger' ? "triggerVariant='filled'" : '',
+    key === 'size' || key === 'offset' || key === 'placement' || key === 'arrowAnchor' ? "triggerSize='sm'" : '',
+    key === 'title' || key === 'noArrow' ? "triggerVariant='ghost'" : '',
+  ].filter(Boolean);
+  return `${gulpImports}
+
+{% call popover(
+  ${options.join(',\n  ')}
+) %}
+  <p>${item.body}</p>
+{% endcall %}`;
+}
+
 function examples(key: Name): FrameworkExample[] {
   const html = htmlCode(key); const vue = vueCode(key); const react = reactCode(key);
-  return [{ id: 'html', label: 'HTML', fileName: `Popover.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `popover.njk · ${key}`, code: html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/popover · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/popover · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/popover · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/popover · ${key}`, code: react }];
+  return [{ id: 'html', label: 'HTML', fileName: `Popover.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `popover.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/popover · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/popover · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/popover · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/popover · ${key}`, code: react }];
 }
 
 export const popoverFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

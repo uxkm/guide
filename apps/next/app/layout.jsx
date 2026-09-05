@@ -1,6 +1,10 @@
+import ThemeToggle from '../src/demo/ThemeToggle.jsx';
+
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/+$/, '') || '';
 const assetBase = (process.env.NEXT_PUBLIC_ASSET_BASE || process.env.NEXT_PUBLIC_SITE_URL || basePath).replace(/\/+$/, '');
 const faviconPath = `${assetBase}/images/meta/favicon`;
+
+const themeInitScript = `(function(){try{var t=localStorage.getItem('uxkm-demo-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}})();`;
 
 export const metadata = {
   title: 'UXKM Next',
@@ -26,9 +30,16 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ko">
-      <head><link rel="stylesheet" href={`${assetBase}/styles/uxkm.css`} /></head>
-      <body>{children}</body>
+    <html lang="ko" data-theme="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <link rel="stylesheet" href={`${assetBase}/styles/uxkm.css`} />
+        <link rel="stylesheet" href={`${assetBase}/styles/demo.css`} />
+      </head>
+      <body>
+        <ThemeToggle />
+        {children}
+      </body>
     </html>
   );
 }

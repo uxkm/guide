@@ -1,31 +1,85 @@
-{# Table 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-<div class="table_wrap" {# Table 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="Table">
-  {# 내부에 데이터 표시 콘텐츠를 배치합니다. #}
-  <table class="table table_bordered table_hover">
-    <thead>
-      <tr>
-        <th scope="col">이름</th>
-        <th scope="col">직군</th>
-        <th scope="col">상태</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>홍길동</td>
-        <td>Frontend</td>
-        <td><span class="badge color_success">활성</span></td>
-      </tr>
-      <tr>
-        <td>김철수</td>
-        <td>Backend</td>
-        <td><span class="badge color_success">활성</span></td>
-      </tr>
-      <tr>
-        <td>이영희</td>
-        <td>Design</td>
-        <td><span class="badge color_warning">휴가</span></td>
-      </tr>
-    </tbody>
-  </table>
+{# Table 원본 구현: 표 스킨·스크롤·고정 행과 열·열 설정을 macro 인자로 조합합니다. #}
+{% from "components/data-display/Badge/badge.njk" import badge %}
+
+{% macro table(
+  bordered = false,
+  striped = false,
+  compact = false,
+  hover = false,
+  wrap = true,
+  scroll = false,
+  scrollMaxHeight = '',
+  stickyTop = false,
+  stickyLeft = false,
+  stickyCols = 1,
+  stickyLeftOffsets = {},
+  columns = [],
+  className = '',
+  style = '',
+  tabIndex = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set stickyColsNumber = stickyCols | int -%}
+{%- set resolvedStickyCols = stickyColsNumber if stickyColsNumber in [1, 2, 3, 4] else 1 -%}
+{%- set hasColumns = columns and columns.length > 0 -%}
+{%- set tableClasses =
+  'table'
+  + (' table_bordered' if bordered else '')
+  + (' table_striped' if striped else '')
+  + (' table_compact' if compact else '')
+  + (' table_hover' if hover else '')
+  + (' table_columns' if hasColumns else '')
+  + (' table_sticky-top' if stickyTop else '')
+  + (' table_sticky-left' if stickyLeft else '')
+  + ((' table_sticky-cols-' + resolvedStickyCols) if stickyLeft else '')
+-%}
+{%- set wrapperClasses = 'table_wrap' + (' table_wrap-scroll' if scroll else '') + ((' ' + className) if className else '') -%}
+{%- if wrap %}
+<div
+  class="{{ wrapperClasses }}"
+  data-component="Table"
+  {% if scrollMaxHeight or style %}style="{% if scrollMaxHeight %}--table-scroll-max-height: {{ scrollMaxHeight }};{% endif %}{% if style %} {{ style }}{% endif %}"{% endif %}
+  {% if scroll or tabIndex != '' %}tabindex="{{ tabIndex if tabIndex != '' else 0 }}"{% endif %}
+>
+{%- endif %}
+<table
+  class="{{ tableClasses }}{% if not wrap and className %} {{ className }}{% endif %}"
+  {% if not wrap %}data-component="Table"{% endif %}
+  {% if columns or stickyLeftOffsets or (not wrap and style) %}
+  style="{% for column in columns %}{% if column.padding %}--table-col-{{ loop.index }}-padding: {{ column.padding }};{% endif %}{% if column.nowrap %}--table-col-{{ loop.index }}-white-space: nowrap;{% endif %}{% endfor %}{% for position, offset in stickyLeftOffsets %}--table-sticky-left-{{ position }}: {{ offset }};{% endfor %}{% if not wrap and style %} {{ style }}{% endif %}"
+  {% endif %}
+>
+  {%- if hasColumns %}
+  <colgroup>
+    {%- for column in columns %}
+    <col{% if column.width or column.minWidth or column.maxWidth %} style="{% if column.width %}width: {{ column.width }};{% endif %}{% if column.minWidth %}min-width: {{ column.minWidth }};{% endif %}{% if column.maxWidth %}max-width: {{ column.maxWidth }};{% endif %}"{% endif %}>
+    {%- endfor %}
+  </colgroup>
+  {%- endif %}
+  {{ content | safe }}
+</table>
+{%- if wrap %}
 </div>
+{%- endif %}
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% set rows = [
+  ['홍길동', 'Frontend', '활성'],
+  ['김철수', 'Backend', '활성'],
+  ['이영희', 'Design', '휴가']
+] %}
+{% call table(bordered=true, hover=true) %}
+  <thead>
+    <tr><th scope="col">이름</th><th scope="col">직군</th><th scope="col">상태</th></tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+      <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ badge(color='success' if row[2] == '활성' else 'warning', label=row[2]) }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+{% endcall %}

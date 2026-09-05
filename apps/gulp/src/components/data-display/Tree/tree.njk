@@ -1,43 +1,101 @@
-{# Tree 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-<ul class="tree tree_bordered" {# Tree 루트에 공통 클래스와 data-* 계약을 둡니다. #}
-  data-component="Tree" role="tree" aria-label="파일 탐색기">
-  {# 내부에 데이터 표시 콘텐츠를 배치합니다. #}
-  <li class="tree_item" data-component="TreeNode" role="treeitem" aria-expanded="true">
-    <div class="tree_row">
-      <button
-        type="button"
-        class="tree_toggle"
-        aria-expanded="true"
-        aria-label="src 폴더 접기"
-      ></button
-      ><span class="tree_label">src</span>
-    </div>
-    <ul class="tree" role="group">
-      <li class="tree_item" data-component="TreeNode" role="treeitem">
-        <div class="tree_row is-selected">
-          <span class="tree_toggle tree_toggle_placeholder" aria-hidden="true"></span
-          ><span class="tree_label">button.html</span>
-        </div>
-      </li>
-    </ul>
-  </li>
-  <li class="tree_item" data-component="TreeNode" role="treeitem" aria-expanded="false">
-    <div class="tree_row">
-      <button
-        type="button"
-        class="tree_toggle"
-        aria-expanded="false"
-        aria-label="public 폴더 펼치기"
-      ></button
-      ><span class="tree_label">public</span>
-    </div>
-    <ul class="tree" role="group">
-      <li class="tree_item" role="treeitem">
-        <div class="tree_row">
-          <span class="tree_toggle tree_toggle_placeholder"></span
-          ><span class="tree_label">favicon.ico</span>
-        </div>
-      </li>
-    </ul>
-  </li>
+{# Tree 원본 구현: 계층형 목록과 노드 상태를 Tree 계열 macro로 구성합니다. #}
+
+{% macro tree(
+  bordered = false,
+  lines = false,
+  compact = false,
+  ariaLabel = '',
+  multiselectable = false,
+  className = ''
+) %}
+{%- set content = caller() if caller else '' -%}
+{%- set classes =
+  'tree'
+  + (' tree_bordered' if bordered else '')
+  + (' tree_lines' if lines else '')
+  + (' tree_compact' if compact else '')
+  + ((' ' + className) if className else '')
+-%}
+<ul
+  class="{{ classes }}"
+  data-component="Tree"
+  role="tree"
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if multiselectable %}aria-multiselectable="true"{% endif %}
+>
+  {{ content | safe }}
 </ul>
+{% endmacro %}
+
+{% macro treeNode(
+  label = '',
+  expanded = true,
+  selected = false,
+  disabled = false,
+  expandable = false,
+  plusToggle = false,
+  toggleLabel = '',
+  link = false,
+  meta = '',
+  prefix = '',
+  icon = '',
+  labelContent = '',
+  metaContent = '',
+  className = ''
+) %}
+{%- set children = caller() if caller else '' -%}
+{%- set hasChildren = children | trim -%}
+{%- set showToggle = expandable or hasChildren -%}
+{%- set resolvedToggleLabel = toggleLabel if toggleLabel else label + (' 접기' if expanded else ' 펼치기') -%}
+{%- set rowClasses =
+  'tree_row'
+  + (' is-selected' if selected else '')
+  + (' is-disabled' if disabled else '')
+-%}
+<li
+  class="tree_item{{ (' ' + className) if className else '' }}"
+  data-component="TreeNode"
+  role="treeitem"
+  {% if showToggle %}aria-expanded="{{ 'true' if expanded else 'false' }}"{% endif %}
+>
+  <div class="{{ rowClasses }}">
+    {% if showToggle %}
+      <button
+        type="button"
+        class="tree_toggle{{ ' tree_toggle-plus' if plusToggle else '' }}"
+        aria-expanded="{{ 'true' if expanded else 'false' }}"
+        aria-label="{{ resolvedToggleLabel }}"
+        {% if disabled %}disabled{% endif %}
+      ></button>
+    {% else %}
+      <span class="tree_toggle tree_toggle_placeholder" aria-hidden="true"></span>
+    {% endif %}
+    {% if prefix %}{{ prefix | safe }}{% endif %}
+    {% if icon %}<span class="tree_icon" aria-hidden="true">{{ icon | safe }}</span>{% endif %}
+    {% set resolvedLabel %}{{ labelContent | safe if labelContent else '<span class="tree_label">' + label + '</span>' }}{% endset %}
+    {% if link %}
+      <button type="button" class="tree_link"{% if disabled %} disabled{% endif %}>{{ resolvedLabel | safe }}</button>
+    {% else %}
+      {{ resolvedLabel | safe }}
+    {% endif %}
+    {% if metaContent or meta %}<span class="tree_meta">{{ metaContent | safe if metaContent else meta }}</span>{% endif %}
+  </div>
+  {% if hasChildren %}
+    <ul class="tree" role="group"{% if not expanded %} hidden{% endif %}>
+      {{ children | safe }}
+    </ul>
+  {% endif %}
+</li>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call tree(bordered=true, ariaLabel='파일 탐색기') %}
+  {% call treeNode(label='src', expanded=true) %}
+    {% call treeNode(label='components', expanded=true) %}
+      {{ treeNode(label='button.html', selected=true) }}
+    {% endcall %}
+  {% endcall %}
+  {% call treeNode(label='public', expanded=false) %}
+    {{ treeNode(label='favicon.ico') }}
+  {% endcall %}
+{% endcall %}

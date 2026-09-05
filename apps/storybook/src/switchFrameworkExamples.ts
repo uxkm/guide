@@ -55,17 +55,96 @@ const sources: Record<string, Source> = {
   }
 };
 
+const switchImport = `{% from "components/form/Switch/switch.njk" import switch, switchGroup, switchField %}`;
+const switchGulpExamples: Record<string, string> = {
+  type: `${switchImport}
+
+{{ switch(id='switch-default', label='기본 — switch', checked=true) }}
+{{ switch(id='switch-label-end', label='레이블 뒤 — switch_label-end', labelEnd=true) }}`,
+  labelEnd: `${switchImport}
+
+{{ switch(id='switch-push', label='푸시 알림 받기', labelEnd=true, checked=true) }}
+{% call switch(id='switch-marketing', labelEnd=true) %}
+  <span class="switch_content"><span class="switch_label">마케팅 정보 수신</span><span class="switch_hint">이벤트 소식을 받습니다.</span></span>
+{% endcall %}
+{% call switchGroup(legend='알림 설정', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ switch(id='switch-email', label='이메일 알림', labelEnd=true, checked=true) }}
+  {{ switch(id='switch-sms', label='SMS 알림', labelEnd=true) }}
+{% endcall %}`,
+  basic: `${switchImport}
+
+{% call switchField(label='알림 설정', labelId='switch-notify-label') %}
+  {% call switchGroup(ariaLabelledby='switch-notify-label') %}
+    {{ switch(id='switch-notify-email', label='이메일 알림', checked=true) }}
+    {{ switch(id='switch-notify-push', label='푸시 알림') }}
+  {% endcall %}
+{% endcall %}`,
+  standalone: `${switchImport}
+
+{{ switch(id='switch-alone', ariaLabel='항목 전환') }}
+{{ switch(id='switch-alone-checked', checked=true, ariaLabel='켜짐') }}
+{{ switch(id='switch-alone-disabled', disabled=true, ariaLabel='비활성') }}`,
+  size: `${switchImport}
+
+{{ switch(id='switch-sm', label='Small', size='sm', checked=true) }}
+{{ switch(id='switch-md', label='Medium', checked=true) }}
+{{ switch(id='switch-lg', label='Large', size='lg', checked=true) }}`,
+  width: `${switchImport}
+
+{{ switch(id='switch-inline', label='기본 — 인라인 너비', checked=true) }}
+{{ switch(id='switch-block', label='switch_block — 전체 너비', checked=true, className='switch_block') }}
+{% call switchGroup(legend='switch_group_block', block=true, style='max-width: 360px; width: 100%;') %}
+  {{ switch(id='switch-block-1', label='항목 1', checked=true) }}
+  {{ switch(id='switch-block-2', label='항목 2') }}
+{% endcall %}`,
+  color: `${switchImport}
+
+{% for color in ['primary', 'success', 'danger', 'warning'] %}
+  {{ switch(id='switch-' + color, label=color | capitalize, checked=true, className='color_' + color) }}
+{% endfor %}`,
+  state: `${switchImport}
+
+{{ switch(id='switch-off', label='꺼짐') }}
+{{ switch(id='switch-on', label='켜짐', checked=true) }}
+{{ switch(id='switch-disabled', label='비활성', disabled=true) }}
+{{ switch(id='switch-on-disabled', label='켜짐 (비활성)', checked=true, disabled=true) }}`,
+  group: `${switchImport}
+
+{% call switchGroup(legend='알림 채널 (세로)') %}
+  {{ switch(id='switch-group-email', name='notifications', value='email', label='이메일', checked=true) }}
+  {{ switch(id='switch-group-push', name='notifications', value='push', label='푸시') }}
+{% endcall %}
+{% call switchGroup(legend='공개 범위 (가로)', horizontal=true) %}
+  {{ switch(id='switch-profile', label='프로필', checked=true) }}
+  {{ switch(id='switch-activity', label='활동 내역') }}
+{% endcall %}`,
+  form: `${switchImport}
+
+<form class="form form_vertical form_fit">
+  {% call switchField(label='알림', labelId='switch-form-vertical-label') %}
+    {% call switchGroup(block=true, ariaLabelledby='switch-form-vertical-label') %}
+      {{ switch(id='switch-form-email', label='이메일 알림', labelEnd=true, checked=true) }}
+      {{ switch(id='switch-form-push', label='푸시 알림', labelEnd=true) }}
+    {% endcall %}
+  {% endcall %}
+</form>
+<form class="form form_horizontal form_fit">
+  {% call switchField(label='자동 저장', labelId='switch-form-horizontal-label') %}
+    {{ switch(id='switch-auto-save', label='편집 내용 자동 저장', labelEnd=true, checked=true, ariaLabelledby='switch-form-horizontal-label') }}
+  {% endcall %}
+</form>`
+};
+
 function examples(key: string, source: Source): FrameworkExample[] {
-  const gulp = `{# apps/gulp/src/components/form/Switch/switch.njk #}\\n\${source.html}`;
+  const gulp = switchGulpExamples[key];
   return [
-    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Switch/Switch.html · \${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Switch/switch.njk · \${key}`, code: gulp },
-    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/switch · \${key}`, code: source.vue },
-    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/switch · \${key}`, code: source.vue },
-    { id: 'react', label: 'React', fileName: `@uxkm/react/switch · \${key}`, code: source.react },
-    { id: 'next', label: 'Next', fileName: `@uxkm/react/switch · \${key}`, code: source.react }
+    { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Switch/Switch.html · ${key}`, code: source.html },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Switch/switch.njk · ${key}`, code: gulp },
+    { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/switch · ${key}`, code: source.vue },
+    { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/switch · ${key}`, code: source.vue },
+    { id: 'react', label: 'React', fileName: `@uxkm/react/switch · ${key}`, code: source.react },
+    { id: 'next', label: 'Next', fileName: `@uxkm/react/switch · ${key}`, code: source.react }
   ];
 }
 
 export const switchFrameworkExamples = Object.fromEntries(Object.entries(sources).map(([key, source]) => [key, examples(key, source)])) as Record<string, FrameworkExample[]>;
-

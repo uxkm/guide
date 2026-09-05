@@ -60,13 +60,149 @@ const sources: Record<string, Source> = {
   }
 };
 
+const formLayoutImports = `{% from "components/form/FormLayout/form-layout.njk" import formLayout, formField, formActions %}
+{% from "components/form/Input/input.njk" import input %}
+{% from "components/form/Textarea/textarea.njk" import textarea %}
+{% from "components/form/Select/select.njk" import select %}
+{% from "components/basic/Button/button.njk" import button %}
+{% from "components/layout/Grid/grid.njk" import grid, gridCol %}`;
+
+const formLayoutGulpExamples: Record<string, string> = {
+  vertical: `${formLayoutImports}
+
+{% call formLayout(fit=true) %}
+  {% call formField(id='name', label='이름', required=true, hint='실명을 입력해 주세요.') %}
+    {{ input(id='name', name='name', required=true) }}
+  {% endcall %}
+  {% call formField(id='email', label='이메일') %}
+    {{ input(id='email', name='email', type='email') }}
+  {% endcall %}
+  {% call formActions() %}
+    {{ button(type='submit', label='저장') }}
+    {{ button(variant='ghost', color='', label='취소') }}
+  {% endcall %}
+{% endcall %}`,
+  horizontal: `${formLayoutImports}
+
+{% call formLayout(layout='horizontal') %}
+  {% call formField(id='name', label='이름', required=true) %}
+    {{ input(id='name', name='name', required=true) }}
+  {% endcall %}
+  {% call formField(id='email', label='이메일') %}
+    {{ input(id='email', name='email', type='email') }}
+  {% endcall %}
+  {% call formActions() %}
+    {{ button(type='submit', label='저장') }}
+    {{ button(variant='ghost', color='', label='취소') }}
+  {% endcall %}
+{% endcall %}`,
+  horizontalAlign: `${formLayoutImports}
+
+<div class="demo-stack">
+  {% call formLayout(layout='horizontal', labelWidth='sm', labelAlign='start') %}
+    {% call formField(id='city', label='도시') %}{{ input(id='city', name='city') }}{% endcall %}
+    {% call formField(id='zip', label='우편번호') %}{{ input(id='zip', name='zip') }}{% endcall %}
+  {% endcall %}
+  {% call formLayout(layout='horizontal', labelWidth='lg') %}
+    {% call formField(id='company', label='회사명') %}{{ input(id='company', name='company') }}{% endcall %}
+    {% call formField(id='team', label='부서') %}{{ input(id='team', name='team') }}{% endcall %}
+  {% endcall %}
+</div>`,
+  inline: `${formLayoutImports}
+
+{% set statusOptions = [
+  { value: 'all', label: '전체' },
+  { value: 'done', label: '완료' }
+] %}
+{% call formLayout(layout='inline') %}
+  {% call formField(id='query', label='검색어') %}
+    {{ input(id='query', name='query') }}
+  {% endcall %}
+  {% call formField(id='status', label='상태') %}
+    {{ select(id='status', name='status', options=statusOptions, value='all') }}
+  {% endcall %}
+  {% call formActions() %}{{ button(type='submit', label='검색') }}{% endcall %}
+{% endcall %}`,
+  grid: `${formLayoutImports}
+
+{% call formLayout() %}
+  {% call grid(cols=1, colsMd=2) %}
+    {% call formField(id='name', label='이름') %}{{ input(id='name', name='name') }}{% endcall %}
+    {% call formField(id='team', label='부서') %}{{ input(id='team', name='team') }}{% endcall %}
+  {% endcall %}
+  {% call formField(id='email', label='이메일') %}{{ input(id='email', name='email', type='email') }}{% endcall %}
+  {% call formActions() %}
+    {{ button(type='submit', label='저장') }}
+    {{ button(variant='ghost', color='', label='취소') }}
+  {% endcall %}
+{% endcall %}`,
+  width: `${formLayoutImports}
+
+<div class="demo-stack">
+  {% call formLayout() %}
+    {% call formField(id='width-default', label='기본 너비') %}{{ input(id='width-default') }}{% endcall %}
+  {% endcall %}
+  {% call formLayout(fit=true) %}
+    {% call formField(id='width-fit', label='제한 너비') %}{{ input(id='width-fit') }}{% endcall %}
+  {% endcall %}
+  {% call formLayout(layout='horizontal') %}
+    {% call formField(id='width-horizontal', label='가로 레이아웃') %}{{ input(id='width-horizontal') }}{% endcall %}
+  {% endcall %}
+</div>`,
+  actions: `${formLayoutImports}
+
+<div class="demo-stack">
+  {% call formLayout() %}
+    {% call formField(id='actions-vertical', label='제목') %}{{ input(id='actions-vertical') }}{% endcall %}
+    {% call formActions() %}
+      {{ button(type='submit', label='저장') }}
+      {{ button(variant='ghost', color='', label='취소') }}
+    {% endcall %}
+  {% endcall %}
+  {% call formLayout(layout='horizontal') %}
+    {% call formField(id='actions-horizontal', label='제목') %}{{ input(id='actions-horizontal') }}{% endcall %}
+    {% call formActions() %}
+      {{ button(type='submit', label='저장') }}
+      {{ button(variant='ghost', color='', label='취소') }}
+    {% endcall %}
+  {% endcall %}
+</div>`,
+  example: `${formLayoutImports}
+
+{% call formLayout(compact=true) %}
+  {% call grid(cols=1, colsMd=2) %}
+    {% call formField(id='example-id', label='아이디', required=true, hint='영문·숫자 4~16자') %}
+      {{ input(id='example-id', name='userId', required=true) }}
+    {% endcall %}
+    {% call formField(id='example-password', label='비밀번호', required=true) %}
+      {{ input(id='example-password', name='password', type='password', required=true) }}
+    {% endcall %}
+    {% call formField(id='example-name', label='이름', required=true) %}
+      {{ input(id='example-name', name='name', required=true) }}
+    {% endcall %}
+    {% call formField(id='example-email', label='이메일') %}
+      {{ input(id='example-email', name='email', type='email') }}
+    {% endcall %}
+    {% call gridCol(spanMd=2) %}
+      {% call formField(id='example-memo', label='메모') %}
+        {{ textarea(id='example-memo', name='memo', rows=3) }}
+      {% endcall %}
+    {% endcall %}
+  {% endcall %}
+  {% call formActions() %}
+    {{ button(type='submit', label='가입하기') }}
+    {{ button(variant='ghost', color='', label='취소') }}
+  {% endcall %}
+{% endcall %}`
+};
+
 function indent(value: string, spaces: number) { const prefix = ' '.repeat(spaces); return value.split('\n').map((line) => `${prefix}${line}`).join('\n'); }
 function examples(key: string, source: Source): FrameworkExample[] {
   const react = `import FormLayout, { FormActions, FormField } from '@uxkm/react/form-layout';\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\nimport FormLayout, { FormActions, FormField } from '@uxkm/vue/form-layout';\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/FormLayout/FormLayout.html · ${key}`, code: source.html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/FormLayout/form-layout.njk · ${key}`, code: `{# FormLayout · ${key} #}\n${source.html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/FormLayout/form-layout.njk · ${key}`, code: formLayoutGulpExamples[key] },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/form-layout · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/form-layout · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/form-layout · ${key}`, code: react },

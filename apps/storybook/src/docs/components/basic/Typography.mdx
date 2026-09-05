@@ -17,13 +17,13 @@ WebSquare는 자식 요소가 없는 제목과 텍스트를 `w2:textbox`로 표�
 
 ## 컴포넌트 구현 코드
 
-아래 코드는 사용 예제가 아니라 `TypoTitle`과 `TypoText` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 시맨틱 태그와 공통 CSS 클래스로 변환하고, HTML과 Gulp는 같은 클래스를 마크업에 직접 적용합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
+아래 코드는 사용 예제가 아니라 `TypoTitle`과 `TypoText` 컴포넌트 자체의 구현입니다. React와 Vue는 전달받은 prop을 시맨틱 태그와 공통 CSS 클래스로 변환하고, HTML은 같은 클래스를 마크업에 직접 적용하며, Gulp는 `typoTitle` · `typoText` Nunjucks macro로 동일한 계약을 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 그대로 재사용합니다.
 
 - `TypoTitle`의 `level`은 1~5만 허용하며 `h1`~`h5`와 `typo_title-*`를 같은 단계로 맞춥니다.
 - `TypoText`의 `variant`는 기본 태그와 `typo_*` 클래스를 선택합니다. `tag`로 루트 요소를 덮어쓸 수 있습니다.
 - `color`·`size`·`ellipsis`는 공통 색상·크기·말줄임 클래스로 변환됩니다.
 - `link`·`label`·`blockquote` variant는 각각 `href`·`htmlFor`·`cite`를 루트에 전달합니다.
-- React의 `children` 또는 Vue의 기본 slot과 `label`은 텍스트 콘텐츠로 사용됩니다.
+- React의 `children` 또는 Vue의 기본 slot과 `label`은 텍스트 콘텐츠로 사용됩니다. Gulp는 `label` 또는 `{% call %}` 본문을 사용합니다.
 
 <FrameworkTabs examples={typographyComponentExamples} showFullCode />
 

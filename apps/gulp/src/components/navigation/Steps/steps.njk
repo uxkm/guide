@@ -1,41 +1,62 @@
-{# Steps 원본 구현: 브라우저 DOM 이벤트와 상태 클래스를 연결하고 관련 접근성 속성을 동기화합니다. #}
-{# steps 클래스에 방향·크기·점형·탐색 변형과 finished·active·wait 상태를 함께 둡니다. #}
-{% from "../../basic/Icon/icon.njk" import icon %}
+{# Steps 원본 구현: 단계 목록과 개별 단계를 호출형 macro로 구성합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
+
+{% macro step(title='', description='', status='wait', index=1, last=false, navigable=false, icon='', iconSlot='', className='') %}
+{%- set resolvedStatus = status if status in ['finished', 'active', 'wait', 'error'] else 'wait' -%}
+<li
+  class="steps_item is-{{ resolvedStatus }}{{ (' ' + className) if className else '' }}"
+  data-step-index="{{ index }}"
+  {% if resolvedStatus == 'error' %}data-step-fixed="error"{% endif %}
+  {% if resolvedStatus == 'active' and not navigable %}aria-current="step"{% endif %}
+>
+  {% if navigable %}
+    <button
+      type="button"
+      class="steps_trigger"
+      {% if resolvedStatus == 'wait' %}disabled{% endif %}
+      {% if resolvedStatus == 'active' %}aria-current="step"{% endif %}
+    >
+  {% endif %}
+  <span class="steps_head">
+    <span class="steps_indicator" aria-hidden="true">
+      {% if iconSlot %}{{ iconSlot | safe }}
+      {% elif icon %}{{ Icon.icon(name=icon, className='steps_icon') }}
+      {% elif resolvedStatus == 'finished' %}{{ Icon.icon(name='check', className='steps_icon') }}
+      {% elif resolvedStatus == 'error' %}{{ Icon.icon(name='close', className='steps_icon') }}
+      {% else %}<span class="steps_index">{{ index }}</span>{% endif %}
+    </span>
+    {% if not last %}<span class="steps_tail" aria-hidden="true"></span>{% endif %}
+  </span>
+  <span class="steps_content">
+    <span class="steps_title">{{ title }}</span>
+    {% if description %}<span class="steps_desc">{{ description }}</span>{% endif %}
+  </span>
+  {% if navigable %}</button>{% endif %}
+</li>
+{% endmacro %}
+
+{% macro steps(items=[], direction='horizontal', size='md', dot=false, iconStyle=false, navigable=false, align='start', ariaLabel='진행 단계', className='') %}
+{%- set content = caller() if caller else '' -%}
+{%- set resolvedSize = size if size in ['sm', 'md', 'lg'] else 'md' -%}
 <ol
-  class="steps{% if direction == 'vertical' %} steps_vertical{% endif %}{% if size == 'sm' or size == 'lg' %} steps_{{ size }}{% endif %}{% if dot %} steps_dot{% endif %}{% if iconStyle %} steps_icon-style{% endif %}{% if navigable %} steps_navigable{% endif %}{% if align == 'center' %} steps_align-center{% endif %}"
-  aria-label="{{ ariaLabel | default('진행 단계') }}"
+  class="steps{% if direction == 'vertical' %} steps_vertical{% endif %}{% if resolvedSize != 'md' %} steps_{{ resolvedSize }}{% endif %}{% if dot %} steps_dot{% endif %}{% if iconStyle %} steps_icon-style{% endif %}{% if navigable %} steps_navigable{% endif %}{% if align == 'center' %} steps_align-center{% endif %}{{ (' ' + className) if className else '' }}"
+  aria-label="{{ ariaLabel }}"
   data-component="Steps"
   data-steps
 >
-  {# 각 단계는 인디케이터·연결선·제목·설명으로 구성합니다. #}
-  {% for item in items %}{% set status = item.status | default('wait') %}
-  <li
-    class="steps_item is-{{ status }}"
-    data-step-index="{{ loop.index }}"{% if status == 'error' %}
-    data-step-fixed="error"{% endif %}{% if status == 'active' and not navigable %}
-    aria-current="step"{% endif %}
-  >
-    {# 탐색 가능하면 버튼으로 감싸고, wait 상태는 비활성화합니다. #}
-    {% if navigable %}<button
-      type="button"
-      class="steps_trigger"{% if status == 'wait' %}
-      disabled{% endif %}{% if status == 'active' %}
-      aria-current="step"{% endif %}
-    >
-      {% endif %}<span class="steps_head"
-        ><span class="steps_indicator" aria-hidden="true"
-          >{% if item.icon %}{{ icon(item.icon, 'steps_icon') }}{% elif status == 'finished' %}{{ icon('check', 'steps_icon') }}{% elif status == 'error' %}{{ icon('close', 'steps_icon') }}{% else %}<span
-            class="steps_index"
-            >{{ loop.index }}</span
-          >{% endif %}</span
-        >{% if not loop.last %}<span class="steps_tail" aria-hidden="true"></span
-        >{% endif %}</span
-      ><span class="steps_content"
-        ><span class="steps_title">{{ item.title }}</span
-        >{% if item.description %}<span class="steps_desc">{{ item.description }}</span
-        >{% endif %}</span
-      >{% if navigable %}</button
-    >{% endif %}
-  </li>
-  {% endfor %}
+  {% if content %}
+    {{ content | safe }}
+  {% else %}
+    {% for item in items %}
+      {{ step(title=item.title, description=item.description, status=item.status | default('wait'), index=loop.index, last=loop.last, navigable=navigable, icon=item.icon, iconSlot=item.iconSlot) }}
+    {% endfor %}
+  {% endif %}
 </ol>
+{% endmacro %}
+
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{% call steps() %}
+  {{ step(title='계정', status='finished', index=1) }}
+  {{ step(title='프로필', status='active', index=2) }}
+  {{ step(title='완료', status='wait', index=3, last=true) }}
+{% endcall %}

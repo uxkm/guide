@@ -677,6 +677,46 @@ function toHtml(body: string) {
   ));
 }
 
+const BUTTON_ATTR_MAP: Record<string, string> = {
+  'icon-before': 'iconBefore',
+  'icon-after': 'iconAfter',
+  'icon-only': 'iconOnly',
+  'select-text': 'selectText',
+  'select-caret': 'selectCaret',
+  'aria-disabled': 'ariaDisabled',
+  'aria-label': 'ariaLabel',
+  class: 'className',
+};
+
+function gulpButtonArgs(source: string) {
+  const props: string[] = [];
+  const token = /:([\w-]+)="([^"]*)"|([\w-]+)(?:="([^"]*)")?/g;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    if (match[1]) {
+      const key = BUTTON_ATTR_MAP[match[1]] ?? match[1];
+      props.push(`${key}=${match[2]}`);
+      continue;
+    }
+    const raw = match[3];
+    const value = match[4];
+    const key = BUTTON_ATTR_MAP[raw] ?? raw;
+    if (value == null) props.push(`${key}=true`);
+    else if (/^-?\d+(\.\d+)?$/.test(value)) props.push(`${key}=${value}`);
+    else props.push(`${key}='${value}'`);
+  }
+  return props.join(', ');
+}
+
+/** Button JSX-like body를 Nunjucks `button` macro 호출로 변환합니다. */
+function toGulp(body: string) {
+  const result = body.replace(/^([ \t]*)<Button\s+([^>]*?)\s*\/>/gm, (_: string, indent: string, source: string) => {
+    const args = gulpButtonArgs(source.trim());
+    return args ? `${indent}{{ button(${args}) }}` : `${indent}{{ button() }}`;
+  });
+  return `{% from "components/basic/Button/button.njk" import button %}\n\n${result.trim()}`;
+}
+
 function toReact(body: string) {
   return body
     .replace(/class=/g, 'className=')
@@ -761,11 +801,12 @@ import Icon from '@uxkm/vue/icon';
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = toHtml(body);
+  const gulp = toGulp(body);
   const vue = toVue(body);
   const react = toReact(body);
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/basic/Button/Button.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Button/button.njk · ${key}`, code: `{# Button · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Button/button.njk · ${key}`, code: `{# Button · ${key} #}\n${gulp}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/button → apps/vue/src/components/basic/Button/Button.vue · ${key}`, code: `${vueHelpers}\n\n<template>\n${vue.split('\n').map((line) => `  ${line}`).join('\n')}\n</template>` },
     { id: 'react', label: 'React', fileName: `@uxkm/react/button → apps/react/src/components/basic/Button/Button.jsx · ${key}`, code: `import Button from '@uxkm/react/button';\nimport Icon from '@uxkm/react/icon';\n\nexport function Example() {\n  return (\n  <>\n${react.split('\n').map((line) => line.trim() ? `    ${line.trimStart()}` : '').join('\n')}\n  </>\n  );\n}` },

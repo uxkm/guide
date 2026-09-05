@@ -4,6 +4,7 @@ type Source = { html: string; react: string; vue: string };
 
 const closeIconHtml = `<svg class="icon" data-component="Icon" data-icon="close" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg>`;
 const searchIconHtml = `<svg class="icon" data-component="Icon" data-icon="search" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>`;
+const inputImport = `{% from "components/form/Input/input.njk" import input, inputField, inputGroup, inputCollection %}`;
 
 function htmlClearable(input: string, options: { value?: string; inactive?: boolean; prefix?: string; suffix?: string; fit?: boolean } = {}) {
   const filled = options.value && !options.inactive ? ' is-filled' : '';
@@ -180,6 +181,114 @@ ${hiddenLabelHtml('clear-readonly', '읽기 전용')}<Input id="clear-readonly" 
   }
 };
 
+const inputGulpExamples: Record<string, string> = {
+  basic: `{% set control %}{{ input(id='input-name', placeholder='이름을 입력하세요', clearable=true) }}{% endset %}
+{{ inputField(id='input-name', label='이름', control=control, hint='2~20자 이내로 입력해 주세요.') }}`,
+  standalone: `{% from "components/basic/Icon/icon.njk" import icon %}
+{% set fields = [
+  { id: 'input-search', label: '검색어', placeholder: '플레이스홀더', value: '' },
+  { id: 'input-nickname', label: '닉네임', placeholder: '', value: '입력된 값' }
+] %}
+{% for field in fields %}
+  {% set control %}{{ input(id=field.id, placeholder=field.placeholder, value=field.value, clearable=true) }}{% endset %}
+  {{ inputField(id=field.id, label=field.label, control=control, fit=true) }}
+{% endfor %}
+{% set searchIcon %}{{ icon(name='search') }}{% endset %}
+{% set search %}{{ input(id='standalone-search', type='search', placeholder='검색어를 입력하세요', prefix=searchIcon, clearable=true) }}{% endset %}
+{{ inputField(id='standalone-search', ariaLabel='검색', control=search) }}`,
+  type: `{% set fields = [
+  { id: 'input-type-text', label: '텍스트', type: 'text', placeholder: '텍스트', clearable: true },
+  { id: 'input-type-password', label: '비밀번호', type: 'password', placeholder: '비밀번호', clearable: true },
+  { id: 'input-type-email', label: '이메일', type: 'email', placeholder: 'name@example.com', clearable: true },
+  { id: 'input-type-tel', label: '전화번호', type: 'tel', placeholder: '전화번호', clearable: true },
+  { id: 'input-type-url', label: 'URL', type: 'url', placeholder: 'URL', clearable: true },
+  { id: 'input-type-search', label: '검색', type: 'search', placeholder: '검색', clearable: true },
+  { id: 'input-type-number', label: '숫자', type: 'number', placeholder: '숫자', clearable: false },
+  { id: 'input-type-date', label: '날짜', type: 'date', placeholder: '날짜', clearable: false },
+  { id: 'input-type-time', label: '시간', type: 'time', placeholder: '시간', clearable: false }
+] %}
+{% for field in fields %}
+  {% set control %}{{ input(id=field.id, type=field.type, placeholder=field.placeholder, clearable=field.clearable) }}{% endset %}
+  {{ inputField(id=field.id, label=field.label, control=control) }}
+{% endfor %}`,
+  kind: `{% from "components/basic/Button/button.njk" import button %}
+{% call inputField(labelId='card-label', label='카드번호', hint='뒤 8자리는 마스킹 처리할 수 있습니다.') %}
+  {% call inputCollection(variant='split', ariaLabelledby='card-label') %}
+    {% for part in range(1, 5) %}
+      {% if part > 1 %}<span class="input_split_sep" aria-hidden="true">-</span>{% endif %}
+      <label class="display_contents"><span class="input_group-label_hidden">카드번호 {{ part }}번째 묶음</span>{{ input(type='password' if part > 2 else 'text', inputMode='numeric', maxLength=4, placeholder='0000') }}</label>
+    {% endfor %}
+  {% endcall %}
+{% endcall %}
+{% call inputField(labelId='otp-label', label='인증번호 (OTP)', hint='문자 메시지로 받은 6자리 번호를 입력하세요.') %}
+  {% call inputCollection(variant='otp', ariaLabelledby='otp-label') %}
+    {% for part in range(1, 7) %}<label class="display_contents"><span class="input_group-label_hidden">인증번호 {{ part }}자리</span>{{ input(inputMode='numeric', maxLength=1) }}</label>{% endfor %}
+  {% endcall %}
+{% endcall %}
+{% call inputField(id='phone', label='휴대폰 번호') %}
+  {% call inputGroup(prefix='+82') %}{{ input(id='phone', type='tel', placeholder='10-0000-0000') }}{{ button(variant='outline', size='sm', label='인증요청') }}{% endcall %}
+{% endcall %}
+{% set amount %}{{ input(id='amount', inputMode='numeric', placeholder='0', prefix='₩', suffix='원', clearable=true) }}{% endset %}
+{{ inputField(id='amount', label='결제 금액', control=amount) }}`,
+  size: `{% set sizes = [
+  { id: 'input-sm', label: 'SM', size: 'sm', placeholder: 'input_sm' },
+  { id: 'input-md', label: 'MD', size: 'md', placeholder: '기본 크기' },
+  { id: 'input-lg', label: 'LG', size: 'lg', placeholder: 'input_lg' }
+] %}
+{% for item in sizes %}
+  {% set control %}{{ input(id=item.id, size=item.size, placeholder=item.placeholder, clearable=true) }}{% endset %}
+  {{ inputField(id=item.id, label=item.label, control=control) }}
+{% endfor %}`,
+  width: `{% set full %}{{ input(id='input-full', placeholder='width: 100%', clearable=true) }}{% endset %}
+{{ inputField(id='input-full', label='전체 너비', control=full) }}
+{% set limited %}{{ input(id='input-fit', placeholder='최대 320px', clearable=true) }}{% endset %}
+{{ inputField(id='input-fit', label='제한 너비', control=limited, fit=true) }}
+{% set addon %}{{ input(id='width-addon', placeholder='애드온 그룹 최대 320px', prefix='@', clearable=true, fit=true) }}{% endset %}
+{{ inputField(id='width-addon', ariaLabel='아이디', control=addon) }}`,
+  group: `{% set groups = [
+  { id: 'group-domain', label: '도메인', placeholder: 'example.com', prefix: 'https://', suffix: '' },
+  { id: 'group-user', label: '사용자명', placeholder: 'username', prefix: '@', suffix: '' },
+  { id: 'group-amount', label: '결제 금액', placeholder: '0', prefix: '₩', suffix: 'KRW' }
+] %}
+{% for group in groups %}
+  {% set control %}{{ input(id=group.id, placeholder=group.placeholder, prefix=group.prefix, suffix=group.suffix, clearable=true) }}{% endset %}
+  {{ inputField(id=group.id, ariaLabel=group.label, control=control) }}
+{% endfor %}`,
+  required: `{% set control %}{{ input(id='required-email', type='email', placeholder='name@example.com', required=true, clearable=true) }}{% endset %}
+{{ inputField(id='required-email', label='이메일', control=control, required=true, fit=true, hint='업무용 이메일을 입력해 주세요.') }}`,
+  state: `{% set states = [
+  { id: 'state-default', label: '기본', value: '', disabled: false, readonly: false, error: false, success: false, message: '' },
+  { id: 'state-disabled', label: '비활성', value: '수정할 수 없음', disabled: true, readonly: false, error: false, success: false, message: '' },
+  { id: 'state-readonly', label: '읽기 전용', value: '읽기만 가능', disabled: false, readonly: true, error: false, success: false, message: '' },
+  { id: 'state-error', label: '에러', value: 'invalid-email', disabled: false, readonly: false, error: true, success: false, message: '올바른 이메일 형식이 아닙니다.' },
+  { id: 'state-success', label: '성공', value: 'uxkm_user', disabled: false, readonly: false, error: false, success: true, message: '사용 가능한 아이디입니다.' }
+] %}
+{% for state in states %}
+  {% set control %}{{ input(id=state.id, value=state.value, disabled=state.disabled, readonly=state.readonly, error=state.error, success=state.success, clearable=true, ariaDescribedby=state.id + ('-error' if state.error else '-success') if state.message else '') }}{% endset %}
+  {{ inputField(id=state.id, label=state.label, control=control, errorMessage=state.message if state.error else '', successMessage=state.message if state.success else '') }}
+{% endfor %}`,
+  clearable: `{% from "components/basic/Icon/icon.njk" import icon %}
+{% set searchIcon %}{{ icon(name='search') }}{% endset %}
+{% set fields = [
+  { id: 'clear-text', label: '텍스트', type: 'text', value: '지울 수 있는 값', readonly: false, prefix: '' },
+  { id: 'clear-search', label: '검색', type: 'search', value: '검색어', readonly: false, prefix: searchIcon },
+  { id: 'clear-readonly', label: '읽기 전용', type: 'text', value: '수정 불가', readonly: true, prefix: '' }
+] %}
+{% for field in fields %}
+  {% set control %}{{ input(id=field.id, type=field.type, value=field.value, readonly=field.readonly, prefix=field.prefix, clearable=true) }}{% endset %}
+  {{ inputField(id=field.id, ariaLabel=field.label, control=control) }}
+{% endfor %}`,
+  example: `{% from "components/basic/Button/button.njk" import button %}
+<form class="form form_vertical form_fit form_compact">
+  <div class="alert color_danger" role="alert"><strong>입력 내용을 확인해 주세요</strong></div>
+  {% set userId %}{{ input(id='login-id', value='uxkm_user', success=true, clearable=true, ariaDescribedby='login-id-success') }}{% endset %}
+  {{ inputField(id='login-id', label='아이디', control=userId, successMessage='사용 가능한 아이디입니다.') }}
+  {% set password %}{{ input(id='login-password', type='password', value='1234', error=true, clearable=true, ariaDescribedby='login-password-error') }}{% endset %}
+  {{ inputField(id='login-password', label='비밀번호', control=password, errorMessage='8자 이상 입력해 주세요.') }}
+  <div class="form_actions">{{ button(type='submit', label='로그인') }}{{ button(variant='ghost', label='취소') }}</div>
+</form>`
+};
+
 const reactClearableHelper = `function ButtonClearable({ defaultValue = '', prefix, suffix, wrapperClassName = '', label, ...props }) {
   const [value, setValue] = useState(defaultValue);
   const rootRef = useRef(null);
@@ -222,7 +331,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
   const react = `${reactImports}${reactHelpers ? `\n\n${reactHelpers}` : ''}\n\nexport function Example() {\n  return (\n${indent(source.react, /^\s*<>/.test(source.react) ? 2 : 4)}\n  );\n}`;
   const vue = `<script setup>\n${vueImports}\n</script>\n\n<template>\n${indent(source.vue, 2)}\n</template>`;
   const html = source.html.replace(/<input(?![^>]*data-component=)/g, '<input data-component="Input"');
-  const gulp = `{% from "../../basic/Icon/icon.njk" import icon %}\n${html.replaceAll(closeIconHtml, "{{ icon('close') }}").replaceAll(searchIconHtml, "{{ icon('search') }}")}`;
+  const gulp = `${inputImport}\n\n${inputGulpExamples[key]}`;
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Input/Input.html · ${key}`, code: html },
     { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Input/input.njk · ${key}`, code: gulp },

@@ -1,16 +1,83 @@
-{# Link 원본 구현: 시맨틱 마크업과 공통 CSS 클래스를 조합합니다. #}
-{# link와 color_*를 조합합니다. 기본은 hover 시 밑줄입니다. #}
-<a class="link color_primary" data-component="Link" data-ripple="true" href="#">더 보기</a>
+{# Link 원본 구현: 시맨틱 루트와 공통 CSS 클래스를 조합하고 전달 속성과 접근성 의미를 연결합니다. #}
+{# link macro로 색상·크기·밑줄·내비게이션·아이콘 변형을 조합합니다. #}
+{% import "components/basic/Icon/icon.njk" as Icon %}
 
-{# 밑줄·내비게이션·블록·뒤로가기 변형을 클래스로 조합합니다. #}
-<a class="link color_primary link_underline" data-component="Link" href="#">항상 밑줄</a>
-<a class="link color_primary link_nav is-active" data-component="Link" href="#" aria-current="page">개요</a>
-<a class="link color_muted link_back" data-component="Link" href="#">목록으로 돌아가기</a>
+{% macro link(
+  as = 'a',
+  href = '#',
+  color = 'primary',
+  size = '',
+  underline = false,
+  noUnderline = false,
+  standalone = false,
+  nav = false,
+  block = false,
+  back = false,
+  iconOnly = false,
+  active = false,
+  disabled = false,
+  label = '',
+  target = '',
+  rel = '',
+  ariaLabel = '',
+  icon = '',
+  iconAfter = '',
+  ripple = true,
+  className = ''
+) %}
+{%- if caller -%}
+  {%- set content = caller() -%}
+{%- else -%}
+  {%- set content = label -%}
+{%- endif -%}
+{%- set root = as if as else 'a' -%}
+{%- set isAnchor = root == 'a' -%}
+{%- set isButton = root == 'button' -%}
+{%- set resolvedColor = color if color in ['primary', 'muted', 'success', 'warning', 'danger', 'info'] else 'primary' -%}
+{%- set resolvedSize = size if size in ['sm', 'lg', 'xl'] else '' -%}
+{%- set classes =
+  'link'
+  + ' color_' + resolvedColor
+  + ((' size_' + resolvedSize) if resolvedSize else '')
+  + (' link_underline' if underline else '')
+  + (' link_no-underline' if noUnderline else '')
+  + (' link_standalone' if standalone else '')
+  + (' link_nav' if nav else '')
+  + (' link_block' if block else '')
+  + (' link_back' if back else '')
+  + (' link_icon-only' if iconOnly else '')
+  + (' is-active' if active else '')
+  + (' is-disabled' if disabled else '')
+  + ((' ' + className) if className else '')
+-%}
+<{{ root }}
+  class="{{ classes }}"
+  data-component="Link"
+  data-ripple="{{ 'true' if ripple else 'false' }}"
+  {% if isAnchor %}href="{{ href if href else '#' }}"{% endif %}
+  {% if isButton %}type="button"{% endif %}
+  {% if isButton and disabled %}disabled{% endif %}
+  {% if isAnchor and target %}target="{{ target }}"{% endif %}
+  {% if isAnchor and rel %}rel="{{ rel }}"{% endif %}
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if active %}aria-current="page"{% endif %}
+  {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+>
+  {%- if icon -%}
+  {{ Icon.icon(name=icon, className='link_icon') }}
+  {%- endif -%}
+  {%- if not iconOnly -%}
+  {{ content | safe }}
+  {%- endif -%}
+  {%- if iconAfter -%}
+  {{ Icon.icon(name=iconAfter, className='link_icon') }}
+  {%- endif -%}
+</{{ root }}>
+{% endmacro %}
 
-{# 아이콘 전용 링크는 link_icon-only와 aria-label을 함께 지정합니다. #}
-<a class="link color_primary link_icon-only" data-component="Link" href="#" aria-label="검색">
-  <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-  </svg>
-</a>
+{# include 시 기본 데모 (from import 시에는 실행되지 않음) #}
+{{ link(label='더 보기') }}
+{{ link(underline=true, label='항상 밑줄') }}
+{{ link(nav=true, active=true, label='개요') }}
+{{ link(color='muted', back=true, icon='arrow-left', label='목록으로 돌아가기') }}
+{{ link(iconOnly=true, icon='search', ariaLabel='검색') }}

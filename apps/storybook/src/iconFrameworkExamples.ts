@@ -329,7 +329,85 @@ function htmlCode(key: ExampleKey, body: string) {
   </svg>
 </div>`;
   if (key === 'gallery') return `<!-- common-icons 목록을 순회해 같은 구조를 반복합니다. -->\n<div class="icon_grid">\n  <div class="icon_grid-item">${htmlIcon('name="search" size="lg"')}<span>search</span></div>\n  <!-- ... -->\n</div>`;
-  return body.replace(/<Icon\s+([^>]*?)\s*\/>/g, (_, attrs: string) => htmlIcon(attrs));
+  return body
+    .replace(/<Icon\s*([^>]*)>([\s\S]*?)<\/Icon>/g, (_, source: string, inner: string) => {
+      const props = parseAttrs(source);
+      const name = props.name ? String(props.name) : undefined;
+      const svg = `<svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">${inner.trim()}</svg>`;
+      if (props.circle || props.square) {
+        const wrapper = [
+          props.circle ? 'icon_circle' : 'icon_square',
+          props.color && `color_${props.color}`,
+          props.pulse && 'icon_pulse',
+          props.circle && props.size === 'sm' && 'icon_circle-sm',
+          props.circle && props.size === 'lg' && 'icon_circle-lg',
+        ].filter(Boolean);
+        return `<span class="${wrapper.join(' ')}" aria-hidden="true">${svg}</span>`;
+      }
+      return name ? htmlIcon(source) : svg;
+    })
+    .replace(/<Icon\s+([^>]*?)\s*\/>/g, (_, attrs: string) => htmlIcon(attrs));
+}
+
+const ICON_ATTR_MAP: Record<string, string> = {
+  'aria-label': 'ariaLabel',
+  class: 'className',
+};
+
+function gulpIconArgs(source: string) {
+  const props: string[] = [];
+  const token = /:([\w-]+)="([^"]*)"|([\w-]+)(?:="([^"]*)")?/g;
+  let match: RegExpExecArray | null;
+  while ((match = token.exec(source))) {
+    if (match[1]) {
+      const key = ICON_ATTR_MAP[match[1]] ?? match[1];
+      props.push(`${key}=${match[2]}`);
+      continue;
+    }
+    const raw = match[3];
+    const value = match[4];
+    const key = ICON_ATTR_MAP[raw] ?? raw;
+    if (value == null) props.push(`${key}=true`);
+    else if (/^-?\d+(\.\d+)?$/.test(value)) props.push(`${key}=${value}`);
+    else props.push(`${key}='${value}'`);
+  }
+  return props.join(', ');
+}
+
+function indentGulpLines(text: string, spaces: number) {
+  const pad = ' '.repeat(spaces);
+  return text.split('\n').map((line) => (line.trim() ? `${pad}${line}` : line)).join('\n');
+}
+
+/** Icon JSX-like body를 Nunjucks `icon` macro 호출로 변환합니다. */
+function toGulp(key: ExampleKey, body: string) {
+  if (key === 'gallery') {
+    return `{% from "components/basic/Icon/icon.njk" import icon %}
+
+{% set iconNames = ['search', 'plus', 'download', 'trash', 'check', 'edit', 'settings', 'user', 'star'] %}
+<div class="icon_grid">
+  {% for name in iconNames %}
+    <div class="icon_grid-item">
+      {{ icon(name=name, size='lg') }}
+      <span>{{ name }}</span>
+    </div>
+  {% endfor %}
+</div>`;
+  }
+
+  let result = body.replace(/\r\n?/g, '\n');
+  result = result.replace(/<Icon\s+([^>]*?)\s*\/>/g, (_, source: string) => {
+    const args = gulpIconArgs(source.trim());
+    return args ? `{{ icon(${args}) }}` : '{{ icon() }}';
+  });
+  result = result.replace(/<Icon\s*([^>]*)>([\s\S]*?)<\/Icon>/g, (_, source: string, inner: string) => {
+    const args = gulpIconArgs(source.trim());
+    const content = indentGulpLines(inner.trim(), 2);
+    return args
+      ? `{% call icon(${args}) %}\n${content}\n{% endcall %}`
+      : `{% call icon() %}\n${content}\n{% endcall %}`;
+  });
+  return `{% from "components/basic/Icon/icon.njk" import icon %}\n\n${result.trim()}`;
 }
 
 function webSquareIcon(source: string, id: string, customName = '') {
@@ -415,11 +493,12 @@ ${markup.split('\n').map((line) => `  ${line}`).join('\n')}
 function makeExamples(key: ExampleKey): FrameworkExample[] {
   const body = bodies[key];
   const html = htmlCode(key, body);
+  const gulp = toGulp(key, body);
   const react = componentCode(body, 'react');
   const vue = componentCode(body, 'vue');
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/basic/Icon/Icon.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Icon/icon.njk · ${key}`, code: `{# Icon · ${key} #}\n${html}` },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/basic/Icon/icon.njk · ${key}`, code: `{# Icon · ${key} #}\n${gulp}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/icon → apps/vue/src/components/basic/Icon/Icon.vue · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/icon → apps/vue/src/components/basic/Icon/Icon.vue · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/icon → apps/react/src/components/basic/Icon/Icon.jsx · ${key}`, code: react },

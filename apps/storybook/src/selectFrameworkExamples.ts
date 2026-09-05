@@ -2,6 +2,7 @@ import type { FrameworkExample } from './FrameworkCode';
 
 type Source = { html: string; react: string; vue: string };
 
+const selectImport = `{% from "components/form/Select/select.njk" import select, selectField %}`;
 const optionsHtml = '<option value="seoul">서울</option><option value="busan">부산</option><option value="jeju">제주</option>';
 const optionsReact = '<option value="seoul">서울</option><option value="busan">부산</option><option value="jeju">제주</option>';
 const fieldHtml = (id: string, label: string, control: string, message = '') => `<div class="form_field"><label class="form_field-label" for="${id}">${label}</label>${control}${message}</div>`;
@@ -64,6 +65,95 @@ const sources: Record<string, Source> = {
   }
 };
 
+const selectGulpExamples: Record<string, string> = {
+  basic: `{% set options = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+{% set control %}{{ select(id='select-region', options=options, placeholder='지역을 선택하세요', required=true, fit=true) }}{% endset %}
+{{ selectField(id='select-region', label='지역', control=control, hint='거주 지역을 선택해 주세요.') }}`,
+  standalone: `{% set languageOptions = [
+  { value: 'ko', label: '한국어' },
+  { value: 'en', label: 'English' }
+] %}
+{% set language %}{{ select(id='select-language', options=languageOptions, value='ko') }}{% endset %}
+{{ selectField(id='select-language', label='언어', control=language, fit=true) }}
+
+{% set sortOptions = [
+  { value: 'latest', label: '최신순' },
+  { value: 'popular', label: '인기순' }
+] %}
+{% set sort %}{{ select(id='select-sort', options=sortOptions, value='latest', fit=true) }}{% endset %}
+{{ selectField(id='select-sort', ariaLabel='정렬 기준', control=sort) }}`,
+  size: `{% set options = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+{% for size in ['sm', 'md', 'lg'] %}
+  {% set id = 'select-' + size %}
+  {% set control %}{{ select(id=id, options=options, value='seoul', size=size) }}{% endset %}
+  {{ selectField(id=id, label=size | upper, control=control) }}
+{% endfor %}`,
+  width: `{% set options = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+{% set full %}{{ select(id='select-full', options=options, value='seoul') }}{% endset %}
+{{ selectField(id='select-full', label='전체 너비', control=full) }}
+{% set limited %}{{ select(id='select-fit', options=options, value='busan') }}{% endset %}
+{{ selectField(id='select-fit', label='제한 너비', control=limited, fit=true) }}`,
+  group: `{% set groups = [
+  { label: '제품', options: [
+    { value: 'design', label: '디자인' },
+    { value: 'development', label: '개발' }
+  ] },
+  { label: '비즈니스', options: [
+    { value: 'marketing', label: '마케팅' },
+    { value: 'sales', label: '영업' }
+  ] }
+] %}
+{% set control %}{{ select(id='select-team', options=groups, placeholder='팀을 선택하세요') }}{% endset %}
+{{ selectField(id='select-team', label='소속 팀', control=control) }}`,
+  multiple: `{% set options = [
+  { value: 'design', label: 'UI 디자인' },
+  { value: 'frontend', label: '프론트엔드' },
+  { value: 'backend', label: '백엔드' },
+  { value: 'data', label: '데이터' }
+] %}
+{% set control %}{{ select(id='select-skills', options=options, value=['design', 'frontend'], multiple=true, nativeSize=4) }}{% endset %}
+{{ selectField(id='select-skills', label='관심 분야', control=control, hint='여러 항목을 선택할 수 있습니다.') }}`,
+  required: `{% set options = [
+  { value: 'product', label: '제품 문의' },
+  { value: 'account', label: '계정 문의' }
+] %}
+{% set control %}{{ select(id='select-required', options=options, placeholder='문의 유형을 선택하세요', required=true) }}{% endset %}
+{{ selectField(id='select-required', label='문의 유형', control=control, required=true, fit=true) }}`,
+  state: `{% set options = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+{% set disabledSelect %}{{ select(id='select-disabled', options=options, value='busan', disabled=true) }}{% endset %}
+{{ selectField(id='select-disabled', label='비활성', control=disabledSelect) }}
+
+{% set errorSelect %}{{ select(id='select-error', options=options, placeholder='지역을 선택하세요', required=true, error=true, ariaDescribedby='select-error-error') }}{% endset %}
+{{ selectField(id='select-error', label='에러', control=errorSelect, errorMessage='지역을 선택해 주세요.') }}`,
+  example: `{% from "components/basic/Button/button.njk" import button %}
+{% set options = [
+  { value: 'seoul', label: '서울' },
+  { value: 'busan', label: '부산' },
+  { value: 'jeju', label: '제주' }
+] %}
+<form class="form form_vertical form_fit form_compact">
+  {% set control %}{{ select(id='delivery-region', options=options, placeholder='지역을 선택하세요', required=true, error=true, ariaDescribedby='delivery-region-error') }}{% endset %}
+  {{ selectField(id='delivery-region', label='배송 지역', control=control, errorMessage='배송 지역을 선택해 주세요.') }}
+  <div class="form_actions">{{ button(type='submit', variant='filled', color='primary', label='저장') }}</div>
+</form>`
+};
+
 function indent(value: string, spaces: number) { const prefix = ' '.repeat(spaces); return value.split('\n').map((line) => `${prefix}${line}`).join('\n'); }
 function examples(key: string, source: Source): FrameworkExample[] {
   const usesImplicit = source.react.includes('<ImplicitSelect');
@@ -74,7 +164,7 @@ function examples(key: string, source: Source): FrameworkExample[] {
   const html = source.html.replace(/<select(?![^>]*data-component=)/g, '<select data-component="Select"');
   return [
     { id: 'html', label: 'HTML', fileName: `apps/html/src/components/form/Select/Select.html · ${key}`, code: html },
-    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Select/select.njk · ${key}`, code: html },
+    { id: 'gulp', label: 'Gulp', fileName: `apps/gulp/src/components/form/Select/select.njk · ${key}`, code: `${selectImport}\n\n${selectGulpExamples[key]}` },
     { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/select · ${key}`, code: vue },
     { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/select · ${key}`, code: vue },
     { id: 'react', label: 'React', fileName: `@uxkm/react/select · ${key}`, code: react },

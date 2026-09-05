@@ -41,9 +41,82 @@ function htmlCode(key: Name) {
   return `<span class="${classes}" data-tooltip${key === 'click' ? ' data-tooltip-trigger="click"' : ''}>\n  <button class="btn btn_outline tooltip_trigger" aria-describedby="tooltip-${key}">${item.label}</button>\n  <span class="tooltip_bubble" id="tooltip-${key}" role="tooltip" hidden>${key === 'noArrow' ? '' : '<span class="tooltip_arrow" aria-hidden="true"></span>'}${item.content}</span>\n</span>`;
 }
 
+const gulpImports = `{% from "components/feedback/Tooltip/tooltip.njk" import tooltip %}
+{% from "components/basic/Button/button.njk" import button %}`;
+
+function gulpCode(key: Name) {
+  const item = data[key];
+  if (key === 'slot') return `${gulpImports}
+
+{% set triggerContent %}
+  {{ button(variant='outline', label='슬롯 예시') }}
+{% endset %}
+
+{% call tooltip(
+  id='tooltip-slot',
+  triggerContent=triggerContent
+) %}
+  짧은 도움말 텍스트입니다.
+{% endcall %}`;
+  if (key === 'inline') return `{% from "components/feedback/Tooltip/tooltip.njk" import tooltip %}
+{% from "components/basic/Link/link.njk" import link %}
+
+{% set escrowLink %}
+  {{ link(label='에스크로') }}
+{% endset %}
+
+<p>
+  결제 시
+  {% call tooltip(
+    id='tooltip-inline',
+    triggerContent=escrowLink
+  ) %}
+    구매자가 상품 수령을 확인할 때까지 대금을 안전하게 보관하는 결제 방식입니다.
+  {% endcall %}
+  서비스를 이용할 수 있습니다.
+</p>`;
+  if (key === 'disabled') return `${gulpImports}
+
+{% set disabledButton %}
+  {{ button(label='제출 불가', disabled=true) }}
+{% endset %}
+
+{% call tooltip(
+  id='tooltip-disabled',
+  triggerContent=disabledButton,
+  triggerFocusable=true
+) %}
+  필수 항목을 모두 입력해야 제출할 수 있습니다.
+{% endcall %}`;
+
+  const options = [
+    `id='tooltip-${key}'`,
+    `triggerLabel='${item.label}'`,
+    key === 'open' && 'open=true',
+    key === 'size' && "size='sm'",
+    key === 'offset' && "offset='lg'",
+    key === 'click' && "trigger='click'",
+    key === 'placement' && "placement='top'",
+    key === 'inverse' && 'inverse=true',
+    key === 'arrowAnchor' && "arrowAnchor='target'",
+    key === 'noArrow' && 'noArrow=true',
+    key === 'open' || key === 'trigger' ? "triggerVariant='filled'" : '',
+    key === 'size' || key === 'offset' || key === 'arrowAnchor' ? "triggerVariant='ghost'" : '',
+    key === 'size' || key === 'offset' || key === 'placement' || key === 'arrowAnchor' ? "triggerSize='sm'" : '',
+    key === 'inverse' || key === 'noArrow' ? "triggerVariant='ghost'" : '',
+  ].filter(Boolean);
+  return `${gulpImports}
+
+{% call tooltip(
+  ${options.join(',\n  ')}
+) %}
+  ${item.content}
+{% endcall %}`;
+}
+
 function examples(key: Name): FrameworkExample[] {
   const html = htmlCode(key); const vue = vueCode(key); const react = reactCode(key);
-  return [{ id: 'html', label: 'HTML', fileName: `Tooltip.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `tooltip.njk · ${key}`, code: html }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/tooltip · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/tooltip · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/tooltip · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/tooltip · ${key}`, code: react }];
+  return [{ id: 'html', label: 'HTML', fileName: `Tooltip.html · ${key}`, code: html }, { id: 'gulp', label: 'Gulp', fileName: `tooltip.njk · ${key}`, code: gulpCode(key) }, { id: 'vue', label: 'Vue', fileName: `@uxkm/vue/tooltip · ${key}`, code: vue }, { id: 'nuxt', label: 'Nuxt', fileName: `@uxkm/vue/tooltip · ${key}`, code: vue }, { id: 'react', label: 'React', fileName: `@uxkm/react/tooltip · ${key}`, code: react }, { id: 'next', label: 'Next', fileName: `@uxkm/react/tooltip · ${key}`, code: react }];
 }
 
 export const tooltipFrameworkExamples = Object.fromEntries(names.map((key) => [key, examples(key)])) as Record<Name, FrameworkExample[]>;

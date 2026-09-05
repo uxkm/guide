@@ -41,6 +41,15 @@ const htmlAttributes: ApiRow[] = [
   { name: 'data-ripple', type: "'true' | 'false'", default: 'true', description: 'icon_button 클릭 파장 효과입니다.' }
 ];
 
+const gulpRows: ApiRow[] = [
+  { name: 'icon', type: 'macro', default: '—', description: '`{% from "components/basic/Icon/icon.njk" import icon %}`로 import한 뒤 `{{ icon(...) }}` 또는 `{% call %}`로 인스턴스를 만듭니다.' },
+  { name: 'name', type: 'string', default: "'plus'", description: '등록된 아이콘 이름입니다. `{% call %}` 본문이 있으면 커스텀 SVG가 우선합니다.' },
+  { name: 'size · color', type: 'string', default: "'md' · ''", description: '크기·색상입니다. md는 크기 클래스를 생략합니다.' },
+  { name: 'inline · spin', type: 'boolean', default: 'false', description: '텍스트 인라인 정렬과 회전 애니메이션입니다.' },
+  { name: 'button · circle · square · pulse', type: 'boolean', default: 'false', description: '버튼·원형·사각 래퍼와 펄스입니다. pulse는 circle과 함께 씁니다.' },
+  { name: 'ripple · ariaLabel · title · className', type: 'mixed', default: 'true · \'\' · \'\' · \'\'', description: '버튼 파장·접근성 이름·SVG title·추가 클래스입니다.' }
+];
+
 const webSquareRows: ApiRow[] = [
   { name: 'w2:image', type: 'component', default: '—', description: '프로젝트에 등록한 SVG·PNG 아이콘 파일을 표시합니다.' },
   { name: 'src', type: 'URL', default: '—', description: 'WebSquare 프로젝트의 정적 아이콘 리소스 경로입니다.' },
@@ -78,7 +87,8 @@ export const iconApiSections: ApiSectionData[] = [
   { title: 'React · Next.js API · Children', tables: [{ columns, rows: [{ name: 'children', type: 'ReactNode', default: '—', description: 'path, circle 등 커스텀 SVG 도형입니다. name보다 우선합니다.' }] }] },
   { title: 'Vue · Nuxt API · Props', description: 'Nuxt는 `@uxkm/vue/icon`을 재사용합니다.', tables: [{ columns, rows: vueProps }] },
   { title: 'Vue · Nuxt API · Slots', tables: [{ columns, rows: vueSlots }] },
-  { title: 'HTML · Gulp API · Markup', description: 'HTML과 Gulp는 SVG와 래퍼에 네이티브 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlAttributes }] },
+  { title: 'HTML API · Markup', description: 'HTML은 SVG와 래퍼에 네이티브 속성과 공통 클래스를 직접 적용합니다.', tables: [{ columns, rows: htmlAttributes }] },
+  { title: 'Gulp API · Nunjucks', description: '`icon` macro를 import하고 `{{ icon(...) }}`로 조합합니다. 커스텀 path는 `{% call icon(...) %}` 본문에 둡니다.', tables: [{ columns, rows: gulpRows }] },
   { title: 'WebSquare API · XML', description: 'WebSquare에서는 w2:image로 프로젝트 정적 아이콘 리소스를 표시하고, 클릭 가능한 아이콘은 xf:trigger로 구성합니다.', tables: [{ columns, rows: webSquareRows }] },
   { title: '공통 API · 클래스', tables: [{ columns, rows: classes }] },
   { title: '공통 API · 디자인 토큰', tables: [{ columns, rows: tokens }] }
