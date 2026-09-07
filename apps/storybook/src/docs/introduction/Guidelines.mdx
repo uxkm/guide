@@ -22,9 +22,9 @@ import DocsTable from '../../shared/DocsTable';
   label="프레임워크별 회원가입 데모"
   columns={['프레임워크', '로컬 실행 명령', '데모 페이지']}
   rows={[
-    ['Gulp / Nunjucks', 'pnpm dev:gulp', <a href={import.meta.env.PROD ? '/apps/gulp/signup.html' : 'http://localhost:6102/signup.html'} target="_blank" rel="noopener noreferrer">Gulp 회원가입 데모 (새 창)</a>],
-    ['Vue', 'pnpm dev:vue', <a href={import.meta.env.PROD ? '/apps/vue/signup/' : 'http://localhost:6103/signup'} target="_blank" rel="noopener noreferrer">Vue 회원가입 데모 (새 창)</a>],
-    ['React', 'pnpm dev:react', <a href={import.meta.env.PROD ? '/apps/react/signup/' : 'http://localhost:6104/signup'} target="_blank" rel="noopener noreferrer">React 회원가입 데모 (새 창)</a>]
+    ['Gulp / Nunjucks', 'pnpm dev:gulp', <a href={import.meta.env.PROD ? 'https://guide.uxkm.io/apps/gulp/signup.html' : 'http://localhost:6102/signup.html'} target="_blank" rel="noopener noreferrer">Gulp 회원가입 데모 (새 창)</a>],
+    ['Vue', 'pnpm dev:vue', <a href={import.meta.env.PROD ? 'https://guide.uxkm.io/apps/vue/signup/' : 'http://localhost:6103/signup'} target="_blank" rel="noopener noreferrer">Vue 회원가입 데모 (새 창)</a>],
+    ['React', 'pnpm dev:react', <a href={import.meta.env.PROD ? 'https://guide.uxkm.io/apps/react/signup/' : 'http://localhost:6104/signup'} target="_blank" rel="noopener noreferrer">React 회원가입 데모 (새 창)</a>]
   ]}
   codeColumns={[1]}
 />
