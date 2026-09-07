@@ -28,9 +28,9 @@ async function signupBundle() {
       outDir: 'dist/scripts',
       emptyOutDir: false,
       lib: {
-        entry: 'src/scripts/signup.js',
+        entry: { signup: 'src/scripts/signup.js', main: 'src/scripts/main.js' },
         formats: ['es'],
-        fileName: () => 'signup.js',
+        fileName: (_format, name) => `${name}.js`,
         cssFileName: 'signup',
       },
     },

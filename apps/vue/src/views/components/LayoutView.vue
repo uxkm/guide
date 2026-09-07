@@ -3,7 +3,7 @@
     <div class="container container_lg">
       <header class="page_intro">
         <p class="color_accent size_sm">
-          <a class="link color_accent" href="/components" @click.prevent="goComponents">컴포넌트</a>
+          <a class="link color_accent" :href="baseUrl + 'components'" @click.prevent="goComponents">컴포넌트</a>
           · Layout
         </p>
         <h1>Layout</h1>
@@ -45,7 +45,7 @@
       </DemoSection>
 
       <p>
-        <a class="link color_primary" href="/components" @click.prevent="goComponents"
+        <a class="link color_primary" :href="baseUrl + 'components'" @click.prevent="goComponents"
           >← 컴포넌트 목록</a
         >
       </p>
@@ -54,6 +54,7 @@
 </template>
 
 <script setup>
+const baseUrl = import.meta.env.BASE_URL;
 import Container from '@uxkm/vue/container';
 import Divider from '@uxkm/vue/divider';
 import Flex from '@uxkm/vue/flex';

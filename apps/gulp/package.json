@@ -4,9 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "gulp dev"
+    "dev": "gulp dev",
+    "build": "gulp build"
   },
   "dependencies": {
+    "@uxkm/demo": "workspace:*",
     "@uxkm/html": "workspace:*",
     "@uxkm/interactions": "workspace:*",
     "swiper": "12.0.3"

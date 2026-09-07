@@ -21,13 +21,14 @@
       </section>
 
       <p>
-        <a class="link color_primary" href="/" @click.prevent="goHome">← 홈으로</a>
+        <a class="link color_primary" :href="baseUrl + ''" @click.prevent="goHome">← 홈으로</a>
       </p>
     </div>
   </main>
 </template>
 
 <script setup>
+const baseUrl = import.meta.env.BASE_URL;
 import { DEMO_CATEGORIES } from '../demo/categories.js';
 import DemoLink from '../demo/DemoLink.vue';
 import { navigate } from '../router/index.js';

@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from 'node:child_process';
-import { cp, mkdtemp, readdir, rm, stat } from 'node:fs/promises';
+import { cp, mkdtemp, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -55,7 +55,7 @@ async function deployStorybook(worktree) {
 }
 
 const sourceStatus = git(['status', '--porcelain']);
-if (sourceStatus) {
+if (sourceStatus && !process.argv.includes('--allow-dirty')) {
   throw new Error('배포 전 dev 작업 트리를 커밋하거나 정리해야 합니다.');
 }
 
@@ -77,19 +77,33 @@ try {
   git(['worktree', 'add', worktree, 'main'], { stdio: 'inherit' });
   worktreeAdded = true;
 
+  if (target === 'all') {
+    const ignorePath = join(worktree, '.gitignore');
+    const ignore = await readFile(ignorePath, 'utf8');
+    const marker = '# Published framework demos';
+    if (!ignore.includes(marker)) {
+      await writeFile(ignorePath, `${ignore}\n${marker}\n!apps/\napps/*\n!apps/gulp/\n!apps/gulp/**\n!apps/vue/\n!apps/vue/**\n!apps/react/\n!apps/react/**\n`);
+    }
+    for (const app of ['gulp', 'vue', 'react']) {
+      const source = join(workspaceRoot, 'apps', app, 'dist');
+      await assertDirectory(source, app);
+      await replaceDirectory(source, join(worktree, 'apps', app));
+    }
+  }
+
   if (target === 'guidebook' || target === 'all') await deployGuidebook(worktree);
   if (target === 'storybook' || target === 'all') await deployStorybook(worktree);
 
   const paths = target === 'guidebook'
     ? ['assets', 'components', 'foundations', 'guides', 'images', 'index.html']
-    : target === 'storybook' ? ['storybook'] : ['assets', 'components', 'foundations', 'guides', 'images', 'index.html', 'storybook'];
+    : target === 'storybook' ? ['storybook'] : ['.gitignore', 'assets', 'components', 'foundations', 'guides', 'images', 'index.html', 'storybook', 'apps/gulp', 'apps/vue', 'apps/react'];
 
   git(['add', '--', ...paths], { cwd: worktree });
   const diff = spawnSync('git', ['diff', '--cached', '--quiet'], { cwd: worktree, stdio: 'ignore' });
   if (diff.status === 0) {
     console.log(`main 브랜치에 반영할 변경 사항이 없습니다: ${target}`);
   } else if (diff.status === 1) {
-    const label = target === 'all' ? 'Guidebook and Storybook' : target === 'guidebook' ? 'Guidebook' : 'Storybook';
+    const label = target === 'all' ? 'Gulp, Vue, React demos, Guidebook and Storybook' : target === 'guidebook' ? 'Guidebook' : 'Storybook';
     git(['commit', '-m', `Deploy ${label} build`], { cwd: worktree, stdio: 'inherit' });
     git(['push', 'origin', 'main'], { cwd: worktree, stdio: 'inherit' });
     console.log(`main 브랜치 배포 완료: ${target}`);

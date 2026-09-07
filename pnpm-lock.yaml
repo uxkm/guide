@@ -100,6 +100,9 @@ importers:
 
   apps/gulp:
     dependencies:
+      '@uxkm/demo':
+        specifier: workspace:*
+        version: link:../../packages/demo
       '@uxkm/html':
         specifier: workspace:*
         version: link:../html
@@ -185,6 +188,9 @@ importers:
 
   apps/react:
     dependencies:
+      '@uxkm/demo':
+        specifier: workspace:*
+        version: link:../../packages/demo
       '@uxkm/html':
         specifier: workspace:*
         version: link:../html
@@ -349,6 +355,9 @@ importers:
 
   apps/vue:
     dependencies:
+      '@uxkm/demo':
+        specifier: workspace:*
+        version: link:../../packages/demo
       '@uxkm/html':
         specifier: workspace:*
         version: link:../html
@@ -372,6 +381,8 @@ importers:
   apps/websquare: {}
 
   packages/assets: {}
+
+  packages/demo: {}
 
   packages/interactions: {}
 

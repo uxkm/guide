@@ -14,6 +14,7 @@ const uxkmAliases = Object.fromEntries(
 );
 
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/apps/vue/' : '/',
   plugins: [vue()],
   publicDir: 'public',
   resolve: {

@@ -1,14 +1,18 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 
-const path = ref(typeof location !== 'undefined' ? location.pathname : '/');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const currentPath = () => (location.pathname.slice(base.length).replace(/\/$/, '') || '/');
+export const routeHref = (to) => base + to;
+
+const path = ref(typeof location !== 'undefined' ? currentPath() : '/');
 
 function sync() {
-  path.value = location.pathname;
+  path.value = currentPath();
 }
 
 export function navigate(to) {
   if (to === path.value) return;
-  history.pushState(null, '', to);
+  history.pushState(null, '', routeHref(to));
   path.value = to;
   window.scrollTo(0, 0);
 }

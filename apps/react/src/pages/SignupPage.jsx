@@ -51,8 +51,8 @@ import { Tooltip } from '@uxkm/react/tooltip';
 import { Tree, TreeNode } from '@uxkm/react/tree';
 import { TypoTitle } from '@uxkm/react/typography';
 import { Upload } from '@uxkm/react/upload';
-import { initSignup } from '../../../../packages/demo/signup.js';
-import '../../../../packages/demo/signup.css';
+import { initSignup } from '@uxkm/demo/signup.js';
+import '@uxkm/demo/signup.css';
 export default function SignupPage() {
   const [modal, setModal] = useState(false);
   const [drawer, setDrawer] = useState(false);
@@ -79,7 +79,7 @@ export default function SignupPage() {
       </a>
       <header className="join_header">
         <Navbar
-          brandSrc="/images/brand/uxkm_logo_hand.svg"
+          brandSrc={import.meta.env.BASE_URL + 'images/brand/uxkm_logo_hand.svg'}
           brandAlt="UXKM"
           brandHref="/"
           navLabel="주요 메뉴"
@@ -116,7 +116,7 @@ export default function SignupPage() {
         <main id="join-main" tabIndex={-1}>
           <div className="join_hero">
             <Breadcrumb>
-              <BreadcrumbItem label="홈" href="/" />
+              <BreadcrumbItem label="홈" href={import.meta.env.BASE_URL + ''} />
               <BreadcrumbItem label="회원가입" current={true} />
             </Breadcrumb>
             <p className="join_eyebrow">JOIN OUR COMMUNITY</p>

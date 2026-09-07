@@ -11,7 +11,7 @@
       <section class="section" aria-labelledby="vue-start-title">
         <h2 id="vue-start-title">개발 서버가 정상적으로 실행되었습니다</h2>
         <div class="card_grid">
-          <a class="category_card" href="/signup"
+          <a class="category_card" :href="baseUrl + 'signup'"
             ><h3>회원가입 통합 데모</h3>
             <p>전체 컴포넌트를 활용한 한 페이지 회원가입 UI를 체험합니다.</p>
             <span class="count">통합 데모 열기 →</span></a
@@ -31,7 +31,7 @@
             <p>Vue 컴포넌트를 카테고리별로 확인합니다.</p>
             <span class="count">데모 열기 →</span>
           </DemoLink>
-          <a class="category_card" href="http://localhost:6006">
+          <a class="category_card" :href="storybookUrl">
             <h3>Storybook</h3>
             <p>전체 컴포넌트 문서와 예제를 확인합니다.</p>
             <span class="count">문서 열기 →</span>
@@ -43,5 +43,7 @@
 </template>
 
 <script setup>
+const storybookUrl = import.meta.env.PROD ? "/storybook/" : "http://localhost:6006";
+const baseUrl = import.meta.env.BASE_URL;
 import DemoLink from '../demo/DemoLink.vue';
 </script>

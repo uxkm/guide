@@ -1,11 +1,11 @@
 <template>
-  <a :href="to" class="category_card" @click.prevent="onClick">
+  <a :href="routeHref(to)" class="category_card" @click.prevent="onClick">
     <slot />
   </a>
 </template>
 
 <script setup>
-import { navigate } from '../router/index.js';
+import { navigate, routeHref } from '../router/index.js';
 
 const props = defineProps({
   to: { type: String, required: true },

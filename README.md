@@ -266,7 +266,7 @@ build/
 └── storybook/       # Storybook 정적 빌드
 ```
 
-프레임워크 앱은 현재 개발 서버용이며 루트 `build` 명령의 정적 배포 대상에는 포함되지 않습니다.
+`pnpm build:demos`는 Gulp, Vue, React 데모를 각 앱의 `dist`에 빌드합니다. Vue/React는 하위 페이지 직접 접근과 새로고침을 위한 정적 진입점도 생성합니다.
 
 ## 배포
 
@@ -276,7 +276,7 @@ pnpm deploy:guidebook
 pnpm deploy:storybook
 ```
 
-배포 스크립트는 해당 문서를 빌드하고 임시 Git worktree에서 `main` 브랜치에 반영한 뒤 `origin/main`으로 push합니다.
+`pnpm deploy`는 데모 3종과 문서를 모두 빌드하고 임시 Git worktree에서 `main` 브랜치에 반영한 뒤 `origin/main`으로 push합니다.
 
 배포 전 조건:
 
@@ -284,7 +284,9 @@ pnpm deploy:storybook
 - 로컬 `main`에 `origin/main`에 없는 커밋이 없어야 합니다.
 - `origin` 원격 저장소에 접근하고 push할 권한이 있어야 합니다.
 
-`dev` 브랜치는 소스와 설정을 관리하고, `main` 브랜치는 Guidebook과 `/storybook` 정적 결과를 관리합니다.
+`dev` 브랜치는 소스와 설정을 관리하고, `main` 브랜치는 Guidebook, `/storybook`, `/apps/gulp`, `/apps/vue`, `/apps/react` 정적 결과를 관리합니다.
+
+현재 미커밋 소스의 빌드를 배포하려면 빌드 완료 후 `node scripts/deploy-main.mjs all --allow-dirty`를 사용합니다. 소스 작업 트리는 그대로 유지됩니다.
 
 ## 컴포넌트 변경 순서
 

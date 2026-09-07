@@ -1,4 +1,5 @@
 <script setup>
+const baseUrl = import.meta.env.BASE_URL;
 import { ref, onMounted, onUnmounted, watchEffect } from 'vue';
 import { Accordion, AccordionItem } from '@uxkm/vue/accordion';
 import Affix from '@uxkm/vue/affix';
@@ -52,8 +53,8 @@ import Tooltip from '@uxkm/vue/tooltip';
 import { Tree, TreeNode } from '@uxkm/vue/tree';
 import { TypoTitle } from '@uxkm/vue/typography';
 import Upload from '@uxkm/vue/upload';
-import { initSignup } from '../../../../packages/demo/signup.js';
-import '../../../../packages/demo/signup.css';
+import { initSignup } from '@uxkm/demo/signup.js';
+import '@uxkm/demo/signup.css';
 const calendarDays = [
   { day: 30, other: true },
   { day: 31, other: true },
@@ -94,7 +95,7 @@ watchEffect(() => {
     <a href="#join-main" class="join_skip">본문 바로가기</a>
     <header class="join_header">
       <Navbar
-        brandSrc="/images/brand/uxkm_logo_hand.svg"
+        :brandSrc="baseUrl + 'images/brand/uxkm_logo_hand.svg'"
         brandAlt="UXKM"
         brandHref="/"
         navLabel="주요 메뉴"
@@ -131,7 +132,7 @@ watchEffect(() => {
       <main id="join-main" tabindex="-1">
         <div class="join_hero">
           <Breadcrumb>
-            <BreadcrumbItem label="홈" href="/" />
+            <BreadcrumbItem label="홈" :href="baseUrl + ''" />
             <BreadcrumbItem label="회원가입" :current="true" />
           </Breadcrumb>
           <p class="join_eyebrow">JOIN OUR COMMUNITY</p>

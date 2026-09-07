@@ -1,6 +1,6 @@
 import './main.js';
-import { initSignup } from '../../../../packages/demo/signup.js';
-import '../../../../packages/demo/signup.css';
+import { initSignup } from '@uxkm/demo/signup.js';
+import '@uxkm/demo/signup.css';
 import { initTabs } from '../components/navigation/Tabs/tabs.js';
 import { initDropdown } from '../components/navigation/Dropdown/dropdown.js';
 import { initPagination } from '../components/navigation/Pagination/pagination.js';

@@ -14,7 +14,7 @@ export default function HomePage() {
         <section className="section" aria-labelledby="react-start-title">
           <h2 id="react-start-title">개발 서버가 정상적으로 실행되었습니다</h2>
           <div className="card_grid">
-            <a className="category_card" href="/signup">
+            <a className="category_card" href={import.meta.env.BASE_URL + 'signup'}>
               <h3>회원가입 통합 데모</h3>
               <p>전체 컴포넌트를 활용한 한 페이지 회원가입 UI를 체험합니다.</p>
               <span className="count">통합 데모 열기 →</span>
@@ -36,7 +36,7 @@ export default function HomePage() {
               <p>패키지 export로 불러온 컴포넌트를 카테고리별로 확인합니다.</p>
               <span className="count">데모 열기 →</span>
             </DemoLink>
-            <a className="category_card" href="http://localhost:6006">
+            <a className="category_card" href={import.meta.env.PROD ? "/storybook/" : "http://localhost:6006"}>
               <h3>Storybook</h3>
               <p>전체 컴포넌트 문서와 예제를 확인합니다.</p>
               <span className="count">문서 열기 →</span>

@@ -34,11 +34,12 @@
     "build:storybook": "pnpm build:shared && pnpm --filter @uxkm/storybook build-storybook",
     "build:websquare": "pnpm build:shared && pnpm --filter @uxkm/websquare build",
     "sync:websquare": "pnpm build:shared && pnpm --filter @uxkm/websquare sync",
-    "deploy": "pnpm build && node scripts/deploy-main.mjs all",
+    "deploy": "pnpm build:demos && pnpm build:docs && node scripts/deploy-main.mjs all",
     "deploy:guidebook": "pnpm build:guidebook && node scripts/deploy-main.mjs guidebook",
     "deploy:storybook": "pnpm build:storybook && node scripts/deploy-main.mjs storybook",
     "check:workspace": "pnpm --recursive list --depth -1",
-    "validate:structure": "node scripts/validate-components.mjs"
+    "validate:structure": "node scripts/validate-components.mjs",
+    "build:demos": "pnpm build:shared && node scripts/build-demos.mjs"
   },
   "devDependencies": {
     "prettier": "3.6.2",

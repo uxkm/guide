@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port 6104 --host"
+    "dev": "vite --port 6104 --host",
+    "build": "vite build"
   },
   "exports": {
     "./affix": "./src/components/miscellaneous/Affix/index.js",
@@ -62,6 +63,7 @@
     "./typography": "./src/components/basic/Typography/index.js"
   },
   "dependencies": {
+    "@uxkm/demo": "workspace:*",
     "@uxkm/html": "workspace:*",
     "@uxkm/interactions": "workspace:*",
     "react": "^19.2.8",

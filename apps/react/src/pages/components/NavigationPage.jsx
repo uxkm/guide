@@ -25,8 +25,8 @@ export default function NavigationPage() {
 
         <DemoSection id="breadcrumb" title="Breadcrumb" path="@uxkm/react/breadcrumb">
           <Breadcrumb>
-            <BreadcrumbItem label="홈" href="/" />
-            <BreadcrumbItem label="컴포넌트" href="/components" />
+            <BreadcrumbItem label="홈" href={import.meta.env.BASE_URL + ''} />
+            <BreadcrumbItem label="컴포넌트" href={import.meta.env.BASE_URL + 'components'} />
             <BreadcrumbItem label="Navigation" current />
           </Breadcrumb>
         </DemoSection>

@@ -15,6 +15,7 @@ const aliases = Object.fromEntries(
 );
 
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/apps/react/' : '/',
   plugins: [react()],
   publicDir: 'public',
   resolve: { alias: aliases },
