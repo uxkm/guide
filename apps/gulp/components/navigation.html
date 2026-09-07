@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
+    <meta name="theme-color" content="#f4f6f9">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('uxkm-gulp-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' ? '#0f1419' : '#f4f6f9'
+          );
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="/apps/gulp/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="/apps/gulp/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/apps/gulp/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apps/gulp/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/apps/gulp/images/meta/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/apps/gulp/styles/uxkm.css">
+    <link rel="stylesheet" href="/apps/gulp/styles/gulp-demo.css">
+    <title>UXKM Gulp · Navigation</title>
+  </head>
+  <body>
+    <div class="gulp_theme-bar" role="region" aria-label="테마 설정">
+      <button
+        type="button"
+        class="guide_header-theme-btn"
+        id="gulp-theme-toggle"
+        aria-label="다크 모드로 전환"
+        aria-pressed="false"
+      >
+        <svg class="icon guide_header-theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"></path>
+        </svg>
+        <svg class="icon guide_header-theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+      </button>
+    </div>
+    
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/apps/gulp/components.html">컴포넌트</a> · Navigation</p>
+      <h1>Navigation</h1>
+      <p class="lead">Navigation 컴포넌트는 호출형 매크로와 공통 기본 컴포넌트로 렌더합니다.</p>
+    </header>
+
+    
+
+<section class="section" id="breadcrumb" aria-labelledby="breadcrumb-title">
+  <h2 id="breadcrumb-title">Breadcrumb</h2>
+  <p><code class="typo_code">components/navigation/Breadcrumb/breadcrumb.njk</code></p>
+  <div class="component_demo">
+    
+      <nav
+  class="breadcrumb"
+  aria-label="Navigation 경로"
+  data-component="Breadcrumb"
+>
+  <ol class="breadcrumb_list">
+    
+      
+        
+<li
+  class="breadcrumb_item"
+  
+  
+>
+  
+    <a
+      class="breadcrumb_link"
+      href="/apps/gulp/"
+      
+    >
+      홈
+    </a>
+  
+</li>
+
+        
+<li
+  class="breadcrumb_item"
+  
+  
+>
+  
+    <a
+      class="breadcrumb_link"
+      href="/apps/gulp/components.html"
+      
+    >
+      컴포넌트
+    </a>
+  
+</li>
+
+        
+<li
+  class="breadcrumb_item is-current"
+  aria-current="page"
+  
+>
+  
+    <span class="breadcrumb_current">Navigation</span>
+  
+</li>
+
+      
+    
+  </ol>
+</nav>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="navbar" aria-labelledby="navbar-title">
+  <h2 id="navbar-title">Navbar</h2>
+  <p><code class="typo_code">components/navigation/Navbar/navbar.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <header
+  class="navbar"
+  data-component="Navbar"
+  
+>
+  <div class="navbar_container">
+    
+<a
+  href="#"
+  class="navbar_brand"
+  
+>
+  
+    
+    UXKM
+  
+</a>
+
+    
+    <div class="navbar_collapse" id="navbar-collapse">
+      <nav class="navbar_nav" aria-label="주요 메뉴">
+        
+        
+<ul class="navbar_list">
+  
+          
+<li class="navbar_item">
+  <a
+    href="#"
+    class="navbar_link is-active"
+    aria-current="page"
+    
+  >
+    
+    <span class="navbar_link-label">개요</span>
+    
+  </a>
+</li>
+
+          
+<li class="navbar_item">
+  <a
+    href="#"
+    class="navbar_link"
+    
+    
+  >
+    
+    <span class="navbar_link-label">가이드</span>
+    
+  </a>
+</li>
+
+          
+<li class="navbar_item">
+  <a
+    href="#"
+    class="navbar_link"
+    
+    
+  >
+    
+    <span class="navbar_link-label">컴포넌트</span>
+    
+  </a>
+</li>
+
+        
+</ul>
+
+      
+      </nav>
+      
+      
+    </div>
+  </div>
+</header>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="menu" aria-labelledby="menu-title">
+  <h2 id="menu-title">Menu</h2>
+  <p><code class="typo_code">components/navigation/Menu/menu.njk</code></p>
+  <div class="component_demo">
+    
+      <nav
+  class="menu menu_vertical menu_bordered"
+  data-component="Menu"
+  data-menu-selectable
+  aria-label="주요 메뉴"
+>
+  <ul class="menu_list">
+    
+        <li class="menu_item">
+  <button
+    class="menu_link is-active"
+    type="button"
+    aria-current="page"
+    
+    
+  >
+    
+    <span class="menu_label">대시보드</span>
+    
+  </button>
+</li>
+
+        <li class="menu_item">
+  <button
+    class="menu_link"
+    type="button"
+    
+    
+    
+  >
+    
+    <span class="menu_label">프로젝트</span>
+    
+  </button>
+</li>
+
+        <li class="menu_item">
+  <button
+    class="menu_link"
+    type="button"
+    
+    
+    
+  >
+    
+    <span class="menu_label">설정</span>
+    
+  </button>
+</li>
+
+      
+  </ul>
+</nav>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="dropdown" aria-labelledby="dropdown-title">
+  <h2 id="dropdown-title">Dropdown</h2>
+  <p><code class="typo_code">components/navigation/Dropdown/dropdown.njk</code></p>
+  <div class="component_demo">
+    
+      <div
+  class="dropdown is-open"
+  data-component="Dropdown"
+  data-dropdown
+  
+  
+>
+  
+    <button
+  class="btn btn_outline color_default dropdown_trigger"
+  data-component="Button"
+  data-ripple="false"
+  type="button"
+  
+  
+  
+  
+  
+  
+  aria-controls="dropdown-menu" 
+  aria-haspopup="menu"
+  aria-expanded="true"
+  
+  
+  
+><span class="btn_label">옵션</span><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg></button>
+
+
+  
+  <div
+    id="dropdown-menu"
+    class="dropdown_menu"
+    role="menu"
+    aria-hidden="false"
+    
+  >
+    
+        <nav
+  class="menu menu_vertical menu_compact"
+  data-component="Menu"
+  data-menu-selectable
+  aria-label="옵션 메뉴"
+>
+  <ul class="menu_list">
+    
+          <li class="menu_item">
+  <button
+    class="menu_link"
+    type="button"
+    
+    
+    
+  >
+    
+    <span class="menu_label">편집</span>
+    
+  </button>
+</li>
+
+          <li class="menu_item">
+  <button
+    class="menu_link"
+    type="button"
+    
+    
+    
+  >
+    
+    <span class="menu_label">복제</span>
+    
+  </button>
+</li>
+
+          <li class="menu_item">
+  <button
+    class="menu_link"
+    type="button"
+    
+    
+    
+  >
+    
+    <span class="menu_label">삭제</span>
+    
+  </button>
+</li>
+
+        
+  </ul>
+</nav>
+
+      
+  </div>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="tabs" aria-labelledby="tabs-title">
+  <h2 id="tabs-title">Tabs</h2>
+  <p><code class="typo_code">components/navigation/Tabs/tabs.njk</code></p>
+  <div class="component_demo">
+    
+      
+      
+      <div
+  class="tabs tabs_line"
+  data-component="Tabs"
+  data-tabs
+>
+  <div class="tabs_bar">
+    
+    <div class="tabs_list-wrap">
+      <div class="tabs_list" role="tablist" aria-label="설정 탭" aria-orientation="horizontal">
+        
+        
+        
+<button
+  type="button"
+  class="tabs_tab is-active"
+  role="tab"
+  id="demo-tab-1"
+  aria-selected="true"
+  aria-controls="demo-panel-1"
+  
+  
+>
+  
+  <span class="tabs_label">일반</span>
+  
+</button>
+
+        
+<button
+  type="button"
+  class="tabs_tab"
+  role="tab"
+  id="demo-tab-2"
+  aria-selected="false"
+  aria-controls="demo-panel-2"
+  tabindex="-1"
+  
+>
+  
+  <span class="tabs_label">상세</span>
+  
+</button>
+
+        
+<button
+  type="button"
+  class="tabs_tab"
+  role="tab"
+  id="demo-tab-3"
+  aria-selected="false"
+  aria-controls="demo-panel-3"
+  tabindex="-1"
+  
+>
+  
+  <span class="tabs_label">설정</span>
+  
+</button>
+
+      
+      </div>
+    </div>
+    
+    
+  </div>
+  <div class="tabs_panels">
+        <div
+  class="tabs_panel is-active"
+  role="tabpanel"
+  id="demo-panel-1"
+  aria-labelledby="demo-tab-1"
+  
+>일반 탭 패널입니다.</div>
+
+        <div
+  class="tabs_panel"
+  role="tabpanel"
+  id="demo-panel-2"
+  aria-labelledby="demo-tab-2"
+  hidden
+>상세 탭 패널입니다.</div>
+
+        <div
+  class="tabs_panel"
+  role="tabpanel"
+  id="demo-panel-3"
+  aria-labelledby="demo-tab-3"
+  hidden
+>설정 탭 패널입니다.</div>
+
+      </div>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="steps" aria-labelledby="steps-title">
+  <h2 id="steps-title">Steps</h2>
+  <p><code class="typo_code">components/navigation/Steps/steps.njk</code></p>
+  <div class="component_demo">
+    
+      <ol
+  class="steps"
+  aria-label="계정 설정 단계"
+  data-component="Steps"
+  data-steps
+>
+  
+    
+        <li
+  class="steps_item is-finished"
+  data-step-index="1"
+  
+  
+>
+  
+  <span class="steps_head">
+    <span class="steps_indicator" aria-hidden="true">
+      <svg
+  class="icon steps_icon"
+  data-component="Icon"
+  data-icon="check"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m5 12 4 4L19 6"></path>
+
+</svg>
+      
+    </span>
+    <span class="steps_tail" aria-hidden="true"></span>
+  </span>
+  <span class="steps_content">
+    <span class="steps_title">계정</span>
+    <span class="steps_desc">기본 정보</span>
+  </span>
+  
+</li>
+
+        <li
+  class="steps_item is-active"
+  data-step-index="2"
+  
+  aria-current="step"
+>
+  
+  <span class="steps_head">
+    <span class="steps_indicator" aria-hidden="true">
+      <span class="steps_index">2</span>
+    </span>
+    <span class="steps_tail" aria-hidden="true"></span>
+  </span>
+  <span class="steps_content">
+    <span class="steps_title">프로필</span>
+    <span class="steps_desc">추가 정보</span>
+  </span>
+  
+</li>
+
+        <li
+  class="steps_item is-wait"
+  data-step-index="3"
+  
+  
+>
+  
+  <span class="steps_head">
+    <span class="steps_indicator" aria-hidden="true">
+      <span class="steps_index">3</span>
+    </span>
+    
+  </span>
+  <span class="steps_content">
+    <span class="steps_title">완료</span>
+    <span class="steps_desc">확인</span>
+  </span>
+  
+</li>
+
+      
+  
+</ol>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="pagination" aria-labelledby="pagination-title">
+  <h2 id="pagination-title">Pagination</h2>
+  <p><code class="typo_code">components/navigation/Pagination/pagination.njk</code></p>
+  <div class="component_demo">
+    
+      <nav
+  class="pagination"
+  aria-label="페이지 이동"
+  data-component="Pagination"
+  data-pagination
+  data-current="2"
+  data-total="50"
+  data-page-size="10"
+>
+  
+    <ul class="pagination_list" data-pagination-list>
+      <li class="pagination_item">
+  <button
+  class="btn btn_ghost btn_sm btn_icon-only pagination_btn pagination_prev"
+  data-component="Button"
+  data-ripple="false"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="이전 페이지"
+  data-pagination-prev 
+  
+  
+  
+  
+  
+><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="chevron-left"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m15 6-6 6 6 6"></path>
+
+</svg></button>
+
+
+</li>
+      <li class="pagination_item" data-pagination-next-item>
+  <button
+  class="btn btn_ghost btn_sm btn_icon-only pagination_btn pagination_next"
+  data-component="Button"
+  data-ripple="false"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="다음 페이지"
+  data-pagination-next 
+  
+  
+  
+  
+  
+><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="chevron-right"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m9 6 6 6-6 6"></path>
+
+</svg></button>
+
+
+</li>
+    </ul>
+  
+</nav>
+
+    
+  </div>
+</section>
+
+
+    <p><a class="link color_primary" href="/apps/gulp/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var button = document.getElementById('gulp-theme-toggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('uxkm-gulp-theme', theme);
+          } catch (e) {}
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1419' : '#f4f6f9');
+          if (button) {
+            var isDark = theme === 'dark';
+            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            button.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+          }
+        }
+
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        button?.addEventListener('click', function () {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
+  </body>
+</html>

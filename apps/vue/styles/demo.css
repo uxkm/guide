@@ -1,0 +1,50 @@
+/* 프레임워크 컴포넌트 데모 페이지 공통 */
+.component_demo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md, 1rem);
+  padding: var(--space-lg, 1.25rem);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 0.5rem);
+  background: var(--color-surface, #fff);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.component_demo > .container,
+.component_demo > .navbar,
+.component_demo > .modal,
+.component_demo > .drawer,
+.component_demo > .carousel {
+  align-self: stretch;
+}
+
+.demo_theme-bar {
+  position: fixed;
+  top: var(--space-md, 1rem);
+  right: var(--space-md, 1rem);
+  z-index: 200;
+}
+
+.demo_theme-bar .guide_header-theme-btn .icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.demo_theme-bar .guide_header-theme-icon-sun {
+  display: none;
+}
+
+.demo_theme-bar .guide_header-theme-icon-moon {
+  display: block;
+}
+
+[data-theme="dark"] .demo_theme-bar .guide_header-theme-icon-sun {
+  display: block;
+}
+
+[data-theme="dark"] .demo_theme-bar .guide_header-theme-icon-moon {
+  display: none;
+}

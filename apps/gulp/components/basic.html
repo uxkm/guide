@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
+    <meta name="theme-color" content="#f4f6f9">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('uxkm-gulp-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' ? '#0f1419' : '#f4f6f9'
+          );
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="/apps/gulp/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="/apps/gulp/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/apps/gulp/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apps/gulp/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/apps/gulp/images/meta/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/apps/gulp/styles/uxkm.css">
+    <link rel="stylesheet" href="/apps/gulp/styles/gulp-demo.css">
+    <title>UXKM Gulp · Basic</title>
+  </head>
+  <body>
+    <div class="gulp_theme-bar" role="region" aria-label="테마 설정">
+      <button
+        type="button"
+        class="guide_header-theme-btn"
+        id="gulp-theme-toggle"
+        aria-label="다크 모드로 전환"
+        aria-pressed="false"
+      >
+        <svg class="icon guide_header-theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"></path>
+        </svg>
+        <svg class="icon guide_header-theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+      </button>
+    </div>
+    
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/apps/gulp/components.html">컴포넌트</a> · Basic</p>
+      <h1>Basic</h1>
+      <p class="lead">기본 요소 컴포넌트를 Nunjucks macro로 렌더합니다.</p>
+    </header>
+
+    
+
+<section class="section" id="button" aria-labelledby="button-title">
+  <h2 id="button-title">Button</h2>
+  <p><code class="typo_code">components/basic/Button/button.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="btn_row btn_row-wrap">
+        <button
+  class="btn btn_filled color_primary"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">Filled Primary</span></button>
+
+        <button
+  class="btn btn_outline color_primary"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">Outline</span></button>
+
+        <button
+  class="btn btn_ghost"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">Ghost</span></button>
+
+        <button
+  class="btn btn_text color_primary"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">Text</span></button>
+
+        <button
+  class="btn btn_select color_primary"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  aria-haspopup="listbox"
+  
+  
+  
+  
+><span class="btn_label">옵션 선택</span><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="chevron"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m9 6 6 6-6 6"></path>
+
+</svg></button>
+
+        <button
+  class="btn btn_ghost btn_icon-only"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="검색"
+  
+  
+  
+  
+  
+  
+><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="search"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+
+</svg></button>
+
+        <button
+  class="btn btn_filled color_primary is-loading"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  aria-busy="true"
+  
+><span class="btn_spinner" aria-hidden="true"></span><span class="btn_label">저장 중</span></button>
+
+      </div>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="icon" aria-labelledby="icon-title">
+  <h2 id="icon-title">Icon</h2>
+  <p><code class="typo_code">components/basic/Icon/icon.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="icon_group">
+        <svg
+  class="icon"
+  data-component="Icon"
+  data-icon="search"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+
+</svg>
+        <svg
+  class="icon"
+  data-component="Icon"
+  data-icon="edit"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M4 20h4L19 9l-4-4L4 16v4Z"></path>
+<path d="m13.5 6.5 4 4"></path>
+
+</svg>
+        <svg
+  class="icon"
+  data-component="Icon"
+  data-icon="trash"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M4 7h16M9 7V4h6v3m-9 0 1 14h10l1-14M10 11v6m4-6v6"></path>
+
+</svg>
+        <svg
+  class="icon icon_lg color_primary"
+  data-component="Icon"
+  data-icon="plus"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M12 5v14M5 12h14"></path>
+
+</svg>
+        <span
+  class="icon_circle color_success icon_circle-sm"
+  aria-hidden="true"
+>
+  <svg
+    class="icon icon_sm"
+    data-component="Icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    
+
+<path d="m5 12 4 4L19 6"></path>
+
+</svg>
+</span>
+        <button
+  class="icon_button color_muted"
+  type="button"
+  data-ripple="true"
+  aria-label="설정"
+>
+  <svg
+    class="icon"
+    data-component="Icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    
+
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a8 8 0 0 0-1.7-1L14.5 3h-5l-.4 3.1a8 8 0 0 0-1.7 1l-2.4-1-2 3.4L5.1 11a7 7 0 0 0 0 2L3 14.5l2 3.4 2.4-1a8 8 0 0 0 1.7 1l.4 3.1h5l.4-3.1a8 8 0 0 0 1.7-1l2.4 1 2-3.4-2.1-1.5a7 7 0 0 0 .1-1Z"></path>
+
+</svg>
+</button>
+        <svg
+  class="icon icon_spin color_primary"
+  data-component="Icon"
+  data-icon="loader"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M21 12a9 9 0 1 1-6.2-8.6"></path>
+
+</svg>
+      </div>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="link" aria-labelledby="link-title">
+  <h2 id="link-title">Link</h2>
+  <p><code class="typo_code">components/basic/Link/link.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="link_row">
+        <a
+  class="link color_primary"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  
+  
+>더 보기</a>
+
+        <a
+  class="link color_primary link_underline"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  
+  
+>항상 밑줄</a>
+
+        <a
+  class="link color_primary link_nav is-active"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  aria-current="page"
+  
+>개요</a>
+
+        <a
+  class="link color_muted link_back"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  
+  
+><svg
+  class="icon link_icon"
+  data-component="Icon"
+  data-icon="arrow-left"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M19 12H5m7 7-7-7 7-7"></path>
+
+</svg>목록으로 돌아가기</a>
+
+        <a
+  class="link color_primary link_icon-only"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  aria-label="검색"
+  
+  
+><svg
+  class="icon link_icon"
+  data-component="Icon"
+  data-icon="search"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m20 20-4-4"></path>
+
+</svg></a>
+
+        <a
+  class="link color_primary"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  
+  
+><svg
+  class="icon link_icon"
+  data-component="Icon"
+  data-icon="download"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path>
+
+</svg>다운로드</a>
+
+        <a
+  class="link color_primary is-disabled"
+  data-component="Link"
+  data-ripple="true"
+  href="#"
+  
+  
+  
+  
+  
+  
+  aria-disabled="true" tabindex="-1"
+>비활성 링크</a>
+
+      </div>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="typography" aria-labelledby="typography-title">
+  <h2 id="typography-title">Typography</h2>
+  <p><code class="typo_code">components/basic/Typography/typography.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="typo_stack-lg">
+        <h1 class="typo_title-1" data-component="TypoTitle">제목 레벨 1</h1>
+
+        <h3 class="typo_title-3" data-component="TypoTitle">제목 레벨 3</h3>
+
+        <p
+  
+  data-component="TypoText"
+  
+  
+  
+>기본 본문 텍스트입니다.</p>
+
+        <p
+  class="typo_paragraph"
+  data-component="TypoText"
+  
+  
+  
+>단락 간격이 있는 본문입니다.</p>
+
+        <p>
+          <strong
+  class="typo_strong"
+  data-component="TypoText"
+  
+  
+  
+>강조 텍스트</strong>
+와
+          <span
+  class="color_muted"
+  data-component="TypoText"
+  
+  
+  
+>보조 설명</span>
+
+        </p>
+        <div style="max-width: 320px; width: 100%;">
+          <p
+  class="text_ellipsis"
+  data-component="TypoText"
+  
+  
+  
+>한 줄로 말줄임되는 긴 본문입니다. Lorem ipsum dolor sit amet.</p>
+
+        </div>
+      </div>
+    
+  </div>
+</section>
+
+
+    <p><a class="link color_primary" href="/apps/gulp/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var button = document.getElementById('gulp-theme-toggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('uxkm-gulp-theme', theme);
+          } catch (e) {}
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1419' : '#f4f6f9');
+          if (button) {
+            var isDark = theme === 'dark';
+            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            button.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+          }
+        }
+
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        button?.addEventListener('click', function () {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
+  </body>
+</html>

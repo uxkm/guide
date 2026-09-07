@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
+    <meta name="theme-color" content="#f4f6f9">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('uxkm-gulp-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' ? '#0f1419' : '#f4f6f9'
+          );
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="/apps/gulp/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="/apps/gulp/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/apps/gulp/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apps/gulp/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/apps/gulp/images/meta/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/apps/gulp/styles/uxkm.css">
+    <link rel="stylesheet" href="/apps/gulp/styles/gulp-demo.css">
+    <title>UXKM Gulp · Form</title>
+  </head>
+  <body>
+    <div class="gulp_theme-bar" role="region" aria-label="테마 설정">
+      <button
+        type="button"
+        class="guide_header-theme-btn"
+        id="gulp-theme-toggle"
+        aria-label="다크 모드로 전환"
+        aria-pressed="false"
+      >
+        <svg class="icon guide_header-theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"></path>
+        </svg>
+        <svg class="icon guide_header-theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+      </button>
+    </div>
+    
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/apps/gulp/components.html">컴포넌트</a> · Form</p>
+      <h1>Form</h1>
+      <p class="lead">폼 컴포넌트를 include로 렌더합니다.</p>
+    </header>
+
+    
+
+<section class="section" id="input" aria-labelledby="input-title">
+  <h2 id="input-title">Input</h2>
+  <p><code class="typo_code">components/form/Input/input.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="form_field">
+  
+    <label class="form_field-label" for="input-name">
+      이름
+      
+    </label>
+  
+  
+        
+
+<span class="input_clearable">
+  
+<input
+  id="input-name"
+  
+  class="input"
+  type="text"
+  placeholder="이름을 입력하세요"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  data-component="Input"
+>
+  <button
+  class="btn btn_text color_muted btn_icon-only input_clear"
+  data-component="Button"
+  data-ripple="false"
+  type="button"
+  
+  
+  hidden
+  
+  
+  aria-label="입력 지우기"
+  
+  
+  
+  
+  
+  
+><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="close"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 6 12 12M18 6 6 18"></path>
+
+</svg></button>
+
+</span>
+
+
+      
+  
+    <p class="form_field-hint">2~20자 이내로 입력해 주세요.</p>
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="textarea" aria-labelledby="textarea-title">
+  <h2 id="textarea-title">Textarea</h2>
+  <p><code class="typo_code">components/form/Textarea/textarea.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="form_field">
+  
+    <label class="form_field-label" for="textarea-message">
+      메모
+      
+    </label>
+  
+  
+        
+
+<textarea
+  id="textarea-message"
+  
+  class="textarea textarea_resize_none"
+  rows="4"
+  
+  placeholder="내용을 입력하세요"
+  
+  
+  
+  
+  
+  
+  data-component="Textarea"
+></textarea>
+
+
+      
+  
+    <p id="textarea-message-hint" class="form_field-hint">문의 내용을 자세히 작성해 주세요.</p>
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="select" aria-labelledby="select-title">
+  <h2 id="select-title">Select</h2>
+  <p><code class="typo_code">components/form/Select/select.njk</code></p>
+  <div class="component_demo">
+    
+      
+      
+      <div class="form_field">
+  
+    <label class="form_field-label" for="select-option">
+      옵션
+      
+    </label>
+  
+  
+        <select
+  id="select-option"
+  
+  class="input"
+  
+  
+  
+  
+  
+  
+  
+  data-component="Select"
+>
+  <option value="" disabled selected>선택하세요</option>
+  
+    
+      
+        <option value="a">옵션 A</option>
+      
+    
+      
+        <option value="b">옵션 B</option>
+      
+    
+      
+        <option value="c">옵션 C</option>
+      
+    
+  
+</select>
+
+      
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="checkbox" aria-labelledby="checkbox-title">
+  <h2 id="checkbox-title">Checkbox</h2>
+  <p><code class="typo_code">components/form/Checkbox/checkbox.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="checkbox" data-ripple="true">
+  
+  <span class="checkbox_control">
+    
+<input
+  id="checkbox-terms"
+  
+  
+  type="checkbox"
+  class="checkbox_input"
+  
+  
+  
+  
+  
+  
+  data-component="Checkbox"
+>
+    <span class="checkbox_box" aria-hidden="true"></span>
+  </span>
+  <label class="checkbox_label" for="checkbox-terms">이용약관에 동의합니다</label>
+</div>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="radio" aria-labelledby="radio-title">
+  <h2 id="radio-title">Radio</h2>
+  <p><code class="typo_code">components/form/Radio/radio.njk</code></p>
+  <div class="component_demo">
+    
+      <label class="radio" data-ripple="true">
+  
+  <span class="radio_control">
+    
+<input
+  id="radio-option-a"
+  name="radio-options"
+  value="a"
+  type="radio"
+  class="radio_input"
+  
+  
+  
+  
+  
+  
+  data-component="Radio"
+>
+    <span class="radio_box" aria-hidden="true"></span>
+  </span>
+  <span class="radio_label">옵션 A</span>
+</label>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="switch" aria-labelledby="switch-title">
+  <h2 id="switch-title">Switch</h2>
+  <p><code class="typo_code">components/form/Switch/switch.njk</code></p>
+  <div class="component_demo">
+    
+      <label class="switch" data-ripple="true">
+  
+  <span class="switch_control">
+    <input
+      id="switch-notification"
+      
+      
+      class="switch_input"
+      type="checkbox"
+      role="switch"
+      
+      
+      
+      
+      
+      
+      data-component="Switch"
+    >
+    <span class="switch_track" aria-hidden="true"><span class="switch_thumb"></span></span>
+  </span>
+  <span class="switch_label">알림 받기</span>
+</label>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="slider" aria-labelledby="slider-title">
+  <h2 id="slider-title">Slider</h2>
+  <p><code class="typo_code">components/form/Slider/slider.njk</code></p>
+  <div class="component_demo">
+    
+      
+
+
+<div
+  class="slider"
+  data-component="Slider"
+  data-ripple="true"
+  style="--slider-progress: 50%;"
+>
+  
+  <div class="slider_header">
+    <label class="slider_label" for="slider-volume">볼륨</label>
+    <output class="slider_value" for="slider-volume">50</output>
+  </div>
+  
+  
+    <input
+      id="slider-volume"
+      
+      class="slider_input"
+      type="range"
+      min="0" max="100" step="1" value="50"
+      
+      
+      
+      
+    >
+  
+  
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="rate" aria-labelledby="rate-title">
+  <h2 id="rate-title">Rate</h2>
+  <p><code class="typo_code">components/form/Rate/rate.njk</code></p>
+  <div class="component_demo">
+    
+      
+
+
+
+
+<fieldset class="rate" data-component="Rate" data-ripple="true">
+  <legend class="rate_legend">만족도</legend>
+  <div class="rate_control">
+    <div class="rate_stars">
+      
+      <label class="rate_star" data-ripple="true">
+        
+        <input class="rate_input" type="radio" name="rate-satisfaction" value="1">
+        
+        
+<span class="rate_star-graphic" aria-hidden="true">
+  <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  
+</span>
+
+        <span class="rate_star-label">1점</span>
+      </label>
+      
+      <label class="rate_star" data-ripple="true">
+        
+        <input class="rate_input" type="radio" name="rate-satisfaction" value="2">
+        
+        
+<span class="rate_star-graphic" aria-hidden="true">
+  <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  
+</span>
+
+        <span class="rate_star-label">2점</span>
+      </label>
+      
+      <label class="rate_star" data-ripple="true">
+        
+        <input class="rate_input" type="radio" name="rate-satisfaction" value="3" checked>
+        
+        
+<span class="rate_star-graphic" aria-hidden="true">
+  <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  
+</span>
+
+        <span class="rate_star-label">3점</span>
+      </label>
+      
+      <label class="rate_star" data-ripple="true">
+        
+        <input class="rate_input" type="radio" name="rate-satisfaction" value="4">
+        
+        
+<span class="rate_star-graphic" aria-hidden="true">
+  <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  
+</span>
+
+        <span class="rate_star-label">4점</span>
+      </label>
+      
+      <label class="rate_star" data-ripple="true">
+        
+        <input class="rate_input" type="radio" name="rate-satisfaction" value="5">
+        
+        
+<span class="rate_star-graphic" aria-hidden="true">
+  <svg class="rate_star-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  <svg class="rate_star-icon rate_star-icon-filled" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+  
+</span>
+
+        <span class="rate_star-label">5점</span>
+      </label>
+      
+    </div>
+    
+    <output class="rate_value">3점</output>
+  </div>
+</fieldset>
+
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="date-picker" aria-labelledby="date-picker-title">
+  <h2 id="date-picker-title">DatePicker</h2>
+  <p><code class="typo_code">components/form/DatePicker/date-picker.njk</code></p>
+  <div class="component_demo">
+    
+      
+
+
+<div
+  class="date_picker"
+  data-component="DatePicker"
+  
+  
+  
+>
+  <div class="date_picker_trigger">
+    <input
+      id="date-picker-visit"
+      class="date_picker_input"
+      placeholder="날짜를 선택하세요"
+      readonly
+      role="combobox"
+      aria-label="방문일 선택"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="date-picker-visit-panel"
+      
+      
+      
+      
+    >
+    <input type="hidden" name="visitDate" value="">
+    <button class="date_picker_clear" type="button" aria-label="날짜 지우기" hidden>
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+    </button>
+    <button class="date_picker_btn" type="button" aria-label="달력 열기" aria-controls="date-picker-visit-panel" aria-expanded="false">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+    </button>
+  </div>
+  <div
+    id="date-picker-visit-panel"
+    class="date_picker_panel"
+    role="dialog"
+    aria-modal="false"
+    aria-label="방문일 선택"
+    hidden
+  ></div>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="upload" aria-labelledby="upload-title">
+  <h2 id="upload-title">Upload</h2>
+  <p><code class="typo_code">components/form/Upload/upload.njk</code></p>
+  <div class="component_demo">
+    
+      
+
+
+
+<div
+  class="upload"
+  data-component="Upload"
+  
+  
+>
+  
+    <label class="upload_trigger" for="upload-attachment" tabindex="0">
+      
+<input
+  id="upload-attachment"
+  name="attachment"
+  class="upload_input"
+  type="file"
+  tabindex="-1"
+  
+  
+  
+  
+>
+
+      <span class="btn btn_filled color_primary"><span class="btn_label">파일 선택</span></span>
+    </label>
+  
+  <p class="upload_hint">파일을 선택해 주세요.</p>
+  
+  <p class="form_field-error" data-upload-error role="alert" hidden></p>
+  <ul class="upload_list" data-upload-list></ul>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="form-layout" aria-labelledby="form-layout-title">
+  <h2 id="form-layout-title">FormLayout</h2>
+  <p><code class="typo_code">components/form/FormLayout/form-layout.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <form
+  
+  class="form form_vertical form_fit"
+  
+  
+  
+  
+  
+  data-component="FormLayout"
+>
+  
+        <div class="form_field">
+  
+    <label class="form_field-label" for="form-layout-demo-name">
+      이름
+      <span class="form_field-required"><span aria-hidden="true">*</span><span class="form_field-required-text">필수 항목</span></span>
+    </label>
+  
+  <div class="form_field-control">
+
+<input
+  id="form-layout-demo-name"
+  name="name"
+  class="input"
+  type="text"
+  
+  
+  
+  
+  
+  
+  required aria-required="true"
+  
+  
+  
+  data-component="Input"
+>
+
+</div>
+  <p id="form-layout-demo-name-hint" class="form_field-hint">실명을 입력해 주세요.</p>
+  
+</div>
+
+        <div class="form_actions">
+          <button
+  class="btn btn_filled color_primary"
+  data-component="Button"
+  data-ripple="true"
+  type="submit"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">저장</span></button>
+
+          <button
+  class="btn btn_ghost"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">취소</span></button>
+
+        </div>
+
+      
+</form>
+
+    
+  </div>
+</section>
+
+
+    <p><a class="link color_primary" href="/apps/gulp/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var button = document.getElementById('gulp-theme-toggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('uxkm-gulp-theme', theme);
+          } catch (e) {}
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1419' : '#f4f6f9');
+          if (button) {
+            var isDark = theme === 'dark';
+            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            button.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+          }
+        }
+
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        button?.addEventListener('click', function () {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
+  </body>
+</html>

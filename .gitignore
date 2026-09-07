@@ -25,3 +25,13 @@ dist/
 .vite-temp/
 .sass-cache/
 *.css.map
+
+# Published framework demos
+!apps/
+apps/*
+!apps/gulp/
+!apps/gulp/**
+!apps/vue/
+!apps/vue/**
+!apps/react/
+!apps/react/**

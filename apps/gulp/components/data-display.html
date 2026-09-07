@@ -1,0 +1,1046 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
+    <meta name="theme-color" content="#f4f6f9">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('uxkm-gulp-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' ? '#0f1419' : '#f4f6f9'
+          );
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="/apps/gulp/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="/apps/gulp/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/apps/gulp/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apps/gulp/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/apps/gulp/images/meta/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/apps/gulp/styles/uxkm.css">
+    <link rel="stylesheet" href="/apps/gulp/styles/gulp-demo.css">
+    <title>UXKM Gulp · Data Display</title>
+  </head>
+  <body>
+    <div class="gulp_theme-bar" role="region" aria-label="테마 설정">
+      <button
+        type="button"
+        class="guide_header-theme-btn"
+        id="gulp-theme-toggle"
+        aria-label="다크 모드로 전환"
+        aria-pressed="false"
+      >
+        <svg class="icon guide_header-theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"></path>
+        </svg>
+        <svg class="icon guide_header-theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+      </button>
+    </div>
+    
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/apps/gulp/components.html">컴포넌트</a> · Data Display</p>
+      <h1>Data Display</h1>
+      <p class="lead">데이터 표시 컴포넌트를 include로 렌더합니다.</p>
+    </header>
+
+    
+
+<section class="section" id="avatar" aria-labelledby="avatar-title">
+  <h2 id="avatar-title">Avatar</h2>
+  <p><code class="typo_code">components/data-display/Avatar/avatar.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="icon_group">
+        <span
+  class="avatar"
+  data-component="Avatar"
+  
+><img class="avatar_image" src="/apps/gulp/images/samples/avatar/avatar-sample.svg" alt="홍길동"></span>
+
+        <span
+  class="avatar color_primary"
+  data-component="Avatar"
+  aria-hidden="true"
+>홍</span>
+
+        <span
+  class="avatar color_default"
+  data-component="Avatar"
+  aria-hidden="true"
+><svg
+  class="icon avatar_icon"
+  data-component="Icon"
+  data-icon="user"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<circle cx="12" cy="8" r="4"></circle>
+<path d="M4 21a8 8 0 0 1 16 0"></path>
+
+</svg></span>
+
+      </div>
+      <div
+  class="avatar_group"
+  data-component="AvatarGroup"
+  role="group"
+  aria-label="팀 멤버 3명"
+>
+  
+        <span
+  class="avatar color_primary"
+  data-component="Avatar"
+  aria-hidden="true"
+>김</span>
+
+        <span
+  class="avatar color_success"
+  data-component="Avatar"
+  aria-hidden="true"
+>이</span>
+
+        <span
+  class="avatar color_warning"
+  data-component="Avatar"
+  aria-hidden="true"
+>박<span
+    class="avatar_badge color_success"
+    role="img"
+    aria-label="온라인"
+  ></span></span>
+
+      
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="badge" aria-labelledby="badge-title">
+  <h2 id="badge-title">Badge</h2>
+  <p><code class="typo_code">components/data-display/Badge/badge.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="icon_group">
+        <span
+  class="badge color_default"
+  data-component="Badge"
+  
+  
+>Default</span>
+
+        <span
+  class="badge color_primary"
+  data-component="Badge"
+  
+  
+>Primary</span>
+
+        <span
+  class="badge color_success badge_dot"
+  data-component="Badge"
+  
+  
+>Active</span>
+
+        <span
+  class="badge color_danger badge_count"
+  data-component="Badge"
+  aria-label="읽지 않은 알림 5건"
+  
+>5</span>
+
+      </div>
+      <span
+  class="badge_wrap"
+  data-component="BadgeWrap"
+  
+>
+  
+        <button class="btn btn_filled color_primary" type="button"><span class="btn_label">알림</span></button>
+        <span
+  class="badge color_danger badge_count"
+  data-component="Badge"
+  aria-label="읽지 않은 알림 5건"
+  
+>5</span>
+
+      
+</span>
+
+      <span
+  class="badge_wrap"
+  data-component="BadgeWrap"
+  
+>
+  
+        <span class="avatar color_primary" aria-hidden="true">홍</span>
+        <span
+  class="badge_dot-only color_success"
+  data-component="Badge"
+  aria-label="온라인"
+  role="status"
+></span>
+
+      
+</span>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="tag" aria-labelledby="tag-title">
+  <h2 id="tag-title">Tag</h2>
+  <p><code class="typo_code">components/data-display/Tag/tag.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="icon_group">
+        <span
+  class="tag color_primary"
+  data-component="Tag"
+  data-ripple="false"
+  
+  
+  
+  
+  
+  
+>Primary</span>
+        <span
+  class="tag color_success tag_outline"
+  data-component="Tag"
+  data-ripple="false"
+  
+  
+  
+  
+  
+  
+>Outline</span>
+        <span
+  class="tag color_primary"
+  data-component="Tag"
+  data-ripple="false"
+  
+  
+  
+  
+  
+  
+><span class="tag_icon" aria-hidden="true"><svg
+  class="icon"
+  data-component="Icon"
+  data-icon="star"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+
+</svg></span>Design</span>
+        <span
+  class="tag color_primary"
+  data-component="Tag"
+  data-ripple="false"
+  
+  
+  
+  
+  
+  
+>React<button class="tag_close" type="button" aria-label="React 태그 제거" >
+    <svg
+  class="icon"
+  data-component="Icon"
+  data-icon="close"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 6 12 12M18 6 6 18"></path>
+
+</svg>
+  </button></span>
+      </div>
+      <div class="tag_group" data-component="TagGroup" role="group" aria-label="카테고리 필터">
+  
+        <button
+  class="tag color_default tag_checkable is-selected"
+  data-component="Tag"
+  data-ripple="false"
+  aria-pressed="true"
+  type="button"
+  
+  
+  
+  
+>전체</button>
+        <button
+  class="tag color_default tag_checkable"
+  data-component="Tag"
+  data-ripple="false"
+  aria-pressed="false"
+  type="button"
+  
+  
+  
+  
+>UI</button>
+        <button
+  class="tag color_primary tag_round tag_add"
+  data-component="Tag"
+  data-ripple="false"
+  
+  type="button"
+  
+  
+  
+  
+>+ 태그 추가</button>
+      
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="stat" aria-labelledby="stat-title">
+  <h2 id="stat-title">Stat</h2>
+  <p><code class="typo_code">components/data-display/Stat/stat.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <div class="stat_group stat_group-3">
+        <div class="stat stat_card stat_shadow" data-component="Stat"><span class="stat_label">총 매출</span><div class="stat_value-row"><span class="stat_prefix">₩</span><span class="stat_value">4.2M</span></div><span class="stat_desc color_success">+8.2%</span>
+</div>
+
+        <div class="stat stat_card stat_shadow" data-component="Stat"><span class="stat_label">신규 가입</span><span class="stat_value">1,234</span><span class="stat_desc color_success">+15.3%</span>
+</div>
+
+        <div class="stat stat_card stat_shadow" data-component="Stat"><span class="stat_label">이탈률</span><div class="stat_value-row"><span class="stat_value">2.4</span><span class="stat_suffix">%</span></div><span class="stat_desc color_danger">+0.3%p</span>
+</div>
+
+      </div>
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="card" aria-labelledby="card-title">
+  <h2 id="card-title">Card</h2>
+  <p><code class="typo_code">components/data-display/Card/card.njk</code></p>
+  <div class="component_demo">
+    
+      <article
+  class="card"
+  data-component="Card"
+  
+  
+  
+  
+  
+  
+  
+  style="max-width: 360px; width: 100%"
+>
+        <div class="card_header">
+  <div class="card_header-main"><h3 class="card_title">카드 제목</h3><p class="card_subtitle">부제목 또는 메타 정보</p></div></div>
+
+        
+<div class="card_body">카드 본문 영역입니다. 관련 콘텐츠, 설명, 데이터를 담을 수 있습니다.</div>
+
+        
+<div class="card_footer">
+          <button
+  class="btn btn_filled color_primary btn_sm"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">확인</span></button>
+
+          <button
+  class="btn btn_ghost btn_sm"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">취소</span></button>
+
+        </div>
+
+      
+</article>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="list" aria-labelledby="list-title">
+  <h2 id="list-title">List</h2>
+  <p><code class="typo_code">components/data-display/List/list.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <ul
+  class="list list_bordered"
+  data-component="List"
+  
+  
+>
+  
+        
+          <li class="list_item" data-component="ListItem" ><span
+  class="avatar color_primary"
+  data-component="Avatar"
+  aria-hidden="true"
+>홍</span>
+
+  <div class="list_content"><span class="list_title">홍길동</span><span class="list_meta">프론트엔드 개발자</span></div></li>
+        
+          <li class="list_item" data-component="ListItem" ><span
+  class="avatar color_success"
+  data-component="Avatar"
+  aria-hidden="true"
+>김</span>
+
+  <div class="list_content"><span class="list_title">김철수</span><span class="list_meta">백엔드 개발자</span></div></li>
+        
+      
+</ul>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="table" aria-labelledby="table-title">
+  <h2 id="table-title">Table</h2>
+  <p><code class="typo_code">components/data-display/Table/table.njk</code></p>
+  <div class="component_demo">
+    
+      
+      
+<div
+  class="table_wrap"
+  data-component="Table"
+  
+  
+>
+<table
+  class="table table_bordered table_hover"
+  
+  
+  style=""
+  
+>
+  
+        <thead>
+          <tr><th scope="col">이름</th><th scope="col">직군</th><th scope="col">상태</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>홍길동</td>
+              <td>Frontend</td>
+              <td><span
+  class="badge color_success"
+  data-component="Badge"
+  
+  
+>활성</span>
+</td>
+            </tr>
+          
+            <tr>
+              <td>김철수</td>
+              <td>Backend</td>
+              <td><span
+  class="badge color_success"
+  data-component="Badge"
+  
+  
+>활성</span>
+</td>
+            </tr>
+          
+            <tr>
+              <td>이영희</td>
+              <td>Design</td>
+              <td><span
+  class="badge color_warning"
+  data-component="Badge"
+  
+  
+>휴가</span>
+</td>
+            </tr>
+          
+        </tbody>
+      
+</table>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="timeline" aria-labelledby="timeline-title">
+  <h2 id="timeline-title">Timeline</h2>
+  <p><code class="typo_code">components/data-display/Timeline/timeline.njk</code></p>
+  <div class="component_demo">
+    
+      
+      <ol
+  class="timeline"
+  data-component="Timeline"
+  
+>
+  
+        
+          <li class="timeline_item" data-component="TimelineItem">
+  
+  <span class="timeline_dot color_primary" aria-hidden="true"></span>
+  <div class="timeline_content">
+    
+      <time class="timeline_time" datetime="2024-06-01">2024-06-01 10:00</time>
+      <p class="timeline_title">프로젝트 킥오프</p>
+      <p class="timeline_desc">팀 미팅을 통해 프로젝트 범위와 일정을 확정했습니다.</p>
+    
+    
+  </div>
+</li>
+
+        
+          <li class="timeline_item" data-component="TimelineItem">
+  
+  <span class="timeline_dot color_success" aria-hidden="true"></span>
+  <div class="timeline_content">
+    
+      <time class="timeline_time" datetime="2024-06-10">2024-06-10 14:30</time>
+      <p class="timeline_title">1차 릴리스 완료</p>
+      <p class="timeline_desc">MVP 기능이 프로덕션에 배포되었습니다.</p>
+    
+    
+  </div>
+</li>
+
+        
+      
+</ol>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="calendar" aria-labelledby="calendar-title">
+  <h2 id="calendar-title">Calendar</h2>
+  <p><code class="typo_code">components/data-display/Calendar/calendar.njk</code></p>
+  <div class="component_demo">
+    
+      <div class="calendar" data-component="Calendar" role="application" aria-label="2024년 6월"><div class="calendar_header">
+  
+    <button
+  class="btn btn_ghost btn_sm btn_icon-only"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="이전 달"
+  
+  
+  
+  
+  
+  
+>‹</button>
+
+  
+  <span class="calendar_title">2024년 6월</span>
+  
+    <button
+  class="btn btn_ghost btn_sm btn_icon-only"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="다음 달"
+  
+  
+  
+  
+  
+  
+>›</button>
+
+  
+  
+</div>
+
+<div class="calendar_weekdays" aria-hidden="true">
+  <span class="calendar_weekday">일</span><span class="calendar_weekday">월</span><span class="calendar_weekday">화</span><span class="calendar_weekday">수</span><span class="calendar_weekday">목</span><span class="calendar_weekday">금</span><span class="calendar_weekday">토</span>
+</div>
+
+  
+        
+
+<div class="calendar_grid">
+  
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>26</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>27</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>28</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>29</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>30</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>31</button>
+
+    
+  
+  
+    
+    
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">1</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">2</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">3</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">4</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">5</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">6</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">7</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">8</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">9</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">10</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">11</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">12</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">13</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">14</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">15</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">16</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">17</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">18</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">19</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">20</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">21</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">22</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">23</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">24</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">25</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">26</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">27</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">28</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">29</button>
+
+    
+      
+      <button class="calendar_day" data-component="CalendarDay" type="button">30</button>
+
+    
+  
+  
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>1</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>2</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>3</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>4</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>5</button>
+
+    
+      <button class="calendar_day is-other-month" data-component="CalendarDay" type="button" disabled>6</button>
+
+    
+  
+</div>
+
+
+      
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="tree" aria-labelledby="tree-title">
+  <h2 id="tree-title">Tree</h2>
+  <p><code class="typo_code">components/data-display/Tree/tree.njk</code></p>
+  <div class="component_demo">
+    
+      <ul
+  class="tree tree_bordered"
+  data-component="Tree"
+  role="tree"
+  aria-label="파일 탐색기"
+  
+>
+  
+        <li
+  class="tree_item"
+  data-component="TreeNode"
+  role="treeitem"
+  aria-expanded="true"
+>
+  <div class="tree_row">
+    
+      <button
+        type="button"
+        class="tree_toggle"
+        aria-expanded="true"
+        aria-label="src 접기"
+        
+      ></button>
+    
+    
+    
+    
+    
+      &lt;span class=&quot;tree_label&quot;&gt;src&lt;/span&gt;
+    
+    
+  </div>
+  
+    <ul class="tree" role="group">
+      
+          <li
+  class="tree_item"
+  data-component="TreeNode"
+  role="treeitem"
+  aria-expanded="true"
+>
+  <div class="tree_row">
+    
+      <button
+        type="button"
+        class="tree_toggle"
+        aria-expanded="true"
+        aria-label="components 접기"
+        
+      ></button>
+    
+    
+    
+    
+    
+      &lt;span class=&quot;tree_label&quot;&gt;components&lt;/span&gt;
+    
+    
+  </div>
+  
+    <ul class="tree" role="group">
+      
+            <li
+  class="tree_item"
+  data-component="TreeNode"
+  role="treeitem"
+  
+>
+  <div class="tree_row is-selected">
+    
+      <span class="tree_toggle tree_toggle_placeholder" aria-hidden="true"></span>
+    
+    
+    
+    
+    
+      &lt;span class=&quot;tree_label&quot;&gt;button.html&lt;/span&gt;
+    
+    
+  </div>
+  
+</li>
+
+          
+    </ul>
+  
+</li>
+
+        
+    </ul>
+  
+</li>
+
+        <li
+  class="tree_item"
+  data-component="TreeNode"
+  role="treeitem"
+  aria-expanded="false"
+>
+  <div class="tree_row">
+    
+      <button
+        type="button"
+        class="tree_toggle"
+        aria-expanded="false"
+        aria-label="public 펼치기"
+        
+      ></button>
+    
+    
+    
+    
+    
+      &lt;span class=&quot;tree_label&quot;&gt;public&lt;/span&gt;
+    
+    
+  </div>
+  
+    <ul class="tree" role="group" hidden>
+      
+          <li
+  class="tree_item"
+  data-component="TreeNode"
+  role="treeitem"
+  
+>
+  <div class="tree_row">
+    
+      <span class="tree_toggle tree_toggle_placeholder" aria-hidden="true"></span>
+    
+    
+    
+    
+    
+      &lt;span class=&quot;tree_label&quot;&gt;favicon.ico&lt;/span&gt;
+    
+    
+  </div>
+  
+</li>
+
+        
+    </ul>
+  
+</li>
+
+      
+</ul>
+
+    
+  </div>
+</section>
+
+
+    <p><a class="link color_primary" href="/apps/gulp/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var button = document.getElementById('gulp-theme-toggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('uxkm-gulp-theme', theme);
+          } catch (e) {}
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1419' : '#f4f6f9');
+          if (button) {
+            var isDark = theme === 'dark';
+            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            button.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+          }
+        }
+
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        button?.addEventListener('click', function () {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
+  </body>
+</html>

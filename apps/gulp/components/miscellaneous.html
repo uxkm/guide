@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="UXKM">
+    <meta name="description" content="프레임워크별 UI 컴포넌트와 디자인 시스템 가이드">
+    <meta name="theme-color" content="#f4f6f9">
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('uxkm-gulp-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            'content',
+            theme === 'dark' ? '#0f1419' : '#f4f6f9'
+          );
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="/apps/gulp/images/meta/favicon/favicon.ico" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" sizes="32x32" href="/apps/gulp/images/meta/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/apps/gulp/images/meta/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apps/gulp/images/meta/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/apps/gulp/images/meta/favicon/site.webmanifest">
+    <link rel="stylesheet" href="/apps/gulp/styles/uxkm.css">
+    <link rel="stylesheet" href="/apps/gulp/styles/gulp-demo.css">
+    <title>UXKM Gulp · Miscellaneous</title>
+  </head>
+  <body>
+    <div class="gulp_theme-bar" role="region" aria-label="테마 설정">
+      <button
+        type="button"
+        class="guide_header-theme-btn"
+        id="gulp-theme-toggle"
+        aria-label="다크 모드로 전환"
+        aria-pressed="false"
+      >
+        <svg class="icon guide_header-theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"></path>
+        </svg>
+        <svg class="icon guide_header-theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+      </button>
+    </div>
+    
+<main class="guide_content">
+  <div class="container container_lg">
+    <header class="page_intro">
+      <p class="color_accent size_sm"><a class="link color_accent" href="/apps/gulp/components.html">컴포넌트</a> · Miscellaneous</p>
+      <h1>Miscellaneous</h1>
+      <p class="lead">Miscellaneous 컴포넌트는 호출형 매크로와 공통 기본 컴포넌트로 렌더합니다.</p>
+    </header>
+
+    
+
+<section class="section" id="accordion" aria-labelledby="accordion-title">
+  <h2 id="accordion-title">Accordion</h2>
+  <p><code class="typo_code">components/miscellaneous/Accordion/accordion.njk</code></p>
+  <div class="component_demo">
+    
+      <div
+  class="accordion accordion_card"
+  data-component="Accordion"
+  data-accordion
+  
+  
+>
+  
+    
+        <div class="accordion_item">
+  <div class="accordion_heading" role="heading" aria-level="3">
+    <button
+      type="button"
+      class="btn btn_text accordion_trigger"
+      id="demo-accordion-1-trigger"
+      aria-expanded="false"
+      aria-controls="demo-accordion-1-panel"
+      
+    >
+      <span class="accordion_label">배송은 얼마나 걸리나요?</span>
+      
+      <svg
+  class="icon accordion_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div
+    class="accordion_panel"
+    id="demo-accordion-1-panel"
+    role="region"
+    aria-labelledby="demo-accordion-1-trigger"
+    hidden
+  >
+    <div class="accordion_content">평일 기준 2~3일 이내 출고됩니다.</div>
+  </div>
+</div>
+
+        <div class="accordion_item is-open">
+  <div class="accordion_heading" role="heading" aria-level="3">
+    <button
+      type="button"
+      class="btn btn_text accordion_trigger"
+      id="demo-accordion-2-trigger"
+      aria-expanded="true"
+      aria-controls="demo-accordion-2-panel"
+      
+    >
+      <span class="accordion_label">교환·반품은 어떻게 하나요?</span>
+      
+      <svg
+  class="icon accordion_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div
+    class="accordion_panel"
+    id="demo-accordion-2-panel"
+    role="region"
+    aria-labelledby="demo-accordion-2-trigger"
+    
+  >
+    <div class="accordion_content">수령 후 7일 이내 신청할 수 있습니다.</div>
+  </div>
+</div>
+
+        <div class="accordion_item">
+  <div class="accordion_heading" role="heading" aria-level="3">
+    <button
+      type="button"
+      class="btn btn_text accordion_trigger"
+      id="demo-accordion-3-trigger"
+      aria-expanded="false"
+      aria-controls="demo-accordion-3-panel"
+      
+    >
+      <span class="accordion_label">해외 배송이 가능한가요?</span>
+      
+      <svg
+  class="icon accordion_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div
+    class="accordion_panel"
+    id="demo-accordion-3-panel"
+    role="region"
+    aria-labelledby="demo-accordion-3-trigger"
+    hidden
+  >
+    <div class="accordion_content">현재 국내 배송만 지원합니다.</div>
+  </div>
+</div>
+
+      
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="collapse" aria-labelledby="collapse-title">
+  <h2 id="collapse-title">Collapse</h2>
+  <p><code class="typo_code">components/miscellaneous/Collapse/collapse.njk</code></p>
+  <div class="component_demo">
+    
+      <div
+  class="collapse_group collapse_bordered"
+  data-component="Collapse"
+  data-collapse
+  
+  
+>
+  
+    
+        <div class="collapse_panel is-open">
+  <div class="collapse_header">
+    <button
+      type="button"
+      class="btn btn_text collapse_trigger"
+      id="demo-collapse-1-trigger"
+      aria-expanded="true"
+      aria-controls="demo-collapse-1-body"
+      
+    >
+      <span class="collapse_label">배송 정보</span>
+      
+      <svg
+  class="icon collapse_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div class="collapse_body" id="demo-collapse-1-body" role="region" aria-labelledby="demo-collapse-1-trigger" >
+    <div class="collapse_content">평일 기준 2~3일 이내 출고됩니다.</div>
+  </div>
+</div>
+
+        <div class="collapse_panel">
+  <div class="collapse_header">
+    <button
+      type="button"
+      class="btn btn_text collapse_trigger"
+      id="demo-collapse-2-trigger"
+      aria-expanded="false"
+      aria-controls="demo-collapse-2-body"
+      
+    >
+      <span class="collapse_label">결제 수단</span>
+      
+      <svg
+  class="icon collapse_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div class="collapse_body" id="demo-collapse-2-body" role="region" aria-labelledby="demo-collapse-2-trigger" hidden>
+    <div class="collapse_content">신용카드, 계좌이체, 간편결제를 지원합니다.</div>
+  </div>
+</div>
+
+        <div class="collapse_panel">
+  <div class="collapse_header">
+    <button
+      type="button"
+      class="btn btn_text collapse_trigger"
+      id="demo-collapse-3-trigger"
+      aria-expanded="false"
+      aria-controls="demo-collapse-3-body"
+      
+    >
+      <span class="collapse_label">교환·반품 안내</span>
+      
+      <svg
+  class="icon collapse_icon"
+  data-component="Icon"
+  data-icon="chevron-down"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  
+
+<path d="m6 9 6 6 6-6"></path>
+
+</svg>
+    </button>
+  </div>
+  <div class="collapse_body" id="demo-collapse-3-body" role="region" aria-labelledby="demo-collapse-3-trigger" hidden>
+    <div class="collapse_content">수령 후 7일 이내 신청할 수 있습니다.</div>
+  </div>
+</div>
+
+      
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="carousel" aria-labelledby="carousel-title">
+  <h2 id="carousel-title">Carousel</h2>
+  <p><code class="typo_code">components/miscellaneous/Carousel/carousel.njk</code></p>
+  <div class="component_demo">
+    
+      <div
+  class="carousel carousel_demo"
+  data-component="Carousel"
+>
+  <div
+    id="demo-carousel"
+    class="swiper"
+    data-swiper
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="콘텐츠 슬라이드"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  >
+    <div class="swiper-wrapper">
+      
+        
+        <div class="swiper-slide">
+  
+    <article
+  class="card card_accent color_primary"
+  data-component="Card"
+  
+  
+  
+  
+  
+  
+  
+  
+>
+      
+<div class="card_body">
+        <p class="typo_overline">이벤트</p>
+        <h3 class="card_title">신규 가입 혜택</h3>
+        <p class="typo_lead">첫 주문 20% 할인 쿠폰을 드립니다.</p>
+      </div>
+
+    
+</article>
+
+  
+</div>
+
+        <div class="swiper-slide">
+  
+    <article
+  class="card card_accent color_success"
+  data-component="Card"
+  
+  
+  
+  
+  
+  
+  
+  
+>
+      
+<div class="card_body">
+        <p class="typo_overline">혜택</p>
+        <h3 class="card_title">무료 배송</h3>
+        <p class="typo_lead">3만 원 이상 구매 시 무료 배송됩니다.</p>
+      </div>
+
+    
+</article>
+
+  
+</div>
+
+        <div class="swiper-slide">
+  
+    <article
+  class="card card_accent color_warning"
+  data-component="Card"
+  
+  
+  
+  
+  
+  
+  
+  
+>
+      
+<div class="card_body">
+        <p class="typo_overline">세일</p>
+        <h3 class="card_title">시즌 세일</h3>
+        <p class="typo_lead">베스트셀러 상품을 최대 50% 할인합니다.</p>
+      </div>
+
+    
+</article>
+
+  
+</div>
+
+      
+      
+    </div>
+    
+<button
+  class="btn btn_ghost btn_icon-only swiper-button-prev"
+  data-component="Button"
+  data-ripple="surface"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="이전 슬라이드"
+  
+  
+  
+  
+  
+  
+></button>
+
+<button
+  class="btn btn_ghost btn_icon-only swiper-button-next"
+  data-component="Button"
+  data-ripple="surface"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="다음 슬라이드"
+  
+  
+  
+  
+  
+  
+></button>
+
+
+    <div class="swiper-pagination"></div>
+  </div>
+  
+  
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="affix" aria-labelledby="affix-title">
+  <h2 id="affix-title">Affix</h2>
+  <p><code class="typo_code">components/miscellaneous/Affix/affix.njk</code></p>
+  <div class="component_demo">
+    
+      <div
+  class="affix"
+  data-component="Affix"
+  
+  
+  
+  
+>
+  <div class="affix_placeholder" aria-hidden="true" hidden></div>
+  <div class="affix_target affix_bar">
+    
+        <span class="affix_bar-label">고정 작업</span>
+        <div class="affix_bar-actions"><button
+  class="btn btn_filled color_primary btn_sm"
+  data-component="Button"
+  data-ripple="true"
+  type="button"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+><span class="btn_label">확인</span></button>
+</div>
+      
+  </div>
+</div>
+
+    
+  </div>
+</section>
+
+
+    
+
+<section class="section" id="back-top" aria-labelledby="back-top-title">
+  <h2 id="back-top-title">BackTop</h2>
+  <p><code class="typo_code">components/miscellaneous/BackTop/back-top.njk</code></p>
+  <div class="component_demo">
+    
+      
+<div
+  class="back_top back_top_primary"
+  data-component="BackTop"
+  
+  
+  
+>
+  <button
+  class="btn btn_ghost back_top_btn"
+  data-component="Button"
+  data-ripple="surface"
+  type="button"
+  
+  
+  
+  
+  
+  aria-label="맨 위로"
+  
+  
+  
+  
+  
+  
+>
+  <svg
+  class="icon back_top_icon"
+  data-component="Icon"
+  
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d="m6 15 6-6 6 6" /></svg>
+<span class="btn_label back_top_label">TOP</span></button>
+
+</div>
+
+    
+  </div>
+</section>
+
+
+    <p><a class="link color_primary" href="/apps/gulp/components.html">← 컴포넌트 목록</a></p>
+  </div>
+</main>
+
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var button = document.getElementById('gulp-theme-toggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          root.dataset.theme = theme;
+          try {
+            localStorage.setItem('uxkm-gulp-theme', theme);
+          } catch (e) {}
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0f1419' : '#f4f6f9');
+          if (button) {
+            var isDark = theme === 'dark';
+            button.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+            button.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+          }
+        }
+
+        applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        button?.addEventListener('click', function () {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
+  </body>
+</html>
