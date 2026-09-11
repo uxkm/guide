@@ -1,0 +1,53 @@
+// Highcharts 래퍼. Chart 계열과 같은 토큰(--chart-*)을 재사용합니다.
+.chart-highcharts {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text, #182131);
+
+  &_title {
+    font-size: 1.125rem;
+  }
+  &_description {
+    margin: 6px 0 0;
+    color: var(--color-text-muted, #475569);
+  }
+  &_visual {
+    position: relative;
+    display: flow-root;
+    background: var(--color-surface, #fff);
+  }
+  &_plot {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 16px 0;
+  }
+  &_empty {
+    display: grid;
+    min-height: 200px;
+    place-items: center;
+  }
+  &_data {
+    margin-top: 16px;
+    summary {
+      width: fit-content;
+      cursor: pointer;
+    }
+    summary:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+    .table caption {
+      caption-side: top;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 600;
+      color: var(--color-text, #182131);
+    }
+  }
+  &_table-wrap {
+    margin-top: 12px;
+  }
+}

@@ -1,0 +1,162 @@
+// 공통 기본값입니다. :root에서 전체 차트 색상을, 개별 컨테이너에서 특정 차트 색상을 변경합니다.
+:root {
+  --chart-color: var(--chart-series-1); // 막대·선·영역 기본 색상
+  --chart-series-1: var(--chart-default-series-1, #2563eb);
+  --chart-series-2: var(--chart-default-series-2, #0d9488);
+  --chart-series-3: var(--chart-default-series-3, #9333ea);
+  --chart-series-4: var(--chart-default-series-4, #c2410c);
+  --chart-series-5: var(--chart-default-series-5, #be185d);
+  --chart-series-6: var(--chart-default-series-6, #4f46e5);
+  --chart-track-color: var(--chart-default-track, #64748b);
+  --chart-pattern-bg: var(--color-surface, #fff); // 패턴의 바탕색
+  --chart-pattern-ink: var(--color-text, #182131); // 흑백 모드의 선·점 색상
+  --chart-pattern-stroke-width: 1.5; // 패턴 선 두께
+}
+
+// 공개 변수(--chart-series-*)를 덮어쓰지 않아 사용자 지정 색상은 다크 테마에서도 유지됩니다.
+@mixin chart-dark-palette {
+  --chart-default-series-1: #60a5fa;
+  --chart-default-series-2: #2dd4bf;
+  --chart-default-series-3: #c084fc;
+  --chart-default-series-4: #fb923c;
+  --chart-default-series-5: #f472b6;
+  --chart-default-series-6: #a5b4fc;
+  --chart-default-track: #94a3b8;
+}
+
+:root[data-theme="dark"] {
+  @include chart-dark-palette;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include chart-dark-palette;
+  }
+}
+
+.chart {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text, #182131);
+
+  &_title {
+    font-size: 1.125rem;
+  }
+  &_visual {
+    position: relative;
+    display: flow-root;
+    background: var(--color-surface, #fff);
+  }
+  &_point {
+    cursor: help;
+    &:focus-visible {
+      outline: 2px solid var(--color-text, #182131);
+      outline-offset: 3px;
+      .chart_focus-indicator {
+        display: block;
+      }
+    }
+  }
+  &_focus-indicator {
+    display: none;
+    fill: var(--color-surface, #fff);
+    stroke: var(--color-text, #182131);
+    stroke-width: 2px;
+    pointer-events: none;
+  }
+  &_tooltip {
+    position: absolute;
+    z-index: 1;
+    width: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: calc(100% - 16px);
+    max-height: calc(100% - 16px);
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: #182131;
+    color: #fff;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 16%);
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+  }
+  &_description {
+    margin: 6px 0 0;
+    color: var(--color-text-muted, #475569);
+  }
+  &_plot {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 16px 0;
+  }
+  &_tick {
+    fill: var(--color-text-muted, #475569);
+    font-size: 12px;
+  }
+  &_grid {
+    stroke: currentColor;
+    opacity: 0.12;
+  }
+  &_axis {
+    stroke: currentColor;
+    opacity: 0.4;
+  }
+  &_empty {
+    display: grid;
+    min-height: 200px;
+    place-items: center;
+  }
+  &_legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 0;
+    margin: 12px 0;
+    list-style: none;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      min-width: 0;
+    }
+  }
+  &_swatch {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  @media print {
+    &_plot,
+    &_swatch {
+      print-color-adjust: exact;
+    }
+  }
+  &_data {
+    margin-top: 16px;
+    summary {
+      width: fit-content;
+      cursor: pointer;
+    }
+    summary:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+    .table caption {
+      caption-side: top;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 600;
+      color: var(--color-text, #182131);
+    }
+  }
+  &_table-wrap {
+    margin-top: 12px;
+  }
+}

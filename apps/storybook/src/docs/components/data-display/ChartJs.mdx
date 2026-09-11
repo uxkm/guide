@@ -1,0 +1,93 @@
+import { Canvas, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ChartJsStories from "../../../ChartJs.stories.tsx";
+import FrameworkTabs from "../../../shared/FrameworkTabs.jsx";
+import {
+  chartJsComponentExamples,
+  chartJsRuntimeExamples,
+  chartJsFrameworkExamples,
+} from "../../../chartJsFrameworkExamples";
+
+<Meta of={ChartJsStories} />
+
+# ChartJs
+
+[Chart.js](https://www.chartjs.org/)를 사용하는 차트 컴포넌트입니다. 라이브러리 없이 SVG로 그리는 `Chart`와 같은 데이터 형태(`data`, `type`, `title` 등)를 지원합니다.
+
+Vue는 `@uxkm/vue/chart-js`, React는 `@uxkm/react/chart-js`로 가져옵니다. Gulp는 `chartJs` Nunjucks 매크로와 `main.js`의 `initChartJs()`를 사용합니다.
+HTML은 `data-chart-js-options`에 JSON을 넣고 `initChartJs()`로 초기화합니다.
+공통 스타일 `styles/uxkm.css`를 함께 로드하세요.
+
+`Chart`와의 차이: 패턴·흑백 모드 대신 Chart.js 네이티브 렌더링과 `chartOptions` 확장 옵션을 제공합니다. 유형은 `bar` · `line` · `area` · `donut` · `pie`입니다.
+
+## 컴포넌트 구현 코드
+
+<FrameworkTabs examples={chartJsComponentExamples} showFullCode />
+
+HTML·Vue·Gulp·React는 아래 공통 렌더러(`@uxkm/html/chart-js`)로 canvas·데이터 표를 생성합니다. `chart.js` 패키지 의존성이 필요합니다.
+
+<FrameworkTabs examples={chartJsRuntimeExamples} showFullCode />
+
+## 막대
+
+<Canvas of={ChartJsStories.Bar} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Bar} />
+
+## 선 · 영역
+
+<Canvas of={ChartJsStories.Line} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Line} />
+<Canvas of={ChartJsStories.Area} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Area} />
+
+## 도넛 · 파이
+
+도넛·파이는 0 이상의 값만 지원하며 합계가 0이면 빈 상태를 표시합니다. 항목별 `color`를 지정할 수 있습니다.
+
+<Canvas of={ChartJsStories.Donut} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Donut} />
+<Canvas of={ChartJsStories.Pie} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Pie} />
+
+## 색상 커스텀
+
+`Chart`와 동일한 CSS 변수(`--chart-color`, `--chart-series-*`)를 사용합니다. Chart.js는 캔버스에 그리므로 렌더 시점에 CSS 변수를 계산된 색상으로 해석합니다.
+
+```css
+:root {
+  --chart-color: #2563eb;
+  --chart-series-1: #2563eb;
+  --chart-series-2: #0d9488;
+  --chart-series-3: #9333ea;
+  --chart-series-4: #c2410c;
+}
+```
+
+## Chart.js 옵션 확장
+
+`chartOptions`로 Chart.js `options`를 깊게 병합할 수 있습니다.
+
+```jsx
+<ChartJs
+  type="bar"
+  data={data}
+  chartOptions={{
+    plugins: { legend: { display: true, position: "top" } },
+  }}
+/>
+```
+
+## 빈 데이터
+
+<Canvas of={ChartJsStories.Empty} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.Empty} />
+<Canvas of={ChartJsStories.CustomEmpty} sourceState="none" />
+<FrameworkTabs examples={chartJsFrameworkExamples.CustomEmpty} />
+
+## 접근성
+
+canvas에 차트 제목을 `aria-label`로 제공합니다. `데이터 표 보기`로 원본 수치를 표로 확인할 수 있습니다.
+Chart.js 기본 툴팁으로 포인터 탐색을 지원합니다.
+
+## API
+
+<ArgTypes of={ChartJsStories} />

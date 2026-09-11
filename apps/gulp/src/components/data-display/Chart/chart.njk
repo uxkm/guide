@@ -1,0 +1,23 @@
+{#
+  Chart 매크로: 빌드 시 설정을 HTML에 저장하고 브라우저의 initCharts()가 SVG와 툴팁을 생성합니다.
+  data         : { label: 문자열, value: 숫자, color: 선택 색상, pattern: 선택 무늬 } 배열입니다.
+  type         : bar · line · area · donut · arc 중 선택합니다.
+  title        : 화면 제목과 SVG 접근성 이름입니다.
+  description  : 제목 아래의 보조 설명입니다.
+  unit         : 만원·명·% 등 수치 뒤에 붙일 단위입니다.
+  height       : SVG 높이입니다. 숫자는 px, 문자열은 CSS 높이입니다.
+  color        : 막대·선·영역 색상입니다. 도넛·아크는 항목별 color를 사용합니다.
+  pattern      : auto · none · diagonal · reverse-diagonal · crosshatch · dots · horizontal · vertical
+  displayStyle : auto · color · pattern · monochrome. 명시한 스타일은 항목별 패턴보다 우선합니다.
+  monochrome   : true이면 항목 색상 대신 공통 패턴 잉크 색상으로 표시합니다.
+  showLegend   : 막대·도넛·아크 범례 표시 여부입니다.
+  showGrid     : 막대·선·영역의 격자 표시 여부입니다.
+  emptyMessage : 빈 데이터일 때 표시할 안내 문자열입니다.
+  className    : 바깥 컨테이너에 추가할 CSS 클래스입니다.
+#}
+{% macro chart(data=[], type='bar', title='차트', description='', unit='', height=320, color='var(--chart-color, #2563eb)', showLegend=true, showGrid=true, emptyMessage='표시할 데이터가 없습니다.', className='', pattern='auto', monochrome=false, displayStyle='auto') %}
+{% set options = { data: data, type: type, title: title, description: description, unit: unit, height: height, color: color, showLegend: showLegend, showGrid: showGrid, emptyMessage: emptyMessage, pattern: pattern, monochrome: monochrome, displayStyle: displayStyle } %}
+{# dump로 JSON을 만들고 forceescape로 따옴표·태그 문자가 HTML 속성을 깨뜨리지 않게 합니다. #}
+{# main.js의 initCharts()가 data-chart-options를 읽습니다. 컨테이너는 부모 너비의 100%입니다. #}
+<div class="{{ className | escape }}" data-chart-options="{{ options | dump | forceescape }}" style="width: 100%; min-width: 0"></div>
+{% endmacro %}

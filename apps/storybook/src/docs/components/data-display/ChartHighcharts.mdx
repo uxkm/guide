@@ -1,0 +1,55 @@
+import { Canvas, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ChartHighchartsStories from "../../../ChartHighcharts.stories.tsx";
+import FrameworkTabs from "../../../shared/FrameworkTabs.jsx";
+import {
+  chartHighchartsComponentExamples,
+  chartHighchartsRuntimeExamples,
+  chartHighchartsFrameworkExamples,
+} from "../../../chartHighchartsD3FrameworkExamples";
+
+<Meta of={ChartHighchartsStories} />
+
+# ChartHighcharts
+
+[Highcharts](https://www.highcharts.com/)를 사용하는 차트 컴포넌트입니다. `Chart` · `ChartJs` · `ChartEcharts`와 같은 데이터 형태를 지원합니다.
+
+- React: `@uxkm/react/chart-highcharts`
+- Vue: `@uxkm/vue/chart-highcharts`
+- HTML: `data-chart-highcharts-options` + `initChartHighcharts()`
+- Gulp: `chartHighcharts` 매크로
+
+유형: `bar` · `line` · `area` · `donut` · `pie`. `chartOptions`로 Highcharts 옵션을 병합합니다.
+
+> Highcharts는 상용 라이선스가 필요할 수 있습니다. 프로젝트 라이선스 정책을 확인하세요.
+
+## 컴포넌트 구현 코드
+
+<FrameworkTabs examples={chartHighchartsComponentExamples} showFullCode />
+<FrameworkTabs examples={chartHighchartsRuntimeExamples} showFullCode />
+
+## 막대 · 선 · 영역
+
+<Canvas of={ChartHighchartsStories.Bar} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Bar} />
+<Canvas of={ChartHighchartsStories.Line} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Line} />
+<Canvas of={ChartHighchartsStories.Area} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Area} />
+
+## 도넛 · 파이
+
+<Canvas of={ChartHighchartsStories.Donut} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Donut} />
+<Canvas of={ChartHighchartsStories.Pie} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Pie} />
+
+## 빈 데이터
+
+<Canvas of={ChartHighchartsStories.Empty} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.Empty} />
+<Canvas of={ChartHighchartsStories.CustomEmpty} sourceState="none" />
+<FrameworkTabs examples={chartHighchartsFrameworkExamples.CustomEmpty} />
+
+## API
+
+<ArgTypes of={ChartHighchartsStories} />

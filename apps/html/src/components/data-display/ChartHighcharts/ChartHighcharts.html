@@ -1,0 +1,20 @@
+<!--
+  ChartHighcharts: Highcharts로 그립니다. data-chart-highcharts-options JSON → initChartHighcharts()
+  type: bar · line · area · donut · pie / chartOptions: Highcharts 옵션 병합
+-->
+<div
+  data-chart-highcharts-options='{
+    "data": [{ "label": "1월", "value": 120 }, { "label": "2월", "value": 180 }],
+    "type": "bar",
+    "title": "월별 매출",
+    "description": "Highcharts 기반 월별 매출",
+    "unit": "만원",
+    "height": 320,
+    "color": "var(--chart-color, #2563eb)",
+    "showLegend": true,
+    "showGrid": true,
+    "emptyMessage": "표시할 데이터가 없습니다."
+  }'
+  style="width: 100%; min-width: 0"
+></div>
+<script type="module" src="/src/scripts/main.js"></script>

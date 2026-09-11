@@ -9,6 +9,10 @@
     "./accordion": "./src/components/miscellaneous/Accordion/accordion.js",
     "./collapse": "./src/components/miscellaneous/Collapse/collapse.js",
     "./carousel": "./src/components/miscellaneous/Carousel/carousel.js",
+    "./chart-js": "./src/components/data-display/ChartJs/chart-js.js",
+    "./chart-echarts": "./src/components/data-display/ChartEcharts/chart-echarts.js",
+    "./chart-highcharts": "./src/components/data-display/ChartHighcharts/chart-highcharts.js",
+    "./chart-d3": "./src/components/data-display/ChartD3/chart-d3.js",
     "./alert": "./src/components/feedback/Alert/alert.js",
     "./modal": "./src/components/feedback/Modal/modal.js",
     "./upload": "./src/components/form/Upload/upload.js",
@@ -19,6 +23,10 @@
   },
   "dependencies": {
     "@uxkm/interactions": "workspace:*",
+    "chart.js": "4.4.9",
+    "d3": "7.9.0",
+    "echarts": "5.6.0",
+    "highcharts": "12.2.0",
     "swiper": "12.0.3"
   },
   "devDependencies": {

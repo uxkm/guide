@@ -1,5 +1,53 @@
+.chart-style-playground_controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: 20px;
+  padding: 16px;
+  border: 1px solid var(--color-border, #7d8fa6);
+  border-radius: 8px;
+}
+.chart-style-playground_controls label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chart-style-playground_controls select {
+  padding: 6px 10px;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+.chart-style-playground_modes,
+.chart-style-playground_colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 8px;
+  border: 0;
+}
+.chart-style-playground_controls input[type="color"] {
+  width: 44px;
+  height: 32px;
+}
+.chart-style-playground_controls :is(input, select):focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
+}
+.chart-style-playground_controls :disabled {
+  opacity: 0.6;
+}
+
 :root {
-  font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    Inter,
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color: #182131;
   --content-inline: 12px;
   --framework-code-font-size: 12px;
@@ -20,7 +68,7 @@
   --docs-code-deleted: #b91c1c;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --docs-code-bg: #101827;
   --docs-code-text: #dbe7f5;
   --docs-code-comment: #94a3b8;
@@ -35,7 +83,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root:not([data-theme="light"]) {
     --docs-code-bg: #101827;
     --docs-code-text: #dbe7f5;
     --docs-code-comment: #94a3b8;
@@ -462,7 +510,8 @@ body {
 }
 
 /* 카드형 선택 예시는 가용 너비를 채워 card_deck의 반응형 열 배치가 동작하게 합니다. */
-.demo-stack > :is(.checkbox_group, .radio_group):has(:is(.checkbox_card, .radio_card)) {
+.demo-stack
+  > :is(.checkbox_group, .radio_group):has(:is(.checkbox_card, .radio_card)) {
   align-self: stretch;
   width: 100%;
   min-width: 0;
@@ -566,11 +615,13 @@ body {
   overflow: hidden;
   min-width: 0;
   align-self: stretch;
-  border: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 75%, transparent);
+  border: 1px solid
+    color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 75%, transparent);
   border-radius: 12px;
   background: var(--color-surface, #fff);
   box-shadow: 0 10px 28px rgb(15 23 42 / 7%);
-  transition: border-color var(--transition-base, 0.2s ease),
+  transition:
+    border-color var(--transition-base, 0.2s ease),
     box-shadow var(--transition-base, 0.2s ease),
     transform var(--transition-base, 0.2s ease);
 }
@@ -579,8 +630,12 @@ body {
   position: absolute;
   inset: 0 0 auto;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-accent, #3d66c4), transparent 85%);
-  content: '';
+  background: linear-gradient(
+    90deg,
+    var(--color-accent, #3d66c4),
+    transparent 85%
+  );
+  content: "";
 }
 
 .introduction-card:hover {
@@ -632,16 +687,22 @@ body {
   align-items: stretch;
   gap: 3px;
   padding: 6px 9px;
-  border-block-start: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
+  border-block-start: 1px solid
+    color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
   border-block-end: 0;
   border-inline: 0;
   border-radius: 0;
-  background: color-mix(in srgb, var(--color-surface-raised, #f1f5f9) 65%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--color-surface-raised, #f1f5f9) 65%,
+    transparent
+  );
 }
 
 .introduction-card__details > div:last-child {
   padding-block-end: 0;
-  border-block-end: 1px solid color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
+  border-block-end: 1px solid
+    color-mix(in srgb, var(--color-border-subtle, #cbd5e1) 55%, transparent);
 }
 
 .introduction-card__details :is(dt, dd) {
@@ -796,7 +857,14 @@ body {
   max-height: 560px;
   margin: 0;
   padding: 12px;
-  font: var(--framework-code-font-size) / var(--framework-code-line-height) ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font:
+    var(--framework-code-font-size) / var(--framework-code-line-height)
+      ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
   overflow-wrap: normal;
   tab-size: 2;
   white-space: pre;
@@ -954,7 +1022,14 @@ body {
   max-height: 560px;
   margin: 0;
   padding: 0 !important;
-  font: var(--framework-code-font-size) / var(--framework-code-line-height) ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font:
+    var(--framework-code-font-size) / var(--framework-code-line-height)
+      ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
   overflow-wrap: normal;
   tab-size: 2;
   white-space: pre;
@@ -995,7 +1070,9 @@ body {
 }
 
 /* Prism JSX 줄 앞 공백(plain 토큰)이 줄바꿈 없이 유지되도록 합니다. */
-:is(.framework-code__syntax, .framework-storybooks__syntax) pre.prismjs .token.plain {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  pre.prismjs
+  .token.plain {
   white-space: pre;
 }
 
@@ -1019,7 +1096,9 @@ body {
   background: var(--docs-code-bg) !important;
 }
 
-.sbdocs pre.prismjs :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+.sbdocs
+  pre.prismjs
+  :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
   color: var(--docs-code-comment) !important;
 }
 
@@ -1027,7 +1106,9 @@ body {
   color: var(--docs-code-punctuation) !important;
 }
 
-.sbdocs pre.prismjs :is(.token.tag, .token.selector, .token.keyword, .token.atrule) {
+.sbdocs
+  pre.prismjs
+  :is(.token.tag, .token.selector, .token.keyword, .token.atrule) {
   color: var(--docs-code-tag) !important;
 }
 
@@ -1035,11 +1116,15 @@ body {
   color: var(--docs-code-attribute) !important;
 }
 
-.sbdocs pre.prismjs :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
+.sbdocs
+  pre.prismjs
+  :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
   color: var(--docs-code-string) !important;
 }
 
-.sbdocs pre.prismjs :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
+.sbdocs
+  pre.prismjs
+  :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
   color: var(--docs-code-number) !important;
 }
 
@@ -1047,7 +1132,9 @@ body {
   color: var(--docs-code-operator) !important;
 }
 
-.sbdocs pre.prismjs :is(.token.function, .token.regex, .token.variable, .token.builtin) {
+.sbdocs
+  pre.prismjs
+  :is(.token.function, .token.regex, .token.variable, .token.builtin) {
   color: var(--docs-code-function) !important;
 }
 
@@ -1055,7 +1142,8 @@ body {
   color: var(--docs-code-deleted) !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax, .sbdocs pre.prismjs) .token {
+:is(.framework-code__syntax, .framework-storybooks__syntax, .sbdocs pre.prismjs)
+  .token {
   display: inline !important;
   align-items: unset !important;
   gap: 0 !important;
@@ -1086,7 +1174,8 @@ body {
   line-height: var(--framework-code-line-height) !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.comment, .token.prolog, .token.doctype, .token.cdata) {
   color: #94a3b8 !important;
 }
 
@@ -1094,31 +1183,38 @@ body {
   color: #b8c5d6 !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.tag, .token.selector) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.tag, .token.selector) {
   color: #7dd3fc !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.attr-name, .token.property, .token.class-name) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.attr-name, .token.property, .token.class-name) {
   color: #c4b5fd !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.attr-value, .token.string, .token.char, .token.inserted) {
   color: #a7f3d0 !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.keyword, .token.atrule) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.keyword, .token.atrule) {
   color: #f9a8d4 !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.boolean, .token.number, .token.constant, .token.symbol) {
   color: #fdba74 !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.operator, .token.entity, .token.url) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.operator, .token.entity, .token.url) {
   color: #fcd34d !important;
 }
 
-:is(.framework-code__syntax, .framework-storybooks__syntax) :is(.token.function, .token.regex, .token.variable) {
+:is(.framework-code__syntax, .framework-storybooks__syntax)
+  :is(.token.function, .token.regex, .token.variable) {
   color: #fde68a !important;
 }
 
@@ -1147,7 +1243,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-[data-theme='dark'] .sbdocs .sb-api-docs {
+[data-theme="dark"] .sbdocs .sb-api-docs {
   border-top-color: rgb(255 255 255 / 10%);
 }
 
@@ -1177,5 +1273,4 @@ body {
   .framework-storybooks__code {
     --framework-code-inline: 12px;
   }
-
 }

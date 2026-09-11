@@ -1,0 +1,31 @@
+<!--
+  Chart HTML 구현: data-chart-options의 JSON을 initCharts()가 읽어 SVG와 툴팁을 생성합니다.
+  data: { label, value, color?, pattern? } 배열 / type: bar · line · area · donut · arc
+  title: 제목 / description: 보조 설명 / unit: 수치 단위 / height: SVG 높이
+  color: 막대·선·영역 색상 (도넛·아크는 항목별 color 사용)
+  displayStyle: auto · color · pattern · monochrome (전체 스타일 선택)
+  pattern: auto 또는 항목 패턴명 / monochrome: 색상을 공통 잉크로 통일
+  showLegend: 막대·원형 차트 범례 / showGrid: 좌표축 격자 / emptyMessage: 빈 상태 안내 문자열
+  JSON에는 주석을 넣지 않습니다. 작은따옴표·&·<·>는 HTML 엔티티로 이스케이프하세요.
+-->
+<div
+  data-chart-options='{
+    "data": [{ "label": "1월", "value": 120 }, { "label": "2월", "value": 180 }],
+    "type": "bar",
+    "title": "월별 매출",
+    "description": "월별 매출 추이",
+    "unit": "만원",
+    "height": 320,
+    "color": "var(--chart-color, #2563eb)",
+    "displayStyle": "auto",
+    "pattern": "auto",
+    "monochrome": false,
+    "showLegend": true,
+    "showGrid": true,
+    "emptyMessage": "표시할 데이터가 없습니다."
+  }'
+  style="width: 100%; min-width: 0"
+></div>
+
+<!-- 페이지에서 한 번 로드합니다. 프로젝트의 main.js에 initCharts()가 등록되어 있습니다. -->
+<script type="module" src="/src/scripts/main.js"></script>

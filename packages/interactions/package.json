@@ -5,6 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
+    "./chart": "./src/chart.js",
+    "./chart-patterns": "./src/chart-patterns.js",
     "./ripple": "./src/behaviors/ripple.js",
     "./clickable-card": "./src/behaviors/clickable-card.js",
     "./slide-region": "./src/behaviors/slide-region.js"

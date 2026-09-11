@@ -1,4 +1,9 @@
 import { initInteractions } from '@uxkm/interactions';
+import { initCharts } from '../components/data-display/Chart/chart.js';
+import { initChartJs } from '../components/data-display/ChartJs/chart-js.js';
+import { initChartEcharts } from '../components/data-display/ChartEcharts/chart-echarts.js';
+import { initChartHighcharts } from '../components/data-display/ChartHighcharts/chart-highcharts.js';
+import { initChartD3 } from '../components/data-display/ChartD3/chart-d3.js';
 import { initSlider } from '../components/form/Slider/slider.js';
 import { initRate } from '../components/form/Rate/rate.js';
 import { initDatePicker } from '../components/form/DatePicker/date-picker.js';
@@ -11,6 +16,11 @@ import { initAffixAll } from '../components/miscellaneous/Affix/affix.js';
 import { initBackTopAll } from '../components/miscellaneous/BackTop/back-top.js';
 
 initInteractions();
+initCharts();
+initChartJs();
+initChartEcharts();
+initChartHighcharts();
+initChartD3();
 initSlider();
 initRate();
 initDatePicker();

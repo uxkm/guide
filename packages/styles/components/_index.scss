@@ -19,6 +19,11 @@
 @use "table";
 @use "list";
 @use "stat";
+@use "chart";
+@use "chart-js";
+@use "chart-echarts";
+@use "chart-highcharts";
+@use "chart-d3";
 @use "calendar";
 @use "date-picker";
 @use "timeline";

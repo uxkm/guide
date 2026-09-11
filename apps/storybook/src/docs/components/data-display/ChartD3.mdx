@@ -1,0 +1,53 @@
+import { Canvas, Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+import * as ChartD3Stories from "../../../ChartD3.stories.tsx";
+import FrameworkTabs from "../../../shared/FrameworkTabs.jsx";
+import {
+  chartD3ComponentExamples,
+  chartD3RuntimeExamples,
+  chartD3FrameworkExamples,
+} from "../../../chartHighchartsD3FrameworkExamples";
+
+<Meta of={ChartD3Stories} />
+
+# ChartD3
+
+[D3.js](https://d3js.org/)로 SVG를 그리는 차트 컴포넌트입니다. `Chart` · `ChartJs` · `ChartEcharts` · `ChartHighcharts`와 같은 데이터 형태를 지원합니다.
+
+- React: `@uxkm/react/chart-d3`
+- Vue: `@uxkm/vue/chart-d3`
+- HTML: `data-chart-d3-options` + `initChartD3()`
+- Gulp: `chartD3` 매크로
+
+유형: `bar` · `line` · `area` · `donut` · `pie`. D3 스케일·경로 API로 직접 렌더링하므로 커스텀 시각화에 적합합니다.
+
+## 컴포넌트 구현 코드
+
+<FrameworkTabs examples={chartD3ComponentExamples} showFullCode />
+<FrameworkTabs examples={chartD3RuntimeExamples} showFullCode />
+
+## 막대 · 선 · 영역
+
+<Canvas of={ChartD3Stories.Bar} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Bar} />
+<Canvas of={ChartD3Stories.Line} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Line} />
+<Canvas of={ChartD3Stories.Area} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Area} />
+
+## 도넛 · 파이
+
+<Canvas of={ChartD3Stories.Donut} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Donut} />
+<Canvas of={ChartD3Stories.Pie} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Pie} />
+
+## 빈 데이터
+
+<Canvas of={ChartD3Stories.Empty} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.Empty} />
+<Canvas of={ChartD3Stories.CustomEmpty} sourceState="none" />
+<FrameworkTabs examples={chartD3FrameworkExamples.CustomEmpty} />
+
+## API
+
+<ArgTypes of={ChartD3Stories} />
