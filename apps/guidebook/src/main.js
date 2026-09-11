@@ -45,26 +45,6 @@ navigationToggles.forEach((toggle) => {
   });
 });
 
-function alignActiveSidebarLink() {
-  const activeLink = sidebar.querySelector('.nav-link[aria-current="page"]');
-  if (!activeLink) return;
-
-  const sidebarRect = sidebar.getBoundingClientRect();
-  const activeRect = activeLink.getBoundingClientRect();
-  const activeTop = activeRect.top - sidebarRect.top + sidebar.scrollTop;
-  const max = sidebar.scrollHeight - sidebar.clientHeight;
-  sidebar.scrollTo({
-    top: Math.max(
-      0,
-      Math.min(activeTop - (sidebar.clientHeight - activeRect.height) / 2, max),
-    ),
-    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-  });
-}
-
-requestAnimationFrame(alignActiveSidebarLink);
-window.addEventListener('resize', () => requestAnimationFrame(alignActiveSidebarLink));
-
 function getOutlineTarget(link) {
   try {
     return document.getElementById(decodeURIComponent(link.hash.slice(1)));
