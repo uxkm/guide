@@ -33,6 +33,48 @@ const backdrop = document.querySelector('.sidebar-backdrop');
 const menuButton = document.querySelector('.menu-button');
 const outlineLinks = Array.from(document.querySelectorAll('.page-outline a[href^="#"]'));
 const navigationToggles = Array.from(sidebar.querySelectorAll('.nav-section-toggle'));
+const SIDEBAR_STORAGE_KEY = `uxkm-guidebook-sidebar:${guideRoot.pathname}`;
+
+function saveSidebarState() {
+  const sections = Object.fromEntries(navigationToggles.map((toggle) => [
+    toggle.getAttribute('aria-controls'),
+    toggle.getAttribute('aria-expanded') === 'true',
+  ]));
+
+  try {
+    sessionStorage.setItem(SIDEBAR_STORAGE_KEY, JSON.stringify({
+      scrollTop: sidebar.scrollTop,
+      sections,
+    }));
+  } catch (_error) {
+    // 저장소를 사용할 수 없어도 메뉴 이동은 계속 허용합니다.
+  }
+}
+
+function restoreSidebarState() {
+  try {
+    const state = JSON.parse(sessionStorage.getItem(SIDEBAR_STORAGE_KEY) || 'null');
+    if (!state || !Number.isFinite(state.scrollTop) || state.scrollTop < 0) return;
+
+    navigationToggles.forEach((toggle) => {
+      const id = toggle.getAttribute('aria-controls');
+      const expanded = state.sections?.[id];
+      const childList = document.getElementById(id);
+      if (typeof expanded !== 'boolean' || !childList) return;
+      toggle.setAttribute('aria-expanded', String(expanded));
+      childList.hidden = !expanded;
+    });
+
+    sidebar.scrollTo({ top: state.scrollTop, behavior: 'instant' });
+  } catch (_error) {
+    // 저장된 상태가 없거나 유효하지 않으면 기본 메뉴를 표시합니다.
+  }
+}
+
+sidebar.addEventListener('click', (event) => {
+  if (event.target.closest('a[href]')) saveSidebarState();
+});
+window.addEventListener('pagehide', saveSidebarState);
 
 navigationToggles.forEach((toggle) => {
   const childList = document.getElementById(toggle.getAttribute('aria-controls'));
@@ -491,3 +533,4 @@ function initWorkspaceTabs() {
 }
 
 initWorkspaceTabs();
+restoreSidebarState();
