@@ -109,4 +109,8 @@ disabled, readonly, error, success 상태를 텍스트 메시지와 적절한 ar
 <Canvas of={InputStories.Example} sourceState="none" />
 <FrameworkTabs examples={inputFrameworkExamples.example} />
 
+## 접근성
+
+모든 input에 연결된 label을 제공합니다. 일반 필드는 `label[for]`·`id`, 그룹 입력은 `aria-labelledby`와 암묵적 label, 숨김 레이블은 `input_group-label_hidden`을 사용합니다. 유효성 결과는 `aria-invalid`·`aria-describedby`와 `role="alert"`/`role="status"`로 전달하고, 지우기 후에는 입력으로 포커스를 복원합니다.
+
 <ComponentApiDocs sections={inputApiSections} />

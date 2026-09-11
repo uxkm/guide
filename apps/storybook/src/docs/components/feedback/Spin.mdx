@@ -15,6 +15,10 @@ Spin은 `role="status"`, `aria-live="polite"`, `aria-busy="true"`를 제공하�
 
 WebSquare는 표시기를 `w2:group.spin`, 오버레이 래퍼를 `w2:group.spin_wrap`으로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
 
+## 사용 기준
+
+- 제출·저장처럼 짧은 대기나 영역 차단에 사용합니다. 콘텐츠 형태를 유지한 로딩은 Skeleton, 확정·불확정 진행률은 Progress입니다.
+
 ## 컴포넌트 구현 코드
 
 아래 코드는 사용 예제가 아니라 Spin과 SpinWrap의 실제 원본 구현입니다. React와 Vue는 크기, 색상, 설명 문구, 인라인·블록·오버레이 배치를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.

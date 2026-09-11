@@ -11,6 +11,8 @@ const props = defineProps({
   value: [String, Number], // 탭을 식별하는 선택 키입니다.
   active: Boolean, // 초기·단독 사용 시 활성 여부입니다.
   disabled: Boolean, // 탭 선택을 막을지 여부입니다.
+  closable: Boolean, // 이 탭에 닫기 버튼을 표시할지 여부입니다.
+  closeLabel: String, // 닫기 버튼의 접근 가능한 이름입니다.
 });
 const slots = useSlots(); // 아이콘·배지 슬롯을 등록에 전달합니다.
 const tabs = inject('tabsContext', null); // 부모 Tabs의 등록·선택 API입니다.
@@ -29,6 +31,8 @@ onMounted(() =>
     label: props.label,
     active: props.active,
     disabled: props.disabled,
+    closable: props.closable,
+    closeLabel: props.closeLabel,
     icon: slots.icon,
     badge: slots.badge,
   }),

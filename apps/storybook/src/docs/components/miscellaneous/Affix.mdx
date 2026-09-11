@@ -15,6 +15,10 @@ import * as Stories from '../../../Affix.stories.tsx';
 
 WebSquare는 루트를 `w2:group.affix`, 고정 대상을 `w2:group.affix_target`, 액션을 `xf:trigger`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
 
+## 사용 기준
+
+- 스크롤해도 항상 보여야 하는 툴바·앵커·하단 액션에만 사용합니다. 단순 고정은 CSS `position: sticky`로 충분할 수 있고, 전역 상단 내비는 Navbar를 우선합니다.
+
 ## 컴포넌트 구현 코드
 
 아래 코드는 사용 예제가 아니라 Affix의 실제 원본 구현입니다. React와 Vue는 상단·하단 오프셋, 스크롤 컨테이너, 액션 바·앵커 스킨을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.

@@ -91,4 +91,8 @@ WebSquare는 `w2:group`과 `w2:textbox`의 `tagname`으로 표 구조를 만들�
 <Canvas of={TableStories.StickyBoth} sourceState="none" />
 <FrameworkTabs examples={tableFrameworkExamples.stickyBoth} />
 
+## 접근성
+
+`table`·`thead`·`tbody`·`tr`·`th`·`td` 시맨틱 구조와 대응 role로 행·열 관계를 유지합니다. 스크롤·고정 변형(`table_scroll`, `table_sticky-*`)은 시각 레이아웃만 바꾸며 표 의미 구조를 깨지 않습니다.
+
 <ComponentApiDocs sections={tableApiSections} />

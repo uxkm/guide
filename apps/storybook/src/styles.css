@@ -431,6 +431,124 @@ body {
   width: min(100%, 32rem);
 }
 
+.tabs_demo-editable {
+  display: grid;
+  grid-template-columns: minmax(12rem, 14rem) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+}
+
+.tabs_demo-editable-side {
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.tabs_demo-editable-limit {
+  display: grid;
+  gap: var(--space-2xs, 0.25rem);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 0.5rem);
+  background: var(--color-surface);
+}
+
+.tabs_demo-editable-limit-label {
+  font-size: var(--text-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.tabs_demo-editable-limit .input {
+  width: 100%;
+  max-width: 6rem;
+}
+
+.tabs_demo-editable-limit-hint {
+  font-size: var(--text-size-xs);
+  color: var(--color-text-muted);
+}
+
+.tabs_demo-editable-menu {
+  width: 100%;
+}
+
+.tabs_demo-editable-tabs {
+  min-width: 0;
+  width: 100%;
+}
+
+/* 우측 커스텀 스크롤 컨트롤을 쓰므로 기본 네비 스크롤 버튼은 숨깁니다. */
+.tabs_demo-editable-tabs.tabs_scroll-nav > .tabs_bar > .tabs_nav {
+  display: none;
+}
+
+/*
+  탭 목록 = 전체 너비 − 우측 컨트롤.
+  flex 대신 grid로 열을 고정해 목록이 extra 아래로 새지 않게 합니다.
+*/
+.tabs_demo-editable-tabs > .tabs_bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
+  width: 100%;
+}
+
+.tabs_demo-editable-tabs .tabs_list-wrap {
+  grid-column: 1;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  clip-path: inset(0);
+  isolation: isolate;
+}
+
+.tabs_demo-editable-tabs .tabs_list {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.tabs_demo-editable-tabs .tabs_extra {
+  grid-column: 2;
+  flex: none;
+  margin-left: 0;
+  position: relative;
+  z-index: 1;
+  justify-self: end;
+  align-self: center;
+  background: var(--color-surface);
+  /* 탭 목록과 컨트롤 사이 분리 */
+  box-shadow: -0.75rem 0 0.5rem -0.5rem rgb(255 255 255 / 90%);
+}
+
+.tabs_demo-editable-main {
+  min-width: 0;
+  width: 100%;
+}
+
+.tabs_demo-editable-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs, 0.25rem);
+}
+
+.tabs_demo-editable-title {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-size-lg);
+  font-weight: 600;
+}
+
+@media (max-width: 48rem) {
+  .tabs_demo-editable {
+    grid-template-columns: 1fr;
+  }
+}
+
 .breadcrumb-story-demo,
 .breadcrumb-stack-demo {
   width: 100%;
@@ -1241,6 +1359,44 @@ body {
   overscroll-behavior-x: contain;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
+}
+
+/* Docs 본문의 디자인 시스템 Table — Storybook 기본 표 스타일보다 우선합니다. */
+.sbdocs .table_wrap {
+  margin: 1rem 0 1.5rem;
+}
+
+.sbdocs .table_wrap .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--table-font-size, var(--text-size-sm));
+  text-align: left;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sbdocs .table_wrap .table th,
+.sbdocs .table_wrap .table td {
+  padding: var(--table-cell-padding-y, 0.65rem) var(--table-cell-padding-x, 1rem);
+  border-bottom: 1px solid var(--color-border-subtle, #e2e8f0);
+  vertical-align: middle;
+}
+
+.sbdocs .table_wrap .table th {
+  font-weight: var(--table-header-font-weight, 600);
+  color: var(--color-text, #182131);
+  background: var(--color-surface-raised, #f8fafc);
+}
+
+.sbdocs .table_wrap .table td {
+  color: var(--color-text-muted, #475569);
+}
+
+.sbdocs .table_wrap .table tbody tr:last-child th,
+.sbdocs .table_wrap .table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 [data-theme="dark"] .sbdocs .sb-api-docs {

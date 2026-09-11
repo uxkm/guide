@@ -103,4 +103,8 @@ disabled, readonly, error, success 상태를 텍스트 메시지와 적절한 ar
 <Canvas of={TextareaStories.Example} sourceState="none" />
 <FrameworkTabs examples={textareaFrameworkExamples.example} />
 
+## 접근성
+
+모든 textarea에 접근 가능한 이름을 제공합니다. 오류·도움말은 `aria-describedby`로 연결하고, 글자 수 카운터는 `role="status"`·`aria-live="polite"`와 스크린 리더용 상태 문구를 함께 둡니다. 지우기 후에는 입력으로 포커스를 복원합니다.
+
 <ComponentApiDocs sections={textareaApiSections} />

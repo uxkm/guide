@@ -9,6 +9,7 @@ export function Menu({
   bordered = false, // 외곽 테두리를 표시할지 여부입니다.
   compact = false, // 항목 간격을 줄인 밀집 레이아웃인지 여부입니다.
   dark = false, // 어두운 배경 테마를 적용할지 여부입니다.
+  selectable = true, // 클릭 시 DOM으로 활성 항목을 자동 갱신할지 여부입니다.
   ariaLabel, // 내비게이션의 접근 가능한 이름을 지정합니다.
   children, // MenuItem, MenuSubmenu 등 메뉴 자식입니다.
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
@@ -30,19 +31,22 @@ export function Menu({
     .join(' '); // 미적용 항목을 제거한 뒤 className 문자열로 만듭니다.
 
   // 비활성·서브메뉴가 아닌 링크 클릭 시 활성 상태를 단일 선택으로 갱신합니다.
+  // selectable=false이면 MenuItem의 active prop만 사용합니다.
   function handleClick(event) {
-    const link = event.target.closest('.menu_link');
-    if (
-      link &&
-      !link.classList.contains('is-disabled') &&
-      !link.parentElement?.classList.contains('menu_item-submenu')
-    ) {
-      event.currentTarget.querySelectorAll('.menu_link.is-active').forEach((item) => {
-        item.classList.remove('is-active');
-        item.removeAttribute('aria-current');
-      });
-      link.classList.add('is-active');
-      link.setAttribute('aria-current', 'page');
+    if (selectable) {
+      const link = event.target.closest('.menu_link');
+      if (
+        link &&
+        !link.classList.contains('is-disabled') &&
+        !link.parentElement?.classList.contains('menu_item-submenu')
+      ) {
+        event.currentTarget.querySelectorAll('.menu_link.is-active').forEach((item) => {
+          item.classList.remove('is-active');
+          item.removeAttribute('aria-current');
+        });
+        link.classList.add('is-active');
+        link.setAttribute('aria-current', 'page');
+      }
     }
     onClick?.(event);
   }
@@ -52,7 +56,7 @@ export function Menu({
       {...props}
       className={classes}
       data-component="Menu"
-      data-menu-selectable
+      {...(selectable ? { 'data-menu-selectable': true } : {})}
       aria-label={ariaLabel}
       onClick={handleClick}
     >

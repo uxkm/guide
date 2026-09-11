@@ -21,6 +21,7 @@ WebSquare는 패널을 `w2:group.drawer`, 백드롭·헤더·본문·푸터를 `
 
 - `placement`는 `drawer_placement-*` 클래스로 변환합니다.
 - 지원하지 않는 크기는 `md`로 정규화하고 `drawer_sm`·`drawer_lg` 클래스로 변환합니다.
+- `motion`은 `drawer_motion-slide`·`drawer_motion-fade`, `speed`는 `data-drawer-speed`와 `--drawer-motion-scale`로 반영합니다.
 - 하단 `draggable`은 핸들로 모바일 액션 시트 형태를 제공합니다.
 - 중첩 시 최상위 패널만 조작합니다.
 
@@ -108,6 +109,15 @@ WebSquare는 패널을 `w2:group.drawer`, 백드롭·헤더·본문·푸터를 `
 
 <Canvas of={DrawerStories.NoBackdrop} sourceState="none" />
 <FrameworkTabs examples={drawerFrameworkExamples.noBackdrop} />
+
+## 전환 효과 · 속도
+
+`motion`은 `slide`·`fade`, `speed`는 `fast`·`normal`·`slow`입니다. 기본은 slide / normal입니다. `prefers-reduced-motion` 환경에서는 전환을 줄입니다.
+
+<Canvas of={DrawerStories.Motion} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.motion} />
+<Canvas of={DrawerStories.Speed} sourceState="none" />
+<FrameworkTabs examples={drawerFrameworkExamples.speed} />
 
 ## 접근성
 

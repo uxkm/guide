@@ -95,4 +95,8 @@ disabled와 error 상태는 컨트롤과 오류 설명을 함께 제공합니다
 <Canvas of={UploadStories.Example} sourceState="none" />
 <FrameworkTabs examples={uploadFrameworkExamples.example} />
 
+## 접근성
+
+숨김 파일 input은 트리거·드롭존·카드 레이블과 `for`/`id`로 연결합니다. 형식·크기·개수 검증 실패는 `onError`로 전달하고, 선택·삭제 후 목록을 갱신합니다. 서버에서도 파일 내용과 형식을 다시 검증해야 합니다.
+
 <ComponentApiDocs sections={uploadApiSections} />

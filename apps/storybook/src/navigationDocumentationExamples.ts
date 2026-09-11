@@ -314,6 +314,7 @@ function tabsWebSquare(key: string) {
     scroll: 'tabs tabs_scroll',
     disabled: 'tabs',
     vertical: 'tabs tabs_vertical',
+    example: 'tabs tabs_card',
   };
   const tab = (id: string, label: string, selected = false, disabled = false) =>
     `<xf:trigger id="${id}" type="button" class="tabs_tab${selected ? ' is-active' : ''}" role="tab" aria-selected="${selected}" aria-controls="${id}Panel"${disabled ? ' disabled="true"' : ''} ev:onclick="scwin.tabs_select">

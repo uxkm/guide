@@ -35,6 +35,10 @@ WebSquare에는 별도의 `Container.xml` 구현 파일이 없습니다. Contain
 
 <FrameworkTabs examples={containerComponentExamples} showFullCode />
 
+## WebSquare 사용
+
+별도 `Container.xml` 없이 화면의 `w2:group`에 `container`·`container_sm`~`xl`·`container_fluid`를 적용합니다. 상태·이벤트가 없는 구조 컴포넌트이므로 `scwin`과 DataList 바인딩은 두지 않습니다. `tagname`으로 `main`·`section` 등 시맨틱 루트를 맞춥니다.
+
 ## 기본
 
 기본 Container는 부모 너비를 채우되 최대 72rem까지만 확장되며, 좌우에 공통 여백을 적용합니다.
@@ -63,9 +67,11 @@ WebSquare에는 별도의 `Container.xml` 구현 파일이 없습니다. Contain
 <Canvas of={ContainerStories.SemanticRoot} sourceState="none" />
 <FrameworkTabs examples={containerFrameworkExamples.semantic} />
 
-## 반응형과 접근성
+## 반응형
 
 Container는 `width: 100%`와 최대 너비를 함께 사용하므로 별도 브레이크포인트 없이 좁은 화면에 맞춰 줄어듭니다. 좌우 패딩은 `--container-padding-x` 토큰으로 일관되게 유지합니다.
+
+## 접근성
 
 Container 자체에는 별도 ARIA role이나 접근 가능한 이름이 필요하지 않습니다. `main`은 페이지의 대표 본문에 한 번만 사용하고, 반복 가능한 콘텐츠 구획은 제목과 연결된 `section` 등 문서 구조에 맞는 요소를 선택합니다. WebSquare에서도 `tagname`을 지정할 때 같은 랜드마크 규칙을 적용합니다.
 

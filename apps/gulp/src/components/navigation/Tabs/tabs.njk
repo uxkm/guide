@@ -2,10 +2,13 @@
 {% import "components/basic/Icon/icon.njk" as Icon %}
 {% import "components/basic/Button/button.njk" as Button %}
 
-{% macro tab(id, panelId, label='', active=false, disabled=false, icon='', iconSlot='', badge='', className='') %}
+{% macro tab(id, panelId, label='', active=false, disabled=false, closable=false, closeLabel='', icon='', iconSlot='', badge='', className='') %}
+{% if closable %}
+<span class="tabs_item{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}">
+{% endif %}
 <button
   type="button"
-  class="tabs_tab{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className else '' }}"
+  class="tabs_tab{% if active %} is-active{% endif %}{% if disabled %} is-disabled{% endif %}{{ (' ' + className) if className and not closable else '' }}"
   role="tab"
   id="{{ id }}"
   aria-selected="{{ 'true' if active else 'false' }}"
@@ -17,6 +20,10 @@
   <span class="tabs_label">{{ label }}</span>
   {% if badge %}<span class="tabs_badge">{{ badge | safe }}</span>{% endif %}
 </button>
+{% if closable %}
+  <button type="button" class="tabs_close" data-tabs-close aria-label="{{ closeLabel or (label ~ ' 닫기') }}"{% if disabled %} disabled{% endif %} tabindex="-1">{{ Icon.icon(name='close', className='tabs_close-icon') }}</button>
+</span>
+{% endif %}
 {% endmacro %}
 
 {% macro tabPanel(id, tabId, active=false, content='', className='') %}

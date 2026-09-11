@@ -86,6 +86,13 @@ WebSquare는 루트를 `w2:group.tabs`, 탭 버튼을 `xf:trigger.tabs_tab`, 패
 <Canvas of={Stories.Vertical} sourceState="none" />
 <FrameworkTabs examples={examples.vertical} />
 
+## 조합 예시
+
+왼쪽 **예시 추가** 메뉴로 탭을 열고, 탭의 닫기로 이전 탭을 활성화합니다. 탭이 1개만 남으면 닫을 수 없습니다. **최대 탭 개수**는 예시 패널 또는 Controls에서 조절하며, 한도를 넘기면 알림 Modal로 안내합니다. 우측 **좌·우** 버튼은 이전·다음 탭을 선택하고, 더보기(목차)로 같은 목록을 고를 수 있습니다. 탭이 넘치면 `layout="scroll"`로 활성 탭이 보이도록 목록이 이동합니다.
+
+<Canvas of={Stories.Example} sourceState="none" />
+<FrameworkTabs examples={examples.example} />
+
 ## 접근성
 
 각 탭과 패널은 `role`, `aria-selected`, `aria-controls`, `aria-labelledby`로 연결됩니다. 방향키와 `Home`, `End` 키를 지원하며 비활성 탭은 탐색에서 제외합니다.

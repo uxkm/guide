@@ -136,4 +136,8 @@ base는 별도 클래스 없이 적용되며 xs, sm, lg, xl은 각각 공통 `si
 <Canvas of={TypographyStories.Stack} sourceState="none" />
 <FrameworkTabs examples={typographyFrameworkExamples.stack} />
 
+## 접근성
+
+`TypoTitle`의 `level`은 시각 크기가 아니라 문서 구조에 맞춰 `h1`~`h5`로 렌더링합니다. `TypoText`의 `variant`는 기본 시맨틱 태그를 고르고 `tag`로 덮어쓸 수 있으며, `label` variant는 `htmlFor`로 입력을 연결합니다. WebSquare는 `tagname`에 동일 단계의 heading·본문 태그를 지정합니다.
+
 <ComponentApiDocs sections={typographyApiSections} />

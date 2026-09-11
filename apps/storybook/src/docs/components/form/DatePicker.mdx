@@ -74,4 +74,8 @@ disabled, error, success 상태를 메시지와 적절한 aria 속성으로 함�
 <Canvas of={DatePickerStories.Example} sourceState="none" />
 <FrameworkTabs examples={datePickerFrameworkExamples.example} />
 
+## 접근성
+
+트리거 입력은 읽기 전용으로 두고 달력 버튼·패널로 선택을 완료합니다. Escape와 바깥 영역 클릭으로 패널을 닫으며, `clearable`로 지운 뒤에는 트리거로 포커스를 복원합니다. `min`·`max` 밖 날짜는 선택하지 못합니다.
+
 <ComponentApiDocs sections={datePickerApiSections} />

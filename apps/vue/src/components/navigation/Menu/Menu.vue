@@ -18,6 +18,10 @@ const props = defineProps({
   bordered: Boolean, // 외곽 테두리를 표시할지 여부입니다.
   compact: Boolean, // 항목 간격을 줄인 밀집 레이아웃인지 여부입니다.
   dark: Boolean, // 어두운 배경 테마를 적용할지 여부입니다.
+  selectable: {
+    type: Boolean,
+    default: true,
+  }, // 클릭 시 DOM으로 활성 항목을 자동 갱신할지 여부입니다.
   ariaLabel: String, // 내비게이션의 접근 가능한 이름을 지정합니다.
 });
 
@@ -36,7 +40,9 @@ const classes = computed(() =>
 ); // false 등 적용되지 않는 항목을 제거합니다.
 
 // 비활성·서브메뉴가 아닌 링크 클릭 시 활성 상태를 단일 선택으로 갱신합니다.
+// selectable=false이면 MenuItem의 active만 사용합니다.
 function selectItem(event) {
+  if (!props.selectable) return;
   const link = event.target.closest?.('.menu_link');
   if (
     !link ||
@@ -59,7 +65,7 @@ function selectItem(event) {
     v-bind="attrs"
     :class="classes"
     data-component="Menu"
-    data-menu-selectable
+    :data-menu-selectable="selectable ? true : undefined"
     :aria-label="ariaLabel"
     @click="selectItem"
   >

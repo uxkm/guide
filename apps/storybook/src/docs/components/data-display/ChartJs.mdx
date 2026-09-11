@@ -11,13 +11,18 @@ import {
 
 # ChartJs
 
-[Chart.js](https://www.chartjs.org/)를 사용하는 차트 컴포넌트입니다. 라이브러리 없이 SVG로 그리는 `Chart`와 같은 데이터 형태(`data`, `type`, `title` 등)를 지원합니다.
+**라이선스: 무료 (MIT)** — [Chart.js](https://www.chartjs.org/)는 MIT 라이선스로, 상용 프로젝트에서도 무료로 사용할 수 있습니다.
+
+Chart.js를 사용하는 차트 컴포넌트입니다. 라이브러리 없이 SVG로 그리는 `Chart`와 같은 데이터 형태(`data`, `type`, `title` 등)를 지원합니다.
 
 Vue는 `@uxkm/vue/chart-js`, React는 `@uxkm/react/chart-js`로 가져옵니다. Gulp는 `chartJs` Nunjucks 매크로와 `main.js`의 `initChartJs()`를 사용합니다.
 HTML은 `data-chart-js-options`에 JSON을 넣고 `initChartJs()`로 초기화합니다.
 공통 스타일 `styles/uxkm.css`를 함께 로드하세요.
 
 `Chart`와의 차이: 패턴·흑백 모드 대신 Chart.js 네이티브 렌더링과 `chartOptions` 확장 옵션을 제공합니다. 유형은 `bar` · `line` · `area` · `donut` · `pie`입니다.
+
+차트 계열의 무료·유료 비교와 선택 가이드는 [Chart](?path=/docs/데이터-표시-chart--docs#라이선스--무료--유료) 문서를 참고하세요.
+WebSquare 탭은 차트 계열에서 제공하지 않습니다. HTML·Gulp·Vue·React(및 Next/Nuxt 재사용)로 사용하세요.
 
 ## 컴포넌트 구현 코드
 

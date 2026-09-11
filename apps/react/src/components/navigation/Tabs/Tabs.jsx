@@ -4,6 +4,7 @@
  */
 import {
   Children,
+  Fragment,
   isValidElement,
   useCallback,
   useEffect,
@@ -40,6 +41,8 @@ export function Tabs({
   items = EMPTY_ITEMS, // 선언형으로 전달할 탭 항목 배열입니다.
   panel, // dynamic 모드에서 활성 탭 콘텐츠를 계산하는 렌더 함수입니다.
   extra, // 탭 바 오른쪽에 배치할 보조 콘텐츠입니다.
+  closable = false, // 모든 탭에 닫기 버튼을 표시할지 여부입니다.
+  onClose, // 탭 닫기 버튼 클릭 시 호출할 콜백입니다.
   children, // TabsTab/TabPanel 등 자식으로 구성한 탭입니다.
   className = '', // 공통 클래스와 함께 적용할 사용자 정의 클래스입니다.
   ...props // id, aria-* 등 나머지 속성을 루트에 전달합니다.
@@ -57,6 +60,8 @@ export function Tabs({
           label: child.props.label,
           active: child.props.active,
           disabled: child.props.disabled,
+          closable: child.props.closable,
+          closeLabel: child.props.closeLabel,
           icon: child.props.icon,
           badge: child.props.badge,
           content: child.props.children,
@@ -177,20 +182,34 @@ export function Tabs({
   }, [source, selected, updateVisualState]);
 
   // 선택된 탭이 스크롤 뷰포트 중앙 근처에 오도록 이동합니다.
-  const scrollTabIntoView = (key) => {
-    const list = listRef.current;
-    const index = source.findIndex((item) => item.key === key);
-    const tab = index < 0 ? null : document.getElementById(`${uid}-tab-${index}`);
-    if (!scrollNav || !list || !tab) return;
-    const listRect = list.getBoundingClientRect();
-    const tabRect = tab.getBoundingClientRect();
-    const tabLeft = tabRect.left - listRect.left + list.scrollLeft;
-    const max = list.scrollWidth - list.clientWidth;
-    list.scrollTo({
-      left: Math.max(0, Math.min(tabLeft - (list.clientWidth - tabRect.width) / 2, max)),
-      behavior: 'smooth',
+  const scrollTabIntoView = useCallback(
+    (key) => {
+      const list = listRef.current;
+      const index = source.findIndex((item) => item.key === key);
+      const tab = index < 0 ? null : document.getElementById(`${uid}-tab-${index}`);
+      const target = tab?.closest('.tabs_item') ?? tab;
+      if (!scrollNav || !list || !target) return;
+      const listRect = list.getBoundingClientRect();
+      const tabRect = target.getBoundingClientRect();
+      const tabLeft = tabRect.left - listRect.left + list.scrollLeft;
+      const max = list.scrollWidth - list.clientWidth;
+      list.scrollTo({
+        left: Math.max(0, Math.min(tabLeft - (list.clientWidth - tabRect.width) / 2, max)),
+        behavior: 'smooth',
+      });
+    },
+    [scrollNav, source, uid],
+  );
+
+  // 제어형 value 변경(이전·다음 버튼 등)에도 탭 클릭과 동일하게 스크롤을 맞춥니다.
+  useEffect(() => {
+    if (!scrollNav || selected == null) return undefined;
+    const frame = requestAnimationFrame(() => {
+      updateVisualState();
+      scrollTabIntoView(selected);
     });
-  };
+    return () => cancelAnimationFrame(frame);
+  }, [scrollNav, selected, scrollTabIntoView, updateVisualState]);
 
   // 비활성 탭이 아니면 선택 상태를 갱신하고 시각·스크롤을 맞춥니다.
   const select = (key) => {
@@ -205,12 +224,29 @@ export function Tabs({
     }
   };
 
-  // 방향키·Home·End로 활성 가능 탭 사이를 이동합니다.
+  // 탭이 2개 이상일 때만 닫기 가능합니다. 목록 갱신은 호출 측에서 처리합니다.
+  const canCloseItem = (item) =>
+    source.length > 1 && Boolean(closable || item?.closable) && !item?.disabled;
+
+  const closeTab = (key, event) => {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    const target = source.find((item) => item.key === key);
+    if (target && canCloseItem(target)) onClose?.(key, event);
+  };
+
+  // 방향키·Home·End로 활성 가능 탭 사이를 이동하고, Delete로 닫습니다.
   const keyDown = (event, index) => {
+    const item = source[index];
+    if ((event.key === 'Delete' || event.key === 'Backspace') && canCloseItem(item)) {
+      event.preventDefault();
+      closeTab(item.key, event);
+      return;
+    }
     const enabled = source
-      .map((item, itemIndex) => ({ ...item, itemIndex }))
-      .filter((item) => !item.disabled);
-    const current = enabled.findIndex((item) => item.itemIndex === index);
+      .map((entry, itemIndex) => ({ ...entry, itemIndex }))
+      .filter((entry) => !entry.disabled);
+    const current = enabled.findIndex((entry) => entry.itemIndex === index);
     let next = current;
     if (event.key === (vertical ? 'ArrowDown' : 'ArrowRight'))
       next = (current + 1) % enabled.length;
@@ -250,9 +286,10 @@ export function Tabs({
       )}
       {source.map((item, index) => {
         const active = item.key === selected;
-        return (
+        const itemClosable = canCloseItem(item);
+        const closeLabel = item.closeLabel || `${item.label ?? '탭'} 닫기`;
+        const tabButton = (
           <Button
-            key={item.key}
             id={`${uid}-tab-${index}`}
             variant="text"
             color="default"
@@ -273,6 +310,31 @@ export function Tabs({
             onClick={() => select(item.key)}
             onKeyDown={(event) => keyDown(event, index)}
           />
+        );
+        if (!itemClosable) return <Fragment key={item.key}>{tabButton}</Fragment>;
+        return (
+          <span
+            key={item.key}
+            className={[
+              'tabs_item',
+              active && 'is-active',
+              item.disabled && 'is-disabled',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {tabButton}
+            <button
+              type="button"
+              className="tabs_close"
+              aria-label={closeLabel}
+              disabled={item.disabled || false}
+              tabIndex={-1}
+              onClick={(event) => closeTab(item.key, event)}
+            >
+              <Icon name="close" className="tabs_close-icon" />
+            </button>
+          </span>
         );
       })}
     </div>

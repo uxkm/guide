@@ -15,6 +15,10 @@ import * as Stories from '../../../BackTop.stories.tsx';
 
 WebSquare는 루트를 `w2:group.back_top`, 버튼을 `xf:trigger.back_top_btn`으로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
 
+## 사용 기준
+
+- 긴 페이지·스크롤 컨테이너에서만 제공합니다. 짧은 화면에는 두지 말고, Affix 하단 바와 역할을 겹치지 않게 합니다.
+
 ## 컴포넌트 구현 코드
 
 아래 코드는 사용 예제가 아니라 BackTop의 실제 원본 구현입니다. React와 Vue는 표시 임계값, 크기, 색상, 커스텀 콘텐츠와 스크롤 대상을 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.

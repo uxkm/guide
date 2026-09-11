@@ -116,4 +116,8 @@ FormLayout의 세로·가로 레이아웃 안에서 체크박스 그룹을 배�
 <Canvas of={CheckboxStories.Form} sourceState="none" />
 <FrameworkTabs examples={checkboxFrameworkExamples.form} />
 
+## 접근성
+
+보이는 레이블은 input과 명시적·암묵적으로 연결하고, 단독 사용은 `aria-label`로 이름을 제공합니다. 관련 항목은 `fieldset`과 `legend`(또는 `aria-labelledby`)로 그룹 목적을 전달합니다. `indeterminate`는 DOM `indeterminate`로 부분 선택을 표현합니다.
+
 <ComponentApiDocs sections={checkboxApiSections} />

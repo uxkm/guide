@@ -195,6 +195,64 @@
     flex-shrink: 0;
   }
 
+  &_item {
+    display: inline-flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    min-width: 0;
+    max-width: 100%;
+
+    .tabs_tab {
+      max-width: 100%;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .tabs_tab.btn.btn_text {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &_close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0 0.35rem 0 -0.15rem;
+    padding: 0;
+    border: none;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    @include focus-ring;
+
+    &:hover:not(:disabled) {
+      color: var(--color-text);
+      background: var(--color-surface-raised);
+    }
+
+    &:disabled {
+      @include disabled-state;
+    }
+  }
+
+  &_close-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  &_item.is-active,
+  &_item:has(.tabs_tab[aria-selected="true"]) {
+    .tabs_close {
+      color: color-token(primary);
+    }
+  }
+
   &_extra {
     display: flex;
     align-items: center;
@@ -343,6 +401,38 @@
       gap: 0;
     }
 
+    .tabs_item {
+      margin-bottom: -1px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: $radius-sm $radius-sm 0 0;
+      background: var(--color-surface-raised);
+
+      &.is-active,
+      &:has(.tabs_tab[aria-selected="true"]) {
+        border-color: var(--color-border);
+        border-bottom-color: var(--color-surface);
+        background: var(--color-surface);
+
+        .tabs_tab.btn.btn_text {
+          border-color: transparent;
+          background: transparent;
+          color: color-token(primary);
+        }
+      }
+
+      .tabs_tab.btn.btn_text {
+        border: none;
+        background: transparent;
+
+        &.is-active,
+        &[aria-selected="true"] {
+          border: none;
+          background: transparent;
+        }
+      }
+    }
+
     .tabs_tab {
       border: 1px solid transparent;
       border-bottom: none;
@@ -482,21 +572,40 @@
   &_scroll-nav {
     .tabs_bar {
       align-items: center;
+      min-width: 0;
+    }
+
+    .tabs_list-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .tabs_scroll-viewport {
       overflow: hidden;
+      // 탭 항목이 우측 extra·네비 영역으로 넘치지 않도록 페인트 범위를 제한합니다.
+      contain: paint;
+      clip-path: inset(0);
     }
 
     .tabs_list {
       flex-wrap: nowrap;
+      max-width: 100%;
+      min-width: 0;
       overflow-x: auto;
+      overflow-y: hidden;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
 
       &::-webkit-scrollbar {
         display: none;
       }
+    }
+
+    // list-wrap이 남는 너비를 가져가므로 extra의 auto 마진은 제거합니다.
+    .tabs_extra {
+      flex: 0 0 auto;
+      margin-left: 0;
     }
   }
 

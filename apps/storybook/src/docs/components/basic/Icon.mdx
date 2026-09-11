@@ -119,4 +119,8 @@ small, medium, large, extra large 네 가지 크기를 제공합니다. medium�
 
 <FrameworkTabs examples={iconFrameworkExamples.gallery} />
 
+## 접근성
+
+장식용 아이콘은 `aria-hidden`으로 숨기고, 의미가 있는 아이콘은 `aria-label` 또는 `title`로 이름을 제공합니다. `button`·`circle`·`square` 래퍼에서는 내부 SVG를 `aria-hidden`으로 두고 접근성 이름은 래퍼의 `aria-label`에 둡니다. WebSquare의 `w2:image`는 장식용이면 빈 `alt`, 의미 있는 이미지에는 대체 텍스트를 지정합니다.
+
 <ComponentApiDocs sections={iconApiSections} />

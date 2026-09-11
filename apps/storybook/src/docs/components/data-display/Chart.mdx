@@ -12,10 +12,119 @@ import {
 
 # Chart
 
+**라이선스: 무료** — 외부 차트 라이브러리 없이 자체 SVG로 그립니다. 추가 라이선스 비용이 없습니다.
+
 단일 데이터 계열을 막대·선·영역·도넛·아크로 표시하는 반응형 SVG 차트입니다.
 Vue는 `@uxkm/vue/chart`, React는 `@uxkm/react/chart`로 가져옵니다. Gulp는 `chart` Nunjucks 매크로와 `main.js` 초기화를 사용합니다.
 HTML은 `data-chart-options` 속성에 JSON 설정을 넣고 `main.js`로 초기화합니다.
 모든 구현은 공통 스타일 `styles/uxkm.css`를 함께 로드하세요. Vue 차트는 마운트 후 브라우저에서 그려지며 prop 변경 시 갱신됩니다.
+WebSquare 탭은 차트 계열에서 제공하지 않습니다. HTML·Gulp·Vue·React(및 Next/Nuxt 재사용)로 사용하세요.
+
+## 라이선스 · 무료 / 유료
+
+가이드에서 제공하는 차트는 라이선스에 따라 아래처럼 나뉩니다.
+
+### 무료
+
+<div className="table_wrap">
+  <table className="table">
+    <thead>
+      <tr>
+        <th scope="col">컴포넌트</th>
+        <th scope="col">기반</th>
+        <th scope="col">라이선스</th>
+        <th scope="col">비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Chart</th>
+        <td>외부 라이브러리 없음 (자체 SVG)</td>
+        <td>가이드 컴포넌트</td>
+        <td>의존성 없이 사용</td>
+      </tr>
+      <tr>
+        <th scope="row">ChartJs</th>
+        <td>
+          <a href="https://www.chartjs.org/" target="_blank" rel="noreferrer">
+            Chart.js
+          </a>
+        </td>
+        <td>MIT</td>
+        <td>상용 프로젝트에서도 무료</td>
+      </tr>
+      <tr>
+        <th scope="row">ChartEcharts</th>
+        <td>
+          <a href="https://echarts.apache.org/" target="_blank" rel="noreferrer">
+            Apache ECharts
+          </a>
+        </td>
+        <td>Apache-2.0</td>
+        <td>상용 프로젝트에서도 무료</td>
+      </tr>
+      <tr>
+        <th scope="row">ChartD3</th>
+        <td>
+          <a href="https://d3js.org/" target="_blank" rel="noreferrer">
+            D3.js
+          </a>
+        </td>
+        <td>ISC</td>
+        <td>상용 프로젝트에서도 무료</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+### 유료 (상용 시 라이선스 필요)
+
+<div className="table_wrap">
+  <table className="table">
+    <thead>
+      <tr>
+        <th scope="col">컴포넌트</th>
+        <th scope="col">기반</th>
+        <th scope="col">라이선스</th>
+        <th scope="col">비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">ChartHighcharts</th>
+        <td>
+          <a href="https://www.highcharts.com/" target="_blank" rel="noreferrer">
+            Highcharts
+          </a>
+        </td>
+        <td>상용 라이선스</td>
+        <td>
+          비상업·개인·교육 등 조건에 따라 무료일 수 있으나,{" "}
+          <strong>상용 제품에는 Highcharts 라이선스 구매가 필요</strong>
+          합니다. 도입 전{" "}
+          <a href="https://shop.highcharts.com/" target="_blank" rel="noreferrer">
+            Highcharts 라이선스
+          </a>
+          를 확인하세요.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+API(`data`, `type`, `title` 등)는 계열마다 유사하게 맞춰 두었습니다. 비용·커스터마이징·번들 크기에 맞춰 선택하세요.
+
+### 선택 가이드
+
+| 상황 | 권장 | 이유 |
+| --- | --- | --- |
+| 의존성·라이선스 부담을 최소화 | `Chart` | 외부 라이브러리 없음, 패턴·아크 지원 |
+| 익숙한 캔버스 차트·커뮤니티 예제 | `ChartJs` | MIT, 가벼운 의존성 |
+| 대시보드·풍부한 옵션 | `ChartEcharts` | Apache-2.0, `chartOptions`로 ECharts option 확장 |
+| 커스텀 스케일·경로 시각화 | `ChartD3` | ISC, SVG를 D3로 직접 그림 |
+| Highcharts 생태계가 이미 있는 상용 제품 | `ChartHighcharts` | **상용 라이선스 구매 필요** |
+
+WebSquare 탭은 차트 계열에서 제공하지 않습니다. HTML·Gulp·Vue·React(및 Next/Nuxt 재사용)로 사용하세요.
 
 ## 스타일 직접 선택
 

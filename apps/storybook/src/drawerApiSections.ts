@@ -7,6 +7,7 @@ export const drawerApiSections: ApiSectionData[] = [
     { name: 'title · header · extra · children · footer', type: 'ReactNode', default: '—', description: '헤더, 추가 영역, 본문, 푸터 콘텐츠입니다.' },
     { name: 'placement', type: "'left' | 'right' | 'top' | 'bottom'", default: "'right'", description: '패널이 열리는 방향입니다.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: '패널 크기입니다.' },
+    { name: 'motion · speed', type: "'slide' | 'fade' · 'fast' | 'normal' | 'slow'", default: "'slide' · 'normal'", description: '열·닫힘 전환 효과와 속도 프리셋입니다.' },
     { name: 'backdrop · noBackdrop · draggable', type: 'boolean', default: 'true · false · false', description: '백드롭과 하단 핸들 옵션입니다.' },
     { name: 'footerAlign · footerRatio · footerNoPadBottom', type: 'string · string · boolean', default: "'end' · '1-1' · false", description: '푸터 액션 배치입니다.' },
     { name: 'onClose', type: '(reason, event) => void', default: '—', description: 'close · backdrop · escape · drag 사유를 전달합니다.' },
@@ -14,6 +15,7 @@ export const drawerApiSections: ApiSectionData[] = [
   section('Vue · Nuxt API', [
     { name: 'open · default-open · open-on-load', type: 'boolean', default: 'false', description: '표시 상태입니다.' },
     { name: 'title · placement · size', type: 'string', default: "— · 'right' · 'md'", description: '콘텐츠와 패널 배치입니다.' },
+    { name: 'motion · speed', type: "'slide' | 'fade' · 'fast' | 'normal' | 'slow'", default: "'slide' · 'normal'", description: '열·닫힘 전환 효과와 속도 프리셋입니다.' },
     { name: 'header · extra · default · footer', type: 'slot', default: '—', description: 'Drawer 콘텐츠 슬롯입니다.' },
     { name: '@close', type: 'event', default: '—', description: '닫기 사유와 원본 이벤트입니다.' },
   ], 'Nuxt는 @uxkm/vue/drawer를 재사용합니다.'),
@@ -21,7 +23,8 @@ export const drawerApiSections: ApiSectionData[] = [
     { name: 'drawer · drawer_backdrop · drawer_panel', type: 'class', default: '—', description: '루트, 백드롭, 패널입니다.' },
     { name: 'drawer_header · drawer_body · drawer_footer', type: 'class', default: '—', description: '구조 영역입니다.' },
     { name: 'drawer_placement-* · drawer_sm · drawer_lg', type: 'class', default: '—', description: '방향과 크기 변형입니다.' },
-    { name: 'data-drawer-trigger · data-drawer-close', type: 'attribute', default: '—', description: '열기와 닫기 트리거입니다.' },
+    { name: 'drawer_motion-slide · drawer_motion-fade', type: 'class', default: '—', description: '열·닫힘 전환 효과입니다.' },
+    { name: 'data-drawer-trigger · data-drawer-close · data-drawer-motion · data-drawer-speed', type: 'attribute', default: '—', description: '열기·닫기 트리거와 전환 옵션입니다.' },
   ]),
   section('디자인 토큰', [
     { name: '--drawer-z-index · --drawer-width · --drawer-height', type: 'number · length', default: '250 · 24rem · 18rem', description: '레이어와 패널 크기입니다.' },

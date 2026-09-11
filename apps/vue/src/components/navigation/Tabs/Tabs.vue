@@ -33,8 +33,9 @@ const props = defineProps({
   ariaLabel: String, // 탭 목록의 접근 가능한 이름을 지정합니다.
   items: { type: Array, default: () => [] }, // 선언형으로 전달할 탭 항목 배열입니다.
   indicator: { type: String, default: 'static' }, // 활성 표시줄의 정적·슬라이드 동작을 선택합니다.
+  closable: Boolean, // 모든 탭에 닫기 버튼을 표시할지 여부입니다.
 });
-const emit = defineEmits(['update:modelValue']); // 선택 탭이 바뀔 때 부모로 전달합니다.
+const emit = defineEmits(['update:modelValue', 'close']); // 선택·닫기 이벤트를 부모로 전달합니다.
 
 // 선언하지 않은 class와 HTML 속성을 수집합니다.
 const attrs = useAttrs();
@@ -95,9 +96,10 @@ function scrollTabIntoView(key) {
   const list = listRef.value;
   const tab = tabs.value.find((item) => item.key === key);
   const element = tab ? document.getElementById(tab.id) : null;
-  if (!scrollNav.value || !list || !element) return;
+  const target = element?.closest('.tabs_item') ?? element;
+  if (!scrollNav.value || !list || !target) return;
   const listRect = list.getBoundingClientRect();
-  const tabRect = element.getBoundingClientRect();
+  const tabRect = target.getBoundingClientRect();
   const tabLeft = tabRect.left - listRect.left + list.scrollLeft;
   const max = list.scrollWidth - list.clientWidth;
   list.scrollTo({
@@ -132,12 +134,46 @@ watchEffect(() => {
       tabs.value.find((tab) => !tab.disabled)?.key;
 });
 
-// 방향키·Home·End로 활성 가능 탭 사이를 이동합니다.
+// 제어형 v-model 변경(이전·다음 버튼 등)에도 탭 클릭과 동일하게 스크롤을 맞춥니다.
+watch(
+  selected,
+  (key) => {
+    if (!scrollNav.value || key == null) return;
+    nextTick(() =>
+      requestAnimationFrame(() => {
+        updateVisualState();
+        scrollTabIntoView(key);
+      }),
+    );
+  },
+  { flush: 'post' },
+);
+
+// 탭이 2개 이상일 때만 닫기 가능합니다.
+function canCloseItem(tab) {
+  return tabs.value.length > 1 && Boolean(props.closable || tab?.closable) && !tab?.disabled;
+}
+
+// 닫기 가능한 탭이면 close 이벤트를 부모로 전달합니다.
+function closeTab(key, event) {
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  const tab = tabs.value.find((item) => item.key === key);
+  if (tab && canCloseItem(tab)) emit('close', key, event);
+}
+
+// 방향키·Home·End로 활성 가능 탭 사이를 이동하고, Delete로 닫습니다.
 function keydown(event, index) {
+  const tab = tabs.value[index];
+  if ((event.key === 'Delete' || event.key === 'Backspace') && canCloseItem(tab)) {
+    event.preventDefault();
+    closeTab(tab.key, event);
+    return;
+  }
   const enabled = tabs.value
-    .map((tab, itemIndex) => ({ ...tab, itemIndex }))
-    .filter((tab) => !tab.disabled);
-  const current = enabled.findIndex((tab) => tab.itemIndex === index);
+    .map((entry, itemIndex) => ({ ...entry, itemIndex }))
+    .filter((entry) => !entry.disabled);
+  const current = enabled.findIndex((entry) => entry.itemIndex === index);
   let next = current;
   if (event.key === (props.vertical ? 'ArrowDown' : 'ArrowRight'))
     next = (current + 1) % enabled.length;
@@ -257,33 +293,79 @@ SlotRenderer.props = ['render'];
             class="tabs_indicator"
             aria-hidden="true"
             :style="indicatorStyle"
-          /><Button
-            v-for="(tab, index) in tabs"
-            :id="tab.id"
-            :key="tab.key"
-            variant="text"
-            color="default"
-            fit
-            :ripple="false"
-            :class="[
-              'tabs_tab',
-              tab.key === selected && 'is-active',
-              tab.disabled && 'is-disabled',
-            ]"
-            role="tab"
-            :aria-selected="tab.key === selected"
-            :aria-controls="mode === 'dynamic' ? `${uid}-panel-dynamic` : tab.panelId"
-            :aria-disabled="tab.disabled || undefined"
-            :disabled="tab.disabled || undefined"
-            :tabindex="tab.key === selected ? 0 : -1"
-            :label="tab.label || ''"
-            @click="select(tab.key)"
-            @keydown="keydown($event, index)"
-            ><template v-if="tab.icon" #icon-before
-              ><span class="tabs_icon"><SlotRenderer :render="tab.icon" /></span></template
-            ><template v-if="tab.badge" #icon-after
-              ><span class="tabs_badge"><SlotRenderer :render="tab.badge" /></span></template
-          ></Button>
+          />
+          <template v-for="(tab, index) in tabs" :key="tab.key">
+            <span
+              v-if="tabs.length > 1 && (closable || tab.closable)"
+              :class="[
+                'tabs_item',
+                tab.key === selected && 'is-active',
+                tab.disabled && 'is-disabled',
+              ]"
+            >
+              <Button
+                :id="tab.id"
+                variant="text"
+                color="default"
+                fit
+                :ripple="false"
+                :class="[
+                  'tabs_tab',
+                  tab.key === selected && 'is-active',
+                  tab.disabled && 'is-disabled',
+                ]"
+                role="tab"
+                :aria-selected="tab.key === selected"
+                :aria-controls="mode === 'dynamic' ? `${uid}-panel-dynamic` : tab.panelId"
+                :aria-disabled="tab.disabled || undefined"
+                :disabled="tab.disabled || undefined"
+                :tabindex="tab.key === selected ? 0 : -1"
+                :label="tab.label || ''"
+                @click="select(tab.key)"
+                @keydown="keydown($event, index)"
+                ><template v-if="tab.icon" #icon-before
+                  ><span class="tabs_icon"><SlotRenderer :render="tab.icon" /></span></template
+                ><template v-if="tab.badge" #icon-after
+                  ><span class="tabs_badge"><SlotRenderer :render="tab.badge" /></span></template
+              ></Button>
+              <button
+                type="button"
+                class="tabs_close"
+                :aria-label="tab.closeLabel || `${tab.label || '탭'} 닫기`"
+                :disabled="tab.disabled || undefined"
+                tabindex="-1"
+                @click="closeTab(tab.key, $event)"
+              >
+                <Icon name="close" class="tabs_close-icon" />
+              </button>
+            </span>
+            <Button
+              v-else
+              :id="tab.id"
+              variant="text"
+              color="default"
+              fit
+              :ripple="false"
+              :class="[
+                'tabs_tab',
+                tab.key === selected && 'is-active',
+                tab.disabled && 'is-disabled',
+              ]"
+              role="tab"
+              :aria-selected="tab.key === selected"
+              :aria-controls="mode === 'dynamic' ? `${uid}-panel-dynamic` : tab.panelId"
+              :aria-disabled="tab.disabled || undefined"
+              :disabled="tab.disabled || undefined"
+              :tabindex="tab.key === selected ? 0 : -1"
+              :label="tab.label || ''"
+              @click="select(tab.key)"
+              @keydown="keydown($event, index)"
+              ><template v-if="tab.icon" #icon-before
+                ><span class="tabs_icon"><SlotRenderer :render="tab.icon" /></span></template
+              ><template v-if="tab.badge" #icon-after
+                ><span class="tabs_badge"><SlotRenderer :render="tab.badge" /></span></template
+            ></Button>
+          </template>
         </div>
       </div>
       <Button

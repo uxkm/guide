@@ -165,4 +165,8 @@ disabled, `is-disabled`, `is-loading` 상태를 표현합니다. 비활성은 �
 
 <FrameworkTabs examples={buttonFrameworkExamples.tags} />
 
+## 접근성
+
+`tag`가 `div`이거나 `href` 없는 `a`이면 `role="button"`과 `tabindex="0"`을 적용하고 Enter·Space로 클릭을 흉내 냅니다. `iconOnly`는 `aria-label`이 필요합니다. `loading`은 `aria-busy`, `ariaDisabled`는 `aria-disabled`, 폼 오류는 `aria-invalid`를 사용하며, 팝업 트리거는 `aria-haspopup`·`aria-expanded`로 열림 상태를 전달합니다.
+
 <ComponentApiDocs sections={buttonApiSections} />

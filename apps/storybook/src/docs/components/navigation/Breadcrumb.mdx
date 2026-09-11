@@ -15,6 +15,10 @@ import * as Stories from '../../../Breadcrumb.stories.tsx';
 
 WebSquare는 경로를 `w2:group.breadcrumb`, 항목·구분자를 `w2:textbox`, 생략을 `xf:trigger.breadcrumb_ellipsis`로 구성합니다. 각 WebSquare 탭은 화면 XML 루트에 `w2`, `xf`, `ev` 네임스페이스가 선언되어 있다는 전제의 fragment입니다.
 
+## 사용 기준
+
+- 3단 이상 계층에서 상위 이동이 필요할 때 사용합니다. 현재 위치만 보이면 페이지 제목/Navbar로 충분하고, 단계 진행은 Steps를 사용합니다.
+
 ## 컴포넌트 구현 코드
 
 아래 코드는 사용 예제가 아니라 Breadcrumb와 BreadcrumbItem·BreadcrumbEllipsis의 실제 원본 구현입니다. React와 Vue는 구분자, 크기, 홈 아이콘, 경로 생략과 현재·비활성 상태를 공통 API로 제공합니다. Next.js는 React 구현을, Nuxt는 Vue 구현을 재사용합니다.

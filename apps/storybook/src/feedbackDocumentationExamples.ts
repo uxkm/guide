@@ -667,6 +667,15 @@ ${drawerControl('nestedChild', '두 번째 Drawer', '최상위 패널만 조작�
         backdrop: false,
         open: true,
       });
+    case 'motion':
+      return drawerControl('motion', 'Fade 효과', 'motion="fade" 전환입니다.', {
+        classes: 'drawer_motion-fade',
+        triggerLabel: 'Fade 열기',
+      });
+    case 'speed':
+      return drawerControl('speed', 'Slow 속도', 'speed="slow" 전환입니다.', {
+        triggerLabel: 'Slow 열기',
+      });
     case 'basic':
     default:
       return drawerControl('basic', '상세 정보', 'Drawer 패널 본문입니다.', {

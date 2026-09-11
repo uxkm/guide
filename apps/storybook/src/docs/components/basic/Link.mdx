@@ -121,4 +121,8 @@ children 또는 기본 슬롯에 이미지·아이콘·컴포넌트를 조합할
 <Canvas of={LinkStories.Context} sourceState="none" />
 <FrameworkTabs examples={linkFrameworkExamples.context} />
 
+## 접근성
+
+`active`는 `aria-current="page"`를 적용합니다. `disabled`는 `aria-disabled`와 `tabindex=-1`로 키보드·클릭을 차단합니다. `iconOnly`와 텍스트 없는 링크는 `aria-label`이 필요하며, 장식용 아이콘은 접근성 트리에서 숨깁니다.
+
 <ComponentApiDocs sections={linkApiSections} />

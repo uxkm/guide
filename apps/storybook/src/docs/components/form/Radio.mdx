@@ -116,4 +116,8 @@ FormLayout의 세로·가로 레이아웃 안에서 라디오 그룹을 배치�
 <Canvas of={RadioStories.Form} sourceState="none" />
 <FrameworkTabs examples={radioFrameworkExamples.form} />
 
+## 접근성
+
+같은 그룹은 동일한 `name`을 쓰고 `fieldset`과 `legend`(또는 `aria-labelledby`)로 목적을 제공합니다. 보이는 레이블이 없는 단독 사용은 `aria-label`로 접근 가능한 이름을 제공합니다.
+
 <ComponentApiDocs sections={radioApiSections} />

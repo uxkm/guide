@@ -11,7 +11,9 @@ import {
 
 # ChartD3
 
-[D3.js](https://d3js.org/)로 SVG를 그리는 차트 컴포넌트입니다. `Chart` · `ChartJs` · `ChartEcharts` · `ChartHighcharts`와 같은 데이터 형태를 지원합니다.
+**라이선스: 무료 (ISC)** — [D3.js](https://d3js.org/)는 ISC 라이선스로, 상용 프로젝트에서도 무료로 사용할 수 있습니다.
+
+D3.js로 SVG를 그리는 차트 컴포넌트입니다. `Chart` · `ChartJs` · `ChartEcharts` · `ChartHighcharts`와 같은 데이터 형태를 지원합니다.
 
 - React: `@uxkm/react/chart-d3`
 - Vue: `@uxkm/vue/chart-d3`
@@ -19,6 +21,9 @@ import {
 - Gulp: `chartD3` 매크로
 
 유형: `bar` · `line` · `area` · `donut` · `pie`. D3 스케일·경로 API로 직접 렌더링하므로 커스텀 시각화에 적합합니다.
+
+차트 계열의 무료·유료 비교와 선택 가이드는 [Chart](?path=/docs/데이터-표시-chart--docs#라이선스--무료--유료) 문서를 참고하세요.
+WebSquare 탭은 차트 계열에서 제공하지 않습니다. HTML·Gulp·Vue·React(및 Next/Nuxt 재사용)로 사용하세요.
 
 ## 컴포넌트 구현 코드
 
@@ -36,10 +41,40 @@ import {
 
 ## 도넛 · 파이
 
+도넛·파이는 0 이상의 값만 지원하며 합계가 0이면 빈 상태를 표시합니다. 항목별 `color`를 지정할 수 있습니다.
+
 <Canvas of={ChartD3Stories.Donut} sourceState="none" />
 <FrameworkTabs examples={chartD3FrameworkExamples.Donut} />
 <Canvas of={ChartD3Stories.Pie} sourceState="none" />
 <FrameworkTabs examples={chartD3FrameworkExamples.Pie} />
+
+## 색상 커스텀
+
+`Chart` · `ChartJs` · `ChartEcharts`와 동일한 CSS 변수(`--chart-color`, `--chart-series-*`)를 사용합니다. 렌더 시점에 CSS 변수를 계산된 색상으로 해석합니다.
+
+```css
+:root {
+  --chart-color: #2563eb;
+  --chart-series-1: #2563eb;
+  --chart-series-2: #0d9488;
+  --chart-series-3: #9333ea;
+  --chart-series-4: #c2410c;
+}
+```
+
+## D3 옵션 확장
+
+`chartOptions`로 렌더 훅·여백·축 등 D3 래퍼 옵션을 병합할 수 있습니다. 세부 키는 구현·API를 확인하세요.
+
+```jsx
+<ChartD3
+  type="bar"
+  data={data}
+  chartOptions={{
+    margin: { top: 16, right: 16, bottom: 32, left: 40 },
+  }}
+/>
+```
 
 ## 빈 데이터
 
@@ -47,6 +82,10 @@ import {
 <FrameworkTabs examples={chartD3FrameworkExamples.Empty} />
 <Canvas of={ChartD3Stories.CustomEmpty} sourceState="none" />
 <FrameworkTabs examples={chartD3FrameworkExamples.CustomEmpty} />
+
+## 접근성
+
+SVG에 차트 제목을 `aria-label`로 제공합니다. `데이터 표 보기`로 원본 라벨과 수치를 표로 확인할 수 있으며, 해당 컨트롤에도 제목을 포함한 `aria-label`을 둡니다.
 
 ## API
 

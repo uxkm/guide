@@ -102,4 +102,8 @@ FormLayout 안에서 슬라이더를 배치합니다.
 <Canvas of={SliderStories.Form} sourceState="none" />
 <FrameworkTabs examples={sliderFrameworkExamples.form} />
 
+## 접근성
+
+네이티브 `input type="range"`를 사용하며 보이는 레이블은 `label[for]`와 `id`로 연결합니다. 증감 버튼은 `decreaseLabel`·`increaseLabel`로 접근 가능한 이름을 제공하고, 조작 후에도 입력 포커스를 유지합니다.
+
 <ComponentApiDocs sections={sliderApiSections} />

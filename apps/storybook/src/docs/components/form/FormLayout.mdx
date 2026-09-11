@@ -91,4 +91,8 @@ Grid 안의 필드는 자체 세로 마진을 제거하므로 여러 필드를 �
 <Canvas of={FormLayoutStories.Example} sourceState="none" />
 <FrameworkTabs examples={formLayoutFrameworkExamples.example} />
 
+## 접근성
+
+`FormField`는 레이블과 입력 id를 `for`/`id`로 연결합니다. 필수는 시각 별표와 스크린 리더용 “필수 항목” 텍스트를 제공하되, 실제 컨트롤에도 네이티브 `required`를 지정해야 합니다. 오류 메시지는 `role="alert"`를 사용하고 도움말보다 우선 표시합니다.
+
 <ComponentApiDocs sections={formLayoutApiSections} />

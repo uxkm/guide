@@ -116,4 +116,8 @@ small·compact·large로 셀 크기와 패딩을 조절합니다.
 <Canvas of={CalendarStories.State} sourceState="none" />
 <FrameworkTabs examples={calendarFrameworkExamples.state} showFullCode />
 
+## 접근성
+
+캘린더에는 `ariaLabel`로 목적을 제공합니다. 날짜 셀은 `aria-selected`와 범위·오늘·비활성 상태 클래스를 데이터와 동기화합니다. 이전·다음 탐색과 선택 가능한 날짜는 키보드로 조작 가능한 Trigger로 구성하고, 읽기 전용·비활성에서는 선택 이벤트를 연결하지 않습니다.
+
 <ComponentApiDocs sections={calendarApiSections} />

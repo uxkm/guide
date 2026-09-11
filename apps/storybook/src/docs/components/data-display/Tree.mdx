@@ -86,4 +86,8 @@ WebSquare는 `tree`·`treeitem`·`group` 역할을 갖는 중첩 `w2:group`과 �
 <Canvas of={TreeStories.Selectable} sourceState="none" />
 <FrameworkTabs examples={treeFrameworkExamples.selectable} />
 
+## 접근성
+
+루트는 `role="tree"`, 노드는 `role="treeitem"`, 자식 컨테이너는 `role="group"`입니다. `aria-expanded`·`aria-selected`를 확장·선택 상태와 동기화하고, 필요 시 `ariaLabel`로 트리 이름을 제공합니다. 토글 Trigger 레이블도 펼침 상태에 맞춰 갱신합니다.
+
 <ComponentApiDocs sections={treeApiSections} />

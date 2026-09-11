@@ -117,4 +117,8 @@ button에는 네이티브 `disabled`, 링크·정적 요소에는 `aria-disabled
 <Canvas of={TagStories.Group} sourceState="none" />
 <FrameworkTabs examples={tagFrameworkExamples.group} />
 
+## 접근성
+
+`checkable`·`add`는 button, `href`는 anchor, 그 외는 정적 요소로 의미를 구분합니다. 선택 상태는 `aria-pressed`, 비활성은 네이티브 `disabled` 또는 `aria-disabled`를 사용합니다. `closable`의 닫기 버튼은 독립 컨트롤로 분리하고, `TagGroup`은 `role="group"`으로 묶습니다.
+
 <ComponentApiDocs sections={tagApiSections} />

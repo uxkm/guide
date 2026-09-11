@@ -58,8 +58,10 @@ export function initTabs(root = document) {
     }
     function scrollTabIntoView(tab) {
       if (!list || !tabs.classList.contains('tabs_scroll-nav')) return;
+      const target = tab?.closest('.tabs_item') ?? tab;
+      if (!target) return;
       const listRect = list.getBoundingClientRect();
-      const tabRect = tab.getBoundingClientRect();
+      const tabRect = target.getBoundingClientRect();
       const tabLeft = tabRect.left - listRect.left + list.scrollLeft;
       const max = list.scrollWidth - list.clientWidth;
       list.scrollTo({
@@ -73,6 +75,7 @@ export function initTabs(root = document) {
         item.classList.toggle('is-active', active);
         item.setAttribute('aria-selected', String(active));
         item.tabIndex = active ? 0 : -1;
+        item.closest('.tabs_item')?.classList.toggle('is-active', active);
         const panel = document.getElementById(item.getAttribute('aria-controls'));
         if (panel) {
           panel.hidden = !active;
@@ -84,13 +87,50 @@ export function initTabs(root = document) {
         scrollTabIntoView(tab);
       });
     }
+    function closeTab(closeButton) {
+      const item = closeButton.closest('.tabs_item');
+      const tab = item?.querySelector('[role="tab"]');
+      if (!tab || tab.disabled || tab.getAttribute('aria-disabled') === 'true') return;
+      const tabsList = enabled();
+      // 마지막 남은 탭은 닫지 않습니다.
+      if (tabsList.length <= 1) return;
+      const index = tabsList.indexOf(tab);
+      const panel = document.getElementById(tab.getAttribute('aria-controls'));
+      const wasActive = tab.getAttribute('aria-selected') === 'true';
+      item?.remove();
+      panel?.remove();
+      if (!wasActive) {
+        requestAnimationFrame(updateVisualState);
+        return;
+      }
+      const remaining = enabled();
+      const fallback = remaining[Math.max(0, index - 1)] ?? remaining[0];
+      if (fallback) select(fallback);
+      else requestAnimationFrame(updateVisualState);
+    }
     list?.addEventListener('click', (event) => {
+      const closeButton = event.target.closest('[data-tabs-close]');
+      if (closeButton) {
+        event.preventDefault();
+        closeTab(closeButton);
+        return;
+      }
       const tab = event.target.closest('[role="tab"]');
       if (tab && !tab.disabled && tab.getAttribute('aria-disabled') !== 'true') select(tab);
     });
     list?.addEventListener('keydown', (event) => {
+      const tab = event.target.closest('[role="tab"]');
       const tabsList = enabled();
-      const current = tabsList.indexOf(event.target.closest('[role="tab"]'));
+      const current = tabsList.indexOf(tab);
+      if (
+        tab &&
+        (event.key === 'Delete' || event.key === 'Backspace') &&
+        tab.closest('.tabs_item')?.querySelector('[data-tabs-close]')
+      ) {
+        event.preventDefault();
+        closeTab(tab.closest('.tabs_item').querySelector('[data-tabs-close]'));
+        return;
+      }
       let next = current;
       const vertical = tabs.classList.contains('tabs_vertical');
       if (event.key === (vertical ? 'ArrowDown' : 'ArrowRight'))

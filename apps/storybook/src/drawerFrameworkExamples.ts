@@ -121,6 +121,18 @@ ${gulpDrawer('drawer-drag', '공유 · 액션', '<p>하단 액션 시트입니�
       return `${gulpImports}
 
 ${gulpDrawer('drawer-plain', '백드롭 없음', '<p>패널만 표시합니다.</p>', ", size='sm', noBackdrop=true, open=true")}`;
+    case 'motion':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-fade', 'Fade 열기')}
+
+${gulpDrawer('drawer-fade', 'Fade 효과', '<p>motion=&quot;fade&quot; 전환입니다.</p>', ", motion='fade'")}`;
+    case 'speed':
+      return `${gulpImports}
+
+${gulpTrigger('drawer-slow', 'Slow 열기')}
+
+${gulpDrawer('drawer-slow', 'Slow 속도', '<p>speed=&quot;slow&quot; 전환입니다.</p>', ", speed='slow'")}`;
     default:
       return gulpImports;
   }
@@ -137,6 +149,8 @@ const sources: Record<string, Source> = {
   nested: { html: `${trigger('drawer-parent', '첫 번째 Drawer 열기')}\n${drawer('drawer-parent', '첫 번째 Drawer', '<button data-drawer-trigger="#drawer-child">두 번째 열기</button>')}\n${drawer('drawer-child', '두 번째 Drawer', '<p>최상위 패널</p>', 'drawer_placement-right drawer_sm', 'style="--drawer-stack-level: 1"')}`, react: '<><Drawer open={parentOpen} title="첫 번째 Drawer" /><Drawer open={childOpen} size="sm" title="두 번째 Drawer" /></>', vue: '<Drawer :open="parentOpen" title="첫 번째 Drawer" /><Drawer :open="childOpen" size="sm" title="두 번째 Drawer" />' },
   dragSheet: { html: `${trigger('drawer-drag', '드래그 시트 열기')}\n${drawer('drawer-drag', '공유 · 액션', '<p>하단 액션 시트입니다.</p>', 'drawer_placement-bottom drawer_draggable', 'data-drawer-draggable="true"')}`, react: '<Drawer open={open} placement="bottom" draggable title="공유 · 액션"><p>하단 액션 시트입니다.</p></Drawer>', vue: '<Drawer :open="open" placement="bottom" draggable title="공유 · 액션"><p>하단 액션 시트입니다.</p></Drawer>' },
   noBackdrop: { html: drawer('drawer-plain', '백드롭 없음', '<p>패널만 표시합니다.</p>', 'drawer_placement-right drawer_sm', 'data-drawer-backdrop="false"'), react: '<Drawer open={open} noBackdrop size="sm" title="백드롭 없음" />', vue: '<Drawer :open="open" no-backdrop size="sm" title="백드롭 없음" />' },
+  motion: { html: `${trigger('drawer-fade', 'Fade 열기')}\n${drawer('drawer-fade', 'Fade 효과', '<p>motion=&quot;fade&quot; 전환입니다.</p>', 'drawer_placement-right drawer_motion-fade', 'data-drawer-motion="fade"')}`, react: '<Drawer open={open} motion="fade" title="Fade 효과" onClose={() => setOpen(false)}><p>motion=&quot;fade&quot; 전환입니다.</p></Drawer>', vue: '<Drawer :open="open" motion="fade" title="Fade 효과" @close="open = false"><p>motion=&quot;fade&quot; 전환입니다.</p></Drawer>' },
+  speed: { html: `${trigger('drawer-slow', 'Slow 열기')}\n${drawer('drawer-slow', 'Slow 속도', '<p>speed=&quot;slow&quot; 전환입니다.</p>', 'drawer_placement-right', 'data-drawer-speed="slow" style="--drawer-motion-scale: 1.5"')}`, react: '<Drawer open={open} speed="slow" title="Slow 속도" onClose={() => setOpen(false)}><p>speed=&quot;slow&quot; 전환입니다.</p></Drawer>', vue: '<Drawer :open="open" speed="slow" title="Slow 속도" @close="open = false"><p>speed=&quot;slow&quot; 전환입니다.</p></Drawer>' },
 };
 const indent = (value: string, spaces: number) => value.split('\n').map((line) => `${' '.repeat(spaces)}${line}`).join('\n');
 function examples(key: string, source: Source): FrameworkExample[] {

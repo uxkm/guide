@@ -16,8 +16,10 @@ export function initMenu(root = document) {
         toggle.setAttribute('aria-expanded', String(open));
         return;
       }
+      if (!menu.hasAttribute('data-menu-selectable')) return;
       const link = event.target.closest('.menu_link');
       if (!link || link.classList.contains('is-disabled')) return;
+      if (link.parentElement?.classList.contains('menu_item-submenu')) return;
       menu.querySelectorAll('.menu_link.is-active').forEach((active) => {
         active.classList.remove('is-active');
         active.removeAttribute('aria-current');
