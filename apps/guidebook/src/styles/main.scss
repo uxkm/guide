@@ -17,6 +17,10 @@ body {
   &.sidebar-open {
     overflow: hidden;
   }
+
+  &.has-workspace-tabs {
+    scroll-padding-top: 140px;
+  }
 }
 
 #app {
@@ -334,6 +338,225 @@ a {
   min-width: 0;
   @include fill-height;
   padding: $header-height $outline-width 0 var(--sidebar-width);
+
+  body.has-workspace-tabs & {
+    padding-top: calc(#{$header-height} + 44px);
+  }
+}
+
+.docs-workspace {
+  position: fixed;
+  z-index: 35;
+  top: $header-height;
+  right: 0;
+  left: var(--sidebar-width);
+  height: 44px;
+  min-width: 0;
+  overflow: visible;
+  border-bottom: 1px solid var(--border);
+  background: #f6f6f8;
+}
+
+.docs-workspace-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.docs-workspace-list-wrap {
+  grid-column: 1;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  clip-path: inset(0);
+  contain: paint;
+  isolation: isolate;
+}
+
+.docs-workspace-list {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  min-height: 100%;
+  width: max-content;
+}
+
+.docs-workspace-item {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  max-width: 16rem;
+  border-right: 1px solid var(--border);
+  background: transparent;
+
+  &.is-active {
+    background: #fff;
+  }
+}
+
+.docs-workspace-tab {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  &:hover {
+    color: $text;
+  }
+
+  &.is-active {
+    color: var(--accent);
+  }
+
+  .docs-workspace-item:not(.is-solo) & {
+    padding-right: 4px;
+  }
+}
+
+.docs-workspace-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.docs-workspace-close {
+  display: inline-flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  margin-right: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #9a9ea6;
+  cursor: pointer;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  &:hover {
+    color: $text;
+  }
+}
+
+.docs-workspace-controls {
+  grid-column: 2;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  align-self: stretch;
+  justify-self: end;
+  gap: 4px;
+  padding: 0 8px;
+  overflow: visible;
+  border-left: 1px solid var(--border);
+  background: #f6f6f8;
+  box-shadow: -0.75rem 0 0.5rem -0.5rem rgb(246 246 248 / 95%);
+}
+
+.docs-workspace-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover:not(:disabled) {
+    color: $text;
+  }
+
+  &:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+}
+
+.docs-workspace-more {
+  position: relative;
+  z-index: 3;
+  overflow: visible;
+}
+
+.docs-workspace-menu {
+  --docs-workspace-menu-item-height: 36px;
+  --docs-workspace-menu-padding: 6px;
+
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  min-width: 12rem;
+  max-width: min(18rem, 70vw);
+  max-height: calc(
+    (var(--docs-workspace-menu-item-height) * 5)
+    + (var(--docs-workspace-menu-padding) * 2)
+  );
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: var(--docs-workspace-menu-padding);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(24, 26, 31, .12);
+  scrollbar-width: thin;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.docs-workspace-menu-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--docs-workspace-menu-item-height);
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background: var(--accent-soft);
+    color: $text;
+  }
+
+  &.is-active {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
 }
 
 .docs-content {
@@ -635,12 +858,20 @@ a {
 
 .page-outline {
   position: fixed;
+  z-index: 20;
   top: $header-height;
   right: 0;
   bottom: 0;
   left: auto;
   width: $outline-width;
   padding: 66px 28px;
+  overflow-y: auto;
+  @include touch-scroll;
+
+  body.has-workspace-tabs & {
+    top: calc(#{$header-height} + 44px);
+    padding-top: 24px;
+  }
 
   strong {
     display: block;
@@ -802,6 +1033,18 @@ a {
     height: $header-height-mobile;
     padding: 0 12px 0 8px;
     @include child-gap(8px);
+  }
+
+  .docs-workspace {
+    display: none !important;
+  }
+
+  body.has-workspace-tabs {
+    scroll-padding-top: 92px;
+
+    .docs-shell {
+      padding-top: $header-height-mobile;
+    }
   }
 
   .brand {
