@@ -1,0 +1,2 @@
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{t}from"./jsx-runtime-DeHZSEgm.js";function n(e){return(0,r.jsx)(`li`,{...e,className:[`menu_divider`,e.className].filter(Boolean).join(` `),"aria-hidden":`true`})}var r;function i(){return(i=e((()=>{r=t(),n.__docgenInfo={description:`MenuDivider 원본 구현.
+현재 항목과 열림 상태를 관리하고 키보드 탐색, 링크, 접근성 속성을 연결합니다.`,methods:[],displayName:`MenuDivider`}})))()}export{i as n,n as t};
