@@ -8,6 +8,7 @@ import {
   closeLabelArg,
   defaultOpenArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -313,6 +314,7 @@ function ModalPlayground({
 }
 
 type ModalStoryArgs = {
+  defaultOpen?: boolean;
   open?: boolean;
   title?: string;
   size?: 'sm' | 'md' | 'lg' | 'fullscreen';
@@ -369,6 +371,7 @@ const meta = {
     closeLabel: '닫기',
   },
   argTypes: {
+    ...hideArgTypes('footer', 'header', 'onClose'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -392,9 +395,6 @@ const meta = {
     title: stringControlArg,
     closeLabel: closeLabelArg,
     defaultOpen: defaultOpenArg,
-    footer: { table: { disable: true } },
-    header: { table: { disable: true } },
-    onClose: { table: { disable: true } },
   },
 } satisfies Meta<ModalStoryArgs>;
 

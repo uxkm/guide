@@ -6,6 +6,7 @@ import {
   booleanControlArg,
   closeLabelArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -93,6 +94,7 @@ const meta = {
     closeLabel: '',
   },
   argTypes: {
+    ...hideArgTypes('icon', 'onClick', 'onClose'),
     ...hiddenArgTypes,
     label: { ...stringControlArg, description: '태그 텍스트' },
     color: {
@@ -122,9 +124,6 @@ const meta = {
     href: { ...stringControlArg, description: '링크 주소' },
     ripple: { ...booleanControlArg, description: '클릭 리플 효과' },
     closeLabel: { ...closeLabelArg, description: '닫기 버튼 접근성 이름' },
-    icon: { table: { disable: true } },
-    onClick: { table: { disable: true } },
-    onClose: { table: { disable: true } },
   },
 } satisfies Meta<TagStoryArgs>;
 

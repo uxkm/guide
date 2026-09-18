@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TypoText, TypoTitle } from '../../react/src/components/basic/Typography/Typography.jsx';
 import {
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -104,6 +105,7 @@ const meta = {
     htmlFor: '',
   },
   argTypes: {
+    ...hideArgTypes('onClick'),
     ...hiddenArgTypes,
     kind: {
       control: 'select',
@@ -164,7 +166,6 @@ const meta = {
       description: 'label 변형 for 연결',
       if: { arg: 'kind', eq: 'text' },
     },
-    onClick: { table: { disable: true } },
   },
 } satisfies Meta<TypographyStoryArgs>;
 

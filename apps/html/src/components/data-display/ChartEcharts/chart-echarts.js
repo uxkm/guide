@@ -228,7 +228,6 @@ export function renderChartEcharts(root, options = {}) {
       .filter(Boolean)
       .join(" "),
     "data-component": "ChartEcharts",
-    role: "group",
     "aria-labelledby": `${id}-title`,
   });
   const caption = node("figcaption");

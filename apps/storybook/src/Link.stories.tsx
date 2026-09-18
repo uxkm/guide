@@ -6,6 +6,7 @@ import {
   ariaLabelArg,
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -113,6 +114,7 @@ const meta = {
     as: 'a',
   },
   argTypes: {
+    ...hideArgTypes('icon', 'iconAfter', 'onClick'),
     ...hiddenArgTypes,
     label: { ...stringControlArg, description: '링크 텍스트' },
     href: { ...stringControlArg, description: '링크 주소' },
@@ -148,9 +150,6 @@ const meta = {
     iconOnly: { ...booleanControlArg, description: '아이콘만 표시' },
     active: { ...booleanControlArg, description: '현재 페이지 활성' },
     disabled: { ...booleanControlArg, description: '비활성' },
-    icon: { table: { disable: true } },
-    iconAfter: { table: { disable: true } },
-    onClick: { table: { disable: true } },
   },
 } satisfies Meta<LinkStoryArgs>;
 

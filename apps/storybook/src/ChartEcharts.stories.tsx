@@ -15,7 +15,7 @@ const monthlyData = [
 
 async function checkBasics(canvasElement: HTMLElement) {
   const canvas = within(canvasElement);
-  await expect(canvas.getByRole("group")).toBeVisible();
+  await expect(canvas.getByRole("figure")).toBeVisible();
   await expect(
     canvasElement.querySelector(".chart-echarts_plot"),
   ).not.toBeNull();
@@ -86,7 +86,7 @@ export const Bar: Story = {
     const canvas = within(canvasElement);
     await checkBasics(canvasElement);
     await expect(
-      canvas.getByRole("group", { name: "월별 매출" }),
+      canvas.getByRole("figure", { name: "월별 매출" }),
     ).toBeVisible();
     await expect(
       canvas.getByRole("table", { name: "월별 매출 데이터" }),
@@ -142,6 +142,12 @@ export const Empty: Story = {
 };
 export const CustomEmpty: Story = {
   name: "빈 데이터 안내 변경",
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("figure")).toBeVisible();
+    await expect(canvas.getByText(args.emptyMessage)).toBeVisible();
+    await expect(canvas.queryByText("데이터 표 보기")).not.toBeInTheDocument();
+  },
   args: {
     data: [],
     emptyMessage: "선택한 기간의 매출 데이터가 없습니다.",

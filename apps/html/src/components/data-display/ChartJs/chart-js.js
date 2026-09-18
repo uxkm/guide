@@ -80,7 +80,6 @@ export function renderChartJs(root, options = {}) {
   const figure = node("figure", {
     class: ["chart-js", `chart-js_${type}`, className].filter(Boolean).join(" "),
     "data-component": "ChartJs",
-    role: "group",
     "aria-labelledby": `${id}-title`,
   });
   const caption = node("figcaption");

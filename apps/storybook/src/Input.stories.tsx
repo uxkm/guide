@@ -7,6 +7,7 @@ import ActualInput from '../../react/src/components/form/Input/Input.jsx';
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
   stringControlArg,
 } from './shared/storyArgTypes';
@@ -164,6 +165,7 @@ const meta = {
     suffix: '',
   },
   argTypes: {
+    ...hideArgTypes('defaultValue', 'onChange', 'onPaste', 'onClear'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -201,10 +203,6 @@ const meta = {
       description: '뒤쪽 애드온 (텍스트)',
       labels: { '': '없음' },
     },
-    defaultValue: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    onPaste: { table: { disable: true } },
-    onClear: { table: { disable: true } },
   },
 } satisfies Meta<InputStoryArgs>;
 

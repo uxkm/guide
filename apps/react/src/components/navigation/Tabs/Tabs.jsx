@@ -300,6 +300,7 @@ export function Tabs({
               .join(' ')}
             role="tab"
             aria-selected={active}
+            aria-keyshortcuts={itemClosable ? 'Delete Backspace' : undefined}
             aria-controls={`${uid}-panel-${resolvedMode === 'dynamic' ? 'dynamic' : index}`}
             ariaDisabled={item.disabled || false}
             disabled={item.disabled || false}
@@ -324,10 +325,12 @@ export function Tabs({
               .join(' ')}
           >
             {tabButton}
+            {/* 키보드·스크린 리더에서는 탭의 Delete/Backspace 단축키로 닫습니다. */}
             <button
               type="button"
               className="tabs_close"
               aria-label={closeLabel}
+              aria-hidden="true"
               disabled={item.disabled || false}
               tabIndex={-1}
               onClick={(event) => closeTab(item.key, event)}

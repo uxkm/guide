@@ -7,6 +7,7 @@ import ActualIcon from '../../react/src/components/basic/Icon/Icon.jsx';
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
 } from './shared/storyArgTypes';
 
 const List = ActualList as React.ComponentType<any>;
@@ -85,6 +86,7 @@ const meta = {
     tag: '',
   },
   argTypes: {
+    ...hideArgTypes('role'),
     ...hiddenArgTypes,
     variant: {
       control: 'select',
@@ -130,7 +132,6 @@ const meta = {
       type: 'string',
       description: '명시적 루트 태그',
     },
-    role: { table: { disable: true } },
   },
 } satisfies Meta<ListStoryArgs>;
 

@@ -6,6 +6,7 @@ import ActualUpload from '../../react/src/components/form/Upload/Upload.jsx';
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
   stringControlArg,
 } from './shared/storyArgTypes';
@@ -108,6 +109,7 @@ const meta = {
     maxFiles: 0,
   },
   argTypes: {
+    ...hideArgTypes('removeLabel', 'avatarSrc', 'avatarAlt', 'files', 'defaultFiles', 'trigger', 'cards', 'children', 'onChange', 'onError'),
     ...hiddenArgTypes,
     variant: {
       control: 'select',
@@ -128,7 +130,6 @@ const meta = {
     title: stringControlArg,
     description: stringControlArg,
     hint: stringControlArg,
-    removeLabel: { table: { disable: true } },
     accept: {
       ...stringControlArg,
       description: '허용 파일 형식. 비우면 제한 없음',
@@ -141,15 +142,6 @@ const meta = {
       ...numberControlArg,
       description: '최대 파일 개수. 0이면 제한 없음',
     },
-    avatarSrc: { table: { disable: true } },
-    avatarAlt: { table: { disable: true } },
-    files: { table: { disable: true } },
-    defaultFiles: { table: { disable: true } },
-    trigger: { table: { disable: true } },
-    cards: { table: { disable: true } },
-    children: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    onError: { table: { disable: true } },
   },
 } satisfies Meta<UploadStoryArgs>;
 

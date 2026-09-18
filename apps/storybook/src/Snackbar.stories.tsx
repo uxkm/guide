@@ -9,6 +9,7 @@ import ActualSnackbarRegion, {
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
   stringControlArg,
 } from './shared/storyArgTypes';
@@ -140,6 +141,7 @@ const meta = {
     role: 'status',
   },
   argTypes: {
+    ...hideArgTypes('closeLabel', 'icon', 'action', 'onClose'),
     ...hiddenArgTypes,
     color: {
       control: 'select',
@@ -174,10 +176,6 @@ const meta = {
       description: '자동 닫기 시간(ms). 0이면 유지',
     },
     message: stringControlArg,
-    closeLabel: { table: { disable: true } },
-    icon: { table: { disable: true } },
-    action: { table: { disable: true } },
-    onClose: { table: { disable: true } },
   },
 } satisfies Meta<SnackbarStoryArgs>;
 

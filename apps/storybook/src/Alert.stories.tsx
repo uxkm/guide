@@ -6,6 +6,7 @@ import ActualLink from '../../react/src/components/basic/Link/Link.jsx';
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -71,6 +72,7 @@ const meta = {
     role: 'alert',
   },
   argTypes: {
+    ...hideArgTypes('closeLabel', 'icon', 'actions', 'onClose'),
     ...hiddenArgTypes,
     color: {
       control: 'select',
@@ -92,10 +94,6 @@ const meta = {
     banner: booleanControlArg,
     title: stringControlArg,
     description: stringControlArg,
-    closeLabel: { table: { disable: true } },
-    icon: { table: { disable: true } },
-    actions: { table: { disable: true } },
-    onClose: { table: { disable: true } },
   },
 } satisfies Meta<AlertStoryArgs>;
 

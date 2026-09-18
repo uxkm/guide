@@ -5,6 +5,7 @@ import ActualSelect from '../../react/src/components/form/Select/Select.jsx';
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
   stringControlArg,
 } from './shared/storyArgTypes';
@@ -99,6 +100,7 @@ const meta = {
     value: '',
   },
   argTypes: {
+    ...hideArgTypes('defaultValue', 'children', 'onChange'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -115,9 +117,6 @@ const meta = {
     required: booleanControlArg,
     placeholder: stringControlArg,
     value: stringControlArg,
-    defaultValue: { table: { disable: true } },
-    children: { table: { disable: true } },
-    onChange: { table: { disable: true } },
   },
 } satisfies Meta<SelectStoryArgs>;
 

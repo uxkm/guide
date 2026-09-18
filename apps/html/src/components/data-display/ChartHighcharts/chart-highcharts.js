@@ -218,7 +218,6 @@ export function renderChartHighcharts(root, options = {}) {
       .filter(Boolean)
       .join(" "),
     "data-component": "ChartHighcharts",
-    role: "group",
     "aria-labelledby": `${id}-title`,
   });
   const caption = node("figcaption");
@@ -326,6 +325,9 @@ export function renderChartHighcharts(root, options = {}) {
       chartOptions,
     }),
   );
+
+  // Highcharts가 만든 SVG에도 바깥 차트와 같은 접근 가능한 이름을 제공합니다.
+  plot.querySelector(".highcharts-root")?.setAttribute("aria-labelledby", `${id}-title`);
 
   const destroy = () => {
     instance.destroy();

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from 'storybook/test';
 import { useEffect, useMemo, useState } from 'react';
 import { hiddenArgTypes, ariaLabelArg, stringControlArg } from './shared/storyArgTypes';
 import ActualTabs from '../../react/src/components/navigation/Tabs/Tabs.jsx';
@@ -341,4 +342,20 @@ export const Example: Story = {
     } as any,
   },
   render: (args) => <EditableTabsExample maxTabs={Number((args as any).maxTabs) || 4} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tabs = within(canvas.getByRole('tablist', { name: '열린 예시 탭' }));
+    const activeTab = tabs.getByRole('tab', { name: '레이아웃 유형' });
+    await expect(activeTab).toHaveAttribute('aria-keyshortcuts', 'Delete Backspace');
+    await userEvent.click(activeTab);
+    await userEvent.keyboard('{Delete}');
+    await expect(tabs.queryByRole('tab', { name: '레이아웃 유형' })).not.toBeInTheDocument();
+    await expect(tabs.getAllByRole('tab')).toHaveLength(2);
+
+    const closeButton = canvasElement.querySelector<HTMLButtonElement>('.tabs_close');
+    await expect(closeButton).not.toBeNull();
+    await userEvent.click(closeButton!);
+    await expect(tabs.getAllByRole('tab')).toHaveLength(1);
+    await expect(canvasElement.querySelector('.tabs_close')).toBeNull();
+  },
 };

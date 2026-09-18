@@ -264,7 +264,6 @@ export function renderChartD3(root, options = {}) {
   const figure = node("figure", {
     class: ["chart-d3", `chart-d3_${type}`, className].filter(Boolean).join(" "),
     "data-component": "ChartD3",
-    role: "group",
     "aria-labelledby": `${id}-title`,
   });
   const caption = node("figcaption");

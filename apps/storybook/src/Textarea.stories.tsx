@@ -5,6 +5,7 @@ import ActualTextarea from '../../react/src/components/form/Textarea/Textarea.js
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
   stringControlArg,
 } from './shared/storyArgTypes';
@@ -119,6 +120,7 @@ const meta = {
     value: '',
   },
   argTypes: {
+    ...hideArgTypes('defaultValue', 'className', 'wrapperClassName', 'onChange', 'onClear'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -147,11 +149,6 @@ const meta = {
       ...numberControlArg,
       description: '최대 글자 수. 0이면 제한 없음',
     },
-    defaultValue: { table: { disable: true } },
-    className: { table: { disable: true } },
-    wrapperClassName: { table: { disable: true } },
-    onChange: { table: { disable: true } },
-    onClear: { table: { disable: true } },
   },
 } satisfies Meta<TextareaStoryArgs>;
 

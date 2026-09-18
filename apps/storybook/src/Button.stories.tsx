@@ -6,6 +6,7 @@ import {
   ariaLabelArg,
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 import { DemoRow as Row } from './ButtonReference';
@@ -158,6 +159,7 @@ const meta = {
     grow: 'false',
   },
   argTypes: {
+    ...hideArgTypes('iconBefore', 'iconAfter', 'onClick', 'onKeyDown'),
     ...hiddenArgTypes,
     label: { ...stringControlArg, description: '버튼 텍스트' },
     variant: {
@@ -222,10 +224,6 @@ const meta = {
     ariaDisabled: { ...booleanControlArg, description: 'is-disabled 스타일' },
     invalid: { ...booleanControlArg, description: 'aria-invalid' },
     expanded: { ...booleanControlArg, description: 'aria-expanded' },
-    iconBefore: { table: { disable: true } },
-    iconAfter: { table: { disable: true } },
-    onClick: { table: { disable: true } },
-    onKeyDown: { table: { disable: true } },
   },
 } satisfies Meta<ButtonStoryArgs>;
 

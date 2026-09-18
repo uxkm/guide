@@ -8,6 +8,7 @@ import {
   closeLabelArg,
   defaultOpenArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -159,6 +160,7 @@ function DrawerPlayground({
 }
 
 type DrawerStoryArgs = {
+  defaultOpen?: boolean;
   open?: boolean;
   title?: string;
   size?: 'sm' | 'md' | 'lg';
@@ -231,6 +233,7 @@ const meta = {
     closeLabel: '닫기',
   },
   argTypes: {
+    ...hideArgTypes('openOnLoad', 'footer', 'header', 'extra', 'onClose'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -270,11 +273,6 @@ const meta = {
     title: stringControlArg,
     closeLabel: closeLabelArg,
     defaultOpen: defaultOpenArg,
-    openOnLoad: { table: { disable: true } },
-    footer: { table: { disable: true } },
-    header: { table: { disable: true } },
-    extra: { table: { disable: true } },
-    onClose: { table: { disable: true } },
   },
 } satisfies Meta<DrawerStoryArgs>;
 

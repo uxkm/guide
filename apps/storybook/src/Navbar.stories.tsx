@@ -65,19 +65,19 @@ const meta = {
     brandImage: { ...navbarBrandImageSelectArg, description: '브랜드 로고 이미지 경로' },
     brandImageCustom: {
       control: 'text',
-      type: { name: 'string', summary: 'string' },
+      type: 'string',
       description: '직접 입력 URL (이미지 경로가 "직접 입력"일 때)',
       if: { arg: 'brandImage', eq: NAVBAR_BRAND_IMAGE_CUSTOM },
     },
     brand: {
       control: 'text',
-      type: { name: 'string', summary: 'string' },
+      type: 'string',
       description: '브랜드 텍스트',
       if: { arg: 'brandMode', eq: 'text' },
     },
     brandAlt: {
       control: 'text',
-      type: { name: 'string', summary: 'string' },
+      type: 'string',
       description: '로고 이미지 대체 텍스트',
       if: { arg: 'brandMode', neq: 'text' },
     },

@@ -3,6 +3,7 @@ import {
   ariaLabelArg,
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   numberControlArg,
 } from './shared/storyArgTypes';
 import type { Meta, StoryObj } from '@storybook/react-vite';
@@ -184,6 +185,7 @@ const meta = {
     ripple: true,
   },
   argTypes: {
+    ...hideArgTypes('thumbs', 'thumbsControl', 'watchSlidesProgress', 'coverflowEffect', 'onSwiper'),
     ...hiddenArgTypes,
     ariaLabel: { ...ariaLabelArg, description: '캐러셀 영역의 접근성 이름' },
     size: {
@@ -236,13 +238,14 @@ const meta = {
     dotsOutside: booleanControlArg,
     gridRows: {
       ...numberControlArg,
+      control: { type: 'number', min: 1, step: 1 },
       description: '2 이상이면 그리드',
     },
     gridFill: {
       control: 'select',
       options: ['row', 'column'],
       type: 'string',
-      if: { arg: 'gridRows', gt: 1 },
+      if: { arg: 'gridRows', neq: 1 },
     },
     coverflowStyle: {
       control: 'select',
@@ -258,11 +261,6 @@ const meta = {
     },
     freeMode: booleanControlArg,
     ripple: booleanControlArg,
-    thumbs: { control: false, table: { disable: true } },
-    thumbsControl: { control: false, table: { disable: true } },
-    watchSlidesProgress: { control: false, table: { disable: true } },
-    coverflowEffect: { control: false, table: { disable: true } },
-    onSwiper: { control: false, table: { disable: true } },
   },
 } satisfies Meta<CarouselStoryArgs>;
 

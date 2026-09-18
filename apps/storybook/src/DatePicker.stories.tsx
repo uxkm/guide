@@ -6,6 +6,7 @@ import ActualDatePicker from '../../react/src/components/form/DatePicker/DatePic
 import {
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -117,6 +118,7 @@ const meta = {
     max: '',
   },
   argTypes: {
+    ...hideArgTypes('locale', 'name', 'ariaLabel', 'defaultValue', 'onChange'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -148,11 +150,6 @@ const meta = {
       ...stringControlArg,
       description: '최대 날짜 YYYY-MM-DD. 비우면 제한 없음',
     },
-    locale: { table: { disable: true } },
-    name: { table: { disable: true } },
-    ariaLabel: { table: { disable: true } },
-    defaultValue: { table: { disable: true } },
-    onChange: { table: { disable: true } },
   },
 } satisfies Meta<DatePickerStoryArgs>;
 

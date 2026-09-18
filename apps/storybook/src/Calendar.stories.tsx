@@ -14,6 +14,7 @@ import {
   ariaLabelArg,
   booleanControlArg,
   hiddenArgTypes,
+  hideArgTypes,
   stringControlArg,
 } from './shared/storyArgTypes';
 
@@ -109,6 +110,7 @@ const meta = {
     ariaLabel: '2024년 6월',
   },
   argTypes: {
+    ...hideArgTypes('header', 'weekdays', 'footer', 'role'),
     ...hiddenArgTypes,
     size: {
       control: 'select',
@@ -130,10 +132,6 @@ const meta = {
     wheel: booleanControlArg,
     title: stringControlArg,
     ariaLabel: ariaLabelArg,
-    header: { table: { disable: true } },
-    weekdays: { table: { disable: true } },
-    footer: { table: { disable: true } },
-    role: { table: { disable: true } },
   },
 } satisfies Meta<CalendarStoryArgs>;
 

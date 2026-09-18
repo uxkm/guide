@@ -1,3 +1,10 @@
+/** Playground 인자에 포함하지 않는 컴포넌트 prop의 Controls·문서 행을 숨깁니다. */
+export function hideArgTypes(...keys: string[]) {
+  return Object.fromEntries(
+    keys.map((key) => [key, { control: false, table: { disable: true } } as const]),
+  );
+}
+
 /** Controls에서 textarea/object로 잘못 표시되거나 Playground에서 쓰지 않는 공통 prop */
 export const hiddenArgTypes = {
   className: { control: false, table: { disable: true } },
@@ -185,7 +192,7 @@ export const dropdownArgTypes = {
 /** Navbar responsive 접힘 패널 id */
 export const collapseIdArg = {
   control: 'text' as const,
-  type: { name: 'string', summary: 'string' },
+  type: 'string' as const,
   description: '반응형 접힘 패널 id (responsive일 때 aria-controls에 연결)',
   if: { arg: 'responsive', eq: true },
 };
