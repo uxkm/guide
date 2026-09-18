@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Components · 10</p><h1>데이터 표시</h1><p class="lead">정보의 구조, 상태, 관계를 읽기 쉬운 형태로 표현하는 컴포넌트입니다.</p><div class="markdown-body"><p>데이터 표시 컴포넌트는 같은 정보를 장식하는 도구가 아니라 사용자가 비교하고 탐색하고 판단하는 방식을 결정합니다. 데이터의 관계, 양, 주요 작업과 빈·로딩·오류 상태를 함께 고려합니다.</p>
+    <div class="docs-shell"><main class="docs-content"><p class="eyebrow">Components · 15</p><h1>데이터 표시</h1><p class="lead">정보의 구조, 상태, 관계를 읽기 쉬운 형태로 표현하는 컴포넌트입니다.</p><div class="markdown-body"><p>데이터 표시 컴포넌트는 같은 정보를 장식하는 도구가 아니라 사용자가 비교하고 탐색하고 판단하는 방식을 결정합니다. 데이터의 관계, 양, 주요 작업과 빈·로딩·오류 상태를 함께 고려합니다.</p>
 <h2 id="컴포넌트-목록">컴포넌트 목록</h2>
 <table>
 <thead>
@@ -126,15 +126,43 @@
 <td>날짜를 기준으로 일정과 정보를 표현</td>
 <td>날짜 간 관계와 일정 분포를 확인할 때 사용합니다. 목록 보기와 오늘·선택 날짜의 명확한 상태를 제공합니다.</td>
 </tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chart--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chart--docs" target="_blank" rel="noopener noreferrer">Chart</a></td>
+<td>외부 차트 라이브러리 없이 SVG로 수치와 추세 표현</td>
+<td>막대·선·영역·도넛·아크 차트에 사용합니다. 패턴과 흑백 모드로 색상 외의 구분 수단을 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartjs--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartjs--docs" target="_blank" rel="noopener noreferrer">ChartJs</a></td>
+<td>Chart.js 기반으로 수치와 비율 시각화</td>
+<td>Canvas 렌더링과 <code>chartOptions</code> 확장이 필요할 때 사용합니다. 차트와 함께 데이터 표를 제공합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartecharts--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartecharts--docs" target="_blank" rel="noopener noreferrer">ChartEcharts</a></td>
+<td>ECharts 기반으로 수치와 추세 시각화</td>
+<td>ECharts 옵션을 <code>chartOptions</code>로 확장할 때 사용합니다. 제목, 단위와 데이터 표를 함께 확인합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-charthighcharts--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-charthighcharts--docs" target="_blank" rel="noopener noreferrer">ChartHighcharts</a></td>
+<td>Highcharts 기반으로 수치와 추세 시각화</td>
+<td>Highcharts 옵션을 <code>chartOptions</code>로 확장할 때 사용합니다. 도입 조건은 Storybook 문서의 라이선스 안내를 확인합니다.</td>
+</tr>
+<tr>
+<td><a href="../../storybook/?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartd3--docs" data-storybook-path="?path=/docs/%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%91%9C%EC%8B%9C-chartd3--docs" target="_blank" rel="noopener noreferrer">ChartD3</a></td>
+<td>D3.js 기반 SVG로 데이터 시각화</td>
+<td>D3 스케일과 경로를 활용한 시각화에 사용합니다. 시각적 표현과 함께 읽을 수 있는 데이터 표를 제공합니다.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="선택-기준">선택 기준</h2>
 <p>행 단위로 읽으면 List, 열 간 정확한 비교가 필요하면 Table, 각 항목이 독립된 요약과 액션을 가지면 Card를 사용합니다. 시간의 순서는 Timeline, 계층 관계는 Tree, 날짜 위치 자체가 정보라면 Calendar를 선택합니다.</p>
+<p>수치의 크기·추세·비율을 비교하면 차트 계열을 선택합니다. 외부 차트 라이브러리 없이 패턴·흑백 표현이 필요하면 Chart, 기존 프로젝트의 차트 엔진과 옵션을 활용하면 ChartJs·ChartEcharts·ChartHighcharts, D3 기반 SVG 표현이 필요하면 ChartD3를 사용합니다. 라이브러리 기반 4종은 막대·선·영역·도넛·파이를 지원하며, Chart의 아크·패턴 옵션과는 구분합니다.</p>
+<p>차트 예제는 HTML·Gulp·Vue·React와 Next.js·Nuxt의 재사용 흐름을 기준으로 확인합니다. 차트 계열에는 WebSquare 탭이 제공되지 않습니다. 각 컴포넌트 링크에서 구현 코드, 데이터 형식과 지원 옵션을 확인합니다.</p>
 <h2 id="데이터-상태">데이터 상태</h2>
 <ul>
 <li>로딩, 일부 로딩, 빈 결과, 권한 없음, 오류 상태를 정상 데이터와 같은 수준으로 설계합니다.</li>
 <li>정렬과 필터 적용 여부, 전체 건수, 현재 표시 범위를 사용자가 확인할 수 있게 합니다.</li>
 <li>숫자는 단위와 기준 기간을 포함하고 날짜·통화 형식은 서비스 로케일에 맞춥니다.</li>
+<li>차트는 제목·설명·단위를 제공하고 색상만으로 항목을 구분하지 않습니다. 데이터 표로 정확한 값을 확인할 수 있게 하며 빈 데이터와 좁은 화면도 검증합니다.</li>
 <li>데이터가 갱신되어도 현재 포커스, 스크롤, 선택 상태가 불필요하게 초기화되지 않도록 합니다.</li>
 </ul>
 </div><nav class="page-nav" aria-label="문서 페이지 이동"><a href="../../components/navigation/index.html" data-guide-path="components/navigation/index.html"><small>이전</small><strong>← 네비게이션</strong></a><a href="../../components/feedback/index.html" data-guide-path="components/feedback/index.html"><small>다음</small><strong>피드백 →</strong></a></nav></main></div>

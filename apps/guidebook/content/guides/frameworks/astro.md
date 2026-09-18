@@ -25,7 +25,7 @@ Astro는 `.astro` 파일로 page layout과 정적 markup을 작성합니다. UI 
 
 ## 역할
 
-Astro는 `@uxkm/react` 또는 `@uxkm/vue`를 island로 재사용합니다. 52개 component를 `.astro`로 다시 구현하지 않고, 문서 page·데모 page에서 기존 package component를 `client:*` directive와 함께 배치합니다. 정적 shell은 Astro markup으로, modal·form·dropdown 같은 상호작용은 client island에서 검증합니다.
+Astro는 `@uxkm/react` 또는 `@uxkm/vue`를 island로 재사용합니다. 개별 component를 `.astro`로 다시 구현하지 않고, 문서 page·데모 page에서 기존 package component를 `client:*` directive와 함께 배치합니다. 정적 shell은 Astro markup으로, modal·form·dropdown 같은 상호작용은 client island에서 검증합니다.
 
 ## 문서 구성
 

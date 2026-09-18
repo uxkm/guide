@@ -119,6 +119,10 @@ const storybookMetaIds = new Map([
   ['Slider', 'components-slider'],
   ['DatePicker', '폼-datepicker'],
   ['Rate', 'components-rate'],
+  ['ChartJs', '데이터-표시-chartjs'],
+  ['ChartEcharts', '데이터-표시-chartecharts'],
+  ['ChartHighcharts', '데이터-표시-charthighcharts'],
+  ['ChartD3', '데이터-표시-chartd3'],
 ]);
 const storybookHref = (category, name) => {
   const storyId = storybookMetaIds.get(name) || `${category}-${componentSlug(name)}`;
@@ -128,14 +132,17 @@ const storybookHref = (category, name) => {
 const storybookComponents = new Map(pages
   .filter((page) => page.storybookCategory)
   .map((page) => {
-    const names = [...page.content.matchAll(/^\| ([A-Z][A-Za-z ]+) \|/gm)].map((match) => match[1]);
+    const componentList = page.content.split('## 컴포넌트 목록')[1]?.split('\n## ')[0] || '';
+    const names = [...componentList.matchAll(/^\| ([A-Z][A-Za-z0-9 ]+) \|/gm)].map((match) => match[1]);
     return [page.label, { category: page.storybookCategory, names: new Set(names) }];
   }));
 
 function linkStorybookComponents(page) {
   if (page.storybookCategory) {
-    return page.content.replace(/^\| ([A-Z][A-Za-z ]+) \|/gm, (row, name) => (
-      row.replace(name, `[${name}](${storybookHref(page.storybookCategory, name)})`)
+    return page.content.replace(/^\| ([A-Z][A-Za-z0-9 ]+) \|/gm, (row, name) => (
+      storybookComponents.get(page.label).names.has(name)
+        ? row.replace(name, `[${name}](${storybookHref(page.storybookCategory, name)})`)
+        : row
     ));
   }
 

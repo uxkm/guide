@@ -6,7 +6,7 @@ label: 소개
 title: Guidebook
 titleLogo: true
 eyebrow: UXKM Components
-lead: UXKM의 52개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.
+lead: UXKM의 57개 UI 컴포넌트를 일관되게 선택하고 조합하며 구현하기 위한 실무 가이드입니다.
 order: 1
 ---
 
@@ -25,7 +25,7 @@ UXKM Guidebook은 컴포넌트의 모양을 보여주는 목록이 아니라 어
 
 ## Storybook 프레임워크 지원
 
-Storybook의 각 컴포넌트 문서는 Preview와 함께 **HTML, Gulp, Vue, Nuxt, React, Next.js, WebSquare** 코드 탭을 제공합니다. 문법은 달라도 최종 DOM 구조, CSS 클래스, 상태 이름과 접근성 속성은 같은 계약을 따릅니다. 프레임워크를 고를 때는 프로젝트 기술 스택에 맞는 탭을 열고, 다른 탭과 결과를 비교해 구현 차이를 확인합니다.
+Storybook의 컴포넌트 문서는 Preview와 함께 **HTML, Gulp, Vue, Nuxt, React, Next.js, WebSquare** 코드 탭을 제공합니다. 제공되는 탭은 컴포넌트별로 다르며, 차트 계열 5종에는 WebSquare 탭이 없습니다. 문법은 달라도 최종 DOM 구조, CSS 클래스, 상태 이름과 접근성 속성은 같은 계약을 따릅니다. 프레임워크를 고를 때는 프로젝트 기술 스택에 맞는 탭을 열고, 다른 탭과 결과를 비교해 구현 차이를 확인합니다.
 
 | 프레임워크 | 앱 · 제공 방식 | 구현 기준 | Storybook에서 확인하는 내용 |
 | --- | --- | --- | --- |
@@ -216,7 +216,7 @@ build/
 | 레이아웃 | 5 | Container, Flex, Grid, Space, Divider |
 | 폼 | 11 | Form Layout, Input, Textarea, Select, Checkbox, Radio, Switch, Slider, DatePicker, Rate, Upload |
 | 네비게이션 | 7 | Navbar, Menu, Breadcrumb, Tabs, Pagination, Steps, Dropdown |
-| 데이터 표시 | 10 | Avatar, Badge, Tag, Card, List, Table, Stat, Timeline, Tree, Calendar |
+| 데이터 표시 | 15 | Avatar, Badge, Tag, Card, List, Table, Stat, Timeline, Tree, Calendar, Chart, ChartJs, ChartEcharts, ChartHighcharts, ChartD3 |
 | 피드백 | 10 | Alert, Snackbar, Modal, Drawer, Popover, Tooltip, Progress, Spin, Skeleton, Empty |
 | 기타 | 5 | Accordion, Collapse, Carousel, Affix, BackTop |
 
@@ -226,7 +226,7 @@ build/
 
 <div class="feature-grid">
   <a class="feature-card" href="foundations/design-tokens/index.html" data-guide-path="foundations/design-tokens/index.html"><strong>01 · 기초</strong><p>일관된 UI를 위한 공통 토큰과 접근성 기준</p></a>
-  <a class="feature-card" href="components/basic/index.html" data-guide-path="components/basic/index.html"><strong>02 · 컴포넌트</strong><p>52개 컴포넌트의 역할과 선택 기준</p></a>
+  <a class="feature-card" href="components/basic/index.html" data-guide-path="components/basic/index.html"><strong>02 · 컴포넌트</strong><p>57개 컴포넌트의 역할과 선택 기준</p></a>
   <a class="feature-card" href="guides/patterns/index.html" data-guide-path="guides/patterns/index.html"><strong>03 · 활용 가이드</strong><p>컴포넌트 조합과 작성 지침</p></a>
   <a class="feature-card" href="guides/frameworks/index.html" data-guide-path="guides/frameworks/index.html"><strong>04 · 프레임워크</strong><p>Gulp, Vue, React, Svelte, SolidJS, Qwik, Remix, Angular, Astro, WebSquare 문법</p></a>
 </div>
